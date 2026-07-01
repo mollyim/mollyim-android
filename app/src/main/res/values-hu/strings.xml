@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Ne válaszolj a Signal csevegéseire</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">A Signal soha nem küld üzenetet a regisztrációs kódoddal, a PIN-kódoddal vagy a helyreállítási kulcsoddal kapcsolatban. Ne válaszolj olyan csevegésekre, amelyek a Signalnak vagy a Signal ügyfélszolgálatának adják ki magukat. A rosszindulatú szereplők hamis csevegéseket folytatnak, hogy megpróbálják átvenni az irányítást a fiókod felett.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Nevek és fotók felülvizsgálata</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">A médiafájl nem menthető</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Ez a médiafájl letöltésre került az eszközödről, mert be van kapcsolva az „Eszköztárhely optimalizálása” lehetőség. Az elemeket letöltheted egyenként, vagy kikapcsolhatod az „Eszköztárhely optimalizálása” funkciót, hogy az összes médiatartalmat letöltsd az eszközödre.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Nem menthető az összes elem</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Néhány kiválasztott médiafájl letöltésre kerül az eszközödről, mert be van kapcsolva az „Eszköztárhely optimalizálása” lehetőség. Az elemeket egyesével mentheted el, vagy kikapcsolhatod az „Eszköztárhely optimalizálása” funkciót, hogy az összes médiafájlt letöltsd az eszközödre.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Tárhelybeállítások megtekintése</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Ha engedélyezve van, a csevegési korlátok a kapcsolt eszközökről is törlik az üzeneteket.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Tárolás az eszközön</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Az eszköz tárhelyének optimalizálása</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">A fel nem használt médiafájlokat a rendszer eltávolítja, de bármikor letöltheted őket a biztonsági másolatból.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Médiafájl letöltése</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Új helyreállítási kulcs létrehozásához ki kell kapcsolnod a „Tárhely optimalizálása” beállítást, és meg kell várnod, amíg a médiafájl letöltése befejeződik. Amikor a letöltés befejeződött, létrehozhatsz egy új kulcsot.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Kikapcsolás és letöltés</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Új helyreállítási kulcs létrehozása</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Új kulcs létrehozására csak akkor van szükség, ha valaki más is ismeri a kulcsodat. Újra fel kell töltened a biztonsági mentést, beleértve a médiafájlokat is. Ha a „Tárhely optimalizálása” funkciót használod, először le kell töltened az áthelyezett médiatartalmakat.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Kilépsz a biztonsági mentés beállításából?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">%1$d csoport ugyanazokkal a tagokkal</item>
         <item quantity="other">%1$d csoport ugyanazokkal a tagokkal</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Nem lehet visszaállítani a biztonsági másolatot</string>

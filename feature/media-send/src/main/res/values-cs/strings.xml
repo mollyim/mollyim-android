@@ -31,13 +31,13 @@
 
   <!-- CameraFragment -->
   <!-- Toasted when user device does not support video recording -->
-  <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Nahrávání videa není na vašem zařízení podporováno</string>
+  <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Vaše zařízení nepodporuje nahrávání videa</string>
 
   <!-- CameraXFragment -->
-  <string name="CameraXFragment_tap_for_photo_hold_for_video">Klepnout pro fotografii, přidržet pro video</string>
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">Klepnutím vyfotíte, přidržením natočíte video</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
-  <string name="CameraXFragment_capture_description">Pořídit</string>
-  <string name="CameraXFragment_change_camera_description">Změnit kameru</string>
+  <string name="CameraXFragment_capture_description">Vyfotit</string>
+  <string name="CameraXFragment_change_camera_description">Změnit fotoaparát</string>
   <string name="CameraXFragment_open_gallery_description">Otevřít galerii</string>
   <!-- Button text asking for access to camera permissions -->
   <string name="CameraXFragment_allow_access">Povolit přístup</string>
@@ -48,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Povolte přístup k mikrofonu</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Pro pořizování fotografií nebo videa potřebuje Signal přístup k fotoaparátu.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Chcete-li pořizovat fotografie a videa, povolte aplikaci Signal přístup k fotoaparátu.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Chcete-li pořizovat fotografie a natáčet videa, povolte aplikaci Signal přístup k fotoaparátu a mikrofonu.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Chcete-li pořizovat fotografie a videa, povolte aplikaci Signal přístup k fotoaparátu a mikrofonu.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
   <string name="CameraXFragment_to_capture_videos_with_sound">Chcete-li natáčet videa se zvukem, povolte aplikaci Signal přístup k mikrofonu.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
   <string name="CameraXFragment_to_scan_qr_code_allow_camera">Chcete-li naskenovat QR kód, povolte aplikaci Signal přístup k fotoaparátu.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">K pořizování fotografií vyžaduje Signal přístup k fotoaparátu</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal potřebuje přístup k fotoaparátu, aby mohl pořizovat fotky</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Ke skenování QR kódů vyžaduje Signal přístup k fotoaparátu</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal potřebuje přístup k fotoaparátu, aby mohl skenovat QR kódy</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">K natáčení videa vyžaduje Signal přístup k mikrofonu</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal potřebuje přístup k mikrofonu, aby mohl natáčet video</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
   <string name="CameraXFragment_to_capture_photos">Jak pořizovat fotografie v aplikaci Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Jak pořizovat fotografie a natáčet videa v aplikaci Signal:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Jak pořizovat fotografie a videa v aplikaci Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Jak natáčet videa se zvukem:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -74,7 +74,7 @@
   <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
   <string name="CameraXFragment_photo_processing_failed">Fotografii se nepodařilo zpracovat. Zkuste to prosím znovu.</string>
   <!-- Accessibility label for the switch camera button -->
-  <string name="CameraXFragment_switch_camera">Přepnout kameru</string>
+  <string name="CameraXFragment_switch_camera">Přepnout fotoaparát</string>
   <!-- Accessibility label for flash button when flash is off -->
   <string name="CameraXFragment_flash_off">Blesk vypnutý</string>
   <!-- Accessibility label for flash button when flash is on -->
@@ -84,5 +84,24 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Odeslat</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo zakázáno. Prosím pokračujte do menu nastavení aplikací, vyberte \"Oprávnění\" a povolte \"Mikrofon\" a \"Fotoaparát\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal potřebuje oprávnění k mikrofonu, aby mohl nahrávat videa, ale toto oprávnění bylo odmítnuto. Přejděte prosím do nastavení aplikace, vyberte „Oprávnění“ a povolte „Mikrofon“ a „Fotoaparát“.</string>
+
+  <!-- Displayed when there is an error capturing video -->
+  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <!-- Displayed when there is an error capturing image -->
+  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+
+  <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
+  <string name="UsernameScannedDialog__username_dialog_title">Found %1$s</string>
+  <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
+  <string name="UsernameScannedDialog__username_dialog_body">Start a chat with \"%1$s\"</string>
+  <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
+  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Go to chat</string>
+
+  <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Link device?</string>
+  <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+  <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_continue">Continue</string>
 </resources>

@@ -726,7 +726,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Neatbildiet uz sarunām lietotnē Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal nekad jums neprasīs reģistrācijas kodu, PIN vai atkopšanas atslēgu. Neatbildiet uz sarunām, kurās personas uzdodas par Signal vai Signal atbalsta dienesta darbiniekiem. Ļaunprātīgi lietotāji izveido viltus sarunas, lai mēģinātu pārņemt jūsu kontu.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Pārskatiet nosaukumus un fotoattēlus</string>
     <!-- Detail tip 1 message -->
@@ -3519,11 +3519,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Nevar saglabāt multividi</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Šī multivide ir lejupielādēta no jūsu ierīces, jo ir ieslēgta opcija “Optimizēt ierīces krātuvi”. Varat lejupielādēt vienumus pa vienam vai izslēgt funkciju “Optimizēt ierīces krātuvi”, lai lejupielādētu visu multivides saturu savā ierīcē.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Nevar saglabāt visus vienumus</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Daļa jūsu atlasītā multivides satura ir lejupielādēta no jūsu ierīces, jo ir ieslēgta opcija “Optimizēt ierīces krātuvi”. Varat saglabāt vienumus pa vienam vai izslēgt funkciju “Optimizēt ierīces krātuvi”, lai lejupielādētu visu multivides saturu savā ierīcē.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Skatīt krātuves iestatījumus</string>
 
@@ -8804,9 +8804,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Iespējojot ziņu ierobežojumus sarunās, ziņas tiks dzēstas arī no jūsu saistītajām ierīcēm.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Ierīces krātuve</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimizēt ierīces krātuvi</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Neizmantotās multivides lejupielāde tiks atcelta, taču to jebkurā brīdī var lejupielādēt no rezerves kopijas.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9294,13 +9294,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Lejupielādēt multividi</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Lai izveidotu jaunu atkopšanas atslēgu, jums ir jāizslēdz opcija “Optimizēt krātuvi” un jāgaida, līdz multivide tiks lejupielādēta. Kad lejupielāde būs pabeigta, varēsiet izveidot jaunu atslēgu.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Izslēgt un lejupielādēt</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Izveidot jaunu atkopšanas atslēgu</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Jaunas atslēgas izveide ir nepieciešama tikai tad, ja cita persona zina jūsu atslēgu. Jums būs atkārtoti jāaugšupielādē rezerves kopija, ieskaitot multivides failus. Ja izmantojat opciju “Optimizēt krātuvi”, vispirms jums būs jālejupielādē no ierīces noņemtie multivides faili.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Iziet no rezerves kopiju iestatīšanas?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -10068,6 +10068,9 @@
         <item quantity="one">%1$d grupa ar tiem pašiem dalībniekiem</item>
         <item quantity="other">%1$d grupas ar tiem pašiem dalībniekiem</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Nevar atjaunot rezerves kopiju</string>

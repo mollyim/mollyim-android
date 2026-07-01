@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">சிக்னலிலிருந்து வரும் உரையாடல்களுக்குப் பதிலளிக்காதீர்கள்</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">உங்கள் பதிவுக் குறியீடு, பின் அல்லது மீட்புக் குறியீட்டைக் கேட்டு சிக்னல் ஒருபோதும் உங்களுக்கு மெசேஜ் அனுப்பாது. சிக்னல் அல்லது சிக்னல் ஆதரவு போல் ஆள்மாறாட்டம் செய்து வரும் உரையாடல்களுக்கு ஒருபோதும் பதிலளிக்காதீர்கள். உங்கள் கணக்கை ஹேக் செய்ய மோசடிக்காரர்கள் போலி உரையாடல்களை உருவாக்குவார்கள்.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">பெயர்கள் மற்றும் படங்களைச் சரிபாருங்கள்</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">ஊடகத்தைச் சேமிக்க முடியவில்லை</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">சாதனச் சேமிப்பகத்தை மேம்படுத்துக\" அம்சம் ஆன் செய்யப்பட்டிருப்பதால், இந்த ஊடகம் உங்கள் சாதனத்திலிருந்து ஆஃப்லோடு செய்யப்பட்டுள்ளது. நீங்கள் உருப்படிகளை ஒவ்வொன்றாகப் பதிவிறக்கலாம் அல்லது அனைத்து ஊடகத்தையும் உங்கள் சாதனத்தில் பதிவிறக்க \"சாதனத்தில் உள்ள சேமிப்பகத்தை மேம்படுத்துக\" என்பதை ஆஃப் செய்யலாம்.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">அனைத்து உருப்படிகளையும் சேமிக்க முடியவில்லை</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">\"சாதனத்தில் உள்ள சேமிப்பகத்தை மேம்படுத்துக\" அம்சம் ஆன் செய்யப்பட்டிருப்பதால், நீங்கள் தேர்ந்தெடுத்த சில ஊடகங்கள் உங்கள் சாதனத்திலிருந்து ஆஃப்லோடு செய்யப்பட்டுள்ளன. நீங்கள் உருப்படிகளை ஒவ்வொன்றாகச் சேமிக்கலாம் அல்லது அனைத்து ஊடகத்தையும் உங்கள் சாதனத்தில் பதிவிறக்க \"சாதனச் சேமிப்பகத்தை மேம்படுத்துக\" என்பதை ஆஃப் செய்யலாம்.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">சேமிப்பக அமைப்புகளைக் காண்க</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">செயல்படுத்தப்பட்டால், சாட் வரம்புகள் உங்கள் இணைக்கப்பட்ட சாதனங்களிலிருந்து மெசேஜ்களையும் அழிக்கும்.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">டிவைஸ் சேமிப்பகம்</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">டிவைஸ் சேமிப்பகத்தை உகந்ததாக்குக</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">பயன்படுத்தப்படாத மீடியா ஆஃப்லோட் செய்யப்படும், ஆனால் அவற்றை எப்போது வேண்டுமானாலும் உங்கள் காப்புப்பிரதியிலிருந்து பதிவிறக்கம் செய்யலாம்.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">மீடியாவை இப்போதே பதிவிறக்குக</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">புதிய மீட்புக் குறியீட்டை உருவாக்க, நீங்கள் \"சேமிப்பகத்தை மேம்படுத்துதல்\" அம்சத்தை ஆஃப் செய்ய வேண்டும், மேலும் உங்கள் ஊடகப் பதிவிறக்கம் செய்யப்படும் வரை காத்திருக்க வேண்டும். பதிவிறக்கம் முடிந்ததும், நீங்கள் ஒரு புதிய குறியீட்டை உருவாக்கலாம்.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">ஆஃப் செய்துவிட்டு, பதிவிறக்கவும்</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">புதிய மீட்பு குறியீட்டை உருவாக்கவும்</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">உங்கள் குறியீட்டை வேறு யாராவது அறிந்துகொண்டால் மட்டுமே புதிய குறியீட்டை உருவாக்குவது அவசியம். மீடியா உட்பட உங்கள் காப்புப்பிரதியை மீண்டும் பதிவேற்ற வேண்டும். நீங்கள் \"சேமிப்பகத்தை மேம்படுத்துதல்\" அம்சத்தைப் பயன்படுத்தினால், முதலில் ஆஃப்லோட் செய்யப்பட்ட மீடியாவை பதிவிறக்கம் செய்ய வேண்டும்.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">காப்புப்பிரதி அமைவிலிருந்து வெளியேறவா?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">அதே உறுப்பினர்களைக் கொண்ட %1$d தொகுப்பு</item>
         <item quantity="other">அதே உறுப்பினர்களைக் கொண்ட %1$d தொகுப்புகள்</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">காப்புப்பிரதியை மீட்டெடுக்க முடியவில்லை</string>

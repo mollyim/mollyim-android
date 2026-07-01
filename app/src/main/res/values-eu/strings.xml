@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Ez erantzun Signal-eko txatei</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal ez da inoiz zurekin harremanetan jarriko erregistro-kodea, PINa edo berreskuratzeko gakoa eskatzeko. Ez erantzun Signal edo Signal-en laguntza-zerbitzua izatearen plantak egiten dituzten txatei. Gaizkileek txat faltsuak konfiguratzen dituzte zure kontua lapurtzeko.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Berrikusi izenak eta zenbakiak</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Ezin da gorde multimedia-edukia</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Gailuko multimedia-eduki honen babeskopia egin da, \"Optimizatu gailuko memoria\" aktibatuta dagoelako. Elementuak banan-banan deskarga ditzakezu, edo \"Optimizatu gailuko memoria\" desaktibatu, multimedia-eduki guztiak gailura deskargatzeko.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Ezin dira gorde elementu guztiak</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Hautatu dituzun gailuko multimedia-eduki batzuen babeskopiak egin dira, \"Optimizatu gailuko memoria\" aktibatuta dagoelako. Elementuak banan-banan gorde ditzakezu, edo \"Optimizatu gailuko memoria\" desaktibatu, multimedia-eduki guztiak gailura deskargatzeko.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Ikusi biltegiratze-ezarpenak</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Gaitutakoan, txaten mugak ere ezabatuko dituzte mezuak lotutako gailuetan.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Gailuko memoria</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimizatu gailuko memoria</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Erabiltzen ez den multimedia-edukia kendu egingo da, baina babeskopiatik deskargatu ahalko duzu edonoiz.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Deskargatu multimedia-edukia</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Berreskuratze-gako berri bat sortzeko, \"Optimizatu biltegiratzea\" desaktibatu eta multimedia-edukia deskargatu arte itxaron behar duzu. Deskarga osatzean, gako berri bat sor dezakezu.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Desaktibatu eta deskargatu</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Sortu beste berreskuratze-gako bat</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Gako berria sortzea beharrezkoa da beste norbaitek zure gakoa badaki soilik. Berriro kargatu beharko duzu babeskopia, multimedia-edukia barne. \"Optimizatu biltegiratzea\" erabiltzen ari bazara, kendutako multimedia-eduki deskargatu beharko duzu lehenik.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Babeskopiaren konfiguraziotik irten nahi duzu?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">Kide berak dituen %1$d talde</item>
         <item quantity="other">Kide berak dituzten %1$d talde</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Ezin da babeskopia leheneratu</string>

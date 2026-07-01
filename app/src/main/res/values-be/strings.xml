@@ -740,7 +740,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Не адказвайце на чаты з Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal ніколі не дасылае вам паведамленняў, каб запытаць ваш код рэгістрацыі, PIN-код або код для аднаўлення. Не адказвайце на чаты, што выдаюць сябе за Signal або службу падтрымкі Signal. Зламыснікі ствараюць падманныя чаты, каб узламаць ваш уліковы запіс.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Уважліва разглядайце імёны і фота</string>
     <!-- Detail tip 1 message -->
@@ -3624,11 +3624,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Немагчыма захаваць медыяфайлы</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Гэты медыяфайл быў выгружаны з вашай прылады, бо ўключана опцыя «Аптымізаваць сховішча на прыладзе». Вы можаце запампаваць элементы па чарзе або адключыць опцыю «Аптымізаваць сховішча на прыладзе», каб загрузіць усе медыяфайлы на прыладу.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Немагчыма захаваць усе элементы</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Некаторыя выбраныя вамі медыяфайлы былі выгружаны з вашай прылады, бо ўключана опцыя «Аптымізаваць сховішча на прыладзе». Вы можаце захаваць элементы па чарзе або адключыць опцыю «Аптымізаваць сховішча на прыладзе», каб загрузіць усе медыяфайлы на прыладу.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Прагледзець налады сховішча</string>
 
@@ -8995,9 +8995,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Калi ліміты чатаў уключаны, яны таксама выдаляць паведамленні з вашых звязаных прылад.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Сховішча на прыладзе</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Аптымізаваць сховішча на прыладзе</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Нявыкарыстаныя медыяфайлы будуць выгружаны, але іх можна ў любы час спампаваць з рэзервовай копіі.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9492,13 +9492,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Спампаваць медыяфайлы</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Каб стварыць новы код для аднаўлення, трэба адключыць функцыю «Аптымізаваць сховішча» і пачакаць, пакуль медыяфайлы не будуць спампаваны. Пасля спампоўкі вы зможаце стварыць новы код.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Адключыць і спампаваць</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Стварыце новы код для аднаўлення</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Ствараць новы ключ неабходна толькі тады, калі нехта ведае ваш ключ. Вам патрэбна будзе зноў запампаваць сваю рэзервовую копію, у тым ліку медыяфайлы. Калі вы ўключылі функцыю «Аптымізаваць сховішча», вам патрэбна будзе спачатку спампаваць выгружаныя медыяфайлы.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Выйсці з налады рэзервовага капіравання?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -10272,6 +10272,9 @@
         <item quantity="many">%1$d груп з тымі ж удзельнікамі</item>
         <item quantity="other">%1$d групы з тымі ж удзельнікамі</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Не атрымалася аднавіць рэзервовую копію</string>

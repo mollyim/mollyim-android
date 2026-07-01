@@ -204,6 +204,8 @@
     <string name="EnterAepScreen__invalid_recovery_key">Neplatný klíč pro obnovení</string>
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">Nesprávný klíč pro obnovení</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">Fill from password manager</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Příprava obnovení…</string>
     <!-- Title shown while restore is in progress -->
@@ -268,6 +270,8 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">Při obnovování zálohy se vyskytla chyba. Vaši zálohu nelze obnovit. Kontaktujte prosím podporu.</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">Kontaktovat podporu</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">Stahování zálohy…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -336,15 +340,15 @@
     <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
     <string name="PinCreationScreen__reenter_pin">Zadejte PIN znovu</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
-    <string name="PinCreationScreen__pins_dont_match">PIN se neshodují. Zkuste to znovu.</string>
+    <string name="PinCreationScreen__pins_dont_match">PIN kódy se neshodují. Zkuste to znovu.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
-    <string name="PinCreationScreen__learn_more_about_pins">Zjistěte víc o PINech</string>
+    <string name="PinCreationScreen__learn_more_about_pins">Zjistěte více o PIN kódech</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
     <string name="PinCreationScreen__warning">Varování</string>
     <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin_warning">Pokud deaktivujete PIN, ztratíte při opětovné registraci aplikace Signal všechna data, pokud je nezálohujete a neobnovíte ručně. S deaktivovaným PIN kódem nelze zapnout funkci zámek registrace.</string>
+    <string name="PinCreationScreen__disable_pin_warning">Pokud PIN kód vypnete, přijdete při nové registraci aplikace Signal o všechna data, pokud je ručně nezálohujete a neobnovíte. Dokud je PIN kód vypnutý, nemůžete zapnout zámek registrace.</string>
     <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
-    <string name="PinCreationScreen__disable_pin">Deaktivovat PIN</string>
+    <string name="PinCreationScreen__disable_pin">Vypnout PIN</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">Zrušit</string>
 
@@ -369,6 +373,20 @@
     <string name="PinEntryScreen__skip">Přeskočit</string>
     <!-- Labels the button to submit the PIN. -->
     <string name="PinEntryScreen__continue">Pokračovat</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">Skip PIN entry?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">Create New PIN</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">Cancel</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">Contact support</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">Povolit oznámení</string>
@@ -385,6 +403,10 @@
     <string name="MessageSyncScreen__this_may_take_a_few_minutes">To může trvat několik minut…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">Staženo %1$s z %2$s</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">Preparing…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">Finishing…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Zprávy a informace o chatech jsou chráněny koncovým šifrováním, včetně procesu synchronizace.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -400,8 +422,6 @@
     <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Klepnutím na svou profilovou fotografii otevřete Signal nastavení</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
     <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Klepněte na Propojená zařízení a na Propojit nové zařízení</string>
-    <!-- Step in the link-account instructions: aim the primary device\'s camera at the QR code displayed on this screen -->
-    <string name="LinkAccountScreen__position_the_camera_over_this_qr_code">Namiřte fotoaparát na tento QR kód</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
     <string name="LinkAccountScreen__get_help_with_these_steps">Nápověda k těmto krokům</string>
     <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
@@ -414,6 +434,16 @@
     <string name="LinkAccountScreen__dont_have_signal_on_another_device">Nemáte Signal na jiném zařízení?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">Vytvořit účet</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">Retry</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">Linking device…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Přenést svůj účet</string>
@@ -497,4 +527,8 @@
     <string name="PhoneNumberDiscoverabilityScreen__save">Uložit</string>
     <!-- Content description for the back arrow on the discoverability picker. -->
     <string name="PhoneNumberDiscoverabilityScreen__back">Zpět</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">Cancel</string>
 </resources>

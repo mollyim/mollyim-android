@@ -693,11 +693,11 @@
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Не удалось загрузить фото. Попробуйте ещё раз.</string>
     <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
-    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <string name="ConversationFragment_attachment_backfill_failed_title">Невозможно загрузить медиафайлы</string>
     <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
-    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <string name="ConversationFragment_attachment_backfill_timeout">Проверьте соединение с интернетом на этом устройстве и телефоне. Откройте Signal на телефоне и повторите попытку загрузки.</string>
     <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
-    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
+    <string name="ConversationFragment_attachment_backfill_not_found">Эти медиафайлы больше не доступны на вашем телефоне и не могут быть загружены.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Оставить закреплённым на…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -740,7 +740,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Не отвечайте на чаты из Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal никогда не посылает вам сообщения для получения вашего регистрационного кода, Пин-кода или ключа восстановления. Не отвечайте на чаты, которые притворяются Signal или Поддержкой Signal. Злоумышленники создают фальшивые чаты, чтобы попытаться завладеть вашей учётной записью.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Проверяйте имена и фото</string>
     <!-- Detail tip 1 message -->
@@ -1539,9 +1539,9 @@
     <string name="AddGroupDetailsFragment__sms_contact">SMS-контакт</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Удалить %1$s из этой группы?</string>
     <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
-    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <string name="AddGroupDetailsFragment__discard_group">Удалить группу?</string>
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
-    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">Если вы перейдёте в группу «%1$s», внесённые вами изменения не будут сохранены.</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
     <string name="AddGroupDetailsFragment__discard">Сбросить</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
@@ -3624,11 +3624,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Не удаётся сохранить медиафайлы</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Этот медиафайл был выгружен с вашего устройства, поскольку включена функция «Оптимизировать хранилище на устройстве». Вы можете сохранить медиафайлы по одному либо отключить функцию «Оптимизировать хранилище на устройстве», чтобы загрузить все медиафайлы на ваше устройство.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Не удаётся сохранить все медиафайлы</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Некоторые выбранные вами медиафайлы были выгружены с вашего устройства, поскольку включена функция «Оптимизировать хранилище на устройстве». Вы можете сохранить медиафайлы по одному либо отключить функцию «Оптимизировать хранилище на устройстве», чтобы загрузить все медиафайлы на ваше устройство.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Просмотреть настройки хранилища</string>
 
@@ -8995,9 +8995,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Если эта функция включена, в соответствии с ограничениями чата также будут удаляться сообщения на связанных устройствах.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Хранилище на устройстве</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Оптимизируйте хранилище на устройстве</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Неиспользуемые медиафайлы будут выгружены, но их можно будет загрузить из резервной копии в любое время.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9492,13 +9492,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Загрузить медиафайлы</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Чтобы создать новый ключ восстановления, нужно отключить функцию «Оптимизировать хранилище» и дождаться, пока ваши медиафайлы будут загружены. Когда загрузка будет завершена, вы сможете создать новый ключ.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Отключить и загрузить</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Создать новый ключ восстановления</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Создание нового ключа необходимо только в случае, если ваш ключ стал известен кому-то ещё. Вам придётся загрузить резервную копию повторно, включая медиафайлы. Если вы используете функцию «Оптимизировать хранилище», вам придётся сначала загрузить выгруженные медиафайлы.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Выйти из настройки резервного копирования?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9506,23 +9506,23 @@
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Выход из настройки резервного копирования</string>
     <!-- Screen title when saving your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Сохраните ваш ключ восстановления</string>
     <!-- Screen subtitle for the recovery key screen -->
-    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Ключ восстановления — это 64-значный код, который позволяет восстановить вашу резервную копию. Если вы забудете свой ключ, вы не сможете восстановить вашу учётную запись.</string>
     <!-- Hint text to see the full recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">Посмотреть полный ключ</string>
     <!-- Bottom sheet caption to confirm your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Убедитесь, что ваш ключ восстановления был записан правильно. На следующем шаге вам будет предложено ввести сохранённый вами пароль.</string>
     <!-- Button to confirm the recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Подтвердите ключ восстановления</string>
     <!-- Toast shown when the key is confirmed -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Ключ восстановления подтверждён</string>
     <!-- Dialog title shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Ошибка подтверждения ключа восстановления</string>
     <!-- Dialog body shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Ключ восстановления не может быть подтверждён. Убедитесь, что вы сохранили его в своём менеджере паролей, или сохраните вручную.</string>
     <!-- Button option to save the key manually -->
-    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Сохранить ключ вручную</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -10267,11 +10267,14 @@
 
     <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
     <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
-        <item quantity="one">%1$d group with the same members</item>
-        <item quantity="few">%1$d groups with the same members</item>
-        <item quantity="many">%1$d groups with the same members</item>
-        <item quantity="other">%1$d groups with the same members</item>
+        <item quantity="one">%1$d группа с тем же составом участников</item>
+        <item quantity="few">%1$d группы с тем же составом участников</item>
+        <item quantity="many">%1$d групп с тем же составом участников</item>
+        <item quantity="other">%1$d группы с тем же составом участников</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Не удаётся восстановить резервную копию</string>

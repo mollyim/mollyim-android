@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Älä vastaa keskusteluihin, joiden lähettäjänä on Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal ei koskaan lähetä viestejä pyytääkseen rekisteröintikoodia, PIN-koodia tai palautusavainta. Älä vastaa keskusteluihin, joissa lähettäjä esittää edustavansa Signalia tai Signal-tukea. Huijarit aloittavat väärennettyjä keskusteluja tarkoituksenaan kaapata tilisi.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Tarkista nimet ja kuvat</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Mediaa ei voi tallentaa</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Tämä mediasisältö on siirretty laitteestasi sivuun, koska laitteen tallennustilan optimointi on päällä. Voit tallentaa kohteet yksittäin. Laittamalla laitteen tallennustilan optimoinnin pois päältä voit ladata kaiken median laitteellesi.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Kaikkia kohteita ei voi tallentaa</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Osa valitsemastasi mediasisällöstä on siirretty laitteestasi sivuun, koska laitteen tallennustilan optimointi on päällä. Voit tallentaa kohteet yksittäin. Laittamalla laitteen tallennustilan optimoinnin pois päältä voit ladata kaiken median laitteellesi.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Näytä tallennustilan asetukset</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Kun keskustelurajoitukset ovat käytössä, ne poistavat viestit myös yhdistetyistä laitteistasi.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Laitteen tallennustila</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimoi laitteen tallennustila</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Käyttämätön media poistetaan, mutta se voidaan ladata varmuuskopiosta milloin tahansa.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Lataa media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Uuden palautusavaimen luomiseksi sinun on poistettava käytöstä Optimoi tallennustila ja odotettava, kunnes mediasisältö on ladattu. Kun lataus on valmis, voit luoda uuden avaimen.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Poista käytöstä ja lataa</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Luo uusi palautusavain</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Uuden avaimen luominen on tarpeen vain, jos joku muu tietää sen. Sinun on ladattava varmuuskopio uudelleen, mediasisältö mukaan lukien. Jos Optimoi tallennustila -toiminto on käytössä, sinun on ensin ladattava sivuun siirretty media.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Poistutaanko varmuuskopioinnin asetuksista?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">%1$d ryhmä, jossa on samat jäsenet</item>
         <item quantity="other">%1$d ryhmää, joissa on samat jäsenet</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Varmuuskopiota ei voitu palauttaa</string>

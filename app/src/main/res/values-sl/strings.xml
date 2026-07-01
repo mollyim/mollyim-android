@@ -740,7 +740,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Ne odgovarjajte na klepete iz Signala</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal vas nikoli ne bo kontaktiral in vprašal za vašo registracijsko kodo, PIN kodo ali obnovitveni ključ. Ne odgovarjajte na klepete, ki se pretvarjajo, da so Signal ali signalova podpora. Zlonamerni akterji ustvarjajo lažne klepete, da bi poskušali prevzeti vaš račun.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Preglejte imena in fotografije</string>
     <!-- Detail tip 1 message -->
@@ -3624,11 +3624,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Ni mogoče shraniti medijev</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Ta medij je bil odstranjen iz vaše naprave, ker je vklopljena možnost »Optimiziraj shranjevanje v napravi«. Predmete lahko prenesete enega po enega ali pa izklopite »Optimiziraj shranjevanje v napravi«, da prenesete vse medije v svojo napravo.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Ni mogoče shraniti vseh predmetov</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Nekateri izbrani mediji so bili odstranjeni iz vaše naprave, ker je vklopljena možnost »Optimiziraj shranjevanje v napravi«. Predmete lahko shranite enega po enega ali pa izklopite »Optimiziraj shranjevanje v napravi«, da prenesete vse medije v svojo napravo.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Ogled nastavitev shrambe</string>
 
@@ -8995,9 +8995,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Če je omejitev klepeta omogočena, se izbrišejo tudi sporočila iz povezanih naprav.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Shranjevanje v napravi</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimizacija shranjevanja v napravi</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Neuporabljeni mediji bodo preneseni, vendar jih lahko kadarkoli prenesete iz varnostne kopije.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9492,13 +9492,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Prenesi medije</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Če želite ustvariti novi obnovitveni ključ za varnostno kopijo, morate izklopiti možnost »Optimiziraj shranjevanje« in počakati, da se prenesejo vsi mediji. Ko je prenos končan, lahko ustvarite nov ključ.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Izklopite in prenesite</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Ustvarite nov obnovitveni ključ</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Ustvarjanje novega ključa je potrebno le, če vaš ključ pozna še kdo drug. Ponovno boste morali naložiti varnostno kopijo, vključno z medijskimi datotekami. Če uporabljate »Optimiziraj shranjevanje«, boste morali najprej prenesti medijske vsebine, ki so bile odstranjene iz naprave.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Želite zapreti nastavitev varnostnega kopiranja?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -10272,6 +10272,9 @@
         <item quantity="few">%1$d skupine z enakimi člani</item>
         <item quantity="other">%1$d skupin z enakimi člani</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Ne moremo obnoviti varnostne kopije</string>

@@ -698,7 +698,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Jangan respons chat dari Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal tidak akan pernah mengirim pesan untuk meminta kode registrasi, PIN, atau kunci pemulihan Anda. Jangan balas chat yang mengatasnamakan Signal atau Dukungan Signal. Pelaku penipuan kadang pura-pura chat demi bisa mengambil alih akun Anda.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Tinjau nama dan foto</string>
     <!-- Detail tip 1 message -->
@@ -3309,11 +3309,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Tidak bisa menyimpan media</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Media ini telah di-offload dari perangkat karena fitur \"Optimalkan penyimpanan di perangkat\" diaktifkan. Anda bisa mengunduh item satu per satu, atau menonaktifkan \"Optimalkan penyimpanan di perangkat\" untuk mengunduh semua media ke perangkat.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Tidak bisa menyimpan semua item</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Beberapa media yang Anda pilih telah di-offload dari perangkat karena fitur \"Optimalkan penyimpanan di perangkat\" diaktifkan. Anda bisa menyimpan item satu per satu atau menonaktifkan \"Optimalkan penyimpanan di perangkat\" untuk mengunduh semua media ke perangkat.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Lihat pengaturan penyimpanan</string>
 
@@ -8422,9 +8422,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Jika diaktifkan, batas pesan juga akan menghapus pesan di perangkat terhubung.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Penyimpanan di perangkat</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimalkan penyimpanan di perangkat</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Media yang tidak digunakan akan di-offload, tetapi dapat diunduh dari cadangan Anda kapan saja.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -8898,13 +8898,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Unduh media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Untuk membuat kunci pemulihan baru, Anda harus menonaktifkan \"Optimalkan penyimpanan\" dan tunggu hingga media Anda selesai diunduh. Ketika pengunduhan selesai, Anda dapat membuat kunci baru.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Nonaktifkan dan unduh</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Buat kunci pemulihan baru</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Pembuatan kunci baru hanya diperlukan jika ada orang lain yang mengetahui kunci Anda. Anda harus mengunggah kembali data cadangan, termasuk media. Jika opsi \"Optimalkan penyimpanan\" di ponsel aktif, Anda harus mengunduh media yang di-offload terlebih dahulu.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Tutup penyiapan cadangan?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9660,6 +9660,9 @@
     <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
         <item quantity="other">%1$d grup dengan anggota yang sama</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Tidak bisa memulihkan cadangan</string>

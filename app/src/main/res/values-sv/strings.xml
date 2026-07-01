@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Svara inte på chattar från Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal kommer aldrig att skicka meddelanden till dig för att be om din registreringskod, PIN-kod eller återställningsnyckel. Svara inte på chattar som utger sig för att komma från Signal eller Signal Support. Illvilliga aktörer använder falska chattar för att försöka ta över ditt konto.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Granska namn och foton</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Kan inte spara medier</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Det här mediet har avlastats från din enhet eftersom ”Optimera lagring på enheten” är aktiverat. Du kan ladda ner objekt ett i taget eller stänga av ”Optimera lagring på enheten” för att ladda ner alla medier till din enhet.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Kan inte spara alla objekt</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">En del av medierna du har valt har avlastats från din enhet eftersom ”Optimera lagring på enheten” är aktiverat. Du kan spara objekten ett i taget eller stänga av ”Optimera lagring på enheten” för att ladda ner alla medier till din enhet.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Visa lagringsinställningar</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">När det är aktiverat kommer gränser för chattlängd också att radera meddelanden från dina länkade enheter.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Lagring på enheten</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimera lagring på enheten</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Oanvända mediafiler kommer att avlastas, men kan laddas ner från din säkerhetskopia när som helst.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Ladda ner media</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">För att skapa en ny återställningsnyckel måste du inaktivera Optimera lagring och vänta tills dina media har laddats ner. När nedladdningen är klar kan du skapa en ny nyckel.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Stäng av och ladda ner</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Skapa en ny återställningsnyckel</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Att skapa en ny nyckel är bara nödvändigt om någon annan känner till din nyckel. Du måste ladda upp din säkerhetskopia igen, inklusive media. Om du använder Optimera lagring måste du först ladda ner avlastade media.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Avsluta säkerhetskopieringsinställning?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">%1$d grupp med samma medlemmar</item>
         <item quantity="other">%1$d grupper med samma medlemmar</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Det går inte att återställa säkerhetskopia</string>

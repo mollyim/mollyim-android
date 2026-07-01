@@ -665,11 +665,11 @@
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Foto konnte nicht heruntergeladen werden. Bitte versuche es erneut.</string>
     <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
-    <string name="ConversationFragment_attachment_backfill_failed_title">Can\'t download media</string>
+    <string name="ConversationFragment_attachment_backfill_failed_title">Medien können nicht heruntergeladen werden</string>
     <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
-    <string name="ConversationFragment_attachment_backfill_timeout">Check this device and your phone\'s internet connection. Open Signal on your phone, then try downloading again.</string>
+    <string name="ConversationFragment_attachment_backfill_timeout">Überprüfe die Internetverbindung deines Geräts und deines Telefons. Öffne Signal auf deinem Telefon und versuche es dann erneut.</string>
     <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
-    <string name="ConversationFragment_attachment_backfill_not_found">This media is no longer available on your phone and can\'t be downloaded.</string>
+    <string name="ConversationFragment_attachment_backfill_not_found">Dieser Medieninhalt ist auf deinem Telefon nicht mehr verfügbar und kann nicht heruntergeladen werden.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Fixiert lassen für …</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Antworte nicht auf angebliche Nachrichten von Signal</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal wird dich nie per Nachricht nach Registrierungscode, PIN oder Wiederherstellungsschlüssel fragen. Antworte nicht auf angebliche Nachrichten von \"Signal\" oder \"Signal Support\". Betrüger versuchen mit Fake-Chats dein Konto zu übernehmen.</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">Überprüfe Namen und Fotos</string>
     <!-- Detail tip 1 message -->
@@ -1451,9 +1451,9 @@
     <string name="AddGroupDetailsFragment__sms_contact">SMS-Kontakt</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">%1$s aus dieser Gruppe entfernen?</string>
     <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
-    <string name="AddGroupDetailsFragment__discard_group">Discard group?</string>
+    <string name="AddGroupDetailsFragment__discard_group">Gruppe verwerfen?</string>
     <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
-    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">If you continue to the group \"%1$s\" your changes won\'t be saved.</string>
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">Wenn du zur Gruppe »%1$s« wechselst, werden deine Änderungen nicht gespeichert.</string>
     <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
     <string name="AddGroupDetailsFragment__discard">Verwerfen</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Medien können nicht gespeichert werden</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">Diese Medien wurden von deinem Gerät ausgelagert, da die Option »Gerätespeicher optimieren« aktiviert ist. Du kannst einzelne Elemente herunterladen oder die Option »Gerätespeicher optimieren« deaktivieren, um alle Medien auf dein Gerät herunterzuladen.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Es können nicht alle Elemente gespeichert werden</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Einige der von dir ausgewählten Medien wurden von deinem Gerät ausgelagert, da die Option »Gerätespeicher optimieren« aktiviert ist. Du kannst einzelne Elemente speichern oder die Option »Gerätespeicher optimieren« deaktivieren, um alle Medien auf dein Gerät herunterzuladen.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Speicher-Einstellungen anzeigen</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Wenn die Funktion Chat-Beschränkungen aktiviert ist, werden auch Nachrichten von deinen gekoppelten Geräten gelöscht.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Gerätespeicher</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Gerätespeicher optimieren</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Nicht verwendete Medien werden zwar ausgelagert, sie können aber jederzeit aus deinem Backup heruntergeladen werden.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Medien herunterladen</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Du musst »Speicher optimieren« erst deaktivieren und warten, bis deine Medien heruntergeladen wurden, um einen neuen Wiederherstellungsschlüssel zu erstellen. Sobald der Download abgeschlossen ist, kannst du einen neuen Schlüssel erstellen.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Ausschalten und herunterladen</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Neuen Wiederherstellungsschlüssel erstellen</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Das Erstellen eines neuen Schlüssels ist nur erforderlich, wenn jemand anderes ihn kennt. Du musst dein Backup erneut hochladen, einschließlich Medien. Wenn du „Speicher optimieren“ nutzt, musst du ausgelagerte Medien erst herunterladen.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Backup-Konfiguration beenden?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9110,23 +9110,23 @@
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Backup-Konfiguration beenden</string>
     <!-- Screen title when saving your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Save your recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Deinen Wiederherstellungsschlüssel speichern</string>
     <!-- Screen subtitle for the recovery key screen -->
-    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Your recovery key is a 64-character code that lets you restore your backup. If you forget your key, you will not be able to recover your account.</string>
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Dein Wiederherstellungsschlüssel ist ein 64-stelliger Code, mit dem du deine Backups wiederherstellen kannst. Ohne Schlüssel kannst du dein Konto nicht wiederherstellen.</string>
     <!-- Hint text to see the full recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__see_full_key">See full key</string>
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">Vollständigen Schlüssel anzeigen</string>
     <!-- Bottom sheet caption to confirm your recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Confirm that your recovery key was recorded correctly. You will be prompted to fill your saved password in the next step.</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Vergewissere dich, dass dein Wiederherstellungsschlüssel korrekt gespeichert wurde. Im nächsten Schritt wirst du aufgefordert, dein gespeichertes Passwort einzugeben.</string>
     <!-- Button to confirm the recovery key -->
-    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Confirm recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Wiederherstellungsschlüssel bestätigen</string>
     <!-- Toast shown when the key is confirmed -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Recovery key confirmed</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Wiederherstellungsschlüssel bestätigt</string>
     <!-- Dialog title shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Error confirming recovery key</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Fehler beim Bestätigen des Wiederherstellungsschlüssels</string>
     <!-- Dialog body shown when the recovery key fails to confirm -->
-    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Your recovery key could not be confirmed. Make sure you’ve saved it in your password manager, or save it manually.</string>
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Dein Wiederherstellungsschlüssel konnte nicht bestätigt werden. Überprüfe, ob du ihn in deinem Passwort-Manager gespeichert hast, oder speichere ihn manuell.</string>
     <!-- Button option to save the key manually -->
-    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Save key manually</string>
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Schlüssel manuell speichern</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9861,9 +9861,12 @@
 
     <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
     <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
-        <item quantity="one">%1$d group with the same members</item>
-        <item quantity="other">%1$d groups with the same members</item>
+        <item quantity="one">%1$d Gruppe mit denselben Mitgliedern</item>
+        <item quantity="other">%1$d Gruppen mit denselben Mitgliedern</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Backup kann nicht wiederhergestellt werden</string>

@@ -34,7 +34,7 @@
   <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Votre appareil ne permet pas d\'enregistrer des vidéos</string>
 
   <!-- CameraXFragment -->
-  <string name="CameraXFragment_tap_for_photo_hold_for_video">Touchez pour une photo, maintenez pour une vidéo</string>
+  <string name="CameraXFragment_tap_for_photo_hold_for_video">Touchez pour prendre une photo, maintenez pour une vidéo</string>
   <!-- Accessibility content description to describe the capture button when taking an image/video -->
   <string name="CameraXFragment_capture_description">Prendre une photo ou une vidéo</string>
   <string name="CameraXFragment_change_camera_description">Changer de caméra</string>
@@ -85,4 +85,23 @@
   <string name="CameraXFragment_send">Envoyer</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Pour enregistrer des vidéos, Signal doit accéder à l\'application Microphone, mais vous lui en avez interdit l\'accès. Dans les paramètres Android, touchez Applications &gt; Signal &gt; Autorisations, puis activez \"Microphone\" et \"Appareil photo\".</string>
+
+  <!-- Displayed when there is an error capturing video -->
+  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <!-- Displayed when there is an error capturing image -->
+  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+
+  <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
+  <string name="UsernameScannedDialog__username_dialog_title">Found %1$s</string>
+  <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
+  <string name="UsernameScannedDialog__username_dialog_body">Start a chat with \"%1$s\"</string>
+  <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
+  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Go to chat</string>
+
+  <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Link device?</string>
+  <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
+  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">It looks like you\'re trying to link a Signal device. Tap continue and then tap \"Link a New Device\" and scan the QR code again.</string>
+  <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_continue">Continue</string>
 </resources>

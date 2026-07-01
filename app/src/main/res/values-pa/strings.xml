@@ -712,7 +712,7 @@
     <!-- Detail tip 0 title -->
     <string name="SafetyTips_detail_tip0_title">Signal ਦੇ ਨਾਂ ਤੋਂ ਭੇਜੇ ਸੁਨੇਹਿਆਂ ਦਾ ਜਵਾਬ ਨਾ ਦਿਓ</string>
     <!-- Detail tip 0 message -->
-    <string name="SafetyTips_detail_tip0_message">Signal ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਤੋਂ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕੋਡ, PIN, ਜਾਂ ਰਿਕਵਰੀ ਕੁੰਜੀ ਪੁੱਛਣ ਲਈ ਤੁਹਾਨੂੰ ਸੁਨੇਹਾ ਨਹੀਂ ਭੇਜੇਗਾ। Signal ਜਾਂ Signal ਸਹਾਇਤਾ ਟੀਮ ਹੋਣ ਦਾ ਦਿਖਾਵਾ ਕਰਨ ਵਾਲੀਆਂ ਚੈਟਾਂ ਦਾ ਜਵਾਬ ਨਾ ਦਿਓ। ਬੁਰੇ ਲੋਕ ਤੁਹਾਡੇ ਖਾਤੇ \'ਤੇ ਕਬਜ਼ਾ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ ਨਕਲੀ ਚੈਟ ਦਾ ਸਹਾਰਾ ਲੈਂਦੇ ਹਨ।</string>
+    <string name="SafetyTips_detail_tip0_message">Signal will never message you for your registration code, PIN, or recovery key. Don\'t reply to chats pretending to be Signal or Signal Support. Bad actors set up fake chats to try to take over your account.</string>
     <!-- Detail tip 1 title -->
     <string name="SafetyTips_detail_tip1_title">ਨਾਂ ਅਤੇ ਫ਼ੋਟੋਆਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ</string>
     <!-- Detail tip 1 message -->
@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">ਮੀਡੀਆ ਸੇਵ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">ਇਸ ਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ਤੋਂ ਆਫਲੋਡ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿਉਂਕਿ \"ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਸੈਟਿੰਗ ਚਾਲੂ ਹੈ। ਤੁਸੀਂ ਆਈਟਮਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਸੇਵ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਆਪਣੇ ਡਿਵਾਈਸ ਤੇ ਸਾਰੇ ਮੀਡੀਆ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ \"ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਸੈਟਿੰਗ ਨੂੰ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">ਸਾਰੀਆਂ ਆਈਟਮਾਂ ਨੂੰ ਸੇਵ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">ਤੁਹਾਡੇ ਵੱਲੋਂ ਚੁਣੇ ਗਏ ਕੁਝ ਮੀਡੀਆ ਨੂੰ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ਤੋਂ ਆਫਲੋਡ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿਉਂਕਿ \"ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਸੈਟਿੰਗ ਚਾਲੂ ਹੈ। ਤੁਸੀਂ ਆਈਟਮਾਂ ਨੂੰ ਇੱਕ-ਇੱਕ ਕਰਕੇ ਸੇਵ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਆਪਣੇ ਡਿਵਾਈਸ ਤੇ ਸਾਰੇ ਮੀਡੀਆ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ \"ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਸੈਟਿੰਗ ਨੂੰ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">ਸਟੋਰੇਜ ਦੀਆਂ ਸੈਟਿੰਗਾਂ ਦੇਖੋ</string>
 
@@ -8613,9 +8613,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">ਜਦੋਂ ਸਮਰੱਥ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਚੈਟ ਸੀਮਾਵਾਂ ਤੁਹਾਡੇ ਲਿੰਕ ਕੀਤੇ ਡਿਵਾਈਸਾਂ ਵਿੱਚੋਂ ਵੀ ਸੁਨੇਹਿਆਂ ਨੂੰ ਮਿਟਾ ਦੇਣਗੀਆਂ।</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">ਡਿਵਾਈਸ ਦੀ ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimize Signal storage</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">ਵਰਤਿਆ ਨਾ ਜਾਣ ਵਾਲਾ ਮੀਡੀਆ ਔਫਲੋਡ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ, ਪਰ ਉਹ ਮੀਡੀਆ ਕਿਸੇ ਵੀ ਸਮੇਂ ਤੁਹਾਡੇ ਬੈਕਅੱਪ ਵਿੱਚੋਂ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">ਮੀਡੀਆ ਡਾਊਨਲੋਡ ਕਰੋ</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">ਨਵੀਂ ਰਿਕਵਰੀ ਕੀ ਬਣਾਉਣ ਲਈ, ਤੁਹਾਨੂੰ \"ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਨੂੰ ਬੰਦ ਕਰਨਾ ਪਵੇਗਾ ਅਤੇ ਆਪਣੇ ਮੀਡੀਆ ਦੇ ਡਾਊਨਲੋਡ ਹੋਣ ਤੱਕ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ। ਡਾਊਨਲੋਡ ਪੂਰਾ ਹੋਣ \'ਤੇ, ਤੁਸੀਂ ਇੱਕ ਨਵੀਂ ਕੀ ਬਣਾ ਸਕਦੇ ਹੋ।</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">ਬੰਦ ਕਰੋ ਅਤੇ ਡਾਊਨਲੋਡ ਕਰੋ</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">ਇੱਕ ਨਵੀਂ ਰਿਕਵਰੀ ਕੀ ਬਣਾਓ</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">ਨਵੀਂ ਕੀ ਬਣਾਉਣਾ ਸਿਰਫ਼ ਤਾਂ ਹੀ ਜ਼ਰੂਰੀ ਹੈ ਜੇਕਰ ਕਿਸੇ ਹੋਰ ਨੂੰ ਤੁਹਾਡੀ ਕੀ ਬਾਰੇ ਪਤਾ ਹੈ। ਤੁਹਾਨੂੰ ਮੀਡੀਆ ਸਮੇਤ ਆਪਣਾ ਬੈਕਅੱਪ ਦੁਬਾਰਾ ਅੱਪਲੋਡ ਕਰਨਾ ਪਵੇਗਾ। ਜੇਕਰ ਤੁਸੀਂ \"ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਦੀ ਵਰਤੋਂ ਕਰ ਰਹੇ ਹੋ ਤਾਂ ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਔਫਲੋਡ ਕੀਤਾ ਮੀਡੀਆ ਡਾਊਨਲੋਡ ਕਰਨਾ ਪਵੇਗਾ।</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ਕੀ ਬੈਕਅੱਪ ਦੇ ਸੈੱਟਅੱਪ ਤੋਂ ਬਾਹਰ ਜਾਣਾ ਹੈ?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9864,6 +9864,9 @@
         <item quantity="one">ਇੱਕ ਸਮਾਨ ਮੈਂਬਰਾਂ ਵਾਲਾ %1$d ਸਮੂਹ</item>
         <item quantity="other">ਇੱਕ ਸਮਾਨ ਮੈਂਬਰਾਂ ਵਾਲੇ %1$d ਸਮੂਹ</item>
     </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>
