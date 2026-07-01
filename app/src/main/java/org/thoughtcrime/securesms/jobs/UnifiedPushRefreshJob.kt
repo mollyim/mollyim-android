@@ -57,8 +57,20 @@ class UnifiedPushRefreshJob private constructor(
 
     Log.d(TAG, "Current registration status: $currentStatus")
 
-    if (!hasAccount || !enabled) {
+    if (!hasAccount) {
+      Log.d(TAG, "No account registered: aborting")
+      return
+    }
+
+    if (!enabled) {
       Log.d(TAG, "UnifiedPush is disabled.")
+      if (BuildConfig.SIGNAL_VAPID_KEY != null) {
+        try {
+          toBasicLegacy(account.clearWebPush())
+        } catch (e: Exception) {
+          Log.e(TAG, "An error occurred while clearing web push token", e)
+        }
+      }
       return
     }
 
