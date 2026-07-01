@@ -1256,17 +1256,6 @@ object RemoteConfig {
   )
 
   /**
-   * Whether or not to allow 1:1 polls and a higher character limit for questions
-   */
-  @JvmStatic
-  @get:JvmName("pollsV2")
-  val pollsV2: Boolean by remoteBoolean(
-    key = "android.pollsV2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Whether or not to receive admin delete messages.
    */
   @JvmStatic

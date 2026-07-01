@@ -27,7 +27,6 @@ import org.thoughtcrime.securesms.conversation.ManageContextMenu
 import org.thoughtcrime.securesms.conversation.v2.ConversationViewModel
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.RemoteConfig
 import java.util.function.Predicate
 
 /**
@@ -49,7 +48,6 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
 
   private val lifecycleDisposable = LifecycleDisposable()
   private val removePaymentFilter: Predicate<AttachmentKeyboardButton> = Predicate { button -> button != AttachmentKeyboardButton.PAYMENT }
-  private val removePollFilter: Predicate<AttachmentKeyboardButton> = Predicate { button -> button != AttachmentKeyboardButton.POLL }
 
   @Suppress("ReplaceGetOrSet")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -131,15 +129,10 @@ class AttachmentKeyboardFragment : LoggingFragment(R.layout.attachment_keyboard_
   private fun updateButtonsAvailable(recipient: Recipient) {
     val paymentsValues = SignalStore.payments
     val isPaymentsAvailable = paymentsValues.paymentsAvailability.isSendAllowed && !recipient.isSelf && !recipient.isGroup && recipient.isRegistered
-    val isPollsAvailable = recipient.isPushV2Group || RemoteConfig.pollsV2
 
-    if (!isPaymentsAvailable && !isPollsAvailable) {
-      attachmentKeyboardView.filterAttachmentKeyboardButtons(removePaymentFilter.and(removePollFilter))
-    } else if (!isPaymentsAvailable) {
+    if (!isPaymentsAvailable) {
       attachmentKeyboardView.filterAttachmentKeyboardButtons(removePaymentFilter)
-    } else if (!isPollsAvailable) (
-      attachmentKeyboardView.filterAttachmentKeyboardButtons(removePollFilter)
-      ) else {
+    } else {
       attachmentKeyboardView.filterAttachmentKeyboardButtons(null)
     }
   }
