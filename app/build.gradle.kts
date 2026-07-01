@@ -221,6 +221,7 @@ android {
     buildConfigField("String", "STRIPE_BASE_URL", "\"https://api.stripe.com/v1\"")
     buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_live_6cmGZopuTsV8novGgJJW9JpC00vLIgtQ1D\"")
     buildConfigField("boolean", "TRACING_ENABLED", "false")
+    buildConfigField("String", "SIGNAL_VAPID_KEY", "null")
 
     ndk {
       //noinspection ChromeOsAbiSupport
@@ -386,6 +387,7 @@ android {
       buildConfigField("String", "STATIC_ASSETS_URL", "\"https://invalid-7a494c\"")
       buildConfigField("String", "STRIPE_BASE_URL", "\"https://invalid-f018c3\"")
       buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"pk_test_sngOd8FnXNkpce9nPXawKrJD00kIDngZkD\"")
+      buildConfigField("String", "SIGNAL_VAPID_KEY", "\"BOlXVvYRMU_QIIvrChGx0bRKeKWpXs0yiKKyhyrk__GXQY7xP3s3fDtr9vihY2RYq_EnWE3lDvm1lq4LSxcc5Lk\"")
     }
   }
 

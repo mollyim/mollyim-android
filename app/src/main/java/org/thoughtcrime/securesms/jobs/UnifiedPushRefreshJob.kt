@@ -9,12 +9,15 @@ import im.molly.unifiedpush.model.toRegistrationStatus
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.PushServiceEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork.account
+import org.whispersystems.signalservice.api.NetworkResultUtil.toBasicLegacy
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
 import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
 import java.io.IOException
@@ -54,13 +57,27 @@ class UnifiedPushRefreshJob private constructor(
 
     Log.d(TAG, "Current registration status: $currentStatus")
 
-    if (!hasAccount || !enabled) {
+    if (!hasAccount) {
+      Log.d(TAG, "No account registered: aborting")
+      return
+    }
+
+    if (!enabled) {
       Log.d(TAG, "UnifiedPush is disabled.")
+      if (BuildConfig.SIGNAL_VAPID_KEY != null) {
+        try {
+          toBasicLegacy(account.clearWebPush())
+        } catch (e: Exception) {
+          Log.e(TAG, "An error occurred while clearing web push token", e)
+        }
+      }
       return
     }
 
     try {
-      val newStatus = checkRegistrationStatus()
+      val newStatus = BuildConfig.SIGNAL_VAPID_KEY?.let {
+        checkRegistrationStatusWithWebPush(it)
+      } ?: checkRegistrationStatusWithMollySocket()
 
       if (currentStatus == newStatus) {
         Log.d(TAG, "Registration status unchanged.")
@@ -94,8 +111,39 @@ class UnifiedPushRefreshJob private constructor(
     }
   }
 
+  /**
+   * Register Web Push on a server supporting it **NOT USING MOLLYSOCKET**
+   */
   @Throws(IOException::class)
-  private fun checkRegistrationStatus(): RegistrationStatus {
+  private fun checkRegistrationStatusWithWebPush(serverVapidKey: String): RegistrationStatus {
+    val endpoint = SignalStore.unifiedpush.endpoint
+    val publicKey = SignalStore.unifiedpush.publicKey
+    val auth = SignalStore.unifiedpush.auth
+    val lastReceivedTime = SignalStore.unifiedpush.lastReceivedTime
+
+    Log.d(TAG, "Last notification received at: $lastReceivedTime")
+
+    if (!fromNewEndpoint) {
+      UnifiedPushDistributor.registerApp(serverVapidKey)
+    }
+
+    if (!UnifiedPushDistributor.checkIfActive() || endpoint == null || publicKey == null || auth == null) {
+      Log.e(TAG, "Distributor is not active or endpoint is missing.")
+      return RegistrationStatus.PENDING
+    }
+
+    return try {
+      toBasicLegacy(account.setWebPush(endpoint, publicKey, auth))
+      Log.d(TAG, "Successfully registered web push")
+      RegistrationStatus.REGISTERED
+    } catch (e: IOException) {
+      Log.e(TAG, "A error occured while registering web push", e)
+      RegistrationStatus.SERVER_ERROR
+    }
+  }
+
+  @Throws(IOException::class)
+  private fun checkRegistrationStatusWithMollySocket(): RegistrationStatus {
     val endpoint = SignalStore.unifiedpush.endpoint
     val airGapped = SignalStore.unifiedpush.airGapped
     val mollySocketUrl = SignalStore.unifiedpush.mollySocketUrl?.toHttpUrlOrNull()

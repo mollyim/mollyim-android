@@ -17,6 +17,8 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val MOLLYSOCKET_VAPID = "mollysocket.vapid"
     private const val UNIFIEDPUSH_ENABLED = "up.enabled"
     private const val UNIFIEDPUSH_ENDPOINT = "up.endpoint"
+    private const val UNIFIEDPUSH_PUBLIC_KEY = "up.publicKey"
+    private const val UNIFIEDPUSH_AUTH = "up.auth"
     private const val UNIFIEDPUSH_LAST_RECEIVED_TIME = "up.lastRecvTime"
   }
 
@@ -51,6 +53,8 @@ class UnifiedPushValues(store: KeyValueStore) : SignalStoreValues(store) {
     }
 
   var endpoint: String? by stringValue(UNIFIEDPUSH_ENDPOINT, null)
+  var publicKey: String? by stringValue(UNIFIEDPUSH_PUBLIC_KEY, null)
+  var auth: String? by stringValue(UNIFIEDPUSH_AUTH, null)
 
   var airGapped: Boolean by booleanValue(MOLLYSOCKET_AIR_GAPPED, false)
 
