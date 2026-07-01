@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.os.bundleOf
 import com.google.firebase.messaging.RemoteMessage
 import im.molly.unifiedpush.UnifiedPushNotificationBuilder
+import org.json.JSONObject
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -11,6 +12,7 @@ import org.thoughtcrime.securesms.gcm.FcmFetchManager
 import org.thoughtcrime.securesms.gcm.FcmReceiveService
 import org.thoughtcrime.securesms.jobs.UnifiedPushRefreshJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork.account
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
@@ -19,6 +21,7 @@ import org.unifiedpush.android.connector.MessagingReceiver
 import org.unifiedpush.android.connector.UnifiedPush
 import org.unifiedpush.android.connector.data.PushEndpoint
 import org.unifiedpush.android.connector.data.PushMessage
+import org.whispersystems.signalservice.api.NetworkResultUtil.toBasicLegacy
 
 class UnifiedPushReceiver : MessagingReceiver() {
 
@@ -63,9 +66,22 @@ class UnifiedPushReceiver : MessagingReceiver() {
   }
 
   override fun onMessage(context: Context, message: PushMessage, instance: String) {
+    Log.i(TAG, "onMessage($instance)")
     val msg = message.content.toString(Charsets.UTF_8)
 
-    if (appLocked) {
+    if (
+      !appLocked &&
+      message.decrypted &&
+      JSONObject(msg).has("activationToken")
+    ) {
+      Log.d(TAG, "Received activation token")
+      try {
+        val activationToken = JSONObject(msg).getString("activationToken")
+        toBasicLegacy(account.activateWebPush(activationToken))
+      } catch (e: Exception) {
+        Log.e(TAG, "Got an exception while activating web push", e)
+      }
+    } else if (appLocked) {
       onMessageLocked(context, msg)
     } else {
       updateLastReceivedTime(System.currentTimeMillis())
