@@ -1376,7 +1376,7 @@ object SyncMessageProcessor {
       }
 
       CallLogEvent.Type.MARKED_AS_READ -> {
-        SignalDatabase.calls.markAllCallEventsRead(timestamp)
+        SignalDatabase.calls.markAllCallEventsRead(timestamp, envelopeTimestamp)
       }
 
       CallLogEvent.Type.MARKED_AS_READ_IN_CONVERSATION -> {
@@ -1385,7 +1385,7 @@ object SyncMessageProcessor {
           return
         }
 
-        SignalDatabase.calls.markAllCallEventsWithPeerBeforeTimestampRead(peer, timestamp)
+        SignalDatabase.calls.markAllCallEventsWithPeerBeforeTimestampRead(peer, timestamp, envelopeTimestamp)
       }
 
       else -> log(envelopeTimestamp, "Synchronize call log event has an invalid type $eventType, ignoring.")

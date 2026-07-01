@@ -915,6 +915,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val threadId = threadIdResult.threadId
     val dateReceived = System.currentTimeMillis()
     val expiresIn = if (RemoteConfig.disappearMore) threads.getExpiresIn(threadId) else 0
+    val missed = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)
 
     val values = contentValuesOf(
       FROM_RECIPIENT_ID to if (outgoing) Recipient.self().id.serialize() else recipientId.serialize(),
@@ -923,7 +924,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       DATE_RECEIVED to dateReceived,
       DATE_SENT to timestamp,
       READ to 1,
-      NOTIFIED to if (MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)) 0 else 1,
+      NOTIFIED to if (missed) 0 else 1,
       TYPE to type,
       THREAD_ID to threadId,
       EXPIRES_IN to expiresIn
@@ -938,8 +939,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     notifyConversationListeners(threadId)
     TrimThreadJob.enqueueAsync(threadId)
 
-    // If inserting an outgoing call from a sync message, automatically start timer
-    if (expiresIn != 0L && outgoing && fromSync) {
+    // If inserting a call from a sync message, automatically start timer unless it was missed
+    if (expiresIn != 0L && !missed && fromSync) {
       Log.i(TAG, "Starting expiration timer after inserting a call from a sync message.")
       markExpireStarted(messageId, timestamp)
       AppDependencies.expiringMessageManager.scheduleDeletion(messageId, true, timestamp, expiresIn)
@@ -997,7 +998,8 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val expiresIn = if (RemoteConfig.disappearMore) recipient.expiresInSeconds.seconds.inWholeMilliseconds else 0
     val messageId: MessageId = writableDatabase.withinTransaction { db ->
       val self = Recipient.self()
-      val markRead = joinedUuids.contains(self.requireServiceId().rawUuid) || self.id == sender
+      val selfCreated = self.id == sender
+      val markRead = joinedUuids.contains(self.requireServiceId().rawUuid) || selfCreated
       val updateDetails: ByteArray = GroupCallUpdateDetails(
         eraId = eraId,
         startedCallUuid = Recipient.resolved(sender).requireServiceId().toString(),
@@ -1024,8 +1026,9 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       val messageId = MessageId(db.insert(TABLE_NAME, null, values))
 
-      val isActiveCall = joinedUuids.isNotEmpty() || isIncomingGroupCallRingingOnLocalDevice
-      if (!isActiveCall) {
+      // Calls ringing from a linked (not local) device could be active
+      val isPotentialActiveCall = joinedUuids.isNotEmpty() || isIncomingGroupCallRingingOnLocalDevice || selfCreated
+      if (!isPotentialActiveCall) {
         maybeCollapseMessage(db = db, messageId = messageId.id, threadId = threadId, dateReceived = timestamp, messageExtras = null, messageType = MessageTypes.GROUP_CALL_TYPE)
         if (markRead && expiresIn != 0L) {
           Log.d(TAG, "[insertGroupCall] Starting expiration timer for group call.")
@@ -1122,6 +1125,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
 
       val updateDetail = GroupCallUpdateDetailsUtil.parse(message.body)
       val containsSelf = joinedUuids.contains(SignalStore.account.requireAci().rawUuid)
+      val selfCreated = updateDetail.startedCallUuid == SignalStore.account.requireAci().rawUuid.toString()
       // Treat empty eraId from ring requests as matching for updating
       val sameEraId = (updateDetail.eraId == eraId || updateDetail.eraId.isEmpty()) && !Util.isEmpty(eraId)
       val inCallUuids = if (sameEraId) joinedUuids.map { it.toString() } else emptyList()
@@ -1140,7 +1144,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
       val updated = db.update(TABLE_NAME, contentValues, query.where, query.whereArgs) > 0
 
       if (inCallUuids.isEmpty()) {
-        val acknowledgedCall = localJoined || event == Event.DECLINED
+        val acknowledgedCall = localJoined || event == Event.DECLINED || selfCreated
         finalizeEndedGroupCallMessage(db, message, acknowledgedCall, logPrefix = "[updateGroupCall]")
       }
 
