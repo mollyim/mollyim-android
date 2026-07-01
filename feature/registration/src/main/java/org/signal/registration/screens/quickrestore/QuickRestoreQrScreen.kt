@@ -6,6 +6,11 @@
 package org.signal.registration.screens.quickrestore
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -241,6 +246,7 @@ private fun QrCodePane(
       AnimatedContent(
         targetState = state.qrState,
         contentKey = { it::class },
+        transitionSpec = { fadeIn() togetherWith fadeOut() using SizeTransform { _, _ -> snap() } },
         label = "qr-code-state"
       ) { qrState ->
         when (qrState) {
