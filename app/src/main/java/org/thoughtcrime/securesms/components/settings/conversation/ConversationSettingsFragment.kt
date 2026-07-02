@@ -90,6 +90,7 @@ import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndR
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupDescriptionDialog
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupInviteSentDialog
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupsLearnMoreBottomSheetDialogFragment
+import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.MainNavigationChatDetailRouter
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
@@ -698,8 +699,21 @@ class ConversationSettingsFragment :
             mediaRecords = state.sharedMedia,
             mediaIds = state.sharedMediaIds,
             onMediaRecordClick = { view, mediaRecord, isLtr ->
-              if (mediaRecord.attachment?.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
-                mediaRecord.attachment?.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED
+              val attachment = mediaRecord.attachment
+              if (attachment == null) {
+                Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
+                return@Model
+              }
+              if (attachment.displayUri == null) {
+                if (attachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+                  AttachmentDownloadJob.downloadAttachmentIfNeeded(attachment)
+                } else {
+                  Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
+                }
+                return@Model
+              }
+              if (attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
+                attachment.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED
               ) {
                 Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
                 return@Model
