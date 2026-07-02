@@ -228,7 +228,7 @@ private fun OnePaneLayout(
 
   OnePaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
     content = { paddingValues ->
       Column(
         modifier = Modifier
@@ -289,7 +289,7 @@ private fun TwoPaneLayout(
 
   TwoPaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
@@ -344,7 +344,8 @@ private fun TwoPaneLayout(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-  scrollBehavior: TopAppBarScrollBehavior
+  scrollBehavior: TopAppBarScrollBehavior,
+  onEvent: (PhoneNumberEntryScreenEvents) -> Unit
 ) {
   val context = LocalContext.current
 
@@ -382,7 +383,7 @@ fun TopAppBar(
         DropdownMenus.Item(
           text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
           onClick = {
-            TODO("Handle link device")
+            onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
             menuController.hide()
           }
         )

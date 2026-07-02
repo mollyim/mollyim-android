@@ -250,6 +250,22 @@ class PhoneNumberEntryViewModelTest {
   }
 
   @Test
+  fun `LinkDevice navigates to the link account flow`() = runTest {
+    viewModel.applyEvent(
+      PhoneNumberEntryState(),
+      PhoneNumberEntryScreenEvents.LinkDevice,
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedEvents).hasSize(1)
+    assertThat(emittedEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.LinkAccount>()
+  }
+
+  @Test
   fun `ConsumeInnerOneTimeEvent clears inner event`() = runTest {
     val initialState = PhoneNumberEntryState(
       oneTimeEvent = PhoneNumberEntryState.OneTimeEvent.NetworkError

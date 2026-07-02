@@ -66,10 +66,10 @@ class LinkAccountViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun TestScope.createViewModel(): LinkAccountViewModel {
+  private fun TestScope.createViewModel(parentState: RegistrationFlowState = RegistrationFlowState()): LinkAccountViewModel {
     val viewModel = LinkAccountViewModel(
       repository = mockRepository,
-      parentState = MutableStateFlow(RegistrationFlowState()),
+      parentState = MutableStateFlow(parentState),
       parentEventEmitter = parentEventEmitter
     )
     // Keep the WhileSubscribed state flow hot so state.value reflects updates during the test.
@@ -211,13 +211,38 @@ class LinkAccountViewModelTest {
   }
 
   @Test
-  fun `applyEvent CreateAccountClick navigates to Permissions`() = runTest(testDispatcher) {
-    val viewModel = createViewModel()
+  fun `applyEvent CreateAccountClick from link-device-first flow routes through Permissions`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(
+      RegistrationFlowState(backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount))
+    )
 
     viewModel.applyEvent(LinkAccountScreenState(), LinkAccountScreenEvent.CreateAccountClick, stateEmitter)
 
     assertThat(emittedParentEvents).contains(
-      RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry))
+      RegistrationFlowEvent.NavigateToScreen(
+        route = RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry),
+        popCurrent = true
+      )
+    )
+  }
+
+  @Test
+  fun `applyEvent CreateAccountClick from phone number screen returns to it without Permissions`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(
+      RegistrationFlowState(
+        backStack = listOf(
+          RegistrationRoute.Welcome,
+          RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry),
+          RegistrationRoute.PhoneNumberEntry,
+          RegistrationRoute.LinkAccount
+        )
+      )
+    )
+
+    viewModel.applyEvent(LinkAccountScreenState(), LinkAccountScreenEvent.CreateAccountClick, stateEmitter)
+
+    assertThat(emittedParentEvents).contains(
+      RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry)
     )
   }
 

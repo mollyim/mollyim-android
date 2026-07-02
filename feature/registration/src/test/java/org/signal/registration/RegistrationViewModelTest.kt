@@ -460,6 +460,68 @@ class RegistrationViewModelTest {
   }
 
   @Test
+  fun `applyEvent NavigateToScreen with popCurrent replaces the current screen`() = runTest(testDispatcher) {
+    coEvery { mockRepository.restoreFlowState() } returns null
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
+    advanceUntilIdle()
+
+    val initialState = RegistrationFlowState(
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount)
+    )
+
+    val result = viewModel.applyEvent(
+      initialState,
+      RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry), popCurrent = true)
+    )
+
+    assertThat(result.backStack).isEqualTo(
+      listOf(
+        RegistrationRoute.Welcome,
+        RegistrationRoute.PhoneNumberEntry,
+        RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry)
+      )
+    )
+  }
+
+  @Test
+  fun `applyEvent NavigateBackToScreen pops back to the target screen`() = runTest(testDispatcher) {
+    coEvery { mockRepository.restoreFlowState() } returns null
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
+    advanceUntilIdle()
+
+    val initialState = RegistrationFlowState(
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount)
+    )
+
+    val result = viewModel.applyEvent(initialState, RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry))
+
+    assertThat(result.backStack).isEqualTo(listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry))
+  }
+
+  @Test
+  fun `applyEvent NavigateBackToScreen replaces the current screen when the route is not on the back stack`() = runTest(testDispatcher) {
+    coEvery { mockRepository.restoreFlowState() } returns null
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
+    advanceUntilIdle()
+
+    val initialState = RegistrationFlowState(
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount)
+    )
+
+    val result = viewModel.applyEvent(initialState, RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry))
+
+    assertThat(result.backStack).isEqualTo(
+      listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry)
+    )
+  }
+
+  @Test
   fun `applyEvent ResetState returns default state`() = runTest(testDispatcher) {
     coEvery { mockRepository.restoreFlowState() } returns null
     coEvery { mockRepository.getPreExistingRegistrationData() } returns null

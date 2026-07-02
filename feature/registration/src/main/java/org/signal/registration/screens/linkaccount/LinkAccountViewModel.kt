@@ -65,7 +65,12 @@ class LinkAccountViewModel(
     val result = when (event) {
       LinkAccountScreenEvent.GetHelpClick -> error("This event is handled in the nav-entry.")
       LinkAccountScreenEvent.CreateAccountClick -> {
-        parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry))
+        // Revisit permission screen if necessary
+        if (parentState.value.backStack.any { it == RegistrationRoute.PhoneNumberEntry }) {
+          parentEventEmitter(RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry))
+        } else {
+          parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry), popCurrent = true)
+        }
         state
       }
       LinkAccountScreenEvent.DisplayOverlayClick -> state.copy(displayQrOverlay = true)

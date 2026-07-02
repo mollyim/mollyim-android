@@ -73,6 +73,7 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       is RegistrationFlowEvent.Registered -> state.copy(accountEntropyPool = event.accountEntropyPool, storageCapable = event.storageCapable)
       is RegistrationFlowEvent.MasterKeyRestoredFromSvr -> state.copy(temporaryMasterKey = event.masterKey)
       is RegistrationFlowEvent.NavigateToScreen -> applyNavigationToScreenEvent(state, event)
+      is RegistrationFlowEvent.NavigateBackToScreen -> applyNavigateBackToScreenEvent(state, event)
       is RegistrationFlowEvent.NavigateBack -> {
         if (state.backStack.size > 1) {
           state.copy(backStack = state.backStack.dropLast(1))
@@ -98,10 +99,10 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
   }
 
   private fun applyNavigationToScreenEvent(inputState: RegistrationFlowState, event: RegistrationFlowEvent.NavigateToScreen): RegistrationFlowState {
-    val backStack = if (event.route.clearsBackStack()) {
-      listOf(event.route)
-    } else {
-      inputState.backStack + event.route
+    val backStack = when {
+      event.route.clearsBackStack() -> listOf(event.route)
+      event.popCurrent -> inputState.backStack.dropLast(1) + event.route
+      else -> inputState.backStack + event.route
     }
     return inputState.copy(backStack = backStack)
   }
@@ -119,6 +120,15 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       is RegistrationRoute.RemoteRestore -> true
       is RegistrationRoute.ArchiveRestoreSelection -> !this.isPreRegistration
       else -> false
+    }
+  }
+
+  private fun applyNavigateBackToScreenEvent(inputState: RegistrationFlowState, event: RegistrationFlowEvent.NavigateBackToScreen): RegistrationFlowState {
+    val index = inputState.backStack.indexOfLast { it == event.route }
+    return if (index >= 0) {
+      inputState.copy(backStack = inputState.backStack.take(index + 1))
+    } else {
+      inputState.copy(backStack = inputState.backStack.dropLast(1) + event.route)
     }
   }
 
@@ -177,6 +187,7 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
         }
       }
       is RegistrationFlowEvent.NavigateBack,
+      is RegistrationFlowEvent.NavigateBackToScreen,
       is RegistrationFlowEvent.SessionUpdated,
       is RegistrationFlowEvent.E164Chosen,
       is RegistrationFlowEvent.RecoveryPasswordInvalid,

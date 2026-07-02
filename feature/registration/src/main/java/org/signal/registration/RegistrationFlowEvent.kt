@@ -10,11 +10,18 @@ import org.signal.core.models.MasterKey
 import org.signal.core.util.censor
 
 sealed interface RegistrationFlowEvent {
-  /** Navigate to a specific screen. */
-  data class NavigateToScreen(val route: RegistrationRoute) : RegistrationFlowEvent
+  /**
+   * Navigate to a specific screen.
+   *
+   * @param popCurrent Remove the current screen from the backstack
+   */
+  data class NavigateToScreen(val route: RegistrationRoute, val popCurrent: Boolean = false) : RegistrationFlowEvent
 
   /** Navigate back one screen. */
   data object NavigateBack : RegistrationFlowEvent
+
+  /** Pop the back stack back to an existing screen, removing everything above it. Replaces the current screen if the route isn't on the stack. */
+  data class NavigateBackToScreen(val route: RegistrationRoute) : RegistrationFlowEvent
 
   /** We've encountered some irrecoverable state where the best course of action is to completely reset registration. */
   data object ResetState : RegistrationFlowEvent
