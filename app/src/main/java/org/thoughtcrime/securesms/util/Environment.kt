@@ -23,7 +23,7 @@ object Environment {
   }
 
   @JvmField
-  val USE_NEW_REGISTRATION: Boolean = BuildConfig.DEBUG
+  val USE_NEW_REGISTRATION: Boolean = isInternal()
 
   @JvmField
   val IS_LINK_AND_SYNC_AVAILABLE: Boolean = BuildConfig.DEBUG
