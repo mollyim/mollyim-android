@@ -103,5 +103,14 @@ class RegistrationActivity : BaseActivity() {
         }
       }
     }
+
+    @JvmStatic
+    fun newIntentForReLinkDevice(context: Context): Intent {
+      return if (Environment.USE_NEW_REGISTRATION) {
+        org.signal.registration.RegistrationActivity.createIntent(context, MainActivity.clearTop(context))
+      } else {
+        Intent(context, RegistrationActivity::class.java)
+      }
+    }
   }
 }

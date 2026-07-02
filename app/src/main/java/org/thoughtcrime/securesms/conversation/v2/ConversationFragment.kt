@@ -4763,6 +4763,10 @@ class ConversationFragment :
       startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
     }
 
+    override fun onReLinkDeviceClicked() {
+      startActivity(RegistrationActivity.newIntentForReLinkDevice(requireContext()))
+    }
+
     override fun onCancelGroupRequestClicked() {
       conversationGroupViewModel
         .cancelJoinRequest()

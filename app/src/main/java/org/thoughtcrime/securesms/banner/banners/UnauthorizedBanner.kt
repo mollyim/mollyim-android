@@ -38,26 +38,36 @@ class UnauthorizedBanner(val context: Context) : Banner<Unit>() {
 
   @Composable
   override fun DisplayBanner(model: Unit, contentPadding: PaddingValues) {
-    Banner(contentPadding)
+    Banner(contentPadding, SignalStore.account.isLinkedDevice)
   }
 }
 
 @Composable
-private fun Banner(contentPadding: PaddingValues) {
+private fun Banner(contentPadding: PaddingValues, isLinkedDevice: Boolean) {
   val context = LocalContext.current
 
   DefaultBanner(
     title = null,
-    body = stringResource(id = R.string.UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device),
+    body = stringResource(
+      id = if (isLinkedDevice) {
+        R.string.UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging
+      } else {
+        R.string.UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device
+      }
+    ),
     importance = Importance.ERROR,
     actions = listOf(
-      Action(R.string.UnauthorizedReminder_reregister_action) {
+      Action(if (isLinkedDevice) R.string.UnauthorizedReminder_relink_action else R.string.UnauthorizedReminder_reregister_action) {
         if (SignalStore.misc.isOldDeviceTransferLocked) {
           SignalStore.misc.isOldDeviceTransferLocked = false
           DeviceTransferBlockingInterceptor.getInstance().unblockNetwork()
         }
 
-        val registrationIntent = RegistrationActivity.newIntentForReRegistration(context)
+        val registrationIntent = if (isLinkedDevice) {
+          RegistrationActivity.newIntentForReLinkDevice(context)
+        } else {
+          RegistrationActivity.newIntentForReRegistration(context)
+        }
         context.startActivity(registrationIntent)
       }
     ),
@@ -69,6 +79,6 @@ private fun Banner(contentPadding: PaddingValues) {
 @Composable
 private fun BannerPreview() {
   Previews.Preview {
-    Banner(PaddingValues(0.dp))
+    Banner(PaddingValues(0.dp), isLinkedDevice = false)
   }
 }
