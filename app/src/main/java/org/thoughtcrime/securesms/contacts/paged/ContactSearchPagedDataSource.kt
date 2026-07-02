@@ -136,7 +136,7 @@ class ContactSearchPagedDataSource(
       is ContactSearchConfiguration.Section.Recents -> getRecentsSearchIterator(section, query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Stories -> getStoriesSearchIterator(query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Arbitrary -> arbitraryRepository?.getSize(section, query) ?: error("Invalid arbitrary section.")
-      is ContactSearchConfiguration.Section.GroupMembers -> getGroupMembersSearchIterator(section, query).getCollectionSizeAndClose(section, query, null)
+      is ContactSearchConfiguration.Section.GroupMembers -> getGroupMembersSearchIterator(section, query).getCollectionSizeAndClose(section, query, filterByRole(section))
       is ContactSearchConfiguration.Section.Chats -> getThreadData(query, section.isUnreadOnly).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.Messages -> getMessageData(query).getCollectionSizeAndClose(section, query, null)
       is ContactSearchConfiguration.Section.GroupsWithMembers -> getGroupsWithMembersIterator(query).getCollectionSizeAndClose(section, query, null)
@@ -444,12 +444,29 @@ class ContactSearchPagedDataSource(
     }
   }
 
+  private fun filterByRole(section: ContactSearchConfiguration.Section.GroupMembers): ((Cursor) -> Boolean)? {
+    if (section.roleFilter == ContactSearchConfiguration.MemberRole.ALL || section.groupId == null) {
+      return null
+    }
+
+    val groupRecord = contactSearchPagedDataSourceRepository.getGroupRecord(section.groupId) ?: return null
+    return { cursor ->
+      val recipient = contactSearchPagedDataSourceRepository.getRecipientFromSearchCursor(cursor)
+      when (section.roleFilter) {
+        ContactSearchConfiguration.MemberRole.ALL -> true
+        ContactSearchConfiguration.MemberRole.ADMINS -> groupRecord.isAdmin(recipient)
+        ContactSearchConfiguration.MemberRole.CONTACTS -> recipient.isSystemContact
+      }
+    }
+  }
+
   @WorkerThread
   private fun getGroupMembersContactData(section: ContactSearchConfiguration.Section.GroupMembers, query: String?, startIndex: Int, endIndex: Int): List<ContactSearchData> {
+    val groupRecord = section.groupId?.let { contactSearchPagedDataSourceRepository.getGroupRecord(it) }
     return getGroupMembersSearchIterator(section, query).use { records ->
       readContactData(
         records = records,
-        recordsPredicate = null,
+        recordsPredicate = filterByRole(section),
         section = section,
         startIndex = startIndex,
         endIndex = endIndex,
@@ -457,7 +474,7 @@ class ContactSearchPagedDataSource(
           val recipient = contactSearchPagedDataSourceRepository.getRecipientFromSearchCursor(it)
           val groupsInCommon = if (section.showGroupsInCommon) contactSearchPagedDataSourceRepository.getGroupsInCommon(recipient) else GroupsInCommonSummary(listOf())
           val headerLetter = if (section.includeLetterHeaders) getHeaderLetterForCurrentRow(it) else null
-          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon, headerLetter = headerLetter)
+          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon, headerLetter = headerLetter, showSelfAsYou = section.showSelfAsYou, showAdminLabel = groupRecord?.isAdmin(recipient) == true)
         }
       )
     }

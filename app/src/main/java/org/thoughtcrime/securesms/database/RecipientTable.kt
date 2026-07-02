@@ -3546,7 +3546,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         val selfId = Recipient.self().id.toLong()
         arrayOf(
           ID,
-          """CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.noteToSelfTitle}' ELSE $SYSTEM_JOINED_NAME END AS $SYSTEM_JOINED_NAME""",
+          """CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.title}' ELSE $SYSTEM_JOINED_NAME END AS $SYSTEM_JOINED_NAME""",
           E164,
           EMAIL,
           SYSTEM_PHONE_LABEL,
@@ -3556,9 +3556,9 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
           ABOUT_EMOJI,
           EXTRAS,
           GROUPS_IN_COMMON,
-          """CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.noteToSelfTitle}' ELSE COALESCE(NULLIF($PROFILE_JOINED_NAME, ''), NULLIF($PROFILE_GIVEN_NAME, '')) END AS $SEARCH_PROFILE_NAME""",
+          """CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.title}' ELSE COALESCE(NULLIF($PROFILE_JOINED_NAME, ''), NULLIF($PROFILE_GIVEN_NAME, '')) END AS $SEARCH_PROFILE_NAME""",
           """
-            CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.noteToSelfTitle.lowercase()}' ELSE
+            CASE WHEN ${TABLE_NAME}.$ID = $selfId THEN '${includeSelfMode.title.lowercase()}' ELSE
             LOWER(
               COALESCE(
                 NULLIF($NICKNAME_JOINED_NAME, ''),
@@ -3712,24 +3712,23 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     return readableDatabase.query(TABLE_NAME, searchProjection(IncludeSelfMode.Exclude), selection, args, null, null, orderBy)
   }
 
-  fun queryGroupMemberContactsForGroup(groupId: GroupId, inputQuery: String): Cursor? {
+  fun queryGroupMemberContactsForGroup(groupId: GroupId, inputQuery: String, selfTitle: String): Cursor? {
     val orderBy = orderByPreferringAlphaOverNumeric(SORT_NAME) + ", " + E164
     val queryFilter = if (inputQuery.isNotEmpty()) "AND ($SORT_NAME GLOB ? OR $USERNAME GLOB ?)" else ""
 
     val selection = """
-      $ID != ? AND
       $ID IN (SELECT ${GroupTable.MembershipTable.RECIPIENT_ID} FROM ${GroupTable.MembershipTable.TABLE_NAME} WHERE ${GroupTable.MembershipTable.GROUP_ID} = ?)
       $queryFilter
     """
 
     val args = if (queryFilter.isBlank()) {
-      mutableListOf(Recipient.self().id.serialize(), groupId.toString())
+      mutableListOf(groupId.toString())
     } else {
       val query = SqlUtil.buildCaseInsensitiveGlobPattern(inputQuery)
-      mutableListOf(Recipient.self().id.serialize(), groupId.toString(), query, query)
+      mutableListOf(groupId.toString(), query, query)
     }
 
-    return readableDatabase.query(TABLE_NAME, searchProjection(IncludeSelfMode.Exclude), selection, args.toTypedArray(), null, null, orderBy)
+    return readableDatabase.query(TABLE_NAME, searchProjection(IncludeSelfMode.IncludeWithRemap(selfTitle)), selection, args.toTypedArray(), null, null, orderBy)
   }
 
   fun queryAllContacts(inputQuery: String, includeSelfMode: IncludeSelfMode): Cursor? {
@@ -4785,7 +4784,7 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 
     data object Exclude : IncludeSelfMode
     data object IncludeWithoutRemap : IncludeSelfMode
-    data class IncludeWithRemap(val noteToSelfTitle: String) : IncludeSelfMode
+    data class IncludeWithRemap(val title: String) : IncludeSelfMode
   }
 
   @VisibleForTesting

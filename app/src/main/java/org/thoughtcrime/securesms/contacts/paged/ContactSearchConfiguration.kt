@@ -135,7 +135,9 @@ class ContactSearchConfiguration private constructor(
       override val expandConfig: ExpandConfig? = null,
       val includeLetterHeaders: Boolean = false,
       val showGroupsInCommon: Boolean = true,
-      val groupId: GroupId? = null
+      val groupId: GroupId? = null,
+      val showSelfAsYou: Boolean = false,
+      val roleFilter: MemberRole = MemberRole.ALL
     ) : Section(SectionKey.GROUP_MEMBERS)
 
     /**
@@ -298,6 +300,15 @@ class ContactSearchConfiguration private constructor(
     val isExpanded: Boolean,
     val maxCountWhenNotExpanded: (ActiveContactCount) -> Int = { 2 }
   )
+
+  /**
+   * Role-based filter for [Section.GroupMembers].
+   */
+  enum class MemberRole {
+    ALL,
+    ADMINS,
+    CONTACTS
+  }
 
   /**
    * Network transport type for individual recipients.

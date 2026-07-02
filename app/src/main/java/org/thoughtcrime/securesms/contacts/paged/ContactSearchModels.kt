@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -467,7 +466,9 @@ object ContactSearchModels {
   ) : MappingModel<RecipientModel>, FastScrollCharacterProvider {
 
     override fun getFastScrollCharacter(context: Context): CharSequence {
-      val name = if (knownRecipient.recipient.isSelf) {
+      val name = if (knownRecipient.recipient.isSelf && knownRecipient.showSelfAsYou) {
+        context.getString(R.string.Recipient_you)
+      } else if (knownRecipient.recipient.isSelf) {
         context.getString(R.string.note_to_self)
       } else {
         knownRecipient.recipient.getDisplayName(context)
@@ -577,6 +578,16 @@ object ContactSearchModels {
     override fun isSelected(model: RecipientModel): Boolean = model.isSelected
     override fun getData(model: RecipientModel): ContactSearchData.KnownRecipient = model.knownRecipient
     override fun getRecipient(model: RecipientModel): Recipient = model.knownRecipient.recipient
+    override fun showSelfAsYou(model: RecipientModel): Boolean = model.knownRecipient.showSelfAsYou
+
+    override fun bindAvatar(model: RecipientModel) {
+      if (model.knownRecipient.showSelfAsYou) {
+        avatar.setAvatarUsingProfile(getRecipient(model))
+      } else {
+        super.bindAvatar(model)
+      }
+    }
+
     override fun bindNumberField(model: RecipientModel) {
       val recipient = getRecipient(model)
       if (model.knownRecipient.sectionKey == ContactSearchConfiguration.SectionKey.GROUP_MEMBERS && displayOptions.displaySecondaryInformation != ContactSearchAdapter.DisplaySecondaryInformation.NEVER) {
@@ -609,6 +620,10 @@ object ContactSearchModels {
       checkbox.isEnabled = !fixedContacts.contains(model.knownRecipient.contactSearchKey)
     }
 
+    override fun bindLabelField(model: RecipientModel) {
+      adminLabel.visible = model.knownRecipient.showAdminLabel
+    }
+
     override fun isEnabled(model: RecipientModel): Boolean {
       return !fixedContacts.contains(model.knownRecipient.contactSearchKey)
     }
@@ -638,6 +653,7 @@ object ContactSearchModels {
     protected val name: FromTextView = itemView.findViewById(R.id.name)
     protected val number: TextView = itemView.findViewById(R.id.number)
     protected val label: TextView = itemView.findViewById(R.id.label)
+    protected val adminLabel: TextView = itemView.findViewById(R.id.admin_label)
     private val startAudio: View = itemView.findViewById(R.id.start_audio)
     private val startVideo: View = itemView.findViewById(R.id.start_video)
 
@@ -666,7 +682,7 @@ object ContactSearchModels {
       } else {
         null
       }
-      name.setText(recipient, suffix)
+      name.setText(recipient, recipient.getDisplayName(context), suffix, true, showSelfAsYou(model))
 
       badge.setBadgeFromRecipient(getRecipient(model))
 
@@ -682,6 +698,7 @@ object ContactSearchModels {
     }
 
     protected open fun isEnabled(model: T): Boolean = true
+    protected open fun showSelfAsYou(model: T): Boolean = false
 
     protected open fun bindAvatar(model: T) {
       avatar.setAvatar(getRecipient(model))

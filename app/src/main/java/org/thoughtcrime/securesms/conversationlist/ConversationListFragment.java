@@ -340,7 +340,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
         false,
         new ConversationListSearchAdapter.ChatFilterRepository(),
         new SearchRepository(requireContext().getString(R.string.note_to_self)),
-        new ContactSearchPagedDataSourceRepository(requireContext()),
+        new ContactSearchPagedDataSourceRepository(requireContext(), requireContext().getString(R.string.note_to_self)),
         Collections.emptySet(),
         true
     )).get(ContactSearchViewModel.class);

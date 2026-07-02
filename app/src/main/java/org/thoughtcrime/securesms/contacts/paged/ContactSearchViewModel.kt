@@ -269,6 +269,11 @@ class ContactSearchViewModel(
     controller.value?.onDataInvalidated()
   }
 
+  fun refreshGroupData() {
+    contactSearchPagedDataSourceRepository.clearGroupRecordCache()
+    refresh()
+  }
+
   data class ScrollRequest(val position: Int)
 
   class Factory(
