@@ -12,7 +12,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
@@ -22,6 +25,7 @@ import org.thoughtcrime.securesms.banner.ui.compose.DefaultBanner
 import org.thoughtcrime.securesms.banner.ui.compose.Importance
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 
@@ -35,6 +39,15 @@ class UnauthorizedBanner(val context: Context) : Banner<Unit>() {
 
   override val dataFlow: Flow<Unit>
     get() = flowOf(Unit)
+
+  override val stateUpdates: Flow<Unit>
+    get() = Recipient.self()
+      .live()
+      .observable()
+      .asFlow()
+      .map { enabled }
+      .distinctUntilChanged()
+      .map { }
 
   @Composable
   override fun DisplayBanner(model: Unit, contentPadding: PaddingValues) {
