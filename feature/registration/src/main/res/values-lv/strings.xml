@@ -372,17 +372,17 @@
     <!-- Labels the button to submit the PIN. -->
     <string name="PinEntryScreen__continue">Turpināt</string>
     <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
-    <string name="PinEntryScreen__skip_pin_entry">Skip PIN entry?</string>
+    <string name="PinEntryScreen__skip_pin_entry">Izlaist PIN ievadi?</string>
     <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
     <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
     <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
-    <string name="PinEntryScreen__create_new_pin">Create New PIN</string>
+    <string name="PinEntryScreen__create_new_pin">Izveidot jaunu PIN</string>
     <!-- Labels the button in the skip dialog that dismisses it. -->
-    <string name="PinEntryScreen__cancel">Cancel</string>
+    <string name="PinEntryScreen__cancel">Atcelt</string>
     <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
     <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
-    <string name="PinEntryScreen__contact_support">Contact support</string>
+    <string name="PinEntryScreen__contact_support">Sazināties ar atbalstu</string>
     <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
   <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
@@ -404,7 +404,7 @@
     <!-- Progress label shown under the sync progress bar before the download size is known -->
     <string name="MessageSyncScreen__preparing">Preparing…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
-    <string name="MessageSyncScreen__finishing">Finishing…</string>
+    <string name="MessageSyncScreen__finishing">Notiek pabeigšana…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Ziņas un sarunu informāciju aizsargā pilnīga šifrēšana, tostarp sinhronizēšanas process.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -433,9 +433,9 @@
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">Izveidot kontu</string>
     <!-- Button to retry generating the QR code after it failed to load -->
-    <string name="LinkAccountScreen__retry">Retry</string>
+    <string name="LinkAccountScreen__retry">Mēģināt vēlreiz</string>
     <!-- Progress dialog message shown while this device is being registered as a linked device -->
-    <string name="LinkAccountScreen__linking_device">Linking device…</string>
+    <string name="LinkAccountScreen__linking_device">Notiek ierīces piesaistīšana…</string>
     <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
     <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
     <!-- Error dialog message shown when linking this device fails -->
@@ -528,5 +528,5 @@
     <!-- Error message shown when the captcha fails to load. -->
     <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
     <!-- Button to cancel out of the captcha screen. -->
-    <string name="CaptchaScreen__cancel">Cancel</string>
+    <string name="CaptchaScreen__cancel">Atcelt</string>
 </resources>
