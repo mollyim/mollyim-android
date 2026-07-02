@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.IntentCompat
@@ -61,7 +62,9 @@ class RegistrationActivity : ComponentActivity() {
         Surface(modifier = Modifier.fillMaxSize()) {
           RegistrationNavHost(
             registrationRepository = repository,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+              .fillMaxSize()
+              .navigationBarsPadding(),
             onRegistrationComplete = {
               setResult(RESULT_OK)
               IntentCompat.getParcelableExtra(intent, NEXT_INTENT_EXTRA, Intent::class.java)?.let { startActivity(it) }
