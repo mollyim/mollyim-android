@@ -16,6 +16,4 @@ data class ArchiveRestoreSelectionState(
   val storageCapable: Boolean = false
 ) {
   override fun toString(): String = "ArchiveRestoreSelectionState(restoreOptions=$restoreOptions, showSkipWarningDialog=$showSkipWarningDialog, restoreMethodToken=${restoreMethodToken?.censor()}, storageCapable=$storageCapable)"
-
-  val showSkipButton: Boolean get() = ArchiveRestoreOption.None !in restoreOptions
 }

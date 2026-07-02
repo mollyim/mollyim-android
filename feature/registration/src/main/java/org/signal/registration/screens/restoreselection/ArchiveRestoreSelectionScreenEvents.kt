@@ -8,8 +8,6 @@ package org.signal.registration.screens.restoreselection
 sealed class ArchiveRestoreSelectionScreenEvents {
   data class RestoreOptionSelected(val option: ArchiveRestoreOption) : ArchiveRestoreSelectionScreenEvents()
 
-  data object Skip : ArchiveRestoreSelectionScreenEvents()
-
   data object ConfirmSkip : ArchiveRestoreSelectionScreenEvents()
 
   data object DismissSkipWarning : ArchiveRestoreSelectionScreenEvents()

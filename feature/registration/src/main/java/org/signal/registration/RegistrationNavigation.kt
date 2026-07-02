@@ -172,6 +172,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             }
             add(ArchiveRestoreOption.LocalBackup)
             add(ArchiveRestoreOption.DeviceTransfer)
+            add(ArchiveRestoreOption.None)
           },
           isPreRegistration = true
         )
@@ -182,6 +183,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
+            add(ArchiveRestoreOption.None)
           },
           isPreRegistration = true
         )

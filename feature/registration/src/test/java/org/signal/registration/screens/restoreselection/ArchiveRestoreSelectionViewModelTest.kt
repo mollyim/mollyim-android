@@ -174,23 +174,26 @@ class ArchiveRestoreSelectionViewModelTest {
     assertThat(emittedStates.last().showSkipWarningDialog).isTrue()
   }
 
-  // ==================== Skip Tests ====================
-
-  @Test
-  fun `Skip sets showSkipWarningDialog to true`() = runTest {
-    val viewModel = createViewModel(isPreRegistration = false)
-    val initialState = ArchiveRestoreSelectionState()
-
-    viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.Skip, stateEmitter)
-
-    assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().showSkipWarningDialog).isTrue()
-  }
-
   // ==================== ConfirmSkip Tests ====================
 
   @Test
-  fun `ConfirmSkip when not storage capable navigates to PinCreate and clears dialog`() = runTest {
+  fun `ConfirmSkip pre-registration navigates to PhoneNumberEntry and clears dialog without recording a skip`() = runTest {
+    val viewModel = createViewModel(isPreRegistration = true)
+    val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true)
+
+    viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.ConfirmSkip, stateEmitter)
+
+    coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PhoneNumberEntry)
+    assertThat(emittedStates.last().showSkipWarningDialog).isFalse()
+  }
+
+  @Test
+  fun `ConfirmSkip post-registration when not storage capable navigates to PinCreate and clears dialog`() = runTest {
     val viewModel = createViewModel(isPreRegistration = false)
     val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true, storageCapable = false)
 
@@ -206,7 +209,7 @@ class ArchiveRestoreSelectionViewModelTest {
   }
 
   @Test
-  fun `ConfirmSkip when storage capable navigates to PinEntryForSvrRestore and clears dialog`() = runTest {
+  fun `ConfirmSkip post-registration when storage capable navigates to PinEntryForSvrRestore and clears dialog`() = runTest {
     val viewModel = createViewModel(isPreRegistration = false)
     val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true, storageCapable = true)
 
@@ -246,24 +249,6 @@ class ArchiveRestoreSelectionViewModelTest {
     val viewModel = createViewModel(restoreOptions = options)
 
     assertThat(viewModel.state.value.restoreOptions).isEqualTo(options)
-  }
-
-  @Test
-  fun `showSkipButton is false when None is in options`() = runTest {
-    val viewModel = createViewModel(
-      restoreOptions = listOf(ArchiveRestoreOption.SignalSecureBackup, ArchiveRestoreOption.None)
-    )
-
-    assertThat(viewModel.state.value.showSkipButton).isFalse()
-  }
-
-  @Test
-  fun `showSkipButton is true when None is not in options`() = runTest {
-    val viewModel = createViewModel(
-      restoreOptions = listOf(ArchiveRestoreOption.SignalSecureBackup, ArchiveRestoreOption.LocalBackup)
-    )
-
-    assertThat(viewModel.state.value.showSkipButton).isTrue()
   }
 
   @Test

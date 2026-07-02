@@ -42,11 +42,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -125,7 +123,7 @@ private fun SelectFolderContent(
       BackupOptionCard(
         icon = {
           Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.symbol_folder_24),
+            imageVector = SignalIcons.Folder.imageVector,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(32.dp)
@@ -278,7 +276,7 @@ private fun BackupInfoCard(
         val sizeIcon = if (backupInfo.type == LocalBackupInfo.BackupType.V1) {
           SignalIcons.File.imageVector
         } else {
-          ImageVector.vectorResource(R.drawable.symbol_folder_24)
+          SignalIcons.Folder.imageVector
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {

@@ -20,13 +20,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
 import org.signal.registration.screens.RegistrationScaffold
 
@@ -48,7 +48,7 @@ fun DeviceTransferInstructionsScreen(
         Spacer(modifier = Modifier.height(48.dp))
 
         Icon(
-          painter = painterResource(R.drawable.symbol_transfer_24),
+          painter = SignalIcons.Transfer.painter,
           contentDescription = null,
           tint = MaterialTheme.colorScheme.primary,
           modifier = Modifier.size(64.dp)

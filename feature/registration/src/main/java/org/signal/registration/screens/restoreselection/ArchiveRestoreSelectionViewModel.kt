@@ -102,20 +102,22 @@ class ArchiveRestoreSelectionViewModel(
           }
         }
       }
-      is ArchiveRestoreSelectionScreenEvents.Skip -> {
-        state.copy(showSkipWarningDialog = true)
-      }
       is ArchiveRestoreSelectionScreenEvents.ConfirmSkip -> {
-        notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
-        repository.setRestoreDecision(RestoreDecision.SKIPPED)
-        if (state.storageCapable) {
-          Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
-          parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+        if (isPreRegistration) {
+          parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+          state.copy(showSkipWarningDialog = false)
         } else {
-          Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
-          parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+          notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+          repository.setRestoreDecision(RestoreDecision.SKIPPED)
+          if (state.storageCapable) {
+            Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
+            parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+          } else {
+            Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
+            parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+          }
+          state.copy(showSkipWarningDialog = false)
         }
-        state.copy(showSkipWarningDialog = false)
       }
       is ArchiveRestoreSelectionScreenEvents.DismissSkipWarning -> {
         state.copy(showSkipWarningDialog = false)
