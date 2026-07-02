@@ -14,9 +14,19 @@ import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import assertk.assertions.prop
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
@@ -29,7 +39,10 @@ import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class VerificationCodeViewModelTest {
+
+  private val testDispatcher = StandardTestDispatcher()
 
   private lateinit var viewModel: VerificationCodeViewModel
   private lateinit var mockRepository: RegistrationRepository
@@ -41,6 +54,7 @@ class VerificationCodeViewModelTest {
 
   @Before
   fun setup() {
+    Dispatchers.setMain(testDispatcher)
     mockRepository = mockk(relaxed = true)
     // Initialize with valid session data to prevent ResetState emission during ViewModel initialization
     parentState = MutableStateFlow(
@@ -54,6 +68,11 @@ class VerificationCodeViewModelTest {
     emittedStates = mutableListOf()
     stateEmitter = { state -> emittedStates.add(state) }
     viewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter)
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   // ==================== applyParentState Tests ====================
@@ -159,6 +178,48 @@ class VerificationCodeViewModelTest {
     )
 
     assertThat(emittedStates.last().oneTimeEvent).isNull()
+  }
+
+  // ==================== applyEvent: SMS Auto-Fill Tests ====================
+
+  @Test
+  fun `CodeAutoFilled stores the code in autoFillCode`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.CodeAutoFilled("123456"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `ConsumeAutoFillCode clears autoFillCode`() = runTest {
+    val initialState = VerificationCodeState(autoFillCode = "123456")
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.ConsumeAutoFillCode,
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isNull()
+  }
+
+  @Test
+  fun `codes from the SMS retriever flow are pushed into the state`() = runTest(testDispatcher) {
+    val smsCodes = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, smsCodes)
+
+    backgroundScope.launch { vm.state.collect {} }
+    advanceUntilIdle()
+
+    smsCodes.emit("123456")
+    advanceUntilIdle()
+
+    assertThat(vm.state.value.autoFillCode).isEqualTo("123456")
   }
 
   // ==================== applyEvent: WrongNumber Tests ====================
@@ -571,6 +632,26 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedStates.last().sessionMetadata).isEqualTo(updatedSession)
+  }
+
+  @Test
+  fun `ResendSms passes registerSmsListener result as smsAutoRetrieveCodeSupported`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
+
+    coEvery { mockRepository.registerSmsListener() } returns true
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    coVerify {
+      mockRepository.requestVerificationCode(
+        sessionId = sessionMetadata.id,
+        smsAutoRetrieveCodeSupported = true,
+        transport = NetworkController.VerificationCodeTransport.SMS
+      )
+    }
   }
 
   @Test

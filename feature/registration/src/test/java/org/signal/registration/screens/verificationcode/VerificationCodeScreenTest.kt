@@ -178,6 +178,36 @@ class VerificationCodeScreenTest {
   }
 
   @Test
+  fun `autoFillCode populates the fields and emits CodeEntered`() {
+    // Given
+    var emittedEvent: VerificationCodeScreenEvents? = null
+
+    composeTestRule.setContent {
+      SignalTheme {
+        VerificationCodeScreen(
+          state = VerificationCodeState(autoFillCode = "123456"),
+          onEvent = { event ->
+            if (event is VerificationCodeScreenEvents.CodeEntered) {
+              emittedEvent = event
+            }
+          }
+        )
+      }
+    }
+
+    // When - the auto-fill effect staggers digits into the fields
+    composeTestRule.waitUntil(timeoutMillis = 5_000) { emittedEvent != null }
+
+    // Then
+    assert(emittedEvent is VerificationCodeScreenEvents.CodeEntered) {
+      "Expected CodeEntered event but got $emittedEvent"
+    }
+    assert((emittedEvent as VerificationCodeScreenEvents.CodeEntered).code == "123456") {
+      "Expected code '123456' but got ${(emittedEvent as VerificationCodeScreenEvents.CodeEntered).code}"
+    }
+  }
+
+  @Test
   fun `screen displays all action buttons`() {
     // Given
     composeTestRule.setContent {

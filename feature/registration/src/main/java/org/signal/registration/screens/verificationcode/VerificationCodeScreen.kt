@@ -93,6 +93,18 @@ fun VerificationCodeScreen(
     }
   }
 
+  LaunchedEffect(state.autoFillCode) {
+    val code = state.autoFillCode ?: return@LaunchedEffect
+
+    if (code.length == 6 && code.all { it.isDigit() } && !state.isSubmittingCode) {
+      code.forEachIndexed { index, digit ->
+        digits = digits.toMutableList().also { it[index] = digit.toString() }
+        delay(200)
+      }
+    }
+    onEvent(VerificationCodeScreenEvents.ConsumeAutoFillCode)
+  }
+
   LaunchedEffect(state.oneTimeEvent) {
     val event = state.oneTimeEvent ?: return@LaunchedEffect
 

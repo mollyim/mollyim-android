@@ -84,8 +84,9 @@ dependencies {
   // Phone number formatting
   implementation(libs.google.libphonenumber)
 
-  // Phone number hint
+  // Phone number hint + SMS verification code retriever
   implementation(libs.google.play.services.auth)
+  implementation(libs.kotlinx.coroutines.play.services)
 
   // Credential Manager (password manager retrieval)
   implementation(libs.androidx.credentials)

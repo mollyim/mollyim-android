@@ -8,12 +8,15 @@ package org.signal.registration
 import android.app.backup.BackupManager
 import android.content.Context
 import android.net.Uri
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import okio.ByteString.Companion.toByteString
 import org.signal.archive.LocalBackupRestoreProgress
@@ -91,6 +94,35 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       androidSmsRetrieverSupported = smsAutoRetrieveCodeSupported,
       transport = transport
     )
+  }
+
+  /**
+   * Starts the Play Services SMS retriever so an incoming verification code can be automatically entered.
+   *
+   * The listener [lives for 5 minutes](https://developers.google.com/android/reference/com/google/android/gms/auth/api/phone/SmsRetrieverApi).
+   * Callers should pass the result as `smsAutoRetrieveCodeSupported` when requesting a code so the server formats the
+   * SMS for retrieval.
+   *
+   * @return whether the Play Services SMS retriever was successfully started.
+   */
+  suspend fun registerSmsListener(): Boolean {
+    Log.d(TAG, "Attempting to start verification code SMS retriever.")
+    val started = withTimeoutOrNull(5.seconds.inWholeMilliseconds) {
+      try {
+        SmsRetriever.getClient(context).startSmsRetriever().await()
+        Log.d(TAG, "Successfully started verification code SMS retriever.")
+        true
+      } catch (ex: Exception) {
+        Log.w(TAG, "Could not start verification code SMS retriever due to exception.", ex)
+        false
+      }
+    }
+
+    if (started == null) {
+      Log.w(TAG, "Could not start verification code SMS retriever due to timeout.")
+    }
+
+    return started == true
   }
 
   fun getCaptchaUrl(): String = networkController.getCaptchaUrl()

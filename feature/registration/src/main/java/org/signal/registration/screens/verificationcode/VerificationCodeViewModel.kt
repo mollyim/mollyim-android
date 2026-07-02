@@ -5,16 +5,29 @@
 
 package org.signal.registration.screens.verificationcode
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -34,11 +47,45 @@ class VerificationCodeViewModel(
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  smsCodeEvents: Flow<String> = emptyFlow(),
   private val clock: () -> Long = { System.currentTimeMillis() }
 ) : EventDrivenViewModel<VerificationCodeScreenEvents>(TAG) {
 
   companion object {
     private val TAG = Log.tag(VerificationCodeViewModel::class)
+
+    /**
+     * Cold [Flow] of verification codes automatically retrieved from incoming SMS messages via the Play Services SMS
+     * retriever. Registers a [BroadcastReceiver] for [SmsRetriever.SMS_RETRIEVED_ACTION] while collected, and
+     * unregisters it when collection stops.
+     */
+    fun smsCodeFlow(context: Context): Flow<String> = callbackFlow {
+      val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+          if (intent.action != SmsRetriever.SMS_RETRIEVED_ACTION) {
+            return
+          }
+
+          val status = intent.extras?.get(SmsRetriever.EXTRA_STATUS) as? Status
+          when (status?.statusCode) {
+            CommonStatusCodes.SUCCESS -> {
+              val code = VerificationCodeParser.parse(intent.extras?.getString(SmsRetriever.EXTRA_SMS_MESSAGE))
+              if (code != null) {
+                Log.i(TAG, "Received verification code via SMS retriever.")
+                trySend(code)
+              } else {
+                Log.w(TAG, "Could not parse verification code from retrieved SMS.")
+              }
+            }
+            CommonStatusCodes.TIMEOUT -> Log.w(TAG, "Timed out waiting for the verification SMS to arrive.")
+            else -> Log.w(TAG, "SMS retriever broadcast had an unexpected status code: ${status?.statusCode}")
+          }
+        }
+      }
+
+      ContextCompat.registerReceiver(context, receiver, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION), SmsRetriever.SEND_PERMISSION, null, ContextCompat.RECEIVER_EXPORTED)
+      awaitClose { context.unregisterReceiver(receiver) }
+    }
   }
 
   private val _localState = MutableStateFlow(VerificationCodeState())
@@ -48,6 +95,14 @@ class VerificationCodeViewModel(
 
   private var nextSmsAvailableAt: Duration = 0.seconds
   private var nextCallAvailableAt: Duration = 0.seconds
+
+  init {
+    viewModelScope.launch {
+      smsCodeEvents.collect { code ->
+        onEvent(VerificationCodeScreenEvents.CodeAutoFilled(code))
+      }
+    }
+  }
 
   override suspend fun processEvent(event: VerificationCodeScreenEvents) {
     applyEvent(state.value, event) { _localState.value = it }
@@ -60,6 +115,8 @@ class VerificationCodeViewModel(
         stateEmitter(state.copy(isSubmittingCode = true))
         applyCodeEntered(state, event.code).copy(isSubmittingCode = false)
       }
+      is VerificationCodeScreenEvents.CodeAutoFilled -> state.copy(autoFillCode = event.code)
+      is VerificationCodeScreenEvents.ConsumeAutoFillCode -> state.copy(autoFillCode = null)
       is VerificationCodeScreenEvents.WrongNumber -> state.also { parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry) }
       is VerificationCodeScreenEvents.ResendSms -> applyResendCode(state, NetworkController.VerificationCodeTransport.SMS)
       is VerificationCodeScreenEvents.CallMe -> applyResendCode(state, NetworkController.VerificationCodeTransport.VOICE)
@@ -236,7 +293,7 @@ class VerificationCodeViewModel(
 
     val result = repository.requestVerificationCode(
       sessionId = state.sessionMetadata.id,
-      smsAutoRetrieveCodeSupported = false,
+      smsAutoRetrieveCodeSupported = repository.registerSmsListener(),
       transport = transport
     )
 
@@ -322,13 +379,29 @@ class VerificationCodeViewModel(
     )
   }
 
+  /**
+   * @param smsCodeEvents The stream of auto-retrieved verification codes. Tests can inject codes directly; production
+   *   should use the [Context]-based constructor, which builds a real SMS retriever flow.
+   */
   class Factory(
     private val repository: RegistrationRepository,
     private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+    private val smsCodeEvents: Flow<String>
   ) : ViewModelProvider.Factory {
+
+    /**
+     * Builds a real SMS retriever flow from [context]. Prefer the application context.
+     */
+    constructor(
+      context: Context,
+      repository: RegistrationRepository,
+      parentState: StateFlow<RegistrationFlowState>,
+      parentEventEmitter: (RegistrationFlowEvent) -> Unit
+    ) : this(repository, parentState, parentEventEmitter, smsCodeFlow(context))
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return VerificationCodeViewModel(repository, parentState, parentEventEmitter) as T
+      return VerificationCodeViewModel(repository, parentState, parentEventEmitter, smsCodeEvents) as T
     }
   }
 }

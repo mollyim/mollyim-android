@@ -540,7 +540,7 @@ class PhoneNumberEntryViewModel(
 
     val verificationCodeResponse = this@PhoneNumberEntryViewModel.repository.requestVerificationCode(
       sessionMetadata.id,
-      smsAutoRetrieveCodeSupported = false,
+      smsAutoRetrieveCodeSupported = repository.registerSmsListener(),
       transport = NetworkController.VerificationCodeTransport.SMS
     )
 
@@ -650,7 +650,7 @@ class PhoneNumberEntryViewModel(
 
     val verificationCodeResponse = this@PhoneNumberEntryViewModel.repository.requestVerificationCode(
       sessionId = sessionMetadata.id,
-      smsAutoRetrieveCodeSupported = false, // TODO eventually support this
+      smsAutoRetrieveCodeSupported = repository.registerSmsListener(),
       transport = NetworkController.VerificationCodeTransport.SMS
     )
 

@@ -12,6 +12,15 @@ sealed class VerificationCodeScreenEvents {
     override fun toString(): String = "CodeEntered(code=${code.censor()})"
   }
 
+  /**
+   * A verification code was automatically retrieved from an incoming SMS via the Play Services SMS retriever.
+   */
+  data class CodeAutoFilled(val code: String) : VerificationCodeScreenEvents() {
+    override fun toString(): String = "CodeAutoFilled(code=${code.censor()})"
+  }
+
+  data object ConsumeAutoFillCode : VerificationCodeScreenEvents()
+
   data object WrongNumber : VerificationCodeScreenEvents()
 
   data object ResendSms : VerificationCodeScreenEvents()

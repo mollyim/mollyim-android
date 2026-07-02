@@ -554,8 +554,10 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   // -- Verification Code Entry Screen
   entry<RegistrationRoute.VerificationCodeEntry> {
+    val context = LocalContext.current.applicationContext
     val viewModel: VerificationCodeViewModel = viewModel(
       factory = VerificationCodeViewModel.Factory(
+        context = context,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent

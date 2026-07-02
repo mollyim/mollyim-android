@@ -15,9 +15,10 @@ data class VerificationCodeState(
   val isSubmittingCode: Boolean = false,
   val rateLimits: SmsAndCallRateLimits = SmsAndCallRateLimits(),
   val incorrectCodeAttempts: Int = 0,
+  val autoFillCode: String? = null,
   val oneTimeEvent: OneTimeEvent? = null
 ) {
-  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, oneTimeEvent=$oneTimeEvent)"
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, oneTimeEvent=$oneTimeEvent)"
 
   sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent
