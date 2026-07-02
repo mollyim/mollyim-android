@@ -98,7 +98,28 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
   }
 
   private fun applyNavigationToScreenEvent(inputState: RegistrationFlowState, event: RegistrationFlowEvent.NavigateToScreen): RegistrationFlowState {
-    return inputState.copy(backStack = inputState.backStack + event.route)
+    val backStack = if (event.route.clearsBackStack()) {
+      listOf(event.route)
+    } else {
+      inputState.backStack + event.route
+    }
+    return inputState.copy(backStack = backStack)
+  }
+
+  /**
+   * Whether navigating to this route should clear the back stack, preventing the user from navigating any further back.
+   * This is used for "point of no return" screens: once the user has registered or restored data, they should not be
+   * able to return to earlier screens in the flow.
+   */
+  private fun RegistrationRoute.clearsBackStack(): Boolean {
+    return when (this) {
+      is RegistrationRoute.Welcome,
+      is RegistrationRoute.PinCreate,
+      is RegistrationRoute.PinEntryForSvrRestore,
+      is RegistrationRoute.RemoteRestore -> true
+      is RegistrationRoute.ArchiveRestoreSelection -> !this.isPreRegistration
+      else -> false
+    }
   }
 
   /**
