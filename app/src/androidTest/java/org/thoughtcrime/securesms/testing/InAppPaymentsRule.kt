@@ -11,7 +11,9 @@ import org.junit.rules.ExternalResource
 import org.signal.core.util.JsonUtils
 import org.signal.network.NetworkResult
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
+import org.whispersystems.signalservice.internal.push.WhoAmIResponse
 
 /**
  * Sets up some common infrastructure for on-device InAppPayment testing
@@ -21,6 +23,8 @@ class InAppPaymentsRule : ExternalResource() {
     initialiseConfigurationResponse()
     initialisePutSubscription()
     initialiseSetArchiveBackupId()
+    initialiseSetAccountAttributes()
+    initialiseAccountAndSubscriptionLookups()
   }
 
   private fun initialiseConfigurationResponse() {
@@ -44,6 +48,29 @@ class InAppPaymentsRule : ExternalResource() {
   private fun initialiseSetArchiveBackupId() {
     AppDependencies.archiveApi.apply {
       every { triggerBackupIdReservation(any(), any(), any()) } returns NetworkResult.Success(Unit)
+    }
+  }
+
+  private fun initialiseSetAccountAttributes() {
+    AppDependencies.accountApi.apply {
+      every { setAccountAttributes(any()) } returns NetworkResult.Success(Unit)
+    }
+  }
+
+  /**
+   * Starting the real job loop lets background jobs unrelated to the assertion under test run against the strict
+   * API mocks (e.g. [org.thoughtcrime.securesms.jobs.InAppPaymentRecurringContextJob] querying whoAmI and the
+   * active subscription). Stub these lookups so those jobs hit a handled path and terminate quietly instead of
+   * throwing [io.mockk.MockKException] on a job thread and polluting the logs. End-to-end coverage of that
+   * pipeline is tracked separately; here we only keep the logs clean.
+   */
+  private fun initialiseAccountAndSubscriptionLookups() {
+    AppDependencies.accountApi.apply {
+      every { whoAmI() } returns NetworkResult.Success(WhoAmIResponse(number = "+15555550123"))
+    }
+
+    AppDependencies.donationsApi.apply {
+      every { getSubscription(any()) } returns NetworkResult.Success(ActiveSubscription.EMPTY)
     }
   }
 }

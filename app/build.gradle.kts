@@ -792,6 +792,15 @@ dependencies {
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(testLibs.androidx.test.ext.junit)
   androidTestImplementation(testLibs.espresso.core)
+  androidTestImplementation(testLibs.espresso.contrib) {
+    // espresso-contrib transitively pulls the full checkerframework jar (only its annotations are needed),
+    // whose MANIFEST.MF collides with other test dependencies during androidTest resource merging.
+    exclude(group = "org.checkerframework", module = "checker")
+    // accessibility-test-framework drags in an ancient com.google.protobuf:protobuf-lite:3.0.1 whose
+    // GeneratedMessageLite wins the merged dex and lacks registerDefaultInstance(Class, GeneratedMessageLite),
+    // crashing tests at runtime. We only use RecyclerViewActions from contrib, not the accessibility checks.
+    exclude(group = "com.google.android.apps.common.testing.accessibility.framework")
+  }
   androidTestImplementation(testLibs.androidx.test.core)
   androidTestImplementation(testLibs.androidx.test.core.ktx)
   androidTestImplementation(testLibs.androidx.test.ext.junit.ktx)

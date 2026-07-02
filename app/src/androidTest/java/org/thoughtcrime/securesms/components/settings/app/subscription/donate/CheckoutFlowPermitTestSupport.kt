@@ -7,7 +7,6 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.donate
 
 import android.app.Activity
 import android.content.Intent
-import android.os.SystemClock
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
@@ -18,18 +17,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry
-import com.google.android.gms.wallet.PaymentData
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
-import io.mockk.mockk
-import io.mockk.mockkConstructor
-import io.mockk.unmockkConstructor
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.schedulers.TestScheduler
-import org.junit.rules.ExternalResource
-import org.signal.donations.GooglePayApi
 import org.signal.donations.InAppPaymentType
 import org.signal.libsignal.net.RequestResult
 import org.signal.network.rest.RestStatusCodeError
@@ -38,36 +27,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePay
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewaySelectorTestTags
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-
-/**
- * Makes Google Pay appear available and return a fake [com.google.android.gms.wallet.PaymentData] without
- * launching the real Google Pay sheet, allowing checkout to be driven to the payment pipeline in instrumentation.
- */
-class GooglePayTestRule : ExternalResource() {
-  override fun before() {
-    val paymentData = mockk<PaymentData> {
-      every { toJson() } returns GOOGLE_PAY_PAYMENT_DATA_JSON
-    }
-
-    mockkConstructor(GooglePayApi::class)
-    every { anyConstructed<GooglePayApi>().queryIsReadyToPay() } returns Completable.complete()
-    every { anyConstructed<GooglePayApi>().requestPayment(any(), any(), any()) } just Runs
-    every { anyConstructed<GooglePayApi>().onActivityResult(any(), any(), any(), any(), any()) } answers {
-      arg<GooglePayApi.PaymentRequestCallback>(4).onSuccess(paymentData)
-    }
-  }
-
-  override fun after() {
-    unmockkConstructor(GooglePayApi::class)
-  }
-}
-
-/**
- * Minimal but well-formed Google Pay payload. [org.signal.donations.GooglePayPaymentSource] parses
- * `paymentMethodData.tokenizationData.token` (itself a JSON object with an `id`) when the source is
- * serialized into the setup job, so a relaxed mock that returns an empty body fails before the job runs.
- */
-private const val GOOGLE_PAY_PAYMENT_DATA_JSON = """{"paymentMethodData":{"tokenizationData":{"token":"{\"id\":\"tok_test\"}"}},"email":"test@signal.org"}"""
+import org.thoughtcrime.securesms.testing.flushUntil
 
 /**
  * Forces real donation-permit acquisition to fail at the issuer, exercising the permit code path through
@@ -89,30 +49,33 @@ fun startJobLoopForTests() {
 /**
  * Selects Google Pay in the Compose gateway selector and feeds the stubbed Google Pay result back into the
  * checkout, navigating to the payment-in-progress screen where the pipeline runs.
+ *
+ * The gateway selector is populated by Rx work on [scheduler], so we [flushUntil] the button is present
+ * rather than sleeping. Selecting Google Pay dismisses the gateway sheet and hands a fragment result back to
+ * the checkout, which runs `launchGooglePay` -> `provideGatewayRequestForGooglePay` on [scheduler]; only then
+ * does the checkout's subscriber consume a [GooglePayComponent.googlePayResultPublisher] emission
+ * (`consumeGatewayRequestForGooglePay` returns null until then, and the publisher is a hot PublishSubject that
+ * drops earlier emissions). So we [flushUntil] the sheet has dismissed — a real signal that the click was
+ * fully processed — before dispatching the result, rather than pumping a fixed number of times and racing.
  */
 fun ActivityScenario<CheckoutFlowActivity>.selectGooglePay(
   composeRule: ComposeTestRule,
   scheduler: TestScheduler,
   inAppPaymentType: InAppPaymentType
 ) {
-  val deadline = SystemClock.uptimeMillis() + 10_000
-  var present = false
-  while (SystemClock.uptimeMillis() < deadline && !present) {
-    scheduler.triggerActions()
-    InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-    present = try {
-      composeRule.onAllNodesWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).fetchSemanticsNodes().isNotEmpty()
-    } catch (e: IllegalStateException) {
-      false
-    }
-    if (!present) {
-      Thread.sleep(100)
-    }
+  scheduler.flushUntil {
+    composeRule.onAllNodesWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).fetchSemanticsNodes().isNotEmpty()
   }
-  check(present) { "Google Pay button never appeared in the gateway selector." }
 
   composeRule.onNodeWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).performClick()
-  pump(scheduler, iterations = 20)
+
+  scheduler.flushUntil {
+    // Once the gateway sheet dismisses there is no Compose hierarchy left, so fetchSemanticsNodes throws
+    // rather than returning empty; treat both the empty list and the missing hierarchy as "sheet gone".
+    runCatching {
+      composeRule.onAllNodesWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).fetchSemanticsNodes().isEmpty()
+    }.getOrDefault(true)
+  }
 
   onActivity { activity ->
     (activity as GooglePayComponent).googlePayResultPublisher.onNext(
@@ -126,34 +89,21 @@ fun ActivityScenario<CheckoutFlowActivity>.selectGooglePay(
 }
 
 /**
- * Advances the Rx [scheduler] and pumps the main looper until the checkout error dialog with [titleResId] is
- * displayed, bridging the real JobManager-backed setup job, the Rx observers, and dialog rendering.
+ * Waits for a dialog whose title is [titleResId] to be displayed. Matches any dialog by title (error,
+ * confirmation, thanks, etc.) — it is not specific to error dialogs.
+ *
+ * [flushUntil] advances the Rx pipeline (which may create the payment, enqueue the real setup job, and react
+ * to its committed state) while yielding real time for any job to run, until the dialog renders. A single
+ * condition-driven pump rather than a fixed-duration wall-clock poll. Letting the Espresso check throw (rather
+ * than collapsing it to a boolean) lets [flushUntil] chain the last matcher failure as the timeout cause.
  */
-fun awaitDonationErrorDialog(scheduler: TestScheduler, titleResId: Int, timeoutMillis: Long = 15_000) {
-  val deadline = SystemClock.uptimeMillis() + timeoutMillis
-  var lastFailure: Throwable? = null
-
-  while (SystemClock.uptimeMillis() < deadline) {
-    scheduler.triggerActions()
-    InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-
-    try {
-      onView(withText(titleResId)).inRoot(isDialog()).check(matches(isDisplayed()))
-      return
-    } catch (t: Throwable) {
-      lastFailure = t
-    }
-
-    Thread.sleep(100)
-  }
-
-  throw AssertionError("Donation error dialog ($titleResId) was not displayed within ${timeoutMillis}ms.", lastFailure)
-}
-
-private fun pump(scheduler: TestScheduler, iterations: Int, intervalMs: Long = 100) {
-  repeat(iterations) {
-    scheduler.triggerActions()
-    InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-    Thread.sleep(intervalMs)
+fun awaitDialog(
+  scheduler: TestScheduler,
+  titleResId: Int,
+  timeoutMillis: Long = 15_000
+) {
+  scheduler.flushUntil(timeoutMillis) {
+    onView(withText(titleResId)).inRoot(isDialog()).check(matches(isDisplayed()))
+    true
   }
 }
