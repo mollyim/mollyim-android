@@ -38,6 +38,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.ImeAction
@@ -60,6 +61,7 @@ import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
+import org.signal.registration.test.TestTags
 import org.signal.registration.util.RegistrationCredentialManager
 
 @Composable
@@ -84,7 +86,9 @@ private fun OnePaneLayout(
   val scrollState = rememberScrollState()
 
   OnePaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.ENTER_AEP_SCREEN),
     params = params,
     content = { paddingValues ->
       Column(
@@ -141,7 +145,9 @@ private fun TwoPaneLayout(
   val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.ENTER_AEP_SCREEN),
     params = params,
     firstPane = { paddingValues ->
       Column(
@@ -258,6 +264,7 @@ private fun RecoveryKeyTextField(state: EnterAepState, onEvent: (EnterAepEvents)
     visualTransformation = visualTransform,
     modifier = Modifier
       .fillMaxWidth()
+      .testTag(TestTags.ENTER_AEP_INPUT)
       .focusRequester(focusRequester)
       .attachBackupKeyAutoFillHelper(autoFillHelper)
       .onGloballyPositioned {
@@ -292,7 +299,7 @@ private fun FillFromPasswordManagerButton(onEvent: (EnterAepEvents) -> Unit, mod
 @Composable
 private fun NoRecoverKeyButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
   TextButton(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.ENTER_AEP_NO_KEY_BUTTON),
     shape = RoundedCornerShape(0.dp),
     onClick = { onEvent(EnterAepEvents.Cancel) }
   ) {
@@ -303,7 +310,7 @@ private fun NoRecoverKeyButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modi
 @Composable
 private fun NextButton(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
   Buttons.LargeTonal(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.ENTER_AEP_NEXT_BUTTON),
     enabled = state.isBackupKeyValid && state.aepValidationError == null && !state.isRegistering,
     onClick = { onEvent(EnterAepEvents.Submit) }
   ) {

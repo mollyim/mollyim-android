@@ -30,6 +30,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +48,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.devicetransfer.WifiDirect
 import org.signal.registration.R
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.test.TestTags
 import java.util.Locale
 
 @Composable
@@ -129,7 +131,9 @@ internal fun DeviceTransferSetupScreen(
   }
 
   RegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.DEVICE_TRANSFER_SETUP_SCREEN),
     content = {
       Column(
         modifier = Modifier
@@ -245,6 +249,7 @@ private fun VerifyStep(
     modifier = Modifier
       .fillMaxWidth()
       .widthIn(max = 320.dp)
+      .testTag(TestTags.DEVICE_TRANSFER_SETUP_NUMBERS_MATCH_BUTTON)
   ) {
     Text(stringResource(R.string.DeviceTransferSetup__numbers_match))
   }
@@ -254,6 +259,7 @@ private fun VerifyStep(
     modifier = Modifier
       .fillMaxWidth()
       .widthIn(max = 320.dp)
+      .testTag(TestTags.DEVICE_TRANSFER_SETUP_NUMBERS_DO_NOT_MATCH_BUTTON)
   ) {
     Text(stringResource(R.string.DeviceTransferSetup__numbers_do_not_match))
   }
@@ -277,6 +283,7 @@ private fun ErrorStep(
     modifier = Modifier
       .fillMaxWidth()
       .widthIn(max = 320.dp)
+      .testTag(TestTags.DEVICE_TRANSFER_SETUP_ERROR_ACTION_BUTTON)
   ) {
     Text(buttonText)
   }
@@ -304,7 +311,9 @@ private fun TroubleshootingStep(onTryAgain: () -> Unit) {
     ) {
       Buttons.LargeTonal(
         onClick = onTryAgain,
-        modifier = Modifier.widthIn(max = 320.dp)
+        modifier = Modifier
+          .widthIn(max = 320.dp)
+          .testTag(TestTags.DEVICE_TRANSFER_SETUP_TROUBLESHOOTING_RETRY_BUTTON)
       ) {
         Text(stringResource(R.string.DeviceTransferSetup__try_again))
       }

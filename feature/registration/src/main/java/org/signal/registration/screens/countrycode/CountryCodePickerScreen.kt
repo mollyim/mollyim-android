@@ -44,6 +44,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -66,6 +67,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 
 /**
  * Screen that allows someone to search and select a country code from a supported list of countries.
@@ -92,7 +94,9 @@ private fun OnePaneLayout(
   val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   OnePaneRegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier
+      .fillMaxSize()
+      .testTag(TestTags.COUNTRY_CODE_PICKER_SCREEN),
     params = layoutParams,
     topBar = {
       TopAppBar(
@@ -128,7 +132,9 @@ private fun TwoPaneLayout(
   val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   TwoPaneRegistrationScaffold(
-    modifier = Modifier.fillMaxSize(),
+    modifier = Modifier
+      .fillMaxSize()
+      .testTag(TestTags.COUNTRY_CODE_PICKER_SCREEN),
     params = params,
     topBar = {
       TopAppBar(
@@ -176,9 +182,19 @@ fun TopAppBar(
   Scaffolds.DefaultTopAppBar(
     title = "",
     titleContent = { _, _ -> },
-    onNavigationClick = onCloseClick,
-    navigationIcon = SignalIcons.X.imageVector,
-    navigationContentDescription = stringResource(R.string.CountryCodeSelectScreen__close),
+    navigationIconContent = {
+      IconButton(
+        onClick = onCloseClick,
+        modifier = Modifier
+          .padding(end = 16.dp)
+          .testTag(TestTags.COUNTRY_CODE_CLOSE_BUTTON)
+      ) {
+        Icon(
+          imageVector = SignalIcons.X.imageVector,
+          contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
+        )
+      }
+    },
     scrollBehavior = scrollBehavior
   )
 }
@@ -393,7 +409,8 @@ private fun SearchBar(
       .background(MaterialTheme.colorScheme.background)
       .fillMaxWidth()
       .defaultMinSize(minHeight = 54.dp)
-      .focusRequester(focusRequester),
+      .focusRequester(focusRequester)
+      .testTag(TestTags.COUNTRY_CODE_SEARCH_FIELD),
     visualTransformation = VisualTransformation.None,
     colors = TextFieldDefaults.colors(
       // TODO move to SignalTheme

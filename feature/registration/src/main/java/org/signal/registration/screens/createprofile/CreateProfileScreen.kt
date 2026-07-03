@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -52,6 +53,7 @@ import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
 import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.test.TestTags
 
 /**
  * Profile creation screen for the registration flow. Captures the user's given name, family name,
@@ -110,7 +112,9 @@ private fun CompactLayout(
   modifier: Modifier = Modifier
 ) {
   RegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.CREATE_PROFILE_SCREEN),
     content = {
       Column(
         modifier = Modifier
@@ -153,7 +157,9 @@ private fun CompactLayout(
             capitalization = KeyboardCapitalization.Words,
             imeAction = ImeAction.Next
           ),
-          modifier = Modifier.fillMaxWidth()
+          modifier = Modifier
+            .fillMaxWidth()
+            .testTag(TestTags.CREATE_PROFILE_GIVEN_NAME_FIELD)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -168,7 +174,9 @@ private fun CompactLayout(
             capitalization = KeyboardCapitalization.Words,
             imeAction = ImeAction.Done
           ),
-          modifier = Modifier.fillMaxWidth()
+          modifier = Modifier
+            .fillMaxWidth()
+            .testTag(TestTags.CREATE_PROFILE_FAMILY_NAME_FIELD)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -193,6 +201,7 @@ private fun CompactLayout(
           modifier = Modifier
             .fillMaxWidth()
             .widthIn(max = 320.dp)
+            .testTag(TestTags.CREATE_PROFILE_NEXT_BUTTON)
         ) {
           if (state.isSubmitting) {
             CircularProgressIndicator(
@@ -241,7 +250,8 @@ private fun WhoCanFindMeRow(
     modifier = Modifier
       .fillMaxWidth()
       .clickable(enabled = enabled, onClick = onClick)
-      .padding(vertical = 12.dp),
+      .padding(vertical = 12.dp)
+      .testTag(TestTags.CREATE_PROFILE_WHO_CAN_FIND_ME_ROW),
     verticalAlignment = Alignment.CenterVertically
   ) {
     Icon(

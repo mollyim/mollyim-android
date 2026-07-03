@@ -51,6 +51,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -74,6 +75,7 @@ import org.signal.registration.screens.PinVisualTransformation
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 import org.signal.core.ui.R as CoreR
 
 private const val STEP_TRANSITION_DURATION = 250
@@ -130,7 +132,9 @@ private fun OnePaneLayout(
   val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   RegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.PIN_CREATION_SCREEN),
     topBar = {
       PinCreationTopBar(
         scrollBehavior = topBarScrollBehavior,
@@ -191,7 +195,9 @@ private fun TwoPaneLayout(
   val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.PIN_CREATION_SCREEN),
     params = params,
     topBar = {
       PinCreationTopBar(
@@ -391,7 +397,9 @@ private fun PinInputField(
   TextField(
     value = pin,
     onValueChange = onPinChanged,
-    modifier = modifier.focusRequester(focusRequester),
+    modifier = modifier
+      .testTag(TestTags.PIN_CREATION_INPUT)
+      .focusRequester(focusRequester),
     textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
     singleLine = true,
     keyboardOptions = KeyboardOptions(
@@ -432,7 +440,9 @@ private fun KeyboardToggleButton(
 ) {
   TextButton(
     onClick = onToggleKeyboard,
-    modifier = modifier.fillMaxWidth()
+    modifier = modifier
+      .fillMaxWidth()
+      .testTag(TestTags.PIN_CREATION_TOGGLE_KEYBOARD_BUTTON)
   ) {
     Icon(
       painter = SignalIcons.Keyboard.painter,
@@ -537,6 +547,7 @@ private fun NextButton(
         modifier = Modifier
           .widthIn(max = params.maxButtonWidth)
           .padding(params.footerPadding)
+          .testTag(TestTags.PIN_CREATION_NEXT_BUTTON)
       ) {
         if (loading) {
           CircularProgressIndicator(

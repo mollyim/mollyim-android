@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -58,6 +59,7 @@ import org.signal.registration.screens.PinVisualTransformation
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 
 /**
  * PIN entry screen for the registration flow.
@@ -160,7 +162,9 @@ private fun OnePaneLayout(
   val scrollState = rememberScrollState()
 
   RegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.PIN_ENTRY_SCREEN),
     content = {
       Box(
         modifier = modifier.fillMaxSize()
@@ -233,7 +237,9 @@ private fun TwoPaneLayout(
   val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.PIN_ENTRY_SCREEN),
     params = params,
     firstPane = { paddingValues ->
       Column(
@@ -346,6 +352,7 @@ private fun PinInputField(
       onValueChange = onPinChanged,
       modifier = Modifier
         .fillMaxWidth()
+        .testTag(TestTags.PIN_ENTRY_INPUT)
         .focusRequester(focusRequester),
       textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
       singleLine = true,
@@ -403,7 +410,9 @@ private fun KeyboardToggleButton(
 ) {
   TextButton(
     onClick = onToggleKeyboard,
-    modifier = modifier.fillMaxWidth()
+    modifier = modifier
+      .fillMaxWidth()
+      .testTag(TestTags.PIN_ENTRY_TOGGLE_KEYBOARD_BUTTON)
   ) {
     Icon(
       painter = SignalIcons.Keyboard.painter,
@@ -437,6 +446,7 @@ private fun ContinueButton(
         modifier = Modifier
           .widthIn(max = params.maxButtonWidth)
           .padding(params.footerPadding)
+          .testTag(TestTags.PIN_ENTRY_CONTINUE_BUTTON)
       ) {
         if (loading) {
           CircularProgressIndicator(
@@ -459,7 +469,7 @@ private fun SkipButton(
 ) {
   TextButton(
     onClick = onSkip,
-    modifier = modifier
+    modifier = modifier.testTag(TestTags.PIN_ENTRY_SKIP_BUTTON)
   ) {
     Text(
       text = stringResource(R.string.PinEntryScreen__skip),

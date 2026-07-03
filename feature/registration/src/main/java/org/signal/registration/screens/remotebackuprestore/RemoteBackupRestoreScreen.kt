@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 import java.util.Date
 
 @Composable
@@ -107,7 +109,7 @@ private fun OnePaneLayout(
   val scrollState = rememberScrollState()
 
   OnePaneRegistrationScaffold(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_SCREEN),
     params = params,
     content = { paddingValues ->
       Column(
@@ -150,7 +152,7 @@ private fun TwoPaneLayout(
   val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_SCREEN),
     params = params,
     firstPane = { paddingValues ->
       Column(
@@ -273,7 +275,7 @@ private fun RestoreButton(
 ) {
   Buttons.LargeTonal(
     onClick = { onEvent(RemoteBackupRestoreScreenEvents.BackupRestoreBackup) },
-    modifier = modifier
+    modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_RESTORE_BUTTON)
   ) {
     Text(text = stringResource(R.string.RemoteRestoreScreen__restore_backup))
   }
@@ -286,7 +288,7 @@ private fun CancelButton(
 ) {
   TextButton(
     onClick = { onEvent(RemoteBackupRestoreScreenEvents.Cancel) },
-    modifier = modifier
+    modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_CANCEL_BUTTON)
   ) {
     Text(text = stringResource(android.R.string.cancel))
   }
