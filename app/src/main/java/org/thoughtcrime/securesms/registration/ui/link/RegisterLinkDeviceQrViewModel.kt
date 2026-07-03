@@ -146,6 +146,7 @@ class RegisterLinkDeviceQrViewModel : ViewModel() {
   fun clearErrors() {
     store.update {
       it.copy(
+        isRegistering = false,
         showProvisioningError = false,
         registrationErrorResult = null
       )
@@ -156,7 +157,10 @@ class RegisterLinkDeviceQrViewModel : ViewModel() {
 
   fun setRegisterAsLinkedDeviceError(result: RegisterLinkDeviceResult) {
     store.update {
-      it.copy(registrationErrorResult = result)
+      it.copy(
+        isRegistering = false,
+        registrationErrorResult = result
+      )
     }
   }
 
