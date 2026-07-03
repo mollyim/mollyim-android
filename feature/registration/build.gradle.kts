@@ -33,6 +33,14 @@ screenshotTests {
   imageDifferenceThreshold = 0.0001f
 }
 
+// The screenshot validation task compares every reference image in a single forked JVM, which
+// exhausts the default heap once a module has many previews. Give it more room.
+tasks.withType<Test>().configureEach {
+  if (name.contains("ScreenshotTest")) {
+    maxHeapSize = "4g"
+  }
+}
+
 wire {
   kotlin {
     javaInterop = true

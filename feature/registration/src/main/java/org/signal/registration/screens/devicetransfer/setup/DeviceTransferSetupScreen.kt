@@ -68,7 +68,7 @@ fun DeviceTransferSetupScreen(
 }
 
 @Composable
-private fun DeviceTransferSetupScreen(
+internal fun DeviceTransferSetupScreen(
   state: DeviceTransferSetupState,
   permissionState: PermissionState,
   onEvent: (DeviceTransferSetupScreenEvents) -> Unit,
