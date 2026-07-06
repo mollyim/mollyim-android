@@ -10,6 +10,7 @@ import io.mockk.every
 import org.junit.rules.ExternalResource
 import org.signal.core.util.JsonUtils
 import org.signal.network.NetworkResult
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
@@ -59,10 +60,13 @@ class InAppPaymentsRule : ExternalResource() {
 
   /**
    * Starting the real job loop lets background jobs unrelated to the assertion under test run against the strict
-   * API mocks (e.g. [org.thoughtcrime.securesms.jobs.InAppPaymentRecurringContextJob] querying whoAmI and the
-   * active subscription). Stub these lookups so those jobs hit a handled path and terminate quietly instead of
-   * throwing [io.mockk.MockKException] on a job thread and polluting the logs. End-to-end coverage of that
-   * pipeline is tracked separately; here we only keep the logs clean.
+   * API mocks (e.g. [org.thoughtcrime.securesms.jobs.InAppPaymentRecurringContextJob] querying whoAmI, the
+   * active subscription, and then submitting receipt credentials). Stub these calls so those jobs hit a handled
+   * path and terminate quietly instead of throwing [io.mockk.MockKException] on a job thread, which crashes the
+   * whole app process (the test asserts nothing, so it surfaces as "Application crashed" with no failed test).
+   * Tests that supply an active subscription push the job past the [getSubscription] guard to
+   * [submitReceiptCredentials], so that must be stubbed too. End-to-end coverage of that pipeline is tracked
+   * separately; here we only keep the process alive and the logs clean.
    */
   private fun initialiseAccountAndSubscriptionLookups() {
     AppDependencies.accountApi.apply {
@@ -71,6 +75,7 @@ class InAppPaymentsRule : ExternalResource() {
 
     AppDependencies.donationsApi.apply {
       every { getSubscription(any()) } returns NetworkResult.Success(ActiveSubscription.EMPTY)
+      every { submitReceiptCredentials(any(), any()) } returns NetworkResult.StatusCodeError(NonSuccessfulResponseCodeException(402))
     }
   }
 }
