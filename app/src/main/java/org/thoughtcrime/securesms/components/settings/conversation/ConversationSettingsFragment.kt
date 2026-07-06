@@ -84,6 +84,7 @@ import org.thoughtcrime.securesms.groups.ui.GroupErrors
 import org.thoughtcrime.securesms.groups.ui.GroupLimitDialog
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog
+import org.thoughtcrime.securesms.groups.ui.MemberSearchFragment
 import org.thoughtcrime.securesms.groups.ui.addmembers.AddMembersActivity
 import org.thoughtcrime.securesms.groups.ui.addtogroup.AddToGroupsActivity
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndRequestingMembersActivity
@@ -219,6 +220,10 @@ class ConversationSettingsFragment :
     parentFragmentManager.setFragmentResultListener(AboutSheet.RESULT_EDIT_MEMBER_LABEL, viewLifecycleOwner) { _, bundle ->
       val groupId = bundle.requireParcelableCompat(AboutSheet.RESULT_GROUP_ID, GroupId.V2::class.java)
       navController.safeNavigate(ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberLabelFragment(groupId))
+    }
+
+    parentFragmentManager.setFragmentResultListener(MemberSearchFragment.RESULT_ADD_MEMBERS, viewLifecycleOwner) { _, _ ->
+      viewModel.onAddToGroup()
     }
 
     recyclerView?.addOnScrollListener(ConversationSettingsOnUserScrolledAnimationHelper(toolbarAvatarContainer, toolbarTitle, toolbarBackground))
@@ -835,6 +840,7 @@ class ConversationSettingsFragment :
 
       state.withGroupSettingsState { groupState ->
         val memberCount = groupState.allMembers.size
+        val canAdd = groupState.canAddToGroup && !groupState.isTerminated && !state.isDeprecatedOrUnregistered
 
         if (groupState.canAddToGroup || memberCount > 0) {
           dividerPref()
@@ -850,7 +856,7 @@ class ConversationSettingsFragment :
               title = DSLSettingsText.from(memberHeaderText),
               iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
               onClick = {
-                val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId)
+                val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId, canAdd, groupState.groupLinkEnabled)
                 navController.safeNavigate(action)
               }
             )
@@ -859,7 +865,7 @@ class ConversationSettingsFragment :
           }
         }
 
-        if (groupState.canAddToGroup && !groupState.isTerminated && !state.isDeprecatedOrUnregistered) {
+        if (canAdd) {
           customPref(
             LargeIconClickPreference.Model(
               title = DSLSettingsText.from(R.string.ConversationSettingsFragment__add_members),

@@ -377,4 +377,8 @@ class SectionHeaderPreference(
   override val title: DSLSettingsText,
   override val iconEnd: DSLSettingsIcon? = null,
   val onClick: (() -> Unit)? = null
-) : PreferenceModel<SectionHeaderPreference>()
+) : PreferenceModel<SectionHeaderPreference>() {
+  override fun areContentsTheSame(newItem: SectionHeaderPreference): Boolean {
+    return super.areContentsTheSame(newItem) && onClick == null && newItem.onClick == null
+  }
+}
