@@ -440,7 +440,8 @@ class DemoStorageController(private val context: Context) : StorageController {
   }
 
   private suspend fun writeRegistrationData(data: RegistrationData) = withContext(Dispatchers.IO) {
+    val stamped = data.newBuilder().lastUpdatedMillis(System.currentTimeMillis()).build()
     val file = File(context.filesDir, TEMP_PROTO_FILENAME)
-    file.writeBytes(RegistrationData.ADAPTER.encode(data))
+    file.writeBytes(RegistrationData.ADAPTER.encode(stamped))
   }
 }

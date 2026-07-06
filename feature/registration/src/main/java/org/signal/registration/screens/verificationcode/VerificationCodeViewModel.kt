@@ -41,6 +41,7 @@ import org.signal.registration.screens.util.navigateTo
 import org.signal.registration.screens.verificationcode.VerificationCodeState.OneTimeEvent
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 class VerificationCodeViewModel(
@@ -53,6 +54,12 @@ class VerificationCodeViewModel(
 
   companion object {
     private val TAG = Log.tag(VerificationCodeViewModel::class)
+
+    /**
+     * How old the in-progress registration data can be before we assume the verification session has expired and
+     * restart the flow. Checked whenever the screen is foregrounded.
+     */
+    private val IN_PROGRESS_DATA_TIMEOUT = 15.minutes
 
     /**
      * Cold [Flow] of verification codes automatically retrieved from incoming SMS messages via the Play Services SMS
@@ -123,8 +130,25 @@ class VerificationCodeViewModel(
       is VerificationCodeScreenEvents.HavingTrouble -> throw NotImplementedError("having trouble flow") // TODO [registration] - Having trouble flow
       is VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent -> state.copy(oneTimeEvent = null)
       is VerificationCodeScreenEvents.CountdownTick -> applyCountdownTick(state)
+      is VerificationCodeScreenEvents.Foregrounded -> applyForegrounded(state)
     }
     stateEmitter(result)
+  }
+
+  /**
+   * If the in-progress registration data has grown older than [IN_PROGRESS_DATA_TIMEOUT], the verification session has
+   * likely expired server-side. Rather than let the user enter a code only to fail, restart the flow from the beginning.
+   */
+  private suspend fun applyForegrounded(state: VerificationCodeState): VerificationCodeState {
+    val lastUpdated = repository.getInProgressRegistrationDataLastUpdated() ?: return state
+    val age = (clock() - lastUpdated).milliseconds
+
+    if (age >= IN_PROGRESS_DATA_TIMEOUT) {
+      Log.w(TAG, "[Foregrounded] In-progress registration data is stale (${age.inWholeMilliseconds}ms old). Restarting the flow.")
+      parentEventEmitter(RegistrationFlowEvent.ResetState)
+    }
+
+    return state
   }
 
   @VisibleForTesting

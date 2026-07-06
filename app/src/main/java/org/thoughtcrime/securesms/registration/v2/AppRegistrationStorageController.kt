@@ -67,7 +67,6 @@ import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
 
 /**
  * Implementation of [StorageController] that bridges to the app's existing storage infrastructure.
@@ -77,7 +76,6 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   companion object {
     private val TAG = Log.tag(AppRegistrationStorageController::class)
     private const val TEMP_PROTO_FILENAME = "registration-in-progress.proto"
-    private val TEMP_PROTO_TIMEOUT = 15.minutes
     private val MODERN_BACKUP_PATTERN = Regex("^signal-backup-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})$")
     private val LEGACY_BACKUP_PATTERN = Regex("^signal-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})\\.backup$")
   }
@@ -155,13 +153,6 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   override suspend fun readInProgressRegistrationData(): RegistrationData = withContext(Dispatchers.IO) {
     val file = File(context.cacheDir, TEMP_PROTO_FILENAME)
     if (file.exists()) {
-      val age = System.currentTimeMillis() - file.lastModified()
-      if (age > TEMP_PROTO_TIMEOUT.inWholeMilliseconds) {
-        Log.w(TAG, "In-progress registration data is stale (${age}ms old), discarding.")
-        file.delete()
-        return@withContext RegistrationData()
-      }
-
       try {
         RegistrationData.ADAPTER.decode(file.readBytes())
       } catch (e: Exception) {
@@ -537,7 +528,8 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   private suspend fun writeRegistrationData(data: RegistrationData) = withContext(Dispatchers.IO) {
+    val stamped = data.newBuilder().lastUpdatedMillis(System.currentTimeMillis()).build()
     val file = File(context.cacheDir, TEMP_PROTO_FILENAME)
-    file.writeBytes(RegistrationData.ADAPTER.encode(data))
+    file.writeBytes(RegistrationData.ADAPTER.encode(stamped))
   }
 }

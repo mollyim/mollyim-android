@@ -37,6 +37,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -867,6 +868,40 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+  }
+
+  // ==================== applyEvent: Foregrounded Tests ====================
+
+  @Test
+  fun `Foregrounded emits ResetState when in-progress data is older than the timeout`() = runTest {
+    val now = 100.minutes.inWholeMilliseconds
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns now - 16.minutes.inWholeMilliseconds
+
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { now })
+    vm.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(1)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
+  @Test
+  fun `Foregrounded does not emit ResetState when in-progress data is within the timeout`() = runTest {
+    val now = 100.minutes.inWholeMilliseconds
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns now - 14.minutes.inWholeMilliseconds
+
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { now })
+    vm.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(0)
+  }
+
+  @Test
+  fun `Foregrounded does not emit ResetState when there is no in-progress data`() = runTest {
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns null
+
+    viewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(0)
   }
 
   // ==================== Helper Functions ====================

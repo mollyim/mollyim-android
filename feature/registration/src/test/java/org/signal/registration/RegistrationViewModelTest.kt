@@ -201,7 +201,7 @@ class RegistrationViewModelTest {
   }
 
   @Test
-  fun `onEvent NavigateToScreen FullyComplete clears flow state`() = runTest(testDispatcher) {
+  fun `onEvent NavigateToScreen FullyComplete clears in-progress registration data`() = runTest(testDispatcher) {
     coEvery { mockRepository.restoreFlowState() } returns null
     coEvery { mockRepository.getPreExistingRegistrationData() } returns null
 
@@ -211,7 +211,7 @@ class RegistrationViewModelTest {
     viewModel.onEvent(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.FullyComplete))
     advanceUntilIdle()
 
-    coVerify { mockRepository.clearFlowState() }
+    coVerify { mockRepository.clearInProgressRegistrationData() }
   }
 
   @Test
@@ -257,7 +257,7 @@ class RegistrationViewModelTest {
   }
 
   @Test
-  fun `onEvent RegistrationComplete commits final data and clears flow state`() = runTest(testDispatcher) {
+  fun `onEvent RegistrationComplete commits final data and clears in-progress registration data`() = runTest(testDispatcher) {
     coEvery { mockRepository.restoreFlowState() } returns null
     coEvery { mockRepository.getPreExistingRegistrationData() } returns null
 
@@ -268,7 +268,7 @@ class RegistrationViewModelTest {
     advanceUntilIdle()
 
     coVerify { mockRepository.commitFinalRegistrationData() }
-    coVerify { mockRepository.clearFlowState() }
+    coVerify { mockRepository.clearInProgressRegistrationData() }
   }
 
   // ==================== applyEvent Tests (Navigation & State Reducers) ====================

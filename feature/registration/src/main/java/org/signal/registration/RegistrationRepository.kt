@@ -799,6 +799,22 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
+   * Deletes all in-progress registration data. Called once registration is fully complete, so the scratch data is
+   * never reused by a later flow.
+   */
+  suspend fun clearInProgressRegistrationData() = withContext(Dispatchers.IO) {
+    storageController.clearAllData()
+  }
+
+  /**
+   * The time the in-progress registration data was last written, as epoch milliseconds, or null if nothing has been
+   * written yet. Read from the in-progress data's `lastUpdatedMillis`, which is stamped on every write.
+   */
+  suspend fun getInProgressRegistrationDataLastUpdated(): Long? = withContext(Dispatchers.IO) {
+    storageController.readInProgressRegistrationData().lastUpdatedMillis.takeIf { it > 0 }
+  }
+
+  /**
    * Clears any persisted flow state JSON from the in-progress registration data.
    */
   suspend fun clearFlowState() = withContext(Dispatchers.IO) {

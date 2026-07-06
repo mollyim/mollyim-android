@@ -181,7 +181,7 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       is RegistrationFlowEvent.ResetState -> repository.clearFlowState()
       is RegistrationFlowEvent.NavigateToScreen -> {
         if (event.route is RegistrationRoute.FullyComplete) {
-          repository.clearFlowState()
+          repository.clearInProgressRegistrationData()
         } else {
           repository.saveFlowState(_state.value)
         }
@@ -195,7 +195,7 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
       is RegistrationFlowEvent.RestoreMethodTokenReceived,
       is RegistrationFlowEvent.UserSuppliedAepSubmitted,
       is RegistrationFlowEvent.UserSuppliedAepVerified -> repository.saveFlowState(_state.value)
-      is RegistrationFlowEvent.RegistrationComplete -> repository.clearFlowState()
+      is RegistrationFlowEvent.RegistrationComplete -> repository.clearInProgressRegistrationData()
 
       // No need to persist anything new, fields accounted for in proto already
       is RegistrationFlowEvent.Registered,

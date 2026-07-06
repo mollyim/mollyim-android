@@ -35,4 +35,10 @@ sealed class VerificationCodeScreenEvents {
    * Event to update countdown timers. Should be triggered periodically (e.g., every second).
    */
   data object CountdownTick : VerificationCodeScreenEvents()
+
+  /**
+   * The screen returned to the foreground. Used to check whether the in-progress registration data (and thus the
+   * verification session) has grown too stale to keep waiting on, in which case we restart the flow.
+   */
+  data object Foregrounded : VerificationCodeScreenEvents()
 }
