@@ -3414,11 +3414,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">فایل رسانه قابل‌ذخیره نیست</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__media_offloaded_message">این فایل رسانه به‌دلیل فعال بودن گزینه «بهینه‌سازی فضای ذخیره‌سازی سیگنال» از دستگاهتان آفلود شده است. می‌توانید موارد را یکی‌یکی دانلود کنید یا با خاموش کردن گزینه «بهینه‌سازی فضای ذخیره‌سازی سیگنال»، همه فایل‌های رسانه را در دستگاهتان دانلود کنید.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">همه موارد قابل‌ذخیره نیستند</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">برخی از فایل‌های رسانه‌ای که انتخاب کرده‌اید به‌دلیل فعال بودن گزینه «بهینه‌سازی فضای ذخیره‌سازی سیگنال» از دستگاهتان آفلود شده‌اند. می‌توانید موارد را یکی‌یکی ذخیره کنید یا با خاموش کردن گزینه «بهینه‌سازی فضای ذخیره‌سازی سیگنال»، همه فایل‌های رسانه را دوباره در دستگاهتان دانلود کنید.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">مشاهده تنظیمات فضای ذخیره‌سازی</string>
 
@@ -8613,7 +8613,7 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">در صورت فعال بودن محدودیت‌های گفتگو، پیام‌ها از دستگاه‌های متصل نیز حذف می‌شود.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">فضای ذخیره‌سازی سیگنال</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">بهینه‌سازی فضای ذخیره‌سازی سیگنال</string>
     <!-- Setting row explanation for storage optimization -->
@@ -9096,13 +9096,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">دانلود رسانه</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">برای ایجاد رمز بازیابی جدید، باید «بهینه‌سازی فضای ذخیره‌سازی سیگنال» را خاموش کنید و صبر کنید تا فایل رسانه‌تان دانلود شود. وقتی دانلود تمام شد، می‌توانید رمز جدید ایجاد کنید.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">خاموش کردن و دانلود</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">رمز بازیابی جدید ایجاد کنید</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">ایجاد رمز جدید فقط در صورتی ضروری است که شخص دیگری رمز شما را بداند. باید نسخه پشتیبان خود، از‌جمله فایل رسانه را دوباره بارگذاری کنید. اگر از «بهینه‌سازی فضای ذخیره‌سازی سیگنال» استفاده می‌کنید، ابتدا باید فایل رسانه آفلودشده را دانلود کنید.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">از راه‌اندازی نسخه پشتیبان خارج می‌شوید؟</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9866,7 +9866,7 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">Search members</string>
+    <string name="MemberSearchFragment__search_members">جستجوی اعضا</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">نسخه پشتیبان بازیابی نشد</string>

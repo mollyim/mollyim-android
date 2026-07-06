@@ -205,7 +205,7 @@
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">ખોટી રિકવરી કી</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
-    <string name="EnterAepScreen__fill_from_password_manager">Fill from password manager</string>
+    <string name="EnterAepScreen__fill_from_password_manager">પાસવર્ડ મેનેજરમાંથી ભરો</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">રિસ્ટોર તૈયાર થાય છે…</string>
     <!-- Title shown while restore is in progress -->
@@ -370,15 +370,15 @@
     <!-- Labels the button to submit the PIN. -->
     <string name="PinEntryScreen__continue">ચાલુ રાખો</string>
     <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
-    <string name="PinEntryScreen__skip_pin_entry">PIN એન્ટ્રી સ્કિપ કરો?</string>
+    <string name="PinEntryScreen__skip_pin_entry">પિન એન્ટ્રી સ્કિપ કરો?</string>
     <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
-    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <string name="PinEntryScreen__skip_pin_entry_message">જો તમને તમારો પિન યાદ ન હોય, તો તમે નવો બનાવી શકો છો. તમે રજિસ્ટર કરી અને તમારું એકાઉન્ટ વાપરી શકો છો પરંતુ તમે તમારી પ્રોફાઇલ માહિતી જેવા કેટલાક સેવ કરેલા સેટિંગ્સ ગુમાવશો.</string>
     <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
-    <string name="PinEntryScreen__create_new_pin">નવો PIN બનાવો</string>
+    <string name="PinEntryScreen__create_new_pin">નવો પિન બનાવો</string>
     <!-- Labels the button in the skip dialog that dismisses it. -->
     <string name="PinEntryScreen__cancel">રદ કરો</string>
     <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
-    <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
+    <string name="PinEntryScreen__no_data_could_be_found">તમારા એકાઉન્ટને રિસ્ટોર કરવા કોઈ ડેટા મળી શક્યા નથી. કૃપા કરીને નવો પિન બનાવો.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">સપોર્ટનો સંપર્ક કરો</string>
     <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
@@ -435,11 +435,11 @@
     <!-- Progress dialog message shown while this device is being registered as a linked device -->
     <string name="LinkAccountScreen__linking_device">ડિવાઇસ લિંક થઈ રહ્યું છે…</string>
     <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
-    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <string name="LinkAccountScreen__waiting_for_your_other_device">તમારા અન્ય ડિવાઇસની રાહ જોઈએ છીએ…</string>
     <!-- Error dialog message shown when linking this device fails -->
-    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <string name="LinkAccountScreen__error_linking_device">આ ડિવાઇસને લિંક કરતી વખતે ભૂલ આવી</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
-    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
+    <string name="LinkAccountScreen__close_qr_code">QR કોડ બંધ કરો</string>
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">તમારું એકાઉન્ટ ટ્રાન્સફર કરો</string>
@@ -524,7 +524,7 @@
     <!-- Content description for the back arrow on the discoverability picker. -->
     <string name="PhoneNumberDiscoverabilityScreen__back">પાછળ</string>
     <!-- Error message shown when the captcha fails to load. -->
-    <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
+    <string name="CaptchaScreen__failed_to_load_captcha">કેપ્ચા લોડ કરવામાં નિષ્ફળ</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">રદ કરો</string>
 </resources>

@@ -1716,7 +1716,7 @@
     <!-- The title of a pop-up dialog asking the user to confirm deleting their username -->
     <string name="ManageProfileFragment__delete_username_dialog_title">Scrios ainm úsáideora?</string>
     <!-- The body of a pop-up dialog asking the user to confirm deleting their username -->
-    <string name="ManageProfileFragment__delete_username_dialog_body">"Bainfear d'ainm úsáideora agus díchumasófar do chód QR agus nasc leis sin. Beidh daoine eile in ann %1$s a éileamh. An bhfuil tú cinnte?"</string>
+    <string name="ManageProfileFragment__delete_username_dialog_body">"Bainfear d\'ainm úsáideora agus díchumasófar do chód QR agus nasc leis sin. Beidh daoine eile in ann %1$s a éileamh. An bhfuil tú cinnte?"</string>
 
     <!-- UsernameOutOfSyncReminder -->
     <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
@@ -3729,11 +3729,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Ní féidir na meáin a shábháil</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__media_offloaded_message">Baineadh na meáin seo de do ghléas toisc go bhfuil \"Barrfheabhsaigh stóras Signal\" casta air. Is féidir leat míreanna a íoslódáil ceann ar cheann, nó \"Barrfheabhsaigh stóras Signal\" a chasadh as chun na meáin uile a íoslódáil chuig do ghléas.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Ní féidir gach mír a shábháil</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Rinneadh cuid de na meáin a roghnaigh tú a bhaint de do ghléas toisc go bhfuil \"Barrfheabhsaigh stóras Signal\" casta air. Is féidir leat míreanna a shábháil ceann ar cheann, nó \"Barrfheabhsaigh stóras Signal\" a chasadh as chun na meáin uile a íoslódáil chuig do ghléas.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Féach ar na socruithe stórála</string>
 
@@ -5407,7 +5407,7 @@
     <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
     <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Beidh tú dofheicthe ar Signal ag daoine ach amháin má sheolann tú teachtaireacht chucu nó má tá comhrá ar siúl agat leo.</string>
     <!-- Snackbar text when pressing invalid radio item -->
-    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Leis an socrú sin a athrú, socraigh Daoine atá in ann m'uimhir a fheiceáil go Duine ar bith."</string>
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Leis an socrú sin a athrú, socraigh Daoine atá in ann m\'uimhir a fheiceáil go Duine ar bith."</string>
     <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">An bhfuil tú cinnte?</string>
     <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
@@ -7642,7 +7642,7 @@
     <!-- Signal connections sheet bullet point 3 -->
     <string name="SignalConnectionsBottomSheet__having_them_in_your_system_contacts">Trína bheith i dteagmhálaithe do ghutháin</string>
     <!-- Note at the bottom of the Signal connections sheet -->
-    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Is féidir le do theagmhálaithe d'ainm agus do ghrianghraf, agus postálacha \"Mo Scéal\", a fheiceáil, mura gcuireann tú na rudaí sin i bhfolach orthu."</string>
+    <string name="SignalConnectionsBottomSheet__your_connections_can_see_your_name">"Is féidir le do theagmhálaithe d\'ainm agus do ghrianghraf, agus postálacha \"Mo Scéal\", a fheiceáil, mura gcuireann tú na rudaí sin i bhfolach orthu."</string>
     <!-- Clickable option to add a viewer to a custom story -->
     <string name="PrivateStorySettingsFragment__add_viewer">Cuir amharcóir leis</string>
     <!-- Clickable option to delete a custom story -->
@@ -9186,7 +9186,7 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Agus teorainneacha le comhráite cumasaithe, scriosfar teachtaireachtaí ó do ghléasanna nasctha freisin.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Stóras Signal</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optamaigh stóras Signal</string>
     <!-- Setting row explanation for storage optimization -->
@@ -9690,13 +9690,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Íoslódáil meáin</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Chun eochair athshlánaithe nua a chruthú, ní mór duit \"Optamaigh stóras Signal\" a chasadh as agus fanacht go n-íoslódálfar do mheáin. Tar éis an íoslódáil a chur i gcrích, beidh tú in ann eochair nua a chruthú.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Cas as agus íoslódáil</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Cruthaigh eochair athshlánaithe nua</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Ní gá eochair nua a chruthú ach amháin má tá d\'eochair ar eolas ag duine eile. Beidh ort do chúltaca a ath-uaslódáil, meáin san áireamh. Má tá \"Optamaigh stóras Signal\" á úsáid agat beidh ort meáin a baineadh a íoslódáil ar dtús.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Scoir socrú cúltacaí?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -10478,7 +10478,7 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">Search members</string>
+    <string name="MemberSearchFragment__search_members">Cuardaigh baill</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Ní féidir an cúltaca a aischur</string>

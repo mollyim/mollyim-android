@@ -87,9 +87,9 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal beder om tilladelse til at tilgå mikrofonen, for at kunne optage videoer, men er blevet afvist. Gå venligst til appindstillinger, vælg \"Tilladelser\" og tilvælg \"Mikrofon\" og \"Kamera\".</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <string name="MediaSendViewModel__error_recording_video">Der opstod en fejl ved optagelse af video</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+  <string name="MediaSendViewModel__error_taking_photo">Det lykkedes ikke at tage billedet</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Fandt %1$s</string>

@@ -288,7 +288,7 @@
     <!-- Title for screen when your account is locked -->
     <string name="AccountLockedScreen__account_locked">Account bloccato</string>
     <!-- Description for screen when account is locked -->
-    <string name="AccountLockedScreen__your_account">Il tuo account è stato bloccato per proteggere la tua privacy e la tua sicurezza. Dopo %1$d giorni di inattività sarai in grado di registrare nuovamente questo numero di telefono senza bisogno del tuo PIN. Tutti i contenuti saranno eliminati.</string>
+    <string name="AccountLockedScreen__your_account">Il tuo account è stato bloccato per tutelare la tua privacy e sicurezza. Dopo %1$d giorni di inattività, potrai registrare di nuovo questo numero senza inserire il PIN. Tutti i contenuti verranno eliminati.</string>
 
     <!-- Step 1 to quick restore -->
     <string name="QuickRestoreQRScreen__step_1">Apri Signal sul tuo dispositivo precedente</string>
@@ -402,7 +402,7 @@
     <!-- Progress label shown under the sync progress bar before the download size is known -->
     <string name="MessageSyncScreen__preparing">Preparazione in corso…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
-    <string name="MessageSyncScreen__finishing">Quasi finito…</string>
+    <string name="MessageSyncScreen__finishing">Ci siamo quasi…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">I messaggi e le informazioni delle chat sono protetti da una crittografia end-to-end (incluso il processo di sincronizzazione).</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->

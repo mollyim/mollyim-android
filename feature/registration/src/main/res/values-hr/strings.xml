@@ -205,7 +205,7 @@
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">Netočan ključ za oporavak</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
-    <string name="EnterAepScreen__fill_from_password_manager">Fill from password manager</string>
+    <string name="EnterAepScreen__fill_from_password_manager">Ispuni pomoću upravitelja lozinki</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Priprema podataka za vraćanje…</string>
     <!-- Title shown while restore is in progress -->
@@ -376,13 +376,13 @@
     <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
     <string name="PinEntryScreen__skip_pin_entry">Preskoči unos PIN-a?</string>
     <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
-    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <string name="PinEntryScreen__skip_pin_entry_message">Zaboravite li svoj PIN, možete stvoriti novi. Možete se registrirati i koristiti svoj račun, ali ćete izgubiti neke spremljene postavke poput podataka o profilu.</string>
     <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
     <string name="PinEntryScreen__create_new_pin">Stvori novi PIN</string>
     <!-- Labels the button in the skip dialog that dismisses it. -->
     <string name="PinEntryScreen__cancel">Poništi</string>
     <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
-    <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
+    <string name="PinEntryScreen__no_data_could_be_found">Nisu pronađeni podaci za oporavak računa. Molimo stvorite novi PIN.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">Kontaktiraj podršku</string>
     <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
@@ -439,11 +439,11 @@
     <!-- Progress dialog message shown while this device is being registered as a linked device -->
     <string name="LinkAccountScreen__linking_device">Povezivanje uređaja…</string>
     <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
-    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Čekanje drugog uređaja…</string>
     <!-- Error dialog message shown when linking this device fails -->
-    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <string name="LinkAccountScreen__error_linking_device">Došlo je do pogreške prilikom povezivanja uređaja</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
-    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
+    <string name="LinkAccountScreen__close_qr_code">Zatvori QR kôd</string>
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Prenesite svoj račun</string>
@@ -528,7 +528,7 @@
     <!-- Content description for the back arrow on the discoverability picker. -->
     <string name="PhoneNumberDiscoverabilityScreen__back">Natrag</string>
     <!-- Error message shown when the captcha fails to load. -->
-    <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
+    <string name="CaptchaScreen__failed_to_load_captcha">Učitavanje captcha provjere nije uspjelo</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">Poništi</string>
 </resources>

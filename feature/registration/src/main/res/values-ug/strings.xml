@@ -205,7 +205,7 @@
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">ناتوغرا ئەسلىگە كەلتۈرۈش ئاچقۇچى</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
-    <string name="EnterAepScreen__fill_from_password_manager">Fill from password manager</string>
+    <string name="EnterAepScreen__fill_from_password_manager">پارول باشقۇرغۇچى ئارقىلىق توشقۇزۇش</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">ئەسلىگە كەلتۈرۈشكە تەييارلىنىۋاتىدۇ…</string>
     <!-- Title shown while restore is in progress -->
@@ -370,13 +370,13 @@
     <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
     <string name="PinEntryScreen__skip_pin_entry">PIN كىرگۈزۈشتىن ئاتلامسىز؟</string>
     <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
-    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <string name="PinEntryScreen__skip_pin_entry_message">PIN نومۇرىنى ئۇنتۇپ قالغان بولسىڭىز، يېڭىدىن بىرنى قۇرسىڭىز بولىدۇ. ھېساباتىڭىزنى تىزىملىتالايسىز ۋە ئىشلىتەلەيسىز، ئەمما ساقلانغان بەزى تەڭشەكلەرنى يوقىتىسىز، مەسىلەن ئارخىپ ئۇچۇرىڭىز دىگەندەكلەر.</string>
     <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
     <string name="PinEntryScreen__create_new_pin">يېڭى PIN قۇرۇڭ</string>
     <!-- Labels the button in the skip dialog that dismisses it. -->
     <string name="PinEntryScreen__cancel">بىكار قىلىش</string>
     <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
-    <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
+    <string name="PinEntryScreen__no_data_could_be_found">ھېساباتىڭىزنى ئەسلىگە كەلتۈرۈدىغان ھېچقانداق سانلىق-مەلۇمات تېپىلمىدى. يېڭى PIN نومۇر قۇرۇڭ.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">ياردەم خادىمى بىلەن ئالاقىلىشىش</string>
     <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
@@ -433,11 +433,11 @@
     <!-- Progress dialog message shown while this device is being registered as a linked device -->
     <string name="LinkAccountScreen__linking_device">ئۈسكۈنىنى باغلاۋاتىدۇ…</string>
     <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
-    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <string name="LinkAccountScreen__waiting_for_your_other_device">باشقا ئۈسكۈنىڭىزنى ساقلاۋاتىدۇ…</string>
     <!-- Error dialog message shown when linking this device fails -->
-    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <string name="LinkAccountScreen__error_linking_device">بۇ ئۈسكۈنىنى ئۇلاۋاتقاندا بىر خاتالىق كۆرۈلدى</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
-    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
+    <string name="LinkAccountScreen__close_qr_code">QR كودىنى ئېتىۋېتىش</string>
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">ھېساباتنى يۆتكەش</string>
@@ -522,7 +522,7 @@
     <!-- Content description for the back arrow on the discoverability picker. -->
     <string name="PhoneNumberDiscoverabilityScreen__back">قايت</string>
     <!-- Error message shown when the captcha fails to load. -->
-    <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
+    <string name="CaptchaScreen__failed_to_load_captcha">ماشىنا ئادەم ئەمەسلىكىنى تەكشۈرۈدىغان «captcha» ئىقتىدارىنى يۈكلەش مەغلۇب بولدى</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">بىكار قىلىش</string>
 </resources>
