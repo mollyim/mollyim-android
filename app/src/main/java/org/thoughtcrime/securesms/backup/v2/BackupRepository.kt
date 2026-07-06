@@ -646,7 +646,7 @@ object BackupRepository {
     val state = SignalStore.backup.backupDownloadNotifierState ?: return null
     val nextSheetDisplayTime = state.lastSheetDisplaySeconds.seconds + state.intervalSeconds.seconds
 
-    val remainingAttachmentSize = withContext(SignalDispatchers.IO) {
+    val remainingAttachmentSize = withContext(SignalDispatchers.Default) {
       SignalDatabase.attachments.getRemainingRestorableAttachmentSize()
     }
 

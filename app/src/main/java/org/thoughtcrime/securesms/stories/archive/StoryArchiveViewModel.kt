@@ -101,7 +101,7 @@ class StoryArchiveViewModel : ViewModel() {
 
     pagedDataJob?.cancel()
     pagedDataJob = viewModelScope.launch {
-      val size = withContext(Dispatchers.IO) { dataSource.size() }
+      val size = withContext(Dispatchers.Default) { dataSource.size() }
       if (size == 0) {
         _state.value = _state.value.copy(stories = emptyList(), isLoading = false)
         return@launch

@@ -180,7 +180,7 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
     @StringRes toastSuccessStringRes: Int
   ) {
     lifecycleScope.launch {
-      val subscriber = withContext(Dispatchers.IO) {
+      val subscriber = withContext(Dispatchers.Default) {
         InAppPaymentsRepository.getSubscriber(subscriberType)
       }
 

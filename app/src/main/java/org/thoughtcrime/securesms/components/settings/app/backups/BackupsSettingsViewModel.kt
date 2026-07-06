@@ -51,7 +51,7 @@ class BackupsSettingsViewModel : ViewModel() {
       }
     }
 
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       SignalStore.backup.lastBackupTimeFlow
         .collect { lastBackupTime ->
           internalStateFlow.update {

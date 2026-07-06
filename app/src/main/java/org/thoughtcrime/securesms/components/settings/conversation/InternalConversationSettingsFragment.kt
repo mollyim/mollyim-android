@@ -174,7 +174,7 @@ class InternalConversationSettingsFragment : ComposeFragment(), InternalConversa
   }
 
   override fun add1000Messages(recipientId: RecipientId) {
-    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
       val recipient = Recipient.live(recipientId).get()
       val messageCount = 1000
       val startTime = System.currentTimeMillis() - messageCount

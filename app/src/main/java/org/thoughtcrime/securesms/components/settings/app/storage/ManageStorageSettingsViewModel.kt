@@ -42,7 +42,7 @@ class ManageStorageSettingsViewModel : ViewModel() {
   val state = store.asStateFlow()
 
   init {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       InAppPaymentsRepository.observeLatestBackupPayment()
         .collectLatest { payment ->
           store.update { it.copy(isPaidTierPending = payment.state == InAppPaymentTable.State.PENDING) }

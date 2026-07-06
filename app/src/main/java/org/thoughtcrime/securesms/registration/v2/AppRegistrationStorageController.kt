@@ -82,7 +82,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     private val LEGACY_BACKUP_PATTERN = Regex("^signal-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})\\.backup$")
   }
 
-  override suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? = withContext(Dispatchers.IO) {
+  override suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? = withContext(Dispatchers.Default) {
     if (!SignalStore.account.isRegistered) {
       return@withContext null
     }
@@ -277,7 +277,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
-  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.IO) {
+  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.Default) {
     if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
       return@withContext
     }

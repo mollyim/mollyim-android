@@ -1247,7 +1247,7 @@ class ConversationFragment :
 
     viewLifecycleOwner.lifecycle.addObserver(LastScrolledPositionUpdater(adapter, layoutManager, viewModel))
 
-    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
       var wasTerminated: Boolean? = null
       viewModel
         .groupRecordFlow

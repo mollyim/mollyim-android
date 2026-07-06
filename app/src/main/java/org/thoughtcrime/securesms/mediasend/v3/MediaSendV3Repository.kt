@@ -150,7 +150,7 @@ object MediaSendV3Repository : MediaSendRepository {
     }
   }
 
-  override suspend fun checkUntrustedIdentities(contactIds: Set<Long>, since: Long): List<Long> = withContext(Dispatchers.IO) {
+  override suspend fun checkUntrustedIdentities(contactIds: Set<Long>, since: Long): List<Long> = withContext(Dispatchers.Default) {
     if (contactIds.isEmpty()) return@withContext emptyList<Long>()
 
     val recipients: List<Recipient> = contactIds

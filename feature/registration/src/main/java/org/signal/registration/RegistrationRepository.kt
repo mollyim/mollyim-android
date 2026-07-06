@@ -738,7 +738,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * and commits it. The app translates this into its own restore-decision state so the rest of the app knows what
    * happened during registration.
    */
-  suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.IO) {
+  suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.Default) {
     Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
     storageController.setRestoreDecision(decision)
   }

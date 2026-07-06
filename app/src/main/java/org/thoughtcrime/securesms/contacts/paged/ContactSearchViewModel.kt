@@ -157,7 +157,7 @@ class ContactSearchViewModel(
   suspend fun setConfiguration(contactSearchConfiguration: ContactSearchConfiguration) {
     internalSearchInProgress.value = true
     try {
-      val (pagedDataSource, size) = withContext(Dispatchers.IO) {
+      val (pagedDataSource, size) = withContext(Dispatchers.Default) {
         val source = ContactSearchPagedDataSource(
           contactSearchConfiguration,
           arbitraryRepository = arbitraryRepository,
