@@ -58,4 +58,7 @@ jobs:
       # gh api repos/actions/upload-artifact/commits/v7 --jq '.sha'
       with:
         name: reports
-        path: '*/build/reports'
+        path: |
+          **/build/reports
+          **/build/test-results
+        if-no-files-found: ignore
