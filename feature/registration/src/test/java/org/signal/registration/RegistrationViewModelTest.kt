@@ -468,7 +468,7 @@ class RegistrationViewModelTest {
     advanceUntilIdle()
 
     val initialState = RegistrationFlowState(
-      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount)
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount())
     )
 
     val result = viewModel.applyEvent(
@@ -494,7 +494,7 @@ class RegistrationViewModelTest {
     advanceUntilIdle()
 
     val initialState = RegistrationFlowState(
-      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount)
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry, RegistrationRoute.LinkAccount())
     )
 
     val result = viewModel.applyEvent(initialState, RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry))
@@ -511,7 +511,7 @@ class RegistrationViewModelTest {
     advanceUntilIdle()
 
     val initialState = RegistrationFlowState(
-      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount)
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount())
     )
 
     val result = viewModel.applyEvent(initialState, RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry))

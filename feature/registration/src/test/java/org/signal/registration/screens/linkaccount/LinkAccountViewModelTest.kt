@@ -55,6 +55,7 @@ class LinkAccountViewModelTest {
     Dispatchers.setMain(testDispatcher)
     mockRepository = mockk(relaxed = true)
     every { mockRepository.startLinkDeviceProvisioning() } returns emptyFlow()
+    coEvery { mockRepository.isCleanStart() } returns true
     emittedParentEvents = mutableListOf()
     parentEventEmitter = { event -> emittedParentEvents.add(event) }
     emittedStates = mutableListOf()
@@ -129,6 +130,21 @@ class LinkAccountViewModelTest {
     flow.emit(NetworkController.LinkDeviceProvisioningEvent.MessageReceived(message))
 
     assertThat(emittedParentEvents).contains(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.MessageSync))
+  }
+
+  @Test
+  fun `link-and-sync offered on a relink over existing data skips import and restores from storage service`() = runTest(testDispatcher) {
+    val flow = givenProvisioningFlow()
+    val message = mockk<NetworkController.LinkDeviceProvisioningMessage>(relaxed = true)
+    coEvery { mockRepository.isCleanStart() } returns false
+    coEvery { mockRepository.registerAsLinkedDevice(message, any()) } returns RequestResult.Success(LinkedDeviceResult(hasLinkAndSyncBackup = true))
+
+    val viewModel = createViewModel()
+    flow.emit(NetworkController.LinkDeviceProvisioningEvent.MessageReceived(message))
+
+    coVerify(exactly = 0) { mockRepository.awaitLinkAndSyncArchive() }
+    coVerify { mockRepository.restoreLinkedDeviceFromStorageService() }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.FullyComplete))
   }
 
   @Test
@@ -213,7 +229,7 @@ class LinkAccountViewModelTest {
   @Test
   fun `applyEvent CreateAccountClick from link-device-first flow routes through Permissions`() = runTest(testDispatcher) {
     val viewModel = createViewModel(
-      RegistrationFlowState(backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount))
+      RegistrationFlowState(backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.LinkAccount()))
     )
 
     viewModel.applyEvent(LinkAccountScreenState(), LinkAccountScreenEvent.CreateAccountClick, stateEmitter)
@@ -234,7 +250,7 @@ class LinkAccountViewModelTest {
           RegistrationRoute.Welcome,
           RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry),
           RegistrationRoute.PhoneNumberEntry,
-          RegistrationRoute.LinkAccount
+          RegistrationRoute.LinkAccount()
         )
       )
     )
@@ -244,6 +260,41 @@ class LinkAccountViewModelTest {
     assertThat(emittedParentEvents).contains(
       RegistrationFlowEvent.NavigateBackToScreen(RegistrationRoute.PhoneNumberEntry)
     )
+  }
+
+  @Test
+  fun `provisioning message for a different account prompts to delete data without registering`() = runTest(testDispatcher) {
+    val flow = givenProvisioningFlow()
+    val message = mockk<NetworkController.LinkDeviceProvisioningMessage>(relaxed = true)
+    coEvery { mockRepository.isProvisioningForDifferentAccount(message) } returns true
+
+    val viewModel = createViewModel()
+    flow.emit(NetworkController.LinkDeviceProvisioningEvent.MessageReceived(message))
+
+    assertThat(viewModel.state.value.showDeleteDataDialog).isTrue()
+    assertThat(viewModel.state.value.isRegistering).isFalse()
+    coVerify(exactly = 0) { mockRepository.registerAsLinkedDevice(any(), any()) }
+  }
+
+  @Test
+  fun `applyEvent ConfirmDeleteAndRelink wipes local data and dismisses the dialog`() = runTest(testDispatcher) {
+    val viewModel = createViewModel()
+
+    viewModel.applyEvent(LinkAccountScreenState(showDeleteDataDialog = true), LinkAccountScreenEvent.ConfirmDeleteAndRelink, stateEmitter)
+
+    coVerify { mockRepository.clearLocalDataAndRestart() }
+    assertThat(emittedStates.last().showDeleteDataDialog).isFalse()
+  }
+
+  @Test
+  fun `applyEvent CancelDeleteAndRelink dismisses the dialog and restarts provisioning`() = runTest(testDispatcher) {
+    val viewModel = createViewModel()
+
+    viewModel.applyEvent(LinkAccountScreenState(showDeleteDataDialog = true), LinkAccountScreenEvent.CancelDeleteAndRelink, stateEmitter)
+
+    assertThat(emittedStates.last().qrCodeState).isEqualTo(QrState.Loading)
+    assertThat(emittedStates.last().showDeleteDataDialog).isFalse()
+    coVerify(exactly = 0) { mockRepository.clearLocalDataAndRestart() }
   }
 
   private fun givenProvisioningFlow(): MutableSharedFlow<NetworkController.LinkDeviceProvisioningEvent> {

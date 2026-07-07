@@ -294,8 +294,24 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * Starts a provisioning session for QR-based device linking.
    * See [NetworkController.startLinkDeviceProvisioning].
    */
-  fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> {
-    return networkController.startLinkDeviceProvisioning()
+  fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> = flow {
+    emitAll(networkController.startLinkDeviceProvisioning(allowLinkAndSync = isCleanStart()))
+  }
+
+  /**
+   * True if this device is linked to a different account (different ACI) than the one advertised in
+   * [message]. Returns false for a fresh (never-registered) device.
+   */
+  suspend fun isProvisioningForDifferentAccount(message: NetworkController.LinkDeviceProvisioningMessage): Boolean {
+    val previousAci = storageController.getPreExistingRegistrationData()?.aci ?: return false
+    return previousAci != ACI.parseOrThrow(message.aci)
+  }
+
+  /**
+   * True if this device has no pre-existing registration (a fresh, never-registered device).
+   */
+  suspend fun isCleanStart(): Boolean {
+    return storageController.getPreExistingRegistrationData() == null
   }
 
   /**

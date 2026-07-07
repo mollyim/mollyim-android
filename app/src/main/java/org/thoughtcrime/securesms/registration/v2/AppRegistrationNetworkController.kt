@@ -771,7 +771,7 @@ class AppRegistrationNetworkController(
 
     fun startSocket() {
       val handle = ProvisioningSocket.start<RegistrationProvisionMessage>(
-        mode = ProvisioningSocket.Mode.REREG,
+        mode = ProvisioningSocket.Mode.Rereg,
         identityKeyPair = IdentityKeyPair.generate(),
         configuration = configuration,
         handler = { id, t ->
@@ -848,13 +848,13 @@ class AppRegistrationNetworkController(
     }
   }
 
-  override fun startLinkDeviceProvisioning(): Flow<LinkDeviceProvisioningEvent> = callbackFlow {
+  override fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<LinkDeviceProvisioningEvent> = callbackFlow {
     val socketHandles = mutableListOf<Closeable>()
     val configuration = AppDependencies.signalServiceNetworkAccess.getConfiguration()
 
     fun startSocket() {
       val handle = ProvisioningSocket.start<ProvisionMessage>(
-        mode = ProvisioningSocket.Mode.LINK,
+        mode = ProvisioningSocket.Mode.Link(linkAndSyncCapable = allowLinkAndSync),
         identityKeyPair = IdentityKeyPair.generate(),
         configuration = configuration,
         handler = { id, t ->

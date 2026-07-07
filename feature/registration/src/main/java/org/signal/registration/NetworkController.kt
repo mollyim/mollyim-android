@@ -240,8 +240,10 @@ interface NetworkController {
    * - [LinkDeviceProvisioningEvent.Error] if the provisioning session encounters an unrecoverable error.
    *
    * The flow manages socket lifecycle (rotation, keep-alive) internally. Cancel the collecting coroutine to stop provisioning.
+   *
+   * @param allowLinkAndSync Whether we allow data sync during linking. Normally allowed, but disabled for re-links.
    */
-  fun startLinkDeviceProvisioning(): Flow<LinkDeviceProvisioningEvent>
+  fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<LinkDeviceProvisioningEvent>
 
   /**
    * Performs the network call to register this device as a linked (secondary) device on a pre-existing

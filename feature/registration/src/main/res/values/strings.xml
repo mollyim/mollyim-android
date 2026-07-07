@@ -407,6 +407,14 @@
     <string name="MessageSyncScreen__learn_more">Learn more</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">Cancel</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">Try again</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scan this code to link your account</string>
@@ -436,6 +444,12 @@
     <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
 

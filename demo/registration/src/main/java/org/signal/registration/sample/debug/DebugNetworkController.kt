@@ -248,8 +248,8 @@ class DebugNetworkController(
     return delegate.startProvisioning()
   }
 
-  override fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> {
-    return delegate.startLinkDeviceProvisioning()
+  override fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<NetworkController.LinkDeviceProvisioningEvent> {
+    return delegate.startLinkDeviceProvisioning(allowLinkAndSync)
   }
 
   override suspend fun registerAsLinkedDevice(

@@ -26,18 +26,24 @@ class RegistrationActivity : ComponentActivity() {
 
   companion object {
     private const val NEXT_INTENT_EXTRA = "next_intent"
+    private const val START_DESTINATION_EXTRA = "start_destination"
 
     /**
      * @param nextIntent An optional intent to launch once registration completes successfully. This is how the caller
      *   (which lives outside this module) routes the user back into the main app, since the launching activity will
      *   typically have finished itself.
+     * @param startDestination An optional route to open directly instead of resuming a previous flow. Used, for example,
+     *   to send a deregistered linked device straight to the link-device screen.
      */
     @JvmStatic
     @JvmOverloads
-    fun createIntent(context: Context, nextIntent: Intent? = null): Intent {
+    fun createIntent(context: Context, nextIntent: Intent? = null, startDestination: RegistrationRoute? = null): Intent {
       return Intent(context, RegistrationActivity::class.java).apply {
         if (nextIntent != null) {
           putExtra(NEXT_INTENT_EXTRA, nextIntent)
+        }
+        if (startDestination != null) {
+          putExtra(START_DESTINATION_EXTRA, startDestination)
         }
       }
     }
@@ -57,11 +63,14 @@ class RegistrationActivity : ComponentActivity() {
     enableEdgeToEdge()
     super.onCreate(savedInstanceState)
 
+    val startDestination = IntentCompat.getParcelableExtra(intent, START_DESTINATION_EXTRA, RegistrationRoute::class.java)
+
     setContent {
       SignalTheme(incognitoKeyboardEnabled = false) {
         Surface(modifier = Modifier.fillMaxSize()) {
           RegistrationNavHost(
             registrationRepository = repository,
+            startDestination = startDestination,
             modifier = Modifier
               .fillMaxSize()
               .navigationBarsPadding(),

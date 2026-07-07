@@ -91,7 +91,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     val pni = SignalStore.account.pni ?: return@withContext null
     val e164 = SignalStore.account.e164 ?: return@withContext null
     val servicePassword = SignalStore.account.servicePassword ?: return@withContext null
-    val aep = SignalStore.account.accountEntropyPool ?: return@withContext null
+    val aep = SignalStore.account.accountEntropyPool
 
     val aciIdentityKeyPair = SignalStore.account.aciIdentityKey
     val pniIdentityKeyPair = SignalStore.account.pniIdentityKey

@@ -126,7 +126,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data class AllowNotifications(val nextRoute: RegistrationRoute) : RegistrationRoute
 
   @Serializable
-  data object LinkAccount : RegistrationRoute
+  data class LinkAccount(val showCreateAccount: Boolean = true) : RegistrationRoute
 
   @Serializable
   data object MessageSync : RegistrationRoute
@@ -262,6 +262,7 @@ private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/3
  * @param registrationRepository The repository for registration data.
  * @param registrationViewModel Optional ViewModel for testing. If null, creates one internally.
  * @param permissionsState Optional permissions state for testing. If null, creates one internally.
+ * @param startDestination Optional route to open directly as the sole start destination, instead of showing [RegistrationRoute.Welcome] or restoring a previous flow.
  * @param modifier Modifier to be applied to the NavDisplay.
  * @param onRegistrationComplete Callback invoked when registration is successfully completed.
  */
@@ -271,11 +272,12 @@ fun RegistrationNavHost(
   registrationRepository: RegistrationRepository,
   registrationViewModel: RegistrationViewModel? = null,
   permissionsState: MultiplePermissionsState? = null,
+  startDestination: RegistrationRoute? = null,
   modifier: Modifier = Modifier,
   onRegistrationComplete: () -> Unit = {}
 ) {
   val viewModel: RegistrationViewModel = registrationViewModel ?: viewModel(
-    factory = RegistrationViewModel.Factory(registrationRepository)
+    factory = RegistrationViewModel.Factory(registrationRepository, startDestination)
   )
 
   val registrationState by viewModel.state.collectAsStateWithLifecycle()
@@ -382,9 +384,9 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
           WelcomeScreenEvents.Continue -> navigateRequestingPermissions(RegistrationRoute.PhoneNumberEntry)
           WelcomeScreenEvents.LinkDevice -> {
             if (registrationViewModel.getRequiredLinkedDevicePermission().isNullOrBlank()) {
-              parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount)
+              parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount())
             } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount))
+              parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount()))
             }
           }
           WelcomeScreenEvents.HasOldPhone -> navigateRequestingPermissions(RegistrationRoute.QuickRestoreQrScan)
@@ -430,17 +432,18 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   // --- Link account Screen
-  entry<RegistrationRoute.LinkAccount> {
+  entry<RegistrationRoute.LinkAccount> { key ->
     val viewModel: LinkAccountViewModel = viewModel(
       factory = LinkAccountViewModel.Factory(
         repository = registrationRepository,
         parentState = registrationViewModel.state,
-        parentEventEmitter = registrationViewModel::onEvent
+        parentEventEmitter = registrationViewModel::onEvent,
+        showCreateAccount = key.showCreateAccount
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = stringResource(R.string.terms_and_privacy_policy_url) // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/articles/360007320451-Troubleshooting-multiple-devices" // TODO [regv5] update with proper url
 
     LinkAccountScreen(
       state = state,

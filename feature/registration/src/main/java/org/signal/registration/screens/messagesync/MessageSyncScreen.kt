@@ -36,9 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
@@ -67,6 +69,18 @@ fun MessageSyncScreen(
       is RegistrationScaffold.Params.OnePane -> OnePane(layoutParams, state, onEvent)
       is RegistrationScaffold.Params.TwoPane -> TwoPane(layoutParams, state, onEvent)
     }
+  }
+
+  if (state.showSyncFailedDialog) {
+    Dialogs.SimpleAlertDialog(
+      title = stringResource(R.string.MessageSyncScreen__couldnt_restore_messages),
+      body = stringResource(R.string.MessageSyncScreen__your_messages_couldnt_be_transferred),
+      confirm = stringResource(R.string.MessageSyncScreen__try_again),
+      onConfirm = { onEvent(MessageSyncScreenEvent.RetryClick) },
+      dismiss = stringResource(R.string.MessageSyncScreen__continue_without_messages),
+      onDeny = { onEvent(MessageSyncScreenEvent.ContinueWithoutMessagesClick) },
+      properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+    )
   }
 }
 

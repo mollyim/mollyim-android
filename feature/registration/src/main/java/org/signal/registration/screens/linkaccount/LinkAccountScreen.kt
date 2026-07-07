@@ -62,6 +62,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
@@ -161,6 +162,19 @@ private fun StateDialogs(
       onDismiss = { onEvent(LinkAccountScreenEvent.DismissError) }
     )
   }
+
+  if (state.showDeleteDataDialog) {
+    Dialogs.SimpleAlertDialog(
+      title = stringResource(R.string.LinkAccountScreen__delete_app_data_question),
+      body = stringResource(R.string.LinkAccountScreen__you_are_attempting_to_link_a_different_account),
+      confirm = stringResource(R.string.LinkAccountScreen__delete_and_restart),
+      confirmColor = MaterialTheme.colorScheme.error,
+      dismiss = stringResource(android.R.string.cancel),
+      onConfirm = { onEvent(LinkAccountScreenEvent.ConfirmDeleteAndRelink) },
+      onDeny = { onEvent(LinkAccountScreenEvent.CancelDeleteAndRelink) },
+      properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+    )
+  }
 }
 
 @Composable
@@ -194,12 +208,16 @@ private fun OnePane(
         )
       }
     },
-    footer = {
-      OnePaneFooterContent(
-        params = params,
-        isElevated = scrollState.canScrollForward,
-        onEvent = onEvent
-      )
+    footer = if (state.showCreateAccount) {
+      {
+        OnePaneFooterContent(
+          params = params,
+          isElevated = scrollState.canScrollForward,
+          onEvent = onEvent
+        )
+      }
+    } else {
+      null
     }
   )
 }
@@ -231,12 +249,16 @@ private fun TwoPane(
         expandButtonVisible = expandButtonVisible
       )
     },
-    footer = {
-      TwoPaneFooterContent(
-        params = params,
-        isElevated = false,
-        onEvent = onEvent
-      )
+    footer = if (state.showCreateAccount) {
+      {
+        TwoPaneFooterContent(
+          params = params,
+          isElevated = false,
+          onEvent = onEvent
+        )
+      }
+    } else {
+      null
     }
   )
 }
@@ -678,6 +700,8 @@ private fun LinkAccountScreenPreview() {
           LinkAccountScreenEvent.HideOverlayClick -> displayQrOverlay = false
           LinkAccountScreenEvent.RetryQrCode -> Unit
           LinkAccountScreenEvent.DismissError -> Unit
+          LinkAccountScreenEvent.ConfirmDeleteAndRelink -> Unit
+          LinkAccountScreenEvent.CancelDeleteAndRelink -> Unit
         }
       }
     )

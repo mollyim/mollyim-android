@@ -37,7 +37,8 @@ import org.signal.registration.screens.util.navigateTo
 class LinkAccountViewModel(
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  showCreateAccount: Boolean = true
 ) : EventDrivenViewModel<LinkAccountScreenEvent>(TAG) {
 
   companion object {
@@ -45,10 +46,10 @@ class LinkAccountViewModel(
     private const val DEVICE_NAME = "Android"
   }
 
-  private val _state = MutableStateFlow(LinkAccountScreenState())
+  private val _state = MutableStateFlow(LinkAccountScreenState(showCreateAccount = showCreateAccount))
   val state: StateFlow<LinkAccountScreenState> = _state
     .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LinkAccountScreenState())
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
 
   private var provisioningJob: Job? = null
 
@@ -79,6 +80,14 @@ class LinkAccountViewModel(
         startProvisioning()
         state.copy(qrCodeState = QrState.Loading, showError = false)
       }
+      LinkAccountScreenEvent.ConfirmDeleteAndRelink -> {
+        viewModelScope.launch { repository.clearLocalDataAndRestart() }
+        state.copy(showDeleteDataDialog = false)
+      }
+      LinkAccountScreenEvent.CancelDeleteAndRelink -> {
+        startProvisioning()
+        state.copy(qrCodeState = QrState.Loading, showDeleteDataDialog = false)
+      }
     }
     stateEmitter(result)
   }
@@ -108,12 +117,25 @@ class LinkAccountViewModel(
   }
 
   private suspend fun handleProvisioningMessage(message: NetworkController.LinkDeviceProvisioningMessage) {
+    if (repository.isProvisioningForDifferentAccount(message)) {
+      Log.w(TAG, "[Register] Provisioning message is for a different account prompting to delete local data")
+      _state.update { it.copy(isRegistering = false, showDeleteDataDialog = true) }
+      return
+    }
+
+    val isCleanStart = repository.isCleanStart()
+
     _state.update { it.copy(isRegistering = true, qrCodeState = QrState.Scanned) }
 
     when (val result = repository.registerAsLinkedDevice(message, DEVICE_NAME)) {
       is RequestResult.Success -> {
-        Log.i(TAG, "[Register] Success! hasLinkAndSyncBackup: ${result.result.hasLinkAndSyncBackup}")
-        if (result.result.hasLinkAndSyncBackup) {
+        Log.i(TAG, "[Register] Success! hasLinkAndSyncBackup: ${result.result.hasLinkAndSyncBackup}, isCleanStart: $isCleanStart")
+
+        if (result.result.hasLinkAndSyncBackup && !isCleanStart) {
+          Log.w(TAG, "[Register] Link-and-sync offered on a relink over existing data, skipping import")
+        }
+
+        if (result.result.hasLinkAndSyncBackup && isCleanStart) {
           // Wait here until the primary actually makes the backup available or tells us not to expect one
           _state.update { it.copy(isRegistering = false, isWaitingForPrimary = true) }
           val waitResult = repository.awaitLinkAndSyncArchive()
@@ -137,7 +159,7 @@ class LinkAccountViewModel(
             }
           }
         } else {
-          // No link-and-sync backup, restore from storage service immediately, then finish
+          // No valid link-and-sync backup, restore from storage service immediately, then finish
           repository.restoreLinkedDeviceFromStorageService()
           _state.update { it.copy(isRegistering = false) }
           parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
@@ -169,10 +191,11 @@ class LinkAccountViewModel(
   class Factory(
     private val repository: RegistrationRepository,
     private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+    private val showCreateAccount: Boolean = true
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return LinkAccountViewModel(repository, parentState, parentEventEmitter) as T
+      return LinkAccountViewModel(repository, parentState, parentEventEmitter, showCreateAccount) as T
     }
   }
 }

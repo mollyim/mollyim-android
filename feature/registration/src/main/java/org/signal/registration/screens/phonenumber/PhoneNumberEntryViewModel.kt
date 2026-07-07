@@ -133,7 +133,7 @@ class PhoneNumberEntryViewModel(
         }
       }
       is PhoneNumberEntryScreenEvents.LinkDevice -> {
-        parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount)
+        parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount())
       }
       is PhoneNumberEntryScreenEvents.CaptchaCompleted -> {
         stateEmitter(applyCaptchaCompleted(state, event.token, parentEventEmitter))

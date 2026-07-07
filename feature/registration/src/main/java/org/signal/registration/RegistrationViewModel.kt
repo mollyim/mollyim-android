@@ -30,13 +30,20 @@ import kotlin.reflect.KClass
  * ViewModel shared across the registration flow.
  * Manages state and logic for registration screens.
  */
-class RegistrationViewModel(private val repository: RegistrationRepository, savedStateHandle: SavedStateHandle) : EventDrivenViewModel<RegistrationFlowEvent>(TAG) {
+class RegistrationViewModel(
+  private val repository: RegistrationRepository,
+  savedStateHandle: SavedStateHandle,
+  startDestination: RegistrationRoute? = null
+) : EventDrivenViewModel<RegistrationFlowEvent>(TAG) {
 
   companion object {
     private val TAG = Log.tag(RegistrationViewModel::class)
   }
 
-  private var _state: MutableStateFlow<RegistrationFlowState> = savedStateHandle.getMutableStateFlow("registration_state", initialValue = RegistrationFlowState())
+  private var _state: MutableStateFlow<RegistrationFlowState> = savedStateHandle.getMutableStateFlow(
+    "registration_state",
+    initialValue = RegistrationFlowState(backStack = listOf(startDestination ?: RegistrationRoute.Welcome))
+  )
   val state: StateFlow<RegistrationFlowState> = _state.asStateFlow()
 
   private val finishChannel = Channel<Unit>(capacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
@@ -45,17 +52,21 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
   val resultBus = ResultEventBus()
 
   init {
-    _state.value = _state.value.copy(isRestoringNavigationState = true)
-    viewModelScope.launch {
-      val restored = repository.restoreFlowState()
-      if (restored != null) {
-        Log.i(TAG, "[init] Restored flow state from disk. Backstack size: ${restored.backStack.size}, hasSession: ${restored.sessionMetadata != null}")
-        _state.value = validateRestoredState(restored).copy(isRestoringNavigationState = false)
-      } else {
-        _state.value = _state.value.copy(
-          preExistingRegistrationData = repository.getPreExistingRegistrationData(),
-          isRestoringNavigationState = false
-        )
+    if (startDestination != null) {
+      _state.value = _state.value.copy(isRestoringNavigationState = false)
+    } else {
+      _state.value = _state.value.copy(isRestoringNavigationState = true)
+      viewModelScope.launch {
+        val restored = repository.restoreFlowState()
+        if (restored != null) {
+          Log.i(TAG, "[init] Restored flow state from disk. Backstack size: ${restored.backStack.size}, hasSession: ${restored.sessionMetadata != null}")
+          _state.value = validateRestoredState(restored).copy(isRestoringNavigationState = false)
+        } else {
+          _state.value = _state.value.copy(
+            preExistingRegistrationData = repository.getPreExistingRegistrationData(),
+            isRestoringNavigationState = false
+          )
+        }
       }
     }
   }
@@ -203,9 +214,9 @@ class RegistrationViewModel(private val repository: RegistrationRepository, save
     }
   }
 
-  class Factory(private val repository: RegistrationRepository) : ViewModelProvider.Factory {
+  class Factory(private val repository: RegistrationRepository, private val startDestination: RegistrationRoute? = null) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-      return RegistrationViewModel(repository, extras.createSavedStateHandle()) as T
+      return RegistrationViewModel(repository, extras.createSavedStateHandle(), startDestination) as T
     }
   }
 }
