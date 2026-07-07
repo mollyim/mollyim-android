@@ -256,6 +256,7 @@ private fun OnePaneLayout(
           hasValidCountry = state.countryName.isNotEmpty(),
           countryCode = state.countryCode,
           formattedNumber = state.formattedNumber,
+          canSubmit = !state.showSpinner && state.isNumberPossible,
           onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
           onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
           onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
@@ -324,6 +325,7 @@ private fun TwoPaneLayout(
           hasValidCountry = state.countryName.isNotEmpty(),
           countryCode = state.countryCode,
           formattedNumber = state.formattedNumber,
+          canSubmit = !state.showSpinner && state.isNumberPossible,
           onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
           onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
           onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
@@ -499,6 +501,7 @@ private fun PhoneNumberInputFields(
   hasValidCountry: Boolean,
   countryCode: String,
   formattedNumber: String,
+  canSubmit: Boolean,
   onCountryCodeChanged: (String) -> Unit,
   onPhoneNumberChanged: (String) -> Unit,
   onPhoneNumberSubmitted: () -> Unit,
@@ -590,7 +593,11 @@ private fun PhoneNumberInputFields(
         imeAction = ImeAction.Done
       ),
       keyboardActions = KeyboardActions(
-        onDone = { onPhoneNumberSubmitted() }
+        onDone = {
+          if (canSubmit) {
+            onPhoneNumberSubmitted()
+          }
+        }
       ),
       singleLine = true,
       textStyle = MaterialTheme.typography.bodyLarge.copy(
