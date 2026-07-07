@@ -197,8 +197,17 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `DigitChanged with pasted hyphenated text stores the stripped code in autoFillCode`() = runTest {
-    val initialState = VerificationCodeState()
+  fun `DigitChanged with pasted hyphenated text populates all digits and submits`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
 
     viewModel.applyEvent(
       initialState,
@@ -206,12 +215,23 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
   }
 
   @Test
-  fun `DigitChanged with a pasted plain code stores it in autoFillCode`() = runTest {
-    val initialState = VerificationCodeState()
+  fun `DigitChanged with a pasted plain code populates all digits and submits`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
 
     viewModel.applyEvent(
       initialState,
@@ -219,12 +239,17 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
   }
 
   @Test
   fun `DigitChanged with pasted text of the wrong length is ignored`() = runTest {
-    val initialState = VerificationCodeState()
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567"
+    )
 
     viewModel.applyEvent(
       initialState,
@@ -232,7 +257,8 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().autoFillCode).isNull()
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
   }
 
   @Test
@@ -260,6 +286,28 @@ class VerificationCodeViewModelTest {
     advanceUntilIdle()
 
     assertThat(vm.state.value.autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `DigitChanged with a full code dispatched through the event channel submits it in a single pass`() = runTest(testDispatcher) {
+    val sessionMetadata = createSessionMetadata()
+    parentState.value = RegistrationFlowState(
+      sessionMetadata = sessionMetadata,
+      sessionE164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.DigitChanged(0, "123456"))
+    advanceUntilIdle()
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
   }
 
   // ==================== applyEvent: DigitChanged Tests ====================

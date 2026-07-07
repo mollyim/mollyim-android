@@ -89,9 +89,7 @@ fun VerificationCodeScreen(
     val code = state.autoFillCode ?: return@LaunchedEffect
 
     if (code.length == VerificationCodeState.CODE_LENGTH && code.all { it.isDigit() } && !state.isSubmittingCode) {
-      code.forEachIndexed { index, digit ->
-        onEvent(VerificationCodeScreenEvents.DigitChanged(index, digit.toString()))
-      }
+      onEvent(VerificationCodeScreenEvents.DigitChanged(0, code))
     }
     onEvent(VerificationCodeScreenEvents.ConsumeAutoFillCode)
   }

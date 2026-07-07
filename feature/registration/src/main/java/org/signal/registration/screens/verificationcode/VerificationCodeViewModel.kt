@@ -191,7 +191,8 @@ class VerificationCodeViewModel(
    *
    * - an empty [value] is a backspace, deleting a digit and moving focus back
    * - a single digit is recorded and focus advances, submitting once the full code is present
-   * - multi-character input (e.g. a pasted "123-456") is treated as a pasted code
+   * - multi-character input (e.g. a pasted "123-456" or an auto-filled SMS code) populates every field at once and
+   *   submits, all in this single reducer pass
    */
   private suspend fun applyDigitChanged(
     state: VerificationCodeState,
@@ -225,7 +226,33 @@ class VerificationCodeViewModel(
         }
       }
 
-      else -> applyPastedCode(state, remainder)
+      else -> applyFullCode(state, addedDigits, stateEmitter)
+    }
+  }
+
+  /**
+   * Populates every digit field from a full pasted or auto-filled [code] in a single reducer pass and submits it.
+   * Multi-character input that isn't a complete code is ignored.
+   */
+  private suspend fun applyFullCode(
+    state: VerificationCodeState,
+    code: String,
+    stateEmitter: (VerificationCodeState) -> Unit
+  ): VerificationCodeState {
+    if (code.length != CODE_LENGTH) {
+      Log.w(TAG, "[DigitChanged] Ignoring multi-character input containing ${code.length} digits.")
+      return state
+    }
+
+    val updated = state.copy(
+      digits = code.map { it.toString() },
+      focusedDigitIndex = CODE_LENGTH - 1
+    )
+
+    return if (!updated.isSubmittingCode) {
+      submitCode(updated, updated.code, stateEmitter)
+    } else {
+      updated
     }
   }
 
@@ -255,20 +282,6 @@ class VerificationCodeViewModel(
   private suspend fun submitCode(state: VerificationCodeState, code: String, stateEmitter: (VerificationCodeState) -> Unit): VerificationCodeState {
     stateEmitter(state.copy(isSubmittingCode = true))
     return applyCodeEntered(state, code).copy(isSubmittingCode = false)
-  }
-
-  /**
-   * Strips any formatting (e.g. a hyphen) from pasted text and, if what remains is a full code, populates the fields
-   * by reusing the [VerificationCodeState.autoFillCode] path. Pasted text that doesn't contain a full code is ignored.
-   */
-  private fun applyPastedCode(state: VerificationCodeState, rawCode: String): VerificationCodeState {
-    val digits = rawCode.filter { it.isDigit() }
-    if (digits.length != CODE_LENGTH) {
-      Log.w(TAG, "[DigitChanged] Ignoring pasted text containing ${digits.length} digits.")
-      return state
-    }
-
-    return state.copy(autoFillCode = digits)
   }
 
   private suspend fun applyCodeEntered(inputState: VerificationCodeState, code: String): VerificationCodeState {

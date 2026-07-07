@@ -15,7 +15,8 @@ sealed class VerificationCodeScreenEvents {
   /**
    * The raw [value] of the digit field at [index] changed. The view model interprets it: a single digit is recorded
    * (submitting once the full code is present), an empty [value] is a backspace (deleting a digit and shifting the
-   * following ones left), and multi-character input (e.g. a pasted "123-456") is treated as a pasted code.
+   * following ones left), and multi-character input (e.g. a pasted "123-456" or an auto-filled SMS code) populates
+   * every field at once and submits.
    */
   data class DigitChanged(val index: Int, val value: String) : VerificationCodeScreenEvents() {
     override fun toString(): String = "DigitChanged(index=$index)"

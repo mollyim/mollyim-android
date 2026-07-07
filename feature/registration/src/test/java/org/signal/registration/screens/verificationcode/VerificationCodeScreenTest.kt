@@ -216,7 +216,7 @@ class VerificationCodeScreenTest {
   }
 
   @Test
-  fun `autoFillCode emits a DigitChanged for each digit`() {
+  fun `autoFillCode emits a single DigitChanged with the full code`() {
     // Given
     val emittedEvents = mutableListOf<VerificationCodeScreenEvents>()
 
@@ -231,13 +231,13 @@ class VerificationCodeScreenTest {
 
     // When - the auto-fill effect populates the fields
     composeTestRule.waitUntil(timeoutMillis = 5_000) {
-      emittedEvents.filterIsInstance<VerificationCodeScreenEvents.DigitChanged>().size == 6
+      emittedEvents.any { it is VerificationCodeScreenEvents.DigitChanged }
     }
 
-    // Then
+    // Then - a single event carries the whole code, rather than a burst of per-digit events
     val digitChanges = emittedEvents.filterIsInstance<VerificationCodeScreenEvents.DigitChanged>()
-    assert(digitChanges == (0 until 6).map { VerificationCodeScreenEvents.DigitChanged(it, "${it + 1}") }) {
-      "Expected a DigitChanged per digit but got $digitChanges"
+    assert(digitChanges == listOf(VerificationCodeScreenEvents.DigitChanged(0, "123456"))) {
+      "Expected a single DigitChanged(0, 123456) but got $digitChanges"
     }
   }
 
