@@ -18,9 +18,10 @@ data class VerificationCodeState(
   val autoFillCode: String? = null,
   val digits: List<String> = List(CODE_LENGTH) { "" },
   val focusedDigitIndex: Int = 0,
+  val showContactSupportSheet: Boolean = false,
   val oneTimeEvent: OneTimeEvent? = null
 ) {
-  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, oneTimeEvent=$oneTimeEvent)"
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, oneTimeEvent=$oneTimeEvent)"
 
   /**
    * The full code as currently entered. Only meaningful when [isComplete] is true.

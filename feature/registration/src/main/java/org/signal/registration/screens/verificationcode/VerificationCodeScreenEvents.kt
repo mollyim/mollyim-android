@@ -39,6 +39,8 @@ sealed class VerificationCodeScreenEvents {
 
   data object HavingTrouble : VerificationCodeScreenEvents()
 
+  data object DismissContactSupport : VerificationCodeScreenEvents()
+
   data object ConsumeInnerOneTimeEvent : VerificationCodeScreenEvents()
 
   /**

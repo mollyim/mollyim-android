@@ -127,7 +127,8 @@ class VerificationCodeViewModel(
       is VerificationCodeScreenEvents.WrongNumber -> state.also { parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry) }
       is VerificationCodeScreenEvents.ResendSms -> applyResendCode(state, NetworkController.VerificationCodeTransport.SMS)
       is VerificationCodeScreenEvents.CallMe -> applyResendCode(state, NetworkController.VerificationCodeTransport.VOICE)
-      is VerificationCodeScreenEvents.HavingTrouble -> throw NotImplementedError("having trouble flow") // TODO [registration] - Having trouble flow
+      is VerificationCodeScreenEvents.HavingTrouble -> state.copy(showContactSupportSheet = true)
+      is VerificationCodeScreenEvents.DismissContactSupport -> state.copy(showContactSupportSheet = false)
       is VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent -> state.copy(oneTimeEvent = null)
       is VerificationCodeScreenEvents.CountdownTick -> applyCountdownTick(state)
       is VerificationCodeScreenEvents.Foregrounded -> applyForegrounded(state)

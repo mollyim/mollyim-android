@@ -101,6 +101,20 @@
     <string name="VerificationCodeScreen__registration_error">Registration failed. Please try again.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">Having trouble?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">Having trouble registering?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Make sure your phone has a cellular signal to receive your SMS or call\n • Confirm you can receive a phone call to the number\n • Check that you have entered your phone number correctly.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">For more information, please follow %1$s or %2$s</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">these troubleshooting steps</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Contact Support</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+    <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string>
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+    <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string>
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->

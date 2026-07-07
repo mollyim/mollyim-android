@@ -137,6 +137,12 @@ fun VerificationCodeScreen(
     onEvent(VerificationCodeScreenEvents.Foregrounded)
   }
 
+  if (state.showContactSupportSheet) {
+    ContactSupportBottomSheet(
+      onDismiss = { onEvent(VerificationCodeScreenEvents.DismissContactSupport) }
+    )
+  }
+
   Scaffold(
     snackbarHost = { SnackbarHost(snackbarHostState) },
     modifier = modifier
