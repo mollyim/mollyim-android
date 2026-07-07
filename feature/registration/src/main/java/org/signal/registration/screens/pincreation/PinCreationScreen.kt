@@ -51,6 +51,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -92,9 +93,36 @@ fun PinCreationScreen(
 ) {
   val activePin = remember { mutableStateOf("") }
   val canSubmitPin = activePin.value.length >= 4
+  val resources = LocalResources.current
+  var errorMessage: String? by remember { mutableStateOf(null) }
 
   BackHandler(enabled = state.isConfirmEnabled) {
     onEvent(PinCreationScreenEvents.BackToPinEntry)
+  }
+
+  LaunchedEffect(state.oneTimeEvent) {
+    val event = state.oneTimeEvent ?: return@LaunchedEffect
+    onEvent(PinCreationScreenEvents.ConsumeOneTimeEvent)
+    errorMessage = when (event) {
+      is PinCreationState.OneTimeEvent.ServiceError -> {
+        resources.getString(R.string.PinCreationScreen__service_error)
+      }
+      is PinCreationState.OneTimeEvent.NetworkError -> {
+        if (event.retryAfter != null) {
+          resources.getString(R.string.PinCreationScreen__network_error_try_again_in_s, event.retryAfter.toString())
+        } else {
+          resources.getString(R.string.PinCreationScreen__network_error)
+        }
+      }
+    }
+  }
+
+  errorMessage?.let { message ->
+    Dialogs.SimpleMessageDialog(
+      message = message,
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { errorMessage = null }
+    )
   }
 
   when (val params = RegistrationScaffold.rememberLayoutParams()) {

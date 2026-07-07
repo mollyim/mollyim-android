@@ -185,7 +185,11 @@ fun PhoneNumberScreen(
     onEvent(PhoneNumberEntryScreenEvents.ConsumeOneTimeEvent)
     when (state.oneTimeEvent) {
       OneTimeEvent.NetworkError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__network_error)
-      is OneTimeEvent.RateLimited -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+      is OneTimeEvent.RateLimited -> simpleErrorMessage = if (state.oneTimeEvent.retryAfter.isPositive()) {
+        resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+      } else {
+        resources.getString(R.string.VerificationCodeScreen__too_many_attempts)
+      }
       OneTimeEvent.UnknownError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
       OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method)
       OneTimeEvent.UnableToSendSms -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms)

@@ -579,7 +579,7 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `CodeEntered with session not found emits ResetState`() = runTest {
+  fun `CodeEntered with session not found navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(
       sessionMetadata = sessionMetadata,
@@ -594,7 +594,7 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test
@@ -953,7 +953,7 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `ResendSms with InvalidSessionId emits ResetState`() = runTest {
+  fun `ResendSms with InvalidSessionId navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
@@ -965,11 +965,11 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test
-  fun `ResendSms with SessionNotFound emits ResetState`() = runTest {
+  fun `ResendSms with SessionNotFound navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
@@ -981,7 +981,7 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test

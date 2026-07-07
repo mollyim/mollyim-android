@@ -91,6 +91,8 @@
     <string name="VerificationCodeScreen__network_error">Unable to connect. Please check your network and try again.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Too many attempts. Try again in %s.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">Too many attempts. Please try again later.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">An unexpected error occurred. Please try again.</string>
     <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
@@ -361,6 +363,12 @@
     <string name="PinCreationScreen__disable_pin">Disable PIN</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">Cancel</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">Encountered a network error.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Registration Lock</string>

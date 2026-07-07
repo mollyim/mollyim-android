@@ -307,9 +307,8 @@ class VerificationCodeViewModel(
             return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
           }
           is NetworkController.SubmitVerificationCodeError.SessionNotFound -> {
-            Log.w(TAG, "[SubmitCode] Session not found: ${error.message}")
-            // TODO don't start over, go back to phone number entry
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            Log.w(TAG, "[SubmitCode] Session not found: ${error.message}. Navigating back to phone number entry.")
+            parentEventEmitter.navigateBack()
             return state
           }
           is NetworkController.SubmitVerificationCodeError.SessionAlreadyVerifiedOrNoCodeRequested -> {
@@ -365,8 +364,9 @@ class VerificationCodeViewModel(
       is RequestResult.NonSuccess -> {
         when (val error = registerResult.error) {
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
-            // TODO [registration] Handle session not found or not verified case.
-            throw NotImplementedError("Handle session not found or not verified case.")
+            Log.w(TAG, "[Register] Session not found or not verified: ${error.message}. Navigating back to phone number entry.")
+            parentEventEmitter.navigateBack()
+            state
           }
           is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
             error("[Register] Got told a device transfer is possible. We should never get into this state. Resetting.")
@@ -454,9 +454,8 @@ class VerificationCodeViewModel(
             )
           }
           is NetworkController.RequestVerificationCodeError.InvalidSessionId -> {
-            Log.w(TAG, "[RequestCode][$transport] Invalid session ID: ${error.message}")
-            // TODO don't start over, go back to phone number entry
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            Log.w(TAG, "[RequestCode][$transport] Invalid session ID: ${error.message}. Navigating back to phone number entry.")
+            parentEventEmitter.navigateBack()
             state
           }
           is NetworkController.RequestVerificationCodeError.MissingRequestInformationOrAlreadyVerified -> {
@@ -469,9 +468,8 @@ class VerificationCodeViewModel(
             )
           }
           is NetworkController.RequestVerificationCodeError.SessionNotFound -> {
-            Log.w(TAG, "[RequestCode][$transport] Session not found: ${error.message}")
-            // TODO don't start over, go back to phone number entry
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            Log.w(TAG, "[RequestCode][$transport] Session not found: ${error.message}. Navigating back to phone number entry.")
+            parentEventEmitter.navigateBack()
             state
           }
           is NetworkController.RequestVerificationCodeError.ThirdPartyServiceError -> {

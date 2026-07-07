@@ -23,6 +23,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
+import kotlin.time.toKotlinDuration
 
 /**
  * ViewModel for the PIN creation screen.
@@ -91,6 +92,9 @@ class PinCreationViewModel(
         _state.value = state.copy(isConfirmEnabled = false)
         applyOptOut()
       }
+      is PinCreationScreenEvents.ConsumeOneTimeEvent -> {
+        _state.value = state.copy(oneTimeEvent = null)
+      }
     }
   }
 
@@ -129,8 +133,7 @@ class PinCreationViewModel(
         when (val error = result.error) {
           is NetworkController.BackupMasterKeyError.EnclaveNotFound -> {
             Log.w(TAG, "[PinSubmitted] SVR enclave not found.")
-            // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-            throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+            state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
           }
 
           is NetworkController.BackupMasterKeyError.NotRegistered -> {
@@ -143,14 +146,12 @@ class PinCreationViewModel(
 
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinSubmitted] Network error when backing up master key.", result.networkError)
-        // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-        throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.NetworkError(result.retryAfter?.toKotlinDuration()))
       }
 
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinSubmitted] Application error when backing up master key.", result.cause)
-        // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-        throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
       }
     }
   }

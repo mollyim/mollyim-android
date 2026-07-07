@@ -9,8 +9,11 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
+import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
+import assertk.assertions.prop
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -34,6 +37,9 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RestoreDecision
+import java.io.IOException
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PinCreationViewModelTest {
@@ -165,6 +171,68 @@ class PinCreationViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
+  @Test
+  fun `PinSubmitted with EnclaveNotFound error surfaces a service error and stops loading`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val aep = AccountEntropyPool.generate()
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
+
+    coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns
+      RequestResult.NonSuccess(NetworkController.BackupMasterKeyError.EnclaveNotFound)
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().loading).isFalse()
+  }
+
+  @Test
+  fun `PinSubmitted with application error surfaces a service error and stops loading`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val aep = AccountEntropyPool.generate()
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
+
+    coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns
+      RequestResult.ApplicationError(RuntimeException("Unexpected"))
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().loading).isFalse()
+  }
+
+  @Test
+  fun `PinSubmitted with retryable network error surfaces a network error with retryAfter`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val aep = AccountEntropyPool.generate()
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
+    val retryAfter = 30.seconds
+
+    coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns
+      RequestResult.RetryableNetworkError(IOException("Network error"), retryAfter.toJavaDuration())
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().oneTimeEvent).isNotNull()
+      .isInstanceOf<PinCreationState.OneTimeEvent.NetworkError>()
+      .prop(PinCreationState.OneTimeEvent.NetworkError::retryAfter)
+      .isEqualTo(retryAfter)
+    assertThat(states.last().loading).isFalse()
+  }
+
+  @Test
+  fun `ConsumeOneTimeEvent clears the one-time event`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val stateWithEvent = PinCreationState(oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+
+    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.ConsumeOneTimeEvent)
+
+    assertThat(states.last().oneTimeEvent).isNull()
   }
 
   // ==================== OptOut Tests ====================

@@ -107,6 +107,26 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
+  fun `PinEntered with wrong PIN and no tries remaining navigates to AccountLocked`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RestoreMasterKeyError.WrongPin(0)
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("wrong-pin"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.AccountLocked>()
+      .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
+      .isEqualTo(testTimeRemaining)
+  }
+
+  @Test
   fun `PinEntered with no SVR data navigates to AccountLocked`() = runTest {
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
@@ -196,6 +216,45 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   // ==================== Registration Error Tests ====================
+
+  @Test
+  fun `PinEntered with session not found during registration emits ResetState`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified("Session not found")
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
+  @Test
+  fun `PinEntered with recovery password incorrect during registration marks it invalid and navigates back`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect("Wrong password")
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.RecoveryPasswordInvalid)
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.NavigateBack)
+  }
 
   @Test
   fun `PinEntered with registration lock error during registration emits ResetState`() = runTest {

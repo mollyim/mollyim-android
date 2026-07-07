@@ -23,6 +23,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.EventDrivenViewModel
+import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 
 /**
@@ -90,7 +91,13 @@ class PinEntryForRegistrationLockViewModel(
         return when (val error = restoreResult.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(loading = false, triesRemaining = error.triesRemaining)
+            if (error.triesRemaining <= 0) {
+              Log.w(TAG, "[PinEntered] Out of PIN attempts. Account is locked.")
+              parentEventEmitter.navigateTo(RegistrationRoute.AccountLocked(timeRemainingMs = timeRemaining))
+              state
+            } else {
+              state.copy(loading = false, triesRemaining = error.triesRemaining)
+            }
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found. Account is locked.")
@@ -144,9 +151,9 @@ class PinEntryForRegistrationLockViewModel(
       is RequestResult.NonSuccess -> {
         when (val error = registerResult.error) {
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
-            Log.w(TAG, "[PinEntered] Session not found or verified: ${error.message}")
-            // TODO [registration] - Handle session not found or verified.
-            throw NotImplementedError("Handle session not found or verified")
+            Log.w(TAG, "[PinEntered] Session not found or verified: ${error.message}. Resetting.")
+            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            state
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             Log.w(TAG, "[PinEntered] Still getting registration lock error after providing token. This shouldn't happen. Resetting state.")
@@ -166,9 +173,10 @@ class PinEntryForRegistrationLockViewModel(
             state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
-            Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}")
-            // TODO [registration] - Handle incorrect password
-            throw NotImplementedError("Handle incorrect password")
+            Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}. Marking recovery password invalid and navigating back.")
+            parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
+            parentEventEmitter.navigateBack()
+            state
           }
         }
       }
