@@ -197,7 +197,6 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   suspend fun restoreMasterKeyFromSvr(
     svrCredentials: SvrCredentials,
     pin: String,
-    isAlphanumeric: Boolean,
     forRegistrationLock: Boolean
   ): RequestResult<MasterKeyResponse, RestoreMasterKeyError> = withContext(Dispatchers.IO) {
     networkController.restoreMasterKeyFromSvr(
