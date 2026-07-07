@@ -19,6 +19,8 @@
   <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
   <!-- Removed by excludeNonTranslatables <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="inactive_primary_support" translatable="false">https://support.signal.org/hc/articles/9021007554074</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="recovery_key_phishing_support_url" translatable="false">https://support.signal.org/hc/articles/9932566320410</string> -->
 
     <!-- First placeholder is productId, second placeholder is app package -->
     <string name="backup_subscription_management_url">https://play.google.com/store/account/subscriptions?sku=%1$s&amp;package=%2$s</string>
@@ -266,76 +268,7 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">เข้าใจแล้ว</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">อุปกรณ์ของคุณไม่รองรับการบันทึกวิดีโอ</string>
 
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">แตะสำหรับรูปภาพ กดค้างสำหรับวิดีโอ</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">ถ่ายรูป</string>
-    <string name="CameraXFragment_change_camera_description">เปลี่ยนกล้อง</string>
-    <string name="CameraXFragment_open_gallery_description">เปิดอัลบั้มภาพ</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">อนุญาตให้เข้าถึง</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">อนุญาตให้เข้าถึงกล้องและไมโครโฟนของคุณ</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">อนุญาตให้เข้าถึงกล้องของคุณ</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">อนุญาตให้เข้าถึงไมโครโฟนของคุณ</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">อนุญาตให้ Molly เข้าถึงกล้องเพื่อถ่ายภาพ</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">อนุญาต Molly ให้ใช้กล้องเพื่อถ่ายรูปและวิดีโอ</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">อนุญาตให้ Molly เข้าถึงกล้องและไมโครโฟนเพื่อถ่ายภาพและบันทึกวิดีโอ</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">อนุญาตให้ Molly เข้าถึงไมโครโฟนของคุณเพื่อบันทึกวิดีโอพร้อมเสียง</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">อนุญาตให้ Molly เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อถ่ายภาพ</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงกล้องเพื่อสแกนคิวอาร์โค้ด</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly จำเป็นต้องได้รับสิทธิ์เข้าถึงไมโครโฟนเพื่อบันทึกวิดีโอ</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">เพื่อถ่ายภาพบน Molly:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">เพื่อถ่ายภาพและบันทึกวิดีโอบน Molly:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">เพื่อบันทึกวิดีโอพร้อมเสียง:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">เพื่อสแกนคิวอาร์โค้ด:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">ไม่สามารถถ่ายภาพได้ โปรดลองอีกครั้ง</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">ไม่สามารถประมวลผลรูปภาพได้ โปรดลองอีกครั้ง</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">สลับกล้อง</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">ปิดแฟลชอยู่</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">เปิดแฟลชอยู่</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">แฟลชอัตโนมัติ</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">ส่ง</string>
-
-    <!-- CameraContacts -->
-    <string name="CameraContacts_recent_contacts">ผู้ที่ติดต่อล่าสุด</string>
-    <string name="CameraContacts_signal_contacts">รายชื่อผู้ติดต่อใน Signal</string>
-    <string name="CameraContacts_signal_groups">กลุ่ม Signal</string>
-    <!-- A warning shown in a toast when  -->
-    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
-        <item quantity="other">คุณแชร์กับแชทได้สูงสุด %1$d รายการเท่านั้น</item>
-    </plurals>
-    <string name="CameraContacts_select_signal_recipients">เลือกผู้รับใน Signal</string>
-    <string name="CameraContacts_no_signal_contacts">ไม่มีรายชื่อใน Signal</string>
-    <string name="CameraContacts_you_can_only_use_the_camera_button">คุณสามารถใช้ปุ่มกล้องสำหรับส่งรูปให้รายชื่อผู้ติดต่อใน Signal เท่านั้น </string>
-    <string name="CameraContacts_cant_find_who_youre_looking_for">ไม่พบรายชื่อที่คุณมองหาหรือ?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">ส่งคำเชิญให้รายชื่อผู้ติดต่อมาใช้ Molly</string>
     <string name="CameraContacts__menu_search">ค้นหา</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -534,7 +467,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">เพื่อที่จะถ่ายรูปหรือวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงกล้อง แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"กล้อง\"</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly ต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายรูปและวิดีโอ</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">อนุญาตให้เปิดใช้งานไมโครโฟนเพื่อถ่ายภาพวิดีโอพร้อมเสียง</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">เพื่อจะอัดภาพวิดีโอ Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟน แต่คำขอนั้นถูกปฏิเสธอย่างถาวร กรุณาไปที่เมนูตั้งค่าแอป เลือก \"การอนุญาต\" และเปิดใช้งาน \"ไมโครโฟน\" และ \"กล้อง\"</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly ต้องได้รับอนุญาตให้เข้าถึงไมโครโฟนเพื่ออัดภาพวิดีโอ</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -697,16 +629,30 @@
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">คุณตอบรับคำขอส่งข้อความจาก %1$s แล้ว หากนี่เป็นข้อผิดพลาด คุณสามารถดูตัวเลือกด้านล่างเพื่อดำเนินการ</string>
     <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
     <string name="ConversationFragment_review_carefully">โปรดตรวจสอบอย่างถี่ถ้วน</string>
-    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
-    <string name="ConversationFragment_profile_names_not_verified">%1$sไม่ได้ผ่านการตรวจยืนยัน</string>
-    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
-    <string name="ConversationFragment_group_names_not_verified">%1$sไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Text shown in conversation header when in a message request state that the name is not verified -->
+    <string name="ConversationFragment_name_not_verified">ชื่อไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Label for official chat pill shown in the Note to Self conversation header -->
+    <string name="ConversationFragment_official_chat">แชทอย่างเป็นทางการ</string>
+    <!-- Description shown in the Signal release notes conversation header -->
+    <string name="ConversationFragment_release_notes_description">แชทอย่างเป็นทางการแชทเดียวจาก Signal ติดตามข่าวสารและบันทึกรุ่นอัปเดตล่าสุด</string>
+    <!-- Label shown in place of the input in the Signal release notes conversation -->
+    <string name="ConversationFragment_the_only_official_chat_from_signal">แชทอย่างเป็นทางการแชทเดียวจาก Signal</string>
+    <!-- Plural for group member count shown in conversation header. %1$d is the number of members -->
+    <plurals name="ConversationFragment_group_member_count">
+        <item quantity="other">สมาชิก %1$d คน</item>
+    </plurals>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
     <string name="ConversationFragment_profile_names">ชื่อโปรไฟล์</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">ชื่อกลุ่ม</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">ไม่สามารถดาวน์โหลดรูปภาพได้ โปรดลองอีกครั้ง</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">ไม่สามารถดาวน์โหลดไฟล์สื่อได้</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของโทรศัพท์คุณและอุปกรณ์เครื่องนี้ จากนั้นเปิด Molly บนโทรศัพท์ แล้วลองดาวน์โหลดอีกครั้ง</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">ไม่สามารถดาวน์โหลดไฟล์สื่อได้เนื่องจากไม่พบไฟล์นี้บนโทรศัพท์ของคุณ</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">ปักหมุดไว้เป็นเวลา…</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -726,39 +672,57 @@
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">คำแนะนำเพื่อความปลอดภัย</string>
-    <!-- Dialog subtitle when showign tips for a 1:1 conversation -->
-    <string name="SafetyTips_subtitle_individual">โปรดใช้ความระมัดระวังในการตอบรับคำขอส่งข้อความจากคนที่คุณไม่รู้จัก ลองตรวจสอบตามข้อสังเกตนี้:</string>
-    <!-- Dialog subtitle when showing tips for a group conversation -->
-    <string name="SafetyTips_subtitle_group">โปรดพิจารณาคำขอนี้อย่างถี่ถ้วน กลุ่มนี้ไม่มีสมาชิกที่เป็นผู้ติดต่อของคุณหรือผู้ใช้ที่คุณแชทด้วย ใช้ความระมัดระวังและลองตรวจสอบตามข้อสังเกตนี้:</string>
-    <!-- Button text to move to the previous tip-->
+    <!-- Button text to view more safety tips -->
+    <string name="SafetyTips_view_more">ดูเพิ่มเติม</string>
+    <!-- Content description for previous tip button -->
     <string name="SafetyTips_previous_tip">คำแนะนำก่อนหน้า</string>
-    <!-- Button text to move to the next tip -->
+    <!-- Content description for next tip button -->
     <string name="SafetyTips_next_tip">คำแนะนำถัดไป</string>
-    <!-- Title of tip 0 -->
-    <string name="SafetyTips_tip0_title">ชื่อและบัญชีปลอม</string>
-    <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Molly ไม่มีนโยบายในการติดต่อคุณเพื่อขอรหัสสำหรับลงทะเบียนหรือ PIN โปรดระวังคำขอที่แอบอ้างเป็นบุคคลอื่น และโปรดทราบว่าชื่อโปรไฟล์ที่แสดงเป็นชื่อที่เจ้าของบัญชีนั้นตั้งเองและไม่ได้ผ่านการตรวจยืนยัน</string>
-    <!-- Title of tip 1 -->
-    <string name="SafetyTips_tip1_title">การหลอกลวงทางการเงินหรือคริปโต</string>
-    <!-- Message of tip 1 -->
-    <string name="SafetyTips_tip1_message">หากมีคนที่ไม่รู้จักส่งข้อความหาคุณเกี่ยวกับคริปโตเคอร์เรนซี (เช่น บิตคอยน์) หรือโอกาสทางการเงิน โปรดระมัดระวังเป็นพิเศษ เพราะเป็นไปได้สูงว่านั่นคือสแปม</string>
-    <!-- Title of tip 2 -->
-    <string name="SafetyTips_tip2_title">ข้อความคลุมเครือหรือไม่เจาะจง</string>
-    <!-- Message of tip 2 -->
-    <string name="SafetyTips_tip2_message">ผู้ส่งสแปมมักเริ่มต้นส่งข้อความด้วยคำทักทายทั่วไป เช่น “สวัสดี” เพื่อเรียกความสนใจของคุณ หากคุณตอบข้อความ คนพวกนั้นอาจชวนคุณพูดคุยต่อไปเรื่อยๆ</string>
-    <!-- Title of tip 3 -->
-    <string name="SafetyTips_tip3_title">ข้อความที่แนบลิงก์</string>
-    <!-- Message of tip 3 -->
-    <string name="SafetyTips_tip3_message">ระวังข้อความจากคนแปลกหน้าที่มีลิงก์ไปยังเว็บไซต์ อย่ากดลิงก์จากผู้ใช้ที่คุณไม่ไว้วางใจโดยเด็ดขาด</string>
-    <!-- Title of tip 4 -->
-    <string name="SafetyTips_tip4_title">ธุรกิจและหน่วยงานปลอม</string>
-    <!-- Message of tip 4 -->
-    <string name="SafetyTips_tip4_message">ระวังให้มากเมื่อได้รับการติดต่อจากหน่วยงานรัฐหรือธุรกิจห้างร้าน ข้อความที่เกี่ยวกับสำนักงานภาษี บริษัทขนส่ง หรือหน่วยงานใกล้เคียงกันนี้อาจเป็นสแปม</string>
+
+    <!-- Summary tip 0 title: Don\'t respond to chats from Signal -->
+    <string name="SafetyTips_summary_tip0_title">อย่าตอบกลับแชทจาก Signal</string>
+    <!-- Summary tip 0 message -->
+    <string name="SafetyTips_summary_tip0_message">Signal จะไม่ส่งข้อความหาคุณเพื่อขอรหัสสำหรับลงทะเบียน, PIN หรือกุญแจกู้คืนของคุณ โปรดอย่าตอบกลับแชทที่แอบอ้างว่าเป็น Signal</string>
+    <!-- Summary tip 1 title: Review names and photos -->
+    <string name="SafetyTips_summary_tip1_title">ตรวจสอบชื่อและรูปภาพ</string>
+    <!-- Summary tip 1 message -->
+    <string name="SafetyTips_summary_tip1_message">สังเกตการแจ้งเตือนเกี่ยวกับ \"ชื่อที่ไม่ได้ผ่านการตรวจยืนยัน\" โปรดทราบว่าชื่อโปรไฟล์ใน Signal เป็นชื่อที่เจ้าของบัญชีนั้นตั้งเอง</string>
+    <!-- Summary tip 2 title: Look out for scams -->
+    <string name="SafetyTips_summary_tip2_title">ป้องกันภัยมิจฉาชีพ</string>
+    <!-- Summary tip 2 message -->
+    <string name="SafetyTips_summary_tip2_message">หลีกเลี่ยงการสนทนาที่คลุมเครือหรือไม่เจาะจงที่พยายามลวงให้คุณตอบกลับ และระมัดระวังเป็นพิเศษเมื่อได้รับข้อความเกี่ยวกับโอกาสทางการเงินหรือลิงก์เว็บไซต์ที่ดูน่าสงสัย</string>
+
+    <!-- Detail tip 0 title -->
+    <string name="SafetyTips_detail_tip0_title">อย่าตอบกลับแชทจาก Signal</string>
+    <!-- Detail tip 0 message -->
+    <string name="SafetyTips_detail_tip0_message">Signal จะไม่ส่งข้อความหาคุณเพื่อขอรหัสสำหรับลงทะเบียน, PIN หรือกุญแจกู้คืนของคุณ โปรดอย่าตอบกลับแชทที่แอบอ้างว่าเป็น Signal หรือฝ่ายสนับสนุนของ Signal มิจฉาชีพอาจใช้แชทปลอมเพื่อพยายามเข้ายึดบัญชีคุณ</string>
+    <!-- Detail tip 1 title -->
+    <string name="SafetyTips_detail_tip1_title">ตรวจสอบชื่อและรูปภาพ</string>
+    <!-- Detail tip 1 message -->
+    <string name="SafetyTips_detail_tip1_message">สังเกตการแจ้งเตือนเกี่ยวกับ \"ชื่อที่ไม่ได้ผ่านการตรวจยืนยัน\" โปรดทราบว่าชื่อและรูปโปรไฟล์ใน Signal เป็นข้อมูลที่เจ้าของบัญชีนั้นตั้งเอง หากคุณไม่แน่ใจว่าคำขอส่งข้อความที่ได้รับนั้นมาจากใคร วิธีรับมือที่ปลอดภัยที่สุดคือการไม่ตอบกลับ</string>
+    <!-- Detail tip 2 title -->
+    <string name="SafetyTips_detail_tip2_title">ข้อความคลุมเครือหรือไม่เจาะจง</string>
+    <!-- Detail tip 2 message -->
+    <string name="SafetyTips_detail_tip2_message">ผู้ส่งสแปมมักเริ่มต้นส่งข้อความด้วยคำทักทายทั่วไป เช่น \"สวัสดี\" เพื่อเรียกความสนใจของคุณ หากคุณตอบข้อความ คนพวกนั้นอาจชวนคุณพูดคุยต่อไปเรื่อยๆ</string>
+    <!-- Detail tip 3 title -->
+    <string name="SafetyTips_detail_tip3_title">ข้อความที่แนบลิงก์เว็บไซต์</string>
+    <!-- Detail tip 3 message -->
+    <string name="SafetyTips_detail_tip3_message">ระวังข้อความจากคนแปลกหน้าที่มีลิงก์ไปยังเว็บไซต์ อย่ากดลิงก์จากผู้ใช้ที่คุณไม่ไว้วางใจโดยเด็ดขาด</string>
+    <!-- Detail tip 4 title -->
+    <string name="SafetyTips_detail_tip4_title">การหลอกลวงทางการเงินหรือคริปโต</string>
+    <!-- Detail tip 4 message -->
+    <string name="SafetyTips_detail_tip4_message">หากมีคนที่ไม่รู้จักส่งข้อความหาคุณเกี่ยวกับคริปโตเคอร์เรนซี (เช่น บิตคอยน์) หรือโอกาสทางการเงิน โปรดระมัดระวังเป็นพิเศษ เพราะเป็นไปได้สูงว่านั่นคือสแปม</string>
+    <!-- Detail tip 5 title -->
+    <string name="SafetyTips_detail_tip5_title">ธุรกิจปลอม</string>
+    <!-- Detail tip 5 message -->
+    <string name="SafetyTips_detail_tip5_message">โปรดเพิ่มความระมัดระวังเมื่อได้รับการติดต่อจากหน่วยงานรัฐหรือธุรกิจห้างร้าน ข้อความที่เกี่ยวกับสำนักงานภาษี บริษัทขนส่ง หรือหน่วยงานใกล้เคียงกันนี้อาจเป็นสแปม</string>
 
     <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
     <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$sบน Signal เป็นชื่อที่เจ้าของบัญชีนั้นตั้งเอง</string>
-    <!-- Bottom sheet text explaining that profile names are not verified. -->
-    <string name="ProfileNameBottomSheet__profile_names_arent_verified">ชื่อโปรไฟล์ไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Bottom sheet text explaining that Signal can\'t verify names and photos -->
+    <string name="ProfileNameBottomSheet__signal_cant_verify">Molly ไม่สามารถตรวจยืนยันชื่อและรูปภาพ</string>
+    <!-- Bottom sheet text explaining that Signal will never contact you for registration code, PIN, or recovery key -->
+    <string name="ProfileNameBottomSheet__signal_will_never_contact">Signal จะไม่ติดต่อคุณเพื่อขอรหัสสำหรับลงทะเบียน, PIN หรือกุญแจกู้คืนของคุณ</string>
     <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
     <string name="ProfileNameBottomSheet__be_cautious_of_accounts">โปรดระวังบัญชีที่แอบอ้างเป็นบุคคลอื่น</string>
     <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
@@ -979,7 +943,6 @@
     <string name="CustomDefaultPreference_none">ไม่มี</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">การถ่ายภาพจะต้องให้อนุญาตเข้าถึงกล้อง</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">การดูรูปภาพจะต้องให้อนุญาตการเข้าถึงพื้นที่เก็บข้อมูล</string>
 
     <!-- DateUtils -->
@@ -1229,10 +1192,6 @@
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">ดู</string>
 
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">การสื่อสารของ Signal ล้มเหลวอย่างถาวร!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ไม่สามารถลงทะเบียนกับ Google Play Services การใช้งานข้อความและการโทร Signal ได้ถูกปิดใช้งาน กรุณาลองลงทะเบียนอีกครั้งใน การตั้งค่า &gt; ขั้นสูง</string>
-
 
     <!-- GiphyActivity -->
     <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">เกิดข้อผิดพลาดระหว่างการดึงภาพ GIF ความละเอียดสูง</string>
@@ -1444,6 +1403,12 @@
     <string name="AddGroupDetailsFragment__remove">ลบ</string>
     <string name="AddGroupDetailsFragment__sms_contact">ผู้ติดต่อ SMS</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">ลบ %1$s ออกจากกลุ่มนี้หรือไม่</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">ยกเลิกการสร้างกลุ่มใช่หรือไม่</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">หากคุณกลับไปยังกลุ่ม \"%1$s\" การเปลี่ยนแปลงใดๆ ของคุณจะไม่ถูกบันทึก</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">ยกเลิก</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">คุณเลือกผู้ติดต่อที่ไม่รองรับการจับกลุ่มบน Signal กลุ่มนี้จึงจะเป็นกลุ่มแบบ MMS โดยชื่อกลุ่ม MMS ที่ตั้งขึ้นเองรวมทั้งรูปภาพจะปรากฏให้เห็นบนอุปกรณ์ของคุณเพียงคนเดียว</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -1741,6 +1706,8 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">กำลังลบ</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">กำลังลบข้อความ…</string>
+    <!-- Format string showing current vs. total items being deleted, e.g. "12 of 207" -->
+    <string name="MediaOverviewActivity_Media_delete_progress_count">%1$d จาก %2$d</string>
     <string name="MediaOverviewActivity_Sort_by">จัดประเภทโดย</string>
     <string name="MediaOverviewActivity_Newest">ใหม่ที่สุด</string>
     <string name="MediaOverviewActivity_Oldest">เก่าที่สุด</string>
@@ -1774,7 +1741,7 @@
     <string name="MediaOverviewActivity_sent_by_you_to_s">ส่งโดยคุณถึง %1$s</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="MediaOverviewActivity_this_media_is_not_sent_yet">ไฟล์สื่อนี้ยังไม่ถูกส่ง</string>
-    <string name="MediaOverviewActivity_jump_to_message">Jump to message</string>
+    <string name="MediaOverviewActivity_jump_to_message">ไปที่ข้อความ</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">เตือนฉันทีหลัง</string>
@@ -2151,8 +2118,10 @@
     <string name="MessageRecord__payment_tombstone">การชำระเงิน</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">รายงานว่าเป็นสแปมแล้ว</string>
-    <!-- Update message shown in chat after accept a message request -->
-    <string name="MessageRecord_you_accepted_the_message_request">คุณตอบรับคำขอส่งข้อความแล้ว</string>
+    <!-- Update message shown in chat after accept a message request, placeholder is the other person\'s display name -->
+    <string name="MessageRecord_you_accepted_s_message_request">คุณตอบรับคำขอส่งข้อความจาก %1$s แล้ว</string>
+    <!-- Update message shown in a group chat after accepting a group message request -->
+    <string name="MessageRecord_you_accepted_the_group_request">คุณตอบรับคำขอส่งข้อความของกลุ่มแล้ว</string>
     <!-- Update message shown in chat after you block a person -->
     <string name="MessageRecord_you_blocked_this_person">คุณบล็อกผู้ใช้คนนี้</string>
     <!-- Update message shown in chat after you unblock a person -->
@@ -2176,7 +2145,7 @@
     <string name="MessageRequestBottomView_unblock">เลิกบล็อก</string>
     <!-- Text explaining a message request from someone you\'ve removed before -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">อนุญาตให้ %1$s ส่งข้อความหารวมถึงมองเห็นชื่อและรูปของคุณหรือไม่ โปรดทราบว่าคุณเคยลบผู้ใช้คนนี้</string>
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">อนุญาตให้ %1$s ส่งข้อความและเห็นชื่อกับรูปภาพของคุณหรือไม่? พวกเขาจะไม่รู้ว่าคุณได้เห็นข้อความของพวกเขาแล้วจนกว่าคุณจะตอบรับ</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">คุณต้องการอนุญาตให้ผู้ใช้คนนี้ส่งข้อความหารวมถึงมองเห็นชื่อและรูปของคุณหรือไม่ ผู้ใช้จะไม่รู้ว่าคุณเห็นข้อความแล้วจนกว่าคุณจะตอบรับ</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">อนุญาตให้ %1$s ส่งข้อความหารวมถึงมองเห็นชื่อและรูปของคุณหรือไม่ คุณจะไม่ได้รับข้อความจนกว่าจะเลิกบล็อกผู้ใช้รายนี้</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
@@ -2233,11 +2202,15 @@
         <item quantity="other">อีก %1$d คน</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
-    <string name="MessageRequestBottomView_report">รายงาน…</string>
+    <string name="MessageRequestBottomView_report">รายงาน</string>
     <!-- Alert dialog title to accept a message request -->
     <string name="MessageRequestBottomView_accept_request">ตอบรับคำขอใช่หรือไม่</string>
     <!-- Alert dialog body to review the message request carefully -->
     <string name="MessageRequestBottomView_review_requests_carefully">โปรดตรวจสอบคำขออย่างถี่ถ้วน และโปรดทราบว่าชื่อโปรไฟล์ที่แสดงเป็นชื่อที่เจ้าของบัญชีนั้นตั้งเองและไม่ได้ผ่านการตรวจยืนยัน</string>
+    <!-- Alert dialog body for accepting a message request. Contains bold substring placeholder -->
+    <string name="MessageRequestBottomView_accept_request_body">เราขอแนะนำให้ตอบรับคำขอจากคนที่คุณไว้วางใจเท่านั้น %1$sส่งข้อความหาคุณเพื่อขอรหัสสำหรับลงทะเบียน, PIN หรือกุญแจกู้คืน</string>
+    <!-- Bold substring used in accept request body: "Signal will never" -->
+    <string name="MessageRequestBottomView_signal_will_never">Signal จะไม่</string>
     <!-- Alert dialog title to accept a message request to join a group -->
     <string name="MessageRequestBottomView_join_group">เข้าร่วมกลุ่มใช่หรือไม่</string>
     <!-- Alert dialog body to review the message request for a group carefully -->
@@ -2580,6 +2553,10 @@
     <string name="CallOverflowPopupWindow__lower_hand">เอามือลง</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">ยกเลิก</string>
+    <!-- A clickable button to share your screen in a call -->
+    <string name="CallOverflowPopupWindow__share_screen">แชร์หน้าจอ</string>
+    <!-- A clickable button to stop sharing your screen in a call -->
+    <string name="CallOverflowPopupWindow__stop_screen_share">หยุดแชร์</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">ดู</string>
 
@@ -2694,6 +2671,8 @@
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">ปัดเพื่อดูจอที่แบ่งปัน</string>
+    <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">ปัดเพื่อดูผู้พูด</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">เซิร์ฟเวอร์พร็อกซี</string>
@@ -2741,8 +2720,8 @@
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">คุณพยายามลงทะเบียนด้วยหมายเลขนี้หลายครั้งเกินไป โปรดลองอีกครั้งใน %1$s</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">ไม่สามารถเชื่อมต่อบริการได้ โปรดตรวจสอบการเชื่อมต่อเครือข่ายและลองอีกครั้ง</string>
-    <!-- Dialog error message shown when attempting to register and the SMS provider fails to send an SMS -->
-    <string name="RegistrationActivity_sms_provider_error">Signal ไม่สามารถส่งรหัส SMS เนื่องด้วยปัญหาเกี่ยวกับผู้ให้บริการ SMS โปรดรอประมาณ 2-3 ชั่วโมงแล้วลองใหม่อีกครั้ง</string>
+    <!-- Dialog error message shown when we are unable to send an SMS to the user\'s number -->
+    <string name="RegistrationActivity_sms_provider_error">เราไม่สามารถส่ง SMS ไปยังหมายเลขโทรศัพท์ของคุณได้ โปรดรอประมาณ 2-3 ชั่วโมงแล้วลองใหม่อีกครั้ง</string>
     <!-- A description text for an alert dialog when the entered phone number is not eligible for a verification SMS. -->
     <string name="RegistrationActivity_we_couldnt_send_you_a_verification_code">เราไม่สามารถส่งรหัสยืนยันผ่านทาง SMS ให้คุณได้ ลองเปลี่ยนไปรับรหัสผ่านทางการโทรแทน</string>
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
@@ -2970,6 +2949,10 @@
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
+    <!-- Title of dialog shown when debug log prefix generation is unusually slow -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string> -->
+    <!-- Body of dialog shown when debug log prefix generation is unusually slow. %1$d is duration in seconds. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\&apos;s slowing things down.</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -2981,6 +2964,7 @@
     <string name="SupportEmailUtil_registration_lock">กุญแจลงทะเบียน:</string>
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_registered" translatable="false">Registered:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">ปรับปรุงกลุ่มแล้ว</string>
@@ -3259,6 +3243,8 @@
     <string name="NotificationChannel_calls">การโทร</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">ความล้มเหลว</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">ปัญหาภายใน</string>
     <string name="NotificationChannel_backups">ข้อมูลสำรอง</string>
     <string name="NotificationChannel_locked_status">สถานะล็อก</string>
     <string name="NotificationChannel_app_updates">การปรับรุ่นแอป</string>
@@ -3320,11 +3306,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">ไม่สามารถบันทึกไฟล์สื่อได้</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">ไฟล์สื่อนี้ถูกออฟโหลดจากอุปกรณ์ของคุณเนื่องจากตัวเลือก \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บบนอุปกรณ์\" เปิดใช้งานอยู่ คุณสามารถดาวน์โหลดไฟล์ทีละไฟล์ หรือปิดใช้งานตัวเลือก \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บบนอุปกรณ์\" เพื่อดาวน์โหลดไฟล์สื่อทั้งหมดมายังอุปกรณ์</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">ไม่สามารถบันทึกไฟล์ทั้งหมดได้</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">ไฟล์สื่อที่คุณเลือกบางไฟล์ถูกออฟโหลดจากอุปกรณ์เนื่องจากตัวเลือก \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บบนอุปกรณ์\" เปิดใช้งานอยู่ คุณสามารถบันทึกไฟล์ทีละไฟล์ หรือปิดใช้งานตัวเลือก \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บบนอุปกรณ์\" เพื่อดาวน์โหลดไฟล์สื่อทั้งหมดมายังอุปกรณ์</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">ดูการตั้งค่าพื้นที่จัดเก็บ</string>
 
@@ -3382,6 +3368,10 @@
     <string name="TransferControlView__processing">กำลังดำเนินการ…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
     <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
+    <!-- Accessibility description for the button that starts downloading an attachment -->
+    <string name="TransferControlView__download">ดาวน์โหลด</string>
+    <!-- Accessibility description for the button that starts uploading an attachment -->
+    <string name="TransferControlView__upload">อัปโหลด</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -3584,7 +3574,7 @@
     <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">คุณลบผู้ใช้คนนี้แล้ว การส่งข้อความหาผู้ใช้อีกครั้งจะเป็นการเพิ่มคนคนนั้นกลับเข้ามาในรายชื่อผู้ติดต่อของคุณ</string>
     <!-- Update item button text shown for the accepted message request update message -->
-    <string name="ConversationUpdateItem_options">ตัวเลือก</string>
+    <string name="ConversationUpdateItem_block_report">บล็อกหรือรายงาน…</string>
     <!-- Update item button text shown for a profile name change. -->
     <string name="ConversationUpdateItem_update">อัปเดต</string>
     <!-- Update item button text to show how many group updates there are. -->
@@ -3848,11 +3838,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">การเข้ารหัสของแชทนี้ได้รับการตรวจยืนยันโดยอัตโนมัติแล้ว</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">หากคุณและผู้ติดต่อเชื่อมโยงกันผ่านทางหมายเลขโทรศัพท์ Molly จะสามารถใช้ขั้นตอนที่เรียกว่า Key Transparency ในการยืนยันความปลอดภัยของเครือข่ายโดยอัตโนมัติ เพื่อความปลอดภัยยิ่งขึ้น คุณยังสามารถตรวจยืนยันการเข้ารหัสตั้งแต่ต้นทางถึงปลายทางด้วยตนเองโดยเทียบหมายเลขซึ่งแสดงในหน้าที่แล้วหรือสแกนคิวอาร์โค้ดบนอุปกรณ์ของผู้ติดต่อ</string>
+    <string name="EncryptionVerifiedSheet__body_success">หากคุณและผู้ใช้เชื่อมโยงกันผ่านทางหมายเลขโทรศัพท์ Molly จะสามารถใช้ขั้นตอนที่เรียกว่า Key Transparency ในการยืนยันความปลอดภัยของเครือข่ายโดยอัตโนมัติ เพื่อความปลอดภัยยิ่งขึ้น คุณยังสามารถตรวจยืนยันการเข้ารหัสตั้งแต่ต้นทางถึงปลายทางด้วยตนเองโดยเทียบหมายเลขซึ่งแสดงในหน้าที่แล้วหรือสแกนคิวอาร์โค้ดบนอุปกรณ์ของผู้ติดต่อ</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">ไม่สามารถใช้การตรวจยืนยันอัตโนมัติกับแชทนี้ได้แล้ว</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">ไม่สามารถใช้การตรวจยืนยันอัตโนมัติกับแชทนี้ได้</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ไม่สามารถตรวจยืนยันการเข้ารหัสของแชทนี้โดยอัตโนมัติได้อีกต่อไป นี่น่าจะเป็นเพราะ %1$s เปลี่ยนหมายเลขโทรศัพท์ คุณยังสามารถตรวจยืนยันการเข้ารหัสตั้งแต่ต้นทางถึงปลายทางด้วยตนเองโดยเทียบหมายเลขซึ่งแสดงในหน้าที่แล้วหรือสแกนคิวอาร์โค้ดบนอุปกรณ์ของผู้ติดต่อ</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ไม่สามารถตรวจยืนยันการเข้ารหัสของแชทนี้โดยอัตโนมัติได้ นี่อาจเป็นเพราะ %1$s เปลี่ยนหมายเลขโทรศัพท์หรือการตั้งค่าความเป็นส่วนตัวของหมายเลขโทรศัพท์ คุณยังสามารถตรวจยืนยันการเข้ารหัสตั้งแต่ต้นทางถึงปลายทางด้วยตนเองโดยเทียบหมายเลขซึ่งแสดงในหน้าที่แล้วหรือสแกนคิวอาร์โค้ดบนอุปกรณ์ของผู้ติดต่อ</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">ไม่สามารถใช้การตรวจยืนยันอัตโนมัติกับแชทนี้ได้</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -3944,6 +3934,10 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">ไม่สามารถอัปโหลดปูม</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">กรุณาอธิบายละเอียดที่สุดเท่าที่จะทำได้ เพื่อช่วยให้เราเข้าใจปัญหา</string>
+    <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
+    <plurals name="HelpFragment__must_be_at_least_n_characters">
+        <item quantity="other">ต้องมีอักขระอย่างน้อย %1$d ตัว</item>
+    </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>กรุณาเลือกหนึ่งรายการ</item>
         <item>มีบางอย่างไม่ทำงาน</item>
@@ -4203,7 +4197,7 @@
     <string name="preferences_data_and_storage__never">ไม่เลย</string>
     <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi และข้อมูลมือถือ</string>
     <string name="preferences_data_and_storage__mobile_data_only">ข้อมูลมือถือเท่านั้น</string>
-    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">การใช้ข้อมูลน้อยลงอาจช่วยปรับปรุงการโทรในเครือข่ายที่ไม่ดี</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">การใช้อินเทอร์เน็ตมือถือน้อยลงอาจช่วยปรับปรุงการโทรบนเครือข่ายที่ไม่เสถียร</string>
     <string name="preferences_notifications__in_chat_sounds">เสียงในแชท</string>
     <string name="preferences_notifications__show">แสดง</string>
     <string name="preferences_notifications__ringtone">เสียงเรียกเข้า</string>
@@ -5541,6 +5535,29 @@
     <!-- Confirmation button to dismiss number changed dialog -->
     <string name="ChangeNumber__okay">ตกลง</string>
 
+    <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">ไม่สามารถเปลี่ยนหมายเลขโทรศัพท์ได้</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">คุณไม่สามารถเปลี่ยนหมายเลขโทรศัพท์ได้ในขณะนี้เนื่องจากคุณเพิ่งลงทะเบียนบัญชีนี้ การกำหนดระยะเวลารอคอยสั้นๆ เป็นไปเพื่อช่วยปกป้องบัญชีของคุณ</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
+        <item quantity="other">โปรดลองอีกครั้งใน %1$d ชั่วโมง</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
+        <item quantity="other">โปรดลองอีกครั้งใน %1$d นาที</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__ok">ตกลง</string>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
+        <item quantity="other">คุณพยายามใส่รหัสหลายครั้งเกินไป โปรดลองอีกครั้งใน %1$d ชั่วโมง</item>
+    </plurals>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
+        <item quantity="other">คุณพยายามใส่รหัสหลายครั้งเกินไป โปรดลองอีกครั้งใน %1$d นาที</item>
+    </plurals>
+
     <!-- ChangeNumberEnterPhoneNumberFragment -->
     <string name="ChangeNumberEnterPhoneNumberFragment__change_number">เปลี่ยนหมายเลขโทรศัพท์</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">หมายเลขโทรศัพท์เก่าของคุณ</string>
@@ -5824,6 +5841,8 @@
     <string name="HelpSettingsFragment__support_center">ศูนย์ความช่วยเหลือ</string>
     <string name="HelpSettingsFragment__contact_us">ติดต่อเรา</string>
     <string name="HelpSettingsFragment__version">รุ่น</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="HelpSettingsFragment__debug_log">ปูมดีบัก</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">ใบอนุญาต</string>
@@ -5838,11 +5857,15 @@
     <!-- Category title for the quality of the media to be sent -->
     <string name="DataAndStorageSettingsFragment__sent_media_quality">ส่งคุณภาพสื่อแล้ว</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">การส่งสื่อคุณภาพสูงจะใช้ข้อมูลมากขึ้น</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">สูง</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">มาตรฐาน</string>
+    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">ระบบจะดาวน์โหลดข้อความเสียงและสติกเกอร์ (ต่ำกว่า %1$s) โดยอัตโนมัติเสมอ</string>
     <string name="DataAndStorageSettingsFragment__calls">การโทร</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">เชื่อมต่อเสมอในพื้นหลัง</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">การทำงานแบบเชื่อมต่อเสมอในพื้นหลังจะทำให้อุปกรณ์ใช้แบตเตอรี่มากขึ้น อุปกรณ์ส่วนใหญ่มักไม่จำเป็นต้องใช้ตัวเลือกนี้ เราขอแนะนำให้เปิดใช้งานในกรณีที่คุณประสบปัญหาเกี่ยวกับการแจ้งเตือนเท่านั้น</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">เปิดใช้งาน</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -6324,9 +6347,9 @@
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
     <string name="ManageDonationsFragment__couldnt_confirm_donation">ไม่สามารถยืนยันการบริจาคได้</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed">ไม่สามารถยืนยันการบริจาคจำนวน %1$s/เดือนของคุณได้ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงินผ่าน iDEAL</string>
+    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed_ideal_wero">ไม่สามารถยืนยันการบริจาคจำนวน %1$s/เดือนของคุณได้ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงินผ่าน iDEAL | Wero</string>
     <!-- Dialog message shown when a one-time donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed">ไม่สามารถยืนยันการบริจาคครั้งเดียวจำนวน %1$s ของคุณได้ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงินผ่าน iDEAL</string>
+    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed_ideal_wero">ไม่สามารถยืนยันการบริจาคครั้งเดียวจำนวน %1$s ของคุณได้ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงินผ่าน iDEAL | Wero</string>
 
     <string name="Boost__enter_custom_amount">กรอกจำนวนเอง</string>
     <!-- Error label when the amount is smaller than what we can accept -->
@@ -6455,7 +6478,7 @@
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
     <string name="DonationsErrors__your_donation_could_not_be_sent">ไม่สามารถส่งการบริจาคได้เนื่องจากข้อผิดพลาดของเครือข่าย ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
     <!-- Displayed as a dialog message when the user encounters an error during an iDEAL donation -->
-    <string name="DonationsErrors__your_ideal_couldnt_be_processed">ไม่สามารถดำเนินการบริจาคผ่าน iDEAL ของคุณได้ ลองชำระเงินด้วยวิธีอื่น หรือติดต่อธนาคารเพื่อขอข้อมูลเพิ่มเติม</string>
+    <string name="DonationsErrors__your_ideal_wero_couldnt_be_processed">ไม่สามารถดำเนินการบริจาคผ่าน iDEAL | Wero ของคุณได้ ลองชำระเงินด้วยวิธีอื่น หรือติดต่อธนาคารเพื่อขอข้อมูลเพิ่มเติม</string>
 
     <!-- Gift message view title -->
     <string name="GiftMessageView__donation_on_behalf_of_s">การบริจาคในนามของ %1$s</string>
@@ -6683,12 +6706,6 @@
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">เปิดใช้งาน</string>
 
-    <!-- Description shown for the Signal Release Notes channel -->
-    <string name="ReleaseNotes__signal_release_notes_and_news">บันทึกการเปลี่ยนแปลง Signal &amp; ข่าว</string>
-    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
-    <string name="ReleaseNotes__this_is_official_chat_period">นี่คือแชทอย่างเป็นทางการและแชทเดียวจาก Signal</string>
-    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
-    <string name="ReleaseNotes__keep_up_to_date_period">ติดตามข่าวสารและบันทึกรุ่นอัปเดตล่าสุด</string>
     <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
     <string name="ReleaseNotes__this_is_official_chat">นี่คือแชทอย่างเป็นทางการและแชทเดียวจาก Signal</string>
     <!-- Text description in Signal Release channel details explaining what the channel is for -->
@@ -7363,7 +7380,7 @@
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_onetime">การบริจาคของคุณยังอยู่ระหว่างดำเนินการ ขั้นตอนนี้อาจใช้เวลาสักครู่ โดยขึ้นอยู่กับสัญญาณอินเทอร์เน็ตของคุณ โปรดรอให้การชำระเงินนี้สำเร็จก่อน แล้วจึงค่อยบริจาคอีกครั้ง</string>
     <!-- Dialog body when a user opens the manage donations main screen and they have a pending iDEAL donation -->
-    <string name="DonateToSignalFragment__your_ideal_payment_is_still_processing">การบริจาคผ่าน iDEAL ของคุณยังอยู่ระหว่างดำเนินการ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงิน แล้วจึงค่อยบริจาคอีกครั้ง</string>
+    <string name="DonateToSignalFragment__your_ideal_wero_payment_is_still_processing">การบริจาคผ่าน iDEAL | Wero ของคุณยังอยู่ระหว่างดำเนินการ โปรดตรวจสอบแอปธนาคารของคุณเพื่ออนุมัติการชำระเงิน แล้วจึงค่อยบริจาคอีกครั้ง</string>
     <!-- Dialog title shown when a user tries to donate an amount higher than is allowed for a given payment method. -->
     <string name="DonateToSignal__donation_amount_too_high">ยอดบริจาคสูงเกินไป</string>
     <!-- Dialog body shown when a user tries to donate an amount higher than is allowed for a given payment method, place holder is the maximum -->
@@ -7392,11 +7409,13 @@
     <!-- Sheet summary when giving donating for a friend -->
     <string name="GatewaySelectorBottomSheet__donate_for_a_friend">บริจาคในนามของเพื่อน</string>
     <!-- Button label for paying with iDEAL -->
-    <string name="GatewaySelectorBottomSheet__ideal">iDEAL</string>
+    <string name="GatewaySelectorBottomSheet__ideal_wero">iDEAL | Wero</string>
 
     <!-- Dialog title for launching external intent -->
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">ออกจากแอป Signal เพื่อยืนยันการบริจาคหรือไม่</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">เมื่อยืนยันเรียบร้อยแล้ว โปรดเปิดแอป Signal อีกครั้งเพื่อดำเนินการบริจาคของคุณให้เสร็จสิ้น</string>
+    <!-- Dialog message shown when leaving Signal to complete a donation in an external app. Placeholder is the resolved app name (e.g. a banking app). -->
+    <string name="ExternalNavigationHelper__once_payment_confirmed_in_app">ระบบจะนำทางคุณไปยัง %1$s เมื่อยืนยันเรียบร้อยแล้ว โปรดเปิดแอป Signal อีกครั้งเพื่อดำเนินการบริจาคของคุณให้เสร็จสิ้น</string>
 
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
@@ -7458,7 +7477,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">เลือกธนาคาร</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">ยืนยันการบริจาคผ่าน iDEAL ของคุณ</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal_wero">ยืนยันการบริจาคผ่าน iDEAL | Wero ของคุณ</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">แตะดำเนินการต่อเพื่อตั้งการบริจาครายเดือนของคุณ โดยคุณจะถูกเรียกเก็บเงิน €0,01 จากทางธนาคาร ซึ่งยอดดังกล่าวจะถูกโอนกลับคืนเข้าบัญชีโดยอัตโนมัติ และการบริจาคจำนวน %1$s/เดือนจะถูกหักจากบัญชีของคุณ</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -7622,7 +7641,7 @@
     <!-- Displayed for outgoing calls -->
     <string name="CallLogAdapter__outgoing">โทรออก</string>
     <!-- Displayed for outgoing calls that were not accepted by the remote party -->
-    <string name="CallLogAdapter__unanswered">Unanswered</string>
+    <string name="CallLogAdapter__unanswered">ไม่ได้รับสาย</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">ไม่ได้รับ</string>
     <!-- Displayed for one missed call declined by notification profile -->
@@ -7705,7 +7724,7 @@
     <!-- Displayed as a message in a dialog when deleting multiple items -->
     <string name="CallLogFragment__call_links_youve_created">ผู้ติดต่อที่มีลิงก์การโทรที่คุณสร้างจะไม่สามารถใช้ลิงก์ดังกล่าวได้อีกต่อไป</string>
     <!-- Dialog message shown when trying to start a group call but the user is no longer a member -->
-    <string name="CallLogFragment__cant_start_call_no_longer_a_member">You\'re no longer a member of this group.</string>
+    <string name="CallLogFragment__cant_start_call_no_longer_a_member">คุณไม่ได้เป็นสมาชิกในกลุ่มนี้แล้ว</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -8015,6 +8034,15 @@
     <string name="UseNewOnDeviceBackups__upgrade">อัปเกรด</string>
     <!-- Button of a megaphone that will snooze the reminder to upgrade to the new local backups type -->
     <string name="UseNewOnDeviceBackups__not_now">ไว้ทีหลัง</string>
+
+    <!-- Title of a megaphone shown to prompt the user to open Signal on their primary device -->
+    <string name="InactivePrimary__title">เปิด Molly บนโทรศัพท์ของคุณ</string>
+    <!-- Body of a megaphone shown to prompt the user to open Signal on their primary device -->
+    <string name="InactivePrimary__body">เปิด Molly บนอุปกรณ์หลักของคุณเพื่อรักษาสถานะการใช้งานบัญชี</string>
+    <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will navigate to a support page -->
+    <string name="InactivePrimary__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will snooze the megaphone -->
+    <string name="InactivePrimary__got_it">เข้าใจแล้ว</string>
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"กู้คืนข้อมูลสำรองด้วยการติดตั้ง Molly ใหม่ โดยเปิดแอปแล้วแตะเลือกกู้คืนจากข้อมูลสำรอง จากนั้นจึงไปที่ไฟล์ข้อมูลสำรอง"</string>
@@ -8391,9 +8419,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">หากเปิดใช้งาน ระบบจะลบข้อความออกจากอุปกรณ์ที่เชื่อมโยงอยู่ตามการตั้งค่าการจำกัดข้อความในแชทสูงสุด</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">พื้นที่จัดเก็บบนอุปกรณ์</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Molly storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">เพิ่มประสิทธิภาพพื้นที่จัดเก็บบนอุปกรณ์</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">เพิ่มประสิทธิภาพพื้นที่จัดเก็บของ Molly</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">ไฟล์สื่อที่ไม่ได้ใช้งานจะถูกออฟโหลด แต่คุณสามารถดาวน์โหลดไฟล์กลับมาจากข้อมูลสำรองได้ทุกเมื่อ</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -8494,7 +8522,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">ปิด</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">ต้องใช้การรับรองความถูกต้อง</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">ต้องใช้การรับรองความถูกต้อง</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">ประวัติการชำระเงิน</string>
     <!-- Section header for backup information -->
@@ -8867,19 +8895,37 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">ดาวน์โหลดไฟล์สื่อ</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">ในการสร้างกุญแจกู้คืนใหม่ คุณจะต้องปิดใช้งานฟีเจอร์ \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บ\" แล้วรอจนไฟล์สื่อดาวน์โหลดเสร็จสิ้น จากนั้นคุณจึงจะสามารถสร้างกุญแจใหม่ได้</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Molly storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">ปิดใช้งานและดาวน์โหลด</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">สร้างกุญแจกู้คืนใหม่</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">คุณมีความจำเป็นที่จะต้องสร้างกุญแจใหม่เฉพาะแค่ในกรณีที่มีบุคคลอื่นทราบกุญแจของคุณเท่านั้น โดยคุณจะต้องอัปโหลดข้อมูลสำรองซึ่งรวมถึงไฟล์สื่ออีกครั้ง และหากคุณกำลังใช้งานฟีเจอร์ \"เพิ่มประสิทธิภาพพื้นที่จัดเก็บ\" คุณจะต้องดาวน์โหลดไฟล์สื่อที่เคยออฟโหลดไว้ให้เสร็จก่อน</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Molly storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ออกจากการตั้งค่าการสำรองข้อมูลใช่หรือไม่</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">คุณยังดำเนินการตั้งค่าการสำรองข้อมูลไม่เสร็จสิ้น และระบบยังไม่ได้สร้างข้อมูลสำรอง คุณสามารถเปิดใช้งานการสำรองข้อมูลได้ในการตั้งค่า</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">ออกจากการตั้งค่าการสำรองข้อมูล</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">บันทึกกุญแจกู้คืนของคุณ</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">กุญแจกู้คืนคือรหัส 64 ตัวที่จะทำให้คุณสามารถกู้คืนข้อมูลสำรองได้ คุณจะไม่สามารถกู้คืนบัญชีได้หากลืมกุญแจนี้</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">ดูกุญแจแบบเต็ม</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">โปรดยืนยันว่าคุณบันทึกกุญแจกู้คืนเรียบร้อยแล้ว ระบบจะให้คุณใส่รหัสผ่านที่บันทึกไว้ในขั้นตอนต่อไป</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">ยืนยันกุญแจกู้คืน</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">ยืนยันกุญแจกู้คืนแล้ว</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">เกิดข้อผิดพลาดในการยืนยันกุญแจกู้คืน</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">ไม่สามารถยืนยันกุญแจกู้คืนของคุณได้ โปรดตรวจสอบว่าคุณบันทึกกุญแจไว้ในตัวจัดการรหัสผ่านแล้ว หรือบันทึกกุญแจด้วยตัวเอง</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">บันทึกกุญแจด้วยตัวเอง</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9124,11 +9170,11 @@
     <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
     <string name="RestoreLocalBackupActivity__contact_support">ติดต่อฝ่ายสนับสนุน</string>
 
-    <!-- RestoreLocalBackupActivity: Title for the dialog shown when the restored backup belongs to a different account -->
+    <!-- RestoreLocalBackupActivity: Title for the dialog shown when on-device backups could not be automatically re-enabled -->
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">เปิดใช้งานการสำรองข้อมูลไว้บนอุปกรณ์ใช่หรือไม่</string>
 
-    <!-- RestoreLocalBackupActivity: Body for the dialog shown when the restored backup belongs to a different account, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">หากต้องการใช้การสำรองข้อมูลไว้บนอุปกรณ์ต่อไป คุณจำเป็นต้องเปิดใช้งานการสำรองข้อมูลดังกล่าวสำหรับบัญชีนี้และบันทึกกุญแจกู้คืนใหม่ของคุณ โดยสามารถเปิดใช้งานได้ทุกเมื่อจากการตั้งค่า &gt; ข้อมูลสำรอง</string>
+    <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">หากต้องการใช้การสำรองข้อมูลไว้บนอุปกรณ์ต่อไป คุณจำเป็นต้องเปิดใช้งานการสำรองข้อมูลดังกล่าวสำหรับบัญชีนี้ โดยสามารถเปิดใช้งานได้ทุกเมื่อจากการตั้งค่า &gt; ข้อมูลสำรอง</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">เปิดใช้งานตอนนี้</string>
@@ -9607,8 +9653,13 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">ป้ายกำกับสมาชิกของคุณในกลุ่มนี้จะแสดงแทนที่ข้อมูล “เกี่ยวกับ” ที่อยู่ข้างรูปภาพของคุณ</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="other">%1$d กลุ่มที่มีสมาชิกเหมือนกัน</item>
+    </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ไม่สามารถกู้คืนข้อมูลสำรอง</string>
@@ -9618,6 +9669,66 @@
 
     <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">หากต้องการลองอีกครั้ง โปรดถอนการติดตั้งแล้วติดตั้ง Molly ใหม่บนอุปกรณ์เครื่องนี้ จากนั้นให้เลือก \"กู้คืนหรือถ่ายโอน\"</string>
+
+    <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
+    <string name="VerificationCodeRequestedBottomSheet__title">ขอรหัสยืนยันแล้ว</string>
+    <!-- First paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_1">โปรดอย่าบอกรหัสยืนยันของคุณกับผู้ใด Signal จะไม่ส่งข้อความหาคุณเพื่อขอรหัสนี้ หากคุณได้รับข้อความจากบุคคลที่แอบอ้างตนเป็น Signal โปรดทราบว่านั่นเป็นการหลอกลวง</string>
+    <!-- Second paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_2">คุณสามารถเพิกเฉยต่อข้อความแนะนำเพื่อความปลอดภัยนี้หากคุณเป็นผู้ขอรหัสดังกล่าวเอง</string>
+    <!-- Button on the verification code requested sheet that opens the safety tips screen -->
+    <string name="VerificationCodeRequestedBottomSheet__safety_tips">คำแนะนำเพื่อความปลอดภัย</string>
+    <!-- Button on the verification code requested sheet that dismisses the sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__ok">ตกลง</string>
+    <!-- Subtitle on the verification code requested sheet showing the time the code was requested followed by the relative day. %1$s is the time (e.g. "3:25 PM"), %2$s is the relative day (e.g. "Today", "Yesterday", "Jan 15") -->
+    <string name="VerificationCodeRequestedBottomSheet__time_with_day">%1$s %2$s</string>
+
+    <!-- Title of the safety tips screen within the verification code requested sheet -->
+    <string name="SafetyTipsBottomSheet__title">คำแนะนำเพื่อความปลอดภัย</string>
+    <!-- Title of the first safety tip: don\'t respond to chats claiming to be Signal -->
+    <string name="SafetyTipsBottomSheet__tip_1_title">อย่าตอบกลับแชทจาก Signal</string>
+    <!-- Body of the first safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_1_body">Signal จะไม่ส่งข้อความหาคุณเพื่อขอรหัสสำหรับลงทะเบียน, PIN หรือกุญแจกู้คืนของคุณ โปรดอย่าตอบกลับแชทที่แอบอ้างว่าเป็น Signal</string>
+    <!-- Title of the second safety tip: keep your verification code safe -->
+    <string name="SafetyTipsBottomSheet__tip_2_title">รักษารหัสยืนยันของคุณให้ปลอดภัย</string>
+    <!-- Body of the second safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_2_body">หากคุณได้รับรหัสยืนยันทั้งที่ไม่ได้ส่งคำขอ นั่นแสดงว่าอาจมีบุคคลอื่นพยายามเข้าถึงบัญชีคุณ อย่าเปิดเผยรหัสของคุณกับใคร</string>
+    <!-- Title of the third safety tip: enable registration lock -->
+    <string name="SafetyTipsBottomSheet__tip_3_title">เปิดใช้งานกุญแจลงทะเบียนในการตั้งค่าบัญชี</string>
+    <!-- Body of the third safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_3_body">ปกป้องบัญชีของคุณโดยการกำหนดให้ต้องใช้ Signal PIN ในการลงทะเบียนกับ Signal เพิ่มเติมจากการใช้เพียงรหัสยืนยัน</string>
+    <!-- Button on the safety tips screen that opens account settings -->
+    <string name="SafetyTipsBottomSheet__open_account_settings">เปิดหน้าการตั้งค่าบัญชี</string>
+
+    <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">อย่าเปิดเผยกุญแจกู้คืนของคุณ</string>
+    <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal จะไม่ส่งข้อความหาคุณ</string>
+    <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">เพื่อขอกุญแจกู้คืน โปรดอย่าตอบกลับแชทที่แอบอ้างว่าเป็น Signal และโปรดเก็บกุญแจกู้คืนของคุณไว้ในที่ปลอดภัย รวมถึงไม่บอกรหัสนี้กับใคร</string>
+    <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
+    <string name="RecoveryKeyWarningSheetContent__got_it">เข้าใจแล้ว</string>
+    <!-- Button opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Inline link opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more_period">เรียนรู้เพิ่มเติม</string>
+    <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">ไม่แชร์กุญแจ</string>
+    <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
+    <string name="RecoveryKeyWarningSheetContent__share_key">แชร์กุญแจ</string>
+
+    <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">อย่าแชร์กุญแจกู้คืน</string>
+    <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">อย่าเปิดเผยกุญแจกู้คืนของคุณกับใคร ข้อมูลนี้จะทำให้บุคคลอื่นสามารถเข้าถึงบัญชีคุณ</string>
+    <!-- Bolded middle sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal จะไม่ส่งข้อความหาคุณเพื่อขอกุญแจกู้คืน</string>
+    <!-- Final sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">โปรดอย่าตอบกลับแชทที่แอบอ้างว่าเป็น Signal</string>
+    <!-- Button confirming the user wants to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__paste_key">วางกุญแจ</string>
+    <!-- Button declining to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__dont_share">ยกเลิกการแชร์</string>
 
     <!-- EOF -->
 </resources>

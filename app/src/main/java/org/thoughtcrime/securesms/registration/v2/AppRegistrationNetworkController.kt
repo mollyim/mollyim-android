@@ -6,39 +6,54 @@
 package org.thoughtcrime.securesms.registration.v2
 
 import android.content.Context
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.ecc.ECPrivateKey
+import org.signal.network.NetworkResult
+import org.signal.registration.LinkAndSyncWaitResult
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.AccountAttributes
 import org.signal.registration.NetworkController.BackupMasterKeyError
 import org.signal.registration.NetworkController.CheckSvrCredentialsError
 import org.signal.registration.NetworkController.CheckSvrCredentialsResponse
 import org.signal.registration.NetworkController.CreateSessionError
+import org.signal.registration.NetworkController.DeviceAttributes
 import org.signal.registration.NetworkController.GetSessionStatusError
 import org.signal.registration.NetworkController.GetSvrCredentialsError
+import org.signal.registration.NetworkController.LinkDeviceProvisioningEvent
+import org.signal.registration.NetworkController.LinkDeviceProvisioningMessage
+import org.signal.registration.NetworkController.LinkDeviceResponse
 import org.signal.registration.NetworkController.PreKeyCollection
 import org.signal.registration.NetworkController.ProvisioningEvent
 import org.signal.registration.NetworkController.ProvisioningMessage
 import org.signal.registration.NetworkController.RegisterAccountError
 import org.signal.registration.NetworkController.RegisterAccountResponse
+import org.signal.registration.NetworkController.RegisterAsLinkedDeviceError
 import org.signal.registration.NetworkController.RegistrationLockResponse
 import org.signal.registration.NetworkController.RequestVerificationCodeError
+import org.signal.registration.NetworkController.RestoreAccountRecordError
 import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SetAccountAttributesError
+import org.signal.registration.NetworkController.SetProfileError
 import org.signal.registration.NetworkController.SetRegistrationLockError
+import org.signal.registration.NetworkController.SetRestoreMethodError
 import org.signal.registration.NetworkController.SubmitVerificationCodeError
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.ThirdPartyServiceErrorResponse
@@ -46,28 +61,55 @@ import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.NetworkController.VerificationCodeTransport
 import org.signal.registration.proto.RegistrationProvisionMessage
 import org.thoughtcrime.securesms.BuildConfig
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.gcm.FcmUtil
+import org.thoughtcrime.securesms.jobs.MultiDeviceProfileContentUpdateJob
+import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob
+import org.thoughtcrime.securesms.jobs.ProfileUploadJob
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.ResetSvrGuessCountJob
+import org.thoughtcrime.securesms.jobs.StorageAccountRestoreJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
+import org.thoughtcrime.securesms.profiles.AvatarHelper
+import org.thoughtcrime.securesms.profiles.ProfileName
+import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.fcm.PushChallengeRequest
+import org.thoughtcrime.securesms.registration.ui.restore.StorageServiceRestore
+import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
-import org.whispersystems.signalservice.api.NetworkResult
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.SvrNoDataException
+import org.whispersystems.signalservice.api.archive.ArchiveServiceAccess
+import org.whispersystems.signalservice.api.link.TransferArchiveResponse
+import org.whispersystems.signalservice.api.messages.multidevice.RequestMessage
+import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage
 import org.whispersystems.signalservice.api.provisioning.ProvisioningSocket
+import org.whispersystems.signalservice.api.push.SignedPreKeyEntity
 import org.whispersystems.signalservice.api.svr.SecureValueRecovery.BackupResponse
 import org.whispersystems.signalservice.internal.crypto.SecondaryProvisioningCipher
 import org.whispersystems.signalservice.internal.push.AuthCredentials
+import org.whispersystems.signalservice.internal.push.GcmRegistrationId
+import org.whispersystems.signalservice.internal.push.KyberPreKeyEntity
+import org.whispersystems.signalservice.internal.push.ProvisionMessage
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
+import org.whispersystems.signalservice.internal.push.RegisterAsSecondaryDeviceRequest
+import org.whispersystems.signalservice.internal.push.SyncMessage
+import java.io.Closeable
 import java.io.IOException
 import java.util.Locale
+import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import org.whispersystems.signalservice.api.account.AccountAttributes as ServiceAccountAttributes
+import org.whispersystems.signalservice.api.account.DeviceAttributes as ServiceDeviceAttributes
 import org.whispersystems.signalservice.api.account.PreKeyCollection as ServicePreKeyCollection
+import org.whispersystems.signalservice.api.provisioning.RestoreMethod as ServiceRestoreMethod
 
 /**
  * Implementation of [NetworkController] that bridges to the app's existing network infrastructure.
@@ -80,6 +122,7 @@ class AppRegistrationNetworkController(
   companion object {
     private val TAG = Log.tag(AppRegistrationNetworkController::class)
     private val PUSH_REQUEST_TIMEOUT = 5.seconds.inWholeMilliseconds
+    private val RETRY_BACKOFF = 5.seconds
   }
 
   private val json = Json { ignoreUnknownKeys = true }
@@ -439,8 +482,13 @@ class AppRegistrationNetworkController(
     }
   }
 
-  override suspend fun enqueueSvrGuessResetJob() {
+  override suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean {
+    if (SignalStore.svr.pin == null) {
+      return false
+    }
+
     AppDependencies.jobManager.add(ResetSvrGuessCountJob())
+    return true
   }
 
   override suspend fun enableRegistrationLock(): RequestResult<Unit, SetRegistrationLockError> = withContext(Dispatchers.IO) {
@@ -536,8 +584,189 @@ class AppRegistrationNetworkController(
     }
   }
 
+  override suspend fun getRemoteBackupInfo(aep: AccountEntropyPool): RequestResult<NetworkController.GetBackupInfoResponse, NetworkController.GetBackupInfoError> = withContext(Dispatchers.IO) {
+    val aci = SignalStore.account.aci ?: return@withContext RequestResult.ApplicationError(IllegalStateException("ACI not available"))
+
+    val currentTime = System.currentTimeMillis()
+    val messageCredential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
+
+    val access = if (messageCredential != null) {
+      ArchiveServiceAccess(messageCredential, SignalStore.backup.messageBackupKey)
+    } else {
+      when (val credResult = SignalNetwork.archive.getServiceCredentials(currentTime)) {
+        is NetworkResult.Success -> {
+          SignalStore.backup.messageCredentials.add(credResult.result.messageCredentials)
+          SignalStore.backup.messageCredentials.clearOlderThan(currentTime)
+          val credential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
+            ?: return@withContext RequestResult.ApplicationError(IllegalStateException("Failed to obtain backup credentials after fetch"))
+          ArchiveServiceAccess(credential, SignalStore.backup.messageBackupKey)
+        }
+        is NetworkResult.StatusCodeError -> return@withContext RequestResult.ApplicationError(IllegalStateException("Failed to fetch backup credentials: ${credResult.code}"))
+        is NetworkResult.NetworkError -> return@withContext RequestResult.RetryableNetworkError(credResult.exception)
+        is NetworkResult.ApplicationError -> return@withContext RequestResult.ApplicationError(credResult.throwable)
+      }
+    }
+
+    when (val result = SignalNetwork.archive.getBackupInfo(aci, access)) {
+      is NetworkResult.Success -> {
+        val info = result.result
+        RequestResult.Success(
+          NetworkController.GetBackupInfoResponse(
+            cdn = info.cdn,
+            backupDir = info.backupDir,
+            mediaDir = info.mediaDir,
+            backupName = info.backupName,
+            usedSpace = info.usedSpace
+          )
+        )
+      }
+      is NetworkResult.StatusCodeError -> {
+        when (result.code) {
+          400 -> RequestResult.NonSuccess(NetworkController.GetBackupInfoError.BadArguments(result.stringBody))
+          401 -> RequestResult.NonSuccess(NetworkController.GetBackupInfoError.BadAuthCredential(result.stringBody))
+          403 -> RequestResult.NonSuccess(NetworkController.GetBackupInfoError.Forbidden(result.stringBody))
+          404 -> RequestResult.NonSuccess(NetworkController.GetBackupInfoError.NoBackup)
+          429 -> RequestResult.NonSuccess(NetworkController.GetBackupInfoError.RateLimited(0.seconds))
+          else -> RequestResult.ApplicationError(IllegalStateException("Unexpected response code: ${result.code}"))
+        }
+      }
+      is NetworkResult.NetworkError -> RequestResult.RetryableNetworkError(result.exception)
+      is NetworkResult.ApplicationError -> RequestResult.ApplicationError(result.throwable)
+    }
+  }
+
+  override suspend fun enqueueAccountAttributesSyncJob() {
+    AppDependencies.jobManager.add(RefreshAttributesJob())
+  }
+
+  override suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, SetProfileError> = withContext(Dispatchers.IO) {
+    if (!SignalStore.account.isRegistered) {
+      Log.w(TAG, "[setProfile] Not registered.")
+      return@withContext RequestResult.NonSuccess(SetProfileError.NotRegistered)
+    }
+
+    val profileName = ProfileName.fromParts(givenName, familyName)
+    SignalDatabase.recipients.setProfileName(Recipient.self().id, profileName)
+
+    if (avatar != null) {
+      try {
+        AvatarHelper.setAvatar(context, Recipient.self().id, java.io.ByteArrayInputStream(avatar))
+      } catch (e: IOException) {
+        Log.w(TAG, "[setProfile] Failed to write avatar.", e)
+        return@withContext RequestResult.NonSuccess(SetProfileError.IOError(e))
+      }
+      SignalStore.misc.hasEverHadAnAvatar = true
+    }
+
+    SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode = if (discoverableByPhoneNumber) {
+      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.DISCOVERABLE
+    } else {
+      org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues.PhoneNumberDiscoverabilityMode.NOT_DISCOVERABLE
+    }
+
+    AppDependencies.jobManager
+      .startChain(ProfileUploadJob())
+      .then(listOf(MultiDeviceProfileKeyUpdateJob(), MultiDeviceProfileContentUpdateJob()))
+      .enqueue()
+
+    RegistrationUtil.maybeMarkRegistrationComplete()
+
+    RequestResult.Success(Unit)
+  }
+
+  override suspend fun restoreAccountRecord(
+    timeout: Duration
+  ): RequestResult<Unit, RestoreAccountRecordError> = withContext(Dispatchers.IO) {
+    Log.i(TAG, "[restoreAccountRecord] Enqueuing StorageAccountRestoreJob (timeout=${timeout.inWholeSeconds}s).")
+    val state = AppDependencies.jobManager.runSynchronously(StorageAccountRestoreJob(), timeout.inWholeMilliseconds)
+    if (state.isPresent) {
+      Log.i(TAG, "[restoreAccountRecord] Completed within timeout: ${state.get()}")
+      RequestResult.Success(Unit)
+    } else {
+      Log.w(TAG, "[restoreAccountRecord] Timed out. Job continues in background.")
+      RequestResult.NonSuccess(RestoreAccountRecordError.Timeout)
+    }
+  }
+
+  override suspend fun setRestoreMethod(token: String, method: NetworkController.RestoreMethod): RequestResult<Unit, SetRestoreMethodError> = withContext(Dispatchers.IO) {
+    val serviceMethod = when (method) {
+      NetworkController.RestoreMethod.REMOTE_BACKUP -> ServiceRestoreMethod.REMOTE_BACKUP
+      NetworkController.RestoreMethod.LOCAL_BACKUP -> ServiceRestoreMethod.LOCAL_BACKUP
+      NetworkController.RestoreMethod.DEVICE_TRANSFER -> ServiceRestoreMethod.DEVICE_TRANSFER
+      NetworkController.RestoreMethod.DECLINE -> ServiceRestoreMethod.DECLINE
+    }
+    when (val result = AppDependencies.registrationApi.setRestoreMethod(token, serviceMethod)) {
+      is NetworkResult.Success -> RequestResult.Success(Unit)
+      is NetworkResult.StatusCodeError -> {
+        when (result.code) {
+          429 -> RequestResult.NonSuccess(SetRestoreMethodError.RateLimited(0.seconds))
+          else -> RequestResult.NonSuccess(SetRestoreMethodError.InvalidRequest("HTTP ${result.code}"))
+        }
+      }
+      is NetworkResult.NetworkError -> RequestResult.RetryableNetworkError(result.exception)
+      is NetworkResult.ApplicationError -> RequestResult.ApplicationError(result.throwable)
+    }
+  }
+
+  override suspend fun getBackupFileLastModified(
+    aep: AccountEntropyPool,
+    backupInfo: NetworkController.GetBackupInfoResponse
+  ): RequestResult<Long, NetworkController.GetBackupInfoError> = withContext(Dispatchers.IO) {
+    val aci = SignalStore.account.aci ?: return@withContext RequestResult.ApplicationError(IllegalStateException("ACI not available"))
+    val cdn = backupInfo.cdn ?: return@withContext RequestResult.ApplicationError(IllegalStateException("CDN number not available"))
+    val backupDir = backupInfo.backupDir ?: return@withContext RequestResult.ApplicationError(IllegalStateException("Backup dir not available"))
+    val backupName = backupInfo.backupName ?: return@withContext RequestResult.ApplicationError(IllegalStateException("Backup name not available"))
+
+    val currentTime = System.currentTimeMillis()
+    val messageCredential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
+      ?: return@withContext RequestResult.ApplicationError(IllegalStateException("No message credential available"))
+
+    val access = ArchiveServiceAccess(messageCredential, SignalStore.backup.messageBackupKey)
+
+    val cdnCredentials = when (val cdnResult = SignalNetwork.archive.getCdnReadCredentials(cdn, aci, access)) {
+      is NetworkResult.Success -> cdnResult.result.headers
+      is NetworkResult.StatusCodeError -> return@withContext RequestResult.ApplicationError(IllegalStateException("Failed to get CDN credentials: ${cdnResult.code}"))
+      is NetworkResult.NetworkError -> return@withContext RequestResult.RetryableNetworkError(cdnResult.exception)
+      is NetworkResult.ApplicationError -> return@withContext RequestResult.ApplicationError(cdnResult.throwable)
+    }
+
+    try {
+      val lastModified = AppDependencies.signalServiceMessageReceiver.getCdnLastModifiedTime(cdn, cdnCredentials, "backups/$backupDir/$backupName")
+      RequestResult.Success(lastModified.toInstant().toEpochMilli())
+    } catch (e: IOException) {
+      RequestResult.RetryableNetworkError(e)
+    } catch (e: Exception) {
+      RequestResult.ApplicationError(e)
+    }
+  }
+
+  override fun startNewDeviceTransferServer(context: Context, aep: AccountEntropyPool) {
+    val pendingIntent = android.app.PendingIntent.getActivity(
+      context,
+      0,
+      org.thoughtcrime.securesms.MainActivity.clearTop(context),
+      org.signal.core.util.PendingIntentFlags.mutable()
+    )
+    val notificationData = org.signal.devicetransfer.DeviceToDeviceTransferService.TransferNotificationData(
+      org.thoughtcrime.securesms.notifications.NotificationIds.DEVICE_TRANSFER,
+      org.thoughtcrime.securesms.notifications.NotificationChannels.getInstance().BACKUPS,
+      org.thoughtcrime.securesms.R.drawable.ic_notification_backup
+    )
+    org.signal.devicetransfer.DeviceToDeviceTransferService.startServer(
+      context,
+      org.thoughtcrime.securesms.devicetransfer.newdevice.NewDeviceServerTask(),
+      notificationData,
+      pendingIntent
+    )
+  }
+
   override fun startProvisioning(): Flow<ProvisioningEvent> = callbackFlow {
-    val socketHandles = mutableListOf<java.io.Closeable>()
+    val socketHandles = mutableListOf<Closeable>()
     val configuration = AppDependencies.signalServiceNetworkAccess.getConfiguration()
 
     fun startSocket() {
@@ -601,7 +830,7 @@ class AppRegistrationNetworkController(
     val rotationJob = launch {
       var count = 0
       while (count < 5 && isActive) {
-        kotlinx.coroutines.delay(ProvisioningSocket.LIFESPAN / 2)
+        delay(ProvisioningSocket.LIFESPAN / 2)
         if (isActive) {
           startSocket()
           count++
@@ -619,6 +848,250 @@ class AppRegistrationNetworkController(
     }
   }
 
+  override fun startLinkDeviceProvisioning(): Flow<LinkDeviceProvisioningEvent> = callbackFlow {
+    val socketHandles = mutableListOf<Closeable>()
+    val configuration = AppDependencies.signalServiceNetworkAccess.getConfiguration()
+
+    fun startSocket() {
+      val handle = ProvisioningSocket.start<ProvisionMessage>(
+        mode = ProvisioningSocket.Mode.LINK,
+        identityKeyPair = IdentityKeyPair.generate(),
+        configuration = configuration,
+        handler = { id, t ->
+          Log.w(TAG, "[startLinkDeviceProvisioning] Socket [$id] failed", t)
+          trySend(LinkDeviceProvisioningEvent.Error(t))
+        }
+      ) { socket ->
+        val url = socket.getProvisioningUrl()
+        trySend(LinkDeviceProvisioningEvent.QrCodeReady(url))
+
+        val result = socket.getProvisioningMessageDecryptResult()
+
+        if (result is SecondaryProvisioningCipher.ProvisioningDecryptResult.Success) {
+          val msg = result.message
+          val aci = msg.aciBinary?.let { ACI.parseOrThrow(it) } ?: ACI.parseOrThrow(msg.aci)
+          val pni = msg.pniBinary?.let { PNI.parseOrThrow(it) } ?: PNI.parseOrThrow(msg.pni)
+
+          trySend(
+            LinkDeviceProvisioningEvent.MessageReceived(
+              LinkDeviceProvisioningMessage(
+                e164 = msg.number!!,
+                provisioningCode = msg.provisioningCode!!,
+                aci = aci.toString(),
+                pni = pni.toString(),
+                aciIdentityKeyPair = IdentityKeyPair(IdentityKey(msg.aciIdentityKeyPublic!!.toByteArray()), ECPrivateKey(msg.aciIdentityKeyPrivate!!.toByteArray())),
+                pniIdentityKeyPair = IdentityKeyPair(IdentityKey(msg.pniIdentityKeyPublic!!.toByteArray()), ECPrivateKey(msg.pniIdentityKeyPrivate!!.toByteArray())),
+                profileKey = msg.profileKey!!.toByteArray(),
+                ephemeralBackupKey = msg.ephemeralBackupKey,
+                accountEntropyPool = msg.accountEntropyPool,
+                mediaRootBackupKey = msg.mediaRootBackupKey,
+                readReceipts = msg.readReceipts
+              )
+            )
+          )
+          channel.close()
+        } else {
+          Log.w(TAG, "[startLinkDeviceProvisioning] Failed to decrypt provisioning message")
+          trySend(LinkDeviceProvisioningEvent.Error(IOException("Failed to decrypt provisioning message")))
+        }
+      }
+
+      synchronized(socketHandles) {
+        socketHandles += handle
+        if (socketHandles.size > 2) {
+          socketHandles.removeAt(0).close()
+        }
+      }
+    }
+
+    startSocket()
+
+    val rotationJob = launch {
+      var count = 0
+      while (count < 5 && isActive) {
+        delay(ProvisioningSocket.LIFESPAN / 2)
+        if (isActive) {
+          startSocket()
+          count++
+          Log.d(TAG, "[startLinkDeviceProvisioning] Rotated socket, count: $count")
+        }
+      }
+    }
+
+    awaitClose {
+      rotationJob.cancel()
+      synchronized(socketHandles) {
+        socketHandles.forEach { it.close() }
+        socketHandles.clear()
+      }
+    }
+  }
+
+  override suspend fun registerAsLinkedDevice(
+    e164: String,
+    password: String,
+    provisioningCode: String,
+    deviceAttributes: DeviceAttributes,
+    aciPreKeys: PreKeyCollection,
+    pniPreKeys: PreKeyCollection,
+    fcmToken: String?
+  ): RequestResult<LinkDeviceResponse, RegisterAsLinkedDeviceError> = withContext(Dispatchers.IO) {
+    try {
+      pushServiceSocket.registerAsSecondaryDevice(
+        e164,
+        password,
+        RegisterAsSecondaryDeviceRequest(
+          verificationCode = provisioningCode,
+          accountAttributes = deviceAttributes.toServiceDeviceAttributes(),
+          aciSignedPreKey = SignedPreKeyEntity(aciPreKeys.signedPreKey.id.toLong(), aciPreKeys.signedPreKey.keyPair.publicKey, aciPreKeys.signedPreKey.signature),
+          pniSignedPreKey = SignedPreKeyEntity(pniPreKeys.signedPreKey.id.toLong(), pniPreKeys.signedPreKey.keyPair.publicKey, pniPreKeys.signedPreKey.signature),
+          aciPqLastResortPreKey = KyberPreKeyEntity(aciPreKeys.lastResortKyberPreKey.id.toLong(), aciPreKeys.lastResortKyberPreKey.keyPair.publicKey, aciPreKeys.lastResortKyberPreKey.signature),
+          pniPqLastResortPreKey = KyberPreKeyEntity(pniPreKeys.lastResortKyberPreKey.id.toLong(), pniPreKeys.lastResortKyberPreKey.keyPair.publicKey, pniPreKeys.lastResortKyberPreKey.signature),
+          gcmToken = fcmToken?.let { GcmRegistrationId(it, true) }
+        )
+      ).use { response ->
+        when (response.code) {
+          200 -> RequestResult.Success(json.decodeFromString<LinkDeviceResponse>(response.body.string()))
+          403 -> RequestResult.NonSuccess(RegisterAsLinkedDeviceError.IncorrectVerification)
+          409 -> RequestResult.NonSuccess(RegisterAsLinkedDeviceError.MissingCapability)
+          411 -> RequestResult.NonSuccess(RegisterAsLinkedDeviceError.MaxLinkedDevices)
+          422 -> RequestResult.NonSuccess(RegisterAsLinkedDeviceError.InvalidRequest(response.body.string()))
+          429 -> RequestResult.NonSuccess(RegisterAsLinkedDeviceError.RateLimited(response.retryAfter()))
+          else -> RequestResult.ApplicationError(IllegalStateException("Unexpected response code: ${response.code}, body: ${response.body.string()}"))
+        }
+      }
+    } catch (e: IOException) {
+      RequestResult.RetryableNetworkError(e)
+    } catch (e: CancellationException) {
+      throw e
+    } catch (e: Exception) {
+      RequestResult.ApplicationError(e)
+    }
+  }
+
+  override suspend fun onLinkedDeviceRegistered() = withContext(Dispatchers.IO) {
+    try {
+      RemoteConfig.refreshSync()
+    } catch (e: IOException) {
+      Log.w(TAG, "[onLinkedDeviceRegistered] Failed to refresh remote config.", e)
+    }
+
+    for (type in SyncMessage.Request.Type.entries) {
+      if (type == SyncMessage.Request.Type.UNKNOWN) {
+        continue
+      }
+
+      Log.i(TAG, "[onLinkedDeviceRegistered] Sending sync request for $type")
+      try {
+        retryWithBackoff {
+          AppDependencies.signalServiceMessageSender.sendSyncMessage(
+            SignalServiceSyncMessage.forRequest(RequestMessage(SyncMessage.Request(type = type)))
+          )
+        }
+      } catch (e: CancellationException) {
+        throw e
+      } catch (e: Exception) {
+        Log.w(TAG, "[onLinkedDeviceRegistered] Failed to send sync request for $type after retries; continuing.", e)
+      }
+    }
+  }
+
+  private suspend fun <T> retryWithBackoff(maxAttempts: Int = 3, initialDelay: Duration = 1.seconds, block: suspend () -> T): T {
+    var attempt = 0
+    while (true) {
+      try {
+        return block()
+      } catch (e: IOException) {
+        attempt++
+        if (attempt >= maxAttempts) {
+          throw e
+        }
+        val backoff = initialDelay * attempt
+        Log.w(TAG, "[retryWithBackoff] Attempt $attempt failed; retrying in $backoff.", e)
+        delay(backoff)
+      }
+    }
+  }
+
+  override suspend fun restoreLinkedDeviceFromStorageService() = withContext(Dispatchers.IO) {
+    if (SignalStore.account.restoredAccountEntropyPoolFromPrimary) {
+      Log.i(TAG, "[restoreLinkedDeviceFromStorageService] Restoring account data from storage service.")
+      try {
+        StorageServiceRestore.restore()
+      } catch (e: CancellationException) {
+        Log.i(TAG, "[restoreLinkedDeviceFromStorageService] Restoring account cancelled.", e)
+        throw e
+      } catch (e: Exception) {
+        Log.w(TAG, "[restoreLinkedDeviceFromStorageService] Storage service restore failed.", e)
+      }
+    } else {
+      Log.i(TAG, "[restoreLinkedDeviceFromStorageService] No account entropy pool from primary; skipping storage service restore.")
+    }
+  }
+
+  override suspend fun awaitLinkAndSyncArchive(): LinkAndSyncWaitResult = withContext(Dispatchers.IO) {
+    val response = awaitTransferArchiveFromPrimary()
+    val result = when {
+      response == null -> LinkAndSyncWaitResult.ContinueWithoutBackup
+      response.error == TransferArchiveResponse.ERROR_RELINK_REQUESTED -> LinkAndSyncWaitResult.RelinkRequired
+      response.error == TransferArchiveResponse.ERROR_CONTINUE_WITHOUT_UPLOAD -> LinkAndSyncWaitResult.ContinueWithoutBackup
+      response.hasArchive -> LinkAndSyncWaitResult.ArchiveAvailable(cdn = response.cdn!!, key = response.key!!)
+      else -> LinkAndSyncWaitResult.ContinueWithoutBackup
+    }
+    Log.i(TAG, "[awaitLinkAndSyncArchive] Result: $result")
+    result
+  }
+
+  /**
+   * Waits for the primary device to make a link-and-sync transfer archive available, long-polling
+   * [org.signal.network.api.LinkDeviceApi.waitForPrimaryDevice] and retrying transient errors until
+   * [maxWaitTime] elapses. Returns null if no archive becomes available.
+   */
+  private suspend fun awaitTransferArchiveFromPrimary(maxWaitTime: Duration = 1.hours): TransferArchiveResponse? {
+    val startTime = System.currentTimeMillis()
+    var timeRemaining = maxWaitTime.inWholeMilliseconds
+
+    while (timeRemaining > 0 && coroutineContext.isActive) {
+      Log.d(TAG, "[awaitTransferArchiveFromPrimary] Willing to wait for $timeRemaining ms...")
+
+      when (val result = SignalNetwork.linkDevice.waitForPrimaryDevice(timeout = 60.seconds)) {
+        is NetworkResult.Success -> {
+          Log.i(TAG, "[awaitTransferArchiveFromPrimary] Primary responded (hasArchive=${result.result.hasArchive}, error=${result.result.error})")
+          return result.result
+        }
+        is NetworkResult.ApplicationError -> {
+          Log.w(TAG, "[awaitTransferArchiveFromPrimary] Error processing response", result.throwable)
+          return null
+        }
+        is NetworkResult.NetworkError -> {
+          Log.w(TAG, "[awaitTransferArchiveFromPrimary] Network error while waiting; will retry after $RETRY_BACKOFF.", result.exception)
+          delay(RETRY_BACKOFF)
+        }
+        is NetworkResult.StatusCodeError -> {
+          when (result.code) {
+            400 -> {
+              Log.w(TAG, "[awaitTransferArchiveFromPrimary] Invalid timeout.")
+              return null
+            }
+            429 -> {
+              Log.w(TAG, "[awaitTransferArchiveFromPrimary] Rate-limited; will retry after ${result.retryAfter()}.")
+              result.retryAfter()?.let { delay(it) }
+            }
+            else -> {
+              Log.w(TAG, "[awaitTransferArchiveFromPrimary] Unexpected status ${result.code}; will retry after $RETRY_BACKOFF.")
+              delay(RETRY_BACKOFF)
+            }
+          }
+        }
+      }
+
+      timeRemaining = maxWaitTime.inWholeMilliseconds - (System.currentTimeMillis() - startTime)
+    }
+
+    Log.w(TAG, "[awaitTransferArchiveFromPrimary] No transfer archive from primary within $maxWaitTime.")
+    return null
+  }
+
   private fun AccountAttributes.toServiceAccountAttributes(): ServiceAccountAttributes {
     return ServiceAccountAttributes(
       signalingKey,
@@ -629,7 +1102,7 @@ class AppRegistrationNetworkController(
       unrestrictedUnidentifiedAccess,
       capabilities?.toServiceCapabilities(),
       discoverableByPhoneNumber,
-      name,
+      null,
       pniRegistrationId,
       recoveryPassword
     )
@@ -640,7 +1113,18 @@ class AppRegistrationNetworkController(
       storage,
       versionedExpirationTimer,
       attachmentBackfill,
-      spqr
+      spqr,
+      usernameChangeSyncMessage
+    )
+  }
+
+  private fun DeviceAttributes.toServiceDeviceAttributes(): ServiceDeviceAttributes {
+    return ServiceDeviceAttributes(
+      fetchesMessages = fetchesMessages,
+      registrationId = registrationId,
+      pniRegistrationId = pniRegistrationId,
+      name = name,
+      capabilities = capabilities?.toServiceCapabilities()
     )
   }
 

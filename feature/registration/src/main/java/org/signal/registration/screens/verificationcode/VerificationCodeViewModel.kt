@@ -173,10 +173,10 @@ class VerificationCodeViewModel(
       is RequestResult.Success -> {
         val (response, keyMaterial) = registerResult.result
 
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
 
         when {
-//          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ChooseRestoreOptionAfterRegistration)
+          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegister())
           response.storageCapable -> parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
           else -> parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
         }
@@ -189,9 +189,7 @@ class VerificationCodeViewModel(
             throw NotImplementedError("Handle session not found or not verified case.")
           }
           is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
-            Log.w(TAG, "[Register] Got told a device transfer is possible. We should never get into this state. Resetting.")
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
-            state
+            error("[Register] Got told a device transfer is possible. We should never get into this state. Resetting.")
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             Log.w(TAG, "[Register] Reglocked.")
@@ -212,9 +210,7 @@ class VerificationCodeViewModel(
             state.copy(oneTimeEvent = OneTimeEvent.RegistrationError)
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
-            Log.w(TAG, "[Register] Got told the registration recovery password incorrect. We don't use the RRP in this flow, and should never get this error. Resetting. Message: ${error.message}")
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
-            state
+            error("[Register] Got told the registration recovery password incorrect. We don't use the RRP in this flow, and should never get this error. Resetting. Message: ${error.message}")
           }
         }
       }
@@ -287,7 +283,7 @@ class VerificationCodeViewModel(
             Log.w(TAG, "[RequestCode][$transport] Missing request information or already verified.")
             parentEventEmitter(RegistrationFlowEvent.SessionUpdated(error.session))
             state.copy(
-              oneTimeEvent = OneTimeEvent.NetworkError,
+              oneTimeEvent = OneTimeEvent.UnableToSendSms,
               sessionMetadata = error.session,
               rateLimits = computeRateLimits(error.session)
             )
@@ -300,7 +296,7 @@ class VerificationCodeViewModel(
           }
           is NetworkController.RequestVerificationCodeError.ThirdPartyServiceError -> {
             Log.w(TAG, "[RequestCode][$transport] Third party service error. ${error.data}")
-            state.copy(oneTimeEvent = OneTimeEvent.ThirdPartyError)
+            state.copy(oneTimeEvent = OneTimeEvent.UnableToSendSms)
           }
         }
       }

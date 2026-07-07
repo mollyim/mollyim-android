@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.signal.core.util.PendingIntentFlags;
+import org.signal.core.util.ServiceUtil;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.util.ServiceUtil;
 
 public class ExpirationListener extends ExportedBroadcastReceiver {
 

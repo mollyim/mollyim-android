@@ -21,6 +21,7 @@ import org.signal.libsignal.protocol.state.SignalProtocolStore
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.libsignal.protocol.util.KeyHelper
 import org.signal.libsignal.protocol.util.Medium
+import org.signal.network.NetworkResult
 import org.thoughtcrime.securesms.crypto.PreKeyUtil
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -36,7 +37,6 @@ import org.thoughtcrime.securesms.pin.SvrWrongPinException
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
-import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
 import org.whispersystems.signalservice.api.SignalServiceMessageSender
 import org.whispersystems.signalservice.api.SvrNoDataException
@@ -103,20 +103,6 @@ class ChangeNumberRepository(
 
   @WorkerThread
   fun changeLocalNumber(e164: String, pni: ServiceId.PNI) {
-    SignalDatabase.recipients.updateSelfE164(e164, pni)
-    AppDependencies.recipientCache.clear()
-
-    if (e164 != SignalStore.account.requireE164()) {
-      SignalDatabase.recipients.rotateStorageId(Recipient.self().fresh().id)
-      StorageSyncHelper.scheduleSyncForDataChange()
-    }
-
-    SignalStore.account.setE164(e164)
-    SignalStore.account.setPni(pni)
-    AppDependencies.resetProtocolStores()
-
-    AppDependencies.groupsV2Authorization.clear()
-
     val metadata: PendingChangeNumberMetadata? = SignalStore.misc.pendingChangeNumberMetadata
     if (metadata == null) {
       Log.w(TAG, "No change number metadata, this shouldn't happen")
@@ -125,29 +111,35 @@ class ChangeNumberRepository(
 
     val pniIdentityKeyPair = IdentityKeyPair(metadata.pniIdentityKeyPair.toByteArray())
     val pniRegistrationId = metadata.pniRegistrationId
-    val pniSignedPreyKeyId = metadata.pniSignedPreKeyId
+    val pniSignedPreKeyId = metadata.pniSignedPreKeyId
     val pniLastResortKyberPreKeyId = metadata.pniLastResortKyberPreKeyId
+
+    // Prekeys were generated and stored during createChangeNumberRequest; reload them so we can pass them through and reuse for the upload below.
+    val preResetPniStore = AppDependencies.protocolStore.pni()
+    val signedPreKey = preResetPniStore.loadSignedPreKey(pniSignedPreKeyId)
+    val lastResortKyberPreKey = preResetPniStore.loadLastResortKyberPreKeys().firstOrNull { it.id == pniLastResortKyberPreKeyId }
+
+    applyLocalNumberChange(
+      e164 = e164,
+      pni = pni,
+      pniIdentityKeyPair = pniIdentityKeyPair,
+      pniSignedPreKey = signedPreKey,
+      pniLastResortKyberPreKey = lastResortKyberPreKey,
+      pniRegistrationId = pniRegistrationId
+    )
+
+    AppDependencies.resetNetwork(restartMessageObserver = true)
 
     val pniProtocolStore = AppDependencies.protocolStore.pni()
     val pniMetadataStore = SignalStore.account.pniPreKeys
 
-    SignalStore.account.pniRegistrationId = pniRegistrationId
-    SignalStore.account.setPniIdentityKeyAfterChangeNumber(pniIdentityKeyPair)
-
-    val signedPreKey = pniProtocolStore.loadSignedPreKey(pniSignedPreyKeyId)
     val oneTimeEcPreKeys = PreKeyUtil.generateAndStoreOneTimeEcPreKeys(pniProtocolStore, pniMetadataStore)
-    val lastResortKyberPreKey = pniProtocolStore.loadLastResortKyberPreKeys().firstOrNull { it.id == pniLastResortKyberPreKeyId }
     val oneTimeKyberPreKeys = PreKeyUtil.generateAndStoreOneTimeKyberPreKeys(pniProtocolStore, pniMetadataStore)
 
-    if (lastResortKyberPreKey == null) {
-      Log.w(TAG, "Last-resort kyber prekey is missing!")
-    }
-
-    pniMetadataStore.activeSignedPreKeyId = signedPreKey.id
     Log.i(TAG, "Submitting prekeys with PNI identity key: ${pniIdentityKeyPair.publicKey.fingerprint}")
 
     retryChangeLocalNumberNetworkOperation {
-      SignalNetwork.keys.setPreKeys(
+      SignalNetwork.keys.setPreKeysSync(
         PreKeyUpload(
           serviceIdType = ServiceIdType.PNI,
           signedPreKey = signedPreKey,
@@ -161,6 +153,55 @@ class ChangeNumberRepository(
     pniMetadataStore.isSignedPreKeyRegistered = true
     pniMetadataStore.lastResortKyberPreKeyId = pniLastResortKyberPreKeyId
 
+    AppDependencies.jobManager.add(RefreshAttributesJob())
+
+    rotateCertificates()
+
+    SignalStore.misc.unlockChangeNumber()
+  }
+
+  /**
+   * Applies the local state for a successful number change: self recipient row, account values,
+   * PNI protocol store, and identity entry.
+   *
+   * Does NOT reset the network — callers must do so before any subsequent traffic that needs to
+   * use the new PNI. Does NOT make any server requests and does NOT flag prekeys as registered
+   * server-side — the caller is responsible for that once it can attest to server state.
+   */
+  @WorkerThread
+  fun applyLocalNumberChange(
+    e164: String,
+    pni: ServiceId.PNI,
+    pniIdentityKeyPair: IdentityKeyPair,
+    pniSignedPreKey: SignedPreKeyRecord,
+    pniLastResortKyberPreKey: KyberPreKeyRecord?,
+    pniRegistrationId: Int
+  ) {
+    SignalDatabase.recipients.updateSelfE164(e164, pni)
+    AppDependencies.recipientCache.clear()
+
+    if (e164 != SignalStore.account.requireE164()) {
+      SignalDatabase.recipients.rotateStorageId(Recipient.self().fresh().id)
+      StorageSyncHelper.scheduleSyncForDataChange()
+    }
+
+    SignalStore.account.setNumberAndPniIdentity(e164, pni, pniRegistrationId, pniIdentityKeyPair)
+    AppDependencies.resetProtocolStores()
+
+    AppDependencies.groupsV2Authorization.clear()
+
+    val pniProtocolStore = AppDependencies.protocolStore.pni()
+    val pniMetadataStore = SignalStore.account.pniPreKeys
+
+    PreKeyUtil.storeSignedPreKey(pniProtocolStore, pniMetadataStore, pniSignedPreKey)
+    pniMetadataStore.activeSignedPreKeyId = pniSignedPreKey.id
+
+    if (pniLastResortKyberPreKey != null) {
+      PreKeyUtil.storeLastResortKyberPreKey(pniProtocolStore, pniMetadataStore, pniLastResortKyberPreKey)
+    } else {
+      Log.w(TAG, "Last-resort kyber prekey is missing!")
+    }
+
     pniProtocolStore.identities().saveIdentityWithoutSideEffects(
       Recipient.self().id,
       pni,
@@ -171,19 +212,8 @@ class ChangeNumberRepository(
       true
     )
 
-      AppDependencies.groupsV2Authorization.clear()
-
-
     Recipient.self().fresh()
     StorageSyncHelper.scheduleSyncForDataChange()
-
-    AppDependencies.resetNetwork(restartMessageObserver = true)
-
-    AppDependencies.jobManager.add(RefreshAttributesJob())
-
-    rotateCertificates()
-
-    SignalStore.misc.unlockChangeNumber()
   }
 
   @WorkerThread
@@ -289,6 +319,10 @@ class ChangeNumberRepository(
       }
     }
 
+    if (result !is NetworkResult.Success) {
+      result = verifyChangeAppliedDespiteError(newE164 = newE164, originalResult = result)
+    }
+
     if (result is NetworkResult.StatusCodeError) {
       SignalStore.misc.unlockChangeNumber()
     }
@@ -299,11 +333,37 @@ class ChangeNumberRepository(
         NumberChangeResult(
           uuid = accountRegistrationResponse.uuid,
           pni = accountRegistrationResponse.pni,
-          storageCapable = accountRegistrationResponse.storageCapable,
           number = accountRegistrationResponse.number
         )
       }
     )
+  }
+
+  /**
+   * The server can commit a number change but still return an error. Before trusting a non-success result, check
+   * with the server and see if it already reports [newE164] as our number. If it does, then the change actually
+   * went through, so treat it as a success instead of surfacing the error.
+   */
+  private suspend fun verifyChangeAppliedDespiteError(newE164: String, originalResult: NetworkResult<VerifyAccountResponse>): NetworkResult<VerifyAccountResponse> {
+    return try {
+      val whoAmI = withContext(Dispatchers.IO) { whoAmI() }
+      if (whoAmI.number == newE164 && whoAmI.pni != null) {
+        Log.w(TAG, "Change number request did not succeed, but whoami reports the new number is already active. Treating the change as successful.")
+        NetworkResult.Success(
+          VerifyAccountResponse().apply {
+            uuid = whoAmI.aci
+            pni = whoAmI.pni
+            number = whoAmI.number
+          }
+        )
+      } else {
+        Log.i(TAG, "Change number request did not succeed and whoami does not report the new number; treating as a genuine failure.")
+        originalResult
+      }
+    } catch (e: IOException) {
+      Log.w(TAG, "Failed to query whoami while verifying change number outcome; treating as a genuine failure.", e)
+      originalResult
+    }
   }
 
   @WorkerThread
@@ -396,7 +456,6 @@ class ChangeNumberRepository(
   data class NumberChangeResult(
     val uuid: String,
     val pni: String,
-    val storageCapable: Boolean,
     val number: String
   )
 }

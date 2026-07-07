@@ -11,6 +11,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import assertk.assertions.prop
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -23,6 +24,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.RestoreDecision
 
 class PinEntryForSvrRestoreViewModelTest {
 
@@ -57,7 +59,7 @@ class PinEntryForSvrRestoreViewModelTest {
   // ==================== PinEntered Success Tests ====================
 
   @Test
-  fun `PinEntered with correct PIN restores master key and navigates to FullyComplete`() = runTest {
+  fun `PinEntered with correct PIN restores master key and hands off to finishRegistrationOrCreateProfile`() = runTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val svrCredentials = NetworkController.SvrCredentials(
       username = "test-username",
@@ -72,12 +74,11 @@ class PinEntryForSvrRestoreViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1])
-      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
-      .prop(RegistrationFlowEvent.NavigateToScreen::route)
-      .isInstanceOf<RegistrationRoute.FullyComplete>()
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   // ==================== GetSvrCredentials Error Tests ====================
@@ -95,6 +96,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -110,6 +112,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -123,6 +126,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -136,6 +140,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   // ==================== RestoreMasterKey Error Tests ====================
@@ -160,10 +165,11 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().triesRemaining).isEqualTo(triesRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
-  fun `PinEntered with no SVR data navigates to PinCreate`() = runTest {
+  fun `PinEntered with no SVR data shows the no-data-to-restore dialog without navigating`() = runTest {
     val svrCredentials = NetworkController.SvrCredentials(
       username = "test-username",
       password = "test-password"
@@ -179,11 +185,35 @@ class PinEntryForSvrRestoreViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(true)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
+  }
+
+  // ==================== No Data To Restore Dialog Tests ====================
+
+  @Test
+  fun `CreateNewPin dismisses the dialog and navigates to PinCreate`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore, showNoDataToRestoreDialog = true)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.CreateNewPin, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(false)
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinCreate>()
+  }
+
+  @Test
+  fun `ContactSupport dismisses the dialog without navigating`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore, showNoDataToRestoreDialog = true)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.ContactSupport, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().showNoDataToRestoreDialog).isEqualTo(false)
+    assertThat(emittedParentEvents).hasSize(0)
   }
 
   @Test
@@ -203,6 +233,7 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -222,6 +253,22 @@ class PinEntryForSvrRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
+  }
+
+  // ==================== Skip Tests ====================
+
+  @Test
+  fun `Skip navigates to PinCreate`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.SvrRestore)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinCreate>()
   }
 
   // ==================== ToggleKeyboard Tests ====================

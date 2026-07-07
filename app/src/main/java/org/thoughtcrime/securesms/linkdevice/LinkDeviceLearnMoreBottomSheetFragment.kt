@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import org.signal.core.ui.R as CoreUiR
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
 import org.signal.core.ui.compose.DayNightPreviews
@@ -77,12 +78,12 @@ fun LearnMoreSheet() {
       stringResource(R.string.LinkDeviceFragment__once_linked_new_messages_sync_across_devices)
     )
     LinkedDeviceInformationRow(
-      painterResource(R.drawable.symbol_devices_24),
+      painterResource(CoreUiR.drawable.symbol_devices_24),
       stringResource(R.string.LinkDeviceFragment__molly_supports_linking_to_other_android_devices)
     )
     Row(modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp, start = 40.dp, end = 32.dp)) {
       Icon(
-        painter = painterResource(R.drawable.symbol_save_android_24),
+        imageVector = SignalIcons.Save.imageVector,
         contentDescription = stringResource(R.string.preferences__linked_devices),
         modifier = Modifier.size(24.dp).padding(top = 4.dp)
       )

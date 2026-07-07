@@ -5,6 +5,7 @@ import android.os.Parcel
 import androidx.annotation.VisibleForTesting
 import org.signal.blurhash.BlurHash
 import org.signal.core.util.Base64
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.whispersystems.signalservice.api.InvalidMessageStructureException
@@ -76,6 +77,8 @@ class PointerAttachment : Attachment {
   override val thumbnailUri: Uri? = null
 
   companion object {
+    private val TAG = Log.tag(PointerAttachment::class)
+
     @JvmStatic
     fun forPointers(pointers: Optional<List<SignalServiceAttachment>>): List<Attachment> {
       if (!pointers.isPresent) {
@@ -102,6 +105,13 @@ class PointerAttachment : Attachment {
         return Optional.empty()
       }
 
+      val cdnNumber = pointer.get().asPointer().cdnNumber
+      val cdn = Cdn.fromCdnNumberOrNull(cdnNumber)
+      if (cdn == null) {
+        Log.w(TAG, "Encountered an attachment pointer with an unsupported CDN number ($cdnNumber). Skipping attachment.")
+        return Optional.empty()
+      }
+
       val encodedKey: String? = pointer.get().asPointer().key?.let { Base64.encodeWithPadding(it) }
 
       return Optional.of(
@@ -110,7 +120,7 @@ class PointerAttachment : Attachment {
           transferState = transferState,
           size = pointer.get().asPointer().size.orElse(0).toLong(),
           fileName = pointer.get().asPointer().fileName.orElse(null),
-          cdn = Cdn.fromCdnNumber(pointer.get().asPointer().cdnNumber),
+          cdn = cdn,
           location = pointer.get().asPointer().remoteId.toString(),
           key = encodedKey,
           iv = null,
@@ -145,6 +155,17 @@ class PointerAttachment : Attachment {
         return Optional.empty()
       }
 
+      val cdnNumber = thumbnail?.asPointer()?.cdnNumber ?: 0
+      val cdn = Cdn.fromCdnNumberOrNull(cdnNumber)
+      if (cdn == null) {
+        Log.w(TAG, "Encountered a quote thumbnail with an unsupported CDN number ($cdnNumber). Skipping attachment.")
+        return Optional.empty()
+      }
+
+      if (cdn == Cdn.S3) {
+        return Optional.empty()
+      }
+
       return Optional.of(
         PointerAttachment(
           quote = true,
@@ -153,7 +174,7 @@ class PointerAttachment : Attachment {
           transferState = AttachmentTable.TRANSFER_PROGRESS_PENDING,
           size = (if (thumbnail != null) thumbnail.asPointer().size.orElse(0) else 0).toLong(),
           fileName = quotedAttachment.fileName,
-          cdn = Cdn.fromCdnNumber(thumbnail?.asPointer()?.cdnNumber ?: 0),
+          cdn = cdn,
           location = thumbnail?.asPointer()?.remoteId?.toString() ?: "0",
           key = thumbnail?.asPointer()?.key?.let { Base64.encodeWithPadding(it) },
           iv = null,

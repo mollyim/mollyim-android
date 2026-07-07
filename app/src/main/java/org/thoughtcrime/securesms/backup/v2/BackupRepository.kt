@@ -34,17 +34,20 @@ import org.signal.core.models.backup.BackupId
 import org.signal.core.models.backup.MediaName
 import org.signal.core.models.backup.MediaRootBackupKey
 import org.signal.core.models.backup.MessageBackupKey
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.Base64.decodeBase64OrThrow
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.DiskUtil
 import org.signal.core.util.EventTimer
 import org.signal.core.util.PendingIntentFlags.cancelCurrent
+import org.signal.core.util.ServiceUtil
 import org.signal.core.util.Stopwatch
 import org.signal.core.util.bytes
 import org.signal.core.util.concurrent.LimitedWorker
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.concurrent.SignalExecutors
+import org.signal.core.util.crypto.AttachmentSecretProvider
 import org.signal.core.util.decodeOrNull
 import org.signal.core.util.forceForeignKeyConstraintsEnabled
 import org.signal.core.util.fullWalCheckpoint
@@ -66,8 +69,12 @@ import org.signal.libsignal.messagebackup.BackupForwardSecrecyToken
 import org.signal.libsignal.zkgroup.VerificationFailedException
 import org.signal.libsignal.zkgroup.backups.BackupLevel
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
+import org.signal.network.ApplicationErrorAction
+import org.signal.network.NetworkResult
+import org.signal.network.StatusCodeErrorAction
+import org.signal.network.api.SvrBApi
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
@@ -87,7 +94,7 @@ import org.thoughtcrime.securesms.backup.v2.ui.BackupAlert
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable.ArchiveMediaItem
@@ -134,19 +141,14 @@ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogRepository
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.BackupMediaRestoreService
 import org.thoughtcrime.securesms.service.BackupProgressService
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.ServiceUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.toMillis
-import org.whispersystems.signalservice.api.ApplicationErrorAction
-import org.whispersystems.signalservice.api.NetworkResult
-import org.whispersystems.signalservice.api.StatusCodeErrorAction
 import org.whispersystems.signalservice.api.archive.ArchiveGetMediaItemsResponse
 import org.whispersystems.signalservice.api.archive.ArchiveKeyRotationLimitResponse
 import org.whispersystems.signalservice.api.archive.ArchiveMediaRequest
@@ -160,8 +162,6 @@ import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener
-import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
-import org.whispersystems.signalservice.api.svr.SvrBApi
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import org.whispersystems.signalservice.internal.push.AttachmentUploadForm
 import org.whispersystems.signalservice.internal.push.AuthCredentials
@@ -172,7 +172,6 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.math.BigDecimal
 import java.time.ZonedDateTime
 import java.util.Currency
 import java.util.Locale
@@ -717,7 +716,7 @@ object BackupRepository {
       SignalDatabase(
         context = context,
         databaseSecret = DatabaseSecretProvider.getOrCreateDatabaseSecret(context),
-        attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret(),
+        attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore).getOrCreateAttachmentSecret(),
         name = "$baseName.db"
       )
     }
@@ -1250,6 +1249,7 @@ object BackupRepository {
       return ImportResult.Failure
     }
     SignalStore.backup.hasInvalidBackupVersion = false
+    val selfId: RecipientId
 
     var transactionSuccessful = false
     try {
@@ -1321,7 +1321,7 @@ object BackupRepository {
       SignalStore.backup.mediaRootBackupKey = mediaRootBackupKey
 
       // Add back self after clearing data
-      val selfId: RecipientId = SignalDatabase.recipients.getAndPossiblyMerge(selfData.aci, selfData.pni, selfData.e164, pniVerified = true, changeSelf = true)
+      selfId = SignalDatabase.recipients.getAndPossiblyMerge(selfData.aci, selfData.pni, selfData.e164, pniVerified = true, changeSelf = true)
       SignalDatabase.recipients.setProfileKey(selfId, selfData.profileKey)
       SignalDatabase.recipients.setProfileSharing(selfId, true)
 
@@ -1464,6 +1464,7 @@ object BackupRepository {
     }
 
     SignalDatabase.remappedRecords.clearCache()
+    SignalDatabase.remappedRecords.trimStaleMappings()
     AppDependencies.recipientCache.clear()
     AppDependencies.recipientCache.warmUp()
     SignalDatabase.threads.clearCache()
@@ -1531,7 +1532,7 @@ object BackupRepository {
     Log.d(TAG, "[import] Finished! ${eventTimer.stop().summary}")
     stopwatch.stop(TAG)
 
-    return ImportResult.Success(backupTime = header.backupTimeMs)
+    return ImportResult.Success(backupTime = header.backupTimeMs, selfRecipientId = selfId)
   }
 
   fun listRemoteMediaObjects(limit: Int, cursor: String? = null): NetworkResult<ArchiveGetMediaItemsResponse> {
@@ -1628,19 +1629,6 @@ object BackupRepository {
       }
   }
 
-  fun getResumableMessagesBackupUploadSpec(backupFileSize: Long): NetworkResult<ResumableMessagesBackupUploadSpec> {
-    return initBackupAndFetchAuth()
-      .then { credential ->
-        SignalNetwork.archive.getMessageBackupUploadForm(SignalStore.account.requireAci(), credential.messageBackupAccess, backupFileSize)
-          .also { Log.i(TAG, "UploadFormResult: ${it::class.simpleName}") }
-      }
-      .then { form ->
-        SignalNetwork.archive.getBackupResumableUploadUrl(form)
-          .also { Log.i(TAG, "ResumableUploadUrlResult: ${it::class.simpleName}") }
-          .map { ResumableMessagesBackupUploadSpec(attachmentUploadForm = form, resumableUri = it) }
-      }
-  }
-
   fun getMessageBackupUploadForm(backupFileSize: Long): NetworkResult<AttachmentUploadForm> {
     return initBackupAndFetchAuth()
       .then { credential ->
@@ -1690,10 +1678,10 @@ object BackupRepository {
    *
    * It's important to note that in order to get this to the archive cdn, you still need to use [copyAttachmentToArchive].
    */
-  fun getAttachmentUploadForm(): NetworkResult<AttachmentUploadForm> {
+  fun getAttachmentUploadForm(uploadLength: Long): NetworkResult<AttachmentUploadForm> {
     return initBackupAndFetchAuth()
       .then { credential ->
-        SignalNetwork.archive.getMediaUploadForm(SignalStore.account.requireAci(), credential.mediaBackupAccess)
+        SignalNetwork.archive.getMediaUploadForm(SignalStore.account.requireAci(), credential.mediaBackupAccess, uploadLength)
       }
   }
 
@@ -2095,7 +2083,7 @@ object BackupRepository {
   }
 
   /**
-   * See [org.whispersystems.signalservice.api.archive.ArchiveApi.getSvrBAuthorization].
+   * See [org.signal.network.api.ArchiveApi.getSvrBAuthorization].
    */
   fun getSvrBAuth(): NetworkResult<AuthCredentials> {
     return initBackupAndFetchAuth()
@@ -2248,7 +2236,7 @@ object BackupRepository {
     }
 
     Log.i(TAG, "[remoteRestore] Downloading backup")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
     when (val result = downloadBackupFile(tempBackupFile, progressListener)) {
       is NetworkResult.Success -> Log.i(TAG, "[remoteRestore] Download successful")
       else -> {
@@ -2323,19 +2311,23 @@ object BackupRepository {
       forwardSecrecyToken = forwardSecrecyToken,
       cancellationSignal = cancellationSignal
     )
-    if (result == ImportResult.Failure) {
-      Log.w(TAG, "[remoteRestore] Failed to import backup")
-      return RemoteRestoreResult.Failure
+
+    return when (result) {
+      is ImportResult.Failure -> {
+        Log.w(TAG, "[remoteRestore] Failed to import backup")
+        RemoteRestoreResult.Failure
+      }
+
+      is ImportResult.Success -> {
+        Log.i(TAG, "[remoteRestore] Restore successful")
+        BackupMediaRestoreService.resetTimeout()
+        AppDependencies.jobManager.add(BackupRestoreMediaJob())
+        RemoteRestoreResult.Success(result.selfRecipientId)
+      }
     }
-
-    BackupMediaRestoreService.resetTimeout()
-    AppDependencies.jobManager.add(BackupRestoreMediaJob())
-
-    Log.i(TAG, "[remoteRestore] Restore successful")
-    return RemoteRestoreResult.Success
   }
 
-  suspend fun restoreLinkAndSyncBackup(response: TransferArchiveResponse, ephemeralBackupKey: MessageBackupKey) {
+  suspend fun restoreLinkAndSyncBackup(response: TransferArchiveResponse, ephemeralBackupKey: MessageBackupKey): RemoteRestoreResult {
     val context = AppDependencies.application
     ArchiveRestoreProgress.onRestorePending()
 
@@ -2367,9 +2359,16 @@ object BackupRepository {
       override fun shouldCancel() = cancellationSignal()
     }
 
+    val cdn = response.cdn
+    val key = response.key
+    if (cdn == null || key == null) {
+      Log.w(TAG, "[restoreLinkAndSyncBackup] Response has no archive location (error=${response.error}); nothing to download.")
+      return RemoteRestoreResult.Failure
+    }
+
     Log.i(TAG, "[restoreLinkAndSyncBackup] Downloading backup")
-    val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
-    when (val result = AppDependencies.signalServiceMessageReceiver.retrieveLinkAndSyncBackup(response.cdn, response.key, tempBackupFile, progressListener)) {
+    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    when (val result = AppDependencies.signalServiceMessageReceiver.retrieveLinkAndSyncBackup(cdn, key, tempBackupFile, progressListener)) {
       is NetworkResult.Success -> Log.i(TAG, "[restoreLinkAndSyncBackup] Download successful")
       else -> {
         Log.w(TAG, "[restoreLinkAndSyncBackup] Failed to download backup file", result.getCause())
@@ -2398,16 +2397,19 @@ object BackupRepository {
       cancellationSignal = cancellationSignal
     )
 
-    if (result == ImportResult.Failure) {
-      Log.w(TAG, "[restoreLinkAndSyncBackup] Failed to import backup")
-      return RemoteRestoreResult.Failure
+    return when (result) {
+      is ImportResult.Failure -> {
+        Log.w(TAG, "[restoreLinkAndSyncBackup] Failed to import backup")
+        RemoteRestoreResult.Failure
+      }
+
+      is ImportResult.Success -> {
+        Log.i(TAG, "[restoreLinkAndSyncBackup] Restore successful")
+        BackupMediaRestoreService.resetTimeout()
+        AppDependencies.jobManager.add(BackupRestoreMediaJob())
+        RemoteRestoreResult.Success(result.selfRecipientId)
+      }
     }
-
-    BackupMediaRestoreService.resetTimeout()
-    AppDependencies.jobManager.add(BackupRestoreMediaJob())
-
-    Log.i(TAG, "[restoreLinkAndSyncBackup] Restore successful")
-    return RemoteRestoreResult.Success
   }
 
   private fun buildDebugInfo(): ByteString {
@@ -2537,12 +2539,12 @@ data class StagedBackupKeyRotations(
 )
 
 sealed class ImportResult {
-  data class Success(val backupTime: Long) : ImportResult()
+  data class Success(val backupTime: Long, val selfRecipientId: RecipientId) : ImportResult()
   data object Failure : ImportResult()
 }
 
 sealed interface RemoteRestoreResult {
-  data object Success : RemoteRestoreResult
+  data class Success(val selfRecipientId: RecipientId) : RemoteRestoreResult
   data object NetworkError : RemoteRestoreResult
   data object Canceled : RemoteRestoreResult
   data object Failure : RemoteRestoreResult
@@ -2571,6 +2573,9 @@ enum class BackupMode {
 
   val isLocalBackup: Boolean
     get() = this == LOCAL
+
+  val isPlaintextExport: Boolean
+    get() = this == PLAINTEXT_EXPORT
 }
 
 /**

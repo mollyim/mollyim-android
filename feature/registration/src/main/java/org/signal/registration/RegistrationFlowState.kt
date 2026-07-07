@@ -12,7 +12,6 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.censor
 import org.signal.registration.util.AccountEntropyPoolParceler
-import org.signal.registration.util.DebugLoggableModel
 import org.signal.registration.util.MasterKeyParceler
 
 @Parcelize
@@ -31,6 +30,9 @@ data class RegistrationFlowState(
   /** The AEP we generated as part of this registration. */
   val accountEntropyPool: AccountEntropyPool? = null,
 
+  /** Whether the server reported that this account already has SVR/PIN data, captured from the registration response. */
+  val storageCapable: Boolean = false,
+
   /** The master key we restored from SVR. Needed for initial storage service restore, but afterwards we'll generate a new one. */
   val temporaryMasterKey: MasterKey? = null,
 
@@ -43,13 +45,19 @@ data class RegistrationFlowState(
   /** If set, the user selected a restore option before entering their phone number. After phone number entry, the flow will navigate to this restore flow. */
   val pendingRestoreOption: PendingRestoreOption? = null,
 
-  /** The AEP obtained from a local backup restore. May or may not be valid for the current phone number. */
+  /** The AEP obtained via manual entry for local/remote backup restore. May or may not be valid for the current phone number. */
   val unverifiedRestoredAep: AccountEntropyPool? = null,
+
+  /**
+   * If non-null, identifies the old device's quick-restore listener. Set when we receive a [NetworkController.ProvisioningMessage]
+   * from the old device, then used to notify the old device of the user's restore-method selection so its UX can update.
+   */
+  val restoreMethodToken: String? = null,
 
   /** If true, the ViewModel is still deciding whether to restore a previous flow or start fresh. */
   val isRestoringNavigationState: Boolean = true
-) : Parcelable, DebugLoggableModel() {
-  override fun toSafeString(): String {
-    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=${sessionMetadata.let { "present" }}, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.toString()?.censor()}, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.toString()?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
+) : Parcelable {
+  override fun toString(): String {
+    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=${sessionMetadata.let { "present" }}, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, storageCapable=$storageCapable, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
   }
 }

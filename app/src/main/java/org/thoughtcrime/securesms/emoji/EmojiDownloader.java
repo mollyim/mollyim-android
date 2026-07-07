@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Consumer;
 
-import org.signal.core.util.Hex;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -21,6 +19,8 @@ import okhttp3.ResponseBody;
 import okio.Okio;
 import okio.Sink;
 import okio.Source;
+
+import org.signal.core.util.Hex;
 
 /**
  * Helper for downloading Emoji files via {@link EmojiRemote}.

@@ -55,12 +55,6 @@ wire {
   }
 }
 
-tasks.whenTaskAdded {
-  if (name == "lint") {
-    enabled = false
-  }
-}
-
 dependencies {
   api(libs.google.libphonenumber)
   api(libs.jackson.core)
@@ -79,6 +73,7 @@ dependencies {
   implementation(libs.kotlinx.coroutines.core)
   implementation(libs.kotlinx.coroutines.core.jvm)
 
+  api(project(":core:network"))
   implementation(project(":core:util-jvm"))
   implementation(project(":core:models-jvm"))
 

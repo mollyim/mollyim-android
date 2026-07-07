@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
-import com.annimon.stream.Stream;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
@@ -15,6 +14,7 @@ import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.ThreadTable;
 import org.thoughtcrime.securesms.database.model.GroupRecord;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
 import org.thoughtcrime.securesms.groups.GroupChangeException;
@@ -44,19 +44,8 @@ public class RecipientUtil {
   private static final String TAG = Log.tag(RecipientUtil.class);
 
   /**
-   * This method will do it's best to get a {@link ServiceId} for the provided recipient. This includes performing
-   * a possible network request if no ServiceId is available. If the request to get a ServiceId fails or the user is
-   * not registered, an IOException is thrown.
-   */
-  @WorkerThread
-  public static @NonNull ServiceId getOrFetchServiceId(@NonNull Context context, @NonNull Recipient recipient) throws IOException {
-    return toSignalServiceAddress(context, recipient).getServiceId();
-  }
-
-  /**
-   * This method will do it's best to craft a fully-populated {@link SignalServiceAddress} based on
-   * the provided recipient. This includes performing a possible network request if no UUID is
-   * available. If the request to get a UUID fails or the user is not registered, an IOException is thrown.
+   * Crafts a fully-populated {@link SignalServiceAddress} based on the provided recipient. If the recipient
+   * has no serviceId then they are not a valid send target and a {@link NotFoundException} is thrown.
    */
   @WorkerThread
   public static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull Context context, @NonNull Recipient recipient)
@@ -64,22 +53,26 @@ public class RecipientUtil {
   {
     recipient = recipient.resolve();
 
-    if (!recipient.getServiceId().isPresent() && !recipient.getE164().isPresent()) {
-      throw new AssertionError(recipient.getId() + " - No UUID or phone number!");
-    }
-
-    if (!recipient.getServiceId().isPresent()) {
-      Log.i(TAG, recipient.getId() + " is missing a UUID...");
-      RegisteredState state = ContactDiscovery.refresh(context, recipient, false);
-
-      recipient = Recipient.resolved(recipient.getId());
-      Log.i(TAG, "Successfully performed a UUID fetch for " + recipient.getId() + ". Registered: " + state);
-    }
-
     if (recipient.getHasServiceId()) {
-      return new SignalServiceAddress(recipient.requireServiceId(), Optional.ofNullable(recipient.resolve().getE164().orElse(null)));
+      return new SignalServiceAddress(recipient.requireServiceId(), recipient.getE164());
     } else {
       throw new NotFoundException(recipient.getId() + " is not registered!");
+    }
+  }
+
+  /**
+   * Crafts a fully-populated {@link SignalServiceAddress} based on the provided record. If the record has
+   * no serviceId then they are not a valid send target and a {@link NotFoundException} is thrown.
+   */
+  public static @NonNull SignalServiceAddress toSignalServiceAddress(@NonNull RecipientRecord record)
+      throws IOException
+  {
+    ServiceId serviceId = record.getServiceId();
+
+    if (serviceId != null) {
+      return new SignalServiceAddress(serviceId, Optional.ofNullable(record.getE164()));
+    } else {
+      throw new NotFoundException(record.getId() + " is not registered!");
     }
   }
 
@@ -106,10 +99,9 @@ public class RecipientUtil {
   public static boolean ensureUuidsAreAvailable(@NonNull Context context, @NonNull Collection<Recipient> recipients)
       throws IOException
   {
-    List<Recipient> recipientsWithoutUuids = Stream.of(recipients)
-                                                   .map(Recipient::resolve)
-                                                   .filterNot(Recipient::getHasServiceId)
-                                                   .toList();
+    List<Recipient> recipientsWithoutUuids = recipients.stream()
+                                                       .map(Recipient::resolve)
+                                                       .filter(recipient -> !recipient.getHasServiceId()).collect(Collectors.toList());
 
     if (recipientsWithoutUuids.size() > 0) {
       ContactDiscovery.refresh(context, recipientsWithoutUuids, false);
@@ -143,10 +135,9 @@ public class RecipientUtil {
   }
 
   public static List<Recipient> getEligibleForSending(@NonNull List<Recipient> recipients) {
-    return Stream.of(recipients)
-                 .filter(r -> r.getRegistered() != RegisteredState.NOT_REGISTERED)
-                 .filter(r -> !r.isBlocked())
-                 .toList();
+    return recipients.stream()
+                     .filter(r -> r.getRegistered() != RegisteredState.NOT_REGISTERED)
+                     .filter(r -> !r.isBlocked()).collect(Collectors.toList());
   }
 
   /**
@@ -230,10 +221,10 @@ public class RecipientUtil {
   private static void insertBlockedUpdate(@NonNull Recipient recipient, long threadId) {
     try {
       SignalDatabase.messages().insertMessageOutbox(
-        OutgoingMessage.blockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds())),
-        threadId,
-        false,
-        null
+          OutgoingMessage.blockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds())),
+          threadId,
+          false,
+          null
       );
     } catch (MmsException e) {
       Log.w(TAG, "Unable to insert blocked message", e);
@@ -243,10 +234,10 @@ public class RecipientUtil {
   private static void insertUnblockedUpdate(@NonNull Recipient recipient, long threadId) {
     try {
       SignalDatabase.messages().insertMessageOutbox(
-        OutgoingMessage.unblockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds())),
-        threadId,
-        false,
-        null
+          OutgoingMessage.unblockedMessage(recipient, System.currentTimeMillis(), TimeUnit.SECONDS.toMillis(recipient.getExpiresInSeconds())),
+          threadId,
+          false,
+          null
       );
     } catch (MmsException e) {
       Log.w(TAG, "Unable to insert unblocked message", e);
@@ -293,7 +284,7 @@ public class RecipientUtil {
    * also be the case that the thread in question is for a system contact or something of the like.
    */
   @WorkerThread
-  public static boolean isMessageRequestAccepted(@NonNull Context context, long threadId) {
+  public static boolean isMessageRequestAccepted(long threadId) {
     if (threadId < 0) {
       return true;
     }
@@ -309,10 +300,10 @@ public class RecipientUtil {
   }
 
   /**
-   * See {@link #isMessageRequestAccepted(Context, long)}.
+   * See {@link #isMessageRequestAccepted(long)}.
    */
   @WorkerThread
-  public static boolean isMessageRequestAccepted(@NonNull Context context, @Nullable Recipient threadRecipient) {
+  public static boolean isMessageRequestAccepted(@Nullable Recipient threadRecipient) {
     if (threadRecipient == null) {
       return true;
     }
@@ -322,7 +313,7 @@ public class RecipientUtil {
   }
 
   /**
-   * Like {@link #isMessageRequestAccepted(Context, long)} but with fewer checks around messages so it
+   * Like {@link #isMessageRequestAccepted(long)} but with fewer checks around messages so it
    * is more likely to return false.
    */
   @WorkerThread
@@ -350,10 +341,10 @@ public class RecipientUtil {
   }
 
   public static boolean isLegacyProfileSharingAccepted(@NonNull Recipient threadRecipient) {
-    return threadRecipient.isSelf()           ||
+    return threadRecipient.isSelf() ||
            threadRecipient.isProfileSharing() ||
-           threadRecipient.isSystemContact()  ||
-           !threadRecipient.isRegistered()    ||
+           threadRecipient.isSystemContact() ||
+           !threadRecipient.isRegistered() ||
            threadRecipient.isHidden();
   }
 
@@ -391,8 +382,8 @@ public class RecipientUtil {
     }
 
     if (threadId == -1 || SignalDatabase.messages().canSetUniversalTimer(threadId)) {
-      int expireTimerVersion = SignalDatabase.recipients().setExpireMessagesAndIncrementVersion(recipient.getId(), defaultTimer);
-      OutgoingMessage outgoingMessage = OutgoingMessage.expirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L, expireTimerVersion);
+      int             expireTimerVersion = SignalDatabase.recipients().setExpireMessagesAndIncrementVersion(recipient.getId(), defaultTimer);
+      OutgoingMessage outgoingMessage    = OutgoingMessage.expirationUpdateMessage(recipient, System.currentTimeMillis(), defaultTimer * 1000L, expireTimerVersion);
       MessageSender.send(context, outgoingMessage, SignalDatabase.threads().getOrCreateThreadIdFor(recipient), MessageSender.SendType.SIGNAL, null, null);
       return expireTimerVersion;
     }
@@ -424,11 +415,6 @@ public class RecipientUtil {
     return threadId != null && SignalDatabase.messages().getOutgoingSecureMessageCount(threadId) != 0;
   }
 
-  public static boolean isSmsOnly(long threadId, @NonNull Recipient threadRecipient) {
-    return !threadRecipient.isRegistered() ||
-           noSecureMessagesAndNoCallsInThread(threadId);
-  }
-
   @WorkerThread
   private static boolean noSecureMessagesAndNoCallsInThread(@Nullable Long threadId) {
     if (threadId == null) {
@@ -441,7 +427,7 @@ public class RecipientUtil {
 
   @WorkerThread
   public static boolean isProfileSharedViaGroup(@NonNull Recipient recipient) {
-    return Stream.of(SignalDatabase.groups().getPushGroupsContainingMember(recipient.getId()))
-                 .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
+    return SignalDatabase.groups().getPushGroupsContainingMember(recipient.getId()).stream()
+                         .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
   }
 }

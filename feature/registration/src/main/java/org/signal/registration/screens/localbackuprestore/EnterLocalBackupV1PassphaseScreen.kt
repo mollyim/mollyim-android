@@ -9,12 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -22,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +50,10 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
+import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 
 private const val PASSPHRASE_LENGTH = 30
 private const val CHUNK_SIZE = 5
@@ -59,91 +65,237 @@ fun EnterLocalBackupV1PassphaseScreen(
   modifier: Modifier = Modifier
 ) {
   var passphrase by rememberSaveable { mutableStateOf("") }
+  val isValid = passphrase.length == PASSPHRASE_LENGTH
+  val isTooLong = passphrase.length > PASSPHRASE_LENGTH
+
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
+      params = layoutParams,
+      passphrase = passphrase,
+      onPassphraseChange = { passphrase = it },
+      isValid = isValid,
+      isTooLong = isTooLong,
+      onSubmit = onSubmit,
+      onCancel = onCancel,
+      modifier = modifier
+    )
+
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(
+      params = layoutParams,
+      passphrase = passphrase,
+      onPassphraseChange = { passphrase = it },
+      isValid = isValid,
+      isTooLong = isTooLong,
+      onSubmit = onSubmit,
+      onCancel = onCancel,
+      modifier = modifier
+    )
+  }
+}
+
+@Composable
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
+  passphrase: String,
+  onPassphraseChange: (String) -> Unit,
+  isValid: Boolean,
+  isTooLong: Boolean,
+  onSubmit: (String) -> Unit,
+  onCancel: () -> Unit,
+  modifier: Modifier
+) {
   val scrollState = rememberScrollState()
+  OnePaneRegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    params = params,
+    content = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .verticalScroll(scrollState)
+          .padding(paddingValues),
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        Description()
+        Spacer(modifier = Modifier.size(24.dp))
+        PassphraseTextField(
+          passphrase = passphrase,
+          onPassphraseChange = onPassphraseChange,
+          isValid = isValid,
+          isTooLong = isTooLong,
+          onSubmit = onSubmit
+        )
+      }
+    },
+    footer = {
+      FooterButtons(
+        isValid = isValid,
+        passphrase = passphrase,
+        isElevated = scrollState.canScrollForward,
+        onSubmit = onSubmit,
+        onCancel = onCancel
+      )
+    }
+  )
+}
+
+@Composable
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  passphrase: String,
+  onPassphraseChange: (String) -> Unit,
+  isValid: Boolean,
+  isTooLong: Boolean,
+  onSubmit: (String) -> Unit,
+  onCancel: () -> Unit,
+  modifier: Modifier
+) {
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+
+  TwoPaneRegistrationScaffold(
+    modifier = modifier.fillMaxSize(),
+    params = params,
+    firstPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(firstPaneScrollState)
+          .padding(paddingValues)
+      ) {
+        Description()
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .verticalScroll(secondPaneScrollState)
+          .padding(paddingValues)
+      ) {
+        PassphraseTextField(
+          passphrase = passphrase,
+          onPassphraseChange = onPassphraseChange,
+          isValid = isValid,
+          isTooLong = isTooLong,
+          onSubmit = onSubmit
+        )
+      }
+    },
+    footer = {
+      FooterButtons(
+        isValid = isValid,
+        passphrase = passphrase,
+        isElevated = firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward,
+        onSubmit = onSubmit,
+        onCancel = onCancel
+      )
+    }
+  )
+}
+
+@Composable
+private fun Description() {
+  Text(
+    text = stringResource(R.string.LocalBackupRestoreScreen__enter_backup_passphrase),
+    style = MaterialTheme.typography.headlineMedium,
+    modifier = Modifier
+      .fillMaxWidth()
+      .attachDebugLogHelper()
+  )
+
+  Text(
+    text = stringResource(R.string.LocalBackupRestoreScreen__enter_the_30_digit_passphrase),
+    style = MaterialTheme.typography.bodyLarge,
+    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    modifier = Modifier.padding(top = 16.dp)
+  )
+}
+
+@Composable
+private fun PassphraseTextField(
+  passphrase: String,
+  onPassphraseChange: (String) -> Unit,
+  isValid: Boolean,
+  isTooLong: Boolean,
+  onSubmit: (String) -> Unit
+) {
   val visualTransform = remember { PassphraseVisualTransformation(CHUNK_SIZE) }
   val focusRequester = remember { FocusRequester() }
   var requestFocus by remember { mutableStateOf(true) }
   val keyboardController = LocalSoftwareKeyboardController.current
-  val isValid = passphrase.length == PASSPHRASE_LENGTH
-  val isTooLong = passphrase.length > PASSPHRASE_LENGTH
 
-  Column(
-    modifier = modifier
-      .fillMaxSize()
-      .verticalScroll(scrollState)
-      .padding(horizontal = 24.dp),
-    horizontalAlignment = Alignment.CenterHorizontally
+  TextField(
+    value = passphrase,
+    onValueChange = { newValue ->
+      onPassphraseChange(newValue.filter { it.isDigit() })
+    },
+    label = { Text(stringResource(R.string.LocalBackupRestoreScreen__recovery_key)) },
+    textStyle = MaterialTheme.typography.bodyLarge.copy(
+      fontFamily = FontFamily.Monospace,
+      lineHeight = 36.sp
+    ),
+    colors = TextFieldDefaults.colors(
+      unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+      focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+      errorContainerColor = MaterialTheme.colorScheme.surfaceVariant
+    ),
+    keyboardOptions = KeyboardOptions(
+      keyboardType = KeyboardType.Number,
+      imeAction = ImeAction.Next,
+      autoCorrectEnabled = false
+    ),
+    keyboardActions = KeyboardActions(
+      onNext = {
+        if (isValid) {
+          keyboardController?.hide()
+          onSubmit(passphrase)
+        }
+      }
+    ),
+    supportingText = {
+      if (isTooLong) {
+        Text(stringResource(R.string.LocalBackupRestoreScreen__too_long, passphrase.length, PASSPHRASE_LENGTH))
+      }
+    },
+    isError = isTooLong,
+    minLines = 2,
+    visualTransformation = visualTransform,
+    modifier = Modifier
+      .fillMaxWidth()
+      .focusRequester(focusRequester)
+      .onGloballyPositioned {
+        if (requestFocus) {
+          focusRequester.requestFocus()
+          requestFocus = false
+        }
+      }
+  )
+}
+
+@Composable
+private fun FooterButtons(
+  isValid: Boolean,
+  passphrase: String,
+  isElevated: Boolean,
+  onSubmit: (String) -> Unit,
+  onCancel: () -> Unit
+) {
+  RegistrationScaffold.FooterSurface(
+    isElevated = isElevated
   ) {
-    Spacer(modifier = Modifier.height(40.dp))
-
-    Text(
-      text = stringResource(R.string.LocalBackupRestoreScreen__enter_backup_passphrase),
-      style = MaterialTheme.typography.headlineMedium,
-      modifier = Modifier.fillMaxWidth()
-    )
-
-    Spacer(modifier = Modifier.height(8.dp))
-
-    Text(
-      text = stringResource(R.string.LocalBackupRestoreScreen__enter_the_30_digit_passphrase),
-      style = MaterialTheme.typography.bodyMedium,
-      color = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier.fillMaxWidth()
-    )
-
-    Spacer(modifier = Modifier.height(24.dp))
-
-    TextField(
-      value = passphrase,
-      onValueChange = { newValue ->
-        passphrase = newValue.filter { it.isDigit() }
-      },
-      label = { Text(stringResource(R.string.LocalBackupRestoreScreen__recovery_key)) },
-      textStyle = MaterialTheme.typography.bodyLarge.copy(
-        fontFamily = FontFamily.Monospace,
-        lineHeight = 36.sp
-      ),
-      keyboardOptions = KeyboardOptions(
-        keyboardType = KeyboardType.Number,
-        imeAction = ImeAction.Next,
-        autoCorrectEnabled = false
-      ),
-      keyboardActions = KeyboardActions(
-        onNext = {
-          if (isValid) {
-            keyboardController?.hide()
-            onSubmit(passphrase)
-          }
-        }
-      ),
-      supportingText = {
-        if (isTooLong) {
-          Text(stringResource(R.string.LocalBackupRestoreScreen__too_long, passphrase.length, PASSPHRASE_LENGTH))
-        }
-      },
-      isError = isTooLong,
-      minLines = 2,
-      visualTransformation = visualTransform,
-      modifier = Modifier
-        .fillMaxWidth()
-        .focusRequester(focusRequester)
-        .onGloballyPositioned {
-          if (requestFocus) {
-            focusRequester.requestFocus()
-            requestFocus = false
-          }
-        }
-    )
-
-    Spacer(modifier = Modifier.weight(1f))
-
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
-      modifier = Modifier.fillMaxWidth()
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
       TextButton(
         modifier = Modifier.weight(weight = 1f, fill = false),
-        onClick = onCancel
+        onClick = onCancel,
+        shape = RoundedCornerShape(0.dp)
       ) {
         Text(text = stringResource(R.string.LocalBackupRestoreScreen__no_passphrase))
       }
@@ -157,8 +309,6 @@ fun EnterLocalBackupV1PassphaseScreen(
         Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
       }
     }
-
-    Spacer(modifier = Modifier.height(32.dp))
   }
 }
 
@@ -214,71 +364,30 @@ private fun EnterLocalBackupV1PassphaseScreenPreview() {
 @Composable
 private fun EnterLocalBackupV1PassphaseScreenFilledPreview() {
   Previews.Preview {
-    val visualTransform = remember { PassphraseVisualTransformation(CHUNK_SIZE) }
+    var passphrase by remember { mutableStateOf("814680481455087435556426352670") }
 
-    Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())
-        .padding(horizontal = 24.dp),
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-      Spacer(modifier = Modifier.height(40.dp))
-
-      Text(
-        text = stringResource(R.string.LocalBackupRestoreScreen__enter_backup_passphrase),
-        style = MaterialTheme.typography.headlineMedium,
-        modifier = Modifier.fillMaxWidth()
+    when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+      is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
+        params = layoutParams,
+        passphrase = passphrase,
+        onPassphraseChange = { passphrase = it },
+        isValid = true,
+        isTooLong = false,
+        onSubmit = {},
+        onCancel = {},
+        modifier = Modifier
       )
 
-      Spacer(modifier = Modifier.height(8.dp))
-
-      Text(
-        text = stringResource(R.string.LocalBackupRestoreScreen__enter_the_30_digit_passphrase),
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.fillMaxWidth()
+      is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(
+        params = layoutParams,
+        passphrase = passphrase,
+        onPassphraseChange = { passphrase = it },
+        isValid = true,
+        isTooLong = false,
+        onSubmit = {},
+        onCancel = {},
+        modifier = Modifier
       )
-
-      Spacer(modifier = Modifier.height(24.dp))
-
-      TextField(
-        value = "814680481455087435556426352670",
-        onValueChange = {},
-        label = { Text(stringResource(R.string.LocalBackupRestoreScreen__recovery_key)) },
-        textStyle = MaterialTheme.typography.bodyLarge.copy(
-          fontFamily = FontFamily.Monospace,
-          lineHeight = 36.sp
-        ),
-        minLines = 2,
-        visualTransformation = visualTransform,
-        modifier = Modifier.fillMaxWidth()
-      )
-
-      Spacer(modifier = Modifier.weight(1f))
-
-      Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
-      ) {
-        TextButton(
-          modifier = Modifier.weight(weight = 1f, fill = false),
-          onClick = {}
-        ) {
-          Text(text = stringResource(R.string.LocalBackupRestoreScreen__no_passphrase))
-        }
-
-        Spacer(modifier = Modifier.size(24.dp))
-
-        Buttons.LargeTonal(
-          enabled = true,
-          onClick = {}
-        ) {
-          Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
-        }
-      }
-
-      Spacer(modifier = Modifier.height(32.dp))
     }
   }
 }

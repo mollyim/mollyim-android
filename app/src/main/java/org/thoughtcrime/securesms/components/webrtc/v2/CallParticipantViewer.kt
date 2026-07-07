@@ -190,7 +190,7 @@ fun SelfPipContent(
     Box(modifier = modifier) {
       VideoRenderer(
         participant = participant,
-        mirror = participant.cameraDirection == CameraState.Direction.FRONT,
+        mirror = !participant.isScreenSharing && participant.cameraDirection == CameraState.Direction.FRONT,
         modifier = Modifier.fillMaxSize()
       )
 
@@ -471,6 +471,7 @@ private fun VideoRenderer(
           }
 
           setMirror(mirror)
+          applyScreenShareAwareScaling(participant.isScreenSharing)
         }
 
         renderer = textureRenderer
@@ -491,6 +492,7 @@ private fun VideoRenderer(
         }
 
         textureRenderer.setMirror(mirror)
+        textureRenderer.applyScreenShareAwareScaling(participant.isScreenSharing)
       }
     },
     onRelease = {
@@ -498,6 +500,18 @@ private fun VideoRenderer(
     },
     modifier = modifier
   )
+}
+
+/**
+ * Screen-shared content is fit inside the view ([RendererCommon.ScalingType.SCALE_ASPECT_FIT]) so nothing is cropped,
+ * while camera video fills the view, falling back to balanced scaling when the video orientation does not match the view.
+ */
+private fun TextureViewRenderer.applyScreenShareAwareScaling(isScreenSharing: Boolean) {
+  if (isScreenSharing) {
+    setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
+  } else {
+    setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FILL, RendererCommon.ScalingType.SCALE_ASPECT_BALANCED)
+  }
 }
 
 @Composable
@@ -653,6 +667,10 @@ private fun InfoOverlay(
       if (!renderInPip) {
         Spacer(modifier = Modifier.size(12.dp))
 
+        val shortDisplayName = rememberRecipientField(recipient) { getShortDisplayName(context) }
+        val sIsBlocked = stringResource(R.string.CallParticipantView__s_is_blocked, shortDisplayName)
+        val canNotReceiveAudio = stringResource(R.string.CallParticipantView__cant_receive_audio_video_from_s, shortDisplayName)
+
         // Use AndroidView for EmojiTextView
         AndroidView(
           factory = { ctx ->
@@ -670,15 +688,9 @@ private fun InfoOverlay(
           },
           update = { view ->
             view.text = if (isBlocked) {
-              context.getString(
-                R.string.CallParticipantView__s_is_blocked,
-                recipient.getShortDisplayName(context)
-              )
+              sIsBlocked
             } else {
-              context.getString(
-                R.string.CallParticipantView__cant_receive_audio_video_from_s,
-                recipient.getShortDisplayName(context)
-              )
+              canNotReceiveAudio
             }
           },
           modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)

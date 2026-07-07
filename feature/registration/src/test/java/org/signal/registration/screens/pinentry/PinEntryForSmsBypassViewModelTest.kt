@@ -24,7 +24,6 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.RegistrationRoute
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
@@ -66,7 +65,7 @@ class PinEntryForSmsBypassViewModelTest {
   // ==================== PinEntered - Restore Master Key Tests ====================
 
   @Test
-  fun `PinEntered with correct PIN restores master key and registers successfully`() = runTest {
+  fun `PinEntered with correct PIN restores master key and hands off to finishRegistrationOrCreateProfile`() = runTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.SmsBypass, e164 = "+15551234567")
 
@@ -77,12 +76,10 @@ class PinEntryForSmsBypassViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1])
-      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
-      .prop(RegistrationFlowEvent.NavigateToScreen::route)
-      .isInstanceOf<RegistrationRoute.FullyComplete>()
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -114,6 +111,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().triesRemaining).isEqualTo(triesRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -130,6 +128,7 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.RecoveryPasswordInvalid)
     assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.NavigateBack)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -143,6 +142,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -156,6 +156,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -166,6 +167,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   // ==================== Registration Error Tests ====================
@@ -185,6 +187,7 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -202,6 +205,7 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -221,6 +225,7 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -264,6 +269,7 @@ class PinEntryForSmsBypassViewModelTest {
       .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
       .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
       .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -284,12 +290,10 @@ class PinEntryForSmsBypassViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1])
-      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
-      .prop(RegistrationFlowEvent.NavigateToScreen::route)
-      .isInstanceOf<RegistrationRoute.FullyComplete>()
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test

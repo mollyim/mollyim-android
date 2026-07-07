@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.jvm) apply false
   alias(libs.plugins.compose.compiler) apply false
   alias(libs.plugins.licensee) apply false
+  id("dependency-verification")
   id("mollyify")
 }
 
@@ -21,7 +22,7 @@ buildscript {
     classpath(libs.gradle)
     classpath(libs.androidx.navigation.safe.args.gradle.plugin)
     classpath(libs.protobuf.gradle.plugin)
-    classpath("com.squareup.wire:wire-gradle-plugin:4.4.3") {
+    classpath("com.squareup.wire:wire-gradle-plugin:6.4.0") {
       exclude(group = "com.squareup.wire", module = "wire-swift-generator")
       exclude(group = "com.squareup.wire", module = "wire-grpc-client")
       exclude(group = "com.squareup.wire", module = "wire-grpc-jvm")
@@ -39,17 +40,8 @@ tasks.withType<Wrapper> {
 }
 
 allprojects {
-  tasks.withType<AbstractArchiveTask>().configureEach {
-    isPreserveFileTimestamps = false
-    isReproducibleFileOrder = true
-  }
-}
-
-if (JavaVersion.current().isJava8Compatible) {
-  allprojects {
-    tasks.withType<Javadoc> {
-      (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
-    }
+  tasks.withType<Javadoc> {
+    (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
   }
 }
 

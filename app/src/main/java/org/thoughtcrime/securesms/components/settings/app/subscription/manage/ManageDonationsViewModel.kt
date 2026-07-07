@@ -10,15 +10,10 @@ import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
-import org.thoughtcrime.securesms.badges.Badges
-import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.RecurringInAppPaymentRepository
 import org.thoughtcrime.securesms.database.InAppPaymentTable
@@ -40,9 +35,6 @@ class ManageDonationsViewModel : ViewModel() {
   private val networkDisposable: Disposable
 
   val state: LiveData<ManageDonationsState> = store.stateLiveData
-  private val internalDisplayThanksBottomSheetPulse = MutableSharedFlow<Badge>()
-
-  val displayThanksBottomSheetPulse: SharedFlow<Badge> = internalDisplayThanksBottomSheetPulse
 
   init {
     store.update(Recipient.self().live().liveDataResolved) { self, state ->
@@ -57,13 +49,6 @@ class ManageDonationsViewModel : ViewModel() {
           retry()
         }
       }
-
-    viewModelScope.launch {
-      ManageDonationsRepository.consumeSuccessfulIdealPayments()
-        .collectLatest {
-          internalDisplayThanksBottomSheetPulse.emit(Badges.fromDatabaseBadge(it.data.badge!!))
-        }
-    }
 
     viewModelScope.launch(Dispatchers.IO) {
       InAppPaymentsRepository.observeInAppPaymentRedemption(InAppPaymentType.RECURRING_DONATION)
@@ -162,11 +147,18 @@ class ManageDonationsViewModel : ViewModel() {
   private fun deriveRedemptionState(status: DonationRedemptionJobStatus, latestPayment: InAppPaymentTable.InAppPayment?): ManageDonationsState.RedemptionState {
     return when (status) {
       DonationRedemptionJobStatus.None -> ManageDonationsState.RedemptionState.NONE
-      DonationRedemptionJobStatus.PendingKeepAlive -> ManageDonationsState.RedemptionState.SUBSCRIPTION_REFRESH
       DonationRedemptionJobStatus.FailedSubscription -> ManageDonationsState.RedemptionState.FAILED
 
+      DonationRedemptionJobStatus.PendingKeepAlive -> {
+        if (latestPayment.isPendingBankTransfer()) {
+          ManageDonationsState.RedemptionState.IS_PENDING_BANK_TRANSFER
+        } else {
+          ManageDonationsState.RedemptionState.SUBSCRIPTION_REFRESH
+        }
+      }
+
       is DonationRedemptionJobStatus.PendingExternalVerification -> {
-        if (latestPayment != null && (latestPayment.data.paymentMethodType == InAppPaymentData.PaymentMethodType.SEPA_DEBIT || latestPayment.data.paymentMethodType == InAppPaymentData.PaymentMethodType.IDEAL)) {
+        if (latestPayment.isPendingBankTransfer()) {
           ManageDonationsState.RedemptionState.IS_PENDING_BANK_TRANSFER
         } else {
           ManageDonationsState.RedemptionState.IN_PROGRESS
@@ -176,6 +168,10 @@ class ManageDonationsViewModel : ViewModel() {
       DonationRedemptionJobStatus.PendingReceiptRedemption,
       DonationRedemptionJobStatus.PendingReceiptRequest -> ManageDonationsState.RedemptionState.IN_PROGRESS
     }
+  }
+
+  private fun InAppPaymentTable.InAppPayment?.isPendingBankTransfer(): Boolean {
+    return this != null && (data.paymentMethodType == InAppPaymentData.PaymentMethodType.SEPA_DEBIT || data.paymentMethodType == InAppPaymentData.PaymentMethodType.IDEAL)
   }
 
   private fun InAppPaymentTable.InAppPayment.toPendingOneTimeDonation(): PendingOneTimeDonation? {

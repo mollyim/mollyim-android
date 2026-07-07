@@ -12,8 +12,10 @@ import androidx.core.util.Consumer;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import org.signal.core.util.ByteUnit;
 import org.signal.core.util.Hex;
 import org.signal.core.util.Result;
+import org.signal.core.util.bitmaps.BitmapDecodingException;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.InvalidMessageException;
@@ -38,19 +40,17 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil.OpenGraph;
 import org.thoughtcrime.securesms.mms.PushMediaConstraints;
 import org.thoughtcrime.securesms.net.CallRequestController;
 import org.thoughtcrime.securesms.net.CompositeRequestController;
+import org.thoughtcrime.securesms.net.LinkPreviewRedirectValidationInterceptor;
 import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.net.RequestController;
 import org.thoughtcrime.securesms.net.UserAgentInterceptor;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkCredentials;
 import org.thoughtcrime.securesms.service.webrtc.links.ReadCallLinkResult;
 import org.thoughtcrime.securesms.stickers.StickerRemoteUri;
 import org.thoughtcrime.securesms.stickers.StickerUrl;
 import org.thoughtcrime.securesms.util.AvatarUtil;
-import org.thoughtcrime.securesms.util.BitmapDecodingException;
-import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.ImageCompressionUtil;
 import org.thoughtcrime.securesms.util.LinkUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
@@ -68,11 +68,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-import kotlin.Pair;
-
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import kotlin.Pair;
 import okhttp3.CacheControl;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -97,6 +96,7 @@ public class LinkPreviewRepository {
                                   .dns(Networking.getDns())
                                   .cache(null)
                                   .addInterceptor(new UserAgentInterceptor("WhatsApp/2"))
+                                  .addNetworkInterceptor(new LinkPreviewRedirectValidationInterceptor())
                                   .build();
   }
 
@@ -469,7 +469,7 @@ public class LinkPreviewRepository {
                                               int height,
                                               @NonNull String contentType) {
 
-    Uri uri = BlobProvider.getInstance().forData(bytes).createForSingleSessionInMemory();
+    Uri uri = AppDependencies.getBlobs().forData(bytes).createForSingleSessionInMemory();
 
     return new UriAttachment(uri,
                              contentType,

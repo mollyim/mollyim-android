@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.signal.core.models.database.DatabaseId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,6 +185,30 @@ public final class SqlUtilTest {
 
     assertEquals("a IN (SELECT e.value FROM json_each(?) e)", updateQuery.getWhere());
     assertArrayEquals(new String[] { "[\"1\",\"2\",\"3\"]" }, updateQuery.getWhereArgs());
+  }
+
+  @Test
+  public void buildFastCollectionQuery_withPrefix() {
+    SqlUtil.Query updateQuery = SqlUtil.buildFastCollectionQuery("a", Arrays.asList(1), "b = 1 AND");
+
+    assertEquals("b = 1 AND a IN (SELECT e.value FROM json_each(?) e)", updateQuery.getWhere());
+    assertArrayEquals(new String[] { "[\"1\"]" }, updateQuery.getWhereArgs());
+  }
+
+  @Test
+  public void buildFastCollectionQuery_withPrefixTrailingSpace() {
+    SqlUtil.Query updateQuery = SqlUtil.buildFastCollectionQuery("a", Arrays.asList(1), "b = 1 AND ");
+
+    assertEquals("b = 1 AND a IN (SELECT e.value FROM json_each(?) e)", updateQuery.getWhere());
+    assertArrayEquals(new String[] { "[\"1\"]" }, updateQuery.getWhereArgs());
+  }
+
+  @Test
+  public void buildFastCollectionQuery_emptyPrefix() {
+    SqlUtil.Query updateQuery = SqlUtil.buildFastCollectionQuery("a", Arrays.asList(1), "");
+
+    assertEquals("a IN (SELECT e.value FROM json_each(?) e)", updateQuery.getWhere());
+    assertArrayEquals(new String[] { "[\"1\"]" }, updateQuery.getWhereArgs());
   }
 
   @Test

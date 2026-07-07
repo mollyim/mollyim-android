@@ -6,8 +6,6 @@
 package org.signal.registration.screens.verificationcode
 
 import org.signal.registration.NetworkController.SessionMetadata
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -18,14 +16,22 @@ data class VerificationCodeState(
   val rateLimits: SmsAndCallRateLimits = SmsAndCallRateLimits(),
   val incorrectCodeAttempts: Int = 0,
   val oneTimeEvent: OneTimeEvent? = null
-) : DebugLoggableModel() {
-  sealed interface OneTimeEvent : DebugLoggable {
+) {
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, oneTimeEvent=$oneTimeEvent)"
+
+  sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent
+
     data object UnknownError : OneTimeEvent
+
     data class RateLimited(val retryAfter: Duration) : OneTimeEvent
-    data object ThirdPartyError : OneTimeEvent
+
+    data object UnableToSendSms : OneTimeEvent
+
     data object CouldNotRequestCodeWithSelectedTransport : OneTimeEvent
+
     data object IncorrectVerificationCode : OneTimeEvent
+
     data object RegistrationError : OneTimeEvent
   }
 
@@ -52,4 +58,4 @@ data class VerificationCodeState(
 data class SmsAndCallRateLimits(
   val smsResendTimeRemaining: Duration = 0.seconds,
   val callRequestTimeRemaining: Duration = 0.seconds
-) : DebugLoggableModel()
+)

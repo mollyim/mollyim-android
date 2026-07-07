@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 
 import android.os.Build;
 
+import org.signal.core.util.crypto.KeyStoreHelper;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.InvalidKeyException;
 import org.signal.libsignal.protocol.ecc.ECKeyPair;

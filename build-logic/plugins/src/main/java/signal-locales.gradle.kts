@@ -1,17 +1,11 @@
 import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ValueSource
 import org.gradle.api.provider.ValueSourceParameters
 import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
-import java.io.File
-import java.util.Properties
-import kotlin.apply
 
 abstract class SupportedLocalesExtension(private val project: Project) {
   fun fromResDir(resDir: Directory): Provider<List<String>> {
@@ -50,23 +44,5 @@ abstract class LanguageListValueSource : ValueSource<List<String>, LanguageListV
       .sorted()
 
     return languages + updatedLanguageCodes + "en"
-  }
-}
-
-abstract class PropertiesFileValueSource : ValueSource<Properties?, PropertiesFileValueSource.Params> {
-  interface Params : ValueSourceParameters {
-    @get:InputFile
-    @get:Optional
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    val file: RegularFileProperty
-  }
-
-  override fun obtain(): Properties? {
-    val f: File = parameters.file.asFile.get()
-    if (!f.exists()) return null
-
-    return Properties().apply {
-      f.inputStream().use { load(it) }
-    }
   }
 }

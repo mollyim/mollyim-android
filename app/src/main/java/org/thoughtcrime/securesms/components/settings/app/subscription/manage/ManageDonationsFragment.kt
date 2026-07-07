@@ -6,15 +6,10 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.dp
 import org.signal.core.util.money.FiatMoney
@@ -29,8 +24,7 @@ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
 import org.thoughtcrime.securesms.components.settings.app.subscription.completed.InAppPaymentsBottomSheetDelegate
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
-import org.thoughtcrime.securesms.components.settings.app.subscription.models.NetworkFailure
-import org.thoughtcrime.securesms.components.settings.app.subscription.thanks.ThanksForYourSupportBottomSheetDialogFragment
+import org.thoughtcrime.securesms.components.settings.app.subscription.ui.NetworkFailure
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.IndeterminateLoadingCircle
 import org.thoughtcrime.securesms.database.InAppPaymentTable
@@ -88,14 +82,6 @@ class ManageDonationsFragment :
     if (savedInstanceState == null && args.directToCheckoutType != InAppPaymentType.UNKNOWN) {
       launcher.launch(args.directToCheckoutType)
     }
-
-    lifecycleScope.launch {
-      repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        viewModel.displayThanksBottomSheetPulse.collectLatest {
-          ThanksForYourSupportBottomSheetDialogFragment.create(it).show(parentFragmentManager, ThanksForYourSupportBottomSheetDialogFragment.SHEET_TAG)
-        }
-      }
-    }
   }
 
   override fun onResume() {
@@ -122,7 +108,7 @@ class ManageDonationsFragment :
 
         MaterialAlertDialogBuilder(requireContext())
           .setTitle(R.string.ManageDonationsFragment__couldnt_confirm_donation)
-          .setMessage(getString(R.string.ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed, amount))
+          .setMessage(getString(R.string.ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed_ideal_wero, amount))
           .setPositiveButton(android.R.string.ok, null)
           .show()
       } else if (state.pendingOneTimeDonation?.pendingVerification == true &&
@@ -135,7 +121,7 @@ class ManageDonationsFragment :
 
         MaterialAlertDialogBuilder(requireContext())
           .setTitle(R.string.ManageDonationsFragment__couldnt_confirm_donation)
-          .setMessage(getString(R.string.ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed, amount))
+          .setMessage(getString(R.string.ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed_ideal_wero, amount))
           .setPositiveButton(android.R.string.ok, null)
           .show()
       }
@@ -435,7 +421,7 @@ class ManageDonationsFragment :
 
       else -> {
         val message = if (isIdeal) {
-          R.string.DonationsErrors__your_ideal_couldnt_be_processed
+          R.string.DonationsErrors__your_ideal_wero_couldnt_be_processed
         } else {
           R.string.DonationsErrors__try_another_payment_method
         }

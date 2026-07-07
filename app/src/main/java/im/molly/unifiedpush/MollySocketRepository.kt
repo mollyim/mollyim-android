@@ -13,7 +13,9 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.signal.core.util.Base64
+import org.signal.core.util.JsonUtils
 import org.signal.core.util.Util
+import org.signal.core.util.crypto.DeviceNameCipher
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.SessionBuilder
 import org.signal.libsignal.protocol.SignalProtocolAddress
@@ -28,8 +30,6 @@ import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
-import org.thoughtcrime.securesms.registration.secondary.DeviceNameCipher
-import org.thoughtcrime.securesms.util.JsonUtils
 import org.whispersystems.signalservice.api.NetworkResultUtil
 import org.whispersystems.signalservice.api.account.AccountAttributes
 import org.whispersystems.signalservice.api.crypto.SignalSessionBuilder
@@ -112,15 +112,21 @@ object MollySocketRepository {
    */
   private fun loadPreKeys(deviceId: Int) {
     val recipient = SignalServiceAddress(Recipient.self().requireAci())
-    val preKey = NetworkResultUtil.toPreKeysLegacy(keysApi.getPreKey(recipient, deviceId));
-    val sessionBuilder = SignalSessionBuilder(
-      ReentrantSessionLock.INSTANCE,
-      SessionBuilder(
-        AppDependencies.protocolStore.aci(),
-        SignalProtocolAddress(recipient.identifier, deviceId)
+    val localProtocolAddress = SignalProtocolAddress(recipient.identifier, deviceId)
+    val aciStore = AppDependencies.protocolStore.aci()
+    val preKeys = NetworkResultUtil.toPreKeysLegacy(
+      keysApi.getPreKeysSync(
+        destination = recipient, sealedSenderAccess = null, deviceId = deviceId
       )
     )
-    sessionBuilder.process(preKey)
+    preKeys.forEach { preKey ->
+      val preKeyAddress = SignalProtocolAddress(recipient.identifier, preKey.deviceId)
+      val sessionBuilder = SignalSessionBuilder(
+        ReentrantSessionLock.INSTANCE,
+        SessionBuilder(aciStore, preKeyAddress, localProtocolAddress)
+      )
+      sessionBuilder.process(preKey)
+    }
   }
 
   @Throws(IOException::class)

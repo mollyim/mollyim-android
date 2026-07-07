@@ -5,6 +5,7 @@
 
 package org.signal.registration.screens.pinentry
 
+import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
@@ -12,6 +13,7 @@ import assertk.assertions.isInstanceOf
 import assertk.assertions.isNotNull
 import assertk.assertions.prop
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -80,13 +82,11 @@ class PinEntryForRegistrationLockViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
-    assertThat(emittedParentEvents[2])
-      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
-      .prop(RegistrationFlowEvent.NavigateToScreen::route)
-      .isInstanceOf<RegistrationRoute.FullyComplete>()
+    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -103,6 +103,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().triesRemaining).isEqualTo(triesRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -123,6 +124,7 @@ class PinEntryForRegistrationLockViewModelTest {
       .isInstanceOf<RegistrationRoute.AccountLocked>()
       .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
       .isEqualTo(testTimeRemaining)
+    assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
   @Test
@@ -136,6 +138,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -149,6 +152,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(0)
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -234,6 +238,7 @@ class PinEntryForRegistrationLockViewModelTest {
       .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
       .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
       .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -253,6 +258,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -272,6 +278,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -289,6 +296,7 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
   @Test
@@ -306,6 +314,18 @@ class PinEntryForRegistrationLockViewModelTest {
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().loading).isEqualTo(false)
+  }
+
+  // ==================== Skip Tests ====================
+
+  @Test
+  fun `Skip throws because skipping is not valid during registration lock`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    assertFailure {
+      viewModel.applyEvent(initialState, PinEntryScreenEvents.Skip, parentEventEmitter, stateEmitter)
+    }.isInstanceOf<NotImplementedError>()
   }
 
   // ==================== ToggleKeyboard Tests ====================

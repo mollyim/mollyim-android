@@ -30,10 +30,6 @@
     <dimen name="album_5_cell_size_big">104dp</dimen>
     <dimen name="album_5_cell_size_small">69dp</dimen>
 
-    <dimen name="camera_contacts_horizontal_margin">16dp</dimen>
-    <dimen name="camera_capture_button_size">124dp</dimen>
-    <dimen name="camera_capture_image_button_size">76dp</dimen>
-
     <dimen name="message_corner_radius">18dp</dimen>
     <dimen name="message_corner_collapse_radius">4dp</dimen>
     <dimen name="message_bubble_corner_radius">2dp</dimen>
@@ -160,9 +156,12 @@
 
     <dimen name="wave_form_bar_width">2dp</dimen>
 
+    <dimen name="conversation_update_margin">12dp</dimen>
+    <dimen name="conversation_update_margin_wallpaper">8dp</dimen>
+    <dimen name="conversation_update_margin_compact">8dp</dimen>
+    <dimen name="conversation_update_margin_compact_wallpaper">4dp</dimen>
     <dimen name="conversation_update_vertical_margin">4dp</dimen>
-    <dimen name="conversation_update_vertical_padding">20dp</dimen>
-    <dimen name="conversation_update_vertical_padding_collapsed">4dp</dimen>
+    <dimen name="conversation_update_vertical_margin_action">12dp</dimen>
 
     <dimen name="transfer_top_padding">64dp</dimen>
     <dimen name="transfer_split_top_padding">32dp</dimen>
@@ -248,12 +247,8 @@
 
     <dimen name="chat_folder_row_height">64dp</dimen>
 
-    <dimen name="conversation_header_padding">24dp</dimen>
-    <dimen name="conversation_header_padding_expanded">32dp</dimen>
-    <dimen name="conversation_header_max_size">308dp</dimen>
-    <dimen name="conversation_header_margin">40dp</dimen>
 
-    <dimen name="donation_pill_max_width">150dp</dimen>
+    <dimen name="donation_pill_max_width">180dp</dimen>
 
     <dimen name="call_screen_overflow_item_size">72dp</dimen>
 

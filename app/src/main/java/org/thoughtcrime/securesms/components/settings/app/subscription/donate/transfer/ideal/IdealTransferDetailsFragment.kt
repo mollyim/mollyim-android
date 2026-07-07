@@ -44,16 +44,19 @@ import androidx.navigation.navGraphViewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.ComposeFragment
+import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
 import org.signal.core.util.getParcelableCompat
+import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.TemporaryScreenshotSecurity
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentCheckoutDelegate
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorAction
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.InAppPaymentProcessorActionResult
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.createInAppPaymentPreview
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.StripePaymentInProgressFragment
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.StripePaymentInProgressViewModel
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.BankTransferRequestKeys
@@ -153,7 +156,7 @@ class IdealTransferDetailsFragment : ComposeFragment(), InAppPaymentCheckoutDele
     if (state.inAppPayment!!.type.recurring) { // TODO [message-requests] -- handle backup
       val formattedMoney = FiatMoneyUtil.format(requireContext().resources, state.inAppPayment.data.amount!!.toFiatMoney(), FiatMoneyUtil.formatOptions().trimZerosAfterDecimal())
       MaterialAlertDialogBuilder(requireContext())
-        .setTitle(getString(R.string.IdealTransferDetailsFragment__confirm_your_donation_with_ideal))
+        .setTitle(getString(R.string.IdealTransferDetailsFragment__confirm_your_donation_with_ideal_wero))
         .setMessage(getString(R.string.IdealTransferDetailsFragment__to_setup_your_recurring_donation, formattedMoney))
         .setPositiveButton(R.string.IdealTransferDetailsFragment__continue) { _, _ ->
           continueTransfer()
@@ -189,19 +192,25 @@ class IdealTransferDetailsFragment : ComposeFragment(), InAppPaymentCheckoutDele
 
 @Preview
 @Composable
-private fun IdealTransferDetailsContentPreview() {
-  IdealTransferDetailsContent(
-    state = IdealTransferDetailsState(),
-    idealDirections = R.string.IdealTransferDetailsFragment__enter_your_bank,
-    donateLabel = "Donate $5/month",
-    onNavigationClick = {},
-    onLearnMoreClick = {},
-    onSelectBankClick = {},
-    onNameChanged = {},
-    onEmailChanged = {},
-    onFocusChanged = { _, _ -> },
-    onDonateClick = {}
-  )
+fun IdealTransferDetailsContentPreview() {
+  Previews.Preview {
+    IdealTransferDetailsContent(
+      state = IdealTransferDetailsState(
+        inAppPayment = createInAppPaymentPreview(InAppPaymentType.RECURRING_DONATION),
+        name = "Miles Morales",
+        email = "miles@example.com"
+      ),
+      idealDirections = R.string.IdealTransferDetailsFragment__enter_your_bank,
+      donateLabel = "Donate $5/month",
+      onNavigationClick = {},
+      onLearnMoreClick = {},
+      onSelectBankClick = {},
+      onNameChanged = {},
+      onEmailChanged = {},
+      onFocusChanged = { _, _ -> },
+      onDonateClick = {}
+    )
+  }
 }
 
 @Composable
@@ -218,7 +227,7 @@ private fun IdealTransferDetailsContent(
   onDonateClick: () -> Unit
 ) {
   Scaffolds.Settings(
-    title = stringResource(id = R.string.GatewaySelectorBottomSheet__ideal),
+    title = stringResource(id = R.string.GatewaySelectorBottomSheet__ideal_wero),
     onNavigationClick = onNavigationClick,
     navigationIcon = SignalIcons.ArrowStart.imageVector
   ) {

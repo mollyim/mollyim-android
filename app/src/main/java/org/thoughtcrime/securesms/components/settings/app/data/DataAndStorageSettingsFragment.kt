@@ -23,9 +23,10 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
 import org.signal.core.util.bytes
+import org.signal.mediasend.SentMediaQuality
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
-import org.thoughtcrime.securesms.mms.SentMediaQuality
+import org.thoughtcrime.securesms.util.AttachmentUtil
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.webrtc.CallDataMode
@@ -96,6 +97,9 @@ private interface DataAndStorageSettingsCallbacks {
   fun onMobileDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
   fun onWifiDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
   fun onRoamingDataAutoDownloadSelectionChanged(selection: Array<String>) = Unit
+  fun onForceWebsocketModeChanged(enabled: Boolean) = Unit
+  fun onConfirmStayConnectedInBackground() = Unit
+  fun onDismissStayConnectedInBackgroundDialog() = Unit
 
   object Empty : DataAndStorageSettingsCallbacks
 }
@@ -137,6 +141,7 @@ private fun DataAndStorageSettingsScreen(
           labels = stringArrayResource(R.array.pref_media_download_entries),
           values = stringArrayResource(R.array.pref_media_download_values),
           selection = state.mobileAutoDownloadValues.toTypedArray(),
+          noSelectionLabel = stringResource(R.string.preferences__none),
           onSelectionChanged = callbacks::onMobileDataAutoDownloadSelectionChanged
         )
       }
@@ -147,6 +152,7 @@ private fun DataAndStorageSettingsScreen(
           labels = stringArrayResource(R.array.pref_media_download_entries),
           values = stringArrayResource(R.array.pref_media_download_values),
           selection = state.wifiAutoDownloadValues.toTypedArray(),
+          noSelectionLabel = stringResource(R.string.preferences__none),
           onSelectionChanged = callbacks::onWifiDataAutoDownloadSelectionChanged
         )
       }
@@ -157,7 +163,23 @@ private fun DataAndStorageSettingsScreen(
           labels = stringArrayResource(R.array.pref_media_download_entries),
           values = stringArrayResource(R.array.pref_media_download_values),
           selection = state.roamingAutoDownloadValues.toTypedArray(),
+          noSelectionLabel = stringResource(R.string.preferences__none),
           onSelectionChanged = callbacks::onRoamingDataAutoDownloadSelectionChanged
+        )
+      }
+
+      item {
+        Rows.TextRow(
+          text = {
+            Text(
+              text = stringResource(
+                R.string.DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded,
+                AttachmentUtil.SMALL_ATTACHMENT_SIZE.toUnitString()
+              ),
+              style = MaterialTheme.typography.bodyMedium,
+              color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+          }
         )
       }
 
@@ -238,7 +260,7 @@ private fun DataAndStorageSettingsScreenPreview() {
         wifiAutoDownloadValues = setOf(),
         roamingAutoDownloadValues = setOf(),
         callDataMode = CallDataMode.HIGH_ALWAYS,
-        sentMediaQuality = SentMediaQuality.STANDARD
+        sentMediaQuality = SentMediaQuality.STANDARD,
       ),
       callbacks = DataAndStorageSettingsCallbacks.Empty
     )

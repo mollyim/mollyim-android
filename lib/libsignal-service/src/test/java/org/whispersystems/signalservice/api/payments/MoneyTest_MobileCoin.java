@@ -1,7 +1,7 @@
 package org.whispersystems.signalservice.api.payments;
 
 import org.junit.Test;
-import org.whispersystems.signalservice.api.util.Uint64RangeException;
+import org.signal.core.util.Uint64RangeException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -50,6 +50,29 @@ public final class MoneyTest_MobileCoin {
     Money.MobileCoin mobileCoin = Money.mobileCoin(BigDecimal.valueOf(-1000.32456));
 
     assertEquals("-1000.32456", mobileCoin.getAmountDecimalString());
+  }
+
+  @Test
+  public void toAmountString_format_roundValuesUsePlainDecimalNotScientificNotation() {
+    assertEquals("1", Money.mobileCoin(new BigDecimal("1")).getAmountDecimalString());
+    assertEquals("10", Money.mobileCoin(new BigDecimal("10")).getAmountDecimalString());
+    assertEquals("1000", Money.mobileCoin(new BigDecimal("1000")).getAmountDecimalString());
+    assertEquals("0.001", Money.mobileCoin(new BigDecimal("0.001")).getAmountDecimalString());
+    assertEquals("1234.5", Money.mobileCoin(new BigDecimal("1234.50")).getAmountDecimalString());
+  }
+
+  @Test
+  public void backupSerialization_decimalStringRoundTrips() {
+    // Mirrors how backup v2 encodes (getAmountDecimalString) and decodes (Money.mobileCoin(BigDecimal)) payment amounts.
+    String[] amounts = { "1", "10", "1000", "0.001", "1.00001", "1234.5", "1234567.890987654321" };
+    for (String amount : amounts) {
+      Money.MobileCoin original   = Money.mobileCoin(new BigDecimal(amount));
+      String           encoded    = original.getAmountDecimalString();
+      Money.MobileCoin decoded    = Money.mobileCoin(new BigDecimal(encoded));
+
+      assertEquals(original, decoded);
+      assertEquals(encoded, decoded.getAmountDecimalString());
+    }
   }
 
   @Test

@@ -5,12 +5,14 @@ import android.database.CursorWrapper;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.CursorUtil;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchSortOrder;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.util.SignalE164Util;
 import org.signal.core.util.Util;
 
@@ -35,6 +37,7 @@ public class ContactRepository {
 
   public static final String ID_COLUMN           = "id";
   public static final String NAME_COLUMN         = "name";
+  public static final String SORT_NAME_COLUMN    = "sort_name";
          static final String NUMBER_COLUMN       = "number";
          static final String NUMBER_TYPE_COLUMN  = "number_type";
          static final String LABEL_COLUMN        = "label";
@@ -54,6 +57,11 @@ public class ContactRepository {
 
       return Util.getFirstNonEmpty(system, profile);
     }));
+
+    // The key the results are actually ordered by (nickname/system/profile/username, lowercased). Letter
+    // headers must derive from this rather than NAME_COLUMN, which omits nickname/username and can begin
+    // with a different letter than the row's sort position.
+    add(new Pair<>(SORT_NAME_COLUMN, cursor -> CursorUtil.requireString(cursor, RecipientTable.SORT_NAME)));
 
     add(new Pair<>(NUMBER_COLUMN, cursor -> {
       String phone = CursorUtil.requireString(cursor, RecipientTable.E164);
@@ -112,9 +120,15 @@ public class ContactRepository {
   }
 
   @WorkerThread
-  public @NonNull Cursor queryGroupMemberContacts(@NonNull String query) {
-    Cursor cursor = TextUtils.isEmpty(query) ? recipientTable.getGroupMemberContacts()
-                                             : recipientTable.queryGroupMemberContacts(query);
+  public @NonNull Cursor queryGroupMemberContacts(@NonNull String query, @Nullable GroupId groupId) {
+    Cursor cursor;
+    if (groupId != null) {
+      cursor = recipientTable.queryGroupMemberContactsForGroup(groupId, query);
+    } else if (TextUtils.isEmpty(query)) {
+      cursor = recipientTable.getGroupMemberContacts();
+    } else {
+      cursor = recipientTable.queryGroupMemberContacts(query);
+    }
 
     return new SearchCursorWrapper(cursor, SEARCH_CURSOR_MAPPERS);
   }

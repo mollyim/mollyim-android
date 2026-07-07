@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import okio.ByteString
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.serialization.ByteArrayToBase64Serializer
 import org.signal.libsignal.net.BadRequestError
@@ -134,10 +136,10 @@ interface NetworkController {
 
   /**
    * Requests that the currently-set PIN and [MasterKey] are backed up to SVR.
-   * It should always be the case that when this is called, you should have a stored PIN and [MasterKey].
-   * If you do not, you should probably crash.
+   *
+   * @return True if a job was successfully enqueued, otherwise false. Enqueueing will fail if a PIN is unavailable, which can happen in some restoration flows.
    */
-  suspend fun enqueueSvrGuessResetJob()
+  suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean
 
   /**
    * Enables registration lock on the account using the registration lock token
@@ -183,6 +185,39 @@ interface NetworkController {
   suspend fun setAccountAttributes(attributes: AccountAttributes): RequestResult<Unit, SetAccountAttributesError>
 
   /**
+   * Enqueue a durable unit of work to sync your account attributes based on the current state of your own storage.
+   * This is typically done at the end of the registration process to clean up any possible changes to the AEP
+   * that may be made post-registration (for instance, you may restore a backup post-registration with a new AEP that
+   * we'd like to re-use).
+   */
+  suspend fun enqueueAccountAttributesSyncJob()
+
+  /**
+   * Fetches metadata about your current backup. This will be different for different key/credential pairs. For example, message credentials will always
+   * return 0 for used space since that is stored under the media key/credential.
+   *
+   * GET /v1/archives
+   * - 200: Success
+   * - 400: Bad arguments. The request may have been made on an authenticated channel.
+   * - 401: The provided backup auth credential presentation could not be verified or the public key signature was invalid or there is no backup associated with
+   *        the backup-id in the presentation or the credential was of the wrong type (messages/media)
+   * - 403: Forbidden
+   * - 404: No backup
+   * - 429: Rate limited
+   */
+  suspend fun getRemoteBackupInfo(aep: AccountEntropyPool): RequestResult<GetBackupInfoResponse, GetBackupInfoError>
+
+  /**
+   * Gets the last-modified timestamp of the backup file on the CDN.
+   * Requires [GetBackupInfoResponse] to know the CDN location of the backup.
+   *
+   * @param aep The Account Entropy Pool used to derive backup credentials.
+   * @param backupInfo The backup info response containing CDN location details.
+   * @return The last-modified time as epoch milliseconds, or an appropriate error.
+   */
+  suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: GetBackupInfoResponse): RequestResult<Long, GetBackupInfoError>
+
+  /**
    * Starts a provisioning session for QR-based quick restore.
    *
    * The returned flow emits [ProvisioningEvent]s:
@@ -195,42 +230,140 @@ interface NetworkController {
    */
   fun startProvisioning(): Flow<ProvisioningEvent>
 
-//  /**
-//   * Set [RestoreMethod] enum on the server for use by the old device to update UX.
-//   */
-//  suspend fun setRestoreMethod(token: String, method: RestoreMethod)
-//
-//  /**
-//   * Registers a device as a linked device on a pre-existing account.
-//   *
-//   * `PUT /v1/devices/link`
-//   *
-//   * - 403: Incorrect account verification
-//   * - 409: Device missing required account capability
-//   * - 411: Account reached max number of linked devices
-//   * - 422: Request is invalid
-//   * - 429: Rate limited
-//   */
-//  suspend fun registerAsSecondaryDevice(verificationCode: String, attributes: AccountAttributes, aciPreKeys: PreKeyCollection, pniPreKeys: PreKeyCollection, fcmToken: String?)
+  /**
+   * Starts a provisioning session for QR-based device linking (registering this device as a secondary
+   * device on a pre-existing account).
+   *
+   * The returned flow emits [LinkDeviceProvisioningEvent]s:
+   * - [LinkDeviceProvisioningEvent.QrCodeReady] whenever a new QR code URL is available (e.g. due to socket rotation).
+   * - [LinkDeviceProvisioningEvent.MessageReceived] when the primary device scans the QR code and sends provisioning data.
+   * - [LinkDeviceProvisioningEvent.Error] if the provisioning session encounters an unrecoverable error.
+   *
+   * The flow manages socket lifecycle (rotation, keep-alive) internally. Cancel the collecting coroutine to stop provisioning.
+   */
+  fun startLinkDeviceProvisioning(): Flow<LinkDeviceProvisioningEvent>
 
-  sealed class CreateSessionError() : BadRequestError {
+  /**
+   * Performs the network call to register this device as a linked (secondary) device on a pre-existing
+   * account (`PUT /v1/devices/link`), authenticated via basic auth with [e164] and [password].
+   *
+   * This only performs the network request and returns the assigned device id. The caller is responsible
+   * for committing the account locally (via [StorageController.commitRegistrationData]) and performing the
+   * post-registration housekeeping (via [onLinkedDeviceRegistered]) and any restores.
+   */
+  suspend fun registerAsLinkedDevice(
+    e164: String,
+    password: String,
+    provisioningCode: String,
+    deviceAttributes: DeviceAttributes,
+    aciPreKeys: PreKeyCollection,
+    pniPreKeys: PreKeyCollection,
+    fcmToken: String?
+  ): RequestResult<LinkDeviceResponse, RegisterAsLinkedDeviceError>
+
+  /**
+   * Performs the network-side post-registration work for a freshly linked device, after the account has been
+   * committed locally via [StorageController.commitRegistrationData]: refreshes remote config and requests the
+   * initial sync messages from the primary.
+   *
+   * Intentionally does *not* include the link-and-sync backup restore (see [StorageController.restoreLinkAndSyncBackup])
+   * or the storage-service restore (see [restoreLinkedDeviceFromStorageService]); the registration module
+   * sequences those separately so progress can be surfaced and timing controlled. Local-state finalization (e.g.
+   * the read-receipts preference) is applied as part of [StorageController.commitRegistrationData].
+   */
+  suspend fun onLinkedDeviceRegistered()
+
+  /**
+   * Waits for the primary device to make a decision on a link-and-sync transfer (a long-poll that may be
+   * retried internally up to ~1 hour).
+   *
+   * Intended to be called while showing a spinner before navigating to the message-sync screen.
+   */
+  suspend fun awaitLinkAndSyncArchive(): LinkAndSyncWaitResult
+
+  /**
+   * Restores account data from the storage service after this device has been linked as a secondary device.
+   *
+   * The registration module decides *when* to call this: immediately after [registerAsLinkedDevice] when there
+   * is no link-and-sync backup, or only after the link-and-sync backup has been applied when there is one.
+   *
+   * Implementations should be best-effort and may no-op when there is nothing to restore (e.g. when the primary
+   * did not share an account entropy pool).
+   */
+  suspend fun restoreLinkedDeviceFromStorageService()
+
+  /**
+   * Starts `DeviceToDeviceTransferService` in server mode on the new device. The concrete
+   * [org.signal.devicetransfer.ServerTask] that receives and imports the backup lives in the app
+   * module (it references SignalDatabase / FullBackupImporter / SignalStore), as does the
+   * foreground-service notification channel and the tap-through `PendingIntent`. Consolidating
+   * the start call here keeps this module free of app-specific notification plumbing.
+   *
+   * @param aep The user's [AccountEntropyPool]. The production implementation ignores this (it
+   *   pulls the AEP from `SignalStore.account` directly); demo/test implementations need it
+   *   passed in because they have no equivalent store.
+   */
+  fun startNewDeviceTransferServer(context: android.content.Context, aep: AccountEntropyPool)
+
+  /**
+   * Reports the user's chosen restore method to the server so the old device's quick-restore UI can update.
+   * The [token] is the `restoreMethodToken` delivered in the [ProvisioningMessage].
+   *
+   * `PUT /v1/devices/restore_account/{token}`
+   */
+  suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError>
+
+  /**
+   * Best-effort restore of the AccountRecord from the storage service. Implementations should
+   * always kick off the restore (typically via a durable job) so that work continues in the
+   * background, but this call must return within [timeout]. A timeout is reported as a non-success
+   * result, but the underlying restore may still complete shortly after.
+   *
+   * Intended to be invoked once the user has set/verified their PIN, so that subsequent screens
+   * (e.g. the create-profile screen) can pre-seed themselves from any data that was restored.
+   */
+  suspend fun restoreAccountRecord(timeout: Duration): RequestResult<Unit, RestoreAccountRecordError>
+
+  /**
+   * Persists the user's chosen profile name (and optional avatar) for the freshly-registered account
+   * and arranges for it to be synced to the service. Implementations may save the data locally and
+   * enqueue a durable job to perform the actual upload, since profile sync is allowed to happen in
+   * the background.
+   *
+   * Also persists [discoverableByPhoneNumber] as the user's choice for whether other users can find
+   * them on Signal by their phone number.
+   *
+   * @param givenName The user's given/first name. Must be non-blank.
+   * @param familyName The user's family/last name. May be blank.
+   * @param avatar Raw avatar bytes, or null to leave the avatar unchanged/cleared.
+   * @param discoverableByPhoneNumber If true, anyone who has the user's phone number can find them
+   *   on Signal; if false, the user is only reachable via existing chats.
+   */
+  suspend fun setProfile(
+    givenName: String,
+    familyName: String,
+    avatar: ByteArray?,
+    discoverableByPhoneNumber: Boolean
+  ): RequestResult<Unit, SetProfileError>
+
+  sealed class CreateSessionError : BadRequestError {
     data class InvalidRequest(val message: String) : CreateSessionError()
     data class RateLimited(val retryAfter: Duration) : CreateSessionError()
   }
 
-  sealed class GetSessionStatusError() : BadRequestError {
+  sealed class GetSessionStatusError : BadRequestError {
     data class InvalidSessionId(val message: String) : GetSessionStatusError()
     data class SessionNotFound(val message: String) : GetSessionStatusError()
     data class InvalidRequest(val message: String) : GetSessionStatusError()
   }
 
-  sealed class UpdateSessionError() : BadRequestError {
+  sealed class UpdateSessionError : BadRequestError {
     data class RejectedUpdate(val message: String) : UpdateSessionError()
     data class InvalidRequest(val message: String) : UpdateSessionError()
     data class RateLimited(val retryAfter: Duration, val session: SessionMetadata) : UpdateSessionError()
   }
 
-  sealed class RequestVerificationCodeError() : BadRequestError {
+  sealed class RequestVerificationCodeError : BadRequestError {
     data class InvalidSessionId(val message: String) : RequestVerificationCodeError()
     data class SessionNotFound(val message: String) : RequestVerificationCodeError()
     data class MissingRequestInformationOrAlreadyVerified(val session: SessionMetadata) : RequestVerificationCodeError()
@@ -240,14 +373,14 @@ interface NetworkController {
     data class ThirdPartyServiceError(val data: ThirdPartyServiceErrorResponse) : RequestVerificationCodeError()
   }
 
-  sealed class SubmitVerificationCodeError() : BadRequestError {
+  sealed class SubmitVerificationCodeError : BadRequestError {
     data class InvalidSessionIdOrVerificationCode(val message: String) : SubmitVerificationCodeError()
     data class SessionNotFound(val message: String) : SubmitVerificationCodeError()
     data class SessionAlreadyVerifiedOrNoCodeRequested(val session: SessionMetadata) : SubmitVerificationCodeError()
     data class RateLimited(val retryAfter: Duration, val session: SessionMetadata) : SubmitVerificationCodeError()
   }
 
-  sealed class RegisterAccountError() : BadRequestError {
+  sealed class RegisterAccountError : BadRequestError {
     data class SessionNotFoundOrNotVerified(val message: String) : RegisterAccountError()
     data class RegistrationRecoveryPasswordIncorrect(val message: String) : RegisterAccountError()
     data object DeviceTransferPossible : RegisterAccountError()
@@ -256,36 +389,60 @@ interface NetworkController {
     data class RateLimited(val retryAfter: Duration) : RegisterAccountError()
   }
 
-  sealed class RestoreMasterKeyError() : BadRequestError {
+  sealed class RestoreMasterKeyError : BadRequestError {
     data class WrongPin(val triesRemaining: Int) : RestoreMasterKeyError()
     data object NoDataFound : RestoreMasterKeyError()
   }
 
-  sealed class BackupMasterKeyError() : BadRequestError {
+  sealed class BackupMasterKeyError : BadRequestError {
     data object EnclaveNotFound : BackupMasterKeyError()
     data object NotRegistered : BackupMasterKeyError()
   }
 
-  sealed class SetRegistrationLockError() : BadRequestError {
+  sealed class SetRegistrationLockError : BadRequestError {
     data class InvalidRequest(val message: String) : SetRegistrationLockError()
     data object Unauthorized : SetRegistrationLockError()
     data object NotRegistered : SetRegistrationLockError()
     data object NoPinSet : SetRegistrationLockError()
   }
 
-  sealed class SetAccountAttributesError() : BadRequestError {
+  sealed class SetAccountAttributesError : BadRequestError {
     data class InvalidRequest(val message: String) : SetAccountAttributesError()
     data object Unauthorized : SetAccountAttributesError()
   }
 
-  sealed class GetSvrCredentialsError() : BadRequestError {
+  sealed class GetSvrCredentialsError : BadRequestError {
     data object Unauthorized : GetSvrCredentialsError()
     data object NoServiceCredentialsAvailable : GetSvrCredentialsError()
   }
 
-  sealed class CheckSvrCredentialsError() : BadRequestError {
+  sealed class CheckSvrCredentialsError : BadRequestError {
     data object Unauthorized : CheckSvrCredentialsError()
     data class InvalidRequest(val message: String) : CheckSvrCredentialsError()
+  }
+
+  sealed class SetRestoreMethodError : BadRequestError {
+    data class InvalidRequest(val message: String) : SetRestoreMethodError()
+    data class RateLimited(val retryAfter: Duration) : SetRestoreMethodError()
+  }
+
+  sealed class SetProfileError : BadRequestError {
+    data object NotRegistered : SetProfileError()
+    data class IOError(val cause: Throwable) : SetProfileError()
+    data class InvalidRequest(val message: String) : SetProfileError()
+  }
+
+  sealed class RestoreAccountRecordError : BadRequestError {
+    data object Timeout : RestoreAccountRecordError()
+    data class IOError(val cause: Throwable) : RestoreAccountRecordError()
+  }
+
+  sealed class GetBackupInfoError : BadRequestError {
+    data class BadArguments(val body: String? = null) : GetBackupInfoError()
+    data class BadAuthCredential(val body: String? = null) : GetBackupInfoError()
+    data class Forbidden(val body: String? = null) : GetBackupInfoError()
+    data object NoBackup : GetBackupInfoError()
+    data class RateLimited(val retryAfter: Duration) : GetBackupInfoError()
   }
 
   data class MasterKeyResponse(
@@ -317,7 +474,6 @@ interface NetworkController {
     val unrestrictedUnidentifiedAccess: Boolean,
     val discoverableByPhoneNumber: Boolean,
     val capabilities: Capabilities?,
-    val name: String?,
     val pniRegistrationId: Int,
     val recoveryPassword: String?
   ) {
@@ -327,9 +483,19 @@ interface NetworkController {
       val storage: Boolean,
       val versionedExpirationTimer: Boolean,
       val attachmentBackfill: Boolean,
-      val spqr: Boolean
+      val spqr: Boolean,
+      val usernameChangeSyncMessage: Boolean
     )
   }
+
+  @Serializable
+  class DeviceAttributes(
+    val fetchesMessages: Boolean,
+    val registrationId: Int,
+    val pniRegistrationId: Int,
+    val name: String?,
+    val capabilities: AccountAttributes.Capabilities?
+  )
 
   @Serializable
   @Parcelize
@@ -433,6 +599,22 @@ interface NetworkController {
   }
 
   /**
+   * The user's chosen restore method, reported back to the old device via [setRestoreMethod] so its UX can update.
+   */
+  enum class RestoreMethod {
+    REMOTE_BACKUP, LOCAL_BACKUP, DEVICE_TRANSFER, DECLINE
+  }
+
+  @Serializable
+  data class GetBackupInfoResponse(
+    val cdn: Int?,
+    val backupDir: String?,
+    val mediaDir: String?,
+    val backupName: String?,
+    val usedSpace: Long?
+  )
+
+  /**
    * Data received from the old device during QR-based provisioning.
    */
   data class ProvisioningMessage(
@@ -465,4 +647,66 @@ interface NetworkController {
     /** The provisioning session encountered an error. */
     data class Error(val cause: Throwable?) : ProvisioningEvent
   }
+
+  /**
+   * Data received from the primary device during QR-based device linking.
+   *
+   * The ACI/PNI are resolved to their canonical string form by the implementation. Identity keys are
+   * provided by the primary so this device shares the account's identity.
+   */
+  class LinkDeviceProvisioningMessage(
+    val e164: String,
+    val provisioningCode: String,
+    val aci: String,
+    val pni: String,
+    val aciIdentityKeyPair: IdentityKeyPair,
+    val pniIdentityKeyPair: IdentityKeyPair,
+    val profileKey: ByteArray,
+    val ephemeralBackupKey: ByteString?,
+    val accountEntropyPool: String?,
+    val mediaRootBackupKey: ByteString?,
+    val readReceipts: Boolean?
+  )
+
+  /**
+   * Events emitted during a device-linking provisioning session.
+   */
+  sealed interface LinkDeviceProvisioningEvent {
+    /** A new QR code URL is available for display. */
+    data class QrCodeReady(val url: String) : LinkDeviceProvisioningEvent
+
+    /** The primary device has scanned the QR code and sent provisioning data. */
+    data class MessageReceived(val message: LinkDeviceProvisioningMessage) : LinkDeviceProvisioningEvent
+
+    /** The provisioning session encountered an error. */
+    data class Error(val cause: Throwable?) : LinkDeviceProvisioningEvent
+  }
+
+  /** Minimal view of the `PUT /v1/devices/link` success body; we only need the assigned device id. */
+  @Serializable
+  data class LinkDeviceResponse(
+    val deviceId: Int
+  )
+
+  sealed interface RegisterAsLinkedDeviceError : BadRequestError {
+    data object IncorrectVerification : RegisterAsLinkedDeviceError
+    data object MissingCapability : RegisterAsLinkedDeviceError
+    data object MaxLinkedDevices : RegisterAsLinkedDeviceError
+    data class InvalidRequest(val message: String? = null) : RegisterAsLinkedDeviceError
+    data class RateLimited(val retryAfter: Duration?) : RegisterAsLinkedDeviceError
+  }
+}
+
+/**
+ * Result of waiting for the primary's link-and-sync transfer archive.
+ */
+sealed interface LinkAndSyncWaitResult {
+  /** The primary made a backup available at the given CDN location; proceed to download + apply it. */
+  data class ArchiveAvailable(val cdn: Int, val key: String) : LinkAndSyncWaitResult
+
+  /** The primary declined to sync, or never delivered an archive in time. */
+  data object ContinueWithoutBackup : LinkAndSyncWaitResult
+
+  /** The primary asked this device to re-link. Registration should be reset. */
+  data object RelinkRequired : LinkAndSyncWaitResult
 }

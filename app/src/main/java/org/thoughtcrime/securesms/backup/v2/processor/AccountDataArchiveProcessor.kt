@@ -12,11 +12,12 @@ import org.signal.archive.proto.AccountData
 import org.signal.archive.proto.ChatStyle
 import org.signal.archive.proto.Frame
 import org.signal.archive.stream.BackupFrameEmitter
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.UuidUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.toByteArray
 import org.signal.libsignal.zkgroup.backups.BackupLevel
-import org.thoughtcrime.securesms.attachments.AttachmentId
+import org.signal.mediasend.SentMediaQuality
 import org.thoughtcrime.securesms.backup.v2.ExportState
 import org.thoughtcrime.securesms.backup.v2.ImportState
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -150,8 +151,7 @@ object AccountDataArchiveProcessor {
             navigationBarSize = signalStore.settingsValues.useCompactNavigationBar.toRemoteNavigationBarSize()
           ).takeUnless { Environment.IS_INSTRUMENTATION && SignalStore.backup.importedEmptyAndroidSettings },
           bioText = selfRecord.about ?: "",
-          bioEmoji = selfRecord.aboutEmoji ?: "",
-          keyTransparencyData = selfRecord.keyTransparencyData?.toByteString()
+          bioEmoji = selfRecord.aboutEmoji ?: ""
         )
       )
     )
@@ -245,7 +245,7 @@ object AccountDataArchiveProcessor {
       SignalStore.account.usernameLink = null
     }
 
-    SignalDatabase.recipients.setKeyTransparencyData(Recipient.self().aci.get(), accountData.keyTransparencyData?.toByteArray())
+    SignalDatabase.recipients.clearSelfKeyTransparencyData()
 
     SignalDatabase.runPostSuccessfulTransaction { ProfileUtil.handleSelfProfileKeyChange() }
 
@@ -466,19 +466,19 @@ object AccountDataArchiveProcessor {
     }
   }
 
-  private fun org.thoughtcrime.securesms.mms.SentMediaQuality.toRemoteSentMediaQuality(): AccountData.SentMediaQuality {
+  private fun SentMediaQuality.toRemoteSentMediaQuality(): AccountData.SentMediaQuality {
     return when (this) {
-      org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD -> AccountData.SentMediaQuality.STANDARD
-      org.thoughtcrime.securesms.mms.SentMediaQuality.HIGH -> AccountData.SentMediaQuality.HIGH
+      SentMediaQuality.STANDARD -> AccountData.SentMediaQuality.STANDARD
+      SentMediaQuality.HIGH -> AccountData.SentMediaQuality.HIGH
     }
   }
 
-  private fun AccountData.SentMediaQuality?.toLocalSentMediaQuality(): org.thoughtcrime.securesms.mms.SentMediaQuality {
+  private fun AccountData.SentMediaQuality?.toLocalSentMediaQuality(): SentMediaQuality {
     return when (this) {
-      AccountData.SentMediaQuality.HIGH -> org.thoughtcrime.securesms.mms.SentMediaQuality.HIGH
-      AccountData.SentMediaQuality.STANDARD -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
-      AccountData.SentMediaQuality.UNKNOWN_QUALITY -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
-      null -> org.thoughtcrime.securesms.mms.SentMediaQuality.STANDARD
+      AccountData.SentMediaQuality.HIGH -> SentMediaQuality.HIGH
+      AccountData.SentMediaQuality.STANDARD -> SentMediaQuality.STANDARD
+      AccountData.SentMediaQuality.UNKNOWN_QUALITY -> SentMediaQuality.STANDARD
+      null -> SentMediaQuality.STANDARD
     }
   }
 

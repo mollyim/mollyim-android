@@ -3,19 +3,24 @@ package org.thoughtcrime.securesms.util
 import org.signal.donations.StripeApi
 import org.thoughtcrime.securesms.BuildConfig
 
-@Suppress("KotlinConstantConditions")
 object Environment {
   private const val GOOGLE_PLAY_BILLING_APPLICATION_ID = "org.thoughtcrime.securesms"
 
   const val IS_STAGING: Boolean = BuildConfig.FLAVOR_environment == "staging"
-  const val IS_INSTRUMENTATION: Boolean = BuildConfig.BUILD_TYPE == "instrumentation"
   const val IS_DEV: Boolean = BuildConfig.FLAVOR_environment == "dev"
+
+  @JvmField
+  var IS_INSTRUMENTATION: Boolean = false
 
   fun isInternal(): Boolean {
     return IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
   }
 
-  const val USE_NEW_REGISTRATION: Boolean = false // MOLLY: Test before enable
+  @JvmField
+  val USE_NEW_REGISTRATION: Boolean = false // MOLLY: Test before enable
+
+  @JvmField
+  val IS_LINK_AND_SYNC_AVAILABLE: Boolean = false // MOLLY: Test before enable
 
   object Backups {
     @JvmStatic

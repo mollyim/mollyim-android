@@ -23,7 +23,7 @@ public class VoiceCallShare extends PassphraseRequiredActivity {
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
 
-    if (getIntent().getData() != null && "content".equals(getIntent().getData().getScheme())) {
+    if (getIntent().getData() != null && "content".equals(getIntent().getData().getScheme()) && ContactsContract.AUTHORITY.equals(getIntent().getData().getAuthority())) {
       Cursor cursor = null;
       
       try {

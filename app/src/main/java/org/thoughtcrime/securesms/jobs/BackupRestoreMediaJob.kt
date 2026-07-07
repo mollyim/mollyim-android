@@ -5,10 +5,10 @@
 
 package org.thoughtcrime.securesms.jobs
 
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.logging.Log
 import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -60,6 +60,11 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
     val jobManager = AppDependencies.jobManager
     val batchSize = 500
     val restoreTime = System.currentTimeMillis()
+
+    val orphanedCount = SignalDatabase.attachments.markRestorableAttachmentsWithoutMessageAsFailed()
+    if (orphanedCount > 0) {
+      Log.w(TAG, "$orphanedCount orphaned restorable attachments marked failed")
+    }
 
     do {
       val restoreThumbnailJobs: MutableList<RestoreAttachmentThumbnailJob> = mutableListOf()

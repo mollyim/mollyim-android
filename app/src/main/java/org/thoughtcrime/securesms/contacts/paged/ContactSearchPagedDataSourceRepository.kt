@@ -43,12 +43,8 @@ open class ContactSearchPagedDataSourceRepository(
     return contactRepository.querySignalContacts(contactsSearchQuery)
   }
 
-  open fun querySignalContactLetterHeaders(query: String?, includeSelfMode: RecipientTable.IncludeSelfMode, includePush: Boolean, includeSms: Boolean): Map<RecipientId, String> {
-    return SignalDatabase.recipients.querySignalContactLetterHeaders(query ?: "", includeSelfMode, includePush, includeSms)
-  }
-
-  open fun queryGroupMemberContacts(query: String?): Cursor? {
-    return contactRepository.queryGroupMemberContacts(query ?: "")
+  open fun queryGroupMemberContacts(section: ContactSearchConfiguration.Section.GroupMembers, query: String?): Cursor? {
+    return contactRepository.queryGroupMemberContacts(query ?: "", section.groupId)
   }
 
   open fun getGroupSearchIterator(

@@ -7,18 +7,20 @@ package org.thoughtcrime.securesms.jobs
 import android.text.TextUtils
 import okhttp3.internal.http2.StreamResetException
 import org.greenrobot.eventbus.EventBus
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.Util
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.inRoundedDays
 import org.signal.core.util.logging.Log
+import org.signal.core.util.readLength
 import org.signal.libsignal.net.RequestResult
 import org.signal.libsignal.net.RetryLaterException
 import org.signal.libsignal.net.UploadTooLargeException
+import org.signal.network.api.AttachmentUploadResult
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.Attachment
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
@@ -40,7 +42,6 @@ import org.thoughtcrime.securesms.transport.UndeliverableMessageException
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.whispersystems.signalservice.api.attachment.AttachmentUploadResult
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
@@ -50,6 +51,7 @@ import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvali
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec
 import java.io.IOException
+import java.net.ProtocolException
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
@@ -79,9 +81,7 @@ class AttachmentUploadJob private constructor(
     @JvmStatic
     val maxPlaintextSize: Long
       get() {
-        val maxCipherTextSize = RemoteConfig.maxAttachmentSizeBytes
-        val maxPaddedSize = AttachmentCipherStreamUtil.getPlaintextLength(maxCipherTextSize)
-        return PaddingInputStream.getMaxUnpaddedSize(maxPaddedSize)
+        return AttachmentCipherStreamUtil.getMaxPlaintextSizeForCiphertext(RemoteConfig.maxAttachmentSizeBytes)
       }
 
     @JvmStatic
@@ -268,6 +268,22 @@ class AttachmentUploadJob private constructor(
     } catch (e: ResumeLocationInvalidException) {
       Log.w(TAG, "[$attachmentId] Resume location invalid. Clearing upload spec.", e)
       uploadSpec = null
+
+      resetProgressListeners(databaseAttachment)
+
+      throw e
+    } catch (e: IOException) {
+      if (e is ProtocolException || e.cause is ProtocolException) {
+        Log.w(TAG, "[$attachmentId] Length may be incorrect. Recalculating.", e)
+        val actualLength = SignalDatabase.attachments.getAttachmentStream(attachmentId, 0).use { it.readLength() }
+        if (actualLength != databaseAttachment.size) {
+          Log.w(TAG, "[$attachmentId] Length was incorrect! Will update. Previous: ${databaseAttachment.size}, Newly-Calculated: $actualLength")
+          SignalDatabase.attachments.updateAttachmentLength(attachmentId, actualLength)
+          uploadSpec = null
+        } else {
+          Log.i(TAG, "[$attachmentId] Length was correct. No action needed. Will retry.")
+        }
+      }
 
       resetProgressListeners(databaseAttachment)
 

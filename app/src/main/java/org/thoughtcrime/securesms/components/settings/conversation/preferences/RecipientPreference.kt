@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.util.requireDrawable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
@@ -13,12 +14,12 @@ import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelPillView
 import org.thoughtcrime.securesms.groups.memberlabel.StyledMemberLabel
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.ContextUtil
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.visible
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Renders a Recipient as a row item with an icon, avatar, label/status, and admin state.
@@ -104,7 +105,7 @@ object RecipientPreference {
       } else {
         if (recipient.isSystemContact) {
           SpannableStringBuilder(recipient.getDisplayName(context)).apply {
-            val drawable = ContextUtil.requireDrawable(context, R.drawable.symbol_person_circle_24).apply {
+            val drawable = context.requireDrawable(CoreUiR.drawable.symbol_person_circle_24).apply {
               setTint(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface))
             }
             SpanUtil.appendCenteredImageSpan(this, drawable, 16, 16)

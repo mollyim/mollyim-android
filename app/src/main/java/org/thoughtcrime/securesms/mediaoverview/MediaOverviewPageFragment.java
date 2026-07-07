@@ -62,6 +62,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -337,10 +338,16 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       MediaIntentFactory.MediaPreviewArgs args = new MediaIntentFactory.MediaPreviewArgs(
           threadId,
           mediaRecord.getDate(),
+          mediaRecord.getMessageId(),
+          mediaRecord.getRecipientId(),
+          mediaRecord.getThreadRecipientId(),
+          mediaRecord.isOutgoing(),
           Objects.requireNonNull(mediaRecord.getAttachment().getDisplayUri()),
+          mediaRecord.getAttachment().getUri(),
           mediaRecord.getContentType(),
           mediaRecord.getAttachment().size,
           mediaRecord.getAttachment().caption,
+          null,
           true,
           true,
           threadId == MediaTable.ALL_THREADS,
@@ -438,7 +445,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       );
       return;
     }
-    MediaActions.handleDeleteMedia(requireContext(), Collections.singleton(mediaRecord));
+    MediaActions.handleDeleteMedia(this, Collections.singleton(mediaRecord));
   }
 
   private void handleDeleteSelectedMedia() {
@@ -450,7 +457,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       return;
     }
 
-    MediaActions.handleDeleteMedia(requireContext(), getListAdapter().getSelectedMedia());
+    MediaActions.handleDeleteMedia(this, getListAdapter().getSelectedMedia());
     exitMultiSelect();
   }
 
@@ -511,7 +518,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       int selectionCount = getListAdapter().getSectionCount();
 
       bottomActionBar.setItems(Arrays.asList(
-          new ActionItem(R.drawable.symbol_save_android_24, getResources().getQuantityString(R.plurals.MediaOverviewActivity_save_plural, selectionCount), () -> {
+          new ActionItem(org.signal.core.ui.R.drawable.symbol_save_android_24, getResources().getQuantityString(R.plurals.MediaOverviewActivity_save_plural, selectionCount), () -> {
             Collection<MediaTable.MediaRecord> selected = getListAdapter().getSelectedMedia();
 
             if (SignalStore.backup().getOptimizeStorage()) {
@@ -523,7 +530,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
                 return;
               } else if (someOffloaded) {
                 OffloadedMediaDialogUtil.showPartiallyOffloaded(requireContext(), () -> {
-                  Collection<MediaTable.MediaRecord> saveable = selected.stream().filter(r -> r.getAttachment() == null || r.getAttachment().hasData).collect(java.util.stream.Collectors.toList());
+                  Collection<MediaTable.MediaRecord> saveable = selected.stream().filter(r -> r.getAttachment() == null || r.getAttachment().hasData).collect(Collectors.toList());
                   lifecycleDisposable.add(
                       MediaActions
                           .handleSaveMedia(MediaOverviewPageFragment.this, saveable)

@@ -20,11 +20,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Dp
 import androidx.window.core.layout.WindowSizeClass
 import org.signal.core.ui.horizontalPartitionDefaultSpacerSize
 import org.signal.core.ui.isSplitPane
 import org.signal.core.ui.listPaneDefaultPreferredWidth
+import org.signal.core.ui.rememberIsSplitPane
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 
 /**
@@ -56,6 +58,10 @@ open class AppScaffoldNavigator<T> @RememberInComposition constructor(private va
   }
 
   override suspend fun seekBack(backNavigationBehavior: BackNavigationBehavior, fraction: Float) {
+    if (fraction == 0f && state == NavigationState.SEEK) {
+      state = NavigationState.ENTER
+    }
+
     if (fraction > 0f && state != NavigationState.SEEK) {
       state = NavigationState.SEEK
     }
@@ -99,7 +105,7 @@ open class AppScaffoldNavigator<T> @RememberInComposition constructor(private va
 @Composable
 fun rememberAppScaffoldNavigator(
   windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfo().windowSizeClass,
-  isSplitPane: Boolean = windowSizeClass.isSplitPane(
+  isSplitPane: Boolean = LocalResources.current.rememberIsSplitPane(
     forceSplitPane = if (LocalInspectionMode.current) false else SignalStore.internal.forceSplitPane
   ),
   horizontalPartitionSpacerSize: Dp = windowSizeClass.horizontalPartitionDefaultSpacerSize,

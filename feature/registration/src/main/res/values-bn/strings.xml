@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">আপনার গোপনীয়তা বজায় রাখুন।\n প্রতিটি বার্তায় নিজস্ব থাকুন।</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal একটি অলাভজনক প্রতিষ্ঠান\nশর্তাবলী এবং গোপনীয়তার নীতিমালা</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">এটি দেশ নির্বাচন করুন</string>
     <string name="RegistrationActivity_phone_number_description">ফোন নম্বর</string>
     <string name="RegistrationActivity_next">পরবর্তী</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">নিচের ফোন নম্বরটি কি সঠিক?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">এই নম্বরে একটি যাচাইকরণ কোড পাঠানো হবে। ক্যারিয়ার রেট প্রযোজ্য হতে পারে।</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">নম্বর সম্পাদনা</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">মেনু খুলুন</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">প্রক্সি ব্যবহার করুন</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">ডিভাইস সংযুক্ত করুন</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">আরো জানুন</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -76,8 +93,8 @@
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">অনেকবার চেষ্টা করা হয়েছে। %1$s পরে আবার চেষ্টা করুন।</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">একটি অপ্রত্যাশিত সমস্যা দেখা দিয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">আপনার যাচাইকরণ কোড পাঠানোর সময় একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">আমরা আপনার নম্বরে SMS পাঠাতে পারছি না। অনুগ্রহ করে কয়েক ঘন্টা পর আবার চেষ্টা করুন।</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">বেছে নেওয়া পদ্ধতির মাধ্যমে কোড পাঠানো যায়নি। অনুগ্রহ করে অন্য একটি বিকল্প চেষ্টা করুন।</string>
     <!-- Snackbar shown for registration errors -->
@@ -146,8 +163,6 @@
     <string name="LocalBackupRestoreScreen__backup_found_description">আপনার ডিভাইসে সংরক্ষিত ব্যাকআপ ফোল্ডার থেকে আপনার মেসেজ পুনর্বহাল করুন। আপনি এখন পুনর্বহাল না করলে, আপনি পরে পুনর্বহাল করতে পারবেন না।</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">আপনার সর্বশেষ ব্যাকআপ:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">ব্যাকঅাপ পুনরুদ্ধার</string>
     <!-- Link to choose an earlier backup -->
@@ -187,14 +202,16 @@
     <string name="EnterAepScreen__too_long">অনেক লম্বা (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">অকার্যকর পুনরুদ্ধার \'কি\'</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">ভুল পুনরুদ্ধার \'কি\'</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">Fill from password manager</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">পুনর্বহালের প্রস্তুতি চলছে…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">ব্যাকআপ পুনর্বহাল করা হচ্ছে</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">আপনার মেসেজ এবং ডেটা পুনর্বহাল করা হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন।</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">পুনরুদ্ধার সম্পূর্ণ</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -211,4 +228,303 @@
     <string name="WelcomeScreen__not_on_signal_yet">এখনো Signal-এ নেই?</string>
     <!-- Button to create a new Signal account -->
     <string name="WelcomeScreen__create_account">অ্যাকাউন্ট তৈরি করুন</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">ব্যাকআপ থেকে পুনরুদ্ধার করুন</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">ব্যাকআপের তথ্য আনা হচ্ছে…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">ব্যাকঅাপ পুনরুদ্ধার</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">আপনার সর্বশেষ ব্যাকআপ করা হয়েছিল %1$s তারিখে %2$s-টার সময়।</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">আপনার মিডিয়া ব্যাকগ্রাউন্ডে পুনর্বহাল করা হবে। আপনি যদি এখন পুনর্বহাল করতে না চান, তবে পরে পুনর্বহাল করতে পারবেন না।</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">ব্যাকআপ পাওয়া যায়নি</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">এই অ্যাকাউন্টের কোনো ব্যাকআপ খুঁজে পাওয়া যায়নি।</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">ব্যাকআপ পুনর্বহাল করা যায়নি</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">আপনার ব্যাকআপ এখনই পুনর্বহাল করা যাবে না। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">আবার চেষ্টা করুন</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">পুনর্বহাল সম্পন্ন করা যায়নি</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">সার্ভারের সাথে সংযোগ করার সময় একটি ত্রুটি দেখা দিয়েছে। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">আপনার ব্যাকআপ পুনর্বহাল করার সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">এই ব্যাকআপটি পুনর্বহাল করা যায়নি</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Signal-এর এই সংস্করণটি আপনার ব্যাকআপ পুনর্বহাল করতে পারে না। সর্বশেষ সংস্করণে আপডেট করুন এবং আবার চেষ্টা করুন।</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Signal আপডেট করুন</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">এখন না</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">ব্যাকআপ পুনর্বহাল করা যায়নি</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">আপনার ব্যাকআপ পুনর্বহাল করার সময় একটি ত্রুটি ঘটেছে। আপনার ব্যাকআপ পুনর্বহালযোগ্য নয়। সাহায্যের জন্য সহায়তা কেন্দ্রে যোগাযোগ করুন।</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">সহায়তা কেন্দ্রে যোগাযোগ করুন</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">ব্যাকআপ ডাউনলোড করা হচ্ছে…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">মেসেজ পুনরুদ্ধার করা হচ্ছে…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">শেষ হচ্ছে…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">পুনরুদ্ধার করা হচ্ছে…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%1$s এর %2$s (%3$s)</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">কোন ওয়েব ব্রাউজার পাওয়া যায়নি।</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">অ্যাকাউন্ট লক্ করা হয়েছে</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">আপনার গোপনীয়তা এবং সুরক্ষা নিশ্চিত করতে আপনার অ্যাকাউন্টটি লক করা হয়েছে। আপনার অ্যাকাউন্টটি %1$d দিন নিষ্ক্রিয় থাকার পরে আপনি আপনার পিনের প্রয়োজন ছাড়াই এই ফোন নম্বরটি পুনরায় নিবন্ধন করতে সক্ষম হবেন। সকল বিষয়বস্তু মুছে ফেলা হবে।</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">আপনার পুরানো ডিভাইসে Signal খুলুন</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">ক্যামেরা আইকনে ট্যাপ করুন </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">ক্যামেরা দিয়ে এই কোডটি স্ক্যান করুন</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">নিবন্ধন করা হচ্ছে…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">নিবন্ধন করার সময় একটি ত্রুটি ঘটেছে</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">আপনার পুরানো ফোন দিয়ে এই কোডটি স্ক্যান করুন</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">QR কোড স্ক্যান করা হয়েছে</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">পুনরায় চেষ্টা করুন</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">QR কোড তৈরি করতে সক্ষম হয়নি</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">আপনি এখন একটি ডিবাগ লগ জমা দেওয়ার থেকে %1$d পদক্ষেপ দূরে।</item>
+        <item quantity="other">আপনি এখন একটি ডিবাগ লগ জমা দেওয়ার থেকে %1$d পদক্ষেপ দূরে।</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">আপনার পিন তৈরি করুন</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">আপনার পিনটি নিশ্চিত করুন</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">এই মাত্র তৈরি করা পিনটি আবারো লিখুন</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">আপনার ফোন হারিয়ে গেলে পিন আপনাকে অ্যাকাউন্ট পুনরুদ্ধার করতে সাহায্য করতে পারে। </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">আরো জানুন</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">নিউমেরিক-এ সুইচ করুন</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">আলফানিউমেরিক-এ সুইচ করুন</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">পরবর্তী</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">পিনটি কমপক্ষে 4টি সংখ্যার হতে হবে</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">পিন অবশ্যই কমপক্ষে 4টি অক্ষরের হতে হবে</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">পিন পুনরায় লিখুন</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">পিনগুলি মেলে না। আবার চেষ্টা করুন|</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">পিনগুলি সম্পর্কে আরও জানুন</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">সতর্কবার্তা</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">পিনটি যদি নিষ্ক্রিয় করেন, তবে আপনি Signal-এ সেভ করা ডেটা ম্যানুয়ালি ব্যাক-আপ ও পুনরুদ্ধার না করলে, পুনরায় Signal-এ রেজিস্টার করার সময় সমস্ত সেভ করা ডেটা হারাবেন। পিন নিষ্ক্রিয় থাকা অবস্থায় আপনি রেজিস্ট্রেশন লক চালু করতে পারবেন না।</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">পিন নিষ্ক্রিয় করুন</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">বাতিল করুন</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">রেজিস্ট্রেশন লক</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">আপনার পিন প্রবেশ করান</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">Signal প্রথমবার ইনস্টল করার সময় আপনি যে পিনটি তৈরি করেছিলেন সেটি দিন</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">ভুল PIN। %1$d টি সুযোগ বাকি আছে।</item>
+        <item quantity="other">ভুল PIN। %1$d টি সুযোগ বাকি আছে।</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">সাহায্য প্রয়োজন?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">কীবোর্ড পাল্টান</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">বাদ দিয়ে যান</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">চলতে থাকুন</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">PIN প্রবেশ করানো উপেক্ষা করবেন?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">If you can\'t remember your PIN, you can create a new one. You can register and use your account but you\'ll lose some saved settings like your profile information.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">নতুন পিন তৈরি করুন</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">বাতিল করুন</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">No data could be found to restore your account. Please create a new PIN.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">সহায়তা কেন্দ্রে যোগাযোগ করুন</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">নোটিফিকেশন অনুমোদন করুন</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal নোটিফিকেশন চালু করার অনুমতি চাইছে।এর মাধ্যমে নতুন মেসেজ এলে আপনার ডিভাইস অ্যালার্ট দেখাতে পারবে।</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">এখন না</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">পরবর্তী</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">মেসেজ সিঙ্ক করা হচ্ছে</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">এতে কয়েক মিনিট সময় লাগতে পারে…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">%2$s-এর মধ্যে %1$s ডাউনলোড হচ্ছে</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">প্রস্তুত হচ্ছে…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">শেষ হচ্ছে…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">সিঙ্কিং প্রক্রিয়া সহ মেসেজ এবং চ্যাটের তথ্য এন্ড-টু-এন্ড এনক্রিপশন দ্বারা সুরক্ষিত।</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">আরো জানুন</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">বাতিল করুন</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">আপনার অ্যাকাউন্ট লিংক করতে এই কোডটি স্ক্যান করুন</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">আপনার ফোনে সিগন্যাল খুলুন</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal সেটিংস খুলতে আপনার প্রোফাইল ছবিতে ট্যাপ করুন</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\"লিংককৃত ডিভাইস\" এবং \"নতুন ডিভাইস লিংক করুন\"-এ ট্যাপ করুন</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">এই ধাপগুলোতে সাহায্য নিন</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">QR কোডটি বড় করুন</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">স্ক্যান করা হয়েছে</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">কোড তৈরি করা সফল হয়নি</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">অন্য কোনো ডিভাইসে Signal নেই?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">অ্যাকাউন্ট তৈরি করুন</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">পুনরায় চেষ্টা করুন</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">ডিভাইসটি সংযুক্ত হচ্ছে…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Waiting for your other device…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">An error occurred while linking this device</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Close QR code</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">আপনার অ্যাকাউন্ট ট্রান্সফার করুন</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">আপনার অ্যাকাউন্ট স্থানান্তর করতে, আপনার পুরানো Android ডিভাইসে Signal খুলুন এবং \'অ্যাকাউন্ট ট্রান্সফার করুন\' বেছে নিন।</string>
+    <string name="DeviceTransferInstructions__continue">চলতে থাকুন</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">পুরনো Android ডিভাইসের সাথে সংযোগের প্রস্তুতি নিচ্ছে…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">এতে কিছুটা সময় লাগতে পারে। শীঘ্রই তৈরি হয়ে যাবে।</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">আপনার পুরানো ডিভাইসের সংযোগের জন্য অপেক্ষা করা হচ্ছে…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">উভয় ডিভাইসে নম্বরগুলো মিলেছে কিনা তা যাচাই করুন</string>
+    <string name="DeviceTransferSetup__numbers_match">হ্যাঁ, নম্বরগুলো মিলেছে</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">সংখ্যা মিলছে না</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">আপনার পুরানো ডিভাইসটি যাচাই করার জন্য অপেক্ষা করা হচ্ছে…</string>
+    <string name="DeviceTransferSetup__location_permission_required">আপনার পুরানো ডিভাইসটি খুঁজে বের করতে এবং তার সাথে সংযোগ স্থাপন করতে Signal-এর অবস্থানের অনুমতি প্রয়োজন।</string>
+    <string name="DeviceTransferSetup__grant_location_permission">অনুমতি দিন</string>
+    <string name="DeviceTransferSetup__location_services_required">আপনার পুরনো Android ডিভাইস খুঁজে পেতে ও সংযোগ করতে Signal-এর জন্য অবস্থান জানার সার্ভিসটি চালু থাকতে হবে।</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">লোকেশন পরিষেবা চালু করুন</string>
+    <string name="DeviceTransferSetup__wifi_required">আপনার পুরানো ডিভাইসটি খুঁজে পেতে এবং সংযোগ করতে Signal-এর Wi-Fi চালু থাকতে হবে।</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">ওয়াই-ফাই চালু করুন</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">দুঃখিত, সম্ভবত আপনার ডিভাইসটি Wi-Fi Direct সমর্থন করে না।</string>
+    <string name="DeviceTransferSetup__restore_a_backup">এর পরিবর্তে একটি ব্যাকআপ পুনর্বহাল করুন</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">আপনার পুরনো Android ডিভাইসে সংযোগ হওয়ার চেষ্টা করার সময় একটি অপ্রত্যাশিত সমস্যা দেখা দিয়েছে।</string>
+    <string name="DeviceTransferSetup__retry">পুনরায় চেষ্টা করুন</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">আপনার পুরানো ডিভাইসটি খুঁজে পাওয়া যাচ্ছে না</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• অবস্থান জানার অনুমতি দেওয়া আছে কিনা তা নিশ্চিত করুন।\n• নিশ্চিত কোন যে Wi-Fi চালু আছে এবং কোনো Wi-Fi Direct গ্ৰুপ মনে রাখা অবস্থায় নেই।\n• উভয় ডিভাইসে Wi-Fi বন্ধ করার এবং পুনরায় চালু করার চেষ্টা করুন।\nনিশ্চিত করুন যে দু\'টি ডিভাইসই \'ট্রান্সফার করুন\' মোড-এ রয়েছে।</string>
+    <string name="DeviceTransferSetup__try_again">আবারো চেষ্টা করুন</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">সংখ্যা মিলছে না</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">যদি আপনার ডিভাইসগুলোর নম্বর না মেলে, তাহলে সম্ভবত আপনি ভুল ডিভাইসে সংযোগ করেছেন।</string>
+    <string name="DeviceTransferSetup__stop_transfer">স্থানান্তর বন্ধ করুন</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">তথ্য স্থানান্তর করা হচ্ছে</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">এযাবৎ %1$d টি বার্তা</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">স্থানান্তর করতে অক্ষম</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-এর নতুন সংস্করণ থেকে ট্রান্সফার করা যায় না।</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">ডাটাবেজ সংক্রান্ত সীমাবদ্ধতার কারণে কিছু ডেটা ট্রান্সফার করা সম্ভব হয়নি।</string>
+    <string name="DeviceTransferProgress__transfer_failed">ট্রান্সফার করা সফল হয়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="DeviceTransferProgress__try_again">আবার চেষ্টা করুন</string>
+    <string name="DeviceTransferProgress__cancel">বাতিল করুন</string>
+    <string name="DeviceTransferProgress__stop_transfer">স্থানান্তর বন্ধ করবেন?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">সমস্ত স্থানান্তর অগ্রগতি নষ্ট হবে।</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">স্থানান্তর সম্পূর্ণ</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">আপনার অ্যাকাউন্ট এখন এই ডিভাইসে আছে।</string>
+    <string name="DeviceTransferComplete__continue_registration">চলতে থাকুন</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">আপনার প্রোফাইল সেট করুন</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">আপনার প্রোফাইল এবং এতে করা পরিবর্তনগুলো আপনার ম্যাসেজ, কন্টাক্ট, এবং গ্ৰুপগুলোর কাছে দৃশ্যমান হবে৷</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">নামের প্রথম অংশ (প্রয়োজনীয়)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">নামের শেষ অংশ (ঐচ্ছিক)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">পরবর্তী</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">প্রোফাইলের ছবি সেট করুন</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">নম্বরের মাধ্যমে কারা আমাকে খুঁজে পাবেন?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">যাদের কাছে আপনার ফোন নম্বর আছে তারা দেখতে পাবেন আপনি Signal-এ আছেন এবং আপনার সাথে চ্যাট শুরু করতে পারবেন।</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">আপনি Signal-এ আছেন তা কেউ দেখতে পাবেন না যদি না আপনি তাদের মেসেজ পাঠান বা তাদের সাথে কোনো চ্যাট বিদ্যমান থাকে।</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">সকলে</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">কেউ না</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">আপনি কি নিশ্চিত?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"কারা আমাকে নম্বরের মাধ্যমে খুঁজে পেতে পারেন\"-এ \"কেউ নয়\" সেট করা হলে তা আপনাকে Signal-এ খুঁজে পাওয়া অন্যদের কাছে কঠিন করে তুলবে।</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">বাতিল করুন</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">সেভ করুন</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">ফিরে যান</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Failed to load captcha</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">বাতিল করুন</string>
 </resources>

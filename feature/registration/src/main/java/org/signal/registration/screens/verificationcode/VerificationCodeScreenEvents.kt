@@ -5,14 +5,21 @@
 
 package org.signal.registration.screens.verificationcode
 
-import org.signal.registration.util.DebugLoggableModel
+import org.signal.core.util.censor
 
-sealed class VerificationCodeScreenEvents : DebugLoggableModel() {
-  data class CodeEntered(val code: String) : VerificationCodeScreenEvents()
+sealed class VerificationCodeScreenEvents {
+  data class CodeEntered(val code: String) : VerificationCodeScreenEvents() {
+    override fun toString(): String = "CodeEntered(code=${code.censor()})"
+  }
+
   data object WrongNumber : VerificationCodeScreenEvents()
+
   data object ResendSms : VerificationCodeScreenEvents()
+
   data object CallMe : VerificationCodeScreenEvents()
+
   data object HavingTrouble : VerificationCodeScreenEvents()
+
   data object ConsumeInnerOneTimeEvent : VerificationCodeScreenEvents()
 
   /**

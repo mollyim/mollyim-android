@@ -7,14 +7,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.TaskStackBuilder;
 
+import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 
 public class ShortcutLauncherActivity extends PassphraseRequiredActivity {
+
+  private static final String TAG = Log.tag(ShortcutLauncherActivity.class);
 
   private static final String KEY_RECIPIENT = "recipient_id";
 
@@ -28,9 +30,18 @@ public class ShortcutLauncherActivity extends PassphraseRequiredActivity {
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState, boolean ready) {
-    String rawId = getIntent().getStringExtra(KEY_RECIPIENT);
+    String      rawId       = getIntent().getStringExtra(KEY_RECIPIENT);
+    RecipientId recipientId = null;
 
-    if (rawId == null) {
+    if (rawId != null) {
+      try {
+        recipientId = RecipientId.from(rawId);
+      } catch (Throwable t) {
+        Log.w(TAG, "Failed to parse recipientId from intent.", t);
+      }
+    }
+
+    if (recipientId == null) {
       Toast.makeText(this, R.string.ShortcutLauncherActivity_invalid_shortcut, Toast.LENGTH_SHORT).show();
       // TODO [greyson] Navigation
       startActivity(MainActivity.clearTop(this));
@@ -38,7 +49,7 @@ public class ShortcutLauncherActivity extends PassphraseRequiredActivity {
       return;
     }
 
-    Recipient        recipient = Recipient.live(RecipientId.from(rawId)).get();
+    Recipient        recipient = Recipient.live(recipientId).get();
     // TODO [greyson] Navigation
     TaskStackBuilder backStack = TaskStackBuilder.create(this)
                                                  .addNextIntent(MainActivity.clearTop(this));

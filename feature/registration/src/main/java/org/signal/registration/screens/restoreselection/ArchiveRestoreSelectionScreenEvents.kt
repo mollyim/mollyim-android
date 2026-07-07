@@ -5,11 +5,12 @@
 
 package org.signal.registration.screens.restoreselection
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class ArchiveRestoreSelectionScreenEvents : DebugLoggableModel() {
+sealed class ArchiveRestoreSelectionScreenEvents {
   data class RestoreOptionSelected(val option: ArchiveRestoreOption) : ArchiveRestoreSelectionScreenEvents()
+
   data object Skip : ArchiveRestoreSelectionScreenEvents()
+
   data object ConfirmSkip : ArchiveRestoreSelectionScreenEvents()
+
   data object DismissSkipWarning : ArchiveRestoreSelectionScreenEvents()
 }

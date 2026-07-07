@@ -5,10 +5,12 @@
 
 package org.signal.registration.screens.pincreation
 
-import org.signal.registration.util.DebugLoggableModel
-
-sealed class PinCreationScreenEvents : DebugLoggableModel() {
-  data class PinSubmitted(val pin: String) : PinCreationScreenEvents()
+sealed class PinCreationScreenEvents {
+  data class PinSubmitted(val pin: String) : PinCreationScreenEvents() {
+    override fun toString(): String = "PinSubmitted(pin=${pin.length} chars)"
+  }
   data object ToggleKeyboard : PinCreationScreenEvents()
   data object LearnMore : PinCreationScreenEvents()
+  data object OptOut : PinCreationScreenEvents()
+  data object BackToPinEntry : PinCreationScreenEvents()
 }

@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.NoSessionException;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.MessageTable;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.database.model.databaseprotos.DeviceLastResetTime;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
@@ -14,7 +17,6 @@ import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
-import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.util.RemoteConfig;
@@ -129,20 +131,22 @@ public class AutomaticSessionResetJob extends BaseJob {
   }
 
   private void sendNullMessage() throws IOException {
-    Recipient recipient = Recipient.resolved(recipientId);
+    RecipientRecord recipient = SignalDatabase.recipients().getRecord(recipientId);
 
-    if (recipient.isUnregistered()) {
+    if (recipient.getRegistered() == RegisteredState.NOT_REGISTERED) {
       Log.w(TAG, recipient.getId() + " not registered!");
       return;
     }
 
     SignalServiceMessageSender messageSender = AppDependencies.getSignalServiceMessageSender();
-    SignalServiceAddress       address       = RecipientUtil.toSignalServiceAddress(context, recipient);
+    SignalServiceAddress       address       = RecipientUtil.toSignalServiceAddress(recipient);
 
     try {
       messageSender.sendNullMessage(address, SealedSenderAccessUtil.getSealedSenderAccessFor(recipient));
     } catch (UntrustedIdentityException e) {
       Log.w(TAG, "Unable to send null message.");
+    } catch (NoSessionException e) {
+      Log.w(TAG, "Unable to send null message; no session to send over.", e);
     }
   }
 

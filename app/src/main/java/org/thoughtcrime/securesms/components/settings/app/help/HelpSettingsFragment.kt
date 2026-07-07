@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.components.settings.app.help
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,7 @@ import org.signal.core.ui.compose.Rows.TextAndLabel
 import org.signal.core.ui.compose.Rows.defaultPadding
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.util.Util
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -94,7 +96,11 @@ class HelpSettingsFragment : ComposeFragment() {
             onClick = {
               navController.safeNavigate(R.id.action_helpSettingsFragment_to_appUpdatesFragment)
             },
-            label = ApkInfo.versionName
+            label = ApkInfo.versionName,
+            onLongClick = {
+              Util.copyToClipboard(context, ApkInfo.versionName)
+              Toast.makeText(context, R.string.HelpSettingsFragment__copied_to_clipboard, Toast.LENGTH_SHORT).show()
+            }
           )
         }
 

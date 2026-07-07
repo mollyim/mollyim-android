@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:targetSandboxVersion="2">
 
-    <uses-sdk tools:overrideLibrary="androidx.camera.core,androidx.camera.camera2,androidx.camera.lifecycle,androidx.camera.view" />
-
     <!-- ======================================= -->
     <!-- Features                                -->
     <!-- ======================================= -->
@@ -39,6 +37,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
@@ -420,12 +419,7 @@
             android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity
-            android:name=".calls.links.details.CallLinkDetailsActivity"
-            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-            android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+
 
         <activity
             android:name=".calls.new.NewCallActivity"
@@ -1351,7 +1345,7 @@
 
         <service
             android:name=".gcm.FcmReceiveService"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -1372,7 +1366,7 @@
         <service
             android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
             android:exported="false"
-            android:foregroundServiceType="dataSync|microphone|camera|phoneCall" />
+            android:foregroundServiceType="dataSync|microphone|camera|phoneCall|mediaProjection" />
 
         <service
             android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"

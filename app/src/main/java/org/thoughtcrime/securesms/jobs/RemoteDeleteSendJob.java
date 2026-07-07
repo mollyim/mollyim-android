@@ -4,20 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
-import com.annimon.stream.Stream;
-
 import org.signal.core.util.SetUtil;
 import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.NoSessionException;
+import org.thoughtcrime.securesms.database.GroupTable;
 import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.NoSuchMessageException;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.DistributionListId;
 import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
@@ -38,6 +39,8 @@ import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedExcept
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RemoteDeleteSendJob extends BaseJob {
 
@@ -60,21 +63,24 @@ public class RemoteDeleteSendJob extends BaseJob {
   {
     MessageRecord message = SignalDatabase.messages().getMessageRecord(messageId);
 
-    Recipient conversationRecipient = SignalDatabase.threads().getRecipientForThreadId(message.getThreadId());
+    RecipientId conversationRecipientId = SignalDatabase.threads().getRecipientIdForThreadId(message.getThreadId());
 
-    if (conversationRecipient == null) {
+    if (conversationRecipientId == null) {
       throw new AssertionError("We have a message, but couldn't find the thread!");
     }
 
+    RecipientRecord conversationRecipient = SignalDatabase.recipients().getRecord(conversationRecipientId);
+
     List<RecipientId> recipients;
-    if (conversationRecipient.isDistributionList()) {
+    if (conversationRecipient.getDistributionListId() != null) {
       recipients = SignalDatabase.storySends().getRemoteDeleteRecipients(message.getId(), message.getTimestamp());
       if (recipients.isEmpty()) {
         return AppDependencies.getJobManager().startChain(MultiDeviceStorySendSyncJob.create(message.getDateSent(), messageId));
       }
     } else {
-      recipients = conversationRecipient.isGroup() ? Stream.of(conversationRecipient.getParticipantIds()).toList()
-                                                   : Stream.of(conversationRecipient.getId()).toList();
+      recipients = conversationRecipient.getGroupId() != null
+                   ? SignalDatabase.groups().getGroupMemberIds(conversationRecipient.getGroupId(), GroupTable.MemberSet.FULL_MEMBERS_INCLUDING_SELF).stream().collect(Collectors.toList())
+                   : Stream.of(conversationRecipient.getId()).collect(Collectors.toList());
     }
 
     recipients.remove(Recipient.self().getId());
@@ -89,7 +95,7 @@ public class RemoteDeleteSendJob extends BaseJob {
                                                                         .setMaxAttempts(Parameters.UNLIMITED)
                                                                         .build());
 
-    if (conversationRecipient.isDistributionList()) {
+    if (conversationRecipient.getDistributionListId() != null) {
       return AppDependencies.getJobManager()
                             .startChain(sendJob)
                             .then(MultiDeviceStorySendSyncJob.create(message.getDateSent(), messageId));
@@ -133,34 +139,39 @@ public class RemoteDeleteSendJob extends BaseJob {
     MessageRecord message = SignalDatabase.messages().getMessageRecord(messageId);
 
     long      targetSentTimestamp   = message.getDateSent();
-    Recipient conversationRecipient = SignalDatabase.threads().getRecipientForThreadId(message.getThreadId());
+    RecipientId conversationRecipientId = SignalDatabase.threads().getRecipientIdForThreadId(message.getThreadId());
 
-    if (conversationRecipient == null) {
+    if (conversationRecipientId == null) {
       throw new AssertionError("We have a message, but couldn't find the thread!");
     }
+
+    RecipientRecord conversationRecipient = SignalDatabase.recipients().getRecord(conversationRecipientId);
 
     if (!message.isOutgoing()) {
       throw new IllegalStateException("Cannot delete a message that isn't yours!");
     }
 
-    if (!conversationRecipient.isRegistered() || conversationRecipient.isMmsGroup()) {
+    boolean isRegistered = conversationRecipient.getGroupId() != null ? !conversationRecipient.getGroupId().isMms()
+                                                                       : (conversationRecipient.getDistributionListId() != null || conversationRecipient.getRegistered() == RegisteredState.REGISTERED);
+
+    if (!isRegistered) {
       Log.w(TAG, "Unable to remote delete non-push messages");
       return;
     }
 
-    if (conversationRecipient.isPushV1Group()) {
+    if (conversationRecipient.getGroupId() != null && conversationRecipient.getGroupId().isV1()) {
       Log.w(TAG, "Unable to remote delete messages in GV1 groups");
       return;
     }
 
-    if (conversationRecipient.isPushV2Group() && !SignalDatabase.groups().isActive(conversationRecipient.requireGroupId())) {
+    if (conversationRecipient.getGroupId() != null && conversationRecipient.getGroupId().isV2() && !SignalDatabase.groups().isActive(conversationRecipient.getGroupId())) {
       Log.w(TAG, "Unable to remote delete messages in terminated or inactive groups");
       return;
     }
 
-    List<Recipient>   possible = Stream.of(recipients).map(Recipient::resolved).toList();
-    List<Recipient>   eligible = RecipientUtil.getEligibleForSending(Stream.of(recipients).map(Recipient::resolved).filter(Recipient::getHasServiceId).toList());
-    List<RecipientId> skipped  = Stream.of(SetUtil.difference(possible, eligible)).map(Recipient::getId).toList();
+    List<Recipient>   possible = recipients.stream().map(Recipient::resolved).collect(Collectors.toList());
+    List<Recipient>   eligible = RecipientUtil.getEligibleForSending(recipients.stream().map(Recipient::resolved).filter(Recipient::getHasServiceId).collect(Collectors.toList()));
+    List<RecipientId> skipped  = SetUtil.difference(possible, eligible).stream().map(Recipient::getId).collect(Collectors.toList());
 
     boolean            isForStory         = message.isMms() && (((MmsMessageRecord) message).getStoryType().isStory() || ((MmsMessageRecord) message).getParentStoryId() != null);
     DistributionListId distributionListId = isForStory ? message.getToRecipient().getDistributionListId().orElse(null) : null;
@@ -188,7 +199,7 @@ public class RemoteDeleteSendJob extends BaseJob {
     }
 
     if (recipients.isEmpty()) {
-      db.markAsSent(messageId, true);
+      db.markAsSent(messageId);
     } else {
       Log.w(TAG, "Still need to send to " + recipients.size() + " recipients. Retrying.");
       throw new RetryLaterException();
@@ -213,24 +224,24 @@ public class RemoteDeleteSendJob extends BaseJob {
     Log.w(TAG, "Failed to send remote delete to all recipients! (" + (initialRecipientCount - recipients.size() + "/" + initialRecipientCount + ")") );
   }
 
-  private @NonNull GroupSendJobHelper.SendResult deliver(@NonNull Recipient conversationRecipient,
+  private @NonNull GroupSendJobHelper.SendResult deliver(@NonNull RecipientRecord conversationRecipient,
                                                          @NonNull List<Recipient> destinations,
                                                          long targetSentTimestamp,
                                                          boolean isForStory,
                                                          @Nullable DistributionListId distributionListId)
-      throws IOException, UntrustedIdentityException
+      throws IOException, UntrustedIdentityException, NoSessionException
   {
     SignalServiceDataMessage.Builder dataMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                   .withTimestamp(System.currentTimeMillis())
                                                                                   .withRemoteDelete(new SignalServiceDataMessage.RemoteDelete(targetSentTimestamp));
 
-    if (conversationRecipient.isGroup()) {
-      GroupUtil.setDataMessageGroupContext(context, dataMessageBuilder, conversationRecipient.requireGroupId().requirePush());
+    if (conversationRecipient.getGroupId() != null) {
+      GroupUtil.setDataMessageGroupContext(context, dataMessageBuilder, conversationRecipient.getGroupId().requirePush());
     }
 
     SignalServiceDataMessage dataMessage = dataMessageBuilder.build();
     List<SendMessageResult>  results     = GroupSendUtil.sendResendableDataMessage(context,
-                                                                                   conversationRecipient.getGroupId().map(GroupId::requireV2).orElse(null),
+                                                                                   conversationRecipient.getGroupId() != null ? conversationRecipient.getGroupId().requireV2() : null,
                                                                                    distributionListId,
                                                                                    destinations,
                                                                                    false,
@@ -242,7 +253,7 @@ public class RemoteDeleteSendJob extends BaseJob {
                                                                                    null,
                                                                                    null);
 
-    if (conversationRecipient.isSelf()) {
+    if (conversationRecipient.getId().equals(Recipient.self().getId())) {
       AppDependencies.getSignalServiceMessageSender().sendSyncMessage(dataMessage);
     }
 

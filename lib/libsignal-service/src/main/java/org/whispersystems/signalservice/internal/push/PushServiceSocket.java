@@ -13,7 +13,7 @@ import com.squareup.wire.Message;
 import org.signal.core.util.Base64;
 import org.signal.core.util.Hex;
 import org.signal.libsignal.protocol.InvalidKeyException;
-import org.signal.libsignal.protocol.logging.Log;
+import org.signal.core.util.logging.Log;
 import org.signal.storageservice.storage.protos.groups.AvatarUploadAttributes;
 import org.signal.storageservice.storage.protos.groups.ExternalGroupCredential;
 import org.signal.storageservice.storage.protos.groups.Group;
@@ -23,7 +23,7 @@ import org.signal.storageservice.storage.protos.groups.GroupChanges;
 import org.signal.storageservice.storage.protos.groups.GroupJoinInfo;
 import org.signal.storageservice.storage.protos.groups.GroupResponse;
 import org.signal.storageservice.storage.protos.groups.Member;
-import org.whispersystems.signalservice.api.NetworkResult;
+import org.signal.network.NetworkResult;
 import org.whispersystems.signalservice.api.account.AccountAttributes;
 import org.whispersystems.signalservice.api.account.PreKeyCollection;
 import org.whispersystems.signalservice.api.crypto.SealedSenderAccess;
@@ -47,17 +47,17 @@ import org.whispersystems.signalservice.api.push.exceptions.HttpConflictExceptio
 import org.whispersystems.signalservice.api.push.exceptions.IncorrectRegistrationRecoveryPasswordException;
 import org.whispersystems.signalservice.api.push.exceptions.InvalidRegistrationSessionIdException;
 import org.whispersystems.signalservice.api.push.exceptions.InvalidTransportModeException;
-import org.whispersystems.signalservice.api.push.exceptions.MalformedRequestException;
-import org.whispersystems.signalservice.api.push.exceptions.MalformedResponseException;
+import org.signal.network.exceptions.MalformedRequestException;
+import org.signal.network.exceptions.MalformedResponseException;
 import org.whispersystems.signalservice.api.push.exceptions.MissingConfigurationException;
 import org.whispersystems.signalservice.api.push.exceptions.MustRequestNewCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NoContentException;
 import org.whispersystems.signalservice.api.push.exceptions.NoSuchSessionException;
-import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResumableUploadResponseCodeException;
 import org.whispersystems.signalservice.api.push.exceptions.NotFoundException;
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException;
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
+import org.signal.network.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.RangeException;
 import org.whispersystems.signalservice.api.push.exceptions.RateLimitException;
 import org.whispersystems.signalservice.api.push.exceptions.RequestVerificationCodeRateLimitException;
@@ -67,7 +67,6 @@ import org.whispersystems.signalservice.api.push.exceptions.SubmitVerificationCo
 import org.whispersystems.signalservice.api.push.exceptions.TokenNotAcceptedException;
 import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
 import org.whispersystems.signalservice.api.registration.RestoreMethodBody;
-import org.whispersystems.signalservice.api.remoteconfig.RemoteConfigResponse;
 import org.whispersystems.signalservice.api.svr.Svr3Credentials;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
@@ -94,7 +93,7 @@ import org.whispersystems.signalservice.internal.storage.protos.StorageItems;
 import org.whispersystems.signalservice.internal.storage.protos.StorageManifest;
 import org.whispersystems.signalservice.internal.storage.protos.WriteOperation;
 import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
-import org.whispersystems.signalservice.internal.util.JsonUtil;
+import org.signal.network.util.JsonUtil;
 import org.whispersystems.signalservice.internal.util.Util;
 
 import java.io.ByteArrayInputStream;
@@ -444,10 +443,6 @@ public class PushServiceSocket {
   }
 
   /**
-   * V2 API: Submits registration request and returns the raw Response for manual handling.
-   * Caller is responsible for closing the response.
-   */
-  /**
    * V2 API: Checks SVR2 auth credentials and returns the raw Response for manual handling.
    * Caller is responsible for closing the response.
    */
@@ -529,6 +524,18 @@ public class PushServiceSocket {
   public RegisterAsSecondaryDeviceResponse registerAsSecondaryDevice(RegisterAsSecondaryDeviceRequest request) throws IOException {
     String responseText = makeServiceRequest("/v1/devices/link", "PUT", JsonUtil.toJson(request));
     return JsonUtil.fromJson(responseText, RegisterAsSecondaryDeviceResponse.class);
+  }
+
+  /**
+   * V2 API: Registers as a secondary device, authenticating via basic auth built from the given {@code e164} and {@code password}
+   * rather than the socket's credentials provider
+   * Caller is responsible for closing the response.
+   */
+  public Response registerAsSecondaryDevice(String e164, String password, RegisterAsSecondaryDeviceRequest request) throws IOException {
+    String              authHeader = "Basic " + Base64.encodeWithPadding((e164 + ":" + password).getBytes("UTF-8"));
+    Map<String, String> headers    = Collections.singletonMap("Authorization", authHeader);
+
+    return makeServiceRequestWithoutValidation("/v1/devices/link", "PUT", jsonRequestBody(JsonUtil.toJson(request)), headers, SealedSenderAccess.NONE, false);
   }
 
   public SendMessageResponse sendMessage(OutgoingPushMessageList bundle, @Nullable SealedSenderAccess sealedSenderAccess, boolean story)
@@ -670,14 +677,6 @@ public class PushServiceSocket {
   public void pingStorageService() throws IOException {
     try (Response response = makeStorageRequest(null, "/ping", "GET", null, NO_HANDLER)) {
       return;
-    }
-  }
-
-  public RemoteConfigResponse getRemoteConfig() throws IOException {
-    try (Response response = makeServiceRequest(REMOTE_CONFIG, "GET", jsonRequestBody(null), NO_HEADERS, NO_HANDLER, SealedSenderAccess.NONE, false)) {
-      RemoteConfigResponse remoteConfigResponse = JsonUtil.fromJson(readBodyString(response), RemoteConfigResponse.class);
-      remoteConfigResponse.setServerEpochTime(response.headers().get("X-Signal-Timestamp") != null ? Long.parseLong(response.headers().get("X-Signal-Timestamp")) : System.currentTimeMillis());
-      return remoteConfigResponse;
     }
   }
 

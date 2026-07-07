@@ -92,12 +92,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     // MOLLY: If the current activity matches the intent target, skip the routing
     if (intent != null && (intent.getComponent() == null || !getLocalClassName().equals(intent.getComponent().getClassName()))) {
       Log.d(TAG, "routeApplicationState(), intent: " + intent.getComponent());
-      if (applicationState == STATE_WELCOME_PUSH_SCREEN && Environment.USE_NEW_REGISTRATION) {
-        startActivity(intent);
-      } else {
         startActivity(intent);
         finish();
-      }
     }
   }
 
@@ -178,11 +174,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getPushRegistrationIntent() {
-    if (Environment.USE_NEW_REGISTRATION) {
-      return org.signal.registration.RegistrationActivity.createIntent(this);
-    } else {
-      return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
-    }
+    return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
   }
 
   private Intent getEnterSignalPinIntent() {

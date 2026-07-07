@@ -6,17 +6,18 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.signal.core.util.ByteUnit;
 import org.signal.core.util.StreamUtil;
+import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.AttachmentSecretProvider;
+import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
+import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.crypto.AttachmentSecret;
-import org.thoughtcrime.securesms.crypto.AttachmentSecretProvider;
-import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
-import org.thoughtcrime.securesms.crypto.ModernEncryptingPartOutputStream;
+import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.database.model.ProfileAvatarFileDetails;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.ByteUnit;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.whispersystems.signalservice.api.util.StreamDetails;
 
@@ -118,7 +119,7 @@ public class AvatarHelper {
    * IOException. It is recommended to call {@link #hasAvatar(Context, RecipientId)} first.
    */
   public static @NonNull InputStream getAvatar(@NonNull Context context, @NonNull RecipientId recipientId) throws IOException {
-    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
+    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore.INSTANCE).getOrCreateAttachmentSecret();
     File             avatarFile       = getAvatarFile(context, recipientId);
 
     return ModernDecryptingPartInputStream.createFor(attachmentSecret, avatarFile, 0);
@@ -148,13 +149,7 @@ public class AvatarHelper {
       return;
     }
 
-    OutputStream outputStream = null;
-    try {
-      outputStream = getOutputStream(context, recipientId, false);
-      StreamUtil.copy(inputStream, outputStream);
-    } finally {
-      StreamUtil.close(outputStream);
-    }
+    setAvatarInternal(context, recipientId, inputStream, false);
   }
 
   public static void setSyncAvatar(@NonNull Context context, @NonNull RecipientId recipientId, @Nullable InputStream inputStream)
@@ -165,13 +160,7 @@ public class AvatarHelper {
       return;
     }
 
-    OutputStream outputStream = null;
-    try {
-      outputStream = getOutputStream(context, recipientId, true);
-      StreamUtil.copy(inputStream, outputStream);
-    } finally {
-      StreamUtil.close(outputStream);
-    }
+    setAvatarInternal(context, recipientId, inputStream, true);
   }
 
   /**
@@ -179,7 +168,7 @@ public class AvatarHelper {
    * recipient. Only intended to be used for backup. Otherwise, use {@link #setAvatar(Context, RecipientId, InputStream)}.
    */
   public static @NonNull OutputStream getOutputStream(@NonNull Context context, @NonNull RecipientId recipientId, boolean isSyncAvatar) throws IOException {
-    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context).getOrCreateAttachmentSecret();
+    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore.INSTANCE).getOrCreateAttachmentSecret();
     File             targetFile       = getAvatarFile(context, recipientId, isSyncAvatar);
     return ModernEncryptingPartOutputStream.createFor(attachmentSecret, targetFile, true).getSecond();
   }
@@ -219,6 +208,38 @@ public class AvatarHelper {
 
     return profileAvatar;
   }
+
+  /**
+   * Writes the avatar to a temporary file first, then renames to the final location only on success.
+   * This prevents partially-written or unauthenticated data from being persisted if the input stream
+   * throws during reading (e.g. due to a GCM authentication tag failure).
+   */
+  private static void setAvatarInternal(@NonNull Context context, @NonNull RecipientId recipientId, @NonNull InputStream inputStream, boolean isSyncAvatar)
+      throws IOException
+  {
+    AttachmentSecret attachmentSecret = AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore.INSTANCE).getOrCreateAttachmentSecret();
+    File             targetFile       = getAvatarFile(context, recipientId, isSyncAvatar);
+    File             tempFile         = new File(targetFile.getParent(), targetFile.getName() + ".tmp");
+
+    OutputStream outputStream = null;
+    try {
+      outputStream = ModernEncryptingPartOutputStream.createFor(attachmentSecret, tempFile, true).getSecond();
+      StreamUtil.copy(inputStream, outputStream);
+    } catch (IOException e) {
+      StreamUtil.close(outputStream);
+      outputStream = null;
+      tempFile.delete();
+      throw e;
+    } finally {
+      StreamUtil.close(outputStream);
+    }
+
+    if (!tempFile.renameTo(targetFile)) {
+      tempFile.delete();
+      throw new IOException("Failed to rename temp avatar file to final location");
+    }
+  }
+
 
   private static @NonNull File getAvatarFile(@NonNull Context context, @NonNull RecipientId recipientId, boolean isSyncAvatar) {
     return new File(getAvatarDirectory(context), recipientId.serialize() + (isSyncAvatar ? "-sync" : ""));

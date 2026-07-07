@@ -36,6 +36,7 @@ import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.signal.core.models.media.TransformProperties;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.core.util.logging.Log;
@@ -47,6 +48,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.components.transfercontrols.TransferControlView;
+import org.thoughtcrime.securesms.components.transfercontrols.TransferControls;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.glide.targets.GlideBitmapListeningTarget;
 import org.thoughtcrime.securesms.glide.targets.GlideDrawableListeningTarget;
@@ -383,7 +385,7 @@ public class ThumbnailView extends FrameLayout {
       }
       transferControlViewStub.get().setSlides(List.of(slide));
     }
-    int transferState = TransferControlView.getTransferState(List.of(slide));
+    int     transferState    = TransferControls.getTransferState(List.of(slide));
     boolean isOffloadedImage = (transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED && MediaUtil.isImageType(slide.getContentType())) && AttachmentUtil.isRestoreOnOpenPermitted(getContext(), slide.asAttachment());
 
     if (!showControls ||
@@ -608,7 +610,14 @@ public class ThumbnailView extends FrameLayout {
   }
 
   private RequestBuilder<Drawable> buildThumbnailRequestBuilder(@NonNull RequestManager requestManager, @NonNull Slide slide) {
-    RequestBuilder<Drawable> requestBuilder = applySizing(requestManager.load(new DecryptableUri(Objects.requireNonNull(slide.getDisplayUri())))
+    long                videoTrimStartTimeUs = 0;
+    TransformProperties transformProperties  = slide.asAttachment().transformProperties;
+
+    if (transformProperties != null && !transformProperties.shouldSkipTransform()) {
+      videoTrimStartTimeUs = transformProperties.videoTrimStartTimeUs;
+    }
+
+    RequestBuilder<Drawable> requestBuilder = applySizing(requestManager.load(new DecryptableUri(Objects.requireNonNull(slide.getDisplayUri()), videoTrimStartTimeUs))
                                                               .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                                               .downsample(SignalDownsampleStrategy.CENTER_OUTSIDE_NO_UPSCALE)
                                                               .transition(withCrossFade()));

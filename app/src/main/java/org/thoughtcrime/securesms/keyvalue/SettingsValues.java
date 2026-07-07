@@ -13,7 +13,7 @@ import androidx.lifecycle.LiveData;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.mms.SentMediaQuality;
+import org.signal.mediasend.SentMediaQuality;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -71,6 +71,7 @@ public final class SettingsValues extends SignalStoreValues {
   private static final String USE_COMPACT_NAVIGATION_BAR              = "settings.useCompactNavigationBar";
   private static final String THREAD_TRIM_SYNC_TO_LINKED_DEVICES      = "settings.storage.syncThreadTrimDeletes";
   private static final String AUTOMATIC_VERIFICATION_ENABLED          = "settings.automatic.verification.enabled";
+  private static final String FORCE_WEBSOCKET_MODE                    = "settings.force.websocket.mode.2";
   private static final String MOLLY_NOTIFICATION_METHOD               = "molly.notificationMethod";
 
   public static final int BACKUP_DEFAULT_HOUR   = 2;
@@ -543,7 +544,19 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public void setAutomaticVerificationEnabled(boolean enabled) {
+    Log.i(TAG, "Setting key transparency enabled to " + enabled);
     putBoolean(AUTOMATIC_VERIFICATION_ENABLED, enabled);
+  }
+
+  public @NonNull ForceWebsocketMode getForceWebsocketMode() {
+    if (getStore().containsKey(FORCE_WEBSOCKET_MODE)) {
+      return ForceWebsocketMode.deserialize(getInteger(FORCE_WEBSOCKET_MODE, ForceWebsocketMode.DISABLED.serialize()));
+    }
+    return getBoolean(FORCE_WEBSOCKET_MODE, false) ? ForceWebsocketMode.ENABLED_BY_USER : ForceWebsocketMode.DISABLED;
+  }
+
+  public void setForceWebsocketMode(@NonNull ForceWebsocketMode mode) {
+    putInteger(FORCE_WEBSOCKET_MODE, mode.serialize());
   }
 
   private @Nullable Uri getUri(@NonNull String key) {
@@ -580,6 +593,37 @@ public final class SettingsValues extends SignalStoreValues {
 
     public int serialize() {
       return value;
+    }
+  }
+
+  public enum ForceWebsocketMode {
+    DISABLED(0), ENABLED_BY_USER(1), ENABLED_AUTOMATICALLY(2);
+
+    private final int value;
+
+    ForceWebsocketMode(int value) {
+      this.value = value;
+    }
+
+    public boolean isEnabled() {
+      return this != DISABLED;
+    }
+
+    public int serialize() {
+      return value;
+    }
+
+    public static ForceWebsocketMode deserialize(int value) {
+      switch (value) {
+        case 0:
+          return DISABLED;
+        case 1:
+          return ENABLED_BY_USER;
+        case 2:
+          return ENABLED_AUTOMATICALLY;
+        default:
+          throw new IllegalArgumentException("Bad value: " + value);
+      }
     }
   }
 

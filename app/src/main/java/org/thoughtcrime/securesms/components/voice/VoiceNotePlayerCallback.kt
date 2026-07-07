@@ -94,7 +94,12 @@ class VoiceNotePlayerCallback(val context: Context, val player: VoiceNotePlayer)
   private var latestUri = Uri.EMPTY
 
   override fun onConnect(session: MediaSession, controller: MediaSession.ControllerInfo): MediaSession.ConnectionResult {
-    return MediaSession.ConnectionResult.accept(CUSTOM_COMMANDS, SUPPORTED_ACTIONS)
+    return if (controller.isTrusted) {
+      MediaSession.ConnectionResult.accept(CUSTOM_COMMANDS, SUPPORTED_ACTIONS)
+    } else {
+      Log.w(TAG, "Rejecting connection from non-trusted caller: ${controller.packageName}")
+      MediaSession.ConnectionResult.reject()
+    }
   }
 
   override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {

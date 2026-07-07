@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.util.logging.Log
 import org.signal.donations.PaymentSourceType
+import org.signal.network.NetworkResult
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.badges.Badges
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository.requireSubscriberType
@@ -29,7 +30,6 @@ import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.subscription.LevelUpdate
 import org.thoughtcrime.securesms.subscription.LevelUpdateOperation
 import org.thoughtcrime.securesms.subscription.Subscription
-import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.api.subscriptions.IdempotencyKey
@@ -39,6 +39,7 @@ import org.whispersystems.signalservice.internal.ServiceResponse
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
 import java.math.BigDecimal
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -109,6 +110,7 @@ object RecurringInAppPaymentRepository {
     return Single
       .fromCallable { donationsService.getDonationsConfiguration(Locale.getDefault()) }
       .subscribeOn(Schedulers.io())
+      .timeout(InAppPaymentsRepository.DONATIONS_CONFIGURATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)
       .flatMap { it.flattenResult() }
       .map { config ->
         config.getSubscriptionLevels().map { (level, levelConfig) ->
@@ -172,7 +174,7 @@ object RecurringInAppPaymentRepository {
       InAppPaymentsRepository.getSubscriber(subscriberType)?.subscriberId ?: SubscriberId.generate()
     }
 
-    donationsService.putSubscription(subscriberId).resultOrThrow
+    donationsService.createSubscriber(subscriberId).resultOrThrow
 
     Log.d(TAG, "Successfully set SubscriberId exists on Signal service.", true)
 
@@ -297,6 +299,7 @@ object RecurringInAppPaymentRepository {
       if (response.status == 200 || response.status == 204) {
         Log.d(TAG, "Successfully set user subscription to level $subscriptionLevel with response code ${response.status}", true)
         SignalStore.inAppPayments.updateLocalStateForLocalSubscribe(subscriberType)
+        MultiDeviceSubscriptionSyncRequestJob.enqueue()
         syncAccountRecord().subscribe()
       } else {
         if (response.applicationError.isPresent) {

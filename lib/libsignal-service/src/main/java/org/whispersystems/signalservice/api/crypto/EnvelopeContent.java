@@ -138,7 +138,7 @@ public interface EnvelopeContent {
                                                    SignalSealedSessionCipher sealedSessionCipher,
                                                    SignalProtocolAddress destination,
                                                    SenderCertificate senderCertificate)
-        throws UntrustedIdentityException, InvalidKeyException
+        throws UntrustedIdentityException, InvalidKeyException, NoSessionException
     {
       UnidentifiedSenderMessageContent messageContent = new UnidentifiedSenderMessageContent(plaintextContent,
                                                                                              senderCertificate,
@@ -153,7 +153,7 @@ public interface EnvelopeContent {
     }
 
     @Override
-    public OutgoingPushMessage processUnsealedSender(SignalSessionCipher sessionCipher, SignalProtocolAddress destination) {
+    public OutgoingPushMessage processUnsealedSender(SignalSessionCipher sessionCipher, SignalProtocolAddress destination) throws NoSessionException {
       String body                 = Base64.encodeWithPadding(plaintextContent.serialize());
       int    remoteRegistrationId = sessionCipher.getRemoteRegistrationId();
 

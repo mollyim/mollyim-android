@@ -19,6 +19,8 @@
   <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
   <!-- Removed by excludeNonTranslatables <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string> -->
   <!-- Removed by excludeNonTranslatables <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="inactive_primary_support" translatable="false">https://support.signal.org/hc/articles/9021007554074</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="recovery_key_phishing_support_url" translatable="false">https://support.signal.org/hc/articles/9932566320410</string> -->
 
     <!-- First placeholder is productId, second placeholder is app package -->
     <string name="backup_subscription_management_url">https://play.google.com/store/account/subscriptions?sku=%1$s&amp;package=%2$s</string>
@@ -268,77 +270,7 @@
     <!-- Unknown people row info dialog action to close the dialog -->
     <string name="CallInfoView__got_it">Sain aru</string>
 
-    <!-- CameraFragment -->
-    <!-- Toasted when user device does not support video recording -->
-    <string name="CameraFragment__video_recording_is_not_supported_on_your_device">Sinu seade ei toeta video salvestamist</string>
 
-    <!-- CameraXFragment -->
-    <string name="CameraXFragment_tap_for_photo_hold_for_video">Koputa pildi, hoia all video tegemiseks</string>
-    <!-- Accessibility content description to describe the capture button when taking an image/video -->
-    <string name="CameraXFragment_capture_description">Pildista</string>
-    <string name="CameraXFragment_change_camera_description">Vaheta kaamerat</string>
-    <string name="CameraXFragment_open_gallery_description">Ava galerii</string>
-    <!-- Button text asking for access to camera permissions -->
-    <string name="CameraXFragment_allow_access">Luba ligipääs</string>
-    <!-- Dialog title asking users for camera and microphone permission -->
-    <string name="CameraXFragment_allow_access_camera_microphone">Anna ligipääs oma kaamerale ja mikrofonile</string>
-    <!-- Dialog title asking users for camera permission -->
-    <string name="CameraXFragment_allow_access_camera">Luba ligipääs oma kaamerale</string>
-    <!-- Dialog title asking users for microphone permission -->
-    <string name="CameraXFragment_allow_access_microphone">Anna ligipääs oma mikrofonile</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos -->
-    <string name="CameraXFragment_to_capture_photos_allow_camera">Anna Mollyile ligipääs kaamerale fotode salvestamiseks.</string>
-    <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Luba Mollyile ligipääs kaamerale fotode ja videote salvestamiseks.</string>
-    <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-    <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Anna Mollyile ligipääs kaamerale ja mikrofonile fotode ja videote salvestamiseks.</string>
-    <!-- Text explaining why Signal needs microphone access to take videos -->
-    <string name="CameraXFragment_to_capture_videos_with_sound">Heliga videote salvestamiseks anna Mollyile ligipääs mikrofonile.</string>
-    <!-- Text explaining why Signal needs camera access to scan QR codes -->
-    <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR-koodi skannimiseks vajab Molly ligipääsu kaamerale.</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-    <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Mollyil on fotode tegemiseks vaja ligipääsu kaamerale</string>
-    <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-    <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly vajab QR-koodide skannimiseks ligipääsu kaamerale</string>
-    <!-- Toast dialog explaining why Signal needs microphone permissions -->
-    <string name="CameraXFragment_signal_needs_microphone_access_video">Molly vajab video salvestamiseks ligipääsu mikrofonile</string>
-    <!-- Dialog description that explains the steps needed to give camera permission -->
-    <string name="CameraXFragment_to_capture_photos">Fotode tegemiseks Mollyis:</string>
-    <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-    <string name="CameraXFragment_to_capture_photos_videos">Fotode ja videote tegemiseks Mollyis:</string>
-    <!-- Dialog description that explains the steps needed to give microphone permission -->
-    <string name="CameraXFragment_to_capture_videos">Heliga videote tegemiseks:</string>
-    <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
-    <string name="CameraXFragment_to_scan_qr_codes">QR-koodide skannimiseks:</string>
-    <!-- Error message shown when we try to take a photo, but fail -->
-    <string name="CameraXFragment_photo_capture_failed">Fotot ei saanud jäädvustada. Palun proovi uuesti.</string>
-    <!-- Error message shown when we try to take a photo, but fail when trying to process it (convert it into something the user can see). -->
-    <string name="CameraXFragment_photo_processing_failed">Fotot ei saanud töödelda. Palun proovi uuesti.</string>
-    <!-- Accessibility label for the switch camera button -->
-    <string name="CameraXFragment_switch_camera">Vaheta kaamerat</string>
-    <!-- Accessibility label for flash button when flash is off -->
-    <string name="CameraXFragment_flash_off">Välk väljas</string>
-    <!-- Accessibility label for flash button when flash is on -->
-    <string name="CameraXFragment_flash_on">Välk sees</string>
-    <!-- Accessibility label for flash button when flash is set to auto -->
-    <string name="CameraXFragment_flash_auto">Automaatne välk</string>
-    <!-- Accessibility label for the send button in media selection -->
-    <string name="CameraXFragment_send">Saada</string>
-
-    <!-- CameraContacts -->
-    <string name="CameraContacts_recent_contacts">Hiljutised kontaktid</string>
-    <string name="CameraContacts_signal_contacts">Signali kontaktid</string>
-    <string name="CameraContacts_signal_groups">Signali grupid</string>
-    <!-- A warning shown in a toast when  -->
-    <plurals name="CameraContacts_you_can_share_with_a_maximum_of_n_conversations">
-        <item quantity="one">Sa saad jagada maksimaalselt %1$d vestlusega.</item>
-        <item quantity="other">Sa saad jagada maksimaalselt %1$d vestlusega.</item>
-    </plurals>
-    <string name="CameraContacts_select_signal_recipients">Vali Signali saajad</string>
-    <string name="CameraContacts_no_signal_contacts">Signali kontaktid puuduvad</string>
-    <string name="CameraContacts_you_can_only_use_the_camera_button">Sa saad kasutada vaid kaameranuppu, et saata fotosid Signali kontaktidele. </string>
-    <string name="CameraContacts_cant_find_who_youre_looking_for">Ei leia, keda otsid?</string>
-    <string name="CameraContacts_invite_a_contact_to_join_signal">Kutsu kontakt Mollyiga liituma</string>
     <string name="CameraContacts__menu_search">Otsi</string>
 
     <!-- Censorship Circumvention Megaphone -->
@@ -539,7 +471,6 @@
     <string name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly vajab ligipääsu kaamerale, et salvestada fotosid ja videosid, kuid see on püsivalt keelatud. Palun ava rakenduse sätete menüü, vali \"Õigused\" ja luba \"Kaamera\".</string>
     <string name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly vajab fotode ja videote salvestamiseks ligipääsu kaamerale</string>
     <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Luba mikrofoni kasutus, et teha heliga videoid.</string>
-    <string name="ConversationActivity_signal_needs_the_recording_permissions_to_capture_video">Molly vajab videote salvestamiseks mikrofoni luba, kuid see on keelatud. Palun järka rakenduse seadetes, vali \"Load\" ning luba \"Mikrofon\" ja \"Kaamera\".</string>
     <string name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly vajab videote salvestamiseks mikrofoniluba.</string>
 
     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
@@ -711,16 +642,31 @@
     <string name="ConversationFragment_you_accepted_a_message_request_from_s">Sa võtsid vastu sõnumitaotluse kasutajalt %1$s. Kui tegid seda kogemata, saad valida ühe järgmistest tegevustest.</string>
     <!-- Text shown in conversation header when in a message request state and to carefully review the user -->
     <string name="ConversationFragment_review_carefully">Vaata hoolega üle</string>
-    <!-- Text shown in conversation header when in a message request state that profile names are not verified. Placeholder will be \'Profile names\' -->
-    <string name="ConversationFragment_profile_names_not_verified">%1$s ei ole kinnitatud</string>
-    <!-- Text shown in conversation header when in a message request state that group names are not verified. Placeholder will be \'Group names\' -->
-    <string name="ConversationFragment_group_names_not_verified">%1$s ei ole kinnitatud</string>
+    <!-- Text shown in conversation header when in a message request state that the name is not verified -->
+    <string name="ConversationFragment_name_not_verified">Nimi kinnitamata</string>
+    <!-- Label for official chat pill shown in the Note to Self conversation header -->
+    <string name="ConversationFragment_official_chat">Ametlik vestlus</string>
+    <!-- Description shown in the Signal release notes conversation header -->
+    <string name="ConversationFragment_release_notes_description">Signali ainus ametlik vestlus. Hoia end kursis uudiste ja väljalaskeinfoga.</string>
+    <!-- Label shown in place of the input in the Signal release notes conversation -->
+    <string name="ConversationFragment_the_only_official_chat_from_signal">Signali ainus ametlik vestlus</string>
+    <!-- Plural for group member count shown in conversation header. %1$d is the number of members -->
+    <plurals name="ConversationFragment_group_member_count">
+        <item quantity="one">%1$d liige</item>
+        <item quantity="other">%1$d liiget</item>
+    </plurals>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about profile names -->
     <string name="ConversationFragment_profile_names">Profiilinimed</string>
     <!-- Placeholder text shown in conversation header that when clicked will open a dialog about group names -->
     <string name="ConversationFragment_group_names">Grupinimed</string>
     <!-- Snackbar toast message shown when a profile cannot be downloaded and to try again. -->
     <string name="ConversationFragment_photo_failed">Foto allalaadimine nurjus. Proovi uuesti.</string>
+    <!-- Title of the dialog shown when re-requesting an expired attachment from your primary device fails -->
+    <string name="ConversationFragment_attachment_backfill_failed_title">Meediat ei saa alla laadida</string>
+    <!-- Body of the dialog shown when your phone didn\'t respond to a request to re-send an expired attachment -->
+    <string name="ConversationFragment_attachment_backfill_timeout">Kontrolli oma arvuti ja telefoni internetiühendust. Ava Molly oma telefonis ja proovi see uuesti alla laadida.</string>
+    <!-- Body of the dialog shown when your phone no longer has the attachment you tried to download -->
+    <string name="ConversationFragment_attachment_backfill_not_found">See meedia ei ole enam su telefonis saadaval ning seda ei saa alla laadida.</string>
     <!-- Dialog for how to long to keep a messaged pinned for -->
     <string name="ConversationFragment__keep_pinned">Hoia esiletõstetuna …</string>
     <!-- Dialog option to keep message pin for 24 hours -->
@@ -740,43 +686,61 @@
 
     <!-- Title of Safety Tips bottom sheet dialog -->
     <string name="SafetyTips_title">Ohutusnõuanded</string>
-    <!-- Dialog subtitle when showign tips for a 1:1 conversation -->
-    <string name="SafetyTips_subtitle_individual">Ole ettevaatlik, kui võtad vastu sõnumitaotlusi inimestelt, keda sa ei tunne. Ettevaatlikult tuleb suhtuda järgmisse:</string>
-    <!-- Dialog subtitle when showing tips for a group conversation -->
-    <string name="SafetyTips_subtitle_group">Vaata see taotlus hoolikalt üle. Mitte keegi su kontaktidest ega vestluskaaslastest ei ole selles grupis. Mõned asjad, mida jälgida:</string>
-    <!-- Button text to move to the previous tip-->
+    <!-- Button text to view more safety tips -->
+    <string name="SafetyTips_view_more">Vaata rohkem</string>
+    <!-- Content description for previous tip button -->
     <string name="SafetyTips_previous_tip">Eelmine nõuanne</string>
-    <!-- Button text to move to the next tip -->
+    <!-- Content description for next tip button -->
     <string name="SafetyTips_next_tip">Järgmine nõuanne</string>
-    <!-- Title of tip 0 -->
-    <string name="SafetyTips_tip0_title">Valenimed ja -kontod</string>
-    <!-- Message of tip 0 -->
-    <string name="SafetyTips_tip0_message">Molly ei võta sinuga kunagi ühendust registreerimiskoodi või PIN-koodi küsimiseks. Ole ettevaatlik taotluste suhtes, kus esinetakse kellegi teisena. Profiilinimed valib iga konto omanik ise ja need ei ole kinnitatud.</string>
-    <!-- Title of tip 1 -->
-    <string name="SafetyTips_tip1_title">Krüpto- või rahapettused</string>
-    <!-- Message of tip 1 -->
-    <string name="SafetyTips_tip1_message">Kui keegi, keda sa ei tunne, kirjutab sulle krüptoraha (nt Bitcoini) kohta või pakub võimalust raha teenimiseks, ole ettevaatlik – tõenäoliselt on tegemist rämpspostiga.</string>
-    <!-- Title of tip 2 -->
-    <string name="SafetyTips_tip2_title">Ebamäärased või juhuslikud sõnumid</string>
-    <!-- Message of tip 2 -->
-    <string name="SafetyTips_tip2_message">Petturid alustavad sageli vestlust lihtsalt sõnaga „Tere“, et sind õnge võtta. Kui sa vastad, võivad nad sind sügavamale sisse mässida.</string>
-    <!-- Title of tip 3 -->
-    <string name="SafetyTips_tip3_title">Linkidega sõnumid</string>
-    <!-- Message of tip 3 -->
-    <string name="SafetyTips_tip3_message">Ole ettevaatlik, kui sulle tundmatu isik saadab sõnumi, kus on mõni link veebilehele. Ära kunagi ava linke, mille on saatnud sinu jaoks mitteusaldusväärne isik.</string>
-    <!-- Title of tip 4 -->
-    <string name="SafetyTips_tip4_title">Võltsärid ja -asutused</string>
-    <!-- Message of tip 4 -->
-    <string name="SafetyTips_tip4_message">Ole ettevaatlik, kui näib, et sinuga üritab ühendust võtta ettevõte või valitsusasutus. Maksuameti, kullerifirma jm poolt tulnud sõnumid võivad olla rämpspost.</string>
+
+    <!-- Summary tip 0 title: Don\'t respond to chats from Signal -->
+    <string name="SafetyTips_summary_tip0_title">Ära vasta Signali saadetud sõnumitele</string>
+    <!-- Summary tip 0 message -->
+    <string name="SafetyTips_summary_tip0_message">Signal ei võta sinuga kunagi ühendust registreerimiskoodi, PIN-koodi või taastevõtme küsimiseks. Ära vasta kunagi sõnumitele, milles väidetakse, et need on Signalilt.</string>
+    <!-- Summary tip 1 title: Review names and photos -->
+    <string name="SafetyTips_summary_tip1_title">Vaata nimed ja fotod üle</string>
+    <!-- Summary tip 1 message -->
+    <string name="SafetyTips_summary_tip1_message">Pane tähele hoiatust „Nimi kinnitamata“. Kõik valivad Signalis oma profiilinime ja -foto.</string>
+    <!-- Summary tip 2 title: Look out for scams -->
+    <string name="SafetyTips_summary_tip2_title">Oska märgata pettuseid</string>
+    <!-- Summary tip 2 message -->
+    <string name="SafetyTips_summary_tip2_message">Väldi ähmaseid sõnumeid, kus üritatakse sinult vastuseid saada. Ole ettevaatlik finantsnõuannete ja kahtlaste veebilinkide osas.</string>
+
+    <!-- Detail tip 0 title -->
+    <string name="SafetyTips_detail_tip0_title">Ära vasta Signali saadetud sõnumitele</string>
+    <!-- Detail tip 0 message -->
+    <string name="SafetyTips_detail_tip0_message">Signal ei võta sinuga kunagi ühendust registreerimiskoodi, PIN-koodi või taastevõtme küsimiseks. Ära vasta sõnumitele, milles väidetakse, et need on Signalilt või Signali toelt. Pahatahtlikud isikud saadavad sinu konto ülevõtmiseks võltssõnumeid.</string>
+    <!-- Detail tip 1 title -->
+    <string name="SafetyTips_detail_tip1_title">Vaata nimed ja fotod üle</string>
+    <!-- Detail tip 1 message -->
+    <string name="SafetyTips_detail_tip1_message">Pane tähele hoiatust „Nimi kinnitamata“. Kõik valivad Signalis oma profiilinime ja -foto. Kui sa pole kindel, kellelt taotlus on, siis on turvalisem seda ignoreerida.</string>
+    <!-- Detail tip 2 title -->
+    <string name="SafetyTips_detail_tip2_title">Ebamäärased või juhuslikud sõnumid</string>
+    <!-- Detail tip 2 message -->
+    <string name="SafetyTips_detail_tip2_message">Petturid alustavad sageli vestlust lihtsalt sõnaga „Tere“, et sind õnge võtta. Kui sa vastad, võivad nad sind sügavamale sisse mässida.</string>
+    <!-- Detail tip 3 title -->
+    <string name="SafetyTips_detail_tip3_title">Linkidega sõnumid</string>
+    <!-- Detail tip 3 message -->
+    <string name="SafetyTips_detail_tip3_message">Ole ettevaatlik, kui sulle tundmatu isik saadab sõnumi, kus on mõni link veebilehele. Ära kunagi ava linke, mille on saatnud sinu jaoks mitteusaldusväärne isik.</string>
+    <!-- Detail tip 4 title -->
+    <string name="SafetyTips_detail_tip4_title">Krüpto- või rahapettused</string>
+    <!-- Detail tip 4 message -->
+    <string name="SafetyTips_detail_tip4_message">Kui keegi, keda sa ei tunne, kirjutab sulle krüptoraha (nt Bitcoini) kohta või pakub võimalust raha teenimiseks, ole ettevaatlik – tõenäoliselt on tegemist rämpspostiga.</string>
+    <!-- Detail tip 5 title -->
+    <string name="SafetyTips_detail_tip5_title">Võltsettevõtted</string>
+    <!-- Detail tip 5 message -->
+    <string name="SafetyTips_detail_tip5_message">Ole ettevaatlik, kui näib, et sinuga üritab ühendust võtta ettevõte või valitsusasutus. Maksuameti, kullerifirma jm poolt tulnud sõnumid võivad olla rämpspost.</string>
 
     <!-- Bottom sheet text explaining that profile names are chosen by the account holder. Placeholder will be \'Profile names\' -->
     <string name="ProfileNameBottomSheet__profile_names_on_signal">%1$s Signalis valib iga konto omanik ise.</string>
-    <!-- Bottom sheet text explaining that profile names are not verified. -->
-    <string name="ProfileNameBottomSheet__profile_names_arent_verified">Profiilinimed ei ole kinnitatud</string>
+    <!-- Bottom sheet text explaining that Signal can\'t verify names and photos -->
+    <string name="ProfileNameBottomSheet__signal_cant_verify">Molly ei saa nimesid ja fotosid kontrollida</string>
+    <!-- Bottom sheet text explaining that Signal will never contact you for registration code, PIN, or recovery key -->
+    <string name="ProfileNameBottomSheet__signal_will_never_contact">Signal ei võta sinuga kunagi ühendust registreerimiskoodi, PIN-koodi või taastevõtme küsimiseks.</string>
     <!-- Bottom sheet text explaining that accounts can impersonate other people and to be cautious -->
     <string name="ProfileNameBottomSheet__be_cautious_of_accounts">Ole ettevaatlik kontode suhtes, kus esinetakse kellegi teisena</string>
     <!-- Bottom sheet text explaining that personal information should not be shared with strangers -->
-    <string name="ProfileNameBottomSheet__dont_share_personal">Ärga jaga võõraste inimestega oma isikuandmeid</string>
+    <string name="ProfileNameBottomSheet__dont_share_personal">Ära jaga võõraste inimestega oma isikuandmeid</string>
     <!-- Bottom sheet text explaining that group names are chosen by the group members. Placeholder will be \'Group names\' -->
     <string name="ProfileNameBottomSheet__group_names_on_signal">%1$s valivad grupi liikmed ise.</string>
     <!-- Bottom sheet text explaining that groups can impersonate organizations and to be cautious -->
@@ -1003,7 +967,6 @@
     <string name="CustomDefaultPreference_none">Puudub</string>
 
     <!-- AvatarSelectionBottomSheetDialogFragment -->
-    <string name="AvatarSelectionBottomSheetDialogFragment__taking_a_photo_requires_the_camera_permission">Foto tegemine nõuab kaameraluba.</string>
     <string name="AvatarSelectionBottomSheetDialogFragment__viewing_your_gallery_requires_the_storage_permission">Galerii vaatamine nõuab mäluruumi luba.</string>
 
     <!-- DateUtils -->
@@ -1257,10 +1220,6 @@
     </plurals>
     <string name="PendingGroupJoinRequestsReminder_view">Näita</string>
 
-    <!-- GcmRefreshJob -->
-    <string name="GcmRefreshJob_Permanent_Signal_communication_failure">Püsiv Signali ühendusviga!</string>
-    <string name="GcmRefreshJob_Signal_was_unable_to_register_with_Google_Play_Services">Signal ei saanud registreerida teenusega Google Play Services. Signali sõnumid ja kõned on keelatud, palun proovi taas-registreerida menüüs Seaded &gt; Täpsem.</string>
-
 
     <!-- GiphyActivity -->
     <string name="GiphyActivity_error_while_retrieving_full_resolution_gif">Täisresolutsiooniga GIFi vastuvõtmisel esines viga</string>
@@ -1488,6 +1447,12 @@
     <string name="AddGroupDetailsFragment__remove">Eemalda</string>
     <string name="AddGroupDetailsFragment__sms_contact">SMS-kontakt</string>
     <string name="AddGroupDetailsFragment__remove_s_from_this_group">Kas eemaldada %1$s sellest grupist?</string>
+    <!-- Title of the dialog shown when tapping an existing group while creating a new group, confirming the user wants to leave and discard their in-progress group -->
+    <string name="AddGroupDetailsFragment__discard_group">Kas loobuda grupist?</string>
+    <!-- Body of the dialog shown when tapping an existing group while creating a new group. Placeholder is the name of the group being navigated to. -->
+    <string name="AddGroupDetailsFragment__if_you_continue_to_the_group_s_your_changes_wont_be_saved">Kui jätkad grupiga „%1$s“, ei salvestata su muudatusi.</string>
+    <!-- Label for the button that confirms discarding the in-progress group and navigating to an existing group -->
+    <string name="AddGroupDetailsFragment__discard">Loobu</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group -->
     <string name="AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support">Valisid kontakti, mis ei toeta Signali gruppe, seega luuakse MMS-grupp. Kohandatud MMS-gruppide nimed ja fotod on nähtavad ainult sinule.</string>
     <!-- Info message shown in the middle of the screen, displayed when adding group details to an MMS Group after SMS Phase 0 -->
@@ -1793,6 +1758,8 @@
     </plurals>
     <string name="MediaOverviewActivity_Media_delete_progress_title">Kustutan</string>
     <string name="MediaOverviewActivity_Media_delete_progress_message">Sõnumite kustutamine…</string>
+    <!-- Format string showing current vs. total items being deleted, e.g. "12 of 207" -->
+    <string name="MediaOverviewActivity_Media_delete_progress_count">%1$d / %2$d</string>
     <string name="MediaOverviewActivity_Sort_by">Sorteeri</string>
     <string name="MediaOverviewActivity_Newest">Uusima järgi</string>
     <string name="MediaOverviewActivity_Oldest">Vanima järgi</string>
@@ -1829,7 +1796,7 @@
     <string name="MediaOverviewActivity_sent_by_you_to_s">Saadetud sinu poolt kontaktile %1$s</string>
     <!-- Error message shown when the user is trying to open a media that is not sent yet. -->
     <string name="MediaOverviewActivity_this_media_is_not_sent_yet">Seda meediat ei ole veel saadetud.</string>
-    <string name="MediaOverviewActivity_jump_to_message">Jump to message</string>
+    <string name="MediaOverviewActivity_jump_to_message">Mine sõnumi juurde</string>
 
     <!-- Megaphones -->
     <string name="Megaphones_remind_me_later">Tuleta hiljem meelde</string>
@@ -2216,8 +2183,10 @@
     <string name="MessageRecord__payment_tombstone">Makse</string>
     <!-- Update message shown in chat after reporting it as spam -->
     <string name="MessageRecord_reported_as_spam">Rämpspostist teatatud</string>
-    <!-- Update message shown in chat after accept a message request -->
-    <string name="MessageRecord_you_accepted_the_message_request">Sa võtsid sõnumitaotluse vastu</string>
+    <!-- Update message shown in chat after accept a message request, placeholder is the other person\'s display name -->
+    <string name="MessageRecord_you_accepted_s_message_request">Sa võtsid kasutaja %1$s sõnumitaotluse vastu</string>
+    <!-- Update message shown in a group chat after accepting a group message request -->
+    <string name="MessageRecord_you_accepted_the_group_request">Sa võtsid grupitaotluse vastu</string>
     <!-- Update message shown in chat after you block a person -->
     <string name="MessageRecord_you_blocked_this_person">Sa blokeerisid selle isiku</string>
     <!-- Update message shown in chat after you unblock a person -->
@@ -2241,7 +2210,7 @@
     <string name="MessageRequestBottomView_unblock">Eemalda blokeering</string>
     <!-- Text explaining a message request from someone you\'ve removed before -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_you_removed_them_before">Kas tahad, et %1$s saaks sulle sõnumeid saata ning sinu nime ja fotot näha? Oled selle isiku varasemalt eemaldanud.</string>
-    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Kas lubad kasutajal %1$s sulle sõnumeid saata ja jagad temaga enda nime ja fotot? Ta ei tea, et oled seda sõnumit näinud enne kui oled sellega nõustunud.</string>
+    <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_they_wont_know_youve_seen_their_messages_until_you_accept">Kas tahad, et see isik saaks sulle sõnumeid saata ning näeks sinu nime ja fotot? Ta ei tea, et oled tema sõnumit näinud, kuni nõustud.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock a Signal user -->
     <string name="MessageRequestBottomView_do_you_want_to_let_s_message_you_wont_receive_any_messages_until_you_unblock_them">Kas lubad kasutajal %1$s sulle sõnumeid saata ja jagad temaga oma nime ja fotot? Sa ei saa sõnumeid enne kui oled blokeeringu eemaldanud.</string>
     <!-- Shown in message request flow. Describes what will happen if you unblock an SMS user -->
@@ -2303,11 +2272,15 @@
         <item quantity="other">%1$d teist</item>
     </plurals>
     <!-- Button label to report spam for a conversation when in a message request state -->
-    <string name="MessageRequestBottomView_report">Teata …</string>
+    <string name="MessageRequestBottomView_report">Teata isikust</string>
     <!-- Alert dialog title to accept a message request -->
     <string name="MessageRequestBottomView_accept_request">Kas võtta taotlus vastu?</string>
     <!-- Alert dialog body to review the message request carefully -->
     <string name="MessageRequestBottomView_review_requests_carefully">Vaata taotlused tähelepanelikult üle. Profiilinimed valib iga konto omanik ise ja need ei ole kinnitatud.</string>
+    <!-- Alert dialog body for accepting a message request. Contains bold substring placeholder -->
+    <string name="MessageRequestBottomView_accept_request_body">Võta kutseid vastu ainult inimestelt, keda usaldad. %1$s ühendust registreerimiskoodi, PIN-koodi või taastevõtme küsimiseks.</string>
+    <!-- Bold substring used in accept request body: "Signal will never" -->
+    <string name="MessageRequestBottomView_signal_will_never">Signal ei võta sinuga kunagi</string>
     <!-- Alert dialog title to accept a message request to join a group -->
     <string name="MessageRequestBottomView_join_group">Kas liituda grupiga?</string>
     <!-- Alert dialog body to review the message request for a group carefully -->
@@ -2663,6 +2636,10 @@
     <string name="CallOverflowPopupWindow__lower_hand">Langeta</string>
     <!-- A negative button for a dialog confirming the user wants to lower their hand (withdraw a raised hand) -->
     <string name="CallOverflowPopupWindow__cancel">Loobu</string>
+    <!-- A clickable button to share your screen in a call -->
+    <string name="CallOverflowPopupWindow__share_screen">Ekraani jagamine</string>
+    <!-- A clickable button to stop sharing your screen in a call -->
+    <string name="CallOverflowPopupWindow__stop_screen_share">Lõpeta jagamine</string>
     <!-- A button to take you to a list of participants with raised hands -->
     <string name="CallOverflowPopupWindow__view">Näita</string>
 
@@ -2787,6 +2764,8 @@
 
     <!-- CallToastPopupWindow -->
     <string name="CallToastPopupWindow__swipe_to_view_screen_share">Lohista, et näha ekraani jagamise võimalusi</string>
+    <!-- Hint shown to teach the user they can swipe between the grid view and the active speaker view -->
+    <string name="CallToastPopupWindow__swipe_to_view_speaker">Svaibi, et kõnelejat näha</string>
 
     <!-- ProxyBottomSheetFragment -->
     <string name="ProxyBottomSheetFragment_proxy_server">Puhverserver</string>
@@ -2834,8 +2813,8 @@
     <!--    During registration, if the user attempts (and fails) to register, we display this error message with a number of minutes timer they are allowed to try again.-->
     <string name="RegistrationActivity_rate_limited_to_try_again">Oled proovinud seda numbrit liiga palju kordi registreerida. Palun proovi uuesti %1$s pärast.</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Teenusega ei saadud ühendust. Palun kontrolli võrguühendust ja proovi uuesti.</string>
-    <!-- Dialog error message shown when attempting to register and the SMS provider fails to send an SMS -->
-    <string name="RegistrationActivity_sms_provider_error">Signal ei saanud SMS-i teenusepakkujaga seotud probleemide tõttu SMS-koodi saata. Proovi mõne tunni pärast uuesti.</string>
+    <!-- Dialog error message shown when we are unable to send an SMS to the user\'s number -->
+    <string name="RegistrationActivity_sms_provider_error">Me ei saa sinu numbrile SMSi saata. Palun proovi mõne tunni pärast uuesti.</string>
     <!-- A description text for an alert dialog when the entered phone number is not eligible for a verification SMS. -->
     <string name="RegistrationActivity_we_couldnt_send_you_a_verification_code">Me ei saanud sulle SMS-i kaudu kinnituskoodi saata. Proovi koodi saamiseks parem häälkõnet kasutada.</string>
     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
@@ -3068,6 +3047,10 @@
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
+    <!-- Title of dialog shown when debug log prefix generation is unusually slow -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string> -->
+    <!-- Body of dialog shown when debug log prefix generation is unusually slow. %1$d is duration in seconds. -->
+  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\&apos;s slowing things down.</string> -->
 
     <!-- SupportEmailUtil -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
@@ -3079,6 +3062,7 @@
     <string name="SupportEmailUtil_registration_lock">Registreerimislukk:</string>
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
   <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_registered" translatable="false">Registered:</string> -->
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Grupp uuendatud</string>
@@ -3360,6 +3344,8 @@
     <string name="NotificationChannel_calls">Kõned</string>
     <!-- Notification channel name for notifications involving failures of some sort (eg donations, message sends, etc.) -->
     <string name="NotificationChannel_failures">Ebaõnnestumised</string>
+    <!-- Notification channel name for internal-only app issue notifications. Only ever shown to internal users. -->
+    <string name="NotificationChannel_internal_issues">Siseprobleemid</string>
     <string name="NotificationChannel_backups">Varukoopiad</string>
     <string name="NotificationChannel_locked_status">Luku olek</string>
     <string name="NotificationChannel_app_updates">Rakenduse uuendused</string>
@@ -3425,11 +3411,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Meediat ei saa salvestada</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">See meedia on su seadmest seadmevälisesse varukoopiasse teisaldatud, sest „Optimeeri seadmesisest salvestusruumi“ on sisse lülitatud. Saad üksusi ühekaupa alla laadida või lülitada „Optimeeri seadmesisest salvestusruumi“ välja, et kogu meedia oma seadmesse laadida.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Kõiki üksusi ei saa salvestada</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Osa su valitud meediast on su seadmest seadmevälisesse varukoopiasse teisaldatud, sest „Optimeeri seadmesisest salvestusruumi“ on sisse lülitatud. Saad üksusi ühekaupa salvestada või lülitada „Optimeeri seadmesisest salvestusruumi“ välja, et kogu meedia oma seadmesse laadida.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Vaaata salvestusruumi sätteid</string>
 
@@ -3488,6 +3474,10 @@
     <string name="TransferControlView__processing">Töötlemine…</string>
     <!-- Status update label used while the device is transmitting data over the network. Will take the form of "1.0 MB/2.0 MB" -->
     <string name="TransferControlView__download_progress_s_s">%1$s/%2$s</string>
+    <!-- Accessibility description for the button that starts downloading an attachment -->
+    <string name="TransferControlView__download">Laadi alla</string>
+    <!-- Accessibility description for the button that starts uploading an attachment -->
+    <string name="TransferControlView__upload">Laadi üles</string>
 
     <!-- UnauthorizedReminder -->
     <!-- Message shown in a reminder banner when the user\'s device is no longer registered -->
@@ -3693,7 +3683,7 @@
     <!-- Update item alerting the user they hid this person and that they can message them to unhide them -->
     <string name="ConversationUpdateItem_hidden_contact_message_to_add_back">Oled selle isiku eemaldanud. Kui talle sõnumi saadad, lisatakse ta uuesti sinu kontaktide hulka.</string>
     <!-- Update item button text shown for the accepted message request update message -->
-    <string name="ConversationUpdateItem_options">Valikud</string>
+    <string name="ConversationUpdateItem_block_report">Blokeeri või teata …</string>
     <!-- Update item button text shown for a profile name change. -->
     <string name="ConversationUpdateItem_update">Uuenda</string>
     <!-- Update item button text to show how many group updates there are. -->
@@ -3968,11 +3958,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Selle vestluse krüpteering kontrolliti automaatselt</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">Kontaktide puhul, kellega lõid ühenduse telefoninumbri kaudu, kinnitab Molly automaatselt, kas ühendus on turvaline, kasutades protsessi nimega võtme läbipaistvus. Täiendava turvalisuse jaoks võrdle otspunktkrüpteeringu kontrollimiseks eelmisel kuval olevaid numbreid seadmes olevatega või skanni teise inimese seadmes olevat koodi.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Isikute puhul, kellega lõid ühenduse telefoninumbri kaudu, kinnitab Molly automaatselt, kas ühendus on turvaline, kasutades protsessi nimega võtme läbipaistvus. Täiendava turvalisuse jaoks võrdle otspunktkrüpteeringu kontrollimiseks eelmisel kuval olevaid numbreid seadmes olevatega või skanni teise inimese seadmes olevat koodi.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
-    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Selle vestluse puhul pole automaatne kontrollimine enam saadaval</string>
+    <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">Automaatkinnitus ei ole selle vestluse jaoks saadaval</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ei saa selle vestluse krüpteeringut enam automaatselt kontrollida. See on tõenäoliselt tingitud asjaolust, et %1$s muutis oma telefoninumbrit. Otspunktkrüpteeringu kontrollimiseks võrdle eelmisel kuval olevaid numbreid seadmes olevatega või skanni tema seadmes olevat koodi.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Molly ei saa krüpteeringut selle vestluse jaoks automaatselt kontrollida. See võib olla sellepärast, et %1$s muutis oma telefoninumbrit, või olla seotud tema telefoninumbri privaatsussätetega. Otspunktkrüpteeringu kontrollimiseks võrdle eelmisel kuval olevaid numbreid seadmes olevatega või skanni tema seadmes olevat koodi.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">Selle vestluse puhul pole automaatne kontrollimine saadaval</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -4064,6 +4054,11 @@
   <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
     <string name="HelpFragment__could_not_upload_logs">Logide üleslaadimine ei õnnestunud</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Palun ole võimalikult kirjeldav, et aidata meil probleemist aru saada.</string>
+    <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
+    <plurals name="HelpFragment__must_be_at_least_n_characters">
+        <item quantity="one">Peab olema vähemalt %1$d tähemärk</item>
+        <item quantity="other">Peab olema vähemalt %1$d tähemärki</item>
+    </plurals>
     <string-array name="HelpFragment__categories_6">
         <item>Palun tee valik</item>
         <item>Miski ei tööta</item>
@@ -5681,6 +5676,33 @@
     <!-- Confirmation button to dismiss number changed dialog -->
     <string name="ChangeNumber__okay">Sobib</string>
 
+    <!-- ChangeNumberPostRegistrationWaitSheet: title of the sheet shown when the user tries to change number too soon after registering -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__title">Numbrit ei saa muuta</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: explanation body shown above the wait-time line -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__body">Kuna registreerisid selle konto hiljuti, ei saa sa praegu telefoninumbrit muuta. Lühike ooteaeg aitab su kontot kaitsta.</string>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is one hour or more, %1$d is the number of hours, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_hours">
+        <item quantity="one">Proovi uuesti %1$d tunni pärast.</item>
+        <item quantity="other">Proovi uuesti %1$d tunni pärast.</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: remaining-wait line when wait is under one hour, %1$d is the number of minutes, rounded up -->
+    <plurals name="ChangeNumberPostRegistrationWaitSheet__try_again_in_minutes">
+        <item quantity="one">Proovi uuesti %1$d minuti pärast.</item>
+        <item quantity="other">Proovi uuesti %1$d minuti pärast.</item>
+    </plurals>
+    <!-- ChangeNumberPostRegistrationWaitSheet: dismiss button -->
+    <string name="ChangeNumberPostRegistrationWaitSheet__ok">OK</string>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is one hour or more, %1$d is hours rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_hours">
+        <item quantity="one">Oled liiga mitu korda proovinud. Palun proovi uuesti %1$d tunni pärast.</item>
+        <item quantity="other">Oled liiga mitu korda proovinud. Palun proovi uuesti %1$d tunni pärast.</item>
+    </plurals>
+    <!-- ChangeNumberEnterCodeFragment: rate-limit dialog message when retry-after is under one hour, %1$d is minutes rounded up -->
+    <plurals name="ChangeNumberEnterCodeFragment__too_many_attempts_try_again_in_minutes">
+        <item quantity="one">Oled liiga mitu korda proovinud. Palun proovi uuesti %1$d minuti pärast.</item>
+        <item quantity="other">Oled liiga mitu korda proovinud. Palun proovi uuesti %1$d minuti pärast.</item>
+    </plurals>
+
     <!-- ChangeNumberEnterPhoneNumberFragment -->
     <string name="ChangeNumberEnterPhoneNumberFragment__change_number">Numbri muutmine</string>
     <string name="ChangeNumberEnterPhoneNumberFragment__your_old_number">Sinu vana number</string>
@@ -5969,6 +5991,8 @@
     <string name="HelpSettingsFragment__support_center">Kasutajatugi</string>
     <string name="HelpSettingsFragment__contact_us">Võta meiega ühendust</string>
     <string name="HelpSettingsFragment__version">Versioon</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">Lõikelauale kopeeritud</string>
     <string name="HelpSettingsFragment__debug_log">Silumisinfo</string>
     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
     <string name="HelpSettingsFragment__licenses">Litsentsid</string>
@@ -5983,11 +6007,15 @@
     <!-- Category title for the quality of the media to be sent -->
     <string name="DataAndStorageSettingsFragment__sent_media_quality">Saadetud meedia kvaliteet</string>
     <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Kõrge kvaliteediga meedia saatmine kasutab rohkem andmesidet.</string>
-    <!-- Setting option that can be selected to default media to be sent as high quality by default -->
-    <string name="DataAndStorageSettingsFragment__high">Kõrge</string>
-    <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
-    <string name="DataAndStorageSettingsFragment__standard">Standardne</string>
+    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Häälsõnumid ja kleebised (alla %1$s) laetakse alati automaatselt alla.</string>
     <string name="DataAndStorageSettingsFragment__calls">Kõned</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Hoia rakendus taustal avatuna</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Rakenduse taustal avatuna hoidmine tühjendab tõenäoliselt rohkem akut. See ei ole enamiku seadmete puhul vajalik. Lülita see sisse vaid juhul, kui sul on olnud teavitustega probleeme.</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">Luba</string>
 
     <!-- ChatColorSelectionFragment -->
     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
@@ -6479,9 +6507,9 @@
     <!-- Dialog title shown when a donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet -->
     <string name="ManageDonationsFragment__couldnt_confirm_donation">Annetust ei saanud kinnitada</string>
     <!-- Dialog message shown when a monthly donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed">Meil ei õnnestunud kinnitada sinu annetust summas %1$s kuus. Külasta oma pangaäppi, et oma iDEALi makse kinnitada.</string>
+    <string name="ManageDonationsFragment__your_monthly_s_donation_couldnt_be_confirmed_ideal_wero">Meil ei õnnestunud kinnitada sinu annetust summas %1$s kuus. Külasta oma pangaäppi, et oma iDEAL | Wero makse kinnitada.</string>
     <!-- Dialog message shown when a one-time donation requires verifying/confirmation outside of the app and the user hasn\'t done that yet, placeholder is money amount -->
-    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed">Sinu ühekordset annetust summas %1$s ei saanud kinnitada. Külasta oma pangaäppi, et oma iDEALi makse kinnitada.</string>
+    <string name="ManageDonationsFragment__your_one_time_s_donation_couldnt_be_confirmed_ideal_wero">Sinu ühekordset annetust summas %1$s ei saanud kinnitada. Külasta oma pangaäppi, et oma iDEAL | Wero makse kinnitada.</string>
 
     <string name="Boost__enter_custom_amount">Sisesta kohandatud summa</string>
     <!-- Error label when the amount is smaller than what we can accept -->
@@ -6610,7 +6638,7 @@
     <!-- Displayed as a dialog message when the user\'s profile could not be fetched, likely due to lack of internet -->
     <string name="DonationsErrors__your_donation_could_not_be_sent">Sinu annetust ei saanud saata võrgu vea tõttu. Kontrolli oma ühendust ja proovi uuesti.</string>
     <!-- Displayed as a dialog message when the user encounters an error during an iDEAL donation -->
-    <string name="DonationsErrors__your_ideal_couldnt_be_processed">Sinu iDEALi annetust ei saanud töödelda. Proovi teist maksemeetodit või võta lisainfo saamiseks ühendust oma pangaga.</string>
+    <string name="DonationsErrors__your_ideal_wero_couldnt_be_processed">Sinu iDEAL | Wero annetust ei saanud töödelda. Proovi teist maksemeetodit või võta lisainfo saamiseks ühendust oma pangaga.</string>
 
     <!-- Gift message view title -->
     <string name="GiftMessageView__donation_on_behalf_of_s">Annetus kasutaja %1$s nimel</string>
@@ -6838,12 +6866,6 @@
     <!-- Banner action when notification permission is disabled -->
     <string name="NotificationSettingsFragment__turn_on">Lülita sisse</string>
 
-    <!-- Description shown for the Signal Release Notes channel -->
-    <string name="ReleaseNotes__signal_release_notes_and_news">Signali väljalaskemärkmed &amp; Uudised</string>
-    <!-- Text description shown for the Signal Release Notes channel explaining that it is the only chat from Signal -->
-    <string name="ReleaseNotes__this_is_official_chat_period">See on üks ja ainus ametlik vestlus Signaliga.</string>
-    <!-- Text description shown for the Signal Release Notes channel explaining what the channel is for -->
-    <string name="ReleaseNotes__keep_up_to_date_period">Hoia end kursis uudiste ja väljalaskeinfoga.</string>
     <!-- Text description in Signal Release channel details explaining that it is the only chat from Signal -->
     <string name="ReleaseNotes__this_is_official_chat">See on üks ja ainus ametlik vestlus Signaliga</string>
     <!-- Text description in Signal Release channel details explaining what the channel is for -->
@@ -7539,7 +7561,7 @@
     <!-- Dialog body when a user tries to donate while they already have a pending one time donation. -->
     <string name="DonateToSignalFragment__your_payment_is_still_being_processed_onetime">Sinu annetus on endiselt töötlemisel. Selleks võib olenevalt sinu ühendusest kuluda mõni minut. Enne kui teed uue annetuse, oota palun, et see makse lõpuni jõuaks.</string>
     <!-- Dialog body when a user opens the manage donations main screen and they have a pending iDEAL donation -->
-    <string name="DonateToSignalFragment__your_ideal_payment_is_still_processing">Sinu iDEALi annetust töödeldakse endiselt. Enne järgmise annetuse tegemist külasta oma pangaäppi, et makse kinnitada.</string>
+    <string name="DonateToSignalFragment__your_ideal_wero_payment_is_still_processing">Sinu iDEAL | Wero annetust alles töödeldakse. Enne järgmise annetuse tegemist külasta oma pangaäppi, et makse kinnitada.</string>
     <!-- Dialog title shown when a user tries to donate an amount higher than is allowed for a given payment method. -->
     <string name="DonateToSignal__donation_amount_too_high">Annetuse summa on liiga suur</string>
     <!-- Dialog body shown when a user tries to donate an amount higher than is allowed for a given payment method, place holder is the maximum -->
@@ -7569,11 +7591,13 @@
     <!-- Sheet summary when giving donating for a friend -->
     <string name="GatewaySelectorBottomSheet__donate_for_a_friend">Anneta sõbra nimel</string>
     <!-- Button label for paying with iDEAL -->
-    <string name="GatewaySelectorBottomSheet__ideal">iDEAL</string>
+    <string name="GatewaySelectorBottomSheet__ideal_wero">iDEAL | Wero</string>
 
     <!-- Dialog title for launching external intent -->
     <string name="ExternalNavigationHelper__leave_signal_to_confirm_payment">Kas lahkuda Signalist, et annetus kinnitada?</string>
     <string name="ExternalNavigationHelper__once_this_payment_is_confirmed">Kui see on kinnitatud, tule tagasi Signalisse, et oma annetuse töötlemine lõpule viia.</string>
+    <!-- Dialog message shown when leaving Signal to complete a donation in an external app. Placeholder is the resolved app name (e.g. a banking app). -->
+    <string name="ExternalNavigationHelper__once_payment_confirmed_in_app">Sind suunatakse edasi lehele %1$s. Kui see on kinnitatud, tule tagasi Signalisse, et oma annetuse töötlemine lõpule viia.</string>
 
     <!-- BankTransferMandateFragment -->
     <!-- Title of screen displaying the bank transfer mandate -->
@@ -7635,7 +7659,7 @@
     <!-- Default label for bank selection -->
     <string name="IdealTransferDetailsFragment__choose_your_bank">Vali oma pank</string>
     <!-- Dialog title shown when using iDEAL payment for setting up a monthly donation -->
-    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal">Kinnita oma annetus iDEALiga</string>
+    <string name="IdealTransferDetailsFragment__confirm_your_donation_with_ideal_wero">Kinnita oma annetus iDEAL | Wero abil</string>
     <!-- Dialog warning shown when using iDEAL payment for setting up a monthly donation. Placeholder is donation amount.Z -->
     <string name="IdealTransferDetailsFragment__to_setup_your_recurring_donation">Korduva annetuse seadistamiseks toksa Jätka, et kinnitada 0,01 € tasumine oma pangast. See tagastatakse sulle automaatselt ning edaspidi võetakse su kontolt %1$s kuus annetuseks.</string>
     <!-- Dialog button shown when using iDEAL payment for setting up a monthly donation to continue with the donation -->
@@ -7800,7 +7824,7 @@
     <!-- Displayed for outgoing calls -->
     <string name="CallLogAdapter__outgoing">Väljuv</string>
     <!-- Displayed for outgoing calls that were not accepted by the remote party -->
-    <string name="CallLogAdapter__unanswered">Unanswered</string>
+    <string name="CallLogAdapter__unanswered">Vastamata</string>
     <!-- Displayed for missed calls -->
     <string name="CallLogAdapter__missed">Vastamata</string>
     <!-- Displayed for one missed call declined by notification profile -->
@@ -7886,7 +7910,7 @@
     <!-- Displayed as a message in a dialog when deleting multiple items -->
     <string name="CallLogFragment__call_links_youve_created">Sinu loodud kõnelingid ei toimi enam inimeste jaoks, kellele need on saadetud.</string>
     <!-- Dialog message shown when trying to start a group call but the user is no longer a member -->
-    <string name="CallLogFragment__cant_start_call_no_longer_a_member">You\'re no longer a member of this group.</string>
+    <string name="CallLogFragment__cant_start_call_no_longer_a_member">Sa pole enam selle grupi liige.</string>
 
     <!-- New call activity -->
     <!-- Activity title in title bar -->
@@ -8198,6 +8222,15 @@
     <string name="UseNewOnDeviceBackups__upgrade">Uuenda</string>
     <!-- Button of a megaphone that will snooze the reminder to upgrade to the new local backups type -->
     <string name="UseNewOnDeviceBackups__not_now">Mitte praegu</string>
+
+    <!-- Title of a megaphone shown to prompt the user to open Signal on their primary device -->
+    <string name="InactivePrimary__title">Ava Molly enda telefonis</string>
+    <!-- Body of a megaphone shown to prompt the user to open Signal on their primary device -->
+    <string name="InactivePrimary__body">Selleks, et oma konto aktiivsena hoida, ava Molly oma põhiseadmes.</string>
+    <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will navigate to a support page -->
+    <string name="InactivePrimary__learn_more">Rohkem teavet</string>
+    <!-- Button of a megaphone shown to prompt the user to open Signal on their primary device that will snooze the megaphone -->
+    <string name="InactivePrimary__got_it">Sain aru</string>
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Varukoopia taastamiseks paigalda Mollyi uus versioon. Ava rakendus ja klõpsa „Taasta varukoopia“, seejärel vali varukoopia fail."</string>
@@ -8577,9 +8610,9 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Kui see on sisse lülitatud, kustutavad vestluse pikkuse piirangud sõnumid ka sinu lingitud seadmetest.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Seadmesisene salvestusruum</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Molly storage</string>
     <!-- Setting row title for storage optimization -->
-    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimeeri seadmesisest salvestusruumi</string>
+    <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimeeri Mollyi salvestusruumi</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Kasutamata meedia teisaldatakse seadmevälisesse varukoopiasse, kuid saad neid igal ajal oma varukoopiast alla laadida.</string>
     <!-- Dialog message for paid tier pending dialog -->
@@ -8683,7 +8716,7 @@
     <!-- Displayed as a label when remote backups are off -->
     <string name="RemoteBackupsSettingsFragment__off">Väljas</string>
     <!-- Text shown in a popup indicating that the user needs to enter their screen lock -->
-    <string name="RemoteBackupsSettingsFragment__authenticatino_required">Vajalik autentimine</string>
+    <string name="RemoteBackupsSettingsFragment__authentication_required">Vajalik autentimine</string>
     <!-- Row label to launch payment history screen -->
     <string name="RemoteBackupsSettingsFragment__payment_history">Maksete ajalugu</string>
     <!-- Section header for backup information -->
@@ -9060,19 +9093,37 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Laadi meedia alla</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Uue varukoopia võtme loomiseks pead välja lülitama valiku „Salvestusruumi optimeerimine” ja ootama, kuni sinu meedia on alla laetud. Kui allalaadimine on lõpule viidud, saad luua uue võtme.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Molly storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Lülita välja ja laadi alla</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Loo uus varukoopia võti</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Uue võtme loomine on vajalik ainult siis, kui keegi teine sinu võtit teab. Pead oma varukoopia, sealhulgas meedia, uuesti üles laadima. Kui kasutad valikut „Salvestusruumi optimeerimine”, pead kõigepealt seadmevälisesse varukoopiasse teisaldatud meedia alla laadima.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Molly storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Kas väljuda varundamise sätetest?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
     <string name="MessageBackupsKeyRecordScreen__you_have_not_finished_setting_up_backups">Sa ei lõpetanud varukoopiate seadistamist ning varukoopiaid ei ole loodud. Varukoopiad saad lubada menüüs Sätted.</string>
     <!-- Dialog confirmation button to exit backup setup -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup_confirm">Välju varundamise sätetest</string>
+    <!-- Screen title when saving your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__save_your_recovery_key">Salvesta oma taastevõti</string>
+    <!-- Screen subtitle for the recovery key screen -->
+    <string name="MessageBackupsKeyRecordScreen__your_recovery_key">Sinu taastevõti on 64-kohaline kood, mille abil saad oma varukoopiat taastada. Kui oma võtme unustad, ei ole sul enam võimalik oma kontot taastada.</string>
+    <!-- Hint text to see the full recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__see_full_key">Vaata kogu võtit</string>
+    <!-- Bottom sheet caption to confirm your recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_that_your_recovery">Veendu, et su taastevõti salvestus õigesti. Järgmises etapis palutakse sul sisestada oma salvestatud parool.</string>
+    <!-- Button to confirm the recovery key -->
+    <string name="MessageBackupsKeyRecordScreen__confirm_recovery">Kinnita taastevõti</string>
+    <!-- Toast shown when the key is confirmed -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_confirmed">Taastevõti kinnitatud</string>
+    <!-- Dialog title shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error">Viga taastevõtme kinnitamisel</string>
+    <!-- Dialog body shown when the recovery key fails to confirm -->
+    <string name="MessageBackupsKeyRecordScreen__recover_key_error_body">Sinu taastevõtit ei saanud kinnitada. Veendu, et oled selle oma paroolihaldurisse salvestanud või salvesta see käsitsi.</string>
+    <!-- Button option to save the key manually -->
+    <string name="MessageBackupsKeyRecordScreen__save_key_manually">Salvesta võti käsitsi</string>
 
     <!-- BackupKeyDisplayFragment -->
     <!-- Dialog title when exiting before confirming new key -->
@@ -9319,11 +9370,11 @@
     <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
     <string name="RestoreLocalBackupActivity__contact_support">Võta ühendust kasutajatoega</string>
 
-    <!-- RestoreLocalBackupActivity: Title for the dialog shown when the restored backup belongs to a different account -->
+    <!-- RestoreLocalBackupActivity: Title for the dialog shown when on-device backups could not be automatically re-enabled -->
     <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Kas lülitada seadmesisesed varukoopiad sisse?</string>
 
-    <!-- RestoreLocalBackupActivity: Body for the dialog shown when the restored backup belongs to a different account, prompting the user to re-enable on-device backups -->
-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Selleks, et jätkata seadmesiseste varukoopiate kasutamist, pead need selle konto jaoks lubama ning salvestama oma uue varukoopia võtme. Saad seda igal ajal teha, valides Sätted &gt; Varukoopiad.</string>
+    <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
+    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">Selleks, et jätkata seadmesiseste varukoopiate kasutamist, pead need selle konto jaoks lubama. Saad seda igal ajal teha, valides Sätted &gt; Varukoopiad.</string>
 
     <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
     <string name="RestoreLocalBackupActivity__turn_on_now">Lülita kohe sisse</string>
@@ -9805,8 +9856,14 @@
     <!-- Body for screen shown to let the user know that displaying their member label will take priority over their about text. -->
     <string name="MemberLabelsAboutOverride__body">Selles grupis kuvatakse sinu foto kõrval su kirjelduse asemel sinu liikme silti.</string>
 
-    <!-- Label for internal-only section showing groups with same members -->
-  <!-- Removed by excludeNonTranslatables <string name="AddGroupDetailsFragment__groups_with_same_members" translatable="false">Groups with same members (Labs)</string> -->
+    <!-- Header for the section shown when creating a group that lists existing groups with the exact same members. Includes the number of such groups. -->
+    <plurals name="AddGroupDetailsFragment__d_groups_with_same_members">
+        <item quantity="one">%1$d grupp samade liikmetega</item>
+        <item quantity="other">%1$d gruppi samade liikmetega</item>
+    </plurals>
+
+    <!-- Header for a section showing all group member -->
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Varukoopiat ei saa taastada</string>
@@ -9816,6 +9873,66 @@
 
     <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
     <string name="CouldNotCompleteBackupRestoreSheet__body_retry">Uuesti proovimiseks eemalda Molly seadmest, paigalda see uuesti ja vali „Taasta või edasta“.</string>
+
+    <!-- Title of the sheet shown when the server reports a verification code was requested for the user\'s phone number -->
+    <string name="VerificationCodeRequestedBottomSheet__title">Kinnituskood on tellitud</string>
+    <!-- First paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_1">Ära jaga oma kinnituskoodi mitte kellegagi. Signal ei küsi seda kunagi sõnumi teel. Kui said sõnumi kelleltki, kes esineb Signali nime all, on see pettus.</string>
+    <!-- Second paragraph of the body of the verification code requested sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__body_2">Kui palusid koodi ise, võid seda sõnumit eirata.</string>
+    <!-- Button on the verification code requested sheet that opens the safety tips screen -->
+    <string name="VerificationCodeRequestedBottomSheet__safety_tips">Ohutusnõuanded</string>
+    <!-- Button on the verification code requested sheet that dismisses the sheet -->
+    <string name="VerificationCodeRequestedBottomSheet__ok">OK</string>
+    <!-- Subtitle on the verification code requested sheet showing the time the code was requested followed by the relative day. %1$s is the time (e.g. "3:25 PM"), %2$s is the relative day (e.g. "Today", "Yesterday", "Jan 15") -->
+    <string name="VerificationCodeRequestedBottomSheet__time_with_day">%1$s %2$s</string>
+
+    <!-- Title of the safety tips screen within the verification code requested sheet -->
+    <string name="SafetyTipsBottomSheet__title">Ohutusnõuanded</string>
+    <!-- Title of the first safety tip: don\'t respond to chats claiming to be Signal -->
+    <string name="SafetyTipsBottomSheet__tip_1_title">Ära vasta Signali saadetud sõnumitele</string>
+    <!-- Body of the first safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_1_body">Signal ei võta sinuga kunagi ühendust registreerimiskoodi, PIN-koodi või taastevõtme küsimiseks. Ära vasta kunagi sõnumitele, milles väidetakse, et need on Signalilt.</string>
+    <!-- Title of the second safety tip: keep your verification code safe -->
+    <string name="SafetyTipsBottomSheet__tip_2_title">Hoia oma kinnituskoodi turvaliselt</string>
+    <!-- Body of the second safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_2_body">Kui said kinnituskoodi, mida sa ei palunud, võib see tähendada, et keegi üritab praegu su kontole ligi pääseda. Ära jaga oma koodi.</string>
+    <!-- Title of the third safety tip: enable registration lock -->
+    <string name="SafetyTipsBottomSheet__tip_3_title">Lülita registreerimislukk konto sätete alt sisse</string>
+    <!-- Body of the third safety tip -->
+    <string name="SafetyTipsBottomSheet__tip_3_body">Kaitse oma kontot ning määra Signalit seadistades, et sult küsitaks lisaks kinnituskoodile ka Signali PIN-koodi.</string>
+    <!-- Button on the safety tips screen that opens account settings -->
+    <string name="SafetyTipsBottomSheet__open_account_settings">Ava konto sätted</string>
+
+    <!-- Title of a warning sheet shown when the user copies or pastes their recovery key, urging them not to share it -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_your_recovery_key">Ära jaga oma taastevõtit</string>
+    <!-- Bolded lead-in to the warning sheet body; combined with RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond to form a full sentence -->
+    <string name="RecoveryKeyWarningSheetContent__signal_will_never_message_you">Signal ei küsi sinult kunagi sõnumi teel</string>
+    <!-- Remainder of the warning sheet body following the bolded lead-in RecoveryKeyWarningSheetContent__signal_will_never_message_you -->
+    <string name="RecoveryKeyWarningSheetContent__for_your_recovery_key_never_respond">taastevõtit. Ära vasta kunagi sõnumitele, milles väidetakse, et need on Signalilt. Säilita oma taastevõtit turvaliselt ja ära jaga seda mitte kellegagi.</string>
+    <!-- Button dismissing the recovery key warning sheet after the user has copied their key -->
+    <string name="RecoveryKeyWarningSheetContent__got_it">Sain aru</string>
+    <!-- Button opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more">Rohkem teavet</string>
+    <!-- Inline link opening a help article with more information about recovery key safety -->
+    <string name="RecoveryKeyWarningSheetContent__learn_more_period">Rohkem infot</string>
+    <!-- Button declining to paste/share the recovery key, dismissing the warning sheet -->
+    <string name="RecoveryKeyWarningSheetContent__do_not_share_key">Ära jaga võtit</string>
+    <!-- Button indicating the user wants to proceed with sharing/pasting the recovery key, which shows a final confirmation -->
+    <string name="RecoveryKeyWarningSheetContent__share_key">Jaga võtit</string>
+
+    <!-- Title of the final confirmation dialog shown before pasting a recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_recovery_key">Ära jaga taastevõtit</string>
+    <!-- First sentence of the final confirmation dialog body warning against sharing the recovery key -->
+    <string name="RecoveryKeyWarningDialog__do_not_share_your_recovery_key_with_anyone">Ära jaga oma taastevõtit mitte kellegagi. Selle abil on teistel isikutel võimalik su konto üle võtta.</string>
+    <!-- Bolded middle sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__signal_will_never_message_you_for_your_recovery_key">Signal ei palu sinult kunagi sõnumi teel taastevõtit.</string>
+    <!-- Final sentence of the final confirmation dialog body -->
+    <string name="RecoveryKeyWarningDialog__never_respond_to_a_chat">Ära vasta kunagi sõnumitele, milles väidetakse, et need on Signalilt.</string>
+    <!-- Button confirming the user wants to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__paste_key">Kleebi võti</string>
+    <!-- Button declining to paste the recovery key -->
+    <string name="RecoveryKeyWarningDialog__dont_share">Ära jaga</string>
 
     <!-- EOF -->
 </resources>

@@ -1,21 +1,32 @@
 package org.thoughtcrime.securesms.mediasend.v2.review
 
 import android.content.DialogInterface
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.signal.core.ui.view.Stub
 import org.signal.core.util.ByteLimitInputFilter
 import org.signal.core.util.EditTextUtil
+import org.signal.core.util.getParcelableCompat
+import org.signal.mediasend.HudCommand
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.backup.v2.ui.warning.guardAgainstRecoveryKeyPaste
 import org.thoughtcrime.securesms.components.KeyboardAwareLinearLayout
 import org.thoughtcrime.securesms.components.KeyboardEntryDialogFragment
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -31,32 +42,29 @@ import org.thoughtcrime.securesms.conversation.ui.mentions.MentionsPickerViewMod
 import org.thoughtcrime.securesms.databinding.V2MediaAddMessageDialogFragmentBinding
 import org.thoughtcrime.securesms.keyboard.KeyboardPage
 import org.thoughtcrime.securesms.keyboard.KeyboardPagerViewModel
-import org.thoughtcrime.securesms.mediasend.v2.HudCommand
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionState
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionViewModel
+import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardEvent
+import org.thoughtcrime.securesms.keyboard.emoji.EmojiKeyboardEventViewModel
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.MessageUtil
 import org.thoughtcrime.securesms.util.ViewUtil
+import org.thoughtcrime.securesms.util.viewModel
 import org.thoughtcrime.securesms.util.visible
 
 class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_add_message_dialog_fragment) {
 
-  private val viewModel: MediaSelectionViewModel by viewModels(
-    ownerProducer = { requireActivity() }
-  )
+  private val viewModel: AddMessageViewModel by viewModel {
+    AddMessageViewModel(initialMessage = requireArguments().getCharSequence(ARG_INITIAL_TEXT, null))
+  }
 
-  private val keyboardPagerViewModel: KeyboardPagerViewModel by viewModels(
-    ownerProducer = { requireActivity() }
-  )
+  private val commandViewModel: EmojiKeyboardEventViewModel by activityViewModels()
+
+  private val keyboardPagerViewModel: KeyboardPagerViewModel by activityViewModels()
 
   private lateinit var mentionsViewModel: MentionsPickerViewModel
 
-  private val inlineQueryViewModel: InlineQueryViewModel by viewModels(
-    ownerProducer = { requireActivity() }
-  )
+  private val inlineQueryViewModel: InlineQueryViewModel by activityViewModels()
 
   private val binding by ViewBinderDelegate(V2MediaAddMessageDialogFragmentBinding::bind, onBindingWillBeDestroyed = { binding ->
     binding.content.addAMessageInput.setInlineQueryChangedListener(null)
@@ -67,12 +75,18 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
   private lateinit var inlineQueryResultsController: InlineQueryResultsController
 
   private var requestedEmojiDrawer: Boolean = false
+  private var displayingRecoveryKeyWarning: Boolean = false
 
   private var recipient: Recipient? = null
 
   private val disposables = CompositeDisposable()
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    if (viewModel.isViewOnce) {
+      dismissAllowingStateLoss()
+      return
+    }
+
     emojiDrawerStub = Stub(binding.content.emojiDrawerStub)
 
     if (Stories.isFeatureEnabled()) {
@@ -84,8 +98,16 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
     })
 
     binding.content.addAMessageInput.setText(requireArguments().getCharSequence(ARG_INITIAL_TEXT))
-    binding.content.addAMessageInput.addTextChangedListener { viewModel.setMessage(it) }
+    binding.content.addAMessageInput.addTextChangedListener { viewModel.message = it }
     binding.content.addAMessageInput.filters += ByteLimitInputFilter(MessageUtil.MAX_TOTAL_BODY_SIZE_BYTES)
+    binding.content.addAMessageInput.guardAgainstRecoveryKeyPaste(
+      host = this,
+      onWarningShown = { displayingRecoveryKeyWarning = true },
+      onWarningDismissed = {
+        displayingRecoveryKeyWarning = false
+        ViewUtil.focusAndShowKeyboard(binding.content.addAMessageInput)
+      }
+    )
 
     binding.content.emojiToggle.setOnClickListener { onEmojiToggleClicked() }
     if (requireArguments().getBoolean(ARG_INITIAL_EMOJI_TOGGLE) && view is KeyboardAwareLinearLayout) {
@@ -95,43 +117,36 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
     binding.hud.setOnClickListener { dismissAllowingStateLoss() }
 
     binding.content.viewOnceToggle.setOnClickListener {
+      viewModel.message = null
+      viewModel.isViewOnce = true
+
       dismissAllowingStateLoss()
-      viewModel.incrementViewOnceState()
     }
 
     val confirm: View = view.findViewById(R.id.confirm_button)
     confirm.setOnClickListener { dismissAllowingStateLoss() }
 
-    disposables += viewModel.watchAddAMessageCount().subscribe { count ->
-      binding.content.addAMessageLimit.visible = count.shouldDisplayCount()
-      binding.content.addAMessageLimit.text = count.getRemaining().toString()
+    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+      viewModel.watchAddAMessageCount().collect { count ->
+        binding.content.addAMessageLimit.visible = count.shouldDisplayCount()
+        binding.content.addAMessageLimit.text = count.getRemaining().toString()
+      }
     }
 
-    disposables.add(
-      viewModel.hudCommands.observeOn(AndroidSchedulers.mainThread()).subscribe {
-        when (it) {
-          HudCommand.OpenEmojiSearch -> openEmojiSearch()
-          HudCommand.CloseEmojiSearch -> closeEmojiSearch()
-          is HudCommand.EmojiKeyEvent -> onKeyEvent(it.keyEvent)
-          is HudCommand.EmojiInsert -> onEmojiSelected(it.emoji)
-          else -> Unit
+    viewLifecycleOwner.lifecycleScope.launch {
+      repeatOnLifecycle(state = Lifecycle.State.RESUMED) {
+        commandViewModel.events.collect {
+          when (it) {
+            EmojiKeyboardEvent.CloseEmojiSearch -> closeEmojiSearch()
+            is EmojiKeyboardEvent.EmojiInsert -> onEmojiSelected(it.emoji)
+            is EmojiKeyboardEvent.EmojiKeyEvent -> onKeyEvent(it.keyEvent)
+            EmojiKeyboardEvent.OpenEmojiSearch -> openEmojiSearch()
+          }
         }
       }
-    )
-
-    viewModel.state.observe(viewLifecycleOwner) { state ->
-      val newChild = if (state.viewOnceToggleState == MediaSelectionState.ViewOnceToggleState.ONCE) 1 else 0
-      if (binding.content.viewOnceToggle.displayedChild != newChild) {
-        binding.content.viewOnceToggle.displayedChild = newChild
-      }
-
-      if (state.viewOnceToggleState == MediaSelectionState.ViewOnceToggleState.ONCE) {
-        binding.content.addAMessageInput.text = null
-        dismiss()
-      }
-      binding.content.viewOnceToggle.visible = state.selectedMedia.size == 1 && !state.isStory && !MediaUtil.isDocumentType(state.focusedMedia?.contentType)
     }
 
+    binding.content.viewOnceToggle.visible = requireArguments().getBoolean(ARG_VIEW_ONCE_AVAILABLE, false)
     initializeMentions()
   }
 
@@ -144,13 +159,18 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
 
   override fun onDismiss(dialog: DialogInterface) {
     super.onDismiss(dialog)
-    if (isResumed) {
-      viewModel.setMessage(binding.content.addAMessageInput.text)
-    }
+
+    setFragmentResult(
+      REQUEST_KEY,
+      Bundle().apply {
+        putCharSequence(RESULT_MESSAGE, viewModel.message)
+        putBoolean(RESULT_INCREMENT_VIEW_ONCE_STATE, viewModel.isViewOnce)
+      }
+    )
   }
 
   override fun onKeyboardHidden() {
-    if (!requestedEmojiDrawer) {
+    if (!requestedEmojiDrawer && !displayingRecoveryKeyWarning) {
       super.onKeyboardHidden()
     }
   }
@@ -192,10 +212,12 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
             }
             inlineQueryViewModel.onQueryChange(inlineQuery)
           }
+
           is InlineQuery.Emoji -> {
             inlineQueryViewModel.onQueryChange(inlineQuery)
             mentionsViewModel.onQueryChange(null)
           }
+
           is NoQuery -> {
             mentionsViewModel.onQueryChange(null)
             inlineQueryViewModel.onQueryChange(inlineQuery)
@@ -213,10 +235,13 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
       .observeOn(AndroidSchedulers.mainThread())
       .subscribe { r -> binding.content.addAMessageInput.replaceText(r) }
 
-    val recipientId: RecipientId = viewModel.destination.getRecipientSearchKey()?.recipientId ?: return
+    val recipientId: RecipientId = requireArguments().getParcelableCompat(ARG_DESTINATION, RecipientId::class.java) ?: return
 
     Recipient.live(recipientId).observe(viewLifecycleOwner) { recipient ->
       this.recipient = recipient
+
+      val confirmButton = requireView().findViewById<View>(R.id.confirm_button)
+      ViewCompat.setBackgroundTintList(confirmButton, ColorStateList.valueOf(recipient.chatColors.asSingleColor()))
       mentionsViewModel.onRecipientChange(recipient)
 
       binding.content.addAMessageInput.setMentionValidator { annotations ->
@@ -298,12 +323,24 @@ class AddMessageDialogFragment : KeyboardEntryDialogFragment(R.layout.v2_media_a
 
     private const val ARG_INITIAL_TEXT = "arg.initial.text"
     private const val ARG_INITIAL_EMOJI_TOGGLE = "arg.initial.emojiToggle"
+    private const val ARG_VIEW_ONCE_AVAILABLE = "arg.viewOnceAvailable"
+    private const val ARG_DESTINATION = "arg.destination"
 
-    fun show(fragmentManager: FragmentManager, initialText: CharSequence?, startWithEmojiKeyboard: Boolean) {
+    const val REQUEST_KEY = "AddMessageViewModel__RequestKey"
+    const val RESULT_INCREMENT_VIEW_ONCE_STATE = "AddMessageViewModel_IncrementViewOnceState"
+    const val RESULT_MESSAGE = "AddMessageViewModel__Message"
+
+    fun show(fragmentManager: FragmentManager, addAMessageDialog: HudCommand.ShowAddAMessageDialog, destination: RecipientId?) {
+      return show(fragmentManager, addAMessageDialog.message, addAMessageDialog.startWithEmojiKeyboard, addAMessageDialog.isViewOnceAvailable, destination)
+    }
+
+    fun show(fragmentManager: FragmentManager, initialText: CharSequence?, startWithEmojiKeyboard: Boolean, isViewOnceAvailable: Boolean, destination: RecipientId?) {
       AddMessageDialogFragment().apply {
         arguments = Bundle().apply {
           putCharSequence(ARG_INITIAL_TEXT, initialText)
           putBoolean(ARG_INITIAL_EMOJI_TOGGLE, startWithEmojiKeyboard)
+          putBoolean(ARG_VIEW_ONCE_AVAILABLE, isViewOnceAvailable)
+          putParcelable(ARG_DESTINATION, destination)
         }
       }.show(fragmentManager, TAG)
     }

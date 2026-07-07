@@ -8,8 +8,12 @@ package org.signal.registration.screens.countrycode
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,10 +26,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +43,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -57,75 +62,194 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
+import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 
 /**
  * Screen that allows someone to search and select a country code from a supported list of countries.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CountryCodePickerScreen(
   state: CountryCodeState,
   onEvent: (CountryCodePickerScreenEvents) -> Unit
 ) {
-  Scaffold(
-    topBar = {
-      Scaffolds.DefaultTopAppBar(
-        title = stringResource(R.string.CountryCodeSelectScreen__your_country),
-        titleContent = { _, title ->
-          Text(text = title, style = MaterialTheme.typography.titleLarge)
-        },
-        onNavigationClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) },
-        navigationIcon = SignalIcons.X.imageVector,
-        navigationContentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
-      )
-    }
-  ) { padding ->
-    val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent)
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent)
+  }
+}
 
-    LazyColumn(
-      state = listState,
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(padding)
-    ) {
-      stickyHeader {
-        SearchBar(
-          text = state.query,
-          onSearch = { onEvent(CountryCodePickerScreenEvents.Search(it)) }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun OnePaneLayout(
+  layoutParams: RegistrationScaffold.Params.OnePane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
+  OnePaneRegistrationScaffold(
+    modifier = Modifier.fillMaxSize(),
+    params = layoutParams,
+    topBar = {
+      TopAppBar(
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
+    },
+    content = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+      ) {
+        CountryList(
+          showTitle = true,
+          state = state,
+          onEvent = onEvent,
+          contentPadding = paddingValues,
+          modifier = Modifier.weight(1f)
         )
       }
+    }
+  )
+}
 
-      if (state.countryList.isEmpty()) {
-        item {
-          CircularProgressIndicator(
-            modifier = Modifier.size(56.dp)
-          )
-        }
-      } else if (state.query.isEmpty()) {
-        if (state.commonCountryList.isNotEmpty()) {
-          items(state.commonCountryList) { country ->
-            CountryItem(country, onEvent)
-          }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
-          item {
-            Dividers.Default()
-          }
-        }
+  TwoPaneRegistrationScaffold(
+    modifier = Modifier.fillMaxSize(),
+    params = params,
+    topBar = {
+      TopAppBar(
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
+    },
+    firstPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        Text(
+          stringResource(R.string.CountryCodeSelectScreen__your_country),
+          style = MaterialTheme.typography.headlineMedium,
+          modifier = Modifier.attachDebugLogHelper()
+        )
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        CountryList(
+          showTitle = false,
+          state = state,
+          onEvent = onEvent
+        )
+      }
+    }
+  )
+}
 
-        items(state.countryList) { country ->
-          CountryItem(country, onEvent)
-        }
-      } else {
-        items(state.filteredList) { country ->
-          CountryItem(country, onEvent, state.query)
-        }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBar(
+  scrollBehavior: TopAppBarScrollBehavior,
+  onCloseClick: () -> Unit
+) {
+  Scaffolds.DefaultTopAppBar(
+    title = "",
+    titleContent = { _, _ -> },
+    onNavigationClick = onCloseClick,
+    navigationIcon = SignalIcons.X.imageVector,
+    navigationContentDescription = stringResource(R.string.CountryCodeSelectScreen__close),
+    scrollBehavior = scrollBehavior
+  )
+}
+
+@Composable
+private fun CountryList(
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit,
+  modifier: Modifier = Modifier,
+  contentPadding: PaddingValues = PaddingValues(),
+  showTitle: Boolean
+) {
+  val listState = rememberLazyListState()
+  val coroutineScope = rememberCoroutineScope()
+
+  LazyColumn(
+    modifier = modifier,
+    state = listState,
+    contentPadding = contentPadding,
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    item {
+      if (showTitle) {
+        Text(
+          text = stringResource(R.string.CountryCodeSelectScreen__your_country),
+          style = MaterialTheme.typography.headlineMedium,
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 28.dp)
+            .attachDebugLogHelper()
+        )
       }
     }
 
-    LaunchedEffect(state.startingIndex) {
-      coroutineScope.launch {
-        listState.scrollToItem(index = state.startingIndex)
+    stickyHeader {
+      SearchBar(
+        text = state.query,
+        onSearch = { onEvent(CountryCodePickerScreenEvents.Search(it)) }
+      )
+    }
+
+    if (state.countryList.isEmpty()) {
+      item {
+        CircularProgressIndicator(
+          modifier = Modifier.size(56.dp)
+        )
       }
+    } else if (state.query.isEmpty()) {
+      if (state.commonCountryList.isNotEmpty()) {
+        items(state.commonCountryList) { country ->
+          CountryItem(country, onEvent)
+        }
+
+        item {
+          Dividers.Default()
+        }
+      }
+
+      items(state.countryList) { country ->
+        CountryItem(country, onEvent)
+      }
+    } else {
+      items(state.filteredList) { country ->
+        CountryItem(country, onEvent, state.query)
+      }
+    }
+  }
+
+  LaunchedEffect(state.startingIndex) {
+    coroutineScope.launch {
+      listState.scrollToItem(index = state.startingIndex)
     }
   }
 }
@@ -267,8 +391,6 @@ private fun SearchBar(
     shape = RoundedCornerShape(32.dp),
     modifier = modifier
       .background(MaterialTheme.colorScheme.background)
-      .padding(bottom = 18.dp)
-      .padding(horizontal = 16.dp)
       .fillMaxWidth()
       .defaultMinSize(minHeight = 54.dp)
       .focusRequester(focusRequester),

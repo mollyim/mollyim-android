@@ -81,7 +81,9 @@ include(":core:util")
 include(":core:util-jvm")
 include(":core:models")
 include(":core:models-jvm")
+include(":core:network")
 include(":core:ui")
+include(":core:serialization")
 
 // FOSS GMS modules
 include(":core-gms:base")
@@ -93,6 +95,7 @@ include(":core-gms:tasks")
 // Lib modules
 include(":lib:libsignal-service")
 include(":lib:netcipher")
+include(":lib:network")
 include(":lib:glide")
 include(":lib:photoview")
 include(":lib:sticky-header-grid")
@@ -115,5 +118,6 @@ include(":feature:media-send")
 
 // Testing/Lint modules
 include(":lintchecks")
+include(":fast-lint")
 
 rootProject.name = "Molly"

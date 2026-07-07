@@ -75,6 +75,7 @@ class AdvancedPrivacySettingsViewModel(
     viewModelScope.launch(SignalDispatchers.IO) {
       if (!enabled) {
         SignalDatabase.recipients.clearAllKeyTransparencyData()
+        SignalStore.account.distinguishedHead = null
       }
       SignalDatabase.recipients.markNeedsSync(Recipient.self().id)
       StorageSyncHelper.scheduleSyncForDataChange()
@@ -96,7 +97,6 @@ class AdvancedPrivacySettingsViewModel(
       isPushEnabled = SignalStore.account.isRegistered,
       alwaysRelayCalls = TextSecurePreferences.isTurnOnly(AppDependencies.application),
       proxyEnabled = AppDependencies.networkManager.isProxyEnabled,
-      isLinkedDevice = SignalStore.account.isLinkedDevice,
       censorshipCircumventionState = censorshipCircumventionState,
       censorshipCircumventionEnabled = getCensorshipCircumventionEnabled(censorshipCircumventionState),
       showSealedSenderStatusIcon = TextSecurePreferences.isShowUnidentifiedDeliveryIndicatorsEnabled(
@@ -106,7 +106,8 @@ class AdvancedPrivacySettingsViewModel(
         AppDependencies.application
       ),
       showProgressSpinner = false,
-      allowAutomaticKeyVerification = SignalStore.settings.automaticVerificationEnabled
+      allowAutomaticKeyVerification = SignalStore.settings.automaticVerificationEnabled,
+      isPrimaryDevice = SignalStore.account.isPrimaryDevice
     )
   }
 

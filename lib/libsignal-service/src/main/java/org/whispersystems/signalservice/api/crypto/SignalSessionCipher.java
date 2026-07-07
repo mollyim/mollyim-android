@@ -45,13 +45,17 @@ public class SignalSessionCipher {
     }
   }
 
-  public int getRemoteRegistrationId() {
+  public int getRemoteRegistrationId() throws NoSessionException {
     try (SignalSessionLock.Lock unused = lock.acquire()) {
-      return cipher.getRemoteRegistrationId();
+      try {
+        return cipher.getRemoteRegistrationId();
+      } catch (IllegalStateException e) {
+        throw new NoSessionException(e.getMessage());
+      }
     }
   }
 
-  public int getSessionVersion() {
+  public int getSessionVersion() throws NoSessionException {
     try (SignalSessionLock.Lock unused = lock.acquire()) {
       return cipher.getSessionVersion();
     }

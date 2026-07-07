@@ -5,10 +5,13 @@
 
 package org.signal.mediasend
 
+import android.content.Context
 import android.net.Uri
 import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
+import java.io.InputStream
+import kotlin.time.Duration
 
 /**
  * Repository interface for media send operations that require app-layer implementation.
@@ -57,11 +60,11 @@ interface MediaSendRepository {
   /**
    * Gets the maximum video duration in microseconds based on quality and file size limits.
    *
-   * @param quality The sent media quality code.
+   * @param quality The sent media quality.
    * @param maxFileSizeBytes Maximum file size in bytes.
    * @return Maximum duration in microseconds.
    */
-  fun getMaxVideoDurationUs(quality: Int, maxFileSizeBytes: Long): Long
+  fun getMaxVideoDurationUs(quality: SentMediaQuality, maxFileSizeBytes: Long): Long
 
   /**
    * Gets the maximum video file size in bytes.
@@ -98,6 +101,16 @@ interface MediaSendRepository {
    * @return Flow that emits whenever recipient validity changes.
    */
   fun observeRecipientValid(recipientId: MediaRecipientId): Flow<Boolean>
+
+  fun getAttachmentStream(context: Context, uri: Uri): InputStream
+
+  fun isMixedModeAvailable(): Boolean
+
+  var isCameraFacingFront: Boolean
+
+  fun getMediaConstraints(): MediaConstraints
+
+  var storyMaxVideoDuration: Duration
 }
 
 /**
@@ -126,7 +139,7 @@ sealed interface MediaFilterError {
 data class SendRequest(
   val selectedMedia: List<Media>,
   val editorStateMap: Map<Uri, EditorState>,
-  val quality: Int,
+  val quality: SentMediaQuality,
   val message: String?,
   val isViewOnce: Boolean,
   val singleRecipientId: MediaRecipientId?,

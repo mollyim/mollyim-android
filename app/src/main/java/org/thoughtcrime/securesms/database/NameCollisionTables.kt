@@ -220,7 +220,7 @@ class NameCollisionTables(
             .run()
         }
 
-        pruneCollisions()
+        pruneCollision(collisionId)
       }
     }
 
@@ -280,13 +280,11 @@ class NameCollisionTables(
   }
 
   override fun remapRecipient(fromId: RecipientId, toId: RecipientId) {
-    val count = writableDatabase
-      .update(NameCollisionMembershipTable.TABLE_NAME)
-      .values(NameCollisionMembershipTable.RECIPIENT_ID to toId.serialize())
-      .where("${NameCollisionMembershipTable.RECIPIENT_ID} = ?", fromId)
-      .run()
-
-    Log.d(TAG, "Remapped $fromId to $toId. count: $count")
+    writableDatabase.execSQL(
+      "UPDATE OR REPLACE ${NameCollisionMembershipTable.TABLE_NAME} SET ${NameCollisionMembershipTable.RECIPIENT_ID} = ? WHERE ${NameCollisionMembershipTable.RECIPIENT_ID} = ?",
+      arrayOf(toId.serialize(), fromId.serialize())
+    )
+    Log.d(TAG, "Remapped $fromId to $toId")
   }
 
   private fun handleNameCollisions(
@@ -469,9 +467,35 @@ class NameCollisionTables(
           SELECT ${NameCollisionMembershipTable.COLLISION_ID}
           FROM ${NameCollisionMembershipTable.TABLE_NAME}
           GROUP BY ${NameCollisionMembershipTable.COLLISION_ID}
-          HAVING COUNT($ID) >= 2
+          HAVING COUNT(*) >= 2
       )
       """.trimIndent()
+    )
+  }
+
+  /**
+   * Removes the given collision if it has fewer than two members.
+   *
+   * Unlike [pruneCollisions], this is scoped to a single collision so it can be used on hot paths
+   * (e.g. opening a conversation) without scanning the entire [NameCollisionTable] while holding the
+   * write lock. Callers that may have modified the membership of more than one collision should
+   * continue to use [pruneCollisions].
+   */
+  private fun pruneCollision(collisionId: Long) {
+    check(writableDatabase.inTransaction())
+
+    writableDatabase.execSQL(
+      """
+      DELETE FROM ${NameCollisionTable.TABLE_NAME}
+      WHERE $ID = ? AND $ID NOT IN (
+          SELECT ${NameCollisionMembershipTable.COLLISION_ID}
+          FROM ${NameCollisionMembershipTable.TABLE_NAME}
+          WHERE ${NameCollisionMembershipTable.COLLISION_ID} = ?
+          GROUP BY ${NameCollisionMembershipTable.COLLISION_ID}
+          HAVING COUNT(*) >= 2
+      )
+      """.trimIndent(),
+      arrayOf(collisionId, collisionId)
     )
   }
 
