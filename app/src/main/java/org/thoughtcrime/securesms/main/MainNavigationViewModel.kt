@@ -20,13 +20,18 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.reactive.asFlow
@@ -47,6 +52,7 @@ import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stories.Stories
+import org.thoughtcrime.securesms.stories.StoriesBackStack
 import org.thoughtcrime.securesms.util.delegate
 import org.thoughtcrime.securesms.window.AppScaffoldNavigator
 import java.util.Optional
@@ -90,18 +96,20 @@ class MainNavigationViewModel(
   val callsBackStackEntries: SnapshotStateList<MainNavigationDetailLocation>
     get() = callsBackStack.entries
 
+  private val storiesBackStack: StoriesBackStack = StoriesBackStack(savedStateHandle)
+  val storiesBackStackEntries: SnapshotStateList<MainNavigationDetailLocation>
+    get() = storiesBackStack.entries
+
   private val currentTabBackStack: MainDetailBackStack?
     get() {
       val currentListLocation = internalMainNavigationState.value.currentListLocation
       return when {
         currentListLocation.isChatsTab -> chatsBackStack
         currentListLocation == MainNavigationListLocation.CALLS -> callsBackStack
+        currentListLocation == MainNavigationListLocation.STORIES -> storiesBackStack
         else -> null
       }
     }
-
-  private val internalDetailLocation = MutableSharedFlow<MainNavigationDetailLocation>()
-  val detailLocation: SharedFlow<MainNavigationDetailLocation> = internalDetailLocation
 
   private val internalIsFullScreenPane = MutableStateFlow(false)
   val isFullScreenPane: StateFlow<Boolean> = internalIsFullScreenPane
@@ -127,6 +135,25 @@ class MainNavigationViewModel(
   private val internalMainNavigationState = MutableStateFlow(MainNavigationState(currentListLocation = initialListLocation))
   val mainNavigationState: StateFlow<MainNavigationState> = internalMainNavigationState
 
+  @OptIn(ExperimentalCoroutinesApi::class)
+  val detailLocation: StateFlow<MainNavigationDetailLocation> = mainNavigationState.flatMapLatest { state ->
+    when {
+      state.currentListLocation.isChatsTab -> {
+        snapshotFlow { chatsBackStack.entries.lastOrNull() ?: MainNavigationDetailLocation.Empty }
+      }
+
+      state.currentListLocation == MainNavigationListLocation.CALLS -> {
+        snapshotFlow { callsBackStack.entries.lastOrNull() ?: MainNavigationDetailLocation.Empty }
+      }
+
+      state.currentListLocation == MainNavigationListLocation.STORIES -> {
+        snapshotFlow { storiesBackStack.entries.lastOrNull() ?: MainNavigationDetailLocation.Empty }
+      }
+
+      else -> flowOf(MainNavigationDetailLocation.Empty)
+    }
+  }.stateIn(viewModelScope, SharingStarted.Eagerly, MainNavigationDetailLocation.Empty)
+
   /**
    * This is Rx because these are still accessed from Java.
    */
@@ -134,8 +161,6 @@ class MainNavigationViewModel(
   val tabClickEventsObservable: Observable<MainNavigationListLocation> = internalTabClickEvents.asObservable()
 
   private var earlyNavigationListLocationRequested: MainNavigationListLocation? = null
-  var earlyNavigationDetailLocationRequested: MainNavigationDetailLocation? = null
-    private set
 
   private val internalPaneFocusRequests = MutableSharedFlow<ThreePaneScaffoldRole?>()
   val paneFocusRequests: SharedFlow<ThreePaneScaffoldRole?> = internalPaneFocusRequests
@@ -212,15 +237,7 @@ class MainNavigationViewModel(
       setFocusedPane(role)
     }
 
-    earlyNavigationDetailLocationRequested?.let {
-      lockPaneToSecondary = false
-    }
-
     return this.navigator!!
-  }
-
-  fun clearEarlyDetailLocation() {
-    earlyNavigationDetailLocationRequested = null
   }
 
   fun setFocusedPane(role: ThreePaneScaffoldRole) {
@@ -286,21 +303,12 @@ class MainNavigationViewModel(
     when (location) {
       is MainNavigationDetailLocation.Empty if currentListLocation.isChatsTab -> clearDetailLocation(chatsBackStack)
       is MainNavigationDetailLocation.Empty if currentListLocation == MainNavigationListLocation.CALLS -> clearDetailLocation(callsBackStack)
+      is MainNavigationDetailLocation.Empty if currentListLocation == MainNavigationListLocation.STORIES -> clearDetailLocation(storiesBackStack)
       is MainNavigationDetailLocation.Chats -> pushChatsDetailLocation(location)
       is MainNavigationDetailLocation.Conversation -> goToConversation(location)
       is MainNavigationDetailLocation.Calls, is MainNavigationDetailLocation.CallLinkDetails -> pushCallsDetailLocation(location)
-
-      is MainNavigationDetailLocation.Empty,
-      is MainNavigationDetailLocation.Stories -> {
-        if (navigator == null) {
-          earlyNavigationDetailLocationRequested = location
-          return
-        }
-
-        viewModelScope.launch {
-          internalDetailLocation.emit(location)
-        }
-      }
+      is MainNavigationDetailLocation.Stories -> pushStoriesDetailLocation(location)
+      is MainNavigationDetailLocation.Empty -> Unit
     }
   }
 
@@ -339,6 +347,13 @@ class MainNavigationViewModel(
   }
 
   fun popCallsDetailLocation() = popDetailLocation(callsBackStack)
+
+  private fun pushStoriesDetailLocation(location: MainNavigationDetailLocation) {
+    storiesBackStack.push(location)
+    setFocusedPane(ThreePaneScaffoldRole.Primary)
+  }
+
+  fun popStoriesDetailLocation() = popDetailLocation(storiesBackStack)
 
   private fun popDetailLocation(backStack: MainDetailBackStack) {
     backStack.pop()
