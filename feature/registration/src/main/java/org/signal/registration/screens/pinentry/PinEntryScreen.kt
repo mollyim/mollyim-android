@@ -319,7 +319,7 @@ private fun PinDescription(
     Text(
       text = titleString,
       style = MaterialTheme.typography.headlineMedium,
-      textAlign = TextAlign.Center,
+      textAlign = TextAlign.Start,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()

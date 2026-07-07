@@ -197,6 +197,45 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
+  fun `DigitChanged with pasted hyphenated text stores the stripped code in autoFillCode`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "123-456"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `DigitChanged with a pasted plain code stores it in autoFillCode`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "123456"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `DigitChanged with pasted text of the wrong length is ignored`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "12-345"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isNull()
+  }
+
+  @Test
   fun `ConsumeAutoFillCode clears autoFillCode`() = runTest {
     val initialState = VerificationCodeState(autoFillCode = "123456")
 
@@ -221,6 +260,168 @@ class VerificationCodeViewModelTest {
     advanceUntilIdle()
 
     assertThat(vm.state.value.autoFillCode).isEqualTo("123456")
+  }
+
+  // ==================== applyEvent: DigitChanged Tests ====================
+
+  @Test
+  fun `DigitChanged records the value at the given index`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, "7"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "7", "", "", ""))
+  }
+
+  @Test
+  fun `DigitChanged advances the focused digit index`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, "7"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(3)
+  }
+
+  @Test
+  fun `DigitChanged with an empty value moves the focused digit index back`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(1)
+  }
+
+  @Test
+  fun `DigitChanged with an out-of-bounds index throws`() = runTest {
+    var threw = false
+    try {
+      viewModel.applyEvent(
+        VerificationCodeState(),
+        VerificationCodeScreenEvents.DigitChanged(9, "7"),
+        stateEmitter
+      )
+    } catch (e: IllegalStateException) {
+      threw = true
+    }
+
+    assertThat(threw).isTrue()
+  }
+
+  @Test
+  fun `DigitChanged completing the code submits it`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "5", "")
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(5, "6"),
+      stateEmitter
+    )
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
+  }
+
+  @Test
+  fun `DigitChanged does not submit until the code is complete`() = runTest {
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "", "")
+    )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(4, "5"),
+      stateEmitter
+    )
+
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
+    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
+  }
+
+  @Test
+  fun `an incorrect code clears the entered digits`() = runTest {
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "5", "")
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(5, "6"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
+    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
+  }
+
+  @Test
+  fun `DigitChanged with an empty value clears the digit at the index`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "", "", "", ""))
+  }
+
+  @Test
+  fun `DigitChanged with an empty value shifts the following digits left`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "4", "5", "6"))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "4", "5", "6", ""))
+  }
+
+  @Test
+  fun `DigitChanged with an empty value on an empty field clears the previous digit`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "", "", "", "", ""))
   }
 
   // ==================== applyEvent: WrongNumber Tests ====================

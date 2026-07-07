@@ -33,10 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -74,8 +71,7 @@ fun VerificationCodeScreen(
   onEvent: (VerificationCodeScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  var digits by remember { mutableStateOf(List(6) { "" }) }
-  val focusRequesters = remember { List(6) { FocusRequester() } }
+  val focusRequesters = remember { List(VerificationCodeState.CODE_LENGTH) { FocusRequester() } }
   val snackbarHostState = remember { SnackbarHostState() }
   val resources = LocalResources.current
 
@@ -88,20 +84,12 @@ fun VerificationCodeScreen(
     }
   }
 
-  LaunchedEffect(digits) {
-    if (digits.all { it.isNotEmpty() } && !state.isSubmittingCode) {
-      val code = digits.joinToString("")
-      onEvent(VerificationCodeScreenEvents.CodeEntered(code))
-    }
-  }
-
   LaunchedEffect(state.autoFillCode) {
     val code = state.autoFillCode ?: return@LaunchedEffect
 
-    if (code.length == 6 && code.all { it.isDigit() } && !state.isSubmittingCode) {
+    if (code.length == VerificationCodeState.CODE_LENGTH && code.all { it.isDigit() } && !state.isSubmittingCode) {
       code.forEachIndexed { index, digit ->
-        digits = digits.toMutableList().also { it[index] = digit.toString() }
-        delay(200)
+        onEvent(VerificationCodeScreenEvents.DigitChanged(index, digit.toString()))
       }
     }
     onEvent(VerificationCodeScreenEvents.ConsumeAutoFillCode)
@@ -112,8 +100,6 @@ fun VerificationCodeScreen(
 
     when (event) {
       VerificationCodeState.OneTimeEvent.IncorrectVerificationCode -> {
-        digits = List(6) { "" }
-        focusRequesters[0].requestFocus()
         snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__incorrect_code))
       }
 
@@ -144,8 +130,8 @@ fun VerificationCodeScreen(
     onEvent(VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent)
   }
 
-  LaunchedEffect(Unit) {
-    focusRequesters[0].requestFocus()
+  LaunchedEffect(state.focusedDigitIndex) {
+    focusRequesters[state.focusedDigitIndex].requestFocus()
   }
 
   LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
@@ -160,21 +146,17 @@ fun VerificationCodeScreen(
       is RegistrationScaffold.Params.OnePane -> OnePaneLayout(
         params = layoutParams,
         innerPadding = innerPadding,
-        digits = digits,
         focusRequesters = focusRequesters,
         state = state,
-        onEvent = onEvent,
-        onDigitsChanged = { digits = it }
+        onEvent = onEvent
       )
 
       is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(
         params = layoutParams,
         innerPadding = innerPadding,
-        digits = digits,
         focusRequesters = focusRequesters,
         state = state,
-        onEvent = onEvent,
-        onDigitsChanged = { digits = it }
+        onEvent = onEvent
       )
     }
   }
@@ -184,11 +166,9 @@ fun VerificationCodeScreen(
 private fun OnePaneLayout(
   params: RegistrationScaffold.Params.OnePane,
   innerPadding: PaddingValues,
-  digits: List<String>,
   focusRequesters: List<FocusRequester>,
   state: VerificationCodeState,
-  onEvent: (VerificationCodeScreenEvents) -> Unit,
-  onDigitsChanged: (List<String>) -> Unit
+  onEvent: (VerificationCodeScreenEvents) -> Unit
 ) {
   val scrollState = rememberScrollState()
 
@@ -210,10 +190,9 @@ private fun OnePaneLayout(
         Spacer(modifier = Modifier.height(32.dp))
 
         CodeField(
-          digits = digits,
           focusRequesters = focusRequesters,
           state = state,
-          onDigitsChanged = onDigitsChanged
+          emitter = onEvent
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -244,11 +223,9 @@ private fun OnePaneLayout(
 private fun TwoPaneLayout(
   params: RegistrationScaffold.Params.TwoPane,
   innerPadding: PaddingValues,
-  digits: List<String>,
   focusRequesters: List<FocusRequester>,
   state: VerificationCodeState,
-  onEvent: (VerificationCodeScreenEvents) -> Unit,
-  onDigitsChanged: (List<String>) -> Unit
+  onEvent: (VerificationCodeScreenEvents) -> Unit
 ) {
   val firstPaneScrollState = rememberScrollState()
   val secondPaneScrollState = rememberScrollState()
@@ -277,10 +254,9 @@ private fun TwoPaneLayout(
           .padding(paddingValues)
       ) {
         CodeField(
-          digits = digits,
           focusRequesters = focusRequesters,
           state = state,
-          onDigitsChanged = onDigitsChanged
+          emitter = onEvent
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -325,11 +301,12 @@ private fun TroubleButton(onEvent: (VerificationCodeScreenEvents) -> Unit) {
 
 @Composable
 private fun CodeField(
-  digits: List<String>,
   focusRequesters: List<FocusRequester>,
   state: VerificationCodeState,
-  onDigitsChanged: (List<String>) -> Unit
+  emitter: (VerificationCodeScreenEvents) -> Unit
 ) {
+  val digits = state.digits
+
   Box(
     modifier = Modifier.fillMaxWidth(),
     contentAlignment = Alignment.Center
@@ -344,16 +321,7 @@ private fun CodeField(
       for (i in 0..2) {
         DigitField(
           value = digits[i],
-          onValueChange = { newValue, isBackspace ->
-            handleDigitChange(
-              index = i,
-              newValue = newValue,
-              isBackspace = isBackspace,
-              digits = digits,
-              focusRequesters = focusRequesters,
-              onDigitsChanged = onDigitsChanged
-            )
-          },
+          onValueChange = { newValue -> emitter(VerificationCodeScreenEvents.DigitChanged(i, newValue)) },
           focusRequester = focusRequesters[i],
           testTag = when (i) {
             0 -> TestTags.VERIFICATION_CODE_DIGIT_0
@@ -380,16 +348,7 @@ private fun CodeField(
         }
         DigitField(
           value = digits[i],
-          onValueChange = { newValue, isBackspace ->
-            handleDigitChange(
-              index = i,
-              newValue = newValue,
-              isBackspace = isBackspace,
-              digits = digits,
-              focusRequesters = focusRequesters,
-              onDigitsChanged = onDigitsChanged
-            )
-          },
+          onValueChange = { newValue -> emitter(VerificationCodeScreenEvents.DigitChanged(i, newValue)) },
           focusRequester = focusRequesters[i],
           testTag = when (i) {
             3 -> TestTags.VERIFICATION_CODE_DIGIT_3
@@ -494,37 +453,10 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
   }
 }
 
-private fun handleDigitChange(
-  index: Int,
-  newValue: String,
-  isBackspace: Boolean,
-  digits: List<String>,
-  focusRequesters: List<FocusRequester>,
-  onDigitsChanged: (List<String>) -> Unit
-) {
-  if (isBackspace) {
-    val deleteAt = if (digits[index].isNotEmpty()) index else index - 1
-    if (deleteAt >= 0) {
-      onDigitsChanged(
-        digits.toMutableList().apply {
-          for (j in deleteAt until 5) {
-            this[j] = this[j + 1]
-          }
-          this[5] = ""
-        }
-      )
-      focusRequesters[(index - 1).coerceAtLeast(0)].requestFocus()
-    }
-  } else if (newValue.isNotEmpty() && newValue[0].isDigit()) {
-    onDigitsChanged(digits.toMutableList().apply { this[index] = newValue })
-    focusRequesters[(index + 1).coerceAtMost(5)].requestFocus()
-  }
-}
-
 @Composable
 private fun DigitField(
   value: String,
-  onValueChange: (String, Boolean) -> Unit,
+  onValueChange: (String) -> Unit,
   focusRequester: FocusRequester,
   testTag: String,
   modifier: Modifier = Modifier,
@@ -532,24 +464,14 @@ private fun DigitField(
 ) {
   OutlinedTextField(
     value = value,
-    onValueChange = { newValue ->
-      val capped = if (newValue.length > 1) {
-        if (newValue.first().toString() == value) {
-          newValue.last().toString()
-        } else {
-          newValue.first().toString()
-        }
-      } else newValue
-      val isBackspace = capped.isEmpty() && value.isNotEmpty()
-      onValueChange(capped, isBackspace)
-    },
+    onValueChange = onValueChange,
     modifier = modifier
       .width(48.dp)
       .focusRequester(focusRequester)
       .testTag(testTag)
       .onKeyEvent { keyEvent ->
         if ((keyEvent.key == Key.Backspace || keyEvent.key == Key.Delete) && value.isEmpty()) {
-          onValueChange("", true)
+          onValueChange("")
           true
         } else {
           false

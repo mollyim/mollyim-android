@@ -55,6 +55,8 @@ class VerificationCodeViewModel(
   companion object {
     private val TAG = Log.tag(VerificationCodeViewModel::class)
 
+    private const val CODE_LENGTH = VerificationCodeState.CODE_LENGTH
+
     /**
      * How old the in-progress registration data can be before we assume the verification session has expired and
      * restart the flow. Checked whenever the screen is foregrounded.
@@ -118,10 +120,8 @@ class VerificationCodeViewModel(
   @VisibleForTesting
   suspend fun applyEvent(state: VerificationCodeState, event: VerificationCodeScreenEvents, stateEmitter: (VerificationCodeState) -> Unit) {
     val result = when (event) {
-      is VerificationCodeScreenEvents.CodeEntered -> {
-        stateEmitter(state.copy(isSubmittingCode = true))
-        applyCodeEntered(state, event.code).copy(isSubmittingCode = false)
-      }
+      is VerificationCodeScreenEvents.CodeEntered -> submitCode(state, event.code, stateEmitter)
+      is VerificationCodeScreenEvents.DigitChanged -> applyDigitChanged(state, event.index, event.value, stateEmitter)
       is VerificationCodeScreenEvents.CodeAutoFilled -> state.copy(autoFillCode = event.code)
       is VerificationCodeScreenEvents.ConsumeAutoFillCode -> state.copy(autoFillCode = null)
       is VerificationCodeScreenEvents.WrongNumber -> state.also { parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry) }
@@ -186,6 +186,91 @@ class VerificationCodeViewModel(
     )
   }
 
+  /**
+   * Interprets the raw [value] reported by the digit field at [index] and updates the digits and focus accordingly:
+   *
+   * - an empty [value] is a backspace, deleting a digit and moving focus back
+   * - a single digit is recorded and focus advances, submitting once the full code is present
+   * - multi-character input (e.g. a pasted "123-456") is treated as a pasted code
+   */
+  private suspend fun applyDigitChanged(
+    state: VerificationCodeState,
+    index: Int,
+    value: String,
+    stateEmitter: (VerificationCodeState) -> Unit
+  ): VerificationCodeState {
+    check(index in state.digits.indices) { "[DigitChanged] Out of bounds index $index." }
+
+    if (value.isEmpty()) {
+      return deleteDigit(state, index)
+    }
+
+    val currentValue = state.digits[index]
+    val remainder = if (currentValue.isNotEmpty()) value.replaceFirst(currentValue, "") else value
+    val addedDigits = remainder.filter { it.isDigit() }
+
+    return when {
+      addedDigits.isEmpty() -> state
+
+      addedDigits.length == 1 -> {
+        val updated = state.copy(
+          digits = state.digits.toMutableList().also { it[index] = addedDigits },
+          focusedDigitIndex = (index + 1).coerceAtMost(CODE_LENGTH - 1)
+        )
+
+        if (updated.isComplete && !updated.isSubmittingCode) {
+          submitCode(updated, updated.code, stateEmitter)
+        } else {
+          updated
+        }
+      }
+
+      else -> applyPastedCode(state, remainder)
+    }
+  }
+
+  /**
+   * Deletes the digit at [index] (or the previous one, if [index] is already empty), shifts any following digits left
+   * to fill the gap, and moves focus back.
+   */
+  private fun deleteDigit(state: VerificationCodeState, index: Int): VerificationCodeState {
+    val deleteAt = if (state.digits[index].isNotEmpty()) index else index - 1
+    if (deleteAt < 0) {
+      return state
+    }
+
+    val newDigits = state.digits.toMutableList().apply {
+      for (j in deleteAt until CODE_LENGTH - 1) {
+        this[j] = this[j + 1]
+      }
+      this[CODE_LENGTH - 1] = ""
+    }
+
+    return state.copy(digits = newDigits, focusedDigitIndex = (index - 1).coerceAtLeast(0))
+  }
+
+  /**
+   * Emits an intermediate submitting state and then runs the submission, clearing the submitting flag when done.
+   */
+  private suspend fun submitCode(state: VerificationCodeState, code: String, stateEmitter: (VerificationCodeState) -> Unit): VerificationCodeState {
+    stateEmitter(state.copy(isSubmittingCode = true))
+    return applyCodeEntered(state, code).copy(isSubmittingCode = false)
+  }
+
+  /**
+   * Strips any formatting (e.g. a hyphen) from pasted text and, if what remains is a full code, populates the fields
+   * by reusing the [VerificationCodeState.autoFillCode] path. Pasted text that doesn't contain a full code is ignored.
+   */
+  private fun applyPastedCode(state: VerificationCodeState, rawCode: String): VerificationCodeState {
+    val digits = rawCode.filter { it.isDigit() }
+    if (digits.length != CODE_LENGTH) {
+      Log.w(TAG, "[DigitChanged] Ignoring pasted text containing ${digits.length} digits.")
+      return state
+    }
+
+    return state.copy(autoFillCode = digits)
+  }
+
   private suspend fun applyCodeEntered(inputState: VerificationCodeState, code: String): VerificationCodeState {
     var state = inputState
     var sessionMetadata = state.sessionMetadata ?: return state.also {
@@ -205,7 +290,7 @@ class VerificationCodeViewModel(
           is NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode -> {
             Log.w(TAG, "[SubmitCode] Invalid sessionId or verification code entered. This is distinct from an *incorrect* verification code. Body: ${error.message}")
             val newAttempts = state.incorrectCodeAttempts + 1
-            return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts)
+            return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
           }
           is NetworkController.SubmitVerificationCodeError.SessionNotFound -> {
             Log.w(TAG, "[SubmitCode] Session not found: ${error.message}")
@@ -244,7 +329,7 @@ class VerificationCodeViewModel(
     if (!sessionMetadata.verified) {
       Log.w(TAG, "[SubmitCode] Verification code was incorrect.")
       val newAttempts = state.incorrectCodeAttempts + 1
-      return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts)
+      return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
     }
 
     // Attempt to register

@@ -13,6 +13,15 @@ sealed class VerificationCodeScreenEvents {
   }
 
   /**
+   * The raw [value] of the digit field at [index] changed. The view model interprets it: a single digit is recorded
+   * (submitting once the full code is present), an empty [value] is a backspace (deleting a digit and shifting the
+   * following ones left), and multi-character input (e.g. a pasted "123-456") is treated as a pasted code.
+   */
+  data class DigitChanged(val index: Int, val value: String) : VerificationCodeScreenEvents() {
+    override fun toString(): String = "DigitChanged(index=$index)"
+  }
+
+  /**
    * A verification code was automatically retrieved from an incoming SMS via the Play Services SMS retriever.
    */
   data class CodeAutoFilled(val code: String) : VerificationCodeScreenEvents() {
