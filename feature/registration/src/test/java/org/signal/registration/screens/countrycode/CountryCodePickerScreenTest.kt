@@ -20,6 +20,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.signal.core.ui.CoreUiDependenciesRule
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.registration.R
 import org.signal.registration.test.TestTags
 
 /**
@@ -50,6 +51,24 @@ class CountryCodePickerScreenTest {
 
     // Then
     composeTestRule.onNodeWithTag(TestTags.COUNTRY_CODE_SEARCH_FIELD).assertIsDisplayed()
+  }
+
+  @Test
+  fun `screen displays title`() {
+    // Given
+    val title = ApplicationProvider.getApplicationContext<Application>().getString(R.string.CountryCodeSelectScreen__your_country)
+
+    composeTestRule.setContent {
+      SignalTheme {
+        CountryCodePickerScreen(
+          state = CountryCodeState(),
+          onEvent = {}
+        )
+      }
+    }
+
+    // Then
+    composeTestRule.onNodeWithText(title).assertIsDisplayed()
   }
 
   @Test
