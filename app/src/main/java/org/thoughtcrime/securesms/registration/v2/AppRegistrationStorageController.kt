@@ -238,6 +238,9 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         }
       }.build()
 
+      SignalStore.account.registrationId = data.aciRegistrationId
+      SignalStore.account.pniRegistrationId = data.pniRegistrationId
+
       // TODO [greyson] Should probably move this stuff into this file as we get closer to being done
       RegistrationRepository.registerAccountLocally(context, metadata)
       SignalStore.registration.localRegistrationMetadata = metadata
