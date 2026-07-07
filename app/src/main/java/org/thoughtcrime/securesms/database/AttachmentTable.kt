@@ -961,6 +961,34 @@ class AttachmentTable(
   }
 
   /**
+   * Whether the user has any archive-finished media that came from a local backup. Used to detect the local-restore bad state where restored media was
+   * incorrectly marked as already archived, so we only run an expensive reconciliation for users who could actually be affected.
+   */
+  fun hasArchiveFinishedLocalBackupMedia(): Boolean {
+    return readableDatabase
+      .exists("$TABLE_NAME INNER JOIN ${AttachmentMetadataTable.TABLE_NAME} ON $TABLE_NAME.$METADATA_ID = ${AttachmentMetadataTable.TABLE_NAME}.${AttachmentMetadataTable.ID}")
+      .where("$TABLE_NAME.$ARCHIVE_TRANSFER_STATE = ? AND ${AttachmentMetadataTable.TABLE_NAME}.${AttachmentMetadataTable.LOCAL_BACKUP_KEY} NOT NULL", ArchiveTransferState.FINISHED.value)
+      .run()
+  }
+
+  /**
+   * Resets archive-finished media that came from a local backup, returning the number of attachments repaired. Safe only when the user doesn't back up media,
+   * as they can't have anything legitimately on the archive CDN. See [hasArchiveFinishedLocalBackupMedia].
+   */
+  fun resetArchiveTransferStateForLocalBackupMedia(): Int {
+    return writableDatabase
+      .update(TABLE_NAME)
+      .values(
+        ARCHIVE_TRANSFER_STATE to ArchiveTransferState.NONE.value,
+        ARCHIVE_CDN to null
+      )
+      .where(
+        "$ARCHIVE_TRANSFER_STATE = ${ArchiveTransferState.FINISHED.value} AND $METADATA_ID IN (SELECT ${AttachmentMetadataTable.ID} FROM ${AttachmentMetadataTable.TABLE_NAME} WHERE ${AttachmentMetadataTable.LOCAL_BACKUP_KEY} NOT NULL)"
+      )
+      .run()
+  }
+
+  /**
    * Returns whether or not there are thumbnails that need to be uploaded to the archive.
    */
   fun getThumbnailsThatNeedArchiveUpload(): List<AttachmentId> {
@@ -1790,7 +1818,7 @@ class AttachmentTable(
    * that the content of the attachment will never change.
    */
   @Throws(MmsException::class)
-  fun finalizeAttachmentAfterDownload(mmsId: Long, attachmentId: AttachmentId, inputStream: InputStream, offloadRestoredAt: Duration? = null, archiveRestore: Boolean = false, notify: Boolean = true) {
+  fun finalizeAttachmentAfterDownload(mmsId: Long, attachmentId: AttachmentId, inputStream: InputStream, offloadRestoredAt: Duration? = null, archiveRestore: Boolean = false, restoredFromArchiveCdn: Boolean = false, notify: Boolean = true) {
     Log.i(TAG, "[finalizeAttachmentAfterDownload] Finalizing downloaded data for $attachmentId. (MessageId: $mmsId, $attachmentId)")
 
     val existingPlaceholder: DatabaseAttachment = getAttachment(attachmentId) ?: throw MmsException("No attachment found for id: $attachmentId")
@@ -1835,8 +1863,11 @@ class AttachmentTable(
         values.put(DATA_HASH_START, fileWriteResult.hash)
         values.put(DATA_HASH_END, fileWriteResult.hash)
 
-        if (archiveRestore) {
+        if (restoredFromArchiveCdn) {
           values.put(ARCHIVE_TRANSFER_STATE, ArchiveTransferState.FINISHED.value)
+        } else if (archiveRestore) {
+          values.putNull(ARCHIVE_CDN)
+          values.put(ARCHIVE_TRANSFER_STATE, ArchiveTransferState.NONE.value)
         }
       }
 

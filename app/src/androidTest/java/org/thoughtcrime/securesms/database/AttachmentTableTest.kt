@@ -11,6 +11,7 @@ import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotEmpty
 import assertk.assertions.isNotEqualTo
+import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -220,6 +221,26 @@ class AttachmentTableTest {
   }
 
   @Test
+  fun resetArchiveTransferStateForLocalBackupMedia_onlyResetsLocalBackupMedia() {
+    // Given one archive-finished attachment restored from a local backup, and one that wasn't
+    val localBackupMessageId = SignalDatabase.messages.insertMessageInbox(createIncomingMessage(serverTime = 0.days, attachment = createArchivedAttachment(localBackupKey = Random.nextBytes(32)))).map { it.messageId }.get()
+    val localBackupAttachmentId = SignalDatabase.attachments.getAttachmentsForMessage(localBackupMessageId).first().attachmentId
+
+    val nonLocalBackupMessageId = SignalDatabase.messages.insertMessageInbox(createIncomingMessage(serverTime = 1.days, attachment = createArchivedAttachment())).map { it.messageId }.get()
+    val nonLocalBackupAttachmentId = SignalDatabase.attachments.getAttachmentsForMessage(nonLocalBackupMessageId).first().attachmentId
+
+    SignalDatabase.attachments.setArchiveTransferState(localBackupAttachmentId, AttachmentTable.ArchiveTransferState.FINISHED)
+    SignalDatabase.attachments.setArchiveTransferState(nonLocalBackupAttachmentId, AttachmentTable.ArchiveTransferState.FINISHED)
+
+    val resetCount = SignalDatabase.attachments.resetArchiveTransferStateForLocalBackupMedia()
+
+    // Only the local-backup attachment is reset
+    assertThat(resetCount).isEqualTo(1)
+    assertThat(SignalDatabase.attachments.getAttachment(localBackupAttachmentId)!!.archiveTransferState).isEqualTo(AttachmentTable.ArchiveTransferState.NONE)
+    assertThat(SignalDatabase.attachments.getAttachment(nonLocalBackupAttachmentId)!!.archiveTransferState).isEqualTo(AttachmentTable.ArchiveTransferState.FINISHED)
+  }
+
+  @Test
   fun given10NewerAnd10OlderAttachments_whenIGetEachBatch_thenIExpectProperBucketing() {
     val now = System.currentTimeMillis().milliseconds
     val attachments = (0 until 20).map {
@@ -419,6 +440,39 @@ class AttachmentTableTest {
   }
 
   @Test
+  fun givenLocalBackupRestore_whenIFinalizeAttachment_thenIExpectArchiveStateNoneSoItGetsUploaded() {
+    val data = byteArrayOf(1, 2, 3, 4, 5)
+    val attachment = createAttachmentPointer("remote-key-1".toByteArray(), data.size)
+
+    val messageResult = SignalDatabase.messages.insertMessageInbox(createIncomingMessage(serverTime = 0.days, attachment = attachment)).get()
+    val attachmentId = messageResult.insertedAttachments!![attachment]!!
+    SignalDatabase.attachments.setTransferState(messageResult.messageId, attachmentId, AttachmentTable.TRANSFER_PROGRESS_STARTED)
+
+    // Data is restored from a local backup file, not the archive CDN
+    SignalDatabase.attachments.finalizeAttachmentAfterDownload(messageResult.messageId, attachmentId, ByteArrayInputStream(data), archiveRestore = true, restoredFromArchiveCdn = false)
+
+    val result = SignalDatabase.attachments.getAttachment(attachmentId)!!
+    assertThat(result.archiveTransferState).isEqualTo(AttachmentTable.ArchiveTransferState.NONE)
+    assertThat(result.archiveCdn).isNull()
+  }
+
+  @Test
+  fun givenArchiveCdnRestore_whenIFinalizeAttachment_thenIExpectArchiveStateFinished() {
+    val data = byteArrayOf(1, 2, 3, 4, 5)
+    val attachment = createAttachmentPointer("remote-key-1".toByteArray(), data.size)
+
+    val messageResult = SignalDatabase.messages.insertMessageInbox(createIncomingMessage(serverTime = 0.days, attachment = attachment)).get()
+    val attachmentId = messageResult.insertedAttachments!![attachment]!!
+    SignalDatabase.attachments.setTransferState(messageResult.messageId, attachmentId, AttachmentTable.TRANSFER_PROGRESS_STARTED)
+
+    // Data is restored directly from the archive CDN
+    SignalDatabase.attachments.finalizeAttachmentAfterDownload(messageResult.messageId, attachmentId, ByteArrayInputStream(data), archiveRestore = true, restoredFromArchiveCdn = true)
+
+    val result = SignalDatabase.attachments.getAttachment(attachmentId)!!
+    assertThat(result.archiveTransferState).isEqualTo(AttachmentTable.ArchiveTransferState.FINISHED)
+  }
+
+  @Test
   fun givenAttachmentsWithMatchingMediaId_whenISetArchiveFinishedForMatchingMediaObjects_thenIExpectThoseAttachmentsToBeMarkedFinished() {
     // GIVEN
     val data1 = byteArrayOf(1, 2, 3, 4, 5)
@@ -585,7 +639,7 @@ class AttachmentTableTest {
     ).get()
   }
 
-  private fun createArchivedAttachment(): Attachment {
+  private fun createArchivedAttachment(localBackupKey: ByteArray? = null): Attachment {
     return ArchivedAttachment(
       contentType = "image/jpeg",
       size = 1024,
@@ -609,7 +663,7 @@ class AttachmentTableTest {
       quoteTargetContentType = null,
       uuid = UUID.randomUUID(),
       fileName = null,
-      localBackupKey = null
+      localBackupKey = localBackupKey
     )
   }
 

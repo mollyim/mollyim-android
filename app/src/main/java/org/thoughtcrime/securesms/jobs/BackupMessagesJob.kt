@@ -417,7 +417,10 @@ class BackupMessagesJob private constructor(
       return Result.failure()
     }
 
-    if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
+    if (SignalStore.backup.localRestoreReconcilePending) {
+      Log.i(TAG, "A local restore reconciliation is pending. Holding off on the attachment backfill until reconciliation has marked already-archived media as finished.", true)
+      ArchiveUploadProgress.onMessageBackupFinishedEarly()
+    } else if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
       Log.i(TAG, "Enqueuing attachment backfill job.", true)
       AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob())
     } else {

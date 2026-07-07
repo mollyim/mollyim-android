@@ -207,9 +207,10 @@ public class ApplicationMigrations {
     static final int NOTIFICATION_STATE_CLEANUP    = 163;
     static final int KT_USERNAME_CAPABILITY        = 164;
     static final int FIX_CHANGE_NUMBER_ERROR_2     = 165;
+    static final int LOCAL_ARCHIVE_RECONCILE       = 166;
   }
 
-  public static final int CURRENT_VERSION = 165;
+  public static final int CURRENT_VERSION = 166;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -958,6 +959,10 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.KT_USERNAME_CAPABILITY) {
       jobs.put(Version.KT_USERNAME_CAPABILITY, new KeyTransparencyUsernameMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.LOCAL_ARCHIVE_RECONCILE) {
+      jobs.put(Version.LOCAL_ARCHIVE_RECONCILE, new LocalArchiveReconciliationMigrationJob());
     }
 
     return jobs;

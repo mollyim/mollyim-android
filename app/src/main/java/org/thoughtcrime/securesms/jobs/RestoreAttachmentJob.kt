@@ -410,6 +410,7 @@ class RestoreAttachmentJob private constructor(
             inputStream = input,
             offloadRestoredAt = if (manual) System.currentTimeMillis().milliseconds else null,
             archiveRestore = true,
+            restoredFromArchiveCdn = useArchiveCdn,
             notify = manual
           )
         ArchiveDatabaseExecutor.throttledNotifyAttachmentAndChatListObservers()
