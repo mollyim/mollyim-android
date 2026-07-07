@@ -27,6 +27,7 @@ class RegistrationActivity : ComponentActivity() {
   companion object {
     private const val NEXT_INTENT_EXTRA = "next_intent"
     private const val START_DESTINATION_EXTRA = "start_destination"
+    private const val START_FRESH_EXTRA = "start_fresh"
 
     /**
      * @param nextIntent An optional intent to launch once registration completes successfully. This is how the caller
@@ -34,10 +35,12 @@ class RegistrationActivity : ComponentActivity() {
      *   typically have finished itself.
      * @param startDestination An optional route to open directly instead of resuming a previous flow. Used, for example,
      *   to send a deregistered linked device straight to the link-device screen.
+     * @param startFresh When true, any persisted registration data is not restored and the user starts the flow fresh
+     *   from the beginning.
      */
     @JvmStatic
     @JvmOverloads
-    fun createIntent(context: Context, nextIntent: Intent? = null, startDestination: RegistrationRoute? = null): Intent {
+    fun createIntent(context: Context, nextIntent: Intent? = null, startDestination: RegistrationRoute? = null, startFresh: Boolean = false): Intent {
       return Intent(context, RegistrationActivity::class.java).apply {
         if (nextIntent != null) {
           putExtra(NEXT_INTENT_EXTRA, nextIntent)
@@ -45,6 +48,7 @@ class RegistrationActivity : ComponentActivity() {
         if (startDestination != null) {
           putExtra(START_DESTINATION_EXTRA, startDestination)
         }
+        putExtra(START_FRESH_EXTRA, startFresh)
       }
     }
   }
@@ -64,6 +68,7 @@ class RegistrationActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     val startDestination = IntentCompat.getParcelableExtra(intent, START_DESTINATION_EXTRA, RegistrationRoute::class.java)
+    val startFresh = intent.getBooleanExtra(START_FRESH_EXTRA, false)
 
     setContent {
       SignalTheme(incognitoKeyboardEnabled = false) {
@@ -71,6 +76,7 @@ class RegistrationActivity : ComponentActivity() {
           RegistrationNavHost(
             registrationRepository = repository,
             startDestination = startDestination,
+            startFresh = startFresh,
             modifier = Modifier
               .fillMaxSize()
               .navigationBarsPadding(),

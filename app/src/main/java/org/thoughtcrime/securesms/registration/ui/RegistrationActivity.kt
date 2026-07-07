@@ -97,7 +97,7 @@ class RegistrationActivity : BaseActivity() {
     @JvmStatic
     fun newIntentForReRegistration(context: Context): Intent {
       return if (Environment.USE_NEW_REGISTRATION) {
-        org.signal.registration.RegistrationActivity.createIntent(context, nextIntent = MainActivity.clearTop(context))
+        org.signal.registration.RegistrationActivity.createIntent(context, nextIntent = MainActivity.clearTop(context), startFresh = true)
       } else {
         Intent(context, RegistrationActivity::class.java).apply {
           putExtra(RE_REGISTRATION_EXTRA, true)

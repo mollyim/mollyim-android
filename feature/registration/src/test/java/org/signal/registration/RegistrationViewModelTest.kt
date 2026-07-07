@@ -184,6 +184,52 @@ class RegistrationViewModelTest {
     assertThat(viewModel.state.value.isRestoringNavigationState).isEqualTo(false)
   }
 
+  @Test
+  fun `start fresh clears in-progress data and starts fresh from Welcome`() = runTest(testDispatcher) {
+    val preExisting = mockk<PreExistingRegistrationData>(relaxed = true)
+    val savedState = RegistrationFlowState(
+      backStack = listOf(
+        RegistrationRoute.Welcome,
+        RegistrationRoute.Permissions(nextRoute = RegistrationRoute.PhoneNumberEntry),
+        RegistrationRoute.PhoneNumberEntry,
+        RegistrationRoute.VerificationCodeEntry
+      ),
+      sessionMetadata = createSessionMetadata("stale-session")
+    )
+    coEvery { mockRepository.restoreFlowState() } returns savedState
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns preExisting
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle(), startFresh = true)
+    advanceUntilIdle()
+
+    val state = viewModel.state.value
+    assertThat(state.backStack).isEqualTo(listOf(RegistrationRoute.Welcome))
+    assertThat(state.sessionMetadata).isNull()
+    assertThat(state.preExistingRegistrationData).isEqualTo(preExisting)
+    assertThat(state.isRestoringNavigationState).isEqualTo(false)
+
+    coVerify { mockRepository.clearInProgressRegistrationData() }
+    coVerify(exactly = 0) { mockRepository.restoreFlowState() }
+  }
+
+  @Test
+  fun `start fresh does not clear again once reset has been performed`() = runTest(testDispatcher) {
+    val savedState = RegistrationFlowState(
+      backStack = listOf(RegistrationRoute.Welcome, RegistrationRoute.PhoneNumberEntry),
+      sessionMetadata = null
+    )
+    coEvery { mockRepository.restoreFlowState() } returns savedState
+
+    val savedStateHandle = SavedStateHandle(mapOf("start_fresh_reset_performed" to true))
+    val viewModel = RegistrationViewModel(mockRepository, savedStateHandle, startFresh = true)
+    advanceUntilIdle()
+
+    assertThat(viewModel.state.value.backStack).isEqualTo(savedState.backStack)
+
+    coVerify(exactly = 0) { mockRepository.clearInProgressRegistrationData() }
+    coVerify { mockRepository.restoreFlowState() }
+  }
+
   // ==================== Persistence Side-Effect Tests ====================
 
   @Test

@@ -32,12 +32,20 @@ import kotlin.reflect.KClass
  */
 class RegistrationViewModel(
   private val repository: RegistrationRepository,
-  savedStateHandle: SavedStateHandle,
-  startDestination: RegistrationRoute? = null
+  private val savedStateHandle: SavedStateHandle,
+  startDestination: RegistrationRoute? = null,
+  private val startFresh: Boolean = false
 ) : EventDrivenViewModel<RegistrationFlowEvent>(TAG) {
 
   companion object {
     private val TAG = Log.tag(RegistrationViewModel::class)
+
+    /**
+     * Marks that a start-fresh reset has already been performed for this ViewModel. Persisted in the
+     * [SavedStateHandle] so that a process death mid-flow (which re-delivers the start-fresh intent) does not
+     * wipe the fresh in-progress data the user has since built up.
+     */
+    private const val RESET_PERFORMED_KEY = "start_fresh_reset_performed"
   }
 
   private var _state: MutableStateFlow<RegistrationFlowState> = savedStateHandle.getMutableStateFlow(
@@ -57,6 +65,17 @@ class RegistrationViewModel(
     } else {
       _state.value = _state.value.copy(isRestoringNavigationState = true)
       viewModelScope.launch {
+        if (startFresh && savedStateHandle.get<Boolean>(RESET_PERFORMED_KEY) != true) {
+          Log.i(TAG, "[init] Start-fresh requested. Clearing any persisted in-progress registration data so the user starts fresh.")
+          repository.clearInProgressRegistrationData()
+          savedStateHandle[RESET_PERFORMED_KEY] = true
+          _state.value = RegistrationFlowState(
+            preExistingRegistrationData = repository.getPreExistingRegistrationData(),
+            isRestoringNavigationState = false
+          )
+          return@launch
+        }
+
         val restored = repository.restoreFlowState()
         if (restored != null) {
           Log.i(TAG, "[init] Restored flow state from disk. Backstack size: ${restored.backStack.size}, hasSession: ${restored.sessionMetadata != null}")
@@ -214,9 +233,9 @@ class RegistrationViewModel(
     }
   }
 
-  class Factory(private val repository: RegistrationRepository, private val startDestination: RegistrationRoute? = null) : ViewModelProvider.Factory {
+  class Factory(private val repository: RegistrationRepository, private val startDestination: RegistrationRoute? = null, private val startFresh: Boolean = false) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-      return RegistrationViewModel(repository, extras.createSavedStateHandle(), startDestination) as T
+      return RegistrationViewModel(repository, extras.createSavedStateHandle(), startDestination, startFresh) as T
     }
   }
 }

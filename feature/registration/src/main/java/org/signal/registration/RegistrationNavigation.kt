@@ -261,6 +261,8 @@ private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/3
  *
  * @param registrationRepository The repository for registration data.
  * @param registrationViewModel Optional ViewModel for testing. If null, creates one internally.
+ * @param startFresh When true, any persisted registration data is not restored and the user starts the flow fresh from
+ *   the beginning.
  * @param permissionsState Optional permissions state for testing. If null, creates one internally.
  * @param startDestination Optional route to open directly as the sole start destination, instead of showing [RegistrationRoute.Welcome] or restoring a previous flow.
  * @param modifier Modifier to be applied to the NavDisplay.
@@ -271,13 +273,14 @@ private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/3
 fun RegistrationNavHost(
   registrationRepository: RegistrationRepository,
   registrationViewModel: RegistrationViewModel? = null,
+  startFresh: Boolean = false,
   permissionsState: MultiplePermissionsState? = null,
   startDestination: RegistrationRoute? = null,
   modifier: Modifier = Modifier,
   onRegistrationComplete: () -> Unit = {}
 ) {
   val viewModel: RegistrationViewModel = registrationViewModel ?: viewModel(
-    factory = RegistrationViewModel.Factory(registrationRepository, startDestination)
+    factory = RegistrationViewModel.Factory(registrationRepository, startDestination, startFresh)
   )
 
   val registrationState by viewModel.state.collectAsStateWithLifecycle()
