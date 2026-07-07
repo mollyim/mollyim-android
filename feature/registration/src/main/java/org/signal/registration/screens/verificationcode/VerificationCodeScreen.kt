@@ -450,7 +450,7 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
 
   TextButton(
     onClick = { onEvent(VerificationCodeScreenEvents.WrongNumber) },
-    contentPadding = PaddingValues(),
+    contentPadding = PaddingValues(horizontal = 16.dp),
     modifier = Modifier
       .fillMaxWidth()
       .wrapContentWidth(Alignment.Start)
