@@ -183,7 +183,8 @@ public class ContactRepository {
 
     @Override
     public String getString(int columnIndex) {
-      return String.valueOf(mappers.get(columnIndex).getSecond().get(wrapped));
+      Object value = mappers.get(columnIndex).getSecond().get(wrapped);
+      return value != null ? value.toString() : "";
     }
 
     @Override

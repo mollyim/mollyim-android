@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +45,6 @@ import org.signal.core.ui.compose.Dividers
 import org.signal.core.ui.compose.LocalFragmentManager
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.SignalIcons
-import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireParcelableCompat
 import org.thoughtcrime.securesms.R
@@ -292,9 +291,13 @@ fun MemberSearchScreen(
           val filterActive = memberFilter != MemberSearchViewModel.MemberFilter.ALL
           IconButton(onClick = { showFilterDialog = true }) {
             Icon(
-              imageVector = ImageVector.vectorResource(R.drawable.symbol_filter_24),
-              tint = if (filterActive) MaterialTheme.colorScheme.primary else LocalContentColor.current,
-              contentDescription = stringResource(R.string.MemberSearchFragment__filter)
+              imageVector = ImageVector.vectorResource(R.drawable.symbol_filter_20),
+              tint = if (filterActive) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
+              contentDescription = stringResource(R.string.MemberSearchFragment__filter),
+              modifier = Modifier
+                .size(26.dp)
+                .background(color = if (filterActive) MaterialTheme.colorScheme.primary else Color.Transparent, shape = CircleShape)
+                .padding(3.dp)
             )
           }
         }
@@ -375,13 +378,17 @@ private fun MemberSearchContent(
     modifier = modifier.fillMaxSize()
   ) {
     val query by contactViewModel.query.collectAsStateWithLifecycle()
+    val hint = when (memberFilter) {
+      MemberSearchViewModel.MemberFilter.ALL -> stringResource(R.string.MemberSearchFragment__search_members)
+      MemberSearchViewModel.MemberFilter.ADMINS -> stringResource(R.string.MemberSearchFragment__search_admins)
+      MemberSearchViewModel.MemberFilter.CONTACTS -> stringResource(R.string.MemberSearchFragment__search_contacts)
+    }
     RecipientSearchBar(
-      hint = stringResource(R.string.MemberSearchFragment__search_members),
+      hint = hint,
       modifier = Modifier
         .fillMaxWidth()
-        .padding(vertical = 12.dp)
-        .focusRequester(focusRequester)
-        .horizontalGutters(),
+        .padding(vertical = 12.dp, horizontal = 16.dp)
+        .focusRequester(focusRequester),
       query = query ?: "",
       onQueryChange = { contactViewModel.setQuery(it) },
       onSearch = { contactViewModel.setQuery(it) }

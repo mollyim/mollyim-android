@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.contacts.paged
 
 import android.content.Context
 import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -54,6 +55,7 @@ import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.util.SearchUtil
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -63,6 +65,7 @@ import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProvider
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProviderBuilder
 import org.thoughtcrime.securesms.util.visible
+import java.util.Locale
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -230,7 +233,7 @@ object ContactSearchModels {
         key = { "EmptyModel" }
       ) { model ->
         Text(
-          text = stringResource(R.string.SearchFragment_no_results, model.empty.query ?: ""),
+          text = if (model.empty.query.isNullOrEmpty()) stringResource(R.string.SearchFragment_no_results_empty) else stringResource(R.string.SearchFragment_no_results, model.empty.query),
           textAlign = TextAlign.Center,
           modifier = Modifier
             .fillMaxWidth()
@@ -635,6 +638,10 @@ object ContactSearchModels {
     override fun bindLongPress(model: RecipientModel) {
       itemView.setOnLongClickListener { onLongClick.onLongClicked(itemView, model.knownRecipient) }
     }
+
+    override fun getHighlightQuery(model: RecipientModel): String? {
+      return model.knownRecipient.query
+    }
   }
 
   /**
@@ -656,6 +663,7 @@ object ContactSearchModels {
     protected val adminLabel: TextView = itemView.findViewById(R.id.admin_label)
     private val startAudio: View = itemView.findViewById(R.id.start_audio)
     private val startVideo: View = itemView.findViewById(R.id.start_video)
+    private val searchStyleFactory = SearchUtil.StyleFactory { arrayOf(ForegroundColorSpan(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface)), SpanUtil.getBoldSpan()) }
 
     override fun bind(model: T) {
       if (isEnabled(model)) {
@@ -682,7 +690,14 @@ object ContactSearchModels {
       } else {
         null
       }
-      name.setText(recipient, recipient.getDisplayName(context), suffix, true, showSelfAsYou(model))
+      val query = getHighlightQuery(model)
+      val displayName: CharSequence = if (!query.isNullOrBlank()) {
+        SearchUtil.getHighlightedSpan(Locale.getDefault(), searchStyleFactory, recipient.getDisplayName(context), query, SearchUtil.MATCH_ALL)
+      } else {
+        recipient.getDisplayName(context)
+      }
+
+      name.setText(recipient, displayName, suffix, true, showSelfAsYou(model))
 
       badge.setBadgeFromRecipient(getRecipient(model))
 
@@ -699,6 +714,7 @@ object ContactSearchModels {
 
     protected open fun isEnabled(model: T): Boolean = true
     protected open fun showSelfAsYou(model: T): Boolean = false
+    protected open fun getHighlightQuery(model: T): String? = null
 
     protected open fun bindAvatar(model: T) {
       avatar.setAvatar(getRecipient(model))

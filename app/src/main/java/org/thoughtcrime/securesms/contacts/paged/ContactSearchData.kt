@@ -35,7 +35,8 @@ sealed class ContactSearchData(val contactSearchKey: ContactSearchKey) {
     val headerLetter: String? = null,
     val groupsInCommon: GroupsInCommonSummary = GroupsInCommonSummary(listOf()),
     val showSelfAsYou: Boolean = false,
-    val showAdminLabel: Boolean = false
+    val showAdminLabel: Boolean = false,
+    val query: String? = null
   ) : ContactSearchData(ContactSearchKey.RecipientSearchKey(recipient.id, false))
 
   /**

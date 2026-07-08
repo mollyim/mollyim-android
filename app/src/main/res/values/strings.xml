@@ -2892,6 +2892,8 @@
 
     <!-- Search -->
     <string name="SearchFragment_no_results">No results found for \'%s\'</string>
+    <!-- Text shown when no search results are found.   -->
+    <string name="SearchFragment_no_results_empty">No results found</string>
 
     <!-- ShakeToReport -->
     <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string>
@@ -9890,6 +9892,10 @@
 
     <!-- Header for a section showing all group member -->
     <string name="MemberSearchFragment__search_members">Search members</string>
+    <!-- Header for a section showing all group members who are contacts -->
+    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
+    <!-- Header for a section showing all group member who are admins -->
+    <string name="MemberSearchFragment__search_admins">Search admins</string>
     <!-- Dialog title to filter search by -->
     <string name="MemberSearchFragment__filter">Filter by</string>
     <!-- Dialog option for all group members -->

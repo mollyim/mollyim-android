@@ -243,22 +243,25 @@ class ContactSearchPagedDataSource(
   /**
    * Returns the letter header to display above the recipient at the cursor's current row, or null if
    * none should be shown. A header is shown only when this row begins a new letter group, determined by
-   * comparing its letter to the immediately preceding row in display order. Peeking that single adjacent
+   * comparing its letter to the first visible preceding row in display order (filtered by recordPredicate). Peeking that single
    * row means a letter group split across pages still yields exactly one header, anchored to the first
    * row of the group, without re-scanning the whole contact set.
    *
    * The cursor is restored to its original position before returning so iteration is unaffected.
    */
-  private fun getHeaderLetterForCurrentRow(cursor: Cursor): String? {
+  private fun getHeaderLetterForCurrentRow(cursor: Cursor, recordPredicate: ((Cursor) -> Boolean)? = null): String? {
     val position = cursor.position
     val currentLetter = letterForCurrentRow(cursor) ?: return null
 
-    if (position <= 0) {
-      return currentLetter
+    var foundPrevious = false
+    while (cursor.moveToPrevious()) {
+      if (recordPredicate == null || recordPredicate.invoke(cursor)) {
+        foundPrevious = true
+        break
+      }
     }
 
-    cursor.moveToPosition(position - 1)
-    val previousLetter = letterForCurrentRow(cursor)
+    val previousLetter = if (foundPrevious) letterForCurrentRow(cursor) else null
     cursor.moveToPosition(position)
 
     return if (previousLetter != currentLetter) currentLetter else null
@@ -463,18 +466,19 @@ class ContactSearchPagedDataSource(
   @WorkerThread
   private fun getGroupMembersContactData(section: ContactSearchConfiguration.Section.GroupMembers, query: String?, startIndex: Int, endIndex: Int): List<ContactSearchData> {
     val groupRecord = section.groupId?.let { contactSearchPagedDataSourceRepository.getGroupRecord(it) }
+    val recordPredicate = filterByRole(section)
     return getGroupMembersSearchIterator(section, query).use { records ->
       readContactData(
         records = records,
-        recordsPredicate = filterByRole(section),
+        recordsPredicate = recordPredicate,
         section = section,
         startIndex = startIndex,
         endIndex = endIndex,
         recordMapper = {
           val recipient = contactSearchPagedDataSourceRepository.getRecipientFromSearchCursor(it)
           val groupsInCommon = if (section.showGroupsInCommon) contactSearchPagedDataSourceRepository.getGroupsInCommon(recipient) else GroupsInCommonSummary(listOf())
-          val headerLetter = if (section.includeLetterHeaders) getHeaderLetterForCurrentRow(it) else null
-          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon, headerLetter = headerLetter, showSelfAsYou = section.showSelfAsYou, showAdminLabel = groupRecord?.isAdmin(recipient) == true)
+          val headerLetter = if (section.includeLetterHeaders) getHeaderLetterForCurrentRow(it, recordPredicate) else null
+          ContactSearchData.KnownRecipient(section.sectionKey, recipient, groupsInCommon = groupsInCommon, headerLetter = headerLetter, showSelfAsYou = section.showSelfAsYou, showAdminLabel = groupRecord?.isAdmin(recipient) == true, query = query)
         }
       )
     }

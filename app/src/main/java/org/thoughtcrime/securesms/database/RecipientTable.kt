@@ -4622,12 +4622,12 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
 
   /**
    * By default, SQLite will prefer numbers over letters when sorting. e.g. (b, a, 1) is sorted as (1, a, b).
-   * This order by will using a GLOB pattern to instead sort it as (a, b, 1).
+   * This order by will using a GLOB pattern to instead sort it as (a, b, 1). We also put null names (eg deleted accounts) at the end
    *
    * @param column The name of the column to sort by
    */
   private fun orderByPreferringAlphaOverNumeric(column: String): String {
-    return "CASE WHEN $column GLOB '[0-9]*' THEN 1 ELSE 0 END, $column"
+    return "CASE WHEN $column IS NULL THEN 2 WHEN $column GLOB '[0-9]*' THEN 1 ELSE 0 END, $column"
   }
 
   private fun <T> Optional<T>.isAbsent(): Boolean {
