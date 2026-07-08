@@ -8,7 +8,6 @@ package org.signal.registration.screens.remotebackuprestore
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
-import assertk.assertions.isInstanceOf
 import assertk.assertions.isNull
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -347,7 +346,7 @@ class RemoteBackupRestoreViewModelTest {
   }
 
   @Test
-  fun `Complete progress emits UserSuppliedAepVerified and completes registration`() = runTest(testDispatcher) {
+  fun `Complete progress completes registration`() = runTest(testDispatcher) {
     every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
       RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
     )
@@ -361,11 +360,21 @@ class RemoteBackupRestoreViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedParentEvents).hasSize(2)
-    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.UserSuppliedAepVerified>()
-    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.restoreAccountRecord(any()) }
+  }
+
+  @Test
+  fun `successful backup info emits UserSuppliedAepVerified`() = runTest(testDispatcher) {
+    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo())
+    coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns RequestResult.Success(1234L)
+
+    createViewModel()
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.UserSuppliedAepVerified(aep))
   }
 
   @Test

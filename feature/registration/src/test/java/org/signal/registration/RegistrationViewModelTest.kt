@@ -723,11 +723,12 @@ class RegistrationViewModelTest {
     val aep = AccountEntropyPool.generate()
 
     val result = viewModel.applyEvent(
-      RegistrationFlowState(),
+      RegistrationFlowState(unverifiedRestoredAep = aep),
       RegistrationFlowEvent.UserSuppliedAepVerified(aep)
     )
 
     assertThat(result.accountEntropyPool).isEqualTo(aep)
+    assertThat(result.unverifiedRestoredAep).isNull()
     coVerify { mockRepository.saveVerifiedUserSuppliedAep(aep) }
   }
 

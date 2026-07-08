@@ -591,10 +591,11 @@ class AppRegistrationNetworkController(
     val aci = SignalStore.account.aci ?: return@withContext RequestResult.ApplicationError(IllegalStateException("ACI not available"))
 
     val currentTime = System.currentTimeMillis()
+    val messageBackupKey = aep.deriveMessageBackupKey()
     val messageCredential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
 
     val access = if (messageCredential != null) {
-      ArchiveServiceAccess(messageCredential, SignalStore.backup.messageBackupKey)
+      ArchiveServiceAccess(messageCredential, messageBackupKey)
     } else {
       when (val credResult = SignalNetwork.archive.getServiceCredentials(currentTime)) {
         is NetworkResult.Success -> {
@@ -602,7 +603,7 @@ class AppRegistrationNetworkController(
           SignalStore.backup.messageCredentials.clearOlderThan(currentTime)
           val credential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
             ?: return@withContext RequestResult.ApplicationError(IllegalStateException("Failed to obtain backup credentials after fetch"))
-          ArchiveServiceAccess(credential, SignalStore.backup.messageBackupKey)
+          ArchiveServiceAccess(credential, messageBackupKey)
         }
         is NetworkResult.StatusCodeError -> return@withContext RequestResult.ApplicationError(IllegalStateException("Failed to fetch backup credentials: ${credResult.code}"))
         is NetworkResult.NetworkError -> return@withContext RequestResult.RetryableNetworkError(credResult.exception)
@@ -729,7 +730,7 @@ class AppRegistrationNetworkController(
     val messageCredential = SignalStore.backup.messageCredentials.byDay.getForCurrentTime(currentTime.milliseconds)
       ?: return@withContext RequestResult.ApplicationError(IllegalStateException("No message credential available"))
 
-    val access = ArchiveServiceAccess(messageCredential, SignalStore.backup.messageBackupKey)
+    val access = ArchiveServiceAccess(messageCredential, aep.deriveMessageBackupKey())
 
     val cdnCredentials = when (val cdnResult = SignalNetwork.archive.getCdnReadCredentials(cdn, aci, access)) {
       is NetworkResult.Success -> cdnResult.result.headers

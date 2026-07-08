@@ -862,6 +862,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     storageController.updateInProgressRegistrationData {
       this.accountEntropyPool = aep.value
     }
+    storageController.commitRegistrationData()
   }
 
   suspend fun commitFinalRegistrationData(): Unit = withContext(Dispatchers.IO) {

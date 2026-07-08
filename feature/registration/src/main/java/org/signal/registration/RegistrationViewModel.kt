@@ -119,7 +119,7 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.UserSuppliedAepSubmitted -> state.copy(unverifiedRestoredAep = event.aep)
       is RegistrationFlowEvent.UserSuppliedAepVerified -> {
         repository.saveVerifiedUserSuppliedAep(event.aep)
-        state.copy(accountEntropyPool = event.aep)
+        state.copy(accountEntropyPool = event.aep, unverifiedRestoredAep = null)
       }
       is RegistrationFlowEvent.RegistrationComplete -> {
         repository.commitFinalRegistrationData()

@@ -119,7 +119,6 @@ class RemoteBackupRestoreViewModel(
               restoreState = RemoteBackupRestoreState.RestoreState.Restored,
               restoreProgress = null
             )
-            parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(aep))
             repository.persistRemoteBackupRestoredState(progress.restoredSvrPin, progress.restoredProfileKey)
             repository.setRestoreDecision(RestoreDecision.COMPLETED)
             repository.restoreAccountRecord()
@@ -176,6 +175,7 @@ class RemoteBackupRestoreViewModel(
       when (result) {
         is RequestResult.Success -> {
           Log.i(TAG, "[loadBackupInfo] Successfully fetched backup info.")
+          parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(aep))
           val info = result.result
 
           val lastModifiedResult = withContext(ioDispatcher) {
