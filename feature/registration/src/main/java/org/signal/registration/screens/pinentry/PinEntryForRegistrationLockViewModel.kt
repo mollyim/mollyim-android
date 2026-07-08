@@ -67,7 +67,7 @@ class PinEntryForRegistrationLockViewModel(
         stateEmitter(applyPinEntered(localState, event, parentEventEmitter))
       }
       is PinEntryScreenEvents.Skip -> {
-        handleSkip()
+        throw NotImplementedError("Skip is not a valid action during registration lock PIN entry")
       }
       is PinEntryScreenEvents.CreateNewPin,
       is PinEntryScreenEvents.ContactSupport -> Unit
@@ -142,9 +142,11 @@ class PinEntryForRegistrationLockViewModel(
         Log.i(TAG, "[PinEntered] Successfully registered!")
         val (response, keyMaterial) = registerResult.result
         parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
+        repository.enqueueSvrResetGuessCountJob()
+        repository.restoreAccountRecord()
         when {
-          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegister())
-          else -> repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+          else -> parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         }
         state
       }
@@ -189,12 +191,6 @@ class PinEntryForRegistrationLockViewModel(
         state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
-  }
-
-  private fun handleSkip() {
-    // Registration lock is enforced server-side, so there's no way to register without the PIN. The skip option is
-    // never shown in this mode, so reaching here indicates a bug.
-    throw NotImplementedError("Skip is not a valid action during registration lock PIN entry")
   }
 
   class Factory(

@@ -648,41 +648,9 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * The work continues in the background even if [timeout] elapses. See [NetworkController.restoreAccountRecord].
    */
   suspend fun restoreAccountRecord(
-    timeout: Duration
+    timeout: Duration = 10.seconds
   ): RequestResult<Unit, NetworkController.RestoreAccountRecordError> = withContext(Dispatchers.IO) {
     networkController.restoreAccountRecord(timeout)
-  }
-
-  /**
-   * Best-effort restore the AccountRecord (when local profile data is incomplete) and then signal
-   * registration completion on [parentEventEmitter]. The Profile screen is intentionally not
-   * routed to from here for now — even when the restore doesn't fully populate profile data, we
-   * emit [RegistrationFlowEvent.RegistrationComplete].
-   *
-   * Intended for any screen that, in the legacy flow, would have signalled "we're done". Pre-
-   * existing-data callers (re-registration, device transfer, backup restore) won't pay the
-   * restore-record cost.
-   */
-  suspend fun finishRegistrationOrCreateProfile(
-    parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    restoreTimeout: Duration = 10.seconds
-  ) {
-    if (hasProfileNameAndAvatar()) {
-      Log.i(TAG, "[finishRegistrationOrCreateProfile] Profile name + avatar already on disk; finishing.")
-      parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
-      return
-    }
-
-    Log.i(TAG, "[finishRegistrationOrCreateProfile] Profile data incomplete; attempting best-effort account-record restore (timeout=${restoreTimeout.inWholeSeconds}s).")
-    restoreAccountRecord(restoreTimeout)
-
-    Log.i(TAG, "[finishRegistrationOrCreateProfile] Account-record restore finished; finishing without routing to Profile screen.")
-    parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
-  }
-
-  private suspend fun hasProfileNameAndAvatar(): Boolean {
-    val stored = getStoredProfileData()
-    return stored.givenName.isNotEmpty() && stored.avatar != null
   }
 
   /**

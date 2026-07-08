@@ -43,7 +43,8 @@ class DeviceTransferCompleteViewModel(
     when (event) {
       DeviceTransferCompleteScreenEvents.ContinueClicked -> {
         repository.setRestoreDecision(RestoreDecision.COMPLETED)
-        repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
       }
       DeviceTransferCompleteScreenEvents.ConsumeOneTimeEvent -> {
         stateEmitter(state.copy(oneTimeEvent = null))

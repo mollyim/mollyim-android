@@ -34,7 +34,7 @@ import org.signal.registration.screens.util.navigateTo
  */
 class ArchiveRestoreSelectionViewModel(
   private val restoreOptions: List<ArchiveRestoreOption>,
-  private val isPreRegistration: Boolean,
+  private val registeredState: RegisteredState,
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
@@ -74,21 +74,27 @@ class ArchiveRestoreSelectionViewModel(
         when (event.option) {
           ArchiveRestoreOption.SignalSecureBackup -> {
             notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.REMOTE_BACKUP)
-            if (isPreRegistration) {
-              parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
-              parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-            } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.EnterAepForRemoteBackupPostRegistration)
+            when (registeredState) {
+              RegisteredState.NotRegistered -> {
+                parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
+                parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              else -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.EnterAepForRemoteBackupPostRegistration)
+              }
             }
             state
           }
           ArchiveRestoreOption.LocalBackup -> {
             notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.LOCAL_BACKUP)
-            if (isPreRegistration) {
-              parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.LocalBackup))
-              parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-            } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+            when (registeredState) {
+              RegisteredState.NotRegistered -> {
+                parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.LocalBackup))
+                parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              else -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+              }
             }
             state
           }
@@ -103,20 +109,29 @@ class ArchiveRestoreSelectionViewModel(
         }
       }
       is ArchiveRestoreSelectionScreenEvents.ConfirmSkip -> {
-        if (isPreRegistration) {
-          parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-          state.copy(showSkipWarningDialog = false)
-        } else {
-          notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
-          repository.setRestoreDecision(RestoreDecision.SKIPPED)
-          if (state.storageCapable) {
-            Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
-            parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
-          } else {
-            Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
-            parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+        when (registeredState) {
+          RegisteredState.NotRegistered -> {
+            parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+            state.copy(showSkipWarningDialog = false)
           }
-          state.copy(showSkipWarningDialog = false)
+          RegisteredState.RegisteredAndPinUnknown -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+            repository.setRestoreDecision(RestoreDecision.SKIPPED)
+            if (state.storageCapable) {
+              Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
+              parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+            } else {
+              Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
+              parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+            }
+            state.copy(showSkipWarningDialog = false)
+          }
+          RegisteredState.RegisteredAndPinKnown -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+            repository.setRestoreDecision(RestoreDecision.SKIPPED)
+            parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+            state.copy(showSkipWarningDialog = false)
+          }
         }
       }
       is ArchiveRestoreSelectionScreenEvents.DismissSkipWarning -> {
@@ -145,13 +160,13 @@ class ArchiveRestoreSelectionViewModel(
 
   class Factory(
     private val restoreOptions: List<ArchiveRestoreOption>,
-    private val isPreRegistration: Boolean,
+    private val registeredState: RegisteredState,
     private val repository: RegistrationRepository,
     private val parentState: StateFlow<RegistrationFlowState>,
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return ArchiveRestoreSelectionViewModel(restoreOptions, isPreRegistration, repository, parentState, parentEventEmitter) as T
+      return ArchiveRestoreSelectionViewModel(restoreOptions, registeredState, repository, parentState, parentEventEmitter) as T
     }
   }
 }

@@ -122,7 +122,8 @@ class RemoteBackupRestoreViewModel(
             parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(aep))
             repository.persistRemoteBackupRestoredState(progress.restoredSvrPin, progress.restoredProfileKey)
             repository.setRestoreDecision(RestoreDecision.COMPLETED)
-            repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+            repository.restoreAccountRecord()
+            parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
           }
           is RemoteBackupRestoreProgress.NetworkError -> {
             Log.w(TAG, "[restoreBackup] Remote restore failed with network error.", progress.cause)

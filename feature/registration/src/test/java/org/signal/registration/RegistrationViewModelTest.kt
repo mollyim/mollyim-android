@@ -475,7 +475,7 @@ class RegistrationViewModelTest {
       )
     )
 
-    val postRegisterSelection = RegistrationRoute.ArchiveRestoreSelection.forPostRegister()
+    val postRegisterSelection = RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown()
 
     val result = viewModel.applyEvent(
       initialState,

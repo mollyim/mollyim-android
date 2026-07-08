@@ -6,6 +6,7 @@
 package org.signal.registration.screens.pincreation
 
 import assertk.assertThat
+import assertk.assertions.contains
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
@@ -130,7 +131,7 @@ class PinCreationViewModelTest {
   // ==================== PinSubmitted Success Tests ====================
 
   @Test
-  fun `matching confirmation PIN with valid AEP and successful SVR backup hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
+  fun `matching confirmation PIN with valid AEP and successful SVR backup completes registration`() = runTest(testDispatcher) {
     val states = collectStates()
     val aep = AccountEntropyPool.generate()
     val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "123456")
@@ -141,7 +142,8 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT) }
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
     assertThat(states.last().loading).isTrue()
   }
 

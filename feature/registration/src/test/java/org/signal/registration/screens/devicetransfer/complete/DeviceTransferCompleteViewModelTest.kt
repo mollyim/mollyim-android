@@ -6,6 +6,7 @@
 package org.signal.registration.screens.devicetransfer.complete
 
 import assertk.assertThat
+import assertk.assertions.contains
 import assertk.assertions.hasSize
 import assertk.assertions.isEmpty
 import assertk.assertions.isNull
@@ -54,7 +55,7 @@ class DeviceTransferCompleteViewModelTest {
   }
 
   @Test
-  fun `ContinueClicked hands off to finishRegistrationOrCreateProfile`() = runTest {
+  fun `ContinueClicked restores account record and completes registration`() = runTest {
     viewModel.applyEvent(
       DeviceTransferCompleteState(),
       DeviceTransferCompleteScreenEvents.ContinueClicked,
@@ -64,7 +65,8 @@ class DeviceTransferCompleteViewModelTest {
     )
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedEvents).contains(RegistrationFlowEvent.RegistrationComplete)
   }
 
   @Test
@@ -79,7 +81,7 @@ class DeviceTransferCompleteViewModelTest {
 
     coVerifyOrder {
       mockRepository.setRestoreDecision(RestoreDecision.COMPLETED)
-      mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any())
+      mockRepository.restoreAccountRecord(any())
     }
   }
 
@@ -109,7 +111,7 @@ class DeviceTransferCompleteViewModelTest {
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last().oneTimeEvent).isNull()
     coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
-    coVerify(exactly = 0) { mockRepository.finishRegistrationOrCreateProfile(any(), any()) }
+    coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
   }
 
   @Test
@@ -118,6 +120,7 @@ class DeviceTransferCompleteViewModelTest {
     testDispatcher.scheduler.advanceUntilIdle()
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedEvents).contains(RegistrationFlowEvent.RegistrationComplete)
   }
 }

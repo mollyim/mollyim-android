@@ -82,10 +82,36 @@ class PinEntryForRegistrationLockViewModelTest {
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents).hasSize(3)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
+  }
+
+  @Test
+  fun `PinEntered with correct PIN on re-registration navigates to post-register restore selection`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val registerResponse = createRegisterAccountResponse(reregistration = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedParentEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+    coVerify { mockRepository.restoreAccountRecord(any()) }
     assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
@@ -427,7 +453,8 @@ class PinEntryForRegistrationLockViewModelTest {
     aci: String = "test-aci",
     pni: String = "test-pni",
     e164: String = "+15551234567",
-    storageCapable: Boolean = true
+    storageCapable: Boolean = true,
+    reregistration: Boolean = false
   ) = NetworkController.RegisterAccountResponse(
     aci = aci,
     pni = pni,
@@ -436,6 +463,6 @@ class PinEntryForRegistrationLockViewModelTest {
     usernameLinkHandle = null,
     storageCapable = storageCapable,
     entitlements = null,
-    reregistration = false
+    reregistration = reregistration
   )
 }

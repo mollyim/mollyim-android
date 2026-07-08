@@ -100,6 +100,7 @@ import org.signal.registration.screens.remotebackuprestore.RemoteRestoreScreen
 import org.signal.registration.screens.restoreselection.ArchiveRestoreOption
 import org.signal.registration.screens.restoreselection.ArchiveRestoreSelectionScreen
 import org.signal.registration.screens.restoreselection.ArchiveRestoreSelectionViewModel
+import org.signal.registration.screens.restoreselection.RegisteredState
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 import org.signal.registration.screens.verificationcode.VerificationCodeScreen
@@ -162,7 +163,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data object PinCreate : RegistrationRoute
 
   @Serializable
-  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val isPreRegistration: Boolean) : RegistrationRoute {
+  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val registeredState: RegisteredState) : RegistrationRoute {
     companion object {
       fun forQuickRestore(hasRemoteBackup: Boolean): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
@@ -174,7 +175,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             add(ArchiveRestoreOption.DeviceTransfer)
             add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = true
+          registeredState = RegisteredState.NotRegistered
         )
       }
 
@@ -185,18 +186,29 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             add(ArchiveRestoreOption.LocalBackup)
             add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = true
+          registeredState = RegisteredState.NotRegistered
         )
       }
 
-      fun forPostRegister(): ArchiveRestoreSelection {
+      fun forPostRegisterWithPinUnknown(): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
             add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = false
+          registeredState = RegisteredState.RegisteredAndPinUnknown
+        )
+      }
+
+      fun forPostRegisterWithPinKnown(): ArchiveRestoreSelection {
+        return ArchiveRestoreSelection(
+          restoreOptions = buildList {
+            add(ArchiveRestoreOption.SignalSecureBackup)
+            add(ArchiveRestoreOption.LocalBackup)
+            add(ArchiveRestoreOption.None)
+          },
+          registeredState = RegisteredState.RegisteredAndPinKnown
         )
       }
     }
@@ -694,7 +706,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val viewModel: ArchiveRestoreSelectionViewModel = viewModel(
       factory = ArchiveRestoreSelectionViewModel.Factory(
         restoreOptions = key.restoreOptions,
-        isPreRegistration = key.isPreRegistration,
+        registeredState = key.registeredState,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent

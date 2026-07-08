@@ -7,6 +7,7 @@ package org.signal.registration.screens.localbackuprestore
 
 import android.net.Uri
 import assertk.assertThat
+import assertk.assertions.contains
 import assertk.assertions.hasSize
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
@@ -266,6 +267,7 @@ class LocalBackupRestoreViewModelTest {
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
   }
 }

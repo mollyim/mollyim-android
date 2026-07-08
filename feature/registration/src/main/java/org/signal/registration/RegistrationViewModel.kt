@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.core.util.logging.Log
 import org.signal.registration.screens.EventDrivenViewModel
+import org.signal.registration.screens.restoreselection.RegisteredState
 import kotlin.reflect.KClass
 
 /**
@@ -148,7 +149,7 @@ class RegistrationViewModel(
       is RegistrationRoute.PinCreate,
       is RegistrationRoute.PinEntryForSvrRestore,
       is RegistrationRoute.RemoteRestore -> true
-      is RegistrationRoute.ArchiveRestoreSelection -> !this.isPreRegistration
+      is RegistrationRoute.ArchiveRestoreSelection -> this.registeredState != RegisteredState.NotRegistered
       else -> false
     }
   }

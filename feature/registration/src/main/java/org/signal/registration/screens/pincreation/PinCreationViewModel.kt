@@ -125,7 +125,8 @@ class PinCreationViewModel(
       is RequestResult.Success -> {
         Log.i(TAG, "[PinSubmitted] Successfully backed up master key to SVR.")
         repository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
-        repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         state
       }
 

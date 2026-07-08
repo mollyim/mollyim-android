@@ -98,7 +98,7 @@ class PinEntryForSvrRestoreViewModel(
         result.result
       }
       is RequestResult.NonSuccess<NetworkController.GetSvrCredentialsError> -> {
-        when (val error = result.error) {
+        when (result.error) {
           NetworkController.GetSvrCredentialsError.NoServiceCredentialsAvailable -> {
             Log.w(TAG, "[PinEntered] No service credentials available when restoring from SVR. This should not happen. Resetting.")
             parentEventEmitter(RegistrationFlowEvent.ResetState)
@@ -125,7 +125,8 @@ class PinEntryForSvrRestoreViewModel(
         repository.enqueueSvrResetGuessCountJob()
         repository.setRestoreDecision(RestoreDecision.COMPLETED)
         parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(result.result.masterKey))
-        repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         state
       }
       is RequestResult.NonSuccess -> {
