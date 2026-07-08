@@ -22,6 +22,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -269,5 +270,55 @@ class LocalBackupRestoreViewModelTest {
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.restoreAccountRecord(any()) }
     assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  // ==================== Incorrect Credential Tests ====================
+
+  @Test
+  fun `V1 restore with incorrect passphrase surfaces IncorrectCredential and does not complete`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false)
+    backgroundScope.launch { viewModel.state.collect {} }
+
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.IncorrectCredential)
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    assertThat(viewModel.state.value.restorePhase).isEqualTo(LocalBackupRestoreState.RestorePhase.IncorrectCredential)
+    assertThat(emittedParentEvents).isEmpty()
+    coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
+  }
+
+  @Test
+  fun `V2 restore with incorrect recovery key surfaces IncorrectCredential and does not complete`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false)
+    backgroundScope.launch { viewModel.state.collect {} }
+
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V2,
+      date = LocalDateTime.now(),
+      name = "signal-backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
+
+    every { mockRepository.restoreV2Backup(any(), any(), any()) } returns flowOf(LocalBackupRestoreProgress.IncorrectCredential)
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted(VALID_AEP), stateEmitter)
+
+    assertThat(viewModel.state.value.restorePhase).isEqualTo(LocalBackupRestoreState.RestorePhase.IncorrectCredential)
+    assertThat(emittedParentEvents).isEmpty()
+    coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
+  }
+
+  companion object {
+    private const val VALID_AEP = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t"
   }
 }

@@ -53,6 +53,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.LinkedDeviceInfo
 import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistrationMetadata
 import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobs.LocalBackupRestoreMediaJob
 import org.thoughtcrime.securesms.keyvalue.Completed
 import org.thoughtcrime.securesms.keyvalue.NewAccount
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
@@ -293,7 +294,8 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     try {
       if (!FullBackupImporter.validatePassphrase(context, uri, passphrase)) {
-        emit(LocalBackupRestoreProgress.Error(IllegalArgumentException("Invalid passphrase")))
+        Log.w(TAG, "V1 restore failed: incorrect passphrase")
+        emit(LocalBackupRestoreProgress.IncorrectCredential)
         return@flow
       }
 
@@ -346,8 +348,27 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       val messageBackupKey = aep.deriveMessageBackupKey()
       val snapshotFileSystem = SnapshotFileSystem(context, backupDir)
 
+      if (!LocalArchiver.canDecryptMainArchive(snapshotFileSystem, messageBackupKey)) {
+        Log.w(TAG, "V2 restore failed: recovery key cannot decrypt backup")
+        emit(LocalBackupRestoreProgress.IncorrectCredential)
+        return@flow
+      }
+
       when (val result = LocalArchiver.import(snapshotFileSystem, selfData, messageBackupKey)) {
         is Result.Success -> {
+          AppDependencies.jobManager.add(LocalBackupRestoreMediaJob.create(rootUri))
+
+          // Only adopt the entered recovery key as the account's AEP if the backup actually belongs to this account.
+          // Otherwise we'd overwrite the account's real AEP with a foreign backup's key. Messages are still imported.
+          val actualBackupId = LocalArchiver.getBackupId(snapshotFileSystem, messageBackupKey)
+          val expectedBackupId = SignalStore.account.accountEntropyPool.deriveMessageBackupKey().deriveBackupId(selfAci)
+          if (actualBackupId?.value?.contentEquals(expectedBackupId.value) == true) {
+            Log.i(TAG, "V2 local backup belongs to current account; adopting entered recovery key.")
+            SignalStore.account.restoreAccountEntropyPool(aep)
+            updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
+          } else {
+            Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
+          }
           emit(LocalBackupRestoreProgress.Complete)
           Log.d(TAG, "V2 restore complete.")
         }

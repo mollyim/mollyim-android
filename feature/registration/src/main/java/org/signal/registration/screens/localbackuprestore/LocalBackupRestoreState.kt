@@ -42,6 +42,9 @@ data class LocalBackupRestoreState(
     /** Restore is actively in progress. */
     InProgress,
 
+    /** The entered passphrase/recovery key could not decrypt the backup. */
+    IncorrectCredential,
+
     /** Restore failed. */
     Error
   }

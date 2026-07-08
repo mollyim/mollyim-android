@@ -111,10 +111,6 @@ class LocalBackupRestoreViewModel(
   }
 
   private suspend fun onRestoreComplete(state: LocalBackupRestoreState) {
-    if (state.aep != null) {
-      parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(state.aep))
-    }
-
     if (isPreRegistration) {
       resultBus.sendResult(resultKey, LocalBackupRestoreResult.Success(state.aep))
       parentEventEmitter.navigateBack()
@@ -186,6 +182,10 @@ class LocalBackupRestoreViewModel(
           is LocalBackupRestoreProgress.Complete -> {
             onRestoreComplete(_localState.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase))
             _localState.value
+          }
+          is LocalBackupRestoreProgress.IncorrectCredential -> {
+            Log.w(TAG, "Restore failed: incorrect passphrase/recovery key")
+            currentState.copy(restorePhase = LocalBackupRestoreState.RestorePhase.IncorrectCredential)
           }
           is LocalBackupRestoreProgress.Error -> {
             Log.w(TAG, "Restore failed", progress.cause)

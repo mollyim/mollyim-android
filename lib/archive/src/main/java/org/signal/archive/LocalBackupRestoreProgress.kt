@@ -25,6 +25,9 @@ sealed interface LocalBackupRestoreProgress {
   /** The restore completed successfully. */
   data object Complete : LocalBackupRestoreProgress
 
+  /** The provided passphrase (V1) or recovery key (V2) could not decrypt the backup. */
+  data object IncorrectCredential : LocalBackupRestoreProgress
+
   /** The restore failed with an error. */
   data class Error(val cause: Throwable) : LocalBackupRestoreProgress
 }
