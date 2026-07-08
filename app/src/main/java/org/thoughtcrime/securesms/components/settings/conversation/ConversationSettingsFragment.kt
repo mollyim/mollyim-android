@@ -851,18 +851,14 @@ class ConversationSettingsFragment :
             resources.getQuantityString(R.plurals.ContactSelectionListFragment_d_members, memberCount, memberCount)
           }
 
-          if (RemoteConfig.internalUser) {
-            sectionHeaderPref(
-              title = DSLSettingsText.from(memberHeaderText),
-              iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
-              onClick = {
-                val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId, canAdd, groupState.groupLinkEnabled)
-                navController.safeNavigate(action)
-              }
-            )
-          } else {
-            sectionHeaderPref(DSLSettingsText.from(memberHeaderText))
-          }
+          sectionHeaderPref(
+            title = DSLSettingsText.from(memberHeaderText),
+            iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
+            onClick = {
+              val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId, canAdd, groupState.groupLinkEnabled)
+              navController.safeNavigate(action)
+            }
+          )
         }
 
         if (canAdd) {
