@@ -1319,17 +1319,6 @@ object RemoteConfig {
   )
 
   /**
-   * Whether or not to allow admins to terminate groups.
-   */
-  @JvmStatic
-  @get:JvmName("groupTerminateSend")
-  val groupTerminateSend: Boolean by remoteBoolean(
-    key = "android.groupTerminateSend",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Whether to collapse update events
    */
   @JvmStatic

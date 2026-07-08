@@ -1138,7 +1138,7 @@ class ConversationSettingsFragment :
       }
 
       state.withGroupSettingsState { groupState ->
-        if (groupState.canEndGroup && RemoteConfig.groupTerminateSend) {
+        if (groupState.canEndGroup) {
           dividerPref()
 
           clickPref(
