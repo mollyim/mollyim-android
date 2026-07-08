@@ -37,6 +37,7 @@ import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.zkgroup.GenericServerPublicParams
+import org.signal.libsignal.zkgroup.VerificationFailedException
 import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialRequestContext
 import org.signal.libsignal.zkgroup.backups.BackupAuthCredentialResponse
 import org.signal.network.NetworkResult
@@ -1424,6 +1425,25 @@ class DemoNetworkController(
       "X-Signal-ZK-Auth" to Base64.encodeWithPadding(presentation),
       "X-Signal-ZK-Auth-Signature" to Base64.encodeWithPadding(signedPresentation)
     )
+  }
+
+  override suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> = withContext(Dispatchers.IO) {
+    when (val result = getRemoteBackupInfo(aep)) {
+      is RequestResult.Success -> RequestResult.Success(Unit)
+      is RequestResult.NonSuccess -> when (val error = result.error) {
+        is NetworkController.GetBackupInfoError.NoBackup -> RequestResult.NonSuccess(NetworkController.VerifyBackupKeyError.NoBackup)
+        is NetworkController.GetBackupInfoError.RateLimited -> RequestResult.NonSuccess(NetworkController.VerifyBackupKeyError.RateLimited(error.retryAfter))
+        else -> RequestResult.NonSuccess(NetworkController.VerifyBackupKeyError.IncorrectKey)
+      }
+      is RequestResult.RetryableNetworkError -> RequestResult.RetryableNetworkError(result.networkError)
+      is RequestResult.ApplicationError -> {
+        if (result.cause is VerificationFailedException) {
+          RequestResult.NonSuccess(NetworkController.VerifyBackupKeyError.IncorrectKey)
+        } else {
+          RequestResult.ApplicationError(result.cause)
+        }
+      }
+    }
   }
 
   override suspend fun getBackupFileLastModified(

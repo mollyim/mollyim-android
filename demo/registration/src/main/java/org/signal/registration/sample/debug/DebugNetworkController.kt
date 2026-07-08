@@ -312,4 +312,12 @@ class DebugNetworkController(
     }
     return delegate.getBackupFileLastModified(aep, backupInfo)
   }
+
+  override suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> {
+    NetworkDebugState.getOverride<RequestResult<Unit, NetworkController.VerifyBackupKeyError>>("verifyBackupKeyAssociatedWithAccount")?.let {
+      Log.d(TAG, "[verifyBackupKeyAssociatedWithAccount] Returning debug override")
+      return it
+    }
+    return delegate.verifyBackupKeyAssociatedWithAccount(aep)
+  }
 }

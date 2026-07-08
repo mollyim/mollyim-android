@@ -850,6 +850,10 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     networkController.getBackupFileLastModified(aep, backupInfo)
   }
 
+  suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> = withContext(Dispatchers.IO) {
+    networkController.verifyBackupKeyAssociatedWithAccount(aep)
+  }
+
   fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress> {
     return storageController.restoreRemoteBackup(aep)
   }

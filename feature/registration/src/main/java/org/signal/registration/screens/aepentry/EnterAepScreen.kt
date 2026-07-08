@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -52,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
 import org.signal.registration.fonts.MonoTypeface
@@ -70,10 +72,32 @@ fun EnterAepScreen(
   onEvent: (EnterAepEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  RegistrationErrorDialog(state.registrationError, onEvent)
+
   when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
     is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
+}
+
+/**
+ * Shows a dismissable dialog for generic registration errors (network/rate-limit/unknown). Incorrect-key errors are
+ * surfaced inline on the text field instead, so they are intentionally not shown here.
+ */
+@Composable
+private fun RegistrationErrorDialog(error: RegistrationError?, onEvent: (EnterAepEvents) -> Unit) {
+  val message = when (error) {
+    RegistrationError.NetworkError -> stringResource(R.string.VerificationCodeScreen__network_error)
+    RegistrationError.RateLimited -> stringResource(R.string.VerificationCodeScreen__too_many_attempts)
+    RegistrationError.UnknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
+    RegistrationError.IncorrectRecoveryPassword, null -> null
+  } ?: return
+
+  Dialogs.SimpleMessageDialog(
+    message = message,
+    dismiss = stringResource(android.R.string.ok),
+    onDismiss = { onEvent(EnterAepEvents.DismissError) }
+  )
 }
 
 @Composable
@@ -314,7 +338,15 @@ private fun NextButton(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit, 
     enabled = state.isBackupKeyValid && state.aepValidationError == null && !state.isRegistering,
     onClick = { onEvent(EnterAepEvents.Submit) }
   ) {
-    Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
+    if (state.isRegistering) {
+      CircularProgressIndicator(
+        modifier = Modifier.size(24.dp),
+        strokeWidth = 3.dp,
+        color = MaterialTheme.colorScheme.primary
+      )
+    } else {
+      Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
+    }
   }
 }
 
@@ -376,6 +408,23 @@ private fun EnterAepScreenFilledPreview() {
         enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         isBackupKeyValid = true,
+        isPasswordManagerAvailable = true
+      ),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun EnterAepScreenLoadingPreview() {
+  Previews.Preview {
+    EnterAepScreen(
+      state = EnterAepState(
+        enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
+        backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
+        isBackupKeyValid = true,
+        isRegistering = true,
         isPasswordManagerAvailable = true
       ),
       onEvent = {}

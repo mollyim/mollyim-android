@@ -218,6 +218,16 @@ interface NetworkController {
   suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: GetBackupInfoResponse): RequestResult<Long, GetBackupInfoError>
 
   /**
+   * Verifies that [aep] is the correct backup key for the current account by checking it against the remote backup.
+   * Used to detect an incorrect backup passphrase before attempting a full restore, so the user can be given the
+   * chance to re-enter it.
+   *
+   * A [VerifyBackupKeyError.IncorrectKey] result means the key failed zk verification (i.e. it does not match the
+   * account's backup).
+   */
+  suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, VerifyBackupKeyError>
+
+  /**
    * Starts a provisioning session for QR-based quick restore.
    *
    * The returned flow emits [ProvisioningEvent]s:
@@ -445,6 +455,16 @@ interface NetworkController {
     data class Forbidden(val body: String? = null) : GetBackupInfoError()
     data object NoBackup : GetBackupInfoError()
     data class RateLimited(val retryAfter: Duration) : GetBackupInfoError()
+  }
+
+  sealed class VerifyBackupKeyError : BadRequestError {
+    /** The entered key failed zk verification -- it is not the correct backup key for this account. */
+    data object IncorrectKey : VerifyBackupKeyError()
+
+    /** The key verified, but no backup exists for this account. */
+    data object NoBackup : VerifyBackupKeyError()
+
+    data class RateLimited(val retryAfter: Duration?) : VerifyBackupKeyError()
   }
 
   data class MasterKeyResponse(

@@ -59,8 +59,11 @@ import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.ThirdPartyServiceErrorResponse
 import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.NetworkController.VerificationCodeTransport
+import org.signal.registration.NetworkController.VerifyBackupKeyError
 import org.signal.registration.proto.RegistrationProvisionMessage
 import org.thoughtcrime.securesms.BuildConfig
+import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.backup.v2.RestoreTimestampResult
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.gcm.FcmUtil
@@ -742,6 +745,21 @@ class AppRegistrationNetworkController(
       RequestResult.RetryableNetworkError(e)
     } catch (e: Exception) {
       RequestResult.ApplicationError(e)
+    }
+  }
+
+  override suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, VerifyBackupKeyError> = withContext(Dispatchers.IO) {
+    val aci = SignalStore.account.aci ?: return@withContext RequestResult.ApplicationError(IllegalStateException("ACI not available"))
+
+    when (val result = BackupRepository.verifyBackupKeyAssociatedWithAccount(aci, aep)) {
+      is RestoreTimestampResult.Success -> RequestResult.Success(Unit)
+      RestoreTimestampResult.NotFound,
+      RestoreTimestampResult.BackupsNotEnabled -> RequestResult.NonSuccess(VerifyBackupKeyError.NoBackup)
+      RestoreTimestampResult.VerificationFailure -> RequestResult.NonSuccess(VerifyBackupKeyError.IncorrectKey)
+      is RestoreTimestampResult.RateLimited -> RequestResult.NonSuccess(VerifyBackupKeyError.RateLimited(result.retryAfter))
+      // Failure is the catch-all for "couldn't check the backup"; the specific outcomes are already broken out above, so
+      // this is overwhelmingly a connectivity/transport issue (e.g. no network).
+      RestoreTimestampResult.Failure -> RequestResult.RetryableNetworkError(IOException("Failed to verify backup key associated with account"))
     }
   }
 

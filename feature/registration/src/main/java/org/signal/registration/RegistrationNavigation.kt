@@ -818,6 +818,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val context = LocalContext.current
     val viewModel: EnterAepForRemoteBackupPostRegistrationViewModel = viewModel(
       factory = EnterAepForRemoteBackupPostRegistrationViewModel.Factory(
+        repository = registrationRepository,
         parentEventEmitter = registrationViewModel::onEvent,
         isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )
