@@ -549,10 +549,16 @@ class RegistrationRepository(val context: Context, val networkController: Networ
 
     Log.i(TAG, "[registerAccount] Starting registration for $e164. sessionId: ${sessionId != null}, recoveryPassword: ${recoveryPassword != null}, registrationLock: ${registrationLock != null}, skipDeviceTransfer: $skipDeviceTransfer, existingAep: ${existingAccountEntropyPool != null}")
 
+    val inProgressData = storageController.readInProgressRegistrationData()
+    val resumedAciIdentityKeyPair = inProgressData.aciIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
+    val resumedPniIdentityKeyPair = inProgressData.pniIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
+    val resumedProfileKey = inProgressData.profileKey.takeIf { it.size > 0 }?.let { ProfileKey(it.toByteArray()) }
+
     val keyMaterial = generateKeyMaterial(
       existingAccountEntropyPool = existingAccountEntropyPool,
-      existingAciIdentityKeyPair = existingAciIdentityKeyPair,
-      existingPniIdentityKeyPair = existingPniIdentityKeyPair
+      existingAciIdentityKeyPair = existingAciIdentityKeyPair ?: resumedAciIdentityKeyPair,
+      existingPniIdentityKeyPair = existingPniIdentityKeyPair ?: resumedPniIdentityKeyPair,
+      profileKey = resumedProfileKey
     )
 
     storageController.updateInProgressRegistrationData {
@@ -706,13 +712,24 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
-   * Persist any data in our scratch storage that was restored as part of a remote backup so that we don't accidentally overwrite it
-   * when we commit it.
+   * Persist any data in our scratch storage that was restored as part of a backup (remote or local) so that we don't
+   * accidentally overwrite it when we commit it.
    */
-  suspend fun persistRemoteBackupRestoredState(restoredPin: String?, restoredProfileKey: ProfileKey?) {
+  suspend fun persistRestoredBackupState(restoredPin: String?, restoredProfileKey: ProfileKey?) {
     storageController.updateInProgressRegistrationData {
       pin = restoredPin ?: pin
       profileKey = restoredProfileKey?.serialize()?.toByteString() ?: profileKey
+    }
+  }
+
+  /**
+   * Persists identity key pairs restored from a pre-registration local backup into our scratch storage, so that the
+   * upcoming registration reuses the device's existing identity rather than generating a fresh one.
+   */
+  suspend fun persistRestoredIdentityKeys(restoredAciIdentityKey: IdentityKeyPair?, restoredPniIdentityKey: IdentityKeyPair?) {
+    storageController.updateInProgressRegistrationData {
+      aciIdentityKeyPair = restoredAciIdentityKey?.serialize()?.toByteString() ?: aciIdentityKeyPair
+      pniIdentityKeyPair = restoredPniIdentityKey?.serialize()?.toByteString() ?: pniIdentityKeyPair
     }
   }
 

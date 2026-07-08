@@ -312,7 +312,7 @@ class DemoStorageController(private val context: Context) : StorageController {
       delay(SIMULATED_STAGE_DELAY_MS)
     }
 
-    emit(LocalBackupRestoreProgress.Complete)
+    emit(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
     Log.d(TAG, "Simulated V1 restore complete.")
   }.flowOn(Dispatchers.IO)
 
@@ -330,7 +330,7 @@ class DemoStorageController(private val context: Context) : StorageController {
       delay(SIMULATED_STAGE_DELAY_MS)
     }
 
-    emit(LocalBackupRestoreProgress.Complete)
+    emit(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
     Log.d(TAG, "Simulated V2 restore complete.")
   }.flowOn(Dispatchers.IO)
 

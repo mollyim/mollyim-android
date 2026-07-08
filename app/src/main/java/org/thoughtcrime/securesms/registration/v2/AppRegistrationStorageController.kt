@@ -70,6 +70,7 @@ import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Implementation of [StorageController] that bridges to the app's existing storage infrastructure.
@@ -311,7 +312,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
       SignalDatabase.runPostBackupRestoreTasks(database)
 
-      emit(LocalBackupRestoreProgress.Complete)
+      emit(readRestoredLocalBackupState(includeIdentityKeys = true))
       Log.d(TAG, "V1 restore complete.")
     } catch (e: FullBackupImporter.DatabaseDowngradeException) {
       Log.w(TAG, "V1 restore failed: database downgrade", e)
@@ -369,7 +370,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
           } else {
             Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
           }
-          emit(LocalBackupRestoreProgress.Complete)
+          emit(readRestoredLocalBackupState())
           Log.d(TAG, "V2 restore complete.")
         }
         is Result.Failure -> {
@@ -382,6 +383,24 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       emit(LocalBackupRestoreProgress.Error(e))
     }
   }.flowOn(Dispatchers.IO)
+
+  private fun readRestoredLocalBackupState(includeIdentityKeys: Boolean = false): LocalBackupRestoreProgress.Complete {
+    val restoredPin = SignalStore.svr.pin?.takeIf { it.isNotBlank() }
+    val restoredProfileKey = SignalStore.account.aci
+      ?.let { SignalDatabase.recipients.getByAci(it).getOrNull() }
+      ?.let { SignalDatabase.recipients.getRecord(it).profileKey }
+      ?.let { ProfileKey(it) }
+
+    val restoredAciIdentityKey = if (includeIdentityKeys && SignalStore.account.hasAciIdentityKey()) SignalStore.account.aciIdentityKey else null
+    val restoredPniIdentityKey = if (includeIdentityKeys && SignalStore.account.hasPniIdentityKey()) SignalStore.account.pniIdentityKey else null
+
+    return LocalBackupRestoreProgress.Complete(
+      restoredSvrPin = restoredPin,
+      restoredProfileKey = restoredProfileKey,
+      restoredAciIdentityKey = restoredAciIdentityKey,
+      restoredPniIdentityKey = restoredPniIdentityKey
+    )
+  }
 
   override suspend fun scanLocalBackupFolder(folderUri: Uri): List<LocalBackupInfo> = withContext(Dispatchers.IO) {
     val folder = DocumentFile.fromTreeUri(context, folderUri) ?: return@withContext emptyList()

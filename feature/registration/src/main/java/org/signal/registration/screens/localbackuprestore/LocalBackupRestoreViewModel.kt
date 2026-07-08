@@ -110,8 +110,11 @@ class LocalBackupRestoreViewModel(
     startRestore(backup, state.selectedFolderUri, credential, aep)
   }
 
-  private suspend fun onRestoreComplete(state: LocalBackupRestoreState) {
+  private suspend fun onRestoreComplete(state: LocalBackupRestoreState, progress: LocalBackupRestoreProgress.Complete) {
+    repository.persistRestoredBackupState(progress.restoredSvrPin, progress.restoredProfileKey)
+
     if (isPreRegistration) {
+      repository.persistRestoredIdentityKeys(progress.restoredAciIdentityKey, progress.restoredPniIdentityKey)
       resultBus.sendResult(resultKey, LocalBackupRestoreResult.Success(state.aep))
       parentEventEmitter.navigateBack()
     } else {
@@ -180,7 +183,7 @@ class LocalBackupRestoreViewModel(
             v1Passphrase = currentState.v1Passphrase
           )
           is LocalBackupRestoreProgress.Complete -> {
-            onRestoreComplete(_localState.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase))
+            onRestoreComplete(_localState.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase), progress)
             _localState.value
           }
           is LocalBackupRestoreProgress.IncorrectCredential -> {

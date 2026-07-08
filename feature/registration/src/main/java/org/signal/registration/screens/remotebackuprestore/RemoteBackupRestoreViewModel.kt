@@ -119,7 +119,7 @@ class RemoteBackupRestoreViewModel(
               restoreState = RemoteBackupRestoreState.RestoreState.Restored,
               restoreProgress = null
             )
-            repository.persistRemoteBackupRestoredState(progress.restoredSvrPin, progress.restoredProfileKey)
+            repository.persistRestoredBackupState(progress.restoredSvrPin, progress.restoredProfileKey)
             repository.setRestoreDecision(RestoreDecision.COMPLETED)
             repository.restoreAccountRecord()
             parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)

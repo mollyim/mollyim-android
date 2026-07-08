@@ -32,6 +32,8 @@ import org.junit.Before
 import org.junit.Test
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.ui.navigation.ResultEventBus
+import org.signal.libsignal.protocol.IdentityKeyPair
+import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
@@ -263,10 +265,11 @@ class LocalBackupRestoreViewModelTest {
     )
     val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
 
-    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete)
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
 
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
 
+    coVerify { mockRepository.persistRestoredBackupState(null, null) }
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.restoreAccountRecord(any()) }
     assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
@@ -316,6 +319,36 @@ class LocalBackupRestoreViewModelTest {
     assertThat(viewModel.state.value.restorePhase).isEqualTo(LocalBackupRestoreState.RestorePhase.IncorrectCredential)
     assertThat(emittedParentEvents).isEmpty()
     coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
+  }
+
+  @Test
+  fun `pre-registration V1 restore persists restored backup state and identity keys`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = true)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    val profileKey = ProfileKey(ByteArray(32))
+    val aciIdentityKey = IdentityKeyPair.generate()
+    val pniIdentityKey = IdentityKeyPair.generate()
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Complete(
+        restoredSvrPin = "1234",
+        restoredProfileKey = profileKey,
+        restoredAciIdentityKey = aciIdentityKey,
+        restoredPniIdentityKey = pniIdentityKey
+      )
+    )
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    coVerify { mockRepository.persistRestoredBackupState("1234", profileKey) }
+    coVerify { mockRepository.persistRestoredIdentityKeys(aciIdentityKey, pniIdentityKey) }
   }
 
   companion object {
