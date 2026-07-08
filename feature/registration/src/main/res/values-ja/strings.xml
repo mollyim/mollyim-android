@@ -91,8 +91,6 @@
     <string name="VerificationCodeScreen__network_error">接続できません。ネットワークを確認してもう一度お試しください。</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">試行回数が多すぎます。%1$s後にもう一度お試しください。</string>
-    <!-- Snackbar shown when rate limited without a specific retry duration -->
-    <string name="VerificationCodeScreen__too_many_attempts">Too many attempts. Please try again later.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">予期せぬエラーが発生しました。 もう一度お試しください。</string>
     <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
@@ -103,20 +101,6 @@
     <string name="VerificationCodeScreen__registration_error">登録に失敗しました。もう一度お試しください。</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">お困りですか？</string>
-    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_title">Having trouble registering?</string>
-    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Make sure your phone has a cellular signal to receive your SMS or call\n • Confirm you can receive a phone call to the number\n • Check that you have entered your phone number correctly.</string>
-    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">For more information, please follow %1$s or %2$s</string>
-    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">these troubleshooting steps</string>
-    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Contact Support</string>
-    <!-- Email subject used when contacting support from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
-    <!-- URL opened for troubleshooting steps from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -155,6 +139,8 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">以前利用していた端末から復元する</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">以前利用していたAndroidから直接移行する</string>
+    <!-- Skip button text -->
+    <string name="ArchiveRestoreSelectionScreen__skip">スキップ</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">復元をスキップしますか？</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -362,12 +348,6 @@
     <string name="PinCreationScreen__disable_pin">PINを無効にする</string>
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">キャンセル</string>
-    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
-    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
-    <string name="PinCreationScreen__network_error">Encountered a network error.</string>
-    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">登録ロック</string>
@@ -427,14 +407,6 @@
     <string name="MessageSyncScreen__learn_more">詳しく見る</string>
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">キャンセル</string>
-    <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
-    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
-    <!-- Button that retries the failed message restore -->
-    <string name="MessageSyncScreen__try_again">Try again</string>
-    <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">このコードをスキャンするとアカウントがリンクします</string>
@@ -464,12 +436,6 @@
     <string name="LinkAccountScreen__waiting_for_your_other_device">他のご利用の端末を待っています…</string>
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">この端末のリンク中にエラーが発生しました</string>
-    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
-    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
-    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">QRコードを閉じる</string>
 

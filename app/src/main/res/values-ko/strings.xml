@@ -602,8 +602,6 @@
     <string name="ConversationFragment__update_build">Signal 업데이트</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Signal 다시 등록</string>
-    <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
-    <string name="ConversationFragment__relink_signal">Re-link</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">돌아가기</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -2281,8 +2279,8 @@
     <string name="PinRestoreEntryFragment_incorrect_pin">PIN이 일치하지 않습니다</string>
     <string name="PinRestoreEntryFragment_skip_pin_entry">PIN 입력을 건너뛸까요?</string>
     <string name="PinRestoreEntryFragment_need_help">도움이 필요하신가요?</string>
-    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">PIN은 직접 설정한 %1$d자리 이상의 숫자 또는 영숫자 조합 코드입니다.\n\nPIN이 기억나지 않는다면 새로 설정할 수 있습니다. 등록 후 계정은 계속 사용할 수 있지만, 프로필 정보와 같은 일부 설정은 복구되지 않습니다.</string>
-    <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">PIN이 기억나지 않는다면 새로 설정할 수 있습니다. 등록 후 계정은 계속 사용할 수 있지만, 프로필 정보와 같은 일부 설정은 복구되지 않습니다.</string>
+    <string name="PinRestoreEntryFragment_your_pin_is_a_d_digit_code">PIN은 직접 설정한 %1$d자리 이상의 숫자 또는 영숫자 조합 코드입니다.\n\nPIN이 기억나지 않는 경우 새로 만들 수 있습니다. 이 경우 계정 등록 및 사용은 가능하지만, 프로필 정보 등 저장된 일부 설정은 삭제됩니다.</string>
+    <string name="PinRestoreEntryFragment_if_you_cant_remember_your_pin">PIN 번호를 잊어버렸다면 새 번호를 생성할 수 있습니다. 이 경우 계정 등록 및 사용은 가능하지만, 프로필 정보 등 저장된 일부 설정은 삭제됩니다.</string>
     <string name="PinRestoreEntryFragment_create_new_pin">새 PIN 생성</string>
     <string name="PinRestoreEntryFragment_contact_support">고객 지원 문의</string>
     <string name="PinRestoreEntryFragment_cancel">취소</string>
@@ -2793,8 +2791,6 @@
 
     <!-- Search -->
     <string name="SearchFragment_no_results">\'%1$s\'에 대한 검색 결과 없음</string>
-    <!-- Text shown when no search results are found.   -->
-    <string name="SearchFragment_no_results_empty">No results found</string>
 
     <!-- ShakeToReport -->
   <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string> -->
@@ -3313,11 +3309,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">미디어를 저장할 수 없음</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">\'Signal 저장 공간 최적화\' 기능이 켜져 있어, 이 미디어가 기기에서 오프로드되었습니다. 항목을 한 번에 하나씩 저장하거나, \'Signal 저장 공간 최적화\' 기능을 해제하여 모든 미디어를 한꺼번에 기기에 다운로드하세요.</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">모든 항목을 저장할 수 없음</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">\'Signal 저장 공간 최적화\' 기능이 켜져 있어, 선택한 미디어 중 일부가 기기에서 오프로드되었습니다. 항목을 한 번에 하나씩 저장하거나, \'Signal 저장 공간 최적화\' 기능을 해제하여 모든 미디어를 한꺼번에 기기에 다운로드하세요.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">저장 공간 설정 보기</string>
 
@@ -3385,10 +3381,6 @@
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">이 기기의 등록이 해제됐습니다. 다른 기기에서 Signal에 전화번호를 등록했기 때문일 가능성이 높습니다.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">기기 다시 등록</string>
-    <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
-    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
-    <!-- Action in reminder banner that will take the user to re-link this device -->
-    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
     <string name="LoggedOutNotification_you_have_been_logged_out">이 기기의 Signal에서 로그아웃했습니다.</string>
@@ -8057,12 +8049,6 @@
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"백업을 복원하려면 Signal을 다시 설치해 주세요. 설치한 후에는 앱을 열고 \'백업 복원\'을 탭한 다음, 백업 폴더를 확인하세요."</string>
-    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won\'t be included -->
-    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
-    <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
-    <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
-    <!-- Dialog action to proceed with turning on on-device backups without turning off "Optimize Signal storage" -->
-    <string name="OnDeviceBackupsScreen__continue_without_turning_off">Continue without turning off</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">복구 키 확인</string>
@@ -8436,19 +8422,13 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">대화 제한을 사용하도록 설정할 경우 연결된 기기에서도 메시지를 삭제합니다.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Signal 저장 공간</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Signal 저장 공간 최적화</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">사용하지 않는 미디어를 오프로드하지만, 언제든지 백업에서 다운로드할 수 있습니다.</string>
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">저장 공간 최적화는 유료 Signal 안전한 백업으로만 사용할 수 있습니다. 백업 구독은 아직 처리 중이며 활성화되지 않았습니다. 나중에 다시 시도해 주세요.</string>
-    <!-- Title of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">Media will be removed from your on-device backup</string>
-    <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
-    <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
-    <string name="ManageStorageSettingsFragment__turn_on">Turn on</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -8918,13 +8898,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">미디어 다운로드</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">새로운 복구 키를 생성하려면 \'Signal 저장 공간 최적화\'를 끈 후 미디어가 다운로드될 때까지 기다려야 합니다. 다운로드가 완료되면 새 키를 생성할 수 있습니다.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">끄기 및 다운로드</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">새 복구 키 만들기</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">새 복구 키 생성은 다른 사람이 나의 키를 알고 있는 경우에만 필요한 작업입니다. 새 키를 만들면 미디어와 백업 파일을 다시 업로드해야 하며, \'Signal 저장 공간 최적화\'를 사용 중이라면 오프로드된 미디어를 먼저 다운로드해야 합니다.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">백업 설정을 종료할까요?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9682,21 +9662,7 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">멤버 검색</string>
-    <!-- Header for a section showing all group members who are contacts -->
-    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
-    <!-- Header for a section showing all group member who are admins -->
-    <string name="MemberSearchFragment__search_admins">Search admins</string>
-    <!-- Dialog title to filter search by -->
-    <string name="MemberSearchFragment__filter">Filter by</string>
-    <!-- Dialog option for all group members -->
-    <string name="MemberSearchFragment__filter_all_members">All members</string>
-    <!-- Dialog option for group admins -->
-    <string name="MemberSearchFragment__filter_admins">Admins</string>
-    <!-- Dialog option for your contacts -->
-    <string name="MemberSearchFragment__filter_contacts">Contacts</string>
-    <!-- Button to invite members via a group link -->
-    <string name="MemberSearchFragment__invite_via">Invite via group link</string>
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">백업을 복원할 수 없음</string>

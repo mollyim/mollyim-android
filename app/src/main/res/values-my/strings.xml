@@ -602,8 +602,6 @@
     <string name="ConversationFragment__update_build">Signal ကို အပ်ဒိတ်လုပ်ပါ။</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Signal ကို ပြန်လည်၍မှတ်ပုံတင်ရန်</string>
-    <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
-    <string name="ConversationFragment__relink_signal">Re-link</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">အနောက်သို့ ပြန်သွားပါ။</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -2793,8 +2791,6 @@
 
     <!-- Search -->
     <string name="SearchFragment_no_results">\'%1$s\' ကို ရှာမတွေ့ပါ</string>
-    <!-- Text shown when no search results are found.   -->
-    <string name="SearchFragment_no_results_empty">No results found</string>
 
     <!-- ShakeToReport -->
   <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string> -->
@@ -3313,11 +3309,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">မီဒီယာကို သိမ်းဆည်း၍မရပါ</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">\"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ဖွင့်ထားသောကြောင့် ဤမီဒီယာကို သင့်စက်မှ Offload လုပ်လိုက်ပါပြီ။ တစ်ခုပြီးတစ်ခု ဒေါင်းလုဒ်လုပ်နိုင်သည် သို့မဟုတ် သင့်စက်ထဲသို့ မီဒီယာအားလုံးကို ဒေါင်းလုဒ်လုပ်ရန် \"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ပိတ်နိုင်သည်။</string>
+    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">အားလုံးကို သိမ်းဆည်း၍မရပါ</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">\"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ဖွင့်ထားသောကြောင့် သင်ရွေးချယ်ထားသော မီဒီယာအချို့ကို သင့်စက်မှ Offload လုပ်လိုက်ပါသည်။ ဖိုင်များကို တစ်ခုချင်းစီ သိမ်းဆည်းနိုင်သည် သို့မဟုတ် သင့်စက်ထဲသို့ မီဒီယာအားလုံးကို ဒေါင်းလုဒ်လုပ်ရန် \"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ပိတ်နိုင်သည်။</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Signal storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Signal storage\" to download all media to your device.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">ထားသိုမှုဆက်တင်ကို ကြည့်ရှုရန်</string>
 
@@ -3385,10 +3381,6 @@
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">ဤစက်ကို မှတ်ပုံတင်ထားခြင်း မရှိတော့ပါ။ ၎င်းသည် သင့်ဖုန်းနံပါတ်ကို Signal ထံတွင် အခြားစက်တစ်လုံးဖြင့် မှတ်ပုံတင်ခဲ့ခြင်းကြောင့် ဖြစ်နိုင်သည်။</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">စက်ကို ပြန်လည်၍မှတ်ပုံတင်ရန်</string>
-    <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
-    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
-    <!-- Action in reminder banner that will take the user to re-link this device -->
-    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
     <string name="LoggedOutNotification_you_have_been_logged_out">ဤစက်တွင် Signal မှ ထွက်ထားပြီးပါပြီ။</string>
@@ -8057,12 +8049,6 @@
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"ဘက်ခ်အပ်ကို ပြန်ယူလိုလျှင် Signal မိတ္တူအသစ်ကို ထည့်သွင်းပါ။ အက်ပ်ကိုဖွင့်၍ ဘက်ခ်အပ်ကိုပြန်လည်ရယူပါကို နှိပ်ပြီး ဘက်ခ်အပ်ဖိုင်ကို ရှာဖွေရွေးပေးပါ။"</string>
-    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won\'t be included -->
-    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
-    <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
-    <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
-    <!-- Dialog action to proceed with turning on on-device backups without turning off "Optimize Signal storage" -->
-    <string name="OnDeviceBackupsScreen__continue_without_turning_off">Continue without turning off</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">သင်၏ ပြန်လည်ရယူရေးကီးကို အတည်ပြုပါ</string>
@@ -8436,19 +8422,13 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">ကန့်သတ်ချက်များ ချမှတ်ထားသည့်အခါ ချက်(တ်)ကန့်သတ်ချက်များသည် သင် ချိတ်ထားသောစက်များမှ မက်ဆေ့ချ်များကို ဖျက်ပစ်မည်ဖြစ်သည်။</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Signal သိုလှောင်မှု</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Signal storage</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Signal သိုလှောင်မှုကို အကောင်းဆုံးချိန်ညှိရန်</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">အသုံးမပြုသော မီဒီယာကို Offload လုပ်ထားမည်ဖြစ်သော်လည်း သင်၏ဘက်ခ်အပ်မှ အချိန်မရွေး ဒေါင်းလုဒ်လုပ်နိုင်ပါသည်။</string>
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိခြင်းကို Signal လုံခြုံရေးဘက်ခ်အပ်၏ အခပေးပလန်ဖြင့်သာ အသုံးပြုနိုင်သည်။ သင်၏ ပုံမှန်လှူဒါန်းမှုသည် လုပ်ဆောင်ဆဲဖြစ်ပြီး အသက်မဝင်သေးပါ။ နောက်မှ ထပ်ကြိုးစားကြည့်ပါ။</string>
-    <!-- Title of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">Media will be removed from your on-device backup</string>
-    <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
-    <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
-    <string name="ManageStorageSettingsFragment__turn_on">Turn on</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -8918,13 +8898,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">မီဒီယာကို ဒေါင်းလုဒ်လုပ်ရန်</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">ပြန်လည်ရယူရေးကီး အသစ်တစ်ခုဖန်တီးရန် သင်၏မီဒီယာကို ဒေါင်းလုဒ်လုပ်ပြီးသည်အထိ \"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို ပိတ်ထားကာ စောင့်ဆိုင်းရပါမည်။ ဒေါင်းလုဒ်ပြီးသွားသောအခါတွင် ကီးအသစ်တစ်ခု ဖန်တီးနိုင်သည်။</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Signal storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">ပိတ်ပြီး ဒေါင်းလုဒ်လုပ်ပါ</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">ပြန်လည်ရယူရေးကီးအသစ်တစ်ခု ဖန်တီးရန်</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">သင့်ကီးကို အခြားသူတစ်ဦး သိရှိမှသာ ကီးအသစ်ဖန်တီးရန် လိုအပ်ပါသည်။ မီဒီယာအပါအဝင် သင်၏ဘက်ခ်အပ်ကို ပြန်လည်အပ်လုဒ်လုပ်ရပါမည်။ အကယ်၍ သင်သည် \"Signal သိုလှောင်မှု အကောင်းဆုံးချိန်ညှိရန်\" ကို အသုံးပြုနေပါက Offloaded မီဒီယာကို ဦးစွာ ဒေါင်းလုဒ်လုပ်ရပါမည်။</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Signal storage\" you will have to download offloaded media first.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">ဘက်ခ်အပ် စီစဥ်သတ်မှတ်ခြင်းမှ ထွက်မလား။</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9682,21 +9662,7 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">အဖွဲ့ဝင်များကို ရှာဖွေရန်</string>
-    <!-- Header for a section showing all group members who are contacts -->
-    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
-    <!-- Header for a section showing all group member who are admins -->
-    <string name="MemberSearchFragment__search_admins">Search admins</string>
-    <!-- Dialog title to filter search by -->
-    <string name="MemberSearchFragment__filter">Filter by</string>
-    <!-- Dialog option for all group members -->
-    <string name="MemberSearchFragment__filter_all_members">All members</string>
-    <!-- Dialog option for group admins -->
-    <string name="MemberSearchFragment__filter_admins">Admins</string>
-    <!-- Dialog option for your contacts -->
-    <string name="MemberSearchFragment__filter_contacts">Contacts</string>
-    <!-- Button to invite members via a group link -->
-    <string name="MemberSearchFragment__invite_via">Invite via group link</string>
+    <string name="MemberSearchFragment__search_members">Search members</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ဘက်ခ်အပ်ကို ပြန်လည်ရယူ၍မရပါ</string>

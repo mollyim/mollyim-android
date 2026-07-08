@@ -87,9 +87,9 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Aby nagrywać wideo, musisz zezwolić aplikacji Signal na dostęp do mikrofonu i aparatu. Uprawnienia te zostały jednak na stałe wyłączone. Przejdź do menu ustawień aplikacji, otwórz sekcję „Uprawnienia” i włącz uprawnienia „Mikrofon” oraz „Aparat”.</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Podczas nagrywania wideo wystąpił błąd</string>
+  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Podczas robienia zdjęcia wystąpił błąd</string>
+  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Znaleziono tę osobę: %1$s</string>
