@@ -395,6 +395,7 @@ private fun PinInputSection(
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
       onSubmit = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
+      testTag = if (isConfirm) TestTags.PIN_CREATION_CONFIRM_INPUT else TestTags.PIN_CREATION_INPUT,
       modifier = Modifier.fillMaxWidth()
     )
 
@@ -420,13 +421,14 @@ private fun PinInputField(
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
   onSubmit: () -> Unit,
+  testTag: String,
   modifier: Modifier = Modifier
 ) {
   TextField(
     value = pin,
     onValueChange = onPinChanged,
     modifier = modifier
-      .testTag(TestTags.PIN_CREATION_INPUT)
+      .testTag(testTag)
       .focusRequester(focusRequester),
     textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
     singleLine = true,
