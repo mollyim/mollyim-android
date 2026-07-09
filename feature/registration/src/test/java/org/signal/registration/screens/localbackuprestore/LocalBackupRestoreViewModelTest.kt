@@ -302,7 +302,11 @@ class LocalBackupRestoreViewModelTest {
     )
     val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
 
-    every { mockRepository.restoreV1Backup(any(), any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
+    every { mockRepository.restoreV1Backup(any(), any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Preparing,
+      LocalBackupRestoreProgress.InProgress(bytesRead = 50, totalBytes = 100),
+      LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
 
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
 
@@ -326,7 +330,11 @@ class LocalBackupRestoreViewModelTest {
     )
     val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
 
-    every { mockRepository.restoreV1Backup(any(), any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
+    every { mockRepository.restoreV1Backup(any(), any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Preparing,
+      LocalBackupRestoreProgress.InProgress(bytesRead = 50, totalBytes = 100),
+      LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
 
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
 

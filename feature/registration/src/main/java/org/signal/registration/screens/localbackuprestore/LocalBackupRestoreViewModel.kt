@@ -196,16 +196,18 @@ class LocalBackupRestoreViewModel(
           is LocalBackupRestoreProgress.Preparing -> LocalBackupRestoreState(
             restorePhase = LocalBackupRestoreState.RestorePhase.Preparing,
             aep = currentState.aep,
-            v1Passphrase = currentState.v1Passphrase
+            v1Passphrase = currentState.v1Passphrase,
+            storageCapable = currentState.storageCapable
           )
           is LocalBackupRestoreProgress.InProgress -> LocalBackupRestoreState(
             restorePhase = LocalBackupRestoreState.RestorePhase.InProgress,
             progressFraction = progress.progressFraction,
             aep = currentState.aep,
-            v1Passphrase = currentState.v1Passphrase
+            v1Passphrase = currentState.v1Passphrase,
+            storageCapable = currentState.storageCapable
           )
           is LocalBackupRestoreProgress.Complete -> {
-            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase), progress)
+            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress)
             _state.value
           }
           is LocalBackupRestoreProgress.IncorrectCredential -> {
@@ -218,7 +220,8 @@ class LocalBackupRestoreViewModel(
               restorePhase = LocalBackupRestoreState.RestorePhase.Error,
               errorMessage = progress.cause.message,
               aep = currentState.aep,
-              v1Passphrase = currentState.v1Passphrase
+              v1Passphrase = currentState.v1Passphrase,
+              storageCapable = currentState.storageCapable
             )
           }
         }
