@@ -522,7 +522,9 @@ private fun PinCreationTopBar(
 
       IconButton(
         onClick = { menuController.show() },
-        modifier = Modifier.padding(horizontal = 8.dp)
+        modifier = Modifier
+          .padding(horizontal = 8.dp)
+          .testTag(TestTags.PIN_CREATION_MENU_BUTTON)
       ) {
         Icon(
           imageVector = ImageVector.vectorResource(CoreR.drawable.symbol_more_vertical_24),
@@ -547,7 +549,8 @@ private fun PinCreationTopBar(
           onClick = {
             menuController.hide()
             showOptOutDialog = true
-          }
+          },
+          modifier = Modifier.testTag(TestTags.PIN_CREATION_DISABLE_PIN_MENU_ITEM)
         )
       }
     }

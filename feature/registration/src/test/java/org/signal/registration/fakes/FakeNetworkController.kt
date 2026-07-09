@@ -47,53 +47,180 @@ import java.util.UUID
 import kotlin.time.Duration
 
 /**
- * An in-memory [NetworkController] that plays the part of a well-behaved server for a fresh registration.
- * Methods that should never be hit in the flows under test fail loudly.
+ * An in-memory [NetworkController] whose responses can be customized per-test.
+ *
+ * Every method the registration flow exercises delegates to an overridable `on<Method>` handler. The defaults play
+ * the part of a well-behaved server for a fresh registration, so tests only override the responses they care about:
+ *
+ * ```
+ * networkController.onRegisterAccount = {
+ *   RequestResult.NonSuccess(RegisterAccountError.RateLimited(retryAfter = 30.seconds))
+ * }
+ * ```
+ *
+ * Requests are recorded (see `last*` properties) no matter which handler serves them, so tests can assert on what
+ * the flow actually sent. Methods that no flow under test should reach fail loudly.
  */
 class FakeNetworkController(
-  private val correctVerificationCode: String = "123456"
+  private val correctVerificationCode: String = DEFAULT_VERIFICATION_CODE
 ) : NetworkController {
 
-  val sessionId = "fake-session-id"
+  companion object {
+    const val DEFAULT_VERIFICATION_CODE = "123456"
+    const val SESSION_ID = "fake-session-id"
+  }
 
-  var sessionCreated = false
+  data class UpdateSessionRequest(val sessionId: String?, val pushChallengeToken: String?, val captchaToken: String?)
+  data class RegisterAccountRequest(val e164: String, val sessionId: String?, val recoveryPassword: String?, val registrationLock: String?)
+  data class SetPinRequest(val pin: String, val masterKey: MasterKey)
+  data class RestoreMasterKeyRequest(val svrCredentials: SvrCredentials, val pin: String)
+
+  // -- Recorded requests, populated regardless of which handler serves them.
+
+  var lastCreateSessionE164: String? = null
     private set
-  var verificationCodeRequested = false
+  var lastUpdateSessionRequest: UpdateSessionRequest? = null
     private set
-  var registeredE164: String? = null
+  var lastRequestedCodeTransport: VerificationCodeTransport? = null
     private set
-  var svrPin: String? = null
+  var lastSubmittedVerificationCode: String? = null
     private set
-  var svrMasterKey: MasterKey? = null
+  var lastRegisterAccountRequest: RegisterAccountRequest? = null
+    private set
+  var lastSetPinRequest: SetPinRequest? = null
+    private set
+  var lastRestoreMasterKeyRequest: RestoreMasterKeyRequest? = null
     private set
   var accountAttributesSyncJobEnqueued = false
     private set
 
-  private var verified = false
+  /**
+   * Whether the fake session has been verified. Set by the default [onSubmitVerificationCode] handler when the
+   * correct code is submitted, and reflected in the sessions built by [session].
+   */
+  var sessionVerified = false
 
-  private fun currentSession(): SessionMetadata {
+  /** Returned by [getFcmToken]. Null means the device does not support FCM. */
+  var fcmToken: String? = null
+
+  /** Returned by [awaitPushChallengeToken]. Null means no push challenge ever arrives. */
+  var pushChallengeToken: String? = null
+
+  // -- Response handlers. Override these in tests to change how the fake server responds.
+
+  var onCreateSession: suspend (e164: String) -> RequestResult<SessionMetadata, CreateSessionError> = {
+    RequestResult.Success(session())
+  }
+
+  var onGetSession: suspend (sessionId: String) -> RequestResult<SessionMetadata, GetSessionStatusError> = {
+    RequestResult.Success(session())
+  }
+
+  var onUpdateSession: suspend (UpdateSessionRequest) -> RequestResult<SessionMetadata, UpdateSessionError> = {
+    RequestResult.Success(session())
+  }
+
+  var onRequestVerificationCode: suspend (sessionId: String) -> RequestResult<SessionMetadata, RequestVerificationCodeError> = {
+    RequestResult.Success(session())
+  }
+
+  var onSubmitVerificationCode: suspend (code: String) -> RequestResult<SessionMetadata, SubmitVerificationCodeError> = { code ->
+    if (code == correctVerificationCode) {
+      sessionVerified = true
+    }
+    RequestResult.Success(session())
+  }
+
+  var onRegisterAccount: suspend (RegisterAccountRequest) -> RequestResult<RegisterAccountResponse, RegisterAccountError> = { request ->
+    check(sessionVerified || request.recoveryPassword != null) { "Attempted to register with a session before it was verified!" }
+    RequestResult.Success(registerAccountResponse(request.e164))
+  }
+
+  var onSetPinAndMasterKeyOnSvr: suspend (SetPinRequest) -> RequestResult<SvrCredentials?, BackupMasterKeyError> = {
+    RequestResult.Success(null)
+  }
+
+  var onRestoreMasterKeyFromSvr: suspend (RestoreMasterKeyRequest) -> RequestResult<MasterKeyResponse, RestoreMasterKeyError> = {
+    notExpected()
+  }
+
+  var onGetSvrCredentials: suspend () -> RequestResult<SvrCredentials, GetSvrCredentialsError> = {
+    notExpected()
+  }
+
+  var onCheckSvrCredentials: suspend (e164: String, credentials: List<SvrCredentials>) -> RequestResult<CheckSvrCredentialsResponse, CheckSvrCredentialsError> = { _, _ ->
+    notExpected()
+  }
+
+  var onRestoreAccountRecord: suspend () -> RequestResult<Unit, RestoreAccountRecordError> = {
+    RequestResult.Success(Unit)
+  }
+
+  var onGetRemoteBackupInfo: suspend (AccountEntropyPool) -> RequestResult<GetBackupInfoResponse, GetBackupInfoError> = {
+    RequestResult.Success(GetBackupInfoResponse(cdn = 3, backupDir = "backup-dir", mediaDir = "media-dir", backupName = "backup", usedSpace = 1_000_000))
+  }
+
+  var onGetBackupFileLastModified: suspend (AccountEntropyPool) -> RequestResult<Long, GetBackupInfoError> = {
+    RequestResult.Success(1_700_000_000_000)
+  }
+
+  var onVerifyBackupKey: suspend (AccountEntropyPool) -> RequestResult<Unit, NetworkController.VerifyBackupKeyError> = {
+    RequestResult.Success(Unit)
+  }
+
+  // -- Response factories with happy-path defaults, for handlers that only want to tweak a field or two.
+
+  fun session(
+    verified: Boolean = sessionVerified,
+    allowedToRequestCode: Boolean = true,
+    requestedInformation: List<String> = emptyList(),
+    nextSms: Long? = null,
+    nextCall: Long? = null,
+    nextVerificationAttempt: Long? = null
+  ): SessionMetadata {
     return SessionMetadata(
-      id = sessionId,
-      nextSms = null,
-      nextCall = null,
-      nextVerificationAttempt = null,
-      allowedToRequestCode = true,
-      requestedInformation = emptyList(),
+      id = SESSION_ID,
+      nextSms = nextSms,
+      nextCall = nextCall,
+      nextVerificationAttempt = nextVerificationAttempt,
+      allowedToRequestCode = allowedToRequestCode,
+      requestedInformation = requestedInformation,
       verified = verified
     )
   }
 
+  fun registerAccountResponse(
+    e164: String,
+    storageCapable: Boolean = false,
+    reregistration: Boolean = false
+  ): RegisterAccountResponse {
+    return RegisterAccountResponse(
+      aci = UUID.randomUUID().toString(),
+      pni = UUID.randomUUID().toString(),
+      e164 = e164,
+      usernameHash = null,
+      usernameLinkHandle = null,
+      storageCapable = storageCapable,
+      entitlements = null,
+      reregistration = reregistration
+    )
+  }
+
+  // -- NetworkController implementation: record the request, then delegate to the handler.
+
   override suspend fun createSession(e164: String, fcmToken: String?, mcc: String?, mnc: String?): RequestResult<SessionMetadata, CreateSessionError> {
-    sessionCreated = true
-    return RequestResult.Success(currentSession())
+    lastCreateSessionE164 = e164
+    return onCreateSession(e164)
   }
 
   override suspend fun getSession(sessionId: String): RequestResult<SessionMetadata, GetSessionStatusError> {
-    return RequestResult.Success(currentSession())
+    return onGetSession(sessionId)
   }
 
   override suspend fun updateSession(sessionId: String?, pushChallengeToken: String?, captchaToken: String?): RequestResult<SessionMetadata, UpdateSessionError> {
-    return RequestResult.Success(currentSession())
+    val request = UpdateSessionRequest(sessionId, pushChallengeToken, captchaToken)
+    lastUpdateSessionRequest = request
+    return onUpdateSession(request)
   }
 
   override suspend fun requestVerificationCode(
@@ -102,15 +229,13 @@ class FakeNetworkController(
     androidSmsRetrieverSupported: Boolean,
     transport: VerificationCodeTransport
   ): RequestResult<SessionMetadata, RequestVerificationCodeError> {
-    verificationCodeRequested = true
-    return RequestResult.Success(currentSession())
+    lastRequestedCodeTransport = transport
+    return onRequestVerificationCode(sessionId)
   }
 
   override suspend fun submitVerificationCode(sessionId: String, verificationCode: String): RequestResult<SessionMetadata, SubmitVerificationCodeError> {
-    if (verificationCode == correctVerificationCode) {
-      verified = true
-    }
-    return RequestResult.Success(currentSession())
+    lastSubmittedVerificationCode = verificationCode
+    return onSubmitVerificationCode(verificationCode)
   }
 
   override suspend fun registerAccount(
@@ -124,37 +249,27 @@ class FakeNetworkController(
     fcmToken: String?,
     skipDeviceTransfer: Boolean
   ): RequestResult<RegisterAccountResponse, RegisterAccountError> {
-    check(verified) { "Attempted to register before the session was verified!" }
-    registeredE164 = e164
-
-    return RequestResult.Success(
-      RegisterAccountResponse(
-        aci = UUID.randomUUID().toString(),
-        pni = UUID.randomUUID().toString(),
-        e164 = e164,
-        usernameHash = null,
-        usernameLinkHandle = null,
-        storageCapable = false,
-        entitlements = null,
-        reregistration = false
-      )
-    )
+    val request = RegisterAccountRequest(e164, sessionId, recoveryPassword, attributes.registrationLock)
+    lastRegisterAccountRequest = request
+    return onRegisterAccount(request)
   }
 
-  override suspend fun getFcmToken(): String? = null
+  override suspend fun getFcmToken(): String? = fcmToken
 
-  override suspend fun awaitPushChallengeToken(): String? = null
+  override suspend fun awaitPushChallengeToken(): String? = pushChallengeToken
 
   override fun getCaptchaUrl(): String = "https://example.com/captcha"
 
   override suspend fun restoreMasterKeyFromSvr(svrCredentials: SvrCredentials, pin: String): RequestResult<MasterKeyResponse, RestoreMasterKeyError> {
-    notExpected()
+    val request = RestoreMasterKeyRequest(svrCredentials, pin)
+    lastRestoreMasterKeyRequest = request
+    return onRestoreMasterKeyFromSvr(request)
   }
 
   override suspend fun setPinAndMasterKeyOnSvr(pin: String, masterKey: MasterKey): RequestResult<SvrCredentials?, BackupMasterKeyError> {
-    svrPin = pin
-    svrMasterKey = masterKey
-    return RequestResult.Success(null)
+    val request = SetPinRequest(pin, masterKey)
+    lastSetPinRequest = request
+    return onSetPinAndMasterKeyOnSvr(request)
   }
 
   override suspend fun enqueueSvrGuessResetJobIfPossible(): Boolean = true
@@ -163,9 +278,13 @@ class FakeNetworkController(
 
   override suspend fun disableRegistrationLock(): RequestResult<Unit, SetRegistrationLockError> = notExpected()
 
-  override suspend fun getSvrCredentials(): RequestResult<SvrCredentials, GetSvrCredentialsError> = notExpected()
+  override suspend fun getSvrCredentials(): RequestResult<SvrCredentials, GetSvrCredentialsError> {
+    return onGetSvrCredentials()
+  }
 
-  override suspend fun checkSvrCredentials(e164: String, credentials: List<SvrCredentials>): RequestResult<CheckSvrCredentialsResponse, CheckSvrCredentialsError> = notExpected()
+  override suspend fun checkSvrCredentials(e164: String, credentials: List<SvrCredentials>): RequestResult<CheckSvrCredentialsResponse, CheckSvrCredentialsError> {
+    return onCheckSvrCredentials(e164, credentials)
+  }
 
   override suspend fun setAccountAttributes(attributes: AccountAttributes): RequestResult<Unit, SetAccountAttributesError> = notExpected()
 
@@ -173,11 +292,17 @@ class FakeNetworkController(
     accountAttributesSyncJobEnqueued = true
   }
 
-  override suspend fun getRemoteBackupInfo(aep: AccountEntropyPool): RequestResult<GetBackupInfoResponse, GetBackupInfoError> = notExpected()
+  override suspend fun getRemoteBackupInfo(aep: AccountEntropyPool): RequestResult<GetBackupInfoResponse, GetBackupInfoError> {
+    return onGetRemoteBackupInfo(aep)
+  }
 
-  override suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: GetBackupInfoResponse): RequestResult<Long, GetBackupInfoError> = notExpected()
+  override suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: GetBackupInfoResponse): RequestResult<Long, GetBackupInfoError> {
+    return onGetBackupFileLastModified(aep)
+  }
 
-  override suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> = notExpected()
+  override suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> {
+    return onVerifyBackupKey(aep)
+  }
 
   override fun startProvisioning(): Flow<ProvisioningEvent> = notExpected()
 
@@ -204,7 +329,7 @@ class FakeNetworkController(
   override suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError> = notExpected()
 
   override suspend fun restoreAccountRecord(timeout: Duration): RequestResult<Unit, RestoreAccountRecordError> {
-    return RequestResult.Success(Unit)
+    return onRestoreAccountRecord()
   }
 
   override suspend fun setProfile(givenName: String, familyName: String, avatar: ByteArray?, discoverableByPhoneNumber: Boolean): RequestResult<Unit, SetProfileError> {

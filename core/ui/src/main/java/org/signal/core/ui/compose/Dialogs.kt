@@ -76,6 +76,7 @@ object Dialogs {
 
   const val TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON = "dialog-confirm-button"
   const val TEST_TAG_ALERT_DIALOG_DISMISS_BUTTON = "dialog-dismiss-button"
+  const val TEST_TAG_MESSAGE_DIALOG_DISMISS_BUTTON = "dialog-message-dismiss-button"
 
   object Defaults {
     val shape: Shape @Composable get() = RoundedCornerShape(28.dp)
@@ -141,9 +142,12 @@ object Dialogs {
       },
       text = { Text(text = message) },
       confirmButton = {
-        TextButton(onClick = {
-          onDismiss()
-        }) {
+        TextButton(
+          onClick = {
+            onDismiss()
+          },
+          modifier = Modifier.testTag(TEST_TAG_MESSAGE_DIALOG_DISMISS_BUTTON)
+        ) {
           Text(text = dismiss, color = dismissColor)
         }
       },
