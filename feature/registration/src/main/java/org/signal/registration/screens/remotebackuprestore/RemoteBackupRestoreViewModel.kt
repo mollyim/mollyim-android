@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.models.AccountEntropyPool
@@ -40,12 +40,13 @@ class RemoteBackupRestoreViewModel(
   }
 
   private val _state = MutableStateFlow(RemoteBackupRestoreState(aep))
-
-  val state: StateFlow<RemoteBackupRestoreState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), RemoteBackupRestoreState(aep))
+  val state: StateFlow<RemoteBackupRestoreState> = _state.asStateFlow()
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
     loadBackupInfo()
   }
 

@@ -10,11 +10,20 @@ import assertk.assertions.hasSize
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.registration.RegistrationFlowEvent
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class EnterAepForLocalBackupViewModelTest {
 
   private lateinit var viewModel: EnterAepForLocalBackupViewModel
@@ -24,8 +33,11 @@ class EnterAepForLocalBackupViewModelTest {
 
   private val resultKey = "test-result-key"
 
+  private val testDispatcher = StandardTestDispatcher()
+
   @Before
   fun setup() {
+    Dispatchers.setMain(testDispatcher)
     resultBus = ResultEventBus()
     emittedParentEvents = mutableListOf()
     parentEventEmitter = { event -> emittedParentEvents.add(event) }
@@ -36,13 +48,19 @@ class EnterAepForLocalBackupViewModelTest {
     )
   }
 
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
+  }
+
   // ==================== BackupKeyChanged Tests ====================
 
   @Test
-  fun `BackupKeyChanged updates backup key in state`() {
+  fun `BackupKeyChanged updates backup key in state`() = runTest {
     val testKey = VALID_AEP
 
     viewModel.onEvent(EnterAepEvents.BackupKeyChanged(testKey))
+    advanceUntilIdle()
 
     assertThat(viewModel.state.value.backupKey).isEqualTo(testKey)
   }
@@ -50,9 +68,10 @@ class EnterAepForLocalBackupViewModelTest {
   // ==================== Submit Tests ====================
 
   @Test
-  fun `Submit with valid key sends result via resultBus and emits NavigateBack`() {
+  fun `Submit with valid key sends result via resultBus and emits NavigateBack`() = runTest {
     viewModel.onEvent(EnterAepEvents.BackupKeyChanged(VALID_AEP))
     viewModel.onEvent(EnterAepEvents.Submit)
+    advanceUntilIdle()
 
     val result = resultBus.channelMap[resultKey]?.tryReceive()?.getOrNull()
     assertThat(result).isEqualTo(VALID_AEP)
@@ -61,9 +80,10 @@ class EnterAepForLocalBackupViewModelTest {
   }
 
   @Test
-  fun `Submit with invalid key does not send result or navigate`() {
+  fun `Submit with invalid key does not send result or navigate`() = runTest {
     viewModel.onEvent(EnterAepEvents.BackupKeyChanged("too-short"))
     viewModel.onEvent(EnterAepEvents.Submit)
+    advanceUntilIdle()
 
     assertThat(resultBus.channelMap[resultKey]).isNull()
     assertThat(emittedParentEvents).isEmpty()
@@ -72,8 +92,9 @@ class EnterAepForLocalBackupViewModelTest {
   // ==================== Cancel Tests ====================
 
   @Test
-  fun `Cancel emits NavigateBack`() {
+  fun `Cancel emits NavigateBack`() = runTest {
     viewModel.onEvent(EnterAepEvents.Cancel)
+    advanceUntilIdle()
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
@@ -82,8 +103,9 @@ class EnterAepForLocalBackupViewModelTest {
   // ==================== DismissError Tests ====================
 
   @Test
-  fun `DismissError clears registrationError from state`() {
+  fun `DismissError clears registrationError from state`() = runTest {
     viewModel.onEvent(EnterAepEvents.DismissError)
+    advanceUntilIdle()
 
     assertThat(viewModel.state.value.registrationError).isNull()
   }

@@ -251,26 +251,36 @@ class PinCreationViewModelTest {
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState copies accountEntropyPool from parent`() {
+  fun `ParentStateChanged copies accountEntropyPool from parent`() = runTest(testDispatcher) {
+    val states = collectStates()
     val aep = AccountEntropyPool.generate()
     val parentFlowState = RegistrationFlowState(accountEntropyPool = aep)
-    val initialState = PinCreationState()
 
-    val result = viewModel.applyParentState(initialState, parentFlowState)
+    viewModel.applyEvent(PinCreationState(), PinCreationScreenEvents.ParentStateChanged(parentFlowState))
 
-    assertThat(result.accountEntropyPool).isEqualTo(aep)
+    assertThat(states.last().accountEntropyPool).isEqualTo(aep)
   }
 
   @Test
-  fun `applyParentState with null accountEntropyPool keeps null`() {
+  fun `ParentStateChanged with null accountEntropyPool keeps null`() = runTest(testDispatcher) {
+    val states = collectStates()
     val parentFlowState = RegistrationFlowState(accountEntropyPool = null)
-    val initialState = PinCreationState()
 
-    val result = viewModel.applyParentState(initialState, parentFlowState)
+    viewModel.applyEvent(PinCreationState(), PinCreationScreenEvents.ParentStateChanged(parentFlowState))
 
-    assertThat(result.accountEntropyPool).isNull()
+    assertThat(states.last().accountEntropyPool).isNull()
+  }
+
+  @Test
+  fun `parent state changes are merged into state through the event stream`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val aep = AccountEntropyPool.generate()
+
+    parentState.value = RegistrationFlowState(accountEntropyPool = aep)
+
+    assertThat(states.last().accountEntropyPool).isEqualTo(aep)
   }
 }

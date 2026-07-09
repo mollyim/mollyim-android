@@ -10,11 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -32,7 +31,7 @@ import kotlin.time.toKotlinDuration
  */
 class PinCreationViewModel(
   private val repository: RegistrationRepository,
-  private val parentState: StateFlow<RegistrationFlowState>,
+  parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
 ) : EventDrivenViewModel<PinCreationScreenEvents>(TAG) {
 
@@ -41,19 +40,28 @@ class PinCreationViewModel(
   }
 
   private val _state = MutableStateFlow(PinCreationState())
+  val state: StateFlow<PinCreationState> = _state.asStateFlow()
 
-  val state: StateFlow<PinCreationState> = _state
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinCreationState())
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(PinCreationScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinCreationScreenEvents) {
-    applyEvent(state.value, event)
+    applyEvent(_state.value, event)
   }
 
   @VisibleForTesting
   suspend fun applyEvent(state: PinCreationState, event: PinCreationScreenEvents) {
     when (event) {
+      is PinCreationScreenEvents.ParentStateChanged -> {
+        _state.value = applyParentState(state, event.parentState)
+      }
       is PinCreationScreenEvents.PinSubmitted -> {
         when {
           !state.isConfirmEnabled -> {
@@ -105,8 +113,7 @@ class PinCreationViewModel(
     parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: PinCreationState, parentState: RegistrationFlowState): PinCreationState {
+  private fun applyParentState(state: PinCreationState, parentState: RegistrationFlowState): PinCreationState {
     return state.copy(accountEntropyPool = parentState.accountEntropyPool)
   }
 

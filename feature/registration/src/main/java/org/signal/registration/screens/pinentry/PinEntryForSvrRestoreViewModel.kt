@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -47,9 +47,13 @@ class PinEntryForSvrRestoreViewModel(
     )
   )
 
-  val state: StateFlow<PinEntryState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
+  val state: StateFlow<PinEntryState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinEntryScreenEvents) {
     applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
@@ -83,6 +87,7 @@ class PinEntryForSvrRestoreViewModel(
       is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
+      is PinEntryScreenEvents.ParentStateChanged -> Unit
     }
   }
 

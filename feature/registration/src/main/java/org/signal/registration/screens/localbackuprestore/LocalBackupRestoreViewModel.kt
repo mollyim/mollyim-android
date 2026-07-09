@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
@@ -40,15 +40,19 @@ class LocalBackupRestoreViewModel(
     private val TAG = Log.tag(LocalBackupRestoreViewModel::class)
   }
 
-  private val _localState = MutableStateFlow(LocalBackupRestoreState())
-  val state = _localState
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), LocalBackupRestoreState())
+  private val _state = MutableStateFlow(LocalBackupRestoreState())
+  val state = _state.asStateFlow()
 
   private var restoreJob: Job? = null
 
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
+
   override suspend fun processEvent(event: LocalBackupRestoreEvents) {
-    applyEvent(state.value, event) { _localState.value = it }
+    applyEvent(state.value, event) { _state.value = it }
   }
 
   @VisibleForTesting
@@ -139,21 +143,21 @@ class LocalBackupRestoreViewModel(
         val backups = repository.scanLocalBackupFolder(uri)
         val mostRecent = backups.firstOrNull()
         if (mostRecent != null) {
-          _localState.value = LocalBackupRestoreState(
+          _state.value = LocalBackupRestoreState(
             restorePhase = LocalBackupRestoreState.RestorePhase.BackupFound,
             backupInfo = mostRecent,
             allBackups = backups,
             selectedFolderUri = uri
           )
         } else {
-          _localState.value = LocalBackupRestoreState(
+          _state.value = LocalBackupRestoreState(
             restorePhase = LocalBackupRestoreState.RestorePhase.NoBackupFound,
             selectedFolderUri = uri
           )
         }
       } catch (e: Exception) {
         Log.w(TAG, "Error scanning backup folder", e)
-        _localState.value = LocalBackupRestoreState(
+        _state.value = LocalBackupRestoreState(
           restorePhase = LocalBackupRestoreState.RestorePhase.Error,
           errorMessage = e.message
         )
@@ -164,13 +168,13 @@ class LocalBackupRestoreViewModel(
   private fun startRestore(backup: LocalBackupInfo, rootUri: Uri?, credential: String, aep: AccountEntropyPool?) {
     restoreJob?.cancel()
     restoreJob = viewModelScope.launch {
-      val currentState = _localState.value
+      val currentState = _state.value
       val restoreFlow = when (backup.type) {
         LocalBackupInfo.BackupType.V1 -> repository.restoreV1Backup(backup.uri, passphrase = credential)
         LocalBackupInfo.BackupType.V2 -> repository.restoreV2Backup(rootUri = rootUri!!, backupUri = backup.uri, aep = aep!!)
       }
       restoreFlow.collect { progress ->
-        _localState.value = when (progress) {
+        _state.value = when (progress) {
           is LocalBackupRestoreProgress.Preparing -> LocalBackupRestoreState(
             restorePhase = LocalBackupRestoreState.RestorePhase.Preparing,
             aep = currentState.aep,
@@ -183,8 +187,8 @@ class LocalBackupRestoreViewModel(
             v1Passphrase = currentState.v1Passphrase
           )
           is LocalBackupRestoreProgress.Complete -> {
-            onRestoreComplete(_localState.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase), progress)
-            _localState.value
+            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase), progress)
+            _state.value
           }
           is LocalBackupRestoreProgress.IncorrectCredential -> {
             Log.w(TAG, "Restore failed: incorrect passphrase/recovery key")

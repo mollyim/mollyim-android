@@ -8,9 +8,12 @@ package org.signal.registration.screens.aepentry
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -33,8 +36,13 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
   }
 
   private val _state = MutableStateFlow(EnterAepState(isPasswordManagerAvailable = isPasswordManagerAvailable))
-
   val state: StateFlow<EnterAepState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: EnterAepEvents) {
     applyEvent(_state.value, event) { _state.value = it }

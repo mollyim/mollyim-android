@@ -20,13 +20,12 @@ import com.google.android.gms.common.api.Status
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -97,15 +96,21 @@ class VerificationCodeViewModel(
     }
   }
 
-  private val _localState = MutableStateFlow(VerificationCodeState())
-  val state = combine(_localState, parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), VerificationCodeState())
+  private val _state = MutableStateFlow(VerificationCodeState())
+  val state: StateFlow<VerificationCodeState> = _state.asStateFlow()
 
   private var nextSmsAvailableAt: Duration = 0.seconds
   private var nextCallAvailableAt: Duration = 0.seconds
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(VerificationCodeScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
+
     viewModelScope.launch {
       smsCodeEvents.collect { code ->
         onEvent(VerificationCodeScreenEvents.CodeAutoFilled(code))
@@ -114,12 +119,13 @@ class VerificationCodeViewModel(
   }
 
   override suspend fun processEvent(event: VerificationCodeScreenEvents) {
-    applyEvent(state.value, event) { _localState.value = it }
+    applyEvent(_state.value, event) { _state.value = it }
   }
 
   @VisibleForTesting
   suspend fun applyEvent(state: VerificationCodeState, event: VerificationCodeScreenEvents, stateEmitter: (VerificationCodeState) -> Unit) {
     val result = when (event) {
+      is VerificationCodeScreenEvents.ParentStateChanged -> applyParentState(state, event.parentState)
       is VerificationCodeScreenEvents.CodeEntered -> submitCode(state, event.code, stateEmitter)
       is VerificationCodeScreenEvents.DigitChanged -> applyDigitChanged(state, event.index, event.value, stateEmitter)
       is VerificationCodeScreenEvents.CodeAutoFilled -> state.copy(autoFillCode = event.code)
@@ -152,8 +158,7 @@ class VerificationCodeViewModel(
     return state
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: VerificationCodeState, parentState: RegistrationFlowState): VerificationCodeState {
+  private fun applyParentState(state: VerificationCodeState, parentState: RegistrationFlowState): VerificationCodeState {
     if (parentState.sessionMetadata == null || parentState.sessionE164 == null) {
       Log.w(TAG, "Parent state is missing session metadata or e164! Resetting.")
       parentEventEmitter(RegistrationFlowEvent.ResetState)

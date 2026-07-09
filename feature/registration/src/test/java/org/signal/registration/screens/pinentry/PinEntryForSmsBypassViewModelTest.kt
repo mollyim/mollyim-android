@@ -360,26 +360,26 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState copies e164 from parent state`() {
+  fun `ParentStateChanged copies e164 from parent state`() = runTest {
     val state = PinEntryState(mode = PinEntryState.Mode.SmsBypass)
     val parentFlowState = RegistrationFlowState(sessionE164 = "+15559876543")
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PinEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.e164).isEqualTo("+15559876543")
+    assertThat(emittedStates.last().e164).isEqualTo("+15559876543")
   }
 
   @Test
-  fun `applyParentState with null e164 in parent state sets null e164`() {
+  fun `ParentStateChanged with null e164 in parent state sets null e164`() = runTest {
     val state = PinEntryState(mode = PinEntryState.Mode.SmsBypass, e164 = "+15551234567")
     val parentFlowState = RegistrationFlowState(sessionE164 = null)
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PinEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.e164).isEqualTo(null)
+    assertThat(emittedStates.last().e164).isEqualTo(null)
   }
 
   // ==================== ToggleKeyboard Tests ====================

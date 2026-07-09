@@ -76,52 +76,52 @@ class VerificationCodeViewModelTest {
     Dispatchers.resetMain()
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState with null sessionMetadata emits ResetState`() {
+  fun `ParentStateChanged with null sessionMetadata emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = null,
       sessionE164 = "+15551234567"
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with null sessionE164 emits ResetState`() {
+  fun `ParentStateChanged with null sessionE164 emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = createSessionMetadata(),
       sessionE164 = null
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with both null values emits ResetState`() {
+  fun `ParentStateChanged with both null values emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = null,
       sessionE164 = null
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with valid session copies metadata and e164`() {
+  fun `ParentStateChanged with valid session copies metadata and e164`() = runTest {
     val state = VerificationCodeState()
     val sessionMetadata = createSessionMetadata(id = "test-session")
     val e164 = "+15551234567"
@@ -130,15 +130,15 @@ class VerificationCodeViewModelTest {
       sessionE164 = e164
     )
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(0)
-    assertThat(result.sessionMetadata).isEqualTo(sessionMetadata)
-    assertThat(result.e164).isEqualTo(e164)
+    assertThat(emittedStates.last().sessionMetadata).isEqualTo(sessionMetadata)
+    assertThat(emittedStates.last().e164).isEqualTo(e164)
   }
 
   @Test
-  fun `applyParentState preserves existing oneTimeEvent`() {
+  fun `ParentStateChanged preserves existing oneTimeEvent`() = runTest {
     val state = VerificationCodeState(oneTimeEvent = VerificationCodeState.OneTimeEvent.NetworkError)
     val sessionMetadata = createSessionMetadata()
     val parentFlowState = RegistrationFlowState(
@@ -146,9 +146,9 @@ class VerificationCodeViewModelTest {
       sessionE164 = "+15551234567"
     )
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
-    assertThat(result.oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
   }
 
   // ==================== applyEvent: ConsumeInnerOneTimeEvent Tests ====================

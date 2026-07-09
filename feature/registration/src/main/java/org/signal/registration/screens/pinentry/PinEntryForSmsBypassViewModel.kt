@@ -10,11 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import org.signal.core.models.MasterKey
 import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
@@ -50,13 +49,20 @@ class PinEntryForSmsBypassViewModel(
     )
   )
 
-  val state: StateFlow<PinEntryState> = _state
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
+  val state: StateFlow<PinEntryState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(PinEntryScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinEntryScreenEvents) {
-    applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
+    applyEvent(_state.value, event, parentEventEmitter) { _state.value = it }
   }
 
   @VisibleForTesting
@@ -67,6 +73,9 @@ class PinEntryForSmsBypassViewModel(
     stateEmitter: (PinEntryState) -> Unit
   ) {
     when (event) {
+      is PinEntryScreenEvents.ParentStateChanged -> {
+        stateEmitter(applyParentState(state, event.parentState))
+      }
       is PinEntryScreenEvents.PinEntered -> {
         val localState = state.copy(loading = true)
         stateEmitter(localState)
@@ -83,7 +92,7 @@ class PinEntryForSmsBypassViewModel(
     }
   }
 
-  fun applyParentState(state: PinEntryState, parentState: RegistrationFlowState): PinEntryState {
+  private fun applyParentState(state: PinEntryState, parentState: RegistrationFlowState): PinEntryState {
     return state.copy(e164 = parentState.sessionE164)
   }
 

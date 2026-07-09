@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import org.signal.core.models.MasterKey
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -50,9 +50,13 @@ class PinEntryForRegistrationLockViewModel(
     )
   )
 
-  val state: StateFlow<PinEntryState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
+  val state: StateFlow<PinEntryState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinEntryScreenEvents) {
     applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
@@ -70,7 +74,8 @@ class PinEntryForRegistrationLockViewModel(
         throw NotImplementedError("Skip is not a valid action during registration lock PIN entry")
       }
       is PinEntryScreenEvents.CreateNewPin,
-      is PinEntryScreenEvents.ContactSupport -> Unit
+      is PinEntryScreenEvents.ContactSupport,
+      is PinEntryScreenEvents.ParentStateChanged -> Unit
       is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }

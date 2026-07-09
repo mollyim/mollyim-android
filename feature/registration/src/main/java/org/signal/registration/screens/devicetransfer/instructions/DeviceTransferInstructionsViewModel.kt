@@ -8,8 +8,11 @@ package org.signal.registration.screens.devicetransfer.instructions
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRoute
@@ -27,6 +30,12 @@ class DeviceTransferInstructionsViewModel(
 
   private val _state = MutableStateFlow(DeviceTransferInstructionsState())
   val state: StateFlow<DeviceTransferInstructionsState> = _state
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: DeviceTransferInstructionsScreenEvents) {
     applyEvent(state.value, event, parentEventEmitter) { _state.value = it }

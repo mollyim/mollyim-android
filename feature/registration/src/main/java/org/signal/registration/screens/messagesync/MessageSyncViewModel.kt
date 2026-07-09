@@ -12,10 +12,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.signal.core.util.bytes
@@ -42,14 +42,16 @@ class MessageSyncViewModel(
   }
 
   private val _state = MutableStateFlow(MessageSyncScreenState())
-  val state: StateFlow<MessageSyncScreenState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MessageSyncScreenState())
+  val state: StateFlow<MessageSyncScreenState> = _state.asStateFlow()
 
   private var restoreJob: Job? = null
   private var finishJob: Job? = null
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
     startRestore()
   }
 

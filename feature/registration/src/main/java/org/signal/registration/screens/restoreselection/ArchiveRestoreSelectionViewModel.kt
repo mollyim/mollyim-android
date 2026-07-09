@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -36,7 +36,7 @@ class ArchiveRestoreSelectionViewModel(
   private val restoreOptions: List<ArchiveRestoreOption>,
   private val registeredState: RegisteredState,
   private val repository: RegistrationRepository,
-  private val parentState: StateFlow<RegistrationFlowState>,
+  parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
 ) : EventDrivenViewModel<ArchiveRestoreSelectionScreenEvents>(TAG) {
 
@@ -44,32 +44,37 @@ class ArchiveRestoreSelectionViewModel(
     private val TAG = Log.tag(ArchiveRestoreSelectionViewModel::class)
   }
 
-  private val _localState = MutableStateFlow(
+  private val _state = MutableStateFlow(
     ArchiveRestoreSelectionState(
       restoreOptions = restoreOptions
     )
   )
+  val state: StateFlow<ArchiveRestoreSelectionState> = _state.asStateFlow()
 
-  val state: StateFlow<ArchiveRestoreSelectionState> = _localState
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .stateIn(
-      viewModelScope,
-      SharingStarted.WhileSubscribed(5000),
-      ArchiveRestoreSelectionState(restoreOptions = restoreOptions)
-    )
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
 
-  override suspend fun processEvent(event: ArchiveRestoreSelectionScreenEvents) {
-    applyEvent(state.value, event) { _localState.value = it }
+    parentState
+      .onEach { onEvent(ArchiveRestoreSelectionScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
+  override suspend fun processEvent(event: ArchiveRestoreSelectionScreenEvents) {
+    applyEvent(_state.value, event) { _state.value = it }
+  }
+
+  private fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
     return state.copy(restoreMethodToken = parentState.restoreMethodToken, storageCapable = parentState.storageCapable)
   }
 
   @VisibleForTesting
   suspend fun applyEvent(state: ArchiveRestoreSelectionState, event: ArchiveRestoreSelectionScreenEvents, stateEmitter: (ArchiveRestoreSelectionState) -> Unit) {
     val result = when (event) {
+      is ArchiveRestoreSelectionScreenEvents.ParentStateChanged -> {
+        applyParentState(state, event.parentState)
+      }
       is ArchiveRestoreSelectionScreenEvents.RestoreOptionSelected -> {
         when (event.option) {
           ArchiveRestoreOption.SignalSecureBackup -> {

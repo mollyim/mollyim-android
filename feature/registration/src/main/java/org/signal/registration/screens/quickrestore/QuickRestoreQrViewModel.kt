@@ -13,6 +13,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.util.logging.Log
@@ -34,17 +36,21 @@ class QuickRestoreQrViewModel(
     private val TAG = Log.tag(QuickRestoreQrViewModel::class)
   }
 
-  private val _localState = MutableStateFlow(QuickRestoreQrState())
-  val state: StateFlow<QuickRestoreQrState> = _localState.asStateFlow()
+  private val _state = MutableStateFlow(QuickRestoreQrState())
+  val state: StateFlow<QuickRestoreQrState> = _state.asStateFlow()
 
   private var provisioningJob: Job? = null
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
     startProvisioning()
   }
 
   override suspend fun processEvent(event: QuickRestoreQrEvents) {
-    applyEvent(state.value, event) { _localState.value = it }
+    applyEvent(state.value, event) { _state.value = it }
   }
 
   @VisibleForTesting
@@ -73,7 +79,7 @@ class QuickRestoreQrViewModel(
         when (event) {
           is NetworkController.ProvisioningEvent.QrCodeReady -> {
             Log.d(TAG, "[Provisioning] QR code ready")
-            _localState.value = _localState.value.copy(
+            _state.value = _state.value.copy(
               qrState = QrState.Loaded(
                 qrCodeData = QrCodeData.forData(data = event.url, supportIconOverlay = false)
               )
@@ -85,7 +91,7 @@ class QuickRestoreQrViewModel(
           }
           is NetworkController.ProvisioningEvent.Error -> {
             Log.w(TAG, "[Provisioning] Error", event.cause)
-            _localState.value = _localState.value.copy(qrState = QrState.Failed)
+            _state.value = _state.value.copy(qrState = QrState.Failed)
           }
         }
       }
@@ -101,7 +107,7 @@ class QuickRestoreQrViewModel(
       return
     }
 
-    _localState.value = _localState.value.copy(isRegistering = true, qrState = QrState.Scanned)
+    _state.value = _state.value.copy(isRegistering = true, qrState = QrState.Scanned)
 
     val registerResult = repository.registerAccountWithProvisioningData(message)
 
@@ -116,7 +122,7 @@ class QuickRestoreQrViewModel(
         when (val error = registerResult.error) {
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
-            _localState.value = _localState.value.copy(
+            _state.value = _state.value.copy(
               isRegistering = false,
               showRegistrationError = true,
               errorMessage = null
@@ -124,7 +130,7 @@ class QuickRestoreQrViewModel(
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[Register] Recovery password incorrect: ${error.message}")
-            _localState.value = _localState.value.copy(
+            _state.value = _state.value.copy(
               isRegistering = false,
               showRegistrationError = true,
               errorMessage = null
@@ -141,7 +147,7 @@ class QuickRestoreQrViewModel(
           }
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
             Log.w(TAG, "[Register] Session not found or not verified: ${error.message}")
-            _localState.value = _localState.value.copy(
+            _state.value = _state.value.copy(
               isRegistering = false,
               showRegistrationError = true,
               errorMessage = null
@@ -153,7 +159,7 @@ class QuickRestoreQrViewModel(
           }
           is NetworkController.RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[Register] Invalid request: ${error.message}")
-            _localState.value = _localState.value.copy(
+            _state.value = _state.value.copy(
               isRegistering = false,
               showRegistrationError = true,
               errorMessage = null
@@ -163,7 +169,7 @@ class QuickRestoreQrViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[Register] Network error.", registerResult.networkError)
-        _localState.value = _localState.value.copy(
+        _state.value = _state.value.copy(
           isRegistering = false,
           showRegistrationError = true,
           errorMessage = null
@@ -171,7 +177,7 @@ class QuickRestoreQrViewModel(
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[Register] Application error.", registerResult.cause)
-        _localState.value = _localState.value.copy(
+        _state.value = _state.value.copy(
           isRegistering = false,
           showRegistrationError = true,
           errorMessage = null
