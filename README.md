@@ -113,11 +113,15 @@ See the [Changelog](https://github.com/mollyim/mollyim-android/wiki/Changelog) t
 
 ## License
 
-Licensed under the [GNU AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html).
+Licensed under the GNU Affero General Public License, version 3 only
+([`AGPL-3.0-only`](LICENSE)).
 
-Original license and export notices in the [original README](README-ORIG.md).
+See [LEGAL.md](LEGAL.md) for legal and copyright information.
 
 ## Acknowledgements
+
+Molly is an independent project built on code published by Signal. We are
+deeply grateful to the Signal contributors for the work we build on.
 
 Thanks to the following organizations for supporting the **Molly** project.
 
@@ -147,9 +151,3 @@ Thanks to the following organizations for supporting the **Molly** project.
 </tr>
 </table>
 </div>
-
-## Legal Notice
-
-This project is *NOT* affiliated with Signal Messenger or the Signal Foundation.
-
-The software is developed independently and provided as-is, without warranties of any kind. Use at your own risk.
