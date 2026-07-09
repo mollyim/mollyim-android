@@ -97,12 +97,15 @@ interface StorageController {
   suspend fun setRestoreDecision(decision: RestoreDecision)
 
   /**
-   * Begins restoring from a V1 (.backup) file identified by the given [uri].
+   * Begins restoring from a V1 (.backup) file identified by the given [backupUri].
    *
-   * Returns a [Flow] of [LocalBackupRestoreProgress] that reports the state of the restore operation
-   * from preparation through completion or error.
+   * @param rootUri The backup directory that contains the [backupUri] file. Persisted as the backup directory so
+   *   local backups can be re-enabled after the restore.
+   * @param backupUri The specific .backup file to restore from.
+   * @return A [Flow] of [LocalBackupRestoreProgress] that reports the state of the restore operation
+   *   from preparation through completion or error.
    */
-  fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress>
+  fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress>
 
   /**
    * Begins restoring from a V2 (folder-based) backup.

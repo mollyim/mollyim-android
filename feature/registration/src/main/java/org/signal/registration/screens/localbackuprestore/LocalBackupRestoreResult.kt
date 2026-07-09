@@ -12,7 +12,7 @@ import org.signal.core.models.AccountEntropyPool
  * to the phone number entry screen via the result bus.
  */
 sealed interface LocalBackupRestoreResult {
-  /** The restore completed successfully. Contains the AEP if V2 backup, null if V1. */
+  /** The restore completed successfully. Contains the AEP if V2 backup, or the restored AEP for V1. */
   data class Success(val aep: AccountEntropyPool?) : LocalBackupRestoreResult
 
   /** The user canceled the restore flow. The pending restore option should be cleared. */

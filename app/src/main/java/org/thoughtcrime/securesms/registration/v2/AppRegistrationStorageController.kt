@@ -6,6 +6,7 @@
 package org.thoughtcrime.securesms.registration.v2
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
@@ -43,10 +44,12 @@ import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.thoughtcrime.securesms.backup.BackupEvent
+import org.thoughtcrime.securesms.backup.BackupPassphrase
 import org.thoughtcrime.securesms.backup.FullBackupImporter
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.RemoteRestoreResult
 import org.thoughtcrime.securesms.backup.v2.RestoreV2Event
+import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
 import org.thoughtcrime.securesms.backup.v2.local.LocalArchiver
 import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
 import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore
@@ -68,6 +71,8 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+import org.thoughtcrime.securesms.service.LocalBackupListener
+import org.thoughtcrime.securesms.util.BackupUtil
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
@@ -290,14 +295,14 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
   }
 
-  override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = callbackFlow {
-    Log.d(TAG, "Starting V1 local backup restore from: $uri")
+  override fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = callbackFlow {
+    Log.d(TAG, "Starting V1 local backup restore from: $backupUri")
 
     trySend(LocalBackupRestoreProgress.Preparing)
 
     // The importer only reports a running frame count with no total, so we track bytes read from the backup file against
     // its size to produce a real progress fraction, sampling the counting stream on each frame-progress event.
-    val totalBytes = context.contentResolver.getLength(uri) ?: 0L
+    val totalBytes = context.contentResolver.getLength(backupUri) ?: 0L
     var countingStream: CountingInputStream? = null
 
     val subscriber = object {
@@ -313,14 +318,14 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     launch(Dispatchers.IO) {
       try {
-        if (!FullBackupImporter.validatePassphrase(context, uri, passphrase)) {
+        if (!FullBackupImporter.validatePassphrase(context, backupUri, passphrase)) {
           Log.w(TAG, "V1 restore failed: incorrect passphrase")
           trySend(LocalBackupRestoreProgress.IncorrectCredential)
           return@launch
         }
 
         val database = SignalDatabase.backupDatabase
-        val inputStream = context.contentResolver.openInputStream(uri) ?: throw IOException("Unable to open backup stream for $uri")
+        val inputStream = context.contentResolver.openInputStream(backupUri) ?: throw IOException("Unable to open backup stream for $backupUri")
         CountingInputStream(inputStream).use { counting ->
           countingStream = counting
           FullBackupImporter.importFile(
@@ -334,6 +339,12 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         }
 
         SignalDatabase.runPostBackupRestoreTasks(database)
+
+        // The importer writes the restored key-value store straight to disk, bypassing the in-memory SignalStore cache.
+        // Reset it so the state we read below reflects the restored values rather than stale pre-restore ones.
+        SignalStore.onPostBackupRestore()
+
+        reenableLegacyLocalBackups(rootUri, passphrase)
 
         trySend(readRestoredLocalBackupState(includePreRegistrationKeys = true))
         Log.d(TAG, "V1 restore complete.")
@@ -397,6 +408,20 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
             Log.i(TAG, "V2 local backup belongs to current account; adopting entered recovery key.")
             SignalStore.account.restoreAccountEntropyPool(aep)
             updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
+
+            // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
+            // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
+            val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
+            if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
+              val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+              context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
+              SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
+              SignalStore.backup.newLocalBackupsEnabled = true
+              LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
+              LocalBackupListener.schedule(context)
+            } else {
+              Log.w(TAG, "V2 local backup directory can't be reused as a destination; not re-enabling local backups.")
+            }
           } else {
             Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
           }
@@ -413,6 +438,30 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       emit(LocalBackupRestoreProgress.Error(e))
     }
   }.flowOn(Dispatchers.IO)
+
+  /**
+   * Persists the restored backup folder as the backup directory and re-enables scheduled local backups, so the user
+   * keeps getting backups after restoring. Best-effort: a failure here must not fail the restore itself.
+   */
+  private fun reenableLegacyLocalBackups(rootUri: Uri, passphrase: String) {
+    try {
+      BackupPassphrase.set(context, passphrase)
+
+      val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+      context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
+      SignalStore.settings.setSignalBackupDirectory(rootUri)
+
+      if (BackupUtil.canUserAccessBackupDirectory(context)) {
+        LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
+        SignalStore.settings.isBackupEnabled = true
+        LocalBackupListener.schedule(context)
+      } else {
+        Log.w(TAG, "Can't access restored backup directory; not re-enabling local backups.")
+      }
+    } catch (e: Exception) {
+      Log.w(TAG, "Failed to re-enable local backups after V1 restore.", e)
+    }
+  }
 
   private fun readRestoredLocalBackupState(includePreRegistrationKeys: Boolean = false): LocalBackupRestoreProgress.Complete {
     val restoredPin = SignalStore.svr.pin?.takeIf { it.isNotBlank() }

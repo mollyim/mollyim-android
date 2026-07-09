@@ -298,10 +298,10 @@ class DemoStorageController(private val context: Context) : StorageController {
     backups.sortedByDescending { it.date }
   }
 
-  override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {
-    Log.d(TAG, "Starting simulated V1 local backup restore from: $uri")
+  override fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {
+    Log.d(TAG, "Starting simulated V1 local backup restore from: $backupUri")
 
-    require(DocumentFile.fromSingleUri(context, uri)?.exists() == true) { "Backup file does not exist: $uri" }
+    require(DocumentFile.fromSingleUri(context, backupUri)?.exists() == true) { "Backup file does not exist: $backupUri" }
 
     emit(LocalBackupRestoreProgress.Preparing)
     delay(SIMULATED_STAGE_DELAY_MS)

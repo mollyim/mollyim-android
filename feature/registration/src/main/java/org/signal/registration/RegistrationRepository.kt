@@ -847,8 +847,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     data.aci.isNotEmpty() && data.pni.isNotEmpty()
   }
 
-  fun restoreV1Backup(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> {
-    return storageController.restoreLocalBackupV1(uri, passphrase)
+  fun restoreV1Backup(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> {
+    return storageController.restoreLocalBackupV1(rootUri, backupUri, passphrase)
   }
 
   fun restoreV2Backup(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> {

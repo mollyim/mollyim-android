@@ -188,7 +188,7 @@ class LocalBackupRestoreViewModel(
     restoreJob = viewModelScope.launch {
       val currentState = _state.value
       val restoreFlow = when (backup.type) {
-        LocalBackupInfo.BackupType.V1 -> repository.restoreV1Backup(backup.uri, passphrase = credential)
+        LocalBackupInfo.BackupType.V1 -> repository.restoreV1Backup(rootUri = rootUri!!, backupUri = backup.uri, passphrase = credential)
         LocalBackupInfo.BackupType.V2 -> repository.restoreV2Backup(rootUri = rootUri!!, backupUri = backup.uri, aep = aep!!)
       }
       restoreFlow.collect { progress ->

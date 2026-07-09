@@ -238,7 +238,7 @@ private fun PassphraseTextField(
     onValueChange = { newValue ->
       onPassphraseChange(newValue.filter { it.isDigit() })
     },
-    label = { Text(stringResource(R.string.LocalBackupRestoreScreen__recovery_key)) },
+    label = { Text(stringResource(R.string.LocalBackupRestoreScreen__passphrase)) },
     textStyle = MaterialTheme.typography.bodyLarge.copy(
       fontFamily = FontFamily.Monospace,
       lineHeight = 36.sp
