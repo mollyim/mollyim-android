@@ -27,7 +27,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -1224,33 +1223,22 @@ public class ConversationListFragment extends MainFragment implements Conversati
       final Set<Long> selectedConversations = new HashSet<>(ids);
 
       if (!selectedConversations.isEmpty()) {
-        new AsyncTask<Void, Void, Void>() {
-          private SignalProgressDialog dialog;
+        SignalProgressDialog progressDialog = SignalProgressDialog.show(requireActivity(),
+                                                                        context.getString(R.string.ConversationListFragment_deleting),
+                                                                        context.getResources().getQuantityString(R.plurals.ConversationListFragment_deleting_selected_conversations, conversationsCount),
+                                                                        true,
+                                                                        false);
 
-          @Override
-          protected void onPreExecute() {
-            dialog = SignalProgressDialog.show(requireActivity(),
-                                               context.getString(R.string.ConversationListFragment_deleting),
-                                               context.getResources().getQuantityString(R.plurals.ConversationListFragment_deleting_selected_conversations, conversationsCount),
-                                               true,
-                                               false);
-          }
-
-          @Override
-          protected Void doInBackground(Void... params) {
-            Log.d(TAG, "[handleDelete] Deleting " + selectedConversations.size() + " chats");
-            SignalDatabase.threads().deleteConversations(selectedConversations, true);
-            AppDependencies.getMessageNotifier().updateNotification(AppDependencies.getApplication());
-            Log.d(TAG, "[handleDelete] Delete complete");
-            return null;
-          }
-
-          @Override
-          protected void onPostExecute(Void result) {
-            dialog.dismiss();
-            endActionModeIfActive();
-          }
-        }.executeOnExecutor(SignalExecutors.BOUNDED);
+        SimpleTask.run(getViewLifecycleOwner().getLifecycle(), () -> {
+          Log.d(TAG, "[handleDelete] Deleting " + selectedConversations.size() + " chats");
+          SignalDatabase.threads().deleteConversations(selectedConversations, true);
+          AppDependencies.getMessageNotifier().updateNotification(AppDependencies.getApplication());
+          Log.d(TAG, "[handleDelete] Delete complete");
+          return null;
+        }, unused -> {
+          progressDialog.dismiss();
+          endActionModeIfActive();
+        });
       }
     });
 
