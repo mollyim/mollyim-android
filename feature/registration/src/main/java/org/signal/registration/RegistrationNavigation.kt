@@ -335,39 +335,23 @@ fun RegistrationNavHost(
     entries = entries,
     onBack = { viewModel.onEvent(RegistrationFlowEvent.NavigateBack) },
     modifier = modifier,
-    transitionSpec = {
-      if (targetState.key is RegistrationRoute.CountryCodePicker) {
-        TransitionSpecs.VerticalSlide.transitionSpec.invoke(this)
-      } else {
-        TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
-      }
-    },
+    transitionSpec = { TransitionSpecs.HorizontalSlide.transitionSpec },
     popTransitionSpec = {
       when {
-        initialState.key is RegistrationRoute.CountryCodePicker -> {
-          TransitionSpecs.VerticalSlide.popTransitionSpec.invoke(this)
-        }
-
         initialState.key == RegistrationRoute.EnterAepForLocalBackup.toString() || initialState.key == RegistrationRoute.EnterAepForRemoteBackupPreRegistration.toString() -> {
-          TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
+          TransitionSpecs.HorizontalSlide.transitionSpec
         }
 
         initialState.key == RegistrationRoute.LocalBackupRestore.toString() && targetState.key == RegistrationRoute.PhoneNumberEntry.toString() -> {
-          TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
+          TransitionSpecs.HorizontalSlide.transitionSpec
         }
 
         else -> {
-          TransitionSpecs.HorizontalSlide.popTransitionSpec.invoke(this)
+          TransitionSpecs.HorizontalSlide.popTransitionSpec
         }
       }
     },
-    predictivePopTransitionSpec = {
-      if (initialState.key is RegistrationRoute.CountryCodePicker) {
-        TransitionSpecs.VerticalSlide.predictivePopTransitionSpec.invoke(this, it)
-      } else {
-        TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec.invoke(this, it)
-      }
-    }
+    predictivePopTransitionSpec = { TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec }
   )
 }
 
@@ -533,7 +517,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   // -- Country Code Picker
-  entry<RegistrationRoute.CountryCodePicker> { key ->
+  entry<RegistrationRoute.CountryCodePicker>(metadata = TransitionSpecs.VerticalSlide.metadata) { key ->
     val viewModel: CountryCodePickerViewModel = viewModel(
       factory = CountryCodePickerViewModel.Factory(
         repository = CountryCodePickerRepository(),
