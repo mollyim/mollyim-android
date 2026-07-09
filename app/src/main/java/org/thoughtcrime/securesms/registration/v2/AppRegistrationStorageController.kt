@@ -9,6 +9,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
+import com.google.common.io.CountingInputStream
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -30,6 +31,7 @@ import org.signal.core.util.AppUtil
 import org.signal.core.util.Result
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.crypto.AttachmentSecretProvider
+import org.signal.core.util.getLength
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.PreExistingRegistrationData
@@ -40,6 +42,7 @@ import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
+import org.thoughtcrime.securesms.backup.BackupEvent
 import org.thoughtcrime.securesms.backup.FullBackupImporter
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.RemoteRestoreResult
@@ -287,41 +290,68 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
   }
 
-  override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {
-    // TODO [greyson] better progress
+  override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = callbackFlow {
     Log.d(TAG, "Starting V1 local backup restore from: $uri")
 
-    emit(LocalBackupRestoreProgress.Preparing)
+    trySend(LocalBackupRestoreProgress.Preparing)
 
-    try {
-      if (!FullBackupImporter.validatePassphrase(context, uri, passphrase)) {
-        Log.w(TAG, "V1 restore failed: incorrect passphrase")
-        emit(LocalBackupRestoreProgress.IncorrectCredential)
-        return@flow
+    // The importer only reports a running frame count with no total, so we track bytes read from the backup file against
+    // its size to produce a real progress fraction, sampling the counting stream on each frame-progress event.
+    val totalBytes = context.contentResolver.getLength(uri) ?: 0L
+    var countingStream: CountingInputStream? = null
+
+    val subscriber = object {
+      @Subscribe(threadMode = ThreadMode.POSTING)
+      fun onBackupEvent(event: BackupEvent) {
+        if (event.type == BackupEvent.Type.PROGRESS) {
+          trySend(LocalBackupRestoreProgress.InProgress(bytesRead = countingStream?.count ?: 0L, totalBytes = totalBytes))
+        }
       }
-
-      val database = SignalDatabase.backupDatabase
-      FullBackupImporter.importFile(
-        context,
-        AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore).getOrCreateAttachmentSecret(),
-        database,
-        uri,
-        passphrase,
-        SignalStore.registration.localRegistrationMetadata != null
-      )
-
-      SignalDatabase.runPostBackupRestoreTasks(database)
-
-      emit(readRestoredLocalBackupState(includeIdentityKeys = true))
-      Log.d(TAG, "V1 restore complete.")
-    } catch (e: FullBackupImporter.DatabaseDowngradeException) {
-      Log.w(TAG, "V1 restore failed: database downgrade", e)
-      emit(LocalBackupRestoreProgress.Error(e))
-    } catch (e: Exception) {
-      Log.w(TAG, "V1 restore failed", e)
-      emit(LocalBackupRestoreProgress.Error(e))
     }
-  }.flowOn(Dispatchers.IO)
+
+    EventBus.getDefault().register(subscriber)
+
+    launch(Dispatchers.IO) {
+      try {
+        if (!FullBackupImporter.validatePassphrase(context, uri, passphrase)) {
+          Log.w(TAG, "V1 restore failed: incorrect passphrase")
+          trySend(LocalBackupRestoreProgress.IncorrectCredential)
+          return@launch
+        }
+
+        val database = SignalDatabase.backupDatabase
+        val inputStream = context.contentResolver.openInputStream(uri) ?: throw IOException("Unable to open backup stream for $uri")
+        CountingInputStream(inputStream).use { counting ->
+          countingStream = counting
+          FullBackupImporter.importFile(
+            context,
+            AttachmentSecretProvider.getInstance(context, AppAttachmentSecretStore).getOrCreateAttachmentSecret(),
+            database,
+            counting,
+            passphrase,
+            SignalStore.registration.localRegistrationMetadata != null
+          )
+        }
+
+        SignalDatabase.runPostBackupRestoreTasks(database)
+
+        trySend(readRestoredLocalBackupState(includeIdentityKeys = true))
+        Log.d(TAG, "V1 restore complete.")
+      } catch (e: FullBackupImporter.DatabaseDowngradeException) {
+        Log.w(TAG, "V1 restore failed: database downgrade", e)
+        trySend(LocalBackupRestoreProgress.Error(e))
+      } catch (e: Exception) {
+        Log.w(TAG, "V1 restore failed", e)
+        trySend(LocalBackupRestoreProgress.Error(e))
+      } finally {
+        channel.close()
+      }
+    }
+
+    awaitClose {
+      EventBus.getDefault().unregister(subscriber)
+    }
+  }
 
   override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = flow {
     // TODO [greyson] better progress
