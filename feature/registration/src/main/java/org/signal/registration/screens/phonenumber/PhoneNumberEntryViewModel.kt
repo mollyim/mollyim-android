@@ -13,14 +13,11 @@ import com.google.i18n.phonenumbers.AsYouTypeFormatter
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.util.E164Util
@@ -39,27 +36,6 @@ import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResu
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.screens.util.navigateTo
 
-/**
- * Returns how many characters a single edit inserted when going from [old] to [new], by diffing off the common prefix
- * and suffix. Used to distinguish a typed character (1) from a paste or autofill (more than 1). Returns 0 for
- * deletions or replacements that don't grow the differing region.
- */
-private fun insertedCharCount(old: String, new: String): Int {
-  val max = minOf(old.length, new.length)
-
-  var prefix = 0
-  while (prefix < max && old[prefix] == new[prefix]) {
-    prefix++
-  }
-
-  var suffix = 0
-  while (suffix < max - prefix && old[old.length - 1 - suffix] == new[new.length - 1 - suffix]) {
-    suffix++
-  }
-
-  return (new.length - prefix - suffix).coerceAtLeast(0)
-}
-
 class PhoneNumberEntryViewModel(
   val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
@@ -75,26 +51,20 @@ class PhoneNumberEntryViewModel(
   private var formatter: AsYouTypeFormatter = phoneNumberUtil.getAsYouTypeFormatter("US")
 
   private val _state = MutableStateFlow(PhoneNumberEntryState())
-  val state = _state
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PhoneNumberEntryState())
+  val state: StateFlow<PhoneNumberEntryState> = _state.asStateFlow()
 
   init {
-    viewModelScope.launch {
-      _state.value = state.value.copy(
-        restoredSvrCredentials = repository.getRestoredSvrCredentials()
-      )
-      setDefaultCountry()
+    setDefaultCountry()
 
-      parentState.firstOrNull()?.preExistingRegistrationData?.e164?.let { preExistingE164 ->
-        if (state.value.formattedNumber.isEmpty()) {
-          _state.value = applyFullPhoneNumberEntered(_state.value, preExistingE164)
-        }
-      }
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
 
-      _state.update { it.copy(initialized = true) }
-    }
+    onEvent(PhoneNumberEntryScreenEvents.Initialize)
+
+    parentState
+      .onEach { onEvent(PhoneNumberEntryScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
   }
 
   fun setDefaultCountry() {
@@ -111,7 +81,7 @@ class PhoneNumberEntryViewModel(
   }
 
   override suspend fun processEvent(event: PhoneNumberEntryScreenEvents) {
-    applyEvent(state.value, event, parentEventEmitter) {
+    applyEvent(_state.value, event, parentEventEmitter) {
       _state.value = it
     }
   }
@@ -119,6 +89,12 @@ class PhoneNumberEntryViewModel(
   @VisibleForTesting
   suspend fun applyEvent(state: PhoneNumberEntryState, event: PhoneNumberEntryScreenEvents, parentEventEmitter: (RegistrationFlowEvent) -> Unit, stateEmitter: (PhoneNumberEntryState) -> Unit) {
     when (event) {
+      is PhoneNumberEntryScreenEvents.Initialize -> {
+        stateEmitter(applyInitialize(state))
+      }
+      is PhoneNumberEntryScreenEvents.ParentStateChanged -> {
+        stateEmitter(applyParentState(state, event.parentState))
+      }
       is PhoneNumberEntryScreenEvents.CountryCodeChanged -> {
         stateEmitter(applyCountryCodeChanged(state, event.value))
       }
@@ -178,8 +154,19 @@ class PhoneNumberEntryViewModel(
     }
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: PhoneNumberEntryState, parentState: RegistrationFlowState): PhoneNumberEntryState {
+  private suspend fun applyInitialize(inputState: PhoneNumberEntryState): PhoneNumberEntryState {
+    var state = inputState.copy(restoredSvrCredentials = repository.getRestoredSvrCredentials())
+
+    parentState.value.preExistingRegistrationData?.e164?.let { preExistingE164 ->
+      if (state.formattedNumber.isEmpty()) {
+        state = applyFullPhoneNumberEntered(state, preExistingE164)
+      }
+    }
+
+    return state.copy(initialized = true)
+  }
+
+  private fun applyParentState(state: PhoneNumberEntryState, parentState: RegistrationFlowState): PhoneNumberEntryState {
     return state.copy(
       sessionE164 = parentState.sessionE164,
       sessionMetadata = parentState.sessionMetadata,
@@ -789,6 +776,22 @@ class PhoneNumberEntryViewModel(
     } catch (_: NumberParseException) {
       false
     }
+  }
+
+  private fun insertedCharCount(old: String, new: String): Int {
+    val max = minOf(old.length, new.length)
+
+    var prefix = 0
+    while (prefix < max && old[prefix] == new[prefix]) {
+      prefix++
+    }
+
+    var suffix = 0
+    while (suffix < max - prefix && old[old.length - 1 - suffix] == new[new.length - 1 - suffix]) {
+      suffix++
+    }
+
+    return (new.length - prefix - suffix).coerceAtLeast(0)
   }
 
   /**

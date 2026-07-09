@@ -6,9 +6,16 @@
 package org.signal.registration.screens.phonenumber
 
 import org.signal.core.util.censor
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 
 sealed class PhoneNumberEntryScreenEvents {
+  /** Emitted once when the screen is created to load initial data into the state. */
+  data object Initialize : PhoneNumberEntryScreenEvents()
+
+  /** The parent registration flow state changed and needs to be merged into this screen's state. */
+  data class ParentStateChanged(val parentState: RegistrationFlowState) : PhoneNumberEntryScreenEvents()
+
   /** The phone country code prefix (i.e. +1) was changed by the user. */
   data class CountryCodeChanged(val value: String) : PhoneNumberEntryScreenEvents()
 

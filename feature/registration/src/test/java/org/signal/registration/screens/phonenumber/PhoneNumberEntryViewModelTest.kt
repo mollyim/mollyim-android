@@ -560,6 +560,55 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedEvents).isEmpty()
   }
 
+  // ==================== Initialize Tests ====================
+
+  @Test
+  fun `state is populated with the default country and initialized once construction settles`() {
+    // The view model was constructed and its event loop advanced to idle in setup().
+    val state = viewModel.state.value
+    assertThat(state.regionCode).isEqualTo("US")
+    assertThat(state.countryCode).isEqualTo("1")
+    assertThat(state.countryName).isEqualTo("United States")
+    assertThat(state.initialized).isTrue()
+  }
+
+  @Test
+  fun `Initialize loads restored SVR credentials into state and marks it initialized`() = runTest {
+    val credentials = listOf(NetworkController.SvrCredentials(username = "user", password = "pass"))
+    coEvery { mockRepository.getRestoredSvrCredentials() } returns credentials
+
+    viewModel.applyEvent(PhoneNumberEntryState(), PhoneNumberEntryScreenEvents.Initialize, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates).hasSize(1)
+    assertThat(emittedStates.last().restoredSvrCredentials).isEqualTo(credentials)
+    assertThat(emittedStates.last().initialized).isTrue()
+  }
+
+  @Test
+  fun `Initialize does not prefill when the number field is already populated`() = runTest {
+    val preExisting = mockk<PreExistingRegistrationData>(relaxed = true)
+    every { preExisting.e164 } returns "+15551234567"
+    parentState.value = RegistrationFlowState(preExistingRegistrationData = preExisting)
+
+    val alreadyPopulated = PhoneNumberEntryState(countryCode = "44", regionCode = "GB", nationalNumber = "2079460958", formattedNumber = "2079460958")
+    viewModel.applyEvent(alreadyPopulated, PhoneNumberEntryScreenEvents.Initialize, parentEventEmitter, stateEmitter)
+
+    val result = emittedStates.last()
+    assertThat(result.nationalNumber).isEqualTo("2079460958")
+    assertThat(result.countryCode).isEqualTo("44")
+  }
+
+  // ==================== Parent State Tests ====================
+
+  @Test
+  fun `parent state changes are merged into state through the event stream`() = runTest {
+    parentState.value = RegistrationFlowState(sessionE164 = "+15551234567")
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    assertThat(viewModel.state.value.sessionE164).isEqualTo("+15551234567")
+    assertThat(viewModel.state.value.regionCode).isEqualTo("US")
+  }
+
   // ==================== Pre-existing Registration Data Prefill Tests ====================
 
   @Test
@@ -1172,43 +1221,43 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.NetworkError)
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState copies preExistingRegistrationData from parent`() {
+  fun `ParentStateChanged copies preExistingRegistrationData from parent`() = runTest {
     val preExistingData = mockk<PreExistingRegistrationData>(relaxed = true)
-    val state = PhoneNumberEntryState()
     val parentFlowState = RegistrationFlowState(preExistingRegistrationData = preExistingData)
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(PhoneNumberEntryState(), PhoneNumberEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.preExistingRegistrationData).isEqualTo(preExistingData)
+    assertThat(emittedStates).hasSize(1)
+    assertThat(emittedStates.last().preExistingRegistrationData).isEqualTo(preExistingData)
   }
 
   @Test
-  fun `applyParentState clears restoredSvrCredentials when doNotAttemptRecoveryPassword is true`() {
+  fun `ParentStateChanged clears restoredSvrCredentials when doNotAttemptRecoveryPassword is true`() = runTest {
     val credentials = listOf(
       NetworkController.SvrCredentials(username = "user", password = "pass")
     )
     val state = PhoneNumberEntryState(restoredSvrCredentials = credentials)
     val parentFlowState = RegistrationFlowState(doNotAttemptRecoveryPassword = true)
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.restoredSvrCredentials).isEmpty()
+    assertThat(emittedStates.last().restoredSvrCredentials).isEmpty()
   }
 
   @Test
-  fun `applyParentState keeps restoredSvrCredentials when doNotAttemptRecoveryPassword is false`() {
+  fun `ParentStateChanged keeps restoredSvrCredentials when doNotAttemptRecoveryPassword is false`() = runTest {
     val credentials = listOf(
       NetworkController.SvrCredentials(username = "user", password = "pass")
     )
     val state = PhoneNumberEntryState(restoredSvrCredentials = credentials)
     val parentFlowState = RegistrationFlowState(doNotAttemptRecoveryPassword = false)
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.restoredSvrCredentials).isEqualTo(credentials)
+    assertThat(emittedStates.last().restoredSvrCredentials).isEqualTo(credentials)
   }
 
   // ==================== Pre-existing Registration Data (RRP) Tests ====================
