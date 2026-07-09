@@ -42,15 +42,16 @@ jobs:
         # Required to persist the Gradle configuration cache across runs.
         cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-    # Pull requests run the fast custom linter (ci); pushes to main / 8.x branches run the full
-    # Android lint (qa).
+    # Pull requests run the fast custom linter (ciRemote); pushes to main / 8.x branches run the
+    # full Android lint (qaRemote). Both include screenshot validation, which is deliberately kept
+    # out of the local qa/ci tasks because screenshot rendering is host-OS dependent.
     - name: Build with Gradle
       env:
         SIGNAL_BUILD_CACHE_URL: ${{ secrets.SIGNAL_BUILD_CACHE_URL }}
         SIGNAL_BUILD_CACHE_USER: ${{ secrets.SIGNAL_BUILD_CACHE_USER }}
         SIGNAL_BUILD_CACHE_PASSWORD: ${{ secrets.SIGNAL_BUILD_CACHE_PASSWORD }}
         SIGNAL_BUILD_CACHE_PUSH: ${{ startsWith(github.ref, 'refs/heads/8.') }}
-      run: ./gradlew ${{ github.event_name == 'pull_request' && 'ci' || 'qa' }}
+      run: ./gradlew ${{ github.event_name == 'pull_request' && 'ciRemote' || 'qaRemote' }}
 
     - name: Archive reports for failed build
       if: ${{ failure() }}
