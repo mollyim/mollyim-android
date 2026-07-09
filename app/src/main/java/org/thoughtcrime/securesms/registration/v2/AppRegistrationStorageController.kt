@@ -335,7 +335,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
         SignalDatabase.runPostBackupRestoreTasks(database)
 
-        trySend(readRestoredLocalBackupState(includeIdentityKeys = true))
+        trySend(readRestoredLocalBackupState(includePreRegistrationKeys = true))
         Log.d(TAG, "V1 restore complete.")
       } catch (e: FullBackupImporter.DatabaseDowngradeException) {
         Log.w(TAG, "V1 restore failed: database downgrade", e)
@@ -414,19 +414,21 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
   }.flowOn(Dispatchers.IO)
 
-  private fun readRestoredLocalBackupState(includeIdentityKeys: Boolean = false): LocalBackupRestoreProgress.Complete {
+  private fun readRestoredLocalBackupState(includePreRegistrationKeys: Boolean = false): LocalBackupRestoreProgress.Complete {
     val restoredPin = SignalStore.svr.pin?.takeIf { it.isNotBlank() }
     val restoredProfileKey = SignalStore.account.aci
       ?.let { SignalDatabase.recipients.getByAci(it).getOrNull() }
       ?.let { SignalDatabase.recipients.getRecord(it).profileKey }
       ?.let { ProfileKey(it) }
 
-    val restoredAciIdentityKey = if (includeIdentityKeys && SignalStore.account.hasAciIdentityKey()) SignalStore.account.aciIdentityKey else null
-    val restoredPniIdentityKey = if (includeIdentityKeys && SignalStore.account.hasPniIdentityKey()) SignalStore.account.pniIdentityKey else null
+    val restoredAccountEntropyPool = if (includePreRegistrationKeys) SignalStore.account.accountEntropyPoolOrNull else null
+    val restoredAciIdentityKey = if (includePreRegistrationKeys && SignalStore.account.hasAciIdentityKey()) SignalStore.account.aciIdentityKey else null
+    val restoredPniIdentityKey = if (includePreRegistrationKeys && SignalStore.account.hasPniIdentityKey()) SignalStore.account.pniIdentityKey else null
 
     return LocalBackupRestoreProgress.Complete(
       restoredSvrPin = restoredPin,
       restoredProfileKey = restoredProfileKey,
+      restoredAccountEntropyPool = restoredAccountEntropyPool,
       restoredAciIdentityKey = restoredAciIdentityKey,
       restoredPniIdentityKey = restoredPniIdentityKey
     )

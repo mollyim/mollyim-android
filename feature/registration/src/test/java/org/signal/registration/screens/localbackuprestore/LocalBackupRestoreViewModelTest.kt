@@ -31,6 +31,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.signal.archive.LocalBackupRestoreProgress
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
@@ -412,6 +413,33 @@ class LocalBackupRestoreViewModelTest {
 
     coVerify { mockRepository.persistRestoredBackupState("1234", profileKey) }
     coVerify { mockRepository.persistRestoredIdentityKeys(aciIdentityKey, pniIdentityKey) }
+  }
+
+  @Test
+  fun `pre-registration V1 restore sends restored AEP in the success result`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = true)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    val restoredAep = AccountEntropyPool(VALID_AEP)
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Complete(
+        restoredSvrPin = null,
+        restoredProfileKey = null,
+        restoredAccountEntropyPool = restoredAep
+      )
+    )
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    val result = resultBus.channelMap[resultKey]?.tryReceive()?.getOrNull()
+    assertThat(result).isNotNull().isEqualTo(LocalBackupRestoreResult.Success(restoredAep))
   }
 
   companion object {

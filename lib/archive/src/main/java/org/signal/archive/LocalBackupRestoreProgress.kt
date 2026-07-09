@@ -5,6 +5,7 @@
 
 package org.signal.archive
 
+import org.signal.core.models.AccountEntropyPool
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 
@@ -32,12 +33,14 @@ sealed interface LocalBackupRestoreProgress {
    * If any of the args are null, we will assume that they were unavailable in the backup, and will defer to
    * values generated during registration.
    *
-   * [restoredAciIdentityKey] and [restoredPniIdentityKey] are only populated for V1 backups restored before
-   * registration, where we want to preserve the device's existing identity rather than generating a new one.
+   * [restoredAccountEntropyPool], [restoredAciIdentityKey], and [restoredPniIdentityKey] are only populated for V1
+   * backups restored before registration, where we want to preserve the device's existing keys rather than generating
+   * new ones.
    */
   data class Complete(
     val restoredSvrPin: String?,
     val restoredProfileKey: ProfileKey?,
+    val restoredAccountEntropyPool: AccountEntropyPool? = null,
     val restoredAciIdentityKey: IdentityKeyPair? = null,
     val restoredPniIdentityKey: IdentityKeyPair? = null
   ) : LocalBackupRestoreProgress
