@@ -35,6 +35,7 @@ import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
@@ -70,9 +71,10 @@ class LocalBackupRestoreViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun createViewModel(isPreRegistration: Boolean): LocalBackupRestoreViewModel {
+  private fun createViewModel(isPreRegistration: Boolean, storageCapable: Boolean = true): LocalBackupRestoreViewModel {
     return LocalBackupRestoreViewModel(
       repository = mockRepository,
+      parentState = flowOf(RegistrationFlowState(storageCapable = storageCapable)),
       parentEventEmitter = parentEventEmitter,
       isPreRegistration = isPreRegistration,
       resultBus = resultBus,
@@ -106,6 +108,19 @@ class LocalBackupRestoreViewModelTest {
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last().restorePhase).isEqualTo(LocalBackupRestoreState.RestorePhase.Scanning)
     assertThat(emittedStates.last().selectedFolderUri).isEqualTo(folderUri)
+  }
+
+  // ==================== ParentStateChanged Tests ====================
+
+  @Test
+  fun `ParentStateChanged copies storageCapable from parent state`() = runTest {
+    val viewModel = createViewModel(isPreRegistration = false)
+    val initialState = LocalBackupRestoreState(storageCapable = true)
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.ParentStateChanged(RegistrationFlowState(storageCapable = false)), stateEmitter)
+
+    assertThat(emittedStates).hasSize(1)
+    assertThat(emittedStates.last().storageCapable).isEqualTo(false)
   }
 
   // ==================== RestoreBackup with V1 Tests ====================
@@ -255,8 +270,29 @@ class LocalBackupRestoreViewModelTest {
   // ==================== Restore Completion Tests ====================
 
   @Test
-  fun `successful V1 restore records COMPLETED restore decision and finishes registration`() = runTest(testDispatcher) {
+  fun `V1 restore that recovers a PIN records COMPLETED restore decision and finishes registration`() = runTest(testDispatcher) {
     val viewModel = createViewModel(isPreRegistration = false)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = "1234", restoredProfileKey = null))
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    coVerify { mockRepository.persistRestoredBackupState("1234", null) }
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  @Test
+  fun `V1 restore without a PIN when storage capable navigates to PinEntryForSvrRestore`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false, storageCapable = true)
     val backupInfo = LocalBackupInfo(
       type = LocalBackupInfo.BackupType.V1,
       date = LocalDateTime.now(),
@@ -269,10 +305,37 @@ class LocalBackupRestoreViewModelTest {
 
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
 
-    coVerify { mockRepository.persistRestoredBackupState(null, null) }
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
-    coVerify { mockRepository.restoreAccountRecord(any()) }
-    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
+    coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PinEntryForSvrRestore)
+  }
+
+  @Test
+  fun `V1 restore without a PIN when not storage capable navigates to PinCreate`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false, storageCapable = false)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo)
+
+    every { mockRepository.restoreV1Backup(any(), any()) } returns flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+    coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PinCreate)
   }
 
   // ==================== Incorrect Credential Tests ====================

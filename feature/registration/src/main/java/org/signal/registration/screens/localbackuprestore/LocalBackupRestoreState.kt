@@ -18,7 +18,8 @@ data class LocalBackupRestoreState(
   val errorMessage: String? = null,
   val launchFolderPicker: Boolean = false,
   val aep: AccountEntropyPool? = null,
-  val v1Passphrase: String? = null
+  val v1Passphrase: String? = null,
+  val storageCapable: Boolean = true
 ) {
 
   override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()})"

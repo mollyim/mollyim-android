@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -21,6 +22,7 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
@@ -30,6 +32,7 @@ import org.signal.registration.screens.util.navigateTo
 
 class LocalBackupRestoreViewModel(
   private val repository: RegistrationRepository,
+  parentState: Flow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
   private val isPreRegistration: Boolean,
   private val resultBus: ResultEventBus,
@@ -49,6 +52,10 @@ class LocalBackupRestoreViewModel(
     _state
       .onEach { Log.d(TAG, "[State] $it") }
       .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(LocalBackupRestoreEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
   }
 
   override suspend fun processEvent(event: LocalBackupRestoreEvents) {
@@ -58,6 +65,9 @@ class LocalBackupRestoreViewModel(
   @VisibleForTesting
   suspend fun applyEvent(state: LocalBackupRestoreState, event: LocalBackupRestoreEvents, stateEmitter: (LocalBackupRestoreState) -> Unit) {
     when (event) {
+      is LocalBackupRestoreEvents.ParentStateChanged -> {
+        stateEmitter(state.copy(storageCapable = event.state.storageCapable))
+      }
       is LocalBackupRestoreEvents.PickBackupFolder -> {
         stateEmitter(state.copy(launchFolderPicker = true))
       }
@@ -123,8 +133,15 @@ class LocalBackupRestoreViewModel(
       parentEventEmitter.navigateBack()
     } else {
       repository.setRestoreDecision(RestoreDecision.COMPLETED)
-      repository.restoreAccountRecord()
-      parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+
+      if (progress.restoredSvrPin != null) {
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+      } else if (state.storageCapable) {
+        parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+      } else {
+        parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+      }
     }
   }
 
@@ -210,13 +227,14 @@ class LocalBackupRestoreViewModel(
 
   class Factory(
     private val repository: RegistrationRepository,
+    private val parentState: Flow<RegistrationFlowState>,
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
     private val isPreRegistration: Boolean,
     private val resultBus: ResultEventBus,
     private val resultKey: String
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return LocalBackupRestoreViewModel(repository, parentEventEmitter, isPreRegistration, resultBus, resultKey) as T
+      return LocalBackupRestoreViewModel(repository, parentState, parentEventEmitter, isPreRegistration, resultBus, resultKey) as T
     }
   }
 }

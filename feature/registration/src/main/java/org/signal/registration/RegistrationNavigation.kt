@@ -726,6 +726,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val viewModel: LocalBackupRestoreViewModel = viewModel(
       factory = LocalBackupRestoreViewModel.Factory(
         repository = registrationRepository,
+        parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent,
         isPreRegistration = key.isPreRegistration,
         resultBus = registrationViewModel.resultBus,
