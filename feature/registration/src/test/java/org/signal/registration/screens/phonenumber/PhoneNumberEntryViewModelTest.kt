@@ -81,7 +81,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(
       initialState,
-      PhoneNumberEntryScreenEvents.NationalNumberChanged("555-123-4567"),
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "555-123-4567"),
       parentEventEmitter,
       stateEmitter
     )
@@ -97,7 +97,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(
       initialState,
-      PhoneNumberEntryScreenEvents.NationalNumberChanged("5551234567"),
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "5551234567"),
       parentEventEmitter,
       stateEmitter
     )
@@ -111,25 +111,25 @@ class PhoneNumberEntryViewModelTest {
   fun `PhoneNumberChanged formats progressively as digits are added`() = runTest {
     var state = PhoneNumberEntryState()
 
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("5"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "5"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("5")
 
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("55"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "5", newValue = "55"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("55")
 
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("555"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "55", newValue = "555"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("555")
 
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("5551"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "555", newValue = "5551"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("5551")
     // libphonenumber formats progressively - at 4 digits it's still building the format
     assertThat(state.formattedNumber).isEqualTo("555-1")
 
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("55512"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "555-1", newValue = "55512"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("55512")
     assertThat(state.formattedNumber).isEqualTo("555-12")
@@ -141,7 +141,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(
       initialState,
-      PhoneNumberEntryScreenEvents.NationalNumberChanged("(555) abc 123-4567!"),
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "(555) abc 123-4567!"),
       parentEventEmitter,
       stateEmitter
     )
@@ -156,7 +156,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(
       initialState,
-      PhoneNumberEntryScreenEvents.NationalNumberChanged("555-123-4567"),
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "(555) 123-4567", newValue = "555-123-4567"),
       parentEventEmitter,
       stateEmitter
     )
@@ -164,6 +164,171 @@ class PhoneNumberEntryViewModelTest {
     // Should emit the same state since digits haven't changed
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last()).isEqualTo(initialState)
+  }
+
+  @Test
+  fun `PhoneNumberChanged with a full number including country code splits out the country code`() = runTest {
+    // Simulates OS autofill dumping a full E164 into the national number field.
+    val initialState = PhoneNumberEntryState(regionCode = "GB", countryCode = "44")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "+1 (555) 123-4567"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("1")
+    assertThat(result.regionCode).isEqualTo("US")
+    assertThat(result.nationalNumber).isEqualTo("5551234567")
+    assertThat(result.formattedNumber).isEqualTo("(555) 123-4567")
+  }
+
+  @Test
+  fun `PhoneNumberChanged with a pasted number including the country code but no plus splits out the country code`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "16105550103"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("1")
+    assertThat(result.regionCode).isEqualTo("US")
+    assertThat(result.nationalNumber).isEqualTo("6105550103")
+    assertThat(result.formattedNumber).isEqualTo("(610) 555-0103")
+  }
+
+  @Test
+  fun `PhoneNumberChanged with a pasted number whose explicit country code differs splits it out`() = runTest {
+    // GB number pasted (with country code, no plus) while US is selected.
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "442079460958"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("44")
+    assertThat(result.regionCode).isEqualTo("GB")
+    assertThat(result.nationalNumber).isEqualTo("2079460958")
+  }
+
+  @Test
+  fun `PhoneNumberChanged strips a redundant leading trunk prefix`() = runTest {
+    // GB number pasted with a leading national trunk '0'.
+    val initialState = PhoneNumberEntryState(regionCode = "GB", countryCode = "44")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "02079460958"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("44")
+    assertThat(result.nationalNumber).isEqualTo("2079460958")
+  }
+
+  @Test
+  fun `PhoneNumberChanged with a valid-length national number does not reinterpret leading digits as a country code`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "6105550103"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("1")
+    assertThat(result.nationalNumber).isEqualTo("6105550103")
+  }
+
+  @Test
+  fun `PhoneNumberChanged does not split out the country code when the number was typed rather than pasted`() = runTest {
+    // Reaching the same digits as the paste test, but by typing one final digit: the leading 1 must be kept.
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1", nationalNumber = "1610555010", formattedNumber = "1610555010")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "1610555010", newValue = "16105550103"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    val result = emittedStates.last()
+    assertThat(result.countryCode).isEqualTo("1")
+    assertThat(result.nationalNumber).isEqualTo("16105550103")
+  }
+
+  @Test
+  fun `PhoneNumberChanged with a leading plus but no usable number keeps the digits as the national number`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "+5"),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedStates).hasSize(1)
+    assertThat(emittedStates.last().nationalNumber).isEqualTo("5")
+    assertThat(emittedStates.last().countryCode).isEqualTo("1")
+  }
+
+  @Test
+  fun `derived validity is not invalid while a number is still too short`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "555"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().isNumberInvalid).isFalse()
+    assertThat(emittedStates.last().isNumberPossible).isFalse()
+  }
+
+  @Test
+  fun `derived validity is not invalid for a single freshly typed digit that cannot yet be parsed`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "1"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().isNumberInvalid).isFalse()
+  }
+
+  @Test
+  fun `derived validity is invalid when a number is too long`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "5551234567890123"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().isNumberInvalid).isTrue()
+  }
+
+  @Test
+  fun `derived validity is possible and not invalid for a possible number`() = runTest {
+    val initialState = PhoneNumberEntryState(regionCode = "US", countryCode = "1")
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "5551234567"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().isNumberInvalid).isFalse()
+    assertThat(emittedStates.last().isNumberPossible).isTrue()
   }
 
   @Test
@@ -292,7 +457,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(state.regionCode).isEqualTo("DE")
 
     // Enter a German number
-    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged("15123456789"), parentEventEmitter, stateEmitter)
+    viewModel.applyEvent(state, PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = "", newValue = "15123456789"), parentEventEmitter, stateEmitter)
     state = emittedStates.last()
     assertThat(state.nationalNumber).isEqualTo("15123456789")
   }
@@ -530,7 +695,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.InvalidPhoneNumber)
   }
 
   @Test

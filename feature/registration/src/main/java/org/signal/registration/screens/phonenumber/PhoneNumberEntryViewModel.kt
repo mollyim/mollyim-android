@@ -39,6 +39,27 @@ import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResu
 import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.screens.util.navigateTo
 
+/**
+ * Returns how many characters a single edit inserted when going from [old] to [new], by diffing off the common prefix
+ * and suffix. Used to distinguish a typed character (1) from a paste or autofill (more than 1). Returns 0 for
+ * deletions or replacements that don't grow the differing region.
+ */
+private fun insertedCharCount(old: String, new: String): Int {
+  val max = minOf(old.length, new.length)
+
+  var prefix = 0
+  while (prefix < max && old[prefix] == new[prefix]) {
+    prefix++
+  }
+
+  var suffix = 0
+  while (suffix < max - prefix && old[old.length - 1 - suffix] == new[new.length - 1 - suffix]) {
+    suffix++
+  }
+
+  return (new.length - prefix - suffix).coerceAtLeast(0)
+}
+
 class PhoneNumberEntryViewModel(
   val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
@@ -85,7 +106,7 @@ class PhoneNumberEntryViewModel(
         countryName = E164Util.getRegionDisplayName(regionCode).orElse(""),
         countryEmoji = CountryUtils.countryToEmoji(regionCode),
         countryCode = PhoneNumberUtil.getInstance().getCountryCodeForRegion(regionCode).toString()
-      )
+      ).withNumberValidity()
     }
   }
 
@@ -109,7 +130,7 @@ class PhoneNumberEntryViewModel(
         stateEmitter(populatedState.copy(showDialog = event.autoConfirm && populatedState.isNumberPossible))
       }
       is PhoneNumberEntryScreenEvents.NationalNumberChanged -> {
-        stateEmitter(applyPhoneNumberChanged(state, event.value))
+        stateEmitter(applyPhoneNumberChanged(state, event.oldValue, event.newValue))
       }
       is PhoneNumberEntryScreenEvents.NextClicked -> {
         stateEmitter(state.copy(showDialog = true))
@@ -181,33 +202,12 @@ class PhoneNumberEntryViewModel(
       countryName = countryName,
       countryEmoji = countryEmoji,
       formattedNumber = formattedNumber
-    )
+    ).withNumberValidity()
   }
 
   @VisibleForTesting
   fun applyFullPhoneNumberEntered(state: PhoneNumberEntryState, e164: String): PhoneNumberEntryState {
-    val parsedNumber = try {
-      phoneNumberUtil.parse(e164, null)
-    } catch (e: NumberParseException) {
-      Log.w(TAG, "Failed to parse E164 used to populate phone number.", e)
-      return state
-    }
-
-    val countryCode = parsedNumber.countryCode
-    val nationalNumber = parsedNumber.nationalNumber.toString()
-    val regionCode = phoneNumberUtil.getRegionCodeForNumber(parsedNumber) ?: phoneNumberUtil.getRegionCodeForCountryCode(countryCode)
-
-    formatter = phoneNumberUtil.getAsYouTypeFormatter(regionCode)
-    val formattedNumber = formatNumber(nationalNumber)
-
-    return state.copy(
-      countryCode = countryCode.toString(),
-      regionCode = regionCode,
-      countryName = E164Util.getRegionDisplayName(regionCode).orElse(""),
-      countryEmoji = CountryUtils.countryToEmoji(regionCode).takeIf { regionCode != "ZZ" } ?: "",
-      nationalNumber = nationalNumber,
-      formattedNumber = formattedNumber
-    )
+    return redistributeFullPhoneNumber(state, e164) ?: state
   }
 
   private fun applyCountryCodeChanged(state: PhoneNumberEntryState, countryCode: String): PhoneNumberEntryState {
@@ -228,21 +228,29 @@ class PhoneNumberEntryViewModel(
       countryCode = sanitized,
       regionCode = regionCode,
       formattedNumber = formattedNumber
-    )
+    ).withNumberValidity()
   }
 
-  private fun applyPhoneNumberChanged(state: PhoneNumberEntryState, input: String): PhoneNumberEntryState {
+  private fun applyPhoneNumberChanged(state: PhoneNumberEntryState, oldValue: String, newValue: String): PhoneNumberEntryState {
     // Extract only digits from the input
-    val digitsOnly = input.filter { it.isDigit() }
+    val digitsOnly = newValue.filter { it.isDigit() }
     if (digitsOnly == state.nationalNumber) return state
 
-    // Format the number using AsYouTypeFormatter
+    // Only attempt to split out a country code / trunk prefix on a bulk entry (paste or autofill)
+    if (insertedCharCount(oldValue, newValue) > 1) {
+      if (newValue.trimStart().startsWith("+")) {
+        redistributeFullPhoneNumber(state, "+$digitsOnly")?.let { return it }
+      } else {
+        reinterpretNationalNumber(state, digitsOnly)?.let { return it }
+      }
+    }
+
     val formattedNumber = formatNumber(digitsOnly)
 
     return state.copy(
       nationalNumber = digitsOnly,
       formattedNumber = formattedNumber
-    )
+    ).withNumberValidity()
   }
 
   private suspend fun applyPhoneNumberSubmitted(
@@ -475,8 +483,8 @@ class PhoneNumberEntryViewModel(
       is RequestResult.NonSuccess<NetworkController.CreateSessionError> -> {
         return when (val error = response.error) {
           is NetworkController.CreateSessionError.InvalidRequest -> {
-            Log.w(TAG, "[CreateSession] Invalid request when creating session. Message: ${error.message}")
-            state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+            Log.w(TAG, "[CreateSession] Invalid request when creating session, likely an invalid phone number. Message: ${error.message}")
+            state.copy(oneTimeEvent = OneTimeEvent.InvalidPhoneNumber)
           }
           is NetworkController.CreateSessionError.RateLimited -> {
             Log.w(TAG, "[CreateSession] Rate limited (retryAfter: ${error.retryAfter}).")
@@ -709,6 +717,108 @@ class PhoneNumberEntryViewModel(
       result = formatter.inputDigit(digit)
     }
     return result
+  }
+
+  /**
+   * Attempts to interpret [e164] as a complete phone number and split it into the country code and national number
+   * fields. Returns null if it can't be parsed into a usable number, leaving it to the caller to decide on a fallback.
+   */
+  private fun redistributeFullPhoneNumber(state: PhoneNumberEntryState, e164: String): PhoneNumberEntryState? {
+    val parsedNumber = try {
+      phoneNumberUtil.parse(e164, null)
+    } catch (e: NumberParseException) {
+      Log.w(TAG, "Failed to parse E164 used to populate phone number.", e)
+      return null
+    }
+
+    if (parsedNumber.nationalNumber == 0L) {
+      return null
+    }
+
+    val countryCode = parsedNumber.countryCode
+    val nationalNumber = parsedNumber.nationalNumber.toString()
+    val regionCode = phoneNumberUtil.getRegionCodeForNumber(parsedNumber) ?: phoneNumberUtil.getRegionCodeForCountryCode(countryCode)
+
+    formatter = phoneNumberUtil.getAsYouTypeFormatter(regionCode)
+    val formattedNumber = formatNumber(nationalNumber)
+
+    return state.copy(
+      countryCode = countryCode.toString(),
+      regionCode = regionCode,
+      countryName = E164Util.getRegionDisplayName(regionCode).orElse(""),
+      countryEmoji = CountryUtils.countryToEmoji(regionCode).takeIf { regionCode != "ZZ" } ?: "",
+      nationalNumber = nationalNumber,
+      formattedNumber = formattedNumber
+    ).withNumberValidity()
+  }
+
+  /**
+   * Handles a national number that was pasted with a country code or a redundant trunk prefix still attached (e.g.
+   * "16105550103" or "02079460958"), splitting the country code into its own field and normalizing the national
+   * number. Returns null if [digitsOnly] should be treated as a plain national number.
+   *
+   * We do all of this because the system autofill likes put the entire phone number in the national number field,
+   * generating an invalid number by default.
+   */
+  private fun reinterpretNationalNumber(state: PhoneNumberEntryState, digitsOnly: String): PhoneNumberEntryState? {
+    val countryCode = state.countryCode
+    if (countryCode.isEmpty() || digitsOnly.isEmpty()) return null
+
+    val withCountryCode = try {
+      phoneNumberUtil.parse("+$countryCode$digitsOnly", null)
+    } catch (_: NumberParseException) {
+      return null
+    }
+
+    return when (phoneNumberUtil.isPossibleNumberWithReason(withCountryCode)) {
+      PhoneNumberUtil.ValidationResult.TOO_LONG -> {
+        if (isPossibleFullNumber(digitsOnly)) redistributeFullPhoneNumber(state, "+$digitsOnly") else null
+      }
+      PhoneNumberUtil.ValidationResult.IS_POSSIBLE -> {
+        if (withCountryCode.nationalNumber.toString() != digitsOnly) redistributeFullPhoneNumber(state, "+$countryCode$digitsOnly") else null
+      }
+      else -> null
+    }
+  }
+
+  /** True if [digits] parses into a plausible international number (i.e. it appears to already contain a country code). */
+  private fun isPossibleFullNumber(digits: String): Boolean {
+    return try {
+      val number = phoneNumberUtil.parse("+$digits", null)
+      number.nationalNumber != 0L && phoneNumberUtil.isPossibleNumber(number)
+    } catch (_: NumberParseException) {
+      false
+    }
+  }
+
+  /**
+   * Recomputes [PhoneNumberEntryState.isNumberPossible] and [PhoneNumberEntryState.isNumberInvalid] from the current
+   * country code and national number. Should be applied to any state that changes either of those fields.
+   */
+  private fun PhoneNumberEntryState.withNumberValidity(): PhoneNumberEntryState {
+    if (countryCode.isEmpty() || nationalNumber.isEmpty()) {
+      return copy(isNumberPossible = false, isNumberInvalid = false)
+    }
+
+    val parsedNumber = try {
+      phoneNumberUtil.parse("+$countryCode$nationalNumber", null)
+    } catch (_: NumberParseException) {
+      return copy(isNumberPossible = false, isNumberInvalid = false)
+    }
+
+    val isNumberInvalid = when (phoneNumberUtil.isPossibleNumberWithReason(parsedNumber)) {
+      PhoneNumberUtil.ValidationResult.TOO_LONG,
+      PhoneNumberUtil.ValidationResult.INVALID_LENGTH,
+      PhoneNumberUtil.ValidationResult.INVALID_COUNTRY_CODE -> true
+      else -> false
+    }
+    val isNumberPossible = phoneNumberUtil.isPossibleNumber(parsedNumber)
+
+    return if (this.isNumberInvalid != isNumberInvalid || this.isNumberPossible != isNumberPossible) {
+      copy(isNumberPossible = isNumberPossible, isNumberInvalid = isNumberInvalid)
+    } else {
+      this
+    }
   }
 
   class Factory(

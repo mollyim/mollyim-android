@@ -12,8 +12,12 @@ sealed class PhoneNumberEntryScreenEvents {
   /** The phone country code prefix (i.e. +1) was changed by the user. */
   data class CountryCodeChanged(val value: String) : PhoneNumberEntryScreenEvents()
 
-  /** The national number (basically the number without the country code) was changed by the user. */
-  data class NationalNumberChanged(val value: String) : PhoneNumberEntryScreenEvents()
+  /**
+   * The national number (basically the number without the country code) was changed by the user. Both the previous and
+   * new raw field text are provided so the view model can determine whether this was a single typed character or a bulk
+   * change (a paste or autofill).
+   */
+  data class NationalNumberChanged(val oldValue: String, val newValue: String) : PhoneNumberEntryScreenEvents()
 
   /** The user changed the country via the country picker. */
   data class CountrySelected(val countryCode: Int, val regionCode: String, val countryName: String, val countryEmoji: String) : PhoneNumberEntryScreenEvents()

@@ -5,8 +5,6 @@
 
 package org.signal.registration.screens.phonenumber
 
-import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.PendingRestoreOption
@@ -28,9 +26,13 @@ data class PhoneNumberEntryState(
   val preExistingRegistrationData: PreExistingRegistrationData? = null,
   val restoredSvrCredentials: List<NetworkController.SvrCredentials> = emptyList(),
   val pendingRestoreOption: PendingRestoreOption? = null,
-  val initialized: Boolean = false
+  val initialized: Boolean = false,
+  /** Whether the entered number has a plausible length for the selected country code. */
+  val isNumberPossible: Boolean = false,
+  /** Whether the entered number is definitively invalid. A still-too-short number is not considered invalid, since the user may simply be mid-entry. */
+  val isNumberInvalid: Boolean = false
 ) {
-  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized)"
+  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized, isNumberPossible=$isNumberPossible, isNumberInvalid=$isNumberInvalid)"
 
   sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent
@@ -38,16 +40,6 @@ data class PhoneNumberEntryState(
     data class RateLimited(val retryAfter: Duration) : OneTimeEvent
     data object UnableToSendSms : OneTimeEvent
     data object CouldNotRequestCodeWithSelectedTransport : OneTimeEvent
+    data object InvalidPhoneNumber : OneTimeEvent
   }
-
-  val isNumberPossible: Boolean
-    get() {
-      if (countryCode.isEmpty() || nationalNumber.isEmpty()) return false
-      return try {
-        val number = PhoneNumberUtil.getInstance().parse("+$countryCode$nationalNumber", null)
-        PhoneNumberUtil.getInstance().isPossibleNumber(number)
-      } catch (_: NumberParseException) {
-        false
-      }
-    }
 }
