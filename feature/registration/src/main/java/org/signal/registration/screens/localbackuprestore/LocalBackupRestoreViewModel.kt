@@ -129,6 +129,7 @@ class LocalBackupRestoreViewModel(
 
     if (isPreRegistration) {
       repository.persistRestoredIdentityKeys(progress.restoredAciIdentityKey, progress.restoredPniIdentityKey)
+      repository.setRestoreDecision(RestoreDecision.COMPLETED)
       resultBus.sendResult(resultKey, LocalBackupRestoreResult.Success(state.aep))
       parentEventEmitter.navigateBack()
     } else {

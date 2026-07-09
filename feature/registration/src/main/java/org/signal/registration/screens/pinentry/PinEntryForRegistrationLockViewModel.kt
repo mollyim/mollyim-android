@@ -150,7 +150,7 @@ class PinEntryForRegistrationLockViewModel(
         repository.enqueueSvrResetGuessCountJob()
         repository.restoreAccountRecord()
         when {
-          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+          response.reregistration && parentState.value.pendingRestoreOption == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
           else -> parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         }
         state

@@ -33,6 +33,7 @@ import org.junit.Test
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
@@ -554,6 +555,56 @@ class VerificationCodeViewModelTest {
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinCreate>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration with no pending restore option navigates to ArchiveRestoreSelection`() = runTest {
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.ArchiveRestoreSelection>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration after pre-registration restore skips ArchiveRestoreSelection`() = runTest {
+    parentState.value = parentState.value.copy(pendingRestoreOption = PendingRestoreOption.LocalBackup)
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForSvrRestore>()
   }
 
   @Test
@@ -1173,7 +1224,8 @@ class VerificationCodeViewModelTest {
     aci: String = "test-aci",
     pni: String = "test-pni",
     e164: String = "+15551234567",
-    storageCapable: Boolean = false
+    storageCapable: Boolean = false,
+    reregistration: Boolean = false
   ) = NetworkController.RegisterAccountResponse(
     aci = aci,
     pni = pni,
@@ -1182,6 +1234,6 @@ class VerificationCodeViewModelTest {
     usernameLinkHandle = null,
     storageCapable = storageCapable,
     entitlements = null,
-    reregistration = false
+    reregistration = reregistration
   )
 }
