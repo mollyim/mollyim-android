@@ -723,6 +723,26 @@ class PlaintextExportRepositoryTest {
     assertEquals("My Chat Group 2024", PlaintextExportRepository.sanitizeFileName("My Chat Group 2024"))
   }
 
+  @Test
+  fun `sanitizeFileName rejects dot-only names to prevent path traversal`() {
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName("."))
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName(".."))
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName("..."))
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName("  ..  "))
+  }
+
+  @Test
+  fun `sanitizeFileName falls back for empty result`() {
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName(""))
+    assertEquals("chat", PlaintextExportRepository.sanitizeFileName("   "))
+  }
+
+  @Test
+  fun `sanitizeFileName preserves names that merely contain dots`() {
+    assertEquals("..hidden", PlaintextExportRepository.sanitizeFileName("..hidden"))
+    assertEquals("my.chat.group", PlaintextExportRepository.sanitizeFileName("my.chat.group"))
+  }
+
   // ==================== getSenderName tests ====================
 
   @Test

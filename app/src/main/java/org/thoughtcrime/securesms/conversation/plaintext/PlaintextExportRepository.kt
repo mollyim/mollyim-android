@@ -435,7 +435,8 @@ object PlaintextExportRepository {
 
   @VisibleForTesting
   internal fun sanitizeFileName(name: String): String {
-    return name.replace(Regex("[\\\\/:*?\"<>|]"), "_").trim().take(100)
+    val sanitized = name.replace(Regex("[\\\\/:*?\"<>|]"), "_").trim().take(100)
+    return if (sanitized.isEmpty() || sanitized.all { it == '.' }) "chat" else sanitized
   }
 
   private fun <T> ExecutorService.submitTyped(callable: Callable<T>): Future<T> {
