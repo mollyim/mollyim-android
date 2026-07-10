@@ -1409,7 +1409,7 @@ object RemoteConfig {
   @JvmStatic
   @get:JvmName("disappearMore")
   val disappearMore: Boolean by remoteBoolean(
-    key = "android.disappearMore",
+    key = "android.disappearMore.2",
     defaultValue = false,
     hotSwappable = true
   )
