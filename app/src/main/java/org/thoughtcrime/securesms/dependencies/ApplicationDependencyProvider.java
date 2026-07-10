@@ -209,6 +209,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                                 protocolStore.aci(),
                                                 new SignalProtocolAddress(pushServiceSocket.getCredentialsProvider().getAci().getLibSignalServiceId(),
                                                                           pushServiceSocket.getCredentialsProvider().getDeviceId()),
+                                                ReentrantSessionLock.INSTANCE,
                                                 PreKeyBatcher.INSTANCE
                                               )
                                             );
