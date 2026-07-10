@@ -76,6 +76,7 @@ import org.thoughtcrime.securesms.migrations.FixChangeNumberErrorMigrationJob;
 import org.thoughtcrime.securesms.migrations.GooglePlayBillingPurchaseTokenMigrationJob;
 import org.thoughtcrime.securesms.migrations.IdentityTableCleanupMigrationJob;
 import org.thoughtcrime.securesms.migrations.KeyTransparencyUsernameMigrationJob;
+import org.thoughtcrime.securesms.migrations.LocalArchiveReconciliationMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
 import org.thoughtcrime.securesms.migrations.OptimizeMessageSearchIndexMigrationJob;
 import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
@@ -340,6 +341,7 @@ public final class JobManagerFactories {
       put(IdentityTableCleanupMigrationJob.KEY,           new IdentityTableCleanupMigrationJob.Factory());
       put(KeyTransparencyUsernameMigrationJob.KEY,        new KeyTransparencyUsernameMigrationJob.Factory());
       put("LegacyMigrationJob",                           new FailingJob.Factory());  // MOLLY
+      put(LocalArchiveReconciliationMigrationJob.KEY,     new LocalArchiveReconciliationMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                       new MigrationCompleteJob.Factory());
       put(OptimizeMessageSearchIndexMigrationJob.KEY,     new OptimizeMessageSearchIndexMigrationJob.Factory());
       put(PinOptOutMigration.KEY,                         new PinOptOutMigration.Factory());

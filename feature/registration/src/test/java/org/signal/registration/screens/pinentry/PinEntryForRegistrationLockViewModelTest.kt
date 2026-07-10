@@ -75,17 +75,43 @@ class PinEntryForRegistrationLockViewModelTest {
     val registerResponse = createRegisterAccountResponse()
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.Success(registerResponse to keyMaterial)
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents).hasSize(3)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
     assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+    coVerify { mockRepository.restoreAccountRecord(any()) }
+    assertThat(emittedStates.last().loading).isEqualTo(true)
+  }
+
+  @Test
+  fun `PinEntered with correct PIN on re-registration navigates to post-register restore selection`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val registerResponse = createRegisterAccountResponse(reregistration = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedParentEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+    coVerify { mockRepository.restoreAccountRecord(any()) }
     assertThat(emittedStates.last().loading).isEqualTo(true)
   }
 
@@ -94,7 +120,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val triesRemaining = 3
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.NonSuccess(
         NetworkController.RestoreMasterKeyError.WrongPin(triesRemaining)
       )
@@ -107,10 +133,30 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
+  fun `PinEntered with wrong PIN and no tries remaining navigates to AccountLocked`() = runTest {
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RestoreMasterKeyError.WrongPin(0)
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("wrong-pin"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.AccountLocked>()
+      .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
+      .isEqualTo(testTimeRemaining)
+  }
+
+  @Test
   fun `PinEntered with no SVR data navigates to AccountLocked`() = runTest {
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.NonSuccess(
         NetworkController.RestoreMasterKeyError.NoDataFound
       )
@@ -131,7 +177,7 @@ class PinEntryForRegistrationLockViewModelTest {
   fun `PinEntered with network error when restoring master key returns NetworkError event`() = runTest {
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.RetryableNetworkError(java.io.IOException("Network error"))
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
@@ -145,7 +191,7 @@ class PinEntryForRegistrationLockViewModelTest {
   fun `PinEntered with application error when restoring master key returns UnknownError event`() = runTest {
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.ApplicationError(RuntimeException("Unexpected"))
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
@@ -165,7 +211,7 @@ class PinEntryForRegistrationLockViewModelTest {
       sessionE164 = null
     )
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
@@ -185,7 +231,7 @@ class PinEntryForRegistrationLockViewModelTest {
       sessionE164 = "+15551234567"
     )
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
@@ -198,12 +244,51 @@ class PinEntryForRegistrationLockViewModelTest {
   // ==================== Registration Error Tests ====================
 
   @Test
+  fun `PinEntered with session not found during registration emits ResetState`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified("Session not found")
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(2)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
+  @Test
+  fun `PinEntered with recovery password incorrect during registration marks it invalid and navigates back`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect("Wrong password")
+      )
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.RecoveryPasswordInvalid)
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.NavigateBack)
+  }
+
+  @Test
   fun `PinEntered with registration lock error during registration emits ResetState`() = runTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val registrationLockData = mockk<NetworkController.RegistrationLockResponse>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
@@ -223,7 +308,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val retryAfter = 30.seconds
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
@@ -246,7 +331,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
@@ -266,7 +351,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
@@ -286,7 +371,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.RetryableNetworkError(java.io.IOException("Network error"))
@@ -304,7 +389,7 @@ class PinEntryForRegistrationLockViewModelTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
-    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), any(), forRegistrationLock = true) } returns
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
     coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
       RequestResult.ApplicationError(RuntimeException("Unexpected"))
@@ -368,7 +453,8 @@ class PinEntryForRegistrationLockViewModelTest {
     aci: String = "test-aci",
     pni: String = "test-pni",
     e164: String = "+15551234567",
-    storageCapable: Boolean = true
+    storageCapable: Boolean = true,
+    reregistration: Boolean = false
   ) = NetworkController.RegisterAccountResponse(
     aci = aci,
     pni = pni,
@@ -377,6 +463,6 @@ class PinEntryForRegistrationLockViewModelTest {
     usernameLinkHandle = null,
     storageCapable = storageCapable,
     entitlements = null,
-    reregistration = false
+    reregistration = reregistration
   )
 }

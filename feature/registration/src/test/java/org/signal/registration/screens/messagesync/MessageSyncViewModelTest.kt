@@ -13,6 +13,7 @@ import assertk.assertions.isTrue
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -67,10 +68,36 @@ class MessageSyncViewModelTest {
   }
 
   @Test
-  fun `restore Failed still restores from storage service then navigates to FullyComplete`() = runTest(testDispatcher) {
+  fun `restore Failed shows the retry dialog and does not finish registration`() = runTest(testDispatcher) {
     every { mockRepository.restoreLinkAndSyncBackup() } returns flowOf(LinkAndSyncProgress.Failed())
 
-    createViewModel()
+    val viewModel = createViewModel()
+
+    assertThat(viewModel.state.value.showSyncFailedDialog).isTrue()
+    assertThat(viewModel.state.value.isFinishing).isFalse()
+    coVerify(exactly = 0) { mockRepository.restoreLinkedDeviceFromStorageService() }
+    assertThat(emittedParentEvents).doesNotContain(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.FullyComplete))
+  }
+
+  @Test
+  fun `applyEvent RetryClick clears the dialog and restarts the restore`() = runTest(testDispatcher) {
+    every { mockRepository.restoreLinkAndSyncBackup() } returns flowOf(LinkAndSyncProgress.Failed())
+
+    val viewModel = createViewModel()
+    var emitted: MessageSyncScreenState? = null
+    viewModel.applyEvent(viewModel.state.value, MessageSyncScreenEvent.RetryClick) { emitted = it }
+
+    assertThat(emitted!!.showSyncFailedDialog).isFalse()
+    // Once on init, once on retry.
+    verify(exactly = 2) { mockRepository.restoreLinkAndSyncBackup() }
+  }
+
+  @Test
+  fun `applyEvent ContinueWithoutMessagesClick restores from storage service then navigates to FullyComplete`() = runTest(testDispatcher) {
+    every { mockRepository.restoreLinkAndSyncBackup() } returns flowOf(LinkAndSyncProgress.Failed())
+
+    val viewModel = createViewModel()
+    viewModel.applyEvent(viewModel.state.value, MessageSyncScreenEvent.ContinueWithoutMessagesClick) {}
 
     coVerify { mockRepository.restoreLinkedDeviceFromStorageService() }
     assertThat(emittedParentEvents).contains(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.FullyComplete))

@@ -1241,7 +1241,7 @@ class ConversationFragment :
 
     viewLifecycleOwner.lifecycle.addObserver(LastScrolledPositionUpdater(adapter, layoutManager, viewModel))
 
-    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+    viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Default) {
       var wasTerminated: Boolean? = null
       viewModel
         .groupRecordFlow
@@ -4679,6 +4679,10 @@ class ConversationFragment :
 
     override fun onReRegisterClicked() {
       startActivity(RegistrationActivity.newIntentForReRegistration(requireContext()))
+    }
+
+    override fun onReLinkDeviceClicked() {
+      startActivity(RegistrationActivity.newIntentForReLinkDevice(requireContext()))
     }
 
     override fun onCancelGroupRequestClicked() {

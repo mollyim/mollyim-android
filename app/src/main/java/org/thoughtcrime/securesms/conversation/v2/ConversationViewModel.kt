@@ -348,7 +348,7 @@ class ConversationViewModel(
   }
 
   fun onAvatarDownloadFailed() {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       val recipient = recipientSnapshot
       if (recipient != null) {
         recipients.manuallyUpdateShowAvatar(recipient.id, false)
@@ -358,7 +358,7 @@ class ConversationViewModel(
   }
 
   private fun getPinnedMessages() {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       val threadRecipient = SignalDatabase.threads.getRecipientForThreadId(threadId)
       internalPinnedMessages.value = repository.getPinnedMessages(threadId).map {
         ConversationMessage.ConversationMessageFactory.createWithUnresolvedData(AppDependencies.application, it, threadRecipient!!)
@@ -435,18 +435,18 @@ class ConversationViewModel(
       ),
       transform = { it.toList() }
     )
-      .flowOn(Dispatchers.IO)
+      .flowOn(Dispatchers.Default)
   }
 
   fun onCollapseEvents(messageId: Long) {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       repository.collapseEvents(messageId)
       pagingController.onDataInvalidated()
     }
   }
 
   fun onExpandEvents(messageId: Long) {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       repository.expandEvents(messageId)
       pagingController.onDataInvalidated()
     }
@@ -742,7 +742,7 @@ class ConversationViewModel(
   }
 
   fun toggleVote(poll: PollRecord, pollOption: PollOption, isChecked: Boolean) {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       val voteCount = if (isChecked) {
         SignalDatabase.polls.insertVote(poll, pollOption)
       } else {
@@ -824,7 +824,7 @@ class ConversationViewModel(
   }
 
   fun collapseAllEvents() {
-    viewModelScope.launch(SignalDispatchers.IO) {
+    viewModelScope.launch(SignalDispatchers.Default) {
       repository.collapseAllEvents()
     }
   }

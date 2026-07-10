@@ -15,9 +15,32 @@ data class VerificationCodeState(
   val isSubmittingCode: Boolean = false,
   val rateLimits: SmsAndCallRateLimits = SmsAndCallRateLimits(),
   val incorrectCodeAttempts: Int = 0,
+  val autoFillCode: String? = null,
+  val digits: List<String> = List(CODE_LENGTH) { "" },
+  val focusedDigitIndex: Int = 0,
+  val showContactSupportSheet: Boolean = false,
   val oneTimeEvent: OneTimeEvent? = null
 ) {
-  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, oneTimeEvent=$oneTimeEvent)"
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, oneTimeEvent=$oneTimeEvent)"
+
+  /**
+   * The full code as currently entered. Only meaningful when [isComplete] is true.
+   */
+  val code: String get() = digits.joinToString("")
+
+  /**
+   * True once every digit field has a value.
+   */
+  val isComplete: Boolean get() = digits.size == CODE_LENGTH && digits.all { it.isNotEmpty() }
+
+  companion object {
+    const val CODE_LENGTH = 6
+
+    /**
+     * A fully empty set of digits, used to reset the fields.
+     */
+    fun emptyDigits(): List<String> = List(CODE_LENGTH) { "" }
+  }
 
   sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent

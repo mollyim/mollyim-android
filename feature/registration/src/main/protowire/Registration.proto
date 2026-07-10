@@ -39,7 +39,11 @@ message RegistrationData {
   bool fetchesMessages = 23;
 
   string flowStateJson = 24;
-  // Next: 25
+
+  // Epoch milliseconds of the last write to this data. Used to detect data that has grown too stale to trust (e.g. an
+  // expired verification session). Stamped on every write.
+  int64 lastUpdatedMillis = 25;
+  // Next: 26
 }
 
 message SvrCredential {

@@ -14,9 +14,19 @@ import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import assertk.assertions.prop
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
@@ -27,9 +37,13 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class VerificationCodeViewModelTest {
+
+  private val testDispatcher = StandardTestDispatcher()
 
   private lateinit var viewModel: VerificationCodeViewModel
   private lateinit var mockRepository: RegistrationRepository
@@ -41,6 +55,7 @@ class VerificationCodeViewModelTest {
 
   @Before
   fun setup() {
+    Dispatchers.setMain(testDispatcher)
     mockRepository = mockk(relaxed = true)
     // Initialize with valid session data to prevent ResetState emission during ViewModel initialization
     parentState = MutableStateFlow(
@@ -54,6 +69,11 @@ class VerificationCodeViewModelTest {
     emittedStates = mutableListOf()
     stateEmitter = { state -> emittedStates.add(state) }
     viewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter)
+  }
+
+  @After
+  fun tearDown() {
+    Dispatchers.resetMain()
   }
 
   // ==================== applyParentState Tests ====================
@@ -159,6 +179,297 @@ class VerificationCodeViewModelTest {
     )
 
     assertThat(emittedStates.last().oneTimeEvent).isNull()
+  }
+
+  // ==================== applyEvent: SMS Auto-Fill Tests ====================
+
+  @Test
+  fun `CodeAutoFilled stores the code in autoFillCode`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.CodeAutoFilled("123456"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `DigitChanged with pasted hyphenated text populates all digits and submits`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "123-456"),
+      stateEmitter
+    )
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+  }
+
+  @Test
+  fun `DigitChanged with a pasted plain code populates all digits and submits`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "123456"),
+      stateEmitter
+    )
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+  }
+
+  @Test
+  fun `DigitChanged with pasted text of the wrong length is ignored`() = runTest {
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567"
+    )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(0, "12-345"),
+      stateEmitter
+    )
+
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
+  }
+
+  @Test
+  fun `ConsumeAutoFillCode clears autoFillCode`() = runTest {
+    val initialState = VerificationCodeState(autoFillCode = "123456")
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.ConsumeAutoFillCode,
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().autoFillCode).isNull()
+  }
+
+  @Test
+  fun `codes from the SMS retriever flow are pushed into the state`() = runTest(testDispatcher) {
+    val smsCodes = MutableSharedFlow<String>(extraBufferCapacity = 1)
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, smsCodes)
+
+    backgroundScope.launch { vm.state.collect {} }
+    advanceUntilIdle()
+
+    smsCodes.emit("123456")
+    advanceUntilIdle()
+
+    assertThat(vm.state.value.autoFillCode).isEqualTo("123456")
+  }
+
+  @Test
+  fun `DigitChanged with a full code dispatched through the event channel submits it in a single pass`() = runTest(testDispatcher) {
+    val sessionMetadata = createSessionMetadata()
+    parentState.value = RegistrationFlowState(
+      sessionMetadata = sessionMetadata,
+      sessionE164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.DigitChanged(0, "123456"))
+    advanceUntilIdle()
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+  }
+
+  // ==================== applyEvent: DigitChanged Tests ====================
+
+  @Test
+  fun `DigitChanged records the value at the given index`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, "7"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "7", "", "", ""))
+  }
+
+  @Test
+  fun `DigitChanged advances the focused digit index`() = runTest {
+    val initialState = VerificationCodeState()
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, "7"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(3)
+  }
+
+  @Test
+  fun `DigitChanged with an empty value moves the focused digit index back`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(1)
+  }
+
+  @Test
+  fun `DigitChanged with an out-of-bounds index throws`() = runTest {
+    var threw = false
+    try {
+      viewModel.applyEvent(
+        VerificationCodeState(),
+        VerificationCodeScreenEvents.DigitChanged(9, "7"),
+        stateEmitter
+      )
+    } catch (e: IllegalStateException) {
+      threw = true
+    }
+
+    assertThat(threw).isTrue()
+  }
+
+  @Test
+  fun `DigitChanged completing the code submits it`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "5", "")
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(5, "6"),
+      stateEmitter
+    )
+
+    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
+  }
+
+  @Test
+  fun `DigitChanged does not submit until the code is complete`() = runTest {
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "", "")
+    )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(4, "5"),
+      stateEmitter
+    )
+
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
+    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
+  }
+
+  @Test
+  fun `an incorrect code clears the entered digits`() = runTest {
+    val initialState = VerificationCodeState(
+      sessionMetadata = createSessionMetadata(),
+      e164 = "+15551234567",
+      digits = listOf("1", "2", "3", "4", "5", "")
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+      )
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(5, "6"),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
+    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
+  }
+
+  @Test
+  fun `DigitChanged with an empty value clears the digit at the index`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "", "", "", ""))
+  }
+
+  @Test
+  fun `DigitChanged with an empty value shifts the following digits left`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "4", "5", "6"))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "4", "5", "6", ""))
+  }
+
+  @Test
+  fun `DigitChanged with an empty value on an empty field clears the previous digit`() = runTest {
+    val initialState = VerificationCodeState(digits = listOf("1", "2", "", "", "", ""))
+
+    viewModel.applyEvent(
+      initialState,
+      VerificationCodeScreenEvents.DigitChanged(2, ""),
+      stateEmitter
+    )
+
+    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "", "", "", "", ""))
   }
 
   // ==================== applyEvent: WrongNumber Tests ====================
@@ -268,7 +579,7 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `CodeEntered with session not found emits ResetState`() = runTest {
+  fun `CodeEntered with session not found navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(
       sessionMetadata = sessionMetadata,
@@ -283,7 +594,7 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test
@@ -574,6 +885,26 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
+  fun `ResendSms passes registerSmsListener result as smsAutoRetrieveCodeSupported`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
+
+    coEvery { mockRepository.registerSmsListener() } returns true
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    coVerify {
+      mockRepository.requestVerificationCode(
+        sessionId = sessionMetadata.id,
+        smsAutoRetrieveCodeSupported = true,
+        transport = NetworkController.VerificationCodeTransport.SMS
+      )
+    }
+  }
+
+  @Test
   fun `ResendSms with rate limit returns RateLimited event`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
@@ -622,7 +953,7 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `ResendSms with InvalidSessionId emits ResetState`() = runTest {
+  fun `ResendSms with InvalidSessionId navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
@@ -634,11 +965,11 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test
-  fun `ResendSms with SessionNotFound emits ResetState`() = runTest {
+  fun `ResendSms with SessionNotFound navigates back to phone number entry`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
@@ -650,7 +981,7 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
-    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
   }
 
   @Test
@@ -786,6 +1117,40 @@ class VerificationCodeViewModelTest {
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
     assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+  }
+
+  // ==================== applyEvent: Foregrounded Tests ====================
+
+  @Test
+  fun `Foregrounded emits ResetState when in-progress data is older than the timeout`() = runTest {
+    val now = 100.minutes.inWholeMilliseconds
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns now - 16.minutes.inWholeMilliseconds
+
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { now })
+    vm.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(1)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
+  @Test
+  fun `Foregrounded does not emit ResetState when in-progress data is within the timeout`() = runTest {
+    val now = 100.minutes.inWholeMilliseconds
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns now - 14.minutes.inWholeMilliseconds
+
+    val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { now })
+    vm.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(0)
+  }
+
+  @Test
+  fun `Foregrounded does not emit ResetState when there is no in-progress data`() = runTest {
+    coEvery { mockRepository.getInProgressRegistrationDataLastUpdated() } returns null
+
+    viewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.Foregrounded, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(0)
   }
 
   // ==================== Helper Functions ====================

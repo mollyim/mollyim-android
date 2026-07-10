@@ -50,7 +50,7 @@ class ManageDonationsViewModel : ViewModel() {
         }
       }
 
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       InAppPaymentsRepository.observeInAppPaymentRedemption(InAppPaymentType.RECURRING_DONATION)
         .asFlow()
         .collect { redemptionStatus ->
@@ -71,7 +71,7 @@ class ManageDonationsViewModel : ViewModel() {
         }
     }
 
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       InAppPaymentsRepository.observeInAppPaymentRedemption(InAppPaymentType.ONE_TIME_DONATION)
         .asFlow()
         .collect { redemptionStatus ->

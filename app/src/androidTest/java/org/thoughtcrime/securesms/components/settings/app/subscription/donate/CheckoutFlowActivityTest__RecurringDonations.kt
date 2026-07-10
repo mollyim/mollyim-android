@@ -21,6 +21,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.signal.core.util.deleteAll
 import org.signal.donations.InAppPaymentType
 import org.signal.libsignal.net.RequestResult
 import org.signal.network.NetworkResult
@@ -28,14 +29,17 @@ import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
+import org.thoughtcrime.securesms.database.InAppPaymentTable
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.testing.GooglePayTestRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.RxTestSchedulerRule
 import org.thoughtcrime.securesms.testing.SignalActivityRule
-import org.thoughtcrime.securesms.testing.actions.RecyclerViewScrollToBottomAction
+import org.thoughtcrime.securesms.testing.actions.scrollToDescendant
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import java.math.BigDecimal
@@ -65,6 +69,7 @@ class CheckoutFlowActivityTest__RecurringDonations {
 
   @Before
   fun setUp() {
+    SignalDatabase.inAppPayments.writableDatabase.deleteAll(InAppPaymentTable.TABLE_NAME)
     startJobLoopForTests()
   }
 
@@ -76,14 +81,15 @@ class CheckoutFlowActivityTest__RecurringDonations {
   @Test
   fun givenRecurringDonations_whenILoadScreen_thenIExpectMonthlySelected() {
     ActivityScenario.launch<CheckoutFlowActivity>(intent)
+    scrollToDescendant(R.id.recycler, withId(R.id.monthly), rxRule.defaultTestScheduler)
     onView(withId(R.id.monthly)).check(matches(isSelected()))
   }
 
   @Test
   fun givenNoCurrentDonation_whenILoadScreen_thenIExpectContinueButton() {
     ActivityScenario.launch<CheckoutFlowActivity>(intent)
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
-    onView(withText("Continue")).check(matches(isDisplayed()))
+    scrollToDescendant(R.id.recycler, withText(R.string.DonateToSignalFragment__continue), rxRule.defaultTestScheduler)
+    onView(withText(R.string.DonateToSignalFragment__continue)).check(matches(isDisplayed()))
   }
 
   @Test
@@ -94,8 +100,9 @@ class CheckoutFlowActivityTest__RecurringDonations {
 
     rxRule.defaultTestScheduler.triggerActions()
 
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
+    scrollToDescendant(R.id.recycler, withText(R.string.SubscribeFragment__update_subscription), rxRule.defaultTestScheduler)
     onView(withText(R.string.SubscribeFragment__update_subscription)).check(matches(isDisplayed()))
+    scrollToDescendant(R.id.recycler, withText(R.string.SubscribeFragment__cancel_subscription), rxRule.defaultTestScheduler)
     onView(withText(R.string.SubscribeFragment__cancel_subscription)).check(matches(isDisplayed()))
   }
 
@@ -107,7 +114,7 @@ class CheckoutFlowActivityTest__RecurringDonations {
 
     rxRule.defaultTestScheduler.triggerActions()
 
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
+    scrollToDescendant(R.id.recycler, withText(R.string.SubscribeFragment__cancel_subscription), rxRule.defaultTestScheduler)
     onView(withText(R.string.SubscribeFragment__cancel_subscription)).check(matches(isDisplayed()))
     onView(withText(R.string.SubscribeFragment__cancel_subscription)).perform(ViewActions.click())
     onView(withText(R.string.SubscribeFragment__confirm_cancellation)).check(matches(isDisplayed()))
@@ -122,7 +129,7 @@ class CheckoutFlowActivityTest__RecurringDonations {
 
     rxRule.defaultTestScheduler.triggerActions()
 
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
+    scrollToDescendant(R.id.recycler, withText(R.string.SubscribeFragment__update_subscription), rxRule.defaultTestScheduler)
     onView(withText(R.string.SubscribeFragment__update_subscription)).check(matches(isDisplayed()))
     onView(withText(R.string.SubscribeFragment__update_subscription)).check(matches(isNotEnabled()))
   }
@@ -134,13 +141,13 @@ class CheckoutFlowActivityTest__RecurringDonations {
     val scenario = ActivityScenario.launch<CheckoutFlowActivity>(intent)
     rxRule.defaultTestScheduler.triggerActions()
 
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
+    scrollToDescendant(R.id.recycler, withText(R.string.DonateToSignalFragment__continue), rxRule.defaultTestScheduler)
     onView(withText(R.string.DonateToSignalFragment__continue)).perform(ViewActions.click())
     rxRule.defaultTestScheduler.triggerActions()
 
     scenario.selectGooglePay(composeRule, rxRule.defaultTestScheduler, InAppPaymentType.RECURRING_DONATION)
 
-    awaitDonationErrorDialog(rxRule.defaultTestScheduler, R.string.DonationsErrors__error_processing_payment)
+    awaitDialog(rxRule.defaultTestScheduler, R.string.DonationsErrors__error_processing_payment)
     onView(withText(R.string.DonationsErrors__your_payment)).inRoot(isDialog()).check(matches(isDisplayed()))
   }
 
@@ -154,13 +161,13 @@ class CheckoutFlowActivityTest__RecurringDonations {
     val scenario = ActivityScenario.launch<CheckoutFlowActivity>(intent)
     rxRule.defaultTestScheduler.triggerActions()
 
-    onView(withId(R.id.recycler)).perform(RecyclerViewScrollToBottomAction)
+    scrollToDescendant(R.id.recycler, withText(R.string.DonateToSignalFragment__continue), rxRule.defaultTestScheduler)
     onView(withText(R.string.DonateToSignalFragment__continue)).perform(ViewActions.click())
     rxRule.defaultTestScheduler.triggerActions()
 
     scenario.selectGooglePay(composeRule, rxRule.defaultTestScheduler, InAppPaymentType.RECURRING_DONATION)
 
-    awaitDonationErrorDialog(rxRule.defaultTestScheduler, R.string.DonationsErrors__error_processing_payment)
+    awaitDialog(rxRule.defaultTestScheduler, R.string.DonationsErrors__error_processing_payment)
     onView(withText(R.string.DonationsErrors__your_payment)).inRoot(isDialog()).check(matches(isDisplayed()))
   }
 

@@ -331,7 +331,7 @@ public class ConversationListFragment extends MainFragment implements Conversati
         false,
         new ConversationListSearchAdapter.ChatFilterRepository(),
         new SearchRepository(requireContext().getString(R.string.note_to_self)),
-        new ContactSearchPagedDataSourceRepository(requireContext()),
+        new ContactSearchPagedDataSourceRepository(requireContext(), requireContext().getString(R.string.note_to_self)),
         Collections.emptySet(),
         true
     )).get(ContactSearchViewModel.class);
@@ -829,11 +829,6 @@ public class ConversationListFragment extends MainFragment implements Conversati
                   .show();
             }
           }
-
-          @Override
-          public void onDismissComplete() {
-            bannerManager.updateContent(bannerView.get());
-          }
         }),
         new ArchiveUploadStatusBanner(new ArchiveUploadStatusBanner.UploadProgressBannerListener() {
           @Override
@@ -849,14 +844,8 @@ public class ConversationListFragment extends MainFragment implements Conversati
                 .setNegativeButton(R.string.CancelBackupDialog_continue_action, null)
                 .setPositiveButton(R.string.CancelBackupDialog_cancel_action, (d, w) -> {
                   ArchiveUploadProgress.INSTANCE.cancel();
-                  bannerManager.updateContent(bannerView.get());
                 })
                 .show();
-          }
-
-          @Override
-          public void onHidden() {
-            bannerManager.updateContent(bannerView.get());
           }
         })
     );

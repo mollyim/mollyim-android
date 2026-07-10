@@ -84,12 +84,14 @@ import org.thoughtcrime.securesms.groups.ui.GroupErrors
 import org.thoughtcrime.securesms.groups.ui.GroupLimitDialog
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry
 import org.thoughtcrime.securesms.groups.ui.LeaveGroupDialog
+import org.thoughtcrime.securesms.groups.ui.MemberSearchFragment
 import org.thoughtcrime.securesms.groups.ui.addmembers.AddMembersActivity
 import org.thoughtcrime.securesms.groups.ui.addtogroup.AddToGroupsActivity
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.ManagePendingAndRequestingMembersActivity
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupDescriptionDialog
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupInviteSentDialog
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupsLearnMoreBottomSheetDialogFragment
+import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.MainNavigationChatDetailRouter
 import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
@@ -219,6 +221,10 @@ class ConversationSettingsFragment :
     parentFragmentManager.setFragmentResultListener(AboutSheet.RESULT_EDIT_MEMBER_LABEL, viewLifecycleOwner) { _, bundle ->
       val groupId = bundle.requireParcelableCompat(AboutSheet.RESULT_GROUP_ID, GroupId.V2::class.java)
       navController.safeNavigate(ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberLabelFragment(groupId))
+    }
+
+    parentFragmentManager.setFragmentResultListener(MemberSearchFragment.RESULT_ADD_MEMBERS, viewLifecycleOwner) { _, _ ->
+      viewModel.onAddToGroup()
     }
 
     recyclerView?.addOnScrollListener(ConversationSettingsOnUserScrolledAnimationHelper(toolbarAvatarContainer, toolbarTitle, toolbarBackground))
@@ -694,8 +700,21 @@ class ConversationSettingsFragment :
             mediaRecords = state.sharedMedia,
             mediaIds = state.sharedMediaIds,
             onMediaRecordClick = { view, mediaRecord, isLtr ->
-              if (mediaRecord.attachment?.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
-                mediaRecord.attachment?.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED
+              val attachment = mediaRecord.attachment
+              if (attachment == null) {
+                Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
+                return@Model
+              }
+              if (attachment.displayUri == null) {
+                if (attachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+                  AttachmentDownloadJob.downloadAttachmentIfNeeded(attachment)
+                } else {
+                  Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
+                }
+                return@Model
+              }
+              if (attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE &&
+                attachment.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED
               ) {
                 Toast.makeText(context, R.string.ConversationSettingsFragment__this_media_is_not_sent_yet, Toast.LENGTH_LONG).show()
                 return@Model
@@ -817,6 +836,7 @@ class ConversationSettingsFragment :
 
       state.withGroupSettingsState { groupState ->
         val memberCount = groupState.allMembers.size
+        val canAdd = groupState.canAddToGroup && !groupState.isTerminated && !state.isDeprecatedOrUnregistered
 
         if (groupState.canAddToGroup || memberCount > 0) {
           dividerPref()
@@ -827,21 +847,17 @@ class ConversationSettingsFragment :
             resources.getQuantityString(R.plurals.ContactSelectionListFragment_d_members, memberCount, memberCount)
           }
 
-          if (RemoteConfig.internalUser) {
-            sectionHeaderPref(
-              title = DSLSettingsText.from(memberHeaderText),
-              iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
-              onClick = {
-                val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId)
-                navController.safeNavigate(action)
-              }
-            )
-          } else {
-            sectionHeaderPref(DSLSettingsText.from(memberHeaderText))
-          }
+          sectionHeaderPref(
+            title = DSLSettingsText.from(memberHeaderText),
+            iconEnd = DSLSettingsIcon.from(CoreUiR.drawable.symbol_search_24),
+            onClick = {
+              val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMemberSearchFragment(groupState.groupId, canAdd, groupState.groupLinkEnabled)
+              navController.safeNavigate(action)
+            }
+          )
         }
 
-        if (groupState.canAddToGroup && !groupState.isTerminated && !state.isDeprecatedOrUnregistered) {
+        if (canAdd) {
           customPref(
             LargeIconClickPreference.Model(
               title = DSLSettingsText.from(R.string.ConversationSettingsFragment__add_members),
@@ -1118,7 +1134,7 @@ class ConversationSettingsFragment :
       }
 
       state.withGroupSettingsState { groupState ->
-        if (groupState.canEndGroup && RemoteConfig.groupTerminateSend) {
+        if (groupState.canEndGroup) {
           dividerPref()
 
           clickPref(

@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -38,6 +39,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.ImeAction
@@ -51,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.registration.R
 import org.signal.registration.fonts.MonoTypeface
@@ -60,6 +63,7 @@ import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.screens.localbackuprestore.attachBackupKeyAutoFillHelper
 import org.signal.registration.screens.localbackuprestore.backupKeyAutoFillHelper
+import org.signal.registration.test.TestTags
 import org.signal.registration.util.RegistrationCredentialManager
 
 @Composable
@@ -68,10 +72,32 @@ fun EnterAepScreen(
   onEvent: (EnterAepEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  RegistrationErrorDialog(state.registrationError, onEvent)
+
   when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
     is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
+}
+
+/**
+ * Shows a dismissable dialog for generic registration errors (network/rate-limit/unknown). Incorrect-key errors are
+ * surfaced inline on the text field instead, so they are intentionally not shown here.
+ */
+@Composable
+private fun RegistrationErrorDialog(error: RegistrationError?, onEvent: (EnterAepEvents) -> Unit) {
+  val message = when (error) {
+    RegistrationError.NetworkError -> stringResource(R.string.VerificationCodeScreen__network_error)
+    RegistrationError.RateLimited -> stringResource(R.string.VerificationCodeScreen__too_many_attempts)
+    RegistrationError.UnknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
+    RegistrationError.IncorrectRecoveryPassword, null -> null
+  } ?: return
+
+  Dialogs.SimpleMessageDialog(
+    message = message,
+    dismiss = stringResource(android.R.string.ok),
+    onDismiss = { onEvent(EnterAepEvents.DismissError) }
+  )
 }
 
 @Composable
@@ -84,7 +110,9 @@ private fun OnePaneLayout(
   val scrollState = rememberScrollState()
 
   OnePaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.ENTER_AEP_SCREEN),
     params = params,
     content = { paddingValues ->
       Column(
@@ -141,7 +169,9 @@ private fun TwoPaneLayout(
   val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.ENTER_AEP_SCREEN),
     params = params,
     firstPane = { paddingValues ->
       Column(
@@ -258,6 +288,7 @@ private fun RecoveryKeyTextField(state: EnterAepState, onEvent: (EnterAepEvents)
     visualTransformation = visualTransform,
     modifier = Modifier
       .fillMaxWidth()
+      .testTag(TestTags.ENTER_AEP_INPUT)
       .focusRequester(focusRequester)
       .attachBackupKeyAutoFillHelper(autoFillHelper)
       .onGloballyPositioned {
@@ -292,7 +323,7 @@ private fun FillFromPasswordManagerButton(onEvent: (EnterAepEvents) -> Unit, mod
 @Composable
 private fun NoRecoverKeyButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
   TextButton(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.ENTER_AEP_NO_KEY_BUTTON),
     shape = RoundedCornerShape(0.dp),
     onClick = { onEvent(EnterAepEvents.Cancel) }
   ) {
@@ -303,11 +334,19 @@ private fun NoRecoverKeyButton(onEvent: (EnterAepEvents) -> Unit, modifier: Modi
 @Composable
 private fun NextButton(state: EnterAepState, onEvent: (EnterAepEvents) -> Unit, modifier: Modifier = Modifier) {
   Buttons.LargeTonal(
-    modifier = modifier,
+    modifier = modifier.testTag(TestTags.ENTER_AEP_NEXT_BUTTON),
     enabled = state.isBackupKeyValid && state.aepValidationError == null && !state.isRegistering,
     onClick = { onEvent(EnterAepEvents.Submit) }
   ) {
-    Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
+    if (state.isRegistering) {
+      CircularProgressIndicator(
+        modifier = Modifier.size(24.dp),
+        strokeWidth = 3.dp,
+        color = MaterialTheme.colorScheme.primary
+      )
+    } else {
+      Text(text = stringResource(R.string.LocalBackupRestoreScreen__next))
+    }
   }
 }
 
@@ -369,6 +408,23 @@ private fun EnterAepScreenFilledPreview() {
         enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
         isBackupKeyValid = true,
+        isPasswordManagerAvailable = true
+      ),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun EnterAepScreenLoadingPreview() {
+  Previews.Preview {
+    EnterAepScreen(
+      state = EnterAepState(
+        enteredText = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
+        backupKey = "uy38jh2778hjjhj8lk19ga61s672jsj089r023s6a57809bap92j2yh5t326vv7t",
+        isBackupKeyValid = true,
+        isRegistering = true,
         isPasswordManagerAvailable = true
       ),
       onEvent = {}

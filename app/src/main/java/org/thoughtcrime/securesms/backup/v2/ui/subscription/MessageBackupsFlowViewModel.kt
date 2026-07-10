@@ -145,7 +145,7 @@ class MessageBackupsFlowViewModel(
               }
             } catch (e: Exception) {
               Log.d(TAG, "Failed to handle purchase.", e)
-              withContext(SignalDispatchers.IO) {
+              withContext(SignalDispatchers.Default) {
                 InAppPaymentsRepository.handlePipelineError(
                   inAppPaymentId = id,
                   error = e
@@ -297,7 +297,7 @@ class MessageBackupsFlowViewModel(
   private fun validateTypeAndUpdateState(state: MessageBackupsFlowState): MessageBackupsFlowState {
     return when (state.selectedMessageBackupTier!!) {
       MessageBackupTier.FREE -> {
-        viewModelScope.launch(SignalDispatchers.IO) {
+        viewModelScope.launch(SignalDispatchers.Default) {
           SignalDatabase.recipients.markNeedsSync(Recipient.self().id)
           StorageSyncHelper.scheduleSyncForDataChange()
         }

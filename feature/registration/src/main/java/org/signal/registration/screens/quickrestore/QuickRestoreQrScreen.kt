@@ -44,6 +44,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -63,6 +64,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 import org.signal.core.ui.R as CoreR
 
 /**
@@ -92,7 +94,9 @@ private fun OnePaneLayout(
 ) {
   val scrollState = rememberScrollState()
   OnePaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.QUICK_RESTORE_QR_SCREEN),
     params = params,
     topBar = { TopAppBar() },
     content = { paddingValues ->
@@ -131,7 +135,9 @@ private fun TwoPaneLayout(
   val secondPaneScrollState = rememberScrollState()
 
   TwoPaneRegistrationScaffold(
-    modifier = modifier.fillMaxSize(),
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.QUICK_RESTORE_QR_SCREEN),
     params = params,
     topBar = { TopAppBar() },
     firstPane = { paddingValues ->
@@ -276,7 +282,10 @@ private fun QrCodePane(
 
               Spacer(modifier = Modifier.height(8.dp))
 
-              Button(onClick = { onEvent(QuickRestoreQrEvents.RetryQrCode) }) {
+              Button(
+                onClick = { onEvent(QuickRestoreQrEvents.RetryQrCode) },
+                modifier = Modifier.testTag(TestTags.QUICK_RESTORE_QR_RETRY_BUTTON)
+              ) {
                 Text(stringResource(R.string.QuickRestoreQRScreen__retry))
               }
             }
@@ -296,7 +305,10 @@ private fun QrCodePane(
 
               Spacer(modifier = Modifier.height(8.dp))
 
-              Button(onClick = { onEvent(QuickRestoreQrEvents.RetryQrCode) }) {
+              Button(
+                onClick = { onEvent(QuickRestoreQrEvents.RetryQrCode) },
+                modifier = Modifier.testTag(TestTags.QUICK_RESTORE_QR_RETRY_BUTTON)
+              ) {
                 Text(stringResource(R.string.QuickRestoreQRScreen__retry))
               }
             }
@@ -338,7 +350,8 @@ private fun CancelFooter(onEvent: (QuickRestoreQrEvents) -> Unit) {
     horizontalArrangement = Arrangement.Center
   ) {
     TextButton(
-      onClick = { onEvent(QuickRestoreQrEvents.Cancel) }
+      onClick = { onEvent(QuickRestoreQrEvents.Cancel) },
+      modifier = Modifier.testTag(TestTags.QUICK_RESTORE_QR_CANCEL_BUTTON)
     ) {
       Text(stringResource(android.R.string.cancel))
     }

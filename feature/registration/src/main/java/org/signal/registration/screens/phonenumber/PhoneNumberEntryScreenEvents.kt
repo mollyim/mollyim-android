@@ -36,6 +36,10 @@ sealed class PhoneNumberEntryScreenEvents {
 
   /** The user requested to open the country picker.  */
   data object CountryPicker : PhoneNumberEntryScreenEvents()
+
+  /** The user chose to link this device to an existing account instead of registering a new number. */
+  data object LinkDevice : PhoneNumberEntryScreenEvents()
+
   data class CaptchaCompleted(val token: String) : PhoneNumberEntryScreenEvents() {
     override fun toString(): String = "CaptchaCompleted(token=${token.censor()})"
   }

@@ -46,6 +46,7 @@ import org.thoughtcrime.securesms.net.SignalNetwork;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
 
 import java.io.IOException;
@@ -84,7 +85,7 @@ public class FcmRefreshJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws IOException, RetryLaterException {
+  public void onRun() throws Exception {
     if (!SignalStore.account().isFcmEnabled()) {
       boolean wasFcmTokenSet = SignalStore.account().getFcmTokenLastSetTime() > 0;
       if (wasFcmTokenSet) {
@@ -97,6 +98,11 @@ public class FcmRefreshJob extends BaseJob {
         }
         SignalStore.account().setFcmToken(null);
       }
+      return;
+    }
+
+    if (TextSecurePreferences.isUnauthorizedReceived(context)) {
+      Log.i(TAG, "No longer authorized. Ignoring.");
       return;
     }
 

@@ -138,7 +138,6 @@ import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
-import org.thoughtcrime.securesms.main.DetailsScreenNavHost
 import org.thoughtcrime.securesms.main.MainBottomChrome
 import org.thoughtcrime.securesms.main.MainBottomChromeCallback
 import org.thoughtcrime.securesms.main.MainBottomChromeState
@@ -158,10 +157,6 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.main.navigateToDetailLocation
-import org.thoughtcrime.securesms.main.rememberDetailNavHostController
-import org.thoughtcrime.securesms.main.rememberFocusRequester
-import org.thoughtcrime.securesms.main.storiesNavGraphBuilder
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
 import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
@@ -176,9 +171,8 @@ import org.thoughtcrime.securesms.service.BackupMediaRestoreService
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.starred.StarredMessagesActivity
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.stories.archive.StoryArchiveActivity
 import org.thoughtcrime.securesms.stories.landing.StoriesLandingFragment
-import org.thoughtcrime.securesms.stories.settings.StorySettingsActivity
+import org.thoughtcrime.securesms.stories.storiesNavEntries
 import org.thoughtcrime.securesms.util.AppStartup
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -475,50 +469,6 @@ class MainActivity :
           mainNavigationViewModel.onSplitPaneChanged(isSplitPane)
         }
 
-        val storiesNavHostController = rememberDetailNavHostController(
-          onRequestFocus = rememberFocusRequester(
-            mainNavigationViewModel = mainNavigationViewModel,
-            currentListLocation = mainNavigationState.currentListLocation
-          ) { it == MainNavigationListLocation.STORIES }
-        ) {
-          storiesNavGraphBuilder()
-        }
-
-        LaunchedEffect(Unit) {
-          fun navigateToLocation(location: MainNavigationDetailLocation) {
-            when (location) {
-              is MainNavigationDetailLocation.Empty -> {
-                when (mainNavigationState.currentListLocation) {
-                  MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
-                    throw IllegalStateException("Navigation to ${mainNavigationState.currentListLocation} should be handled by ChatsBackStack.")
-                  }
-
-                  MainNavigationListLocation.CALLS -> {
-                    throw IllegalStateException("Navigation to ${MainNavigationListLocation.CALLS} should be handled by CallsBackStack.")
-                  }
-
-                  MainNavigationListLocation.STORIES -> storiesNavHostController.navigateToDetailLocation(location)
-                }
-              }
-
-              is MainNavigationDetailLocation.Conversation, is MainNavigationDetailLocation.Chats -> {
-                throw IllegalStateException("Navigation to $location should be handled by ChatsBackStack.")
-              }
-
-              is MainNavigationDetailLocation.CallLinkDetails, is MainNavigationDetailLocation.Calls -> {
-                throw IllegalStateException("Navigation to $location should be handled by CallsBackStack.")
-              }
-
-              is MainNavigationDetailLocation.Stories -> storiesNavHostController.navigateToDetailLocation(location)
-            }
-          }
-
-          mainNavigationViewModel.earlyNavigationDetailLocationRequested?.let { navigateToLocation(it) }
-          mainNavigationViewModel.clearEarlyDetailLocation()
-
-          mainNavigationViewModel.detailLocation.collect { navigateToLocation(it) }
-        }
-
         val scope = rememberCoroutineScope()
 
         BackHandler(paneExpansionState.currentAnchor == detailOnlyAnchor) {
@@ -718,9 +668,17 @@ class MainActivity :
               }
 
               MainNavigationListLocation.STORIES -> {
-                DetailsScreenNavHost(
-                  navHostController = storiesNavHostController,
-                  contentLayoutData = contentLayoutData
+                NavDisplay(
+                  backStack = mainNavigationViewModel.storiesBackStackEntries,
+                  onBack = { mainNavigationViewModel.popStoriesDetailLocation() },
+                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
+                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
+                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
+                  entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
+                  ),
+                  entryProvider = entryProvider { storiesNavEntries() }
                 )
               }
             }
@@ -1211,11 +1169,11 @@ class MainActivity :
     }
 
     override fun onStoryPrivacyClick() {
-      startActivity(StorySettingsActivity.getIntent(this@MainActivity))
+      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Stories.PrivacySettings)
     }
 
     override fun onStoryArchiveClick() {
-      startActivity(StoryArchiveActivity.createIntent(this@MainActivity))
+      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Stories.Archive)
     }
 
     override fun onCloseSearchClick() {

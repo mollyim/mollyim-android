@@ -33,7 +33,7 @@ import kotlin.Pair;
 public class ContactRepository {
 
   private final RecipientTable recipientTable;
-  private final String         noteToSelfTitle;
+  private final String         selfTitle;
 
   public static final String ID_COLUMN           = "id";
   public static final String NAME_COLUMN         = "name";
@@ -101,14 +101,14 @@ public class ContactRepository {
     }));
   }};
 
-  public ContactRepository(@NonNull String noteToSelfTitle) {
-    this.noteToSelfTitle = noteToSelfTitle;
-    this.recipientTable  = SignalDatabase.recipients();
+  public ContactRepository(@NonNull String selfTitle) {
+    this.selfTitle      = selfTitle;
+    this.recipientTable = SignalDatabase.recipients();
   }
 
   @WorkerThread
   public @NonNull Cursor querySignalContacts(@NonNull String query) {
-    return querySignalContacts(new RecipientTable.ContactSearchQuery(query, new RecipientTable.IncludeSelfMode.IncludeWithRemap(noteToSelfTitle), ContactSearchSortOrder.NATURAL));
+    return querySignalContacts(new RecipientTable.ContactSearchQuery(query, new RecipientTable.IncludeSelfMode.IncludeWithRemap(selfTitle), ContactSearchSortOrder.NATURAL));
   }
 
   @WorkerThread
@@ -123,7 +123,7 @@ public class ContactRepository {
   public @NonNull Cursor queryGroupMemberContacts(@NonNull String query, @Nullable GroupId groupId) {
     Cursor cursor;
     if (groupId != null) {
-      cursor = recipientTable.queryGroupMemberContactsForGroup(groupId, query);
+      cursor = recipientTable.queryGroupMemberContactsForGroup(groupId, query, selfTitle);
     } else if (TextUtils.isEmpty(query)) {
       cursor = recipientTable.getGroupMemberContacts();
     } else {
@@ -183,7 +183,8 @@ public class ContactRepository {
 
     @Override
     public String getString(int columnIndex) {
-      return String.valueOf(mappers.get(columnIndex).getSecond().get(wrapped));
+      Object value = mappers.get(columnIndex).getSecond().get(wrapped);
+      return value != null ? value.toString() : "";
     }
 
     @Override

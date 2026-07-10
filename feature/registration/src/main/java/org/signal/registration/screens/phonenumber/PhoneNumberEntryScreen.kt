@@ -184,7 +184,11 @@ fun PhoneNumberScreen(
     onEvent(PhoneNumberEntryScreenEvents.ConsumeOneTimeEvent)
     when (state.oneTimeEvent) {
       OneTimeEvent.NetworkError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__network_error)
-      is OneTimeEvent.RateLimited -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+      is OneTimeEvent.RateLimited -> simpleErrorMessage = if (state.oneTimeEvent.retryAfter.isPositive()) {
+        resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+      } else {
+        resources.getString(R.string.VerificationCodeScreen__too_many_attempts)
+      }
       OneTimeEvent.UnknownError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
       OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method)
       OneTimeEvent.UnableToSendSms -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms)
@@ -227,7 +231,7 @@ private fun OnePaneLayout(
 
   OnePaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
     content = { paddingValues ->
       Column(
         modifier = Modifier
@@ -255,6 +259,7 @@ private fun OnePaneLayout(
           hasValidCountry = state.countryName.isNotEmpty(),
           countryCode = state.countryCode,
           formattedNumber = state.formattedNumber,
+          canSubmit = !state.showSpinner && state.isNumberPossible,
           onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
           onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
           onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
@@ -288,7 +293,7 @@ private fun TwoPaneLayout(
 
   TwoPaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
@@ -323,6 +328,7 @@ private fun TwoPaneLayout(
           hasValidCountry = state.countryName.isNotEmpty(),
           countryCode = state.countryCode,
           formattedNumber = state.formattedNumber,
+          canSubmit = !state.showSpinner && state.isNumberPossible,
           onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
           onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
           onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
@@ -343,7 +349,8 @@ private fun TwoPaneLayout(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-  scrollBehavior: TopAppBarScrollBehavior
+  scrollBehavior: TopAppBarScrollBehavior,
+  onEvent: (PhoneNumberEntryScreenEvents) -> Unit
 ) {
   val context = LocalContext.current
 
@@ -381,7 +388,7 @@ fun TopAppBar(
         DropdownMenus.Item(
           text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
           onClick = {
-            TODO("Handle link device")
+            onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
             menuController.hide()
           }
         )
@@ -497,6 +504,7 @@ private fun PhoneNumberInputFields(
   hasValidCountry: Boolean,
   countryCode: String,
   formattedNumber: String,
+  canSubmit: Boolean,
   onCountryCodeChanged: (String) -> Unit,
   onPhoneNumberChanged: (String) -> Unit,
   onPhoneNumberSubmitted: () -> Unit,
@@ -588,7 +596,11 @@ private fun PhoneNumberInputFields(
         imeAction = ImeAction.Done
       ),
       keyboardActions = KeyboardActions(
-        onDone = { onPhoneNumberSubmitted() }
+        onDone = {
+          if (canSubmit) {
+            onPhoneNumberSubmitted()
+          }
+        }
       ),
       singleLine = true,
       textStyle = MaterialTheme.typography.bodyLarge.copy(

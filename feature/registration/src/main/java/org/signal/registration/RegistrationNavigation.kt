@@ -100,6 +100,7 @@ import org.signal.registration.screens.remotebackuprestore.RemoteRestoreScreen
 import org.signal.registration.screens.restoreselection.ArchiveRestoreOption
 import org.signal.registration.screens.restoreselection.ArchiveRestoreSelectionScreen
 import org.signal.registration.screens.restoreselection.ArchiveRestoreSelectionViewModel
+import org.signal.registration.screens.restoreselection.RegisteredState
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 import org.signal.registration.screens.verificationcode.VerificationCodeScreen
@@ -126,7 +127,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data class AllowNotifications(val nextRoute: RegistrationRoute) : RegistrationRoute
 
   @Serializable
-  data object LinkAccount : RegistrationRoute
+  data class LinkAccount(val showCreateAccount: Boolean = true) : RegistrationRoute
 
   @Serializable
   data object MessageSync : RegistrationRoute
@@ -162,7 +163,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data object PinCreate : RegistrationRoute
 
   @Serializable
-  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val isPreRegistration: Boolean) : RegistrationRoute {
+  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val registeredState: RegisteredState) : RegistrationRoute {
     companion object {
       fun forQuickRestore(hasRemoteBackup: Boolean): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
@@ -172,8 +173,9 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             }
             add(ArchiveRestoreOption.LocalBackup)
             add(ArchiveRestoreOption.DeviceTransfer)
+            add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = true
+          registeredState = RegisteredState.NotRegistered
         )
       }
 
@@ -182,19 +184,31 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
+            add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = true
+          registeredState = RegisteredState.NotRegistered
         )
       }
 
-      fun forPostRegister(): ArchiveRestoreSelection {
+      fun forPostRegisterWithPinUnknown(): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
           restoreOptions = buildList {
             add(ArchiveRestoreOption.SignalSecureBackup)
             add(ArchiveRestoreOption.LocalBackup)
             add(ArchiveRestoreOption.None)
           },
-          isPreRegistration = false
+          registeredState = RegisteredState.RegisteredAndPinUnknown
+        )
+      }
+
+      fun forPostRegisterWithPinKnown(): ArchiveRestoreSelection {
+        return ArchiveRestoreSelection(
+          restoreOptions = buildList {
+            add(ArchiveRestoreOption.SignalSecureBackup)
+            add(ArchiveRestoreOption.LocalBackup)
+            add(ArchiveRestoreOption.None)
+          },
+          registeredState = RegisteredState.RegisteredAndPinKnown
         )
       }
     }
@@ -259,7 +273,10 @@ private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/3
  *
  * @param registrationRepository The repository for registration data.
  * @param registrationViewModel Optional ViewModel for testing. If null, creates one internally.
+ * @param startFresh When true, any persisted registration data is not restored and the user starts the flow fresh from
+ *   the beginning.
  * @param permissionsState Optional permissions state for testing. If null, creates one internally.
+ * @param startDestination Optional route to open directly as the sole start destination, instead of showing [RegistrationRoute.Welcome] or restoring a previous flow.
  * @param modifier Modifier to be applied to the NavDisplay.
  * @param onRegistrationComplete Callback invoked when registration is successfully completed.
  */
@@ -268,12 +285,14 @@ private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/3
 fun RegistrationNavHost(
   registrationRepository: RegistrationRepository,
   registrationViewModel: RegistrationViewModel? = null,
+  startFresh: Boolean = false,
   permissionsState: MultiplePermissionsState? = null,
+  startDestination: RegistrationRoute? = null,
   modifier: Modifier = Modifier,
   onRegistrationComplete: () -> Unit = {}
 ) {
   val viewModel: RegistrationViewModel = registrationViewModel ?: viewModel(
-    factory = RegistrationViewModel.Factory(registrationRepository)
+    factory = RegistrationViewModel.Factory(registrationRepository, startDestination, startFresh)
   )
 
   val registrationState by viewModel.state.collectAsStateWithLifecycle()
@@ -380,9 +399,9 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
           WelcomeScreenEvents.Continue -> navigateRequestingPermissions(RegistrationRoute.PhoneNumberEntry)
           WelcomeScreenEvents.LinkDevice -> {
             if (registrationViewModel.getRequiredLinkedDevicePermission().isNullOrBlank()) {
-              parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount)
+              parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount())
             } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount))
+              parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount()))
             }
           }
           WelcomeScreenEvents.HasOldPhone -> navigateRequestingPermissions(RegistrationRoute.QuickRestoreQrScan)
@@ -428,17 +447,18 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   // --- Link account Screen
-  entry<RegistrationRoute.LinkAccount> {
+  entry<RegistrationRoute.LinkAccount> { key ->
     val viewModel: LinkAccountViewModel = viewModel(
       factory = LinkAccountViewModel.Factory(
         repository = registrationRepository,
         parentState = registrationViewModel.state,
-        parentEventEmitter = registrationViewModel::onEvent
+        parentEventEmitter = registrationViewModel::onEvent,
+        showCreateAccount = key.showCreateAccount
       )
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = stringResource(R.string.terms_and_privacy_policy_url) // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/articles/360007320451-Troubleshooting-multiple-devices" // TODO [regv5] update with proper url
 
     LinkAccountScreen(
       state = state,
@@ -554,8 +574,10 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
 
   // -- Verification Code Entry Screen
   entry<RegistrationRoute.VerificationCodeEntry> {
+    val context = LocalContext.current.applicationContext
     val viewModel: VerificationCodeViewModel = viewModel(
       factory = VerificationCodeViewModel.Factory(
+        context = context,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
@@ -684,7 +706,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val viewModel: ArchiveRestoreSelectionViewModel = viewModel(
       factory = ArchiveRestoreSelectionViewModel.Factory(
         restoreOptions = key.restoreOptions,
-        isPreRegistration = key.isPreRegistration,
+        registeredState = key.registeredState,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
@@ -796,6 +818,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val context = LocalContext.current
     val viewModel: EnterAepForRemoteBackupPostRegistrationViewModel = viewModel(
       factory = EnterAepForRemoteBackupPostRegistrationViewModel.Factory(
+        repository = registrationRepository,
         parentEventEmitter = registrationViewModel::onEvent,
         isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )

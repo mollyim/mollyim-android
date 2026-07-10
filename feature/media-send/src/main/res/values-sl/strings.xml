@@ -86,21 +86,21 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Dostop do mikrofona je bil onemogočen. Za snemanje videa potrebuje aplikacija Molly dovoljenje za dostop do mikrofona. Prosimo, nadaljujte v nastavitve aplikacij, izberite »Dovoljenja« in omogočite dovoljenje pod postavko »Mikrofon«.</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <string name="MediaSendViewModel__error_recording_video">Napaka pri snemanju videa</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+  <string name="MediaSendViewModel__error_taking_photo">Napaka pri fotografiranju</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Najden_a: %1$s</string>
   <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
-  <string name="UsernameScannedDialog__username_dialog_body">Začni klepetati s/z \"%1$s\"</string>
+  <string name="UsernameScannedDialog__username_dialog_body">Začni klepetati z osebo %1$s</string>
   <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
-  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Pojdi na klepet</string>
+  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Odpri klepet</string>
 
   <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
   <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Poveži z napravo?</string>
   <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Zdi se, da poskušate povezati napravo Signal. Tapnite Nadaljuj in nato \"Poveži novo napravo\" ter znova preberite QR kodo.</string>
+  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Zdi se, da poskušate povezati napravo Signal. Tapnite Nadaljuj in nato »Poveži novo napravo« ter znova preberite kodo QR.</string>
   <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
   <string name="LinkedDeviceScannedDialog__device_link_dialog_continue">Nadaljuj</string>
 </resources>

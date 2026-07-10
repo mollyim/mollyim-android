@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.signal.core.util.bytes
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
@@ -67,8 +68,8 @@ class MessageSyncViewModel(
             finish()
           }
           is LinkAndSyncProgress.Failed -> {
-            Log.w(TAG, "[MessageSync] Link-and-sync failed; restoring from storage service then completing (still linked).", progress.cause)
-            finish()
+            Log.w(TAG, "[MessageSync] Link-and-sync failed; prompting the user to retry or continue without messages.", progress.cause)
+            _state.update { it.copy(isFinishing = false, showSyncFailedDialog = true) }
           }
           is LinkAndSyncProgress.RelinkRequired -> {
             Log.w(TAG, "[MessageSync] Primary requested re-link; wiping local data and restarting.")
@@ -107,6 +108,16 @@ class MessageSyncViewModel(
         stateEmitter(state.copy(isFinishing = true))
         finish(cancelDownload = true)
         state.copy(isFinishing = true)
+      }
+      MessageSyncScreenEvent.RetryClick -> {
+        Log.i(TAG, "[MessageSync] User retrying link-and-sync after a failure.")
+        startRestore()
+        state.copy(showSyncFailedDialog = false, isFinishing = false, downloadedBytes = 0.bytes, totalBytes = 0.bytes)
+      }
+      MessageSyncScreenEvent.ContinueWithoutMessagesClick -> {
+        Log.i(TAG, "[MessageSync] User continuing without message history after a failed link-and-sync.")
+        finish()
+        state.copy(showSyncFailedDialog = false, isFinishing = true)
       }
     }
     stateEmitter(result)

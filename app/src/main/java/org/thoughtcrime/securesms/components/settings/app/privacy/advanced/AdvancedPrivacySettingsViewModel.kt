@@ -72,7 +72,7 @@ class AdvancedPrivacySettingsViewModel(
   fun setAllowAutomaticVerification(enabled: Boolean) {
     SignalStore.settings.automaticVerificationEnabled = enabled
     refresh()
-    viewModelScope.launch(SignalDispatchers.IO) {
+    viewModelScope.launch(SignalDispatchers.Default) {
       if (!enabled) {
         SignalDatabase.recipients.clearAllKeyTransparencyData()
         SignalStore.account.distinguishedHead = null

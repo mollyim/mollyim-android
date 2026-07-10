@@ -86,9 +86,9 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Pour enregistrer des vidéos, Molly doit accéder à l\'application Microphone, mais vous lui en avez interdit l\'accès. Dans les paramètres Android, touchez Applications &gt; Molly &gt; Autorisations, puis activez \"Microphone\" et \"Appareil photo\".</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <string name="MediaSendViewModel__error_recording_video">Impossible d\'enregistrer la vidéo</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+  <string name="MediaSendViewModel__error_taking_photo">Impossible de prendre la photo</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Utilisateur trouvé : %1$s</string>
@@ -98,9 +98,9 @@
   <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Démarrer une conversation</string>
 
   <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Associer l’appareil ?</string>
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Associer l\'appareil ?</string>
   <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Vous voulez associer un appareil Signal ? Appuyez sur \"Continuer\", puis sur \"Associer un nouvel appareil\" et rescannez le code QR.</string>
+  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Vous voulez associer un appareil Signal ? Appuyez sur \"Continuer\", puis sur \"Associer un nouvel appareil\" et rescannez le code QR.</string>
   <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
   <string name="LinkedDeviceScannedDialog__device_link_dialog_continue">Continuer</string>
 </resources>

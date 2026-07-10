@@ -86,9 +86,9 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Molly trenger mikrofontillatelser for å spille inn videoer, men de har blitt nektet. Gå til appinnstillingene, velg «Tillatelser», og aktiver «Mikrofon» og «Kamera».</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <string name="MediaSendViewModel__error_recording_video">Kunne ikke ta opp videoen</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+  <string name="MediaSendViewModel__error_taking_photo">Kunne ikke ta bildet</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Fant %1$s</string>
@@ -98,7 +98,7 @@
   <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Gå til samtale</string>
 
   <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Koble til enheten?</string>
+  <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Vil du koble til enheten?</string>
   <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
   <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Det ser ut til at du prøver å koble til en enhet med Signal. Trykk på «Fortsett» og så «Koble til ny enhet», og skann deretter QR-koden på nytt.</string>
   <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->

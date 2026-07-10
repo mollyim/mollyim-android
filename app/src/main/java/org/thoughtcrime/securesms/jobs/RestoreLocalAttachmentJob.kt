@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobs.protos.RestoreLocalAttachmentJobData
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.MmsException
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.IntegrityCheck
@@ -45,6 +46,8 @@ class RestoreLocalAttachmentJob private constructor(
 
     fun enqueueRestoreLocalAttachmentsJobs(mediaNameToFileInfo: Map<String, DocumentFileInfo>) {
       val jobManager = AppDependencies.jobManager
+
+      SignalStore.backup.localRestoreReconcilePending = true
 
       val orphanedCount = SignalDatabase.attachments.markRestorableAttachmentsWithoutMessageAsFailed()
       if (orphanedCount > 0) {

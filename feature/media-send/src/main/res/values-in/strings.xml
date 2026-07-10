@@ -86,21 +86,21 @@
   <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Anda harus mengizinkan Molly menggunakan mikrofon untuk dapat merekam video. Harap buka pengaturan aplikasi Anda, pilih \"Perizinan\", lalu aktifkan izin \"Mikrofon\" dan \"Kamera\".</string>
 
   <!-- Displayed when there is an error capturing video -->
-  <string name="MediaSendViewModel__error_recording_video">Error recording video</string>
+  <string name="MediaSendViewModel__error_recording_video">Gagal merekam video</string>
   <!-- Displayed when there is an error capturing image -->
-  <string name="MediaSendViewModel__error_taking_photo">Error taking photo</string>
+  <string name="MediaSendViewModel__error_taking_photo">Gagal mengambil foto</string>
 
   <!-- The title of a dialog notifying that a user was found matching a scanned QR code. The placeholder is a username. Usernames are always latin characters. -->
   <string name="UsernameScannedDialog__username_dialog_title">Menemukan %1$s</string>
   <!-- The body of a dialog notifying that a user was found matching a scanned QR code, prompting the user to start a chat with them. The placeholder is a username. Usernames are always latin characters. -->
-  <string name="UsernameScannedDialog__username_dialog_body">Mulai obrolan dengan \"%1$s\"</string>
+  <string name="UsernameScannedDialog__username_dialog_body">Mulai chat dengan \"%1$s\"</string>
   <!-- The label of a dialog asking the user if they would like to start a chat with a specific user. -->
-  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Buka obrolan</string>
+  <string name="UsernameScannedDialog__username_dialog_go_to_chat_button">Buka chat</string>
 
   <!-- The title of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
   <string name="LinkedDeviceScannedDialog__device_link_dialog_title">Hubungkan perangkat?</string>
   <!-- The body of a dialog notifying that the user scanned a QR code that could be used to link a Signal device. -->
-  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Sepertinya Anda sedang mencoba menghubungkan perangkat Signal. Ketuk lanjutkan, lalu ketuk \"Hubungkan Perangkat Baru\" dan pindai kode QR sekali lagi.</string>
+  <string name="LinkedDeviceScannedDialog__it_looks_like_youre_trying">Sepertinya Anda sedang mencoba menghubungkan perangkat Signal. Ketuk lanjutkan, lalu ketuk \"Hubungkan Perangkat Baru\" dan pindai kode QR lagi.</string>
   <!-- The label of a dialog asking the user if they would like to continue to the linked device settings screen. -->
   <string name="LinkedDeviceScannedDialog__device_link_dialog_continue">Lanjutkan</string>
 </resources>

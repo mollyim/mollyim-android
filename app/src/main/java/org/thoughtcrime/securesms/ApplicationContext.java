@@ -54,7 +54,6 @@ import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
 import org.thoughtcrime.securesms.backup.v2.BackupRepository;
-import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.conversation.drafts.DraftBlobs;
 import org.thoughtcrime.securesms.crypto.AppAttachmentSecretStore;
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider;
@@ -217,8 +216,8 @@ public class ApplicationContext extends Application implements AppForegroundObse
                 initializeLogging(false);
                 Log.i(TAG, "onCreateUnlock()");
               })
-              .addBlocking("app-dependencies", this::initializeAppDependencies)
               .addBlocking("security-provider", this::initializeSecurityProvider)
+              .addBlocking("app-dependencies", this::initializeAppDependencies)
               .addBlocking("crash-handling", this::initializeCrashHandling)
               .addBlocking("rx-init", this::initializeRx)
               .addBlocking("scrubber", () -> Scrubber.setIdentifierHmacKeyProvider(() -> SignalStore.svr().getMasterKey().deriveLoggingKey()))
@@ -521,7 +520,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
           return Unit.INSTANCE;
         },
         context -> {
-          context.startActivity(AppSettingsActivity.proxy(context));
+          // context.startActivity(EditProxyActivity.intent(context));  // MOLLY: TODO
           return Unit.INSTANCE;
         },
         (context, subject) -> {

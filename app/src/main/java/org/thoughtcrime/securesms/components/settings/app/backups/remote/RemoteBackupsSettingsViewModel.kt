@@ -143,7 +143,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
         }
     }
 
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       var optimizedRemainingBytes = 0L
       while (isActive) {
         if (ArchiveRestoreProgress.state.let { it.restoreState.isMediaRestoreOperation || it.restoreStatus == RestoreStatus.FINISHED }) {
@@ -194,7 +194,7 @@ class RemoteBackupsSettingsViewModel : ViewModel() {
       }
     }
 
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       BackupRepository.maybeFixAnyDanglingUploadProgress()
     }
   }

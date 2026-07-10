@@ -7,6 +7,7 @@ package org.thoughtcrime.securesms.registration.v2
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -51,6 +52,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.LinkedDeviceInfo
 import org.thoughtcrime.securesms.database.model.databaseprotos.LocalRegistrationMetadata
 import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.Completed
 import org.thoughtcrime.securesms.keyvalue.NewAccount
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
@@ -67,7 +69,6 @@ import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
 
 /**
  * Implementation of [StorageController] that bridges to the app's existing storage infrastructure.
@@ -77,12 +78,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   companion object {
     private val TAG = Log.tag(AppRegistrationStorageController::class)
     private const val TEMP_PROTO_FILENAME = "registration-in-progress.proto"
-    private val TEMP_PROTO_TIMEOUT = 15.minutes
     private val MODERN_BACKUP_PATTERN = Regex("^signal-backup-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})$")
     private val LEGACY_BACKUP_PATTERN = Regex("^signal-(\\d{4})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})-(\\d{2})\\.backup$")
   }
 
-  override suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? = withContext(Dispatchers.IO) {
+  override suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? = withContext(Dispatchers.Default) {
     if (!SignalStore.account.isRegistered) {
       return@withContext null
     }
@@ -91,7 +91,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     val pni = SignalStore.account.pni ?: return@withContext null
     val e164 = SignalStore.account.e164 ?: return@withContext null
     val servicePassword = SignalStore.account.servicePassword ?: return@withContext null
-    val aep = SignalStore.account.accountEntropyPool ?: return@withContext null
+    val aep = SignalStore.account.accountEntropyPool
 
     val aciIdentityKeyPair = SignalStore.account.aciIdentityKey
     val pniIdentityKeyPair = SignalStore.account.pniIdentityKey
@@ -110,6 +110,10 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   override suspend fun clearAllData() = withContext(Dispatchers.IO) {
+    SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri()?.let { AppDependencies.blobs.delete(context, it) }
+    SignalStore.registration.inProgressRegistrationDataBlobUri = null
+
+    // Best-effort cleanup of the legacy plaintext file written by older builds.
     File(context.cacheDir, TEMP_PROTO_FILENAME).takeIf { it.exists() }?.delete()
     Unit
   }
@@ -153,22 +157,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   override suspend fun readInProgressRegistrationData(): RegistrationData = withContext(Dispatchers.IO) {
-    val file = File(context.cacheDir, TEMP_PROTO_FILENAME)
-    if (file.exists()) {
-      val age = System.currentTimeMillis() - file.lastModified()
-      if (age > TEMP_PROTO_TIMEOUT.inWholeMilliseconds) {
-        Log.w(TAG, "In-progress registration data is stale (${age}ms old), discarding.")
-        file.delete()
-        return@withContext RegistrationData()
-      }
-
-      try {
-        RegistrationData.ADAPTER.decode(file.readBytes())
-      } catch (e: Exception) {
-        Log.w(TAG, "Failed to decode registration data, returning empty.", e)
-        RegistrationData()
-      }
-    } else {
+    val uri = SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri() ?: return@withContext RegistrationData()
+    try {
+      AppDependencies.blobs.getStream(context, uri).use { RegistrationData.ADAPTER.decode(it) }
+    } catch (e: Exception) {
+      Log.w(TAG, "Failed to read/decode in-progress registration data, returning empty.", e)
       RegistrationData()
     }
   }
@@ -245,6 +238,9 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         }
       }.build()
 
+      SignalStore.account.registrationId = data.aciRegistrationId
+      SignalStore.account.pniRegistrationId = data.pniRegistrationId
+
       // TODO [greyson] Should probably move this stuff into this file as we get closer to being done
       RegistrationRepository.registerAccountLocally(context, metadata)
       SignalStore.registration.localRegistrationMetadata = metadata
@@ -277,7 +273,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
-  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.IO) {
+  override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.Default) {
     if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
       return@withContext
     }
@@ -537,7 +533,15 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   private suspend fun writeRegistrationData(data: RegistrationData) = withContext(Dispatchers.IO) {
-    val file = File(context.cacheDir, TEMP_PROTO_FILENAME)
-    file.writeBytes(RegistrationData.ADAPTER.encode(data))
+    val stamped = data.newBuilder().lastUpdatedMillis(System.currentTimeMillis()).build()
+
+    val previousUri = SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri()
+    val newUri = AppDependencies.blobs
+      .forData(RegistrationData.ADAPTER.encode(stamped))
+      .createForMultipleSessionsOnDisk(context)
+
+    SignalStore.registration.inProgressRegistrationDataBlobUri = newUri.toString()
+    previousUri?.let { AppDependencies.blobs.delete(context, it) }
+    Unit
   }
 }

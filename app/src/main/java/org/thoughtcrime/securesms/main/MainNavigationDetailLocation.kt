@@ -6,13 +6,11 @@
 package org.thoughtcrime.securesms.main
 
 import android.os.Parcelable
-import androidx.compose.runtime.saveable.SaverScope
 import androidx.navigation3.runtime.NavKey
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
-import kotlinx.serialization.json.Json
 import org.thoughtcrime.securesms.calls.log.CallLogRow
 import org.thoughtcrime.securesms.conversation.ConversationArgs
 import org.thoughtcrime.securesms.database.model.MessageId
@@ -25,18 +23,6 @@ import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 @Serializable
 @Parcelize
 sealed interface MainNavigationDetailLocation : Parcelable, NavKey {
-
-  class Saver(
-    val earlyLocation: MainNavigationDetailLocation?
-  ) : androidx.compose.runtime.saveable.Saver<MainNavigationDetailLocation, String> {
-    override fun SaverScope.save(value: MainNavigationDetailLocation): String {
-      return Json.encodeToString(value)
-    }
-
-    override fun restore(value: String): MainNavigationDetailLocation? {
-      return earlyLocation ?: Json.decodeFromString(value)
-    }
-  }
 
   /**
    * Flag utilized internally to determine whether the given route is displayed at the root
@@ -125,6 +111,19 @@ sealed interface MainNavigationDetailLocation : Parcelable, NavKey {
     }
   }
 
+  /**
+   * Subscreens that can be displayed within the stories tab.
+   */
   @Parcelize
-  sealed class Stories : MainNavigationDetailLocation
+  sealed class Stories : MainNavigationDetailLocation {
+    @Transient
+    @IgnoredOnParcel
+    override val isContentRoot: Boolean = true
+
+    @Serializable data object Archive : Stories()
+
+    @Serializable data object MyStories : Stories()
+
+    @Serializable data object PrivacySettings : Stories()
+  }
 }

@@ -612,6 +612,8 @@
     <string name="ConversationFragment__update_build">Përditësoni Molly-in</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Regjistro sërish Molly</string>
+    <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
+    <string name="ConversationFragment__relink_signal">Re-link</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Lundro prapa.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -1033,7 +1035,7 @@
     <!-- Button in dialog asking user if they are sure they want to delete the selected scheduled message -->
     <string name="ScheduledMessagesBottomSheet_delete_dialog_message">Të fshihet mesazhi i planifikuar i zgjedhur?</string>
     <!-- Progress message shown while deleting selected scheduled message -->
-    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">Mesazhi i planifikuar po fshihet…</string>
+    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">Mesazhi i planifikuar po fshihet...</string>
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Sesioni i bisedës u rifreskua</string>
@@ -1578,7 +1580,7 @@
     <!-- The title of a pop-up dialog asking the user to confirm deleting their username -->
     <string name="ManageProfileFragment__delete_username_dialog_title">Të fshihet emri i përdoruesit?</string>
     <!-- The body of a pop-up dialog asking the user to confirm deleting their username -->
-    <string name="ManageProfileFragment__delete_username_dialog_body">"Kjo do të heqë emrin e përdoruesit e do të çaktivizojë kodin QR dhe lidhjen. %1$s do të jetë i disponueshëm për t\'u përdorur nga të tjerët. Je i sigurt?"</string>
+    <string name="ManageProfileFragment__delete_username_dialog_body">"Kjo do të heqë emrin e përdoruesit e do të çaktivizojë kodin QR dhe lidhjen. %1$s do të jetë i disponueshëm për t'u përdorur nga të tjerët. Je i sigurt?"</string>
 
     <!-- UsernameOutOfSyncReminder -->
     <!-- Displayed above the conversation list when a user needs to address an issue with their username -->
@@ -2882,6 +2884,8 @@
 
     <!-- Search -->
     <string name="SearchFragment_no_results">S\\’u gjetën përfundime për \'%1$s\'</string>
+    <!-- Text shown when no search results are found.   -->
+    <string name="SearchFragment_no_results_empty">No results found</string>
 
     <!-- ShakeToReport -->
     <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string>
@@ -3411,11 +3415,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Media nuk mund të ruhej</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__media_offloaded_message">Kjo media është shkarkuar nga pajisja pasi opsioni \"Optimizo hapësirën ruajtëse në Molly\" është i aktivizuar. Mund t\'i ruash artikujt një nga një, ose çaktivizo opsionin \"Optimizo hapësirën ruajtëse në Molly\" për të shkarkuar të gjitha mediat në pajisje.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Nuk mund të ruhet të gjitha artikujt</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Disa nga mediat që ke përzgjedhur janë shkarkuar nga pajisja pasi opsioni \"Optimizo hapësirën ruajtëse në Molly\" është i aktivizuar. Mund t\'i ruash artikujt një nga një, ose çaktivizo opsionin \"Optimizo hapësirën ruajtëse në Molly\" për të shkarkuar të gjitha mediat në pajisje.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Shiko parametrat e hapësirës ruajtëse</string>
 
@@ -3484,9 +3488,13 @@
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Kjo pajisje nuk është më e regjistruar. Ka të ngjarë sepse e ke regjistruar numrin tënd të telefonit në Molly në një pajisje tjetër.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Regjistro sërish pajisjen</string>
+    <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
+    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
+    <!-- Action in reminder banner that will take the user to re-link this device -->
+    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
-    <string name="LoggedOutNotification_you_have_been_logged_out">Ti ke dalë nga Signal në këtë pajisje.</string>
+    <string name="LoggedOutNotification_you_have_been_logged_out">Ti ke dalë nga Molly në këtë pajisje.</string>
 
     <!-- EnclaveFailureReminder -->
     <!-- Banner message to update app to use payments -->
@@ -6580,7 +6588,7 @@
     <string name="Subscription__get_a_s_badge">Merr një distinktiv %1$s</string>
 
     <!-- *PaymentInProgressFragment strings -->
-    <string name="InAppPaymentInProgressFragment__processing_donation">Dhurimi po përpunohet…</string>
+    <string name="InAppPaymentInProgressFragment__processing_donation">Dhurimi po përpunohet...</string>
     <string name="InAppPaymentInProgressFragment__processing_payment">Po kryhet pagesa…</string>
 
     <!--InAppDonations -->
@@ -7323,7 +7331,7 @@
     <!-- Primary action for pending gift sheet to redeem badge later -->
     <string name="ViewReceivedGiftSheet__not_now">Jo tani</string>
     <!-- Dialog text while redeeming a gift -->
-    <string name="ViewReceivedGiftSheet__redeeming_badge">Duke përdorur një distinktiv…</string>
+    <string name="ViewReceivedGiftSheet__redeeming_badge">Duke përdorur një distinktiv...</string>
     <!-- Description text in gift thanks sheet -->
     <string name="GiftThanksSheet__youve_made_a_donation">Ti ke bërë një dhurim për Signal në emër të %1$s. Atyre do t\'u jepet mundësia të shfaqin mbështetjen në profilin e tyre.</string>
     <!-- Expired gift sheet title -->
@@ -7510,7 +7518,7 @@
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">Kush mund ta shikojë këtë postim të përkohshëm</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Anëtarët e grupit %1$s mund ta shikojnë këtë postim të përkohshëm dhe t\'i përgjigjen. Mund të përditësosh anëtarësimin për këtë bisedë në grup."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Anëtarët e grupit %1$s mund ta shikojnë këtë postim të përkohshëm dhe t'i përgjigjen. Mund të përditësosh anëtarësimin për këtë bisedë në grup."</string>
     <!-- Preference label for removing this group story -->
     <string name="GroupStorySettingsFragment__remove_group_story">Hiq postimin e përkohshëm të grupit</string>
 
@@ -7862,7 +7870,7 @@
 
     <!-- Call Log Fragment -->
     <!-- Displayed when deleting call history items -->
-    <string name="CallLogFragment__deleting">Po fshihet…</string>
+    <string name="CallLogFragment__deleting">Po fshihet...</string>
     <!-- Displayed in a toast when a deletion fails for an unknown reason -->
     <string name="CallLogFragment__deletion_failed">Fshirja dështoi.</string>
     <!-- Displayed as message in error dialog when can\'t delete links -->
@@ -8234,6 +8242,12 @@
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Për të rikthyer kopjeruajtjen, instalo kopjen e re të Molly. Hap aplikacionin dhe kliko \"Rikthe kopjeruajtjen\", pastaj gjej dosjen e kopjeruajtjeve."</string>
+    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won't be included -->
+    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
+    <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
+    <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
+    <!-- Dialog action to proceed with turning on on-device backups without turning off "Optimize Signal storage" -->
+    <string name="OnDeviceBackupsScreen__continue_without_turning_off">Continue without turning off</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Verifiko kodin e rikthimit</string>
@@ -8610,13 +8624,19 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Kur aktivizohen, kufijtë e bisedës do të fshijnë edhe mesazhet e pajisjeve të lidhura.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Molly storage</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Hapësira ruajtëse e Molly</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Optimizo hapësirën ruajtëse të Molly</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Media e papërdorur do të shkarkohet, por mund të shkarkohet nga kopjeruajtja në çdo kohë.</string>
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Optimizimi i hapësirës ruajtëse mund të përdoret vetëm me nivelin e paguar të kopjeruajtjeve të Signal. Abonimi i kopjeruajtjeve është ende në përpunim dhe nuk është ende aktiv. Të lutem, provo sërish më vonë.</string>
+    <!-- Title of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
+    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">Media will be removed from your on-device backup</string>
+    <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
+    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
+    <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
+    <string name="ManageStorageSettingsFragment__turn_on">Turn on</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -9093,13 +9113,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Shkarko median</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Molly storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Për të krijuar kod të ri rikthimi, duhet të çaktivizosh \"Optimizo hapësirën ruajtëse në Molly\" dhe prit derisa të shkarkohet media. Kur shkarkimi të përfundojë, mund të krijosh kodin e ri.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Çaktivizo dhe shkarko</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Krijo kod të ri rikthimi</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Molly storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Krijimi i kodit të ri është i nevojshëm vetëm nëse dikush tjetër e di kodin tënd. Do të duhet ta ngarkosh përsëri kopjeruajtjen, duke përfshirë median. Nëse po përdor \"Optimizo hapësirën ruajtjëse në Molly\", do të duhet të shkarkosh nga pajisja më parë mediat e ngarkuara.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Të dilet nga konfigurimi i kopjeruajtjes?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9863,7 +9883,21 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">Search members</string>
+    <string name="MemberSearchFragment__search_members">Kërko anëtarët</string>
+    <!-- Header for a section showing all group members who are contacts -->
+    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
+    <!-- Header for a section showing all group member who are admins -->
+    <string name="MemberSearchFragment__search_admins">Search admins</string>
+    <!-- Dialog title to filter search by -->
+    <string name="MemberSearchFragment__filter">Filter by</string>
+    <!-- Dialog option for all group members -->
+    <string name="MemberSearchFragment__filter_all_members">All members</string>
+    <!-- Dialog option for group admins -->
+    <string name="MemberSearchFragment__filter_admins">Admins</string>
+    <!-- Dialog option for your contacts -->
+    <string name="MemberSearchFragment__filter_contacts">Contacts</string>
+    <!-- Button to invite members via a group link -->
+    <string name="MemberSearchFragment__invite_via">Invite via group link</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Kopjeruajtja nuk mund të rikthehej</string>

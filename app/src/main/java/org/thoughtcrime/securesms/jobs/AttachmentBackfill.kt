@@ -77,7 +77,7 @@ object AttachmentBackfill {
 
   /** The scope the response timeouts run on. Overridable so tests can drive the timeout with virtual time. */
   @VisibleForTesting
-  internal var timeoutScope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+  internal var timeoutScope: CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
   /**
    * Considers a backfill request for [messageId] after a permanent download failure. The attachment is flagged

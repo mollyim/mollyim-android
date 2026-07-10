@@ -347,7 +347,7 @@ class RemoteBackupRestoreViewModelTest {
   }
 
   @Test
-  fun `Complete progress emits UserSuppliedAepVerified and hands off to finishRegistrationOrCreateProfile`() = runTest(testDispatcher) {
+  fun `Complete progress emits UserSuppliedAepVerified and completes registration`() = runTest(testDispatcher) {
     every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
       RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
     )
@@ -361,10 +361,11 @@ class RemoteBackupRestoreViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.UserSuppliedAepVerified>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
   }
 
   @Test
@@ -462,6 +463,6 @@ class RemoteBackupRestoreViewModelTest {
     viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.BackupRestoreBackup, stateEmitter)
 
     assertThat(states.last().restoreState).isEqualTo(RemoteBackupRestoreState.RestoreState.Restored)
-    coVerify { mockRepository.finishRegistrationOrCreateProfile(parentEventEmitter, any()) }
+    coVerify { mockRepository.restoreAccountRecord(any()) }
   }
 }

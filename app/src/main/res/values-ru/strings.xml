@@ -2,25 +2,25 @@
   ~ Copyright 2024 Signal Messenger, LLC
   ~ SPDX-License-Identifier: AGPL-3.0-only
   --><!-- smartling.instruction_comments_enabled = on --><resources>
-  <!-- Removed by excludeNonTranslatables <string name="app_name" translatable="false">Signal</string> -->
+    <string name="app_name" translatable="false">Signal</string>
 
-  <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="donate_url" translatable="false">https://signal.org/donate</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="remote_backup_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="support_center_url" translatable="false">https://support.signal.org/</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="google_pay_url" translatable="false">https://pay.google.com</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="inactive_primary_support" translatable="false">https://support.signal.org/hc/articles/9021007554074</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="recovery_key_phishing_support_url" translatable="false">https://support.signal.org/hc/articles/9932566320410</string> -->
+    <string name="install_url" translatable="false">https://signal.org/install</string>
+    <string name="donate_url" translatable="false">https://signal.org/donate</string>
+    <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string>
+    <string name="remote_backup_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string>
+    <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string>
+    <string name="support_center_url" translatable="false">https://support.signal.org/</string>
+    <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string>
+    <string name="google_pay_url" translatable="false">https://pay.google.com</string>
+    <string name="donation_decline_code_error_url" translatable="false">https://support.signal.org/hc/articles/4408365318426#errors</string>
+    <string name="sms_export_url" translatable="false">https://support.signal.org/hc/articles/360007321171</string>
+    <string name="signal_me_username_url" translatable="false">https://signal.me/#u/%1$s</string>
+    <string name="username_support_url" translatable="false">https://support.signal.org/hc/articles/5389476324250</string>
+    <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string>
+    <string name="pending_transfer_url" translatable="false">https://support.signal.org/hc/articles/360031949872#pending</string>
+    <string name="donate_faq_url" translatable="false">https://support.signal.org/hc/articles/360031949872#donate</string>
+    <string name="inactive_primary_support" translatable="false">https://support.signal.org/hc/articles/9021007554074</string>
+    <string name="recovery_key_phishing_support_url" translatable="false">https://support.signal.org/hc/articles/9932566320410</string>
 
     <!-- First placeholder is productId, second placeholder is app package -->
     <string name="backup_subscription_management_url">https://play.google.com/store/account/subscriptions?sku=%1$s&amp;package=%2$s</string>
@@ -42,7 +42,7 @@
     <string name="app_icon_label_waves">Волны</string>
 
     <!-- AlbumThumbnailView -->
-  <!-- Removed by excludeNonTranslatables <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string> -->
+    <string name="AlbumThumbnailView_plus" translatable="false">\+%d</string>
 
     <!-- ApplicationMigrationActivity -->
     <string name="ApplicationMigrationActivity__signal_is_updating">Molly обновляется…</string>
@@ -67,16 +67,16 @@
     <string name="AdvancedPinSettingsFragment_rotate_aep_dialog_positive_button">Создать ключ</string>
 
     <!-- NumericKeyboardView -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__1" translatable="false">1</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__2" translatable="false">2</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__3" translatable="false">3</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__4" translatable="false">4</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__5" translatable="false">5</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__6" translatable="false">6</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__7" translatable="false">7</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__8" translatable="false">8</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__9" translatable="false">9</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="NumericKeyboardView__0" translatable="false">0</string> -->
+    <string name="NumericKeyboardView__1" translatable="false">1</string>
+    <string name="NumericKeyboardView__2" translatable="false">2</string>
+    <string name="NumericKeyboardView__3" translatable="false">3</string>
+    <string name="NumericKeyboardView__4" translatable="false">4</string>
+    <string name="NumericKeyboardView__5" translatable="false">5</string>
+    <string name="NumericKeyboardView__6" translatable="false">6</string>
+    <string name="NumericKeyboardView__7" translatable="false">7</string>
+    <string name="NumericKeyboardView__8" translatable="false">8</string>
+    <string name="NumericKeyboardView__9" translatable="false">9</string>
+    <string name="NumericKeyboardView__0" translatable="false">0</string>
     <!-- Back button on numeric keyboard -->
     <string name="NumericKeyboardView__backspace">Backspace</string>
 
@@ -453,7 +453,7 @@
     <string name="ConversationActivity_attachment_exceeds_size_limits">Вложение превышает предельный размер для того типа сообщения, которое вы отправляете.</string>
     <string name="ConversationActivity_unable_to_record_audio">Не удалось записать аудио!</string>
     <string name="ConversationActivity_you_cant_send_messages_to_this_group">Вы не можете отправлять сообщения в этой группе, потому что уже не являетесь её участником.</string>
-  <!-- Removed by excludeNonTranslatables <string name="DisabledInputView__incognito_mode" translatable="false">Incognito mode (Labs)</string> -->
+    <string name="DisabledInputView__incognito_mode" translatable="false">Incognito mode (Labs)</string>
     <string name="ConversationActivity_you_cant_send_messages_because_group_ended">Вы не можете отправлять сообщения в группе, поскольку она закрыта.</string>
     <string name="ConversationActivity_only_s_can_send_messages">Только %1$s могут отправлять сообщения.</string>
     <string name="ConversationActivity_admins">администраторы</string>
@@ -638,6 +638,8 @@
     <string name="ConversationFragment__update_build">Обновить Molly</string>
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Повторно зарегистрироваться в Molly</string>
+    <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
+    <string name="ConversationFragment__relink_signal">Re-link</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">Перейти назад.</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -1087,7 +1089,7 @@
     <!-- Button in dialog asking user if they are sure they want to delete the selected scheduled message -->
     <string name="ScheduledMessagesBottomSheet_delete_dialog_message">Удалить выбранное запланированное сообщение?</string>
     <!-- Progress message shown while deleting selected scheduled message -->
-    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">Удаление запланированного сообщения…</string>
+    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">Удаление запланированного сообщения...</string>
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">Сессия чата обновлена</string>
@@ -1108,7 +1110,7 @@
     <string name="LinkDeviceFragment__signal_messages_are_synchronized">Сообщения Signal синхронизируются с Signal на вашем мобильном телефоне, после того как он будет привязан. История ваших предыдущих сообщений не появится.</string>
     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
     <string name="LinkDeviceFragment__on_other_device_visit_signal">На устройстве, которое вы хотите привязать, перейдите в %1$s для установки Signal</string>
-  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string> -->
+    <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string>
     <!-- Header title listing out current linked devices -->
     <string name="LinkDeviceFragment__my_linked_devices">Мои связанные устройства</string>
     <!-- Dialog confirmation to unlink a device -->
@@ -1149,7 +1151,7 @@
     <string name="LinkDeviceFragment__cancel">Отменить</string>
     <!-- Email subject when contacting support on a linked device syncing issue -->
     <string name="LinkDeviceFragment__link_sync_failure_support_email">Не удалось экспортировать Android Link&amp;Sync</string>
-  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string> -->
+    <string name="LinkDeviceFragment__link_sync_failure_support_email_filter" translatable="false">Android Link&amp;Sync Export Failed</string>
     <!-- Title of a dialog letting the user know that syncing messages to their linked device failed -->
     <string name="LinkDeviceFragment__sync_failure_title">Не удалось синхронизировать сообщения</string>
     <!-- Body of a dialog letting the user know that syncing messages to their linked device failed -->
@@ -1158,7 +1160,7 @@
     <string name="LinkDeviceFragment__sync_failure_body_unretryable">Ваше устройство было успешно привязано, но сообщения перенести не удалось.</string>
     <!-- Text button in a dialog that, when pressed, will redirect to the Signal support page -->
     <string name="LinkDeviceFragment__learn_more">Узнать больше</string>
-  <!-- Removed by excludeNonTranslatables <string name="LinkDeviceFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007320551</string> -->
+    <string name="LinkDeviceFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007320551</string>
     <!-- Text button of a button in a dialog that, when pressed, will restart the process of linking a device -->
     <string name="LinkDeviceFragment__sync_failure_retry_button">Повторить попытку</string>
     <!-- Text button of a button in a dialog that, when pressed, will ignore syncing errors and link a new device without syncing message content -->
@@ -1305,7 +1307,7 @@
     <string name="GroupManagement_access_level_all_members">Все участники</string>
     <string name="GroupManagement_access_level_only_admins">Только администраторы</string>
     <string name="GroupManagement_access_level_no_one">Никто</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupManagement_access_level_unknown" translatable="false">Unknown</string> -->
+    <string name="GroupManagement_access_level_unknown" translatable="false">Unknown</string>
     <array name="GroupManagement_edit_group_membership_choices">
         <item>@string/GroupManagement_access_level_all_members</item>
         <item>@string/GroupManagement_access_level_only_admins</item>
@@ -1469,7 +1471,7 @@
     <string name="PromptBatterySaverBottomSheet__continue">Продолжить</string>
     <!-- Button to dismiss battery saver dialog prompt-->
     <string name="PromptBatterySaverBottomSheet__no_thanks">Нет, спасибо</string>
-  <!-- Removed by excludeNonTranslatables <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string> -->
+    <string name="PromptBatterySaverBottomSheet__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007318711#android_notifications_troubleshooting</string>
 
     <!-- PendingMembersActivity -->
     <string name="PendingMembersActivity_pending_group_invites">Запросы и приглашения</string>
@@ -1897,8 +1899,8 @@
     <string name="MediaOverviewActivity_audio">Аудио</string>
     <string name="MediaOverviewActivity_video">Видео</string>
     <string name="MediaOverviewActivity_image">Изображение</string>
-  <!-- Removed by excludeNonTranslatables <string name="MediaOverviewActivity_detail_line_2_part" translatable="false">%1$s · %2$s</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="MediaOverviewActivity_detail_line_3_part" translatable="false">%1$s · %2$s · %3$s</string> -->
+    <string name="MediaOverviewActivity_detail_line_2_part" translatable="false">%1$s · %2$s</string>
+    <string name="MediaOverviewActivity_detail_line_3_part" translatable="false">%1$s · %2$s · %3$s</string>
 
     <string name="MediaOverviewActivity_sent_by_s">Отправил(-а) %1$s</string>
     <string name="MediaOverviewActivity_sent_by_you">Отправили вы</string>
@@ -1932,13 +1934,13 @@
 
     <!-- StarredMessagesFragment -->
     <!-- Title for the starred messages screen -->
-  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesActivity__starred_messages" translatable="false">Starred messages</string> -->
+    <string name="StarredMessagesActivity__starred_messages" translatable="false">Starred messages</string>
     <!-- Empty state text when there are no starred messages -->
-  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__no_starred_messages" translatable="false">No starred messages</string> -->
+    <string name="StarredMessagesFragment__no_starred_messages" translatable="false">No starred messages</string>
     <!-- Empty state description when there are no starred messages -->
-  <!-- Removed by excludeNonTranslatables <string name="StarredMessagesFragment__tap_and_hold_on_a_message_to_star_it" translatable="false">Tap and hold on a message to star it.</string> -->
+    <string name="StarredMessagesFragment__tap_and_hold_on_a_message_to_star_it" translatable="false">Tap and hold on a message to star it.</string>
     <!-- Format for starred message source label, e.g. "Alice › Book Club" -->
-  <!-- Removed by excludeNonTranslatables <string name="StarredMessages__s_chevron_s" translatable="false">%1$s \u203A %2$s</string> -->
+    <string name="StarredMessages__s_chevron_s" translatable="false">%1$s \u203A %2$s</string>
 
     <!-- NotificationBarManager -->
     <string name="NotificationBarManager__establishing_signal_call">Начинается звонок через Molly</string>
@@ -2356,7 +2358,7 @@
     <!-- Shown when you are invited to a group and explains that until you accept the invitation to the group, members will not know that you have seen their messages. -->
     <string name="MessageRequestBottomView_join_this_group_they_wont_know_youve_seen_their_messages_until_you_accept">Присоединиться к этой группе? Её участники не узнают, что вы видели их сообщения, пока вы не примете запрос.</string>
     <string name="MessageRequestBottomView_unblock_this_group_and_share_your_name_and_photo_with_its_members">Разблокировать эту группу и открыть ваше имя и фото её участникам? Вы не будете получать сообщения, пока не разблокируете эту группу.</string>
-  <!-- Removed by excludeNonTranslatables <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <string name="MessageRequestBottomView_legacy_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007459591</string>
     <string name="MessageRequestProfileView_view">Просмотреть</string>
     <string name="MessageRequestProfileView_member_of_one_group">Состоит в %1$s</string>
     <string name="MessageRequestProfileView_member_of_two_groups">Состоит в %1$s и %2$s</string>
@@ -2507,7 +2509,7 @@
     <string name="PinRestoreLockedFragment_create_your_pin">Создать PIN-код</string>
     <string name="PinRestoreLockedFragment_youve_run_out_of_pin_guesses">У вас закончились попытки ввода PIN-кода, но вы всё равно можете получить доступ к своей учётной записи Signal, создав новый PIN-код. Для вашей конфиденциальности и безопасности ваша учётная запись будет восстановлена без какой-либо сохранённой информации профиля или настроек.</string>
     <string name="PinRestoreLockedFragment_create_new_pin">Создать новый PIN-код</string>
-  <!-- Removed by excludeNonTranslatables <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+    <string name="PinRestoreLockedFragment_learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
     <!-- Dialog button text indicating user wishes to send an sms code isntead of skipping it -->
     <string name="ReRegisterWithPinFragment_send_sms_code">Отправить SMS-код</string>
@@ -3070,14 +3072,16 @@
 
     <!-- Search -->
     <string name="SearchFragment_no_results">Не найдено результатов для «%1$s»</string>
+    <!-- Text shown when no search results are found.   -->
+    <string name="SearchFragment_no_results_empty">No results found</string>
 
     <!-- ShakeToReport -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_submit_debug_log" translatable="false">Submit debug log?</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_submit" translatable="false">Submit</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_failed_to_submit" translatable="false">Failed to submit :(</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_success" translatable="false">Success!</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ShakeToReport_share" translatable="false">Share</string> -->
+    <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string>
+    <string name="ShakeToReport_submit_debug_log" translatable="false">Submit debug log?</string>
+    <string name="ShakeToReport_submit" translatable="false">Submit</string>
+    <string name="ShakeToReport_failed_to_submit" translatable="false">Failed to submit :(</string>
+    <string name="ShakeToReport_success" translatable="false">Success!</string>
+    <string name="ShakeToReport_share" translatable="false">Share</string>
 
     <!-- SharedContactDetailsActivity -->
     <string name="SharedContactDetailsActivity_add_to_contacts">Добавить в контакты</string>
@@ -3237,28 +3241,28 @@
     <!-- Banner message shown while submitting debug log -->
     <string name="SubmitDebugLogActivity_your_log_will_be_posted_online">Когда вы нажмёте «Отправить», ваш журнал будет размещён в интернете на 30 дней по уникальному неопубликованному URL-адресу. Вы можете сначала сохранить его локально.</string>
     <!-- Debug log level names to filter by levels. -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_info" translatable="false">Info</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_error" translatable="false">Error</string> -->
+    <string name="SubmitDebugLogActivity_signal_uncaught_exception" translatable="false">Uncaught</string>
+    <string name="SubmitDebugLogActivity_verbose" translatable="false">Verbose</string>
+    <string name="SubmitDebugLogActivity_debug" translatable="false">Debug</string>
+    <string name="SubmitDebugLogActivity_info" translatable="false">Info</string>
+    <string name="SubmitDebugLogActivity_warning" translatable="false">Warn</string>
+    <string name="SubmitDebugLogActivity_error" translatable="false">Error</string>
     <!-- Title of dialog shown when debug log prefix generation is unusually slow -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string> -->
+    <string name="SubmitDebugLogActivity_slow_log_title" translatable="false">Slow log generation</string>
     <!-- Body of dialog shown when debug log prefix generation is unusually slow. %1$d is duration in seconds. -->
-  <!-- Removed by excludeNonTranslatables <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\&apos;s slowing things down.</string> -->
+    <string name="SubmitDebugLogActivity_slow_log_message" translatable="false">Generating the debug log header took %1$d seconds. We should figure out what\'s slowing things down.</string>
 
     <!-- SupportEmailUtil -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_support_email" translatable="false">support@signal.org</string> -->
+    <string name="SupportEmailUtil_support_email" translatable="false">support@molly.im</string>
     <string name="SupportEmailUtil_filter">Фильтр:</string>
     <string name="SupportEmailUtil_device_info">Информация об устройстве:</string>
     <string name="SupportEmailUtil_android_version">Версия Android:</string>
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_version" translatable="false">Signal version:</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_signal_package" translatable="false">Signal package:</string> -->
+    <string name="SupportEmailUtil_signal_version" translatable="false">Molly version:</string>
+    <string name="SupportEmailUtil_signal_package" translatable="false">Molly package:</string>
     <string name="SupportEmailUtil_registration_lock">Блокировка регистрации:</string>
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_locale" translatable="false">Locale:</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="SupportEmailUtil_registered" translatable="false">Registered:</string> -->
+    <string name="SupportEmailUtil_locale" translatable="false">Locale:</string>
+    <string name="SupportEmailUtil_challenge_received" translatable="false">Challenge Received:</string>
+    <string name="SupportEmailUtil_registered" translatable="false">Registered:</string>
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Группа обновлена</string>
@@ -3420,10 +3424,10 @@
     <string name="VerifyDisplayFragment__scan_result_dialog_ok">ОК</string>
 
     <!-- ViewOnceMessageActivity -->
-  <!-- Removed by excludeNonTranslatables <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string> -->
+    <string name="ViewOnceMessageActivity_video_duration" translatable="false">%1$02d:%2$02d</string>
 
     <!-- AudioView -->
-  <!-- Removed by excludeNonTranslatables <string name="AudioView_duration" translatable="false">%1$d:%2$02d</string> -->
+    <string name="AudioView_duration" translatable="false">%1$d:%2$02d</string>
 
     <!-- MessageDisplayHelper -->
     <string name="MessageDisplayHelper_message_encrypted_for_non_existing_session">Сообщение зашифровано для несуществующей сессии</string>
@@ -3621,11 +3625,11 @@
     <!-- Dialog title shown when attempting to save media that has been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_media">Не удаётся сохранить медиафайлы</string>
     <!-- Dialog message explaining that media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__media_offloaded_message">This media has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can download items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__media_offloaded_message">Этот медиафайл был выгружен с вашего устройства, поскольку включена функция «Оптимизировать хранилище Molly». Вы можете сохранить медиафайлы по одному либо отключить функцию «Оптимизировать хранилище Molly», чтобы загрузить все медиафайлы на ваше устройство.</string>
     <!-- Dialog title shown when attempting to save multiple media items, some of which have been offloaded from the device by the storage optimization feature. -->
     <string name="AttachmentSaver__cant_save_all_items">Не удаётся сохранить все медиафайлы</string>
     <!-- Dialog message explaining that some selected media cannot be saved because it has been offloaded from the device by the storage optimization feature. -->
-    <string name="AttachmentSaver__some_media_offloaded_message">Some media you\'ve selected has been offloaded from your device because \"Optimize Molly storage\" is turned on. You can save items one-by-one, or turn off \"Optimize Molly storage\" to download all media to your device.</string>
+    <string name="AttachmentSaver__some_media_offloaded_message">Некоторые выбранные вами медиафайлы были выгружены с вашего устройства, поскольку включена функция «Оптимизировать хранилище Molly». Вы можете сохранить медиафайлы по одному либо отключить функцию «Оптимизировать хранилище Molly», чтобы загрузить все медиафайлы на ваше устройство.</string>
     <!-- Button label in the offloaded media dialog that navigates to the storage settings screen. -->
     <string name="AttachmentSaver__view_storage_settings">Просмотреть настройки хранилища</string>
 
@@ -3696,9 +3700,13 @@
     <string name="UnauthorizedReminder_this_is_likely_because_you_registered_your_phone_number_with_Signal_on_a_different_device">Это устройство больше не зарегистрировано. Это может быть вызвано тем, что вы зарегистрировали свой номер телефона в Molly на другом устройстве.</string>
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">Перерегистрируйте устройство</string>
+    <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
+    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
+    <!-- Action in reminder banner that will take the user to re-link this device -->
+    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
-    <string name="LoggedOutNotification_you_have_been_logged_out">Ваш сеанс работы с Signal на этом устройстве был завершён.</string>
+    <string name="LoggedOutNotification_you_have_been_logged_out">Ваш сеанс работы с Molly на этом устройстве был завершён.</string>
 
     <!-- EnclaveFailureReminder -->
     <!-- Banner message to update app to use payments -->
@@ -4146,7 +4154,7 @@
     <string name="EditProfileFragment__edit_group">Редактировать группу</string>
     <string name="EditProfileFragment__group_name">Название группы</string>
     <string name="EditProfileFragment__group_description">Описание группы</string>
-  <!-- Removed by excludeNonTranslatables <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <string name="EditProfileFragment__support_link" translatable="false">https://support.signal.org/hc/articles/360007459591</string>
     <!-- The title of a dialog prompting user to update to the latest version of Signal. -->
     <string name="EditProfileFragment_deprecated_dialog_title">Обновить Molly</string>
     <!-- The body of a dialog prompting user to update to the latest version of Signal. -->
@@ -4193,7 +4201,7 @@
     <string name="verify_display_fragment__encryption_unavailable">Автоподтверждение недоступно</string>
     <!-- Caption text explaining more about automatic verification   -->
     <string name="verify_display_fragment__auto_verify_not_available">Автоподтверждение доступно не для всех чатов.</string>
-  <!-- Removed by excludeNonTranslatables <string name="verify_display_fragment__link" translatable="false">https://support.signal.org/hc/articles/10223569377562</string> -->
+    <string name="verify_display_fragment__link" translatable="false">https://support.signal.org/hc/articles/10223569377562</string>
 
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">Шифрование для этого чата было автоматически подтверждено</string>
@@ -4227,7 +4235,7 @@
     <string name="SelfVerificationFailureSheet__submit">Отправить</string>
     <!-- Email subject line when submitting logs following a verification failure -->
     <string name="SelfVerificationFailureSheet__email_subject">Не удалось автоматически подтвердить ключ</string>
-  <!-- Removed by excludeNonTranslatables <string name="SelfVerificationFailureSheet__email_filter" translatable="false">AutomaticKeyVerificationFailure</string> -->
+    <string name="SelfVerificationFailureSheet__email_filter" translatable="false">AutomaticKeyVerificationFailure</string>
     <!-- Link to learn more about debug logs -->
     <string name="SelfVerificationFailureSheet__learn_more">Узнать больше</string>
 
@@ -4281,17 +4289,17 @@
     <string name="HelpFragment__whats_this">Что это?</string>
     <string name="HelpFragment__how_do_you_feel">Как вы себя чувствуете? (Необязательно)</string>
     <string name="HelpFragment__tell_us_why_youre_reaching_out">Опишите вашу проблему</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_5" translatable="false">emoji_5</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_4" translatable="false">emoji_4</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_3" translatable="false">emoji_3</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_2" translatable="false">emoji_2</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__emoji_1" translatable="false">emoji_1</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__debug_info" translatable="false">https://support.signal.org/hc/articles/360007318591</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string> -->
+    <string name="HelpFragment__emoji_5" translatable="false">emoji_5</string>
+    <string name="HelpFragment__emoji_4" translatable="false">emoji_4</string>
+    <string name="HelpFragment__emoji_3" translatable="false">emoji_3</string>
+    <string name="HelpFragment__emoji_2" translatable="false">emoji_2</string>
+    <string name="HelpFragment__emoji_1" translatable="false">emoji_1</string>
+    <string name="HelpFragment__link__debug_info" translatable="false">https://support.signal.org/hc/articles/360007318591</string>
+    <string name="HelpFragment__link__faq" translatable="false">https://support.signal.org</string>
     <!-- Heading used within support email that lists additional information to help with debugging -->
     <string name="HelpFragment__support_info">Информация для поддержки</string>
     <string name="HelpFragment__signal_android_support_request">Запрос поддержки Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string> -->
+    <string name="HelpFragment__debug_log" translatable="false">Debug Log:</string>
     <string name="HelpFragment__could_not_upload_logs">Не удалось отправить журналы</string>
     <string name="HelpFragment__please_be_as_descriptive_as_possible">Пожалуйста, пишите как можно подробнее, чтобы помочь нам понять проблему.</string>
     <!-- Error shown under the "tell us what\'s going on" field when the entered description is shorter than the required minimum length. The placeholder is the minimum number of characters. -->
@@ -4511,7 +4519,7 @@
     <string name="preferences__if_typing_indicators_are_disabled_you_wont_be_able_to_see_typing_indicators">Если индикаторы набора текста отключены, вы не сможете видеть индикаторы набора текста других пользователей.</string>
     <string name="preferences__request_keyboard_to_disable">Запросить отключение персонализированного обучения клавиатуры.</string>
     <string name="preferences__this_setting_is_not_a_guarantee">Эта настройка не является гарантией, и ваша клавиатура может её игнорировать.</string>
-  <!-- Removed by excludeNonTranslatables <string name="preferences__incognito_keyboard_learn_more" translatable="false">https://support.signal.org/hc/articles/360055276112</string> -->
+    <string name="preferences__incognito_keyboard_learn_more" translatable="false">https://support.signal.org/hc/articles/360055276112</string>
     <string name="preferences_chats__when_using_mobile_data">Через мобильную сеть</string>
     <string name="preferences_chats__when_using_wifi">Через Wi-Fi</string>
     <string name="preferences_chats__when_roaming">В роуминге</string>
@@ -4628,9 +4636,9 @@
     <string name="configurable_single_select__customize_option">Настроить опцию</string>
 
     <!-- Internal only preferences -->
-  <!-- Removed by excludeNonTranslatables <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="preferences__internal_details" translatable="false">Internal Details</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string> -->
+    <string name="preferences__internal_preferences" translatable="false">Internal Preferences</string>
+    <string name="preferences__internal_details" translatable="false">Internal Details</string>
+    <string name="preferences__internal_stories_dialog_launcher" translatable="false">Stories dialog launcher</string>
 
 
     <!-- Payments -->
@@ -4674,14 +4682,14 @@
     <string name="PaymentsHomeFragment__payments_deactivated">Платежи деактивированы.</string>
     <string name="PaymentsHomeFragment__payment_failed">Платёж не удался</string>
     <string name="PaymentsHomeFragment__details">Подробнее</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string> -->
+    <string name="PaymentsHomeFragment__learn_more__activate_payments" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_activate</string>
     <!-- Displayed as a description in a dialog when the user tries to activate payments -->
     <string name="PaymentsHomeFragment__you_can_use_signal_to_send_and">Вы можете использовать Molly, чтобы отправлять и получать MobileCoin. Все платежи регламентируются Условиями использования MobileCoins и MobileCoin Wallet. Вы можете столкнуться с некоторыми проблемами, и платежи или средства, которые вы можете потерять, невозможно будет восстановить. </string>
     <string name="PaymentsHomeFragment__activate">Активировать</string>
     <string name="PaymentsHomeFragment__view_mobile_coin_terms">Просмотреть Условия MobileCoin</string>
     <string name="PaymentsHomeFragment__payments_not_available">Платежи в Molly больше не доступны. Вы можете перевести средства на биржу, но больше не можете отправлять или получать платежи или пополнять баланс.</string>
 
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string> -->
+    <string name="PaymentsHomeFragment__mobile_coin_terms_url" translatable="false">https://www.mobilecoin.com/terms-of-use.html</string>
     <!-- Alert dialog title which shows up after a payment to turn on payment lock -->
     <string name="PaymentsHomeFragment__turn_on">Включить блокировку платежей для будущих отправлений?</string>
     <!-- Alert dialog description for why payment lock should be enabled before sending payments -->
@@ -4726,7 +4734,7 @@
     <string name="PaymentsAddMoneyFragment__copy">Копировать</string>
     <string name="PaymentsAddMoneyFragment__copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="PaymentsAddMoneyFragment__to_add_funds">Чтобы пополнить баланс, отправьте MobileCoin на адрес своего кошелька. Начните транзакцию в своей учётной записи на бирже, которая поддерживает MobileCoin, затем просканируйте QR-код или скопируйте адрес своего кошелька.</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsAddMoneyFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string> -->
+    <string name="PaymentsAddMoneyFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string>
 
     <!-- PaymentsDetailsFragment -->
     <string name="PaymentsDetailsFragment__details">Подробнее</string>
@@ -4747,8 +4755,8 @@
     <string name="PaymentsDetailsFragment__coin_cleanup_fee">Комиссия за очистку монет</string>
     <string name="PaymentsDetailsFragment__coin_cleanup_information">«Комиссия за очистку монет» взимается, когда монеты, которыми вы владеете, невозможно объединить, чтобы совершить транзакцию. После очистки вы сможете продолжить отправлять платежи.</string>
     <string name="PaymentsDetailsFragment__no_details_available">Для этой транзакции недоступно больше информации</string>
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsDetailsFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsDetailsFragment__learn_more__cleanup_fee" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details_fees</string> -->
+    <string name="PaymentsDetailsFragment__learn_more__information" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details</string>
+    <string name="PaymentsDetailsFragment__learn_more__cleanup_fee" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_details_fees</string>
     <string name="PaymentsDetailsFragment__sent_payment">Отправленный платёж</string>
     <string name="PaymentsDetailsFragment__received_payment">Полученный платёж</string>
     <string name="PaymentsDeatilsFragment__payment_completed_s">Платёж завершён %1$s</string>
@@ -4793,7 +4801,7 @@
     <string name="CreatePaymentFragment__backspace">Backspace</string>
     <string name="CreatePaymentFragment__add_note">Добавить заметку</string>
     <string name="CreatePaymentFragment__conversions_are_just_estimates">Конверсии являются оценочными и могут быть неточными.</string>
-  <!-- Removed by excludeNonTranslatables <string name="CreatePaymentFragment__learn_more__conversions" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_currency_conversion</string> -->
+    <string name="CreatePaymentFragment__learn_more__conversions" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_currency_conversion</string>
 
     <!-- EditNoteFragment -->
     <string name="EditNoteFragment_note">Заметка</string>
@@ -4877,9 +4885,9 @@
     <!-- Button to delete a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_delete">Удалить</string>
     <!-- Button to star a message to save it for later; Action item -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_star" translatable="false">Star (Labs)</string> -->
+    <string name="conversation_selection__menu_star" translatable="false">Star (Labs)</string>
     <!-- Button to remove the star from a message; Action item -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_selection__menu_unstar" translatable="false">Unstar (Labs)</string> -->
+    <string name="conversation_selection__menu_unstar" translatable="false">Unstar (Labs)</string>
     <!-- Button to forward a message to another person or group chat; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD  -->
     <string name="conversation_selection__menu_forward">Переслать</string>
     <!-- Button to reply to a message; Action item with hyphenation. Translation can use soft hyphen - Unicode U+00AD -->
@@ -4948,7 +4956,7 @@
     <string name="conversation__menu_view_all_media">Все медиафайлы</string>
     <string name="conversation__menu_conversation_settings">Настройки чата</string>
     <string name="conversation__menu_add_shortcut">Добавить на главный экран</string>
-  <!-- Removed by excludeNonTranslatables <string name="conversation__menu_export" translatable="false">Export (Labs)</string> -->
+    <string name="conversation__menu_export" translatable="false">Export (Labs)</string>
     <string name="conversation__menu_create_bubble">Создать всплывающий чат</string>
     <!-- Overflow menu option that allows formatting of text -->
     <string name="conversation__menu_format_text">Форматировать текст</string>
@@ -4959,11 +4967,11 @@
     <string name="conversation_add_to_contacts__menu_add_to_contacts">Добавить в контакты</string>
 
     <!-- conversation export -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_export__exporting" translatable="false">Exporting chat…</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_complete" translatable="false">Chat exported successfully</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_failed" translatable="false">Export failed</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_export__export_cancelled" translatable="false">Export cancelled</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="conversation_export__preparing" translatable="false">Preparing export…</string> -->
+    <string name="conversation_export__exporting" translatable="false">Exporting chat…</string>
+    <string name="conversation_export__export_complete" translatable="false">Chat exported successfully</string>
+    <string name="conversation_export__export_failed" translatable="false">Export failed</string>
+    <string name="conversation_export__export_cancelled" translatable="false">Export cancelled</string>
+    <string name="conversation_export__preparing" translatable="false">Preparing export…</string>
 
     <!-- conversation scheduled messages bar -->
 
@@ -4995,7 +5003,7 @@
     <string name="text_secure_normal__menu_new_group">Новая группа</string>
     <string name="text_secure_normal__menu_settings">Настройки</string>
     <!-- Menu item in the main conversation list to view all starred messages -->
-  <!-- Removed by excludeNonTranslatables <string name="text_secure_normal__starred_messages" translatable="false">Starred messages (Labs)</string> -->
+    <string name="text_secure_normal__starred_messages" translatable="false">Starred messages (Labs)</string>
     <string name="text_secure_normal__menu_clear_passphrase">Заблокировать</string>
     <string name="text_secure_normal__mark_all_as_read">Отметить все как прочитанные</string>
     <string name="text_secure_normal__invite_friends">Пригласить друзей</string>
@@ -5041,7 +5049,7 @@
     <string name="BaseKbsPinFragment__create_alphanumeric_pin">Создать буквенно-цифровой PIN-код</string>
     <!-- Button label to prompt them to return to creating a numbers-only password ("PIN") -->
     <string name="BaseKbsPinFragment__create_numeric_pin">Создать цифровой PIN-код</string>
-  <!-- Removed by excludeNonTranslatables <string name="BaseKbsPinFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+    <string name="BaseKbsPinFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
     <!-- CreateKbsPinFragment -->
     <plurals name="CreateKbsPinFragment__pin_must_be_at_least_characters">
@@ -5079,7 +5087,7 @@
     <string name="KbsSplashFragment__introducing_pins">Представляем PIN-коды</string>
     <string name="KbsSplashFragment__pins_keep_information_stored_with_signal_encrypted">PIN-коды шифруют информацию, хранящуюся в сервисе Signal, так что только вы можете получить к ней доступ. Ваши профиль, настройки и контакты будут восстановлены, если вы переустановите Signal. Ваш PIN-код не нужен, чтобы открыть приложение.</string>
     <string name="KbsSplashFragment__learn_more">Узнать больше</string>
-  <!-- Removed by excludeNonTranslatables <string name="KbsSplashFragment__learn_more_link" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+    <string name="KbsSplashFragment__learn_more_link" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
     <string name="KbsSplashFragment__registration_lock_equals_pin">Блокировка регистрации = PIN-код</string>
     <string name="KbsSplashFragment__your_registration_lock_is_now_called_a_pin">«Блокировка регистрации» теперь называется «PIN-код» и умеет больше. Обновите его прямо сейчас.</string>
     <string name="KbsSplashFragment__update_pin">Обновить PIN-код</string>
@@ -5100,7 +5108,7 @@
     <string name="AccountLockedFragment__your_account_has_been_locked_to_protect_your_privacy">Ваша учётная запись была заблокирована, чтобы защитить вашу конфиденциальность и безопасность. Если в течение %1$d дней эта учётная запись не будет активна, вы сможете зарегистрировать этот номер телефона заново без ввода PIN-кода. Всё содержимое будет стёрто.</string>
     <string name="AccountLockedFragment__next">Далее</string>
     <string name="AccountLockedFragment__learn_more">Узнать больше</string>
-  <!-- Removed by excludeNonTranslatables <string name="AccountLockedFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+    <string name="AccountLockedFragment__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
 
     <!-- KbsLockFragment -->
     <string name="RegistrationLockFragment__enter_your_pin">Введите свой PIN-код</string>
@@ -5766,9 +5774,9 @@
     <string name="payment_info_card_with_a_high_balance">Так как у вас большой баланс, возможно, вы захотите обновить свой PIN-код на буквенно-цифровой, чтобы лучше защитить свою учётную запись.</string>
     <string name="payment_info_card_update_pin">Обновить PIN-код</string>
 
-  <!-- Removed by excludeNonTranslatables <string name="payment_info_card__learn_more__about_mobilecoin" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_which_ones</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="payment_info_card__learn_more__adding_to_your_wallet" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="payment_info_card__learn_more__cashing_out" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_to_exchange</string> -->
+    <string name="payment_info_card__learn_more__about_mobilecoin" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_which_ones</string>
+    <string name="payment_info_card__learn_more__adding_to_your_wallet" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_from_exchange</string>
+    <string name="payment_info_card__learn_more__cashing_out" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_transfer_to_exchange</string>
 
     <!-- DeactivateWalletFragment -->
     <string name="DeactivateWalletFragment__deactivate_wallet">Деактивировать кошелёк</string>
@@ -5780,7 +5788,7 @@
     <string name="DeactivateWalletFragment__deactivate_without_transferring_question">Деактивировать без перевода?</string>
     <string name="DeactivateWalletFragment__your_balance_will_remain">Ваши средства останутся в вашем кошельке, привязанном к Molly, и вы сможете их использовать, если позже снова активируете платежи.</string>
     <string name="DeactivateWalletFragment__error_deactivating_wallet">Ошибка деактивации кошелька.</string>
-  <!-- Removed by excludeNonTranslatables <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string> -->
+    <string name="DeactivateWalletFragment__learn_more__we_recommend_transferring_your_funds" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_deactivate</string>
 
     <!-- PaymentsRecoveryStartFragment -->
     <string name="PaymentsRecoveryStartFragment__recovery_phrase">Фраза восстановления</string>
@@ -5818,8 +5826,8 @@
     <string name="PaymentsRecoveryPasteFragment__invalid_recovery_phrase">Недействительная фраза восстановления</string>
     <string name="PaymentsRecoveryPasteFragment__make_sure">Убедитесь, что вы ввели %1$d слов, и попробуйте ещё раз.</string>
 
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsRecoveryStartFragment__learn_more__view" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_view_passphrase</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="PaymentsRecoveryStartFragment__learn_more__restore" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_restore_passphrase</string> -->
+    <string name="PaymentsRecoveryStartFragment__learn_more__view" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_view_passphrase</string>
+    <string name="PaymentsRecoveryStartFragment__learn_more__restore" translatable="false">https://support.signal.org/hc/articles/360057625692#payments_wallet_restore_passphrase</string>
 
     <!-- PaymentsRecoveryPhraseFragment -->
     <string name="PaymentsRecoveryPhraseFragment__next">Далее</string>
@@ -5864,7 +5872,7 @@
     <string name="GroupsInCommonMessageRequest__none_of_your_contacts_or_people_you_chat_with_are_in_this_group">Никого из ваших контактов или людей, с которыми вы общаетесь, нет в этой группе. Внимательно проверяйте запросы перед тем, как принимать их, чтобы избежать нежелательных сообщений.</string>
     <string name="GroupsInCommonMessageRequest__about_message_requests">О запросах на общение</string>
     <string name="GroupsInCommonMessageRequest__okay">Хорошо</string>
-  <!-- Removed by excludeNonTranslatables <string name="GroupsInCommonMessageRequest__support_article" translatable="false">https://support.signal.org/hc/articles/360007459591</string> -->
+    <string name="GroupsInCommonMessageRequest__support_article" translatable="false">https://support.signal.org/hc/articles/360007459591</string>
     <string name="ChatColorSelectionFragment__heres_a_preview_of_the_chat_color">Это предпросмотр цвета чата.</string>
     <string name="ChatColorSelectionFragment__the_color_is_visible_to_only_you">Этот цвет виден только вам.</string>
 
@@ -6262,7 +6270,7 @@
     <!-- Alert dialog button to cancel the dialog -->
 
     <!-- AdvancedPrivacySettingsFragment -->
-  <!-- Removed by excludeNonTranslatables <string name="AdvancedPrivacySettingsFragment__sealed_sender_link" translatable="false">https://signal.org/blog/sealed-sender</string> -->
+    <string name="AdvancedPrivacySettingsFragment__sealed_sender_link" translatable="false">https://signal.org/blog/sealed-sender</string>
     <string name="AdvancedPrivacySettingsFragment__show_status_icon">Показывать значок статуса</string>
     <string name="AdvancedPrivacySettingsFragment__show_an_icon">Показывать значок в «Подробностях сообщения», если сообщение было доставлено с использованием запечатанного отправителя.</string>
 
@@ -6429,8 +6437,8 @@
     <string name="ConversationSettingsFragment__disappearing_messages">Исчезающие сообщения</string>
     <string name="ConversationSettingsFragment__sounds_and_notifications">Звуки и уведомления</string>
     <!-- Label for the starred messages option in conversation settings -->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__starred_messages" translatable="false">Starred messages</string> -->
-  <!-- Removed by excludeNonTranslatables <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string> -->
+    <string name="ConversationSettingsFragment__starred_messages" translatable="false">Starred messages</string>
+    <string name="ConversationSettingsFragment__internal_details" translatable="false">Internal details</string>
     <string name="ConversationSettingsFragment__contact_details">Информация в контактах телефона</string>
     <string name="ConversationSettingsFragment__view_safety_number">Просмотреть код безопасности</string>
     <string name="ConversationSettingsFragment__block">Заблокировать</string>
@@ -7294,39 +7302,39 @@
 
     <!-- StoryArchive -->
     <!-- Title for the story archive screen -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__story_archive" translatable="false">Story archive (Labs)</string> -->
+    <string name="StoryArchive__story_archive" translatable="false">Story archive (Labs)</string>
     <!-- Section header in story settings -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__archive" translatable="false">Archive</string> -->
+    <string name="StoryArchive__archive" translatable="false">Archive</string>
     <!-- Label for switch to enable story archiving -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_in_archive" translatable="false">Keep stories in archive</string> -->
+    <string name="StoryArchive__keep_stories_in_archive" translatable="false">Keep stories in archive</string>
     <!-- Description for the archive toggle -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__save_stories_after_they_expire" translatable="false">Save your sent stories after they leave the active feed.</string> -->
+    <string name="StoryArchive__save_stories_after_they_expire" translatable="false">Save your sent stories after they leave the active feed.</string>
     <!-- Label for archive duration preference -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__keep_stories_for" translatable="false">Keep stories for</string> -->
+    <string name="StoryArchive__keep_stories_for" translatable="false">Keep stories for</string>
     <!-- Archive duration option: forever -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__forever" translatable="false">Forever</string> -->
+    <string name="StoryArchive__forever" translatable="false">Forever</string>
     <!-- Archive duration option: 1 year -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__1_year" translatable="false">1 year</string> -->
+    <string name="StoryArchive__1_year" translatable="false">1 year</string>
     <!-- Archive duration option: 6 months -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__6_months" translatable="false">6 months</string> -->
+    <string name="StoryArchive__6_months" translatable="false">6 months</string>
     <!-- Archive duration option: 30 days -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__30_days" translatable="false">30 days</string> -->
+    <string name="StoryArchive__30_days" translatable="false">30 days</string>
     <!-- Empty state title when no archived stories exist -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories" translatable="false">No archived stories</string> -->
+    <string name="StoryArchive__no_archived_stories" translatable="false">No archived stories</string>
     <!-- Empty state message when no archived stories exist -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__no_archived_stories_message" translatable="false">Turn on \"Save Stories to Archive\" in story settings to auto-archive your stories.</string> -->
+    <string name="StoryArchive__no_archived_stories_message" translatable="false">Turn on \"Save Stories to Archive\" in story settings to auto-archive your stories.</string>
     <!-- Empty state button to navigate to story settings -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__go_to_settings" translatable="false">Go to settings</string> -->
+    <string name="StoryArchive__go_to_settings" translatable="false">Go to settings</string>
     <!-- Label for sort order menu -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__sort_by" translatable="false">Sort by</string> -->
+    <string name="StoryArchive__sort_by" translatable="false">Sort by</string>
     <!-- Sort order option: newest first -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__newest" translatable="false">Newest</string> -->
+    <string name="StoryArchive__newest" translatable="false">Newest</string>
     <!-- Sort order option: oldest first -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__oldest" translatable="false">Oldest</string> -->
+    <string name="StoryArchive__oldest" translatable="false">Oldest</string>
     <!-- Delete action in story archive multi-select bottom bar -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__delete" translatable="false">Delete</string> -->
+    <string name="StoryArchive__delete" translatable="false">Delete</string>
     <!-- Content description for selecting a story in multi-select mode -->
-  <!-- Removed by excludeNonTranslatables <string name="StoryArchive__select_story" translatable="false">Select story</string> -->
+    <string name="StoryArchive__select_story" translatable="false">Select story</string>
     <!-- Confirmation dialog body when deleting stories from archive -->
     <plurals name="StoryArchive__delete_n_stories">
         <item quantity="one">Удалить %1$d историю? Это действие необратимо.</item>
@@ -8610,6 +8618,12 @@
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
     <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Чтобы восстановить резервную копию, установите новую версию Molly. Откройте приложение и нажмите «Восстановить резервную копию», затем выберите папку резервной копии."</string>
+    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won't be included -->
+    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
+    <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
+    <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
+    <!-- Dialog action to proceed with turning on on-device backups without turning off "Optimize Signal storage" -->
+    <string name="OnDeviceBackupsScreen__continue_without_turning_off">Continue without turning off</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">Подтвердите ключ восстановления</string>
@@ -8992,13 +9006,19 @@
     <!-- Setting description for syncing automated chat limit trimming (deleting messages automatically by length or date) to linked devices -->
     <string name="ManageStorageSettingsFragment_apply_limits_description">Если эта функция включена, в соответствии с ограничениями чата также будут удаляться сообщения на связанных устройствах.</string>
     <!-- Setting section title header for storage optimization -->
-    <string name="ManageStorageSettingsFragment__on_device_storage">Molly storage</string>
+    <string name="ManageStorageSettingsFragment__on_device_storage">Хранилище Molly</string>
     <!-- Setting row title for storage optimization -->
     <string name="ManageStorageSettingsFragment__optimize_on_device_storage">Оптимизируйте хранилище Molly</string>
     <!-- Setting row explanation for storage optimization -->
     <string name="ManageStorageSettingsFragment__unused_media_will_be_offloaded">Неиспользуемые медиафайлы будут выгружены, но их можно будет загрузить из резервной копии в любое время.</string>
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">Оптимизация хранилища доступна только с платным уровнем безопасного резервного копирования Signal. Ваша подписка на резервное копирование всё ещё обрабатывается и поэтому не активна. Пожалуйста, повторите попытку позднее.</string>
+    <!-- Title of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
+    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">Media will be removed from your on-device backup</string>
+    <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
+    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
+    <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
+    <string name="ManageStorageSettingsFragment__turn_on">Turn on</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -9203,7 +9223,7 @@
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">Отключить и удалить</string>
     <!-- Text on dialog while user backup is being deleted -->
-    <string name="RemoteBackupsSettingsFragment__deleting_backup">Удаление резервной копии…</string>
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">Удаление резервной копии...</string>
     <!-- Text on dialog when user backup is deleted -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted">Резервная копия удалена</string>
     <!-- Subtitle for frequency option MANUAL for backup frequency -->
@@ -9489,13 +9509,13 @@
     <!-- Dialog title for confirming you need to disable optimized storage and download media to rotate AEP key -->
     <string name="MessageBackupsKeyRecordScreen__download_media">Загрузить медиафайлы</string>
     <!-- Dialog body for confirming you need to disable optimized storage and download media to rotate AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">To create a new recovery key, you must turn off \"Optimize Molly storage\" and wait until your media has been downloaded. When the download is complete, you can create a new key.</string>
+    <string name="MessageBackupsKeyRecordScreen__to_create_a_new_backup_key">Чтобы создать новый ключ восстановления, нужно отключить функцию «Оптимизировать хранилище Molly» и дождаться, пока ваши медиафайлы будут загружены. Когда загрузка будет завершена, вы сможете создать новый ключ.</string>
     <!-- Action label to turn off optimized storage and download media -->
     <string name="MessageBackupsKeyRecordScreen__turn_off_and_download">Отключить и загрузить</string>
     <!-- Bottom Sheet title for creating a new AEP key -->
     <string name="MessageBackupsKeyRecordScreen__create_a_new_backup_key">Создать новый ключ восстановления</string>
     <!-- Bottom Sheet body for creating a new AEP key -->
-    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Creating a new key is only necessary if someone else knows your key. You will have to re-upload your backup, including media. If you are using \"Optimize Molly storage\" you will have to download offloaded media first.</string>
+    <string name="MessageBackupsKeyRecordScreen__creating_a_new_key_is_only_necessary">Создание нового ключа необходимо только в случае, если ваш ключ стал известен кому-то ещё. Вам придётся загрузить резервную копию повторно, включая медиафайлы. Если вы используете функцию «Оптимизировать хранилище Molly», вам придётся сначала загрузить выгруженные медиафайлы.</string>
     <!-- Dialog title shown when user attempts to exit backup setup before completion -->
     <string name="MessageBackupsKeyRecordScreen__exit_backup_setup">Выйти из настройки резервного копирования?</string>
     <!-- Dialog body warning user that backup setup is incomplete -->
@@ -9713,10 +9733,10 @@
 
     <!-- Email subject when contacting support on a restore backup network issue -->
     <string name="EnterBackupKey_network_failure_support_email">Ошибка сетевого восстановления резервной копии Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string> -->
+    <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string>
     <!-- Email subject when contacting support on a permanent backup import failure -->
     <string name="EnterBackupKey_permanent_failure_support_email">Постоянный сбой восстановления резервной копии Signal Android</string>
-  <!-- Removed by excludeNonTranslatables <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
+    <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string>
 
     <!-- EnterLocalBackupKeyScreen: Screen title for entering recovery key for local backup restore -->
     <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">Введите ключ восстановления</string>
@@ -9847,7 +9867,7 @@
     <!-- Email subject when contacting support on a create backup failure -->
     <string name="BackupAlertBottomSheet_network_failure_support_email">Ошибка сетевого экспорта резервной копии Signal Android</string>
     <!-- Email filter when contacting support on a create backup failure -->
-  <!-- Removed by excludeNonTranslatables <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string> -->
+    <string name="BackupAlertBottomSheet_export_failure_filter" translatable="false">Android SignalBackups Export Failed</string>
 
     <!-- Title of dialog asking to submit debuglogs -->
     <string name="ContactSupportDialog_submit_debug_log">Отправить журналы отладки?</string>
@@ -9950,26 +9970,26 @@
     <!-- Accessibility label for more options button in MainToolbar -->
     <string name="MainToolbar__proxy_content_description">Прокси</string>
     <!-- Accessibility label for search filter button in MainToolbar -->
-  <!-- Removed by excludeNonTranslatables <string name="MainToolbar__search_filter_content_description" translatable="false">Search filter</string> -->
+    <string name="MainToolbar__search_filter_content_description" translatable="false">Search filter</string>
 
     <!-- SearchFilterBottomSheet: Title -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__filter_search" translatable="false">Filter search</string> -->
+    <string name="SearchFilterBottomSheet__filter_search" translatable="false">Filter search</string>
     <!-- SearchFilterBottomSheet: Start date label -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__start_date" translatable="false">Start date</string> -->
+    <string name="SearchFilterBottomSheet__start_date" translatable="false">Start date</string>
     <!-- SearchFilterBottomSheet: End date label -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__end_date" translatable="false">End date</string> -->
+    <string name="SearchFilterBottomSheet__end_date" translatable="false">End date</string>
     <!-- SearchFilterBottomSheet: Author label -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__author" translatable="false">Author</string> -->
+    <string name="SearchFilterBottomSheet__author" translatable="false">Author</string>
     <!-- SearchFilterBottomSheet: Placeholder for unset date -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__not_set" translatable="false">Not set</string> -->
+    <string name="SearchFilterBottomSheet__not_set" translatable="false">Not set</string>
     <!-- SearchFilterBottomSheet: Placeholder for unset author -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__anyone" translatable="false">Anyone</string> -->
+    <string name="SearchFilterBottomSheet__anyone" translatable="false">Anyone</string>
     <!-- SearchFilterBottomSheet: Apply button -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__apply" translatable="false">Apply</string> -->
+    <string name="SearchFilterBottomSheet__apply" translatable="false">Apply</string>
     <!-- SearchFilterBottomSheet: Clear button -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__clear" translatable="false">Clear</string> -->
+    <string name="SearchFilterBottomSheet__clear" translatable="false">Clear</string>
     <!-- SearchFilterBottomSheet: Select date dialog title -->
-  <!-- Removed by excludeNonTranslatables <string name="SearchFilterBottomSheet__select_date" translatable="false">Select date</string> -->
+    <string name="SearchFilterBottomSheet__select_date" translatable="false">Select date</string>
 
     <!-- Accessibility label for a button displayed in the toolbar to return to the previous screen. -->
     <string name="DefaultTopAppBar__navigate_up_content_description">Перейти назад</string>
@@ -10271,7 +10291,21 @@
     </plurals>
 
     <!-- Header for a section showing all group member -->
-    <string name="MemberSearchFragment__search_members">Search members</string>
+    <string name="MemberSearchFragment__search_members">Поиск участников</string>
+    <!-- Header for a section showing all group members who are contacts -->
+    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
+    <!-- Header for a section showing all group member who are admins -->
+    <string name="MemberSearchFragment__search_admins">Search admins</string>
+    <!-- Dialog title to filter search by -->
+    <string name="MemberSearchFragment__filter">Filter by</string>
+    <!-- Dialog option for all group members -->
+    <string name="MemberSearchFragment__filter_all_members">All members</string>
+    <!-- Dialog option for group admins -->
+    <string name="MemberSearchFragment__filter_admins">Admins</string>
+    <!-- Dialog option for your contacts -->
+    <string name="MemberSearchFragment__filter_contacts">Contacts</string>
+    <!-- Button to invite members via a group link -->
+    <string name="MemberSearchFragment__invite_via">Invite via group link</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">Не удаётся восстановить резервную копию</string>

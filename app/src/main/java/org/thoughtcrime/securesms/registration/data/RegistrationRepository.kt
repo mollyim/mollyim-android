@@ -146,7 +146,7 @@ object RegistrationRepository {
    * Queries, and creates if needed, the local profile key.
    */
   @JvmStatic
-  suspend fun getProfileKey(e164: String): ProfileKey = withContext(Dispatchers.IO) {
+  suspend fun getProfileKey(e164: String): ProfileKey = withContext(Dispatchers.Default) {
     // TODO [regv2]: make creation more explicit instead of hiding it in this getter
     val recipientTable = SignalDatabase.recipients
     val recipient = recipientTable.getByE164(e164)

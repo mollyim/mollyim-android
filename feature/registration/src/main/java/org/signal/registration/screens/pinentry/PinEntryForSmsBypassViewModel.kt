@@ -100,7 +100,7 @@ class PinEntryForSmsBypassViewModel(
       return state
     }
 
-    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, state.isAlphanumericKeyboard, forRegistrationLock = false)) {
+    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, forRegistrationLock = false)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[PinEntered] Successfully restored master key from SVR.")
         parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(result.result.masterKey))
@@ -151,7 +151,8 @@ class PinEntryForSmsBypassViewModel(
     return when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, registrationLock, skipDeviceTransfer = true)) {
       is RequestResult.Success -> {
         repository.enqueueSvrResetGuessCountJob()
-        repository.finishRegistrationOrCreateProfile(parentEventEmitter)
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         state
       }
       is RequestResult.RetryableNetworkError -> {

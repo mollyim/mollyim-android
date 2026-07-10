@@ -91,6 +91,11 @@ public class RefreshAttributesJob extends BaseJob {
       return;
     }
 
+    if (TextSecurePreferences.isUnauthorizedReceived(context)) {
+      Log.i(TAG, "No longer authorized. Ignoring.");
+      return;
+    }
+
     if (!forced && hasRefreshedThisAppCycle) {
       Log.d(TAG, "Already refreshed this app cycle. Skipping.");
       return;

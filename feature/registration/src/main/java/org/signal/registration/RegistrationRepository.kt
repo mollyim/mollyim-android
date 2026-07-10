@@ -13,7 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.Json
 import okio.ByteString.Companion.toByteString
 import org.signal.archive.LocalBackupRestoreProgress
@@ -93,6 +95,19 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     )
   }
 
+  /**
+   * Starts the Play Services SMS retriever so an incoming verification code can be automatically entered.
+   *
+   * The listener [lives for 5 minutes](https://developers.google.com/android/reference/com/google/android/gms/auth/api/phone/SmsRetrieverApi).
+   * Callers should pass the result as `smsAutoRetrieveCodeSupported` when requesting a code so the server formats the
+   * SMS for retrieval.
+   *
+   * @return whether the Play Services SMS retriever was successfully started.
+   */
+  suspend fun registerSmsListener(): Boolean {
+    return false  // MOLLY: TODO
+  }
+
   fun getCaptchaUrl(): String = networkController.getCaptchaUrl()
 
   suspend fun submitCaptchaToken(
@@ -165,7 +180,6 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   suspend fun restoreMasterKeyFromSvr(
     svrCredentials: SvrCredentials,
     pin: String,
-    isAlphanumeric: Boolean,
     forRegistrationLock: Boolean
   ): RequestResult<MasterKeyResponse, RestoreMasterKeyError> = withContext(Dispatchers.IO) {
     networkController.restoreMasterKeyFromSvr(
@@ -263,8 +277,24 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * Starts a provisioning session for QR-based device linking.
    * See [NetworkController.startLinkDeviceProvisioning].
    */
-  fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> {
-    return networkController.startLinkDeviceProvisioning()
+  fun startLinkDeviceProvisioning(): Flow<NetworkController.LinkDeviceProvisioningEvent> = flow {
+    emitAll(networkController.startLinkDeviceProvisioning(allowLinkAndSync = isCleanStart()))
+  }
+
+  /**
+   * True if this device is linked to a different account (different ACI) than the one advertised in
+   * [message]. Returns false for a fresh (never-registered) device.
+   */
+  suspend fun isProvisioningForDifferentAccount(message: NetworkController.LinkDeviceProvisioningMessage): Boolean {
+    val previousAci = storageController.getPreExistingRegistrationData()?.aci ?: return false
+    return previousAci != ACI.parseOrThrow(message.aci)
+  }
+
+  /**
+   * True if this device has no pre-existing registration (a fresh, never-registered device).
+   */
+  suspend fun isCleanStart(): Boolean {
+    return storageController.getPreExistingRegistrationData() == null
   }
 
   /**
@@ -601,41 +631,9 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * The work continues in the background even if [timeout] elapses. See [NetworkController.restoreAccountRecord].
    */
   suspend fun restoreAccountRecord(
-    timeout: Duration
+    timeout: Duration = 10.seconds
   ): RequestResult<Unit, NetworkController.RestoreAccountRecordError> = withContext(Dispatchers.IO) {
     networkController.restoreAccountRecord(timeout)
-  }
-
-  /**
-   * Best-effort restore the AccountRecord (when local profile data is incomplete) and then signal
-   * registration completion on [parentEventEmitter]. The Profile screen is intentionally not
-   * routed to from here for now — even when the restore doesn't fully populate profile data, we
-   * emit [RegistrationFlowEvent.RegistrationComplete].
-   *
-   * Intended for any screen that, in the legacy flow, would have signalled "we're done". Pre-
-   * existing-data callers (re-registration, device transfer, backup restore) won't pay the
-   * restore-record cost.
-   */
-  suspend fun finishRegistrationOrCreateProfile(
-    parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    restoreTimeout: Duration = 10.seconds
-  ) {
-    if (hasProfileNameAndAvatar()) {
-      Log.i(TAG, "[finishRegistrationOrCreateProfile] Profile name + avatar already on disk; finishing.")
-      parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
-      return
-    }
-
-    Log.i(TAG, "[finishRegistrationOrCreateProfile] Profile data incomplete; attempting best-effort account-record restore (timeout=${restoreTimeout.inWholeSeconds}s).")
-    restoreAccountRecord(restoreTimeout)
-
-    Log.i(TAG, "[finishRegistrationOrCreateProfile] Account-record restore finished; finishing without routing to Profile screen.")
-    parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
-  }
-
-  private suspend fun hasProfileNameAndAvatar(): Boolean {
-    val stored = getStoredProfileData()
-    return stored.givenName.isNotEmpty() && stored.avatar != null
   }
 
   /**
@@ -706,7 +704,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * and commits it. The app translates this into its own restore-decision state so the rest of the app knows what
    * happened during registration.
    */
-  suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.IO) {
+  suspend fun setRestoreDecision(decision: RestoreDecision): Unit = withContext(Dispatchers.Default) {
     Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
     storageController.setRestoreDecision(decision)
   }
@@ -767,6 +765,22 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
+   * Deletes all in-progress registration data. Called once registration is fully complete, so the scratch data is
+   * never reused by a later flow.
+   */
+  suspend fun clearInProgressRegistrationData() = withContext(Dispatchers.IO) {
+    storageController.clearAllData()
+  }
+
+  /**
+   * The time the in-progress registration data was last written, as epoch milliseconds, or null if nothing has been
+   * written yet. Read from the in-progress data's `lastUpdatedMillis`, which is stamped on every write.
+   */
+  suspend fun getInProgressRegistrationDataLastUpdated(): Long? = withContext(Dispatchers.IO) {
+    storageController.readInProgressRegistrationData().lastUpdatedMillis.takeIf { it > 0 }
+  }
+
+  /**
    * Clears any persisted flow state JSON from the in-progress registration data.
    */
   suspend fun clearFlowState() = withContext(Dispatchers.IO) {
@@ -817,6 +831,10 @@ class RegistrationRepository(val context: Context, val networkController: Networ
 
   suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: NetworkController.GetBackupInfoResponse): RequestResult<Long, NetworkController.GetBackupInfoError> = withContext(Dispatchers.IO) {
     networkController.getBackupFileLastModified(aep, backupInfo)
+  }
+
+  suspend fun verifyBackupKeyAssociatedWithAccount(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.VerifyBackupKeyError> = withContext(Dispatchers.IO) {
+    networkController.verifyBackupKeyAssociatedWithAccount(aep)
   }
 
   fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress> {
