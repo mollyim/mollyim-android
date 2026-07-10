@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string>
-    <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Ņem privātumu savās rokās.\nKatrā rakstītajā ziņā esi tu pats!</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
@@ -92,7 +92,7 @@
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Pārāk daudz mēģinājumu. Mēģiniet vēlreiz pēc %1$s.</string>
     <!-- Snackbar shown when rate limited without a specific retry duration -->
-    <string name="VerificationCodeScreen__too_many_attempts">Too many attempts. Please try again later.</string>
+    <string name="VerificationCodeScreen__too_many_attempts">Pārāk daudz mēģinājumu. Lūdzu, vēlāk mēģiniet vēlreiz.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">Radās neparedzēta kļūda. Lūdzu, mēģiniet vēlreiz.</string>
     <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
@@ -104,19 +104,19 @@
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">Radušās problēmas?</string>
     <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_title">Having trouble registering?</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">Vai jums ir problēmas ar reģistrāciju?</string>
     <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Make sure your phone has a cellular signal to receive your SMS or call\n • Confirm you can receive a phone call to the number\n • Check that you have entered your phone number correctly.</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Pārbaudiet, vai tālrunim ir mobilā tīkla signāls, lai saņemtu īsziņu vai zvanu \n • Pārbaudiet, vai varat uz šo numuru saņemt tālruņa zvanu\n • Pārbaudiet, vai esat pareizi ievadījis tālruņa numuru.</string>
     <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">For more information, please follow %1$s or %2$s</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">Lai iegūtu plašāku informāciju, dodieties uz %1$s vai %2$s</string>
     <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">these troubleshooting steps</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">šīs problēmu novēršanas darbības</string>
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Contact Support</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Sazināties ar atbalstu</string>
     <!-- Email subject used when contacting support from the verification code screen -->
-    <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
-    <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string>
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -172,7 +172,7 @@
     <!-- Subtitle for the choose backup folder card -->
     <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Atlasiet mapi ierīcē, kurā glabājas rezerves kopija</string>
     <!-- Text shown while scanning for backups -->
-    <string name="LocalBackupRestoreScreen__scanning_folder">Meklē rezerves kopijas...</string>
+    <string name="LocalBackupRestoreScreen__scanning_folder">Meklē rezerves kopijas…</string>
     <!-- Description shown when a backup is found -->
     <string name="LocalBackupRestoreScreen__backup_found_description">Atjaunojiet ziņas no rezerves kopijas mapes, ko saglabājāt savā ierīcē. Ja neatjaunosiet tagad, vēlāk atjaunošanu veikt nevarēs.</string>
     <!-- Title for the latest backup card -->
@@ -221,7 +221,7 @@
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">Aizpildīt no paroļu pārvaldnieka</string>
     <!-- Text shown while preparing the restore -->
-    <string name="LocalBackupRestoreScreen__preparing_restore">Sagatavo atjaunošanu...</string>
+    <string name="LocalBackupRestoreScreen__preparing_restore">Sagatavo atjaunošanu…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">Rezerves kopiju atjaunošana</string>
     <!-- Description shown while restore is in progress -->
@@ -285,13 +285,13 @@
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">Sazināties ar atbalstu</string>
     <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
-    <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string>
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">Rezerves kopija tiek lejupielādēta…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
     <string name="RemoteRestoreScreen__restoring_messages">Ziņas tiek atjaunotas…</string>
     <!-- Shown while finalizing the restore -->
-    <string name="RemoteRestoreScreen__finishing_restore">Notiek pabeigšana...</string>
+    <string name="RemoteRestoreScreen__finishing_restore">Notiek pabeigšana…</string>
     <!-- Shown as a generic restoring message -->
     <string name="RemoteRestoreScreen__restoring">Notiek atjaunošana…</string>
     <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
@@ -311,7 +311,7 @@
     <!-- Step 3 to quick restore -->
     <string name="QuickRestoreQRScreen__step_3">Noskenējiet šo kodu ar kameru.</string>
     <!-- Loading dialog text when registering -->
-    <string name="QuickRestoreQRScreen__reregister">Notiek reģistrācija...</string>
+    <string name="QuickRestoreQRScreen__reregister">Notiek reģistrācija…</string>
     <!-- Error message text shown if registering fails -->
     <string name="QuickRestoreQRScreen__error">Reģistrācijas laikā radās kļūda</string>
     <!-- Title for quick restoring -->
@@ -367,7 +367,7 @@
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
     <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
-    <string name="PinCreationScreen__network_error">Encountered a network error.</string>
+    <string name="PinCreationScreen__network_error">Tīkla kļūda.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
     <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
 
@@ -404,7 +404,7 @@
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">Sazināties ar atbalstu</string>
     <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
-    <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string>
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">Atļaut paziņojumus</string>
@@ -418,13 +418,13 @@
     <!-- Title shown while messages are syncing from the primary device -->
     <string name="MessageSyncScreen__syncing_messages">Notiek ziņu sinhronizēšana</string>
     <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
-    <string name="MessageSyncScreen__this_may_take_a_few_minutes">Process var ilgt dažas minūtes...</string>
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">Process var ilgt dažas minūtes…</string>
     <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
     <string name="MessageSyncScreen__downloading_s_of_s">Lejupielādē: %1$s no %2$s</string>
     <!-- Progress label shown under the sync progress bar before the download size is known -->
-    <string name="MessageSyncScreen__preparing">Sagatavo...</string>
+    <string name="MessageSyncScreen__preparing">Sagatavo…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
-    <string name="MessageSyncScreen__finishing">Notiek pabeigšana...</string>
+    <string name="MessageSyncScreen__finishing">Notiek pabeigšana…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Ziņas un sarunu informāciju aizsargā pilnīga šifrēšana, tostarp sinhronizēšanas process.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -436,7 +436,7 @@
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
     <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
     <!-- Button that retries the failed message restore -->
-    <string name="MessageSyncScreen__try_again">Try again</string>
+    <string name="MessageSyncScreen__try_again">Mēģiniet vēlreiz</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
     <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
 
@@ -465,7 +465,7 @@
     <!-- Progress dialog message shown while this device is being registered as a linked device -->
     <string name="LinkAccountScreen__linking_device">Notiek ierīces piesaistīšana…</string>
     <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
-    <string name="LinkAccountScreen__waiting_for_your_other_device">Gaida jūsu otro ierīci...</string>
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Gaida jūsu otro ierīci…</string>
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">Saistot šo ierīci, radās kļūda</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
@@ -485,11 +485,11 @@
     <!-- Device transfer: Setup screen -->
     <string name="DeviceTransferSetup__preparing_to_connect">Gatavojas savienojuma izveidei ar veco Android ierīci…</string>
     <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Tas var aizņemt kādu brīdi. Drīz būs galā.</string>
-    <string name="DeviceTransferSetup__waiting_for_old_device">Gaida savienojumu ar veco ierīci...</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Gaida savienojumu ar veco ierīci…</string>
     <string name="DeviceTransferSetup__verify_numbers_match">Pārbaudiet, vai cipari abās ierīcēs sakrīt</string>
     <string name="DeviceTransferSetup__numbers_match">Jā, cipari sakrīt</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Numuri nesakrīt</string>
-    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Gaida vecās ierīces verifikāciju...</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Gaida vecās ierīces verifikāciju…</string>
     <string name="DeviceTransferSetup__location_permission_required">Lietotnei Signal ir nepieciešama atrašanās vietas noteikšanas atļauja, lai atrastu veco ierīci un izveidotu ar to savienojumu.</string>
     <string name="DeviceTransferSetup__grant_location_permission">Piešķirt piekļuvi</string>
     <string name="DeviceTransferSetup__location_services_required">Lietotnē Signal ir jābūt iespējotiem atrašanās vietas pakalpojumiem, lai atrastu veco ierīci un izveidotu ar to savienojumu.</string>
