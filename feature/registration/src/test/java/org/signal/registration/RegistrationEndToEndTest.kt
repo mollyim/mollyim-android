@@ -15,10 +15,13 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.SavedStateHandle
@@ -343,6 +346,116 @@ class RegistrationEndToEndTest {
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `restoring a local backup without a pin after registering requires creating a pin`() {
+    val aep = AccountEntropyPool.generate()
+
+    networkController.onRegisterAccount = { request ->
+      RequestResult.Success(networkController.registerAccountResponse(request.e164, reregistration = true))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(folderPickerResult = backupFolderUri, onRegistrationComplete = { registrationComplete = true })
+
+    submitPhoneNumber()
+    submitVerificationCode(VERIFICATION_CODE)
+
+    // The user is re-registering, so they're offered a restore
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    restoreLocalBackup(aep)
+
+    // The backup had no PIN and the account is not storage capable, so the user must create a PIN
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+    assert(networkController.lastSetPinRequest?.pin == PIN) { "Expected pin $PIN on SVR but was ${networkController.lastSetPinRequest?.pin}" }
+  }
+
+  @Test
+  fun `entering an incorrect aep for a remote restore shows an error and allows retrying`() {
+    val correctAep = AccountEntropyPool.generate()
+    val wrongAep = AccountEntropyPool.generate()
+    val correctRecoveryPassword = correctAep.deriveMasterKey().deriveRegistrationRecoveryPassword()
+
+    networkController.onRegisterAccount = { request ->
+      if (request.recoveryPassword == correctRecoveryPassword) {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      } else {
+        RequestResult.NonSuccess(RegisterAccountError.RegistrationRecoveryPasswordIncorrect("wrong recovery password"))
+      }
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    enterPhoneNumber()
+    enterAep(wrongAep)
+
+    // The server rejects the recovery password derived from the wrong AEP, disabling submission until the key changes
+    waitFor("the incorrect AEP to be rejected") {
+      composeTestRule.onAllNodesWithTag(TestTags.ENTER_AEP_NEXT_BUTTON).fetchSemanticsNodes().firstOrNull()
+        ?.config?.getOrNull(SemanticsProperties.Disabled) != null
+    }
+    assert(networkController.lastRegisterAccountRequest?.recoveryPassword == wrongAep.deriveMasterKey().deriveRegistrationRecoveryPassword()) {
+      "Expected a registration attempt with the wrong recovery password but was ${networkController.lastRegisterAccountRequest}"
+    }
+
+    // Entering the correct AEP clears the error and the restore proceeds
+    composeTestRule.onNodeWithTag(TestTags.ENTER_AEP_INPUT).performTextClearance()
+    enterAep(correctAep)
+    startRemoteRestore()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountEntropyPool == correctAep.value) { "Expected the committed AEP to be the correct one" }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `restoring a local backup whose aep the server rejects falls back to sms verification`() {
+    val aep = AccountEntropyPool.generate()
+
+    // The AEP decrypts the backup fine, but it doesn't belong to the account for this phone number
+    networkController.onRegisterAccount = { request ->
+      if (request.recoveryPassword != null) {
+        RequestResult.NonSuccess(RegisterAccountError.RegistrationRecoveryPasswordIncorrect("wrong recovery password"))
+      } else {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      }
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(folderPickerResult = backupFolderUri, onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    enterPhoneNumber()
+    restoreLocalBackup(aep)
+
+    // The backup was restored locally, but recovery-password registration was rejected, so the flow
+    // falls back to verifying the phone number over SMS
+    submitVerificationCode(VERIFICATION_CODE)
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRegisterAccountRequest?.sessionId != null) { "Expected the final registration to use a verified session" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
 
   @Test
