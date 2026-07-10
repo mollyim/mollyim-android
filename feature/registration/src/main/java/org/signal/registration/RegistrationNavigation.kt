@@ -163,9 +163,15 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data object PinCreate : RegistrationRoute
 
   @Serializable
-  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val registeredState: RegisteredState) : RegistrationRoute {
+  @TypeParceler<AccountEntropyPool?, AccountEntropyPoolParceler>
+  data class ArchiveRestoreSelection(
+    val restoreOptions: List<ArchiveRestoreOption>,
+    val registeredState: RegisteredState,
+    @Serializable(with = AccountEntropyPoolSerializer::class) val aep: AccountEntropyPool? = null
+  ) : RegistrationRoute {
     companion object {
-      fun forQuickRestore(hasRemoteBackup: Boolean): ArchiveRestoreSelection {
+
+      fun forQuickRestore(aep: AccountEntropyPool, hasRemoteBackup: Boolean, hasPin: Boolean): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
           restoreOptions = buildList {
             if (hasRemoteBackup) {
@@ -175,7 +181,8 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             add(ArchiveRestoreOption.DeviceTransfer)
             add(ArchiveRestoreOption.None)
           },
-          registeredState = RegisteredState.NotRegistered
+          registeredState = if (hasPin) RegisteredState.RegisteredAndPinKnown else RegisteredState.RegisteredAndPinUnknown,
+          aep = aep
         )
       }
 
@@ -215,7 +222,11 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   }
 
   @Serializable
-  data class LocalBackupRestore(val isPreRegistration: Boolean) : RegistrationRoute
+  @TypeParceler<AccountEntropyPool?, AccountEntropyPoolParceler>
+  data class LocalBackupRestore(
+    val isPreRegistration: Boolean,
+    @Serializable(with = AccountEntropyPoolSerializer::class) val aep: AccountEntropyPool? = null
+  ) : RegistrationRoute
 
   @Serializable
   data object EnterLocalBackupV1Passphrase : RegistrationRoute
@@ -691,6 +702,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       factory = ArchiveRestoreSelectionViewModel.Factory(
         restoreOptions = key.restoreOptions,
         registeredState = key.registeredState,
+        knownAep = key.aep,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
@@ -729,6 +741,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent,
         isPreRegistration = key.isPreRegistration,
+        knownAep = key.aep,
         resultBus = registrationViewModel.resultBus,
         resultKey = LOCAL_BACKUP_RESTORE_RESULT
       )

@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -37,7 +38,8 @@ class ArchiveRestoreSelectionViewModel(
   private val registeredState: RegisteredState,
   private val repository: RegistrationRepository,
   parentState: StateFlow<RegistrationFlowState>,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  private val knownAep: AccountEntropyPool? = null
 ) : EventDrivenViewModel<ArchiveRestoreSelectionScreenEvents>(TAG) {
 
   companion object {
@@ -79,10 +81,13 @@ class ArchiveRestoreSelectionViewModel(
         when (event.option) {
           ArchiveRestoreOption.SignalSecureBackup -> {
             notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.REMOTE_BACKUP)
-            when (registeredState) {
-              RegisteredState.NotRegistered -> {
+            when {
+              registeredState == RegisteredState.NotRegistered -> {
                 parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
                 parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              knownAep != null -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.RemoteRestore(knownAep))
               }
               else -> {
                 parentEventEmitter.navigateTo(RegistrationRoute.EnterAepForRemoteBackupPostRegistration)
@@ -98,7 +103,7 @@ class ArchiveRestoreSelectionViewModel(
                 parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
               }
               else -> {
-                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false, aep = knownAep))
               }
             }
             state
@@ -166,12 +171,13 @@ class ArchiveRestoreSelectionViewModel(
   class Factory(
     private val restoreOptions: List<ArchiveRestoreOption>,
     private val registeredState: RegisteredState,
+    private val knownAep: AccountEntropyPool?,
     private val repository: RegistrationRepository,
     private val parentState: StateFlow<RegistrationFlowState>,
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return ArchiveRestoreSelectionViewModel(restoreOptions, registeredState, repository, parentState, parentEventEmitter) as T
+      return ArchiveRestoreSelectionViewModel(restoreOptions, registeredState, repository, parentState, parentEventEmitter, knownAep) as T
     }
   }
 }

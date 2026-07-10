@@ -41,9 +41,11 @@ import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController.MasterKeyResponse
+import org.signal.registration.NetworkController.ProvisioningEvent
 import org.signal.registration.NetworkController.RegisterAccountError
 import org.signal.registration.NetworkController.RegistrationLockResponse
 import org.signal.registration.NetworkController.RestoreMasterKeyError
+import org.signal.registration.NetworkController.RestoreMethod
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.fakes.FakeNetworkController
 import org.signal.registration.fakes.FakeStorageController
@@ -343,6 +345,139 @@ class RegistrationEndToEndTest {
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
   }
 
+  @Test
+  fun `quick restore with a remote backup completes registration`() {
+    val aep = AccountEntropyPool.generate()
+
+    // The old device scans the QR code as soon as it is shown and sends its provisioning data
+    networkController.onStartProvisioning = {
+      flowOf(
+        ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = aep, e164 = E164))
+      )
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    // Registration happens automatically with the provisioned data, landing on restore selection
+    startQuickRestore()
+
+    // The provisioned AEP is already known, so the restore starts without the user re-entering anything
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    startRemoteRestore()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastSetRestoreMethodRequest?.method == RestoreMethod.REMOTE_BACKUP) {
+      "Expected the old device to be notified of a remote backup restore but was ${networkController.lastSetRestoreMethodRequest}"
+    }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `quick restore with a local backup completes registration`() {
+    val aep = AccountEntropyPool.generate()
+
+    // The old device has no remote backup plan, so only local backup, transfer, and skip are offered
+    networkController.onStartProvisioning = {
+      flowOf(
+        ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = aep, e164 = E164, tier = null))
+      )
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(folderPickerResult = backupFolderUri, onRegistrationComplete = { registrationComplete = true })
+
+    startQuickRestore()
+
+    // The provisioned AEP decrypts the backup automatically, so only the folder needs to be picked
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    restoreFoundLocalBackup()
+
+    // The backup had no PIN in it, so the user creates one
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastSetRestoreMethodRequest?.method == RestoreMethod.LOCAL_BACKUP) {
+      "Expected the old device to be notified of a local backup restore but was ${networkController.lastSetRestoreMethodRequest}"
+    }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+  }
+
+  @Test
+  fun `quick restore can skip restoring and create a pin to complete registration`() {
+    networkController.onStartProvisioning = {
+      flowOf(
+        ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = AccountEntropyPool.generate(), e164 = E164, tier = null))
+      )
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    startQuickRestore()
+
+    // Decline the restore, confirming the skip warning. The old device did not provide a PIN, so the user creates one.
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_NONE)
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
+
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastSetRestoreMethodRequest?.method == RestoreMethod.DECLINE) {
+      "Expected the old device to be notified of the declined restore but was ${networkController.lastSetRestoreMethodRequest}"
+    }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+  }
+
+  @Test
+  fun `quick restore with a known pin can skip restoring and complete registration immediately`() {
+    networkController.onStartProvisioning = {
+      flowOf(
+        ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = AccountEntropyPool.generate(), e164 = E164, tier = null, pin = PIN))
+      )
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    startQuickRestore()
+
+    // Decline the restore. The old device provided the PIN, so registration finishes with no further input.
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_NONE)
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.pin == PIN) { "Expected the provisioned pin $PIN but was ${committed.pin}" }
+    assert(storageController.restoreDecision == RestoreDecision.SKIPPED) { "Expected SKIPPED restore decision but was ${storageController.restoreDecision}" }
+  }
+
   // -- Flow helpers: each one drives the UI from the screen the flow is currently on.
 
   /**
@@ -404,6 +539,17 @@ class RegistrationEndToEndTest {
     composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_NO_OLD_PHONE_BUTTON).performClick()
   }
 
+  /**
+   * From the Welcome screen: starts a quick restore via "restore or transfer" → "have my old phone", which shows the
+   * QR code that the (fake) old device immediately scans.
+   */
+  private fun startQuickRestore() {
+    waitForTag(TestTags.WELCOME_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON).performClick()
+    waitForTag(TestTags.WELCOME_RESTORE_HAS_OLD_PHONE_BUTTON)
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_HAS_OLD_PHONE_BUTTON).performClick()
+  }
+
   /** From the archive restore selection screen: picks the restore option with the given tag. */
   private fun chooseRestoreOption(optionTag: String) {
     waitForTag(TestTags.ARCHIVE_RESTORE_SELECTION_SCREEN)
@@ -417,12 +563,17 @@ class RegistrationEndToEndTest {
     composeTestRule.onNodeWithTag(TestTags.ENTER_AEP_NEXT_BUTTON).performClick()
   }
 
-  /** From the local backup restore screen: picks the backup folder (answered by the fake folder picker), restores the backup that is found, and decrypts it with [aep]. */
-  private fun restoreLocalBackup(aep: AccountEntropyPool) {
+  /** From the local backup restore screen: picks the backup folder (answered by the fake folder picker) and restores the backup that is found. */
+  private fun restoreFoundLocalBackup() {
     waitForTag(TestTags.LOCAL_BACKUP_RESTORE_SELECT_FOLDER_BUTTON)
     composeTestRule.onNodeWithTag(TestTags.LOCAL_BACKUP_RESTORE_SELECT_FOLDER_BUTTON).performClick()
     waitForTag(TestTags.LOCAL_BACKUP_RESTORE_RESTORE_BUTTON)
     composeTestRule.onNodeWithTag(TestTags.LOCAL_BACKUP_RESTORE_RESTORE_BUTTON).performClick()
+  }
+
+  /** [restoreFoundLocalBackup], then decrypts it by entering [aep] when prompted. */
+  private fun restoreLocalBackup(aep: AccountEntropyPool) {
+    restoreFoundLocalBackup()
     enterAep(aep)
   }
 

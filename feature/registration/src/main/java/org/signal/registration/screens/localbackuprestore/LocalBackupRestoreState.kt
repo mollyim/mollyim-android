@@ -22,7 +22,7 @@ data class LocalBackupRestoreState(
   val storageCapable: Boolean = true
 ) {
 
-  override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()})"
+  override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()}, storageCapable=$storageCapable)"
 
   enum class RestorePhase {
     /** Waiting for user to select a backup folder. */

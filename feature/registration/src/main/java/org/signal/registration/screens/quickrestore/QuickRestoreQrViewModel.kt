@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -116,7 +117,13 @@ class QuickRestoreQrViewModel(
         val (response, keyMaterial) = registerResult.result
         Log.i(TAG, "[Register] Success! reregistration: ${response.reregistration}")
         parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
-        parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forQuickRestore(hasRemoteBackup = message.tier != null))
+        parentEventEmitter.navigateTo(
+          RegistrationRoute.ArchiveRestoreSelection.forQuickRestore(
+            aep = AccountEntropyPool(message.accountEntropyPool),
+            hasRemoteBackup = message.tier != null,
+            hasPin = !message.pin.isNullOrBlank()
+          )
+        )
       }
       is RequestResult.NonSuccess -> {
         when (val error = registerResult.error) {

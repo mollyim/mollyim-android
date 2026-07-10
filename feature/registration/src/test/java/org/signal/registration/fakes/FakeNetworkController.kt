@@ -6,9 +6,11 @@
 package org.signal.registration.fakes
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.registration.LinkAndSyncWaitResult
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.AccountAttributes
@@ -26,6 +28,7 @@ import org.signal.registration.NetworkController.LinkDeviceResponse
 import org.signal.registration.NetworkController.MasterKeyResponse
 import org.signal.registration.NetworkController.PreKeyCollection
 import org.signal.registration.NetworkController.ProvisioningEvent
+import org.signal.registration.NetworkController.ProvisioningMessage
 import org.signal.registration.NetworkController.RegisterAccountError
 import org.signal.registration.NetworkController.RegisterAccountResponse
 import org.signal.registration.NetworkController.RegisterAsLinkedDeviceError
@@ -74,6 +77,7 @@ class FakeNetworkController(
   data class RegisterAccountRequest(val e164: String, val sessionId: String?, val recoveryPassword: String?, val registrationLock: String?)
   data class SetPinRequest(val pin: String, val masterKey: MasterKey)
   data class RestoreMasterKeyRequest(val svrCredentials: SvrCredentials, val pin: String)
+  data class SetRestoreMethodRequest(val token: String, val method: RestoreMethod)
 
   // -- Recorded requests, populated regardless of which handler serves them.
 
@@ -90,6 +94,8 @@ class FakeNetworkController(
   var lastSetPinRequest: SetPinRequest? = null
     private set
   var lastRestoreMasterKeyRequest: RestoreMasterKeyRequest? = null
+    private set
+  var lastSetRestoreMethodRequest: SetRestoreMethodRequest? = null
     private set
   var accountAttributesSyncJobEnqueued = false
     private set
@@ -168,6 +174,18 @@ class FakeNetworkController(
     RequestResult.Success(Unit)
   }
 
+  /**
+   * By default a QR code is shown but no old device ever scans it. Quick-restore tests should override this to also
+   * emit [ProvisioningEvent.MessageReceived] with a [provisioningMessage], simulating the old device scanning the code.
+   */
+  var onStartProvisioning: () -> Flow<ProvisioningEvent> = {
+    flowOf(ProvisioningEvent.QrCodeReady("https://signal.test/qr"))
+  }
+
+  var onSetRestoreMethod: suspend (SetRestoreMethodRequest) -> RequestResult<Unit, SetRestoreMethodError> = {
+    RequestResult.Success(Unit)
+  }
+
   // -- Response factories with happy-path defaults, for handlers that only want to tweak a field or two.
 
   fun session(
@@ -186,6 +204,32 @@ class FakeNetworkController(
       allowedToRequestCode = allowedToRequestCode,
       requestedInformation = requestedInformation,
       verified = verified
+    )
+  }
+
+  /**
+   * The data an old device sends after scanning the quick-restore QR code. [tier] describes the old device's backup
+   * plan; null means it has no remote backup.
+   */
+  fun provisioningMessage(
+    aep: AccountEntropyPool,
+    e164: String,
+    tier: ProvisioningMessage.Tier? = ProvisioningMessage.Tier.PAID,
+    pin: String? = null,
+    restoreMethodToken: String = "restore-method-token"
+  ): ProvisioningMessage {
+    return ProvisioningMessage(
+      accountEntropyPool = aep.value,
+      e164 = e164,
+      pin = pin,
+      aciIdentityKeyPair = IdentityKeyPair.generate(),
+      pniIdentityKeyPair = IdentityKeyPair.generate(),
+      platform = ProvisioningMessage.Platform.ANDROID,
+      tier = tier,
+      backupTimestampMs = 1_700_000_000_000,
+      backupSizeBytes = 1024,
+      restoreMethodToken = restoreMethodToken,
+      backupVersion = 1
     )
   }
 
@@ -304,7 +348,9 @@ class FakeNetworkController(
     return onVerifyBackupKey(aep)
   }
 
-  override fun startProvisioning(): Flow<ProvisioningEvent> = notExpected()
+  override fun startProvisioning(): Flow<ProvisioningEvent> {
+    return onStartProvisioning()
+  }
 
   override fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<LinkDeviceProvisioningEvent> = notExpected()
 
@@ -326,7 +372,11 @@ class FakeNetworkController(
 
   override fun startNewDeviceTransferServer(context: android.content.Context, aep: AccountEntropyPool) = notExpected()
 
-  override suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError> = notExpected()
+  override suspend fun setRestoreMethod(token: String, method: RestoreMethod): RequestResult<Unit, SetRestoreMethodError> {
+    val request = SetRestoreMethodRequest(token, method)
+    lastSetRestoreMethodRequest = request
+    return onSetRestoreMethod(request)
+  }
 
   override suspend fun restoreAccountRecord(timeout: Duration): RequestResult<Unit, RestoreAccountRecordError> {
     return onRestoreAccountRecord()
