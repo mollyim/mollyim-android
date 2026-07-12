@@ -1368,10 +1368,6 @@
             android:exported="false"
             android:foregroundServiceType="dataSync|microphone|camera|phoneCall|mediaProjection" />
 
-        <service
-            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
-            tools:node="remove" />
-
         <!-- ======================================= -->
         <!-- Receivers                               -->
         <!-- ======================================= -->

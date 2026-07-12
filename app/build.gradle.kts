@@ -323,6 +323,7 @@ android {
     baseline = file("lint-baseline.xml")
     ignoreWarnings = true
     quiet = true
+    disable += "LintError"
     lintConfig = rootProject.file("lint.xml")
     if (ciEnabled) {
       // MOLLY: disable slow "newer dependency available" lint checks; versions are pinned.

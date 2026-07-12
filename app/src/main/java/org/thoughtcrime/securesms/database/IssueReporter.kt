@@ -13,8 +13,8 @@ import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import im.molly.app.base.ApkInfo
 import org.signal.core.util.PendingIntentFlags
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.database.model.IssueEntry
 import org.thoughtcrime.securesms.database.model.IssuePriority
@@ -84,7 +84,7 @@ object IssueReporter {
       lastInsertTime = now
     }
 
-    requests.add(IssueRequest(now, BuildConfig.VERSION_NAME, name, description, throwable, priority, duration))
+    requests.add(IssueRequest(now, ApkInfo.versionName, name, description, throwable, priority, duration))
 
     maybeNotify(name, priority)
   }

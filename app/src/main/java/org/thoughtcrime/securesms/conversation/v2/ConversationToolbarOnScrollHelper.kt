@@ -28,14 +28,14 @@ class ConversationToolbarOnScrollHelper(
   override val activeColorSet: ColorSet
     = when {
       incognito -> ColorSet.from(activity, R.color.conversation_toolbar_color_incognito)
-      releaseNotesProvider() -> ColorSet(R.color.release_notes_toolbar_scrolled)
+      releaseNotesProvider() -> ColorSet.from(activity, R.color.release_notes_toolbar_scrolled)
       else -> ColorSet.from(activity, getActiveToolbarColor(wallpaperProvider() != null))
     }
 
   override val inactiveColorSet: ColorSet
     = when {
       incognito -> ColorSet.from(activity, R.color.conversation_toolbar_color_incognito)
-      releaseNotesProvider() -> ColorSet(R.color.release_notes_toolbar_transparent)
+      releaseNotesProvider() -> ColorSet.from(activity, R.color.release_notes_toolbar_transparent)
       else -> ColorSet.from(activity, getInactiveToolbarColor(wallpaperProvider() != null))
     }
 
