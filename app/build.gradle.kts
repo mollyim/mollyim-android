@@ -3,7 +3,6 @@ plugins {
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.licensee)
-  alias(testLibs.plugins.compose.screenshot)
   id("androidx.navigation.safeargs")
   id("kotlin-parcelize")
   id("com.squareup.wire")
@@ -63,15 +62,8 @@ wire {
   }
 }
 
-screenshotTests {
-  // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
-  imageDifferenceThreshold = 0.0001f
-}
-
 android {
   namespace = "org.thoughtcrime.securesms"
-
-  experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
   buildToolsVersion = libs.versions.buildTools.get()
   compileSdkVersion(libs.versions.compileSdk.get())
