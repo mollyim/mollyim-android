@@ -91,6 +91,11 @@ android {
 
     unitTests {
       isIncludeAndroidResources = true
+
+      // MOLLY: Reduce memory pressure by limiting the number of test classes per runner
+      all { task ->
+        task.forkEvery = 64
+      }
     }
   }
 
