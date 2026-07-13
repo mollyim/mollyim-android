@@ -53,6 +53,7 @@ import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.fakes.FakeNetworkController
 import org.signal.registration.fakes.FakeStorageController
 import org.signal.registration.fakes.SystemOutLogger
+import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.signal.registration.screens.util.MockMultiplePermissionsState
 import org.signal.registration.screens.util.MockPermissionsState
 import org.signal.registration.test.TestTags
@@ -240,6 +241,11 @@ class RegistrationEndToEndTest {
   fun `restoring a remote backup before registering completes registration`() {
     val aep = AccountEntropyPool.generate()
 
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
     var registrationComplete = false
     launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
 
@@ -259,6 +265,7 @@ class RegistrationEndToEndTest {
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one the user entered" }
+    assert(committed.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
   }
 
@@ -298,6 +305,11 @@ class RegistrationEndToEndTest {
       RequestResult.Success(networkController.registerAccountResponse(request.e164, reregistration = true))
     }
 
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
     var registrationComplete = false
     launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
 
@@ -314,7 +326,39 @@ class RegistrationEndToEndTest {
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one the user entered" }
+    assert(committed.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `restoring a remote backup without a pin after registering requires creating a pin`() {
+    val aep = AccountEntropyPool.generate()
+
+    networkController.onRegisterAccount = { request ->
+      RequestResult.Success(networkController.registerAccountResponse(request.e164, reregistration = true))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    submitPhoneNumber()
+    submitVerificationCode(VERIFICATION_CODE)
+
+    // The user is re-registering, so they're offered a restore
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    enterAep(aep)
+    startRemoteRestore()
+
+    // The restored backup had no PIN and the account is not storage capable, so the user must create a PIN
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+    assert(networkController.lastSetPinRequest?.pin == PIN) { "Expected pin $PIN on SVR but was ${networkController.lastSetPinRequest?.pin}" }
   }
 
   @Test
@@ -392,6 +436,11 @@ class RegistrationEndToEndTest {
       }
     }
 
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
     var registrationComplete = false
     launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
 
@@ -462,11 +511,12 @@ class RegistrationEndToEndTest {
   fun `quick restore with a remote backup completes registration`() {
     val aep = AccountEntropyPool.generate()
 
-    // The old device scans the QR code as soon as it is shown and sends its provisioning data
+    // The old device scans the QR code as soon as it is shown and sends its provisioning data, including the PIN,
+    // so no PIN screens are needed after the restore
     networkController.onStartProvisioning = {
       flowOf(
         ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
-        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = aep, e164 = E164))
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = aep, e164 = E164, pin = PIN))
       )
     }
 
@@ -490,6 +540,7 @@ class RegistrationEndToEndTest {
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
+    assert(committed.pin == PIN) { "Expected the provisioned pin $PIN but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
   }
 

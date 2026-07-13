@@ -22,15 +22,19 @@ import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateBack
+import org.signal.registration.screens.util.navigateTo
 import kotlin.coroutines.CoroutineContext
 
 class RemoteBackupRestoreViewModel(
   private val aep: AccountEntropyPool,
   private val repository: RegistrationRepository,
+  private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
   private val ioDispatcher: CoroutineContext = Dispatchers.IO
 ) : EventDrivenViewModel<RemoteBackupRestoreScreenEvents>(TAG) {
@@ -122,8 +126,21 @@ class RemoteBackupRestoreViewModel(
             )
             repository.persistRestoredBackupState(progress.restoredSvrPin, progress.restoredProfileKey)
             repository.setRestoreDecision(RestoreDecision.COMPLETED)
-            repository.restoreAccountRecord()
-            parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+
+            when {
+              repository.hasKnownPin() -> {
+                repository.restoreAccountRecord()
+                parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+              }
+              parentState.value.storageCapable -> {
+                Log.i(TAG, "[restoreBackup] No PIN is known and the account is storage capable. Navigating to PIN entry to restore the existing PIN.")
+                parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+              }
+              else -> {
+                Log.i(TAG, "[restoreBackup] No PIN is known and the account is not storage capable. Navigating to PIN creation.")
+                parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+              }
+            }
           }
           is RemoteBackupRestoreProgress.NetworkError -> {
             Log.w(TAG, "[restoreBackup] Remote restore failed with network error.", progress.cause)
@@ -236,10 +253,11 @@ class RemoteBackupRestoreViewModel(
   class Factory(
     private val aep: AccountEntropyPool,
     private val repository: RegistrationRepository,
+    private val parentState: StateFlow<RegistrationFlowState>,
     private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return RemoteBackupRestoreViewModel(aep, repository, parentEventEmitter) as T
+      return RemoteBackupRestoreViewModel(aep, repository, parentState, parentEventEmitter) as T
     }
   }
 }

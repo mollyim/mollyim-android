@@ -815,6 +815,14 @@ class RegistrationRepository(val context: Context, val networkController: Networ
   }
 
   /**
+   * True if a PIN is already known for this registration -- restored from a backup or provided by the old device
+   * during a quick restore -- and persisted in the in-progress registration data.
+   */
+  suspend fun hasKnownPin(): Boolean = withContext(Dispatchers.IO) {
+    storageController.readInProgressRegistrationData().pin.isNotEmpty()
+  }
+
+  /**
    * Clears any persisted flow state JSON from the in-progress registration data.
    */
   suspend fun clearFlowState() = withContext(Dispatchers.IO) {

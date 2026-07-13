@@ -15,6 +15,7 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -30,7 +31,9 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
@@ -66,10 +69,11 @@ class RemoteBackupRestoreViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun createViewModel(): RemoteBackupRestoreViewModel {
+  private fun createViewModel(storageCapable: Boolean = false): RemoteBackupRestoreViewModel {
     return RemoteBackupRestoreViewModel(
       aep = aep,
       repository = mockRepository,
+      parentState = MutableStateFlow(RegistrationFlowState(storageCapable = storageCapable)),
       parentEventEmitter = parentEventEmitter,
       ioDispatcher = testDispatcher
     )
@@ -346,10 +350,11 @@ class RemoteBackupRestoreViewModelTest {
   }
 
   @Test
-  fun `Complete progress completes registration`() = runTest(testDispatcher) {
+  fun `Complete progress with a known pin completes registration`() = runTest(testDispatcher) {
     every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
-      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = "1234", restoredProfileKey = null)
     )
+    coEvery { mockRepository.hasKnownPin() } returns true
 
     val viewModel = createViewModel()
     val initialState = RemoteBackupRestoreState(aep = aep)
@@ -362,8 +367,49 @@ class RemoteBackupRestoreViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+    coVerify { mockRepository.persistRestoredBackupState("1234", null) }
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify { mockRepository.restoreAccountRecord(any()) }
+  }
+
+  @Test
+  fun `Complete progress without a known pin navigates to pin creation when not storage capable`() = runTest(testDispatcher) {
+    every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
+    coEvery { mockRepository.hasKnownPin() } returns false
+
+    val viewModel = createViewModel(storageCapable = false)
+
+    viewModel.applyEvent(
+      RemoteBackupRestoreState(aep = aep),
+      RemoteBackupRestoreScreenEvents.BackupRestoreBackup,
+      stateEmitter
+    )
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.PinCreate))
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+  }
+
+  @Test
+  fun `Complete progress without a known pin navigates to SVR pin entry when storage capable`() = runTest(testDispatcher) {
+    every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
+    coEvery { mockRepository.hasKnownPin() } returns false
+
+    val viewModel = createViewModel(storageCapable = true)
+
+    viewModel.applyEvent(
+      RemoteBackupRestoreState(aep = aep),
+      RemoteBackupRestoreScreenEvents.BackupRestoreBackup,
+      stateEmitter
+    )
+
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents[0]).isEqualTo(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.PinEntryForSvrRestore))
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
   }
 
   @Test
@@ -464,8 +510,9 @@ class RemoteBackupRestoreViewModelTest {
       RemoteBackupRestoreProgress.Downloading(bytesDownloaded = 10, totalBytes = 100),
       RemoteBackupRestoreProgress.Restoring(bytesRead = 60, totalBytes = 100),
       RemoteBackupRestoreProgress.Finalizing,
-      RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+      RemoteBackupRestoreProgress.Complete(restoredSvrPin = "1234", restoredProfileKey = null)
     )
+    coEvery { mockRepository.hasKnownPin() } returns true
     val viewModel = createViewModel()
     val states = collectStatesOf(viewModel)
 
