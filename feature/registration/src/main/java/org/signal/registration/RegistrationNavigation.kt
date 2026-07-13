@@ -453,7 +453,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = "https://support.signal.org/hc/articles/360007320451-Troubleshooting-multiple-devices" // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/en-us/articles/360007320551"
 
     LinkAccountScreen(
       state = state,
@@ -479,7 +479,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = stringResource(R.string.terms_and_privacy_policy_url) // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/articles/360007320391"
 
     MessageSyncScreen(
       state = state,
