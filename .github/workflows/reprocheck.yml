@@ -71,7 +71,7 @@ jobs:
 
   download:
     name: Download original
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     outputs:
       apks: "${{ steps.set.outputs.apks }}"
 
