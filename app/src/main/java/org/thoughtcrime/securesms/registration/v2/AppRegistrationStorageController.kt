@@ -16,8 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okio.ByteString.Companion.toByteString
@@ -364,80 +362,100 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
   }
 
-  override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = flow {
-    // TODO [greyson] better progress
+  override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = callbackFlow {
     Log.d(TAG, "Starting V2 local backup restore from backup=$backupUri, root=$rootUri")
 
-    emit(LocalBackupRestoreProgress.Preparing)
+    trySend(LocalBackupRestoreProgress.Preparing)
 
-    try {
-      val backupDir = DocumentFile.fromTreeUri(context, backupUri)
-      if (backupDir == null || !backupDir.canRead()) {
-        emit(LocalBackupRestoreProgress.Error(IllegalStateException("Could not open backup directory")))
-        return@flow
-      }
-
-      val selfAci = SignalStore.account.aci
-      val selfPni = SignalStore.account.pni
-      val selfE164 = SignalStore.account.e164
-
-      if (selfAci == null || selfPni == null || selfE164 == null) {
-        emit(LocalBackupRestoreProgress.Error(IllegalStateException("Account not registered, cannot restore V2 backup")))
-        return@flow
-      }
-
-      val selfData = BackupRepository.SelfData(selfAci, selfPni, selfE164, ProfileKeyUtil.getSelfProfileKey())
-      val messageBackupKey = aep.deriveMessageBackupKey()
-      val snapshotFileSystem = SnapshotFileSystem(context, backupDir)
-
-      if (!LocalArchiver.canDecryptMainArchive(snapshotFileSystem, messageBackupKey)) {
-        Log.w(TAG, "V2 restore failed: recovery key cannot decrypt backup")
-        emit(LocalBackupRestoreProgress.IncorrectCredential)
-        return@flow
-      }
-
-      when (val result = LocalArchiver.import(snapshotFileSystem, selfData, messageBackupKey)) {
-        is Result.Success -> {
-          AppDependencies.jobManager.add(LocalBackupRestoreMediaJob.create(rootUri))
-
-          // Only adopt the entered recovery key as the account's AEP if the backup actually belongs to this account.
-          // Otherwise we'd overwrite the account's real AEP with a foreign backup's key. Messages are still imported.
-          val actualBackupId = LocalArchiver.getBackupId(snapshotFileSystem, messageBackupKey)
-          val expectedBackupId = SignalStore.account.accountEntropyPool.deriveMessageBackupKey().deriveBackupId(selfAci)
-          if (actualBackupId?.value?.contentEquals(expectedBackupId.value) == true) {
-            Log.i(TAG, "V2 local backup belongs to current account; adopting entered recovery key.")
-            SignalStore.account.restoreAccountEntropyPool(aep)
-            updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
-
-            // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
-            // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
-            val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
-            if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
-              val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-              context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
-              SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
-              SignalStore.backup.newLocalBackupsEnabled = true
-              LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
-              LocalBackupListener.schedule(context)
-            } else {
-              Log.w(TAG, "V2 local backup directory can't be reused as a destination; not re-enabling local backups.")
-            }
-          } else {
-            Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
-          }
-          emit(readRestoredLocalBackupState())
-          Log.d(TAG, "V2 restore complete.")
-        }
-        is Result.Failure -> {
-          Log.w(TAG, "V2 restore failed: ${result.failure}")
-          emit(LocalBackupRestoreProgress.Error(IOException("V2 restore failed: ${result.failure}")))
+    // The import posts RestoreV2Event frame-progress events as it reads through the main archive stream, tracking bytes
+    // read against the stream length. Bridge those into InProgress so the UI can show a real percentage.
+    val subscriber = object {
+      @Subscribe(threadMode = ThreadMode.POSTING)
+      fun onRestoreEvent(event: RestoreV2Event) {
+        if (event.type == RestoreV2Event.Type.PROGRESS_RESTORE) {
+          trySend(LocalBackupRestoreProgress.InProgress(bytesRead = event.count.inWholeBytes, totalBytes = event.estimatedTotalCount.inWholeBytes))
         }
       }
-    } catch (e: Exception) {
-      Log.w(TAG, "V2 restore failed", e)
-      emit(LocalBackupRestoreProgress.Error(e))
     }
-  }.flowOn(Dispatchers.IO)
+
+    EventBus.getDefault().register(subscriber)
+
+    launch(Dispatchers.IO) {
+      try {
+        val backupDir = DocumentFile.fromTreeUri(context, backupUri)
+        if (backupDir == null || !backupDir.canRead()) {
+          trySend(LocalBackupRestoreProgress.Error(IllegalStateException("Could not open backup directory")))
+          return@launch
+        }
+
+        val selfAci = SignalStore.account.aci
+        val selfPni = SignalStore.account.pni
+        val selfE164 = SignalStore.account.e164
+
+        if (selfAci == null || selfPni == null || selfE164 == null) {
+          trySend(LocalBackupRestoreProgress.Error(IllegalStateException("Account not registered, cannot restore V2 backup")))
+          return@launch
+        }
+
+        val selfData = BackupRepository.SelfData(selfAci, selfPni, selfE164, ProfileKeyUtil.getSelfProfileKey())
+        val messageBackupKey = aep.deriveMessageBackupKey()
+        val snapshotFileSystem = SnapshotFileSystem(context, backupDir)
+
+        if (!LocalArchiver.canDecryptMainArchive(snapshotFileSystem, messageBackupKey)) {
+          Log.w(TAG, "V2 restore failed: recovery key cannot decrypt backup")
+          trySend(LocalBackupRestoreProgress.IncorrectCredential)
+          return@launch
+        }
+
+        when (val result = LocalArchiver.import(snapshotFileSystem, selfData, messageBackupKey)) {
+          is Result.Success -> {
+            AppDependencies.jobManager.add(LocalBackupRestoreMediaJob.create(rootUri))
+
+            // Only adopt the entered recovery key as the account's AEP if the backup actually belongs to this account.
+            // Otherwise we'd overwrite the account's real AEP with a foreign backup's key. Messages are still imported.
+            val actualBackupId = LocalArchiver.getBackupId(snapshotFileSystem, messageBackupKey)
+            val expectedBackupId = SignalStore.account.accountEntropyPool.deriveMessageBackupKey().deriveBackupId(selfAci)
+            if (actualBackupId?.value?.contentEquals(expectedBackupId.value) == true) {
+              Log.i(TAG, "V2 local backup belongs to current account; adopting entered recovery key.")
+              SignalStore.account.restoreAccountEntropyPool(aep)
+              updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
+
+              // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
+              // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
+              val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
+              if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
+                val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
+                SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
+                SignalStore.backup.newLocalBackupsEnabled = true
+                LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
+                LocalBackupListener.schedule(context)
+              } else {
+                Log.w(TAG, "V2 local backup directory can't be reused as a destination; not re-enabling local backups.")
+              }
+            } else {
+              Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
+            }
+            trySend(readRestoredLocalBackupState())
+            Log.d(TAG, "V2 restore complete.")
+          }
+          is Result.Failure -> {
+            Log.w(TAG, "V2 restore failed: ${result.failure}")
+            trySend(LocalBackupRestoreProgress.Error(IOException("V2 restore failed: ${result.failure}")))
+          }
+        }
+      } catch (e: Exception) {
+        Log.w(TAG, "V2 restore failed", e)
+        trySend(LocalBackupRestoreProgress.Error(e))
+      } finally {
+        channel.close()
+      }
+    }
+
+    awaitClose {
+      EventBus.getDefault().unregister(subscriber)
+    }
+  }
 
   /**
    * Persists the restored backup folder as the backup directory and re-enables scheduled local backups, so the user
