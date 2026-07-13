@@ -5,28 +5,32 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   sync:
     name: Sync
-    if: "github.repository_owner == 'mollyim'"
     runs-on: ubuntu-slim
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: upstream
           fetch-depth: 0
-          token: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
+          lfs: true
+          persist-credentials: false
 
-      - name: Fetch and merge upstream
-        run: |
-          git remote add upstream https://github.com/signalapp/Signal-Android.git
-          git fetch upstream
-          git merge --ff-only upstream/main
+      - run: gh auth setup-git
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: git remote add upstream https://github.com/signalapp/Signal-Android.git
+      - run: git pull --ff-only upstream main
         env:
           GIT_LFS_SKIP_SMUDGE: 1
 
-      - name: Push changes
-        run: |
-          git push origin upstream
-          git tag | grep -xP 'v\d+(?:\.\d+){2,3}' | xargs -r git push origin
+      - run: git lfs fetch --all upstream
+      - run: git push origin upstream
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_PAT }}
