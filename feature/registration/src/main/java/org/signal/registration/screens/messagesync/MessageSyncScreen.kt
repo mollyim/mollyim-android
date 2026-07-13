@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -37,7 +38,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import org.signal.core.ui.FormFactor
 import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.assumedFormFactor
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
@@ -98,6 +101,7 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageS
           .padding(paddingValues)
       ) {
         FirstPaneContent(state)
+        Spacer(modifier = Modifier.height(16.dp))
         SecondPaneContent()
       }
     },
@@ -206,9 +210,14 @@ private fun FirstPaneContent(
 private fun SecondPaneContent(
   modifier: Modifier = Modifier
 ) {
-  // TODO [regv5] Final image asset
+  val deviceImage = when (rememberWindowBreakpoint().assumedFormFactor) {
+    FormFactor.PHONE -> R.drawable.device_phone
+    FormFactor.FOLDABLE -> R.drawable.device_foldable
+    FormFactor.TABLET -> R.drawable.device_tablet
+  }
+
   Image(
-    painter = painterResource(R.drawable.welcome),
+    painter = painterResource(deviceImage),
     contentDescription = null,
     modifier = modifier
   )
