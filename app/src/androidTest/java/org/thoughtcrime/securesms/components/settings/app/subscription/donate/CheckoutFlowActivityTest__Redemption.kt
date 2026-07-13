@@ -1,22 +1,16 @@
-/*
- * Copyright 2026 Signal Messenger, LLC
- * SPDX-License-Identifier: AGPL-3.0-only
- */
-
 package org.thoughtcrime.securesms.components.settings.app.subscription.donate
 
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import assertk.assertThat
+import assertk.assertions.isNotEmpty
 import io.mockk.unmockkObject
 import org.hamcrest.Matchers.allOf
 import org.junit.After
@@ -28,17 +22,28 @@ import org.signal.core.util.deleteAll
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
+import org.thoughtcrime.securesms.database.DonationReceiptTable
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.InAppPaymentReceiptRecord
 import org.thoughtcrime.securesms.testing.GooglePayTestRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.RxTestSchedulerRule
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.testing.actions.scrollToDescendant
+import org.thoughtcrime.securesms.testing.endpoints.MockEndpoints
+import org.thoughtcrime.securesms.testing.endpoints.registerStripeHappyPath
+import org.thoughtcrime.securesms.testing.flushUntil
 
+/**
+ * Milestone integration test: drives a Google Pay one-time donation through the entire lifecycle to
+ * receipt redemption, exercising all three outer boundaries at once — the Signal-service websocket
+ * responder (boost intent + receipt credential + redeem), the Stripe HTTP interceptor (payment
+ * method + confirm + intent status), and the test zk server (real client-side credential validation).
+ */
 @Suppress("ClassName")
 @RunWith(AndroidJUnit4::class)
-class CheckoutFlowActivityTest__OneTimeDonations {
+class CheckoutFlowActivityTest__Redemption {
   @get:Rule
   val harness = SignalActivityRule(othersCount = 10)
 
@@ -59,7 +64,10 @@ class CheckoutFlowActivityTest__OneTimeDonations {
   @Before
   fun setUp() {
     SignalDatabase.inAppPayments.writableDatabase.deleteAll(InAppPaymentTable.TABLE_NAME)
+    SignalDatabase.donationReceipts.writableDatabase.deleteAll(DonationReceiptTable.TABLE_NAME)
     startJobLoopForTests()
+    succeedDonationPermitAcquisition()
+    MockEndpoints.responder.registerStripeHappyPath()
   }
 
   @After
@@ -68,9 +76,7 @@ class CheckoutFlowActivityTest__OneTimeDonations {
   }
 
   @Test
-  fun givenPermitAcquisitionFails_whenIDonateOnce_thenIExpectPaymentSetupErrorDialog() {
-    failDonationPermitAcquisition()
-
+  fun givenAllEndpointsSucceed_whenIDonateOnceWithGooglePay_thenIExpectAReceipt() {
     val scenario = ActivityScenario.launch<CheckoutFlowActivity>(intent)
     rxRule.defaultTestScheduler.triggerActions()
 
@@ -84,7 +90,10 @@ class CheckoutFlowActivityTest__OneTimeDonations {
 
     scenario.selectGooglePay(composeRule, rxRule.defaultTestScheduler, InAppPaymentType.ONE_TIME_DONATION)
 
-    awaitDialog(rxRule.defaultTestScheduler, R.string.DonationsErrors__error_processing_payment)
-    onView(withText(R.string.DonationsErrors__your_payment)).inRoot(isDialog()).check(matches(isDisplayed()))
+    rxRule.defaultTestScheduler.flushUntil {
+      SignalDatabase.donationReceipts.getReceipts(InAppPaymentReceiptRecord.Type.ONE_TIME_DONATION).isNotEmpty()
+    }
+
+    assertThat(SignalDatabase.donationReceipts.getReceipts(InAppPaymentReceiptRecord.Type.ONE_TIME_DONATION)).isNotEmpty()
   }
 }

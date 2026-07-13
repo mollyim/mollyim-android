@@ -13,8 +13,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import io.mockk.every
-import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before
@@ -23,9 +21,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.signal.core.util.deleteAll
 import org.signal.donations.InAppPaymentType
-import org.signal.libsignal.net.RequestResult
-import org.signal.network.NetworkResult
-import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
@@ -33,19 +28,18 @@ import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
-import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.testing.GooglePayTestRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.RxTestSchedulerRule
 import org.thoughtcrime.securesms.testing.SignalActivityRule
 import org.thoughtcrime.securesms.testing.actions.scrollToDescendant
-import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
+import org.thoughtcrime.securesms.testing.endpoints.DonationResponses
+import org.thoughtcrime.securesms.testing.endpoints.MockEndpoints
+import org.thoughtcrime.securesms.testing.endpoints.failure
+import org.thoughtcrime.securesms.testing.endpoints.ok
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
-import java.math.BigDecimal
 import java.util.Currency
-import kotlin.time.Duration.Companion.days
-import kotlin.time.Duration.Companion.milliseconds
 
 @Suppress("ClassName")
 @RunWith(AndroidJUnit4::class)
@@ -153,10 +147,10 @@ class CheckoutFlowActivityTest__RecurringDonations {
 
   @Test
   fun givenSubscriptionPaymentMethodPermitRejected_whenISubscribe_thenIExpectPaymentSetupErrorDialog() {
-    AppDependencies.donationPermitsRepository.clearPermits()
-    mockkObject(DonationPermits)
-    every { DonationPermits.getDonationPermit() } returns RequestResult.Success("permit")
-    every { AppDependencies.donationsApi.createStripeSubscriptionPaymentMethod(any(), any(), any()) } returns NetworkResult.StatusCodeError(NonSuccessfulResponseCodeException(402))
+    succeedDonationPermitAcquisition()
+    MockEndpoints.responder.register({ it.method == "POST" && it.path.contains("/create_payment_method") }) {
+      failure(402)
+    }
 
     val scenario = ActivityScenario.launch<CheckoutFlowActivity>(intent)
     rxRule.defaultTestScheduler.triggerActions()
@@ -172,44 +166,22 @@ class CheckoutFlowActivityTest__RecurringDonations {
   }
 
   private fun initialiseActiveSubscription() {
-    val currency = Currency.getInstance("USD")
-    val subscriber = InAppPaymentSubscriberRecord(
-      subscriberId = SubscriberId.generate(),
-      currency = currency,
-      type = InAppPaymentSubscriberRecord.Type.DONATION,
-      requiresCancel = false,
-      paymentMethodType = InAppPaymentData.PaymentMethodType.CARD,
-      iapSubscriptionId = null
-    )
-
-    InAppPaymentsRepository.setSubscriber(subscriber)
-    SignalStore.inAppPayments.setRecurringDonationCurrency(currency)
-
-    AppDependencies.donationsApi.apply {
-      every { getSubscription(subscriber.subscriberId) } returns NetworkResult.Success(
-        ActiveSubscription(
-          ActiveSubscription.Subscription(
-            200,
-            currency.currencyCode,
-            BigDecimal.ONE,
-            System.currentTimeMillis().milliseconds.inWholeSeconds + 30.days.inWholeSeconds,
-            true,
-            System.currentTimeMillis().milliseconds.inWholeSeconds + 30.days.inWholeSeconds,
-            false,
-            "active",
-            "STRIPE",
-            "CARD",
-            false
-          ),
-          null
-        )
-      )
-
-      every { deleteSubscription(subscriber.subscriberId) } returns NetworkResult.Success(Unit)
+    val subscriber = registerSubscriber()
+    val serialized = subscriber.subscriberId.serialize()
+    MockEndpoints.responder.register({ it.method == "GET" && it.path.contains(serialized) }) {
+      ok(DonationResponses.activeSubscription(status = "active", active = true))
     }
   }
 
   private fun initialisePendingSubscription() {
+    val subscriber = registerSubscriber()
+    val serialized = subscriber.subscriberId.serialize()
+    MockEndpoints.responder.register({ it.method == "GET" && it.path.contains(serialized) }) {
+      ok(DonationResponses.activeSubscription(status = "incomplete", active = false))
+    }
+  }
+
+  private fun registerSubscriber(): InAppPaymentSubscriberRecord {
     val currency = Currency.getInstance("USD")
     val subscriber = InAppPaymentSubscriberRecord(
       subscriberId = SubscriberId.generate(),
@@ -223,25 +195,6 @@ class CheckoutFlowActivityTest__RecurringDonations {
     InAppPaymentsRepository.setSubscriber(subscriber)
     SignalStore.inAppPayments.setRecurringDonationCurrency(currency)
 
-    AppDependencies.donationsApi.apply {
-      every { getSubscription(subscriber.subscriberId) } returns NetworkResult.Success(
-        ActiveSubscription(
-          ActiveSubscription.Subscription(
-            200,
-            currency.currencyCode,
-            BigDecimal.ONE,
-            System.currentTimeMillis().milliseconds.inWholeSeconds + 30.days.inWholeSeconds,
-            false,
-            System.currentTimeMillis().milliseconds.inWholeSeconds + 30.days.inWholeSeconds,
-            false,
-            "incomplete",
-            "STRIPE",
-            "CARD",
-            false
-          ),
-          null
-        )
-      )
-    }
+    return subscriber
   }
 }

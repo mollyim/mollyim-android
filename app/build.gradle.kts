@@ -132,6 +132,17 @@ ktlint {
   version.set("1.5.0")
 }
 
+// ktlint only scans convention source dirs, so the shared dirs added to the compile tasks are
+// otherwise skipped. Add them to the base test/androidTest ktlint tasks so ktlintCheck/format cover them.
+tasks.withType(org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask::class.java).configureEach {
+  if (name.endsWith("OverTestSourceSet") || name.endsWith("OverAndroidTestSourceSet")) {
+    source("$projectDir/src/testShared")
+  }
+  if (name.endsWith("OverAndroidTestSourceSet")) {
+    source("$projectDir/src/benchmarkShared/java")
+  }
+}
+
 screenshotTests {
   // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
   imageDifferenceThreshold = 0.0001f

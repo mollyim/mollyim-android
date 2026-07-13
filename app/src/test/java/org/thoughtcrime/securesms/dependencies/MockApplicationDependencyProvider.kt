@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.dependencies
 
 import androidx.media3.exoplayer.ExoPlayer
 import io.mockk.mockk
+import okhttp3.OkHttpClient
 import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.contentproviders.BlobProvider
@@ -75,6 +76,10 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
   }
 
   override fun provideSignalRestClient(signalServiceConfiguration: SignalServiceConfiguration): SignalRestClient {
+    return mockk(relaxed = true)
+  }
+
+  override fun provideOkHttpClient(): OkHttpClient {
     return mockk(relaxed = true)
   }
 
