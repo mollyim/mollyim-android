@@ -914,7 +914,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
     val threadIdResult = threads.getOrCreateThreadIdResultFor(recipient.id, recipient.isGroup)
     val threadId = threadIdResult.threadId
     val dateReceived = System.currentTimeMillis()
-    val expiresIn = threads.getExpiresIn(threadId)
+    val expiresIn = if (RemoteConfig.disappearMore) threads.getExpiresIn(threadId) else 0
     val missed = MessageTypes.isMissedAudioCall(type) || MessageTypes.isMissedVideoCall(type)
 
     val values = contentValuesOf(
@@ -995,7 +995,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
   ): MessageId {
     val recipient = Recipient.resolved(groupRecipientId)
     val threadId = threads.getOrCreateThreadIdFor(recipient)
-    val expiresIn = recipient.expiresInSeconds.seconds.inWholeMilliseconds
+    val expiresIn = if (RemoteConfig.disappearMore) recipient.expiresInSeconds.seconds.inWholeMilliseconds else 0
     val messageId: MessageId = writableDatabase.withinTransaction { db ->
       val self = Recipient.self()
       val selfCreated = self.id == sender

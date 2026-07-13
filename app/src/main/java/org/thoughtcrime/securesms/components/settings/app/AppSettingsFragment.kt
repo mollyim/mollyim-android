@@ -288,27 +288,25 @@ private fun AppSettingsContent(
           BackupFailureState.NONE -> Unit
         }
 
-        if (state.isPrimaryDevice) {
-          item {
-            Rows.TextRow(
-              text = stringResource(R.string.AccountSettingsFragment__account),
-              icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
-              onClick = {
-                callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
-              }
-            )
-          }
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.AccountSettingsFragment__account),
+            icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
+            onClick = {
+              callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
+            }
+          )
+        }
 
-          item {
-            Rows.TextRow(
-              text = stringResource(R.string.preferences__linked_devices),
-              icon = painterResource(CoreUiR.drawable.symbol_devices_24),
-              onClick = {
-                callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
-              },
-              enabled = isRegisteredAndUpToDate
-            )
-          }
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.preferences__linked_devices),
+            icon = painterResource(CoreUiR.drawable.symbol_devices_24),
+            onClick = {
+              callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
+            },
+            enabled = isRegisteredAndUpToDate
+          )
         }
 
         item {

@@ -613,7 +613,7 @@
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Molly पर दोबारा रजिस्टर करें</string>
     <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
-    <string name="ConversationFragment__relink_signal">Re-link</string>
+    <string name="ConversationFragment__relink_signal">फिर से लिंक करें</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">वापस जाएं।</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -949,7 +949,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">अपने बैकअप पासफ़्रेज़ की जांच करें और पुष्टि करें कि यह मेल खाता है</string>
     <string name="BackupsPreferenceFragment__turn_on">बैकअप चालू करें</string>
     <string name="BackupsPreferenceFragment__turn_off">बंद करें</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"बैकअप को रीस्टोर करने के लिए, Molly को फिर से इंस्टॉल करें। ऐप खोलें और 'बैकअप रीस्टोर करें' पर टैप करें, फिर बैकअप फ़ाइल चुनें। %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"बैकअप को रीस्टोर करने के लिए, Molly को फिर से इंस्टॉल करें। ऐप खोलें और \'बैकअप रीस्टोर करें\' पर टैप करें, फिर बैकअप फ़ाइल चुनें। %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">ज़्यादा जानें</string>
     <string name="BackupsPreferenceFragment__in_progress">जारी है…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -1035,7 +1035,7 @@
     <!-- Button in dialog asking user if they are sure they want to delete the selected scheduled message -->
     <string name="ScheduledMessagesBottomSheet_delete_dialog_message">जिस शेड्यूल किए गए मैसेज को आपने चुना है उसे डिलीट करना है?</string>
     <!-- Progress message shown while deleting selected scheduled message -->
-    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">शेड्यूल्ड मैसेज डिलीट किया जा रहा है...</string>
+    <string name="ScheduledMessagesBottomSheet_deleting_progress_message">शेड्यूल्ड मैसेज डिलीट किया जा रहा है…</string>
 
     <!-- DecryptionFailedDialog -->
     <string name="DecryptionFailedDialog_chat_session_refreshed">चैट सेशन रीफ्रेश हुआ</string>
@@ -1416,8 +1416,8 @@
     <string name="RequestingMembersFragment_pending_member_requests">सदस्य के पेंडिंग इनवाइट</string>
     <string name="RequestingMembersFragment_no_member_requests_to_show">सदस्यों की ओर से कोई इनवाइट नहीं है।</string>
     <string name="RequestingMembersFragment_explanation">इस सूची में मौजूद लोग ग्रुप लिंक के ज़रिए इस ग्रुप में जुड़ने की कोशिश कर रहे हैं।</string>
-    <string name="RequestingMembersFragment_added_s">"'%1$s' को जोड़ा गया"</string>
-    <string name="RequestingMembersFragment_denied_s">"'%1$s' के अनुरोध को नामंज़ूर किया गया"</string>
+    <string name="RequestingMembersFragment_added_s">"\'%1$s\' को जोड़ा गया"</string>
+    <string name="RequestingMembersFragment_denied_s">"\'%1$s\' के अनुरोध को नामंज़ूर किया गया"</string>
 
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">हो गया</string>
@@ -2885,7 +2885,7 @@
     <!-- Search -->
     <string name="SearchFragment_no_results">\'%1$s\' के लिए कोई नतीजा नहीं मिला</string>
     <!-- Text shown when no search results are found.   -->
-    <string name="SearchFragment_no_results_empty">No results found</string>
+    <string name="SearchFragment_no_results_empty">कोई नतीजा नहीं मिला</string>
 
     <!-- ShakeToReport -->
     <string name="ShakeToReport_shake_detected" translatable="false">Shake detected</string>
@@ -3489,9 +3489,9 @@
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">डिवाइस को फिर से रजिस्टर करें</string>
     <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
-    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
+    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">यह डिवाइस अब लिंक नहीं है। Signal को अपने फ़ोन से दोबारा लिंक करें, ताकि आप आगे भी मैसेज भेज सकें।</string>
     <!-- Action in reminder banner that will take the user to re-link this device -->
-    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
+    <string name="UnauthorizedReminder_relink_action">डिवाइस दोबारा लिंक करें</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
     <string name="LoggedOutNotification_you_have_been_logged_out">आपको इस डिवाइस पर Molly से लॉग आउट कर दिया गया है।</string>
@@ -3560,7 +3560,7 @@
     <!-- Row item description for refreshing contacts -->
     <string name="contact_selection_activity__missing_someone">किसी की याद आ रही है? रीफ़्रेश करके देखें</string>
     <!-- Row item title for finding people on Signal via your contacts -->
-    <string name="contact_selection_activity__find_people_you_know">Signal पर अपनी जान-पहचान के लोगों को ढूंढें</string>
+    <string name="contact_selection_activity__find_people_you_know">Molly पर अपनी जान-पहचान के लोगों को ढूंढें</string>
     <!-- Row item description asking users for access to their contacts to find people they know -->
     <string name="contact_selection_activity__allow_access_to_contacts">अपने कॉन्टैक्ट का ऐक्सेस दें</string>
     <!-- Row header title for more section -->
@@ -3599,7 +3599,7 @@
     <!-- Dialog title asking users for contact permission -->
     <string name="ContactSelectionListFragment_allow_access_contacts">कॉन्टैक्ट का ऐक्सेस दें</string>
     <!-- Dialog description that will explain the steps needed to give contact permissions -->
-    <string name="ContactSelectionListFragment_to_find_people">Signal पर अपनी जान-पहचान के लोगों को खोजने के लिए:</string>
+    <string name="ContactSelectionListFragment_to_find_people">Molly पर अपनी जान-पहचान के लोगों को खोजने के लिए:</string>
     <!-- Text on button prompting users to give Signal contact permissions -->
     <string name="ContactSelectionListFragment__allow_access">ऐक्सेस दें</string>
     <!-- Text on button to dismiss Signal\'s request for contact permissions -->
@@ -5129,7 +5129,7 @@
     <string name="NewDeviceTransferInstructions__second_bullet">2.</string>
     <string name="NewDeviceTransferInstructions__tap_on_account">"अकाउंट पर टैप करें"</string>
     <string name="NewDeviceTransferInstructions__third_bullet">3.</string>
-    <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">"दोनों डिवाइस पर 'अकाउंट ट्रांसफ़र करें' पर टैप करें, फिर 'जारी रखें' पर टैप करें"</string>
+    <string name="NewDeviceTransferInstructions__tap_transfer_account_and_then_continue_on_both_devices">"दोनों डिवाइस पर \'अकाउंट ट्रांसफ़र करें\' पर टैप करें, फिर \'जारी रखें\' पर टैप करें"</string>
 
     <!-- NewDeviceTransferSetupFragment -->
     <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">पुराने Android डिवाइस से कनेक्ट किया जा रहा है…</string>
@@ -5206,9 +5206,9 @@
     <string name="OldDeviceTransferInstructions__first_bullet">1.</string>
     <string name="OldDeviceTransferInstructions__download_signal_on_your_new_android_device">अपने नए Android डिवाइस पर Molly डाउनलोड करें</string>
     <string name="OldDeviceTransferInstructions__second_bullet">2.</string>
-    <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"अकाउंट 'ट्रांसफ़र करें' या 'रीस्टोर करें' पर टैप करें"</string>
+    <string name="OldDeviceTransferInstructions__tap_on_transfer_or_restore_account">"अकाउंट \'ट्रांसफ़र करें\' या \'रीस्टोर करें\' पर टैप करें"</string>
     <string name="OldDeviceTransferInstructions__third_bullet">3.</string>
-    <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"प्रॉम्प्ट किए जाने पर 'Android डिवाइस से ट्रांसफ़र करें' चुनें और फिर 'जारी रखें' चुनें। दोनों डिवाइस को पास-पास रखें।"</string>
+    <string name="OldDeviceTransferInstructions__select_transfer_from_android_device_when_prompted_and_then_continue">"प्रॉम्प्ट किए जाने पर \'Android डिवाइस से ट्रांसफ़र करें\' चुनें और फिर \'जारी रखें\' चुनें। दोनों डिवाइस को पास-पास रखें।"</string>
     <string name="OldDeviceTransferInstructions__continue">जारी रखें</string>
     <!-- Title for exit device transfer confirmation dialog -->
     <string name="OldDeviceTransferInstructions__confirm_exit_title">डिवाइस ट्रांसफ़र रोकना है?</string>
@@ -6190,7 +6190,7 @@
     <!-- Warning title shown before restricting member labels to admins only. -->
     <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">मेंबर लेबल हटा दिए जाएंगे</string>
     <!-- Warning body shown before restricting member labels to admins only. -->
-    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"इस अनुमति को 'सिर्फ़ ऐडमिन' में बदलने पर, वे मेंबर लेबल हट जाएंगे जिन्हें नॉन-ऐडमिन ने इस ग्रुप में सेट किया है।"</string>
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"इस अनुमति को \'सिर्फ़ ऐडमिन\' में बदलने पर, वे मेंबर लेबल हट जाएंगे जिन्हें नॉन-ऐडमिन ने इस ग्रुप में सेट किया है।"</string>
     <!-- Confirm button for changing member label permission after warning. -->
     <string name="PermissionsSettingsFragment__change_permission">अनुमति बदलें</string>
 
@@ -8241,8 +8241,8 @@
     <string name="InactivePrimary__got_it">ठीक है</string>
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
-    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"बैकअप रीस्टोर करने के लिए, Molly का नया वर्ज़न इंस्टॉल करें। ऐप खोलें और 'बैकअप रीस्टोर करें' पर टैप करें, फिर बैकअप फ़ाइल चुनें।"</string>
-    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won't be included -->
+    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"बैकअप रीस्टोर करने के लिए, Molly का नया वर्ज़न इंस्टॉल करें। ऐप खोलें और \'बैकअप रीस्टोर करें\' पर टैप करें, फिर बैकअप फ़ाइल चुनें।"</string>
+    <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won\'t be included -->
     <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
     <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
     <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
@@ -8636,7 +8636,7 @@
     <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
     <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
     <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
-    <string name="ManageStorageSettingsFragment__turn_on">Turn on</string>
+    <string name="ManageStorageSettingsFragment__turn_on">चालू करें</string>
 
     <!-- UpgradeToEnableOptimizedStorageSheet -->
     <!-- Title on a bottom sheet, detailing that the user must upgrade to enable storage optimization -->
@@ -8833,11 +8833,11 @@
     <!-- Confirmation action on dialog to turn off and delete backups -->
     <string name="RemoteBackupsSettingsFragment__turn_off_and_delete">बंद करें और डिलीट करें</string>
     <!-- Text on dialog while user backup is being deleted -->
-    <string name="RemoteBackupsSettingsFragment__deleting_backup">बैकअप डिलीट किया जा रहा है...</string>
+    <string name="RemoteBackupsSettingsFragment__deleting_backup">बैकअप डिलीट किया जा रहा है…</string>
     <!-- Text on dialog when user backup is deleted -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted">बैकअप डिलीट किया गया</string>
     <!-- Subtitle for frequency option MANUAL for backup frequency -->
-    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"'अभी बैकअप लें' पर टैप करके"</string>
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"\'अभी बैकअप लें\' पर टैप करके"</string>
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__daily">रोज़</string>
     <!-- Title for frequency option DAILY for backup frequency -->
@@ -9891,11 +9891,11 @@
     <!-- Dialog title to filter search by -->
     <string name="MemberSearchFragment__filter">Filter by</string>
     <!-- Dialog option for all group members -->
-    <string name="MemberSearchFragment__filter_all_members">All members</string>
+    <string name="MemberSearchFragment__filter_all_members">सभी सदस्य</string>
     <!-- Dialog option for group admins -->
-    <string name="MemberSearchFragment__filter_admins">Admins</string>
+    <string name="MemberSearchFragment__filter_admins">एडमिन</string>
     <!-- Dialog option for your contacts -->
-    <string name="MemberSearchFragment__filter_contacts">Contacts</string>
+    <string name="MemberSearchFragment__filter_contacts">कॉन्टैक्ट</string>
     <!-- Button to invite members via a group link -->
     <string name="MemberSearchFragment__invite_via">Invite via group link</string>
 
