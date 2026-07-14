@@ -135,7 +135,7 @@ class CheckKeyTransparencyJob private constructor(
       keyTransparencyStore = KeyTransparencyStore
     )
 
-    Log.i(TAG, "Key transparency complete, result: $result. Included username in check: ${Recipient.self().usernameSyncMessagesCapability.isSupported}, next check time: ${SignalStore.misc.nextKeyTransparencyTime}")
+    Log.i(TAG, "Key transparency complete, result: $result. Included username in check: ${Recipient.self().usernameSyncMessagesCapability.isSupported}, discoverability: ${SignalStore.phoneNumberPrivacy.phoneNumberDiscoverabilityMode}, next check time: ${SignalStore.misc.nextKeyTransparencyTime}")
     return when (result) {
       is RequestResult.Success -> {
         SignalStore.misc.hasKeyTransparencyFailure = false
@@ -144,9 +144,10 @@ class CheckKeyTransparencyJob private constructor(
       }
 
       is RequestResult.NonSuccess -> {
-        if (!showFailure) {
+        if (!showFailure && !SignalStore.misc.hasKeyTransparencyFailure) {
           Log.w(TAG, "Verification failure. Enqueuing this job again to run again a day.")
-          StorageSyncJob.forRemoteChange()
+          AppDependencies.jobManager.add(StorageSyncJob.forRemoteChange())
+          AppDependencies.jobManager.add(RefreshAttributesJob())
           enqueueFollowingFailure()
         } else {
           Log.w(TAG, "Second verification failure. Showing failure sheet.")
