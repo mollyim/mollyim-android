@@ -121,8 +121,6 @@ class BackupSubscriptionCheckJobTest {
       )
     )
 
-    every { AppDependencies.donationsApi.putSubscription(any()) } returns NetworkResult.Success(Unit)
-
     insertSubscriber()
   }
 
