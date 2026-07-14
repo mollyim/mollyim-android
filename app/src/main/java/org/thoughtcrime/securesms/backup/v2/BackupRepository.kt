@@ -102,6 +102,7 @@ import org.thoughtcrime.securesms.database.KeyValueDatabase
 import org.thoughtcrime.securesms.database.KyberPreKeyTable
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable
 import org.thoughtcrime.securesms.database.SearchTable
+import org.thoughtcrime.securesms.database.SessionTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SignedPreKeyTable
 import org.thoughtcrime.securesms.database.StickerTable
@@ -1126,7 +1127,7 @@ object BackupRepository {
     }
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal = { false })
+      import(reader, selfData, backupMode = BackupMode.LOCAL, cancellationSignal = { false })
     }
   }
 
@@ -1157,7 +1158,7 @@ object BackupRepository {
       }
 
       return frameReader.use { reader ->
-        import(reader, selfData, cancellationSignal)
+        import(reader, selfData, backupMode = BackupMode.REMOTE, cancellationSignal = cancellationSignal)
       }
     } catch (e: IOException) {
       Log.w(TAG, "Unable to restore signal backup", e)
@@ -1185,7 +1186,7 @@ object BackupRepository {
     )
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.LINK_SYNC, cancellationSignal = cancellationSignal)
     }
   }
 
@@ -1211,7 +1212,7 @@ object BackupRepository {
     }
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.REMOTE, cancellationSignal = cancellationSignal)
     }
   }
 
@@ -1227,13 +1228,14 @@ object BackupRepository {
     val frameReader = PlainTextBackupReader(inputStreamFactory(), length)
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.PLAINTEXT_EXPORT, cancellationSignal = cancellationSignal)
     }
   }
 
   private fun import(
     frameReader: BackupImportReader,
     selfData: SelfData,
+    backupMode: BackupMode,
     cancellationSignal: () -> Boolean
   ): ImportResult {
     val stopwatch = Stopwatch("import")
@@ -1291,7 +1293,16 @@ object BackupRepository {
       }
 
       Log.d(TAG, "[import] --- Recreating all tables ---")
-      val skipTables = setOf(KyberPreKeyTable.TABLE_NAME, OneTimePreKeyTable.TABLE_NAME, SignedPreKeyTable.TABLE_NAME)
+      val skipTables = buildSet {
+        add(KyberPreKeyTable.TABLE_NAME)
+        add(OneTimePreKeyTable.TABLE_NAME)
+        add(SignedPreKeyTable.TABLE_NAME)
+
+        // Preserve the session established with the primary during linking
+        if (backupMode.isLinkAndSync) {
+          add(SessionTable.TABLE_NAME)
+        }
+      }
       val tableMetadata = SignalDatabase.rawDatabase.getAllTableDefinitions().filter { !it.name.startsWith(SearchTable.FTS_TABLE_NAME + "_") }
       for (table in tableMetadata) {
         if (skipTables.contains(table.name)) {
