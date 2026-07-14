@@ -41,7 +41,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -259,7 +258,7 @@ private fun QrCodePane(
           is QrState.Loaded -> {
             QrCode(
               data = qrState.qrCodeData,
-              foregroundColor = Color(0xFF2449C0),
+              foregroundColor = MaterialTheme.colorScheme.primary,
               modifier = Modifier.fillMaxSize()
             )
           }
