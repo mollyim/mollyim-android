@@ -402,8 +402,6 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
               // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
               val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
               if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
-                val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
                 SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
                 SignalStore.backup.newLocalBackupsEnabled = true
                 LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
@@ -436,6 +434,15 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   override suspend fun scanLocalBackupFolder(folderUri: Uri): List<LocalBackupInfo> = withContext(Dispatchers.IO) {
+    // Persist access immediately, while the picker's transient grant is still alive. Restore jobs read from this
+    // folder long after the registration activity (and its grant) are gone.
+    try {
+      val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+      context.contentResolver.takePersistableUriPermission(folderUri, takeFlags)
+    } catch (e: SecurityException) {
+      Log.w(TAG, "Unable to take persistable permission for backup folder", e)
+    }
+
     val folder = DocumentFile.fromTreeUri(context, folderUri) ?: return@withContext emptyList()
     val children = folder.listFiles()
 
