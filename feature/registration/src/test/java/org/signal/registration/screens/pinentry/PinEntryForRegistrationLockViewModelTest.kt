@@ -27,6 +27,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 
 class PinEntryForRegistrationLockViewModelTest {
@@ -296,7 +297,7 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
-  fun `PinEntered with registration lock error during registration emits ResetState`() = runTest {
+  fun `PinEntered with registration lock error during registration navigates to AccountLocked`() = runTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val registrationLockData = mockk<NetworkController.RegistrationLockResponse>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
@@ -312,7 +313,12 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedParentEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.AccountLocked>()
+      .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
+      .isEqualTo(7.days.inWholeMilliseconds)
   }
 
   @Test

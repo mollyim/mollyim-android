@@ -25,6 +25,7 @@ import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
+import kotlin.time.Duration.Companion.days
 
 /**
  * ViewModel for the registration lock PIN entry screen.
@@ -173,8 +174,8 @@ class PinEntryForRegistrationLockViewModel(
             state
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
-            Log.w(TAG, "[PinEntered] Still getting registration lock error after providing token. This shouldn't happen. Resetting state.")
-            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            Log.w(TAG, "[PinEntered] Still getting registration lock error after providing token. This implies that the MasterKey and reglock token on AccountAttributes is out of sync. All we can do is report the account as locked.")
+            parentEventEmitter.navigateTo(RegistrationRoute.AccountLocked(7.days.inWholeMilliseconds))
             state
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
