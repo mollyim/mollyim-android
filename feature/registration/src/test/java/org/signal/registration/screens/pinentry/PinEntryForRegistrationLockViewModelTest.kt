@@ -222,8 +222,10 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
-  fun `PinEntered with missing sessionId emits ResetState`() = runTest {
-    val masterKey = mockk<MasterKey>(relaxed = true)
+  fun `PinEntered with missing sessionId registers with the recovery password from the restored master key`() = runTest {
+    val masterKey = MasterKey(ByteArray(32) { it.toByte() })
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val registerResponse = createRegisterAccountResponse()
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
     parentState.value = RegistrationFlowState(
@@ -233,12 +235,23 @@ class PinEntryForRegistrationLockViewModelTest {
 
     coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithRecoveryPassword(any(), any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    coVerify {
+      mockRepository.registerAccountWithRecoveryPassword(
+        e164 = "+15551234567",
+        recoveryPassword = masterKey.deriveRegistrationRecoveryPassword(),
+        registrationLock = masterKey.deriveRegistrationLock(),
+        skipDeviceTransfer = true
+      )
+    }
+    assertThat(emittedParentEvents).hasSize(3)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }
 
   // ==================== Registration Error Tests ====================

@@ -31,6 +31,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.signal.core.models.AccountEntropyPool
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
@@ -39,6 +40,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
@@ -1385,6 +1387,76 @@ class PhoneNumberEntryViewModelTest {
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForRegistrationLock>()
+  }
+
+  @Test
+  fun `LocalBackupRestoreCompleted with RegistrationLock retries with the reglock token derived from the restored AEP`() = runTest {
+    val aep = AccountEntropyPool.generate()
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true) {
+      every { accountEntropyPool } returns aep
+    }
+    val response = mockk<NetworkController.RegisterAccountResponse>(relaxed = true)
+    val registrationLockData = NetworkController.RegistrationLockResponse(
+      timeRemaining = 60000L,
+      svr2Credentials = NetworkController.SvrCredentials(username = "user", password = "pass")
+    )
+
+    coEvery { mockRepository.registerAccountWithRecoveryPassword(any(), any(), registrationLock = any<String>(), any(), any(), any()) } returns
+      RequestResult.Success(response to keyMaterial)
+    coEvery { mockRepository.registerAccountWithRecoveryPassword(any(), any(), registrationLock = null, any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.RegistrationLock(registrationLockData)
+      )
+
+    val initialState = PhoneNumberEntryState(sessionE164 = "+15551234567")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.LocalBackupRestoreCompleted(LocalBackupRestoreResult.Success(aep)),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    coVerify {
+      mockRepository.registerAccountWithRecoveryPassword(any(), any(), registrationLock = aep.deriveMasterKey().deriveRegistrationLock(), any(), any(), any())
+    }
+    assertThat(emittedEvents).hasSize(3)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.UserSuppliedAepSubmitted>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PinCreate)
+  }
+
+  @Test
+  fun `LocalBackupRestoreCompleted with RegistrationLock when already providing the reglock token navigates to PinEntryForRegistrationLock`() = runTest {
+    val aep = AccountEntropyPool.generate()
+    val registrationLockData = NetworkController.RegistrationLockResponse(
+      timeRemaining = 60000L,
+      svr2Credentials = NetworkController.SvrCredentials(username = "user", password = "pass")
+    )
+
+    coEvery { mockRepository.registerAccountWithRecoveryPassword(any(), any(), any(), any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RegisterAccountError.RegistrationLock(registrationLockData)
+      )
+
+    val initialState = PhoneNumberEntryState(sessionE164 = "+15551234567")
+
+    viewModel.applyEvent(
+      initialState,
+      PhoneNumberEntryScreenEvents.LocalBackupRestoreCompleted(LocalBackupRestoreResult.Success(aep)),
+      parentEventEmitter,
+      stateEmitter
+    )
+
+    assertThat(emittedEvents).hasSize(2)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.UserSuppliedAepSubmitted>()
+    assertThat(emittedEvents[1])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinEntryForRegistrationLock>()

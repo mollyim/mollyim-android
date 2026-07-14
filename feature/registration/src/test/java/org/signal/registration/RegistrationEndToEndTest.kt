@@ -184,6 +184,204 @@ class RegistrationEndToEndTest {
   }
 
   @Test
+  fun `restoring a remote backup for a reglocked account bypasses the reglock with a proof derived from the entered aep`() {
+    val aep = AccountEntropyPool.generate()
+    val reglockProof = aep.deriveMasterKey().deriveRegistrationLock()
+
+    networkController.onRegisterAccount = { request ->
+      if (request.registrationLock == reglockProof) {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      } else {
+        RequestResult.NonSuccess(
+          RegisterAccountError.RegistrationLock(
+            RegistrationLockResponse(
+              timeRemaining = 14.days.inWholeMilliseconds,
+              svr2Credentials = SvrCredentials(username = "svr-user", password = "svr-pass")
+            )
+          )
+        )
+      }
+    }
+
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    enterPhoneNumber()
+    enterAep(aep)
+
+    // The reglock is bypassed automatically with the proof derived from the AEP, going straight to the restore
+    startRemoteRestore()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRegisterAccountRequest?.registrationLock == reglockProof) { "Expected registration with the reglock proof derived from the entered AEP" }
+    assert(networkController.lastRestoreMasterKeyRequest == null) { "Should not have needed to restore the master key from SVR" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one the user entered" }
+    assert(committed.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `restoring a remote backup for a reglocked account whose reglock is not derived from the aep falls back to pin entry and registers without a session`() {
+    val aep = AccountEntropyPool.generate()
+    val svrMasterKey = MasterKey(ByteArray(32) { it.toByte() })
+
+    // The account's reglock is governed by a master key that is not derived from the AEP, so the derived proof fails
+    networkController.onRegisterAccount = { request ->
+      if (request.registrationLock == svrMasterKey.deriveRegistrationLock()) {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      } else {
+        RequestResult.NonSuccess(
+          RegisterAccountError.RegistrationLock(
+            RegistrationLockResponse(
+              timeRemaining = 14.days.inWholeMilliseconds,
+              svr2Credentials = SvrCredentials(username = "svr-user", password = "svr-pass")
+            )
+          )
+        )
+      }
+    }
+
+    networkController.onRestoreMasterKeyFromSvr = { request ->
+      if (request.pin == PIN) {
+        RequestResult.Success(MasterKeyResponse(svrMasterKey))
+      } else {
+        RequestResult.NonSuccess(RestoreMasterKeyError.WrongPin(triesRemaining = 3))
+      }
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    enterPhoneNumber()
+    enterAep(aep)
+
+    // The derived proof was rejected, so the user must prove they know their existing PIN
+    waitForTag(TestTags.PIN_ENTRY_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_INPUT).performTextInput(PIN)
+    composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_CONTINUE_BUTTON).performClick()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRestoreMasterKeyRequest?.pin == PIN) { "Expected master key restore with pin $PIN but was ${networkController.lastRestoreMasterKeyRequest}" }
+    assert(networkController.lastRegisterAccountRequest?.sessionId == null) { "Expected registration without a session but was ${networkController.lastRegisterAccountRequest}" }
+    assert(networkController.lastRegisterAccountRequest?.recoveryPassword == svrMasterKey.deriveRegistrationRecoveryPassword()) { "Expected registration via the RRP derived from the restored master key" }
+    assert(networkController.lastRegisterAccountRequest?.registrationLock == svrMasterKey.deriveRegistrationLock()) { "Expected registration with the reglock proof derived from the restored master key" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+  }
+
+  @Test
+  fun `restoring a local backup for a reglocked account bypasses the reglock with a proof derived from the restored aep`() {
+    val aep = AccountEntropyPool.generate()
+    val reglockProof = aep.deriveMasterKey().deriveRegistrationLock()
+
+    networkController.onRegisterAccount = { request ->
+      if (request.registrationLock == reglockProof) {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      } else {
+        RequestResult.NonSuccess(
+          RegisterAccountError.RegistrationLock(
+            RegistrationLockResponse(
+              timeRemaining = 14.days.inWholeMilliseconds,
+              svr2Credentials = SvrCredentials(username = "svr-user", password = "svr-pass")
+            )
+          )
+        )
+      }
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(folderPickerResult = backupFolderUri, onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    enterPhoneNumber()
+    restoreLocalBackup(aep)
+
+    // The reglock is bypassed automatically with the proof derived from the restored AEP, and the user creates a PIN
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRegisterAccountRequest?.registrationLock == reglockProof) { "Expected registration with the reglock proof derived from the restored AEP" }
+    assert(networkController.lastRestoreMasterKeyRequest == null) { "Should not have needed to restore the master key from SVR" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one from the restored backup" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+  }
+
+  @Test
+  fun `quick restore for a reglocked account bypasses the reglock with a proof derived from the provisioned aep`() {
+    val aep = AccountEntropyPool.generate()
+    val reglockProof = aep.deriveMasterKey().deriveRegistrationLock()
+
+    networkController.onStartProvisioning = {
+      flowOf(
+        ProvisioningEvent.QrCodeReady("https://signal.test/qr"),
+        ProvisioningEvent.MessageReceived(networkController.provisioningMessage(aep = aep, e164 = E164, pin = PIN))
+      )
+    }
+
+    networkController.onRegisterAccount = { request ->
+      if (request.registrationLock == reglockProof) {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      } else {
+        RequestResult.NonSuccess(
+          RegisterAccountError.RegistrationLock(
+            RegistrationLockResponse(
+              timeRemaining = 14.days.inWholeMilliseconds,
+              svr2Credentials = SvrCredentials(username = "svr-user", password = "svr-pass")
+            )
+          )
+        )
+      }
+    }
+
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    // Registration happens automatically with the provisioned data, bypassing the reglock, landing on restore selection
+    startQuickRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_SIGNAL_BACKUPS)
+    startRemoteRestore()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRegisterAccountRequest?.registrationLock == reglockProof) { "Expected registration with the reglock proof derived from the provisioned AEP" }
+    assert(networkController.lastRestoreMasterKeyRequest == null) { "Should not have needed to restore the master key from SVR" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
+    assert(committed.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
+  }
+
+  @Test
   fun `re-registering an existing account offers restore selection, which can be skipped to complete registration`() {
     networkController.onRegisterAccount = { request ->
       RequestResult.Success(networkController.registerAccountResponse(request.e164, reregistration = true))

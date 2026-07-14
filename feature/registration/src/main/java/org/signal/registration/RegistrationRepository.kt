@@ -482,9 +482,12 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * 2. Re-uses the identity key pairs and AEP from the old device
    * 3. Derives the recovery password from the provisioned AEP
    * 4. Registers the account
+   *
+   * @param provideRegistrationLock Whether to include the reglock token derived from the provisioned AEP, if unlocking a reglocked account.
    */
   suspend fun registerAccountWithProvisioningData(
-    provisioningMessage: NetworkController.ProvisioningMessage
+    provisioningMessage: NetworkController.ProvisioningMessage,
+    provideRegistrationLock: Boolean = false
   ): RequestResult<Pair<RegisterAccountResponse, KeyMaterial>, RegisterAccountError> = withContext(Dispatchers.IO) {
     storageController.updateInProgressRegistrationData {
       provisioningData = ProvisioningData(
@@ -506,12 +509,14 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     }
 
     val aep = AccountEntropyPool(provisioningMessage.accountEntropyPool)
-    val recoveryPassword = aep.deriveMasterKey().deriveRegistrationRecoveryPassword()
+    val masterKey = aep.deriveMasterKey()
+    val recoveryPassword = masterKey.deriveRegistrationRecoveryPassword()
 
     registerAccount(
       e164 = provisioningMessage.e164,
       sessionId = null,
       recoveryPassword = recoveryPassword,
+      registrationLock = masterKey.deriveRegistrationLock().takeIf { provideRegistrationLock },
       skipDeviceTransfer = true,
       existingAccountEntropyPool = aep,
       existingAciIdentityKeyPair = provisioningMessage.aciIdentityKeyPair,

@@ -101,6 +101,7 @@ class QuickRestoreQrViewModel(
 
   private suspend fun handleProvisioningMessage(message: NetworkController.ProvisioningMessage) {
     parentEventEmitter(RegistrationFlowEvent.RestoreMethodTokenReceived(message.restoreMethodToken))
+    parentEventEmitter(RegistrationFlowEvent.E164Chosen(message.e164))
 
     if (message.platform == NetworkController.ProvisioningMessage.Platform.IOS && message.tier == null) {
       // iOS without a backup tier cannot do a quick restore — navigate to the choose-restore screen
@@ -110,7 +111,11 @@ class QuickRestoreQrViewModel(
 
     _state.value = _state.value.copy(isRegistering = true, qrState = QrState.Scanned)
 
-    val registerResult = repository.registerAccountWithProvisioningData(message)
+    attemptToRegister(message, provideRegistrationLock = false)
+  }
+
+  private suspend fun attemptToRegister(message: NetworkController.ProvisioningMessage, provideRegistrationLock: Boolean) {
+    val registerResult = repository.registerAccountWithProvisioningData(message, provideRegistrationLock)
 
     when (registerResult) {
       is RequestResult.Success -> {
@@ -144,13 +149,18 @@ class QuickRestoreQrViewModel(
             )
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
-            Log.w(TAG, "[Register] Registration locked.")
-            parentEventEmitter.navigateTo(
-              RegistrationRoute.PinEntryForRegistrationLock(
-                timeRemaining = error.data.timeRemaining,
-                svrCredentials = error.data.svr2Credentials
+            if (provideRegistrationLock) {
+              Log.w(TAG, "[Register] Still registration locked after providing the reglock token derived from the provisioned AEP. Falling back to PIN entry.")
+              parentEventEmitter.navigateTo(
+                RegistrationRoute.PinEntryForRegistrationLock(
+                  timeRemaining = error.data.timeRemaining,
+                  svrCredentials = error.data.svr2Credentials
+                )
               )
-            )
+            } else {
+              Log.w(TAG, "[Register] Registration locked. Retrying with the reglock token derived from the provisioned AEP.")
+              attemptToRegister(message, provideRegistrationLock = true)
+            }
           }
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
             Log.w(TAG, "[Register] Session not found or not verified: ${error.message}")

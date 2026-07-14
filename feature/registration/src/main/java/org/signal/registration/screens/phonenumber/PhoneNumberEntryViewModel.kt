@@ -351,9 +351,21 @@ class PhoneNumberEntryViewModel(
 
     Log.i(TAG, "[LocalRestore] Attempting registration with RRP derived from restored AEP.")
 
-    val recoveryPassword = aep.deriveMasterKey().deriveRegistrationRecoveryPassword()
+    return attemptRegistrationWithRestoredAep(state, e164, aep, provideRegistrationLock = false, parentEventEmitter)
+  }
 
-    return when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, existingAccountEntropyPool = aep)) {
+  private suspend fun attemptRegistrationWithRestoredAep(
+    state: PhoneNumberEntryState,
+    e164: String,
+    aep: AccountEntropyPool,
+    provideRegistrationLock: Boolean,
+    parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  ): PhoneNumberEntryState {
+    val masterKey = aep.deriveMasterKey()
+    val recoveryPassword = masterKey.deriveRegistrationRecoveryPassword()
+    val registrationLock = masterKey.deriveRegistrationLock().takeIf { provideRegistrationLock }
+
+    return when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, registrationLock, existingAccountEntropyPool = aep)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[LocalRestore] Successfully registered using RRP from restored AEP.")
         val (response, keyMaterial) = result.result
@@ -380,14 +392,19 @@ class PhoneNumberEntryViewModel(
             applySessionBasedRegistration(state, e164, parentEventEmitter)
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
-            Log.w(TAG, "[LocalRestore] Registration locked.")
-            parentEventEmitter.navigateTo(
-              RegistrationRoute.PinEntryForRegistrationLock(
-                timeRemaining = error.data.timeRemaining,
-                svrCredentials = error.data.svr2Credentials
+            if (provideRegistrationLock) {
+              Log.w(TAG, "[LocalRestore] Still registration locked after providing the reglock token derived from the AEP. Falling back to PIN entry.")
+              parentEventEmitter.navigateTo(
+                RegistrationRoute.PinEntryForRegistrationLock(
+                  timeRemaining = error.data.timeRemaining,
+                  svrCredentials = error.data.svr2Credentials
+                )
               )
-            )
-            state
+              state
+            } else {
+              Log.w(TAG, "[LocalRestore] Registration locked. Retrying with the reglock token derived from the AEP.")
+              attemptRegistrationWithRestoredAep(state, e164, aep, provideRegistrationLock = true, parentEventEmitter)
+            }
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[LocalRestore] Rate limited (retryAfter: ${error.retryAfter}).")

@@ -128,19 +128,29 @@ class PinEntryForRegistrationLockViewModel(
     val e164 = parentState.value.sessionE164
     val sessionId = parentState.value.sessionMetadata?.id
 
-    if (e164 == null || sessionId == null) {
-      Log.w(TAG, "[PinEntered] Missing e164 or sessionId. Resetting state.")
+    if (e164 == null) {
+      Log.w(TAG, "[PinEntered] Missing e164. Resetting state.")
       parentEventEmitter(RegistrationFlowEvent.ResetState)
       return state
     }
 
-    Log.d(TAG, "[PinEntered] Attempting to register with registration lock token...")
-    val registerResult = repository.registerAccountWithSession(
-      e164 = e164,
-      sessionId = sessionId,
-      registrationLock = registrationLockToken,
-      skipDeviceTransfer = true
-    )
+    val registerResult = if (sessionId != null) {
+      Log.d(TAG, "[PinEntered] Attempting to register with the session and registration lock token...")
+      repository.registerAccountWithSession(
+        e164 = e164,
+        sessionId = sessionId,
+        registrationLock = registrationLockToken,
+        skipDeviceTransfer = true
+      )
+    } else {
+      Log.d(TAG, "[PinEntered] No session present. Attempting to register with the RRP from the restored master key and the registration lock token...")
+      repository.registerAccountWithRecoveryPassword(
+        e164 = e164,
+        recoveryPassword = masterKey.deriveRegistrationRecoveryPassword(),
+        registrationLock = registrationLockToken,
+        skipDeviceTransfer = true
+      )
+    }
 
     return when (registerResult) {
       is RequestResult.Success -> {

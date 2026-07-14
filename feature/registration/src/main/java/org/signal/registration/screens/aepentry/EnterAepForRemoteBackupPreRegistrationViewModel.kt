@@ -70,14 +70,21 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
     check(inputState.isBackupKeyValid) { "AEP is not valid, should not have gotten here." }
 
     val aep = AccountEntropyPool(inputState.backupKey)
-    val recoveryPassword = aep.deriveMasterKey().deriveRegistrationRecoveryPassword()
 
     stateEmitter(inputState.copy(isRegistering = true))
     parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepSubmitted(aep))
 
     Log.i(TAG, "[Submit] Attempting registration with RRP derived from user-supplied AEP.")
 
-    when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, existingAccountEntropyPool = aep)) {
+    attemptToRegister(inputState, aep, provideRegistrationLock = false, stateEmitter)
+  }
+
+  private suspend fun attemptToRegister(inputState: EnterAepState, aep: AccountEntropyPool, provideRegistrationLock: Boolean, stateEmitter: (EnterAepState) -> Unit) {
+    val masterKey = aep.deriveMasterKey()
+    val recoveryPassword = masterKey.deriveRegistrationRecoveryPassword()
+    val registrationLock = masterKey.deriveRegistrationLock().takeIf { provideRegistrationLock }
+
+    when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, registrationLock, existingAccountEntropyPool = aep)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[Submit] Successfully registered using RRP from user-supplied AEP.")
         val (response, keyMaterial) = result.result
@@ -108,14 +115,19 @@ class EnterAepForRemoteBackupPreRegistrationViewModel(
             )
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
-            Log.w(TAG, "[Submit] Registration locked.")
-            stateEmitter(inputState.copy(isRegistering = false))
-            parentEventEmitter.navigateTo(
-              RegistrationRoute.PinEntryForRegistrationLock(
-                timeRemaining = error.data.timeRemaining,
-                svrCredentials = error.data.svr2Credentials
+            if (provideRegistrationLock) {
+              Log.w(TAG, "[Submit] Still registration locked after providing the reglock token derived from the AEP. Falling back to PIN entry.")
+              stateEmitter(inputState.copy(isRegistering = false))
+              parentEventEmitter.navigateTo(
+                RegistrationRoute.PinEntryForRegistrationLock(
+                  timeRemaining = error.data.timeRemaining,
+                  svrCredentials = error.data.svr2Credentials
+                )
               )
-            )
+            } else {
+              Log.w(TAG, "[Submit] Registration locked. Retrying with the reglock token derived from the AEP.")
+              attemptToRegister(inputState, aep, provideRegistrationLock = true, stateEmitter)
+            }
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Submit] Rate limited (retryAfter: ${error.retryAfter}).")
