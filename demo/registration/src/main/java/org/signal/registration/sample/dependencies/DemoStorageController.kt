@@ -39,6 +39,7 @@ import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.RestoreDecision
 import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
+import org.signal.registration.proto.AccountData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.RegistrationData
 import org.signal.registration.sample.RegistrationApplication
@@ -123,22 +124,23 @@ class DemoStorageController(private val context: Context) : StorageController {
   override suspend fun commitRegistrationData() = withContext(Dispatchers.IO) {
     val file = File(context.filesDir, TEMP_PROTO_FILENAME)
     val data = RegistrationData.ADAPTER.decode(file.readBytes())
+    val accountData = data.accountData ?: AccountData()
 
     // Key material
-    if (data.aciIdentityKeyPair.size > 0) {
-      RegistrationPreferences.aciIdentityKeyPair = IdentityKeyPair(data.aciIdentityKeyPair.toByteArray())
+    if (accountData.aciIdentityKeyPair.size > 0) {
+      RegistrationPreferences.aciIdentityKeyPair = IdentityKeyPair(accountData.aciIdentityKeyPair.toByteArray())
     }
-    if (data.pniIdentityKeyPair.size > 0) {
-      RegistrationPreferences.pniIdentityKeyPair = IdentityKeyPair(data.pniIdentityKeyPair.toByteArray())
+    if (accountData.pniIdentityKeyPair.size > 0) {
+      RegistrationPreferences.pniIdentityKeyPair = IdentityKeyPair(accountData.pniIdentityKeyPair.toByteArray())
     }
-    if (data.aciRegistrationId != 0) {
-      RegistrationPreferences.aciRegistrationId = data.aciRegistrationId
+    if (accountData.aciRegistrationId != 0) {
+      RegistrationPreferences.aciRegistrationId = accountData.aciRegistrationId
     }
-    if (data.pniRegistrationId != 0) {
-      RegistrationPreferences.pniRegistrationId = data.pniRegistrationId
+    if (accountData.pniRegistrationId != 0) {
+      RegistrationPreferences.pniRegistrationId = accountData.pniRegistrationId
     }
-    if (data.servicePassword.isNotEmpty()) {
-      RegistrationPreferences.servicePassword = data.servicePassword
+    if (accountData.servicePassword.isNotEmpty()) {
+      RegistrationPreferences.servicePassword = accountData.servicePassword
     }
     if (data.accountEntropyPool.isNotEmpty()) {
       RegistrationPreferences.aep = AccountEntropyPool(data.accountEntropyPool)
@@ -146,30 +148,30 @@ class DemoStorageController(private val context: Context) : StorageController {
     if (data.profileKey.size > 0) {
       RegistrationPreferences.profileKey = ProfileKey(data.profileKey.toByteArray())
     }
-    RegistrationPreferences.fetchesMessages = data.fetchesMessages
+    RegistrationPreferences.fetchesMessages = accountData.fetchesMessages
 
     // Pre-keys
-    if (data.aciSignedPreKey.size > 0) {
-      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, SignedPreKeyRecord(data.aciSignedPreKey.toByteArray()))
+    if (accountData.aciSignedPreKey.size > 0) {
+      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, SignedPreKeyRecord(accountData.aciSignedPreKey.toByteArray()))
     }
-    if (data.pniSignedPreKey.size > 0) {
-      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, SignedPreKeyRecord(data.pniSignedPreKey.toByteArray()))
+    if (accountData.pniSignedPreKey.size > 0) {
+      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, SignedPreKeyRecord(accountData.pniSignedPreKey.toByteArray()))
     }
-    if (data.aciLastResortKyberPreKey.size > 0) {
-      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, KyberPreKeyRecord(data.aciLastResortKyberPreKey.toByteArray()))
+    if (accountData.aciLastResortKyberPreKey.size > 0) {
+      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, KyberPreKeyRecord(accountData.aciLastResortKyberPreKey.toByteArray()))
     }
-    if (data.pniLastResortKyberPreKey.size > 0) {
-      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, KyberPreKeyRecord(data.pniLastResortKyberPreKey.toByteArray()))
+    if (accountData.pniLastResortKyberPreKey.size > 0) {
+      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, KyberPreKeyRecord(accountData.pniLastResortKyberPreKey.toByteArray()))
     }
 
     // Account identity
-    if (data.e164.isNotEmpty() && data.aci.isNotEmpty() && data.pni.isNotEmpty() && data.servicePassword.isNotEmpty() && data.accountEntropyPool.isNotEmpty()) {
+    if (accountData.e164.isNotEmpty() && accountData.aci.isNotEmpty() && accountData.pni.isNotEmpty() && accountData.servicePassword.isNotEmpty() && data.accountEntropyPool.isNotEmpty()) {
       RegistrationPreferences.saveRegistrationData(
         NewRegistrationData(
-          e164 = data.e164,
-          aci = ACI.parseOrThrow(data.aci),
-          pni = PNI.parseOrThrow(data.pni),
-          servicePassword = data.servicePassword,
+          e164 = accountData.e164,
+          aci = ACI.parseOrThrow(accountData.aci),
+          pni = PNI.parseOrThrow(accountData.pni),
+          servicePassword = accountData.servicePassword,
           aep = AccountEntropyPool(data.accountEntropyPool)
         )
       )
@@ -177,7 +179,7 @@ class DemoStorageController(private val context: Context) : StorageController {
 
     // Linked-device data (persisted so the link-and-sync step can authenticate as this device and the
     // home screen can show the linked account).
-    data.linkedDeviceData?.let { linkData ->
+    accountData.linkedDeviceData?.let { linkData ->
       RegistrationPreferences.linkedDeviceId = linkData.deviceId
       RegistrationPreferences.ephemeralBackupKey = linkData.ephemeralBackupKey?.toByteArray()
     }
@@ -187,8 +189,8 @@ class DemoStorageController(private val context: Context) : StorageController {
       RegistrationPreferences.pin = data.pin
       RegistrationPreferences.pinAlphanumeric = data.pin.any { !it.isDigit() }
     }
-    if (data.temporaryMasterKey.size > 0) {
-      RegistrationPreferences.temporaryMasterKey = MasterKey(data.temporaryMasterKey.toByteArray())
+    if (data.masterKeyForInitialDataRestore.size > 0) {
+      RegistrationPreferences.temporaryMasterKey = MasterKey(data.masterKeyForInitialDataRestore.toByteArray())
     }
     RegistrationPreferences.registrationLockEnabled = data.registrationLockEnabled
 
@@ -204,10 +206,10 @@ class DemoStorageController(private val context: Context) : StorageController {
       RegistrationPreferences.saveProvisioningData(
         NetworkController.ProvisioningMessage(
           accountEntropyPool = data.accountEntropyPool,
-          e164 = data.e164,
+          e164 = accountData.e164,
           pin = data.pin.ifEmpty { null },
-          aciIdentityKeyPair = IdentityKeyPair(data.aciIdentityKeyPair.toByteArray()),
-          pniIdentityKeyPair = IdentityKeyPair(data.pniIdentityKeyPair.toByteArray()),
+          aciIdentityKeyPair = IdentityKeyPair(accountData.aciIdentityKeyPair.toByteArray()),
+          pniIdentityKeyPair = IdentityKeyPair(accountData.pniIdentityKeyPair.toByteArray()),
           platform = when (prov.platform) {
             ProvisioningData.Platform.ANDROID -> NetworkController.ProvisioningMessage.Platform.ANDROID
             ProvisioningData.Platform.IOS -> NetworkController.ProvisioningMessage.Platform.IOS

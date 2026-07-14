@@ -72,6 +72,9 @@ interface StorageController {
    * Reads the persisted [RegistrationData] (that is currently in the process of being worked on),
    * applies the [updater] to its builder, and writes the result back to persistent storage.
    *
+   * Note that [RegistrationData.accountData] must never be modified once [RegistrationData.accountDataCommitted] is
+   * true -- it describes the account that was registered, and [commitRegistrationData] will not apply it again.
+   *
    * Example usage:
    * ```
    * storageController.updateRegistrationData {
@@ -87,6 +90,10 @@ interface StorageController {
    * for the currently-registered account. Commits can happen multiple times. For instance, we will commit data right after
    * successfully registering, but then there may be more operations we perform after registration that need to be
    * separately committed.
+   *
+   * The one-time [RegistrationData.accountData] is applied exactly once, on the first commit where it is complete;
+   * it is frozen from then on (tracked via [RegistrationData.accountDataCommitted]). All other fields are mutable
+   * state that is (re-)applied on every commit.
    */
   suspend fun commitRegistrationData()
 

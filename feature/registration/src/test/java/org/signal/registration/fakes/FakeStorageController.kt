@@ -83,6 +83,11 @@ class FakeStorageController : StorageController {
   }
 
   override suspend fun commitRegistrationData() {
+    val accountData = inProgressData.accountData
+    val accountDataComplete = accountData != null && accountData.e164.isNotEmpty() && accountData.aci.isNotEmpty() && accountData.pni.isNotEmpty() && accountData.servicePassword.isNotEmpty()
+    if (!inProgressData.accountDataCommitted && accountDataComplete) {
+      inProgressData = inProgressData.newBuilder().accountDataCommitted(true).build()
+    }
     committedData = inProgressData
   }
 

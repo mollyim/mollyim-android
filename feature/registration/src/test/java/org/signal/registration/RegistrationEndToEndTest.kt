@@ -120,9 +120,9 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
-    assert(committed.aci.isNotEmpty()) { "Expected committed ACI to be populated" }
-    assert(committed.pni.isNotEmpty()) { "Expected committed PNI to be populated" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.accountData?.aci?.isNotEmpty() == true) { "Expected committed ACI to be populated" }
+    assert(committed.accountData?.pni?.isNotEmpty() == true) { "Expected committed PNI to be populated" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
     assert(committed.accountEntropyPool.isNotEmpty()) { "Expected committed AEP to be populated" }
 
@@ -179,8 +179,8 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
-    assert(committed.aci.isNotEmpty()) { "Expected committed ACI to be populated" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.accountData?.aci?.isNotEmpty() == true) { "Expected committed ACI to be populated" }
   }
 
   @Test
@@ -207,7 +207,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
 
@@ -263,7 +263,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one the user entered" }
     assert(committed.pin == PIN) { "Expected the pin from the restored backup but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
@@ -292,7 +292,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the one from the restored backup" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
@@ -356,7 +356,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
     assert(networkController.lastSetPinRequest?.pin == PIN) { "Expected pin $PIN on SVR but was ${networkController.lastSetPinRequest?.pin}" }
   }
@@ -417,7 +417,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
     assert(networkController.lastSetPinRequest?.pin == PIN) { "Expected pin $PIN on SVR but was ${networkController.lastSetPinRequest?.pin}" }
   }
@@ -503,7 +503,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
 
@@ -538,7 +538,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
     assert(committed.pin == PIN) { "Expected the provisioned pin $PIN but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
@@ -576,7 +576,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.accountEntropyPool == aep.value) { "Expected the committed AEP to be the provisioned one" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
@@ -610,7 +610,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
   }
 
@@ -637,7 +637,7 @@ class RegistrationEndToEndTest {
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
-    assert(committed!!.e164 == E164) { "Expected committed e164 $E164 but was ${committed.e164}" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected the provisioned pin $PIN but was ${committed.pin}" }
     assert(storageController.restoreDecision == RestoreDecision.SKIPPED) { "Expected SKIPPED restore decision but was ${storageController.restoreDecision}" }
   }

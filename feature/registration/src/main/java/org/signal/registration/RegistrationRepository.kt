@@ -50,6 +50,7 @@ import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SvrCredentials
 import org.signal.registration.NetworkController.UpdateSessionError
+import org.signal.registration.proto.AccountData
 import org.signal.registration.proto.LinkedDeviceData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.SvrCredential
@@ -206,7 +207,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       if (it is RequestResult.Success) {
         storageController.updateInProgressRegistrationData {
           this.pin = pin
-          this.temporaryMasterKey = it.result.masterKey.serialize().toByteString()
+          this.masterKeyForInitialDataRestore = it.result.masterKey.serialize().toByteString()
           this.registrationLockEnabled = forRegistrationLock
           this.svrCredentials += SvrCredential(username = svrCredentials.username, password = svrCredentials.password)
         }
@@ -341,6 +342,10 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     )
 
     storageController.updateInProgressRegistrationData {
+      this.profileKey = keyMaterial.profileKey.toByteString()
+      this.accountEntropyPool = keyMaterial.accountEntropyPool.value
+    }
+    updateAccountData {
       this.aciIdentityKeyPair = keyMaterial.aciIdentityKeyPair.serialize().toByteString()
       this.pniIdentityKeyPair = keyMaterial.pniIdentityKeyPair.serialize().toByteString()
       this.aciSignedPreKey = keyMaterial.aciSignedPreKey.serialize().toByteString()
@@ -350,14 +355,12 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       this.aciRegistrationId = keyMaterial.aciRegistrationId
       this.pniRegistrationId = keyMaterial.pniRegistrationId
       this.unidentifiedAccessKey = keyMaterial.unidentifiedAccessKey.toByteString()
-      this.profileKey = keyMaterial.profileKey.toByteString()
       this.servicePassword = keyMaterial.servicePassword
-      this.accountEntropyPool = keyMaterial.accountEntropyPool.value
     }
 
     val fcmToken = networkController.getFcmToken()
 
-    storageController.updateInProgressRegistrationData {
+    updateAccountData {
       this.fetchesMessages = fcmToken == null
     }
 
@@ -394,7 +397,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     )
 
     if (result is RequestResult.Success) {
-      storageController.updateInProgressRegistrationData {
+      updateAccountData {
         this.e164 = e164
         this.aci = aci.toString()
         this.pni = pni.toString()
@@ -441,7 +444,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * Waits for the primary to make a link-and-sync archive available.
    */
   suspend fun awaitLinkAndSyncArchive(): LinkAndSyncWaitResult = withContext(Dispatchers.IO) {
-    val ephemeralBackupKey = storageController.readInProgressRegistrationData().linkedDeviceData?.ephemeralBackupKey
+    val ephemeralBackupKey = storageController.readInProgressRegistrationData().accountData?.linkedDeviceData?.ephemeralBackupKey
     if (ephemeralBackupKey == null) {
       Log.i(TAG, "[awaitLinkAndSyncArchive] No ephemeral backup key in registration data; no archive expected.")
       return@withContext LinkAndSyncWaitResult.ContinueWithoutBackup
@@ -550,8 +553,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     Log.i(TAG, "[registerAccount] Starting registration for $e164. sessionId: ${sessionId != null}, recoveryPassword: ${recoveryPassword != null}, registrationLock: ${registrationLock != null}, skipDeviceTransfer: $skipDeviceTransfer, existingAep: ${existingAccountEntropyPool != null}")
 
     val inProgressData = storageController.readInProgressRegistrationData()
-    val resumedAciIdentityKeyPair = inProgressData.aciIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
-    val resumedPniIdentityKeyPair = inProgressData.pniIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
+    val resumedAciIdentityKeyPair = inProgressData.accountData?.aciIdentityKeyPair?.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
+    val resumedPniIdentityKeyPair = inProgressData.accountData?.pniIdentityKeyPair?.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
     val resumedProfileKey = inProgressData.profileKey.takeIf { it.size > 0 }?.let { ProfileKey(it.toByteArray()) }
 
     val keyMaterial = generateKeyMaterial(
@@ -562,6 +565,10 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     )
 
     storageController.updateInProgressRegistrationData {
+      this.profileKey = keyMaterial.profileKey.toByteString()
+      this.accountEntropyPool = keyMaterial.accountEntropyPool.value
+    }
+    updateAccountData {
       this.aciIdentityKeyPair = keyMaterial.aciIdentityKeyPair.serialize().toByteString()
       this.pniIdentityKeyPair = keyMaterial.pniIdentityKeyPair.serialize().toByteString()
       this.aciSignedPreKey = keyMaterial.aciSignedPreKey.serialize().toByteString()
@@ -571,14 +578,12 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       this.aciRegistrationId = keyMaterial.aciRegistrationId
       this.pniRegistrationId = keyMaterial.pniRegistrationId
       this.unidentifiedAccessKey = keyMaterial.unidentifiedAccessKey.toByteString()
-      this.profileKey = keyMaterial.profileKey.toByteString()
       this.servicePassword = keyMaterial.servicePassword
-      this.accountEntropyPool = keyMaterial.accountEntropyPool.value
     }
 
     val fcmToken = networkController.getFcmToken()
 
-    storageController.updateInProgressRegistrationData {
+    updateAccountData {
       this.fetchesMessages = fcmToken == null
     }
 
@@ -628,11 +633,13 @@ class RegistrationRepository(val context: Context, val networkController: Networ
 
     if (result is RequestResult.Success) {
       storageController.updateInProgressRegistrationData {
+        this.accountEntropyPool = keyMaterial.accountEntropyPool.value
+      }
+      updateAccountData {
         this.e164 = result.result.e164
         this.aci = result.result.aci
         this.pni = result.result.pni
         this.servicePassword = keyMaterial.servicePassword
-        this.accountEntropyPool = keyMaterial.accountEntropyPool.value
       }
       storageController.commitRegistrationData()
     }
@@ -727,7 +734,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * upcoming registration reuses the device's existing identity rather than generating a fresh one.
    */
   suspend fun persistRestoredIdentityKeys(restoredAciIdentityKey: IdentityKeyPair?, restoredPniIdentityKey: IdentityKeyPair?) {
-    storageController.updateInProgressRegistrationData {
+    updateAccountData {
       aciIdentityKeyPair = restoredAciIdentityKey?.serialize()?.toByteString() ?: aciIdentityKeyPair
       pniIdentityKeyPair = restoredPniIdentityKey?.serialize()?.toByteString() ?: pniIdentityKeyPair
     }
@@ -776,7 +783,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
       val persisted = json.decodeFromString(PersistedFlowState.serializer(), data.flowStateJson)
 
       val aep = data.accountEntropyPool.takeIf { it.isNotEmpty() }?.let { AccountEntropyPool(it) }
-      val masterKey = data.temporaryMasterKey.takeIf { it.size > 0 }?.let { MasterKey(it.toByteArray()) }
+      val masterKey = data.masterKeyForInitialDataRestore.takeIf { it.size > 0 }?.let { MasterKey(it.toByteArray()) }
       val preExisting = storageController.getPreExistingRegistrationData()
 
       persisted.toRegistrationFlowState(
@@ -851,8 +858,8 @@ class RegistrationRepository(val context: Context, val networkController: Networ
    * (i.e. both ACI and PNI have been saved).
    */
   suspend fun isRegistered(): Boolean = withContext(Dispatchers.IO) {
-    val data = storageController.readInProgressRegistrationData()
-    data.aci.isNotEmpty() && data.pni.isNotEmpty()
+    val accountData = storageController.readInProgressRegistrationData().accountData
+    accountData != null && accountData.aci.isNotEmpty() && accountData.pni.isNotEmpty()
   }
 
   fun restoreV1Backup(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> {
@@ -894,6 +901,16 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     storageController.commitRegistrationData()
     networkController.enqueueAccountAttributesSyncJob()
     networkController.enqueueSvrGuessResetJobIfPossible()
+  }
+
+  /**
+   * Applies [updater] to the one-time [AccountData] within the in-progress registration data. Only the registration
+   * process itself should write account data -- it is frozen once committed.
+   */
+  private suspend fun updateAccountData(updater: AccountData.Builder.() -> Unit) {
+    storageController.updateInProgressRegistrationData {
+      accountData = (accountData ?: AccountData()).newBuilder().apply(updater).build()
+    }
   }
 
   private fun generateKeyMaterial(
