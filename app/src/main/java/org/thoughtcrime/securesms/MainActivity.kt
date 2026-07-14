@@ -60,7 +60,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Dp
@@ -95,7 +94,6 @@ import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.ui.navigation.TransitionSpecs
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.ui.rememberIsSplitPane
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.AppForegroundObserver
 import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -189,7 +187,6 @@ import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import kotlin.time.Duration.Companion.minutes
-import org.signal.core.ui.R as CoreUiR
 
 class MainActivity :
   PassphraseRequiredActivity(),
@@ -761,9 +758,8 @@ class MainActivity :
           SignalTheme.colors.colorSurface1
         }
 
-        val context = LocalContext.current
         val isDarkTheme = isSystemInDarkTheme()
-        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else ThemeUtil.getThemedColor(this,com.google.android.material.R.attr.colorSurfaceContainer)
+        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else 0
         LaunchedEffect(isDarkTheme, navBarColor) {
           if (Build.VERSION.SDK_INT >= 26) {
             enableEdgeToEdge(
