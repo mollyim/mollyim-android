@@ -18,10 +18,11 @@ import org.signal.core.util.ContentTypeUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.bitmaps.BitmapDecodingException;
 import org.signal.core.util.bitmaps.BitmapUtil;
-import org.thoughtcrime.securesms.video.TranscodingPreset;
+import org.thoughtcrime.securesms.video.TranscodingConfig;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import kotlin.Pair;
 
@@ -32,9 +33,7 @@ public abstract class MediaConstraints {
   public abstract int getImageMaxHeight();
   public abstract int getImageMaxSize();
 
-  public TranscodingPreset getVideoTranscodingSettings() {
-    return TranscodingPreset.LEVEL_1;
-  }
+  public abstract List<TranscodingConfig.QualityTier> getVideoTranscodingSettings();
 
   /**
    * Provide a list of dimensions that should be attempted during compression. We will keep moving
