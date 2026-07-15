@@ -1676,6 +1676,19 @@ object BackupRepository {
   }
 
   /**
+   * Stores the remote backup's last-modified time in [BackupValues.lastBackupTime], (404/401 clear it to 0).
+   */
+  fun refreshBackupFileTimestamp(): NetworkResult<ZonedDateTime> {
+    return getBackupFileLastModified().also { result ->
+      when (result) {
+        is NetworkResult.Success -> SignalStore.backup.lastBackupTime = result.result.toMillis()
+        is NetworkResult.StatusCodeError if (result.code == 404 || result.code == 401) -> SignalStore.backup.lastBackupTime = 0L
+        else -> Log.w(TAG, "Failed to refresh last backup time from remote: ${result::class.simpleName}")
+      }
+    }
+  }
+
+  /**
    * Returns an object with details about the remote backup state.
    */
   fun debugGetArchivedMediaState(): NetworkResult<List<ArchiveGetMediaItemsResponse.StoredMediaObject>> {

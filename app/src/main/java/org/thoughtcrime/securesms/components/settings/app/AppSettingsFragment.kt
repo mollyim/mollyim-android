@@ -417,20 +417,20 @@ private fun AppSettingsContent(
           )
         }
 
-        if (state.isPrimaryDevice) {
-          item {
-            Rows.TextRow(
-              icon = SignalIcons.Backup.imageVector,
-              text = stringResource(R.string.preferences_chats__backups),
-              onClick = {
-                callbacks.navigate(AppSettingsRoute.BackupsRoute.Backups())
-              },
-              onLongClick = {
-                callbacks.copyRemoteBackupsSubscriberIdToClipboard()
-              },
-              enabled = isRegisteredAndUpToDate
-            )
-          }
+        item {
+          Rows.TextRow(
+            icon = SignalIcons.Backup.imageVector,
+            text = stringResource(R.string.preferences_chats__backups),
+            onClick = {
+              callbacks.navigate(AppSettingsRoute.BackupsRoute.Backups())
+            },
+            onLongClick = if (state.isPrimaryDevice) {
+              { callbacks.copyRemoteBackupsSubscriberIdToClipboard() }
+            } else {
+              null
+            },
+            enabled = isRegisteredAndUpToDate
+          )
         }
 
         item {
