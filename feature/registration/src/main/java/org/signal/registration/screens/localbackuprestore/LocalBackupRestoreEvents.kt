@@ -34,6 +34,9 @@ sealed interface LocalBackupRestoreEvents {
     override fun toString(): String = "PassphraseSubmitted(credential=${credential.censor()})"
   }
 
+  /** The backup belongs to a different account and the user chose to restore it after verifying over SMS. Hands control back to the phone number screen. */
+  data object RegistrationDeferredToSms : LocalBackupRestoreEvents
+
   /** The folder picker was dismissed without selecting a folder. */
   data object FolderPickerDismissed : LocalBackupRestoreEvents
 

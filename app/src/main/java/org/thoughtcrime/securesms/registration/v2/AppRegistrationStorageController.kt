@@ -353,6 +353,16 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
   }
 
+  override suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean = withContext(Dispatchers.IO) {
+    val backupDir = DocumentFile.fromTreeUri(context, backupUri)
+    if (backupDir == null || !backupDir.canRead()) {
+      Log.w(TAG, "[verifyLocalBackupKey] Could not open backup directory.")
+      return@withContext false
+    }
+
+    LocalArchiver.canDecryptMainArchive(SnapshotFileSystem(context, backupDir), aep.deriveMessageBackupKey())
+  }
+
   override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = callbackFlow {
     Log.d(TAG, "Starting V2 local backup restore from backup=$backupUri, root=$rootUri")
 

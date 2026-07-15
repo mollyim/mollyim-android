@@ -81,6 +81,10 @@ class LocalBackupRestoreViewModel(
       is LocalBackupRestoreEvents.PassphraseSubmitted -> {
         applyPassphraseSubmitted(state, event.credential, stateEmitter)
       }
+      is LocalBackupRestoreEvents.RegistrationDeferredToSms -> {
+        resultBus.sendResult(resultKey, LocalBackupRestoreResult.DeferredToSms)
+        parentEventEmitter.navigateBack()
+      }
       is LocalBackupRestoreEvents.ChooseDifferentFolder -> {
         stateEmitter(LocalBackupRestoreState(launchFolderPicker = true, storageCapable = state.storageCapable))
       }
@@ -116,7 +120,10 @@ class LocalBackupRestoreViewModel(
 
     val credentialRoute = when (backup.type) {
       LocalBackupInfo.BackupType.V1 -> RegistrationRoute.EnterLocalBackupV1Passphrase
-      LocalBackupInfo.BackupType.V2 -> RegistrationRoute.EnterAepForLocalBackup
+      LocalBackupInfo.BackupType.V2 -> RegistrationRoute.EnterAepForLocalBackup(
+        isPreRegistration = isPreRegistration,
+        backupUri = backup.uri.toString()
+      )
     }
     parentEventEmitter.navigateTo(credentialRoute)
   }
@@ -132,10 +139,16 @@ class LocalBackupRestoreViewModel(
     startRestore(backup, state.selectedFolderUri, credential, aep)
   }
 
-  private suspend fun onRestoreComplete(state: LocalBackupRestoreState, progress: LocalBackupRestoreProgress.Complete) {
+  private suspend fun onRestoreComplete(state: LocalBackupRestoreState, progress: LocalBackupRestoreProgress.Complete, backupType: LocalBackupInfo.BackupType) {
     repository.persistRestoredBackupState(progress.restoredSvrPin, progress.restoredProfileKey)
 
-    if (isPreRegistration) {
+    // The restore ran, so clear the pending-restore signal. Otherwise a post-registration screen (verification code or
+    // reglock PIN) would see it still set and route back here to restore again.
+    parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(null))
+
+    // V1 backups restore before registration, then the phone number screen registers with the restored data.
+    // V2 backups only restore against a registered account, so completion always continues the post-registration flow.
+    if (isPreRegistration && backupType == LocalBackupInfo.BackupType.V1) {
       repository.persistRestoredIdentityKeys(progress.restoredAciIdentityKey, progress.restoredPniIdentityKey)
       repository.setRestoreDecision(RestoreDecision.COMPLETED)
       resultBus.sendResult(resultKey, LocalBackupRestoreResult.Success(state.aep ?: progress.restoredAccountEntropyPool))
@@ -218,7 +231,7 @@ class LocalBackupRestoreViewModel(
             storageCapable = currentState.storageCapable
           )
           is LocalBackupRestoreProgress.Complete -> {
-            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress)
+            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress, backup.type)
             _state.value
           }
           is LocalBackupRestoreProgress.IncorrectCredential -> {

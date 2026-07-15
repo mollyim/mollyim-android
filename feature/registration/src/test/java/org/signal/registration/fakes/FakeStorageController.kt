@@ -64,6 +64,8 @@ class FakeStorageController : StorageController {
     flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
   }
 
+  var onVerifyLocalBackupKey: suspend (backupUri: Uri, aep: AccountEntropyPool) -> Boolean = { _, _ -> true }
+
   var onRestoreRemoteBackup: (aep: AccountEntropyPool) -> Flow<RemoteBackupRestoreProgress> = {
     flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
   }
@@ -92,7 +94,10 @@ class FakeStorageController : StorageController {
   }
 
   override suspend fun setRestoreDecision(decision: RestoreDecision) {
-    restoreDecision = decision
+    // Mirrors the real controller: only the first decision sticks, later ones are ignored
+    if (restoreDecision == null) {
+      restoreDecision = decision
+    }
   }
 
   override fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> {
@@ -101,6 +106,10 @@ class FakeStorageController : StorageController {
 
   override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> {
     return onRestoreLocalBackupV2(backupUri, aep)
+  }
+
+  override suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean {
+    return onVerifyLocalBackupKey(backupUri, aep)
   }
 
   override fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress> {

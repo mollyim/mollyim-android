@@ -318,6 +318,8 @@ class DemoStorageController(private val context: Context) : StorageController {
     Log.d(TAG, "Simulated V1 restore complete.")
   }.flowOn(Dispatchers.IO)
 
+  override suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean = true
+
   override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = flow {
     Log.d(TAG, "Starting simulated V2 local backup restore from backup=$backupUri, root=$rootUri")
 

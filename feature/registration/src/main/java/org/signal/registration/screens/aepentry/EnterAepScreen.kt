@@ -74,10 +74,30 @@ fun EnterAepScreen(
 ) {
   RegistrationErrorDialog(state.registrationError, onEvent)
 
+  if (state.showDifferentAccountDialog) {
+    DifferentAccountDialog(onEvent)
+  }
+
   when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
     is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
+}
+
+/**
+ * Warns that the entered key decrypts the backup but the backup was created by a different account, offering to
+ * restore it anyway (which requires verifying the phone number over SMS first).
+ */
+@Composable
+private fun DifferentAccountDialog(onEvent: (EnterAepEvents) -> Unit) {
+  Dialogs.SimpleAlertDialog(
+    title = stringResource(R.string.EnterAepScreen__restore_to_new_account),
+    body = stringResource(R.string.EnterAepScreen__restore_to_new_account_body),
+    confirm = stringResource(R.string.EnterAepScreen__restore),
+    dismiss = stringResource(android.R.string.cancel),
+    onConfirm = { onEvent(EnterAepEvents.ConfirmDifferentAccountRestore) },
+    onDismiss = { onEvent(EnterAepEvents.DismissDifferentAccountDialog) }
+  )
 }
 
 /**

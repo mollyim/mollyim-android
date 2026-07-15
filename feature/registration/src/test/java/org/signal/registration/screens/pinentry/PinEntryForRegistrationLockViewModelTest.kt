@@ -19,10 +19,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
@@ -114,6 +116,60 @@ class PinEntryForRegistrationLockViewModelTest {
       .isEqualTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
     coVerify { mockRepository.restoreAccountRecord(any()) }
     assertThat(emittedStates.last().loading).isEqualTo(true)
+  }
+
+  @Test
+  fun `PinEntered resumes a pending local backup restore after clearing the registration lock`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val restoreAep = AccountEntropyPool.generate()
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    parentState.value = parentState.value.copy(
+      pendingRestoreOption = PendingRestoreOption.LocalBackup,
+      unverifiedRestoredAep = restoreAep
+    )
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(createRegisterAccountResponse() to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.LocalBackupRestore>()
+      .prop(RegistrationRoute.LocalBackupRestore::aep)
+      .isEqualTo(restoreAep)
+  }
+
+  @Test
+  fun `PinEntered resumes a pending remote backup restore after clearing the registration lock`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val restoreAep = AccountEntropyPool.generate()
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    parentState.value = parentState.value.copy(
+      pendingRestoreOption = PendingRestoreOption.RemoteBackup,
+      unverifiedRestoredAep = restoreAep
+    )
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(createRegisterAccountResponse() to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.RemoteRestore>()
+      .prop(RegistrationRoute.RemoteRestore::aep)
+      .isEqualTo(restoreAep)
   }
 
   @Test

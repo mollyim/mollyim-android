@@ -233,7 +233,7 @@ class RegistrationEndToEndTest {
   }
 
   @Test
-  fun `restoring a remote backup for a reglocked account whose reglock is not derived from the aep falls back to pin entry and registers without a session`() {
+  fun `restoring a remote backup for a reglocked account whose reglock is not derived from the aep falls back to pin entry then resumes the restore`() {
     val aep = AccountEntropyPool.generate()
     val svrMasterKey = MasterKey(ByteArray(32) { it.toByte() })
 
@@ -261,6 +261,11 @@ class RegistrationEndToEndTest {
       }
     }
 
+    // The backup contains the user's PIN, so no PIN screens are needed after the restore
+    storageController.onRestoreRemoteBackup = {
+      flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
     var registrationComplete = false
     launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
 
@@ -274,6 +279,9 @@ class RegistrationEndToEndTest {
     composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_INPUT).performTextInput(PIN)
     composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_CONTINUE_BUTTON).performClick()
 
+    // With the reglock cleared, the remote restore the user chose resumes rather than being dropped
+    startRemoteRestore()
+
     waitFor("registration to complete") { registrationComplete }
 
     assert(networkController.lastRestoreMasterKeyRequest?.pin == PIN) { "Expected master key restore with pin $PIN but was ${networkController.lastRestoreMasterKeyRequest}" }
@@ -284,6 +292,7 @@ class RegistrationEndToEndTest {
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision (the remote backup was restored) but was ${storageController.restoreDecision}" }
   }
 
   @Test
@@ -670,16 +679,26 @@ class RegistrationEndToEndTest {
   }
 
   @Test
-  fun `restoring a local backup whose aep the server rejects falls back to sms verification`() {
+  fun `restoring a local backup for a different account warns the user, verifies over sms, then imports the backup`() {
     val aep = AccountEntropyPool.generate()
 
     // The AEP decrypts the backup fine, but it doesn't belong to the account for this phone number
+    val registerRequests = mutableListOf<FakeNetworkController.RegisterAccountRequest>()
     networkController.onRegisterAccount = { request ->
+      registerRequests += request
       if (request.recoveryPassword != null) {
         RequestResult.NonSuccess(RegisterAccountError.RegistrationRecoveryPasswordIncorrect("wrong recovery password"))
       } else {
         RequestResult.Success(networkController.registerAccountResponse(request.e164))
       }
+    }
+
+    // The import only ever runs against a registered account, so it must come after SMS verification
+    var registerAttemptsWhenRestoreRan = -1
+    val defaultLocalRestore = storageController.onRestoreLocalBackupV2
+    storageController.onRestoreLocalBackupV2 = { backupUri, restoreAep ->
+      registerAttemptsWhenRestoreRan = registerRequests.size
+      defaultLocalRestore(backupUri, restoreAep)
     }
 
     var registrationComplete = false
@@ -690,19 +709,146 @@ class RegistrationEndToEndTest {
     enterPhoneNumber()
     restoreLocalBackup(aep)
 
-    // The backup was restored locally, but recovery-password registration was rejected, so the flow
-    // falls back to verifying the phone number over SMS
+    // The key decrypts the backup but the recovery password is rejected, meaning the backup belongs to a different
+    // account. The user is warned and confirms restoring it to this account anyway.
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
+
+    // Confirming requires verifying the phone number over SMS. Afterwards the restore resumes on the standard
+    // post-registration local restore screen, where the folder is re-selected (the entered key is reused).
     submitVerificationCode(VERIFICATION_CODE)
+    restoreFoundLocalBackup()
     createPin(PIN)
 
     waitFor("registration to complete") { registrationComplete }
 
+    assert(registerRequests.first().recoveryPassword == aep.deriveMasterKey().deriveRegistrationRecoveryPassword()) {
+      "Expected the first registration attempt to use the recovery password derived from the backup's AEP"
+    }
     assert(networkController.lastRegisterAccountRequest?.sessionId != null) { "Expected the final registration to use a verified session" }
+    assert(registerAttemptsWhenRestoreRan == registerRequests.size) {
+      "Expected the backup to be imported only after registration completed, but the import ran after $registerAttemptsWhenRestoreRan of ${registerRequests.size} registration attempts"
+    }
 
     val committed = storageController.committedData
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+    assert(committed.accountEntropyPool.isNotEmpty() && committed.accountEntropyPool != aep.value) {
+      "Expected a fresh AEP to be committed rather than the foreign backup's AEP"
+    }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `declining to restore a local backup for a different account returns to the recovery key entry screen`() {
+    val aep = AccountEntropyPool.generate()
+
+    networkController.onRegisterAccount = { request ->
+      if (request.recoveryPassword != null) {
+        RequestResult.NonSuccess(RegisterAccountError.RegistrationRecoveryPasswordIncorrect("wrong recovery password"))
+      } else {
+        RequestResult.Success(networkController.registerAccountResponse(request.e164))
+      }
+    }
+
+    launchRegistrationFlow(folderPickerResult = backupFolderUri)
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    enterPhoneNumber()
+    restoreLocalBackup(aep)
+
+    // The user is warned that the backup belongs to a different account and declines
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_DISMISS_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_DISMISS_BUTTON).performClick()
+
+    // The user stays on the recovery key entry screen and nothing was restored or registered
+    waitForTag(TestTags.ENTER_AEP_SCREEN)
+    assert(storageController.committedData == null) { "Expected no registration data to be committed" }
+    assert(storageController.restoreDecision == null) { "Expected no restore decision to have been made" }
+  }
+
+  @Test
+  fun `restoring a local backup for a reglocked account whose reglock is not derived from the aep verifies the pin then restores`() {
+    val aep = AccountEntropyPool.generate()
+    val svrMasterKey = MasterKey(ByteArray(32) { it.toByte() })
+
+    // The AEP is valid for the account (its recovery password is accepted), but the account's reglock is governed by a
+    // separate master key held in SVR, so the reglock proof derived from the AEP is rejected.
+    networkController.onRegisterAccount = { request ->
+      when {
+        request.registrationLock == svrMasterKey.deriveRegistrationLock() -> RequestResult.Success(networkController.registerAccountResponse(request.e164))
+        else -> RequestResult.NonSuccess(
+          RegisterAccountError.RegistrationLock(
+            RegistrationLockResponse(
+              timeRemaining = 14.days.inWholeMilliseconds,
+              svr2Credentials = SvrCredentials(username = "svr-user", password = "svr-pass")
+            )
+          )
+        )
+      }
+    }
+
+    networkController.onRestoreMasterKeyFromSvr = { request ->
+      if (request.pin == PIN) {
+        RequestResult.Success(MasterKeyResponse(svrMasterKey))
+      } else {
+        RequestResult.NonSuccess(RestoreMasterKeyError.WrongPin(triesRemaining = 3))
+      }
+    }
+
+    // The backup contains the user's PIN, so the flow finishes without any PIN screens after the restore
+    storageController.onRestoreLocalBackupV2 = { _, _ ->
+      flowOf(LocalBackupRestoreProgress.Complete(restoredSvrPin = PIN, restoredProfileKey = null))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(folderPickerResult = backupFolderUri, onRegistrationComplete = { registrationComplete = true })
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    enterPhoneNumber()
+    restoreLocalBackup(aep)
+
+    // The AEP-derived reglock proof was rejected, so the user must prove their PIN to clear the registration lock
+    waitForTag(TestTags.PIN_ENTRY_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_INPUT).performTextInput(PIN)
+    composeTestRule.onNodeWithTag(TestTags.PIN_ENTRY_CONTINUE_BUTTON).performClick()
+
+    // With the reglock cleared, the pending backup restore resumes on the post-registration local restore screen
+    restoreFoundLocalBackup()
+
+    waitFor("registration to complete") { registrationComplete }
+
+    assert(networkController.lastRestoreMasterKeyRequest?.pin == PIN) { "Expected the PIN to be used to restore the master key from SVR" }
+    assert(networkController.lastRegisterAccountRequest?.registrationLock == svrMasterKey.deriveRegistrationLock()) { "Expected registration with the reglock proof derived from the SVR master key" }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision (the backup was restored) but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `entering a recovery key that cannot decrypt the local backup shows an inline error without registering`() {
+    val aep = AccountEntropyPool.generate()
+
+    storageController.onVerifyLocalBackupKey = { _, _ -> false }
+
+    launchRegistrationFlow(folderPickerResult = backupFolderUri)
+
+    startManualRestore()
+    chooseRestoreOption(TestTags.ARCHIVE_RESTORE_SELECTION_FROM_BACKUP_FOLDER)
+    enterPhoneNumber()
+    restoreLocalBackup(aep)
+
+    // The key can't decrypt the backup, so submission is rejected inline before any registration attempt
+    waitFor("the incorrect key to be rejected") {
+      composeTestRule.onAllNodesWithTag(TestTags.ENTER_AEP_NEXT_BUTTON).fetchSemanticsNodes().firstOrNull()
+        ?.config?.getOrNull(SemanticsProperties.Disabled) != null
+    }
+    assert(networkController.lastRegisterAccountRequest == null) { "Expected no registration attempt for a key that cannot decrypt the backup" }
   }
 
   @Test

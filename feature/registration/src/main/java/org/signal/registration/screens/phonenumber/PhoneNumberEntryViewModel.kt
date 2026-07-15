@@ -142,6 +142,13 @@ class PhoneNumberEntryViewModel(
             localState = applyLocalBackupRestoreCompleted(localState, event.result.aep, parentEventEmitter)
             stateEmitter(localState.copy(showSpinner = false))
           }
+          is LocalBackupRestoreResult.DeferredToSms -> {
+            Log.i(TAG, "[LocalRestore] Backup belongs to a different account. Verifying the number over SMS before restoring.")
+            var localState = state.copy(showSpinner = true)
+            stateEmitter(localState)
+            localState = applySessionBasedRegistration(localState, localState.sessionE164 ?: "+${localState.countryCode}${localState.nationalNumber}", parentEventEmitter)
+            stateEmitter(localState.copy(showSpinner = false))
+          }
           is LocalBackupRestoreResult.Canceled -> {
             parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(null))
           }
@@ -344,8 +351,8 @@ class PhoneNumberEntryViewModel(
   }
 
   /**
-   * Handles the result of a pre-registration local backup restore.
-   * If an AEP was obtained (V2 backup), attempts RRP-based registration.
+   * Handles the result of a pre-registration V1 local backup restore (V2 backups register before restoring instead).
+   * If the restored database contained an AEP, attempts RRP-based registration with it.
    * Falls back to SVR check and SMS verification if RRP fails or no AEP is available.
    */
   private suspend fun applyLocalBackupRestoreCompleted(

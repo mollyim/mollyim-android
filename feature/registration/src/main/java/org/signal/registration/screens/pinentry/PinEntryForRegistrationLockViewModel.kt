@@ -19,6 +19,7 @@ import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
@@ -163,7 +164,12 @@ class PinEntryForRegistrationLockViewModel(
         parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
         repository.enqueueSvrResetGuessCountJob()
         repository.restoreAccountRecord()
+        val pendingRestore = pendingRestoreNavigation()
         when {
+          pendingRestore != null -> {
+            Log.i(TAG, "[PinEntered] A restore was pending behind the registration lock. Resuming it now.")
+            parentEventEmitter.navigateTo(pendingRestore)
+          }
           response.reregistration && parentState.value.pendingRestoreOption == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
           else -> parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         }
@@ -209,6 +215,20 @@ class PinEntryForRegistrationLockViewModel(
         Log.w(TAG, "[PinEntered] Application error when registering.", registerResult.cause)
         state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
+    }
+  }
+
+  /**
+   * If the user pre-selected a restore (see [RegistrationFlowState.pendingRestoreOption]) and it hasn't run yet,
+   * returns the restore screen to resume it now that the account is registered; otherwise null. Used to pick a
+   * restore back up when it was blocked behind a registration lock that had to be cleared with the PIN first.
+   */
+  private fun pendingRestoreNavigation(): RegistrationRoute? {
+    val aep = parentState.value.unverifiedRestoredAep ?: return null
+    return when (parentState.value.pendingRestoreOption) {
+      PendingRestoreOption.LocalBackup -> RegistrationRoute.LocalBackupRestore(isPreRegistration = false, aep = aep)
+      PendingRestoreOption.RemoteBackup -> RegistrationRoute.RemoteRestore(aep)
+      null -> null
     }
   }
 

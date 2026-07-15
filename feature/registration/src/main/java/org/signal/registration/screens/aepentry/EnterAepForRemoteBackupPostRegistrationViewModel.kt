@@ -53,6 +53,10 @@ class EnterAepForRemoteBackupPostRegistrationViewModel(
       is EnterAepEvents.DismissError -> {
         stateEmitter(EnterAepScreenEventHandler.applyEvent(inputState, event))
       }
+      is EnterAepEvents.ConfirmDifferentAccountRestore,
+      is EnterAepEvents.DismissDifferentAccountDialog -> {
+        error("Different-account handling only exists for local backup restores.")
+      }
     }
   }
 

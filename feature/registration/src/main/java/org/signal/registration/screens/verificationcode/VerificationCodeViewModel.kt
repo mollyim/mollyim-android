@@ -31,6 +31,7 @@ import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
@@ -364,7 +365,12 @@ class VerificationCodeViewModel(
 
         parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
 
+        val pendingRestore = pendingRestoreNavigation()
         when {
+          pendingRestore != null -> {
+            Log.i(TAG, "[Register] A restore was deferred until after SMS verification. Resuming it now.")
+            parentEventEmitter.navigateTo(pendingRestore)
+          }
           response.reregistration && parentState.value.pendingRestoreOption == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinUnknown())
           response.storageCapable -> parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
           else -> parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
@@ -412,6 +418,20 @@ class VerificationCodeViewModel(
         Log.w(TAG, "[Register] Unknown error when registering account.", registerResult.cause)
         state.copy(snackbars = state.snackbars.copy(unknownError = true))
       }
+    }
+  }
+
+  /**
+   * If the user pre-selected a restore (see [RegistrationFlowState.pendingRestoreOption]) and it hasn't run yet,
+   * returns the restore screen to resume it now that the account is registered; otherwise null. Used to pick a
+   * restore back up after it was deferred to SMS verification (e.g. a local backup that belongs to a different account).
+   */
+  private fun pendingRestoreNavigation(): RegistrationRoute? {
+    val aep = parentState.value.unverifiedRestoredAep ?: return null
+    return when (parentState.value.pendingRestoreOption) {
+      PendingRestoreOption.LocalBackup -> RegistrationRoute.LocalBackupRestore(isPreRegistration = false, aep = aep)
+      PendingRestoreOption.RemoteBackup -> RegistrationRoute.RemoteRestore(aep)
+      null -> null
     }
   }
 

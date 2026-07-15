@@ -6,6 +6,7 @@
 package org.signal.registration.screens.localbackuprestore
 
 import org.signal.core.models.AccountEntropyPool
+import org.signal.registration.RegistrationFlowState
 
 /**
  * Result communicated back from the pre-registration local backup restore flow
@@ -14,6 +15,12 @@ import org.signal.core.models.AccountEntropyPool
 sealed interface LocalBackupRestoreResult {
   /** The restore completed successfully. Contains the AEP if V2 backup, or the restored AEP for V1. */
   data class Success(val aep: AccountEntropyPool?) : LocalBackupRestoreResult
+
+  /**
+   * The backup belongs to a different account and the user chose to restore it anyway. The phone number must be
+   * verified over SMS, after which the restore recorded in [RegistrationFlowState.pendingLocalBackupRestore] runs.
+   */
+  data object DeferredToSms : LocalBackupRestoreResult
 
   /** The user canceled the restore flow. The pending restore option should be cleared. */
   data object Canceled : LocalBackupRestoreResult

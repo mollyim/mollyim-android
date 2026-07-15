@@ -906,6 +906,11 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     return storageController.restoreLocalBackupV2(rootUri, backupUri, aep)
   }
 
+  /** Verifies that [aep] can decrypt the V2 local backup at [backupUri] without restoring anything. */
+  suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean = withContext(Dispatchers.IO) {
+    storageController.verifyLocalBackupKey(backupUri, aep)
+  }
+
   suspend fun scanLocalBackupFolder(folderUri: Uri): List<LocalBackupInfo> = withContext(Dispatchers.IO) {
     storageController.scanLocalBackupFolder(folderUri)
   }

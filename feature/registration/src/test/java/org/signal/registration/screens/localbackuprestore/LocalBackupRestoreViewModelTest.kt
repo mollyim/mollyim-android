@@ -72,14 +72,20 @@ class LocalBackupRestoreViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun createViewModel(isPreRegistration: Boolean, storageCapable: Boolean = true): LocalBackupRestoreViewModel {
+  private fun createViewModel(
+    isPreRegistration: Boolean,
+    storageCapable: Boolean = true,
+    knownAep: AccountEntropyPool? = null,
+    parentState: RegistrationFlowState = RegistrationFlowState(storageCapable = storageCapable)
+  ): LocalBackupRestoreViewModel {
     return LocalBackupRestoreViewModel(
       repository = mockRepository,
-      parentState = flowOf(RegistrationFlowState(storageCapable = storageCapable)),
+      parentState = flowOf(parentState),
       parentEventEmitter = parentEventEmitter,
       isPreRegistration = isPreRegistration,
       resultBus = resultBus,
-      resultKey = resultKey
+      resultKey = resultKey,
+      knownAep = knownAep
     )
   }
 
@@ -149,7 +155,7 @@ class LocalBackupRestoreViewModelTest {
   // ==================== RestoreBackup with V2 Tests ====================
 
   @Test
-  fun `RestoreBackup with V2 backup navigates to EnterAepForLocalBackup`() = runTest {
+  fun `RestoreBackup with V2 backup post-registration navigates to EnterAepForLocalBackup without requiring registration`() = runTest {
     val viewModel = createViewModel(isPreRegistration = false)
     val backupInfo = LocalBackupInfo(
       type = LocalBackupInfo.BackupType.V2,
@@ -162,10 +168,70 @@ class LocalBackupRestoreViewModelTest {
     viewModel.applyEvent(initialState, LocalBackupRestoreEvents.RestoreBackup, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(1)
-    assertThat(emittedParentEvents.first())
+    val route = assertThat(emittedParentEvents.first())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
-      .isEqualTo(RegistrationRoute.EnterAepForLocalBackup)
+    route.isInstanceOf<RegistrationRoute.EnterAepForLocalBackup>().prop(RegistrationRoute.EnterAepForLocalBackup::isPreRegistration).isEqualTo(false)
+  }
+
+  @Test
+  fun `RestoreBackup with V2 backup pre-registration navigates to EnterAepForLocalBackup requiring registration`() = runTest {
+    val viewModel = createViewModel(isPreRegistration = true)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V2,
+      date = LocalDateTime.now(),
+      name = "backup.bin",
+      uri = mockk(relaxed = true)
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk(relaxed = true))
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.RestoreBackup, stateEmitter)
+
+    assertThat(emittedParentEvents).hasSize(1)
+    val route = assertThat(emittedParentEvents.first())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+    route.isInstanceOf<RegistrationRoute.EnterAepForLocalBackup>().prop(RegistrationRoute.EnterAepForLocalBackup::isPreRegistration).isEqualTo(true)
+  }
+
+  // ==================== Deferred restore Tests ====================
+
+  @Test
+  fun `RegistrationDeferredToSms forwards the deferral to the phone number screen and navigates back`() = runTest {
+    val viewModel = createViewModel(isPreRegistration = true)
+    val initialState = LocalBackupRestoreState()
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.RegistrationDeferredToSms, stateEmitter)
+
+    val result = resultBus.channelMap[resultKey]?.tryReceive()?.getOrNull()
+    assertThat(result).isNotNull().isEqualTo(LocalBackupRestoreResult.DeferredToSms)
+    assertThat(emittedParentEvents).hasSize(1)
+    assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
+  }
+
+  @Test
+  fun `a completed restore clears the pending restore option so it is not resumed again post-registration`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false, storageCapable = false, knownAep = AccountEntropyPool(VALID_AEP))
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V2,
+      date = LocalDateTime.now(),
+      name = "signal-backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
+
+    every { mockRepository.restoreV2Backup(any(), any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted(VALID_AEP), stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.PendingRestoreOptionSelected(null))
+    assertThat(emittedParentEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isEqualTo(RegistrationRoute.PinCreate)
   }
 
   // ==================== RestoreBackup with no backup Tests ====================
@@ -312,8 +378,7 @@ class LocalBackupRestoreViewModelTest {
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
-    assertThat(emittedParentEvents).hasSize(1)
-    assertThat(emittedParentEvents.first())
+    assertThat(emittedParentEvents.last())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isEqualTo(RegistrationRoute.PinEntryForSvrRestore)
@@ -340,8 +405,7 @@ class LocalBackupRestoreViewModelTest {
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.COMPLETED) }
     coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
-    assertThat(emittedParentEvents).hasSize(1)
-    assertThat(emittedParentEvents.first())
+    assertThat(emittedParentEvents.last())
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isEqualTo(RegistrationRoute.PinCreate)

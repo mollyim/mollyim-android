@@ -126,6 +126,13 @@ interface StorageController {
   fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress>
 
   /**
+   * Verifies that [aep] can decrypt the V2 (folder-based) backup at [backupUri], without restoring anything.
+   * Used to distinguish a mistyped recovery key from a key that belongs to a different account before
+   * attempting recovery-password registration.
+   */
+  suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean
+
+  /**
    * Begins restoring from a remote (server-hosted) backup.
    *
    * @param aep The Account Entropy Pool used to derive backup keys.
