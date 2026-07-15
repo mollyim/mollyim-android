@@ -44,6 +44,12 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">နိုင်ငံတစ်ခုကို ရွေးပါ</string>
     <string name="RegistrationActivity_phone_number_description">ဖုန်းနံပါတ်</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">ဆက်သွားမည်</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">အောက်ပါဖုန်းနံပါတ် မှန်ကန်ပါသလား။</string>
@@ -197,6 +203,8 @@
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">သင့်အကောင့်နှင့် ဒေတာများကို ပြန်လည်ရယူရန်အတွက် လိုအပ်သည့် အရန်သိမ်းဆည်းထားသော စကားဝှက်သည် ဂဏန်း ၃၀ ပါ ကုဒ်တစ်ခုဖြစ်သည်။</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">ပြန်လည်ရယူရေးကီး</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">ရှည်လွန်းသည် (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -220,6 +228,12 @@
     <string name="EnterAepScreen__incorrect_recovery_key">ပြန်လည်ရယူရေးကီး မှားနေသည်</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">စကားဝှက်စီမံရေးမှ ဖြည့်သွင်းရန်</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">Restore</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">ပြန်လည်ရယူရန် ပြင်ဆင်နေသည်…</string>
     <!-- Title shown while restore is in progress -->
@@ -236,6 +250,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">သင်၏ ဘက်ခ်အပ်ကို ပြန်လည်ရယူစဉ် အမှားအယွင်းတစ်ခု ဖြစ်ပွားခဲ့သည်။ ထပ်ကြိုးစားကြည့်ပါ။</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ထပ်မံကြိုးစားမည်</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">သင့်အကောင့်ကို လင့်ခ်ချိတ်ပါ</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -363,11 +383,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">မလုပ်တော့ပါ</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">ဝန်ဆောင်မှုသို့ ချိတ်ဆက်ရာတွင် ပြဿနာတစ်ခု ရှိခဲ့သည်။</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
-    <string name="PinCreationScreen__network_error">ကွန်ယက် မှားယွင်းချက် တစ်ခုနှင့် ကြုံတွေ့ခဲ့ရသည်</string>
+    <string name="PinCreationScreen__network_error">ကွန်ရက် အမှားအယွင်းတစ်ခု ကြုံတွေ့ခဲ့ရသည်။</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">ကွန်ရက် အမှားအယွင်းတစ်ခု ကြုံတွေ့ခဲ့ရသည်။ %1$s အကြာတွင် ထပ်မံကြိုးစားနိုင်ပါသည်။</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">မှတ်ပုံတင်မှု ပိတ်ထားခြင်း</string>
@@ -428,13 +448,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">မလုပ်တော့ပါ</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">မက်ဆေ့ချ်များကို ပြန်လည်ရယူ၍ မရပါ</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">သင့်မက်ဆေ့ချ်များကို သင့်အခြားစက်မှ လွှဲပြောင်း၍မရပါ။ ထပ်မံကြိုးစားနိုင်ပါသည်၊ သို့မဟုတ် သင်၏ မက်ဆေ့ချ်မှတ်တမ်းမပါဘဲ ဆက်လက်လုပ်ဆောင်နိုင်ပါသည်။</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">ထပ်မံကြိုးစားမည်</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">မက်ဆေ့ချ်မပါဘဲ ဆက်လက်လုပ်ဆောင်ပါ</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">သင့်အကောင့်ကို ချိတ်ဆက်ရန် ဤကုဒ်ကို စကင်န်ဖတ်ပါ</string>
@@ -465,11 +485,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">ဤစက်ကို ချိတ်ဆက်နေစဉ် ချို့ယွင်းချက်တစ်ခု ဖြစ်ပွားခဲ့သည်</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">အက်ပ်ဒေတာကို ဖျက်မည်လား။</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">သင်သည် အခြား Signal အကောင့်တစ်ခုကို လင့်ခ်ချိတ်ရန် ကြိုးစားနေပါသည်။ ဆက်လက်လုပ်ဆောင်ပါက ဤစက်ပေါ်တွင် လက်ရှိရှိနေသော Signal ဒေတာအားလုံးကို ဖျက်လိုက်ပါမည်။</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">ဖျက်ပြီး ပြန်လည်စတင်ပါ</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">QR ကုဒ်ကို ပိတ်မည်</string>
 

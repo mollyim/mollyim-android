@@ -616,7 +616,7 @@
     <!-- Action shown to allow a user to re-register as they are no longer registered -->
     <string name="ConversationFragment__reregister_signal">Signal ਨੂੰ ਮੁੜ-ਰਜਿਸਟਰ ਕਰੋ</string>
     <!-- Action shown in the conversation input area to allow a user to re-link this device as it is no longer linked -->
-    <string name="ConversationFragment__relink_signal">Re-link</string>
+    <string name="ConversationFragment__relink_signal">ਮੁੜ-ਲਿੰਕ ਕਰੋ</string>
     <!-- Label for a button displayed in the conversation toolbar to return to the previous screen. -->
     <string name="ConversationFragment__content_description_back_button">ਪਿੱਛੇ ਜਾਓ।</string>
     <!-- Label for a button displayed in the conversation toolbar to open the main screen of the app. -->
@@ -3492,9 +3492,9 @@
     <!-- Action in reminder banner that will take user to re-register -->
     <string name="UnauthorizedReminder_reregister_action">ਡਿਵਾਈਸ ਮੁੜ-ਰਜਿਸਟਰ ਕਰੋ</string>
     <!-- Message shown in a reminder banner when this linked device is no longer linked to a primary device -->
-    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">This device is no longer linked. Re-link Signal with your phone to continue messaging.</string>
+    <string name="UnauthorizedReminder_this_device_is_no_longer_linked_relink_to_continue_messaging">ਇਹ ਡਿਵਾਈਸ ਹੁਣ ਲਿੰਕ ਨਹੀਂ ਹੈ। ਸੁਨੇਹੇ ਭੇਜਣਾ ਜਾਰੀ ਰੱਖਣ ਲਈ Signal ਨੂੰ ਆਪਣੇ ਫ਼ੋਨ ਨਾਲ ਦੁਬਾਰਾ ਲਿੰਕ ਕਰੋ।</string>
     <!-- Action in reminder banner that will take the user to re-link this device -->
-    <string name="UnauthorizedReminder_relink_action">Re-link device</string>
+    <string name="UnauthorizedReminder_relink_action">ਡਿਵਾਈਸ ਨੂੰ ਦੁਬਾਰਾ ਲਿੰਕ ਕਰੋ</string>
 
     <!-- Push notification when the app is forcibly logged out by the server. -->
     <string name="LoggedOutNotification_you_have_been_logged_out">ਤੁਹਾਨੂੰ ਇਸ ਡਿਵਾਈਸ ਉੱਤੇ Signal ਵਿੱਚੋਂ ਲਾਗ ਆਉਟ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ।</string>
@@ -5016,7 +5016,7 @@
     <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
     <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">ਕੋਈ ਵੀ ਇਹ ਨਹੀਂ ਦੇਖ ਸਕੇਗਾ ਕਿ ਤੁਸੀਂ Signal \'ਤੇ ਹੋ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਉਹਨਾਂ ਨੂੰ ਸੁਨੇਹਾ ਨਹੀਂ ਭੇਜਦੇ ਜਾਂ ਉਹਨਾਂ ਨਾਲ ਤੁਹਾਡੀ ਕੋਈ ਪੁਰਾਣੀ ਚੈਟ ਮੌਜੂਦਾ ਨਹੀਂ ਹੁੰਦੀ।</string>
     <!-- Snackbar text when pressing invalid radio item -->
-    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ, \"ਮੇਰਾ ਨੰਬਰ ਕੌਣ ਦੇਖ ਸਕਦਾ ਹੈ\" ਨੂੰ \"ਕੋਈ ਨਹੀਂ\" \'ਤੇ ਸੈੱਟ ਕਰੋ।"</string>
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"ਇਸ ਸੈਟਿੰਗ ਨੂੰ ਬਦਲਣ ਲਈ, \"ਮੇਰਾ ਨੰਬਰ ਕੌਣ ਦੇਖ ਸਕਦਾ ਹੈ\" ਨੂੰ \"ਕੋਈ ਨਹੀਂ\" 'ਤੇ ਸੈੱਟ ਕਰੋ।"</string>
     <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
     <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ਕੀ ਤੁਸੀਂ ਪੱਕਾ ਅਜਿਹਾ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
@@ -5106,6 +5106,32 @@
     <string name="preferences_account_delete_all_data_confirmation_cancel">ਰੱਦ ਕਰੋ</string>
     <!-- Error message shown when we fail to delete the data for some unknown reason -->
     <string name="preferences_account_delete_all_data_failed">ਡਾਟਾ ਮਿਟਾਉਣਾ ਅਸਫਲ ਰਿਹਾ</string>
+
+    <!-- LinkedDeviceAccountSettingsFragment -->
+    <!-- Title of an informational card shown on the account settings screen of a linked device -->
+    <string name="LinkedDeviceAccountSettingsFragment__this_is_a_linked_device">This is a linked device</string>
+    <!-- Body of an informational card explaining that account settings must be managed from the primary device -->
+    <string name="LinkedDeviceAccountSettingsFragment__to_manage_your_account_settings">To manage your account settings, open Signal on your primary device.</string>
+    <!-- Title of a settings row that deletes all Signal data from this linked device -->
+    <string name="LinkedDeviceAccountSettingsFragment__delete_app_data">Delete app data</string>
+    <!-- Subtitle of the delete app data row explaining what it does -->
+    <string name="LinkedDeviceAccountSettingsFragment__this_will_remove_all_data">This will remove all data from the Signal app on this device.</string>
+    <!-- Title of the confirmation dialog shown when deleting app data from a linked device -->
+    <string name="LinkedDeviceAccountSettingsFragment__delete_app_data_question">Delete app data?</string>
+    <!-- Message of the confirmation dialog explaining that only this device\'s data is deleted, not the account -->
+    <string name="LinkedDeviceAccountSettingsFragment__this_will_delete_all_data_and_messages">This will delete all data and messages from the Signal app on this device. Your Signal account and data on your primary device or other linked devices will not be deleted. The app will close after this process is complete.</string>
+
+    <!-- LinkedDeviceAccountLearnMoreBottomSheet -->
+    <!-- Emphasized lead-in phrase shown in bold at the start of the learn more sheet body. Must appear verbatim within LinkedDeviceAccountLearnMoreBottomSheet__linked_devices_let_you_access. -->
+    <string name="LinkedDeviceAccountLearnMoreBottomSheet__linked_devices">Linked Devices</string>
+    <!-- Body text of the linked devices learn more sheet. The leading \"Linked Devices\" is shown in bold. -->
+    <string name="LinkedDeviceAccountLearnMoreBottomSheet__linked_devices_let_you_access">Linked Devices let you access your Signal account and messages securely on any of your additional devices.</string>
+    <!-- Bullet point describing what devices can be linked -->
+    <string name="LinkedDeviceAccountLearnMoreBottomSheet__you_can_link_a_desktop">You can link a desktop, tablet or additional phone</string>
+    <!-- Bullet point describing that the primary device manages linked devices -->
+    <string name="LinkedDeviceAccountLearnMoreBottomSheet__your_primary_device_manages">Your primary device manages what\'s linked, you can link up to 5 devices.</string>
+    <!-- Bullet point describing that some settings are only available on the primary device -->
+    <string name="LinkedDeviceAccountLearnMoreBottomSheet__some_account_settings">Some account settings are managed on your primary device only, including account settings and backups.</string>
 
     <!-- TransferOrRestoreFragment -->
     <string name="TransferOrRestoreFragment__transfer_or_restore_account">ਖਾਤਾ ਟ੍ਰਾਂਸਫਰ ਕਰੋ ਜਾਂ ਬਹਾਲ ਕਰੋ</string>
@@ -8244,13 +8270,13 @@
     <string name="InactivePrimary__got_it">ਸਮਝ ਗਏ</string>
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
-    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰਨ ਲਈ, Signal ਦੀ ਇੱਕ ਨਵੀਂ ਕਾਪੀ ਇੰਸਟਾਲ ਕਰੋ। ਐਪ ਨੂੰ ਖੋਲ੍ਹੋ ਅਤੇ \"ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ\" \'ਤੇ ਟੈਪ ਕਰੋ, ਫਿਰ ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਲੱਭੋ।"</string>
+    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰਨ ਲਈ, Signal ਦੀ ਇੱਕ ਨਵੀਂ ਕਾਪੀ ਇੰਸਟਾਲ ਕਰੋ। ਐਪ ਨੂੰ ਖੋਲ੍ਹੋ ਅਤੇ \"ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰੋ\" 'ਤੇ ਟੈਪ ਕਰੋ, ਫਿਰ ਬੈਕਅੱਪ ਫ਼ਾਈਲ ਲੱਭੋ।"</string>
     <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won\'t be included -->
-    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">You have \"Optimize Signal storage\" on. If you want to include all media in your on-device backup, turn the setting off.</string>
+    <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">ਤੁਸੀਂ \"Signal ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਨੂੰ ਚਾਲੂ ਕੀਤਾ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੇ ਡਿਵਾਈਸ-ਉੱਤੇ ਮੌਜੂਦ ਬੈਕਅੱਪ ਵਿੱਚ ਸਾਰਾ ਮੀਡੀਆ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ, ਤਾਂ ਸੈਟਿੰਗ ਨੂੰ ਬੰਦ ਕਰ ਦਿਓ।</string>
     <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
-    <string name="OnDeviceBackupsScreen__view_setting">View setting</string>
+    <string name="OnDeviceBackupsScreen__view_setting">ਸੈਟਿੰਗ ਦੇਖੋ</string>
     <!-- Dialog action to proceed with turning on on-device backups without turning off "Optimize Signal storage" -->
-    <string name="OnDeviceBackupsScreen__continue_without_turning_off">Continue without turning off</string>
+    <string name="OnDeviceBackupsScreen__continue_without_turning_off">ਬੰਦ ਕੀਤੇ ਬਿਨਾਂ ਜਾਰੀ ਰੱਖੋ</string>
 
     <!-- Title of a megaphone shown to prompt the user to verify their recovery key -->
     <string name="VerifyBackupKey__title">ਆਪਣੀ ਰਿਕਵਰੀ ਕੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ</string>
@@ -8635,9 +8661,9 @@
     <!-- Dialog message for paid tier pending dialog -->
     <string name="ManageStorageSettingsFragment__storage_optimization_can_only_be_used">ਸਟੋਰੇਜ ਅਨੁਕੂਲਤਾ ਦੀ ਵਰਤੋਂ ਸਿਰਫ਼ Signal ਸਿਕਿਓਰ ਬੈਕਅੱਪ ਦੇ ਭੁਗਤਾਨਸ਼ੁਦਾ ਟੀਅਰ ਨਾਲ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ। ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਉੱਤੇ ਹਾਲੇ ਕਾਰਵਾਈ ਜਾਰੀ ਹੈ ਅਤੇ ਉਹ ਹਾਲੇ ਕਿਰਿਆਸ਼ੀਲ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <!-- Title of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">Media will be removed from your on-device backup</string>
+    <string name="ManageStorageSettingsFragment__media_will_be_removed_from_your_on_device_backup">ਮੀਡੀਆ ਤੁਹਾਡੇ ਡਿਵਾਈਸ-ਉੱਤੇ ਮੌਜੂਦ ਬੈਕਅੱਪ ਵਿੱਚੋਂ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ</string>
     <!-- Body of a dialog shown when turning on "Optimize Signal storage" while on-device backups are enabled -->
-    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">Turning on \"Optimize Signal storage\" will offload old media from your device. You can download it again any time. It will also remove old media from your on-device backup.</string>
+    <string name="ManageStorageSettingsFragment__turning_on_optimize_signal_storage_will_offload">\"Signal ਸਟੋਰੇਜ ਨੂੰ ਅਨੁਕੂਲ ਬਣਾਓ\" ਨੂੰ ਚਾਲੂ ਕਰਨ ਨਾਲ ਤੁਹਾਡੇ ਡਿਵਾਈਸ ਵਿੱਚੋਂ ਪੁਰਾਣਾ ਮੀਡੀਆ ਆਫਲੋਡ ਹੋ ਜਾਵੇਗਾ। ਤੁਸੀਂ ਇਸਨੂੰ ਕਿਸੇ ਵੀ ਸਮੇਂ ਦੁਬਾਰਾ ਡਾਊਨਲੋਡ ਕਰ ਸਕਦੇ ਹੋ। ਇਸ ਨਾਲ ਤੁਹਾਡੇ ਡਿਵਾਈਸ-ਉੱਤੇ ਮੌਜੂਦ ਬੈਕਅੱਪ ਵਿੱਚੋਂ ਵੀ ਪੁਰਾਣੇ ਮੀਡੀਆ ਨੂੰ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ।</string>
     <!-- Dialog action to confirm turning on "Optimize Signal storage" -->
     <string name="ManageStorageSettingsFragment__turn_on">ਚਾਲੂ ਕਰੋ</string>
 
@@ -8722,6 +8748,8 @@
     <string name="BackupsSettingsFragment__subscription_canceled">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰੱਦ ਕੀਤੀ ਗਈ</string>
     <!-- Subtitle for row for no backup ever created -->
     <string name="BackupsSettingsFragment_automatic_backups_with_signals">Signal ਦੀ ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਟਡ ਸਟੋਰੇਜ ਸੇਵਾ ਦੇ ਨਾਲ ਆਟੋਮੈਟਿਕ ਬੈਕਅੱਪ।</string>
+    <!-- Subtitle shown on a linked device when backups are off, directing the user to set them up on their phone -->
+    <string name="BackupsSettingsFragment__automatic_backups_get_started_on_your_phone">Automatic backups with Signal\'s secure end-to-end encrypted storage service. Get started on your phone.</string>
     <!-- Subtitle for row for backups that are active but subscription not found -->
     <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"ਇਸ ਡਿਵਾਈਸ ਉੱਤੇ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਨਹੀਂ ਲੱਭੀ।"</string>
     <!-- Action button label to set up backups -->
@@ -8825,6 +8853,16 @@
     <string name="RemoteBackupsSettingsFragment__s_at_s">%1$s %2$s</string>
     <!-- Subtext describing when a backup has never taken place. -->
     <string name="RemoteBackupsSettingsFragment__never">ਕਦੇ ਨਹੀਂ</string>
+    <!-- Subtext on a linked device describing when the primary device last backed up. Placeholder is the formatted date and time. -->
+    <string name="RemoteBackupsSettingsFragment__your_phone_s">Your phone · %1$s</string>
+    <!-- Message shown on a linked device with a free backup plan explaining that the subscription is managed on the primary device -->
+    <string name="RemoteBackupsSettingsFragment__you_can_manage_or_upgrade_your_subscription_on_your_primary_device">You can manage or upgrade your Signal Secure Backups subscription on your primary device.</string>
+    <!-- Message shown on a linked device with a paid backup plan explaining that the subscription is managed on the primary device -->
+    <string name="RemoteBackupsSettingsFragment__you_can_manage_or_cancel_your_subscription_on_your_primary_device">You can manage or cancel your Signal Secure Backups subscription on your primary device.</string>
+    <!-- Message shown on a linked device with a canceled backup subscription explaining that the subscription is managed on the primary device -->
+    <string name="RemoteBackupsSettingsFragment__you_can_manage_or_renew_your_subscription_on_your_primary_device">You can manage or renew your Signal Secure Backups subscription on your primary device.</string>
+    <!-- Message shown on a linked device when backups are off or the subscription was not found, explaining that backups are managed on the primary device -->
+    <string name="RemoteBackupsSettingsFragment__you_can_manage_or_upgrade_backups_on_your_primary_device">You can manage or upgrade Signal Secure Backups on your primary device.</string>
     <!-- Button label to perform a backup immediately -->
     <string name="RemoteBackupsSettingsFragment__back_up_now">ਹੁਣ ਬੈਕਅੱਪ ਲਓ</string>
     <!-- Dialog title when confirming whether to turn off and deleting backups -->
@@ -8840,7 +8878,7 @@
     <!-- Text on dialog when user backup is deleted -->
     <string name="RemoteBackupsSettingsFragment__backup_deleted">ਬੈਕਅੱਪ ਮਿਟਾਇਆ ਗਿਆ</string>
     <!-- Subtitle for frequency option MANUAL for backup frequency -->
-    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"ਹੁਣੇ ਬੈਕਅੱਪ ਕਰੋ \'ਤੇ ਟੈਪ ਕਰਕੇ"</string>
+    <string name="RemoteBackupsSettingsFragment__by_tapping_back_up_now">"ਹੁਣੇ ਬੈਕਅੱਪ ਕਰੋ 'ਤੇ ਟੈਪ ਕਰਕੇ"</string>
     <!-- Title for frequency option DAILY for backup frequency -->
     <string name="RemoteBackupsSettingsFragment__daily">ਰੋਜ਼ਾਨਾ</string>
     <!-- Title for frequency option DAILY for backup frequency -->
@@ -9888,11 +9926,11 @@
     <!-- Header for a section showing all group member -->
     <string name="MemberSearchFragment__search_members">ਮੈਂਬਰਾਂ ਨੂੰ ਖੋਜੋ</string>
     <!-- Header for a section showing all group members who are contacts -->
-    <string name="MemberSearchFragment__search_contacts">Search contacts</string>
+    <string name="MemberSearchFragment__search_contacts">ਸੰਪਰਕਾਂ ਨੂੰ ਖੋਜੋ</string>
     <!-- Header for a section showing all group member who are admins -->
-    <string name="MemberSearchFragment__search_admins">Search admins</string>
+    <string name="MemberSearchFragment__search_admins">ਐਡਮਿਨਾਂ ਨੂੰ ਖੋਜੋ</string>
     <!-- Dialog title to filter search by -->
-    <string name="MemberSearchFragment__filter">Filter by</string>
+    <string name="MemberSearchFragment__filter">ਇਸ ਅਨੁਸਾਰ ਫਿਲਟਰ ਕਰੋ</string>
     <!-- Dialog option for all group members -->
     <string name="MemberSearchFragment__filter_all_members">ਸਾਰੇ ਮੈਂਬਰ</string>
     <!-- Dialog option for group admins -->
@@ -9900,7 +9938,7 @@
     <!-- Dialog option for your contacts -->
     <string name="MemberSearchFragment__filter_contacts">ਸੰਪਰਕ</string>
     <!-- Button to invite members via a group link -->
-    <string name="MemberSearchFragment__invite_via">Invite via group link</string>
+    <string name="MemberSearchFragment__invite_via">ਗਰੁੱਪ ਲਿੰਕ ਰਾਹੀਂ ਸੱਦਾ ਦਿਓ</string>
 
     <!-- Title of the sheet shown when a local backup restore could not be completed -->
     <string name="CouldNotCompleteBackupRestoreSheet__title">ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ</string>

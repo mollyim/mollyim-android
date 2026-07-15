@@ -44,6 +44,12 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">Pasirinkite šalį</string>
     <string name="RegistrationActivity_phone_number_description">Telefono numeris</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">Kitas</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">Ar toliau nurodytas telefono numeris teisingas?</string>
@@ -197,6 +203,8 @@
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Jūsų vietinės atsarginės kopijos slaptafrazė yra 30 skaitmenų kodas, reikalingas norint atkurti paskyrą ir duomenis.</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">Atkūrimo raktas</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">Per ilgas (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -220,6 +228,12 @@
     <string name="EnterAepScreen__incorrect_recovery_key">Neteisingas atkūrimo raktas</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">Užpildyti iš slaptažodžių tvarkyklės</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">Restore</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Ruošiamasi atkurti…</string>
     <!-- Title shown while restore is in progress -->
@@ -236,6 +250,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">Atkuriant atsarginę kopiją įvyko klaida. Bandykite dar kartą.</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">Bandykite dar kartą</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">Susieti savo paskyrą</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -366,11 +386,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">Atšaukti</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">Klaida jungiantis prie paslaugos.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">Susidurta su tinklo klaida.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">Susidurta su tinklo klaida. Galite bandyti dar kartą po %1$s.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Registracijos užraktas</string>
@@ -434,13 +454,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">Atšaukti</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">Nepavyko atkurti žinučių</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Nepavyko perkelti jūsų žinučių iš kito įrenginio. Galite pabandyti iš naujo arba tęsti neperkėlę žinučių istorijos.</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">Bandykite dar kartą</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">Tęsti be žinučių</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Nuskaityti šį kodą, kad susietumėte paskyrą</string>
@@ -471,11 +491,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">Susiejant šį įrenginį įvyko klaida</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">Ištrinti programėlės duomenis?</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">Bandote susieti kitą „Signal“ paskyrą. Jei tęsite, visi dabar šiame įrenginyje esantys „Signal“ duomenys bus ištrinti.</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">Ištrinti ir paleisti iš naujo</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">Uždaryti QR kodą</string>
 

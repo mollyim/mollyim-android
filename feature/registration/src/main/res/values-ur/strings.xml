@@ -44,6 +44,12 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">ملک منتخب کریں</string>
     <string name="RegistrationActivity_phone_number_description">فون نمبر</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">اگلا</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">کیا درج ذیل فون نمبر درست ہے؟</string>
@@ -197,6 +203,8 @@
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">آپ کا لوکل بیک اپ پاسفریز ایک 30 ہندسوں کا کوڈ ہے جو آپ کے اکاؤنٹ اور ڈیٹا کی بحالی کے لیے ضروری ہے۔</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">ریکوری کیی</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">بہت طویل ہے (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -220,6 +228,12 @@
     <string name="EnterAepScreen__incorrect_recovery_key">غلط ریکوری کیی</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">پاسورڈ مینیجر سے درج کریں</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">Restore</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">ری اسٹور کی تیاری ہو رہی ہے…</string>
     <!-- Title shown while restore is in progress -->
@@ -236,6 +250,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">آپ کا بیک اپ ری اسٹور کرتے ہوئے ایک خرابی واقع ہوئی ہے۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">دوبارہ کوشش کریں</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">اپنا اکاؤنٹ لنک کریں</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -364,11 +384,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">منسوخ کریں</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">سروس سے مربوط کرنے میں کوئی مسئلہ پیش آیا تھا۔</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">نیٹ ورک کی خرابی کا سامنا کرنا پڑا۔</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">نیٹ ورک کی خرابی کا سامنا کرنا پڑا۔ آپ %1$s میں دوبارہ کوشش کر سکتے ہیں۔</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">رجسٹریشن لاک</string>
@@ -430,13 +450,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">منسوخ کریں</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">میسجز ری اسٹور نہیں ہو سکے</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">آپ کے میسجز آپ کی دوسری ڈیوائس سے ٹرانسفر نہیں کیے جا سکے۔ آپ دوبارہ کوشش کر سکتے ہیں، یا اپنی میسج ہسٹری کے بغیر جاری رکھیں۔</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">دوبارہ کوشش کریں</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">میسجز کے بغیر جاری رکھیں</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">اپنے اکاؤنٹ کو لنک کرنے کے لیے اس کوڈ کو اسکین کریں</string>
@@ -467,11 +487,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">اس ڈیوائس کو لنک کرتے ہوئے ایک خرابی واقع ہوئی ہے</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">ایپ کا ڈیٹا حذف کرنا ہے؟</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">آپ ایک مختلف Signal اکاؤنٹ لنک کرنے کی کوشش کر رہے ہیں۔ اگر آپ جاری رکھتے ہیں، تو اس ڈیوائس میں موجودہ تمام Signal ڈیٹا حذف ہو جائے گا۔</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">حذف کریں اور دوبارہ شروع کریں</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">QR کوڈ بند کریں</string>
 

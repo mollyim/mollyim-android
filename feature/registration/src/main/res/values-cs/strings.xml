@@ -44,6 +44,12 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">Zvolte zemi</string>
     <string name="RegistrationActivity_phone_number_description">Telefonní číslo</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">Další</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">Je níže uvedené telefonní číslo správné?</string>
@@ -108,11 +114,11 @@
     <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
     <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Ujistěte se, že váš telefon má signál, abyste mohli přijímat SMS nebo volání\n • Potvrďte, že můžete na tomto čísle přijímat telefonní hovory\n • Zkontrolujte, že jste své telefonní číslo zadali správně.</string>
     <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">Více informací na %1$s nebo %2$s</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">Pro více informací postupujte podle %1$s nebo %2$s</string>
     <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">kroků pro řešení problémů</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">těchto kroků pro řešení problémů</string>
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Kontaktovat podporu</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">kontaktujte podporu</string>
     <!-- Email subject used when contacting support from the verification code screen -->
   <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
@@ -197,6 +203,8 @@
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Vaše místní záložní přístupová fráze je 30místný kód potřebný k obnovení vašeho účtu a dat.</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">Klíč pro obnovení</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">Příliš dlouhé (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -220,6 +228,12 @@
     <string name="EnterAepScreen__incorrect_recovery_key">Nesprávný klíč pro obnovení</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">Vyplnit ze správce hesel</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">Restore</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Příprava obnovení…</string>
     <!-- Title shown while restore is in progress -->
@@ -236,6 +250,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">Při obnovování zálohy se vyskytla chyba. Zkuste to prosím znovu.</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">Zkusit znovu</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">Propojit účet</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -366,11 +386,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">Zrušit</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">Při připojování ke službě došlo k chybě.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">Došlo k chybě v síti.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">Došlo k chybě v síti. Můžete to zkusit znovu za %1$s.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">Zámek registrace</string>
@@ -434,13 +454,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">Zrušit</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">Zprávy se nepodařilo obnovit</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Vaše zprávy se z druhého zařízení nepodařilo přenést. Můžete to zkusit znovu, nebo pokračovat bez historie zpráv.</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">Zkusit znovu</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">Pokračovat bez zpráv</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Naskenováním tohoto kódu propojíte svůj účet</string>
@@ -471,11 +491,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">Při propojování tohoto zařízení došlo k chybě</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">Smazat data aplikace?</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">Pokoušíte se propojit jiný účet Signal. Pokud budete pokračovat, všechna data Signal, která momentálně máte v tomto zařízení, budou smazána.</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">Smazat a restartovat</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">Zavřít QR kód</string>
 
