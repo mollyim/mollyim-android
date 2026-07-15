@@ -14,6 +14,9 @@ import androidx.sqlite.db.SupportSQLiteQuery;
 import net.zetetic.database.sqlcipher.SQLiteStatement;
 import net.zetetic.database.sqlcipher.SQLiteTransactionListener;
 
+import org.signal.core.util.ThreadUtil;
+import org.signal.core.util.logging.Log;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +34,8 @@ import java.util.Set;
  */
 public class SQLiteDatabase implements SupportSQLiteDatabase {
 
+  private static final String TAG = Log.tag(SQLiteDatabase.class);
+
   public static final int CONFLICT_ROLLBACK = 1;
   public static final int CONFLICT_ABORT    = 2;
   public static final int CONFLICT_FAIL     = 3;
@@ -45,6 +50,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   private final net.zetetic.database.sqlcipher.SQLiteDatabase wrapped;
 
+  private static final ThreadLocal<Long>          TRANSACTION_HOLD_START_NS = new ThreadLocal<>();
   private static final ThreadLocal<Set<Runnable>> PENDING_POST_SUCCESSFUL_TRANSACTION_TASKS;
   private static final ThreadLocal<Set<Runnable>> POST_SUCCESSFUL_TRANSACTION_TASKS;
 
@@ -74,7 +80,11 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       traceLockStart();
     }
 
+    long startNs = locked ? System.nanoTime() : 0L;
     returnable.run();
+    if (locked) {
+      warnIfSlowDirectWrite(methodName, null, query, startNs);
+    }
 
     if (locked) {
       traceLockEnd();
@@ -98,10 +108,16 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       params.put(KEY_TABLE, table);
     }
 
+    long startNs = System.nanoTime();
     E result = returnable.run();
     if (result instanceof Cursor) {
       // Triggers filling the window (which is about to be done anyway), but lets us capture that time inside the trace
       ((Cursor) result).getCount();
+    }
+    if (locked) {
+      warnIfSlowDirectWrite(methodName, table, query, startNs);
+    } else {
+      warnIfSlowQuery(methodName, table, query, startNs);
     }
 
     if (locked) {
@@ -224,13 +240,13 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
   @Override
   public Cursor query(SupportSQLiteQuery query) {
     DatabaseMonitor.onSql(query.getSql(), null);
-    return wrapped.query(query);
+    return traceSql("query(SupportSQLiteQuery)", null, query.getSql(), false, () -> wrapped.query(query));
   }
 
   @Override
   public Cursor query(SupportSQLiteQuery query, CancellationSignal cancellationSignal) {
     DatabaseMonitor.onSql(query.getSql(), null);
-    return wrapped.query(query, cancellationSignal);
+    return traceSql("query(SupportSQLiteQuery, CancellationSignal)", null, query.getSql(), false, () -> wrapped.query(query, cancellationSignal));
   }
 
   @Override
@@ -280,6 +296,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       trace("beginTransaction()", wrapped::beginTransaction);
     } else {
       trace("beginTransaction()", () -> {
+        long waitStartNs = System.nanoTime();
         wrapped.beginTransactionWithListener(new SQLiteTransactionListener() {
           @Override
           public void onBegin() { }
@@ -298,13 +315,30 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
             getPendingPostSuccessfulTransactionTasks().clear();
           }
         });
+        long waitMs = (System.nanoTime() - waitStartNs) / 1_000_000L;
+        if (waitMs >= IssueReporter.SLOW_LOCK_LOW_PRIORITY_MS) {
+          Throwable throwable = new Throwable();
+          Log.w(TAG, "Slow write-lock acquire: waited " + waitMs + "ms to BEGIN", throwable);
+          IssueReporter.noteSlowDatabaseLockAcquire(waitMs, throwable);
+        }
+        TRANSACTION_HOLD_START_NS.set(System.nanoTime());
       });
     }
   }
 
   public void endTransaction() {
+    Long holdStartNs = TRANSACTION_HOLD_START_NS.get();
     trace("endTransaction()", wrapped::endTransaction);
     traceLockEnd();
+    if (holdStartNs != null && !wrapped.inTransaction()) {
+      TRANSACTION_HOLD_START_NS.remove();
+      long holdMs = (System.nanoTime() - holdStartNs) / 1_000_000L;
+      if (holdMs >= IssueReporter.SLOW_WRITE_LOW_PRIORITY_MS) {
+        Throwable throwable = new Throwable();
+        Log.w(TAG, "Slow transaction: held write lock for " + holdMs + "ms", throwable);
+        IssueReporter.noteSlowDatabaseWrite("transaction hold", holdMs, throwable);
+      }
+    }
     Set<Runnable> tasks = getPostSuccessfulTransactionTasks();
     for (Runnable r : new HashSet<>(tasks)) {
       r.run();
@@ -338,22 +372,22 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public Cursor rawQuery(String sql, String[] selectionArgs) {
     DatabaseMonitor.onSql(sql, selectionArgs);
-    return traceSql("rawQuery(2a)", sql, false, () -> wrapped.rawQuery(sql, selectionArgs));
+    return traceSql("rawQuery(2a)", null, sql, false, () -> wrapped.rawQuery(sql, selectionArgs));
   }
 
   public Cursor rawQuery(String sql, Object... args) {
     DatabaseMonitor.onSql(sql, args);
-    return traceSql("rawQuery(2b)", sql, false,() -> wrapped.rawQuery(sql, args));
+    return traceSql("rawQuery(2b)", null, sql, false, () -> wrapped.rawQuery(sql, args));
   }
 
   public Cursor rawQueryWithFactory(net.zetetic.database.sqlcipher.SQLiteDatabase.CursorFactory cursorFactory, String sql, String[] selectionArgs, String editTable) {
     DatabaseMonitor.onSql(sql, selectionArgs);
-    return traceSql("rawQueryWithFactory()", sql, false, () -> wrapped.rawQueryWithFactory(cursorFactory, sql, selectionArgs, editTable));
+    return traceSql("rawQueryWithFactory()", null, sql, false, () -> wrapped.rawQueryWithFactory(cursorFactory, sql, selectionArgs, editTable));
   }
 
   public Cursor rawQuery(String sql, String[] selectionArgs, int initialRead, int maxRead) {
     DatabaseMonitor.onSql(sql, selectionArgs);
-    return traceSql("rawQuery(4)", sql, false, () -> rawQuery(sql, selectionArgs, initialRead, maxRead));
+    return traceSql("rawQuery(4)", null, sql, false, () -> wrapped.rawQuery(sql, selectionArgs, initialRead, maxRead));
   }
 
   public long insert(String table, String nullColumnHack, ContentValues values) {
@@ -505,6 +539,30 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public void setLocale(Locale locale) {
     wrapped.setLocale(locale);
+  }
+
+  private void warnIfSlowDirectWrite(String methodName, String table, String query, long startNs) {
+    if (wrapped.inTransaction()) {
+      return;
+    }
+
+    long elapsedMs = (System.nanoTime() - startNs) / 1_000_000L;
+
+    if (elapsedMs >= IssueReporter.SLOW_WRITE_LOW_PRIORITY_MS) {
+      Throwable throwable = new Throwable();
+      Log.w(TAG, "Slow direct write: " + methodName + " on " + table + " took " + elapsedMs + "ms (query=" + query + ")", throwable);
+      IssueReporter.noteSlowDatabaseWrite(query, elapsedMs, throwable);
+    }
+  }
+
+  private void warnIfSlowQuery(String methodName, String table, String query, long startNs) {
+    long elapsedMs = (System.nanoTime() - startNs) / 1_000_000L;
+
+    if (elapsedMs >= IssueReporter.SLOW_READ_LOW_PRIORITY_MS) {
+      Throwable throwable = new Throwable();
+      Log.w(TAG, "Slow query: " + methodName + " on " + table + " took " + elapsedMs + "ms (query=" + query + ")", throwable);
+      IssueReporter.noteSlowDatabaseRead(query, elapsedMs, throwable);
+    }
   }
 
   private static class ConvertedTransactionListener implements SQLiteTransactionListener {

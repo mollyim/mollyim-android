@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.contacts.paged
 
 import org.thoughtcrime.securesms.contacts.HeaderAction
 import org.thoughtcrime.securesms.database.RecipientTable
+import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.search.SearchFilter
 
 /**
@@ -36,7 +37,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.Story]
-     * Model: [ContactSearchAdapter.StoryModel]
+     * Model: [ContactSearchModels.StoryModel]
      */
     data class Stories(
       val groupStories: Set<ContactSearchData.Story> = emptySet(),
@@ -50,7 +51,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.KnownRecipient]
-     * Model: [ContactSearchAdapter.RecipientModel]
+     * Model: [ContactSearchModels.RecipientModel]
      */
     data class Recents(
       val limit: Int = 25,
@@ -76,12 +77,13 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.KnownRecipient]
-     * Model: [ContactSearchAdapter.RecipientModel]
+     * Model: [ContactSearchModels.RecipientModel]
      */
     data class Individuals(
       val includeSelfMode: RecipientTable.IncludeSelfMode,
       val transportType: TransportType,
       override val includeHeader: Boolean,
+      override val headerAction: HeaderAction? = null,
       override val expandConfig: ExpandConfig? = null,
       val includeLetterHeaders: Boolean = false,
       val pushSearchResultsSortOrder: ContactSearchSortOrder = ContactSearchSortOrder.NATURAL
@@ -92,7 +94,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.KnownRecipient]
-     * Model: [ContactSearchAdapter.RecipientModel]
+     * Model: [ContactSearchModels.RecipientModel]
      */
     data class Groups(
       val includeMms: Boolean = false,
@@ -107,7 +109,7 @@ class ContactSearchConfiguration private constructor(
 
     /**
      * A set of arbitrary rows, in the order given in the builder. Usage requires
-     * an implementation of [ArbitraryRepository] to be passed into [ContactSearchMediator]
+     * an implementation of [ArbitraryRepository] to be passed into [ContactSearchViewModel.Factory]
      *
      * Key: [ContactSearchKey.Arbitrary]
      * Data: [ContactSearchData.Arbitrary]
@@ -126,11 +128,16 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.KnownRecipient]
-     * Model: [ContactSearchAdapter.RecipientModel]
+     * Model: [ContactSearchModels.RecipientModel]
      */
     data class GroupMembers(
       override val includeHeader: Boolean = true,
-      override val expandConfig: ExpandConfig? = null
+      override val expandConfig: ExpandConfig? = null,
+      val includeLetterHeaders: Boolean = false,
+      val showGroupsInCommon: Boolean = true,
+      val groupId: GroupId? = null,
+      val showSelfAsYou: Boolean = false,
+      val roleFilter: MemberRole = MemberRole.ALL
     ) : Section(SectionKey.GROUP_MEMBERS)
 
     /**
@@ -139,7 +146,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.GroupWithMembers]
      * Data: [ContactSearchData.GroupWithMembers]
-     * Model: [ContactSearchAdapter.GroupWithMembersModel]
+     * Model: [ContactSearchModels.GroupWithMembersModel]
      */
     data class GroupsWithMembers(
       override val includeHeader: Boolean = true,
@@ -152,7 +159,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.Thread]
      * Data: [ContactSearchData.Thread]
-     * Model: [ContactSearchAdapter.ThreadModel]
+     * Model: [ContactSearchModels.ThreadModel]
      */
     data class Chats(
       val isUnreadOnly: Boolean = false,
@@ -166,7 +173,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.Message]
      * Data: [ContactSearchData.Message]
-     * Model: [ContactSearchAdapter.MessageModel]
+     * Model: [ContactSearchModels.MessageModel]
      */
     data class Messages(
       override val includeHeader: Boolean = true,
@@ -180,7 +187,7 @@ class ContactSearchConfiguration private constructor(
      *
      * Key: [ContactSearchKey.RecipientSearchKey]
      * Data: [ContactSearchData.KnownRecipient]
-     * Model: [ContactSearchAdapter.RecipientModel]
+     * Model: [ContactSearchModels.RecipientModel]
      */
     data class ContactsWithoutThreads(
       override val includeHeader: Boolean = true,
@@ -200,9 +207,9 @@ class ContactSearchConfiguration private constructor(
     /**
      * Chat types that are displayed when creating a chat folder.
      *
-     * Key: [ContactSearchKey.ChatType]
+     * Key: [ContactSearchKey.ChatTypeSearchKey]
      * Data: [ContactSearchData.ChatTypeRow]
-     * Model: [ContactSearchAdapter.ChatTypeModel]
+     * Model: [ContactSearchModels.ChatTypeModel]
      */
     data class ChatTypes(
       override val includeHeader: Boolean = true,
@@ -293,6 +300,15 @@ class ContactSearchConfiguration private constructor(
     val isExpanded: Boolean,
     val maxCountWhenNotExpanded: (ActiveContactCount) -> Int = { 2 }
   )
+
+  /**
+   * Role-based filter for [Section.GroupMembers].
+   */
+  enum class MemberRole {
+    ALL,
+    ADMINS,
+    CONTACTS
+  }
 
   /**
    * Network transport type for individual recipients.

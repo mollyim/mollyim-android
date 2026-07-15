@@ -33,6 +33,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.logging.Log;
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -45,8 +46,8 @@ import org.thoughtcrime.securesms.net.SignalNetwork;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
+import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
-import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -84,7 +85,7 @@ public class FcmRefreshJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws IOException, RetryLaterException {
+  public void onRun() throws Exception {
     if (!SignalStore.account().isFcmEnabled()) {
       boolean wasFcmTokenSet = SignalStore.account().getFcmTokenLastSetTime() > 0;
       if (wasFcmTokenSet) {
@@ -97,6 +98,11 @@ public class FcmRefreshJob extends BaseJob {
         }
         SignalStore.account().setFcmToken(null);
       }
+      return;
+    }
+
+    if (TextSecurePreferences.isUnauthorizedReceived(context)) {
+      Log.i(TAG, "No longer authorized. Ignoring.");
       return;
     }
 

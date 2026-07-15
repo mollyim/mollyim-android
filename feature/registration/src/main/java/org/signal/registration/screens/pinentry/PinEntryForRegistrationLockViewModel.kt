@@ -23,6 +23,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.EventDrivenViewModel
+import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 
 /**
@@ -61,16 +62,16 @@ class PinEntryForRegistrationLockViewModel(
   suspend fun applyEvent(state: PinEntryState, event: PinEntryScreenEvents, parentEventEmitter: (RegistrationFlowEvent) -> Unit, stateEmitter: (PinEntryState) -> Unit) {
     when (event) {
       is PinEntryScreenEvents.PinEntered -> {
-        var localState = state.copy(loading = true)
+        val localState = state.copy(loading = true)
         stateEmitter(localState)
-        localState = applyPinEntered(localState, event, parentEventEmitter)
-        stateEmitter(localState.copy(loading = false))
+        stateEmitter(applyPinEntered(localState, event, parentEventEmitter))
       }
       is PinEntryScreenEvents.Skip -> {
-        handleSkip()
+        throw NotImplementedError("Skip is not a valid action during registration lock PIN entry")
       }
-      is PinEntryScreenEvents.ToggleKeyboard,
-      is PinEntryScreenEvents.NeedHelp -> {
+      is PinEntryScreenEvents.CreateNewPin,
+      is PinEntryScreenEvents.ContactSupport -> Unit
+      is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
@@ -79,7 +80,7 @@ class PinEntryForRegistrationLockViewModel(
   private suspend fun applyPinEntered(state: PinEntryState, event: PinEntryScreenEvents.PinEntered, parentEventEmitter: (RegistrationFlowEvent) -> Unit): PinEntryState {
     Log.d(TAG, "[PinEntered] Attempting to restore master key from SVR...")
 
-    val restoreResult = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, state.isAlphanumericKeyboard, forRegistrationLock = true)
+    val restoreResult = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, forRegistrationLock = true)
 
     val masterKey: MasterKey = when (restoreResult) {
       is RequestResult.Success -> {
@@ -90,7 +91,13 @@ class PinEntryForRegistrationLockViewModel(
         return when (val error = restoreResult.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(triesRemaining = error.triesRemaining)
+            if (error.triesRemaining <= 0) {
+              Log.w(TAG, "[PinEntered] Out of PIN attempts. Account is locked.")
+              parentEventEmitter.navigateTo(RegistrationRoute.AccountLocked(timeRemainingMs = timeRemaining))
+              state
+            } else {
+              state.copy(loading = false, triesRemaining = error.triesRemaining)
+            }
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found. Account is locked.")
@@ -101,11 +108,11 @@ class PinEntryForRegistrationLockViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", restoreResult.networkError)
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", restoreResult.cause)
-        return state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
 
@@ -134,20 +141,21 @@ class PinEntryForRegistrationLockViewModel(
       is RequestResult.Success -> {
         Log.i(TAG, "[PinEntered] Successfully registered!")
         val (response, keyMaterial) = registerResult.result
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool))
-        // TODO storage service restore + profile screen
+        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
+        repository.enqueueSvrResetGuessCountJob()
+        repository.restoreAccountRecord()
         when {
-          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ChooseRestoreOptionAfterRegistration)
-          else -> parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
+          response.reregistration -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+          else -> parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         }
         state
       }
       is RequestResult.NonSuccess -> {
         when (val error = registerResult.error) {
           is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
-            Log.w(TAG, "[PinEntered] Session not found or verified: ${error.message}")
-            // TODO [registration] - Handle session not found or verified.
-            throw NotImplementedError("Handle session not found or verified")
+            Log.w(TAG, "[PinEntered] Session not found or verified: ${error.message}. Resetting.")
+            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            state
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             Log.w(TAG, "[PinEntered] Still getting registration lock error after providing token. This shouldn't happen. Resetting state.")
@@ -156,37 +164,33 @@ class PinEntryForRegistrationLockViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[PinEntered] Rate limited when registering. Retry After: ${error.retryAfter}")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
           }
           is NetworkController.RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[PinEntered] Invalid request when registering: ${error.message}")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
           }
           is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
             Log.w(TAG, "[PinEntered] Device transfer possible. This shouldn't happen when skipDeviceTransfer is true.")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
-            Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}")
-            // TODO [registration] - Handle incorrect password
-            throw NotImplementedError("Handle incorrect password")
+            Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}. Marking recovery password invalid and navigating back.")
+            parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
+            parentEventEmitter.navigateBack()
+            state
           }
         }
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when registering.", registerResult.networkError)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when registering.", registerResult.cause)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
-  }
-
-  private fun handleSkip() {
-    Log.d(TAG, "Skip requested - this will result in account data loss after timeRemaining: $timeRemaining ms")
-    // TODO [registration] - Show confirmation dialog warning about data loss, then proceed without PIN
   }
 
   class Factory(

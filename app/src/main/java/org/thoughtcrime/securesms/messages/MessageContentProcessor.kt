@@ -54,6 +54,7 @@ import org.whispersystems.signalservice.api.push.DistributionId
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.internal.push.CallMessage
 import org.whispersystems.signalservice.internal.push.Content
+import org.whispersystems.signalservice.internal.push.DataMessage
 import org.whispersystems.signalservice.internal.push.Envelope
 import org.whispersystems.signalservice.internal.push.GroupContextV2
 import org.whispersystems.signalservice.internal.push.TypingMessage
@@ -150,25 +151,16 @@ open class MessageContentProcessor(private val context: Context) {
     private fun shouldIgnore(content: Content, recipient: Recipient, threadRecipient: Recipient): Boolean {
       // MOLLY: Call shouldBlockSender(recipient) instead of senderRecipient.isBlocked()
       if (content.dataMessage != null) {
-        val message = content.dataMessage!!
-        return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
-          true
-        } else if (threadRecipient.isGroup) {
-          if (threadRecipient.isUnknownGroup) {
-            return shouldBlockSender(recipient)
-          }
-
-          val isTextMessage = message.body != null
-          val isMediaMessage = message.isMediaMessage
-          val isExpireMessage = message.isExpirationUpdate
-          val isGv2Update = message.hasSignedGroupChange
-          val isContentMessage = !isGv2Update && !isExpireMessage && (isTextMessage || isMediaMessage)
-          val isGroupActive = threadRecipient.isActiveGroup
-
-          isContentMessage && !isGroupActive || shouldBlockSender(recipient) && !isGv2Update
+        return shouldIgnoreDataMessage(content.dataMessage!!, recipient, threadRecipient)
+      } else if (content.editMessage != null) {
+        val editDataMessage = content.editMessage!!.dataMessage
+        return if (editDataMessage != null) {
+          shouldIgnoreDataMessage(editDataMessage, recipient, threadRecipient)
         } else {
           shouldBlockSender(recipient)
         }
+      } else if (content.decryptionErrorMessage != null) {
+        return shouldBlockSender(recipient)
       } else if (content.callMessage != null) {
         return shouldBlockSender(recipient)
       } else if (content.typingMessage != null) {
@@ -194,6 +186,27 @@ open class MessageContentProcessor(private val context: Context) {
         }
       }
       return false
+    }
+
+    private fun shouldIgnoreDataMessage(message: DataMessage, recipient: Recipient, threadRecipient: Recipient): Boolean {
+      return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
+        true
+      } else if (threadRecipient.isGroup) {
+        if (threadRecipient.isUnknownGroup) {
+          return shouldBlockSender(recipient)
+        }
+
+        val isTextMessage = message.body != null
+        val isMediaMessage = message.isMediaMessage
+        val isExpireMessage = message.isExpirationUpdate
+        val isGv2Update = message.hasSignedGroupChange
+        val isContentMessage = !isGv2Update && !isExpireMessage && (isTextMessage || isMediaMessage)
+        val isGroupActive = threadRecipient.isActiveGroup
+
+        isContentMessage && !isGroupActive || shouldBlockSender(recipient) && !isGv2Update
+      } else {
+        shouldBlockSender(recipient)
+      }
     }
 
     private fun shouldBlockSender(senderRecipient: Recipient): Boolean =
@@ -275,6 +288,11 @@ open class MessageContentProcessor(private val context: Context) {
         if (content.dataMessage != null) {
           if (content.dataMessage!!.hasDisallowedAnnouncementOnlyContent) {
             Log.w(TAG, "Ignoring message from ${senderRecipient.id} because it has disallowed content, and they're not an admin in an announcement-only group.")
+            return Gv2PreProcessResult.IGNORE
+          }
+        } else if (content.editMessage?.dataMessage != null) {
+          if (content.editMessage!!.dataMessage!!.hasDisallowedAnnouncementOnlyContent) {
+            Log.w(TAG, "Ignoring edit message from ${senderRecipient.id} because it has disallowed content, and they're not an admin in an announcement-only group.")
             return Gv2PreProcessResult.IGNORE
           }
         } else if (content.typingMessage != null) {

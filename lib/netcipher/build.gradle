@@ -21,6 +21,6 @@ android {
 
 dependencies {
     implementation project(':core:util')
-    implementation libs.androidx.fragment
+    implementation libs.androidx.core.ktx
     lintChecks project(':lintchecks')
 }

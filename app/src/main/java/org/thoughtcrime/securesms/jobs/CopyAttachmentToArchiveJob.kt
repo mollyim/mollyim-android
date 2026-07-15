@@ -2,13 +2,14 @@ package org.thoughtcrime.securesms.jobs
 
 import kotlinx.coroutines.runBlocking
 import org.signal.core.models.backup.MediaName
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64.decodeBase64
 import org.signal.core.util.ByteSize
 import org.signal.core.util.bytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.logging.logW
 import org.signal.libsignal.zkgroup.VerificationFailedException
-import org.thoughtcrime.securesms.attachments.AttachmentId
+import org.signal.network.NetworkResult
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
@@ -25,7 +26,6 @@ import org.thoughtcrime.securesms.jobs.protos.CopyAttachmentToArchiveJobData
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.whispersystems.signalservice.api.NetworkResult
 import java.util.concurrent.TimeUnit
 
 /**

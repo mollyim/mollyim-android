@@ -6,9 +6,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.sqlite.db.SupportSQLiteDatabase
 import net.zetetic.database.sqlcipher.SQLiteOpenHelper
 import org.signal.core.util.SqlUtil
+import org.signal.core.util.crypto.AttachmentSecret
 import org.signal.core.util.logging.Log
 import org.signal.core.util.withinTransaction
-import org.thoughtcrime.securesms.crypto.AttachmentSecret
 import org.thoughtcrime.securesms.crypto.DatabaseSecret
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
@@ -84,11 +84,6 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     // Requires FTS5
     executeStatements(signalDb, SearchTable.CREATE_TABLE)
     executeStatements(signalDb, SearchTable.CREATE_TRIGGERS)
-
-    val legacyDbPath = context.getDatabasePath("messages.db")
-    check(!legacyDbPath.exists()) {
-      "Unsupported Signal database: version is too old"
-    }
   }
 
   @VisibleForTesting

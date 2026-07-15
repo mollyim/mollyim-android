@@ -36,7 +36,6 @@ wire {
 }
 
 dependencies {
-  implementation(libs.androidx.ui.test.junit4)
   lintChecks(project(":lintchecks"))
 
   // Project dependencies
@@ -44,6 +43,8 @@ dependencies {
   implementation(project(":core:ui"))
   implementation(project(":core:util"))
   implementation(project(":core:models-jvm"))
+  implementation(project(":core:serialization"))
+  implementation(project(":lib:device-transfer"))
   implementation(libs.libsignal.android)
 
   // Compose BOM
@@ -75,6 +76,17 @@ dependencies {
   // Phone number formatting
   implementation(libs.google.libphonenumber)
 
+  // Phone number hint + SMS verification code retriever
+  // implementation(libs.google.play.services.auth) // MOLLY: TODO
+  implementation(libs.kotlinx.coroutines.play.services) {
+    exclude(group = "com.google.android.gms", module = "play-services-basement")
+    exclude(group = "com.google.android.gms", module = "play-services-tasks")
+  }
+  implementation(project(":core-gms:tasks"))
+
+  // Credential Manager (password manager retrieval)
+  implementation(libs.androidx.credentials)
+
   // Testing
   testImplementation(testFixtures(project(":core:ui")))
   testImplementation(testLibs.junit.junit)
@@ -85,6 +97,5 @@ dependencies {
   testImplementation(libs.androidx.compose.ui.test.junit4)
   androidTestImplementation(testLibs.androidx.test.ext.junit)
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-  implementation(libs.androidx.compose.ui.test.manifest)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

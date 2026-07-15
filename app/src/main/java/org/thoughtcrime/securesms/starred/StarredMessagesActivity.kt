@@ -129,7 +129,7 @@ class StarredMessagesActivity : PassphraseRequiredActivity() {
 
   private fun navigateToMessage(messageRecord: MessageRecord) {
     lifecycleScope.launch {
-      val (threadRecipient, startingPosition) = withContext(Dispatchers.IO) {
+      val (threadRecipient, startingPosition) = withContext(Dispatchers.Default) {
         val position = SignalDatabase.messages.getMessagePositionInConversation(messageRecord.threadId, messageRecord.dateReceived)
         val recipient = SignalDatabase.threads.getRecipientForThreadId(messageRecord.threadId)
         Pair(recipient, maxOf(0, position))
@@ -296,7 +296,7 @@ private fun initializeGiphyMp4(lifecycle: Lifecycle, videoContainer: ViewGroup, 
   val callback = GiphyMp4ProjectionRecycler(holders)
 
   GiphyMp4PlaybackController.attach(list, callback, maxPlayback)
-  list.addItemDecoration(GiphyMp4ItemDecoration(callback) {}, 0)
+  list.addItemDecoration(GiphyMp4ItemDecoration(callback), 0)
 }
 
 @Composable

@@ -13,14 +13,16 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import org.greenrobot.eventbus.EventBus
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64.decodeBase64OrThrow
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.InvalidMacException
 import org.signal.libsignal.protocol.InvalidMessageException
+import org.signal.network.exceptions.NonSuccessfulResponseCodeException
+import org.signal.network.exceptions.PushNetworkException
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.attachments.InvalidAttachmentException
 import org.thoughtcrime.securesms.backup.v2.ArchiveDatabaseExecutor
@@ -56,8 +58,6 @@ import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.I
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
 import org.whispersystems.signalservice.api.push.exceptions.MissingConfigurationException
-import org.whispersystems.signalservice.api.push.exceptions.NonSuccessfulResponseCodeException
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException
 import org.whispersystems.signalservice.api.push.exceptions.RangeException
 import java.io.File
 import java.io.IOException
@@ -277,14 +277,14 @@ class RestoreAttachmentJob private constructor(
 
     SignalLocalMetrics.ArchiveAttachmentRestore.start(attachmentId)
 
-    val progressServiceController = BackupMediaRestoreService.start(context, context.getString(R.string.BackupStatus__restoring_media))
+    val progressServiceController = if (!manual) BackupMediaRestoreService.start(context, context.getString(R.string.BackupStatus__restoring_media)) else null
 
     if (progressServiceController != null) {
       progressServiceController.use {
         retrieveAttachment(messageId, attachmentId, attachment)
       }
     } else {
-      Log.w(TAG, "Continuing without service.")
+      Log.w(TAG, "Continuing without service. manual: $manual")
       retrieveAttachment(messageId, attachmentId, attachment)
     }
 
@@ -410,6 +410,7 @@ class RestoreAttachmentJob private constructor(
             inputStream = input,
             offloadRestoredAt = if (manual) System.currentTimeMillis().milliseconds else null,
             archiveRestore = true,
+            restoredFromArchiveCdn = useArchiveCdn,
             notify = manual
           )
         ArchiveDatabaseExecutor.throttledNotifyAttachmentAndChatListObservers()
@@ -506,12 +507,22 @@ class RestoreAttachmentJob private constructor(
     ArchiveDatabaseExecutor.runBlocking {
       SignalDatabase.attachments.setRestoreTransferState(attachmentId, AttachmentTable.TRANSFER_PROGRESS_FAILED)
     }
+    maybeRequestBackfill()
   }
 
   private fun markPermanentlyFailed(attachmentId: AttachmentId) {
     ArchiveDatabaseExecutor.runBlocking {
       SignalDatabase.attachments.setRestoreTransferState(attachmentId, AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE)
     }
+    maybeRequestBackfill()
+  }
+
+  private fun maybeRequestBackfill() {
+    if (SignalStore.account.isPrimaryDevice || !manual) {
+      return
+    }
+    val attachment = SignalDatabase.attachments.getAttachment(attachmentId) ?: return
+    AttachmentBackfill.maybeRequest(messageId, attachment)
   }
 
   private fun maybePostFailedToDownloadFromArchiveNotification() {

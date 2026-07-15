@@ -21,9 +21,9 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.RegistrationRoute
+import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
-import org.signal.registration.screens.util.navigateTo
+import kotlin.time.toKotlinDuration
 
 /**
  * ViewModel for the PIN creation screen.
@@ -40,16 +40,12 @@ class PinCreationViewModel(
     private val TAG = Log.tag(PinCreationViewModel::class)
   }
 
-  private val _state = MutableStateFlow(
-    PinCreationState(
-      inputLabel = "PIN must be at least 4 digits"
-    )
-  )
+  private val _state = MutableStateFlow(PinCreationState())
 
   val state: StateFlow<PinCreationState> = _state
     .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
     .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinCreationState(inputLabel = "PIN must be at least 4 digits"))
+    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinCreationState())
 
   override suspend fun processEvent(event: PinCreationScreenEvents) {
     applyEvent(state.value, event)
@@ -59,22 +55,54 @@ class PinCreationViewModel(
   suspend fun applyEvent(state: PinCreationState, event: PinCreationScreenEvents) {
     when (event) {
       is PinCreationScreenEvents.PinSubmitted -> {
-        _state.value = state.copy(isConfirmEnabled = false)
-        val result = applyPinSubmitted(state, event.pin)
-        _state.value = result
+        when {
+          !state.isConfirmEnabled -> {
+            Log.d(TAG, "[PinSubmitted] First PIN entered. Asking the user to confirm it.")
+            _state.value = state.copy(firstPin = event.pin, isConfirmEnabled = true, pinMismatch = false)
+          }
+
+          event.pin != state.firstPin -> {
+            Log.w(TAG, "[PinSubmitted] Confirmation PIN did not match. Returning to PIN creation.")
+            _state.value = state.copy(isConfirmEnabled = false, firstPin = null, pinMismatch = true)
+          }
+
+          else -> {
+            Log.d(TAG, "[PinSubmitted] Confirmation PIN matched.")
+            val loadingState = state.copy(pinMismatch = false, loading = true)
+            _state.value = loadingState
+            _state.value = applyPinSubmitted(loadingState, event.pin)
+          }
+        }
       }
+
       is PinCreationScreenEvents.ToggleKeyboard -> {
-        val newValue = !state.isAlphanumericKeyboard
         _state.value = state.copy(
-          isAlphanumericKeyboard = newValue,
-          inputLabel = if (newValue) "PIN must be at least 4 digits" else "PIN must be at least 4 characters"
+          isAlphanumericKeyboard = !state.isAlphanumericKeyboard
         )
       }
+
       is PinCreationScreenEvents.LearnMore -> {
-        // TODO [registration] - Show learn more dialog or navigate to help screen
-        throw NotImplementedError("Show learn more dialog or navigate to help screen")
+        // Handled by the navigation layer, which opens the help URL directly.
+      }
+
+      is PinCreationScreenEvents.BackToPinEntry -> {
+        _state.value = state.copy(isConfirmEnabled = false, firstPin = null, pinMismatch = false)
+      }
+      is PinCreationScreenEvents.OptOut -> {
+        _state.value = state.copy(isConfirmEnabled = false)
+        applyOptOut()
+      }
+      is PinCreationScreenEvents.ConsumeOneTimeEvent -> {
+        _state.value = state.copy(oneTimeEvent = null)
       }
     }
+  }
+
+  private suspend fun applyOptOut() {
+    Log.i(TAG, "[OptOut] User opted out of creating a PIN. Recording choice and completing registration.")
+    repository.setPinOptedOut()
+    repository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
+    parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
   }
 
   @VisibleForTesting
@@ -96,17 +124,19 @@ class PinCreationViewModel(
     return when (val result = repository.setNewlyCreatedPin(pin, state.isAlphanumericKeyboard, masterKey)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[PinSubmitted] Successfully backed up master key to SVR.")
-        // TODO profile creation
-        parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
+        repository.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         state
       }
+
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
           is NetworkController.BackupMasterKeyError.EnclaveNotFound -> {
             Log.w(TAG, "[PinSubmitted] SVR enclave not found.")
-            // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-            throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+            state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
           }
+
           is NetworkController.BackupMasterKeyError.NotRegistered -> {
             Log.w(TAG, "[PinSubmitted] Account not registered. This should not happen. Resetting.")
             parentEventEmitter(RegistrationFlowEvent.ResetState)
@@ -114,15 +144,15 @@ class PinCreationViewModel(
           }
         }
       }
+
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinSubmitted] Network error when backing up master key.", result.networkError)
-        // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-        throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.NetworkError(result.retryAfter?.toKotlinDuration()))
       }
+
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinSubmitted] Application error when backing up master key.", result.cause)
-        // TODO [registration] - Report to UI and indicate to library user that pin could not be created
-        throw NotImplementedError("Report to UI and indicate to library user that pin could not be created")
+        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
       }
     }
   }

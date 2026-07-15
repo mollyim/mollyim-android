@@ -53,6 +53,7 @@ internal fun LocalBackupsSettingsScreen(
   val context = LocalContext.current
   var showChooseLocationDialog by rememberSaveable { mutableStateOf(false) }
   var showTurnOffAndDeleteDialog by rememberSaveable { mutableStateOf(false) }
+  var showOptimizeStorageWarningDialog by rememberSaveable { mutableStateOf(false) }
 
   val learnMore = stringResource(id = R.string.BackupsPreferenceFragment__learn_more)
   val restoreText = stringResource(id = R.string.OnDeviceBackupsScreen__to_restore_a_backup, learnMore).trim()
@@ -80,6 +81,14 @@ internal fun LocalBackupsSettingsScreen(
     educationSheetMessage = stringResource(R.string.RemoteBackupsSettingsFragment__to_view_your_key)
   )
 
+  val proceedWithTurnOn = {
+    if (BackupUtil.isUserSelectionRequired(context)) {
+      showChooseLocationDialog = true
+    } else {
+      callback.onTurnOnClick()
+    }
+  }
+
   Scaffolds.Settings(
     title = stringResource(id = R.string.RemoteBackupsSettingsFragment__on_device_backups),
     navigationIcon = ImageVector.vectorResource(CoreUiR.drawable.symbol_arrow_start_24),
@@ -104,11 +113,10 @@ internal fun LocalBackupsSettingsScreen(
 
                 Buttons.MediumTonal(
                   onClick = {
-                    // For the SAF-based flow, present an in-screen dialog before launching the picker.
-                    if (BackupUtil.isUserSelectionRequired(context)) {
-                      showChooseLocationDialog = true
+                    if (state.optimizeStorageEnabled) {
+                      showOptimizeStorageWarningDialog = true
                     } else {
-                      callback.onTurnOnClick()
+                      proceedWithTurnOn()
                     }
                   },
                   enabled = state.canTurnOn,
@@ -220,6 +228,24 @@ internal fun LocalBackupsSettingsScreen(
     )
   }
 
+  if (showOptimizeStorageWarningDialog) {
+    Dialogs.AdvancedAlertDialog(
+      body = stringResource(id = R.string.OnDeviceBackupsScreen__you_have_optimize_signal_storage_on),
+      positive = stringResource(id = R.string.OnDeviceBackupsScreen__view_setting),
+      neutral = stringResource(id = R.string.OnDeviceBackupsScreen__continue_without_turning_off),
+      negative = stringResource(id = android.R.string.cancel),
+      onPositive = {
+        showOptimizeStorageWarningDialog = false
+        callback.onViewOptimizeStorageSettingClick()
+      },
+      onNeutral = {
+        showOptimizeStorageWarningDialog = false
+        proceedWithTurnOn()
+      },
+      onNegative = { showOptimizeStorageWarningDialog = false }
+    )
+  }
+
   if (showTurnOffAndDeleteDialog) {
     Dialogs.SimpleAlertDialog(
       title = stringResource(id = R.string.BackupDialog_delete_backups),
@@ -233,7 +259,15 @@ internal fun LocalBackupsSettingsScreen(
   }
 
   if (state.isDeleting) {
-    Dialogs.IndeterminateProgressDialog(message = stringResource(id = R.string.BackupDialog_deleting_local_backup))
+    val message = stringResource(id = R.string.BackupDialog_deleting_local_backup)
+    if (state.deleteTotal > 0) {
+      Dialogs.DeterminateProgressDialog(
+        message = message,
+        progress = { state.deleteCompleted.toFloat() / state.deleteTotal }
+      )
+    } else {
+      Dialogs.IndeterminateProgressDialog(message = message)
+    }
   }
 }
 

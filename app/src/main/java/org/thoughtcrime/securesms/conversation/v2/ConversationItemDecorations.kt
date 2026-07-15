@@ -10,6 +10,7 @@ import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.signal.core.ui.util.ThemeUtil
@@ -46,6 +47,11 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
       unreadViewHolder?.bind()
     }
 
+  /** The current unread-divider state. Exposed for instrumentation tests asserting end-to-end divider behavior. */
+  @get:VisibleForTesting
+  val unreadStateForTesting: UnreadState
+    get() = unreadState
+
   var currentItems: List<ConversationElement?> = emptyList()
     set(value) {
       field = value
@@ -58,6 +64,12 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
       field = value
       headerCache.values.forEach { it.updateForWallpaper() }
       unreadViewHolder?.updateForWallpaper()
+    }
+
+  var isReleaseNotes: Boolean = false
+    set(value) {
+      field = value
+      headerCache.values.forEach { it.updateForWallpaper() }
     }
 
   var selfRecipientId: RecipientId? = null
@@ -114,31 +126,24 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
     }
   }
 
-  /** Must be called before first setting of [currentItems] */
-  fun setFirstUnreadCount(unreadCount: Int) {
-    if (unreadState == UnreadState.None && unreadCount > 0) {
-      unreadState = UnreadState.InitialUnreadState(unreadCount)
+  /**
+   * Must be called before first setting of [currentItems]. [firstUnreadId] is the row id of the oldest unread message,
+   * used as the unread divider's anchor.
+   */
+  fun setUnreadState(unreadCount: Int, firstUnreadId: Long) {
+    if (unreadState == UnreadState.None && unreadCount > 0 && firstUnreadId > 0) {
+      unreadState = UnreadState.CompleteUnreadState(unreadCount = unreadCount, firstUnreadId = firstUnreadId)
     }
   }
 
   /**
-   * If [unreadState] is [UnreadState.InitialUnreadState] we need to determine the first unread timestamp based on
-   * initial unread count.
-   *
-   * Once in [UnreadState.CompleteUnreadState], need to update the unread count based on new incoming messages since
-   * the first unread timestamp. If an outgoing message is found in this range the unread state is cleared completely,
-   * which causes the unread divider to be removed.
+   * Recomputes the unread count from newer messages up to the first unread message. If an outgoing message is found in
+   * that range the unread state is cleared, removing the divider.
    */
   private fun updateUnreadState(items: List<ConversationElement?>) {
     val state: UnreadState = unreadState
 
-    if (state is UnreadState.InitialUnreadState) {
-      val firstUnread: ConversationMessageElement? = findFirstUnreadStartingAt(items, (state.unreadCount - 1).coerceIn(items.indices), state.unreadCount)
-      val timestamp = firstUnread?.timestamp()
-      if (timestamp != null) {
-        unreadState = UnreadState.CompleteUnreadState(unreadCount = state.unreadCount, firstUnreadTimestamp = timestamp)
-      }
-    } else if (state is UnreadState.CompleteUnreadState) {
+    if (state is UnreadState.CompleteUnreadState) {
       var newUnreadCount = 0
       for (element in items) {
         if (element is ConversationMessageElement) {
@@ -150,7 +155,7 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
               newUnreadCount++
             }
 
-            if (element.timestamp() == state.firstUnreadTimestamp) {
+            if (element.conversationMessage.messageRecord.id == state.firstUnreadId) {
               unreadState = state.copy(unreadCount = max(state.unreadCount, newUnreadCount))
               break
             }
@@ -158,30 +163,6 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
         }
       }
     }
-  }
-
-  /**
-   * Attempt to find the "first" unread message, searching a range of 20 items in the list starting at index `unreadCount - 1`. The
-   * search helps us skip over interspersed read messages like chat events that could mess up the location of the header.
-   */
-  private fun findFirstUnreadStartingAt(items: List<ConversationElement?>, startingIndex: Int, unreadCount: Int): ConversationMessageElement? {
-    val endingIndex = (startingIndex + 20).coerceAtMost(items.lastIndex)
-    var targetUnread: ConversationMessageElement? = null
-    var runningUnreadCount = 0
-
-    for (index in startingIndex..endingIndex) {
-      val item = items[index] as? ConversationMessageElement
-      if ((item?.conversationMessage?.messageRecord as? MmsMessageRecord)?.isRead == false) {
-        targetUnread = item
-        runningUnreadCount++
-      }
-
-      if (runningUnreadCount >= unreadCount) {
-        break
-      }
-    }
-
-    return targetUnread ?: items[startingIndex] as? ConversationMessageElement
   }
 
   /**
@@ -196,6 +177,9 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
    * Note 2: The caller should've already checked [MmsMessageRecord.isOutgoing] before calling this but some outgoing
    * messages don't use the outgoing types like an outgoing group call, so filter on the [MmsMessageRecord.fromRecipient]
    * here as well.
+   *
+   * Note 3: Only actually-unread rows count -- some inbox-type events are inserted already-read (e.g. identity updates),
+   * and counting them would inflate the banner past the thread's stored unread count.
    */
   private fun MmsMessageRecord.countsTowardsUnread(): Boolean {
     val likelyIncoming = MessageTypes.isInboxType(this.type) ||
@@ -203,16 +187,15 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
       MessageTypes.isIncomingAudioCall(this.type) ||
       MessageTypes.isIncomingVideoCall(this.type)
 
-    return likelyIncoming && !MessageTypes.isGroupUpdate(this.type) && this.fromRecipient.id != selfRecipientId
+    return likelyIncoming && !this.isRead && !MessageTypes.isGroupUpdate(this.type) && this.fromRecipient.id != selfRecipientId
   }
 
   private fun isFirstUnread(bindingAdapterPosition: Int): Boolean {
     val state = unreadState
 
     return state is UnreadState.CompleteUnreadState &&
-      state.firstUnreadTimestamp != null &&
       bindingAdapterPosition in currentItems.indices &&
-      (currentItems[bindingAdapterPosition] as? ConversationMessageElement)?.timestamp() == state.firstUnreadTimestamp
+      (currentItems[bindingAdapterPosition] as? ConversationMessageElement)?.conversationMessage?.messageRecord?.id == state.firstUnreadId
   }
 
   /**
@@ -308,7 +291,10 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
     }
 
     fun updateForWallpaper() {
-      if (hasWallpaper) {
+      if (isReleaseNotes) {
+        date.setBackgroundResource(R.drawable.release_notes_date_header_background)
+        date.setTextColor(ThemeUtil.getThemedColor(itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant))
+      } else if (hasWallpaper) {
         date.setBackgroundResource(R.drawable.wallpaper_bubble_background_18)
         date.setTextColor(ContextCompat.getColor(itemView.context, CoreUiR.color.signal_colorNeutralInverse))
       } else {
@@ -357,10 +343,7 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
     /** Unread state hasn't been initialized or there are 0 unreads upon entering the conversation */
     object None : UnreadState()
 
-    /** On first load of data, there is at least 1 unread message but we don't know the 'position' in the list yet */
-    data class InitialUnreadState(val unreadCount: Int) : UnreadState()
-
-    /** We have at least one unread and know the timestamp of the first unread message and thus 'position' for the header */
-    data class CompleteUnreadState(val unreadCount: Int, val firstUnreadTimestamp: Long? = null) : UnreadState()
+    /** We have at least one unread and know the row id of the first unread message, used to position the header */
+    data class CompleteUnreadState(val unreadCount: Int, val firstUnreadId: Long) : UnreadState()
   }
 }

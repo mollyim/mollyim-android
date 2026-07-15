@@ -3,12 +3,17 @@ package org.thoughtcrime.securesms.jobs;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.annimon.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.signal.core.util.JsonUtils;
 import org.signal.core.util.ListUtil;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.NoSessionException;
+import org.signal.network.exceptions.PushNetworkException;
 import org.thoughtcrime.securesms.database.MessageTable.SyncMessageId;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
+import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
@@ -19,14 +24,10 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.thoughtcrime.securesms.util.JsonUtils;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.ViewedMessage;
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 
 import java.io.IOException;
@@ -34,6 +35,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MultiDeviceViewedUpdateJob extends BaseJob {
 
@@ -103,7 +106,7 @@ public class MultiDeviceViewedUpdateJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws IOException, UntrustedIdentityException {
+  public void onRun() throws IOException, UntrustedIdentityException, NoSessionException {
     if (!Recipient.self().isRegistered()) {
       throw new NotPushRegisteredException();
     }
@@ -116,9 +119,9 @@ public class MultiDeviceViewedUpdateJob extends BaseJob {
     List<ViewedMessage> viewedMessages = new LinkedList<>();
 
     for (SerializableSyncMessageId messageId : messageIds) {
-      Recipient recipient = Recipient.resolved(RecipientId.from(messageId.recipientId));
-      if (!recipient.isGroup() && recipient.isMaybeRegistered()) {
-        viewedMessages.add(new ViewedMessage(RecipientUtil.getOrFetchServiceId(context, recipient), messageId.timestamp));
+      RecipientRecord recipient = SignalDatabase.recipients().getRecord(RecipientId.from(messageId.recipientId));
+      if (recipient.getGroupId() == null && recipient.getRegistered() != RegisteredState.NOT_REGISTERED && recipient.getServiceId() != null) {
+        viewedMessages.add(new ViewedMessage(recipient.getServiceId(), messageId.timestamp));
       }
     }
 
@@ -166,8 +169,7 @@ public class MultiDeviceViewedUpdateJob extends BaseJob {
                                           throw new AssertionError(e);
                                         }
                                       })
-                                      .map(id -> new SyncMessageId(RecipientId.from(id.recipientId), id.timestamp))
-                                      .toList();
+                                      .map(id -> new SyncMessageId(RecipientId.from(id.recipientId), id.timestamp)).collect(Collectors.toList());
 
       return new MultiDeviceViewedUpdateJob(parameters, ids);
     }

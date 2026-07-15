@@ -6,9 +6,12 @@ import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken;
+import org.signal.network.exceptions.PushNetworkException;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageId;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
@@ -25,7 +28,6 @@ import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.SendMessageResult;
 import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 
 import java.io.IOException;
@@ -103,34 +105,34 @@ public class SendDeliveryReceiptJob extends BaseJob {
     }
 
     SignalServiceMessageSender  messageSender  = AppDependencies.getSignalServiceMessageSender();
-    Recipient                   recipient      = Recipient.resolved(recipientId);
+    RecipientRecord             recipient      = SignalDatabase.recipients().getRecord(recipientId);
 
-    if (recipient.isSelf()) {
+    if (recipient.getId().equals(Recipient.self().getId())) {
       Log.i(TAG, "Not sending to self, abort");
       return;
     }
 
-    if (recipient.isUnregistered()) {
+    if (recipient.getRegistered() == RegisteredState.NOT_REGISTERED) {
       Log.w(TAG, recipient.getId() + " is unregistered!");
       return;
     }
 
-    if (!recipient.getHasServiceId() && !recipient.getHasE164()) {
+    if (recipient.getServiceId() == null && recipient.getE164() == null) {
       Log.w(TAG, "No serviceId or e164!");
       return;
     }
 
-    SignalServiceAddress        remoteAddress  = RecipientUtil.toSignalServiceAddress(context, recipient);
+    SignalServiceAddress        remoteAddress  = RecipientUtil.toSignalServiceAddress(recipient);
     SignalServiceReceiptMessage receiptMessage = new SignalServiceReceiptMessage(SignalServiceReceiptMessage.Type.DELIVERY,
                                                                                  Collections.singletonList(messageSentTimestamp),
                                                                                  timestamp);
 
-    SendMessageResult result = messageSender.sendReceipt(remoteAddress,
-                                                         SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, this::getGroupSendFullToken),
-                                                         receiptMessage,
-                                                         recipient.getNeedsPniSignature());
+    SendMessageResult result = ReceiptSender.sendWithSessionRepair(recipientId, () -> messageSender.sendReceipt(remoteAddress,
+                                                                                                                SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, this::getGroupSendFullToken),
+                                                                                                                receiptMessage,
+                                                                                                                recipient.needsPniSignature()));
 
-    if (messageId != null) {
+    if (result != null && messageId != null) {
       SignalDatabase.messageLog().insertIfPossible(recipientId, timestamp, result, ContentHint.IMPLICIT, messageId, false);
     }
   }
@@ -152,6 +154,8 @@ public class SendDeliveryReceiptJob extends BaseJob {
   public boolean onShouldRetry(@NonNull Exception e) {
     if (e instanceof ServerRejectedException) return false;
     if (e instanceof PushNetworkException) return true;
+    if (e instanceof IOException) return true;
+
     return false;
   }
 

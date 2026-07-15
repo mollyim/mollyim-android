@@ -20,7 +20,6 @@ data class SignalServiceConfiguration(
   val socketFactory: SocketFactory,
   val proxySelector: ProxySelector,
   val dns: Dns,
-  val systemHttpProxy: Optional<HttpProxy>,
   val zkGroupServerPublicParams: ByteArray,
   val genericServerPublicParams: ByteArray,
   val backupServerPublicParams: ByteArray,

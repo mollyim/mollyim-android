@@ -20,11 +20,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.PermissionState
@@ -32,16 +33,18 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
 import im.molly.unifiedpush.model.MollySocket
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import org.signal.camera.CameraScreenEvents
+import org.signal.camera.CameraScreenState
+import org.signal.camera.CameraScreenViewModel
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.permissions.Permissions
-import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.permissions.PermissionCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.QrImageSelectionActivity
 import org.thoughtcrime.securesms.util.DynamicTheme
+import org.signal.mediasend.R as MediaSendR
 
 /**
  * Prompts the user to scan a MollySocket QR code. Uses the activity result to communicate the recipient that was found, or null if no valid deeplink were scanned.
@@ -50,7 +53,6 @@ import org.thoughtcrime.securesms.util.DynamicTheme
 class MollySocketQrScannerActivity : AppCompatActivity() {
 
   private val viewModel: MollySocketQrScannerViewModel by viewModels()
-  private val disposables = LifecycleDisposable()
 
   @SuppressLint("MissingSuperCall")
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -59,7 +61,6 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    disposables.bindTo(this)
 
     val galleryLauncher = registerForActivityResult(QrImageSelectionActivity.Contract()) { uri ->
       if (uri != null) {
@@ -79,14 +80,22 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
       val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
       val state by viewModel.state
 
+      val cameraViewModel: CameraScreenViewModel = viewModel { CameraScreenViewModel() }
+      val cameraState by cameraViewModel.state
+
+      LaunchedEffect(cameraViewModel) {
+        cameraViewModel.qrCodeDetected.collect { url ->
+          viewModel.onQrScanned(url)
+        }
+      }
+
       SignalTheme(isDarkMode = DynamicTheme.isDarkTheme(LocalContext.current)) {
         Content(
-          lifecycleOwner = this,
-          diposables = disposables.disposables,
           state = state,
+          cameraState = cameraState,
+          cameraEmitter = cameraViewModel::onEvent,
           galleryPermissionsState = galleryPermissionState,
           cameraPermissionState = cameraPermissionState,
-          onQrScanned = { url -> viewModel.onQrScanned(url) },
           onQrResultHandled = {
             finish()
           },
@@ -115,8 +124,14 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
     Permissions.with(this)
       .request(Manifest.permission.CAMERA)
       .ifNecessary()
-      .withPermanentDenialDialog(getString(R.string.CameraXFragment_signal_needs_camera_access_scan_qr_code), null, R.string.CameraXFragment_allow_access_camera, R.string.CameraXFragment_to_scan_qr_codes, supportFragmentManager)
-      .onAnyDenied { Toast.makeText(this, R.string.CameraXFragment_signal_needs_camera_access_scan_qr_code, Toast.LENGTH_LONG).show() }
+      .withPermanentDenialDialog(
+        getString(MediaSendR.string.CameraXFragment_signal_needs_camera_access_scan_qr_code),
+        null,
+        MediaSendR.string.CameraXFragment_allow_access_camera,
+        MediaSendR.string.CameraXFragment_to_scan_qr_codes,
+        supportFragmentManager
+      )
+      .onAnyDenied { Toast.makeText(this, MediaSendR.string.CameraXFragment_signal_needs_camera_access_scan_qr_code, Toast.LENGTH_LONG).show() }
       .execute()
   }
 
@@ -138,12 +153,11 @@ class MollySocketQrScannerActivity : AppCompatActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Content(
-  lifecycleOwner: LifecycleOwner,
-  diposables: CompositeDisposable,
   state: MollySocketQrScannerViewModel.ScannerState,
+  cameraState: CameraScreenState,
+  cameraEmitter: (CameraScreenEvents) -> Unit = {},
   galleryPermissionsState: MultiplePermissionsState,
   cameraPermissionState: PermissionState,
-  onQrScanned: (String) -> Unit,
   onQrResultHandled: () -> Unit,
   onOpenCameraClicked: () -> Unit,
   onOpenGalleryClicked: () -> Unit,
@@ -168,10 +182,9 @@ fun Content(
     }
   ) { contentPadding ->
     MollySocketQrScanScreen(
-      lifecycleOwner = lifecycleOwner,
-      disposables = diposables,
       qrScanResult = state.qrScanResult,
-      onQrCodeScanned = onQrScanned,
+      cameraState = cameraState,
+      cameraEmitter = cameraEmitter,
       onQrResultHandled = onQrResultHandled,
       onOpenCameraClicked = onOpenCameraClicked,
       onOpenGalleryClicked = onOpenGalleryClicked,

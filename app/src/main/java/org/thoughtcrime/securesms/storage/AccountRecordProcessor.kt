@@ -139,9 +139,13 @@ class AccountRecordProcessor(
       usernameLink = remote.proto.usernameLink
       notificationProfileManualOverride = remote.proto.notificationProfileManualOverride
       backupTier = local.proto.backupTier ?: remote.proto.backupTier
+      avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
       automaticKeyVerificationDisabled = remote.proto.automaticKeyVerificationDisabled
       hasSeenAdminDeleteEducationDialog = remote.proto.hasSeenAdminDeleteEducationDialog
-      avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
+      releaseNotesChatArchived = remote.proto.releaseNotesChatArchived ?: local.proto.releaseNotesChatArchived
+      releaseNotesChatMutedUntilTimestamp = remote.proto.releaseNotesChatMutedUntilTimestamp ?: local.proto.releaseNotesChatMutedUntilTimestamp
+      releaseNotesChatBlocked = remote.proto.releaseNotesChatBlocked ?: local.proto.releaseNotesChatBlocked
+      releaseNotesChatMarkedUnread = remote.proto.releaseNotesChatMarkedUnread ?: local.proto.releaseNotesChatMarkedUnread
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
       safeSetSubscriber(donationSubscriberId, donationSubscriberCurrencyCode)

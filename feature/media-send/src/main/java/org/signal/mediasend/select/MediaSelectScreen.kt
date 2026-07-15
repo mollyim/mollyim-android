@@ -5,6 +5,7 @@
 
 package org.signal.mediasend.select
 
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -50,15 +51,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.window.core.layout.WindowSizeClass
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
@@ -70,11 +69,8 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.ensureWidthIsAtLeastHeight
 import org.signal.glide.compose.GlideImage
 import org.signal.mediasend.MediaSendMetrics
-import org.signal.mediasend.MediaSendNavKey
-import org.signal.mediasend.MediaSendState
+import org.signal.mediasend.R
 import org.signal.mediasend.edit.rememberPreviewMedia
-import org.signal.mediasend.goToEdit
-import org.signal.mediasend.pop
 
 /**
  * Allows user to select one or more pieces of content to add to the
@@ -82,22 +78,19 @@ import org.signal.mediasend.pop
  */
 @Composable
 internal fun MediaSelectScreen(
-  state: MediaSendState,
-  backStack: NavBackStack<NavKey>,
-  callback: MediaSelectScreenCallback
+  state: MediaSelectScreenState,
+  onEvent: (MediaSelectScreenEvent) -> Unit
 ) {
-  val gridConfiguration = rememberGridConfiguration(state.selectedMediaFolder == null)
+  val gridConfiguration = rememberGridConfiguration(state is MediaSelectScreenState.Folders)
+  val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
   Scaffolds.Settings(
-    title = state.selectedMediaFolder?.title ?: "Gallery",
+    title = when (state) {
+      is MediaSelectScreenState.Folders -> stringResource(R.string.MediaSelectScreen__gallery)
+      is MediaSelectScreenState.Files -> state.selectedMediaFolder.title
+    },
     navigationIcon = ImageVector.vectorResource(org.signal.core.ui.R.drawable.symbol_arrow_start_24),
-    onNavigationClick = {
-      if (state.selectedMediaFolder != null) {
-        callback.onFolderClick(null)
-      } else {
-        backStack.pop()
-      }
-    }
+    onNavigationClick = { backDispatcher?.onBackPressed() }
   ) { paddingValues ->
     Column(
       modifier = Modifier
@@ -112,13 +105,17 @@ internal fun MediaSelectScreen(
           .padding(horizontal = gridConfiguration.horizontalMargin)
           .weight(1f)
       ) {
-        if (state.selectedMediaFolder == null) {
-          items(state.mediaFolders, key = { it.bucketId }) {
-            MediaFolderTile(it, callback)
+        when (state) {
+          is MediaSelectScreenState.Folders -> {
+            items(state.mediaFolders, key = { it.bucketId }) {
+              MediaFolderTile(it, onEvent)
+            }
           }
-        } else {
-          items(state.selectedMediaFolderItems, key = { it.uri }) { media ->
-            MediaTile(media = media, state.selectedMedia.indexOfFirst { it.uri == media.uri }, callback = callback)
+
+          is MediaSelectScreenState.Files -> {
+            items(state.selectedMediaFolderItems, key = { it.uri }) { media ->
+              MediaTile(media = media, state.selectedMedia.indexOfFirst { it.uri == media.uri }, onEvent = onEvent)
+            }
           }
         }
       }
@@ -148,14 +145,14 @@ internal fun MediaSelectScreen(
           ) {
             items(state.selectedMedia, key = { it.uri }) { media ->
               MediaThumbnail(media, modifier = Modifier.animateItem()) {
-                callback.setFocusedMedia(media)
-                backStack.goToEdit()
+                onEvent(MediaSelectScreenEvent.SetFocusedMedia(media))
+                onEvent(MediaSelectScreenEvent.NavigateToEdit)
               }
             }
           }
 
           NextButton(state.selectedMedia.size) {
-            backStack.goToEdit()
+            onEvent(MediaSelectScreenEvent.NavigateToEdit)
           }
         }
       }
@@ -243,13 +240,13 @@ private fun <T> WindowSizeClass.forWidthBreakpoint(
 @Composable
 private fun MediaFolderTile(
   mediaFolder: MediaFolder,
-  callback: MediaSelectScreenCallback
+  onEvent: (MediaSelectScreenEvent) -> Unit
 ) {
   Column(
     modifier = Modifier
       .fillMaxWidth()
       .clickable(
-        onClick = { callback.onFolderClick(mediaFolder) },
+        onClick = { onEvent(MediaSelectScreenEvent.FolderClick(mediaFolder)) },
         onClickLabel = mediaFolder.title,
         role = Role.Button
       ),
@@ -289,7 +286,7 @@ private fun MediaFolderTile(
 private fun MediaTile(
   media: Media,
   selectionIndex: Int,
-  callback: MediaSelectScreenCallback
+  onEvent: (MediaSelectScreenEvent) -> Unit
 ) {
   val scale by animateFloatAsState(
     targetValue = if (selectionIndex >= 0) {
@@ -307,7 +304,7 @@ private fun MediaTile(
     modifier = Modifier
       .background(color = MaterialTheme.colorScheme.surfaceVariant)
       .clickable(
-        onClick = { callback.onMediaClick(media) },
+        onClick = { onEvent(MediaSelectScreenEvent.MediaClick(media)) },
         onClickLabel = media.fileName,
         role = Role.Button
       )
@@ -316,7 +313,8 @@ private fun MediaTile(
       Box(
         modifier = Modifier
           .scale(scale)
-          .background(color = Previews.rememberRandomColor(), shape = RoundedCornerShape(cornerClip)).fillMaxWidth()
+          .background(color = Previews.rememberRandomColor(), shape = RoundedCornerShape(cornerClip))
+          .fillMaxWidth()
           .aspectRatio(1f)
       )
     } else {
@@ -373,7 +371,7 @@ private fun NextButton(mediaSelectionCount: Int, onClick: () -> Unit) {
 
     Icon(
       imageVector = ImageVector.vectorResource(org.signal.core.ui.R.drawable.symbol_chevron_right_24),
-      contentDescription = "Next"
+      contentDescription = stringResource(R.string.MediaSelectScreen__next)
     )
   }
 }
@@ -406,11 +404,11 @@ private fun MediaThumbnail(
 private fun MediaSelectScreenFolderPreview() {
   Previews.Preview {
     MediaSelectScreen(
-      state = MediaSendState(
-        mediaFolders = rememberPreviewMediaFolders(20)
+      state = MediaSelectScreenState.Folders(
+        mediaFolders = rememberPreviewMediaFolders(20),
+        selectedMedia = emptyList()
       ),
-      backStack = rememberNavBackStack(MediaSendNavKey.Edit),
-      callback = MediaSelectScreenCallback.Empty
+      onEvent = {}
     )
   }
 }
@@ -421,28 +419,23 @@ private fun MediaSelectScreenMediaPreview() {
   val folders = rememberPreviewMediaFolders(20)
   val media = rememberPreviewMedia(100)
   val selectedMedia: MutableList<Media> = remember { mutableStateListOf() }
-  val callback = remember {
-    object : MediaSelectScreenCallback by MediaSelectScreenCallback.Empty {
-      override fun onMediaClick(media: Media) {
-        if (media in selectedMedia) {
-          selectedMedia.remove(media)
-        } else {
-          selectedMedia.add(media)
-        }
-      }
-    }
-  }
 
   Previews.Preview {
     MediaSelectScreen(
-      state = MediaSendState(
-        mediaFolders = folders,
+      state = MediaSelectScreenState.Files(
         selectedMediaFolder = folders.first(),
         selectedMediaFolderItems = media,
         selectedMedia = selectedMedia
       ),
-      backStack = rememberNavBackStack(MediaSendNavKey.Edit),
-      callback = callback
+      onEvent = {
+        if (it is MediaSelectScreenEvent.MediaClick) {
+          if (it.media in selectedMedia) {
+            selectedMedia.remove(it.media)
+          } else {
+            selectedMedia.add(it.media)
+          }
+        }
+      }
     )
   }
 }
@@ -454,7 +447,7 @@ private fun MediaFolderTilePreview() {
     Box(modifier = Modifier.width(174.dp)) {
       MediaFolderTile(
         mediaFolder = rememberPreviewMediaFolders(1).first(),
-        callback = MediaSelectScreenCallback.Empty
+        onEvent = {}
       )
     }
   }
@@ -467,7 +460,7 @@ private fun MediaTilePreview() {
     MediaTile(
       media = rememberPreviewMedia(1).first(),
       selectionIndex = -1,
-      callback = MediaSelectScreenCallback.Empty
+      onEvent = {}
     )
   }
 }
@@ -481,8 +474,8 @@ private fun MediaTileSelectedPreview() {
     MediaTile(
       media = rememberPreviewMedia(1).first(),
       selectionIndex = if (isSelected) 0 else -1,
-      callback = object : MediaSelectScreenCallback by MediaSelectScreenCallback.Empty {
-        override fun onMediaClick(media: Media) {
+      onEvent = {
+        if (it is MediaSelectScreenEvent.MediaClick) {
           isSelected = !isSelected
         }
       }
@@ -525,15 +518,3 @@ private data class GridConfiguration(
   val bottomBarHorizontalPadding: Dp,
   val bottomBarAlignment: Alignment.Horizontal
 )
-
-interface MediaSelectScreenCallback {
-  fun onFolderClick(mediaFolder: MediaFolder?)
-  fun onMediaClick(media: Media)
-  fun setFocusedMedia(media: Media)
-
-  object Empty : MediaSelectScreenCallback {
-    override fun onFolderClick(mediaFolder: MediaFolder?) {}
-    override fun onMediaClick(media: Media) {}
-    override fun setFocusedMedia(media: Media) {}
-  }
-}

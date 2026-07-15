@@ -325,13 +325,16 @@ class CallLogAdapter(
         return
       }
 
-      presentRecipientDetails(model.call.peer, model.call.searchQuery)
+      presentRecipientDetails(model.call)
       presentCallInfo(model.call, model.call.date)
       presentCallType(model)
     }
 
-    private fun presentRecipientDetails(recipient: Recipient, searchQuery: String?) {
-      binding.callRecipientAvatar.setAvatar(Glide.with(binding.callRecipientAvatar), recipient, true)
+    private fun presentRecipientDetails(call: CallLogRow.Call) {
+      val recipient = call.peer
+      val searchQuery = call.searchQuery
+      binding.callRecipientAvatar.setAvatar(Glide.with(binding.callRecipientAvatar), recipient, false)
+      binding.callRecipientAvatar.setOnClickListener { onCallClicked(call) }
       binding.callRecipientBadge.setBadgeFromRecipient(recipient)
       binding.callRecipientName.text = if (searchQuery != null) {
         SearchUtil.getHighlightedSpan(

@@ -7,13 +7,13 @@ package org.thoughtcrime.securesms.registration.data.network
 
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
-import org.whispersystems.signalservice.api.NetworkResult
+import org.signal.network.NetworkResult
+import org.signal.network.exceptions.MalformedRequestException
 import org.whispersystems.signalservice.api.push.exceptions.AlreadyVerifiedException
 import org.whispersystems.signalservice.api.push.exceptions.ChallengeRequiredException
 import org.whispersystems.signalservice.api.push.exceptions.ExternalServiceFailureException
 import org.whispersystems.signalservice.api.push.exceptions.ImpossiblePhoneNumberException
 import org.whispersystems.signalservice.api.push.exceptions.InvalidTransportModeException
-import org.whispersystems.signalservice.api.push.exceptions.MalformedRequestException
 import org.whispersystems.signalservice.api.push.exceptions.NoSuchSessionException
 import org.whispersystems.signalservice.api.push.exceptions.NonNormalizedPhoneNumberException
 import org.whispersystems.signalservice.api.push.exceptions.RateLimitException
@@ -134,7 +134,7 @@ sealed class VerificationCodeRequestResult(cause: Throwable?) : RegistrationResu
 
   class SubmitVerificationCodeRateLimited(cause: Throwable) : VerificationCodeRequestResult(cause)
 
-  class RegistrationLocked(cause: Throwable, val timeRemaining: Long, val svr2Credentials: AuthCredentials, val svr3Credentials: Svr3Credentials) : VerificationCodeRequestResult(cause)
+  class RegistrationLocked(cause: Throwable, val timeRemaining: Long, val svr2Credentials: AuthCredentials, val svr3Credentials: Svr3Credentials?) : VerificationCodeRequestResult(cause)
 
   class NoSuchSession(cause: Throwable) : VerificationCodeRequestResult(cause)
 

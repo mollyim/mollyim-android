@@ -8,13 +8,13 @@ import android.os.SystemClock
 import android.view.View
 import android.view.Window
 import android.view.inspector.WindowInspector
+import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations
-import org.thoughtcrime.securesms.util.ServiceUtil
 
 private val TAG = Log.tag(ScreenLockController.javaClass)
 

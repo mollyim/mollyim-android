@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import org.signal.mediasend.SentMediaQuality
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mms.SentMediaQuality
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.webrtc.CallDataMode
 
@@ -69,7 +69,7 @@ class DataAndStorageSettingsViewModel(
       AppDependencies.application
     ),
     callDataMode = SignalStore.settings.callDataMode,
-    sentMediaQuality = SignalStore.settings.sentMediaQuality
+    sentMediaQuality = SignalStore.settings.sentMediaQuality,
   )
 
   class Factory(

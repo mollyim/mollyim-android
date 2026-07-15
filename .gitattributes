@@ -5,4 +5,7 @@
 # git config merge.theirs.driver 'cp -- %B %A'
 
 /app/src/main/res/values-*/strings.xml merge=theirs
+/core/*/src/main/res/values-*/strings.xml merge=theirs
+/feature/*/src/main/res/values-*/strings.xml merge=theirs
+/lib/*/src/main/res/values-*/strings.xml merge=theirs
 /gradle/verification-metadata.xml merge=union

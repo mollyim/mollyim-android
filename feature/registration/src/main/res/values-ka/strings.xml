@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">გაითვალისწინეთ კონფიდენციალურობა.\nიყავით საკუთარი თავი ყველა შეტყობინებაში.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal-ი არაკომერციული ორგანიზაციაა\nწესები &amp; კონფიდენციალურობის პოლიტიკა</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">აირჩიე ქვეყანა</string>
     <string name="RegistrationActivity_phone_number_description">ტელეფონის ნომერი</string>
     <string name="RegistrationActivity_next">შემდეგი</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">ქვემოთ მოცემული ნომერი სწორია?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">ვერიფიკაციის კოდი ამ ნომერზე გაიგზავნება. შეიძლება საფასური დაგეკისროს.</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">ნომრის რედაქტირება</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">მენიუს გახსნა</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">პროქსის გამოყენება</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">მოწყობილობის დაკავშირება</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">გაიგე მეტი</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -74,16 +91,32 @@
     <string name="VerificationCodeScreen__network_error">დაკავშირება ვერ მოხერხდა. გთხოვთ, შენი ინტერნეტ კავშირი შეამოწმო და თავიდან სცადო.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">ზედმეტად ბევრი მცდელობა. დაელოდე %1$s და თავიდან სცადე.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">ზედმეტად ბევრი მცდელობა. გთხოვთ, მოგვიანებით სცადე.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">მოულოდნელ ხარვეზს გადავაწყდით. გთხოვთ, თავიდან სცადო.</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">შენი ვერიფიკაციის კოდის გამოგზავნისას ხარვეზი დაფიქსირდა. გთხოვთ, თავიდან სცადო.</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">შენს ნომერზე SMS-ს ვერ ვაგზავნით. გთხოვთ, რამდენიმე საათში თავიდან სცადო.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">შერჩეული მეთოდით კოდის გამოგზავნა ვერ მოხერხდა. გთხოვთ, სხვა ვარიანტი სცადო.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">რეგისტრაცია ვერ მოხერხდა. გთხოვთ, თავიდან სცადო.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">პრობლემას გადააწყდი?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">ვერ რეგისტრირდები?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• დარწმუნდი, რომ შენს ტელეფონს SMS-ის ან ზარის მისაღებად ქსელის კავშირი აქვს\n • დაადასტურე, რომ შეგიძლია ნომერზე სატელეფონო ზარი მიიღო\n • შეამოწმე, რომ სწორად შეიყვანე შენი ტელეფონის ნომერი.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">მეტი ინფორმაციისთვის, გთხოვთ, მიჰყვე %1$s ან %2$s</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">პრობლემების მოგვარების ამ ნაბიჯებს</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">მხარდაჭერის გუნდთან დაკავშირება</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -122,8 +155,6 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">შენი ძველი მობილურიდან</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">გადმოიტანე პირდაპირ შენი ძველი მობილურიდან</string>
-    <!-- Skip button text -->
-    <string name="ArchiveRestoreSelectionScreen__skip">გამოტოვება</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">გსურს აღდგენის გამოტოვება?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -146,8 +177,6 @@
     <string name="LocalBackupRestoreScreen__backup_found_description">აღადგინე შენი შეტყობინებები შენს მოწყობილობაში შენახული სარეზერვო ასლების ფაილიდან. თუ ახლა არ აღადგენ, მოგვიანებით აღდგენას ვეღარ შეძლებ.</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">შენი ბოლო სათადარიგო ასლები:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">სარეზერვო კოპიების აღდგენა</string>
     <!-- Link to choose an earlier backup -->
@@ -187,14 +216,16 @@
     <string name="EnterAepScreen__too_long">ზედმეტად გრძელია (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">აღდგენის გასაღები არასწორია</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">აღდგენის გასაღები არასწორია</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">პაროლების მენეჯერიდან შევსება</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">მზადდება აღდგენა…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">მიმდინარეობს სათადარიგო ასლების აღდგენა</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">გთხოვთ, მოიცადო, სანამ შენი წერილები და მონაცემები აღდგება.</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">აღდგენა დასრულებულია</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -206,9 +237,328 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ახლიდან სცადე</string>
     <!-- Button to link an existing Signal account to this device -->
-    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <string name="WelcomeScreen__link_your_account">მიაბი შენი ანგარიში</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
     <string name="WelcomeScreen__not_on_signal_yet">ჯერ არ ხარ Signal-ზე?</string>
     <!-- Button to create a new Signal account -->
     <string name="WelcomeScreen__create_account">შექმენი ანგარიში</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">სარეზერვო კოპიიდან აღდგენა</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">მიმდინარეობს სათადარიგო ასლების დეტალების მიღება…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">სარეზერვო კოპიების აღდგენა</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">შენი ბოლო სარეზერვო კოპია შეიქმნა %1$s-ში %2$s-ზე.</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">შენი მედია ფაილები უკანა ფონზე აღდგება. თუ ახლა არ აღადგენ, მოგვიანებით აღდგენას ვეღარ შეძლებ.</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">სათადარიგო ასლების მოძებნა ვერ მოხერხდა</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">ამ ანგარიშის სათადარიგო ასლები ვერ მოიძებნა.</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">სათადარიგო ასლის აღდგენა შეუძლებელია</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">ამჟამად შენი სათადარიგო ასლის აღდგენა შეუძლებელია. გთხოვთ, თავიდან სცადო.</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">ახლიდან სცადე</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">აღდგენის დასრულება ვერ მოხერხდა</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">სერვერთან დაკავშირებისას ხარვეზი დაფიქსირდა. გთხოვთ, შენი ინტერნეტ კავშირი შეამოწმო და თავიდან სცადო.</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">სარეზერვო ასლის აღდგენისას შეცდომა დაფიქსირდა. გთხოვთ, თავიდან სცადო.</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">ამ სათადარიგო ასლის აღდგენა ვერ მოხერხდა</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Signal-ის ამ ვერსიაზე სათადარიგო ასლების აღდგენა შეუძლებელია. გადადი უახლეს ვერსიაზე და სცადე თავიდან.</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Signal-ის განახლება</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">ახლა არა</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">სათადარიგო ასლის აღდგენა შეუძლებელია</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">სარეზერვო ასლის აღდგენისას შეცდომა დაფიქსირდა. შენი სარეზერვო ასლის აღდგენა შეუძლებელია. გთხოვთ, დახმარებისთვის მხარდაჭერის გუნდს მიმართე.</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">მხარდაჭერის გუნდთან დაკავშირება</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">მიმდინარეობს სარეზერვო კოპიების გადმოწერა…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">მიმდინარეობს შეტყობინებების აღდგენა…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">სრულდება…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">მიმდინარეობს აღდგენა…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%2$s-დან %1$s (%3$s)</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">ვებ ბრაუზერი ვერ მოიძებნა.</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">მონაცემები დაბლოკილია</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">შენი მონაცემები დაიბლოკა მათი კონფიდენციალურობისა და უსაფრთხოების დასაცავად. შენს პროფილზე %1$d დღის უმოქმედობის შემდეგ, პინ-კოდის გარეშე შეძლებ ხელახლა დარეგისტრირებას ამ ტელეფონის ნომრით. კონტენტი მთლიანად წაიშლება.</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">გახსენი Signal-ი შენს ძველ მობილურში</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">დააჭირე კამერის ნიშანს </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">დაასკანირე ეს კოდი კამერით</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">მიმდინარეობს რეგისტრაცია…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">რეგისტრაციისას ხარვეზი დაფიქსირდა</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">დაასკანირე ეს კოდი შენი ძველი მობილურით</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">QR კოდი დასკანირდა</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">თავიდან ცდა</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">QR კოდის გენერირება ვერ მოხერხდა</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">ახლა გაშორებთ %1$d ნაბიჯი პრობლემების მოგვარების ჟურნალის გაგზავნიდან.</item>
+        <item quantity="other">ახლა %1$d ნაბიჯი გაშორებს გაუმართაობის რეესტრის გაგზავნისგან.</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">შექმენი შენი პინ-კოდი</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">დაადასტურე შენი პინ-კოდი</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">თავიდან ჩაწერე პინ-კოდი, რომელიც ახლახან შექმენი</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">პინ-კოდს შეუძლია შენი ანგარიშის აღდგენაში დაგეხმაროს, თუ მობილურს დაკარგავ. </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">გაიგე მეტი</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">ნუმერულზე გადასვლა</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">ალფანუმერულზე გადასვლა</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">შემდეგი</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">პინ-კოდი მინიმუმ 4 ციფრისგან უნდა შედგებოდეს</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">პინ-კოდი მინიმუმ 4 სიმბოლოსგან უნდა შედგებოდეს</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">თავიდან შეიყვანე პინ-კოდი</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">პინ-კოდები არ ემთხვევა. თავიდან სცადე.</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">გაიგე მეტი პინ-კოდებზე</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">გაფრთხილება</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">თუ პინ-კოდს გამორთავ, Signal-ზე ხელახლა დარეგისტრირებისას ყველა მონაცემს დაკარგავ, თუ ხელით არ შექმნი სარეზერვო ასლს და აღადგენ. რეგისტრაციის დაბლოკვას ვერ ჩართავ, სანამ პინ-კოდი გამორთულია.</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">პინ-კოდის გამორთვა</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">გაუქმება</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">ქსელის ხარვეზს გადავაწყდით.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">რეგისტრაციის დაბლოკვა</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">შეიყვანე შენი პინ-კოდი</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">შეიყვანე პინ-კოდი, რომელიც Signal-ის დაყენებისას შექმენი</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">არასწორი პინ-კოდი. დაგრჩა %1$d მცდელობა.</item>
+        <item quantity="other">არასწორი პინ-კოდი. დაგრჩა %1$d მცდელობა.</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">დახმარება გჭირდება?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">კლავიატურის გადართვა</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">გამოტოვება</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">გაგრძელება</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">გამოტოვოთ პინ-კოდის შეყვანა?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">თუ შენს პინ-კოდს ვერ იხსენებ, შეგიძლია ახალი შექმნა. შეგიძლია დარეგისტრირდე და გამოიყენო შენი ანგარიში, მაგრამ დაკარგავ ზოგიერთ შენახულ პარამეტრს, მაგალითად, შენი პროფილის ინფორმაციას.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">ახალი პინ-კოდის შექმნა</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">გაუქმება</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">შენი ანგარიშის აღსადგენად საჭირო მონაცემები ვერ მოიძებნა. გთხოვთ, ახალი პინ-კოდი შექმნა.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">მხარდაჭერის გუნდთან დაკავშირება</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">დაშვებული შეტყობინებები</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal-ს შეტყობინებების ნებართვის მოთხოვნა სურს. ეს შენს მოწყობილობას საშუალებას აძლევს გაგაფრთხილოს, როცა ახალ წერილებს მიიღებ.</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">ახლა არა</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">შემდეგი</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">მიმდინარეობს წერილების სინქრონიზება</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">შეიძლება, ამას რამდენიმე წუთი დასჭირდეს…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">მიმდინარეობს %2$s-დან %1$s-ის ჩამოტვირთვა</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">მზადდება…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">სრულდება…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">შეტყობინებები და ჩატის ინფორმაცია, სინქრონიზაციის პროცესის ჩათვლით, ბოლომდეა დაშიფრული.</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">გაიგე მეტი</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">გაუქმება</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">ახლიდან სცადე</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">დაასკანირე ეს კოდი, რომ შენი ანგარიში მიაბა</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">გახსენი Signal-ი შენს ტელეფონში</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal-ის პარამეტრებში შესასვლელად შენი პროფილის სურათს დააჭირე</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">აირჩიე \"მიბმული მოწყობილობები\" და \"ახალი მოწყობილობის მიბმა\"</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">მიიღე დახმარება ამ ნაბიჯებით</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">QR კოდის გადიდება</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">დასკანირებული</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">კოდის გენერირება ვერ მოხერხდა</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">არ გაქვს Signal სხვა მოწყობილობაზე?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">შექმენი ანგარიში</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">თავიდან ცდა</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">ვაკავშირებთ მოწყობილობას…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">ველოდებით შენს მეორე მოწყობილობას…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">ამ მოწყობილობის მიბმისას შეცდომა დაფიქსირდა</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">QR კოდის დახურვა</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">გადაიტანე შენი ანგარიში</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">შენი ანგარიშის გადმოსატანად, შედი Signal-ზე შენს ძველ Android მოწყობილობაზე და აირჩიე ანგარიშის გადატანა.</string>
+    <string name="DeviceTransferInstructions__continue">გაგრძელება</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">ვემზადებით ძველ Android მოწყობილობასთან დასაკავშირებლად…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">შეიძლება ამას რამდენიმე წუთი დასჭირდეს. მალე მზად უნდა იყოს.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">ველოდებით შენს ძველ მოწყობილობას, რომ დავაკავშიროთ…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">დაადასტურე, რომ ნომრები ორივე მოწყობილობაზე ემთხვევა</string>
+    <string name="DeviceTransferSetup__numbers_match">დიახ, ნომრები ემთხვევა</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">ნომრები არ ემთხვევა</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">ველოდებით შენს ძველ მოწყობილობას, რომ დავადასტუროთ…</string>
+    <string name="DeviceTransferSetup__location_permission_required">შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Signal-ს მდებარეობაზე წვდომის ნებართვა სჭირდება.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">ნებართვის მიცემა</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal-ს შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად მდებარეობის სერვისების ჩართვა სჭირდება.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">ადგილმდებარეობის სერვისების ჩართა</string>
+    <string name="DeviceTransferSetup__wifi_required">შენი ძველი მოწყობილობის აღმოსაჩენად და მასთან დასაკავშირებლად, Signal-ს WI-Fi-ის ჩართვა სჭირდება.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi-ს ჩართვა</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">ვწუხვართ, როგორც ჩანს შენს მოწყობილობას Wi-Fi Direct-ის მხარდაჭერა არ აქვს.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">აღადგინე სათადარიგო ასლები</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">შენს ძველ Android მოწყობილობასთან დაკავშირების მცდელობისას მოხდა მოულოდნელი შეცდომა.</string>
+    <string name="DeviceTransferSetup__retry">თავიდან ცდა</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">შენი ძველი მოწყობილობის მოძებნა ვერ მოხერხდა</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• დარწმუნდი, რომ მდებარეობაზე წვდომა ნებადართულია.\n• დარწმუნდი, რომ Wi-Fi ჩართულია და Wi-Fi Direct-ის არც ერთი ჯგუფი დამახსოვრებული არაა.\n• სცადე Wi-Fi-ის გამორთვა და ჩართვა ორივე მოწყობილობაზე.\n• დარწმუნდი, რომ ორივე მოწყობილობა გადატანის რეჟიმშია.</string>
+    <string name="DeviceTransferSetup__try_again">სცადეთ ახლიდან</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">ნომრები არ ემთხვევა</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">თუ შენს მოწყობილობებზე ნომრები არ ემთხვევა, შესაძლოა არასწორ მოწყობილობას დაუკავშირდი.</string>
+    <string name="DeviceTransferSetup__stop_transfer">გადატანის გაჩერება</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">მონაცემთა გადატანა</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">ჯერ-ჯერობით %1$d შეტყობინება</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">გადატანა შეუძლებელია</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal-ის უფრო ახალი ვერსიიდან გადატანა შეუძლებელია.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">მონაცემთა ნაწილის გადატანა მონაცემთა ბაზის შეზღუდვის გამო ვერ მოხერხდა.</string>
+    <string name="DeviceTransferProgress__transfer_failed">გადატანა ვერ მოხერხდა. გთხოვთ, თავიდან სცადო.</string>
+    <string name="DeviceTransferProgress__try_again">ახლიდან სცადე</string>
+    <string name="DeviceTransferProgress__cancel">გაუქმება</string>
+    <string name="DeviceTransferProgress__stop_transfer">შევაჩეროთ გადატანა?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">გადატანის მთლიანი პროგრესი დაიკარგება.</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">გადატანა დასრულებულია</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">ახლა შენი ანგარიში ამ მოწყობილობაზეა.</string>
+    <string name="DeviceTransferComplete__continue_registration">გაგრძელება</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">შექმენი შენი პროფილი</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">შენს პროფილსა და მასში შეტანილ ცვლილებებს დაინახავენ შენი კონტაქტები, ჯგუფები და ის ადამიანები, ვისთანაც მიმოწერა გაქვს.</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">სახელი (სავალდებულო)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">გვარი (არასავალდებულო)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">შემდეგი</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">ავატარის დაყენება</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ვის შეუძლია ნომრით მიპოვოს?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ნებისმიერს, ვისაც შენი მობილურის ნომერი აქვს, დაინახავს, რომ Signal-ზე ხარ და შენთან ჩატის წამოწყებას შეძლებს.</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">ვერავინ დაინახავს, რომ Signal-ზე ხარ, სანამ არ მისწერ ან თუ არსებული ჩატი არ გექნებათ.</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">ყველა</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">არავინ</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">დარწმუნებული ხარ?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">თუ „ვინ მიპოვის ნომრით“ პარამეტრს „არავინ“-ზე დააყენებ, სხვებს შენი Signal-ზე პოვნა გაურთულდებათ.</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">გაუქმება</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">შენახვა</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">უკან</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Captcha-ს ჩატვირთვა ვერ მოხერხდა</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">გაუქმება</string>
 </resources>

@@ -5,6 +5,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.NoSessionException;
+import org.signal.network.exceptions.PushNetworkException;
+import org.thoughtcrime.securesms.database.RecipientTable.RegisteredState;
+import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.RecipientRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
@@ -14,13 +19,10 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
 import org.whispersystems.signalservice.api.messages.multidevice.MessageRequestResponseMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
 
 import java.io.IOException;
@@ -95,7 +97,7 @@ public class MultiDeviceMessageRequestResponseJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws IOException, UntrustedIdentityException {
+  public void onRun() throws IOException, UntrustedIdentityException, NoSessionException {
     if (!Recipient.self().isRegistered()) {
       throw new NotPushRegisteredException();
     }
@@ -106,19 +108,19 @@ public class MultiDeviceMessageRequestResponseJob extends BaseJob {
     }
 
     SignalServiceMessageSender messageSender = AppDependencies.getSignalServiceMessageSender();
-    Recipient                  recipient     = Recipient.resolved(threadRecipient);
+    RecipientRecord            recipient     = SignalDatabase.recipients().getRecord(threadRecipient);
 
-    if (!recipient.isGroup() && !recipient.getHasServiceId()) {
+    if (recipient.getGroupId() == null && recipient.getServiceId() == null) {
       Log.i(TAG, "Queued for non-group recipient without ServiceId");
       return;
     }
 
     MessageRequestResponseMessage response;
 
-    if (recipient.isGroup()) {
-      response = MessageRequestResponseMessage.forGroup(recipient.getGroupId().get().getDecodedId(), localToRemoteType(type));
-    } else if (recipient.isMaybeRegistered()) {
-      response = MessageRequestResponseMessage.forIndividual(RecipientUtil.getOrFetchServiceId(context, recipient), localToRemoteType(type));
+    if (recipient.getGroupId() != null) {
+      response = MessageRequestResponseMessage.forGroup(recipient.getGroupId().getDecodedId(), localToRemoteType(type));
+    } else if (recipient.getRegistered() != RegisteredState.NOT_REGISTERED) {
+      response = MessageRequestResponseMessage.forIndividual(recipient.getServiceId(), localToRemoteType(type));
     } else {
       response = null;
     }

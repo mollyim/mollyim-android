@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 public class ExpiringMessageManager {
 
@@ -54,7 +53,7 @@ public class ExpiringMessageManager {
   public void scheduleDeletion(@NonNull List<MessageTable.ExpirationInfo> expirationInfos) {
     List<ExpiringMessageReference> references = expirationInfos.stream()
                                                                .map(info -> new ExpiringMessageReference(info.getId(), info.getExpireStarted() + info.getExpiresIn()))
-                                                               .collect(Collectors.toList());
+                                                               .toList();
 
     synchronized (expiringMessageReferences) {
       expiringMessageReferences.addAll(references);
@@ -111,7 +110,7 @@ public class ExpiringMessageManager {
         }
 
         if (expiredMessage != null) {
-          messageTable.deleteExpiringMessage(expiredMessage.id);
+          messageTable.deleteMessage(expiredMessage.id);
         }
       }
     }
@@ -129,9 +128,8 @@ public class ExpiringMessageManager {
     @Override
     public boolean equals(Object other) {
       if (other == null) return false;
-      if (!(other instanceof ExpiringMessageReference)) return false;
+      if (!(other instanceof final ExpiringMessageReference that)) return false;
 
-      ExpiringMessageReference that = (ExpiringMessageReference)other;
       return this.id == that.id && this.expiresAtMillis == that.expiresAtMillis;
     }
 
@@ -146,9 +144,7 @@ public class ExpiringMessageManager {
     public int compare(ExpiringMessageReference lhs, ExpiringMessageReference rhs) {
       if      (lhs.expiresAtMillis < rhs.expiresAtMillis) return -1;
       else if (lhs.expiresAtMillis > rhs.expiresAtMillis) return 1;
-      else if (lhs.id < rhs.id)                           return -1;
-      else if (lhs.id > rhs.id)                           return 1;
-      else                                                return 0;
+      else return Long.compare(lhs.id, rhs.id);
     }
   }
 

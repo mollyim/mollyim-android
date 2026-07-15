@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.models.media.Media
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.providers.BlobProvider
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.UriUtil
@@ -32,7 +32,7 @@ class ShareRepository(context: Context) {
   @WorkerThread
   @Throws(IOException::class)
   private fun resolve(multiShareExternal: UnresolvedShareData.ExternalSingleShare): ResolvedShareData {
-    if (!UriUtil.isValidExternalUri(appContext, multiShareExternal.uri)) {
+    if (!multiShareExternal.isInternalShare && !UriUtil.isValidExternalUri(appContext, multiShareExternal.uri)) {
       return ResolvedShareData.Failure
     }
 
@@ -49,7 +49,7 @@ class ShareRepository(context: Context) {
     } ?: return ResolvedShareData.Failure
 
     val blobUri: Uri = try {
-      BlobProvider.getInstance()
+      AppDependencies.blobs
         .forData(stream, size)
         .withMimeType(mimeType)
         .withFileName(name)
@@ -70,7 +70,7 @@ class ShareRepository(context: Context) {
   @WorkerThread
   private fun resolve(externalMultiShare: UnresolvedShareData.ExternalMultiShare): ResolvedShareData {
     val mimeTypes: Map<Uri, String> = externalMultiShare.uris
-      .filter { UriUtil.isValidExternalUri(appContext, it) }
+      .filter { externalMultiShare.isInternalShare || UriUtil.isValidExternalUri(appContext, it) }
       .associateWith { uri -> getMimeType(appContext, uri, null) }
       .filterValues {
         MediaUtil.isImageType(it) || MediaUtil.isVideoType(it)
@@ -94,7 +94,7 @@ class ShareRepository(context: Context) {
         val dimens: Pair<Int, Int> = MediaUtil.getDimensions(appContext, mimeType, uri)
         val duration = 0L
         val blobUri = try {
-          BlobProvider.getInstance()
+          AppDependencies.blobs
             .forData(stream, size)
             .withMimeType(mimeType)
             .createForSingleSessionOnDisk(appContext)

@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import org.signal.core.util.billing.BillingPurchaseResult
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
+import org.signal.core.util.next
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
@@ -45,7 +46,6 @@ import org.thoughtcrime.securesms.jobs.InAppPaymentPurchaseTokenJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
-import org.thoughtcrime.securesms.util.next
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId
 import org.whispersystems.signalservice.internal.push.SubscriptionsConfiguration
 import kotlin.time.Duration.Companion.seconds
@@ -53,6 +53,7 @@ import kotlin.time.Duration.Companion.seconds
 class MessageBackupsFlowViewModel(
   private val initialTierSelection: MessageBackupTier?,
   googlePlayApiAvailability: Int,
+  private val isCredentialManagerSupported: Boolean,
   startScreen: MessageBackupsStage = if (SignalStore.backup.backupTier == null) MessageBackupsStage.EDUCATION else MessageBackupsStage.TYPE_SELECTION
 ) : ViewModel(), BackupKeyCredentialManagerHandler {
 
@@ -144,7 +145,7 @@ class MessageBackupsFlowViewModel(
               }
             } catch (e: Exception) {
               Log.d(TAG, "Failed to handle purchase.", e)
-              withContext(SignalDispatchers.IO) {
+              withContext(SignalDispatchers.Default) {
                 InAppPaymentsRepository.handlePipelineError(
                   inAppPaymentId = id,
                   error = e
@@ -238,8 +239,9 @@ class MessageBackupsFlowViewModel(
       when (it.stage) {
         MessageBackupsStage.CANCEL -> error("Unsupported state transition from terminal state CANCEL")
         MessageBackupsStage.EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_EDUCATION)
-        MessageBackupsStage.BACKUP_KEY_EDUCATION -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_RECORD)
-        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_VERIFY)
+        MessageBackupsStage.BACKUP_KEY_EDUCATION -> it.copy(stage = if (isCredentialManagerSupported) MessageBackupsStage.BACKUP_KEY_RECORD else MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY)
+        MessageBackupsStage.BACKUP_KEY_RECORD -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
+        MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY -> it.copy(stage = MessageBackupsStage.BACKUP_KEY_VERIFY)
         MessageBackupsStage.BACKUP_KEY_VERIFY -> it.copy(stage = MessageBackupsStage.TYPE_SELECTION)
         MessageBackupsStage.TYPE_SELECTION -> validateTypeAndUpdateState(it)
         MessageBackupsStage.CHECKOUT_SHEET -> it.copy(stage = MessageBackupsStage.PROCESS_PAYMENT)
@@ -262,7 +264,8 @@ class MessageBackupsFlowViewModel(
           MessageBackupsStage.EDUCATION -> MessageBackupsStage.CANCEL
           MessageBackupsStage.BACKUP_KEY_EDUCATION -> MessageBackupsStage.EDUCATION
           MessageBackupsStage.BACKUP_KEY_RECORD -> MessageBackupsStage.BACKUP_KEY_EDUCATION
-          MessageBackupsStage.BACKUP_KEY_VERIFY -> MessageBackupsStage.BACKUP_KEY_RECORD
+          MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY -> if (isCredentialManagerSupported) MessageBackupsStage.BACKUP_KEY_RECORD else MessageBackupsStage.BACKUP_KEY_EDUCATION
+          MessageBackupsStage.BACKUP_KEY_VERIFY -> MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY
           MessageBackupsStage.TYPE_SELECTION -> MessageBackupsStage.BACKUP_KEY_RECORD
           MessageBackupsStage.CHECKOUT_SHEET -> MessageBackupsStage.TYPE_SELECTION
           MessageBackupsStage.CREATING_IN_APP_PAYMENT -> MessageBackupsStage.CREATING_IN_APP_PAYMENT
@@ -277,6 +280,12 @@ class MessageBackupsFlowViewModel(
     }
   }
 
+  fun goToRecordManually() {
+    internalStateFlow.update {
+      it.copy(stage = MessageBackupsStage.BACKUP_KEY_RECORD_MANUALLY)
+    }
+  }
+
   fun onMessageBackupTierUpdated(messageBackupTier: MessageBackupTier) {
     internalStateFlow.update {
       it.copy(
@@ -288,7 +297,7 @@ class MessageBackupsFlowViewModel(
   private fun validateTypeAndUpdateState(state: MessageBackupsFlowState): MessageBackupsFlowState {
     return when (state.selectedMessageBackupTier!!) {
       MessageBackupTier.FREE -> {
-        viewModelScope.launch(SignalDispatchers.IO) {
+        viewModelScope.launch(SignalDispatchers.Default) {
           SignalDatabase.recipients.markNeedsSync(Recipient.self().id)
           StorageSyncHelper.scheduleSyncForDataChange()
         }

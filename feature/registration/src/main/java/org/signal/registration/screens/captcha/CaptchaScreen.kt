@@ -11,10 +11,13 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,10 +29,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Previews
+import org.signal.registration.R
+import org.signal.registration.test.TestTags
 
 /**
  * Screen to display a captcha verification using a WebView.
@@ -47,7 +54,9 @@ fun CaptchaScreen(
 
   Column(
     modifier = modifier
+      .testTag(TestTags.CAPTCHA_SCREEN)
       .fillMaxSize()
+      .windowInsetsPadding(WindowInsets.safeDrawing)
   ) {
     Box(
       modifier = Modifier
@@ -107,13 +116,14 @@ fun CaptchaScreen(
             CircularProgressIndicator(modifier = Modifier.size(48.dp))
           }
         }
+
         CaptchaLoadState.Error -> {
           Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
           ) {
             Text(
-              text = "Failed to load captcha",
+              text = stringResource(R.string.CaptchaScreen__failed_to_load_captcha),
               style = MaterialTheme.typography.bodyLarge,
               color = MaterialTheme.colorScheme.error
             )
@@ -126,9 +136,10 @@ fun CaptchaScreen(
       onClick = { onEvent(CaptchaScreenEvents.Cancel) },
       modifier = Modifier
         .align(Alignment.CenterHorizontally)
+        .testTag(TestTags.CAPTCHA_CANCEL_BUTTON)
         .padding(16.dp)
     ) {
-      Text("Cancel")
+      Text(stringResource(R.string.CaptchaScreen__cancel))
     }
   }
 }

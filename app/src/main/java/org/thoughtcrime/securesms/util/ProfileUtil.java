@@ -9,6 +9,7 @@ import androidx.annotation.WorkerThread;
 import org.signal.core.util.Base64;
 import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
+import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
@@ -17,6 +18,7 @@ import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.database.model.IdentityStoreRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob;
@@ -30,7 +32,7 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
-import org.whispersystems.signalservice.api.NetworkResult;
+import org.signal.network.NetworkResult;
 import org.whispersystems.signalservice.api.NetworkResultUtil;
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
@@ -178,6 +180,15 @@ public final class ProfileUtil {
 
     ProfileCipher profileCipher = new ProfileCipher(profileKey);
     return profileCipher.decryptBoolean(Base64.decode(encryptedBooleanBase64));
+  }
+
+  private static @Nullable IdentityKey getLocalIdentityKey(@NonNull Recipient recipient) {
+    if (!recipient.getHasServiceId()) {
+      return null;
+    }
+
+    IdentityStoreRecord record = SignalDatabase.identities().getIdentityStoreRecord(recipient.requireServiceId());
+    return record != null ? record.getIdentityKey() : null;
   }
 
   private static ProfileKey getProfileKey(@NonNull Recipient recipient) throws IOException {

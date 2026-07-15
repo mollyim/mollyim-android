@@ -6,13 +6,13 @@ package org.thoughtcrime.securesms.jobs
 
 import android.net.Uri
 import org.signal.core.models.backup.MediaName
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.androidx.DocumentFileInfo
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.InvalidMacException
 import org.signal.libsignal.protocol.InvalidMessageException
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
 import org.thoughtcrime.securesms.database.AttachmentTable
@@ -21,6 +21,7 @@ import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobs.protos.RestoreLocalAttachmentJobData
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.MmsException
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherInputStream.IntegrityCheck
@@ -45,6 +46,13 @@ class RestoreLocalAttachmentJob private constructor(
 
     fun enqueueRestoreLocalAttachmentsJobs(mediaNameToFileInfo: Map<String, DocumentFileInfo>) {
       val jobManager = AppDependencies.jobManager
+
+      SignalStore.backup.localRestoreReconcilePending = true
+
+      val orphanedCount = SignalDatabase.attachments.markRestorableAttachmentsWithoutMessageAsFailed()
+      if (orphanedCount > 0) {
+        Log.w(TAG, "Failed $orphanedCount orphaned restorable attachment(s) with no backing message before enqueueing restores.")
+      }
 
       do {
         val possibleRestorableAttachments: List<LocalRestorableAttachment> = SignalDatabase.attachments.getRestorableLocalAttachments(500)
@@ -72,7 +80,7 @@ class RestoreLocalAttachmentJob private constructor(
         // Intentionally enqueues one at a time for safer attachment transfer state management
         Log.d(TAG, "Adding ${restoreAttachmentJobs.size} restore local attachment jobs")
         restoreAttachmentJobs.forEach { jobManager.add(it) }
-      } while (restoreAttachmentJobs.isNotEmpty())
+      } while (possibleRestorableAttachments.isNotEmpty())
 
       ArchiveRestoreProgress.onRestoringMedia()
 
@@ -133,12 +141,7 @@ class RestoreLocalAttachmentJob private constructor(
       return Result.failure()
     }
 
-    if (attachment.isPermanentlyFailed) {
-      Log.w(TAG, "Attachment was marked as a permanent failure. Refusing to download.")
-      return Result.failure()
-    }
-
-    if (attachment.transferState != AttachmentTable.TRANSFER_NEEDS_RESTORE && attachment.transferState != AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS) {
+    if (attachment.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE) {
       Log.w(TAG, "Attachment does not need to be restored.")
       return Result.success()
     }

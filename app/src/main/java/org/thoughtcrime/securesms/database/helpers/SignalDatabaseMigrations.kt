@@ -168,6 +168,14 @@ import org.thoughtcrime.securesms.database.helpers.migration.V310_AddStarredColu
 import org.thoughtcrime.securesms.database.helpers.migration.V311_AddAttachmentMediaOverviewSizeIndex
 import org.thoughtcrime.securesms.database.helpers.migration.V312_RefactorNameCollisionTables
 import org.thoughtcrime.securesms.database.helpers.migration.V313_AddCollapsingUpdateColumns
+import org.thoughtcrime.securesms.database.helpers.migration.V314_FixMessageRequestAcceptedToRecipient
+import org.thoughtcrime.securesms.database.helpers.migration.V315_CleanupE164SenderKeyShared
+import org.thoughtcrime.securesms.database.helpers.migration.V316_AddVerifiedGroupNameHashMigration
+import org.thoughtcrime.securesms.database.helpers.migration.V317_AddMessageThreadDateReceivedUnreadIndex
+import org.thoughtcrime.securesms.database.helpers.migration.V318_AddMessageNotificationStateIndex
+import org.thoughtcrime.securesms.database.helpers.migration.V319_AddAttachmentAndMessageIndexes
+import org.thoughtcrime.securesms.database.helpers.migration.V320_AddAttachmentThumbnailFileAndUuidIndexes
+import org.thoughtcrime.securesms.database.helpers.migration.V321_AddScheduledMessageIndex
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -340,10 +348,18 @@ object SignalDatabaseMigrations {
     310 to V310_AddStarredColumn,
     311 to V311_AddAttachmentMediaOverviewSizeIndex,
     312 to V312_RefactorNameCollisionTables,
-    313 to V313_AddCollapsingUpdateColumns
+    313 to V313_AddCollapsingUpdateColumns,
+    314 to V314_FixMessageRequestAcceptedToRecipient,
+    315 to V315_CleanupE164SenderKeyShared,
+    316 to V316_AddVerifiedGroupNameHashMigration,
+    317 to V317_AddMessageThreadDateReceivedUnreadIndex,
+    318 to V318_AddMessageNotificationStateIndex,
+    319 to V319_AddAttachmentAndMessageIndexes,
+    320 to V320_AddAttachmentThumbnailFileAndUuidIndexes,
+    321 to V321_AddScheduledMessageIndex
   )
 
-  const val DATABASE_VERSION = 313
+  const val DATABASE_VERSION = 321
 
   // MOLLY: Optional additional migrations specific to Molly
   private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
@@ -425,6 +441,5 @@ object SignalDatabaseMigrations {
 
   @JvmStatic
   fun migratePostTransaction(context: Context, oldVersion: Int) {
-    // MOLLY: MIGRATE_PREKEYS_VERSION was removed
   }
 }

@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.MediaTable;
 import org.thoughtcrime.securesms.database.loaders.GroupedThreadMediaLoader;
 import org.thoughtcrime.securesms.database.loaders.MediaLoader;
+import org.thoughtcrime.securesms.jobs.AttachmentDownloadJob;
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Activity;
 import org.thoughtcrime.securesms.mms.PartAuthority;
@@ -62,6 +63,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -323,24 +325,37 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       return;
     }
 
-    if (mediaRecord.getAttachment() == null || mediaRecord.getAttachment().getDisplayUri() == null) {
+    DatabaseAttachment attachment = mediaRecord.getAttachment();
+
+    if (attachment == null) {
       return;
     }
 
-    DatabaseAttachment attachment = mediaRecord.getAttachment();
+    if (attachment.getDisplayUri() == null) {
+      if (attachment.transferState == AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+        AttachmentDownloadJob.downloadAttachmentIfNeeded(attachment);
+      }
+      return;
+    }
 
     if (MediaUtil.isVideo(attachment) || MediaUtil.isImage(attachment)) {
-      if (mediaRecord.getAttachment().transferState != AttachmentTable.TRANSFER_PROGRESS_DONE && mediaRecord.getAttachment().transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
+      if (attachment.transferState != AttachmentTable.TRANSFER_PROGRESS_DONE && attachment.transferState != AttachmentTable.TRANSFER_RESTORE_OFFLOADED) {
         Toast.makeText(context, R.string.MediaOverviewActivity_this_media_is_not_sent_yet, Toast.LENGTH_LONG).show();
         return;
       }
       MediaIntentFactory.MediaPreviewArgs args = new MediaIntentFactory.MediaPreviewArgs(
           threadId,
           mediaRecord.getDate(),
+          mediaRecord.getMessageId(),
+          mediaRecord.getRecipientId(),
+          mediaRecord.getThreadRecipientId(),
+          mediaRecord.isOutgoing(),
           Objects.requireNonNull(mediaRecord.getAttachment().getDisplayUri()),
+          mediaRecord.getAttachment().getUri(),
           mediaRecord.getContentType(),
           mediaRecord.getAttachment().size,
           mediaRecord.getAttachment().caption,
+          null,
           true,
           true,
           threadId == MediaTable.ALL_THREADS,
@@ -438,7 +453,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       );
       return;
     }
-    MediaActions.handleDeleteMedia(requireContext(), Collections.singleton(mediaRecord));
+    MediaActions.handleDeleteMedia(this, Collections.singleton(mediaRecord));
   }
 
   private void handleDeleteSelectedMedia() {
@@ -450,7 +465,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       return;
     }
 
-    MediaActions.handleDeleteMedia(requireContext(), getListAdapter().getSelectedMedia());
+    MediaActions.handleDeleteMedia(this, getListAdapter().getSelectedMedia());
     exitMultiSelect();
   }
 
@@ -511,7 +526,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
       int selectionCount = getListAdapter().getSectionCount();
 
       bottomActionBar.setItems(Arrays.asList(
-          new ActionItem(R.drawable.symbol_save_android_24, getResources().getQuantityString(R.plurals.MediaOverviewActivity_save_plural, selectionCount), () -> {
+          new ActionItem(org.signal.core.ui.R.drawable.symbol_save_android_24, getResources().getQuantityString(R.plurals.MediaOverviewActivity_save_plural, selectionCount), () -> {
             Collection<MediaTable.MediaRecord> selected = getListAdapter().getSelectedMedia();
 
             if (SignalStore.backup().getOptimizeStorage()) {
@@ -523,7 +538,7 @@ public final class MediaOverviewPageFragment extends LoggingFragment
                 return;
               } else if (someOffloaded) {
                 OffloadedMediaDialogUtil.showPartiallyOffloaded(requireContext(), () -> {
-                  Collection<MediaTable.MediaRecord> saveable = selected.stream().filter(r -> r.getAttachment() == null || r.getAttachment().hasData).collect(java.util.stream.Collectors.toList());
+                  Collection<MediaTable.MediaRecord> saveable = selected.stream().filter(r -> r.getAttachment() == null || r.getAttachment().hasData).collect(Collectors.toList());
                   lifecycleDisposable.add(
                       MediaActions
                           .handleSaveMedia(MediaOverviewPageFragment.this, saveable)

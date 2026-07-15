@@ -7,7 +7,7 @@ package org.signal.registration.screens.localbackuprestore
 
 import android.net.Uri
 import org.signal.core.models.AccountEntropyPool
-import org.signal.registration.util.DebugLoggableModel
+import org.signal.core.util.censor
 
 data class LocalBackupRestoreState(
   val restorePhase: RestorePhase = RestorePhase.SelectFolder,
@@ -19,7 +19,9 @@ data class LocalBackupRestoreState(
   val launchFolderPicker: Boolean = false,
   val aep: AccountEntropyPool? = null,
   val v1Passphrase: String? = null
-) : DebugLoggableModel() {
+) {
+
+  override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()})"
 
   enum class RestorePhase {
     /** Waiting for user to select a backup folder. */

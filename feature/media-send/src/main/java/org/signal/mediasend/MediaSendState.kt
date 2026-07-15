@@ -6,10 +6,14 @@
 package org.signal.mediasend
 
 import android.net.Uri
+import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import org.signal.core.models.media.Media
 import org.signal.core.models.media.MediaFolder
+import org.signal.mediasend.edit.video.VideoTrimData
 
 /**
  * The collective state of the media send flow.
@@ -34,10 +38,7 @@ data class MediaSendState(
   val focusedMedia: Media? = null,
   val isMeteredConnection: Boolean = false,
   val isPreUploadEnabled: Boolean = false,
-  /**
-   * Int code to avoid depending on app-layer enums. Conventionally 0 == STANDARD.
-   */
-  val sentMediaQuality: Int = 0,
+  val sentMediaQuality: SentMediaQuality = SentMediaQuality.STANDARD,
   /**
    * Per-media editor state keyed by URI (video trim data, image editor data, etc.).
    */
@@ -108,22 +109,42 @@ data class MediaSendState(
   /**
    * The [MediaFolder] list available on the system
    */
-  val mediaFolders: List<MediaFolder> = emptyList(),
+  val mediaFolders: @WriteWith<TransientMediaFolderListParceler> List<MediaFolder> = emptyList(),
 
   /**
    * The selected [MediaFolder] for which to display content in the Select screen
    */
-  val selectedMediaFolder: MediaFolder? = null,
+  val selectedMediaFolder: @WriteWith<TransientMediaFolderParceler> MediaFolder? = null,
 
   /**
    * The media content for a given selected [MediaFolder]
    */
-  val selectedMediaFolderItems: List<Media> = emptyList()
+  val selectedMediaFolderItems: @WriteWith<TransientMediaListParceler> List<Media> = emptyList()
 ) : Parcelable {
 
+  fun getOrCreateVideoTrimData(uri: Uri): VideoTrimData {
+    return (editorStateMap[uri] as? EditorState.VideoTrim)?.videoTrimData ?: VideoTrimData()
+  }
+
   /**
-   * View-once toggle state.
+   * No-op parcelers for fields that are re-loaded on init and should not
+   * contribute to the saved-state bundle size.
    */
+  private object TransientMediaFolderListParceler : Parceler<List<MediaFolder>> {
+    override fun create(parcel: Parcel): List<MediaFolder> = emptyList()
+    override fun List<MediaFolder>.write(parcel: Parcel, flags: Int) = Unit
+  }
+
+  private object TransientMediaFolderParceler : Parceler<MediaFolder?> {
+    override fun create(parcel: Parcel): MediaFolder? = null
+    override fun MediaFolder?.write(parcel: Parcel, flags: Int) = Unit
+  }
+
+  private object TransientMediaListParceler : Parceler<List<Media>> {
+    override fun create(parcel: Parcel): List<Media> = emptyList()
+    override fun List<Media>.write(parcel: Parcel, flags: Int) = Unit
+  }
+
   enum class ViewOnceToggleState(val code: Int) {
     OFF(0),
     ONCE(1);

@@ -36,13 +36,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.ui.permissions.Permissions;
 import org.signal.core.ui.util.ThemeUtil;
+import org.signal.core.ui.view.Stub;
 import org.signal.core.util.ThreadUtil;
+import org.signal.core.util.bitmaps.BitmapUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.ListenableFuture.Listener;
 import org.signal.core.util.concurrent.SettableFuture;
 import org.signal.core.util.logging.Log;
-import org.signal.core.ui.view.Stub;
+import org.signal.core.util.permissions.PermissionCompat;
+import org.signal.mediasend.MediaConstraints;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AudioView;
 import org.thoughtcrime.securesms.components.DocumentView;
@@ -53,20 +57,16 @@ import org.thoughtcrime.securesms.components.location.SignalPlace;
 import org.thoughtcrime.securesms.conversation.MessageSendType;
 import org.thoughtcrime.securesms.database.MediaTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
 import org.thoughtcrime.securesms.maps.PlacePickerActivity;
 import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewCache;
 import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Fragment;
 import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity;
-import org.signal.core.util.permissions.PermissionCompat;
-import org.signal.core.ui.permissions.Permissions;
-import org.thoughtcrime.securesms.providers.BlobProvider;
-import org.thoughtcrime.securesms.providers.DeprecatedPersistentBlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.MessageSender;
-import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
@@ -84,9 +84,9 @@ public class AttachmentManager {
 
   private final static String TAG = Log.tag(AttachmentManager.class);
 
-  private final @NonNull Context            context;
-  private final @NonNull Stub<View>         attachmentViewStub;
-  private final @NonNull AttachmentListener attachmentListener;
+  private final @NonNull Context                    context;
+  private final @NonNull Stub<View>                 attachmentViewStub;
+  private final @NonNull AttachmentListener         attachmentListener;
 
   private RemovableEditableMediaView removableMediaView;
   private ThumbnailView              thumbnail;
@@ -164,16 +164,14 @@ public class AttachmentManager {
   }
 
   private void cleanup(final @Nullable Uri uri) {
-    if (uri != null && DeprecatedPersistentBlobProvider.isAuthority(context, uri)) {
+    if (uri != null && AppDependencies.getBlobs().isAuthority(uri)) {
       Log.d(TAG, "cleaning up " + uri);
-      DeprecatedPersistentBlobProvider.getInstance(context).delete(context, uri);
-    } else if (uri != null && BlobProvider.isAuthority(uri)) {
-      BlobProvider.getInstance().delete(context, uri);
+      AppDependencies.getBlobs().delete(context, uri);
     }
   }
 
   private void markGarbage(@Nullable Uri uri) {
-    if (uri != null && (DeprecatedPersistentBlobProvider.isAuthority(context, uri) || BlobProvider.isAuthority(uri))) {
+    if (uri != null && AppDependencies.getBlobs().isAuthority(uri)) {
       Log.d(TAG, "Marking garbage that needs cleaning: " + uri);
       garbage.add(uri);
     }
@@ -206,11 +204,11 @@ public class AttachmentManager {
     future.addListener(new AssertedSuccessListener<Bitmap>() {
       @Override
       public void onSuccess(@NonNull Bitmap result) {
-        byte[] blob = BitmapUtil.toByteArray(result);
-        Uri uri = BlobProvider.getInstance()
-                              .forData(blob)
-                              .withMimeType(MediaUtil.IMAGE_JPEG)
-                              .createForSingleSessionInMemory();
+        byte[]        blob          = BitmapUtil.toByteArray(result);
+        Uri           uri           = AppDependencies.getBlobs()
+                                                     .forData(blob)
+                                                     .withMimeType(MediaUtil.IMAGE_JPEG)
+                                                     .createForSingleSessionInMemory();
         LocationSlide locationSlide = new LocationSlide(context, uri, blob.length, place);
 
         ThreadUtil.runOnMain(() -> {
@@ -233,7 +231,7 @@ public class AttachmentManager {
 
     attachmentViewStub.get().setVisibility(View.VISIBLE);
     removableMediaView.display(mapView, false);
-    LocationSlide locationSlide = new LocationSlide(context, thumbnailUri, BlobProvider.getFileSize(thumbnailUri), place);
+    LocationSlide locationSlide = new LocationSlide(context, thumbnailUri, AppDependencies.getBlobs().getFileSize(thumbnailUri), place);
     setSlide(locationSlide);
     attachmentListener.onAttachmentChanged();
   }
@@ -346,10 +344,16 @@ public class AttachmentManager {
       MediaIntentFactory.MediaPreviewArgs args = new MediaIntentFactory.MediaPreviewArgs(
           MediaIntentFactory.NOT_IN_A_THREAD,
           MediaIntentFactory.UNKNOWN_TIMESTAMP,
+          MediaIntentFactory.NOT_IN_A_THREAD,
+          RecipientId.UNKNOWN,
+          RecipientId.UNKNOWN,
+          true,
+          slide.getUri(),
           slide.getUri(),
           slide.getContentType(),
           slide.asAttachment().size,
           slide.getCaption().orElse(null),
+          null,
           false,
           false,
           false,
@@ -388,7 +392,6 @@ public class AttachmentManager {
 
   public interface AttachmentListener {
     void onAttachmentChanged();
-
     void onLocationRemoved();
   }
 

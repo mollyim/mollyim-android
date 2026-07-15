@@ -13,43 +13,58 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.signal.core.util.logging.Log
+import org.signal.libsignal.net.RequestResult
+import org.signal.registration.NetworkController
 import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.RestoreDecision
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateTo
 
+/**
+ * A view model to be used with [ArchiveRestoreSelectionScreen] after a quick restore.
+ * To avoid spinners, we'll have the quick restore screen determine if a remote backup
+ * is available and tell us.
+ */
 class ArchiveRestoreSelectionViewModel(
+  private val restoreOptions: List<ArchiveRestoreOption>,
+  private val registeredState: RegisteredState,
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-  private val isPreRegistration: Boolean
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
 ) : EventDrivenViewModel<ArchiveRestoreSelectionScreenEvents>(TAG) {
 
   companion object {
     private val TAG = Log.tag(ArchiveRestoreSelectionViewModel::class)
   }
 
-  private val _localState = MutableStateFlow(ArchiveRestoreSelectionState())
-  val state = combine(_localState, parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ArchiveRestoreSelectionState())
+  private val _localState = MutableStateFlow(
+    ArchiveRestoreSelectionState(
+      restoreOptions = restoreOptions
+    )
+  )
 
-  init {
-    viewModelScope.launch {
-      val options = repository.getAvailableRestoreOptions()
-      _localState.value = _localState.value.copy(restoreOptions = options.toList())
-    }
-  }
+  val state: StateFlow<ArchiveRestoreSelectionState> = _localState
+    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
+    .stateIn(
+      viewModelScope,
+      SharingStarted.WhileSubscribed(5000),
+      ArchiveRestoreSelectionState(restoreOptions = restoreOptions)
+    )
 
   override suspend fun processEvent(event: ArchiveRestoreSelectionScreenEvents) {
     applyEvent(state.value, event) { _localState.value = it }
+  }
+
+  @VisibleForTesting
+  fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
+    return state.copy(restoreMethodToken = parentState.restoreMethodToken, storageCapable = parentState.storageCapable)
   }
 
   @VisibleForTesting
@@ -57,70 +72,101 @@ class ArchiveRestoreSelectionViewModel(
     val result = when (event) {
       is ArchiveRestoreSelectionScreenEvents.RestoreOptionSelected -> {
         when (event.option) {
-          ArchiveRestoreOption.LocalBackup -> {
-            if (isPreRegistration) {
-              parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.LocalBackup))
-              parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-            } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+          ArchiveRestoreOption.SignalSecureBackup -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.REMOTE_BACKUP)
+            when (registeredState) {
+              RegisteredState.NotRegistered -> {
+                parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
+                parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              else -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.EnterAepForRemoteBackupPostRegistration)
+              }
             }
             state
           }
-          ArchiveRestoreOption.SignalSecureBackup -> {
-            if (isPreRegistration) {
-              parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
-              parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-            } else {
-              Log.w(TAG, "Signal secure backup restore not yet implemented")
+          ArchiveRestoreOption.LocalBackup -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.LOCAL_BACKUP)
+            when (registeredState) {
+              RegisteredState.NotRegistered -> {
+                parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.LocalBackup))
+                parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              else -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+              }
             }
             state
           }
           ArchiveRestoreOption.DeviceTransfer -> {
-            Log.w(TAG, "Device transfer not yet implemented")
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DEVICE_TRANSFER)
+            parentEventEmitter.navigateTo(RegistrationRoute.DeviceTransferInstructions)
             state
           }
           ArchiveRestoreOption.None -> {
-            if (isPreRegistration) {
-              parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-              state
-            } else {
-              state.copy(showSkipRestoreWarning = true)
-            }
+            state.copy(showSkipWarningDialog = true)
           }
         }
       }
-      is ArchiveRestoreSelectionScreenEvents.Skip -> {
-        if (isPreRegistration) {
-          parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
-          state
-        } else {
-          state.copy(showSkipRestoreWarning = true)
+      is ArchiveRestoreSelectionScreenEvents.ConfirmSkip -> {
+        when (registeredState) {
+          RegisteredState.NotRegistered -> {
+            parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+            state.copy(showSkipWarningDialog = false)
+          }
+          RegisteredState.RegisteredAndPinUnknown -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+            repository.setRestoreDecision(RestoreDecision.SKIPPED)
+            if (state.storageCapable) {
+              Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
+              parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+            } else {
+              Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
+              parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+            }
+            state.copy(showSkipWarningDialog = false)
+          }
+          RegisteredState.RegisteredAndPinKnown -> {
+            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+            repository.setRestoreDecision(RestoreDecision.SKIPPED)
+            parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+            state.copy(showSkipWarningDialog = false)
+          }
         }
       }
-      is ArchiveRestoreSelectionScreenEvents.ConfirmSkip -> {
-        parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
-        state.copy(showSkipRestoreWarning = false)
-      }
       is ArchiveRestoreSelectionScreenEvents.DismissSkipWarning -> {
-        state.copy(showSkipRestoreWarning = false)
+        state.copy(showSkipWarningDialog = false)
       }
     }
     stateEmitter(result)
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
-    return state
+  /**
+   * If a quick-restore [token] is set, fire-and-forget a network call to update the old device's UI
+   * with the user's [method] selection. The old device is long-polling and will pick up the change.
+   */
+  private fun notifyOldDevice(token: String?, method: NetworkController.RestoreMethod) {
+    if (token == null) return
+    viewModelScope.launch {
+      Log.i(TAG, "[notifyOldDevice] Notifying old device of restore method: $method")
+      val result = repository.setRestoreMethod(token, method)
+      if (result is RequestResult.Success) {
+        Log.i(TAG, "[notifyOldDevice] Successfully notified old device.")
+      } else {
+        Log.w(TAG, "[notifyOldDevice] Failed to notify old device: $result")
+      }
+    }
   }
 
   class Factory(
+    private val restoreOptions: List<ArchiveRestoreOption>,
+    private val registeredState: RegisteredState,
     private val repository: RegistrationRepository,
     private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    private val isPreRegistration: Boolean
+    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return ArchiveRestoreSelectionViewModel(repository, parentState, parentEventEmitter, isPreRegistration) as T
+      return ArchiveRestoreSelectionViewModel(restoreOptions, registeredState, repository, parentState, parentEventEmitter) as T
     }
   }
 }

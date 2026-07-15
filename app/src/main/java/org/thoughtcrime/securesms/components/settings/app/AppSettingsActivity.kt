@@ -2,10 +2,13 @@ package org.thoughtcrime.securesms.components.settings.app
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Process
 import androidx.navigation.NavDirections
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.util.getParcelableExtraCompat
+import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
@@ -30,17 +33,18 @@ private const val EXTRA_PERFORM_ACTION_ON_CREATE = "extra_perform_action_on_crea
 
 class AppSettingsActivity : DSLSettingsActivity() {
 
+  private val TAG = Log.tag(AppSettingsActivity::class)
+
   private var wasConfigurationUpdated = false
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    if (intent?.hasExtra(ARG_NAV_GRAPH) != true) {
-      intent?.putExtra(ARG_NAV_GRAPH, R.navigation.app_settings_with_change_number)
-    }
-
     super.onCreate(savedInstanceState, ready)
 
     val startingAction: NavDirections? = if (intent?.categories?.contains(NOTIFICATION_CATEGORY) == true) {
       AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
+    } else if (Build.VERSION.SDK_INT >= 34 && getLaunchedFromUid() != Process.myUid()) {
+      Log.w(TAG, "Settings was launched by an external process. Ignoring starting route.")
+      null
     } else {
       when (val appSettingsRoute: AppSettingsRoute? = intent?.getParcelableExtraCompat(START_ROUTE, AppSettingsRoute::class.java)) {
         AppSettingsRoute.Empty -> null
@@ -78,9 +82,10 @@ class AppSettingsActivity : DSLSettingsActivity() {
         )
 
         AppSettingsRoute.ChatsRoute.Chats -> AppSettingsFragmentDirections.actionDirectToChatsSettingsFragment()
-        AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment()
+        is AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment().setLaunchCheckoutFlow(appSettingsRoute.launchCheckoutFlow)
         AppSettingsRoute.Invite -> AppSettingsFragmentDirections.actionDirectToInviteFragment()
         AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> AppSettingsFragmentDirections.actionDirectToStoragePreferenceFragment()
+        AppSettingsRoute.AccountRoute.Account -> AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
         else -> error("Unsupported start location: ${appSettingsRoute?.javaClass?.name}")
       }
     }
@@ -139,6 +144,10 @@ class AppSettingsActivity : DSLSettingsActivity() {
     }
   }
 
+  override fun resolveNavGraphId(): Int = R.navigation.app_settings_with_change_number
+
+  override fun resolveStartBundle(): Bundle? = null
+
   companion object {
     const val ACTION_CHANGE_NUMBER_SUCCESS = "action_change_number_success"
 
@@ -171,6 +180,9 @@ class AppSettingsActivity : DSLSettingsActivity() {
 
     @JvmStatic
     fun changeNumber(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.ChangeNumberRoute.Start)
+
+    @JvmStatic
+    fun account(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.AccountRoute.Account)
 
     @JvmStatic
     fun subscriptions(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.DonationsRoute.Donations(directToCheckoutType = InAppPaymentType.RECURRING_DONATION))
@@ -225,7 +237,8 @@ class AppSettingsActivity : DSLSettingsActivity() {
     }
 
     @JvmStatic
-    fun backupsSettings(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Backups)
+    @JvmOverloads
+    fun backupsSettings(context: Context, launchCheckoutFlow: Boolean = false): Intent = getIntentForStartLocation(context, AppSettingsRoute.BackupsRoute.Backups(launchCheckoutFlow = launchCheckoutFlow))
 
     @JvmStatic
     fun invite(context: Context): Intent = getIntentForStartLocation(context, AppSettingsRoute.Invite)

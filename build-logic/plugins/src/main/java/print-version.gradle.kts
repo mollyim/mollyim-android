@@ -3,27 +3,30 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import com.android.build.gradle.AppExtension
+import com.android.build.api.dsl.ApplicationExtension
 import groovy.json.JsonOutput
 
-val android = extensions.getByType<AppExtension>()
+val android = extensions.getByType<ApplicationExtension>()
+
+val versionCodeProvider = provider {
+  android.defaultConfig.versionCode
+}
+val versionNameProvider = provider {
+  android.defaultConfig.versionName
+}
 
 tasks.register("printVersion") {
   group = "help"
   description = "Prints app version information as JSON."
 
-  val versionCode = provider { android.defaultConfig.versionCode }
-  val versionName = provider { android.defaultConfig.versionName }
-
   doLast {
     val versionInfo = mapOf(
       "android" to mapOf(
-        "versionCode" to versionCode.get(),
-        "versionName" to versionName.get(),
+        "versionCode" to versionCodeProvider.orNull,
+        "versionName" to versionNameProvider.orNull,
       ),
     )
 
-    val json = JsonOutput.prettyPrint(JsonOutput.toJson(versionInfo))
-    println(json)
+    println(JsonOutput.prettyPrint(JsonOutput.toJson(versionInfo)))
   }
 }

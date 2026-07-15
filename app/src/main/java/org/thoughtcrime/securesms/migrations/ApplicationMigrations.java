@@ -10,12 +10,12 @@ import androidx.lifecycle.MutableLiveData;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.VersionTracker;
 
 import java.util.LinkedHashMap;
@@ -187,9 +187,19 @@ public class ApplicationMigrations {
     static final int EMOJI_VERSION_13              = 154;
     //static final int COLLAPSED_EVENTS            = 155; // MOLLY: Rerun fixed job at 156
     static final int COLLAPSED_EVENTS_2            = 156;
+    static final int KEY_TRANSPARENCY              = 157;
+    static final int RELEASE_NOTES_CHAT_SYNC       = 158;
+    static final int READ_INDEX_DB_MIGRATION       = 159;
+    // Need to skip 160 due to release ordering issues
+    static final int SVR2_ENCLAVE_UPDATE_6         = 161;
+    static final int NOTIFICATION_INDEX_MIGRATION  = 162;
+    static final int NOTIFICATION_STATE_CLEANUP    = 163;
+    static final int KT_USERNAME_CAPABILITY        = 164;
+    static final int FIX_CHANGE_NUMBER_ERROR_2     = 165;
+    static final int LOCAL_ARCHIVE_RECONCILE       = 166;
   }
 
-  public static final int CURRENT_VERSION = 156;
+  public static final int CURRENT_VERSION = 166;
 
   /**
    * This *must* be called after the {@link JobManager} has been instantiated, but *before* the call
@@ -776,6 +786,10 @@ public class ApplicationMigrations {
       jobs.put(Version.FIX_CHANGE_NUMBER_ERROR, new FixChangeNumberErrorMigrationJob());
     }
 
+    if (lastSeenVersion < Version.FIX_CHANGE_NUMBER_ERROR_2) {
+      jobs.put(Version.FIX_CHANGE_NUMBER_ERROR_2, new FixChangeNumberErrorMigrationJob());
+    }
+
     if (lastSeenVersion < Version.CHAT_FOLDER_STORAGE_SYNC) {
       jobs.put(Version.CHAT_FOLDER_STORAGE_SYNC, new SyncChatFoldersMigrationJob());
     }
@@ -846,6 +860,38 @@ public class ApplicationMigrations {
 
     if (lastSeenVersion < Version.COLLAPSED_EVENTS_2) {
       jobs.put(Version.COLLAPSED_EVENTS_2, new BackfillCollapsedEventsMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.KEY_TRANSPARENCY) {
+      jobs.put(Version.KEY_TRANSPARENCY, new ResetKeyTransparencyMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.RELEASE_NOTES_CHAT_SYNC) {
+      jobs.put(Version.RELEASE_NOTES_CHAT_SYNC, new AccountRecordMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.READ_INDEX_DB_MIGRATION) {
+      jobs.put(Version.READ_INDEX_DB_MIGRATION, new DatabaseMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.SVR2_ENCLAVE_UPDATE_6) {
+      jobs.put(Version.SVR2_ENCLAVE_UPDATE_6, new Svr2MirrorMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.NOTIFICATION_INDEX_MIGRATION) {
+      jobs.put(Version.NOTIFICATION_INDEX_MIGRATION, new DatabaseMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.NOTIFICATION_STATE_CLEANUP) {
+      jobs.put(Version.NOTIFICATION_STATE_CLEANUP, new BackfillNotifiedStateMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.KT_USERNAME_CAPABILITY) {
+      jobs.put(Version.KT_USERNAME_CAPABILITY, new KeyTransparencyUsernameMigrationJob());
+    }
+
+    if (lastSeenVersion < Version.LOCAL_ARCHIVE_RECONCILE) {
+      jobs.put(Version.LOCAL_ARCHIVE_RECONCILE, new LocalArchiveReconciliationMigrationJob());
     }
 
     return jobs;

@@ -27,6 +27,7 @@ import org.signal.archive.stream.EncryptedBackupReader
 import org.signal.archive.stream.EncryptedBackupReader.Companion.MAC_SIZE
 import org.signal.core.models.ServiceId
 import org.signal.core.models.backup.MessageBackupKey
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Hex
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.bytes
@@ -37,7 +38,8 @@ import org.signal.core.util.readNBytesOrThrow
 import org.signal.core.util.roundedString
 import org.signal.core.util.stream.LimitedInputStream
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
-import org.thoughtcrime.securesms.attachments.AttachmentId
+import org.signal.network.NetworkResult
+import org.signal.network.api.SvrBApi
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.LocalExportProgress
@@ -55,10 +57,7 @@ import org.thoughtcrime.securesms.jobs.LocalBackupJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.LocalBackupCreationProgress
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.whispersystems.signalservice.api.NetworkResult
-import org.whispersystems.signalservice.api.svr.SvrBApi
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -136,7 +135,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
   fun validateBackup() {
     _state.value = _state.value.copy(statusMessage = "Exporting to a temporary file...")
-    val tempFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+    val tempFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     disposables += Single
       .fromCallable {
@@ -207,7 +206,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
     SignalExecutors.BOUNDED_IO.execute {
       Log.d(TAG, "Downloading file...")
-      val tempBackupFile = BlobProvider.getInstance().forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+      val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
       when (val result = BackupRepository.downloadBackupFile(tempBackupFile)) {
         is NetworkResult.Success -> Log.i(TAG, "Download successful")
@@ -337,7 +336,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
 
     viewModelScope.launch {
       when (val result = BackupRepository.restoreRemoteBackup()) {
-        RemoteRestoreResult.Success -> {
+        is RemoteRestoreResult.Success -> {
           _state.value = _state.value.copy(statusMessage = "Import complete!")
           ThreadUtil.runOnMain { afterDbRestoreCallback() }
         }
@@ -353,7 +352,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
   }
 
   fun loadStats() {
-    viewModelScope.launch(Dispatchers.IO) {
+    viewModelScope.launch(Dispatchers.Default) {
       launch {
         var stats = SignalDatabase.attachments.debugGetAttachmentStats()
 
@@ -399,7 +398,7 @@ class InternalBackupPlaygroundViewModel : ViewModel() {
     return@withContext false
   }
 
-  suspend fun clearLocalMediaBackupState() = withContext(Dispatchers.IO) {
+  suspend fun clearLocalMediaBackupState() = withContext(Dispatchers.Default) {
     SignalDatabase.attachments.clearAllArchiveData()
   }
 

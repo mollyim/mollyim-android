@@ -19,7 +19,8 @@ import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
-import org.signal.registration.screens.restoreselection.ArchiveRestoreOption
+import org.signal.registration.screens.messagesync.LinkAndSyncProgress
+import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.signal.registration.util.ACIParceler
 import org.signal.registration.util.AccountEntropyPoolParceler
 import org.signal.registration.util.IdentityKeyPairParceler
@@ -56,6 +57,12 @@ interface StorageController {
   suspend fun clearAllData()
 
   /**
+   * Wipes **all** local app data and attempts to relaunch the app into a fresh state. Used when the primary
+   * asks a freshly-linked device to re-link.
+   */
+  suspend fun clearLocalDataAndRestart()
+
+  /**
    * Reads the persisted [RegistrationData] proto that is currently in the process of being worked on.
    * Returns a default empty [RegistrationData] if nothing has been written yet.
    */
@@ -84,10 +91,10 @@ interface StorageController {
   suspend fun commitRegistrationData()
 
   /**
-   * Returns the set of restore options that are currently available to the user.
-   * For example, if a local backup file is present on the device, [ArchiveRestoreOption.LocalBackup] should be included.
+   * Persists the terminal [RestoreDecision] the user reached during registration directly to permanent app state,
+   * so the rest of the app knows whether we're a fresh account, skipped a restore, or successfully restored data.
    */
-  suspend fun getAvailableRestoreOptions(): Set<ArchiveRestoreOption>
+  suspend fun setRestoreDecision(decision: RestoreDecision)
 
   /**
    * Begins restoring from a V1 (.backup) file identified by the given [uri].
@@ -109,6 +116,24 @@ interface StorageController {
   fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress>
 
   /**
+   * Begins restoring from a remote (server-hosted) backup.
+   *
+   * @param aep The Account Entropy Pool used to derive backup keys.
+   * @return A [Flow] of [RemoteBackupRestoreProgress] that reports the state of the restore
+   *   from download through import, completion, or error.
+   */
+  fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress>
+
+  /**
+   * Downloads and imports the link-and-sync message backup from the given CDN location ([cdn]/[key]). The ephemeral
+   * backup key needed to decrypt the backup is read from the locally persisted registration metadata committed
+   * during registration.
+   *
+   * @return A [Flow] of [LinkAndSyncProgress] reporting progress through completion or error.
+   */
+  fun restoreLinkAndSyncBackup(cdn: Int, key: String): Flow<LinkAndSyncProgress>
+
+  /**
    * Scans the given folder URI for local backup files, checking for both modern
    * folder-based backups and legacy .backup files.
    *
@@ -118,6 +143,54 @@ interface StorageController {
    * @return A list of [LocalBackupInfo] sorted by date descending (most recent first).
    */
   suspend fun scanLocalBackupFolder(folderUri: Uri): List<LocalBackupInfo>
+
+  /**
+   * Reads any profile data already on disk for the locally-registered account. May return data when
+   * the user is re-registering (the previous profile name/avatar are still on the device) or after a
+   * storage-service account record restore has populated them.
+   *
+   * Returned fields are individually populated — any subset may be empty/null. The caller decides
+   * what to do with partial data (typically: pre-seed the create-profile form, or skip the screen
+   * altogether if everything is already present).
+   */
+  suspend fun getStoredProfileData(): StoredProfileData
+}
+
+/**
+ * Snapshot of profile data already present on the device — used to pre-seed (or auto-skip) the
+ * create-profile screen during registration.
+ *
+ * [discoverableByPhoneNumber] is null when the device has no opinion yet (UNDECIDED on Android), in
+ * which case callers should default to discoverable.
+ */
+data class StoredProfileData(
+  val givenName: String = "",
+  val familyName: String = "",
+  val avatar: ByteArray? = null,
+  val discoverableByPhoneNumber: Boolean? = null
+) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is StoredProfileData) return false
+    if (givenName != other.givenName) return false
+    if (familyName != other.familyName) return false
+    if (avatar != null) {
+      if (other.avatar == null) return false
+      if (!avatar.contentEquals(other.avatar)) return false
+    } else if (other.avatar != null) {
+      return false
+    }
+    if (discoverableByPhoneNumber != other.discoverableByPhoneNumber) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = givenName.hashCode()
+    result = 31 * result + familyName.hashCode()
+    result = 31 * result + (avatar?.contentHashCode() ?: 0)
+    result = 31 * result + (discoverableByPhoneNumber?.hashCode() ?: 0)
+    return result
+  }
 }
 
 /**
@@ -145,6 +218,8 @@ data class KeyMaterial(
   val aciRegistrationId: Int,
   /** Registration ID for the PNI. */
   val pniRegistrationId: Int,
+  /** Profile key for sealed sender. */
+  val profileKey: ByteArray,
   /** Unidentified access key (derived from profile key) for sealed sender. */
   val unidentifiedAccessKey: ByteArray,
   /** Password for basic auth during registration (18 random bytes, base64 encoded). */
@@ -173,6 +248,7 @@ data class PreExistingRegistrationData(
   val servicePassword: String,
   val aep: AccountEntropyPool,
   val registrationLockEnabled: Boolean,
+  val unrestrictedUnidentifiedAccess: Boolean,
   val aciIdentityKeyPair: IdentityKeyPair,
   val pniIdentityKeyPair: IdentityKeyPair
 ) : Parcelable

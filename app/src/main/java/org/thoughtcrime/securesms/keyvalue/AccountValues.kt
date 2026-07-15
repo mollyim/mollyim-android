@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.keyvalue
 
 import android.content.Context
 import im.molly.app.base.ApkInfo
+import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
@@ -80,6 +81,9 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     private const val KEY_ACCOUNT_REGISTERED_AT = "account.registered_at"
 
     private const val KEY_HAS_LINKED_DEVICES = "account.has_linked_devices"
+    private const val KEY_HAS_INACTIVE_PRIMARY_DEVICE_ALERT = "account.has_inactive_primary_device_alert"
+
+    private const val KEY_VERIFICATION_CODE_REQUESTED_AT = "account.verification_code_requested_at"
 
     private const val KEY_ACCOUNT_ENTROPY_POOL = "account.account_entropy_pool"
     private const val KEY_RESTORED_ACCOUNT_ENTROPY_KEY = "account.restored_account_entropy_pool"
@@ -134,6 +138,15 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
         putString(KEY_ACCOUNT_ENTROPY_POOL, newAep)
         return AccountEntropyPool(newAep)
       }
+    }
+
+  /**
+   * The locally-stored [AccountEntropyPool], or null if one has not yet been generated or restored.
+   * Unlike [accountEntropyPool], reading this never generates and persists a new AEP as a side effect.
+   */
+  val accountEntropyPoolOrNull: AccountEntropyPool?
+    get() = AEP_LOCK.withLock {
+      getString(KEY_ACCOUNT_ENTROPY_POOL, null)?.let { AccountEntropyPool(it) }
     }
 
   fun rotateAccountEntropyPool(aep: AccountEntropyPool) {
@@ -308,15 +321,17 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     }
   }
 
-  /** Set an identity key pair for the PNI identity via change number. */
-  fun setPniIdentityKeyAfterChangeNumber(key: IdentityKeyPair) {
+  fun setNumberAndPniIdentity(e164: String, pni: PNI, pniRegistrationId: Int, pniIdentityKeyPair: IdentityKeyPair) {
     synchronized(this) {
-      Log.i(TAG, "Setting a new PNI identity key pair.")
+      Log.i(TAG, "Setting the E164, PNI, PNI registration ID, and PNI identity key pair.")
 
       store
         .beginWrite()
-        .putBlob(KEY_PNI_IDENTITY_PUBLIC_KEY, key.publicKey.serialize())
-        .putBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, key.privateKey.serialize())
+        .putString(KEY_E164, e164)
+        .putString(KEY_PNI, pni.toString())
+        .putInteger(KEY_PNI_REGISTRATION_ID, pniRegistrationId)
+        .putBlob(KEY_PNI_IDENTITY_PUBLIC_KEY, pniIdentityKeyPair.publicKey.serialize())
+        .putBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, pniIdentityKeyPair.privateKey.serialize())
         .commit()
     }
   }
@@ -438,7 +453,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   val isRegistered: Boolean
     get() = getBoolean(KEY_IS_REGISTERED, false)
 
-  fun setRegistered(registered: Boolean) {
+  fun setRegistered(registered: Boolean, isAciChanged: Boolean = false) {
     Log.i(TAG, "Setting push registered: $registered", Throwable())
 
     val previous = isRegistered
@@ -455,7 +470,11 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       clearLocalCredentials()
     }
 
-    if (!previous && registered) {
+    if ((previous && !registered) || isAciChanged) {
+      AppDependencies.donationPermitsRepository.clearPermits()
+    }
+
+    if (registered && (!previous || isAciChanged)) {
       registeredAtTimestamp = System.currentTimeMillis()
     } else if (!registered) {
       registeredAtTimestamp = -1
@@ -491,6 +510,9 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   val isLinkedDevice: Boolean
     get() = !isPrimaryDevice
+
+  @get:JvmName("hasInactivePrimaryDeviceAlert")
+  var hasInactivePrimaryDeviceAlert: Boolean by booleanValue(KEY_HAS_INACTIVE_PRIMARY_DEVICE_ALERT, false)
 
   /** The local user's full username (nickname.discriminator), if set. */
   var username: String?
@@ -562,6 +584,11 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
    */
   @get:JvmName("isMultiDevice")
   var isMultiDevice by booleanValue(KEY_HAS_LINKED_DEVICES, false)
+
+  /** Server has indicated a verification code was requested for the account at this timestamp (ms since epoch) */
+  private val verificationCodeRequestedAtMsValue = longValue(KEY_VERIFICATION_CODE_REQUESTED_AT, 0)
+  var verificationCodeRequestedAtMs: Long by verificationCodeRequestedAtMsValue
+  val verificationCodeRequestedAtMsFlow: Flow<Long> by lazy { verificationCodeRequestedAtMsValue.toFlow() }
 
   // MOLLY: Keys were parametrized with the account number until 7.23.1
   private fun migrateLegacyAccountKeys() {

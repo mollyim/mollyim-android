@@ -16,17 +16,15 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import org.signal.core.models.MasterKey
+import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
-import org.signal.libsignal.protocol.util.Hex
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateBack
-import org.signal.registration.screens.util.navigateTo
 import org.signal.registration.util.SensitiveLog
 
 /**
@@ -70,16 +68,16 @@ class PinEntryForSmsBypassViewModel(
   ) {
     when (event) {
       is PinEntryScreenEvents.PinEntered -> {
-        var localState = state.copy(loading = true)
+        val localState = state.copy(loading = true)
         stateEmitter(localState)
-        localState = applyPinEntered(localState, event, parentEventEmitter)
-        stateEmitter(localState.copy(loading = false))
+        stateEmitter(applyPinEntered(localState, event, parentEventEmitter))
       }
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
       }
-      is PinEntryScreenEvents.ToggleKeyboard,
-      is PinEntryScreenEvents.NeedHelp -> {
+      is PinEntryScreenEvents.CreateNewPin,
+      is PinEntryScreenEvents.ContactSupport -> Unit
+      is PinEntryScreenEvents.ToggleKeyboard -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
@@ -102,7 +100,7 @@ class PinEntryForSmsBypassViewModel(
       return state
     }
 
-    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, state.isAlphanumericKeyboard, forRegistrationLock = false)) {
+    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, forRegistrationLock = false)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[PinEntered] Successfully restored master key from SVR.")
         parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(result.result.masterKey))
@@ -112,7 +110,7 @@ class PinEntryForSmsBypassViewModel(
         when (val error = result.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(triesRemaining = error.triesRemaining)
+            state.copy(loading = false, triesRemaining = error.triesRemaining)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found for sms-bypass credential. Marking RRP as invalid and navigating back.")
@@ -124,11 +122,11 @@ class PinEntryForSmsBypassViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key (sms-bypass).", result.networkError)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key (sms-bypass).", result.cause)
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
     }
   }
@@ -152,15 +150,16 @@ class PinEntryForSmsBypassViewModel(
 
     return when (val result = repository.registerAccountWithRecoveryPassword(e164, recoveryPassword, registrationLock, skipDeviceTransfer = true)) {
       is RequestResult.Success -> {
-        parentEventEmitter.navigateTo(RegistrationRoute.FullyComplete)
         repository.enqueueSvrResetGuessCountJob()
+        repository.restoreAccountRecord()
+        parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         state
       }
       is RequestResult.RetryableNetworkError -> {
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
       }
       is RequestResult.ApplicationError -> {
-        state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
       }
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
@@ -177,7 +176,7 @@ class PinEntryForSmsBypassViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
-            state.copy(oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             if (provideRegistrationLock) {

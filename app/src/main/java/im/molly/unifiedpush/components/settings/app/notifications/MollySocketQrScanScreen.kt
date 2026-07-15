@@ -1,41 +1,47 @@
 package im.molly.unifiedpush.components.settings.app.notifications
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.kotlin.plusAssign
+import org.signal.camera.CameraCaptureMode
+import org.signal.camera.CameraScreen
+import org.signal.camera.CameraScreenEvents
+import org.signal.camera.CameraScreenState
+import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.theme.SignalTheme
-import org.signal.qr.QrScannerView
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.mediasend.camerax.CameraXRemoteConfig
-import org.thoughtcrime.securesms.qr.QrScanScreens
-import java.util.concurrent.TimeUnit
+import org.thoughtcrime.securesms.qr.QrCrosshair
+import org.signal.mediasend.R as MediaSendR
 
 /**
  * A screen that allows you to scan a QR code to start a chat.
  */
 @Composable
 fun MollySocketQrScanScreen(
-  lifecycleOwner: LifecycleOwner,
-  disposables: CompositeDisposable,
   qrScanResult: QrScanResult?,
-  onQrCodeScanned: (String) -> Unit,
+  cameraState: CameraScreenState,
+  cameraEmitter: (CameraScreenEvents) -> Unit,
   onQrResultHandled: () -> Unit,
   onOpenCameraClicked: () -> Unit,
   onOpenGalleryClicked: () -> Unit,
@@ -80,22 +86,54 @@ fun MollySocketQrScanScreen(
       modifier = Modifier
         .fillMaxWidth()
         .weight(1f, true)
+        .background(Color.Black)
     ) {
-      QrScanScreens.QrScanScreen(
-        factory = { context ->
-          val view = QrScannerView(context)
-          disposables += view.qrData.throttleFirst(3000, TimeUnit.MILLISECONDS).subscribe { data ->
-            onQrCodeScanned(data)
+      if (hasCameraPermission) {
+        CameraScreen(
+          state = cameraState,
+          emitter = cameraEmitter,
+          enableQrScanning = true,
+          captureMode = CameraCaptureMode.ImageOnly,
+          roundCorners = false,
+          fillViewport = true,
+          modifier = Modifier.fillMaxSize()
+        ) {
+          QrCrosshair(modifier = Modifier.fillMaxSize())
+
+          Text(
+            text = stringResource(R.string.MollySocketLink_scan_the_qr_code),
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+              .align(Alignment.TopCenter)
+              .padding(top = 24.dp)
+              .background(color = Color.Black.copy(alpha = 0.5f), shape = CircleShape)
+              .padding(horizontal = 16.dp, vertical = 8.dp)
+          )
+        }
+      } else {
+        Column(
+          verticalArrangement = Arrangement.Center,
+          horizontalAlignment = Alignment.CenterHorizontally,
+          modifier = Modifier
+            .align(Alignment.Center)
+            .padding(48.dp)
+        ) {
+          Text(
+            text = stringResource(MediaSendR.string.CameraXFragment_to_scan_qr_code_allow_camera),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.White
+          )
+          Buttons.MediumTonal(
+            colors = ButtonDefaults.filledTonalButtonColors(),
+            onClick = onOpenCameraClicked
+          ) {
+            Text(stringResource(MediaSendR.string.CameraXFragment_allow_access))
           }
-          view
-        },
-        update = { view ->
-          view.start(lifecycleOwner = lifecycleOwner, forceLegacy = CameraXRemoteConfig.isBlocklisted())
-        },
-        hasPermission = hasCameraPermission,
-        onRequestPermissions = onOpenCameraClicked,
-        qrHeaderLabelString = stringResource(R.string.MollySocketLink_scan_the_qr_code)
-      )
+        }
+      }
       FloatingActionButton(
         shape = CircleShape,
         containerColor = SignalTheme.colors.colorSurface1,

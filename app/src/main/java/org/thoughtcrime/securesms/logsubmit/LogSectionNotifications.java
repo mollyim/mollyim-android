@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi;
 
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics;
-import org.thoughtcrime.securesms.util.ServiceUtil;
+import org.signal.core.util.ServiceUtil;
 
 final class LogSectionNotifications implements LogSection {
 
@@ -28,7 +28,8 @@ final class LogSectionNotifications implements LogSection {
           .append("New contact alerts   : ").append(SignalStore.settings().isNotifyWhenContactJoinsSignal()).append("\n")
           .append("In-chat sounds       : ").append(SignalStore.settings().isMessageNotificationsInChatSoundsEnabled()).append("\n")
           .append("Repeat alerts        : ").append(SignalStore.settings().getMessageNotificationsRepeatAlerts()).append("\n")
-          .append("Notification display : ").append(SignalStore.settings().getMessageNotificationsPrivacy()).append("\n\n");
+          .append("Notification display : ").append(SignalStore.settings().getMessageNotificationsPrivacy()).append("\n")
+          .append("Force websocket      : ").append(SignalStore.settings().getForceWebsocketMode()).append("\n\n");
 
     if (Build.VERSION.SDK_INT >= 26) {
       NotificationManager manager = ServiceUtil.getNotificationManager(context);

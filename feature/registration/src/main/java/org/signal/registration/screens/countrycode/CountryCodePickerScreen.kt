@@ -8,8 +8,13 @@ package org.signal.registration.screens.countrycode
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,10 +27,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,6 +44,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -56,76 +63,206 @@ import org.signal.core.ui.compose.LargeFontPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.compose.TextFields
 import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
+import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.test.TestTags
 
 /**
  * Screen that allows someone to search and select a country code from a supported list of countries.
  */
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CountryCodePickerScreen(
   state: CountryCodeState,
   onEvent: (CountryCodePickerScreenEvents) -> Unit
 ) {
-  Scaffold(
-    topBar = {
-      Scaffolds.DefaultTopAppBar(
-        title = stringResource(R.string.CountryCodeSelectScreen__your_country),
-        titleContent = { _, title ->
-          Text(text = title, style = MaterialTheme.typography.titleLarge)
-        },
-        onNavigationClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) },
-        navigationIcon = SignalIcons.X.imageVector,
-        navigationContentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
-      )
-    }
-  ) { padding ->
-    val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
+  when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
+    is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent)
+    is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent)
+  }
+}
 
-    LazyColumn(
-      state = listState,
-      horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(padding)
-    ) {
-      stickyHeader {
-        SearchBar(
-          text = state.query,
-          onSearch = { onEvent(CountryCodePickerScreenEvents.Search(it)) }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun OnePaneLayout(
+  layoutParams: RegistrationScaffold.Params.OnePane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
+  OnePaneRegistrationScaffold(
+    modifier = Modifier
+      .fillMaxSize()
+      .testTag(TestTags.COUNTRY_CODE_PICKER_SCREEN),
+    params = layoutParams,
+    topBar = {
+      TopAppBar(
+        title = stringResource(R.string.CountryCodeSelectScreen__your_country),
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
+    },
+    content = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+      ) {
+        CountryList(
+          state = state,
+          onEvent = onEvent,
+          contentPadding = paddingValues,
+          modifier = Modifier.weight(1f)
         )
       }
+    }
+  )
+}
 
-      if (state.countryList.isEmpty()) {
-        item {
-          CircularProgressIndicator(
-            modifier = Modifier.size(56.dp)
-          )
-        }
-      } else if (state.query.isEmpty()) {
-        if (state.commonCountryList.isNotEmpty()) {
-          items(state.commonCountryList) { country ->
-            CountryItem(country, onEvent)
-          }
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit
+) {
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
 
-          item {
-            Dividers.Default()
-          }
-        }
-
-        items(state.countryList) { country ->
-          CountryItem(country, onEvent)
-        }
-      } else {
-        items(state.filteredList) { country ->
-          CountryItem(country, onEvent, state.query)
-        }
+  TwoPaneRegistrationScaffold(
+    modifier = Modifier
+      .fillMaxSize()
+      .testTag(TestTags.COUNTRY_CODE_PICKER_SCREEN),
+    params = params,
+    topBar = {
+      TopAppBar(
+        scrollBehavior = topBarScrollBehavior,
+        onCloseClick = { onEvent(CountryCodePickerScreenEvents.Dismissed) }
+      )
+    },
+    firstPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        Text(
+          stringResource(R.string.CountryCodeSelectScreen__your_country),
+          style = MaterialTheme.typography.headlineMedium,
+          modifier = Modifier.attachDebugLogHelper()
+        )
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .padding(paddingValues)
+      ) {
+        CountryList(
+          state = state,
+          onEvent = onEvent
+        )
       }
     }
+  )
+}
 
-    LaunchedEffect(state.startingIndex) {
-      coroutineScope.launch {
-        listState.scrollToItem(index = state.startingIndex)
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopAppBar(
+  scrollBehavior: TopAppBarScrollBehavior,
+  onCloseClick: () -> Unit,
+  title: String = ""
+) {
+  Scaffolds.DefaultTopAppBar(
+    title = title,
+    titleContent = { _, titleText ->
+      Text(
+        text = titleText,
+        style = MaterialTheme.typography.titleLarge
+      )
+    },
+    navigationIconContent = {
+      IconButton(
+        onClick = onCloseClick,
+        modifier = Modifier
+          .padding(end = 16.dp)
+          .testTag(TestTags.COUNTRY_CODE_CLOSE_BUTTON)
+      ) {
+        Icon(
+          imageVector = SignalIcons.X.imageVector,
+          contentDescription = stringResource(R.string.CountryCodeSelectScreen__close)
+        )
       }
+    },
+    scrollBehavior = scrollBehavior
+  )
+}
+
+@Composable
+private fun CountryList(
+  state: CountryCodeState,
+  onEvent: (CountryCodePickerScreenEvents) -> Unit,
+  modifier: Modifier = Modifier,
+  contentPadding: PaddingValues = PaddingValues()
+) {
+  val listState = rememberLazyListState()
+  val coroutineScope = rememberCoroutineScope()
+
+  LazyColumn(
+    modifier = modifier,
+    state = listState,
+    contentPadding = PaddingValues(
+      start = 24.dp,
+      end = 24.dp,
+      bottom = contentPadding.calculateBottomPadding()
+    ),
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    item {
+      SearchBar(
+        text = state.query,
+        onSearch = { onEvent(CountryCodePickerScreenEvents.Search(it)) }
+      )
+    }
+
+    if (state.countryList.isEmpty()) {
+      item {
+        CircularProgressIndicator(
+          modifier = Modifier.size(56.dp)
+        )
+      }
+    } else if (state.query.isEmpty()) {
+      if (state.commonCountryList.isNotEmpty()) {
+        items(state.commonCountryList) { country ->
+          CountryItem(country, onEvent)
+        }
+
+        item {
+          Dividers.Default()
+        }
+      }
+
+      items(state.countryList) { country ->
+        CountryItem(country, onEvent)
+      }
+    } else {
+      items(state.filteredList) { country ->
+        CountryItem(country, onEvent, state.query)
+      }
+    }
+  }
+
+  LaunchedEffect(state.startingIndex) {
+    coroutineScope.launch {
+      listState.scrollToItem(index = state.startingIndex)
     }
   }
 }
@@ -142,7 +279,6 @@ private fun CountryItem(
   Row(
     verticalAlignment = Alignment.CenterVertically,
     modifier = Modifier
-      .padding(horizontal = 24.dp)
       .fillMaxWidth()
       .defaultMinSize(minHeight = 56.dp)
       .clickable { onEvent(CountryCodePickerScreenEvents.CountrySelected(country)) }
@@ -226,62 +362,68 @@ private fun SearchBar(
   val focusRequester = remember { FocusRequester() }
   var showKeyboard by remember { mutableStateOf(false) }
 
-  TextField(
-    value = text,
-    onValueChange = { onSearch(it) },
-    placeholder = { Text(hint) },
-    trailingIcon = {
-      if (text.isNotEmpty()) {
-        IconButton(onClick = { onSearch("") }) {
-          Icon(
-            imageVector = SignalIcons.X.imageVector,
-            contentDescription = null
-          )
-        }
-      } else {
-        IconButton(onClick = {
-          showKeyboard = !showKeyboard
-          focusRequester.requestFocus()
-        }) {
-          if (showKeyboard) {
+  Box(
+    modifier = modifier.padding(vertical = 10.dp)
+  ) {
+    TextFields.TextField(
+      value = text,
+      onValueChange = { onSearch(it) },
+      placeholder = { Text(hint) },
+      trailingIcon = {
+        if (text.isNotEmpty()) {
+          IconButton(onClick = { onSearch("") }) {
             Icon(
-              imageVector = SignalIcons.Keyboard.imageVector,
-              contentDescription = null
-            )
-          } else {
-            Icon(
-              imageVector = ImageVector.vectorResource(R.drawable.symbol_number_pad_24),
+              imageVector = SignalIcons.X.imageVector,
               contentDescription = null
             )
           }
+        } else {
+          IconButton(onClick = {
+            showKeyboard = !showKeyboard
+            focusRequester.requestFocus()
+          }) {
+            if (showKeyboard) {
+              Icon(
+                imageVector = SignalIcons.Keyboard.imageVector,
+                contentDescription = null
+              )
+            } else {
+              Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.symbol_number_pad_24),
+                contentDescription = null
+              )
+            }
+          }
         }
-      }
-    },
-    keyboardOptions = KeyboardOptions(
-      keyboardType = if (showKeyboard) {
-        KeyboardType.Number
-      } else {
-        KeyboardType.Text
-      }
-    ),
-    shape = RoundedCornerShape(32.dp),
-    modifier = modifier
-      .background(MaterialTheme.colorScheme.background)
-      .padding(bottom = 18.dp)
-      .padding(horizontal = 16.dp)
-      .fillMaxWidth()
-      .defaultMinSize(minHeight = 54.dp)
-      .focusRequester(focusRequester),
-    visualTransformation = VisualTransformation.None,
-    colors = TextFieldDefaults.colors(
-      // TODO move to SignalTheme
-      focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-      unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-      disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-      focusedIndicatorColor = Color.Transparent,
-      unfocusedIndicatorColor = Color.Transparent
+      },
+      keyboardOptions = KeyboardOptions(
+        keyboardType = if (showKeyboard) {
+          KeyboardType.Number
+        } else {
+          KeyboardType.Text
+        }
+      ),
+      singleLine = true,
+      shape = RoundedCornerShape(32.dp),
+      modifier = modifier
+        .background(MaterialTheme.colorScheme.background)
+        .fillMaxWidth()
+        .defaultMinSize(minHeight = 44.dp)
+        .padding(0.dp)
+        .focusRequester(focusRequester)
+        .testTag(TestTags.COUNTRY_CODE_SEARCH_FIELD),
+      visualTransformation = VisualTransformation.None,
+      contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+      colors = TextFieldDefaults.colors(
+        // TODO move to SignalTheme
+        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        focusedIndicatorColor = Color.Transparent,
+        unfocusedIndicatorColor = Color.Transparent
+      )
     )
-  )
+  }
 }
 
 @AllDevicePreviews

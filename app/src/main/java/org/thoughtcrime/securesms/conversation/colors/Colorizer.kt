@@ -60,6 +60,24 @@ interface Colorizer {
   }
 
   @ColorInt
+  fun getOutgoingDeleteTextColor(context: Context): Int {
+    return if (ThemeUtil.isDarkTheme(context)) {
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
+    } else {
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariant)
+    }
+  }
+
+  @ColorInt
+  fun getOutgoingDeleteNameColor(context: Context): Int {
+    return if (ThemeUtil.isDarkTheme(context)) {
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralInverse)
+    } else {
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutral)
+    }
+  }
+
+  @ColorInt
   fun getIncomingGroupSenderColor(context: Context, recipient: Recipient): Int {
     return getNameColor(context, recipient).getColor(context)
   }

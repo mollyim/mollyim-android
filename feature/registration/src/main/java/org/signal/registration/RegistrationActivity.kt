@@ -7,13 +7,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.content.IntentCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.signal.core.ui.compose.theme.SignalTheme
 
@@ -21,55 +19,75 @@ import org.signal.core.ui.compose.theme.SignalTheme
  * Activity entry point for the registration flow.
  *
  * This activity can be launched from the main app to start the registration process.
- * Upon successful completion, it will return RESULT_OK.
+ * Upon successful completion, it will return RESULT_OK and, if provided via [createIntent], launch the next intent to
+ * route the user back into the main app.
  */
 class RegistrationActivity : ComponentActivity() {
+
+  companion object {
+    private const val NEXT_INTENT_EXTRA = "next_intent"
+    private const val START_DESTINATION_EXTRA = "start_destination"
+    private const val START_FRESH_EXTRA = "start_fresh"
+
+    /**
+     * @param nextIntent An optional intent to launch once registration completes successfully. This is how the caller
+     *   (which lives outside this module) routes the user back into the main app, since the launching activity will
+     *   typically have finished itself.
+     * @param startDestination An optional route to open directly instead of resuming a previous flow. Used, for example,
+     *   to send a deregistered linked device straight to the link-device screen.
+     * @param startFresh When true, any persisted registration data is not restored and the user starts the flow fresh
+     *   from the beginning.
+     */
+    @JvmStatic
+    @JvmOverloads
+    fun createIntent(context: Context, nextIntent: Intent? = null, startDestination: RegistrationRoute? = null, startFresh: Boolean = false): Intent {
+      return Intent(context, RegistrationActivity::class.java).apply {
+        if (nextIntent != null) {
+          putExtra(NEXT_INTENT_EXTRA, nextIntent)
+        }
+        if (startDestination != null) {
+          putExtra(START_DESTINATION_EXTRA, startDestination)
+        }
+        putExtra(START_FRESH_EXTRA, startFresh)
+      }
+    }
+  }
 
   private val repository: RegistrationRepository by lazy {
     RegistrationRepository(
       context = this.application,
       networkController = RegistrationDependencies.get().networkController,
-      storageController = RegistrationDependencies.get().storageController
+      storageController = RegistrationDependencies.get().storageController,
+      isLinkAndSyncAvailable = RegistrationDependencies.get().isLinkAndSyncAvailable
     )
   }
 
   @OptIn(ExperimentalPermissionsApi::class)
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
     enableEdgeToEdge()
+    super.onCreate(savedInstanceState)
+
+    val startDestination = IntentCompat.getParcelableExtra(intent, START_DESTINATION_EXTRA, RegistrationRoute::class.java)
+    val startFresh = intent.getBooleanExtra(START_FRESH_EXTRA, false)
 
     setContent {
       SignalTheme(incognitoKeyboardEnabled = false) {
-        Surface {
-          Box(
+        Surface(modifier = Modifier.fillMaxSize()) {
+          RegistrationNavHost(
+            registrationRepository = repository,
+            startDestination = startDestination,
+            startFresh = startFresh,
             modifier = Modifier
               .fillMaxSize()
-              .windowInsetsPadding(WindowInsets.safeDrawing)
-          ) {
-            RegistrationNavHost(
-              registrationRepository = repository,
-              modifier = Modifier.fillMaxSize(),
-              onRegistrationComplete = {
-                setResult(RESULT_OK)
-                finish()
-              }
-            )
-          }
+              .navigationBarsPadding(),
+            onRegistrationComplete = {
+              setResult(RESULT_OK)
+              IntentCompat.getParcelableExtra(intent, NEXT_INTENT_EXTRA, Intent::class.java)?.let { startActivity(it) }
+              finish()
+            }
+          )
         }
       }
-    }
-  }
-
-  companion object {
-    /**
-     * Creates an intent to launch the RegistrationActivity.
-     *
-     * @param context The context used to create the intent.
-     * @return An intent that can be used to start the RegistrationActivity.
-     */
-    @JvmStatic
-    fun createIntent(context: Context): Intent {
-      return Intent(context, RegistrationActivity::class.java)
     }
   }
 

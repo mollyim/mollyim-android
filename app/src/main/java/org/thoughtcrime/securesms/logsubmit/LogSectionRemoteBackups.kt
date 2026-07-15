@@ -43,6 +43,7 @@ class LogSectionRemoteBackups : LogSection {
     output.append("Optimize storage                    : ${SignalStore.backup.optimizeStorage}\n")
     output.append("Detected subscription state mismatch: ${SignalStore.backup.subscriptionStateMismatchDetected}\n")
     output.append("Last verified key time              : ${SignalStore.backup.lastVerifyKeyTime}\n")
+    output.append("Local restore reconcile pending     : ${SignalStore.backup.localRestoreReconcilePending}\n")
     output.append("Restore state                       : ${ArchiveRestoreProgress.state}\n")
     output.append("\n -- Subscription State\n")
 
@@ -105,7 +106,12 @@ class LogSectionRemoteBackups : LogSection {
     }
 
     output.append("\n -- Attachment Stats\n")
-    output.append(SignalDatabase.attachments.debugGetAttachmentStats().prettyString())
+    val backupInProgress = SignalStore.backup.archiveUploadState?.state?.let { it != ArchiveUploadProgressState.State.None && it != ArchiveUploadProgressState.State.UserCanceled } ?: false
+    if (SignalStore.backup.hasBackupCreationError || backupInProgress) {
+      output.append(SignalDatabase.attachments.debugGetAttachmentStats().prettyString())
+    } else {
+      output.append("Skipped (last backup succeeded and no upload in progress)\n")
+    }
 
     return output
   }

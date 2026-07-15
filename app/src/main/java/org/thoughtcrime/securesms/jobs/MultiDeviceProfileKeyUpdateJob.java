@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.logging.Log;
-import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
+import org.signal.libsignal.protocol.NoSessionException;
+import org.signal.network.exceptions.PushNetworkException;
+import org.signal.network.service.CdnService;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
@@ -15,19 +15,17 @@ import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.util.RemoteConfig;
 import org.whispersystems.signalservice.api.SignalServiceMessageSender;
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
-import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentStream;
 import org.whispersystems.signalservice.api.messages.multidevice.ContactsMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceContact;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceContactsOutputStream;
 import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
-import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
 import org.whispersystems.signalservice.api.push.exceptions.ServerRejectedException;
+import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
 import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec;
 
 import java.io.ByteArrayInputStream;
@@ -67,7 +65,7 @@ public class MultiDeviceProfileKeyUpdateJob extends BaseJob {
   }
 
   @Override
-  public void onRun() throws IOException, UntrustedIdentityException {
+  public void onRun() throws IOException, UntrustedIdentityException, NoSessionException {
     if (!Recipient.self().isRegistered()) {
       throw new NotPushRegisteredException();
     }
@@ -78,7 +76,7 @@ public class MultiDeviceProfileKeyUpdateJob extends BaseJob {
     }
 
     ByteArrayOutputStream      baos = new ByteArrayOutputStream();
-    DeviceContactsOutputStream out  = new DeviceContactsOutputStream(baos, RemoteConfig.useBinaryId(), BuildConfig.USE_STRING_ID);
+    DeviceContactsOutputStream out  = new DeviceContactsOutputStream(baos);
 
     out.write(new DeviceContact(Optional.ofNullable(SignalStore.account().getAci()),
                                 Optional.ofNullable(SignalStore.account().getE164()),
@@ -93,7 +91,8 @@ public class MultiDeviceProfileKeyUpdateJob extends BaseJob {
     SignalServiceMessageSender    messageSender    = AppDependencies.getSignalServiceMessageSender();
     long                          dataLength       = baos.toByteArray().length;
     long                          ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(dataLength));
-    ResumableUploadSpec           uploadSpec       = messageSender.getResumableUploadSpec(ciphertextLength);
+    CdnService                    cdnService       = new CdnService(AppDependencies.getSignalRestClient(), AppDependencies.getAttachmentApi());
+    ResumableUploadSpec           uploadSpec       = cdnService.getResumableUploadSpecBlocking(ciphertextLength);
     SignalServiceAttachmentStream attachmentStream = SignalServiceAttachment.newStreamBuilder()
                                                                             .withStream(new ByteArrayInputStream(baos.toByteArray()))
                                                                             .withContentType("application/octet-stream")

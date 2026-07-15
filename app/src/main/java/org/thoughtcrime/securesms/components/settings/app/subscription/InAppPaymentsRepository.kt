@@ -70,6 +70,12 @@ object InAppPaymentsRepository {
   private const val JOB_PREFIX = "InAppPayments__"
   private val TAG = Log.tag(InAppPaymentsRepository::class.java)
 
+  /**
+   * Upper bound on how long we'll wait for the donations configuration before surfacing a retryable
+   * failure rather than leaving the user on an indefinite loading spinner (e.g. on a slow VPN).
+   */
+  const val DONATIONS_CONFIGURATION_TIMEOUT_SECONDS = 30L
+
   private val backupExpirationTimeout = 30.days
   private val backupExpirationDeletion = 60.days
 
@@ -105,15 +111,7 @@ object InAppPaymentsRepository {
                 .cancellation(
                   InAppPaymentData.Cancellation(
                     reason = if (chargeFailure != null) InAppPaymentData.Cancellation.Reason.PAST_DUE else InAppPaymentData.Cancellation.Reason.CANCELED,
-                    chargeFailure = chargeFailure?.let {
-                      InAppPaymentData.ChargeFailure(
-                        code = it.code,
-                        message = it.message,
-                        outcomeType = it.outcomeType,
-                        outcomeNetworkReason = it.outcomeNetworkReason ?: "",
-                        outcomeNetworkStatus = it.outcomeNetworkStatus
-                      )
-                    }
+                    chargeFailure = chargeFailure?.toInAppPaymentDataChargeFailure()
                   )
                 )
                 .build()

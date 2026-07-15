@@ -11,10 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.signal.core.models.ServiceId
 import org.signal.core.util.orNull
+import org.signal.network.NetworkResult
 import org.thoughtcrime.securesms.conversation.colors.ColorizerV2
 import org.thoughtcrime.securesms.conversation.colors.NameColor
 import org.thoughtcrime.securesms.database.GroupTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupAccessControl
 import org.thoughtcrime.securesms.groups.GroupId
@@ -23,7 +25,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.UiHintValues
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.whispersystems.signalservice.api.NetworkResult
+import org.thoughtcrime.securesms.recipients.RecipientUtil
 
 /**
  * Handles the retrieval and modification of group member labels.
@@ -38,7 +40,7 @@ class MemberLabelRepository private constructor(
     val instance: MemberLabelRepository by lazy { MemberLabelRepository() }
   }
 
-  suspend fun getRecipient(recipientId: RecipientId): Recipient = withContext(Dispatchers.IO) {
+  suspend fun getRecipient(recipientId: RecipientId): Recipient = withContext(Dispatchers.Default) {
     Recipient.resolved(recipientId)
   }
 
@@ -56,6 +58,7 @@ class MemberLabelRepository private constructor(
   fun getLabelSync(groupId: GroupId.V2, recipient: Recipient): MemberLabel? {
     val aci = recipient.serviceId.orNull() as? ServiceId.ACI ?: return null
     val groupRecord = groupsTable.getGroup(groupId).orNull() ?: return null
+    if (!isSelfAnActiveGroupMember(groupRecord)) return null
 
     return groupRecord.requireV2GroupProperties().memberLabel(aci)?.sanitized()
   }
@@ -66,8 +69,9 @@ class MemberLabelRepository private constructor(
   @WorkerThread
   fun getLabelsSync(groupId: GroupId.V2, recipients: Collection<Recipient>): Map<RecipientId, MemberLabel> {
     val groupRecord = groupsTable.getGroup(groupId).orNull() ?: return emptyMap()
-    val labelsByAci = groupRecord.requireV2GroupProperties().memberLabelsByAci()
+    if (!isSelfAnActiveGroupMember(groupRecord)) return emptyMap()
 
+    val labelsByAci = groupRecord.requireV2GroupProperties().memberLabelsByAci()
     return buildMap {
       recipients.forEach { recipient ->
         val aci = recipient.serviceId.orNull() as? ServiceId.ACI
@@ -79,7 +83,7 @@ class MemberLabelRepository private constructor(
   /**
    * Gets the member label for a specific recipient in the group.
    */
-  suspend fun getLabel(groupId: GroupId.V2, recipient: Recipient): MemberLabel? = withContext(Dispatchers.IO) {
+  suspend fun getLabel(groupId: GroupId.V2, recipient: Recipient): MemberLabel? = withContext(Dispatchers.Default) {
     getLabelSync(groupId, recipient)
   }
 
@@ -88,16 +92,17 @@ class MemberLabelRepository private constructor(
    *
    * Returns a map of [RecipientId] to [MemberLabel] for members that have labels.
    */
-  suspend fun getLabels(groupId: GroupId.V2, recipients: List<Recipient>): Map<RecipientId, MemberLabel> = withContext(Dispatchers.IO) {
+  suspend fun getLabels(groupId: GroupId.V2, recipients: List<Recipient>): Map<RecipientId, MemberLabel> = withContext(Dispatchers.Default) {
     getLabelsSync(groupId, recipients)
   }
 
   /**
    * Checks whether [recipient] has permission to set their member label in the given group.
    */
-  suspend fun canSetLabel(groupId: GroupId.V2, recipient: Recipient): Boolean = withContext(Dispatchers.IO) {
+  suspend fun canSetLabel(groupId: GroupId.V2, recipient: Recipient): Boolean = withContext(Dispatchers.Default) {
     val groupRecord = groupsTable.getGroup(groupId).orNull() ?: return@withContext false
 
+    if (!isSelfAnActiveGroupMember(groupRecord)) return@withContext false
     if (groupRecord.isTerminated) return@withContext false
 
     val memberLevel = groupRecord.memberLevel(recipient)
@@ -111,7 +116,7 @@ class MemberLabelRepository private constructor(
   /**
    * Computes the sender [NameColor] for a recipient as seen by other group members.
    */
-  suspend fun getSenderNameColor(groupId: GroupId.V2, recipient: Recipient): NameColor = withContext(Dispatchers.IO) {
+  suspend fun getSenderNameColor(groupId: GroupId.V2, recipient: Recipient): NameColor = withContext(Dispatchers.Default) {
     val groupMemberIds = groupsTable
       .getGroupMembers(groupId, GroupTable.MemberSet.FULL_MEMBERS_INCLUDING_SELF)
       .mapNotNull { it.serviceId.orNull() }
@@ -122,10 +127,11 @@ class MemberLabelRepository private constructor(
   /**
    * Returns all group members who have labels set for the given group.
    */
-  suspend fun getMembersWithLabels(groupId: GroupId.V2): List<GroupMemberWithLabel> = withContext(Dispatchers.IO) {
+  suspend fun getMembersWithLabels(groupId: GroupId.V2): List<GroupMemberWithLabel> = withContext(Dispatchers.Default) {
     val groupRecord = groupsTable.getGroup(groupId).orNull() ?: return@withContext emptyList()
-    val groupProperties = groupRecord.requireV2GroupProperties()
+    if (!isSelfAnActiveGroupMember(groupRecord)) return@withContext emptyList()
 
+    val groupProperties = groupRecord.requireV2GroupProperties()
     val allMembers = groupProperties.getMemberRecipients(GroupTable.MemberSet.FULL_MEMBERS_INCLUDING_SELF)
     val colorizer = ColorizerV2(groupMemberIds = allMembers.mapNotNull { it.serviceId.orNull() })
     val labelsByAci = groupProperties.memberLabelsByAci()
@@ -159,6 +165,14 @@ class MemberLabelRepository private constructor(
 
   fun markMemberLabelAboutOverrideWarningDismissed() {
     uiHints.markMemberLabelAboutOverrideWarningDismissed()
+  }
+
+  @WorkerThread
+  private fun isSelfAnActiveGroupMember(groupRecord: GroupRecord): Boolean {
+    return when {
+      !groupRecord.memberLevel(Recipient.self()).isInGroup -> false
+      else -> RecipientUtil.isMessageRequestAccepted(Recipient.resolved(groupRecord.recipientId))
+    }
   }
 }
 

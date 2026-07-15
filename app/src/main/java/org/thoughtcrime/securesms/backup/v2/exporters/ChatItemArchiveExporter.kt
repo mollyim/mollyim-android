@@ -41,9 +41,11 @@ import org.signal.archive.proto.Text
 import org.signal.archive.proto.ThreadMergeChatUpdate
 import org.signal.archive.proto.ViewOnceMessage
 import org.signal.core.models.ServiceId
+import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
 import org.signal.core.util.EventTimer
 import org.signal.core.util.Hex
+import org.signal.core.util.JsonUtils
 import org.signal.core.util.ParallelEventTimer
 import org.signal.core.util.StringUtil
 import org.signal.core.util.UuidUtil
@@ -66,7 +68,6 @@ import org.signal.core.util.requireLong
 import org.signal.core.util.requireLongOrNull
 import org.signal.core.util.requireString
 import org.signal.core.util.toByteArray
-import org.thoughtcrime.securesms.attachments.AttachmentId
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.v2.BackupMode
 import org.thoughtcrime.securesms.backup.v2.ExportOddities
@@ -101,7 +102,6 @@ import org.thoughtcrime.securesms.mms.PartAuthority
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.util.JsonUtils
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.mb
 import java.io.Closeable
@@ -237,6 +237,10 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isReleaseChannelDonationRequest(record.type) -> {
+          if (exportState.threadIdToRecipientId[builder.chatId] != exportState.releaseNoteRecipientId) {
+            Log.w(TAG, ExportSkips.donationRequestNotInReleaseNotesChat(builder.dateSent))
+            continue
+          }
           builder.updateMessage = simpleUpdate(SimpleChatUpdate.Type.RELEASE_CHANNEL_DONATION_REQUEST)
           transformTimer.emit("simple-update")
         }
@@ -257,11 +261,11 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isPaymentsActivated(record.type) -> {
-          continue
+          continue  // MOLLY: No-op
         }
 
         MessageTypes.isPaymentsRequestToActivate(record.type) -> {
-          continue
+          continue  // MOLLY: No-op
         }
 
         MessageTypes.isUnsupportedMessageType(record.type) -> {
@@ -312,7 +316,7 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isSessionSwitchoverType(record.type) -> {
-          builder.updateMessage = record.toRemoteSessionSwitchoverUpdate(record.dateSent) ?: continue
+          builder.updateMessage = record.toRemoteSessionSwitchoverUpdate(record.dateSent)?.takeIf { builder.authorIsAciContact(exportState) } ?: continue
           transformTimer.emit("sse")
         }
 
@@ -357,7 +361,7 @@ class ChatItemArchiveExporter(
         }
 
         MessageTypes.isPaymentsNotification(record.type) -> {
-          continue
+          continue  // MOLLY: No-op
         }
 
         MessageTypes.isGiftBadge(record.type) -> {
@@ -420,7 +424,7 @@ class ChatItemArchiveExporter(
 
         else -> {
           val attachments = extraData.attachmentsById[record.id]
-          val sticker = attachments?.firstOrNull { dbAttachment -> dbAttachment.isSticker }
+          val sticker = attachments?.firstOrNull { dbAttachment -> dbAttachment.isSticker && !dbAttachment.quote }
 
           if (sticker?.stickerLocator != null) {
             builder.stickerMessage = sticker.toRemoteStickerMessage(sentTimestamp = record.dateSent, reactions = extraData.reactionsById[id], exportState = exportState)
@@ -632,14 +636,21 @@ private fun BackupMessageRecord.toBasicChatItemBuilder(selfRecipientId: Recipien
     }
   }
 
-  if (!MessageTypes.isExpirationTimerUpdate(record.type) && builder.expiresInMs != null && builder.expireStartDate != null) {
-    val cutoffDuration = ChatItemArchiveExporter.EXPIRATION_CUTOFF.inWholeMilliseconds
-    val expiresAt = builder.expireStartDate!! + builder.expiresInMs!!
-    val threshold = if (exportState.backupMode.isLinkAndSync) backupStartTime else backupStartTime + cutoffDuration
-
-    if (expiresAt < threshold || (builder.expiresInMs!! <= cutoffDuration && !exportState.backupMode.isLinkAndSync)) {
+  if (!MessageTypes.isExpirationTimerUpdate(record.type) && builder.expiresInMs != null) {
+    if (exportState.backupMode.isPlaintextExport) {
       Log.w(TAG, ExportSkips.messageExpiresTooSoon(record.dateSent))
       return null
+    }
+
+    if (builder.expireStartDate != null) {
+      val cutoffDuration = ChatItemArchiveExporter.EXPIRATION_CUTOFF.inWholeMilliseconds
+      val expiresAt = builder.expireStartDate!! + builder.expiresInMs!!
+      val threshold = if (exportState.backupMode.isLinkAndSync) backupStartTime else backupStartTime + cutoffDuration
+
+      if (expiresAt < threshold || (builder.expiresInMs!! <= cutoffDuration && !exportState.backupMode.isLinkAndSync)) {
+        Log.w(TAG, ExportSkips.messageExpiresTooSoon(record.dateSent))
+        return null
+      }
     }
   }
 

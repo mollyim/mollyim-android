@@ -12,15 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.provider.DocumentsContractCompat;
 
+import org.signal.core.models.database.AttachmentId;
+import org.signal.core.models.media.TransformProperties;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.attachments.Attachment;
-import org.thoughtcrime.securesms.attachments.AttachmentId;
 import org.thoughtcrime.securesms.avatar.AvatarPickerStorage;
-import org.signal.core.models.media.TransformProperties;
 import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.emoji.EmojiFiles;
-import org.thoughtcrime.securesms.providers.BlobProvider;
-import org.thoughtcrime.securesms.providers.DeprecatedPersistentBlobProvider;
 import org.thoughtcrime.securesms.providers.PartProvider;
 
 import java.io.FileNotFoundException;
@@ -42,7 +41,6 @@ public class PartAuthority {
   private static final Uri    AVATAR_PICKER_CONTENT_URI = Uri.parse(AVATAR_PICKER_URI_STRING);
 
   private static final int PART_ROW          = 1;
-  private static final int PERSISTENT_ROW    = 2;
   private static final int BLOB_ROW          = 3;
   private static final int STICKER_ROW       = 4;
   private static final int WALLPAPER_ROW     = 5;
@@ -60,9 +58,7 @@ public class PartAuthority {
     uriMatcher.addURI(AUTHORITY, "wallpaper/*", WALLPAPER_ROW);
     uriMatcher.addURI(AUTHORITY, "emoji/*", EMOJI_ROW);
     uriMatcher.addURI(AUTHORITY, "avatar_picker/*", AVATAR_PICKER_ROW);
-    uriMatcher.addURI(DeprecatedPersistentBlobProvider.AUTHORITY, DeprecatedPersistentBlobProvider.EXPECTED_PATH_OLD, PERSISTENT_ROW);
-    uriMatcher.addURI(DeprecatedPersistentBlobProvider.AUTHORITY, DeprecatedPersistentBlobProvider.EXPECTED_PATH_NEW, PERSISTENT_ROW);
-    uriMatcher.addURI(BlobProvider.AUTHORITY, BlobProvider.PATH, BLOB_ROW);
+    uriMatcher.addURI(AppDependencies.getBlobs().getAuthority(), AppDependencies.getBlobs().PATH, BLOB_ROW);
   }
 
   public static InputStream getAttachmentThumbnailStream(@NonNull Context context, @NonNull Uri uri)
@@ -79,8 +75,7 @@ public class PartAuthority {
       switch (match) {
       case PART_ROW:          return SignalDatabase.attachments().getAttachmentStream(new PartUriParser(uri).getPartId(), 0);
       case STICKER_ROW:       return SignalDatabase.stickers().getStickerStream(ContentUris.parseId(uri));
-      case PERSISTENT_ROW:    return DeprecatedPersistentBlobProvider.getInstance(context).getStream(context, ContentUris.parseId(uri));
-      case BLOB_ROW:          return BlobProvider.getInstance().getStream(context, uri);
+      case BLOB_ROW:          return AppDependencies.getBlobs().getStream(context, uri);
       case EMOJI_ROW:         return EmojiFiles.openForReading(context, getEmojiFilename(uri));
       case AVATAR_PICKER_ROW: return AvatarPickerStorage.read(context, getAvatarPickerFilename(uri));
       case THUMBNAIL_ROW:     return SignalDatabase.attachments().getAttachmentThumbnailStream(new PartUriParser(uri).getPartId(), 0);
@@ -100,10 +95,8 @@ public class PartAuthority {
 
       if (attachment != null) return attachment.fileName;
       else                    return null;
-    case PERSISTENT_ROW:
-      return DeprecatedPersistentBlobProvider.getFileName(context, uri);
     case BLOB_ROW:
-      return BlobProvider.getFileName(uri);
+      return AppDependencies.getBlobs().getFileName(uri);
     default:
       return null;
     }
@@ -118,10 +111,8 @@ public class PartAuthority {
 
         if (attachment != null) return attachment.size;
         else                    return null;
-      case PERSISTENT_ROW:
-        return DeprecatedPersistentBlobProvider.getFileSize(context, uri);
       case BLOB_ROW:
-        return BlobProvider.getFileSize(uri);
+        return AppDependencies.getBlobs().getFileSize(uri);
       default:
         return null;
     }
@@ -136,10 +127,8 @@ public class PartAuthority {
 
         if (attachment != null) return attachment.contentType;
         else                    return null;
-      case PERSISTENT_ROW:
-        return DeprecatedPersistentBlobProvider.getMimeType(context, uri);
       case BLOB_ROW:
-        return BlobProvider.getMimeType(uri);
+        return AppDependencies.getBlobs().getMimeType(uri);
       default:
         return null;
     }
@@ -211,7 +200,6 @@ public class PartAuthority {
     switch (match) {
     case PART_ROW:
     case THUMBNAIL_ROW:
-    case PERSISTENT_ROW:
     case BLOB_ROW:
       return true;
     }

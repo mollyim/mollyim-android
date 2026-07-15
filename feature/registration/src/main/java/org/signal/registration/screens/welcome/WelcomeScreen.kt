@@ -7,14 +7,19 @@
 
 package org.signal.registration.screens.welcome
 
+import android.content.pm.PackageManager
+import android.util.DisplayMetrics
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.SpaceAround
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,39 +34,47 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.window.layout.WindowMetricsCalculator
 import kotlinx.coroutines.CoroutineScope
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.SideBySideLayout
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.dismissWithAnimation
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.isWidthExpanded
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
-import org.signal.registration.screens.RegistrationScreen
+import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 /**
  * Welcome screen for the registration flow.
@@ -70,15 +83,17 @@ import org.signal.registration.test.TestTags
 @Composable
 fun WelcomeScreen(
   onEvent: (WelcomeScreenEvents) -> Unit,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  isLinkAndSyncAvailable: Boolean = false
 ) {
   var showBottomSheet by remember { mutableStateOf(false) }
   val windowBreakpoint = rememberWindowBreakpoint()
   val onRestoreOrTransferClick = { showBottomSheet = true }
-  val onTermsAndPrivacyClick: () -> Unit = {}
+  val onTermsAndPrivacyClick = { onEvent(WelcomeScreenEvents.ViewTermsAndPrivacy) }
+  val displayLinkAsPrimaryOption by rememberDisplayLinkAndSyncAsPrimaryPath(isLinkAndSyncAvailable)
 
   when (windowBreakpoint) {
-    WindowBreakpoint.SMALL -> {
+    is WindowBreakpoint.Small -> {
       CompactLayout(
         onEvent = onEvent,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -87,7 +102,7 @@ fun WelcomeScreen(
       )
     }
 
-    WindowBreakpoint.MEDIUM -> {
+    is WindowBreakpoint.Medium -> {
       MediumLayout(
         onEvent = onEvent,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -96,8 +111,9 @@ fun WelcomeScreen(
       )
     }
 
-    WindowBreakpoint.LARGE -> {
+    is WindowBreakpoint.Large -> {
       LargeLayout(
+        displayLinkAsPrimaryOption = displayLinkAsPrimaryOption,
         onEvent = onEvent,
         onTermsAndPrivacyClick = onTermsAndPrivacyClick,
         onRestoreOrTransferClick = onRestoreOrTransferClick,
@@ -124,7 +140,7 @@ private fun CompactLayout(
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier
       .fillMaxSize()
       .testTag(TestTags.WELCOME_SCREEN),
@@ -149,20 +165,27 @@ private fun CompactLayout(
       }
     },
     footer = {
-      Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(horizontal = 24.dp),
+        contentAlignment = Alignment.Center
       ) {
-        TermsAndPrivacy(onTermsAndPrivacyClick = onTermsAndPrivacyClick)
+        Column(
+          modifier = Modifier.widthIn(max = 320.dp),
+          horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+          TermsAndPrivacy(onTermsAndPrivacyClick = onTermsAndPrivacyClick)
 
-        Spacer(modifier = Modifier.height(24.dp))
+          Spacer(modifier = Modifier.height(16.dp))
 
-        PrimaryDeviceCallToActionButtons(
-          onEvent = onEvent,
-          onRestoreOrTransferClick = onRestoreOrTransferClick
-        )
+          PrimaryDeviceCallToActionButtons(
+            onEvent = onEvent,
+            onRestoreOrTransferClick = onRestoreOrTransferClick
+          )
 
-        Spacer(modifier = Modifier.height(48.dp))
+          Spacer(modifier = Modifier.height(48.dp))
+        }
       }
     }
   )
@@ -175,34 +198,50 @@ private fun MediumLayout(
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier
       .fillMaxSize()
       .padding(bottom = 56.dp),
     content = {
-      SideBySideLayout(
-        modifier = Modifier.fillMaxSize(),
-        primary = {
-          HeroImage()
-        },
-        secondary = {
+      Box {
+        Row(modifier = Modifier.fillMaxWidth()) {
+          HeroImage(
+            modifier = Modifier
+              .fillMaxHeight()
+              .weight(1f)
+              .padding(horizontal = 24.dp)
+          )
+
           Headline(
-            modifier = Modifier.padding(top = 88.dp)
+            modifier = Modifier
+              .align(Alignment.CenterVertically)
+              .weight(1f)
+              .padding(horizontal = 24.dp)
           )
         }
-      )
+
+        TermsAndPrivacy(
+          onTermsAndPrivacyClick = onTermsAndPrivacyClick,
+          modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(bottom = 24.dp)
+        )
+      }
     },
     footer = {
-      Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        TermsAndPrivacy(onTermsAndPrivacyClick = onTermsAndPrivacyClick)
+      val isWidthExpanded = currentWindowAdaptiveInfo().windowSizeClass.isWidthExpanded
 
-        PrimaryDeviceCallToActionButtons(
-          onEvent = onEvent,
-          onRestoreOrTransferClick = onRestoreOrTransferClick
-        )
+      Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+        Column(
+          modifier = Modifier
+            .widthIn(max = if (isWidthExpanded) 412.dp else 320.dp),
+          horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+          PrimaryDeviceCallToActionButtons(
+            onEvent = onEvent,
+            onRestoreOrTransferClick = onRestoreOrTransferClick
+          )
+        }
       }
     }
   )
@@ -210,47 +249,56 @@ private fun MediumLayout(
 
 @Composable
 private fun LargeLayout(
+  displayLinkAsPrimaryOption: Boolean,
   onEvent: (WelcomeScreenEvents) -> Unit,
   onTermsAndPrivacyClick: () -> Unit,
   onRestoreOrTransferClick: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-  RegistrationScreen(
+  RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
     content = {
-      SideBySideLayout(
-        modifier = Modifier.fillMaxSize(),
-        primary = {
-          HeroImage(
-            modifier = Modifier.padding(vertical = 10.dp)
-          )
-        },
-        secondary = {
-          Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxWidth()
+      Row(
+        horizontalArrangement = SpaceAround,
+        modifier = Modifier.padding(vertical = 56.dp)
+      ) {
+        HeroImage(
+          modifier = Modifier
+            .weight(1f)
+            .fillMaxHeight()
+        )
+
+        Box(
+          contentAlignment = Alignment.Center,
+          modifier = Modifier
+            .weight(1f)
+        ) {
+          Column(
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+              .fillMaxHeight()
+              .widthIn(max = 320.dp)
+              .fillMaxWidth()
           ) {
-            Column(
-              horizontalAlignment = Alignment.Start,
+            Headline(
+              style = MaterialTheme.typography.headlineLarge
+            )
+
+            Spacer(modifier = Modifier.height(77.dp))
+
+            TermsAndPrivacy(
+              onTermsAndPrivacyClick = onTermsAndPrivacyClick,
               modifier = Modifier
-                .widthIn(max = 380.dp)
-                .fillMaxWidth()
-                .padding(top = 98.dp)
-            ) {
-              Headline(
-                style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(start = 10.dp)
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = 8.dp)
+            )
+
+            if (displayLinkAsPrimaryOption) {
+              SecondaryDeviceCallToActionButtons(
+                onEvent = onEvent
               )
-
-              Spacer(modifier = Modifier.weight(1f))
-
-              TermsAndPrivacy(
-                onTermsAndPrivacyClick = onTermsAndPrivacyClick,
-                modifier = Modifier
-                  .align(Alignment.CenterHorizontally)
-                  .padding(bottom = 8.dp)
-              )
-
+            } else {
               PrimaryDeviceCallToActionButtons(
                 onEvent = onEvent,
                 onRestoreOrTransferClick = onRestoreOrTransferClick
@@ -258,7 +306,7 @@ private fun LargeLayout(
             }
           }
         }
-      )
+      }
     }
   )
 }
@@ -270,7 +318,7 @@ private fun HeroImage(
   Image(
     painter = painterResource(R.drawable.welcome),
     contentDescription = null,
-    modifier = modifier,
+    modifier = modifier.attachDebugLogHelper(),
     contentScale = ContentScale.Fit
   )
 }
@@ -287,6 +335,7 @@ private fun Headline(
     textAlign = textAlign,
     modifier = modifier
       .testTag(TestTags.WELCOME_HEADLINE)
+      .attachDebugLogHelper()
   )
 }
 
@@ -310,7 +359,7 @@ private fun TermsAndPrivacy(
 }
 
 @Composable
-private fun ColumnScope.PrimaryDeviceCallToActionButtons(
+private fun PrimaryDeviceCallToActionButtons(
   onEvent: (WelcomeScreenEvents) -> Unit,
   onRestoreOrTransferClick: () -> Unit
 ) {
@@ -318,7 +367,6 @@ private fun ColumnScope.PrimaryDeviceCallToActionButtons(
     onClick = { onEvent(WelcomeScreenEvents.Continue) },
     modifier = Modifier
       .fillMaxWidth()
-      .padding(horizontal = 32.dp)
       .testTag(TestTags.WELCOME_GET_STARTED_BUTTON)
   ) {
     Text(stringResource(R.string.RegistrationActivity_continue))
@@ -333,7 +381,6 @@ private fun ColumnScope.PrimaryDeviceCallToActionButtons(
     ),
     modifier = Modifier
       .fillMaxWidth()
-      .padding(horizontal = 32.dp)
       .testTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON)
   ) {
     Text(stringResource(R.string.registration_activity__restore_or_transfer))
@@ -479,6 +526,29 @@ private fun RestoreActionRow(
       )
     }
   }
+}
+
+private const val TABLET_MIN_DIAGONAL_INCHES = 7f
+
+@Composable
+private fun rememberDisplayLinkAndSyncAsPrimaryPath(isLinkAndSyncAvailable: Boolean): State<Boolean> {
+  val context = LocalContext.current
+  val hasHinge = currentWindowAdaptiveInfo().windowPosture.hingeList.isNotEmpty()
+
+  val supportsTelephony = remember(context) {
+    context.packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)
+  }
+
+  val isLargeDevice = remember(context) {
+    val metrics = WindowMetricsCalculator.getOrCreate().computeMaximumWindowMetrics(context)
+    val dpi = metrics.density * DisplayMetrics.DENSITY_DEFAULT
+    val widthInches = metrics.bounds.width() / dpi
+    val heightInches = metrics.bounds.height() / dpi
+    sqrt(widthInches.pow(2) + heightInches.pow(2)) >= TABLET_MIN_DIAGONAL_INCHES
+  }
+
+  // A hinge means a foldable, which counts as a phone rather than a tablet.
+  return rememberUpdatedState(isLinkAndSyncAvailable && (!supportsTelephony || (isLargeDevice && !hasHinge)))
 }
 
 @AllDevicePreviews

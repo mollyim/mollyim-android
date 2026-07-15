@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.storage
 
-import android.app.Application
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -11,11 +10,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.BeforeClass
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
@@ -23,19 +18,12 @@ import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.testutil.EmptyLogger
-import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.storage.SignalContactRecord
 import org.whispersystems.signalservice.api.storage.StorageId
 import org.whispersystems.signalservice.internal.storage.protos.ContactRecord
 import java.util.UUID
 
-@RunWith(RobolectricTestRunner::class)
-@Config(application = Application::class)
 class ContactRecordProcessorTest {
-
-  @get:Rule
-  val appDependencies = MockAppDependenciesRule()
 
   lateinit var recipientTable: RecipientTable
 
@@ -45,15 +33,11 @@ class ContactRecordProcessorTest {
     every { SignalStore.account.isPrimaryDevice } returns true
     every { SignalStore.account.e164 } returns "+11234567890"
 
-    mockkObject(RemoteConfig)
-    every { RemoteConfig.useBinaryId } returns true
-
     recipientTable = mockk(relaxed = true)
   }
 
   @After
   fun tearDown() {
-    unmockkObject(RemoteConfig)
     unmockkObject(SignalStore)
   }
 

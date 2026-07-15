@@ -22,12 +22,12 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.ringrtc.CallState;
-import org.thoughtcrime.securesms.ringrtc.Camera;
+import org.thoughtcrime.securesms.ringrtc.OutgoingVideoSourceRouter;
 import org.thoughtcrime.securesms.ringrtc.RemotePeer;
 import org.thoughtcrime.securesms.service.webrtc.state.CallSetupState;
 import org.thoughtcrime.securesms.service.webrtc.state.VideoState;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
-import org.thoughtcrime.securesms.util.AppForegroundObserver;
+import org.signal.core.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.NetworkUtil;
 import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.RemoteConfig;
@@ -98,6 +98,7 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
     }
 
     byte            dredDuration    = (byte) RemoteConfig.dredDuration();
+    boolean         enableVp9       = RemoteConfig.enableSoftwareVp9();
     boolean         hideIp          = !activePeer.getRecipient().isProfileSharing() || callSetupState.isAlwaysTurnServers();
     VideoState      videoState      = currentState.getVideoState();
     CallParticipant callParticipant = Objects.requireNonNull(currentState.getCallInfoState().getRemoteCallParticipant(activePeer.getRecipient()));
@@ -109,13 +110,14 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 RingRtcDynamicConfiguration.getAudioConfig(),
                                                 videoState.requireLocalSink(),
                                                 callParticipant.getVideoSink(),
-                                                videoState.requireCamera(),
+                                                videoState.requireRouter(),
                                                 callSetupState.getIceServers(),
                                                 WebRtcUtil.getProxyInfo(),
                                                 hideIp,
                                                 NetworkUtil.getCallingDataMode(context),
                                                 AUDIO_LEVELS_INTERVAL,
                                                 dredDuration,
+                                                enableVp9,
                                                 false);
     } catch (CallException e) {
       return callFailure(currentState, "Unable to proceed with call: ", e);
@@ -138,14 +140,14 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
 
     Log.i(TAG, "handleAcceptCall(): call_id: " + activePeer.getCallId());
 
-    Camera camera = currentState.getVideoState().requireCamera();
-    camera.setVanitySink(null);
+    OutgoingVideoSourceRouter router = currentState.getVideoState().requireRouter();
+    router.setVanitySink(null);
 
     if (!answerWithVideo && currentState.getLocalDeviceState().getCameraState().isEnabled()) {
-      camera.setEnabled(false);
+      router.setEnabled(false);
       currentState = currentState.builder()
                                  .changeLocalDeviceState()
-                                 .cameraState(camera.getCameraState())
+                                 .cameraState(router.getCameraState())
                                  .build();
     }
 
@@ -173,9 +175,9 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
 
     Log.i(TAG, "handleDenyCall():");
 
-    Camera camera = currentState.getVideoState().getCamera();
-    if (camera != null) {
-      camera.setVanitySink(null);
+    OutgoingVideoSourceRouter router = currentState.getVideoState().getRouter();
+    if (router != null) {
+      router.setVanitySink(null);
     }
 
     webRtcInteractor.sendNotAcceptedCallEventSyncMessage(activePeer,
@@ -210,21 +212,21 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
       return currentState;
     }
 
-    Camera camera = currentState.getVideoState().requireCamera();
+    OutgoingVideoSourceRouter router = currentState.getVideoState().requireRouter();
 
     if (enabled) {
       Log.i(TAG, "handleSetIncomingRingingVanity(): enabling vanity camera");
-      camera.setVanitySink(currentState.getVideoState().requireLocalSink());
-      camera.setEnabled(true);
+      router.setVanitySink(currentState.getVideoState().requireLocalSink());
+      router.setEnabled(true);
     } else {
       Log.i(TAG, "handleSetIncomingRingingVanity(): disabling vanity camera");
-      camera.setVanitySink(null);
-      camera.setEnabled(false);
+      router.setVanitySink(null);
+      router.setEnabled(false);
     }
 
     return currentState.builder()
                        .changeLocalDeviceState()
-                       .cameraState(camera.getCameraState())
+                       .cameraState(router.getCameraState())
                        .build();
   }
 
@@ -240,9 +242,10 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
     SignalDatabase.calls().insertOneToOneCall(remotePeer.getCallId().longValue(),
                                               System.currentTimeMillis(),
                                               remotePeer.getId(),
-                                      currentState.getCallSetupState(activePeer).isRemoteVideoOffer() ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL,
+                                              currentState.getCallSetupState(activePeer).isRemoteVideoOffer() ? CallTable.Type.VIDEO_CALL : CallTable.Type.AUDIO_CALL,
                                               CallTable.Direction.INCOMING,
-                                              CallTable.Event.ONGOING);
+                                              CallTable.Event.ONGOING,
+                                              false);
 
     if (!shouldDisturbUserWithCall) {
       Log.i(TAG, "Silently ignoring call due to mute settings.");

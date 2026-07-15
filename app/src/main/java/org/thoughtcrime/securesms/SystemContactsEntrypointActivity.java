@@ -1,60 +1,27 @@
 package org.thoughtcrime.securesms;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.activity.ComponentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.conversation.ConversationIntents;
-import org.thoughtcrime.securesms.conversation.NewConversationActivity;
-import org.thoughtcrime.securesms.database.SignalDatabase;
-import org.thoughtcrime.securesms.recipients.Recipient;
-
-public class SystemContactsEntrypointActivity extends PassphraseRequiredActivity {
-
-  private static final String TAG = Log.tag(SystemContactsEntrypointActivity.class);
+public class SystemContactsEntrypointActivity extends ComponentActivity {
 
   @Override
-  protected void onCreate(Bundle savedInstanceState, boolean ready) {
-    super.onCreate(savedInstanceState, ready);
-    startActivity(getNextIntent(getIntent()));
-    finish();
-  }
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-  private Intent getNextIntent(Intent original) {
-    final Uri uri = original.getData();
+    SystemContactsEntrypointViewModel viewModel = new ViewModelProvider(this).get(SystemContactsEntrypointViewModel.class);
 
-    final Intent nextIntent;
-
-    if (uri != null && "content".equals(uri.getScheme())) {
-      Recipient recipient = Recipient.external(getDestinationForSyncAdapter(uri));
-
-      if (recipient != null) {
-        long threadId = SignalDatabase.threads().getOrCreateThreadIdFor(recipient);
-
-        nextIntent = ConversationIntents.createBuilderSync(this, recipient.getId(), threadId)
-                                        .withDraftText("")
-                                        .build();
-        return nextIntent;
+    viewModel.getContactAction().observe(this, nextStep -> {
+      if (nextStep.getShowSpecifyRecipientToast()) {
+        Toast.makeText(this, R.string.ConversationActivity_specify_recipient, Toast.LENGTH_LONG).show();
       }
-    }
+      startActivity(nextStep.getIntent());
+      finish();
+    });
 
-    nextIntent = NewConversationActivity.createIntent(this, "");
-    Toast.makeText(this, R.string.ConversationActivity_specify_recipient, Toast.LENGTH_LONG).show();
-    return nextIntent;
-  }
-
-  private @NonNull String getDestinationForSyncAdapter(@NonNull Uri uri) {
-    try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
-      if (cursor != null && cursor.moveToNext()) {
-        return cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.RawContacts.Data.DATA1));
-      }
-    }
-    return "";
+    viewModel.resolveNextStep(getIntent());
   }
 }

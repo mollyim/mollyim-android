@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Gizliliğinizi koruyun.\nHer iletide kendiniz olun.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal kâr amacı gütmeyen bir kuruluştur\nŞartlar ve Gizlilik Politikası</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">Bir ülke seç</string>
     <string name="RegistrationActivity_phone_number_description">Telefon numarası</string>
     <string name="RegistrationActivity_next">İleri</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">Aşağıdaki telefon numarası doğru mu?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">Bu numaraya bir doğrulama kodu gönderilecektir. Telefon operatörü ücretleri uygulanabilir.</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">Numarayı düzenle</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">Menüyü aç</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">Vekil sunucu kullan</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">Cihaz bağla</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">Daha fazlasını öğren</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -74,16 +91,32 @@
     <string name="VerificationCodeScreen__network_error">Bağlanılamıyor. Lütfen ağını kontrol et ve tekrar dene.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Çok fazla deneme %1$s içinde tekrar dene.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">Çok fazla deneme Lütfen daha sonra tekrar dene.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">Beklenmedik bir hata oluştu. Lütfen tekrar dene.</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">Doğrulama kodun gönderilirken bir sorun oluştu. Lütfen tekrar dene.</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">Numarana SMS gönderemiyoruz. Lütfen birkaç saat sonra tekrar dene.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Seçilen yöntemle kod gönderilemedi. Lütfen başka bir seçenek dene.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">Kayıt başarısız oldu. Lütfen tekrar dene.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">Sorun mu yaşıyorsun?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">Kaydolurken sorun mu yaşıyorsun?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Telefonunun SMS\'ini almak veya aramak için hücresel bir sinyali olduğundan emin ol \n • Numaraya bir telefon çağrısı alabileceğini onayla \n • Telefon numaranı doğru girdiğinden emin ol.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">Daha fazla bilgi için lütfen %1$s veya %2$s ögesini takip edin</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">bu sorun giderme adımları</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Destekle İletişime Geç</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -122,8 +155,6 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Eski telefonundan</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">Doğrudan eski Android\'inden aktar</string>
-    <!-- Skip button text -->
-    <string name="ArchiveRestoreSelectionScreen__skip">Atla</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">Geri yükleme atlansın mı?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -146,8 +177,6 @@
     <string name="LocalBackupRestoreScreen__backup_found_description">Mesajlarını cihazına kaydettiğin yedekleme klasöründen geri yükle. Şimdi geri yüklemezsen, daha sonra geri yükleyemezsin.</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">Son yedeklemen:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">Yedeği geri yükle</string>
     <!-- Link to choose an earlier backup -->
@@ -187,14 +216,16 @@
     <string name="EnterAepScreen__too_long">Çok uzun (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">Geçersiz kurtarma anahtarı</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">Hatalı kurtarma anahtarı</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">Parola yöneticisinden doldur</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Geri yükleme hazırlanıyor…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">Yedekleme geri yükleniyor</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">Mesajların ve verilerin geri yüklenirken, lütfen bekle.</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">Geri yükleme tamamlandı</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -211,4 +242,323 @@
     <string name="WelcomeScreen__not_on_signal_yet">Halen Signal\'da değil misin?</string>
     <!-- Button to create a new Signal account -->
     <string name="WelcomeScreen__create_account">Hesap oluştur</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">Yedekten geri yükle</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">Yedekleme ayrıntıları getiriliyor…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">Yedeği geri yükle</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">Son yedeklemen %1$s tarihinde %2$s saatinde yapılmıştır.</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">Medyan arka planda geri yüklenecektir. Şimdi geri yüklememeyi seçersen, daha sonra geri yükleyemezsin.</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">Yedek bulunamadı</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">Bu hesap için yedekleme bulunamadı.</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">Yedekleme geri yüklenemiyor</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">Yedeklemen şu anda geri yüklenemez. Lütfen tekrar dene.</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">Tekrar dene</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">Geri yükleme tamamlanamadı</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">Sunucuya bağlanılırken bir hata oluştu. Lütfen bağlantını kontrol edip tekrar dene.</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">Yedeklemen geri yüklenirken bir hata oluştu. Lütfen tekrar dene.</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">Bu yedekleme geri yüklenemedi</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Signal\'ın bu sürümü yedeklemeni geri yükleyemez. En son sürüme güncelle ve tekrar dene.</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Signal\'ı Güncelle</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">Şimdi değil</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">Yedekleme geri yüklenemiyor</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">Yedeklemen geri yüklenirken bir hata oluştu. Yedeklemen kurtarılamaz. Lütfen yardım için destek ekibiyle iletişime geç.</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">Destekle iletişime geç</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">Yedekleme indiriliyor…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">Mesajlar geri yükleniyor…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">Tamamlanıyor…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">Geri yükleniyor…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%1$s / %2$s (%3$s)</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">Hiçbir web tarayıcısı bulunamadı.</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">Hesap kilitlendi</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">Gizliliğini ve güvenliğini korumak için hesabın kilitlendi. %1$d gün boyunca hesabında hareket olmazsa, PIN’e ihtiyaç duymadan bu telefon numarasını yeniden kaydedebilirsin. Tüm içerikler silinecektir.</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">Signal\'ı eski cihazında aç</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">Kamera simgesine dokun </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">Bu kodu kamera ile tara</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">Kaydediliyor…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">Kayıt sırasında bir hata oluştu</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">Bu kodu eski telefonunla tara</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">Kare kod tarandı</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">Tekrar dene</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">Kare kod oluşturulamıyor</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">Artık bir hata ayıklama günlüğü göndermekten %1$d adım uzaktasın.</item>
+        <item quantity="other">Artık bir hata ayıklama günlüğü göndermekten %1$d adım uzaktasın.</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">PIN\'ini oluştur</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">PIN\'ini onayla</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">Az önce oluşturduğun PIN\'i tekrar gir</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">PIN\'ler, telefonunu kaybedersen hesabını geri yüklemene yardımcı olabilir. </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">Daha fazlasını öğren</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">Sayısala geç</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">Alfanümeriğe geç</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">İleri</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">PIN en az 4 haneli olmalı</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">PIN en az 4 karakterli olmalı</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">PIN\'i tekrar gir</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">PIN\'ler eşleşmiyor. Tekrar deneyin.</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">PIN\'ler hakkında dahasını öğrenin</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">Uyarı</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">PIN\'i devre dışı bırakırsan, elle yedekleyip geri yüklemediğin sürece Signal\'ı yeniden kaydettiğinde tüm verilerini kaybedersin. PIN devre dışı iken Kayıt Kilidini açamazsın.</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">PIN\'i devre dışı bırak</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">İptal</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">Bir ağ hatası ile karşılaşıldı.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">Kaydolma Kilidi</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">PIN\'ini gir</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">Signal\'ı ilk kez yüklediğinde oluşturduğun PIN\'i gir</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">Yanlış PIN. %1$d deneme hakkın kaldı.</item>
+        <item quantity="other">Yanlış PIN. %1$d deneme hakkın kaldı.</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">Yardıma mı ihtiyacın var?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">Klavyeyi değiştir</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">Atla</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">Devam et</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">PIN girişini atla?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">PIN\'ini hatırlayamıyorsan, yeni bir tane oluşturabilirsin. Kaydolabilir ve hesabını kullanabilirsin, ancak profil bilgilerin gibi kaydedilmiş bazı ayarları kaybedersin.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">Yeni PIN Oluştur</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">İptal</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">Hesabını geri yüklemek için veri bulunamadı. Lütfen yeni bir PIN oluştur.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">Destekle iletişime geç</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">Bildirimlere izin ver</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal bildirim izni talep etmektedir. Bu, yeni mesajlar geldiğinde cihazının uyarı görüntülemesini sağlar.</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">Şimdi değil</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">İleri</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">Mesajlar senkronize ediliyor</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">Bu işlem birkaç dakika sürebilir…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">%1$s / %2$s indiriliyor</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">Hazırlanıyor…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">Tamamlanıyor…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Mesajlar ve sohbet bilgileri, senkronizasyon süreci de dahil olmak üzere uçtan uca şifreleme ile korunmaktadır.</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">Daha fazlasını öğren</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">İptal</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">Tekrar dene</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Hesabını bağlamak için bu kodu tara</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">Signal\'ı telefonunda aç</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal Ayarları\'nı açmak için profil resmine dokun</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\"Bağlı cihazlar\" ve \"Yeni cihaz bağla\"ya dokun</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">Bu adımlar için yardım al</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">Karekodu Büyüt</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">Tarandı</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">Kod üretilemedi</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Başka bir cihazda Signal\'ın yok mu?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">Hesap oluştur</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">Tekrar dene</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">Cihaz bağlanıyor…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Diğer cihazın bekleniyor…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">Bu cihazı bağlarken bir hata oluştu</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Karekodu kapat</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">Hesabını aktar</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Hesabını aktarmak için eski Android cihazında Signal\'ı aç ve Hesabı Aktar\'ı seç.</string>
+    <string name="DeviceTransferInstructions__continue">Devam et</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">Eski Android cihaza bağlanmaya hazırlanılıyor…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Bu biraz zaman alabilir. Birazdan hazır olur.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Eski cihazının bağlanması bekleniyor…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Her iki cihazdaki numaraların eşleştiğini doğrula</string>
+    <string name="DeviceTransferSetup__numbers_match">Evet, numaralar eşleşiyor</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">Numaralar eşleşmiyor</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Eski cihazının doğrulanması bekleniyor…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal, eski cihazını keşfetmek ve ona bağlanmak için konum iznine ihtiyaç duyar.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">İzin ver</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal, eski cihazını keşfetmek ve ona bağlanmak için konum hizmetlerinin etkinleştirilmesine ihtiyaç duyar.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">Konum hizmetlerini aç</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal\'ın eski cihazını keşfetmesi ve ona bağlanması için Wi-Fi\'ın açık olması gerekir.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi\'ı aç</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Üzgünüz, cihazının Wi-Fi Direct\'i desteklemediği görülüyor.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Bunun yerine bir yedeklemeyi geri yükle</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Eski cihazına bağlanmaya çalışılırken beklenmedik bir hata oluştu.</string>
+    <string name="DeviceTransferSetup__retry">Tekrar dene</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Eski cihazın keşfedilemedi</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Konum izinlerinin verildiğinden emin ol.\n• Wi-Fi\'ın açık olduğundan ve kayıtlı Wi-Fi Direct grupları bulunmadığından emin ol.\n• Wi-Fi\'ı her iki cihazda kapatıp açmayı dene.\n• Her iki cihazın da aktarım modunda olduğundan emin ol.</string>
+    <string name="DeviceTransferSetup__try_again">Tekrar dene</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Numaralar eşleşmiyor</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Eğer cihazlarındaki numaralar eşleşmiyorsa, yanlış bir cihaza bağlanmış olabilirsin.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Aktarmayı durdur</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">Veri aktarılıyor</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">Şimdiye kadar %1$d ileti</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Aktarım yapılamıyor</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Daha yeni bir Signal sürümünden aktarım yapılamaz.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Bazı veriler bir veritabanı kısıtı nedeniyle aktarılamadı.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Aktarım başarısız oldu. Lütfen tekrar dene.</string>
+    <string name="DeviceTransferProgress__try_again">Tekrar dene</string>
+    <string name="DeviceTransferProgress__cancel">İptal</string>
+    <string name="DeviceTransferProgress__stop_transfer">Aktarım durdurulsun mu?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Tüm aktarım süreci kaybolacaktır.</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">Aktarım tamamlandı</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Hesabın şimdi bu cihazda.</string>
+    <string name="DeviceTransferComplete__continue_registration">Devam et</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">Profilini ayarla</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Profilin ve profiline yaptığın değişiklikler; mesajlaştığın kişiler, kişi listendekiler ve grupların tarafından görüntülenebilir.</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">Ad (gerekli)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">Soyadı (isteğe bağlı)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">İleri</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">Avatar ayarla</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Beni numaramdan kim bulabilir?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Telefon numaranı bilen herkes Signal\'da olduğunu görecek ve seninle sohbet başlatabilecektir.</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Ona mesaj göndermediğin veya mevcut bir sohbetin olmadığı sürece kimse Signal\'da olduğunu göremez.</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">Herkes</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">Hiç kimse</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Emin misin?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"Beni numaramla kimler bulabilir\" seçeneğini \"Hiç kimse\" olarak ayarlamak, insanların seni Signal\'da bulmasını zorlaştıracaktır.</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">İptal</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">Kaydet</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">Geri</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Captcha yüklenemedi</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">İptal</string>
 </resources>

@@ -17,8 +17,8 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsAdapter
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.contacts.paged.ContactSearchAdapter
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
+import org.thoughtcrime.securesms.contacts.paged.ContactSearchModels
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchPagedDataSourceRepository
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.v2.stories.ChooseGroupStoryBottomSheet
@@ -62,14 +62,8 @@ class StoriesPrivacySettingsFragment :
 
     val (top, middle, bottom) = adapter.adapters
 
-    findNavController().addOnDestinationChangedListener { _, destination, _ ->
-      if (destination.id == R.id.storiesPrivacySettingsFragment) {
-        viewModel.pagingController.onDataInvalidated()
-      }
-    }
-
     @Suppress("UNCHECKED_CAST")
-    ContactSearchAdapter.registerStoryItems(
+    ContactSearchModels.registerStoryItems(
       mappingAdapter = middle as PagingMappingAdapter<ContactSearchKey>,
       storyListener = { _, story, _ ->
         when {
@@ -104,6 +98,11 @@ class StoriesPrivacySettingsFragment :
       middle.submitList(getMiddleConfiguration(state).toMappingModelList())
       (bottom as MappingAdapter).submitList(getBottomConfiguration(state).toMappingModelList())
     }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.pagingController.onDataInvalidated()
   }
 
   private fun getTopConfiguration(state: StoriesPrivacySettingsState): DSLConfiguration {
@@ -143,7 +142,7 @@ class StoriesPrivacySettingsFragment :
   private fun getMiddleConfiguration(state: StoriesPrivacySettingsState): DSLConfiguration {
     return if (state.areStoriesEnabled) {
       configure {
-        ContactSearchAdapter.toMappingModelList(
+        ContactSearchModels.toMappingModelList(
           state.storyContactItems,
           emptySet(),
           null

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Ia-ți intimitatea cu tine.\nFii tu însuți în fiecare mesaj.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal este o organizație non-profit\nTermeni &amp; Politica de confidențialitate</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">Selectează o țară</string>
     <string name="RegistrationActivity_phone_number_description">Număr de telefon</string>
     <string name="RegistrationActivity_next">Următorul</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">Numărul de telefon de mai jos este corect?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">La acest număr va fi trimis un cod de verificare. Se pot aplica tarife de operator.</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">Editează număr</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">Deschide meniul</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">Utilizează proxy</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">Asociază dispozitiv</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">Află mai multe</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -74,16 +91,32 @@
     <string name="VerificationCodeScreen__network_error">Nu s-a putut realiza conexiunea. Verifică rețeaua și încearcă din nou.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Prea multe încercări. Încearcă din nou în %1$s.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">Prea multe încercări. Încearcă mai târziu.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">S-a petrecut o eroare neașteptată. Încearcă din nou.</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">A apărut o problemă la trimiterea codului de verificare. Încearcă din nou.</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">Nu putem să trimitem un SMS la numărul tău. Încearcă din nou în câteva ore.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Nu s-a putut trimite codul prin metoda selectată. Încearcă o altă opțiune.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">Înregistrarea a eșuat. Încearcă din nou.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">Întâmpini probleme?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">Ai probleme la înregistrare?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Asigură-te că telefonul tău are semnal celular ca să primești SMS-ul sau apelul\n • Confirmă că poți primi un apel telefonic pe numărul tău\n • Verifică că ai introdus corect numărul de telefon.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">Pentru mai multe informații, urmărește %1$s sau %2$s</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">acești pași de depanare</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Contactează Asistența</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -122,8 +155,6 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">De pe telefonul tău vechi</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">Transferă direct de pe vechiul tău Android</string>
-    <!-- Skip button text -->
-    <string name="ArchiveRestoreSelectionScreen__skip">Omite</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">Sari peste restaurare?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -141,13 +172,11 @@
     <!-- Subtitle for the choose backup folder card -->
     <string name="LocalBackupRestoreScreen__choose_folder_subtitle">Selectează folderul de pe dispozitivul tău unde este stocat backup-ul</string>
     <!-- Text shown while scanning for backups -->
-    <string name="LocalBackupRestoreScreen__scanning_folder">Looking for backups…</string>
+    <string name="LocalBackupRestoreScreen__scanning_folder">Se caută backup-uri…</string>
     <!-- Description shown when a backup is found -->
     <string name="LocalBackupRestoreScreen__backup_found_description">Restaurează-ți mesajele dintr-un fișier de rezervă salvat pe dispozitiv. Dacă nu restaurezi acum, nu vei putea restabili mai târziu.</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">Cel mai recent backup:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">Restaurare backup</string>
     <!-- Link to choose an earlier backup -->
@@ -157,21 +186,21 @@
     <!-- Warning text in the backup picker bottom sheet -->
     <string name="LocalBackupRestoreScreen__choosing_an_older_backup_warning">Alegerea unui backup mai vechi poate duce la mesaje sau fișiere pierdute.</string>
     <!-- Title when no backup is found -->
-    <string name="LocalBackupRestoreScreen__no_backup_found">No backup found</string>
+    <string name="LocalBackupRestoreScreen__no_backup_found">Nu s-a găsit backup</string>
     <!-- Description when no backup is found -->
-    <string name="LocalBackupRestoreScreen__no_backup_found_description">No Signal backup was found in the selected folder. Please try a different folder.</string>
+    <string name="LocalBackupRestoreScreen__no_backup_found_description">Nu a fost găsit niciun backup Signal în folderul selectat. Încearcă un folder diferit.</string>
     <!-- Button to try a different folder -->
-    <string name="LocalBackupRestoreScreen__try_different_folder">Try a different folder</string>
+    <string name="LocalBackupRestoreScreen__try_different_folder">Încearcă un folder diferit</string>
     <!-- Title for V1 passphrase entry screen -->
     <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Introdu parola pentru backup</string>
     <!-- Description for V1 passphrase entry screen -->
-    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Your local backup passphrase is a 30-digit code required to recover your account and data.</string>
+    <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Parola ta locală pentru backup este un cod format din 30 de cifre, necesar pentru a-ți recupera contul și datele.</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">Cod de recuperare</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">Prea lung (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
-    <string name="LocalBackupRestoreScreen__no_passphrase">No passphrase?</string>
+    <string name="LocalBackupRestoreScreen__no_passphrase">Nu ai parolă pentru backup?</string>
     <!-- Next button text -->
     <string name="LocalBackupRestoreScreen__next">Următorul</string>
     <!-- EnterAepScreen -->
@@ -187,14 +216,16 @@
     <string name="EnterAepScreen__too_long">Prea lung (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">Cod de recuperare nevalid</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">Cod de recuperare incorect</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">Completează din managerul de parole</string>
     <!-- Text shown while preparing the restore -->
-    <string name="LocalBackupRestoreScreen__preparing_restore">Preparing restore…</string>
+    <string name="LocalBackupRestoreScreen__preparing_restore">Se pregătește restaurarea…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">Se restaurează copia de rezervă</string>
     <!-- Description shown while restore is in progress -->
-    <string name="LocalBackupRestoreScreen__restoring_description">Please wait while your messages and data are being restored.</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">Restaurarea a fost finalizată</string>
+    <string name="LocalBackupRestoreScreen__restoring_description">Așteaptă, în timp ce mesajele și datele sunt restaurate.</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -206,9 +237,330 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">Încearcă din nou</string>
     <!-- Button to link an existing Signal account to this device -->
-    <string name="WelcomeScreen__link_your_account">Link your account</string>
+    <string name="WelcomeScreen__link_your_account">Asociază-ți contul</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
-    <string name="WelcomeScreen__not_on_signal_yet">Not on Signal yet?</string>
+    <string name="WelcomeScreen__not_on_signal_yet">Nu ești încă pe Signal?</string>
     <!-- Button to create a new Signal account -->
-    <string name="WelcomeScreen__create_account">Create account</string>
+    <string name="WelcomeScreen__create_account">Creează cont</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">Restaurare din backup</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">Se preiau detaliile backup-ului…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">Restaurare backup</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">Ultima copie de rezervă a fost făcută pe %1$s la %2$s.</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">Fișierele media se vor restaura în fundal. Dacă alegi să nu restaurezi acum, nu vei putea restaura mai târziu.</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">Backup-ul nu a fost găsit</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">Nu s-a găsit niciun backup pentru acest cont.</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">Nu se poate restabili backup-ul</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">Backup-ul tău nu poate fi restaurat acum. Încearcă din nou.</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">Încearcă din nou</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">Nu s-a putut termina restaurarea</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">A apărut o eroare la conectarea la server. Te rugăm să verifici conexiunea și să încerci din nou.</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">A apărut o eroare la restaurarea backup-ului. Încearcă din nou.</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">Nu s-a putut restabili acest back-up</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Această versiune de Signal nu îți poate restabili backup-ul. Actualizează la cea mai recentă versiune și încearcă din nou.</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Actualizează Signal</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">Nu acum</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">Nu se poate restabili backup-ul</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">A apărut o eroare la restaurarea backup-ului. Backup-ul nu se poate recupera. Contactează serviciul de asistență.</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">Contactează Asistența</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">Se descarcă copia de rezervă…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">Se restaurează mesajele…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">Se finalizează…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">Se restaurează…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%1$s de %2$s (%3$s)</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">Nu s-a găsit nici un web browser.</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">Cont blocat</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">Contul tău a fost blocat pentru a-ți proteja confidențialitatea și securitatea. După %1$d zile de inactivitate în contul tău vei putea să reînregistrezi acest număr de telefon fără a avea nevoie de codul PIN. Tot conținutul va fi șters.</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">Deschide Signal pe vechiul dispozitiv</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">Atinge pictograma camerei </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">Scanează acest cod cu camera</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">Se înregistrează…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">S-a petrecut o eroare în timpul înregistrării</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">Scanează acest cod cu telefonul tău vechi</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">Codul QR a fost scanat</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">Încearcă din nou</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">Nu se poate genera codul QR</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">Ești acum la %1$d pas de a trimite un jurnal de depanare.</item>
+        <item quantity="few">Ești acum la %1$d pași de a trimite un jurnal de depanare.</item>
+        <item quantity="other">Ești acum la %1$d pași de a trimite un jurnal de depanare.</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">Creează-ți PIN-ul</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">Confirmă PIN-ul</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">Re-introdu PIN-ul pe care tocmai l-ai creat</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">PIN-urile te pot ajuta să îți restaurezi contul dacă îți pierzi telefonul. </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">Află mai multe</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">Treci la numeric</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">Treci la alfanumeric</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">Următorul</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">PIN-ul trebuie să aibă cel puțin 4 cifre</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">PIN-ul trebuie să aibă cel puțin 4 caractere.</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">Introdu din nou PIN-ul</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">PIN-urile nu se potrivesc. Încearcă din nou.</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">Află mai multe despre PIN-uri</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">Avertizare</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">Dacă dezactivezi codul PIN, vei pierde toate datele când te înregistrezi din nou la Signal, cu excepția cazului când faci backup și restaurezi manual. Nu poți activa Blocarea înregistrării în timp ce codul PIN este dezactivat.</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">Dezactivare PIN</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">Anulează</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">A apărut o eroare de rețea.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">Blocarea Înregistrării</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">Introdu PIN-ul tău</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">Introdu PIN-ul pe care l-ai creat când ai instalat Signal prima oră</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">PIN incorect. %1$d încercare rămasă.</item>
+        <item quantity="few">PIN incorect. %1$d încercări rămase.</item>
+        <item quantity="other">PIN incorect. %1$d de încercări rămase.</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">Ai nevoie de ajutor?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">Schimbă tastaturile</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">Omite</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">Continuare</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">Sari peste introducerea PIN-ului?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">Dacă nu poți reține PIN-ul, poți crea unul nou. Poți înregistra și folosi contul tău, dar îți vei pierde niște setări precum informațiile de la profil.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">Creează PIN Nou</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">Anulează</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">Nu s-au găsit date pentru restaurarea contului. Creează un PIN nou.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">Contactează Asistența</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">Permite notificările</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal ar vrea să ceară permisiunea pentru notificări. Asta permite dispozitivului să afișeze alerte când sosesc noile mesaje.</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">Nu acum</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">Următorul</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">Se sincronizează mesajele</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">Această operațiune poate dura câteva minute…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">Se descarcă %1$s din %2$s</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">Se pregătește…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">Se finalizează…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Mesajele și informațiile legate de conversații sunt protejate prin criptare end-to-end, inclusiv prin procesul de sincronizare.</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">Află mai multe</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">Anulează</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">Încearcă din nou</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scanează acest cod pentru a-ți conecta contul</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">Deschide Signal pe telefonul tău</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Atinge imaginea de profil ca să deschizi Setări Signal</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Atinge Dispozitive asociate și Asociază un nou dispozitiv</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">Cere ajutor pentru acești pași</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">Maximizează Codul QR</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">Scanat</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">Nu s-a putut genera codul</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Nu ai Signal pe alt dispozitiv?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">Creează cont</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">Încearcă din nou</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">Se asociază dispozitivul…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Se așteaptă conectarea celuilalt dispozitiv…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">A apărut o eroare la conectarea dispozitivului</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Închide codul QR</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">Transferă-ți contul</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Ca să-ți transferi contul, deschide Signal pe vechiul dispozitiv Android și selectează Transferă contul.</string>
+    <string name="DeviceTransferInstructions__continue">Continuare</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">Se pregătește conectarea la un dispozitiv Android vechi…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Este posibil să dureze un pic. Ar trebui să fie gata în curând.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Se așteaptă conectarea vechiului dispozitiv…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Verifică și asigură-te că se potrivesc numerele pe ambele dispozitive</string>
+    <string name="DeviceTransferSetup__numbers_match">Da, numerele se potrivesc</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">Numerele nu se potrivesc</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Se așteaptă verificarea vechiului dispozitiv…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal are nevoie de permisiunea de localizare pentru a descoperi și a se conecta la vechiul dispozitiv.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Acordă permisiune</string>
+    <string name="DeviceTransferSetup__location_services_required">Signal are nevoie de servicii de localizare activate pentru a descoperi și a se conecta cu vechiul dispozitiv Android.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">Activare servicii de localizare</string>
+    <string name="DeviceTransferSetup__wifi_required">Signal are nevoie ca Wi-Fi-ul să fie activat ca să descopere și să se conecteze cu vechiul dispozitiv.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Activare Wi-Fi</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Ne pare rău, pare că dispozitivul tău nu acceptă Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Restaurează un backup</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">A apărut o eroare neașteptată în timpul încercării de a se conecta la vechiul dispozitiv.</string>
+    <string name="DeviceTransferSetup__retry">Încearcă din nou</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Nu ți-am putut descoperi vechiul dispozitiv</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Asigură-te că sunt acordate permisiunile de locație.\n• Asigură-te că Wi-Fi-ul este activat și că nu sunt memorate niciun grup Wi-Fi Direct.\n• Încercă să dezactivezi și să activezi Wi-Fi pe ambele dispozitive.\n• Asigură-te că ambele dispozitive sunt în modul de transfer.</string>
+    <string name="DeviceTransferSetup__try_again">Încercă din nou</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Numerele nu se potrivesc</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Dacă numerele de pe dispozitivele tale nu se potrivesc, e posibil să te fi conectat la dispozitivul greșit.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Oprire transfer</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">Se transmit datele</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">%1$d mesaje până acum</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Nu se poate transfera</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Nu se poate transfera dintr-o versiune mai nouă de Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Anumite date nu au putut fi transferate din cauza constrângerilor bazei de date.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Transferul a eșuat. Încearcă din nou.</string>
+    <string name="DeviceTransferProgress__try_again">Încearcă din nou</string>
+    <string name="DeviceTransferProgress__cancel">Anulează</string>
+    <string name="DeviceTransferProgress__stop_transfer">Oprești transferul?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Tot progresul transferului se va pierde.</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">Transfer finalizat</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Contul tău este acum pe acest dispozitiv.</string>
+    <string name="DeviceTransferComplete__continue_registration">Continuare</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">Configurează-ți profilul</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Profilul și schimbările tale vor fi vizibile pentru persoanele cărora le dai mesaj, pentru contacte și grupuri.</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">Prenume (obligatoriu)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">Nume (opțional)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">Următorul</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">Setează avatar</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Cine îmi poate găsi numărul?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Oricine are numărul tău de telefon va vedea că ești pe Signal și poate începe conversații cu tine.</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Nimeni nu va putea să vadă că eșți pe Signal decât dacă îi trimiți un mesaj sau dacă ai o conversație existentă cu acesta.</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">Toată lumea</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">Nimeni</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Ești sigur/ă?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Dacă setezi \"Cine mă poate găsi după număr\" la \"Nimeni\", oamenii te vor găsi mai greu pe Signal.</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Anulează</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">Salvează</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">Înapoi</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Nu s-a putut încărca captcha</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">Anulează</string>
 </resources>

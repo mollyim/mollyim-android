@@ -49,12 +49,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -368,7 +368,7 @@ private fun RemoteBackupsSettingsContent(
     promptTitle = stringResource(R.string.RemoteBackupsSettingsFragment__unlock_to_view_backup_key),
     educationSheetMessage = stringResource(R.string.RemoteBackupsSettingsFragment__to_view_your_key),
     onAuthenticationFailed = {
-      Toast.makeText(context, R.string.RemoteBackupsSettingsFragment__authenticatino_required, Toast.LENGTH_SHORT).show()
+      Toast.makeText(context, R.string.RemoteBackupsSettingsFragment__authentication_required, Toast.LENGTH_SHORT).show()
     }
   )
 
@@ -1052,9 +1052,10 @@ private fun BackupCard(
             else -> error("Not supported here.")
           }
 
+          val locale = LocalLocale.current.platformLocale
           if (backupState.renewalTime > 0.seconds) {
             Text(
-              text = stringResource(resource, DateUtils.formatDateWithYear(Locale.getDefault(), backupState.renewalTime.inWholeMilliseconds))
+              text = stringResource(resource, DateUtils.formatDateWithYear(locale, backupState.renewalTime.inWholeMilliseconds))
             )
           }
         }
@@ -1874,8 +1875,10 @@ private fun ErrorCardPreview() {
 @Composable
 private fun PendingCardPreview() {
   Previews.Preview {
+    val locale = LocalLocale.current.platformLocale
+
     PendingCard(
-      price = FiatMoney(BigDecimal.TEN, Currency.getInstance(Locale.getDefault()))
+      price = FiatMoney(BigDecimal.TEN, Currency.getInstance(locale))
     )
   }
 }

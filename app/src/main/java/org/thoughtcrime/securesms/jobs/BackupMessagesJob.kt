@@ -23,6 +23,8 @@ import org.signal.core.util.logging.logW
 import org.signal.libsignal.messagebackup.BackupForwardSecrecyToken
 import org.signal.libsignal.net.SvrBStoreResponse
 import org.signal.libsignal.zkgroup.VerificationFailedException
+import org.signal.network.NetworkResult
+import org.signal.network.api.SvrBApi
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
@@ -46,15 +48,13 @@ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity
 import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
-import org.thoughtcrime.securesms.providers.BlobProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.whispersystems.signalservice.api.NetworkResult
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
-import org.whispersystems.signalservice.api.svr.SvrBApi
+import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvalidException
 import org.whispersystems.signalservice.internal.push.AttachmentUploadForm
 import java.io.File
 import java.io.FileInputStream
@@ -367,6 +367,10 @@ class BackupMessagesJob private constructor(
       is NetworkResult.Success -> Unit
       is NetworkResult.NetworkError -> {
         Log.i(TAG, "Network failure", uploadResult.getCause(), true)
+        if (uploadResult.exception is ResumeLocationInvalidException) {
+          Log.w(TAG, "Resume location is invalid. Clearing upload spec before retrying.")
+          resumableMessagesBackupUploadSpec = null
+        }
         return if (isCanceled) Result.failure() else Result.retry(defaultBackoff())
       }
       is NetworkResult.StatusCodeError -> {
@@ -413,7 +417,10 @@ class BackupMessagesJob private constructor(
       return Result.failure()
     }
 
-    if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
+    if (SignalStore.backup.localRestoreReconcilePending) {
+      Log.i(TAG, "A local restore reconciliation is pending. Holding off on the attachment backfill until reconciliation has marked already-archived media as finished.", true)
+      ArchiveUploadProgress.onMessageBackupFinishedEarly()
+    } else if (SignalStore.backup.backsUpMedia && SignalDatabase.attachments.doAnyAttachmentsNeedArchiveUpload()) {
       Log.i(TAG, "Enqueuing attachment backfill job.", true)
       AppDependencies.jobManager.add(ArchiveAttachmentBackfillJob())
     } else {
@@ -458,9 +465,9 @@ class BackupMessagesJob private constructor(
       }
     }
 
-    BlobProvider.getInstance().clearTemporaryBackupsDirectory(AppDependencies.application)
+    AppDependencies.blobs.clearTemporaryBackupsDirectory(AppDependencies.application)
 
-    val tempBackupFile = BlobProvider.getInstance().forTemporaryBackup(AppDependencies.application)
+    val tempBackupFile = AppDependencies.blobs.forTemporaryBackup(AppDependencies.application)
 
     val outputStream = FileOutputStream(tempBackupFile)
     val backupKey = SignalStore.backup.messageBackupKey
@@ -496,6 +503,11 @@ class BackupMessagesJob private constructor(
         this.dataFile = ""
         BackupRepository.markBackupCreationFailed(BackupValues.BackupCreationError.NOT_ENOUGH_DISK_SPACE)
         return BackupFileResult.Failure
+      } else {
+        Log.w(TAG, "Exception during backup export", e)
+        tempBackupFile.delete()
+        this.dataFile = ""
+        return BackupFileResult.Retry
       }
     }
 
@@ -612,7 +624,7 @@ class BackupMessagesJob private constructor(
         )
       }
       .toSet()
-      .let { SignalDatabase.attachments.filterPermanentlyFailedThumbnails(it) }
+      .let { SignalDatabase.attachments.filterThumbnailsWithoutEligibleAttachment(it) }
   }
 
   class Factory : Job.Factory<BackupMessagesJob> {

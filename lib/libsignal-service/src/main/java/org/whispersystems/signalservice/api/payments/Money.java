@@ -1,7 +1,7 @@
 package org.whispersystems.signalservice.api.payments;
 
-import org.whispersystems.signalservice.api.util.Uint64RangeException;
-import org.whispersystems.signalservice.api.util.Uint64Util;
+import org.signal.core.util.Uint64RangeException;
+import org.signal.core.util.Uint64Util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -208,10 +208,10 @@ public abstract class Money {
     }
 
     /**
-     * The value expressed in Mobile coin.
+     * The value expressed in Mobile coin as a plain decimal string (never scientific notation).
      */
     public String getAmountDecimalString() {
-      return amountDecimal.toString();
+      return amountDecimal.toPlainString();
     }
 
     public boolean greaterThan(MobileCoin other) {

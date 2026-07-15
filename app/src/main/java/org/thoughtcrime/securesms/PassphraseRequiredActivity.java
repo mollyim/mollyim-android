@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import org.greenrobot.eventbus.EventBus;
+import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.logging.Log;
 import org.signal.devicetransfer.TransferStatus;
+import org.signal.registration.RegistrationRoute;
 import org.thoughtcrime.securesms.components.settings.app.changenumber.ChangeNumberLockActivity;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceTransferActivity;
@@ -25,7 +27,6 @@ import org.thoughtcrime.securesms.pin.PinRestoreActivity;
 import org.thoughtcrime.securesms.profiles.edit.CreateProfileActivity;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
-import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.restore.RestoreActivity;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
@@ -49,6 +50,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   private static final int STATE_TRANSFER_LOCKED     = 9;
   private static final int STATE_CHANGE_NUMBER_LOCK  = 10;
   private static final int STATE_TRANSFER_OR_RESTORE = 11;
+  private static final int STATE_RESUME_LINKING_REG  = 12;
 
   private BroadcastReceiver clearKeyReceiver;
 
@@ -92,12 +94,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
     // MOLLY: If the current activity matches the intent target, skip the routing
     if (intent != null && (intent.getComponent() == null || !getLocalClassName().equals(intent.getComponent().getClassName()))) {
       Log.d(TAG, "routeApplicationState(), intent: " + intent.getComponent());
-      if (applicationState == STATE_WELCOME_PUSH_SCREEN && Environment.USE_NEW_REGISTRATION) {
-        startActivity(intent);
-      } else {
         startActivity(intent);
         finish();
-      }
     }
   }
 
@@ -116,6 +114,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
       case STATE_TRANSFER_LOCKED:     return getOldDeviceTransferLockedIntent();
       case STATE_CHANGE_NUMBER_LOCK:  return getChangeNumberLockIntent();
       case STATE_TRANSFER_OR_RESTORE: return getTransferOrRestoreIntent();
+      case STATE_RESUME_LINKING_REG:  return getResumeLinkedRegistrationIntent();
       default:                        return null;
     }
   }
@@ -129,6 +128,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
       return STATE_UI_BLOCKING_UPGRADE;
     } else if (!TextSecurePreferences.hasPromptedPushRegistration(this)) {
       return STATE_WELCOME_PUSH_SCREEN;
+    } else if (shouldResumeLinkingRegistration()) {
+      return STATE_RESUME_LINKING_REG;
     } else if (userCanTransferOrRestore()) {
       return STATE_TRANSFER_OR_RESTORE;
     } else if (SignalStore.storageService().getNeedsAccountRestore()) {
@@ -150,6 +151,14 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
 
   private boolean userCanTransferOrRestore() {
     return !SignalStore.registration().isRegistrationComplete() &&
+           RestoreDecisionStateUtil.isDecisionPending(SignalStore.registration().getRestoreDecisionState());
+  }
+
+  private boolean shouldResumeLinkingRegistration() {
+    return Environment.USE_NEW_REGISTRATION &&
+           SignalStore.account().isRegistered() &&
+           !SignalStore.account().isPrimaryDevice() &&
+           !SignalStore.registration().isRegistrationComplete() &&
            RestoreDecisionStateUtil.isDecisionPending(SignalStore.registration().getRestoreDecisionState());
   }
 
@@ -178,11 +187,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getPushRegistrationIntent() {
-    if (Environment.USE_NEW_REGISTRATION) {
-      return org.signal.registration.RegistrationActivity.createIntent(this);
-    } else {
-      return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
-    }
+    return RegistrationActivity.newIntentForNewRegistration(this, getIntent());
   }
 
   private Intent getEnterSignalPinIntent() {
@@ -204,6 +209,10 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   private Intent getTransferOrRestoreIntent() {
     Intent intent = RestoreActivity.getRestoreIntent(this);
     return getRoutedIntent(intent, MainActivity.clearTop(this));
+  }
+
+  private Intent getResumeLinkedRegistrationIntent() {
+    return org.signal.registration.RegistrationActivity.createIntent(this, MainActivity.clearTop(this), RegistrationRoute.MessageSync.INSTANCE);
   }
 
   private Intent getCreateProfileNameIntent() {

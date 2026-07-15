@@ -185,7 +185,7 @@ class BankTransferDetailsFragment : ComposeFragment(), InAppPaymentCheckoutDeleg
 
 @DayNightPreviews
 @Composable
-private fun BankTransferDetailsContentPreview() {
+fun BankTransferDetailsContentPreview() {
   Previews.Preview {
     BankTransferDetailsContent(
       state = BankTransferDetailsState(
@@ -206,7 +206,7 @@ private fun BankTransferDetailsContentPreview() {
 }
 
 @Composable
-private fun BankTransferDetailsContent(
+fun BankTransferDetailsContent(
   state: BankTransferDetailsState,
   onNavigationClick: () -> Unit,
   onNameChanged: (String) -> Unit,

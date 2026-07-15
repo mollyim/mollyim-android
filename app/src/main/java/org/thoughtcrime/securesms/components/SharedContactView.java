@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,15 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.annimon.stream.Stream;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
-import org.signal.glide.decryptableuri.DecryptableUri;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientForeverObserver;
@@ -70,7 +68,7 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
     initialize(attrs);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @RequiresApi(api = 21)
   public SharedContactView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
     initialize(attrs);
@@ -116,7 +114,7 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
     this.locale         = locale;
     this.contact        = contact;
 
-    Stream.of(activeRecipients.values()).forEach(recipient ->  recipient.removeForeverObserver(this));
+    activeRecipients.values().stream().forEach(recipient ->  recipient.removeForeverObserver(this));
     this.activeRecipients.clear();
 
     presentContact(contact);

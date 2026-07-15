@@ -6,8 +6,6 @@
 package org.signal.registration.screens.verificationcode
 
 import org.signal.registration.NetworkController.SessionMetadata
-import org.signal.registration.util.DebugLoggable
-import org.signal.registration.util.DebugLoggableModel
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -17,15 +15,46 @@ data class VerificationCodeState(
   val isSubmittingCode: Boolean = false,
   val rateLimits: SmsAndCallRateLimits = SmsAndCallRateLimits(),
   val incorrectCodeAttempts: Int = 0,
+  val autoFillCode: String? = null,
+  val digits: List<String> = List(CODE_LENGTH) { "" },
+  val focusedDigitIndex: Int = 0,
+  val showContactSupportSheet: Boolean = false,
   val oneTimeEvent: OneTimeEvent? = null
-) : DebugLoggableModel() {
-  sealed interface OneTimeEvent : DebugLoggable {
+) {
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, oneTimeEvent=$oneTimeEvent)"
+
+  /**
+   * The full code as currently entered. Only meaningful when [isComplete] is true.
+   */
+  val code: String get() = digits.joinToString("")
+
+  /**
+   * True once every digit field has a value.
+   */
+  val isComplete: Boolean get() = digits.size == CODE_LENGTH && digits.all { it.isNotEmpty() }
+
+  companion object {
+    const val CODE_LENGTH = 6
+
+    /**
+     * A fully empty set of digits, used to reset the fields.
+     */
+    fun emptyDigits(): List<String> = List(CODE_LENGTH) { "" }
+  }
+
+  sealed interface OneTimeEvent {
     data object NetworkError : OneTimeEvent
+
     data object UnknownError : OneTimeEvent
+
     data class RateLimited(val retryAfter: Duration) : OneTimeEvent
-    data object ThirdPartyError : OneTimeEvent
+
+    data object UnableToSendSms : OneTimeEvent
+
     data object CouldNotRequestCodeWithSelectedTransport : OneTimeEvent
+
     data object IncorrectVerificationCode : OneTimeEvent
+
     data object RegistrationError : OneTimeEvent
   }
 
@@ -52,4 +81,4 @@ data class VerificationCodeState(
 data class SmsAndCallRateLimits(
   val smsResendTimeRemaining: Duration = 0.seconds,
   val callRequestTimeRemaining: Duration = 0.seconds
-) : DebugLoggableModel()
+)

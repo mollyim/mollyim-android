@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">మీతో గోప్యతను తీసుకోండి.\nప్రతి సందేశంలో మీరే ఉండండి.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal అనేది లాభాపేక్ష లేని సంస్థ\nనిబంధనలు &amp; గోప్యతా విధానం</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">దేశాన్ని ఎంచుకోండి</string>
     <string name="RegistrationActivity_phone_number_description">ఫోను నంబరు</string>
     <string name="RegistrationActivity_next">తరువాత</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">దిగువ ఫోన్ నంబర్ సరైనదేనా?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">ఈ నంబర్‌కు ఒక ధృవీకరణ కోడ్ పంపబడుతుంది. క్యారియర్ రేట్లు వర్తించవచ్చు.</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">సంఖ్య మార్చు</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">మెనూను తెరవండి</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">ప్రాక్సీని ఉపయోగించండి</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">పరికరాన్ని అనుసంధానించు</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">మరింత తెలుసుకోండి</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -74,16 +91,32 @@
     <string name="VerificationCodeScreen__network_error">కనెక్ట్ చేయడం సాధ్యం కాలేదు. దయచేసి మీ నెట్‌వర్క్‌ను తనిఖీ చేసి, మళ్ళీ ప్రయత్నించండి.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">మితిమీరిన ప్రయత్నాలు. %1$s లో మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">మితిమీరిన ప్రయత్నాలు. దయచేసి తర్వాత మళ్ళీ ప్రయత్నించండి.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">ఊహించని పొరపాటు ఏర్పడింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">మీ ధృవీకరణ కోడ్‌ను పంపడంలో సమస్య ఉంది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">మేము మీ నంబర్‌కు SMS పంపలేకపోతున్నాము. దయచేసి కొన్ని గంటల తర్వాత మళ్ళీ ప్రయత్నించండి.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">ఎంచుకున్న పద్ధతి ద్వారా కోడ్‌ను పంపడం సాధ్యం కాలేదు. దయచేసి మరొక ఎంపికను ప్రయత్నించండి.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">నమోదు విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">సమస్య ఉందా?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">నమోదు చేసుకోవడంలో సమస్య ఉన్నదా?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• మీ SMS లేదా కాల్‌ను అందుకోవడానికి మీ ఫోన్‌కు సెల్యూలర్ సిగ్నల్ ఉన్నట్లుగా ధృవీకరించుకోండి\n • నంబర్‌కు ఫోన్ కాల్‌ను మీరు అందుకోగలరని నిర్ధారించండి\n • మీ ఫోన్ నెంబర్‌ను మీరు సరిగ్గా ఎంటర్ చేసినట్లుగా తనిఖీ చేయండి.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">మరింత సమాచారం కోసం, %1$s లేదా %2$s ను అనుసరించండి</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">ఈ సమస్య పరిష్కార దశలు</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">మద్దతును సంప్రదించండి</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -122,8 +155,6 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">మీ పాత ఫోన్ నుండి</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">మీ పాత Android నుండి నేరుగా బదిలీ చేయండి</string>
-    <!-- Skip button text -->
-    <string name="ArchiveRestoreSelectionScreen__skip">దాటవేయి</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">పునరుద్ధరించడాన్ని దాటవేసేదా?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -146,8 +177,6 @@
     <string name="LocalBackupRestoreScreen__backup_found_description">మీ పరికరంలో మీరు సేవ్ చేసిన బ్యాకప్ ఫోల్డర్ నుండి మీ సందేశాలను పునరుద్ధరించండి. ఒకవేళ మీరు ఇప్పుడు పునరుద్ధరించకపోతే, తరువాత మీరు పునరుద్ధరించలేరు.</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">మీ తాజా బ్యాకప్:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">ప్రత్యామ్నాయ పునరుద్ధరించండి</string>
     <!-- Link to choose an earlier backup -->
@@ -187,14 +216,16 @@
     <string name="EnterAepScreen__too_long">చాలా పొడవుగా ఉంది (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">చెల్లని రికవరీ కీ</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">తప్పు రికవరీ కీ</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">పాస్‌వర్డ్ మేనేజర్ నుండి పూరించండి</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">పునరుద్ధరణను సిద్ధం చేస్తోంది…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">బ్యాకప్‌ను పునరుద్ధరిస్తోంది</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">మీ సందేశాలు మరియు డేటా పునరుద్ధరించబడే వరకు దయచేసి వేచి ఉండండి.</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">పునరుద్ధరణ పూర్తయింది</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -211,4 +242,323 @@
     <string name="WelcomeScreen__not_on_signal_yet">Signal లో ఇంకా లేరా?</string>
     <!-- Button to create a new Signal account -->
     <string name="WelcomeScreen__create_account">ఖాతాను సృష్టించండి</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">బ్యాకప్ నుంచి పునరుద్ధరించండి</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">బ్యాకప్ వివరాలను పొందుతోంది…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">ప్రత్యామ్నాయ పునరుద్ధరించండి</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">మీ చివరి బ్యాకప్ %1$s న %2$s కు చేయబడింది.</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">మీ మీడియా నేపథ్యంలో పునరుద్ధరించబడుతుంది. ఒకవేళ మీరు ఇప్పుడు పునరుద్ధరించకూడదని ఎంచుకుంటే, మీరు తర్వాత పునరుద్ధరించలేరు.</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">బ్యాకప్ కనుగొనబడలేదు</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">ఈ ఖాతాకు ఎటువంటి బ్యాకప్ కనుగొనబడలేదు.</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">బ్యాకప్‌ను పునరుద్ధరించలేరు</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">మీ బ్యాకప్ ప్రస్తుతం పునరుద్ధరించబడదు. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">మళ్ళీ ప్రయత్నించండి</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">పునరుద్ధరణ పూర్తి చేయలేకపోయాము</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">సర్వర్‌కు కనెక్ట్ అయ్యేటప్పుడు పొరపాటు సంభవించింది. దయచేసి మీ కనెక్షన్‌ను సరిచూసుకుని, మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">మీ బ్యాకప్‌ను పునరుద్ధరించేటప్పుడు ఒక పొరపాటు ఏర్పడింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">ఈ బ్యాకప్‌ను పునరుద్ధరించడం సాధ్యపడలేదు</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Signal యొక్క ఈ వెర్షన్ మీ బ్యాకప్‌ను పునరుద్ధరించలేదు. తాజా వెర్షన్‌కు అప్‌డేట్ చేసి, మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Signal ను నవీకరించండి</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">ఇప్పుడు కాదు</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">బ్యాకప్‌ను పునరుద్ధరించలేరు</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">మీ బ్యాకప్‌ను పునరుద్ధరించేటప్పుడు ఒక పొరపాటు ఏర్పడింది. మీ బ్యాకప్‌ను తిరిగి పొందడం సాధ్యం కాదు. సహాయం కోసం దయచేసి మద్దతును సంప్రదించండి.</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">మద్దతును సంప్రదించండి</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">బ్యాకప్ డౌన్‌లోడ్ అవుతోంది…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">సందేశాలు రీస్టోర్ అవుతున్నాయి…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">పూర్తి చేస్తోంది…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">రీస్టోర్ అవుతున్నాయి…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%2$s (%3$s)లో %1$s</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">వెబ్ బ్రౌజర్ కనుగొనబడలేదు.</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">ఖాతా లాక్ చేయబడింది</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">మీ గోప్యత మరియు భద్రతను రక్షించడానికి మీ ఖాతా లాక్ చేయబడింది. మీ ఖాతాలో %1$d రోజుల నిష్క్రియాత్మకత తరువాత మీరు మీ పిన్ అవసరం లేకుండా ఈ ఫోన్ నంబర్‌ను తిరిగి నమోదు చేయగలరు. మొత్తం విషయాలు తొలగించబడతాయి.</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">మీ పాత పరికరంలో Signal ను తెరవండి</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">కెమెరా చిహ్నాన్ని తట్టండి </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">కెమెరాతో ఈ కోడ్‌ను స్కాన్ చేయండి</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">నమోదు అవుతోంది…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">నమోదు సమయంలో ఒక పొరపాటు సంభవించింది</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">మీ పాత ఫోన్‌తో ఈ కోడ్‌ను స్కాన్ చేయండి</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">QR కోడ్ స్కాన్ చేయబడింది</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">మళ్ళీ ప్రయత్నించు</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">QR కోడ్‌ను ఉత్పత్తి చేయడం సాధ్యం కాలేదు</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">డీబగ్ లాగ్ను సమర్పించకుండా మీరు ఇప్పుడు %1$d దూరంగా ఉన్నారు.</item>
+        <item quantity="other">డీబగ్ లాగ్ను సమర్పించకుండా మీరు ఇప్పుడు %1$d మళ్లే ఉన్నారు.</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">మీ పిన్ను సృష్టించండి</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">మీ PIN ను నిర్ధారించండి</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">మీరు ఇప్పుడే సృష్టించిన PIN ను తిరిగి ఎంటర్ చేయండి</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">ఒకవేళ మీరు మీ ఫోన్‌ను పోగొట్టుకున్నట్లయితే, మీ ఖాతాను తిరిగి పొందడానికి PIN లు మీకు సహాయపడతాయి. </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">మరింత తెలుసుకోండి</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">సంఖ్యా రూపానికి మారండి</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">అక్షరసంఖ్యలకు మారండి</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">తరువాత</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">PIN కనీసం 4 అంకెలు ఉండాలి</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">PIN కనీసం 4 అక్షరాలు ఉండాలి</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">PIN ను తిరిగి ఎంటర్ చేయండి</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">పిన్‌లు సరిపోలడం లేదు. మళ్ళీ ప్రయత్నించండి.</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">పిన్‌ల గురించి మరింత తెలుసుకోండి</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">హెచ్చరిక</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">ఒకవేళ మీరు PIN ను నిలిపివేస్తే, మీరు మాన్యువల్‌గా బ్యాకప్ చేసి పునరుద్ధరించకపోతే మీరు Signal ను తిరిగి నమోదు చేసినప్పుడు మీరు మొత్తం డేటాను కోల్పోతారు. PIN నిలిపివేయబడిప్పుడు మీరు నమోదు లాక్‌ను ఆన్ చేయలేరు.</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">పిన్‌ను ఆపివేయి</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">రద్దు చేయండి</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">నెట్‌వర్క్ లోపాన్ని ఎదుర్కొంది.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">నమోదు లాక్</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">మీ పిన్ను నమోదు చేయండి</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">మీరు Signal ను మొదటిసారి ఇన్‌స్టాల్ చేసినప్పుడు మీరు సృష్టించిన PIN ను నమోదు చేయండి.</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">తప్పు పిన్. %1$d ప్రయత్నం మిగిలి ఉంది.</item>
+        <item quantity="other">తప్పు పిన్. %1$d ప్రయత్నాలు మిగిలి ఉన్నాయి.</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">సాయం అవసరమా?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">కీబోర్డ్ మారండి</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">దాటవేయి</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">కొనసాగించు</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">పిన్ నమోదుని దాటవేయమంటారా?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">ఒకవేళ మీ PIN ను మీరు గుర్తు పెట్టుకోలేకపోతే, ఒక కొత్త దానిని మీరు సృష్టించవచ్చు. మీరు మీ ఖాతాను నమోదు చేసుకుని ఉపయోగించవచ్చు, కానీ మీ ప్రొఫైల్ సమాచారం వంటి కొన్ని సేవ్ చేసిన సెట్టింగ్‌లను మీరు కోల్పోతారు.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">క్రొత్త పిన్ సృష్టించండి</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">రద్దు చేయండి</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">మీ ఖాతాను పునరుద్ధరించడానికి ఎటువంటి డేటా కనుగొనబడలేదు. దయచేసి కొత్త PIN ను సృష్టించండి.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">మద్దతును సంప్రదించండి</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">నోటిఫికేషన్‌లను అనుమతించండి</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal నోటిఫికేషన్ అనుమతిని కోరాలనుకుంటోంది. కొత్త సందేశాలు వచ్చినప్పుడు మీ పరికరం హెచ్చరికలను ప్రదర్శించడానికి ఇది అనుమతిస్తుంది.</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">ఇప్పుడు కాదు</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">తరువాత</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">సందేశాలను సమకాలీకరిస్తోంది</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">దీనికి కొన్ని నిమిషాలు పట్టవచ్చు…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">%2$s యొక్క %1$s డౌన్‌లోడ్ చేస్తోంది</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">సిద్ధం చేస్తోంది…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">పూర్తి చేస్తోంది…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">సమకాలీకరణ ప్రక్రియతో సహా ఎండ్-టు-ఎండ్ గుప్తీకరణ ద్వారా సందేశాలు మరియు చాట్ సమాచారం సంరక్షించబడతాయి.</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">మరింత తెలుసుకోండి</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">రద్దు చేయండి</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">మళ్ళీ ప్రయత్నించండి</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">మీ ఖాతాను అనుసంధానించడానికి ఈ కోడ్‌ను స్కాన్ చేయండి</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">మీ ఫోన్‌పై Signal ని ఓపెన్ చేయండి</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Signal సెట్టింగ్‌లను తెరవడానికి మీ ప్రొఫైల్ చిత్రాన్ని తట్టండి</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">\"లింక్ చేయబడిన పరికరాలు\" మరియు \"కొత్త పరికరాన్ని లింక్ చేయండి\" తట్టిండి</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">ఈ దశలకు సంబంధించి సహాయం పొందండి</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">QR కోడ్‌ను గరిష్ఠం చేయండి</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">స్కాన్ చేయబడింది</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">కోడ్‌ను రూపొందించడంలో విఫలమైంది</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">మరొక పరికరంలో Signal లేదా?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">ఖాతాను సృష్టించండి</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">మళ్ళీ ప్రయత్నించు</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">పరికరం లింక్ అవుతోంది…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">మీ మరో పరికరం కొరకు వేచి ఉంది…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">ఈ పరికరాన్ని అనుసంధానించేటప్పుడు ఒక పొరపాటు సంభవించింది</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">QR కోడ్‌ను మూసివేయండి</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">మీ ఖాతాను బదిలీ చేయండి</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">మీ ఖాతాను బదిలీ చేయడానికి, మీ పాత Android పరికరంలో Signal ను తెరిచి, ఖాతాను బదిలీ చేయండిని ఎంచుకోండి.</string>
+    <string name="DeviceTransferInstructions__continue">కొనసాగించు</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">పాత Android పరికరాన్ని కనెక్ట్ చేయడానికి సిద్ధం చేయడం…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">దీనికి కొంత సమయం పట్టవచ్చు. త్వరలోనే సిద్ధంగా ఉంటుంది.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">మీ పాత పరికరం అనుసంధానం అయ్యేందుకు వేచి ఉన్నాము…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">రెండు పరికరాలలోనూ సంఖ్యలు సరిపోలుతున్నాయా లేదా అనేది ధృవీకరించుకోండి</string>
+    <string name="DeviceTransferSetup__numbers_match">అవును, సంఖ్యలు సరిపోలుతున్నాయి</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">నెంబర్లు జతకావడం లేదు</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">మీ పాత పరికరాన్ని ధృవీకరించేందుకు వేచి ఉన్నాము…</string>
+    <string name="DeviceTransferSetup__location_permission_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం కావడానికి Signal కు ప్రదేశం అనుమతి అవసరం.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">అనుమతి ఇవ్వండి</string>
+    <string name="DeviceTransferSetup__location_services_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం కావడానికి ప్రదేశ సేవలు ప్రారంభించడం Signal కొరకు అవసరం.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">లొకేషన్ సర్వీస్‌లను ఆన్ చేయండి</string>
+    <string name="DeviceTransferSetup__wifi_required">మీ పాత పరికరాన్ని కనుగొని, దానితో అనుసంధానం అవ్వడానికి Wi-Fi ను ఆన్ చేసి ఉంచడం Signal కు అవసరం.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Wi-Fi టర్న్ ఆన్ చేయండి</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">క్షమించండి, మీ పరికరం Wi-Fi Direct కు మద్దతు ఇవ్వనట్లు కనిపిస్తోంది.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">బదులుగా బ్యాకప్‌ను పునరుద్ధరించండి</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">మీ పాత పరికరానికి అనుసంధానం చేయడానికి ప్రయత్నించేటప్పుడు ఊహించని పొరపాటు ఏర్పడింది.</string>
+    <string name="DeviceTransferSetup__retry">మళ్ళీ ప్రయత్నించు</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">మీ పాత పరికరాన్ని కనుగొనలేకపోయాము</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• ప్రదేశం అనుమతులు మంజూరు చేయబడ్డాయని నిర్ధారించుకోండి.\n• Wi-Fi ఆన్‌లో ఉండేలా, అలాగే ఎటువంటి Wi-Fi Direct గ్రూపులు గుర్తుంచుకోబడలేదని నిర్ధారించుకోండి.\n• రెండు పరికరాలో Wi-Fi ని ఆన్ చేసి, ఆఫ్ చేయడం ద్వారా ప్రయత్నించండి.\n• రెండు పరికరాలు కూడా బదిలీ మోడ్‌లో ఉన్నట్లుగా నిర్ధారించుకోండి.</string>
+    <string name="DeviceTransferSetup__try_again">మళ్ళీ ప్రయత్నించండి</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">నెంబర్లు జతకావడం లేదు</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">ఒకవేళ మీ పరికరాలలోని సంఖ్యలు సరిపోలకపోతే, మీరు తప్పు పరికరానికి కనెక్ట్ అయి ఉండే అవకాశం ఉంది.</string>
+    <string name="DeviceTransferSetup__stop_transfer">బదిలీ చేయడం ఆపండి</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">డేటాని బదిలీ చేస్తోంది</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">ఇప్పటివరకు %1$d సందేశాలు</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">బదిలీ చేయలేకపోయింది</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Signal కొత్త వెర్షన్ నుంచి బదిలీ చేయలేము.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">డేటాబేస్ పరిమితి కారణంగా కొంత డేటాను బదిలీ చేయలేకపోయాము.</string>
+    <string name="DeviceTransferProgress__transfer_failed">బదిలీ విఫలమైంది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="DeviceTransferProgress__try_again">మళ్ళీ ప్రయత్నించండి</string>
+    <string name="DeviceTransferProgress__cancel">రద్దు చేయండి</string>
+    <string name="DeviceTransferProgress__stop_transfer">బదిలీని ఆపాలా?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">పురోగతిలో ఉన్న మొత్తం బదిలీని కోల్పోతారు.</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">బదిలీ చేయడం పూర్తయింది</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">మీ ఖాతా ఇప్పుడు ఈ పరికరంలో ఉంది.</string>
+    <string name="DeviceTransferComplete__continue_registration">కొనసాగించు</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">మీ వ్యక్తిత్వవర్ణనను సెటప్ చేయండి</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">మీ ప్రొఫైల్ మరియు దానికి మార్పులు మీరు సందేశాన్ని పంపే వ్యక్తులు, పరిచయాలు మరియు గ్రూప్‌లకు కనిపిస్తాయి.</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">మొదటి పేరు (అవసరం)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">చివరి పేరు (ఐచ్ఛికం)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">తరువాత</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">అవతార్ సెట్ చేయండి</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">నంబర్ ద్వారా నన్ను ఎవరు కనుగొనగలరు?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">మీ ఫోన్ నంబర్‌ను కలిగి ఉన్న ఎవరైనా మీరు Signal లో ఉన్నట్లు చూస్తారు మరియు మీతో చాట్‌లను ప్రారంభించగలరు.</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">మీరు వారికి సందేశం పంపితే లేదా వారితో ఇప్పటికే చాట్ చేస్తే తప్ప మీరు Signal లో ఉన్నారని ఎవరూ చూడలేరు.</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">ప్రతి ఒక్కరూ</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">యెవరు లేరు</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ఖచ్చితంగా చేయాలా?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">\"నంబరు ద్వారా నన్ను ఎవరు కనుగొనగలరు\" అనే సెట్టింగ్‌ను \"ఎవరూ లేరు\" కు సెట్ చేయడం వలన వ్యక్తులు మిమ్మల్ని Signal లో కనుగొనడం కష్టతరం చేస్తుంది.</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">రద్దు చేయండి</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">సేవ్ చేయండి</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">తిరిగి</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">క్యాప్చాను లోడ్ చేయడంలో విఫలమైంది</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">రద్దు చేయండి</string>
 </resources>

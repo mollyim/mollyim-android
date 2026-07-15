@@ -69,7 +69,6 @@ import org.thoughtcrime.securesms.events.GroupCallRaiseHandEvent
 import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.RemoteConfig
 
 /**
  * Renders information about a call (1:1, group, or call link) and provides actions available for
@@ -90,8 +89,9 @@ object CallInfoView {
           ParticipantsState(
             inCallLobby = state.callState == WebRtcViewModel.State.CALL_PRE_JOIN,
             ringGroup = state.ringGroup,
+            isGroupOrAdHocCall = state.groupCallState.isNotIdle,
             includeSelf = state.groupCallState === WebRtcViewModel.GroupCallState.CONNECTED_AND_JOINED || state.groupCallState === WebRtcViewModel.GroupCallState.IDLE,
-            participantCount = if (state.participantCount.isPresent) state.participantCount.asLong.toInt() else 0,
+            participantCount = if (state.participantCount.isPresent) state.participantCount.get().toInt() else 0,
             remoteParticipants = state.allRemoteParticipants.sortedBy { it.callParticipantId.recipientId },
             localParticipant = state.localParticipant,
             groupMembers = state.groupMembers.filterNot { it.member.isSelf },
@@ -120,7 +120,6 @@ object CallInfoView {
       onContactDetails = callbacks::onContactDetails,
       onViewSafetyNumber = callbacks::onViewSafetyNumber,
       onGoToChat = callbacks::onGoToChat,
-      isInternalUser = RemoteConfig.internalUser,
       modifier = modifier
     )
   }
@@ -169,7 +168,6 @@ private fun CallInfo(
   onContactDetails: (CallParticipant) -> Unit = {},
   onViewSafetyNumber: (CallParticipant) -> Unit = {},
   onGoToChat: (CallParticipant) -> Unit = {},
-  isInternalUser: Boolean = false,
   modifier: Modifier = Modifier
 ) {
   var selectedParticipant by remember { mutableStateOf<CallParticipant?>(null) }
@@ -278,14 +276,10 @@ private fun CallInfo(
           isSelfAdmin = controlAndInfoState.isSelfAdmin() && !participantsState.inCallLobby,
           isCallLink = controlAndInfoState.callLink != null,
           onBlockClicked = onBlock,
-          onParticipantClicked = if (isInternalUser) {
-            { participant ->
-              if (!participant.recipient.isSelf) {
-                selectedParticipant = participant
-              }
+          onParticipantClicked = { participant ->
+            if (!participant.recipient.isSelf) {
+              selectedParticipant = participant
             }
-          } else {
-            null
           }
         )
       }
@@ -325,7 +319,7 @@ private fun CallInfo(
       }
     }
 
-    if (controlAndInfoState.callLink?.credentials?.adminPassBytes != null) {
+    if (controlAndInfoState.callLink?.canModify == true) {
       item {
         if (!participantsState.inCallLobby) {
           Dividers.Default()
@@ -352,6 +346,7 @@ private fun CallInfo(
       callParticipant = participant,
       isSelfAdmin = controlAndInfoState.isSelfAdmin(),
       isCallLink = controlAndInfoState.callLink != null,
+      canRemoteMute = participantsState.isGroupOrAdHocCall,
       onDismiss = { selectedParticipant = null },
       onMuteAudio = onMuteAudio,
       onRemoveFromCall = onRemoveFromCall,
@@ -709,6 +704,7 @@ private fun UnknownMembersRowPreview() {
 private data class ParticipantsState(
   val inCallLobby: Boolean = false,
   val ringGroup: Boolean = true,
+  val isGroupOrAdHocCall: Boolean = false,
   val includeSelf: Boolean = false,
   val participantCount: Int = 0,
   val remoteParticipants: List<CallParticipant> = emptyList(),

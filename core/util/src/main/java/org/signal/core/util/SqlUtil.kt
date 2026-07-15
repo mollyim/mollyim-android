@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.text.TextUtils
 import androidx.annotation.VisibleForTesting
 import androidx.sqlite.db.SupportSQLiteDatabase
+import org.signal.core.models.database.DatabaseId
 import org.signal.core.util.logging.Log
 import java.lang.Exception
 import java.util.LinkedList
@@ -307,12 +308,15 @@ object SqlUtil {
    * This means chunking isn't necessary for any practical collection length.
    */
   @JvmStatic
+  @JvmOverloads
   fun buildFastCollectionQuery(
     column: String,
-    values: Collection<Any?>
+    values: Collection<Any?>,
+    prefix: String = ""
   ): Query {
     require(!values.isEmpty()) { "Must have values!" }
-    return Query("$column IN (SELECT e.value FROM json_each(?) e)", arrayOf(jsonEncode(buildArgs(values))))
+    val prefixFilter = if (prefix.isEmpty() || prefix.endsWith(" ")) prefix else "$prefix "
+    return Query("$prefixFilter$column IN (SELECT e.value FROM json_each(?) e)", arrayOf(jsonEncode(buildArgs(values))))
   }
 
   /**

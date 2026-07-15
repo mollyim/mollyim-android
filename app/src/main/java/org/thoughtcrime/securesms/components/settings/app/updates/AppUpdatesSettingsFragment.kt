@@ -139,9 +139,11 @@ private fun AppUpdatesSettingsScreen(
         }
 
         item {
-          val (relTime, relTimeAccessible) = rememberCheckTime(state.lastCheckedTime)
-          val label = stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, relTime)
-          val contentDesc = relTimeAccessible?.let {
+          val relTime = rememberCheckTime(state.lastCheckedTime)
+          val label = stringResource(
+            R.string.AppUpdatesSettingsFragment__last_checked_s, relTime?.first ?: stringResource(R.string.preferences__never)
+          )
+          val contentDesc = relTime?.second?.let {
             stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, it)
           }
           Rows.TextRow(
@@ -160,15 +162,12 @@ private fun AppUpdatesSettingsScreen(
 }
 
 @Composable
-private fun rememberCheckTime(timestamp: Long): Pair<String, String?> {
+private fun rememberCheckTime(timestamp: Long): Pair<String, String>? {
   val context = LocalContext.current
   return remember(timestamp) {
     if (timestamp > 0) {
       DateUtils.getExtendedRelativeTimeSpanString(context, Locale.getDefault(), timestamp)
-    } else {
-      val never = context.getString(R.string.preferences__never)
-      Pair(never, null)
-    }
+    } else null
   }
 }
 

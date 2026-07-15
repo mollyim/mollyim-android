@@ -313,7 +313,7 @@ object SvrRepository {
     Log.i(TAG, "[onRegistrationComplete] Starting", true)
     operationLock.withLock {
       if (masterKey == null && userPin != null) {
-        error("If masterKey is present, pin must also be present!")
+        error("If PIN is present, MasterKey must also be present!")
       }
 
       if (masterKey != null && userPin != null) {
@@ -376,6 +376,9 @@ object SvrRepository {
       }
 
       AppDependencies.megaphoneRepository.markFinished(Megaphones.Event.PINS_FOR_ALL)
+
+      // Clear any backed up SVR auth credentials
+      BackupManager(AppDependencies.application).dataChanged()
 
       bestEffortRefreshAttributes()
       bestEffortForcePushStorage()

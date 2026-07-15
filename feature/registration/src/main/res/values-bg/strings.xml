@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
+  <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
+
     <string name="RegistrationActivity_take_privacy_with_you_be_yourself_in_every_message">Носете поверителността със себе си.\nБъдете себе си във всяко съобщение.</string>
     <!-- Non-English translations should use "Signal is a nonprofit" instead, dropping the 501c3 reference. -->
     <string name="RegistrationActivity_terms_and_privacy">Signal е организация с нестопанска цел\nУсловия и Политика за поверителност</string>
@@ -42,6 +45,20 @@
     <string name="RegistrationActivity_select_a_country">Изберете държава</string>
     <string name="RegistrationActivity_phone_number_description">Телефонен номер</string>
     <string name="RegistrationActivity_next">Напред</string>
+    <!-- Dialog title to confirm phone number -->
+    <string name="RegistrationActivity_is_the_phone_number">Телефонният номер по-долу правилен ли е?</string>
+    <!-- Dialog body to confirm phone number -->
+    <string name="RegistrationActivity_a_verification_code">Ще бъде изпратен код за потвърждение до този номер. Възможно е да се прилагат тарифи на оператора.</string>
+    <!-- Dialog button to edit the number entered -->
+    <string name="RegistrationActivity_edit_number">Редакция на номер</string>
+    <!-- Accessibility label for opening the screen specific dropdown menu. -->
+    <string name="RegistrationActivity_open_menu">Отваряне на менюто</string>
+    <!-- Menu option to use a proxy -->
+    <string name="RegistrationActivity_use_proxy">Използване на прокси</string>
+    <!-- Menu option to link this as a device -->
+    <string name="RegistrationActivity_link_device">Свързване на устройството</string>
+    <!-- Clickable text that opens a corresponding URL -->
+    <string name="RegistrationActivity_learn_more">Научете повече</string>
 
     <!-- CountryCodePickerScreen -->
     <!-- Title of the country code selection screen -->
@@ -74,16 +91,32 @@
     <string name="VerificationCodeScreen__network_error">Неуспешно свързване. Моля, проверете мрежата и опитайте отново.</string>
     <!-- Snackbar shown when rate limited. Placeholder is the retry duration -->
     <string name="VerificationCodeScreen__too_many_attempts_try_again_in_s">Прекалено много опити. Опитайте отново след %1$s.</string>
+    <!-- Snackbar shown when rate limited without a specific retry duration -->
+    <string name="VerificationCodeScreen__too_many_attempts">Прекалено много опити. Моля, опитайте отново по-късно.</string>
     <!-- Snackbar shown for generic/unknown errors -->
     <string name="VerificationCodeScreen__an_unexpected_error_occurred">Възникна неочаквана грешка. Моля, опитайте отново.</string>
-    <!-- Snackbar shown when the SMS provider has an error -->
-    <string name="VerificationCodeScreen__sms_provider_error">Имаше проблем с изпращането на кода за потвърждение. Моля, опитайте отново.</string>
+    <!-- Snackbar shown when we are unable to send an SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__unable_to_send_sms">Не можем да изпратим SMS на вашия номер. Моля, опитайте отново след няколко часа.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Неуспешно изпращане на кода чрез избрания метод. Моля, опитайте с друг вариант.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">Неуспешна регистрация. Моля, опитайте отново.</string>
     <!-- Button text for having trouble with verification -->
     <string name="VerificationCodeScreen__having_trouble">Имате затруднения?</string>
+    <!-- Title of the bottom sheet shown when the user is having trouble entering their verification code -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_title">Имате затруднения с регистрирането?</string>
+    <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• Уверете се, че телефонът ви има обхват, за да получите SMS или обаждане\n • Потвърдете, че можете да получавате телефонни обаждания до номера\n • Проверете дали сте въвели телефонния си номер правилно.</string>
+    <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">За повече информация, моля, следвайте %1$s или %2$s</string>
+    <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">тези стъпки за отстраняване на неизправности</string>
+    <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
+    <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Връзка с отдела за поддръжка</string>
+    <!-- Email subject used when contacting support from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <!-- URL opened for troubleshooting steps from the verification code screen -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
     <!-- RestoreWelcomeBottomSheet -->
     <!-- Row title for restore/transfer using a previous registered phone/device -->
@@ -122,8 +155,6 @@
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">От стария ви телефон</string>
     <!-- Subtitle for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__transfer_directly_from_old">Директен трансфер от стария ви Android</string>
-    <!-- Skip button text -->
-    <string name="ArchiveRestoreSelectionScreen__skip">Пропускане</string>
     <!-- Title for the skip restore confirmation dialog -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_dialog_title">Пропускане на възстановяването?</string>
     <!-- Warning body text for the skip restore confirmation dialog -->
@@ -146,8 +177,6 @@
     <string name="LocalBackupRestoreScreen__backup_found_description">Възстановете съобщенията си от папката за архивиране, запазена на вашето устройство. Ако не ги възстановите сега, няма да можете да ги възстановите по-нататък.</string>
     <!-- Title for the latest backup card -->
     <string name="LocalBackupRestoreScreen__your_latest_backup">Последното ви резервно копие:</string>
-    <!-- Label for a legacy backup type -->
-    <string name="LocalBackupRestoreScreen__legacy_backup">Legacy backup</string>
     <!-- Restore backup button text -->
     <string name="LocalBackupRestoreScreen__restore_backup">Възстановяване на архивно копие</string>
     <!-- Link to choose an earlier backup -->
@@ -187,14 +216,16 @@
     <string name="EnterAepScreen__too_long">Твърде дълго (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">Невалиден ключ за възстановяване</string>
+    <!-- Error text when key is correct format but does not match account -->
+    <string name="EnterAepScreen__incorrect_recovery_key">Неправилен ключ за възстановяване</string>
+    <!-- Button that prompts the device password manager to fill in the recovery key -->
+    <string name="EnterAepScreen__fill_from_password_manager">Попълване от мениджър на пароли</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Подготовка за възстановяване…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">Възстановяване на резервно копие</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">Моля, изчакайте, докато съобщенията и данните ви се възстановяват.</string>
-    <!-- Title shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete">Възстановяването е завършено</string>
     <!-- Description shown when restore is complete -->
     <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
@@ -211,4 +242,323 @@
     <string name="WelcomeScreen__not_on_signal_yet">Още нямате Signal?</string>
     <!-- Button to create a new Signal account -->
     <string name="WelcomeScreen__create_account">Създаване на акаунт</string>
+
+    <!-- RemoteRestoreScreen -->
+    <!-- Title for the remote backup restore screen -->
+    <string name="RemoteRestoreScreen__restore_from_backup">Възстановяване от резервно копие</string>
+    <!-- Shown while fetching backup details from server -->
+    <string name="RemoteRestoreScreen__fetching_backup_details">Извличане на данни за резервно копие…</string>
+    <!-- Button to start restoring the backup -->
+    <string name="RemoteRestoreScreen__restore_backup">Възстановяване на резервно копие</string>
+    <!-- Subtitle showing when the last backup was made, with date and time placeholders -->
+    <string name="RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s">Последното ви резервно копиране е направено на %1$s в %2$s.</string>
+    <!-- Description telling the user their media will restore in the background -->
+    <string name="RemoteRestoreScreen__your_media_will_restore_in_the_background">Мултимедията ще се възстановява във фонов режим. Ако изберете да не възстановите сега, няма да можете да възстановите по-късно.</string>
+    <!-- Title for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__backup_not_found">Не е открито резервно копие</string>
+    <!-- Body for the backup not found dialog -->
+    <string name="RemoteRestoreScreen__no_backup_was_found">За този акаунт не е открито резервно копие.</string>
+    <!-- Title for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_backup">Неуспешно възстановяване на резервно копие</string>
+    <!-- Body for the restore failed dialog -->
+    <string name="RemoteRestoreScreen__your_backup_cant_be_restored_right_now">Вашето резервно копие не може да бъде възстановено в момента. Моля, опитайте отново.</string>
+    <!-- Button to try again -->
+    <string name="RemoteRestoreScreen__try_again">Опитайте отново</string>
+    <!-- Title for the network error dialog -->
+    <string name="RemoteRestoreScreen__couldnt_finish_restore">Неуспешно завършване на възстановяването</string>
+    <!-- Body for the network error dialog -->
+    <string name="RemoteRestoreScreen__error_connecting">При свързването със сървъра възникна грешка. Моля, проверете мрежовата си връзка и опитайте отново.</string>
+    <!-- Body for the general restore failure dialog -->
+    <string name="RemoteRestoreScreen__error_occurred">При възстановяването на вашето резервно копие възникна грешка. Моля, опитайте отново.</string>
+    <!-- Title for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__couldnt_restore_this_backup">Неуспешно възстановяване на резервно копие</string>
+    <!-- Body for the invalid backup version dialog -->
+    <string name="RemoteRestoreScreen__update_latest">Тази версия на Signal не може да възстанови вашето резервно копие. Актуализирайте до най-новата версия и опитайте отново.</string>
+    <!-- Button to update Signal -->
+    <string name="RemoteRestoreScreen__update_signal">Актуализиране на Signal</string>
+    <!-- Button to dismiss update dialog -->
+    <string name="RemoteRestoreScreen__not_now">Не сега</string>
+    <!-- Title for unrecoverable backup failure dialog -->
+    <string name="RemoteRestoreScreen__cant_restore_this_backup">Неуспешно възстановяване на резервно копие</string>
+    <!-- Body for unrecoverable backup failure dialog prompting user to contact support -->
+    <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">При възстановяването на вашето резервно копие възникна грешка. Резервното ви копие не може да бъде възстановено. Моля, свържете се с поддръжката за съдействие.</string>
+    <!-- Button to contact support -->
+    <string name="RemoteRestoreScreen__contact_support">Връзка с отдела за поддръжка</string>
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Shown while downloading the backup from the server -->
+    <string name="RemoteRestoreScreen__downloading_backup">Изтегляне на резервно копие…</string>
+    <!-- Shown while restoring messages from the downloaded backup -->
+    <string name="RemoteRestoreScreen__restoring_messages">Възстановяване на съобщенията…</string>
+    <!-- Shown while finalizing the restore -->
+    <string name="RemoteRestoreScreen__finishing_restore">Завършване…</string>
+    <!-- Shown as a generic restoring message -->
+    <string name="RemoteRestoreScreen__restoring">Възстановяване…</string>
+    <!-- Byte progress text, e.g. "1.2 MB of 10 MB (12.34%)" -->
+    <string name="RemoteRestoreScreen__s_of_s_s">%1$s от %2$s (%3$s)</string>
+    <!-- Shown when attempting to open a URL in the web browser, but a browser app cannot be found. -->
+    <string name="LinkActions_error_no_browser_found">Не е открит уеб браузър.</string>
+
+    <!-- Title for screen when your account is locked -->
+    <string name="AccountLockedScreen__account_locked">Заключен акаунт</string>
+    <!-- Description for screen when account is locked -->
+    <string name="AccountLockedScreen__your_account">Вашият акаунт е заключен, за да защити вашата поверителност и сигурност. След %1$d дни на неактивност във вашия акаунт ще можете да пререгистрирате този телефонен номер, без да се нуждаете от своя ПИН. Цялото съдържание ще бъде изтрито.</string>
+
+    <!-- Step 1 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_1">Отворете Signal на старото ви устройство</string>
+    <!-- Step 2 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_2">Докоснете иконата с камера </string>
+    <!-- Step 3 to quick restore -->
+    <string name="QuickRestoreQRScreen__step_3">Сканирайте този код с камерата</string>
+    <!-- Loading dialog text when registering -->
+    <string name="QuickRestoreQRScreen__reregister">Регистриране…</string>
+    <!-- Error message text shown if registering fails -->
+    <string name="QuickRestoreQRScreen__error">По време на регистрацията възникна грешка</string>
+    <!-- Title for quick restoring -->
+    <string name="QuickRestoreQRScreen__scan">Сканирайте този код със стария ви телефон</string>
+    <!-- Confirmation dialog when qr code is successfully scanned -->
+    <string name="QuickRestoreQRScreen__scanned">QR кодът е сканиран</string>
+    <!-- Button text to retry scanning the QR code -->
+    <string name="QuickRestoreQRScreen__retry">Опитайте отново</string>
+    <!-- Failure text when a code could not be generated -->
+    <string name="QuickRestoreQRScreen__failed">Неуспешно генериране на QR код</string>
+
+    <!-- Toast text hinting to submit a debug log with %d being how many more taps are left -->
+    <plurals name="RegistrationActivity_debug_log_hint">
+        <item quantity="one">Сега сте на %1$d стъпка от изпращането на доклад за дебъг.</item>
+        <item quantity="other">Сега сте на %1$d стъпки от изпращането на доклад за дебъг.</item>
+    </plurals>
+
+    <!-- PIN creation screen title. -->
+    <string name="PinCreationScreen__create_your_pin">Създаване на ПИН</string>
+    <!-- PIN creation screen title when confirming the new Signal PIN. -->
+    <string name="PinCreationScreen__confirm_your_pin">Потвърдете своя ПИН</string>
+    <!-- Describes how to confirm the new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin_description">Въведете отново току-що създадения ПИН</string>
+    <!-- Describes the purpose of creating a Signal PIN. -->
+    <string name="PinCreationScreen__pins_can_help">ПИН кодовете могат да ви помогнат да възстановите вашия акаунт, ако загубите телефона си. </string>
+    <!-- Labels the button to learn more about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more">Научете повече</string>
+    <!-- Labels the button to switch to the numeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_numeric">Превключване на цифри</string>
+    <!-- Labels the button to switch to the alphanumeric PIN keyboard type. -->
+    <string name="PinCreationScreen__switch_to_alphanumeric">Превключване на букви и цифри</string>
+    <!-- Labels the button to submit a new Signal PIN. -->
+    <string name="PinCreationScreen__next">Напред</string>
+    <!-- Hint shown below the create PIN field when numeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_digits">ПИН кодът трябва да съдържа поне 4 цифри</string>
+    <!-- Hint shown below the create PIN field when alphanumeric keyboard is active. -->
+    <string name="PinCreationScreen__pin_at_least_4_characters">ПИН кодът трябва да съдържа поне 4 знака</string>
+    <!-- Hint shown below the create PIN field when the user is confirming their new Signal PIN. -->
+    <string name="PinCreationScreen__reenter_pin">Въведете отново ПИН кода</string>
+    <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
+    <string name="PinCreationScreen__pins_dont_match">ПИН кодът не съвпада. Опитайте пак.</string>
+    <!-- Overflow menu item that opens a help article about Signal PINs. -->
+    <string name="PinCreationScreen__learn_more_about_pins">Научете повече за ПИН-овете</string>
+    <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__warning">Внимание</string>
+    <!-- Warning shown in the dialog confirming that the user wants to disable their Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin_warning">Ако деактивирате ПИН кода, ще загубите всички данни, когато пререгистрирате Signal, освен ако не направите ръчно архивиране и възстановяване. Не можете да включите „Заключване на регистрацията“, докато ПИН кодът е деактивиран.</string>
+    <!-- Overflow menu item and dialog button that disables the Signal PIN. -->
+    <string name="PinCreationScreen__disable_pin">Деактивиране на ПИН</string>
+    <!-- Labels the button that cancels disabling the Signal PIN. -->
+    <string name="PinCreationScreen__cancel">Отказ</string>
+    <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
+    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error. -->
+    <string name="PinCreationScreen__network_error">Възникна мрежова грешка.</string>
+    <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
+    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+
+    <!-- PIN entry screen title when registration lock is active. -->
+    <string name="PinEntryScreen__registration_lock">Заключване на регистрацията</string>
+    <!-- PIN entry screen title when restoring an account. -->
+    <string name="PinEntryScreen__enter_your_pin">Въведете своя ПИН</string>
+    <!-- Describes the PIN that needs to be entered. -->
+    <string name="PinEntryScreen__enter_the_pin_you_created">Въведете ПИН кода, който сте създали при първоначалното инсталиране на Signal</string>
+    <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
+    <plurals name="PinEntryScreen__incorrect_pin">
+        <item quantity="one">Грешен ПИН. Остава ви %1$d опит.</item>
+        <item quantity="other">Грешен ПИН. Остават ви %1$d опита.</item>
+    </plurals>
+    <!-- Labels the button to get help with PIN entry. -->
+    <string name="PinEntryScreen__need_help">Нужда от помощ?</string>
+    <!-- Labels the button to switch between the numeric and alphanumeric keyboard. -->
+    <string name="PinEntryScreen__switch_keyboard">Превключване на клавиатурата</string>
+    <!-- Labels the button to skip PIN entry. -->
+    <string name="PinEntryScreen__skip">Пропускане</string>
+    <!-- Labels the button to submit the PIN. -->
+    <string name="PinEntryScreen__continue">Продължаване</string>
+    <!-- Title of the dialog shown when the user taps skip on the PIN entry screen. -->
+    <string name="PinEntryScreen__skip_pin_entry">Пропускане въвеждането на ПИН?</string>
+    <!-- Body of the dialog shown when the user taps skip on the PIN entry screen, explaining the consequences of creating a new PIN. -->
+    <string name="PinEntryScreen__skip_pin_entry_message">Ако не си спомняте своя ПИН, можете да си създадете нов. Можете да се регистрирате и да използвате акаунта си, но ще изгубите някои от запазените настройки, като например информацията за профила ви.</string>
+    <!-- Labels the button in the skip dialog that takes the user to create a new PIN. -->
+    <string name="PinEntryScreen__create_new_pin">Създаване на нов ПИН</string>
+    <!-- Labels the button in the skip dialog that dismisses it. -->
+    <string name="PinEntryScreen__cancel">Отказ</string>
+    <!-- Body of the dialog shown when no data could be found to restore from the user\'s PIN, prompting them to create a new PIN. -->
+    <string name="PinEntryScreen__no_data_could_be_found">Не са открити данни за възстановяване на акаунта ви. Моля, създайте нов ПИН.</string>
+    <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
+    <string name="PinEntryScreen__contact_support">Връзка с отдела за поддръжка</string>
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+
+    <!-- Title for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__allow_notifications">Разрешете известията</string>
+    <!-- Description for the screen asking the user to grant the notification permission -->
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal иска разрешението за известия. Това позволява на вашето устройство да се показват предупреждения, когато пристигат нови съобщения.</string>
+    <!-- Button label that dismisses the notification permission request without granting it -->
+    <string name="AllowNotificationsScreen__not_now">Не сега</string>
+    <!-- Button label that proceeds with the notification permission request -->
+    <string name="AllowNotificationsScreen__next">Напред</string>
+
+    <!-- Title shown while messages are syncing from the primary device -->
+    <string name="MessageSyncScreen__syncing_messages">Синхронизиране на съобщения</string>
+    <!-- Subtitle shown while messages are syncing from the primary device, indicating it may take a while -->
+    <string name="MessageSyncScreen__this_may_take_a_few_minutes">Това може да отнеме няколко минути…</string>
+    <!-- Progress label shown under the sync progress bar. %1$s is the amount downloaded so far (e.g. "1 MB"), %2$s is the total size to download (e.g. "3.2 MB") -->
+    <string name="MessageSyncScreen__downloading_s_of_s">Изтегляне на %1$s от %2$s</string>
+    <!-- Progress label shown under the sync progress bar before the download size is known -->
+    <string name="MessageSyncScreen__preparing">Подготовка…</string>
+    <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
+    <string name="MessageSyncScreen__finishing">Завършване…</string>
+    <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
+    <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">Съобщенията и информацията за чатовете са защитени чрез криптиране от край до край, включително и процеса за синхронизиране.</string>
+    <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
+    <string name="MessageSyncScreen__learn_more">Научете повече</string>
+    <!-- Button label that cancels the in-progress message sync -->
+    <string name="MessageSyncScreen__cancel">Отказ</string>
+    <!-- Title of the dialog shown when restoring messages from the other device fails -->
+    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <!-- Button that retries the failed message restore -->
+    <string name="MessageSyncScreen__try_again">Опитайте отново</string>
+    <!-- Button that finishes linking without restoring message history after a failed restore -->
+    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+
+    <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
+    <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Сканирайте този код, за да свържете акаунта си</string>
+    <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
+    <string name="LinkAccountScreen__open_signal_on_your_phone">Отворете Signal на телефона си</string>
+    <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Докоснете профилната си снимка, за да отворите настройките на Signal</string>
+    <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
+    <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Докоснете „Свързани устройства“ и „Свързване на ново устройство“</string>
+    <!-- Button label opening help content for users who can\'t complete the link-account steps -->
+    <string name="LinkAccountScreen__get_help_with_these_steps">Помощ за тези стъпки</string>
+    <!-- Accessibility content description for the button that enlarges the QR code to full screen -->
+    <string name="LinkAccountScreen__maximize_qr_code">Увеличаване на QR кода</string>
+    <!-- Label shown in place of the QR code after the primary device has successfully scanned it -->
+    <string name="LinkAccountScreen__scanned">Сканиран</string>
+    <!-- Error label shown in place of the QR code if it could not be generated -->
+    <string name="LinkAccountScreen__failed_to_generate_code">Неуспешно генериране на код</string>
+    <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Нямате Signal на друго устройство?</string>
+    <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
+    <string name="LinkAccountScreen__create_account">Създаване на акаунт</string>
+    <!-- Button to retry generating the QR code after it failed to load -->
+    <string name="LinkAccountScreen__retry">Опитай Отново</string>
+    <!-- Progress dialog message shown while this device is being registered as a linked device -->
+    <string name="LinkAccountScreen__linking_device">Свързване с устройството…</string>
+    <!-- Progress dialog message shown while waiting for the primary device to prepare the message backup -->
+    <string name="LinkAccountScreen__waiting_for_your_other_device">Изчакваме другото ви устройство…</string>
+    <!-- Error dialog message shown when linking this device fails -->
+    <string name="LinkAccountScreen__error_linking_device">При свързването на това устройство възникна грешка</string>
+    <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
+    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
+    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <!-- Content description for the button that closes the maximized QR code overlay -->
+    <string name="LinkAccountScreen__close_qr_code">Затваряне на QR кода</string>
+
+    <!-- Device transfer: Instructions screen -->
+    <string name="DeviceTransferInstructions__transfer_your_account">Прехвърляне на акаунта</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">За да прехвърлите акаунта си, отворете Signal на старото си устройство с Android и изберете „Прехвърляне на акаунт“.</string>
+    <string name="DeviceTransferInstructions__continue">Продължаване</string>
+
+    <!-- Device transfer: Setup screen -->
+    <string name="DeviceTransferSetup__preparing_to_connect">Приготвяме се за свързване със старото Android устройство…</string>
+    <string name="DeviceTransferSetup__take_a_moment_should_be_ready_soon">Това може да отнеме малко време. Скоро трябва да е готово.</string>
+    <string name="DeviceTransferSetup__waiting_for_old_device">Изчакване на старото ви устройство да се свърже…</string>
+    <string name="DeviceTransferSetup__verify_numbers_match">Потвърдете дали числата на двете устройства съвпадат</string>
+    <string name="DeviceTransferSetup__numbers_match">Да, числата съвпадат</string>
+    <string name="DeviceTransferSetup__numbers_do_not_match">Числата не съвпадат</string>
+    <string name="DeviceTransferSetup__waiting_for_other_to_verify">Изчакване на старото ви устройство да потвърди…</string>
+    <string name="DeviceTransferSetup__location_permission_required">Signal се нуждае от разрешението за местоположение, за да открие и да се свърже със старото ви устройство.</string>
+    <string name="DeviceTransferSetup__grant_location_permission">Предоставяне на разрешение</string>
+    <string name="DeviceTransferSetup__location_services_required">За Signal е необходимо услугите за местоположение да са включени, за да открие и да се свърже със старото ви устройство.</string>
+    <string name="DeviceTransferSetup__turn_on_location_services">Включи услуга за местоположение</string>
+    <string name="DeviceTransferSetup__wifi_required">За Signal е необходимо да включите Wi-Fi, за да открие и да се свърже със старото ви устройство.</string>
+    <string name="DeviceTransferSetup__turn_on_wifi">Включи Wi-Fi</string>
+    <string name="DeviceTransferSetup__wifi_direct_unavailable">Съжаляваме, изглежда, че вашето устройство не поддържа Wi-Fi Direct.</string>
+    <string name="DeviceTransferSetup__restore_a_backup">Възстановяване на резервно копие вместо това</string>
+    <string name="DeviceTransferSetup__unexpected_error_connecting">Неочаквана грешка при опита за свързване със старото ви устройство.</string>
+    <string name="DeviceTransferSetup__retry">Опитай Отново</string>
+    <string name="DeviceTransferSetup__unable_to_discover_old_device">Неуспешно откриване на старото ви устройство</string>
+    <string name="DeviceTransferSetup__troubleshooting_tips">• Уверете се, че разрешенията за местоположение са предоставени.\n• Уверете се, че сте включили Wi-Fi и че няма запомнени групи с Wi-Fi Direct.\n• Опитайте да изключите Wi-Fi на двете устройства и след това отново да го включите.• Уверете се, че и двете устройства са в режим на прехвърляне.</string>
+    <string name="DeviceTransferSetup__try_again">Опитай отново</string>
+    <string name="DeviceTransferSetup__the_numbers_do_not_match">Числата не съвпадат</string>
+    <string name="DeviceTransferSetup__if_numbers_dont_match_wrong_device">Ако числата на устройствата не съвпадат, е възможно да сте се свързали с грешно устройство.</string>
+    <string name="DeviceTransferSetup__stop_transfer">Прекрати прехвърляне</string>
+
+    <!-- Device transfer: Progress screen -->
+    <string name="DeviceTransferProgress__transferring_data">Прехвърляне на данни</string>
+    <string name="DeviceTransferProgress__d_messages_so_far">%1$d съобщения до тук</string>
+    <string name="DeviceTransferProgress__unable_to_transfer">Не можахме да прехвърлим</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Не можете да прехвърляте от по-нова версия на Signal.</string>
+    <string name="DeviceTransferProgress__failure_foreign_key">Някои данни не бяха прехвърлени успешно поради ограничение в базата данни.</string>
+    <string name="DeviceTransferProgress__transfer_failed">Прехвърлянето е неуспешно. Моля, опитайте отново.</string>
+    <string name="DeviceTransferProgress__try_again">Опитайте отново</string>
+    <string name="DeviceTransferProgress__cancel">Отказ</string>
+    <string name="DeviceTransferProgress__stop_transfer">Прекрати прехвърляне?</string>
+    <string name="DeviceTransferProgress__all_transfer_progress_will_be_lost">Целият прогрес по прехвърлянето ще бъде загубен.</string>
+
+    <!-- Device transfer: Complete screen -->
+    <string name="DeviceTransferComplete__transfer_complete">Прехвърлянето приключи</string>
+    <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Акаунтът ви вече е на това устройство.</string>
+    <string name="DeviceTransferComplete__continue_registration">Продължаване</string>
+
+    <!-- Create profile screen -->
+    <!-- Title displayed at the top of the create-profile screen during registration. -->
+    <string name="CreateProfileScreen__set_up_your_profile">Настройте профила си</string>
+    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
+    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Вашият профил и промените в него ще бъдат видими за хора, с които чатите, контакти и групи.</string>
+    <!-- Label/hint for the first-name field, indicating it is required. -->
+    <string name="CreateProfileScreen__first_name_required">Собствено име (задължително)</string>
+    <!-- Label/hint for the last-name field, indicating it is optional. -->
+    <string name="CreateProfileScreen__last_name_optional">Фамилия (по избор)</string>
+    <!-- Action button text to advance from create-profile screen. -->
+    <string name="CreateProfileScreen__next">Напред</string>
+    <!-- Content description for the avatar selection control. -->
+    <string name="CreateProfileScreen__set_avatar_description">Слагане на аватар</string>
+
+    <!-- Phone number discoverability picker -->
+    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Кой може да ме намери с телефонен номер?</string>
+    <!-- Description shown on the picker when "Everyone" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Всеки, който има телефонния ви номер, ще вижда, че сте в Signal и ще може да започне чат с вас.</string>
+    <!-- Description shown on the picker when "Nobody" is selected. -->
+    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Никой няма да може да види, че сте в Signal, освен ако не му изпратите съобщение или вече нямате съществуващ чат с него.</string>
+    <!-- Radio option label for "Everyone can find me by number". -->
+    <string name="PhoneNumberPrivacy_everyone">Всички</string>
+    <!-- Radio option label for "Nobody can find me by number". -->
+    <string name="PhoneNumberPrivacy_nobody">Никой</string>
+    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Сигурни ли сте?</string>
+    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Задаването на „Кой може да ме намери по номер“ на „Никой“ ще затрудни хората да ви намират в Signal.</string>
+    <!-- Cancel button on the "Nobody" confirmation dialog. -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Отказ</string>
+    <!-- Save button on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__save">Запазване</string>
+    <!-- Content description for the back arrow on the discoverability picker. -->
+    <string name="PhoneNumberDiscoverabilityScreen__back">Обратно</string>
+    <!-- Error message shown when the captcha fails to load. -->
+    <string name="CaptchaScreen__failed_to_load_captcha">Неуспешно зареждане на captcha</string>
+    <!-- Button to cancel out of the captcha screen. -->
+    <string name="CaptchaScreen__cancel">Отказ</string>
 </resources>
