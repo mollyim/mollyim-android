@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.registration.v2
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.VisibleForTesting
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
@@ -103,6 +104,16 @@ import kotlin.time.Duration.Companion.seconds
  * Implementation of [StorageController] that bridges to the app's existing storage infrastructure.
  */
 class AppRegistrationStorageController(private val context: Context) : StorageController {
+
+  /**
+   * Restarts the process-wide network stack after account data is applied. Overridable only so tests can avoid
+   * touching the real, suite-shared network module; production must never replace it.
+   */
+  @VisibleForTesting
+  internal var restartNetwork: () -> Unit = {
+    AppDependencies.resetNetwork()
+    AppDependencies.startNetwork()
+  }
 
   companion object {
     private val TAG = Log.tag(AppRegistrationStorageController::class)
@@ -689,7 +700,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     val profileKey = getOrCreateProfileKey(accountData.e164)
     val recipientTable = SignalDatabase.recipients
-    val selfId = Recipient.trustedPush(aci, pni, accountData.e164).id
+    val selfId = recipientTable.getAndPossiblyMergePnpVerified(aci, pni, accountData.e164)
 
     recipientTable.setProfileSharing(selfId, true)
     recipientTable.markRegisteredOrThrow(selfId, aci)
@@ -722,8 +733,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       restoredAEP = SignalStore.account.restoredAccountEntropyPool
     )
 
-    AppDependencies.resetNetwork()
-    AppDependencies.startNetwork()
+    restartNetwork()
     PreKeysSyncJob.enqueue()
 
     recipientTable.clearSelfKeyTransparencyData()
@@ -749,7 +759,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   private fun getOrCreateProfileKey(e164: String): ProfileKey {
-    val existing = SignalDatabase.recipients.getByE164(e164).getOrNull()?.let { ProfileKeyUtil.profileKeyOrNull(Recipient.resolved(it).profileKey) }
+    val existing = SignalDatabase.recipients.getByE164(e164).getOrNull()?.let { ProfileKeyUtil.profileKeyOrNull(SignalDatabase.recipients.getRecord(it).profileKey) }
     return existing ?: ProfileKeyUtil.createNew().also { Log.i(TAG, "[commitRegistrationData] No profile key found, created a new one") }
   }
 
