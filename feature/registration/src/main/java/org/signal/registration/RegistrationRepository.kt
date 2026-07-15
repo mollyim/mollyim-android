@@ -5,9 +5,13 @@
 
 package org.signal.registration
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.backup.BackupManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
+import androidx.core.content.ContextCompat
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +58,7 @@ import org.signal.registration.proto.AccountData
 import org.signal.registration.proto.LinkedDeviceData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.SvrCredential
+import org.signal.registration.screens.countrycode.CountryUtils
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
@@ -175,15 +180,41 @@ class RegistrationRepository(val context: Context, val networkController: Networ
     }
   }
 
+  /**
+   * Determines the region code to default the country picker to. In priority order:
+   * 1. The region of the device's own phone number, if the phone permission is granted and the number is readable.
+   * 2. The network operator's country.
+   * 3. The SIM's home country.
+   * 4. A best-guess region derived from the device locale.
+   * 5. US, as a last resort.
+   */
   fun getDefaultRegionCode(): String {
-    val maybeRegionCode = Util.getNetworkCountryIso(context)
-    val maybeCountryCode = PhoneNumberUtil.getInstance().getCountryCodeForRegion(maybeRegionCode)
-    return if (maybeRegionCode != null && maybeCountryCode != 0) {
-      maybeRegionCode
-    } else {
-      Log.w(TAG, "Invalid region or country code. Defaulting to US.")
-      "US"
+    return deviceNumberRegionCode()
+      ?: Util.getNetworkCountryIso(context).takeIfValidRegion()
+      ?: Util.getSimCountryIso(context).orElse(null).takeIfValidRegion()
+      ?: CountryUtils.localeToRegionCode(Locale.getDefault()).takeIfValidRegion()
+      ?: run {
+        Log.w(TAG, "No usable region from telephony or locale. Defaulting to US.")
+        "US"
+      }
+  }
+
+  @SuppressLint("MissingPermission")
+  private fun deviceNumberRegionCode(): String? {
+    val hasPhonePermission = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
+      ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_GRANTED
+
+    if (!hasPhonePermission) {
+      return null
     }
+
+    val deviceNumber = Util.getDeviceNumber(context).orElse(null) ?: return null
+    val phoneNumberUtil = PhoneNumberUtil.getInstance()
+    return (phoneNumberUtil.getRegionCodeForNumber(deviceNumber) ?: phoneNumberUtil.getRegionCodeForCountryCode(deviceNumber.countryCode)).takeIfValidRegion()
+  }
+
+  private fun String?.takeIfValidRegion(): String? {
+    return this?.takeIf { it.isNotEmpty() && PhoneNumberUtil.getInstance().getCountryCodeForRegion(it) != 0 }
   }
 
   suspend fun getRestoredSvrCredentials(): List<SvrCredentials> = withContext(Dispatchers.IO) {
