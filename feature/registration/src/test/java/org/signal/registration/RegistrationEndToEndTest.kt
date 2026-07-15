@@ -8,6 +8,9 @@ package org.signal.registration
 import android.app.Application
 import android.net.Uri
 import android.os.Looper
+import android.view.View
+import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.activity.compose.LocalActivityResultRegistryOwner
 import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.ActivityResultRegistryOwner
@@ -15,6 +18,8 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.InternalComposeUiApi
+import androidx.compose.ui.platform.ViewRootForTest
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -50,6 +55,7 @@ import org.signal.registration.NetworkController.RegistrationLockResponse
 import org.signal.registration.NetworkController.RestoreMasterKeyError
 import org.signal.registration.NetworkController.RestoreMethod
 import org.signal.registration.NetworkController.SvrCredentials
+import org.signal.registration.NetworkController.UpdateSessionError
 import org.signal.registration.fakes.FakeNetworkController
 import org.signal.registration.fakes.FakeStorageController
 import org.signal.registration.fakes.SystemOutLogger
@@ -68,7 +74,7 @@ import kotlin.time.Duration.Companion.days
  * The fakes default to a happy path. To exercise other navigation paths, override the relevant
  * response handler on [networkController] or state on [storageController] before driving the UI.
  */
-@OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, InternalComposeUiApi::class)
 @RunWith(RobolectricTestRunner::class)
 @Config(application = Application::class)
 class RegistrationEndToEndTest {
@@ -132,6 +138,44 @@ class RegistrationEndToEndTest {
     assert(networkController.accountAttributesSyncJobEnqueued) { "Expected the account attributes sync job to be enqueued" }
 
     assert(storageController.restoreDecision == RestoreDecision.NEW_ACCOUNT) { "Expected NEW_ACCOUNT restore decision but was ${storageController.restoreDecision}" }
+  }
+
+  @Test
+  fun `a captcha submission for a session that no longer exists resets the flow, which can then be restarted to completion`() {
+    // The session demands a captcha, but expires server-side before the solved captcha is submitted
+    networkController.onCreateSession = {
+      RequestResult.Success(networkController.session(allowedToRequestCode = false, requestedInformation = listOf("captcha")))
+    }
+    networkController.onUpdateSession = {
+      RequestResult.NonSuccess(UpdateSessionError.SessionNotFound("no session found"))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    submitPhoneNumber()
+    solveCaptcha("captcha-token")
+
+    // The server no longer knows the session, so the flow resets back to the beginning
+    waitForTag(TestTags.WELCOME_SCREEN)
+    assert(networkController.lastUpdateSessionRequest?.captchaToken == "captcha-token") {
+      "Expected the solved captcha to be submitted but was ${networkController.lastUpdateSessionRequest}"
+    }
+    assert(storageController.committedData == null) { "Expected no registration data to be committed" }
+
+    // Starting over against a healthy server completes registration
+    networkController.onCreateSession = { RequestResult.Success(networkController.session()) }
+    networkController.onUpdateSession = { RequestResult.Success(networkController.session()) }
+
+    submitPhoneNumber()
+    submitVerificationCode(VERIFICATION_CODE)
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
   }
 
   @Test
@@ -1092,6 +1136,33 @@ class RegistrationEndToEndTest {
   private fun startRemoteRestore() {
     waitForTag(TestTags.REMOTE_BACKUP_RESTORE_RESTORE_BUTTON)
     composeTestRule.onNodeWithTag(TestTags.REMOTE_BACKUP_RESTORE_RESTORE_BUTTON).performClick()
+  }
+
+  /**
+   * From the captcha screen: simulates the user solving the captcha by driving the WebView's client with the
+   * `signalcaptcha://` redirect that a real solve produces.
+   */
+  @Suppress("DEPRECATION")
+  private fun solveCaptcha(token: String) {
+    var webView: WebView? = null
+    waitFor("the captcha WebView") {
+      val composeView = (composeTestRule.onNodeWithTag(TestTags.CAPTCHA_SCREEN).fetchSemanticsNode().root as ViewRootForTest).view
+      webView = findWebView(composeView)
+      webView != null
+    }
+    webView!!.let { Shadows.shadowOf(it).webViewClient.shouldOverrideUrlLoading(it, "signalcaptcha://$token") }
+  }
+
+  private fun findWebView(view: View): WebView? {
+    if (view is WebView) {
+      return view
+    }
+    if (view is ViewGroup) {
+      for (i in 0 until view.childCount) {
+        findWebView(view.getChildAt(i))?.let { return it }
+      }
+    }
+    return null
   }
 
   /** From the verification code screen: enters all six digits of [code], which submits automatically. */

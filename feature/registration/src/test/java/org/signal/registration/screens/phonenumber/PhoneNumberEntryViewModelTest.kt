@@ -1121,6 +1121,33 @@ class PhoneNumberEntryViewModelTest {
       .isInstanceOf<RegistrationRoute.Captcha>()
   }
 
+  @Test
+  fun `PhoneNumberSubmitted with push challenge resets state when session not found`() = runTest {
+    val sessionWithPushChallenge = createSessionMetadata(requestedInformation = listOf("pushChallenge"))
+
+    coEvery { mockRepository.createSession(any()) } returns
+      RequestResult.Success(sessionWithPushChallenge)
+    coEvery { mockRepository.awaitPushChallengeToken() } returns "test-push-challenge-token"
+    coEvery { mockRepository.submitPushChallengeToken(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.UpdateSessionError.SessionNotFound("Session expired")
+      )
+
+    val initialState = PhoneNumberEntryState(
+      countryCode = "1",
+      nationalNumber = "5551234567"
+    )
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    // Verify spinner states
+    assertThat(emittedStates.first().showSpinner).isTrue()
+    assertThat(emittedStates.last().showSpinner).isFalse()
+
+    assertThat(emittedEvents).hasSize(1)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
+  }
+
   // ==================== CaptchaCompleted Tests ====================
 
   @Test
@@ -1201,6 +1228,22 @@ class PhoneNumberEntryViewModelTest {
 
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last().dialogs.unknownError).isTrue()
+  }
+
+  @Test
+  fun `CaptchaCompleted handles session not found`() = runTest {
+    val sessionMetadata = createSessionMetadata()
+    val initialState = PhoneNumberEntryState(sessionMetadata = sessionMetadata)
+
+    coEvery { mockRepository.submitCaptchaToken(any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.UpdateSessionError.SessionNotFound("Session expired")
+      )
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedEvents).hasSize(1)
+    assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test

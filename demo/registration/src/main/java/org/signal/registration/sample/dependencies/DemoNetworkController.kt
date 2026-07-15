@@ -214,6 +214,9 @@ class DemoNetworkController(
           400 -> {
             RequestResult.NonSuccess(UpdateSessionError.InvalidRequest(response.body.string()))
           }
+          404 -> {
+            RequestResult.NonSuccess(UpdateSessionError.SessionNotFound(response.body.string()))
+          }
           409 -> {
             RequestResult.NonSuccess(UpdateSessionError.RejectedUpdate(response.body.string()))
           }

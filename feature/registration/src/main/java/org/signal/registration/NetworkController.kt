@@ -371,6 +371,7 @@ interface NetworkController {
 
   sealed class UpdateSessionError : BadRequestError {
     data class RejectedUpdate(val message: String) : UpdateSessionError()
+    data class SessionNotFound(val message: String) : UpdateSessionError()
     data class InvalidRequest(val message: String) : UpdateSessionError()
     data class RateLimited(val retryAfter: Duration, val session: SessionMetadata) : UpdateSessionError()
   }

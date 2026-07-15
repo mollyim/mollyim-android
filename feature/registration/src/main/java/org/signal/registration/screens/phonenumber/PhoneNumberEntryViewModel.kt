@@ -544,6 +544,11 @@ class PhoneNumberEntryViewModel(
             updateResult.result
           }
           is RequestResult.NonSuccess -> {
+            if (updateResult.error is NetworkController.UpdateSessionError.SessionNotFound) {
+              Log.w(TAG, "[SubmitPushChallengeToken] Session not found when submitting push challenge token.")
+              parentEventEmitter(RegistrationFlowEvent.ResetState)
+              return state
+            }
             Log.w(TAG, "[SubmitPushChallengeToken] Failed to submit push challenge token: ${updateResult.error}")
             sessionMetadata
           }
@@ -657,6 +662,11 @@ class PhoneNumberEntryViewModel(
           }
           is NetworkController.UpdateSessionError.RejectedUpdate -> {
             state.copy(dialogs = state.dialogs.copy(unknownError = true))
+          }
+          is NetworkController.UpdateSessionError.SessionNotFound -> {
+            Log.w(TAG, "[SubmitCaptcha] Session not found when submitting captcha token.")
+            parentEventEmitter(RegistrationFlowEvent.ResetState)
+            state
           }
           is NetworkController.UpdateSessionError.RateLimited -> {
             state.copy(dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
