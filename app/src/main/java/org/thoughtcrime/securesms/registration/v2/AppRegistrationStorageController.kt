@@ -97,6 +97,8 @@ import org.whispersystems.signalservice.api.link.TransferArchiveResponse
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration.Companion.seconds
 
@@ -477,7 +479,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         val match = MODERN_BACKUP_PATTERN.matchEntire(name) ?: continue
         val (year, month, day, hour, minute, second) = match.destructured
         try {
+          // V2 snapshot folders are named in UTC (see ArchiveFileSystem.createSnapshot), so convert to the device zone for display.
           val date = LocalDateTime.of(year.toInt(), month.toInt(), day.toInt(), hour.toInt(), minute.toInt(), second.toInt())
+            .atOffset(ZoneOffset.UTC)
+            .atZoneSameInstant(ZoneId.systemDefault())
+            .toLocalDateTime()
           backups.add(
             LocalBackupInfo(
               type = LocalBackupInfo.BackupType.V2,
