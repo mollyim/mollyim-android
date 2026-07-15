@@ -734,8 +734,11 @@ class RegistrationEndToEndTest {
     assert(committed != null) { "Expected registration data to be committed" }
     assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
     assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
-    assert(committed.accountEntropyPool.isNotEmpty() && committed.accountEntropyPool != aep.value) {
-      "Expected a fresh AEP to be committed rather than the foreign backup's AEP"
+    assert(committed.accountEntropyPool == aep.value) {
+      "Expected the entered recovery key to be adopted as the committed AEP"
+    }
+    assert(networkController.lastSetPinRequest?.masterKey == aep.deriveMasterKey()) {
+      "Expected the new PIN to be backed up to SVR with the master key derived from the adopted AEP"
     }
     assert(storageController.restoreDecision == RestoreDecision.COMPLETED) { "Expected COMPLETED restore decision but was ${storageController.restoreDecision}" }
   }

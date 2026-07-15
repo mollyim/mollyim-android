@@ -412,29 +412,23 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
           is Result.Success -> {
             AppDependencies.jobManager.add(LocalBackupRestoreMediaJob.create(rootUri))
 
-            // Only adopt the entered recovery key as the account's AEP if the backup actually belongs to this account.
-            // Otherwise we'd overwrite the account's real AEP with a foreign backup's key. Messages are still imported.
-            val actualBackupId = LocalArchiver.getBackupId(snapshotFileSystem, messageBackupKey)
-            val expectedBackupId = SignalStore.account.accountEntropyPool.deriveMessageBackupKey().deriveBackupId(selfAci)
-            if (actualBackupId?.value?.contentEquals(expectedBackupId.value) == true) {
-              Log.i(TAG, "V2 local backup belongs to current account; adopting entered recovery key.")
-              SignalStore.account.restoreAccountEntropyPool(aep)
-              updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
+            // The entered recovery key decrypted the backup the user chose to restore, so it always becomes the
+            // account's AEP -- even if the backup was made by a different account.
+            SignalStore.account.restoreAccountEntropyPool(aep)
+            updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
 
-              // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
-              // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
-              val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
-              if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
-                SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
-                SignalStore.backup.newLocalBackupsEnabled = true
-                LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
-                LocalBackupListener.schedule(context)
-              } else {
-                Log.w(TAG, "V2 local backup directory can't be reused as a destination; not re-enabling local backups.")
-              }
+            // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
+            // Skip it if the folder is the SignalBackups directory itself, since it can't be reused as a destination.
+            val archiveFileSystem = ArchiveFileSystem.openForRestore(context, rootUri)
+            if (archiveFileSystem != null && !archiveFileSystem.isRootedAtSignalBackups) {
+              SignalStore.backup.newLocalBackupsDirectory = rootUri.toString()
+              SignalStore.backup.newLocalBackupsEnabled = true
+              LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)
+              LocalBackupListener.schedule(context)
             } else {
-              Log.w(TAG, "V2 local backup does not belong to current account; keeping existing recovery key.")
+              Log.w(TAG, "V2 local backup directory can't be reused as a destination; not re-enabling local backups.")
             }
+
             trySend(readRestoredLocalBackupState())
             Log.d(TAG, "V2 restore complete.")
           }

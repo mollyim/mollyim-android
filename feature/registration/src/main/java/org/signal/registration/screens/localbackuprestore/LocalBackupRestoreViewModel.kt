@@ -154,6 +154,12 @@ class LocalBackupRestoreViewModel(
       resultBus.sendResult(resultKey, LocalBackupRestoreResult.Success(state.aep ?: progress.restoredAccountEntropyPool))
       parentEventEmitter.navigateBack()
     } else {
+      // The entered key decrypted the restored backup, so it becomes the canonical AEP -- even if it didn't match the
+      // AEP the server had associated with the account. Downstream screens (e.g. PIN creation) must use it too.
+      if (backupType == LocalBackupInfo.BackupType.V2 && state.aep != null) {
+        parentEventEmitter(RegistrationFlowEvent.UserSuppliedAepVerified(state.aep))
+      }
+
       repository.setRestoreDecision(RestoreDecision.COMPLETED)
 
       if (progress.restoredSvrPin != null) {
@@ -231,7 +237,7 @@ class LocalBackupRestoreViewModel(
             storageCapable = currentState.storageCapable
           )
           is LocalBackupRestoreProgress.Complete -> {
-            onRestoreComplete(_state.value.copy(aep = currentState.aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress, backup.type)
+            onRestoreComplete(_state.value.copy(aep = aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress, backup.type)
             _state.value
           }
           is LocalBackupRestoreProgress.IncorrectCredential -> {

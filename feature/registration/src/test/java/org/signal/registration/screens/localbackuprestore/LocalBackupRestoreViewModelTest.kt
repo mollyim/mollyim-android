@@ -234,6 +234,50 @@ class LocalBackupRestoreViewModelTest {
       .isEqualTo(RegistrationRoute.PinCreate)
   }
 
+  // ==================== AEP adoption Tests ====================
+
+  @Test
+  fun `V2 restore promotes the entered recovery key to the canonical AEP`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false, storageCapable = false, knownAep = AccountEntropyPool(VALID_AEP))
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V2,
+      date = LocalDateTime.now(),
+      name = "signal-backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
+
+    every { mockRepository.restoreV2Backup(any(), any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted(VALID_AEP), stateEmitter)
+
+    val verifiedEvents = emittedParentEvents.filterIsInstance<RegistrationFlowEvent.UserSuppliedAepVerified>()
+    assertThat(verifiedEvents).hasSize(1)
+    assertThat(verifiedEvents.single().aep.value).isEqualTo(VALID_AEP)
+  }
+
+  @Test
+  fun `post-registration V1 restore does not promote any AEP`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(isPreRegistration = false, storageCapable = false)
+    val backupInfo = LocalBackupInfo(
+      type = LocalBackupInfo.BackupType.V1,
+      date = LocalDateTime.now(),
+      name = "backup.backup",
+      uri = mockk()
+    )
+    val initialState = LocalBackupRestoreState(backupInfo = backupInfo, selectedFolderUri = mockk())
+
+    every { mockRepository.restoreV1Backup(any(), any(), any()) } returns flowOf(
+      LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null)
+    )
+
+    viewModel.applyEvent(initialState, LocalBackupRestoreEvents.PassphraseSubmitted("passphrase"), stateEmitter)
+
+    assertThat(emittedParentEvents.filterIsInstance<RegistrationFlowEvent.UserSuppliedAepVerified>()).isEmpty()
+  }
+
   // ==================== RestoreBackup with no backup Tests ====================
 
   @Test
