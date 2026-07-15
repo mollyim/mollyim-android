@@ -252,6 +252,12 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                          .build();
     }
 
+    long threadId = SignalDatabase.threads().getThreadIdIfExistsFor(remotePeer.getId());
+    if (!SignalStore.parentalControl().isThreadCallAllowed(threadId)) {
+      Log.i(TAG, "Parental controls: rejecting incoming call from non-allowed thread.");
+      return handleDenyCall(currentState);
+    }
+
     webRtcInteractor.updatePhoneState(LockManager.PhoneState.INTERACTIVE);
     boolean started = webRtcInteractor.startWebRtcCallActivityIfPossible();
     if (!started) {

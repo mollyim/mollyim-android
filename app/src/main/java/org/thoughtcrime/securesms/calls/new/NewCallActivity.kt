@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.recipients.ui.RecipientPicker
 import org.thoughtcrime.securesms.recipients.ui.RecipientPickerCallbacks
 import org.thoughtcrime.securesms.recipients.ui.RecipientPickerScaffold
 import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.CommunicationActions
 
 /**
@@ -61,6 +62,8 @@ class NewCallActivity : PassphraseRequiredActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    if (SignalStore.parentalControl.parentalModeEnabled) { finish(); return }
+
     enableEdgeToEdge()
     super.onCreate(savedInstanceState, ready)
 

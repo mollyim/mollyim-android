@@ -40,6 +40,7 @@ import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.joining.GroupJoinBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.groups.ui.invitesandrequests.joining.GroupJoinUpdateRequiredBottomSheetDialogFragment;
 import org.thoughtcrime.securesms.groups.v2.GroupInviteLinkUrl;
 import org.signal.core.ui.permissions.Permissions;
@@ -289,6 +290,10 @@ public class CommunicationActions {
                                                                          : null;
     },
     recipient -> {
+      if (SignalStore.parentalControl().getParentalModeEnabled()) {
+        Toast.makeText(activity, R.string.parental_group_invite_blocked, Toast.LENGTH_SHORT).show();
+        return;
+      }
       if (recipient != null) {
         CommunicationActions.startConversation(activity, recipient, null);
         Toast.makeText(activity, R.string.GroupJoinBottomSheetDialogFragment_you_are_already_a_member, Toast.LENGTH_SHORT).show();

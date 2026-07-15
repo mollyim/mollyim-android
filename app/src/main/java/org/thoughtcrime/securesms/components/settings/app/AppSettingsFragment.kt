@@ -74,6 +74,7 @@ import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModi
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -197,6 +198,7 @@ private fun AppSettingsContent(
   callbacks: Callbacks
 ) {
   val isRegisteredAndUpToDate by rememberUpdatedState(state.isRegisteredAndUpToDate())
+  val parentalModeEnabled = SignalStore.parentalControl.parentalModeEnabled
 
   Scaffolds.Settings(
     title = stringResource(R.string.text_secure_normal__menu_settings),
@@ -287,42 +289,44 @@ private fun AppSettingsContent(
           BackupFailureState.NONE -> Unit
         }
 
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.AccountSettingsFragment__account),
-            icon = painterResource(R.drawable.symbol_person_circle_24),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
-            }
-          )
-        }
+        if (!parentalModeEnabled) {
+          item {
+            Rows.TextRow(
+              text = stringResource(R.string.AccountSettingsFragment__account),
+              icon = painterResource(R.drawable.symbol_person_circle_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
+              }
+            )
+          }
 
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.preferences__linked_devices),
-            icon = painterResource(R.drawable.symbol_devices_24),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
-            },
-            enabled = isRegisteredAndUpToDate
-          )
-        }
+          item {
+            Rows.TextRow(
+              text = stringResource(R.string.preferences__linked_devices),
+              icon = painterResource(R.drawable.symbol_devices_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
+              },
+              enabled = isRegisteredAndUpToDate
+            )
+          }
 
-        item {
-          val context = LocalContext.current
-          val donateUrl = stringResource(R.string.donate_url)
+          item {
+            val context = LocalContext.current
+            val donateUrl = stringResource(R.string.donate_url)
 
-          Rows.TextRow(
-            text = stringResource(R.string.preferences__donate_to_signal),
-            icon = painterResource(R.drawable.symbol_heart_24),
-            onClick = {
-              CommunicationActions.openBrowserLink(context, donateUrl)
-            },
-          )
-        }
+            Rows.TextRow(
+              text = stringResource(R.string.preferences__donate_to_signal),
+              icon = painterResource(R.drawable.symbol_heart_24),
+              onClick = {
+                CommunicationActions.openBrowserLink(context, donateUrl)
+              },
+            )
+          }
 
-        item {
-          Dividers.Default()
+          item {
+            Dividers.Default()
+          }
         }
 
         item {

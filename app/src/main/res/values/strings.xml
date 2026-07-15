@@ -9822,5 +9822,26 @@
     <!-- Body of the sheet shown when a local backup restore could not be completed, explaining how to try again -->
     <string mollyify="true" name="CouldNotCompleteBackupRestoreSheet__body_retry">To try again, uninstall and re-install Signal on this device, and choose \"Restore or transfer\".</string>
 
+    <!-- Parental controls -->
+    <string name="parental_group_invite_blocked">Ask a parent to add this group</string>
+    <string name="parental_incorrect_pin">Incorrect PIN</string>
+    <string name="parental_pending_invites">Pending group invites</string>
+    <string name="parental_no_pending_invites">No pending invites</string>
+    <string name="parental_pin_dialog_title">Parent PIN required</string>
+    <string name="parental_pin_dialog_hint">Enter PIN</string>
+    <string name="parental_invite_accept">Accept</string>
+    <string name="parental_invite_decline">Decline</string>
+    <string name="parental_controls_menu_item">Parent Controls</string>
+    <string name="parental_controls_title">Parent Controls</string>
+    <string name="parental_mode_enabled_label">Parental mode enabled</string>
+    <string name="parental_allowed_chats_section">Allowed chats</string>
+    <string name="parental_change_pin">Change PIN</string>
+    <string name="parental_no_pin_set">No PIN set — tap to set one</string>
+    <string name="parental_new_pin_title">Set new PIN</string>
+    <string name="parental_confirm_pin_title">Confirm new PIN</string>
+    <string name="parental_pin_mismatch">PINs do not match</string>
+    <string name="parental_pin_changed">PIN updated</string>
+    <string name="parental_pin_too_short">PIN must be at least 4 digits</string>
+
     <!-- EOF -->
 </resources>

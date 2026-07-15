@@ -41,6 +41,7 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.window.NavigationType
 import kotlin.math.roundToInt
 import org.signal.core.ui.R as CoreUiR
@@ -170,6 +171,8 @@ private fun PrimaryActionButton(
   onCameraClick: (MainNavigationListLocation) -> Unit = {},
   onNewCallClick: () -> Unit = {}
 ) {
+  if (SignalStore.parentalControl.parentalModeEnabled && destination != MainNavigationListLocation.STORIES) return
+
   val onClick = remember(destination) {
     when (destination) {
       MainNavigationListLocation.ARCHIVE -> onNewChatClick

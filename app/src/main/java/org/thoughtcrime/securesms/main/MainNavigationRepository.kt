@@ -4,12 +4,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.reactive.asFlow
 import org.thoughtcrime.securesms.database.RxDatabaseObserver
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 
 object MainNavigationRepository {
 
   fun getNumberOfUnreadMessages(): Flow<Long> {
-    return RxDatabaseObserver.conversationList.map { SignalDatabase.threads.getUnreadMessageCount() }.asFlow()
+    return RxDatabaseObserver.conversationList.map {
+      if (SignalStore.parentalControl.parentalModeEnabled) {
+        SignalStore.parentalControl.getAllowedThreadIds().sumOf { threadId ->
+          SignalDatabase.threads.getThreadRecord(threadId)?.unreadCount?.toLong() ?: 0L
+        }
+      } else {
+        SignalDatabase.threads.getUnreadMessageCount()
+      }
+    }.asFlow()
   }
 
   fun getNumberOfUnseenStories(): Flow<Long> {

@@ -291,6 +291,7 @@ import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Activity
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
 import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 import org.thoughtcrime.securesms.messagerequests.MessageRequestRepository
+import org.thoughtcrime.securesms.messagerequests.MessageRequestState
 import org.thoughtcrime.securesms.mms.AttachmentManager
 import org.thoughtcrime.securesms.mms.AudioSlide
 import org.thoughtcrime.securesms.mms.DocumentSlide
@@ -1532,7 +1533,14 @@ class ConversationFragment :
       inputReadyState.isClientExpired || inputReadyState.isUnauthorized -> disabledInputView.showAsExpiredOrUnauthorized(inputReadyState.isClientExpired, inputReadyState.isUnauthorized)
       args.isIncognito -> disabledInputView.showAsIncognito()
       inputReadyState.isTerminatedGroup -> disabledInputView.showAsTerminatedGroup()
-      !inputReadyState.messageRequestState.isAccepted -> disabledInputView.showAsMessageRequest(inputReadyState.conversationRecipient, inputReadyState.messageRequestState)
+      !inputReadyState.messageRequestState.isAccepted -> {
+        val isGroupInvite = inputReadyState.messageRequestState.state == MessageRequestState.State.GROUP_V2_INVITE
+        if (isGroupInvite && SignalStore.parentalControl.parentalModeEnabled) {
+          disabledInputView.clear()
+        } else {
+          disabledInputView.showAsMessageRequest(inputReadyState.conversationRecipient, inputReadyState.messageRequestState)
+        }
+      }
       inputReadyState.isRequestingMember == true -> disabledInputView.showAsRequestingMember()
       inputReadyState.isActiveGroup == false -> disabledInputView.showAsNoLongerAMember()
       inputReadyState.isAnnouncementGroup == true && inputReadyState.isAdmin == false -> disabledInputView.showAsAnnouncementGroupAdminsOnly()
@@ -4232,6 +4240,11 @@ class ConversationFragment :
    * In split-pane mode, delegates to the [MainNavigationRouter] to display content in the detail pane. Otherwise, opens the destination as a standalone screen.
    */
   private fun navigateTo(location: MainNavigationDetailLocation.Chats) {
+    if (SignalStore.parentalControl.parentalModeEnabled &&
+      location is MainNavigationDetailLocation.Chats.ConversationSettings &&
+      viewModel.recipientSnapshot?.isPushGroup == true
+    ) return
+
     val router = mainNavRouter
     if (router != null && resources.getWindowSizeClass().isSplitPane()) {
       router.goTo(location)
@@ -4256,6 +4269,8 @@ class ConversationFragment :
    * Opens conversation settings as a standalone (single-pane) screen.
    */
   private fun navigateToConversationSettingsStandalone(recipient: Recipient) {
+    if (SignalStore.parentalControl.parentalModeEnabled && recipient.isPushGroup) return
+
     val intent = if (recipient.isPushGroup) {
       ConversationSettingsActivity.forGroup(requireContext(), recipient.requireGroupId())
     } else {
