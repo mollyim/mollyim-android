@@ -76,6 +76,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaym
 import org.thoughtcrime.securesms.components.settings.app.subscription.completed.InAppPaymentsBottomSheetDelegate
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -96,7 +97,11 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
         appSettingsRouter.currentRoute.collect { route ->
           when (route) {
             is AppSettingsRoute.BackupsRoute.Remote -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_remoteBackupsSettingsFragment)
-            is AppSettingsRoute.AccountRoute.Account -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_accountSettingsFragment)
+            is AppSettingsRoute.AccountRoute.Account -> if (SignalStore.account.isPrimaryDevice) {
+              findNavController().safeNavigate(R.id.action_appSettingsFragment_to_accountSettingsFragment)
+            } else {
+              findNavController().safeNavigate(R.id.action_appSettingsFragment_to_linkedDeviceAccountSettingsFragment)
+            }
             is AppSettingsRoute.LinkDeviceRoute.LinkDevice -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_linkDeviceFragment)
             is AppSettingsRoute.DonationsRoute.Donations -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_manageDonationsFragment)
             is AppSettingsRoute.AppearanceRoute.Appearance -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_appearanceSettingsFragment)
@@ -292,17 +297,17 @@ private fun AppSettingsContent(
           BackupFailureState.NONE -> Unit
         }
 
-        if (state.isPrimaryDevice) {
-          item {
-            Rows.TextRow(
-              text = stringResource(R.string.AccountSettingsFragment__account),
-              icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
-              onClick = {
-                callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
-              }
-            )
-          }
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.AccountSettingsFragment__account),
+            icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
+            onClick = {
+              callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
+            }
+          )
+        }
 
+        if (state.isPrimaryDevice) {
           item {
             Rows.TextRow(
               text = stringResource(R.string.preferences__linked_devices),

@@ -51,7 +51,7 @@ object LinkDeviceRepository {
   private val TAG = Log.tag(LinkDeviceRepository::class)
   private const val DECRYPTION_INFO = "deviceCreatedAt"
 
-  fun removeDevice(deviceId: Int): Boolean {
+  suspend fun removeDevice(deviceId: Int): Boolean {
     return when (val result = AppDependencies.linkDeviceApi.removeDevice(deviceId)) {
       is NetworkResult.Success -> {
         LinkedDeviceInactiveCheckJob.enqueue()

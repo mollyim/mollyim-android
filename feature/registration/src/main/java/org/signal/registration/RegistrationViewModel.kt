@@ -21,9 +21,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.core.util.logging.Log
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.restoreselection.RegisteredState
 import kotlin.reflect.KClass
 
