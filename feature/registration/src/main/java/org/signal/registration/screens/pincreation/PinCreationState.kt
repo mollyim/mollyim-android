@@ -16,14 +16,16 @@ data class PinCreationState(
   val loading: Boolean = false,
   val firstPin: String? = null,
   val accountEntropyPool: AccountEntropyPool? = null,
-  val oneTimeEvent: OneTimeEvent? = null
+  val dialogs: Dialogs = Dialogs()
 ) {
   override fun toString(): String {
-    return "PinCreationState(isAlphanumericKeyboard=$isAlphanumericKeyboard, isConfirmEnabled=$isConfirmEnabled, pinMismatch=$pinMismatch, loading=$loading, firstPin=${firstPin?.let { "${it.length} chars" }}, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, oneTimeEvent=$oneTimeEvent)"
+    return "PinCreationState(isAlphanumericKeyboard=$isAlphanumericKeyboard, isConfirmEnabled=$isConfirmEnabled, pinMismatch=$pinMismatch, loading=$loading, firstPin=${firstPin?.let { "${it.length} chars" }}, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, dialogs=$dialogs)"
   }
 
-  sealed interface OneTimeEvent {
-    data object ServiceError : OneTimeEvent
-    data class NetworkError(val retryAfter: Duration?) : OneTimeEvent
+  data class Dialogs(
+    val serviceError: Boolean = false,
+    val networkError: NetworkError? = null
+  ) {
+    data class NetworkError(val retryAfter: Duration?)
   }
 }

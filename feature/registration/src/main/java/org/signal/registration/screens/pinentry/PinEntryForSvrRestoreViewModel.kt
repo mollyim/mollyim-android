@@ -84,7 +84,10 @@ class PinEntryForSvrRestoreViewModel(
         Log.i(TAG, "[ContactSupport] User opted to contact support after no data was found.")
         stateEmitter(state.copy(showNoDataToRestoreDialog = false))
       }
-      is PinEntryScreenEvents.ToggleKeyboard -> {
+      is PinEntryScreenEvents.ToggleKeyboard,
+      is PinEntryScreenEvents.NetworkErrorDialogDismissed,
+      is PinEntryScreenEvents.RateLimitedDialogDismissed,
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
       is PinEntryScreenEvents.ParentStateChanged -> Unit
@@ -117,10 +120,10 @@ class PinEntryForSvrRestoreViewModel(
         }
       }
       is RequestResult.RetryableNetworkError -> {
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
 
@@ -148,11 +151,11 @@ class PinEntryForSvrRestoreViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
   }

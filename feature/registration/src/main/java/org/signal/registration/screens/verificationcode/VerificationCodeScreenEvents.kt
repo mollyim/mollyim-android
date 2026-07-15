@@ -45,7 +45,26 @@ sealed class VerificationCodeScreenEvents {
 
   data object DismissContactSupport : VerificationCodeScreenEvents()
 
-  data object ConsumeInnerOneTimeEvent : VerificationCodeScreenEvents()
+  /** The network error snackbar was shown and dismissed. */
+  data object NetworkErrorSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The unknown error snackbar was shown and dismissed. */
+  data object UnknownErrorSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The rate limited snackbar was shown and dismissed. */
+  data object RateLimitedSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The unable-to-send-SMS snackbar was shown and dismissed. */
+  data object UnableToSendSmsSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The could-not-request-code-with-selected-transport snackbar was shown and dismissed. */
+  data object CouldNotRequestCodeWithSelectedTransportSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The incorrect verification code snackbar was shown and dismissed. */
+  data object IncorrectVerificationCodeSnackbarDismissed : VerificationCodeScreenEvents()
+
+  /** The registration error snackbar was shown and dismissed. */
+  data object RegistrationErrorSnackbarDismissed : VerificationCodeScreenEvents()
 
   /**
    * Event to update countdown timers. Should be triggered periodically (e.g., every second).

@@ -55,9 +55,6 @@ class DeviceTransferCompleteViewModel(
         repository.restoreAccountRecord()
         parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
       }
-      DeviceTransferCompleteScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
-      }
     }
   }
 

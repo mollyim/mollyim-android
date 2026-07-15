@@ -94,39 +94,20 @@ fun VerificationCodeScreen(
     onEvent(VerificationCodeScreenEvents.ConsumeAutoFillCode)
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    val event = state.oneTimeEvent ?: return@LaunchedEffect
-
-    when (event) {
-      VerificationCodeState.OneTimeEvent.IncorrectVerificationCode -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__incorrect_code))
-      }
-
-      VerificationCodeState.OneTimeEvent.NetworkError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__network_error))
-      }
-
-      is VerificationCodeState.OneTimeEvent.RateLimited -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, event.retryAfter.toString()))
-      }
-
-      VerificationCodeState.OneTimeEvent.UnableToSendSms -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms))
-      }
-
-      VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method))
-      }
-
-      VerificationCodeState.OneTimeEvent.UnknownError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred))
-      }
-
-      VerificationCodeState.OneTimeEvent.RegistrationError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__registration_error))
-      }
+  LaunchedEffect(state.snackbars) {
+    val (message, dismissedEvent) = when {
+      state.snackbars.incorrectVerificationCode -> resources.getString(R.string.VerificationCodeScreen__incorrect_code) to VerificationCodeScreenEvents.IncorrectVerificationCodeSnackbarDismissed
+      state.snackbars.networkError -> resources.getString(R.string.VerificationCodeScreen__network_error) to VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed
+      state.snackbars.rateLimitedRetryAfter != null -> resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.snackbars.rateLimitedRetryAfter.toString()) to VerificationCodeScreenEvents.RateLimitedSnackbarDismissed
+      state.snackbars.unableToSendSms -> resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms) to VerificationCodeScreenEvents.UnableToSendSmsSnackbarDismissed
+      state.snackbars.couldNotRequestCodeWithSelectedTransport -> resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method) to VerificationCodeScreenEvents.CouldNotRequestCodeWithSelectedTransportSnackbarDismissed
+      state.snackbars.unknownError -> resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to VerificationCodeScreenEvents.UnknownErrorSnackbarDismissed
+      state.snackbars.registrationError -> resources.getString(R.string.VerificationCodeScreen__registration_error) to VerificationCodeScreenEvents.RegistrationErrorSnackbarDismissed
+      else -> return@LaunchedEffect
     }
-    onEvent(VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent)
+
+    snackbarHostState.showSnackbar(message)
+    onEvent(dismissedEvent)
   }
 
   LaunchedEffect(state.focusedDigitIndex) {

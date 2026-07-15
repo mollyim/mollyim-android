@@ -86,7 +86,10 @@ class PinEntryForSmsBypassViewModel(
       }
       is PinEntryScreenEvents.CreateNewPin,
       is PinEntryScreenEvents.ContactSupport -> Unit
-      is PinEntryScreenEvents.ToggleKeyboard -> {
+      is PinEntryScreenEvents.ToggleKeyboard,
+      is PinEntryScreenEvents.NetworkErrorDialogDismissed,
+      is PinEntryScreenEvents.RateLimitedDialogDismissed,
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
@@ -131,11 +134,11 @@ class PinEntryForSmsBypassViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key (sms-bypass).", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key (sms-bypass).", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
   }
@@ -165,10 +168,10 @@ class PinEntryForSmsBypassViewModel(
         state
       }
       is RequestResult.RetryableNetworkError -> {
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
@@ -185,7 +188,7 @@ class PinEntryForSmsBypassViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
-            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             if (provideRegistrationLock) {

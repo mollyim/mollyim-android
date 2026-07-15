@@ -25,5 +25,5 @@ sealed class CreateProfileScreenEvents {
   data object WhoCanFindMeClicked : CreateProfileScreenEvents()
   data class DiscoverabilityChanged(val discoverable: Boolean) : CreateProfileScreenEvents()
   data object NextClicked : CreateProfileScreenEvents()
-  data object ConsumeOneTimeEvent : CreateProfileScreenEvents()
+  data object UploadFailedDialogDismissed : CreateProfileScreenEvents()
 }

@@ -54,7 +54,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -83,7 +82,6 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
-import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.test.TestTags
 import org.signal.core.ui.R as CoreR
 
@@ -116,10 +114,7 @@ fun PhoneNumberScreen(
   onEvent: (PhoneNumberEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val resources = LocalResources.current
   val context = LocalContext.current
-  var simpleErrorMessage: String? by remember { mutableStateOf(null) }
-  var showInvalidNumberDialog by remember { mutableStateOf(false) }
   var hasRequestedPhoneNumberHint by rememberSaveable { mutableStateOf(false) }
   val currentNationalNumber by rememberUpdatedState(state.nationalNumber)
 
@@ -171,7 +166,7 @@ fun PhoneNumberScreen(
     }
   }
 
-  if (state.showDialog) {
+  if (state.dialogs.confirmNumber) {
     Dialogs.SimpleAlertDialog(
       title = stringResource(R.string.RegistrationActivity_is_the_phone_number),
       body = "+${state.countryCode} ${state.formattedNumber}\n\n${stringResource(R.string.RegistrationActivity_a_verification_code)}",
@@ -182,37 +177,36 @@ fun PhoneNumberScreen(
     )
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    onEvent(PhoneNumberEntryScreenEvents.ConsumeOneTimeEvent)
-    when (state.oneTimeEvent) {
-      OneTimeEvent.NetworkError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__network_error)
-      is OneTimeEvent.RateLimited -> simpleErrorMessage = if (state.oneTimeEvent.retryAfter.isPositive()) {
-        resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+  val simpleError: Pair<String, PhoneNumberEntryScreenEvents>? = when {
+    state.dialogs.networkError -> stringResource(R.string.VerificationCodeScreen__network_error) to PhoneNumberEntryScreenEvents.NetworkErrorDialogDismissed
+    state.dialogs.rateLimitedRetryAfter != null -> {
+      val message = if (state.dialogs.rateLimitedRetryAfter.isPositive()) {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.dialogs.rateLimitedRetryAfter.toString())
       } else {
-        resources.getString(R.string.VerificationCodeScreen__too_many_attempts)
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts)
       }
-      OneTimeEvent.UnknownError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
-      OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method)
-      OneTimeEvent.UnableToSendSms -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms)
-      OneTimeEvent.InvalidPhoneNumber -> showInvalidNumberDialog = true
-      null -> Unit
+      message to PhoneNumberEntryScreenEvents.RateLimitedDialogDismissed
     }
+    state.dialogs.unknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to PhoneNumberEntryScreenEvents.UnknownErrorDialogDismissed
+    state.dialogs.couldNotRequestCodeWithSelectedTransport -> stringResource(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method) to PhoneNumberEntryScreenEvents.CouldNotRequestCodeWithSelectedTransportDialogDismissed
+    state.dialogs.unableToSendSms -> stringResource(R.string.VerificationCodeScreen__unable_to_send_sms) to PhoneNumberEntryScreenEvents.UnableToSendSmsDialogDismissed
+    else -> null
   }
 
-  simpleErrorMessage?.let { message ->
+  simpleError?.let { (message, dismissedEvent) ->
     Dialogs.SimpleMessageDialog(
       message = message,
       dismiss = stringResource(android.R.string.ok),
-      onDismiss = { simpleErrorMessage = null }
+      onDismiss = { onEvent(dismissedEvent) }
     )
   }
 
-  if (showInvalidNumberDialog) {
+  if (state.dialogs.invalidPhoneNumber) {
     Dialogs.SimpleMessageDialog(
       title = stringResource(R.string.RegistrationActivity_invalid_phone_number),
       message = stringResource(R.string.RegistrationActivity_the_number_you_entered_is_not_valid),
       dismiss = stringResource(android.R.string.ok),
-      onDismiss = { showInvalidNumberDialog = false }
+      onDismiss = { onEvent(PhoneNumberEntryScreenEvents.InvalidPhoneNumberDialogDismissed) }
     )
   }
 

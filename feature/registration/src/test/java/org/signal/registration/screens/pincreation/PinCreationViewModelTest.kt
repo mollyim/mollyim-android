@@ -10,11 +10,8 @@ import assertk.assertions.contains
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import assertk.assertions.prop
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -187,7 +184,7 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().dialogs.serviceError).isTrue()
     assertThat(states.last().loading).isFalse()
   }
 
@@ -203,7 +200,7 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().dialogs.serviceError).isTrue()
     assertThat(states.last().loading).isFalse()
   }
 
@@ -220,21 +217,29 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PinCreationState.OneTimeEvent.NetworkError>()
-      .prop(PinCreationState.OneTimeEvent.NetworkError::retryAfter)
-      .isEqualTo(retryAfter)
+    assertThat(states.last().dialogs.networkError).isEqualTo(PinCreationState.Dialogs.NetworkError(retryAfter))
     assertThat(states.last().loading).isFalse()
   }
 
   @Test
-  fun `ConsumeOneTimeEvent clears the one-time event`() = runTest(testDispatcher) {
+  fun `ServiceErrorDialogDismissed clears only the service error dialog`() = runTest(testDispatcher) {
     val states = collectStates()
-    val stateWithEvent = PinCreationState(oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+    val networkError = PinCreationState.Dialogs.NetworkError(retryAfter = null)
+    val stateWithEvent = PinCreationState(dialogs = PinCreationState.Dialogs(serviceError = true, networkError = networkError))
 
-    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.ConsumeOneTimeEvent)
+    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.ServiceErrorDialogDismissed)
 
-    assertThat(states.last().oneTimeEvent).isNull()
+    assertThat(states.last().dialogs).isEqualTo(PinCreationState.Dialogs(networkError = networkError))
+  }
+
+  @Test
+  fun `NetworkErrorDialogDismissed clears only the network error dialog`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val stateWithEvent = PinCreationState(dialogs = PinCreationState.Dialogs(serviceError = true, networkError = PinCreationState.Dialogs.NetworkError(retryAfter = null)))
+
+    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.NetworkErrorDialogDismissed)
+
+    assertThat(states.last().dialogs).isEqualTo(PinCreationState.Dialogs(serviceError = true))
   }
 
   // ==================== OptOut Tests ====================

@@ -14,7 +14,6 @@ import assertk.assertions.doesNotContain
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
-import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -235,11 +234,11 @@ class DeviceTransferSetupViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(DeviceTransferSetupState.OneTimeEvent.RequestLocationPermission)
+    assertThat(emittedStates.last().pendingActions.requestLocationPermission).isTrue()
   }
 
   @Test
-  fun `OpenLocationSettingsClicked emits the open-location one-time event`() = runTest {
+  fun `OpenLocationSettingsClicked sets the open-location pending action`() = runTest {
     viewModel.applyEvent(
       DeviceTransferSetupState(),
       DeviceTransferSetupScreenEvents.OpenLocationSettingsClicked,
@@ -247,11 +246,11 @@ class DeviceTransferSetupViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(DeviceTransferSetupState.OneTimeEvent.OpenLocationSettings)
+    assertThat(emittedStates.last().pendingActions.openLocationSettings).isTrue()
   }
 
   @Test
-  fun `OpenWifiSettingsClicked emits the open-wifi one-time event`() = runTest {
+  fun `OpenWifiSettingsClicked sets the open-wifi pending action`() = runTest {
     viewModel.applyEvent(
       DeviceTransferSetupState(),
       DeviceTransferSetupScreenEvents.OpenWifiSettingsClicked,
@@ -259,11 +258,11 @@ class DeviceTransferSetupViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(DeviceTransferSetupState.OneTimeEvent.OpenWifiSettings)
+    assertThat(emittedStates.last().pendingActions.openWifiSettings).isTrue()
   }
 
   @Test
-  fun `OpenAppSettingsClicked emits the open-app-settings one-time event`() = runTest {
+  fun `OpenAppSettingsClicked sets the open-app-settings pending action`() = runTest {
     viewModel.applyEvent(
       DeviceTransferSetupState(),
       DeviceTransferSetupScreenEvents.OpenAppSettingsClicked,
@@ -271,7 +270,7 @@ class DeviceTransferSetupViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(DeviceTransferSetupState.OneTimeEvent.OpenAppSettings)
+    assertThat(emittedStates.last().pendingActions.openAppSettings).isTrue()
   }
 
   @Test
@@ -338,15 +337,15 @@ class DeviceTransferSetupViewModelTest {
   }
 
   @Test
-  fun `ConsumeOneTimeEvent clears the one-time event`() = runTest {
+  fun `OpenWifiSettingsHandled clears only the open-wifi pending action`() = runTest {
     viewModel.applyEvent(
-      DeviceTransferSetupState(oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.OpenWifiSettings),
-      DeviceTransferSetupScreenEvents.ConsumeOneTimeEvent,
+      DeviceTransferSetupState(pendingActions = DeviceTransferSetupState.PendingActions(openWifiSettings = true, requestLocationPermission = true)),
+      DeviceTransferSetupScreenEvents.OpenWifiSettingsHandled,
       parentEventEmitter,
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedStates.last().pendingActions).isEqualTo(DeviceTransferSetupState.PendingActions(requestLocationPermission = true))
   }
 
   // endregion

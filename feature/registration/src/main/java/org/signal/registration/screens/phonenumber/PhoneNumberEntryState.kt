@@ -21,8 +21,7 @@ data class PhoneNumberEntryState(
   val sessionE164: String? = null,
   val sessionMetadata: SessionMetadata? = null,
   val showSpinner: Boolean = false,
-  val showDialog: Boolean = false,
-  val oneTimeEvent: OneTimeEvent? = null,
+  val dialogs: Dialogs = Dialogs(),
   val preExistingRegistrationData: PreExistingRegistrationData? = null,
   val restoredSvrCredentials: List<NetworkController.SvrCredentials> = emptyList(),
   val pendingRestoreOption: PendingRestoreOption? = null,
@@ -32,14 +31,17 @@ data class PhoneNumberEntryState(
   /** Whether the entered number is definitively invalid. A still-too-short number is not considered invalid, since the user may simply be mid-entry. */
   val isNumberInvalid: Boolean = false
 ) {
-  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, showDialog=$showDialog, oneTimeEvent=$oneTimeEvent, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized, isNumberPossible=$isNumberPossible, isNumberInvalid=$isNumberInvalid)"
+  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, dialogs=$dialogs, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized, isNumberPossible=$isNumberPossible, isNumberInvalid=$isNumberInvalid)"
 
-  sealed interface OneTimeEvent {
-    data object NetworkError : OneTimeEvent
-    data object UnknownError : OneTimeEvent
-    data class RateLimited(val retryAfter: Duration) : OneTimeEvent
-    data object UnableToSendSms : OneTimeEvent
-    data object CouldNotRequestCodeWithSelectedTransport : OneTimeEvent
-    data object InvalidPhoneNumber : OneTimeEvent
-  }
+  data class Dialogs(
+    /** Asks the user to confirm the number they entered before submitting it. */
+    val confirmNumber: Boolean = false,
+    val networkError: Boolean = false,
+    val unknownError: Boolean = false,
+    /** When non-null, shows a rate limit error dialog. A non-positive duration indicates the server didn't say how long to wait. */
+    val rateLimitedRetryAfter: Duration? = null,
+    val unableToSendSms: Boolean = false,
+    val couldNotRequestCodeWithSelectedTransport: Boolean = false,
+    val invalidPhoneNumber: Boolean = false
+  )
 }

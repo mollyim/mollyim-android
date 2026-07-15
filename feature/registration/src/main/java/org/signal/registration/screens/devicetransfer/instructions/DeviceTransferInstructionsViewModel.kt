@@ -55,9 +55,6 @@ class DeviceTransferInstructionsViewModel(
       DeviceTransferInstructionsScreenEvents.BackClicked -> {
         parentEventEmitter.navigateBack()
       }
-      DeviceTransferInstructionsScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
-      }
     }
   }
 

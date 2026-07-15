@@ -121,6 +121,28 @@ fun PinEntryScreen(
     )
   }
 
+  val errorDialog: Pair<String, PinEntryScreenEvents>? = when {
+    state.dialogs.networkError -> stringResource(R.string.VerificationCodeScreen__network_error) to PinEntryScreenEvents.NetworkErrorDialogDismissed
+    state.dialogs.rateLimitedRetryAfter != null -> {
+      val message = if (state.dialogs.rateLimitedRetryAfter.isPositive()) {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.dialogs.rateLimitedRetryAfter.toString())
+      } else {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts)
+      }
+      message to PinEntryScreenEvents.RateLimitedDialogDismissed
+    }
+    state.dialogs.unknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to PinEntryScreenEvents.UnknownErrorDialogDismissed
+    else -> null
+  }
+
+  errorDialog?.let { (message, dismissedEvent) ->
+    Dialogs.SimpleMessageDialog(
+      message = message,
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(dismissedEvent) }
+    )
+  }
+
   if (state.showNoDataToRestoreDialog) {
     Dialogs.SimpleAlertDialog(
       title = "",

@@ -433,20 +433,20 @@ class PhoneNumberEntryViewModelTest {
   }
 
   @Test
-  fun `ConsumeInnerOneTimeEvent clears inner event`() = runTest {
+  fun `NetworkErrorDialogDismissed clears only the network error dialog`() = runTest {
     val initialState = PhoneNumberEntryState(
-      oneTimeEvent = PhoneNumberEntryState.OneTimeEvent.NetworkError
+      dialogs = PhoneNumberEntryState.Dialogs(networkError = true, unknownError = true)
     )
 
     viewModel.applyEvent(
       initialState,
-      PhoneNumberEntryScreenEvents.ConsumeOneTimeEvent,
+      PhoneNumberEntryScreenEvents.NetworkErrorDialogDismissed,
       parentEventEmitter,
       stateEmitter
     )
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedStates.last().dialogs).isEqualTo(PhoneNumberEntryState.Dialogs(unknownError = true))
   }
 
   @Test
@@ -526,7 +526,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates).hasSize(1)
     val result = emittedStates.last()
     assertThat(result.nationalNumber).isEqualTo("5551234567")
-    assertThat(result.showDialog).isTrue()
+    assertThat(result.dialogs.confirmNumber).isTrue()
 
     // We only open the dialog; we do not submit on our own.
     assertThat(emittedEvents).isEmpty()
@@ -543,7 +543,7 @@ class PhoneNumberEntryViewModelTest {
     )
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().showDialog).isFalse()
+    assertThat(emittedStates.last().dialogs.confirmNumber).isFalse()
     assertThat(emittedEvents).isEmpty()
   }
 
@@ -558,7 +558,7 @@ class PhoneNumberEntryViewModelTest {
 
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last().nationalNumber).isEqualTo("5551234567")
-    assertThat(emittedStates.last().showDialog).isFalse()
+    assertThat(emittedStates.last().dialogs.confirmNumber).isFalse()
     assertThat(emittedEvents).isEmpty()
   }
 
@@ -722,10 +722,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PhoneNumberEntryState.OneTimeEvent.RateLimited>()
-      .prop(PhoneNumberEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(60.seconds)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(60.seconds)
   }
 
   @Test
@@ -746,7 +743,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.InvalidPhoneNumber)
+    assertThat(emittedStates.last().dialogs.invalidPhoneNumber).isTrue()
   }
 
   @Test
@@ -765,7 +762,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
   }
 
   @Test
@@ -784,7 +781,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   @Test
@@ -837,7 +834,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull().isInstanceOf<PhoneNumberEntryState.OneTimeEvent.RateLimited>()
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isNotNull()
   }
 
   @Test
@@ -888,7 +885,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport)
+    assertThat(emittedStates.last().dialogs.couldNotRequestCodeWithSelectedTransport).isTrue()
   }
 
   @Test
@@ -915,7 +912,7 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().dialogs.unableToSendSms).isTrue()
   }
 
   // ==================== Push Challenge Tests ====================
@@ -1154,7 +1151,7 @@ class PhoneNumberEntryViewModelTest {
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   @Test
@@ -1187,10 +1184,7 @@ class PhoneNumberEntryViewModelTest {
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PhoneNumberEntryState.OneTimeEvent.RateLimited>()
-      .prop(PhoneNumberEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(45.seconds)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(45.seconds)
   }
 
   @Test
@@ -1206,7 +1200,7 @@ class PhoneNumberEntryViewModelTest {
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   @Test
@@ -1220,7 +1214,7 @@ class PhoneNumberEntryViewModelTest {
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
   }
 
   // ==================== ParentStateChanged Tests ====================
@@ -1482,10 +1476,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PhoneNumberEntryState.OneTimeEvent.RateLimited>()
-      .prop(PhoneNumberEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(30.seconds)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(30.seconds)
   }
 
   @Test
@@ -1566,7 +1557,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
   }
 
   @Test
@@ -1587,7 +1578,7 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PhoneNumberEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   @Test

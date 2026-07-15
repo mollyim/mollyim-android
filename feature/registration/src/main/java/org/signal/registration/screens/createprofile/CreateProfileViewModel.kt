@@ -97,8 +97,8 @@ class CreateProfileViewModel(
         stateEmitter(state.copy(isSubmitting = true))
         submitProfile(state, parentEventEmitter, repository, stateEmitter)
       }
-      CreateProfileScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
+      CreateProfileScreenEvents.UploadFailedDialogDismissed -> {
+        stateEmitter(state.copy(showUploadFailedDialog = false))
       }
     }
   }
@@ -126,15 +126,15 @@ class CreateProfileViewModel(
       }
       is RequestResult.NonSuccess -> {
         Log.w(TAG, "[submitProfile] Profile save failed: ${result.error}")
-        stateEmitter(state.copy(isSubmitting = false, oneTimeEvent = CreateProfileState.OneTimeEvent.UploadFailed))
+        stateEmitter(state.copy(isSubmitting = false, showUploadFailedDialog = true))
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[submitProfile] Network error saving profile.", result.networkError)
-        stateEmitter(state.copy(isSubmitting = false, oneTimeEvent = CreateProfileState.OneTimeEvent.UploadFailed))
+        stateEmitter(state.copy(isSubmitting = false, showUploadFailedDialog = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[submitProfile] Application error saving profile.", result.cause)
-        stateEmitter(state.copy(isSubmitting = false, oneTimeEvent = CreateProfileState.OneTimeEvent.UploadFailed))
+        stateEmitter(state.copy(isSubmitting = false, showUploadFailedDialog = true))
       }
     }
   }

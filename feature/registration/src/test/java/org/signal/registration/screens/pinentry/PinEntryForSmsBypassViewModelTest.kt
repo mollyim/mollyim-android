@@ -9,8 +9,7 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
-import assertk.assertions.prop
+import assertk.assertions.isTrue
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -142,7 +141,7 @@ class PinEntryForSmsBypassViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -156,7 +155,7 @@ class PinEntryForSmsBypassViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -187,7 +186,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -205,7 +204,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -266,10 +265,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
-      .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(retryAfter)
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 

@@ -12,14 +12,14 @@ data class CreateProfileState(
   val discoverableByPhoneNumber: Boolean = true,
   val isLoading: Boolean = true,
   val isSubmitting: Boolean = false,
-  val oneTimeEvent: OneTimeEvent? = null
+  val showUploadFailedDialog: Boolean = false
 ) {
 
   val isFormValid: Boolean
     get() = givenName.trim().isNotEmpty()
 
   override fun toString(): String {
-    return "CreateProfileState(givenName=${givenName.length} chars, familyName=${familyName.length} chars, avatar=${avatar?.size ?: 0} bytes, discoverableByPhoneNumber=$discoverableByPhoneNumber, isLoading=$isLoading, isSubmitting=$isSubmitting, oneTimeEvent=$oneTimeEvent)"
+    return "CreateProfileState(givenName=${givenName.length} chars, familyName=${familyName.length} chars, avatar=${avatar?.size ?: 0} bytes, discoverableByPhoneNumber=$discoverableByPhoneNumber, isLoading=$isLoading, isSubmitting=$isSubmitting, showUploadFailedDialog=$showUploadFailedDialog)"
   }
 
   override fun equals(other: Any?): Boolean {
@@ -36,7 +36,7 @@ data class CreateProfileState(
     if (discoverableByPhoneNumber != other.discoverableByPhoneNumber) return false
     if (isLoading != other.isLoading) return false
     if (isSubmitting != other.isSubmitting) return false
-    if (oneTimeEvent != other.oneTimeEvent) return false
+    if (showUploadFailedDialog != other.showUploadFailedDialog) return false
     return true
   }
 
@@ -47,11 +47,7 @@ data class CreateProfileState(
     result = 31 * result + discoverableByPhoneNumber.hashCode()
     result = 31 * result + isLoading.hashCode()
     result = 31 * result + isSubmitting.hashCode()
-    result = 31 * result + (oneTimeEvent?.hashCode() ?: 0)
+    result = 31 * result + showUploadFailedDialog.hashCode()
     return result
-  }
-
-  sealed interface OneTimeEvent {
-    data object UploadFailed : OneTimeEvent
   }
 }

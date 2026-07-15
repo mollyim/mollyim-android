@@ -100,8 +100,11 @@ class PinCreationViewModel(
         _state.value = state.copy(isConfirmEnabled = false)
         applyOptOut()
       }
-      is PinCreationScreenEvents.ConsumeOneTimeEvent -> {
-        _state.value = state.copy(oneTimeEvent = null)
+      is PinCreationScreenEvents.ServiceErrorDialogDismissed -> {
+        _state.value = state.copy(dialogs = state.dialogs.copy(serviceError = false))
+      }
+      is PinCreationScreenEvents.NetworkErrorDialogDismissed -> {
+        _state.value = state.copy(dialogs = state.dialogs.copy(networkError = null))
       }
     }
   }
@@ -141,7 +144,7 @@ class PinCreationViewModel(
         when (val error = result.error) {
           is NetworkController.BackupMasterKeyError.EnclaveNotFound -> {
             Log.w(TAG, "[PinSubmitted] SVR enclave not found.")
-            state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+            state.copy(loading = false, dialogs = state.dialogs.copy(serviceError = true))
           }
 
           is NetworkController.BackupMasterKeyError.NotRegistered -> {
@@ -154,12 +157,12 @@ class PinCreationViewModel(
 
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinSubmitted] Network error when backing up master key.", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.NetworkError(result.retryAfter?.toKotlinDuration()))
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = PinCreationState.Dialogs.NetworkError(result.retryAfter?.toKotlinDuration())))
       }
 
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinSubmitted] Application error when backing up master key.", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(serviceError = true))
       }
     }
   }

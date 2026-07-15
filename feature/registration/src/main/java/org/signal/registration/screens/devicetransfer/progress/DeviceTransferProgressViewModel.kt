@@ -98,9 +98,6 @@ class DeviceTransferProgressViewModel(
         stopService()
         parentEventEmitter.navigateTo(RegistrationRoute.DeviceTransferInstructions)
       }
-      DeviceTransferProgressScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
-      }
     }
   }
 

@@ -37,7 +37,6 @@ import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
-import org.signal.registration.screens.verificationcode.VerificationCodeState.OneTimeEvent
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
@@ -135,7 +134,13 @@ class VerificationCodeViewModel(
       is VerificationCodeScreenEvents.CallMe -> applyResendCode(state, NetworkController.VerificationCodeTransport.VOICE)
       is VerificationCodeScreenEvents.HavingTrouble -> state.copy(showContactSupportSheet = true)
       is VerificationCodeScreenEvents.DismissContactSupport -> state.copy(showContactSupportSheet = false)
-      is VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent -> state.copy(oneTimeEvent = null)
+      is VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(networkError = false))
+      is VerificationCodeScreenEvents.UnknownErrorSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(unknownError = false))
+      is VerificationCodeScreenEvents.RateLimitedSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(rateLimitedRetryAfter = null))
+      is VerificationCodeScreenEvents.UnableToSendSmsSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(unableToSendSms = false))
+      is VerificationCodeScreenEvents.CouldNotRequestCodeWithSelectedTransportSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(couldNotRequestCodeWithSelectedTransport = false))
+      is VerificationCodeScreenEvents.IncorrectVerificationCodeSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(incorrectVerificationCode = false))
+      is VerificationCodeScreenEvents.RegistrationErrorSnackbarDismissed -> state.copy(snackbars = state.snackbars.copy(registrationError = false))
       is VerificationCodeScreenEvents.CountdownTick -> applyCountdownTick(state)
       is VerificationCodeScreenEvents.Foregrounded -> applyForegrounded(state)
     }
@@ -309,7 +314,7 @@ class VerificationCodeViewModel(
           is NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode -> {
             Log.w(TAG, "[SubmitCode] Invalid sessionId or verification code entered. This is distinct from an *incorrect* verification code. Body: ${error.message}")
             val newAttempts = state.incorrectCodeAttempts + 1
-            return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
+            return state.copy(snackbars = state.snackbars.copy(incorrectVerificationCode = true), incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
           }
           is NetworkController.SubmitVerificationCodeError.SessionNotFound -> {
             Log.w(TAG, "[SubmitCode] Session not found: ${error.message}. Navigating back to phone number entry.")
@@ -328,17 +333,17 @@ class VerificationCodeViewModel(
           }
           is NetworkController.SubmitVerificationCodeError.RateLimited -> {
             Log.w(TAG, "[SubmitCode] Rate limited  (retryAfter: ${error.retryAfter}).")
-            return state.copy(oneTimeEvent = OneTimeEvent.RateLimited(error.retryAfter))
+            return state.copy(snackbars = state.snackbars.copy(rateLimitedRetryAfter = error.retryAfter))
           }
         }
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[SubmitCode] Network error.", result.networkError)
-        return state.copy(oneTimeEvent = OneTimeEvent.NetworkError)
+        return state.copy(snackbars = state.snackbars.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[SubmitCode] Unknown error when submitting verification code.", result.cause)
-        return state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+        return state.copy(snackbars = state.snackbars.copy(unknownError = true))
       }
     }
 
@@ -347,7 +352,7 @@ class VerificationCodeViewModel(
     if (!sessionMetadata.verified) {
       Log.w(TAG, "[SubmitCode] Verification code was incorrect.")
       val newAttempts = state.incorrectCodeAttempts + 1
-      return state.copy(oneTimeEvent = OneTimeEvent.IncorrectVerificationCode, incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
+      return state.copy(snackbars = state.snackbars.copy(incorrectVerificationCode = true), incorrectCodeAttempts = newAttempts, digits = VerificationCodeState.emptyDigits(), focusedDigitIndex = 0)
     }
 
     // Attempt to register
@@ -388,11 +393,11 @@ class VerificationCodeViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
-            state.copy(oneTimeEvent = OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(snackbars = state.snackbars.copy(rateLimitedRetryAfter = error.retryAfter))
           }
           is NetworkController.RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[Register] Invalid request when registering account: ${error.message}")
-            state.copy(oneTimeEvent = OneTimeEvent.RegistrationError)
+            state.copy(snackbars = state.snackbars.copy(registrationError = true))
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             error("[Register] Got told the registration recovery password incorrect. We don't use the RRP in this flow, and should never get this error. Resetting. Message: ${error.message}")
@@ -401,11 +406,11 @@ class VerificationCodeViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[Register] Network error.", registerResult.networkError)
-        state.copy(oneTimeEvent = OneTimeEvent.NetworkError)
+        state.copy(snackbars = state.snackbars.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[Register] Unknown error when registering account.", registerResult.cause)
-        state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+        state.copy(snackbars = state.snackbars.copy(unknownError = true))
       }
     }
   }
@@ -438,13 +443,13 @@ class VerificationCodeViewModel(
         when (val error = result.error) {
           is NetworkController.RequestVerificationCodeError.InvalidRequest -> {
             Log.w(TAG, "[RequestCode][$transport] Invalid request: ${error.message}")
-            state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+            state.copy(snackbars = state.snackbars.copy(unknownError = true))
           }
           is NetworkController.RequestVerificationCodeError.RateLimited -> {
             Log.w(TAG, "[RequestCode][$transport] Rate limited (retryAfter: ${error.retryAfter}).")
             parentEventEmitter(RegistrationFlowEvent.SessionUpdated(error.session))
             state.copy(
-              oneTimeEvent = OneTimeEvent.RateLimited(error.retryAfter),
+              snackbars = state.snackbars.copy(rateLimitedRetryAfter = error.retryAfter),
               sessionMetadata = error.session,
               rateLimits = computeRateLimits(error.session)
             )
@@ -453,7 +458,7 @@ class VerificationCodeViewModel(
             Log.w(TAG, "[RequestCode][$transport] Could not fulfill with requested transport.")
             parentEventEmitter(RegistrationFlowEvent.SessionUpdated(error.session))
             state.copy(
-              oneTimeEvent = OneTimeEvent.CouldNotRequestCodeWithSelectedTransport,
+              snackbars = state.snackbars.copy(couldNotRequestCodeWithSelectedTransport = true),
               sessionMetadata = error.session,
               rateLimits = computeRateLimits(error.session)
             )
@@ -467,7 +472,7 @@ class VerificationCodeViewModel(
             Log.w(TAG, "[RequestCode][$transport] Missing request information or already verified.")
             parentEventEmitter(RegistrationFlowEvent.SessionUpdated(error.session))
             state.copy(
-              oneTimeEvent = OneTimeEvent.UnableToSendSms,
+              snackbars = state.snackbars.copy(unableToSendSms = true),
               sessionMetadata = error.session,
               rateLimits = computeRateLimits(error.session)
             )
@@ -479,17 +484,17 @@ class VerificationCodeViewModel(
           }
           is NetworkController.RequestVerificationCodeError.ThirdPartyServiceError -> {
             Log.w(TAG, "[RequestCode][$transport] Third party service error. ${error.data}")
-            state.copy(oneTimeEvent = OneTimeEvent.UnableToSendSms)
+            state.copy(snackbars = state.snackbars.copy(unableToSendSms = true))
           }
         }
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[RequestCode][$transport] Network error.", result.networkError)
-        state.copy(oneTimeEvent = OneTimeEvent.NetworkError)
+        state.copy(snackbars = state.snackbars.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[RequestCode][$transport] Unknown application error.", result.cause)
-        state.copy(oneTimeEvent = OneTimeEvent.UnknownError)
+        state.copy(snackbars = state.snackbars.copy(unknownError = true))
       }
     }
   }

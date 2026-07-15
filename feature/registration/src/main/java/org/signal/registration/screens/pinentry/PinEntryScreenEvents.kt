@@ -15,6 +15,15 @@ sealed class PinEntryScreenEvents {
     override fun toString(): String = "PinEntered(pin=${pin.length} chars)"
   }
   data object ToggleKeyboard : PinEntryScreenEvents()
+
+  /** The user dismissed the network error dialog. */
+  data object NetworkErrorDialogDismissed : PinEntryScreenEvents()
+
+  /** The user dismissed the rate limited dialog. */
+  data object RateLimitedDialogDismissed : PinEntryScreenEvents()
+
+  /** The user dismissed the unknown error dialog. */
+  data object UnknownErrorDialogDismissed : PinEntryScreenEvents()
   data object Skip : PinEntryScreenEvents()
   data object CreateNewPin : PinEntryScreenEvents()
   data object ContactSupport : PinEntryScreenEvents()

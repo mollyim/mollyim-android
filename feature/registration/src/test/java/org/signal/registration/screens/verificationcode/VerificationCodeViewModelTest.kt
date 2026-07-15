@@ -9,7 +9,6 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import assertk.assertions.prop
@@ -139,8 +138,8 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
-  fun `ParentStateChanged preserves existing oneTimeEvent`() = runTest {
-    val state = VerificationCodeState(oneTimeEvent = VerificationCodeState.OneTimeEvent.NetworkError)
+  fun `ParentStateChanged preserves existing snackbars`() = runTest {
+    val state = VerificationCodeState(snackbars = VerificationCodeState.Snackbars(networkError = true))
     val sessionMetadata = createSessionMetadata()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = sessionMetadata,
@@ -149,37 +148,37 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
-  // ==================== applyEvent: ConsumeInnerOneTimeEvent Tests ====================
+  // ==================== applyEvent: Snackbar Dismissal Tests ====================
 
   @Test
-  fun `ConsumeInnerOneTimeEvent clears oneTimeEvent`() = runTest {
+  fun `NetworkErrorSnackbarDismissed clears only the network error snackbar`() = runTest {
     val initialState = VerificationCodeState(
-      oneTimeEvent = VerificationCodeState.OneTimeEvent.NetworkError
+      snackbars = VerificationCodeState.Snackbars(networkError = true, incorrectVerificationCode = true)
     )
 
     viewModel.applyEvent(
       initialState,
-      VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent,
+      VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed,
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedStates.last().snackbars).isEqualTo(VerificationCodeState.Snackbars(incorrectVerificationCode = true))
   }
 
   @Test
-  fun `ConsumeInnerOneTimeEvent with null event returns state with null event`() = runTest {
-    val initialState = VerificationCodeState(oneTimeEvent = null)
+  fun `NetworkErrorSnackbarDismissed with no snackbars showing leaves snackbars cleared`() = runTest {
+    val initialState = VerificationCodeState()
 
     viewModel.applyEvent(
       initialState,
-      VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent,
+      VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed,
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedStates.last().snackbars).isEqualTo(VerificationCodeState.Snackbars())
   }
 
   // ==================== applyEvent: SMS Auto-Fill Tests ====================
@@ -431,7 +430,7 @@ class VerificationCodeViewModelTest {
     )
 
     assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
+    assertThat(emittedStates.last().snackbars.incorrectVerificationCode).isTrue()
   }
 
   @Test
@@ -626,7 +625,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
+    assertThat(emittedStates.last().snackbars.incorrectVerificationCode).isTrue()
   }
 
   @Test
@@ -714,10 +713,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(60.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(60.seconds)
   }
 
   @Test
@@ -737,7 +733,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
   @Test
@@ -757,7 +753,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   // ==================== applyEvent: CodeEntered - Registration Errors ====================
@@ -806,10 +802,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(30.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(30.seconds)
   }
 
   @Ignore
@@ -834,7 +827,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.RegistrationError)
+    assertThat(emittedStates.last().snackbars.registrationError).isTrue()
   }
 
   @Ignore
@@ -859,7 +852,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.RegistrationError)
+    assertThat(emittedStates.last().snackbars.registrationError).isTrue()
   }
 
   @Ignore
@@ -882,7 +875,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
   @Ignore
@@ -905,7 +898,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   // ==================== applyEvent: ResendSms Tests ====================
@@ -967,10 +960,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(45.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(45.seconds)
   }
 
   @Test
@@ -985,7 +975,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   @Test
@@ -1000,7 +990,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport)
+    assertThat(emittedStates.last().snackbars.couldNotRequestCodeWithSelectedTransport).isTrue()
   }
 
   @Test
@@ -1047,7 +1037,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().snackbars.unableToSendSms).isTrue()
   }
 
   @Test
@@ -1064,7 +1054,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().snackbars.unableToSendSms).isTrue()
   }
 
   @Test
@@ -1077,7 +1067,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
   @Test
@@ -1090,7 +1080,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   // ==================== applyEvent: CallMe Tests ====================
@@ -1132,10 +1122,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(90.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(90.seconds)
   }
 
   @Test
@@ -1150,7 +1137,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport)
+    assertThat(emittedStates.last().snackbars.couldNotRequestCodeWithSelectedTransport).isTrue()
   }
 
   @Test
@@ -1167,7 +1154,7 @@ class VerificationCodeViewModelTest {
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().snackbars.unableToSendSms).isTrue()
   }
 
   // ==================== applyEvent: Foregrounded Tests ====================

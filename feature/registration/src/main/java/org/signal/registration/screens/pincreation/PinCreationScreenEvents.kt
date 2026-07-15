@@ -18,5 +18,6 @@ sealed class PinCreationScreenEvents {
   data object LearnMore : PinCreationScreenEvents()
   data object OptOut : PinCreationScreenEvents()
   data object BackToPinEntry : PinCreationScreenEvents()
-  data object ConsumeOneTimeEvent : PinCreationScreenEvents()
+  data object ServiceErrorDialogDismissed : PinCreationScreenEvents()
+  data object NetworkErrorDialogDismissed : PinCreationScreenEvents()
 }

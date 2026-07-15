@@ -105,7 +105,7 @@ class DeviceTransferSetupViewModel(
           stateEmitter(state.copy(step = SetupStep.LOCATION_CHECK, takingTooLong = false))
           checkLocation(parentEventEmitter, stateEmitter)
         } else {
-          stateEmitter(state.copy(step = SetupStep.PERMISSIONS_CHECK, takingTooLong = false, oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.RequestLocationPermission))
+          stateEmitter(state.copy(step = SetupStep.PERMISSIONS_CHECK, takingTooLong = false, pendingActions = state.pendingActions.copy(requestLocationPermission = true)))
         }
       }
 
@@ -119,19 +119,19 @@ class DeviceTransferSetupViewModel(
       }
 
       DeviceTransferSetupScreenEvents.RequestPermissionClicked -> {
-        stateEmitter(state.copy(oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.RequestLocationPermission))
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(requestLocationPermission = true)))
       }
 
       DeviceTransferSetupScreenEvents.OpenLocationSettingsClicked -> {
-        stateEmitter(state.copy(oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.OpenLocationSettings))
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openLocationSettings = true)))
       }
 
       DeviceTransferSetupScreenEvents.OpenWifiSettingsClicked -> {
-        stateEmitter(state.copy(oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.OpenWifiSettings))
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openWifiSettings = true)))
       }
 
       DeviceTransferSetupScreenEvents.OpenAppSettingsClicked -> {
-        stateEmitter(state.copy(oneTimeEvent = DeviceTransferSetupState.OneTimeEvent.OpenAppSettings))
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openAppSettings = true)))
       }
 
       DeviceTransferSetupScreenEvents.OnResume -> {
@@ -181,8 +181,20 @@ class DeviceTransferSetupViewModel(
         parentEventEmitter.navigateBack()
       }
 
-      DeviceTransferSetupScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
+      DeviceTransferSetupScreenEvents.RequestLocationPermissionHandled -> {
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(requestLocationPermission = false)))
+      }
+
+      DeviceTransferSetupScreenEvents.OpenLocationSettingsHandled -> {
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openLocationSettings = false)))
+      }
+
+      DeviceTransferSetupScreenEvents.OpenWifiSettingsHandled -> {
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openWifiSettings = false)))
+      }
+
+      DeviceTransferSetupScreenEvents.OpenAppSettingsHandled -> {
+        stateEmitter(state.copy(pendingActions = state.pendingActions.copy(openAppSettings = false)))
       }
     }
   }

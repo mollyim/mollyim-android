@@ -59,5 +59,22 @@ sealed class PhoneNumberEntryScreenEvents {
   data class LocalBackupRestoreCompleted(val result: LocalBackupRestoreResult) : PhoneNumberEntryScreenEvents() {
     override fun toString(): String = "LocalBackupRestoreCompleted(result=***)"
   }
-  data object ConsumeOneTimeEvent : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the network error dialog. */
+  data object NetworkErrorDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the unknown error dialog. */
+  data object UnknownErrorDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the rate limited dialog. */
+  data object RateLimitedDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the unable-to-send-SMS dialog. */
+  data object UnableToSendSmsDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the could-not-request-code-with-selected-transport dialog. */
+  data object CouldNotRequestCodeWithSelectedTransportDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the invalid phone number dialog. */
+  data object InvalidPhoneNumberDialogDismissed : PhoneNumberEntryScreenEvents()
 }

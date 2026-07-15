@@ -77,7 +77,10 @@ class PinEntryForRegistrationLockViewModel(
       is PinEntryScreenEvents.CreateNewPin,
       is PinEntryScreenEvents.ContactSupport,
       is PinEntryScreenEvents.ParentStateChanged -> Unit
-      is PinEntryScreenEvents.ToggleKeyboard -> {
+      is PinEntryScreenEvents.ToggleKeyboard,
+      is PinEntryScreenEvents.NetworkErrorDialogDismissed,
+      is PinEntryScreenEvents.RateLimitedDialogDismissed,
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
@@ -114,11 +117,11 @@ class PinEntryForRegistrationLockViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", restoreResult.networkError)
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", restoreResult.cause)
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
 
@@ -180,15 +183,15 @@ class PinEntryForRegistrationLockViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[PinEntered] Rate limited when registering. Retry After: ${error.retryAfter}")
-            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
           }
           is NetworkController.RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[PinEntered] Invalid request when registering: ${error.message}")
-            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
           }
           is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
             Log.w(TAG, "[PinEntered] Device transfer possible. This shouldn't happen when skipDeviceTransfer is true.")
-            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+            state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
           }
           is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[PinEntered] Registration recovery password incorrect: ${error.message}. Marking recovery password invalid and navigating back.")
@@ -200,11 +203,11 @@ class PinEntryForRegistrationLockViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when registering.", registerResult.networkError)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when registering.", registerResult.cause)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
   }
