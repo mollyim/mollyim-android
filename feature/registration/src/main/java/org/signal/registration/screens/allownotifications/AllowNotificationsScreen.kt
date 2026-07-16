@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
@@ -98,6 +99,7 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState
     params = params,
     firstPane = { paddingValues ->
       FirstPaneContent(
+        twoPane = true,
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
@@ -125,12 +127,13 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, permissionState
 
 @Composable
 private fun FirstPaneContent(
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   Column(modifier = modifier) {
     Text(
       text = stringResource(R.string.AllowNotificationsScreen__allow_notifications),
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
@@ -138,7 +141,7 @@ private fun FirstPaneContent(
 
     Text(
       text = stringResource(R.string.AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission),
-      style = MaterialTheme.typography.bodyLarge,
+      style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       modifier = Modifier.padding(top = 16.dp)
     )

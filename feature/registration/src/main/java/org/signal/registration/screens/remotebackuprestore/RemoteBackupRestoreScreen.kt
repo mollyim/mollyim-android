@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.signal.core.models.AccountEntropyPool
@@ -158,7 +159,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        BackupInfoHeading()
+        BackupInfoHeading(twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -170,7 +171,7 @@ private fun TwoPaneLayout(
           .verticalScroll(secondPaneScrollState)
           .padding(paddingValues)
       ) {
-        BackupInfoDetails(state = state)
+        BackupInfoDetails(state = state, twoPane = true)
       }
 
       RestoreStateDialogs(state = state, onEvent = onEvent)
@@ -206,7 +207,7 @@ private fun BackupInfoContent(
 }
 
 @Composable
-private fun BackupInfoHeading() {
+private fun BackupInfoHeading(twoPane: Boolean = false) {
   Icon(
     imageVector = SignalIcons.Backup.imageVector,
     contentDescription = null,
@@ -221,7 +222,7 @@ private fun BackupInfoHeading() {
 
   Text(
     text = stringResource(R.string.RemoteRestoreScreen__restore_from_backup),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
     modifier = Modifier
       .fillMaxWidth()
@@ -230,7 +231,7 @@ private fun BackupInfoHeading() {
 }
 
 @Composable
-private fun BackupInfoDetails(state: RemoteBackupRestoreState, modifier: Modifier = Modifier) {
+private fun BackupInfoDetails(state: RemoteBackupRestoreState, modifier: Modifier = Modifier, twoPane: Boolean = false) {
   Column(
     verticalArrangement = Arrangement.spacedBy(16.dp),
     modifier = modifier
@@ -246,7 +247,7 @@ private fun BackupInfoDetails(state: RemoteBackupRestoreState, modifier: Modifie
 
       Text(
         text = stringResource(R.string.RemoteRestoreScreen__your_last_backup_was_made_on_s_at_s, dateStr, timeStr),
-        style = MaterialTheme.typography.bodyLarge,
+        style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth()

@@ -56,6 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -239,7 +240,8 @@ private fun TwoPaneLayout(
         PinStepTransition(isConfirmEnabled = state.isConfirmEnabled) { isConfirm ->
           PinDescription(
             isConfirmEnabled = isConfirm,
-            onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
+            onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) },
+            twoPane = true
           )
         }
       }
@@ -307,7 +309,8 @@ private fun PinStepTransition(
 private fun PinDescription(
   isConfirmEnabled: Boolean,
   onLearnMore: () -> Unit,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   Column(modifier = modifier) {
     Text(
@@ -315,7 +318,7 @@ private fun PinDescription(
         isConfirmEnabled -> stringResource(R.string.PinCreationScreen__confirm_your_pin)
         else -> stringResource(R.string.PinCreationScreen__create_your_pin)
       },
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
@@ -324,7 +327,7 @@ private fun PinDescription(
     if (isConfirmEnabled) {
       Text(
         text = stringResource(R.string.PinCreationScreen__reenter_pin_description),
-        style = MaterialTheme.typography.bodyLarge,
+        style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(top = 16.dp)
       )
@@ -346,7 +349,7 @@ private fun PinDescription(
 
       ClickableText(
         text = descriptionText,
-        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+        style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, color = MaterialTheme.colorScheme.onSurfaceVariant) else MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
         modifier = Modifier
           .fillMaxWidth()
           .padding(top = 16.dp),

@@ -274,17 +274,17 @@ private fun FirstPaneContent(
     modifier = modifier,
     verticalArrangement = spacedBy(32.dp)
   ) {
-    Title()
+    Title(twoPane = true)
 
     Steps(verticalArrangement = spacedBy(32.dp), centerGetHelp = false, onEvent = onEvent)
   }
 }
 
 @Composable
-private fun Title() {
+private fun Title(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.LinkAccountScreen__scan_this_code_to_link_your_account),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()

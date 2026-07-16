@@ -126,10 +126,11 @@ private fun SelectFolderContent(
 ) {
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = stringResource(R.string.LocalBackupRestoreScreen__restore_on_device_backup),
-        body = stringResource(R.string.LocalBackupRestoreScreen__select_folder_description)
+        body = stringResource(R.string.LocalBackupRestoreScreen__select_folder_description),
+        twoPane = twoPane
       )
     },
     content = {
@@ -197,10 +198,11 @@ private fun BackupFoundContent(
 
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = stringResource(R.string.LocalBackupRestoreScreen__restore_on_device_backup),
-        body = stringResource(R.string.LocalBackupRestoreScreen__backup_found_description)
+        body = stringResource(R.string.LocalBackupRestoreScreen__backup_found_description),
+        twoPane = twoPane
       )
     },
     content = {
@@ -437,10 +439,11 @@ private fun NoBackupFoundContent(
 ) {
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = stringResource(R.string.LocalBackupRestoreScreen__no_backup_found),
-        body = stringResource(R.string.LocalBackupRestoreScreen__no_backup_found_description)
+        body = stringResource(R.string.LocalBackupRestoreScreen__no_backup_found_description),
+        twoPane = twoPane
       )
     },
     content = {},
@@ -513,10 +516,11 @@ private fun V1InProgressContent(
 ) {
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = stringResource(R.string.LocalBackupRestoreScreen__restoring_backup),
-        body = stringResource(R.string.LocalBackupRestoreScreen__restoring_description)
+        body = stringResource(R.string.LocalBackupRestoreScreen__restoring_description),
+        twoPane = twoPane
       )
     },
     content = {
@@ -573,10 +577,11 @@ private fun IncorrectCredentialContent(
 
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = headline,
-        body = stringResource(R.string.LocalBackupRestoreScreen__incorrect_credential_description)
+        body = stringResource(R.string.LocalBackupRestoreScreen__incorrect_credential_description),
+        twoPane = twoPane
       )
     },
     content = {},
@@ -602,10 +607,11 @@ private fun ErrorContent(
 ) {
   LocalBackupRestoreLayout(
     modifier = modifier,
-    description = {
+    description = { twoPane ->
       Description(
         headline = stringResource(R.string.LocalBackupRestoreScreen__restore_failed),
-        body = errorMessage ?: stringResource(R.string.LocalBackupRestoreScreen__restore_failed_description)
+        body = errorMessage ?: stringResource(R.string.LocalBackupRestoreScreen__restore_failed_description),
+        twoPane = twoPane
       )
     },
     content = {},

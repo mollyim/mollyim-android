@@ -45,6 +45,7 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -229,7 +230,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        Description(state, onEvent)
+        Description(state, onEvent, twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -411,10 +412,10 @@ private fun AlternateCodeOptions(state: VerificationCodeState, onEvent: (Verific
 }
 
 @Composable
-private fun Description(state: VerificationCodeState, onEvent: (VerificationCodeScreenEvents) -> Unit) {
+private fun Description(state: VerificationCodeState, onEvent: (VerificationCodeScreenEvents) -> Unit, twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.VerificationCodeScreen__verification_code),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -422,7 +423,7 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
 
   Text(
     text = stringResource(R.string.VerificationCodeScreen__enter_the_code_we_sent_to_s, state.e164),
-    style = MaterialTheme.typography.bodyLarge,
+    style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier.padding(top = 16.dp)
   )

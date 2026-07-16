@@ -147,7 +147,7 @@ private fun TwoPaneLayout(
           .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Heading()
+        Heading(twoPane = true)
         Spacer(modifier = Modifier.height(32.dp))
         Instructions()
       }
@@ -215,10 +215,10 @@ private fun TopAppBar() {
 }
 
 @Composable
-private fun Heading() {
+private fun Heading(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.QuickRestoreQRScreen__scan),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
     modifier = Modifier
       .fillMaxWidth()

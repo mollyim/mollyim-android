@@ -126,6 +126,7 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
     firstPane = { paddingValues ->
       FirstPaneContent(
         state = state,
+        twoPane = true,
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
@@ -155,12 +156,13 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
 @Composable
 private fun FirstPaneContent(
   state: MessageSyncScreenState,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   Column(modifier = modifier) {
     Text(
       text = stringResource(R.string.MessageSyncScreen__syncing_messages),
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
@@ -168,7 +170,7 @@ private fun FirstPaneContent(
 
     Text(
       text = stringResource(R.string.MessageSyncScreen__this_may_take_a_few_minutes),
-      style = MaterialTheme.typography.bodyLarge,
+      style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       modifier = Modifier.padding(top = 16.dp)
     )
