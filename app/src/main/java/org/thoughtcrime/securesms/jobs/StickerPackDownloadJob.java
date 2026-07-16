@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.stickers.BlessedPacks;
 import org.signal.core.util.Hex;
@@ -63,6 +64,7 @@ public class StickerPackDownloadJob extends BaseJob {
   {
     this(new Parameters.Builder()
                        .addConstraint(NetworkConstraint.KEY)
+                       .addConstraint(DataRestoreConstraint.KEY)
                        .setLifespan(TimeUnit.DAYS.toMillis(30))
                        .setQueue("StickerPackDownloadJob_" + packId)
                        .build(),

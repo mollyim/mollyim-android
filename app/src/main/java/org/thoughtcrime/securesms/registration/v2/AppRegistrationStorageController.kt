@@ -70,6 +70,7 @@ import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint
 import org.thoughtcrime.securesms.jobmanager.runJobBlocking
 import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
@@ -296,6 +297,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     launch(Dispatchers.IO) {
       val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
+      DataRestoreConstraint.isRestoringData = true
       try {
         if (!FullBackupImporter.validatePassphrase(context, backupUri, passphrase)) {
           Log.w(TAG, "V1 restore failed: incorrect passphrase")
@@ -347,6 +349,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         Log.w(TAG, "V1 restore failed", e)
         trySend(LocalBackupRestoreProgress.Error(e))
       } finally {
+        DataRestoreConstraint.isRestoringData = false
         progressService.close()
         channel.close()
       }
@@ -387,6 +390,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     launch(Dispatchers.IO) {
       val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
+      DataRestoreConstraint.isRestoringData = true
       try {
         val backupDir = DocumentFile.fromTreeUri(context, backupUri)
         if (backupDir == null || !backupDir.canRead()) {
@@ -446,6 +450,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         Log.w(TAG, "V2 restore failed", e)
         trySend(LocalBackupRestoreProgress.Error(e))
       } finally {
+        DataRestoreConstraint.isRestoringData = false
         progressService.close()
         channel.close()
       }
