@@ -348,6 +348,12 @@ androidComponents {
   beforeVariants(selector().withBuildType("release")) { variant ->
     (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
   }
+
+  // Include the test-only library on non-release builds.
+  onVariants(selector().withBuildType("release")) { variant ->
+    variant.packaging.jniLibs.excludes.add("**/libsignal_jni_testing.so")
+    variant.androidResources.ignoreAssetsPatterns.add("libsignal-testing.md")
+  }
 }
 
 kotlin {
