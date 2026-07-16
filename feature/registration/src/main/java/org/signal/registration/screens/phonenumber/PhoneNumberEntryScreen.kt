@@ -237,7 +237,7 @@ private fun OnePaneLayout(
 
   OnePaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, isLinkAndSyncAvailable = state.isLinkAndSyncAvailable, onEvent = onEvent) },
     content = { paddingValues ->
       Column(
         modifier = Modifier
@@ -294,7 +294,7 @@ private fun TwoPaneLayout(
 
   TwoPaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, isLinkAndSyncAvailable = state.isLinkAndSyncAvailable, onEvent = onEvent) },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
@@ -346,6 +346,7 @@ private fun TwoPaneLayout(
 @Composable
 fun TopAppBar(
   scrollBehavior: TopAppBarScrollBehavior,
+  isLinkAndSyncAvailable: Boolean,
   onEvent: (PhoneNumberEntryScreenEvents) -> Unit
 ) {
   val context = LocalContext.current
@@ -381,13 +382,15 @@ fun TopAppBar(
             menuController.hide()
           }
         )
-        DropdownMenus.Item(
-          text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
-          onClick = {
-            onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
-            menuController.hide()
-          }
-        )
+        if (isLinkAndSyncAvailable) {
+          DropdownMenus.Item(
+            text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
+            onClick = {
+              onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
+              menuController.hide()
+            }
+          )
+        }
       }
     }
   )

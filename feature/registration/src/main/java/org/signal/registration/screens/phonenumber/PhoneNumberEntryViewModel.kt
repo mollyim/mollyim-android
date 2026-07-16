@@ -49,7 +49,7 @@ class PhoneNumberEntryViewModel(
   private val phoneNumberUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance()
   private var formatter: AsYouTypeFormatter = phoneNumberUtil.getAsYouTypeFormatter("US")
 
-  private val _state = MutableStateFlow(PhoneNumberEntryState())
+  private val _state = MutableStateFlow(PhoneNumberEntryState(isLinkAndSyncAvailable = repository.isLinkAndSyncAvailable))
   val state: StateFlow<PhoneNumberEntryState> = _state.asStateFlow()
 
   init {

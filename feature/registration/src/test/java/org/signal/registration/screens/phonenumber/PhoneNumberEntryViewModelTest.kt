@@ -433,6 +433,16 @@ class PhoneNumberEntryViewModelTest {
   }
 
   @Test
+  fun `initial state reflects repository link and sync availability`() = runTest {
+    every { mockRepository.isLinkAndSyncAvailable } returns true
+
+    val viewModel = PhoneNumberEntryViewModel(mockRepository, parentState, parentEventEmitter)
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    assertThat(viewModel.state.value.isLinkAndSyncAvailable).isTrue()
+  }
+
+  @Test
   fun `NetworkErrorDialogDismissed clears only the network error dialog`() = runTest {
     val initialState = PhoneNumberEntryState(
       dialogs = PhoneNumberEntryState.Dialogs(networkError = true, unknownError = true)
