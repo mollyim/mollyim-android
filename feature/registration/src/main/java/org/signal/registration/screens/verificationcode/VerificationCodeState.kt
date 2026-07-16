@@ -21,7 +21,7 @@ data class VerificationCodeState(
   val showContactSupportSheet: Boolean = false,
   val snackbars: Snackbars = Snackbars()
 ) {
-  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, snackbars=$snackbars)"
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=$sessionMetadata, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, snackbars=$snackbars)"
 
   /**
    * The full code as currently entered. Only meaningful when [isComplete] is true.

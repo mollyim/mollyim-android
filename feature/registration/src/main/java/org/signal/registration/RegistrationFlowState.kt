@@ -58,6 +58,6 @@ data class RegistrationFlowState(
   val isRestoringNavigationState: Boolean = true
 ) : Parcelable {
   override fun toString(): String {
-    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=${sessionMetadata.let { "present" }}, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, storageCapable=$storageCapable, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
+    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=$sessionMetadata, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, storageCapable=$storageCapable, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=$preExistingRegistrationData, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
   }
 }

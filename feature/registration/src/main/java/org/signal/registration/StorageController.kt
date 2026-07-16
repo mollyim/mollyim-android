@@ -14,6 +14,7 @@ import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.util.censor
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
@@ -268,4 +269,8 @@ data class PreExistingRegistrationData(
   val unrestrictedUnidentifiedAccess: Boolean,
   val aciIdentityKeyPair: IdentityKeyPair,
   val pniIdentityKeyPair: IdentityKeyPair
-) : Parcelable
+) : Parcelable {
+  override fun toString(): String {
+    return "PreExistingRegistrationData(e164=$e164, aci=$aci, pni=$pni, servicePassword=${servicePassword.censor()}, aep=${aep.displayValue.censor()}, registrationLockEnabled=$registrationLockEnabled, unrestrictedUnidentifiedAccess=$unrestrictedUnidentifiedAccess, aciIdentityKeyPair=xxx, pniIdentityKeyPair=xxx)"
+  }
+}

@@ -5,6 +5,7 @@
 
 package org.signal.registration.screens.phonenumber
 
+import org.signal.core.util.censor
 import org.signal.registration.NetworkController
 import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.PendingRestoreOption
@@ -31,7 +32,7 @@ data class PhoneNumberEntryState(
   /** Whether the entered number is definitively invalid. A still-too-short number is not considered invalid, since the user may simply be mid-entry. */
   val isNumberInvalid: Boolean = false
 ) {
-  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=$nationalNumber, formattedNumber=$formattedNumber, sessionE164=$sessionE164, sessionMetadata=${sessionMetadata?.let { "present" }}, showSpinner=$showSpinner, dialogs=$dialogs, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized, isNumberPossible=$isNumberPossible, isNumberInvalid=$isNumberInvalid)"
+  override fun toString(): String = "PhoneNumberEntryState(regionCode=$regionCode, countryCode=$countryCode, countryName=$countryName, countryEmoji=$countryEmoji, nationalNumber=${nationalNumber.censor()}, formattedNumber=${formattedNumber.censor()}, sessionE164=$sessionE164, sessionMetadata=$sessionMetadata, showSpinner=$showSpinner, dialogs=$dialogs, preExistingRegistrationData=${preExistingRegistrationData?.let { "present" }}, restoredSvrCredentials=${restoredSvrCredentials.size} items, pendingRestoreOption=$pendingRestoreOption, initialized=$initialized, isNumberPossible=$isNumberPossible, isNumberInvalid=$isNumberInvalid)"
 
   data class Dialogs(
     /** Asks the user to confirm the number they entered before submitting it. */
