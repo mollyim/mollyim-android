@@ -35,6 +35,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
+import org.signal.registration.screens.shared.RestoreProgress
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
@@ -156,8 +157,8 @@ class RemoteBackupRestoreViewModelTest {
     val initialState = RemoteBackupRestoreState(
       aep = aep,
       restoreState = RemoteBackupRestoreState.RestoreState.Failed,
-      restoreProgress = RemoteBackupRestoreState.RestoreProgress(
-        phase = RemoteBackupRestoreState.RestoreProgress.Phase.Downloading,
+      restoreProgress = RestoreProgress(
+        phase = RestoreProgress.Phase.Downloading,
         bytesCompleted = 50,
         totalBytes = 100
       )
@@ -313,7 +314,7 @@ class RemoteBackupRestoreViewModelTest {
 
     val last = states.last()
     assertThat(last.restoreState).isEqualTo(RemoteBackupRestoreState.RestoreState.InProgress)
-    assertThat(last.restoreProgress?.phase).isEqualTo(RemoteBackupRestoreState.RestoreProgress.Phase.Downloading)
+    assertThat(last.restoreProgress?.phase).isEqualTo(RestoreProgress.Phase.Downloading)
     assertThat(last.restoreProgress?.bytesCompleted).isEqualTo(30L)
     assertThat(last.restoreProgress?.totalBytes).isEqualTo(100L)
   }
@@ -330,7 +331,7 @@ class RemoteBackupRestoreViewModelTest {
 
     val last = states.last()
     assertThat(last.restoreState).isEqualTo(RemoteBackupRestoreState.RestoreState.InProgress)
-    assertThat(last.restoreProgress?.phase).isEqualTo(RemoteBackupRestoreState.RestoreProgress.Phase.Restoring)
+    assertThat(last.restoreProgress?.phase).isEqualTo(RestoreProgress.Phase.Restoring)
     assertThat(last.restoreProgress?.bytesCompleted).isEqualTo(75L)
   }
 
@@ -346,7 +347,7 @@ class RemoteBackupRestoreViewModelTest {
 
     val last = states.last()
     assertThat(last.restoreState).isEqualTo(RemoteBackupRestoreState.RestoreState.InProgress)
-    assertThat(last.restoreProgress?.phase).isEqualTo(RemoteBackupRestoreState.RestoreProgress.Phase.Finalizing)
+    assertThat(last.restoreProgress?.phase).isEqualTo(RestoreProgress.Phase.Finalizing)
   }
 
   @Test

@@ -6,10 +6,8 @@
 package org.signal.registration.screens.remotebackuprestore
 
 import android.text.format.DateFormat
-import android.text.format.Formatter
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,13 +17,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -52,6 +46,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.screens.shared.RestoreProgressDialog
 import org.signal.registration.test.TestTags
 import java.util.Date
 
@@ -354,69 +349,6 @@ private fun RestoreStateDialogs(
       )
     }
   }
-}
-
-@Composable
-private fun RestoreProgressDialog(restoreProgress: RemoteBackupRestoreState.RestoreProgress?) {
-  val context = LocalContext.current
-
-  AlertDialog(
-    onDismissRequest = {},
-    confirmButton = {},
-    dismissButton = {},
-    text = {
-      Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxWidth()
-      ) {
-        Column(
-          horizontalAlignment = Alignment.CenterHorizontally,
-          modifier = Modifier.wrapContentSize()
-        ) {
-          if (restoreProgress == null || restoreProgress.phase == RemoteBackupRestoreState.RestoreProgress.Phase.Finalizing) {
-            CircularProgressIndicator(
-              modifier = Modifier
-                .padding(top = 55.dp, bottom = 16.dp)
-                .width(48.dp)
-                .height(48.dp)
-            )
-          } else {
-            CircularProgressIndicator(
-              progress = { restoreProgress.progress },
-              modifier = Modifier
-                .padding(top = 55.dp, bottom = 16.dp)
-                .width(48.dp)
-                .height(48.dp)
-            )
-          }
-
-          val progressText = when (restoreProgress?.phase) {
-            RemoteBackupRestoreState.RestoreProgress.Phase.Downloading -> stringResource(R.string.RemoteRestoreScreen__downloading_backup)
-            RemoteBackupRestoreState.RestoreProgress.Phase.Restoring -> stringResource(R.string.RemoteRestoreScreen__restoring_messages)
-            RemoteBackupRestoreState.RestoreProgress.Phase.Finalizing -> stringResource(R.string.RemoteRestoreScreen__finishing_restore)
-            null -> stringResource(R.string.RemoteRestoreScreen__restoring)
-          }
-
-          Text(
-            text = progressText,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.padding(bottom = 12.dp)
-          )
-
-          if (restoreProgress != null && restoreProgress.phase != RemoteBackupRestoreState.RestoreProgress.Phase.Finalizing && restoreProgress.totalBytes > 0) {
-            val progressBytes = Formatter.formatShortFileSize(context, restoreProgress.bytesCompleted)
-            val totalBytes = Formatter.formatShortFileSize(context, restoreProgress.totalBytes)
-            Text(
-              text = stringResource(R.string.RemoteRestoreScreen__s_of_s_s, progressBytes, totalBytes, "%.2f%%".format(restoreProgress.progress * 100)),
-              style = MaterialTheme.typography.bodySmall,
-              modifier = Modifier.padding(bottom = 12.dp)
-            )
-          }
-        }
-      }
-    },
-    modifier = Modifier.width(212.dp)
-  )
 }
 
 @AllDevicePreviews

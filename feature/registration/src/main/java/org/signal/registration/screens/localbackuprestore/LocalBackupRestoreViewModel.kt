@@ -27,6 +27,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
+import org.signal.registration.screens.shared.RestoreProgress
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 
@@ -223,18 +224,19 @@ class LocalBackupRestoreViewModel(
       }
       restoreFlow.collect { progress ->
         _state.value = when (progress) {
-          is LocalBackupRestoreProgress.Preparing -> LocalBackupRestoreState(
+          is LocalBackupRestoreProgress.Preparing -> currentState.copy(
             restorePhase = LocalBackupRestoreState.RestorePhase.Preparing,
-            aep = currentState.aep,
-            v1Passphrase = currentState.v1Passphrase,
-            storageCapable = currentState.storageCapable
+            progressFraction = 0f,
+            restoreProgress = null
           )
-          is LocalBackupRestoreProgress.InProgress -> LocalBackupRestoreState(
+          is LocalBackupRestoreProgress.InProgress -> currentState.copy(
             restorePhase = LocalBackupRestoreState.RestorePhase.InProgress,
             progressFraction = progress.progressFraction,
-            aep = currentState.aep,
-            v1Passphrase = currentState.v1Passphrase,
-            storageCapable = currentState.storageCapable
+            restoreProgress = RestoreProgress(
+              phase = RestoreProgress.Phase.Restoring,
+              bytesCompleted = progress.bytesRead,
+              totalBytes = progress.totalBytes
+            )
           )
           is LocalBackupRestoreProgress.Complete -> {
             onRestoreComplete(_state.value.copy(aep = aep, v1Passphrase = currentState.v1Passphrase, storageCapable = currentState.storageCapable), progress, backup.type)

@@ -55,6 +55,8 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.mebiBytes
 import org.signal.registration.R
+import org.signal.registration.screens.shared.RestoreProgress
+import org.signal.registration.screens.shared.RestoreProgressDialog
 import org.signal.registration.test.TestTags
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -95,10 +97,18 @@ fun LocalBackupRestoreScreen(
       NoBackupFoundContent(onEvent = onEvent, modifier = modifier)
     }
     LocalBackupRestoreState.RestorePhase.Preparing -> {
-      PreparingContent(modifier = modifier)
+      if (state.backupInfo?.type == LocalBackupInfo.BackupType.V2) {
+        V2RestoreInProgressContent(state = state, onEvent = onEvent, modifier = modifier)
+      } else {
+        V1PreparingContent(modifier = modifier)
+      }
     }
     LocalBackupRestoreState.RestorePhase.InProgress -> {
-      InProgressContent(progressFraction = state.progressFraction, onEvent = onEvent, modifier = modifier)
+      if (state.backupInfo?.type == LocalBackupInfo.BackupType.V2) {
+        V2RestoreInProgressContent(state = state, onEvent = onEvent, modifier = modifier)
+      } else {
+        V1InProgressContent(progressFraction = state.progressFraction, onEvent = onEvent, modifier = modifier)
+      }
     }
     LocalBackupRestoreState.RestorePhase.IncorrectCredential -> {
       IncorrectCredentialContent(backupType = state.backupInfo?.type, onEvent = onEvent, modifier = modifier)
@@ -488,7 +498,7 @@ private fun BackupOptionCard(
 }
 
 @Composable
-private fun PreparingContent(modifier: Modifier = Modifier) {
+private fun V1PreparingContent(modifier: Modifier = Modifier) {
   Loading(
     label = stringResource(R.string.LocalBackupRestoreScreen__preparing_restore),
     modifier = modifier
@@ -496,7 +506,7 @@ private fun PreparingContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun InProgressContent(
+private fun V1InProgressContent(
   progressFraction: Float,
   onEvent: (LocalBackupRestoreEvents) -> Unit,
   modifier: Modifier = Modifier
@@ -531,6 +541,22 @@ private fun InProgressContent(
       CancelButton(onEvent, buttonModifier)
     }
   )
+}
+
+@Composable
+private fun V2RestoreInProgressContent(
+  state: LocalBackupRestoreState,
+  onEvent: (LocalBackupRestoreEvents) -> Unit,
+  modifier: Modifier = Modifier
+) {
+  BackupFoundContent(
+    backupInfo = state.backupInfo!!,
+    allBackups = state.allBackups,
+    onEvent = onEvent,
+    modifier = modifier
+  )
+
+  RestoreProgressDialog(restoreProgress = state.restoreProgress)
 }
 
 @Composable
@@ -694,6 +720,31 @@ private fun LocalBackupRestoreScreenInProgressPreview() {
   Previews.Preview {
     LocalBackupRestoreScreen(
       state = LocalBackupRestoreState(restorePhase = LocalBackupRestoreState.RestorePhase.InProgress, progressFraction = 0.65f),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun LocalBackupRestoreScreenV2InProgressPreview() {
+  Previews.Preview {
+    LocalBackupRestoreScreen(
+      state = LocalBackupRestoreState(
+        restorePhase = LocalBackupRestoreState.RestorePhase.InProgress,
+        backupInfo = LocalBackupInfo(
+          type = LocalBackupInfo.BackupType.V2,
+          date = LocalDateTime.of(2026, 3, 15, 14, 30, 0),
+          name = "signal-backup-2026-03-15-14-30-00",
+          uri = Uri.EMPTY,
+          sizeBytes = 511.mebiBytes.bytes
+        ),
+        restoreProgress = RestoreProgress(
+          phase = RestoreProgress.Phase.Restoring,
+          bytesCompleted = 332.mebiBytes.bytes,
+          totalBytes = 511.mebiBytes.bytes
+        )
+      ),
       onEvent = {}
     )
   }

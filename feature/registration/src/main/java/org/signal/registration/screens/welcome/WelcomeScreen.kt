@@ -372,7 +372,7 @@ private fun PrimaryDeviceCallToActionButtons(
     Text(stringResource(R.string.RegistrationActivity_continue))
   }
 
-  Spacer(modifier = Modifier.height(17.dp))
+  Spacer(modifier = Modifier.height(16.dp))
 
   Buttons.LargeTonal(
     onClick = onRestoreOrTransferClick,

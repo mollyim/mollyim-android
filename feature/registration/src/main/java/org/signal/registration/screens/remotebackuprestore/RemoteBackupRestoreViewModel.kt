@@ -27,6 +27,7 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
+import org.signal.registration.screens.shared.RestoreProgress
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.screens.util.navigateTo
 import kotlin.coroutines.CoroutineContext
@@ -89,8 +90,8 @@ class RemoteBackupRestoreViewModel(
             Log.i(TAG, "[restoreBackup] Restoring...")
             _state.value = _state.value.copy(
               restoreState = RemoteBackupRestoreState.RestoreState.InProgress,
-              restoreProgress = RemoteBackupRestoreState.RestoreProgress(
-                phase = RemoteBackupRestoreState.RestoreProgress.Phase.Downloading,
+              restoreProgress = RestoreProgress(
+                phase = RestoreProgress.Phase.Downloading,
                 bytesCompleted = progress.bytesDownloaded,
                 totalBytes = progress.totalBytes
               )
@@ -100,8 +101,8 @@ class RemoteBackupRestoreViewModel(
             Log.i(TAG, "[restoreBackup] Restoring...")
             _state.value = _state.value.copy(
               restoreState = RemoteBackupRestoreState.RestoreState.InProgress,
-              restoreProgress = RemoteBackupRestoreState.RestoreProgress(
-                phase = RemoteBackupRestoreState.RestoreProgress.Phase.Restoring,
+              restoreProgress = RestoreProgress(
+                phase = RestoreProgress.Phase.Restoring,
                 bytesCompleted = progress.bytesRead,
                 totalBytes = progress.totalBytes
               )
@@ -111,8 +112,8 @@ class RemoteBackupRestoreViewModel(
             Log.i(TAG, "[restoreBackup] Finalizing...")
             _state.value = _state.value.copy(
               restoreState = RemoteBackupRestoreState.RestoreState.InProgress,
-              restoreProgress = RemoteBackupRestoreState.RestoreProgress(
-                phase = RemoteBackupRestoreState.RestoreProgress.Phase.Finalizing,
+              restoreProgress = RestoreProgress(
+                phase = RestoreProgress.Phase.Finalizing,
                 bytesCompleted = 0,
                 totalBytes = 0
               )
