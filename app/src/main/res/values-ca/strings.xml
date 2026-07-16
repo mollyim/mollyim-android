@@ -952,7 +952,7 @@
     <string name="BackupsPreferenceFragment__test_your_backup_passphrase">Proveu la contrasenya de còpia de seguretat i verifiqueu que coincideix.</string>
     <string name="BackupsPreferenceFragment__turn_on">Activar les còpies de seguretat</string>
     <string name="BackupsPreferenceFragment__turn_off">Desactiva</string>
-    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·leu una còpia del Signal. Obriu l\'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s"</string>
+    <string name="BackupsPreferenceFragment__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·leu una còpia del Signal. Obriu l'aplicació i toqueu Restaura la còpia de seguretat. Indiqueu el fitxer de còpia de seguretat. %1$s"</string>
     <string name="BackupsPreferenceFragment__learn_more">Més informació</string>
     <string name="BackupsPreferenceFragment__in_progress">En curs…</string>
     <!-- Status text shown in backup preferences when verifying a backup -->
@@ -1419,8 +1419,8 @@
     <string name="RequestingMembersFragment_pending_member_requests">Sol·licituds d\'adhesió pendents</string>
     <string name="RequestingMembersFragment_no_member_requests_to_show">No hi ha cap sol·licitud d\'adhesió per mostrar.</string>
     <string name="RequestingMembersFragment_explanation">La gent d\'aquesta llista intenta afegir-se a aquest grup per l\'enllaç del grup.</string>
-    <string name="RequestingMembersFragment_added_s">"S\'hi ha afegit %1$s"</string>
-    <string name="RequestingMembersFragment_denied_s">"S\'ha rebutjat %1$s"</string>
+    <string name="RequestingMembersFragment_added_s">"S'hi ha afegit %1$s"</string>
+    <string name="RequestingMembersFragment_denied_s">"S'ha rebutjat %1$s"</string>
 
     <!-- AddMembersActivity -->
     <string name="AddMembersActivity__done">Fet</string>
@@ -3585,7 +3585,7 @@
     <string name="ContactSelectionListFragment_signal_requires_the_contacts_permission_in_order_to_display_your_contacts">El Signal necessita el permís de l\'aplicació dels contactes per tal de mostrar-ne els vostres, però s\'ha denegat permanentment. Si us plau, continueu cap al menú de configuració de l\'aplicació, seleccioneu Permisos i activeu-hi els contactes.</string>
     <string name="ContactSelectionListFragment_error_retrieving_contacts_check_your_network_connection">Error en recuperar els contactes. Comproveu la connexió de xarxa.</string>
     <string name="ContactSelectionListFragment_username_not_found">No s\'ha trobat l\'àlies.</string>
-    <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s no és un usuari del Signal. Si us plau, comproveu-ne l\'àlies i torneu-ho a provar."</string>
+    <string name="ContactSelectionListFragment_s_is_not_a_signal_user">"%1$s no és un usuari del Signal. Si us plau, comproveu-ne l'àlies i torneu-ho a provar."</string>
     <string name="ContactSelectionListFragment_you_do_not_need_to_add_yourself_to_the_group">No cal que us afegiu al grup.</string>
     <string name="ContactSelectionListFragment_maximum_group_size_reached">S\'ha assolit la mida màxima del grup.</string>
     <string name="ContactSelectionListFragment_signal_groups_can_have_a_maximum_of_s_members">Els grups del Signal poden tenir un màxim de %1$s membres.</string>
@@ -6219,7 +6219,7 @@
     <!-- Warning title shown before restricting member labels to admins only. -->
     <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_title">S\'eliminaran les categories de membres</string>
     <!-- Warning body shown before restricting member labels to admins only. -->
-    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"Si canvies aquest permís a Només admins, s\'eliminaran les categories de membres establertes pels no administradors d\'aquest grup."</string>
+    <string name="PermissionsSettingsFragment__member_labels_will_be_cleared_body">"Si canvies aquest permís a Només admins, s'eliminaran les categories de membres establertes pels no administradors d'aquest grup."</string>
     <!-- Confirm button for changing member label permission after warning. -->
     <string name="PermissionsSettingsFragment__change_permission">Canviar permís</string>
 
@@ -7547,7 +7547,7 @@
     <!-- Section header for who can view a group story -->
     <string name="GroupStorySettingsFragment__who_can_view_this_story">Qui pot veure aquesta història</string>
     <!-- Explanation of who can view a group story -->
-    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Els membres del grup \"%1$s\" poden veure i respondre a aquesta història. Pots actualitzar l\'afiliació a aquest xat a través del grup."</string>
+    <string name="GroupStorySettingsFragment__members_of_the_group_s">"Els membres del grup \"%1$s\" poden veure i respondre a aquesta història. Pots actualitzar l'afiliació a aquest xat a través del grup."</string>
     <!-- Preference label for removing this group story -->
     <string name="GroupStorySettingsFragment__remove_group_story">Suprimir història de grup</string>
 
@@ -8270,7 +8270,7 @@
     <string name="InactivePrimary__got_it">Entesos</string>
 
     <!-- Text describing how to restore a backup displayed on the on-device backups screen -->
-    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·la una nova còpia de Signal. Obre l\'app i toca Restaura la còpia de seguretat, i selecciona el fitxer de còpia de seguretat."</string>
+    <string name="OnDeviceBackupsScreen__to_restore_a_backup">"Per restaurar una còpia de seguretat, instal·la una nova còpia de Signal. Obre l'app i toca Restaura la còpia de seguretat, i selecciona el fitxer de còpia de seguretat."</string>
     <!-- Body of a dialog shown when turning on on-device backups while "Optimize Signal storage" is enabled, warning that optimized media won\'t be included -->
     <string name="OnDeviceBackupsScreen__you_have_optimize_signal_storage_on">Tens l\'opció \"Optimitzar l\'emmagatzematge de Signal\" activada. Desactiva-la si vols incloure tots els teus arxius multimèdia a la teva còpia de seguretat local.</string>
     <!-- Dialog action that takes the user to the "Optimize Signal storage" setting -->
@@ -8751,7 +8751,7 @@
     <!-- Subtitle shown on a linked device when backups are off, directing the user to set them up on their phone -->
     <string name="BackupsSettingsFragment__automatic_backups_get_started_on_your_phone">Còpies de seguretat automàtiques amb el servei d\'emmagatzematge xifrat segur d\'extrem a extrem de Signal. Configura-les al teu telèfon.</string>
     <!-- Subtitle for row for backups that are active but subscription not found -->
-    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"No s\'ha trobat una subscripció en aquest dispositiu."</string>
+    <string name="BackupsSettingsFragment_subscription_not_found_on_this_device">"No s'ha trobat una subscripció en aquest dispositiu."</string>
     <!-- Action button label to set up backups -->
     <string name="BackupsSettingsFragment_set_up">Configurar</string>
     <!-- Action button label to open remote backup settings -->
