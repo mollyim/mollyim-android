@@ -47,7 +47,7 @@
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
     <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <string name="RegistrationActivity_invalid_phone_number">ਅਵੈਧ ਫੋਨ ਨੰਬਰ</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">ਅੱਗੇ</string>
@@ -229,11 +229,11 @@
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">ਪਾਸਵਰਡ ਮੈਨੇਜਰ ਤੋਂ ਭਰੋ</string>
     <!-- Title of the dialog warning that the backup being restored was created with a different account -->
-    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <string name="EnterAepScreen__restore_to_new_account">ਕੀ ਨਵੇਂ ਖਾਤੇ ਵਿੱਚ ਰੀਸਟੋਰ ਕਰਨਾ ਹੈ?</string>
     <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
-    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <string name="EnterAepScreen__restore_to_new_account_body">ਤੁਸੀਂ ਜਿਹੜਾ ਬੈਕਅੱਪ ਰੀਸਟੋਰ ਕਰ ਰਹੇ ਹੋ, ਉਹ ਕਿਸੇ ਹੋਰ Signal ਖਾਤੇ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਬਣਾਇਆ ਗਿਆ ਸੀ। ਤੁਸੀਂ ਇਸ ਬੈਕਅੱਪ ਨੂੰ ਇੱਕ ਨਵੇਂ ਖਾਤੇ ਵਿੱਚ ਰੀਸਟੋਰ ਕਰ ਸਕਦੇ ਹੋ, ਪਰ ਤੁਸੀਂ ਹੁਣ ਕਿਸੇ ਵੀ ਅਜਿਹੇ ਗਰੁੱਪ ਦੇ ਮੈਂਬਰ ਨਹੀਂ ਰਹੋਗੇ ਜਿਹਨਾਂ ਨੂੰ ਰੀਸਟੋਰ ਕੀਤਾ ਗਿਆ ਹੈ।</string>
     <!-- Confirm button label for the restore to new account dialog -->
-    <string name="EnterAepScreen__restore">Restore</string>
+    <string name="EnterAepScreen__restore">ਰੀਸਟੋਰ ਕਰੋ</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">ਰੀਸਟੋਰ ਕਰਨ ਦੀ ਤਿਆਰੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…</string>
     <!-- Title shown while restore is in progress -->
@@ -253,7 +253,7 @@
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">ਰਿਕਵਰੀ ਕੁੰਜੀ ਗਲਤ ਹੈ</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
@@ -443,6 +443,8 @@
     <string name="MessageSyncScreen__preparing">ਤਿਆਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">ਮੁਕੰਮਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">Restoring…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">ਸਿੰਕ ਕਰਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਸਮੇਤ, ਸੁਨੇਹੇ ਅਤੇ ਚੈਟ ਦੀ ਜਾਣਕਾਰੀ ਸਿਰੇ-ਤੋਂ-ਸਿਰੇ ਤੱਕ ਇਨਕ੍ਰਿਪਸ਼ਨ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੁੰਦੀ ਹੈ।</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->

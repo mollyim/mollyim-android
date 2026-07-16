@@ -47,7 +47,7 @@
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
     <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_invalid_phone_number">Invalid phone number</string>
+    <string name="RegistrationActivity_invalid_phone_number">अवैध फोन नंबर</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">पुढे</string>
@@ -229,11 +229,11 @@
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">पासवर्ड व्यवस्थापकामधून भरा</string>
     <!-- Title of the dialog warning that the backup being restored was created with a different account -->
-    <string name="EnterAepScreen__restore_to_new_account">Restore to new account?</string>
+    <string name="EnterAepScreen__restore_to_new_account">नवीन खात्यामध्ये पूर्ववत करायचा?</string>
     <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
-    <string name="EnterAepScreen__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+    <string name="EnterAepScreen__restore_to_new_account_body">तुम्ही पूर्ववत करत असलेला बॅकअप एक वेगळे Signal खाते वापरून तयार केला गेला आहे. तुम्ही नवीन खात्यावर हा बॅकअप परत मिळवू शकता, पण तुम्ही पूर्ववत केलेल्या कोणत्याही गटाचे सदस्य असणार नाही.</string>
     <!-- Confirm button label for the restore to new account dialog -->
-    <string name="EnterAepScreen__restore">Restore</string>
+    <string name="EnterAepScreen__restore">पुनर्स्थापना करा</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">रीस्टोर तयार होत आहे…</string>
     <!-- Title shown while restore is in progress -->
@@ -253,7 +253,7 @@
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Incorrect recovery key</string>
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">चुकीची रीकव्हरी की</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
@@ -443,6 +443,8 @@
     <string name="MessageSyncScreen__preparing">तयार करत आहे…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">पूर्ण होत आहे…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">Restoring…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">संदेशाची आणि चॅटची माहिती एन्ड-टू-एन्ड एन्क्रिप्शनने संरक्षित आहे, अगदी सिंकिंगची प्रक्रियासुद्धा.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
