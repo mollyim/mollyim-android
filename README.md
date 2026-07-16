@@ -24,9 +24,7 @@ You can download the app from GitHub's [Releases](https://github.com/mollyim/mol
     alt="Get it on F-Droid"
     height="80">](https://molly.im/fdroid/)
 
-There are two versions available: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
-
-You can also get **Molly-FOSS** from [Accrescent](https://accrescent.app/):
+You can also get **Molly** from [Accrescent](https://accrescent.app/):
 
 <a href="https://accrescent.app/app/im.molly.app">
    <img alt="Get it on Accrescent"
@@ -61,16 +59,19 @@ Additionally, you will find all the features of Signal, along with some minor tw
 
 Molly is open-source just like Signal. But Signal depends on proprietary Google software for some features.
 
-To support a 100% free and auditable app, Molly comes in two versions: one with proprietary blobs like Signal, and one without. They are called Molly and Molly-FOSS, respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+To support FCM, Molly uses a fully open-source library.
+
 
 ### Feature Comparison
 
-Here's how some key features work in different versions of the app:
+Here's how some key features work in Molly and Signal:
 
-| Feature                           | Molly-FOSS       | Molly                | Signal               |
-| --------------------------------- | ---------------- | -------------------- | -------------------- |
-| Push notifications <sup>(1)</sup> | ✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket |
-| Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        | ⚠ Google Maps        |
+| Feature                           | Molly      | Signal               |
+| --------------------------------- | ---------------- | -------------------- |
+| Push notifications <sup>(1)</sup> | ✔ FCM<br>✔ WebSocket<br>✔ UnifiedPush| ⚠ FCM<br>✔ WebSocket |
+| Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        |
+
+✔ is used to represent open source libraries and ⚠ is used to represent proprietary libraries.
 
 <sup>(1)</sup> You might need to turn off system-level battery restrictions for the app to receive messages when the app isn't open.
 
