@@ -406,7 +406,7 @@ class DemoStorageController(private val context: Context) : StorageController {
 
         // Decrypt + parse the backup proto to prove the round-trip worked. We intentionally do NOT
         // import the frames into a database -- that is the app's full backup-restore pipeline.
-        trySend(LinkAndSyncProgress.Restoring)
+        trySend(LinkAndSyncProgress.Finalizing)
         val downloadedBytes = tempFile.length()
         var frameCount = 0
         EncryptedBackupReader.createForLocalOrLinking(

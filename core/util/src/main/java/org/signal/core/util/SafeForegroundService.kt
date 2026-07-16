@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-package org.thoughtcrime.securesms.service
+package org.signal.core.util
 
 import android.annotation.SuppressLint
 import android.app.Notification
@@ -16,8 +16,6 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.ServiceCompat
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil
-import org.thoughtcrime.securesms.jobs.UnableToStartException
 import java.util.concurrent.locks.ReentrantLock
 import javax.annotation.CheckReturnValue
 import kotlin.concurrent.withLock
@@ -38,6 +36,7 @@ abstract class SafeForegroundService : Service() {
     private const val ACTION_TIMEOUT = "timeout"
 
     private var states: MutableMap<Class<out SafeForegroundService>, State> = mutableMapOf()
+    private val restartExtras: MutableMap<Class<out SafeForegroundService>, Bundle> = mutableMapOf()
     private val stateLock = ReentrantLock()
 
     /**
@@ -78,6 +77,7 @@ abstract class SafeForegroundService : Service() {
           State.STOPPING -> {
             Log.d(TAG, "[start] Attempted to start while the service is stopping. Enqueueing a restart.")
             states[serviceClass] = State.NEEDS_RESTART
+            restartExtras[serviceClass] = Bundle(extras)
             true
           }
         }
@@ -124,6 +124,7 @@ abstract class SafeForegroundService : Service() {
           State.NEEDS_RESTART -> {
             Log.i(TAG, "[stop] Clearing pending restart.")
             states[serviceClass] = State.STOPPING
+            restartExtras.remove(serviceClass)
             false
           }
         }
@@ -232,7 +233,8 @@ abstract class SafeForegroundService : Service() {
         State.NEEDS_RESTART -> {
           Log.i(TAG, "[onDestroy] Restarting service!")
           states[javaClass] = State.STOPPED
-          if (!start(this, javaClass)) {
+          val extras = restartExtras.remove(javaClass) ?: Bundle.EMPTY
+          if (!start(this, javaClass, extras)) {
             Log.w(TAG, "[onDestroy] Failed to restart service.")
           }
         }

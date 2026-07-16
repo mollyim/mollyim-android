@@ -50,6 +50,7 @@ import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
+import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.BackupEvent
 import org.thoughtcrime.securesms.backup.BackupPassphrase
 import org.thoughtcrime.securesms.backup.FullBackupImporter
@@ -88,6 +89,7 @@ import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+import org.thoughtcrime.securesms.service.BackupProgressService
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener
 import org.thoughtcrime.securesms.service.LocalBackupListener
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener
@@ -293,6 +295,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
+      val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
       try {
         if (!FullBackupImporter.validatePassphrase(context, backupUri, passphrase)) {
           Log.w(TAG, "V1 restore failed: incorrect passphrase")
@@ -344,6 +347,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         Log.w(TAG, "V1 restore failed", e)
         trySend(LocalBackupRestoreProgress.Error(e))
       } finally {
+        progressService.close()
         channel.close()
       }
     }
@@ -382,6 +386,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
+      val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
       try {
         val backupDir = DocumentFile.fromTreeUri(context, backupUri)
         if (backupDir == null || !backupDir.canRead()) {
@@ -441,6 +446,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         Log.w(TAG, "V2 restore failed", e)
         trySend(LocalBackupRestoreProgress.Error(e))
       } finally {
+        progressService.close()
         channel.close()
       }
     }
@@ -598,8 +604,8 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       fun onRestoreEvent(event: RestoreV2Event) {
         val progress = when (event.type) {
           RestoreV2Event.Type.PROGRESS_DOWNLOAD -> LinkAndSyncProgress.Downloading(event.count, event.estimatedTotalCount)
-          RestoreV2Event.Type.PROGRESS_RESTORE -> LinkAndSyncProgress.Restoring
-          RestoreV2Event.Type.PROGRESS_FINALIZING -> LinkAndSyncProgress.Restoring
+          RestoreV2Event.Type.PROGRESS_RESTORE -> LinkAndSyncProgress.Restoring(event.count, event.estimatedTotalCount)
+          RestoreV2Event.Type.PROGRESS_FINALIZING -> LinkAndSyncProgress.Finalizing
         }
         trySend(progress)
       }

@@ -185,6 +185,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.signal.registration.R as RegistrationR
 
 object BackupRepository {
 
@@ -2358,7 +2359,7 @@ object BackupRepository {
     try {
       DataRestoreConstraint.isRestoringData = true
       return withContext(Dispatchers.IO) {
-        return@withContext BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title)).use {
+        return@withContext BackupProgressService.start(context, context.getString(RegistrationR.string.MessageSyncScreen__syncing_messages)).use {
           restoreLinkAndSyncBackup(response, ephemeralBackupKey, controller = it, cancellationSignal = { !isActive })
         }
       }
@@ -2373,7 +2374,7 @@ object BackupRepository {
     val progressListener = object : ProgressListener {
       override fun onAttachmentProgress(progress: AttachmentTransferProgress) {
         controller.update(
-          title = AppDependencies.application.getString(R.string.BackupProgressService_title_downloading),
+          title = AppDependencies.application.getString(RegistrationR.string.MessageSyncScreen__syncing_messages),
           progress = progress.value,
           indeterminate = false
         )
@@ -2405,7 +2406,7 @@ object BackupRepository {
     }
 
     controller.update(
-      title = AppDependencies.application.getString(R.string.BackupProgressService_title),
+      title = AppDependencies.application.getString(RegistrationR.string.MessageSyncScreen__syncing_messages),
       progress = 0f,
       indeterminate = true
     )

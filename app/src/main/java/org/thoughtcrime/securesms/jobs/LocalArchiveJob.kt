@@ -7,6 +7,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.signal.core.util.Stopwatch
+import org.signal.core.util.UnableToStartException
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.BackupFileIOError
@@ -24,6 +25,7 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.service.GenericForegroundService
 import org.thoughtcrime.securesms.service.NotificationController
 import java.io.IOException
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Local backup job for installs using new backupv2 folder format.
@@ -57,7 +59,7 @@ class LocalArchiveJob internal constructor(parameters: Parameters) : Job(paramet
         context,
         context.getString(R.string.LocalBackupJob_creating_signal_backup),
         NotificationChannels.getInstance().BACKUPS,
-        R.drawable.ic_signal_backup
+        CoreUiR.drawable.ic_signal_backup
       )
     } catch (e: UnableToStartException) {
       Log.w(TAG, "Unable to start foreground backup service, continuing without service")

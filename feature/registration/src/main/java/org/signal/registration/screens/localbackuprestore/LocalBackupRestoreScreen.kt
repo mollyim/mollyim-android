@@ -51,6 +51,7 @@ import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.KeepScreenOnEffect
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.mebiBytes
@@ -81,6 +82,10 @@ fun LocalBackupRestoreScreen(
     if (state.launchFolderPicker) {
       folderPickerLauncher.launch(null)
     }
+  }
+
+  if (state.restorePhase == LocalBackupRestoreState.RestorePhase.Preparing || state.restorePhase == LocalBackupRestoreState.RestorePhase.InProgress) {
+    KeepScreenOnEffect()
   }
 
   when (state.restorePhase) {

@@ -13,6 +13,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.signal.core.models.ServiceId
 import org.signal.core.util.AppForegroundObserver
+import org.signal.core.util.SafeForegroundService
 import org.signal.core.util.SleepTimer
 import org.signal.core.util.UptimeSleepTimer
 import org.signal.core.util.concurrent.SignalExecutors
@@ -37,7 +38,6 @@ import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess.Companion.toApplicableSystemHttpProxy
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.service.SafeForegroundService
 import org.thoughtcrime.securesms.util.AlarmSleepTimer
 import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.SignalLocalMetrics

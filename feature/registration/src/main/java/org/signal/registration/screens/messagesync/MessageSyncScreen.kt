@@ -44,6 +44,7 @@ import org.signal.core.ui.assumedFormFactor
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.KeepScreenOnEffect
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
@@ -54,6 +55,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.screens.messagesync.MessageSyncScreenState.Stage
 import org.signal.registration.test.TestTags
 
 /**
@@ -66,6 +68,10 @@ fun MessageSyncScreen(
   modifier: Modifier = Modifier
 ) {
   val layoutParams = RegistrationScaffold.rememberLayoutParams()
+
+  if (!state.showSyncFailedDialog) {
+    KeepScreenOnEffect()
+  }
 
   Surface(modifier = modifier.testTag(TestTags.MESSAGE_SYNC_SCREEN)) {
     when (layoutParams) {
@@ -175,32 +181,37 @@ private fun FirstPaneContent(
       modifier = Modifier.padding(top = 16.dp)
     )
 
-    val showDownloadProgress = state.totalBytes.bytes > 0 && !state.isFinishing
     val progressModifier = Modifier
       .padding(top = 48.dp, bottom = 16.dp)
       .widthIn(max = 415.dp)
       .fillMaxWidth()
 
-    if (showDownloadProgress) {
-      LinearProgressIndicator(
-        progress = { state.downloadedBytes.percentageOf(state.totalBytes) },
+    when (val stage = state.stage) {
+      is Stage.Downloading -> LinearProgressIndicator(
+        progress = { stage.downloaded.percentageOf(stage.total) },
         drawStopIndicator = {},
         gapSize = 0.dp,
         modifier = progressModifier
       )
-    } else {
-      LinearProgressIndicator(modifier = progressModifier)
+      is Stage.Restoring -> LinearProgressIndicator(
+        progress = { stage.restored.percentageOf(stage.total) },
+        drawStopIndicator = {},
+        gapSize = 0.dp,
+        modifier = progressModifier
+      )
+      Stage.Preparing, Stage.Finishing -> LinearProgressIndicator(modifier = progressModifier)
     }
 
     Text(
-      text = when {
-        state.isFinishing -> stringResource(R.string.MessageSyncScreen__finishing)
-        showDownloadProgress -> stringResource(
+      text = when (val stage = state.stage) {
+        Stage.Preparing -> stringResource(R.string.MessageSyncScreen__preparing)
+        is Stage.Downloading -> stringResource(
           R.string.MessageSyncScreen__downloading_s_of_s,
-          state.downloadedBytes.toUnitString(),
-          state.totalBytes.toUnitString()
+          stage.downloaded.toUnitString(),
+          stage.total.toUnitString()
         )
-        else -> stringResource(R.string.MessageSyncScreen__preparing)
+        is Stage.Restoring -> stringResource(R.string.MessageSyncScreen__restoring)
+        Stage.Finishing -> stringResource(R.string.MessageSyncScreen__finishing)
       },
       style = MaterialTheme.typography.bodyMedium,
       color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -369,8 +380,7 @@ private fun MessageSyncScreenPreview() {
   Previews.Preview {
     MessageSyncScreen(
       state = MessageSyncScreenState(
-        downloadedBytes = 1.mebiBytes,
-        totalBytes = 3300.kibiBytes
+        stage = Stage.Downloading(downloaded = 1.mebiBytes, total = 3300.kibiBytes)
       ),
       onEvent = {}
     )

@@ -14,6 +14,7 @@ dependencies {
 
   implementation(libs.androidx.sqlite)
   implementation(libs.androidx.documentfile)
+  implementation(libs.google.jsr305)
   implementation(libs.androidx.lifecycle.process)
   implementation(libs.androidx.exifinterface)
   implementation(libs.kotlinx.serialization.json)

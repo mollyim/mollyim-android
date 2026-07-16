@@ -38,6 +38,7 @@ import org.signal.core.models.AccountEntropyPool
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.KeepScreenOnEffect
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
@@ -57,6 +58,10 @@ fun RemoteRestoreScreen(
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  if (state.restoreState == RemoteBackupRestoreState.RestoreState.InProgress) {
+    KeepScreenOnEffect()
+  }
+
   when (state.loadState) {
     RemoteBackupRestoreState.LoadState.Loading -> {
       Dialogs.IndeterminateProgressDialog(
