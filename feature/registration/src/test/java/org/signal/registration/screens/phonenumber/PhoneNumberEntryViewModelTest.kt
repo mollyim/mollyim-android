@@ -40,6 +40,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.VerificationCodeRequest
 import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
@@ -678,10 +679,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     assertThat(emittedStates.last().sessionMetadata).isNotNull()
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -813,17 +815,136 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Should not create a new session, just request verification code
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
   }
 
   @Test
-  fun `PhoneNumberSubmitted handles rate limiting from requestVerificationCode`() = runTest {
+  fun `PhoneNumberSubmitted skips the SMS request when one was recently sent for the same number`() = runTest {
+    val existingSession = createSessionMetadata()
+    val initialState = PhoneNumberEntryState(
+      countryCode = "1",
+      nationalNumber = "5551234567",
+      sessionE164 = "+15551234567",
+      sessionMetadata = existingSession,
+      smsVerificationCodeRequest = VerificationCodeRequest("+15551234567", System.currentTimeMillis() + 30_000)
+    )
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    coVerify(exactly = 0) { mockRepository.createSession(any()) }
+    coVerify(exactly = 0) { mockRepository.requestVerificationCode(any(), any(), any()) }
+
+    assertThat(emittedEvents).hasSize(2)
+    assertThat(emittedEvents[0]).isEqualTo(RegistrationFlowEvent.E164Chosen("+15551234567"))
+    assertThat(emittedEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
+  }
+
+  @Test
+  fun `PhoneNumberSubmitted requests a new SMS when the previous request window has expired`() = runTest {
+    val existingSession = createSessionMetadata()
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns
+      RequestResult.Success(existingSession)
+
+    val initialState = PhoneNumberEntryState(
+      countryCode = "1",
+      nationalNumber = "5551234567",
+      sessionE164 = "+15551234567",
+      sessionMetadata = existingSession,
+      smsVerificationCodeRequest = VerificationCodeRequest("+15551234567", System.currentTimeMillis() - 1_000)
+    )
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    coVerify(exactly = 1) { mockRepository.requestVerificationCode(any(), any(), any()) }
+    assertThat(emittedEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
+  }
+
+  @Test
+  fun `PhoneNumberSubmitted requests a new SMS when the recent request was for a different number`() = runTest {
+    val existingSession = createSessionMetadata()
+
+    coEvery { mockRepository.createSession(any()) } returns
+      RequestResult.Success(existingSession)
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns
+      RequestResult.Success(existingSession)
+
+    val initialState = PhoneNumberEntryState(
+      countryCode = "1",
+      nationalNumber = "5551234567",
+      sessionE164 = "+15559999999",
+      sessionMetadata = existingSession,
+      smsVerificationCodeRequest = VerificationCodeRequest("+15559999999", System.currentTimeMillis() + 30_000)
+    )
+
+    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    coVerify(exactly = 1) { mockRepository.createSession("+15551234567") }
+    coVerify(exactly = 1) { mockRepository.requestVerificationCode(any(), any(), any()) }
+    assertThat(emittedEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
+  }
+
+  @Test
+  fun `successful SMS request records the next allowed SMS and call request times from the response`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = PhoneNumberEntryViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val sessionMetadata = createSessionMetadata(nextSms = 45L, nextCall = 120L)
+    coEvery { mockRepository.createSession(any()) } returns RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns RequestResult.Success(sessionMetadata)
+
+    val initialState = PhoneNumberEntryState(countryCode = "1", nationalNumber = "5551234567")
+
+    clockedViewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 45_000, nextCallAllowedTimestamp = fixedNow + 120_000)))
+  }
+
+  @Test
+  fun `successful SMS request defaults to a 60 second window when the response has no nextSms`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = PhoneNumberEntryViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val sessionMetadata = createSessionMetadata(nextSms = null)
+    coEvery { mockRepository.createSession(any()) } returns RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns RequestResult.Success(sessionMetadata)
+
+    val initialState = PhoneNumberEntryState(countryCode = "1", nationalNumber = "5551234567")
+
+    clockedViewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 60_000, nextCallAllowedTimestamp = null)))
+  }
+
+  @Test
+  fun `PhoneNumberSubmitted rate limited by requestVerificationCode navigates to code entry with the wait recorded`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = PhoneNumberEntryViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
     val sessionMetadata = createSessionMetadata()
 
     coEvery { mockRepository.createSession(any()) } returns
@@ -838,13 +959,23 @@ class PhoneNumberEntryViewModelTest {
       nationalNumber = "5551234567"
     )
 
-    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+    clockedViewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
 
     // Verify spinner states
     assertThat(emittedStates.first().showSpinner).isTrue()
     assertThat(emittedStates.last().showSpinner).isFalse()
 
-    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isNotNull()
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isNull()
+    assertThat(emittedStates.last().sessionMetadata).isEqualTo(sessionMetadata)
+
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isEqualTo(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 30_000, nextCallAllowedTimestamp = null))
+    assertThat(emittedEvents[1]).isEqualTo(RegistrationFlowEvent.SessionUpdated(sessionMetadata))
+    assertThat(emittedEvents[2]).isEqualTo(RegistrationFlowEvent.E164Chosen("+15551234567"))
+    assertThat(emittedEvents[3])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
   }
 
   @Test
@@ -952,10 +1083,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Verify navigation to verification code entry
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -986,10 +1118,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Verify navigation continues despite no push challenge token
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -1024,10 +1157,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Verify navigation continues despite push challenge submission failure
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -1057,10 +1191,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Verify navigation continues despite network error
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -1090,10 +1225,11 @@ class PhoneNumberEntryViewModelTest {
     assertThat(emittedStates.last().showSpinner).isFalse()
 
     // Verify navigation continues despite application error
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -1172,10 +1308,11 @@ class PhoneNumberEntryViewModelTest {
 
     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedEvents).hasSize(3)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
-    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
-    assertThat(emittedEvents[2])
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeRequested>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.SessionUpdated>()
+    assertThat(emittedEvents[2]).isInstanceOf<RegistrationFlowEvent.E164Chosen>()
+    assertThat(emittedEvents[3])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
@@ -1222,6 +1359,40 @@ class PhoneNumberEntryViewModelTest {
 
     assertThat(emittedStates).hasSize(1)
     assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(45.seconds)
+  }
+
+  @Test
+  fun `CaptchaCompleted rate limited when requesting the code navigates to code entry with the wait recorded`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = PhoneNumberEntryViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val sessionMetadata = createSessionMetadata()
+    val initialState = PhoneNumberEntryState(
+      countryCode = "1",
+      nationalNumber = "5551234567",
+      sessionMetadata = sessionMetadata
+    )
+
+    coEvery { mockRepository.submitCaptchaToken(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.requestVerificationCode(any(), any(), any()) } returns
+      RequestResult.NonSuccess(
+        NetworkController.RequestVerificationCodeError.RateLimited(45.seconds, sessionMetadata)
+      )
+
+    clockedViewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.CaptchaCompleted("captcha-token"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isNull()
+    assertThat(emittedEvents).hasSize(4)
+    assertThat(emittedEvents[0]).isEqualTo(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 45_000, nextCallAllowedTimestamp = null))
+    assertThat(emittedEvents[1]).isEqualTo(RegistrationFlowEvent.SessionUpdated(sessionMetadata))
+    assertThat(emittedEvents[2]).isEqualTo(RegistrationFlowEvent.E164Chosen("+15551234567"))
+    assertThat(emittedEvents[3])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.VerificationCodeEntry>()
   }
 
   @Test
@@ -1872,11 +2043,13 @@ class PhoneNumberEntryViewModelTest {
   private fun createSessionMetadata(
     id: String = "test-session-id",
     requestedInformation: List<String> = emptyList(),
-    verified: Boolean = false
+    verified: Boolean = false,
+    nextSms: Long? = null,
+    nextCall: Long? = null
   ) = NetworkController.SessionMetadata(
     id = id,
-    nextSms = null,
-    nextCall = null,
+    nextSms = nextSms,
+    nextCall = nextCall,
     nextVerificationAttempt = null,
     allowedToRequestCode = true,
     requestedInformation = requestedInformation,

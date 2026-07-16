@@ -174,7 +174,7 @@ class VerificationCodeViewModel(
     val sessionChanged = state.sessionMetadata?.id != parentState.sessionMetadata.id
 
     val rateLimits = if (sessionChanged) {
-      computeRateLimits(parentState.sessionMetadata)
+      initializeRateLimits(parentState.sessionMetadata, parentState)
     } else {
       state.rateLimits
     }
@@ -453,6 +453,7 @@ class VerificationCodeViewModel(
     return when (result) {
       is RequestResult.Success -> {
         Log.i(TAG, "[RequestCode][$transport] Successfully requested verification code.")
+        parentEventEmitter(RegistrationFlowEvent.VerificationCodeRequested.from(state.e164, transport, result.result, clock()))
         parentEventEmitter(RegistrationFlowEvent.SessionUpdated(result.result))
         state.copy(
           sessionMetadata = result.result,
@@ -527,6 +528,30 @@ class VerificationCodeViewModel(
     return SmsAndCallRateLimits(
       smsResendTimeRemaining = (nextSmsAvailableAt - clock().milliseconds).coerceAtLeast(0.seconds),
       callRequestTimeRemaining = (nextCallAvailableAt - clock().milliseconds).coerceAtLeast(0.seconds)
+    )
+  }
+
+  /**
+   * Seeds the resend countdowns when we first see a session. Prefers the absolute timestamps recorded when the codes
+   * were actually requested (which remain accurate across leaving and re-entering this screen), falling back to
+   * anchoring the session's relative nextSms/nextCall values to now.
+   */
+  private fun initializeRateLimits(session: NetworkController.SessionMetadata, parentState: RegistrationFlowState): SmsAndCallRateLimits {
+    val now = clock().milliseconds
+
+    nextSmsAvailableAt = parentState.lastSmsVerificationCodeRequest
+      ?.takeIf { it.e164 == parentState.sessionE164 }
+      ?.nextAllowedRequestTime?.milliseconds
+      ?: (now + (session.nextSms?.seconds ?: 0.seconds))
+
+    nextCallAvailableAt = parentState.lastCallVerificationCodeRequest
+      ?.takeIf { it.e164 == parentState.sessionE164 }
+      ?.nextAllowedRequestTime?.milliseconds
+      ?: (now + (session.nextCall?.seconds ?: 0.seconds))
+
+    return SmsAndCallRateLimits(
+      smsResendTimeRemaining = (nextSmsAvailableAt - now).coerceAtLeast(0.seconds),
+      callRequestTimeRemaining = (nextCallAvailableAt - now).coerceAtLeast(0.seconds)
     )
   }
 

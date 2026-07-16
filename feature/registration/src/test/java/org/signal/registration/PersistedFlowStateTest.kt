@@ -72,7 +72,9 @@ class PersistedFlowStateTest {
       ),
       sessionMetadata = session,
       sessionE164 = "+15551234567",
-      doNotAttemptRecoveryPassword = false
+      doNotAttemptRecoveryPassword = false,
+      smsVerificationCodeRequest = VerificationCodeRequest("+15551234567", 1_700_000_060_000),
+      callVerificationCodeRequest = VerificationCodeRequest("+15551234567", 1_700_000_120_000)
     )
 
     val encoded = json.encodeToString(PersistedFlowState.serializer(), state)
@@ -176,7 +178,9 @@ class PersistedFlowStateTest {
       accountEntropyPool = AccountEntropyPool.generate(),
       storageCapable = true,
       temporaryMasterKey = MasterKey(ByteArray(32)),
-      doNotAttemptRecoveryPassword = true
+      doNotAttemptRecoveryPassword = true,
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", 12_345L),
+      lastCallVerificationCodeRequest = VerificationCodeRequest("+15551234567", 23_456L)
     )
 
     val persisted = flowState.toPersistedFlowState()
@@ -186,6 +190,8 @@ class PersistedFlowStateTest {
     assertThat(persisted.sessionE164).isEqualTo("+15551234567")
     assertThat(persisted.doNotAttemptRecoveryPassword).isEqualTo(true)
     assertThat(persisted.storageCapable).isEqualTo(true)
+    assertThat(persisted.smsVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 12_345L))
+    assertThat(persisted.callVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 23_456L))
   }
 
   @Test
@@ -205,7 +211,9 @@ class PersistedFlowStateTest {
       sessionMetadata = session,
       sessionE164 = "+15551234567",
       doNotAttemptRecoveryPassword = true,
-      storageCapable = true
+      storageCapable = true,
+      smsVerificationCodeRequest = VerificationCodeRequest("+15551234567", 12_345L),
+      callVerificationCodeRequest = VerificationCodeRequest("+15551234567", 23_456L)
     )
 
     val aep = AccountEntropyPool.generate()
@@ -225,5 +233,7 @@ class PersistedFlowStateTest {
     assertThat(flowState.preExistingRegistrationData).isNull()
     assertThat(flowState.doNotAttemptRecoveryPassword).isEqualTo(true)
     assertThat(flowState.storageCapable).isEqualTo(true)
+    assertThat(flowState.lastSmsVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 12_345L))
+    assertThat(flowState.lastCallVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 23_456L))
   }
 }

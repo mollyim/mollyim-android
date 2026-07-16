@@ -8,6 +8,7 @@ package org.signal.registration
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.TypeParceler
+import kotlinx.serialization.Serializable
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.censor
@@ -54,10 +55,24 @@ data class RegistrationFlowState(
    */
   val restoreMethodToken: String? = null,
 
+  /** Details around the last time we requested an SMS verification code and when we're allowed to request another. */
+  val lastSmsVerificationCodeRequest: VerificationCodeRequest? = null,
+
+  /** Details around the last time we requested a voice-call verification code and when we're allowed to request another. */
+  val lastCallVerificationCodeRequest: VerificationCodeRequest? = null,
+
   /** If true, the ViewModel is still deciding whether to restore a previous flow or start fresh. */
   val isRestoringNavigationState: Boolean = true
 ) : Parcelable {
   override fun toString(): String {
-    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=$sessionMetadata, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, storageCapable=$storageCapable, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=$preExistingRegistrationData, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, isRestoringNavigation=$isRestoringNavigationState)"
+    return "RegistrationFlowState(backStack=${backStack.joinToString()}, sessionMetadata=$sessionMetadata, sessionE164=$sessionE164, accountEntropyPool=${accountEntropyPool?.displayValue?.censor()}, storageCapable=$storageCapable, temporaryMasterKey=${temporaryMasterKey?.toString()?.censor()}, preExistingRegistrationData=$preExistingRegistrationData, doNotAttemptRecoveryPassword=$doNotAttemptRecoveryPassword, pendingRestoreOption=$pendingRestoreOption, unverifiedRestoredAep=${unverifiedRestoredAep?.displayValue?.censor()}, restoreMethodToken=${restoreMethodToken?.censor()}, lastSmsVerificationCodeRequest=$lastSmsVerificationCodeRequest, lastCallVerificationCodeRequest=$lastCallVerificationCodeRequest, isRestoringNavigation=$isRestoringNavigationState)"
   }
 }
+
+/** A verification code request we made for [e164], recording the epoch-millis time at which the server will allow another request over the same transport. */
+@Parcelize
+@Serializable
+data class VerificationCodeRequest(
+  val e164: String,
+  val nextAllowedRequestTime: Long
+) : Parcelable

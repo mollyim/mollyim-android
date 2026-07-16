@@ -101,6 +101,10 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.ResetState -> RegistrationFlowState(isRestoringNavigationState = false)
       is RegistrationFlowEvent.SessionUpdated -> state.copy(sessionMetadata = event.session)
       is RegistrationFlowEvent.E164Chosen -> state.copy(sessionE164 = event.e164)
+      is RegistrationFlowEvent.VerificationCodeRequested -> state.copy(
+        lastSmsVerificationCodeRequest = event.nextSmsAllowedTimestamp?.let { VerificationCodeRequest(event.e164, it) } ?: state.lastSmsVerificationCodeRequest,
+        lastCallVerificationCodeRequest = event.nextCallAllowedTimestamp?.let { VerificationCodeRequest(event.e164, it) } ?: state.lastCallVerificationCodeRequest
+      )
       is RegistrationFlowEvent.Registered -> state.copy(accountEntropyPool = event.accountEntropyPool, storageCapable = event.storageCapable)
       is RegistrationFlowEvent.MasterKeyRestoredFromSvr -> state.copy(temporaryMasterKey = event.masterKey)
       is RegistrationFlowEvent.NavigateToScreen -> applyNavigationToScreenEvent(state, event)
@@ -221,6 +225,7 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.NavigateBackToScreen,
       is RegistrationFlowEvent.SessionUpdated,
       is RegistrationFlowEvent.E164Chosen,
+      is RegistrationFlowEvent.VerificationCodeRequested,
       is RegistrationFlowEvent.RecoveryPasswordInvalid,
       is RegistrationFlowEvent.PendingRestoreOptionSelected,
       is RegistrationFlowEvent.RestoreMethodTokenReceived,

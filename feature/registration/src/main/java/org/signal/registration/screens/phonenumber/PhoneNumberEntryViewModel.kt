@@ -34,11 +34,14 @@ import org.signal.registration.screens.countrycode.Country
 import org.signal.registration.screens.countrycode.CountryUtils
 import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 import org.signal.registration.screens.util.navigateTo
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class PhoneNumberEntryViewModel(
   val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  private val clock: () -> Long = { System.currentTimeMillis() }
 ) : EventDrivenViewModel<PhoneNumberEntryScreenEvents>(TAG) {
 
   companion object {
@@ -191,6 +194,7 @@ class PhoneNumberEntryViewModel(
     return state.copy(
       sessionE164 = parentState.sessionE164,
       sessionMetadata = parentState.sessionMetadata,
+      smsVerificationCodeRequest = parentState.lastSmsVerificationCodeRequest,
       preExistingRegistrationData = parentState.preExistingRegistrationData,
       restoredSvrCredentials = state.restoredSvrCredentials.takeUnless { parentState.doNotAttemptRecoveryPassword } ?: emptyList(),
       pendingRestoreOption = parentState.pendingRestoreOption
@@ -501,6 +505,15 @@ class PhoneNumberEntryViewModel(
       state = state.copy(sessionMetadata = null)
     }
 
+    // If we recently requested an SMS for this same number, the server would just reject another request. Skip it and go straight to code entry.
+    val nextSmsRequestAllowed = state.smsVerificationCodeRequest
+    if (state.sessionMetadata != null && state.sessionE164 == e164 && nextSmsRequestAllowed?.e164 == e164 && clock() < nextSmsRequestAllowed.nextAllowedRequestTime) {
+      Log.i(TAG, "[RequestVerificationCode] An SMS was already requested for this number and another isn't allowed for ${(nextSmsRequestAllowed.nextAllowedRequestTime - clock()).milliseconds}. Skipping the request and going straight to code entry.")
+      parentEventEmitter(RegistrationFlowEvent.E164Chosen(e164))
+      parentEventEmitter.navigateTo(RegistrationRoute.VerificationCodeEntry)
+      return state
+    }
+
     var sessionMetadata: NetworkController.SessionMetadata = state.sessionMetadata ?: when (val response = this@PhoneNumberEntryViewModel.repository.createSession(e164)) {
       is RequestResult.Success<NetworkController.SessionMetadata> -> {
         response.result
@@ -588,6 +601,7 @@ class PhoneNumberEntryViewModel(
     sessionMetadata = when (verificationCodeResponse) {
       is RequestResult.Success<NetworkController.SessionMetadata> -> {
         Log.d(TAG, "[RequestVerificationCode] Successfully requested verification code.")
+        parentEventEmitter(RegistrationFlowEvent.VerificationCodeRequested.from(e164, NetworkController.VerificationCodeTransport.SMS, verificationCodeResponse.result, clock()))
         verificationCodeResponse.result
       }
       is RequestResult.NonSuccess<NetworkController.RequestVerificationCodeError> -> {
@@ -597,8 +611,9 @@ class PhoneNumberEntryViewModel(
             state.copy(dialogs = state.dialogs.copy(unknownError = true))
           }
           is NetworkController.RequestVerificationCodeError.RateLimited -> {
-            Log.w(TAG, "[RequestVerificationCode] Rate limited (retryAfter: ${error.retryAfter}).")
-            state.copy(dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
+            Log.w(TAG, "[RequestVerificationCode] Rate limited (retryAfter: ${error.retryAfter}). Navigating to code entry so the user can see how long they have to wait.")
+            navigateToCodeEntryAfterRateLimit(e164, error, parentEventEmitter)
+            state.copy(sessionMetadata = error.session)
           }
           is NetworkController.RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport -> {
             Log.w(TAG, "[RequestVerificationCode] Could not fulfill with requested transport.")
@@ -648,6 +663,7 @@ class PhoneNumberEntryViewModel(
   }
 
   private suspend fun applyCaptchaCompleted(inputState: PhoneNumberEntryState, token: String, parentEventEmitter: (RegistrationFlowEvent) -> Unit): PhoneNumberEntryState {
+    val e164 = "+${inputState.countryCode}${inputState.nationalNumber}"
     var state = inputState.copy()
     var sessionMetadata = state.sessionMetadata ?: return state.copy(dialogs = state.dialogs.copy(unknownError = true))
 
@@ -701,14 +717,19 @@ class PhoneNumberEntryViewModel(
     )
 
     sessionMetadata = when (verificationCodeResponse) {
-      is RequestResult.Success -> verificationCodeResponse.result
+      is RequestResult.Success -> {
+        parentEventEmitter(RegistrationFlowEvent.VerificationCodeRequested.from(e164, NetworkController.VerificationCodeTransport.SMS, verificationCodeResponse.result, clock()))
+        verificationCodeResponse.result
+      }
       is RequestResult.NonSuccess -> {
         return when (val error = verificationCodeResponse.error) {
           is NetworkController.RequestVerificationCodeError.InvalidRequest -> {
             state.copy(dialogs = state.dialogs.copy(unknownError = true))
           }
           is NetworkController.RequestVerificationCodeError.RateLimited -> {
-            state.copy(dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
+            Log.w(TAG, "[RequestVerificationCode] Rate limited after captcha (retryAfter: ${error.retryAfter}). Navigating to code entry so the user can see how long they have to wait.")
+            navigateToCodeEntryAfterRateLimit(e164, error, parentEventEmitter)
+            state.copy(sessionMetadata = error.session)
           }
           is NetworkController.RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport -> {
             state.copy(dialogs = state.dialogs.copy(couldNotRequestCodeWithSelectedTransport = true))
@@ -740,9 +761,31 @@ class PhoneNumberEntryViewModel(
     }
 
     parentEventEmitter(RegistrationFlowEvent.SessionUpdated(sessionMetadata))
-    parentEventEmitter(RegistrationFlowEvent.E164Chosen("+${inputState.countryCode}${inputState.nationalNumber}"))
+    parentEventEmitter(RegistrationFlowEvent.E164Chosen(e164))
     parentEventEmitter.navigateTo(RegistrationRoute.VerificationCodeEntry)
     return state
+  }
+
+  /**
+   * The server refused to send a code yet, but it told us how long we have to wait. Rather than show a dead-end rate
+   * limit error, record the wait as the SMS request window and land on the code entry screen, where the resend
+   * countdown communicates the wait and any previously-sent code can still be entered.
+   */
+  private fun navigateToCodeEntryAfterRateLimit(
+    e164: String,
+    error: NetworkController.RequestVerificationCodeError.RateLimited,
+    parentEventEmitter: (RegistrationFlowEvent) -> Unit
+  ) {
+    parentEventEmitter(
+      RegistrationFlowEvent.VerificationCodeRequested(
+        e164 = e164,
+        nextSmsAllowedTimestamp = clock() + error.retryAfter.inWholeMilliseconds,
+        nextCallAllowedTimestamp = error.session.nextCall?.let { clock() + it.seconds.inWholeMilliseconds }
+      )
+    )
+    parentEventEmitter(RegistrationFlowEvent.SessionUpdated(error.session))
+    parentEventEmitter(RegistrationFlowEvent.E164Chosen(e164))
+    parentEventEmitter.navigateTo(RegistrationRoute.VerificationCodeEntry)
   }
 
   private fun formatNumber(nationalNumber: String): String {

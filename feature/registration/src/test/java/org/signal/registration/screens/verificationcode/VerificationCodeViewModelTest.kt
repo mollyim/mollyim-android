@@ -37,6 +37,7 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.VerificationCodeRequest
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -929,6 +930,122 @@ class VerificationCodeViewModelTest {
   }
 
   @Test
+  fun `ResendSms with success emits VerificationCodeRequested with the next allowed timestamp`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val updatedSession = createSessionMetadata(nextSms = 45L)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+      RequestResult.Success(updatedSession)
+
+    clockedViewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 45_000, nextCallAllowedTimestamp = null)))
+  }
+
+  @Test
+  fun `CallMe with success emits VerificationCodeRequested using nextCall`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val updatedSession = createSessionMetadata(nextCall = 90L)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.VOICE)) } returns
+      RequestResult.Success(updatedSession)
+
+    clockedViewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = null, nextCallAllowedTimestamp = fixedNow + 90_000)))
+  }
+
+  // ==================== applyEvent: Rate Limit Seeding Tests ====================
+
+  @Test
+  fun `ParentStateChanged seeds resend countdowns from the recorded request windows`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 60L, nextCall = 60L),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow + 30_000),
+      lastCallVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow + 10_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 30.seconds, callRequestTimeRemaining = 10.seconds)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged falls back to session metadata when no request windows are recorded`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 60L, nextCall = 15L),
+      sessionE164 = "+15551234567"
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 60.seconds, callRequestTimeRemaining = 15.seconds)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged ignores request windows recorded for a different number`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 5L),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15559999999", fixedNow + 30_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 5.seconds, callRequestTimeRemaining = 0.seconds)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged treats an expired request window as ready to resend`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow - 1_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 0.seconds, callRequestTimeRemaining = 0.seconds)
+    )
+  }
+
+  @Test
   fun `ResendSms passes registerSmsListener result as smsAutoRetrieveCodeSupported`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
@@ -1196,11 +1313,13 @@ class VerificationCodeViewModelTest {
   private fun createSessionMetadata(
     id: String = "test-session-id",
     requestedInformation: List<String> = emptyList(),
-    verified: Boolean = false
+    verified: Boolean = false,
+    nextSms: Long? = null,
+    nextCall: Long? = null
   ) = NetworkController.SessionMetadata(
     id = id,
-    nextSms = null,
-    nextCall = null,
+    nextSms = nextSms,
+    nextCall = nextCall,
     nextVerificationAttempt = null,
     allowedToRequestCode = true,
     requestedInformation = requestedInformation,
