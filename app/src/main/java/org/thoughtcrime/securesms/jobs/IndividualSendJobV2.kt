@@ -444,6 +444,7 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
           timestamp = timestamp,
           message = dataMessage,
           editMessage = editMessage,
+          expirationStartTimestamp = if ((dataMessage?.expireTimer ?: 0) > 0) System.currentTimeMillis() else null,
           unidentifiedStatus = listOf(
             SyncMessage.Sent.UnidentifiedDeliveryStatus(
               destinationServiceIdBinary = recipientServiceId.toByteString(),
