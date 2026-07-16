@@ -697,7 +697,7 @@ public final class ConversationUpdateItem extends FrameLayout
       });
 
       actionButton.setText(R.string.ConversationActivity__invite_to_signal);
-    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled()) {
+    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled() && SignalStore.account().isPrimaryDevice()) {
       actionButton.setText(R.string.ConversationUpdateItem_activate_payments);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
@@ -707,7 +707,7 @@ public final class ConversationUpdateItem extends FrameLayout
           passthroughClickListener.onClick(v);
         }
       });
-    } else if (conversationMessage.getMessageRecord().isPaymentsActivated() && !conversationMessage.getMessageRecord().isOutgoing()) {
+    } else if (conversationMessage.getMessageRecord().isPaymentsActivated() && !conversationMessage.getMessageRecord().isOutgoing() && SignalStore.account().isPrimaryDevice()) {
       actionButton.setText(R.string.ConversationUpdateItem_send_payment);
       actionButton.setVisibility(VISIBLE);
       actionButton.setOnClickListener(v -> {
