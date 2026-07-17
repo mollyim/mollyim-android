@@ -45,11 +45,11 @@
     <string name="RegistrationActivity_select_a_country">بىر دۆلەتنى تاللاڭ</string>
     <string name="RegistrationActivity_phone_number_description">تېلېفون نومۇرىڭىز</string>
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
-    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <string name="RegistrationActivity_not_a_valid_phone_number">ئىناۋەتسىز تېلېفون نومۇرى</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_invalid_phone_number">ئىناۋەتسىز تېلېفون نومۇر</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">سىز كىرگۈزگەن ئىشلەتكۈچى تېپىلمىدى. دۆلەت كودى بىلەن تېلېفون نومۇرىنىڭ توغرىلىقىنى تەكشۈرۈپ، يەنە بىر قېتىم سىناپ بېقىڭ.</string>
     <string name="RegistrationActivity_next">كېيىنكى</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">تۆۋەندىكى تېلېفون نومۇرى توغرىمۇ؟</string>
@@ -204,7 +204,7 @@
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">ئەسلىگە كەلتۈرۈش ئاچقۇچى</string>
     <!-- Label for the backup passphrase text field -->
-    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
+    <string name="LocalBackupRestoreScreen__passphrase">پارول</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">بەك ئۇزۇن (%2$d/%1$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -251,11 +251,11 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">قايتا سىناڭ</string>
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">خاتا پارول</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_recovery_key">ناتوغرا ئەسلىگە كەلتۈرۈش ئاچقۇچى</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">سىز كىرگۈزگەن سالاھىيەت ئۇچۇرى بۇ زاپاس بىلەن ماس كەلمىدى. تەكشۈرۈپ قايتا سىناڭ.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">ھېساباتىڭىزنى ئۇلاڭ</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -442,7 +442,7 @@
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">تاماملاۋاتىدۇ…</string>
     <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
-    <string name="MessageSyncScreen__restoring">Restoring…</string>
+    <string name="MessageSyncScreen__restoring">ئەسلىگە كەلتۈرىۋاتىدۇ…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">ئۇچۇرلار ۋە پاراڭ مەزمۇنلىرى، ماس قەدەملىك جەرياننى ئۆز ئىچىگە ئالغان ئاخىرىغىچە شىفىرلىق مەخپىيلەشتۈرۈش ئارقىلىق قوغدىلىدۇ.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->

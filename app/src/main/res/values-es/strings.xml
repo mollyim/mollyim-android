@@ -699,7 +699,7 @@
     <string name="SafetyTips_next_tip">Siguiente</string>
 
     <!-- Summary tip 0 title: Don\'t respond to chats from Signal -->
-    <string name="SafetyTips_summary_tip0_title">No respondas a los mensajes de Signal</string>
+    <string name="SafetyTips_summary_tip0_title">No respondas a los chats de Signal</string>
     <!-- Summary tip 0 message -->
     <string name="SafetyTips_summary_tip0_message">Signal nunca te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación. Nunca respondas a un mensaje que diga ser de Signal.</string>
     <!-- Summary tip 1 title: Review names and photos -->
@@ -712,7 +712,7 @@
     <string name="SafetyTips_summary_tip2_message">Ignora los mensajes poco precisos que tratan de llamar tu atención para que respondas. Desconfía si recibes consejos financieros y enlaces web sospechosos.</string>
 
     <!-- Detail tip 0 title -->
-    <string name="SafetyTips_detail_tip0_title">No respondas a los mensajes de Signal</string>
+    <string name="SafetyTips_detail_tip0_title">No respondas a los chats de Signal</string>
     <!-- Detail tip 0 message -->
     <string name="SafetyTips_detail_tip0_message">Signal nunca te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación. Nunca respondas a un mensaje que diga ser de Signal o del equipo de Asistencia de Signal. Los agentes maliciosos usan chats falsos para intentar tomar el control de tu cuenta.</string>
     <!-- Detail tip 1 title -->
@@ -2283,7 +2283,7 @@
     <!-- Alert dialog body to review the message request carefully -->
     <string name="MessageRequestBottomView_review_requests_carefully">Revisa detenidamente las solicitudes. Cada usuario elige su nombre de perfil y los nombres no se verifican.</string>
     <!-- Alert dialog body for accepting a message request. Contains bold substring placeholder -->
-    <string name="MessageRequestBottomView_accept_request_body">Acepta solamente las solicitudes de personas de tu confianza. %1$s te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación.</string>
+    <string name="MessageRequestBottomView_accept_request_body">Acepta únicamente las solicitudes de personas de tu confianza. %1$s te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación.</string>
     <!-- Bold substring used in accept request body: "Signal will never" -->
     <string name="MessageRequestBottomView_signal_will_never">Signal nunca</string>
     <!-- Alert dialog title to accept a message request to join a group -->
@@ -3969,11 +3969,11 @@
     <!-- Bottom sheet title when encryption is auto-verified -->
     <string name="EncryptionVerifiedSheet__title_success">El cifrado para este chat se ha verificado automáticamente</string>
     <!-- Bottom sheet body when encryption is auto-verified -->
-    <string name="EncryptionVerifiedSheet__body_success">Para las personas con las que hayas iniciado la comunicación mediante un número de teléfono, Signal puede confirmar automáticamente si la conexión es segura usando un proceso llamado transparencia de claves. Para mayor seguridad, verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en el dispositivo de la otra persona.</string>
+    <string name="EncryptionVerifiedSheet__body_success">Si inicias un chat en Signal usando el número de teléfono de tu contacto, la aplicación puede confirmar automáticamente que la conexión es segura gracias a un proceso llamado transparencia de claves. Para mayor seguridad, verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en el dispositivo de la otra persona.</string>
     <!-- Bottom sheet title when encryption is no longer auto-verified -->
     <string name="EncryptionVerifiedSheet__title_no_longer_unavailable">La verificación automática no está disponible para este chat</string>
     <!-- Bottom sheet body when encryption is no longer auto-verified. Placeholder is the name of the person. -->
-    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal no puede verificar automáticamente el cifrado de este chat. Es probable que %1$s haya cambiado su número de teléfono o sus ajustes de privacidad del número de teléfono. Verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en su dispositivo.</string>
+    <string name="EncryptionVerifiedSheet__body_no_longer_unavailable">Signal no puede verificar automáticamente el cifrado de este chat. Es probable que %1$s haya cambiado su número de teléfono o los ajustes de privacidad de su número de teléfono. Verifica el cifrado de extremo a extremo manualmente comparando los números en la pantalla anterior o escaneando el código que se muestra en su dispositivo.</string>
     <!-- Bottom sheet title when encryption cannot be auto-verified -->
     <string name="EncryptionVerifiedSheet__title_unavailable">La verificación automática no está disponible para este chat</string>
     <!-- Bottom sheet body when encryption cannot be auto-verified -->
@@ -6557,7 +6557,7 @@
     <!-- Subtitle shown when processing a donation transaction -->
     <string name="MySupportPreference__processing_transaction">Procesando transacción…</string>
     <!-- Displayed on "My Support" screen when user badge failed to be added to their account -->
-    <string name="MySupportPreference__couldnt_add_badge_s">No se ha podido añadir la insignia. %1$s</string>
+    <string name="MySupportPreference__couldnt_add_badge_s">No se ha podido añadir tu insignia. %1$s</string>
     <string name="MySupportPreference__please_contact_support">Contacta con el equipo de Asistencia.</string>
     <!-- Displayed as a subtitle on a row in the Manage Donations screen when payment for a donation is pending -->
     <string name="MySupportPreference__payment_pending">Pago pendiente</string>
@@ -6648,7 +6648,7 @@
     <string name="DonationsErrors__error_processing_payment_s">No se ha podido procesar tu donación. %1$s</string>
     <string name="DonationsErrors__your_payment">No se ha podido procesar tu donación y no se ha aplicado ningún cargo. Inténtalo de nuevo.</string>
     <string name="DonationsErrors__still_processing">Aún se está procesando</string>
-    <string name="DonationsErrors__couldnt_add_badge">No se ha podido añadir la insignia</string>
+    <string name="DonationsErrors__couldnt_add_badge">No se ha podido añadir tu insignia</string>
     <!-- Displayed when backup credential could not be redeemed. Dialog or notification title -->
     <string name="DonationsError__something_went_wrong">Se ha producido un error</string>
     <!-- Displayed when backup credential could not be redeemed. Dialog or notification body -->
@@ -9965,7 +9965,7 @@
     <!-- Title of the safety tips screen within the verification code requested sheet -->
     <string name="SafetyTipsBottomSheet__title">Consejos de seguridad</string>
     <!-- Title of the first safety tip: don\'t respond to chats claiming to be Signal -->
-    <string name="SafetyTipsBottomSheet__tip_1_title">No respondas a los mensajes de Signal</string>
+    <string name="SafetyTipsBottomSheet__tip_1_title">No respondas a los chats de Signal</string>
     <!-- Body of the first safety tip -->
     <string name="SafetyTipsBottomSheet__tip_1_body">Signal nunca te enviará un mensaje para pedirte tu código de registro, PIN o clave de recuperación. Nunca respondas a un mensaje que diga ser de Signal.</string>
     <!-- Title of the second safety tip: keep your verification code safe -->
