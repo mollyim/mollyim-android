@@ -22,6 +22,7 @@ import org.thoughtcrime.securesms.database.model.KeyTransparencyStore
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.dependencies.KeyTransparencyApi
+import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
 import org.thoughtcrime.securesms.jobs.RetrieveProfileAvatarJob
 import org.thoughtcrime.securesms.jobs.StorageSyncJob
 import org.thoughtcrime.securesms.keyvalue.AccountValues
@@ -262,6 +263,11 @@ object StorageSyncHelper {
     SignalStore.story.isFeatureDisabled = update.new.proto.storiesDisabled
     SignalStore.story.userHasSeenGroupStoryEducationSheet = update.new.proto.hasSeenGroupStoryEducationSheet
     SignalStore.uiHints.setHasCompletedUsernameOnboarding(update.new.proto.hasCompletedUsernameOnboarding)
+
+    if (update.new.proto.unlistedPhoneNumber != update.old.proto.unlistedPhoneNumber && SignalStore.account.isPrimaryDevice) {
+      Log.i(TAG, "Phone number discoverability changed via storage service. Refreshing attributes to push the change to the server.")
+      AppDependencies.jobManager.add(RefreshAttributesJob())
+    }
 
     if (SignalStore.settings.automaticVerificationEnabled && update.new.proto.automaticKeyVerificationDisabled) {
       SignalDatabase.recipients.clearAllKeyTransparencyData()
