@@ -272,6 +272,8 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       RestoreDecision.SKIPPED -> RestoreDecisionState.Skipped
       RestoreDecision.COMPLETED -> RestoreDecisionState.Completed
     }
+
+    RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
   override fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = callbackFlow {
