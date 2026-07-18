@@ -18,7 +18,7 @@ class WelcomeScreenScreenshotTests {
   @Composable
   fun WelcomeScreenPhonePreview() {
     Previews.Preview {
-      WelcomeScreen(onEvent = {})
+      WelcomeScreen(state = WelcomeScreenState(), onEvent = {})
     }
   }
 }

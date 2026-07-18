@@ -108,6 +108,7 @@ import org.signal.registration.screens.verificationcode.VerificationCodeScreen
 import org.signal.registration.screens.verificationcode.VerificationCodeViewModel
 import org.signal.registration.screens.welcome.WelcomeScreen
 import org.signal.registration.screens.welcome.WelcomeScreenEvents
+import org.signal.registration.screens.welcome.WelcomeScreenViewModel
 import org.signal.registration.util.AccountEntropyPoolParceler
 import org.signal.registration.util.RegistrationCredentialManager
 
@@ -391,29 +392,21 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   entry<RegistrationRoute.Welcome> {
     val context = LocalContext.current
     val termsAndPrivacyUrl = stringResource(R.string.terms_and_privacy_policy_url)
-
-    val navigateRequestingPermissions = { nextRoute: RegistrationRoute ->
-      if (RegistrationPermissions.hasAllRequiredPermissions(context)) {
-        parentEventEmitter.navigateTo(nextRoute)
-      } else {
-        parentEventEmitter.navigateTo(RegistrationRoute.Permissions(nextRoute = nextRoute))
-      }
-    }
+    val viewModel: WelcomeScreenViewModel = viewModel(
+      factory = WelcomeScreenViewModel.Factory(
+        repository = registrationRepository,
+        parentState = registrationViewModel.state,
+        parentEventEmitter = registrationViewModel::onEvent,
+        hasPermissions = { RegistrationPermissions.hasAllRequiredPermissions(context) },
+        getRequiredLinkedDevicePermission = { registrationViewModel.getRequiredLinkedDevicePermission() }
+      )
+    )
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     WelcomeScreen(
-      isLinkAndSyncAvailable = registrationRepository.isLinkAndSyncAvailable,
+      state = state,
       onEvent = { event ->
         when (event) {
-          WelcomeScreenEvents.Continue -> navigateRequestingPermissions(RegistrationRoute.PhoneNumberEntry)
-          WelcomeScreenEvents.LinkDevice -> {
-            if (registrationViewModel.getRequiredLinkedDevicePermission().isNullOrBlank()) {
-              parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount())
-            } else {
-              parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount()))
-            }
-          }
-          WelcomeScreenEvents.HasOldPhone -> navigateRequestingPermissions(RegistrationRoute.QuickRestoreQrScan)
-          WelcomeScreenEvents.DoesNotHaveOldPhone -> navigateRequestingPermissions(RegistrationRoute.ArchiveRestoreSelection.forManualRestore())
           WelcomeScreenEvents.ViewTermsAndPrivacy -> {
             LinkActions.openUrl(context, termsAndPrivacyUrl) { error ->
               when (error) {
@@ -421,6 +414,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
               }
             }
           }
+          else -> viewModel.onEvent(event)
         }
       }
     )

@@ -371,7 +371,7 @@ class VerificationCodeViewModel(
             Log.i(TAG, "[Register] A restore was deferred until after SMS verification. Resuming it now.")
             parentEventEmitter.navigateTo(pendingRestore)
           }
-          response.reregistration && parentState.value.pendingRestoreOption == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinUnknown())
+          response.reregistration && parentState.value.pendingRestoreOption == null && parentState.value.preExistingRegistrationData == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinUnknown())
           response.storageCapable -> parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
           else -> parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
         }

@@ -170,7 +170,7 @@ class PinEntryForRegistrationLockViewModel(
             Log.i(TAG, "[PinEntered] A restore was pending behind the registration lock. Resuming it now.")
             parentEventEmitter.navigateTo(pendingRestore)
           }
-          response.reregistration && parentState.value.pendingRestoreOption == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
+          response.reregistration && parentState.value.pendingRestoreOption == null && parentState.value.preExistingRegistrationData == null -> parentEventEmitter.navigateTo(RegistrationRoute.ArchiveRestoreSelection.forPostRegisterWithPinKnown())
           else -> parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
         }
         state

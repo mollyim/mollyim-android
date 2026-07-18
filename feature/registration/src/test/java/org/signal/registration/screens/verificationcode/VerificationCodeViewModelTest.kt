@@ -33,6 +33,7 @@ import org.signal.libsignal.net.RequestResult
 import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
 import org.signal.registration.PendingRestoreOption
+import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
@@ -584,6 +585,32 @@ class VerificationCodeViewModelTest {
   @Test
   fun `CodeEntered reregistration after pre-registration restore skips ArchiveRestoreSelection`() = runTest {
     parentState.value = parentState.value.copy(pendingRestoreOption = PendingRestoreOption.LocalBackup)
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForSvrRestore>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration with preExistingRegistrationData skips ArchiveRestoreSelection`() = runTest {
+    parentState.value = parentState.value.copy(preExistingRegistrationData = mockk<PreExistingRegistrationData>(relaxed = true))
 
     val sessionMetadata = createSessionMetadata(verified = true)
     val initialState = VerificationCodeState(
