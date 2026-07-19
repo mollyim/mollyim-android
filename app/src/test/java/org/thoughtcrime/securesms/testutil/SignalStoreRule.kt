@@ -8,6 +8,10 @@ package org.thoughtcrime.securesms.testutil
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import org.junit.rules.ExternalResource
+import org.junit.rules.RuleChain
+import org.junit.rules.TestRule
+import org.junit.runner.Description
+import org.junit.runners.model.Statement
 import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore
 import org.thoughtcrime.securesms.keyvalue.MockKeyValuePersistentStorage
@@ -18,14 +22,25 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
  * stored state rather than stubbing interactions. Use [MockSignalStoreRule] instead when you need
  * interaction-based mocking.
  */
-class SignalStoreRule : ExternalResource() {
+class SignalStoreRule : TestRule {
 
-  override fun before() {
-    val application = ApplicationProvider.getApplicationContext<Application>()
-    SignalStore.testInject(SignalStore(application, KeyValueStore(MockKeyValuePersistentStorage.withDataSet(KeyValueDataSet()))))
+  private val storeRule = object : ExternalResource() {
+    override fun before() {
+      val application = ApplicationProvider.getApplicationContext<Application>()
+      SignalStore.testInject(SignalStore(application, KeyValueStore(MockKeyValuePersistentStorage.withDataSet(KeyValueDataSet()))))
+    }
+
+    override fun after() {
+      SignalStore.testInject(null)
+    }
   }
 
-  override fun after() {
-    SignalStore.testInject(null)
+  private val masterSecretRule = MasterSecretRule()
+
+  override fun apply(base: Statement, description: Description): Statement {
+    return RuleChain
+      .outerRule(masterSecretRule)
+      .around(storeRule)
+      .apply(base, description)
   }
 }
