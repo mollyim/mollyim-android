@@ -41,7 +41,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -148,7 +147,7 @@ private fun TwoPaneLayout(
           .padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Heading()
+        Heading(twoPane = true)
         Spacer(modifier = Modifier.height(32.dp))
         Instructions()
       }
@@ -216,10 +215,10 @@ private fun TopAppBar() {
 }
 
 @Composable
-private fun Heading() {
+private fun Heading(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.QuickRestoreQRScreen__scan),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     textAlign = TextAlign.Center,
     modifier = Modifier
       .fillMaxWidth()
@@ -259,7 +258,7 @@ private fun QrCodePane(
           is QrState.Loaded -> {
             QrCode(
               data = qrState.qrCodeData,
-              foregroundColor = Color(0xFF2449C0),
+              foregroundColor = MaterialTheme.colorScheme.primary,
               modifier = Modifier.fillMaxSize()
             )
           }

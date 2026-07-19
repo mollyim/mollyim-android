@@ -1121,14 +1121,6 @@ object RemoteConfig {
   )
 
   @JvmStatic
-  @get:JvmName("useHevcEncoder")
-  val useHevcEncoder: Boolean by remoteBoolean(
-    key = "android.useHevcEncoder",
-    defaultValue = false,
-    hotSwappable = false
-  )
-
-  @JvmStatic
   @get:JvmName("useMessageSendRestFallback")
   val useMessageSendRestFallback: Boolean by remoteBoolean(
     key = "android.useMessageSendRestFallback.2",
@@ -1350,6 +1342,15 @@ object RemoteConfig {
   val disappearMore: Boolean by remoteBoolean(
     key = "android.disappearMore.2",
     defaultValue = false,
+    hotSwappable = true
+  )
+
+  /** A json string representing possible transcoding configurations for videos */
+  @JvmStatic
+  @get:JvmName("transcodeConfig")
+  val transcodeConfig: String by remoteString(
+    key = "client.attachments.videoTranscodingConfiguration",
+    defaultValue = "",
     hotSwappable = true
   )
 

@@ -10,6 +10,23 @@ package signal;
 option java_package = "org.signal.registration.proto";
 
 message RegistrationData {
+  // Should only be persisted in the app-layer a single time during registration
+  AccountData accountData = 1;
+  bool accountDataCommitted = 2;
+
+  string accountEntropyPool = 3;
+  string pin = 4;
+  bool pinOptedOut = 5;
+  bool registrationLockEnabled = 6;
+  bytes profileKey = 7;
+  bytes masterKeyForInitialDataRestore = 8;
+  repeated SvrCredential svrCredentials = 9;
+  ProvisioningData provisioningData = 10;
+  string flowStateJson = 11;
+  int64 lastUpdatedMillis = 12;
+}
+
+message AccountData {
   bytes aciIdentityKeyPair = 1;
   bytes pniIdentityKeyPair = 2;
   bytes aciSignedPreKey = 3;
@@ -23,27 +40,11 @@ message RegistrationData {
   string pni = 10;
   string e164 = 11;
   string servicePassword = 12;
-  string accountEntropyPool = 13;
 
-  string pin = 14;
-  bool pinOptedOut = 15;
-  bool registrationLockEnabled = 16;
+  bytes unidentifiedAccessKey = 13;
+  bool fetchesMessages = 14;
 
-  bytes profileKey = 17;
-  bytes unidentifiedAccessKey = 18;
-  bytes temporaryMasterKey = 19;
-
-  repeated SvrCredential svrCredentials = 20;
-  ProvisioningData provisioningData = 21;
-  LinkedDeviceData linkedDeviceData = 22;
-  bool fetchesMessages = 23;
-
-  string flowStateJson = 24;
-
-  // Epoch milliseconds of the last write to this data. Used to detect data that has grown too stale to trust (e.g. an
-  // expired verification session). Stamped on every write.
-  int64 lastUpdatedMillis = 25;
-  // Next: 26
+  LinkedDeviceData linkedDeviceData = 15;
 }
 
 message SvrCredential {

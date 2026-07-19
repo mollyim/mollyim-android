@@ -44,6 +44,12 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">దేశాన్ని ఎంచుకోండి</string>
     <string name="RegistrationActivity_phone_number_description">ఫోను నంబరు</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">చెల్లని ఫోన్ నంబర్</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
     <string name="RegistrationActivity_next">తరువాత</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">దిగువ ఫోన్ నంబర్ సరైనదేనా?</string>
@@ -197,6 +203,8 @@
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">మీ స్థానిక బ్యాకప్ పాస్‌ఫ్రేజ్ అనేది మీ ఖాతా మరియు డేటాను పునరుద్ధరించడానికి అవసరమైన 30-అంకెల కోడ్.</string>
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">రికవరీ కీ</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">చాలా పొడవుగా ఉంది (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -220,6 +228,12 @@
     <string name="EnterAepScreen__incorrect_recovery_key">తప్పు రికవరీ కీ</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">పాస్‌వర్డ్ మేనేజర్ నుండి పూరించండి</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">కొత్త ఖాతాకు పునరుద్ధరించాలా?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">మీరు పునరుద్ధరిస్తున్న బ్యాకప్ వేరొక Signal ఖాతాను ఉపయోగించి సృష్టించబడింది. మీరు ఈ బ్యాకప్‌ను కొత్త ఖాతాకు పునరుద్ధరించవచ్చు, కానీ పునరుద్ధరించబడిన ఏ గ్రూపులలోనూ మీరు ఇకపై సభ్యులుగా ఉండరు.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">పునరుద్ధరించు</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">పునరుద్ధరణను సిద్ధం చేస్తోంది…</string>
     <!-- Title shown while restore is in progress -->
@@ -236,6 +250,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">మీ బ్యాకప్‌ను పునరుద్ధరించేటప్పుడు ఒక పొరపాటు ఏర్పడింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">మళ్ళీ ప్రయత్నించండి</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">తప్పు రికవరీ కీ</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">మీ ఖాతాను లింక్ చేయండి</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -364,11 +384,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">రద్దు చేయండి</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">సేవకు అనుసంధానించడంలో సమస్య ఏర్పడింది.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">నెట్‌వర్క్ లోపాన్ని ఎదుర్కొంది.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">నెట్‌వర్క్ పొరపాటును ఎదుర్కొంది. మీరు %1$sలో మళ్ళీ ప్రయత్నించవచ్చు.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">నమోదు లాక్</string>
@@ -423,6 +443,8 @@
     <string name="MessageSyncScreen__preparing">సిద్ధం చేస్తోంది…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">పూర్తి చేస్తోంది…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">రీస్టోర్ అవుతున్నాయి…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">సమకాలీకరణ ప్రక్రియతో సహా ఎండ్-టు-ఎండ్ గుప్తీకరణ ద్వారా సందేశాలు మరియు చాట్ సమాచారం సంరక్షించబడతాయి.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -430,13 +452,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">రద్దు చేయండి</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">సందేశాలను పునరుద్ధరించలేకపోయాము</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">మీ ఇతర పరికరం నుండి మీ సందేశాలను బదిలీ చేయలేకపోయాము. మీరు మళ్ళీ ప్రయత్నించవచ్చు లేదా మీ సందేశ చరిత్ర లేకుండా కొనసాగవచ్చు.</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">మళ్ళీ ప్రయత్నించండి</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">సందేశాలు లేకుండా కొనసాగండి</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">మీ ఖాతాను అనుసంధానించడానికి ఈ కోడ్‌ను స్కాన్ చేయండి</string>
@@ -467,11 +489,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">ఈ పరికరాన్ని అనుసంధానించేటప్పుడు ఒక పొరపాటు సంభవించింది</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">యాప్ డేటాను తొలగించాలా?</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">మీరు వేరొక Signal ఖాతాను అనుసంధానించడానికి ప్రయత్నిస్తున్నారు. ఒకవేళ మీరు కొనసాగిస్తే, ప్రస్తుతం ఈ పరికరంలో ఉన్న Signal డేటా అంతా తొలగించబడుతుంది.</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">తొలగించి పునఃప్రారంభించండి</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">QR కోడ్‌ను మూసివేయండి</string>
 

@@ -9,8 +9,7 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
-import assertk.assertions.prop
+import assertk.assertions.isTrue
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -142,7 +141,7 @@ class PinEntryForSmsBypassViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -156,7 +155,7 @@ class PinEntryForSmsBypassViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -187,7 +186,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -205,7 +204,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -266,10 +265,7 @@ class PinEntryForSmsBypassViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
-      .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(retryAfter)
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -360,26 +356,26 @@ class PinEntryForSmsBypassViewModelTest {
     assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState copies e164 from parent state`() {
+  fun `ParentStateChanged copies e164 from parent state`() = runTest {
     val state = PinEntryState(mode = PinEntryState.Mode.SmsBypass)
     val parentFlowState = RegistrationFlowState(sessionE164 = "+15559876543")
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PinEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.e164).isEqualTo("+15559876543")
+    assertThat(emittedStates.last().e164).isEqualTo("+15559876543")
   }
 
   @Test
-  fun `applyParentState with null e164 in parent state sets null e164`() {
+  fun `ParentStateChanged with null e164 in parent state sets null e164`() = runTest {
     val state = PinEntryState(mode = PinEntryState.Mode.SmsBypass, e164 = "+15551234567")
     val parentFlowState = RegistrationFlowState(sessionE164 = null)
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, PinEntryScreenEvents.ParentStateChanged(parentFlowState), parentEventEmitter, stateEmitter)
 
-    assertThat(result.e164).isEqualTo(null)
+    assertThat(emittedStates.last().e164).isEqualTo(null)
   }
 
   // ==================== ToggleKeyboard Tests ====================

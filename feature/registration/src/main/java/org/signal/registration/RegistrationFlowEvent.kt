@@ -8,6 +8,7 @@ package org.signal.registration
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.util.censor
+import kotlin.time.Duration.Companion.seconds
 
 sealed interface RegistrationFlowEvent {
   /**
@@ -31,6 +32,34 @@ sealed interface RegistrationFlowEvent {
 
   /** The e164 associated with this registration attempt has been updated.  */
   data class E164Chosen(val e164: String) : RegistrationFlowEvent
+
+  /**
+   * A verification code was requested for [e164] — either fulfilled or rejected as rate-limited. Records the epoch-millis
+   * times at which the server will allow the next SMS and call requests, since the response reports both regardless of
+   * which transport was used. A null timestamp means the response carried no information for that transport.
+   */
+  data class VerificationCodeRequested(
+    val e164: String,
+    val nextSmsAllowedTimestamp: Long?,
+    val nextCallAllowedTimestamp: Long?
+  ) : RegistrationFlowEvent {
+    companion object {
+      /** How long we assume the server will disallow another request when the response doesn't include a duration for the requested transport. */
+      private val DEFAULT_RETRY_WINDOW = 60.seconds
+
+      fun from(e164: String, transport: NetworkController.VerificationCodeTransport, session: NetworkController.SessionMetadata, now: Long): VerificationCodeRequested {
+        // We'll only fallback to a default if we're requesting that specific transport
+        val nextSmsIn = session.nextSms?.seconds ?: DEFAULT_RETRY_WINDOW.takeIf { transport == NetworkController.VerificationCodeTransport.SMS }
+        val nextCallIn = session.nextCall?.seconds ?: DEFAULT_RETRY_WINDOW.takeIf { transport == NetworkController.VerificationCodeTransport.VOICE }
+
+        return VerificationCodeRequested(
+          e164 = e164,
+          nextSmsAllowedTimestamp = nextSmsIn?.let { now + it.inWholeMilliseconds },
+          nextCallAllowedTimestamp = nextCallIn?.let { now + it.inWholeMilliseconds }
+        )
+      }
+    }
+  }
 
   /**
    * The user has successfully registered.

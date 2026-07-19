@@ -102,6 +102,7 @@ import org.thoughtcrime.securesms.database.KeyValueDatabase
 import org.thoughtcrime.securesms.database.KyberPreKeyTable
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable
 import org.thoughtcrime.securesms.database.SearchTable
+import org.thoughtcrime.securesms.database.SessionTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.SignedPreKeyTable
 import org.thoughtcrime.securesms.database.StickerTable
@@ -183,6 +184,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.signal.registration.R as RegistrationR
 
 object BackupRepository {
 
@@ -1125,7 +1127,7 @@ object BackupRepository {
     }
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal = { false })
+      import(reader, selfData, backupMode = BackupMode.LOCAL, cancellationSignal = { false })
     }
   }
 
@@ -1156,7 +1158,7 @@ object BackupRepository {
       }
 
       return frameReader.use { reader ->
-        import(reader, selfData, cancellationSignal)
+        import(reader, selfData, backupMode = BackupMode.REMOTE, cancellationSignal = cancellationSignal)
       }
     } catch (e: IOException) {
       Log.w(TAG, "Unable to restore signal backup", e)
@@ -1184,7 +1186,7 @@ object BackupRepository {
     )
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.LINK_SYNC, cancellationSignal = cancellationSignal)
     }
   }
 
@@ -1210,7 +1212,7 @@ object BackupRepository {
     }
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.REMOTE, cancellationSignal = cancellationSignal)
     }
   }
 
@@ -1226,13 +1228,14 @@ object BackupRepository {
     val frameReader = PlainTextBackupReader(inputStreamFactory(), length)
 
     return frameReader.use { reader ->
-      import(reader, selfData, cancellationSignal)
+      import(reader, selfData, backupMode = BackupMode.PLAINTEXT_EXPORT, cancellationSignal = cancellationSignal)
     }
   }
 
   private fun import(
     frameReader: BackupImportReader,
     selfData: SelfData,
+    backupMode: BackupMode,
     cancellationSignal: () -> Boolean
   ): ImportResult {
     val stopwatch = Stopwatch("import")
@@ -1290,7 +1293,16 @@ object BackupRepository {
       }
 
       Log.d(TAG, "[import] --- Recreating all tables ---")
-      val skipTables = setOf(KyberPreKeyTable.TABLE_NAME, OneTimePreKeyTable.TABLE_NAME, SignedPreKeyTable.TABLE_NAME)
+      val skipTables = buildSet {
+        add(KyberPreKeyTable.TABLE_NAME)
+        add(OneTimePreKeyTable.TABLE_NAME)
+        add(SignedPreKeyTable.TABLE_NAME)
+
+        // Preserve the session established with the primary during linking
+        if (backupMode.isLinkAndSync) {
+          add(SessionTable.TABLE_NAME)
+        }
+      }
       val tableMetadata = SignalDatabase.rawDatabase.getAllTableDefinitions().filter { !it.name.startsWith(SearchTable.FTS_TABLE_NAME + "_") }
       for (table in tableMetadata) {
         if (skipTables.contains(table.name)) {
@@ -1661,6 +1673,19 @@ object BackupRepository {
           AppDependencies.signalServiceMessageReceiver.getCdnLastModifiedTime(info.cdn!!, cdnCredentials, "backups/${info.backupDir}/${info.backupName}")
         }
       }
+  }
+
+  /**
+   * Stores the remote backup's last-modified time in [BackupValues.lastBackupTime], (404/401 clear it to 0).
+   */
+  fun refreshBackupFileTimestamp(): NetworkResult<ZonedDateTime> {
+    return getBackupFileLastModified().also { result ->
+      when (result) {
+        is NetworkResult.Success -> SignalStore.backup.lastBackupTime = result.result.toMillis()
+        is NetworkResult.StatusCodeError if (result.code == 404 || result.code == 401) -> SignalStore.backup.lastBackupTime = 0L
+        else -> Log.w(TAG, "Failed to refresh last backup time from remote: ${result::class.simpleName}")
+      }
+    }
   }
 
   /**
@@ -2334,7 +2359,7 @@ object BackupRepository {
     try {
       DataRestoreConstraint.isRestoringData = true
       return withContext(Dispatchers.IO) {
-        return@withContext BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title)).use {
+        return@withContext BackupProgressService.start(context, context.getString(RegistrationR.string.MessageSyncScreen__syncing_messages)).use {
           restoreLinkAndSyncBackup(response, ephemeralBackupKey, controller = it, cancellationSignal = { !isActive })
         }
       }
@@ -2349,7 +2374,7 @@ object BackupRepository {
     val progressListener = object : ProgressListener {
       override fun onAttachmentProgress(progress: AttachmentTransferProgress) {
         controller.update(
-          title = AppDependencies.application.getString(R.string.BackupProgressService_title_downloading),
+          title = AppDependencies.application.getString(RegistrationR.string.MessageSyncScreen__syncing_messages),
           progress = progress.value,
           indeterminate = false
         )
@@ -2381,7 +2406,7 @@ object BackupRepository {
     }
 
     controller.update(
-      title = AppDependencies.application.getString(R.string.BackupProgressService_title),
+      title = AppDependencies.application.getString(RegistrationR.string.MessageSyncScreen__syncing_messages),
       progress = 0f,
       indeterminate = true
     )

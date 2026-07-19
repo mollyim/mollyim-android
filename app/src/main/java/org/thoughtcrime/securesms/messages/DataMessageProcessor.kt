@@ -117,7 +117,7 @@ import kotlin.time.Duration.Companion.seconds
 
 object DataMessageProcessor {
 
-  private const val BODY_RANGE_PROCESSING_LIMIT = 250
+  internal const val BODY_RANGE_PROCESSING_LIMIT = 250
   private const val POLL_QUESTION_CHARACTER_LIMIT = 200
   private const val POLL_CHARACTER_LIMIT = 100
   private const val POLL_OPTIONS_LIMIT = 10
@@ -733,7 +733,8 @@ object DataMessageProcessor {
         return null
       }
 
-      val bodyRanges: BodyRangeList? = message.bodyRanges.filter { Util.allAreNull(it.mentionAci, it.mentionAciBinary) }.toList().toBodyRangeList()
+      val cappedBodyRanges: List<BodyRange> = message.bodyRanges.take(BODY_RANGE_PROCESSING_LIMIT)
+      val bodyRanges: BodyRangeList? = cappedBodyRanges.filter { Util.allAreNull(it.mentionAci, it.mentionAciBinary) }.toList().toBodyRangeList()
 
       val mediaMessage = IncomingMessage(
         type = MessageType.NORMAL,
@@ -747,7 +748,7 @@ object DataMessageProcessor {
         body = message.body,
         groupId = groupId,
         quote = quoteModel,
-        mentions = getMentions(message.bodyRanges),
+        mentions = getMentions(cappedBodyRanges),
         serverGuid = UuidUtil.getStringUUID(envelope.serverGuid, envelope.serverGuidBinary),
         messageRanges = bodyRanges
       )

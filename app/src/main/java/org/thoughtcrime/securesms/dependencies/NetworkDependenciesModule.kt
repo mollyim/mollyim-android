@@ -31,14 +31,11 @@ import org.signal.network.api.SvrBApi
 import org.signal.network.api.UsernameApi
 import org.signal.network.rest.SignalRestClient
 import org.signal.network.service.MessageService
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.crypto.storage.SignalServiceDataStoreImpl
 import org.thoughtcrime.securesms.groups.GroupsV2Authorization
 import org.thoughtcrime.securesms.groups.GroupsV2AuthorizationMemoryValueCache
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
-import org.thoughtcrime.securesms.net.Networking
-import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.push.SignalServiceTrustStore
 import org.whispersystems.signalservice.api.SignalServiceAccountManager
@@ -241,12 +238,7 @@ class NetworkDependenciesModule(
   }
 
   val okHttpClient: OkHttpClient by lazy {
-    OkHttpClient.Builder()
-      .socketFactory(Networking.socketFactory)
-      .proxySelector(Networking.proxySelectorForSocks)
-      .dns(Networking.dns)
-      .addInterceptor(StandardUserAgentInterceptor())
-      .build()
+    provider.provideOkHttpClient()
   }
 
   val signalOkHttpClient: OkHttpClient by lazy {

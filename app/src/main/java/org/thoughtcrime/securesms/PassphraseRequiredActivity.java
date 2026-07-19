@@ -207,6 +207,9 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
   }
 
   private Intent getTransferOrRestoreIntent() {
+    if (Environment.USE_NEW_REGISTRATION) {
+      return org.signal.registration.RegistrationActivity.createIntent(this, MainActivity.clearTop(this));
+    }
     Intent intent = RestoreActivity.getRestoreIntent(this);
     return getRoutedIntent(intent, MainActivity.clearTop(this));
   }

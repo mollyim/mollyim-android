@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.media3.exoplayer.ExoPlayer;
 
+import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.signal.billing.BillingFactory;
 import org.signal.core.models.ServiceId.ACI;
@@ -210,6 +211,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
                                                 protocolStore.aci(),
                                                 new SignalProtocolAddress(pushServiceSocket.getCredentialsProvider().getAci().getLibSignalServiceId(),
                                                                           pushServiceSocket.getCredentialsProvider().getDeviceId()),
+                                                ReentrantSessionLock.INSTANCE,
                                                 PreKeyBatcher.INSTANCE
                                               )
                                             );
@@ -532,6 +534,16 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   @Override
   public @NonNull ClientZkReceiptOperations provideClientZkReceiptOperations(@NonNull SignalServiceConfiguration signalServiceConfiguration) {
     return provideClientZkOperations(signalServiceConfiguration).getReceiptOperations();
+  }
+
+  @Override
+  public @NonNull OkHttpClient provideOkHttpClient() {
+    return new OkHttpClient.Builder()
+        .addInterceptor(new StandardUserAgentInterceptor())
+        .socketFactory(Networking.getSocketFactory())
+        .proxySelector(Networking.getProxySelectorForSocks())
+        .dns(Networking.getDns())
+        .build();
   }
 
   @Override

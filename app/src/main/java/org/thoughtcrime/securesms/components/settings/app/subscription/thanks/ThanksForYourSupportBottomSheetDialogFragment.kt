@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.components.settings.app.subscription.thanks
 
-import android.animation.Animator
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
 import com.airbnb.lottie.LottieAnimationView
-import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -18,7 +16,6 @@ import org.signal.core.ui.FixedRoundedCornerBottomSheetDialogFragment
 import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.animation.AnimationCompleteListener
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
@@ -118,23 +115,8 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
       controlState = ControlState.DISPLAY
     }
 
-    if (args.badge.isBoost()) {
-      badgeView.visibility = View.INVISIBLE
-      lottie.visible = true
-      lottie.playAnimation()
-      lottie.addAnimatorListener(object : AnimationCompleteListener() {
-        override fun onAnimationEnd(animation: Animator) {
-          lottie.removeAnimatorListener(this)
-          lottie.setMinAndMaxFrame(30, 91)
-          lottie.repeatMode = LottieDrawable.RESTART
-          lottie.repeatCount = LottieDrawable.INFINITE
-          lottie.frame = 30
-          lottie.playAnimation()
-        }
-      })
-    } else {
-      lottie.visible = false
-    }
+    // New badge does not have a lottie, so we just hide it and show a static image.
+    lottie.visible = false
 
     done.setOnClickListener { dismissAllowingStateLoss() }
   }

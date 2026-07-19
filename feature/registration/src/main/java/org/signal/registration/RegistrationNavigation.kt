@@ -46,6 +46,7 @@ import org.signal.core.util.serialization.AccountEntropyPoolSerializer
 import org.signal.registration.screens.accountlocked.AccountLockedScreen
 import org.signal.registration.screens.accountlocked.AccountLockedScreenEvents
 import org.signal.registration.screens.accountlocked.AccountLockedState
+import org.signal.registration.screens.aepentry.EnterAepForLocalBackupResult
 import org.signal.registration.screens.aepentry.EnterAepForLocalBackupViewModel
 import org.signal.registration.screens.aepentry.EnterAepForRemoteBackupPostRegistrationViewModel
 import org.signal.registration.screens.aepentry.EnterAepForRemoteBackupPreRegistrationViewModel
@@ -163,9 +164,15 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   data object PinCreate : RegistrationRoute
 
   @Serializable
-  data class ArchiveRestoreSelection(val restoreOptions: List<ArchiveRestoreOption>, val registeredState: RegisteredState) : RegistrationRoute {
+  @TypeParceler<AccountEntropyPool?, AccountEntropyPoolParceler>
+  data class ArchiveRestoreSelection(
+    val restoreOptions: List<ArchiveRestoreOption>,
+    val registeredState: RegisteredState,
+    @Serializable(with = AccountEntropyPoolSerializer::class) val aep: AccountEntropyPool? = null
+  ) : RegistrationRoute {
     companion object {
-      fun forQuickRestore(hasRemoteBackup: Boolean): ArchiveRestoreSelection {
+
+      fun forQuickRestore(aep: AccountEntropyPool, hasRemoteBackup: Boolean, hasPin: Boolean): ArchiveRestoreSelection {
         return ArchiveRestoreSelection(
           restoreOptions = buildList {
             if (hasRemoteBackup) {
@@ -175,7 +182,8 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
             add(ArchiveRestoreOption.DeviceTransfer)
             add(ArchiveRestoreOption.None)
           },
-          registeredState = RegisteredState.NotRegistered
+          registeredState = if (hasPin) RegisteredState.RegisteredAndPinKnown else RegisteredState.RegisteredAndPinUnknown,
+          aep = aep
         )
       }
 
@@ -215,13 +223,28 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
   }
 
   @Serializable
-  data class LocalBackupRestore(val isPreRegistration: Boolean) : RegistrationRoute
+  @TypeParceler<AccountEntropyPool?, AccountEntropyPoolParceler>
+  data class LocalBackupRestore(
+    val isPreRegistration: Boolean,
+    @Serializable(with = AccountEntropyPoolSerializer::class) val aep: AccountEntropyPool? = null
+  ) : RegistrationRoute
 
   @Serializable
   data object EnterLocalBackupV1Passphrase : RegistrationRoute
 
+  /**
+   * Recovery key entry for a local V2 backup.
+   *
+   * When [isPreRegistration] is true (pre-registration manual restore), submitting the key first verifies it can
+   * decrypt the backup at [backupUri], then registers the account via the recovery password derived from it. A backup
+   * belonging to a different account is surfaced to the user, who can choose to restore it after verifying over SMS.
+   * When false (already registered), the key is simply handed back to the restore screen to decrypt the backup.
+   */
   @Serializable
-  data object EnterAepForLocalBackup : RegistrationRoute
+  data class EnterAepForLocalBackup(
+    val isPreRegistration: Boolean = false,
+    val backupUri: String? = null
+  ) : RegistrationRoute
 
   @Serializable
   data class EnterAepForRemoteBackupPreRegistration(val e164: String) : RegistrationRoute
@@ -264,6 +287,7 @@ sealed interface RegistrationRoute : NavKey, Parcelable {
 private const val CAPTCHA_RESULT = "captcha_token"
 private const val COUNTRY_CODE_RESULT = "country_code_result"
 private const val BACKUP_CREDENTIAL_RESULT = "backup_credential_result"
+private const val AEP_FOR_LOCAL_BACKUP_RESULT = "aep_for_local_backup_result"
 private const val LOCAL_BACKUP_RESTORE_RESULT = "local_backup_restore_result"
 private const val PHONE_NUMBER_DISCOVERABILITY_RESULT = "phone_number_discoverability_result"
 private const val PIN_LEARN_MORE_URL = "https://support.signal.org/hc/articles/360007059792"
@@ -335,39 +359,23 @@ fun RegistrationNavHost(
     entries = entries,
     onBack = { viewModel.onEvent(RegistrationFlowEvent.NavigateBack) },
     modifier = modifier,
-    transitionSpec = {
-      if (targetState.key is RegistrationRoute.CountryCodePicker) {
-        TransitionSpecs.VerticalSlide.transitionSpec.invoke(this)
-      } else {
-        TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
-      }
-    },
+    transitionSpec = { TransitionSpecs.HorizontalSlide.transitionSpec },
     popTransitionSpec = {
       when {
-        initialState.key is RegistrationRoute.CountryCodePicker -> {
-          TransitionSpecs.VerticalSlide.popTransitionSpec.invoke(this)
-        }
-
-        initialState.key == RegistrationRoute.EnterAepForLocalBackup.toString() || initialState.key == RegistrationRoute.EnterAepForRemoteBackupPreRegistration.toString() -> {
-          TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
+        initialState.key.toString().startsWith("EnterAepForLocalBackup") || initialState.key == RegistrationRoute.EnterAepForRemoteBackupPreRegistration.toString() -> {
+          TransitionSpecs.HorizontalSlide.transitionSpec
         }
 
         initialState.key == RegistrationRoute.LocalBackupRestore.toString() && targetState.key == RegistrationRoute.PhoneNumberEntry.toString() -> {
-          TransitionSpecs.HorizontalSlide.transitionSpec.invoke(this)
+          TransitionSpecs.HorizontalSlide.transitionSpec
         }
 
         else -> {
-          TransitionSpecs.HorizontalSlide.popTransitionSpec.invoke(this)
+          TransitionSpecs.HorizontalSlide.popTransitionSpec
         }
       }
     },
-    predictivePopTransitionSpec = {
-      if (initialState.key is RegistrationRoute.CountryCodePicker) {
-        TransitionSpecs.VerticalSlide.predictivePopTransitionSpec.invoke(this, it)
-      } else {
-        TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec.invoke(this, it)
-      }
-    }
+    predictivePopTransitionSpec = { TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec }
   )
 }
 
@@ -458,7 +466,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = "https://support.signal.org/hc/articles/360007320451-Troubleshooting-multiple-devices" // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/en-us/articles/360007320551"
 
     LinkAccountScreen(
       state = state,
@@ -484,7 +492,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val url = stringResource(R.string.terms_and_privacy_policy_url) // TODO [regv5] update with proper url
+    val url = "https://support.signal.org/hc/articles/360007320391"
 
     MessageSyncScreen(
       state = state,
@@ -533,7 +541,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   }
 
   // -- Country Code Picker
-  entry<RegistrationRoute.CountryCodePicker> { key ->
+  entry<RegistrationRoute.CountryCodePicker>(metadata = TransitionSpecs.VerticalSlide.metadata) { key ->
     val viewModel: CountryCodePickerViewModel = viewModel(
       factory = CountryCodePickerViewModel.Factory(
         repository = CountryCodePickerRepository(),
@@ -707,6 +715,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       factory = ArchiveRestoreSelectionViewModel.Factory(
         restoreOptions = key.restoreOptions,
         registeredState = key.registeredState,
+        knownAep = key.aep,
         repository = registrationRepository,
         parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
@@ -726,6 +735,7 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
       factory = RemoteBackupRestoreViewModel.Factory(
         aep = key.aep,
         repository = registrationRepository,
+        parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent
       )
     )
@@ -742,8 +752,10 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     val viewModel: LocalBackupRestoreViewModel = viewModel(
       factory = LocalBackupRestoreViewModel.Factory(
         repository = registrationRepository,
+        parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent,
         isPreRegistration = key.isPreRegistration,
+        knownAep = key.aep,
         resultBus = registrationViewModel.resultBus,
         resultKey = LOCAL_BACKUP_RESTORE_RESULT
       )
@@ -753,6 +765,13 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
     ResultEffect<String?>(registrationViewModel.resultBus, BACKUP_CREDENTIAL_RESULT) { passphrase ->
       if (passphrase != null) {
         viewModel.onEvent(LocalBackupRestoreEvents.PassphraseSubmitted(passphrase))
+      }
+    }
+
+    ResultEffect<EnterAepForLocalBackupResult>(registrationViewModel.resultBus, AEP_FOR_LOCAL_BACKUP_RESULT) { result ->
+      when (result) {
+        is EnterAepForLocalBackupResult.RestoreReady -> viewModel.onEvent(LocalBackupRestoreEvents.PassphraseSubmitted(result.key))
+        is EnterAepForLocalBackupResult.RegistrationDeferredToSms -> viewModel.onEvent(LocalBackupRestoreEvents.RegistrationDeferredToSms)
       }
     }
 
@@ -778,13 +797,17 @@ private fun EntryProviderScope<NavKey>.navigationEntries(
   // TODO I think we can re-use the screen but attach different viewmodels to progress forward rather than do for-result flows?
 
   // -- Enter AEP
-  entry<RegistrationRoute.EnterAepForLocalBackup> {
+  entry<RegistrationRoute.EnterAepForLocalBackup> { key ->
     val context = LocalContext.current
     val viewModel: EnterAepForLocalBackupViewModel = viewModel(
       factory = EnterAepForLocalBackupViewModel.Factory(
+        isPreRegistration = key.isPreRegistration,
+        backupUri = key.backupUri,
+        repository = registrationRepository,
+        parentState = registrationViewModel.state,
         parentEventEmitter = registrationViewModel::onEvent,
         resultBus = registrationViewModel.resultBus,
-        resultKey = BACKUP_CREDENTIAL_RESULT,
+        resultKey = AEP_FOR_LOCAL_BACKUP_RESULT,
         isPasswordManagerAvailable = RegistrationCredentialManager.isSupported(context)
       )
     )

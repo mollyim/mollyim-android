@@ -10,5 +10,4 @@ sealed class DeviceTransferProgressScreenEvents {
   data object CancelConfirmed : DeviceTransferProgressScreenEvents()
   data object CancelDismissed : DeviceTransferProgressScreenEvents()
   data object TryAgainClicked : DeviceTransferProgressScreenEvents()
-  data object ConsumeOneTimeEvent : DeviceTransferProgressScreenEvents()
 }

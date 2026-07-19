@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -22,7 +22,6 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RestoreDecision
-import org.signal.registration.screens.EventDrivenViewModel
 import kotlin.time.toKotlinDuration
 
 /**
@@ -32,7 +31,7 @@ import kotlin.time.toKotlinDuration
  */
 class PinCreationViewModel(
   private val repository: RegistrationRepository,
-  private val parentState: StateFlow<RegistrationFlowState>,
+  parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
 ) : EventDrivenViewModel<PinCreationScreenEvents>(TAG) {
 
@@ -41,19 +40,28 @@ class PinCreationViewModel(
   }
 
   private val _state = MutableStateFlow(PinCreationState())
+  val state: StateFlow<PinCreationState> = _state.asStateFlow()
 
-  val state: StateFlow<PinCreationState> = _state
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinCreationState())
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(PinCreationScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinCreationScreenEvents) {
-    applyEvent(state.value, event)
+    applyEvent(_state.value, event)
   }
 
   @VisibleForTesting
   suspend fun applyEvent(state: PinCreationState, event: PinCreationScreenEvents) {
     when (event) {
+      is PinCreationScreenEvents.ParentStateChanged -> {
+        _state.value = applyParentState(state, event.parentState)
+      }
       is PinCreationScreenEvents.PinSubmitted -> {
         when {
           !state.isConfirmEnabled -> {
@@ -92,8 +100,11 @@ class PinCreationViewModel(
         _state.value = state.copy(isConfirmEnabled = false)
         applyOptOut()
       }
-      is PinCreationScreenEvents.ConsumeOneTimeEvent -> {
-        _state.value = state.copy(oneTimeEvent = null)
+      is PinCreationScreenEvents.ServiceErrorDialogDismissed -> {
+        _state.value = state.copy(dialogs = state.dialogs.copy(serviceError = false))
+      }
+      is PinCreationScreenEvents.NetworkErrorDialogDismissed -> {
+        _state.value = state.copy(dialogs = state.dialogs.copy(networkError = null))
       }
     }
   }
@@ -105,8 +116,7 @@ class PinCreationViewModel(
     parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: PinCreationState, parentState: RegistrationFlowState): PinCreationState {
+  private fun applyParentState(state: PinCreationState, parentState: RegistrationFlowState): PinCreationState {
     return state.copy(accountEntropyPool = parentState.accountEntropyPool)
   }
 
@@ -134,7 +144,7 @@ class PinCreationViewModel(
         when (val error = result.error) {
           is NetworkController.BackupMasterKeyError.EnclaveNotFound -> {
             Log.w(TAG, "[PinSubmitted] SVR enclave not found.")
-            state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+            state.copy(loading = false, dialogs = state.dialogs.copy(serviceError = true))
           }
 
           is NetworkController.BackupMasterKeyError.NotRegistered -> {
@@ -147,12 +157,12 @@ class PinCreationViewModel(
 
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinSubmitted] Network error when backing up master key.", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.NetworkError(result.retryAfter?.toKotlinDuration()))
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = PinCreationState.Dialogs.NetworkError(result.retryAfter?.toKotlinDuration())))
       }
 
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinSubmitted] Application error when backing up master key.", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(serviceError = true))
       }
     }
   }

@@ -19,9 +19,9 @@ data class VerificationCodeState(
   val digits: List<String> = List(CODE_LENGTH) { "" },
   val focusedDigitIndex: Int = 0,
   val showContactSupportSheet: Boolean = false,
-  val oneTimeEvent: OneTimeEvent? = null
+  val snackbars: Snackbars = Snackbars()
 ) {
-  override fun toString(): String = "VerificationCodeState(sessionMetadata=${sessionMetadata?.let { "present" }}, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, oneTimeEvent=$oneTimeEvent)"
+  override fun toString(): String = "VerificationCodeState(sessionMetadata=$sessionMetadata, e164=$e164, isSubmittingCode=$isSubmittingCode, rateLimits=$rateLimits, incorrectCodeAttempts=$incorrectCodeAttempts, autoFillCode=${autoFillCode?.let { "present" }}, digitsEntered=${digits.count { it.isNotEmpty() }}, focusedDigitIndex=$focusedDigitIndex, showContactSupportSheet=$showContactSupportSheet, snackbars=$snackbars)"
 
   /**
    * The full code as currently entered. Only meaningful when [isComplete] is true.
@@ -42,21 +42,16 @@ data class VerificationCodeState(
     fun emptyDigits(): List<String> = List(CODE_LENGTH) { "" }
   }
 
-  sealed interface OneTimeEvent {
-    data object NetworkError : OneTimeEvent
-
-    data object UnknownError : OneTimeEvent
-
-    data class RateLimited(val retryAfter: Duration) : OneTimeEvent
-
-    data object UnableToSendSms : OneTimeEvent
-
-    data object CouldNotRequestCodeWithSelectedTransport : OneTimeEvent
-
-    data object IncorrectVerificationCode : OneTimeEvent
-
-    data object RegistrationError : OneTimeEvent
-  }
+  /** Transient error messages shown as snackbars. Cleared once the snackbar has been shown and dismissed. */
+  data class Snackbars(
+    val networkError: Boolean = false,
+    val unknownError: Boolean = false,
+    val rateLimitedRetryAfter: Duration? = null,
+    val unableToSendSms: Boolean = false,
+    val couldNotRequestCodeWithSelectedTransport: Boolean = false,
+    val incorrectVerificationCode: Boolean = false,
+    val registrationError: Boolean = false
+  )
 
   /**
    * Returns true if the user can resend SMS (timer has expired)

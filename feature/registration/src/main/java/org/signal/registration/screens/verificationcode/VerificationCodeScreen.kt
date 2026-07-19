@@ -45,6 +45,7 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -94,39 +95,20 @@ fun VerificationCodeScreen(
     onEvent(VerificationCodeScreenEvents.ConsumeAutoFillCode)
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    val event = state.oneTimeEvent ?: return@LaunchedEffect
-
-    when (event) {
-      VerificationCodeState.OneTimeEvent.IncorrectVerificationCode -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__incorrect_code))
-      }
-
-      VerificationCodeState.OneTimeEvent.NetworkError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__network_error))
-      }
-
-      is VerificationCodeState.OneTimeEvent.RateLimited -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, event.retryAfter.toString()))
-      }
-
-      VerificationCodeState.OneTimeEvent.UnableToSendSms -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms))
-      }
-
-      VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method))
-      }
-
-      VerificationCodeState.OneTimeEvent.UnknownError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred))
-      }
-
-      VerificationCodeState.OneTimeEvent.RegistrationError -> {
-        snackbarHostState.showSnackbar(resources.getString(R.string.VerificationCodeScreen__registration_error))
-      }
+  LaunchedEffect(state.snackbars) {
+    val (message, dismissedEvent) = when {
+      state.snackbars.incorrectVerificationCode -> resources.getString(R.string.VerificationCodeScreen__incorrect_code) to VerificationCodeScreenEvents.IncorrectVerificationCodeSnackbarDismissed
+      state.snackbars.networkError -> resources.getString(R.string.VerificationCodeScreen__network_error) to VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed
+      state.snackbars.rateLimitedRetryAfter != null -> resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.snackbars.rateLimitedRetryAfter.toString()) to VerificationCodeScreenEvents.RateLimitedSnackbarDismissed
+      state.snackbars.unableToSendSms -> resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms) to VerificationCodeScreenEvents.UnableToSendSmsSnackbarDismissed
+      state.snackbars.couldNotRequestCodeWithSelectedTransport -> resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method) to VerificationCodeScreenEvents.CouldNotRequestCodeWithSelectedTransportSnackbarDismissed
+      state.snackbars.unknownError -> resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to VerificationCodeScreenEvents.UnknownErrorSnackbarDismissed
+      state.snackbars.registrationError -> resources.getString(R.string.VerificationCodeScreen__registration_error) to VerificationCodeScreenEvents.RegistrationErrorSnackbarDismissed
+      else -> return@LaunchedEffect
     }
-    onEvent(VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent)
+
+    snackbarHostState.showSnackbar(message)
+    onEvent(dismissedEvent)
   }
 
   LaunchedEffect(state.focusedDigitIndex) {
@@ -248,7 +230,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        Description(state, onEvent)
+        Description(state, onEvent, twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -430,10 +412,10 @@ private fun AlternateCodeOptions(state: VerificationCodeState, onEvent: (Verific
 }
 
 @Composable
-private fun Description(state: VerificationCodeState, onEvent: (VerificationCodeScreenEvents) -> Unit) {
+private fun Description(state: VerificationCodeState, onEvent: (VerificationCodeScreenEvents) -> Unit, twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.VerificationCodeScreen__verification_code),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -441,7 +423,7 @@ private fun Description(state: VerificationCodeState, onEvent: (VerificationCode
 
   Text(
     text = stringResource(R.string.VerificationCodeScreen__enter_the_code_we_sent_to_s, state.e164),
-    style = MaterialTheme.typography.bodyLarge,
+    style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier.padding(top = 16.dp)
   )

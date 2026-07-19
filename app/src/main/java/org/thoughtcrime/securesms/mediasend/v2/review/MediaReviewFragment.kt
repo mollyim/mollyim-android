@@ -71,11 +71,13 @@ import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout
 import org.thoughtcrime.securesms.util.visible
+import org.thoughtcrime.securesms.video.TranscodingConfig
 import org.thoughtcrime.securesms.video.TranscodingQuality
 import java.io.IOException
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
+import kotlin.time.Duration.Companion.microseconds
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -586,7 +588,7 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
     val size: Long = tryGetUriSize(requireContext(), uri, Long.MAX_VALUE)
     val maxSend = sharedViewModel.getMediaConstraints().getEditorVideoMaxSize()
     if (size > maxSend) {
-      videoTimeLine.setTimeLimit(state.transcodingPreset.calculateMaxVideoUploadDurationInSeconds(maxSend), TimeUnit.SECONDS)
+      videoTimeLine.setTimeLimit(TranscodingConfig.calculateMaxVideoUploadDurationInSeconds(state.transcodingConfigs, state.getOrCreateVideoTrimData(uri).totalInputDurationUs.microseconds, maxSend), TimeUnit.SECONDS)
     }
 
     if (state.isTouchEnabled) {
@@ -604,7 +606,7 @@ class MediaReviewFragment : Fragment(R.layout.v2_media_review_fragment), Schedul
 
     videoSizeHint.text = if (state.isVideoTrimmingVisible) {
       val seconds = trimData.getDuration().inWholeSeconds
-      val bytes = TranscodingQuality.createFromPreset(state.transcodingPreset, trimData.getDuration().inWholeMilliseconds).byteCountEstimate
+      val bytes = TranscodingQuality.createFromQualityTiers(state.transcodingConfigs, trimData.getDuration().inWholeMilliseconds).byteCountEstimate
       String.format(Locale.getDefault(), "%d:%02d • %s", seconds / 60, seconds % 60, bytes.bytes.toUnitString())
     } else {
       null

@@ -11,13 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import org.signal.core.util.ForegroundServiceUtil;
 import org.signal.core.util.PendingIntentFlags;
 import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.gcm.FcmFetchManager;
-import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.util.WakeLockUtil;
 

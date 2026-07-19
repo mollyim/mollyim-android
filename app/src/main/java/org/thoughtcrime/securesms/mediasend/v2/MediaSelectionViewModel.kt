@@ -35,6 +35,7 @@ import org.thoughtcrime.securesms.conversation.MessageStyler
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
 import org.thoughtcrime.securesms.mms.PushMediaConstraints
+import org.thoughtcrime.securesms.mms.TranscodingConfigProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.scribbles.ImageEditorFragment
 import org.thoughtcrime.securesms.stories.Stories
@@ -42,6 +43,7 @@ import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.livedata.Store
 import java.util.Collections
 import kotlin.math.max
+import kotlin.time.Duration.Companion.microseconds
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
@@ -166,11 +168,11 @@ class MediaSelectionViewModel(
         .subscribe { filterResult ->
           if (filterResult.filteredMedia.isNotEmpty()) {
             store.update {
-              val maxDuration = it.calculateMaxVideoDurationUs(getMediaConstraints().getEditorVideoMaxSize())
               val initializedVideoEditorStates = filterResult.filteredMedia.filterNot { media -> it.editorStateMap.containsKey(media.uri) }
                 .filter { media -> MediaUtil.isNonGifVideo(media) }
                 .associate { video: Media ->
                   val duration = video.duration.milliseconds.inWholeMicroseconds
+                  val maxDuration = it.calculateMaxVideoDurationUs(getMediaConstraints().getEditorVideoMaxSize(), video.duration.milliseconds)
                   if (duration < maxDuration) {
                     video.uri to VideoTrimData(false, duration, 0, duration)
                   } else {
@@ -330,7 +332,7 @@ class MediaSelectionViewModel(
       return
     }
 
-    store.update { it.copy(quality = sentMediaQuality, isPreUploadEnabled = false) }
+    store.update { it.copy(quality = sentMediaQuality, isPreUploadEnabled = false, transcodingConfigs = TranscodingConfigProvider.getConfigsForMediaQuality(sentMediaQuality)) }
     repository.uploadRepository.cancelAllUploads()
 
     store.state.selectedMedia.forEach { mediaItem ->
@@ -360,7 +362,7 @@ class MediaSelectionViewModel(
       val durationEdited = clampedStartTime > 0 || endTimeUs < totalDurationUs
       val isEntireDuration = startTimeUs == 0L && endTimeUs == totalDurationUs
       val endMoved = !isEntireDuration && data.endTimeUs != endTimeUs
-      val maxVideoDurationUs: Long = it.calculateMaxVideoDurationUs(getMediaConstraints().getEditorVideoMaxSize())
+      val maxVideoDurationUs: Long = it.calculateMaxVideoDurationUs(getMediaConstraints().getEditorVideoMaxSize(), (endTimeUs - clampedStartTime).microseconds)
       val preserveStartTime = unedited || !endMoved
       val videoTrimData = VideoTrimData(durationEdited, totalDurationUs, clampedStartTime, endTimeUs)
       val updatedData = clampToMaxClipDuration(videoTrimData, maxVideoDurationUs, preserveStartTime)

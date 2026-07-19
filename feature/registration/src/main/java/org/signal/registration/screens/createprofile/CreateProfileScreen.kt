@@ -30,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.rememberWindowBreakpoint
@@ -84,10 +84,12 @@ fun CreateProfileScreen(
     pickAvatarLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    if (state.oneTimeEvent != null) {
-      onEvent(CreateProfileScreenEvents.ConsumeOneTimeEvent)
-    }
+  if (state.showUploadFailedDialog) {
+    Dialogs.SimpleMessageDialog(
+      message = stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred),
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(CreateProfileScreenEvents.UploadFailedDialogDismissed) }
+    )
   }
 
   if (state.isLoading) {

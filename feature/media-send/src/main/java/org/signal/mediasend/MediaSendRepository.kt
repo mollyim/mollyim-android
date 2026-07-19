@@ -62,9 +62,10 @@ interface MediaSendRepository {
    *
    * @param quality The sent media quality.
    * @param maxFileSizeBytes Maximum file size in bytes.
+   * @param duration Duration of the video.
    * @return Maximum duration in microseconds.
    */
-  fun getMaxVideoDurationUs(quality: SentMediaQuality, maxFileSizeBytes: Long): Long
+  fun getMaxVideoDurationUs(quality: SentMediaQuality, maxFileSizeBytes: Long, duration: Duration): Long
 
   /**
    * Gets the maximum video file size in bytes.

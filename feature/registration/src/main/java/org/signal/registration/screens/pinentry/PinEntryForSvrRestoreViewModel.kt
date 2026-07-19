@@ -10,10 +10,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.NetworkController
@@ -22,7 +23,6 @@ import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateTo
 
 /**
@@ -47,9 +47,13 @@ class PinEntryForSvrRestoreViewModel(
     )
   )
 
-  val state: StateFlow<PinEntryState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
+  val state: StateFlow<PinEntryState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinEntryScreenEvents) {
     applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
@@ -80,9 +84,13 @@ class PinEntryForSvrRestoreViewModel(
         Log.i(TAG, "[ContactSupport] User opted to contact support after no data was found.")
         stateEmitter(state.copy(showNoDataToRestoreDialog = false))
       }
-      is PinEntryScreenEvents.ToggleKeyboard -> {
+      is PinEntryScreenEvents.ToggleKeyboard,
+      is PinEntryScreenEvents.NetworkErrorDialogDismissed,
+      is PinEntryScreenEvents.RateLimitedDialogDismissed,
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
+      is PinEntryScreenEvents.ParentStateChanged -> Unit
     }
   }
 
@@ -112,10 +120,10 @@ class PinEntryForSvrRestoreViewModel(
         }
       }
       is RequestResult.RetryableNetworkError -> {
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
-        return state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        return state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
 
@@ -143,11 +151,11 @@ class PinEntryForSvrRestoreViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key.", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key.", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
   }

@@ -57,6 +57,8 @@ import org.thoughtcrime.securesms.video.videoconverter.utils.VideoConstants
 import java.io.FileInputStream
 import java.io.IOException
 import java.util.Collections
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.microseconds
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -412,11 +414,11 @@ class MediaSendViewModel(
 
       if (filterResult.filteredMedia.isNotEmpty()) {
         // Initialize video trim states for new videos
-        val maxVideoDurationUs = getMaxVideoDurationUs()
         val initializedVideoEditorStates = filterResult.filteredMedia
           .filterNot { snapshot.editorStateMap.containsKey(it.uri) }
           .filter { isNonGifVideo(it) }
           .associate { video ->
+            val maxVideoDurationUs = getMaxVideoDurationUs(video.duration.milliseconds)
             val durationUs = video.duration.milliseconds.inWholeMicroseconds
             video.uri to EditorState.VideoTrim.forVideo(durationUs, maxVideoDurationUs)
           }
@@ -602,11 +604,11 @@ class MediaSendViewModel(
     preUploadController.cancelAllUploads()
 
     // Re-clamp video durations based on new quality
-    val maxVideoDurationUs = getMaxVideoDurationUs()
     snapshot.selectedMedia.forEach { mediaItem ->
       if (isNonGifVideo(mediaItem) && repository.isVideoTranscodeAvailable()) {
         val existingData = snapshot.editorStateMap[mediaItem.uri] as? EditorState.VideoTrim
         if (existingData != null) {
+          val maxVideoDurationUs = getMaxVideoDurationUs(existingData.videoTrimData.totalInputDurationUs.microseconds)
           onEditVideoDuration(
             totalDurationUs = existingData.videoTrimData.totalInputDurationUs,
             startTimeUs = existingData.videoTrimData.startTimeUs,
@@ -659,7 +661,7 @@ class MediaSendViewModel(
     val durationEdited = clampedStartTime > 0 || endTimeUs < totalDurationUs
     val isEntireDuration = startTimeUs == 0L && endTimeUs == totalDurationUs
     val endMoved = !isEntireDuration && existingData.videoTrimData.endTimeUs != endTimeUs
-    val maxVideoDurationUs = getMaxVideoDurationUs()
+    val maxVideoDurationUs = getMaxVideoDurationUs(existingData.videoTrimData.totalInputDurationUs.microseconds)
     val preserveStartTime = unedited || !endMoved
 
     val newData = VideoTrimData(
@@ -689,11 +691,12 @@ class MediaSendViewModel(
     }
   }
 
-  private fun getMaxVideoDurationUs(): Long {
+  private fun getMaxVideoDurationUs(duration: Duration): Long {
     val snapshot = state.value
     return repository.getMaxVideoDurationUs(
       quality = snapshot.sentMediaQuality,
-      maxFileSizeBytes = repository.getVideoMaxSizeBytes()
+      maxFileSizeBytes = repository.getVideoMaxSizeBytes(),
+      duration = duration
     )
   }
 

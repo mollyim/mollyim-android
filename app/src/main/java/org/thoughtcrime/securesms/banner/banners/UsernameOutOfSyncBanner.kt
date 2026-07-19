@@ -26,6 +26,10 @@ class UsernameOutOfSyncBanner(private val onActionClick: (UsernameSyncState) -> 
 
   override val enabled: Boolean
     get() {
+      if (SignalStore.account.isLinkedDevice) {
+        return false
+      }
+
       return when (SignalStore.account.usernameSyncState) {
         AccountValues.UsernameSyncState.USERNAME_AND_LINK_CORRUPTED -> true
         AccountValues.UsernameSyncState.LINK_CORRUPTED -> true

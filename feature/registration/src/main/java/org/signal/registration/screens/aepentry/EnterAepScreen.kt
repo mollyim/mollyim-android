@@ -42,6 +42,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -74,10 +75,30 @@ fun EnterAepScreen(
 ) {
   RegistrationErrorDialog(state.registrationError, onEvent)
 
+  if (state.showDifferentAccountDialog) {
+    DifferentAccountDialog(onEvent)
+  }
+
   when (val layoutParams = RegistrationScaffold.rememberLayoutParams()) {
     is RegistrationScaffold.Params.OnePane -> OnePaneLayout(layoutParams, state, onEvent, modifier)
     is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(layoutParams, state, onEvent, modifier)
   }
+}
+
+/**
+ * Warns that the entered key decrypts the backup but the backup was created by a different account, offering to
+ * restore it anyway (which requires verifying the phone number over SMS first).
+ */
+@Composable
+private fun DifferentAccountDialog(onEvent: (EnterAepEvents) -> Unit) {
+  Dialogs.SimpleAlertDialog(
+    title = stringResource(R.string.EnterAepScreen__restore_to_new_account),
+    body = stringResource(R.string.EnterAepScreen__restore_to_new_account_body),
+    confirm = stringResource(R.string.EnterAepScreen__restore),
+    dismiss = stringResource(android.R.string.cancel),
+    onConfirm = { onEvent(EnterAepEvents.ConfirmDifferentAccountRestore) },
+    onDismiss = { onEvent(EnterAepEvents.DismissDifferentAccountDialog) }
+  )
 }
 
 /**
@@ -181,7 +202,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        Description()
+        Description(twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -218,10 +239,10 @@ private fun TwoPaneLayout(
 }
 
 @Composable
-private fun Description() {
+private fun Description(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.EnterAepScreen__enter_your_recovery_key),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -229,7 +250,7 @@ private fun Description() {
 
   Text(
     text = stringResource(R.string.EnterAepScreen__your_recovery_key_is_a_64_character_code),
-    style = MaterialTheme.typography.bodyLarge,
+    style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier
       .fillMaxWidth()

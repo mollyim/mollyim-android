@@ -13,10 +13,14 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.signal.core.models.media.Media
+import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.getWindowBreakpoint
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.ThreadUtil
+import org.signal.core.util.dp
 import org.signal.core.util.getParcelableExtraCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.Avatar
@@ -31,6 +35,7 @@ import org.thoughtcrime.securesms.mediasend.AvatarSelectionActivity
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
+import org.thoughtcrime.securesms.util.padding
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -65,8 +70,25 @@ class AvatarPickerFragment : Fragment(R.layout.avatar_picker_fragment) {
     val saveButton: View = view.findViewById(R.id.avatar_picker_save)
     val clearButton: View = view.findViewById(R.id.avatar_picker_clear)
 
+    val spanCount = when (resources.getWindowBreakpoint()) {
+      is WindowBreakpoint.Small -> 4
+      else -> 6
+    }
+
+    val recyclerPadding = when (resources.getWindowBreakpoint()) {
+      is WindowBreakpoint.Small -> 0
+      else -> 112.dp
+    }
+
     recycler = view.findViewById(R.id.avatar_picker_recycler)
-    recycler.addItemDecoration(GridDividerDecoration(4, ViewUtil.dpToPx(16)))
+    recycler.addItemDecoration(GridDividerDecoration(spanCount, ViewUtil.dpToPx(16)))
+    recycler.padding(
+      left = recyclerPadding,
+      right = recyclerPadding
+    )
+
+    val gridLayoutManager: GridLayoutManager = recycler.layoutManager as GridLayoutManager
+    gridLayoutManager.spanCount = spanCount
 
     val adapter = MappingAdapter()
     AvatarPickerItem.register(adapter, this::onAvatarClick, this::onAvatarLongClick)

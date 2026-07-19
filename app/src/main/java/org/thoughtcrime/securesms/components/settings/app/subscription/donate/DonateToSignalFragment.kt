@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.donate
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.Toolbar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
@@ -78,7 +79,8 @@ class DonateToSignalFragment :
 
     companion object {
 
-      private const val ARG = "in_app_payment_type"
+      @VisibleForTesting
+      const val ARG = "in_app_payment_type"
 
       @JvmStatic
       fun create(inAppPaymentType: InAppPaymentType): DialogFragment {

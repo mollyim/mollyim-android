@@ -64,7 +64,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
+import org.signal.core.ui.FormFactor
 import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.assumedFormFactor
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
@@ -98,7 +100,7 @@ fun LinkAccountScreen(
   modifier: Modifier = Modifier
 ) {
   val layoutParams = RegistrationScaffold.rememberLayoutParams()
-  val isPhone = rememberWindowBreakpoint() is WindowBreakpoint.Small
+  val isPhone = rememberWindowBreakpoint().assumedFormFactor == FormFactor.PHONE
 
   // Sequence the expand button animation with the QR morph
   var expandButtonVisible by remember { mutableStateOf(!state.displayQrOverlay) }
@@ -272,17 +274,17 @@ private fun FirstPaneContent(
     modifier = modifier,
     verticalArrangement = spacedBy(32.dp)
   ) {
-    Title()
+    Title(twoPane = true)
 
     Steps(verticalArrangement = spacedBy(32.dp), centerGetHelp = false, onEvent = onEvent)
   }
 }
 
 @Composable
-private fun Title() {
+private fun Title(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.LinkAccountScreen__scan_this_code_to_link_your_account),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()

@@ -11,6 +11,9 @@ import arrow.core.left
 import arrow.core.right
 import assertk.assertThat
 import assertk.assertions.isEqualTo
+import assertk.assertions.isGreaterThan
+import assertk.assertions.isNotNull
+import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -425,6 +428,46 @@ class IndividualSendJobV2Test {
         onEncrypted = any()
       )
     }
+  }
+
+  @Test
+  fun `Given multi-device and an expiring message, when send succeeds, then sync transcript carries expirationStartTimestamp`() {
+    every { signalStore.account.isMultiDevice } returns true
+    every { outgoingMessage.expiresIn } returns 60_000L
+    dataMessage = DataMessage(timestamp = sentTime, expireTimer = 60)
+    every { outgoingMessage.toDataMessage() } returns dataMessage.right()
+
+    val syncSlot = slot<EnvelopeContent>()
+    val primaryContent = EnvelopeContent.encrypted(Content(dataMessage = dataMessage), ContentHint.RESENDABLE, Optional.empty())
+    coEvery {
+      messageService.sendMessage(any(), any(), any(), any(), any(), any(), any(), any())
+    } returns MessageService.SendSuccess(envelopeContent = primaryContent, sentSealedSender = false, devices = listOf(1)).right()
+    coEvery {
+      messageService.sendSyncMessage(timestamp = any(), envelopeContent = capture(syncSlot), urgent = any(), onEncrypted = any())
+    } returns MessageService.SendSuccess(envelopeContent = primaryContent, sentSealedSender = false, devices = listOf(1)).right()
+
+    createAndRunJob()
+
+    val sent = syncSlot.captured.content.get().syncMessage!!.sent!!
+    assertThat(sent.expirationStartTimestamp).isNotNull().isGreaterThan(0L)
+  }
+
+  @Test
+  fun `Given multi-device and a non-expiring message, when send succeeds, then sync transcript omits expirationStartTimestamp`() {
+    every { signalStore.account.isMultiDevice } returns true
+
+    val syncSlot = slot<EnvelopeContent>()
+    coEvery {
+      messageService.sendSyncMessage(timestamp = any(), envelopeContent = capture(syncSlot), urgent = any(), onEncrypted = any())
+    } returns MessageService.SendSuccess(envelopeContent = EnvelopeContent.encrypted(Content(dataMessage = dataMessage), ContentHint.RESENDABLE, Optional.empty()), sentSealedSender = false, devices = listOf(1)).right()
+    coEvery {
+      messageService.sendMessage(any(), any(), any(), any(), any(), any(), any(), any())
+    } returns MessageService.SendSuccess(envelopeContent = EnvelopeContent.encrypted(Content(dataMessage = dataMessage), ContentHint.RESENDABLE, Optional.empty()), sentSealedSender = false, devices = listOf(1)).right()
+
+    createAndRunJob()
+
+    val sent = syncSlot.captured.content.get().syncMessage!!.sent!!
+    assertThat(sent.expirationStartTimestamp).isNull()
   }
 
   @Test
