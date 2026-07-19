@@ -36,7 +36,6 @@ import org.thoughtcrime.securesms.messages.MessageDecryptor.FollowUpOperation
 import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.net.ConnectivityState
 import org.thoughtcrime.securesms.net.InternetConnectivityMonitor
-import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.net.configureProxy
 import org.thoughtcrime.securesms.net.resolveProxyConfig
 import org.thoughtcrime.securesms.notifications.NotificationChannels
@@ -115,7 +114,7 @@ class IncomingMessageObserver(
       notifyConnectionConditionsChanged()
     },
     onProxyChanged = {
-      val proxyConfig = resolveProxyConfig(Networking.socksProxy)
+      val proxyConfig = resolveProxyConfig()
       val proxyChanged = AppDependencies.networkProxyState.update(proxyConfig)
       if (proxyChanged) {
         AppDependencies.libsignalNetwork.configureProxy(proxyConfig)

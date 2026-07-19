@@ -20,6 +20,7 @@ sealed interface ProxyConfig {
   data object Direct : ProxyConfig
 
   data class ProxyAddress(
+    val source: ProxySource,
     val scheme: ProxyScheme,
     val host: String,
     val port: Int
@@ -28,35 +29,39 @@ sealed interface ProxyConfig {
 
 /** Supported proxy schemes by [Network]. */
 enum class ProxyScheme(val value: String) {
-  TLS(Network.SIGNAL_TLS_PROXY_SCHEME),
   SOCKS("socks5"),
   HTTP("http")
 }
 
-fun SocksProxy.toProxyConfig() = ProxyConfig.ProxyAddress(ProxyScheme.SOCKS, host, port)
+enum class ProxySource {
+  USER, SYSTEM
+}
 
-fun Proxy.toProxyConfig(): ProxyConfig? {
+fun Proxy.toProxyConfig(source: ProxySource): ProxyConfig? {
   val sa = address() as? InetSocketAddress ?: return null
   val scheme = when (type()) {
     Proxy.Type.HTTP -> ProxyScheme.HTTP
     Proxy.Type.SOCKS -> ProxyScheme.SOCKS
     Proxy.Type.DIRECT -> return ProxyConfig.Direct
   }
-  return ProxyConfig.ProxyAddress(scheme, sa.hostString, sa.port)
+  return ProxyConfig.ProxyAddress(source, scheme, sa.hostString, sa.port)
 }
 
 /**
  * Resolves the appropriate proxy configuration or system defaults.
  * Falls back to direct connection if no valid proxy is found.
  *
- * @param socksProxy Explicit SOCKS proxy setting, if configured
  * @return The resolved proxy configuration
  */
 @WorkerThread
-fun resolveProxyConfig(socksProxy: SocksProxy?): ProxyConfig {
-  return socksProxy?.toProxyConfig()
-    ?: resolveSystemProxy(targetUrl = BuildConfig.SIGNAL_URL)?.toProxyConfig()
-    ?: ProxyConfig.Direct
+fun resolveProxyConfig(): ProxyConfig {
+  val userProxy = Networking.proxy
+  if (userProxy == Proxy.NO_PROXY) {
+    val systemProxy = resolveSystemProxy(targetUrl = BuildConfig.SIGNAL_URL)
+    return systemProxy?.toProxyConfig(ProxySource.SYSTEM)
+      ?: ProxyConfig.Direct
+  }
+  return userProxy.toProxyConfig(ProxySource.USER)!!
 }
 
 /**
@@ -82,14 +87,13 @@ fun Network.configureProxy(config: ProxyConfig) {
         setProxy(config.scheme.value, config.host, config.port, null, null)
         Log.i(TAG, "Proxy configured: ${config.scheme}:${config.port}")
       } catch (e: IOException) {
-        when (config.scheme) {
-          ProxyScheme.TLS -> {
-            Log.e(TAG, "Invalid Signal TLS proxy config! Failing connections until changed.", e)
+        when (config.source) {
+          ProxySource.USER -> {
+            Log.e(TAG, "Invalid ${config.scheme} proxy config! Failing connections until changed.", e)
             setInvalidProxy()
           }
 
-          ProxyScheme.HTTP,
-          ProxyScheme.SOCKS -> {
+          ProxySource.SYSTEM -> {
             Log.w(TAG, "Failed to configure ${config.scheme} proxy, falling back to direct connection.", e)
             clearProxy()
           }

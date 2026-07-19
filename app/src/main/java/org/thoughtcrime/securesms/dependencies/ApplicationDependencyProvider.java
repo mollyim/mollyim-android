@@ -344,7 +344,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
     Network network = new Network(BuildConfig.LIBSIGNAL_NET_ENV, StandardUserAgentInterceptor.USER_AGENT, RemoteConfig.getLibsignalConfigs(), Network.BuildVariant.PRODUCTION);
     LibSignalNetworkExtensions.applyConfiguration(network, config);
 
-    ProxyConfig proxyConfig = NetworkProxyKt.resolveProxyConfig(Networking.getSocksProxy());
+    ProxyConfig proxyConfig = NetworkProxyKt.resolveProxyConfig();
     NetworkProxyKt.configureProxy(network, proxyConfig);
     proxyState.update(proxyConfig);
 
