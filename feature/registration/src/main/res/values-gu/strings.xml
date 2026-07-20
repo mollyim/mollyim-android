@@ -45,11 +45,11 @@
     <string name="RegistrationActivity_select_a_country">દેશ પસંદ કરો</string>
     <string name="RegistrationActivity_phone_number_description">ફોન નંબર</string>
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
-    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <string name="RegistrationActivity_not_a_valid_phone_number">માન્ય ફોન નંબર નથી</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_invalid_phone_number">અમાન્ય ફોન નંબર</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">તમે દાખલ કરેલો નંબર માન્ય હોય તેવું લાગતું નથી. કૃપા કરીને દેશનો કોડ અને ફોન નંબર તપાસો અને ફરી પ્રયાસ કરો.</string>
     <string name="RegistrationActivity_next">આગળ</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">શું નીચેનો ફોન નંબર સાચો છે?</string>
@@ -204,7 +204,7 @@
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">રિકવરી કી</string>
     <!-- Label for the backup passphrase text field -->
-    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
+    <string name="LocalBackupRestoreScreen__passphrase">પાસફ્રેઝ</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">ખૂબ લાંબી (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -251,11 +251,11 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ફરીથી પ્રયત્ન કરો</string>
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">ખોટો પાસફ્રેઝ</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_recovery_key">ખોટી રિકવરી કી</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">તમે દાખલ કરેલા ઓળખપત્રો આ બેકઅપ સાથે મેળ ખાતા નથી. કૃપા કરીને તેને તપાસો અને ફરી પ્રયાસ કરો.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">તમારા એકાઉન્ટને લિંક કરો</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
