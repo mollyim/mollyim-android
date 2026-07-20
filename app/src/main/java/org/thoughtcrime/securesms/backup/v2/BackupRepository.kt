@@ -1338,7 +1338,7 @@ object BackupRepository {
       SignalDatabase.recipients.setProfileKey(selfId, selfData.profileKey)
       SignalDatabase.recipients.setProfileSharing(selfId, true)
 
-      val importState = ImportState(mediaRootBackupKey)
+      val importState = ImportState(mediaRootBackupKey, backupMode)
       val chatItemInserter: ChatItemArchiveImporter = ChatItemArchiveProcessor.beginImport(importState)
 
       Log.d(TAG, "[import] Beginning to read frames.")
@@ -2530,7 +2530,7 @@ class ExportState(
   var releaseNoteRecipientId: Long? = null
 }
 
-class ImportState(val mediaRootBackupKey: MediaRootBackupKey) {
+class ImportState(val mediaRootBackupKey: MediaRootBackupKey, val backupMode: BackupMode) {
   val remoteToLocalRecipientId: MutableMap<Long, RecipientId> = hashMapOf()
   val chatIdToLocalThreadId: MutableMap<Long, Long> = hashMapOf()
   val chatIdToLocalRecipientId: MutableMap<Long, RecipientId> = hashMapOf()
