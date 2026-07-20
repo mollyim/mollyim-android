@@ -36,7 +36,8 @@ class ManageStorageSettingsViewModel : ViewModel() {
       keepMessagesDuration = SignalStore.settings.keepMessagesDuration,
       lengthLimit = if (SignalStore.settings.isTrimByLengthEnabled) SignalStore.settings.threadTrimLength else ManageStorageState.NO_LIMIT,
       syncTrimDeletes = SignalStore.settings.shouldSyncThreadTrimDeletes(),
-      localBackupsEnabled = SignalStore.backup.newLocalBackupsEnabled
+      localBackupsEnabled = SignalStore.backup.newLocalBackupsEnabled,
+      isPrimary = SignalStore.account.isPrimaryDevice
     )
   )
   val state = store.asStateFlow()
@@ -182,7 +183,8 @@ class ManageStorageSettingsViewModel : ViewModel() {
     val onDeviceStorageOptimizationState: OnDeviceStorageOptimizationState = OnDeviceStorageOptimizationState.FEATURE_NOT_AVAILABLE,
     val storageOptimizationStateChanged: Boolean = false,
     val isPaidTierPending: Boolean = false,
-    val localBackupsEnabled: Boolean = false
+    val localBackupsEnabled: Boolean = false,
+    val isPrimary: Boolean = true
   ) {
     companion object {
       const val NO_LIMIT = 0
