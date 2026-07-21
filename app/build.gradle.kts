@@ -10,8 +10,8 @@ plugins {
   id("signal-locales")
 }
 
-val canonicalVersionCode = 1723
-val canonicalVersionName = "8.20.3"
+val canonicalVersionCode = 1724
+val canonicalVersionName = "8.20.4"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 val mollyRevision = 1

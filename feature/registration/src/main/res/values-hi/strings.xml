@@ -45,11 +45,11 @@
     <string name="RegistrationActivity_select_a_country">अपना देश चुनें</string>
     <string name="RegistrationActivity_phone_number_description">फ़ोन नंबर</string>
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
-    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <string name="RegistrationActivity_not_a_valid_phone_number">फ़ोन नंबर मान्य नहीं है</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_invalid_phone_number">फ़ोन नंबर गलत है</string>
+    <string name="RegistrationActivity_invalid_phone_number">फ़ोन नंबर सही नहीं है</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">आपने जो नंबर डाला है, वह मान्य नहीं लग रहा है। कृपया देश का कोड और फ़ोन नंबर चेक करें और दोबारा कोशिश करें।</string>
     <string name="RegistrationActivity_next">अगला</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">क्या नीचे दिया गया फ़ोन नंबर सही है?</string>
@@ -204,7 +204,7 @@
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">\'रिकवरी की\'</string>
     <!-- Label for the backup passphrase text field -->
-    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
+    <string name="LocalBackupRestoreScreen__passphrase">पासफ़्रेज़</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">बहुत लंबा है (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -231,7 +231,7 @@
     <!-- Title of the dialog warning that the backup being restored was created with a different account -->
     <string name="EnterAepScreen__restore_to_new_account">नए अकाउंट पर रीस्टोर करना है?</string>
     <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
-    <string name="EnterAepScreen__restore_to_new_account_body">ध्यान दें कि जिस बैकअप को रीस्टोर किया जा रहा वह किसी दूसरे Signal अकाउंट का इस्तेमाल करके बनाया गया था। आप चाहें तो इस बैकअप को किसी नए अकाउंट पर रीस्टोर कर लें। हालांकि, आपके लिए रीस्टोर किए गए ग्रुप्स का मेंबर रह पाना मुमकिन नहीं होगा।</string>
+    <string name="EnterAepScreen__restore_to_new_account_body">ध्यान दें कि जिस बैकअप को रीस्टोर किया जा रहा वह किसी दूसरे Signal अकाउंट का इस्तेमाल करके बनाया गया था। आप चाहें तो इस बैकअप को किसी नए अकाउंट पर रीस्टोर कर लें। हालांकि, आपके लिए रीस्टोर किए गए ग्रुप का मेंबर रह पाना मुमकिन नहीं होगा।</string>
     <!-- Confirm button label for the restore to new account dialog -->
     <string name="EnterAepScreen__restore">रीस्टोर करें</string>
     <!-- Text shown while preparing the restore -->
@@ -251,11 +251,11 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">फिर से कोशिश करें</string>
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">पासफ़्रेज़ सही नहीं है</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_recovery_key">\'रिकवरी की\' सही नहीं है</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">आपने जो क्रेडेंशियल डाला है, वह इस बैकअप से मेल नहीं खाता। कृपया इसे देखें और दोबारा कोशिश करें।</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">अपना अकाउंट लिंक करें</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -444,7 +444,7 @@
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">पूरा हो रहा है…</string>
     <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
-    <string name="MessageSyncScreen__restoring">रीस्टोर किया जा रहा है…</string>
+    <string name="MessageSyncScreen__restoring">रीस्टोर हो रहा है…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">मैसेज और चैट का डेटा एंड-टू-एंड एनक्रिप्शन से सुरक्षित है। इसमें सिंक करने की प्रक्रिया भी शामिल है।</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->

@@ -184,7 +184,7 @@ public final class SettingsValues extends SignalStoreValues {
       setSyncThreadTrimDeletes(!isTrimByLengthEnabled() && getKeepMessagesDuration() == KeepMessagesDuration.FOREVER);
     }
 
-    return getBoolean(THREAD_TRIM_SYNC_TO_LINKED_DEVICES, true);
+    return getBoolean(THREAD_TRIM_SYNC_TO_LINKED_DEVICES, true) && SignalStore.account().isPrimaryDevice();
   }
 
   public void setSyncThreadTrimDeletes(boolean syncDeletes) {

@@ -45,11 +45,11 @@
     <string name="RegistrationActivity_select_a_country">ជ្រើសរើសប្រទេសមួយ</string>
     <string name="RegistrationActivity_phone_number_description">លេខទូរសព្ទ</string>
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
-    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <string name="RegistrationActivity_not_a_valid_phone_number">មិនមែនជាលេខទូរសព្ទដែលត្រឹមត្រូវទេ</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_invalid_phone_number">លេខទូរសព្ទមិនត្រឹមត្រូវ</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">លេខដែលអ្នកបានបញ្ចូលហាក់ដូចជាមិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលលេខកូដប្រទេស និងលេខទូរសព្ទ ហើយព្យាយាមម្តងទៀត។</string>
     <string name="RegistrationActivity_next">បន្ទាប់</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">តើលេខទូរសព្ទខាងក្រោមត្រឹមត្រូវឬទេ?</string>
@@ -204,7 +204,7 @@
     <!-- Label for the recovery key text field -->
     <string name="LocalBackupRestoreScreen__recovery_key">សោស្តារ</string>
     <!-- Label for the backup passphrase text field -->
-    <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
+    <string name="LocalBackupRestoreScreen__passphrase">ឃ្លាសម្ងាត់</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">វែងពេក (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -251,11 +251,11 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ព្យាយាមម្តងទៀត</string>
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">ឃ្លាសម្ងាត់មិនត្រឹមត្រូវ</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_recovery_key">សោស្តារមិនត្រឹមត្រូវ</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">ព័ត៌មានផ្ទៀងផ្ទាត់ដែលអ្នកបានបញ្ចូលមិនត្រូវគ្នានឹងការបម្រុងទុកនេះទេ។ សូមពិនិត្យមើលវា ហើយព្យាយាមម្តងទៀត។</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">ភ្ជាប់គណនីរបស់អ្នក</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->

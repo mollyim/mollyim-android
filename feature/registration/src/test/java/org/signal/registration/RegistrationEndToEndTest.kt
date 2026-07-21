@@ -43,11 +43,14 @@ import org.robolectric.annotation.Config
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.ServiceId.PNI
 import org.signal.core.ui.CoreUiDependenciesRule
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.registration.NetworkController.MasterKeyResponse
 import org.signal.registration.NetworkController.ProvisioningEvent
 import org.signal.registration.NetworkController.RegisterAccountError
@@ -64,6 +67,7 @@ import org.signal.registration.screens.util.MockMultiplePermissionsState
 import org.signal.registration.screens.util.MockPermissionsState
 import org.signal.registration.test.TestTags
 import java.time.Duration
+import java.util.UUID
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -452,6 +456,74 @@ class RegistrationEndToEndTest {
     waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
     composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
 
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+    assert(committed.pin == PIN) { "Expected committed pin $PIN but was ${committed.pin}" }
+  }
+
+  @Test
+  fun `re-registering the same number offers no restore on the welcome screen and completes without a restore prompt`() {
+    storageController.preExistingRegistrationData = preExistingRegistrationData(E164)
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    // The welcome screen does not offer restore or transfer during a re-registration
+    waitForTag(TestTags.WELCOME_SCREEN)
+    assert(composeTestRule.onAllNodesWithTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON).fetchSemanticsNodes().isEmpty()) {
+      "Expected no restore/transfer option on the welcome screen during re-registration"
+    }
+
+    // Continue to phone entry, where the previous number is prefilled, and confirm it
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_GET_STARTED_BUTTON).performClick()
+    waitForTag(TestTags.PHONE_NUMBER_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.PHONE_NUMBER_NEXT_BUTTON).performClick()
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
+
+    // The account re-registers via the recovery password and goes straight to PIN creation, never offering a restore
+    createPin(PIN)
+
+    waitFor("registration to complete") { registrationComplete }
+
+    val committed = storageController.committedData
+    assert(committed != null) { "Expected registration data to be committed" }
+    assert(committed!!.accountData?.e164 == E164) { "Expected committed e164 $E164 but was ${committed.accountData?.e164}" }
+  }
+
+  @Test
+  fun `re-registering with pre-existing data through sms verification skips the post-registration restore prompt`() {
+    // Pre-existing data for a different number, so the same-number recovery-password fast path is skipped and the flow
+    // goes through SMS verification, exercising the post-registration re-registration branch.
+    storageController.preExistingRegistrationData = preExistingRegistrationData("+15557654321")
+
+    networkController.onRegisterAccount = { request ->
+      RequestResult.Success(networkController.registerAccountResponse(request.e164, reregistration = true))
+    }
+
+    var registrationComplete = false
+    launchRegistrationFlow(onRegistrationComplete = { registrationComplete = true })
+
+    waitForTag(TestTags.WELCOME_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_GET_STARTED_BUTTON).performClick()
+
+    // The previous number is prefilled; replace it with a different number and confirm
+    waitForTag(TestTags.PHONE_NUMBER_SCREEN)
+    composeTestRule.onNodeWithTag(TestTags.PHONE_NUMBER_PHONE_FIELD).performTextClearance()
+    composeTestRule.onNodeWithTag(TestTags.PHONE_NUMBER_PHONE_FIELD).performTextInput(PHONE_NUMBER)
+    composeTestRule.onNodeWithTag(TestTags.PHONE_NUMBER_NEXT_BUTTON).performClick()
+    waitForTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON)
+    composeTestRule.onNodeWithTag(Dialogs.TEST_TAG_ALERT_DIALOG_CONFIRM_BUTTON).performClick()
+
+    submitVerificationCode(VERIFICATION_CODE)
+
+    // The server reports a re-registration, but the pre-existing data suppresses the restore prompt and the user
+    // proceeds straight to PIN creation.
     createPin(PIN)
 
     waitFor("registration to complete") { registrationComplete }
@@ -1210,6 +1282,20 @@ class RegistrationEndToEndTest {
     waitFor("node with tag $tag") {
       composeTestRule.onAllNodesWithTag(tag).fetchSemanticsNodes().isNotEmpty()
     }
+  }
+
+  private fun preExistingRegistrationData(e164: String): PreExistingRegistrationData {
+    return PreExistingRegistrationData(
+      e164 = e164,
+      aci = ACI.from(UUID.randomUUID()),
+      pni = PNI.from(UUID.randomUUID()),
+      servicePassword = "service-password",
+      aep = AccountEntropyPool.generate(),
+      registrationLockEnabled = false,
+      unrestrictedUnidentifiedAccess = false,
+      aciIdentityKeyPair = IdentityKeyPair.generate(),
+      pniIdentityKeyPair = IdentityKeyPair.generate()
+    )
   }
 
   private fun createMockPermissionsState(): MockMultiplePermissionsState {
