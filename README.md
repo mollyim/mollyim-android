@@ -50,7 +50,6 @@ Molly has unique features compared to Signal:
 - **Multi-device support** - Link multiple devices to a single Signal account, including Android tablets
 - **UnifiedPush** - Receive push notifications without Google through the UnifiedPush protocol
 - **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
-- **Disappearing call history** - Clear call logs together with expiring messages
 - **Custom backup scheduling** - Set daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 - **Debug logs are optional** - Android logging can be disabled
