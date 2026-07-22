@@ -363,6 +363,10 @@ public class TextSecurePreferences {
     return getLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, 0);
   }
 
+  public static void setPassphraseLockTimeout(@NonNull Context context, long value) {
+    setLongPreference(context, PASSPHRASE_LOCK_TIMEOUT, value);
+  }
+
   public static boolean isPassphraseLockNotificationsEnabled(@NonNull Context context) {
     return getBooleanPreference(context, PASSPHRASE_LOCK_NOTIFICATIONS, true);
   }

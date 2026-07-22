@@ -53,6 +53,8 @@ import org.whispersystems.signalservice.api.storage.IAPSubscriptionId.AppleIAPOr
 import org.whispersystems.signalservice.api.storage.IAPSubscriptionId.GooglePlayBillingPurchaseToken
 import org.whispersystems.signalservice.api.subscriptions.SubscriberId
 import java.util.Currency
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Handles importing/exporting [AccountData] frames for an archive.
@@ -75,7 +77,12 @@ object AccountDataArchiveProcessor {
 
     val backupSubscriberRecord = db.inAppPaymentSubscriberTable.getBackupsSubscriber()
 
-    val screenLockTimeoutMinutes = null // MOLLY: FIXME
+    val screenLockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(context)
+    val screenLockTimeoutMinutes = if (screenLockTimeoutSeconds > 0) {
+      screenLockTimeoutSeconds.seconds.inWholeMinutes.toInt()
+    } else {
+      null
+    }
 
     val mobileAutoDownload = TextSecurePreferences.getMobileMediaDownloadAllowed(context)
     val wifiAutoDownload = TextSecurePreferences.getWifiMediaDownloadAllowed(context)
@@ -291,7 +298,7 @@ object AccountDataArchiveProcessor {
 
     val screenLockTimeoutMinutes = settings.screenLockTimeoutMinutes
     if (screenLockTimeoutMinutes != null) {
-      // MOLLY: FIXME
+      TextSecurePreferences.setPassphraseLockTimeout(context, screenLockTimeoutMinutes.minutes.inWholeSeconds)
     }
 
     val pinReminders = settings.pinReminders
