@@ -8,6 +8,7 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLSettingsActivity
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DynamicConversationSettingsTheme
@@ -18,6 +19,10 @@ open class ConversationSettingsActivity : DSLSettingsActivity(), ConversationSet
   override val dynamicTheme: DynamicTheme = DynamicConversationSettingsTheme()
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    if (SignalStore.parentalControl.parentalModeEnabled && intent.getBooleanExtra(EXTRA_IS_GROUP, false)) {
+      finish()
+      return
+    }
     ActivityCompat.postponeEnterTransition(this)
     setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
     super.onCreate(savedInstanceState, ready)
@@ -41,6 +46,7 @@ open class ConversationSettingsActivity : DSLSettingsActivity(), ConversationSet
 
       return getIntent(context)
         .putExtra(ARG_START_BUNDLE, startBundle)
+        .putExtra(EXTRA_IS_GROUP, true)
     }
 
     @JvmStatic
@@ -72,5 +78,7 @@ open class ConversationSettingsActivity : DSLSettingsActivity(), ConversationSet
       return Intent(context, ConversationSettingsActivity::class.java)
         .putExtra(ARG_NAV_GRAPH, R.navigation.conversation_settings)
     }
+
+    private const val EXTRA_IS_GROUP = "parental_is_group"
   }
 }
