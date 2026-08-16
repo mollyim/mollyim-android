@@ -8,18 +8,18 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
 import org.thoughtcrime.securesms.conversationlist.model.Conversation
-import org.thoughtcrime.securesms.database.model.ThreadRecord
+import org.thoughtcrime.securesms.database.model.ThreadWithRecipient
 
 class ConversationListParentalFilterTest {
 
   private fun threadConversation(id: Long): Conversation {
-    val thread = mockk<ThreadRecord>(relaxed = true)
+    val thread = mockk<ThreadWithRecipient>(relaxed = true)
     every { thread.threadId } returns id
     return Conversation(thread)
   }
 
   private fun headerConversation(type: Conversation.Type): Conversation {
-    val thread = mockk<ThreadRecord>(relaxed = true)
+    val thread = mockk<ThreadWithRecipient>(relaxed = true)
     every { thread.threadId } returns -(type.ordinal.toLong() + 1)
     every { thread.body } returns type.name
     return Conversation(thread)
