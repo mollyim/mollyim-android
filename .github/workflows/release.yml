@@ -1,36 +1,36 @@
-name: Release
+name: Ghostly Release
 
 on:
-  push:
-    tags:
-      - "v*"
-  workflow_call:
+  workflow_dispatch:
     inputs:
       version:
+        description: "Ghostly version (for example 1.0.0)"
         required: true
         type: string
+  push:
+    tags:
+      - "ghostly-v*"
 
+# Releases are deliberately restricted to the custom Ghostly branch/tag flow.
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  contents: write
 
 env:
-  TAG_REF: "${{ inputs.version || github.ref_name }}"
-  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
+  BUILD_BRANCH: custom-branding-privacy
+  BUILD_ENV_FILE: beta-stable.env
   HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
 
 jobs:
-  build:
-    name: Build
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
+  verify:
+    name: Verify Ghostly source
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      startsWith(github.ref_name, 'ghostly-v')
     runs-on: ubuntu-24.04
-
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Free up disk space in runner
-        uses: ./.github/actions/disk-cleanup
+          ref: custom-branding-privacy
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -38,8 +38,30 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - name: Verify application label and branding
+        run: |
+          grep -q '<string name="custom_app_name"[^>]*>Ghostly</string>' app/src/main/res/values/custom_branding.xml
+          grep -q 'Ghostly' app/src/main/res/values/strings.xml
+
+      - name: Run unit tests
+        run: ./gradlew test --no-daemon
+
+  build:
+    name: Build signed Ghostly APK
+    needs: verify
+    if: ${{ secrets.SECRET_KEYSTORE != '' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: custom-branding-privacy
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@v6
         with:
           cache-read-only: true
 
@@ -47,39 +69,20 @@ jobs:
         run: docker compose build
         working-directory: reproducible-builds
 
-      - name: Export CI environment variables
+      - name: Export Ghostly build configuration
         run: |
           cp -v "ci/$BUILD_ENV_FILE" .env
-          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
-                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
-                     MAPS_API_KEY; do
-            if [ -n "${!var}" ]; then
-              echo "Setting CI_$var=${!var}"
-              echo "CI_$var=${!var}" >> $GITHUB_ENV
-            fi
-          done
+          echo "CI_BUILD_VARIANTS=prod" >> $GITHUB_ENV
+          echo "CI_APP_TITLE=Ghostly" >> $GITHUB_ENV
         working-directory: reproducible-builds
-        env:
-          APP_TITLE: ${{ vars.CI_APP_TITLE }}
-          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
-          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
-          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
-          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
 
-      - name: Extract signing keys
-        if: "env.HAVE_KEYSTORE == 'true'"
+      - name: Extract signing key
         run: printenv KEYSTORE | base64 -d > certs/keystore.jks
         working-directory: reproducible-builds
         env:
           KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
 
-      - name: Build without signing
-        if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
-
       - name: Build and sign
-        if: "env.HAVE_KEYSTORE == 'true'"
         run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
         working-directory: reproducible-builds
         env:
@@ -87,95 +90,77 @@ jobs:
           CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
           CI_KEYSTORE_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
 
-      - name: Clean up keystore
-        if: "always()"
-        run: rm -f certs/keystore.jks
+      - name: Verify APK label and package
+        run: |
+          APK=$(find outputs/apk -path '*/release/*.apk' -type f | head -n 1)
+          test -n "$APK"
+          AAPT=$(find "$ANDROID_HOME/build-tools" -name aapt | sort -V | tail -n 1)
+          "$AAPT" dump badging "$APK" | tee /tmp/badging.txt
+          grep -q "application-label:'Ghostly'" /tmp/badging.txt
+
+      - name: Generate SHA-256 checksums
+        run: |
+          find outputs -type f \( -name '*.apk' -o -name '*.aab' \) -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
         working-directory: reproducible-builds
 
-      - name: Log APK and AAB checksums
-        run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
-        working-directory: reproducible-builds
-
-      - name: Upload APKs
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
-          name: apk
+          name: ghostly-apk
           path: reproducible-builds/outputs/apk/*/release/*.apk
           if-no-files-found: error
 
-      - name: Upload Bundles
+      - name: Upload checksums
         uses: actions/upload-artifact@v7
         with:
-          name: bundle
-          path: reproducible-builds/outputs/bundle/*Release/*.aab
-          if-no-files-found: error
+          name: ghostly-checksums
+          path: reproducible-builds/SHA256SUMS
 
-  prepare_release:
-    name: Prepare release
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
+      - name: Clean signing key
+        if: always()
+        run: rm -f certs/keystore.jks
+        working-directory: reproducible-builds
+
+  release:
+    name: Publish Ghostly release
+    needs: build
     runs-on: ubuntu-24.04
-
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v4
         with:
-          ref: "${{ env.TAG_REF }}"
+          name: ghostly-apk
+          path: dist
 
-      - name: Check if release exists
-        id: check_release
+      - uses: actions/download-artifact@v4
+        with:
+          name: ghostly-checksums
+          path: dist
+
+      - name: Resolve release version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          REF_NAME: ${{ github.ref_name }}
         run: |
-          if gh release view "$TAG_REF"; then
-            echo "release_exists=true" >> $GITHUB_OUTPUT
+          if [ -n "$INPUT_VERSION" ]; then
+            VERSION="$INPUT_VERSION"
           else
-            echo "release_exists=false" >> $GITHUB_OUTPUT
+            VERSION="${REF_NAME#ghostly-v}"
           fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=ghostly-v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create non-draft Ghostly GitHub Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create release draft
-        if: "steps.check_release.outputs.release_exists == 'false'"
-        run: gh release create -d --verify-tag -t "$TAG_REF" "$TAG_REF"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
-
-  upload:
-    name: Upload
-    runs-on: ubuntu-24.04
-    needs:
-      - build
-      - prepare_release
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-
-      - name: Check version for upgrade compatibility
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          TAG: ${{ steps.version.outputs.tag }}
         run: |
-          echo "Listing latest APKs"
-          gh release list --exclude-drafts --limit 10
-          gh release download --pattern '*.apk' --dir latest || exit 0
-          latest_apks=(latest/*.apk)
-          build_apks=(apk/*/release/*.apk)
-          aapt=($ANDROID_HOME/build-tools/*/aapt)
-          version_code() {
-            $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
-          }
-          echo "Using aapt: $aapt"
-          latest_version_code=$(version_code "$latest_apks")
-          build_version_code=$(version_code "$build_apks")
-          echo "Latest version code: $latest_version_code"
-          echo "Build version code: $build_version_code"
-          if [ "$build_version_code" -le "$latest_version_code" ]; then
-            echo "Build version code must be greater than the latest version code" >&2
-            exit 1
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.apk dist/SHA256SUMS --clobber
+          else
+            gh release create "$TAG" dist/*.apk dist/SHA256SUMS \
+              --title "Ghostly v$VERSION" \
+              --notes "Ghostly Android release v$VERSION. Built from custom-branding-privacy with unit tests, application branding verification, signed APK packaging, and SHA-256 checksums." \
+              --latest
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload APKs to GitHub release
-        run: gh release upload "$TAG_REF" ./apk/*/release/*.apk --clobber
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}

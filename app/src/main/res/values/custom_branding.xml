@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Custom Ghostly build branding. Keep product-specific styling isolated here. -->
+<resources>
+    <!-- The manifest resolves its application label through this resource. -->
+    <string name="app_name" translatable="false">Ghostly</string>
+    <string name="custom_app_name" translatable="false">Ghostly</string>
+
+    <!-- Brand palette used by the custom visual layer. -->
+    <color name="custom_brand_primary">#111111</color>
+    <color name="custom_brand_primary_variant">#2A2A2A</color>
+    <color name="custom_brand_accent">#00C853</color>
+
+    <!-- Notification privacy labels. -->
+    <string name="notification_privacy_full">Full preview</string>
+    <string name="notification_privacy_contact">Contact only</string>
+    <string name="notification_privacy_generic">Generic notification</string>
+    <string name="notification_privacy_hidden">No notification content</string>
+</resources>
