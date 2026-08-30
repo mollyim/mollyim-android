@@ -25,6 +25,17 @@ public final class EnhancedPrivacySettings {
   public static void setGroupNameHidden(@NonNull Context c, boolean v) { prefs(c).edit().putBoolean(KEY_HIDE_GROUP_NAMES, v).apply(); }
   public static boolean areNotificationActionsHidden(@NonNull Context c) { return prefs(c).getBoolean(KEY_HIDE_NOTIFICATION_ACTIONS, true); }
   public static void setNotificationActionsHidden(@NonNull Context c, boolean v) { prefs(c).edit().putBoolean(KEY_HIDE_NOTIFICATION_ACTIONS, v).apply(); }
-  @NonNull public static NotificationPrivacyMode getNotificationPrivacyMode(@NonNull Context c) { return NotificationPrivacyMode.fromStored(prefs(c).getString(KEY_NOTIFICATION_PRIVACY_MODE, NotificationPrivacyMode.CONTACT_ONLY.name())); }
+
+  @NonNull
+  public static NotificationPrivacyMode getNotificationPrivacyMode(@NonNull Context c) {
+    String stored = prefs(c).getString(KEY_NOTIFICATION_PRIVACY_MODE, NotificationPrivacyMode.CONTACT_ONLY.name());
+    if (stored == null) return NotificationPrivacyMode.CONTACT_ONLY;
+    try {
+      return NotificationPrivacyMode.valueOf(stored);
+    } catch (IllegalArgumentException e) {
+      return NotificationPrivacyMode.CONTACT_ONLY;
+    }
+  }
+
   public static void setNotificationPrivacyMode(@NonNull Context c, @NonNull NotificationPrivacyMode mode) { prefs(c).edit().putString(KEY_NOTIFICATION_PRIVACY_MODE, mode.name()).apply(); }
 }

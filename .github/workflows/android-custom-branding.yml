@@ -1,0 +1,137 @@
+name: Build custom-branding-privacy APK
+
+on:
+  push:
+    branches:
+      - custom-branding-privacy
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  CI_APP_TITLE: Molly Custom
+  CI_APP_FILENAME: molly-custom
+  CI_PACKAGE_ID: org.templeeu.molly
+  CI_BUILD_VARIANTS: prodWebsiteRelease
+  CI_FORCE_INTERNAL_USER_FLAG: 'false'
+  JAVA_VERSION: '21'
+  ANDROID_BUILD_TOOLS: '36.0.0'
+  ANDROID_NDK: '28.0.13004108'
+
+jobs:
+  build:
+    name: Build release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        shell: bash
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager \
+            "platform-tools" \
+            "platforms;android-36" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
+            "ndk;${ANDROID_NDK}"
+
+      - name: Create CI version tag
+        shell: bash
+        run: |
+          git tag "ci-${GITHUB_RUN_ID}" "${GITHUB_SHA}"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+
+      - name: Generate ephemeral CI signing key
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/signing"
+          keytool -genkeypair \
+            -v \
+            -keystore "$RUNNER_TEMP/signing/release.keystore" \
+            -storetype PKCS12 \
+            -storepass "$CI_KEYSTORE_PASSWORD" \
+            -keypass "$CI_KEYSTORE_PASSWORD" \
+            -alias "$CI_KEYSTORE_ALIAS" \
+            -keyalg RSA \
+            -keysize 4096 \
+            -validity 10000 \
+            -dname "CN=Molly Custom CI, OU=Build, O=TempleEU, L=Stockholm, C=SE"
+        env:
+          CI_KEYSTORE_PASSWORD: ${{ secrets.CI_KEYSTORE_PASSWORD || 'temporary-ci-only-password' }}
+          CI_KEYSTORE_ALIAS: ${{ secrets.CI_KEYSTORE_ALIAS || 'molly-custom-ci' }}
+
+      - name: Build prodWebsiteRelease
+        shell: bash
+        env:
+          CI_KEYSTORE_PATH: ${{ runner.temp }}/signing/release.keystore
+          CI_KEYSTORE_PASSWORD: ${{ secrets.CI_KEYSTORE_PASSWORD || 'temporary-ci-only-password' }}
+          CI_KEYSTORE_ALIAS: ${{ secrets.CI_KEYSTORE_ALIAS || 'molly-custom-ci' }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon --stacktrace :app:assembleProdWebsiteRelease
+
+      - name: Locate APK
+        id: apk
+        shell: bash
+        run: |
+          APK="$(find app/build/outputs/apk -type f -name '*.apk' | head -n 1)"
+          test -n "$APK"
+          cp "$APK" "molly-custom-${GITHUB_SHA::12}.apk"
+          echo "path=molly-custom-${GITHUB_SHA::12}.apk" >> "$GITHUB_OUTPUT"
+
+      - name: Generate SHA-256
+        shell: bash
+        run: |
+          sha256sum "${{ steps.apk.outputs.path }}" | tee "${{ steps.apk.outputs.path }}.sha256"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: molly-custom-apk-${{ github.sha }}
+          path: |
+            ${{ steps.apk.outputs.path }}
+            ${{ steps.apk.outputs.path }}.sha256
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish GitHub Release for version tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            "${{ steps.apk.outputs.path }}" \
+            "${{ steps.apk.outputs.path }}.sha256" \
+            --title "Molly Custom ${GITHUB_REF_NAME}" \
+            --generate-notes
+
+      - name: Verify APK signature
+        shell: bash
+        run: |
+          "$ANDROID_HOME/build-tools/${ANDROID_BUILD_TOOLS}/apksigner" verify --verbose "${{ steps.apk.outputs.path }}"
