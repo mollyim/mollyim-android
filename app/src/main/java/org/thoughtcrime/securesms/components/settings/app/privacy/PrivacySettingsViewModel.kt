@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.ScreenLockController
+import org.thoughtcrime.securesms.crypto.MasterSecretUtil
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -78,6 +79,11 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
+  fun setDuressCodeEnabled(enabled: Boolean) {
+    MasterSecretUtil.setDuressCodeInitialized(application, enabled)
+    refresh()
+  }
+
   fun refresh() {
     store.update(this::updateState)
   }
@@ -94,7 +100,8 @@ class PrivacySettingsViewModel(
       biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
       screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
-      universalExpireTimer = SignalStore.settings.universalExpireTimer
+      universalExpireTimer = SignalStore.settings.universalExpireTimer,
+      hasDuressCode = MasterSecretUtil.isDuressCodeInitialized(application),
     )
   }
 
