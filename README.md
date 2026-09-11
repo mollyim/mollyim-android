@@ -105,7 +105,7 @@ Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-
 
 Molly supports reproducible builds, so that anyone can run the build process to reproduce the same APK as the original release.
 
-Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
+Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/main/reproducible-builds/README.md) directory.
 
 ## Changelog
 
