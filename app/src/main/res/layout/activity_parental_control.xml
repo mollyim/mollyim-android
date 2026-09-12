@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/parental_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_arrow_left_24"
+        app:title="@string/parental_controls_title" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Section A: Master toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/parental_mode_enabled_label"
+                    android:textAppearance="@style/TextAppearance.Signal.Body1" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/parental_mode_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="8dp"
+                android:background="?attr/colorSurfaceVariant" />
+
+            <!-- Section B: Allowed chats -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/parental_allowed_chats_section"
+                android:textAppearance="@style/TextAppearance.Signal.Caption"
+                android:textColor="?attr/colorPrimary" />
+
+            <LinearLayout
+                android:id="@+id/parental_thread_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="8dp"
+                android:background="?attr/colorSurfaceVariant" />
+
+            <!-- Section C: Change PIN -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/parental_change_pin_button"
+                style="@style/Widget.Signal.Button.Flat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/parental_change_pin" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

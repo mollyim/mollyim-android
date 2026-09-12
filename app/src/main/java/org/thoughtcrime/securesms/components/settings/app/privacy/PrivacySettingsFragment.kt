@@ -255,15 +255,17 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
         summary = DSLSettingsText.from(incognitoSummary)
       )
 
-      dividerPref()
+      if (!SignalStore.parentalControl.parentalModeEnabled) {
+        dividerPref()
 
-      clickPref(
-        title = DSLSettingsText.from(R.string.preferences__advanced),
-        summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__signal_message_and_calls),
-        onClick = {
-          Navigation.findNavController(requireView()).safeNavigate(R.id.action_privacySettingsFragment_to_advancedPrivacySettingsFragment)
-        }
-      )
+        clickPref(
+          title = DSLSettingsText.from(R.string.preferences__advanced),
+          summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__signal_message_and_calls),
+          onClick = {
+            Navigation.findNavController(requireView()).safeNavigate(R.id.action_privacySettingsFragment_to_advancedPrivacySettingsFragment)
+          }
+        )
+      }
     }
   }
 

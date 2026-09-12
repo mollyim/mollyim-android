@@ -88,6 +88,10 @@ data class NotificationState(val conversations: List<NotificationConversation>, 
 
   data class FilteredMessage(val id: Long, val isMms: Boolean)
 
+  fun filterThreads(allowedThreadIds: Set<Long>): NotificationState {
+    return copy(conversations = conversations.filter { it.thread.threadId in allowedThreadIds })
+  }
+
   companion object {
     val EMPTY = NotificationState(emptyList(), emptyList(), emptyList())
   }

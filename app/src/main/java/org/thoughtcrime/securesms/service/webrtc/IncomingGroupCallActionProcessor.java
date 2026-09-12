@@ -111,6 +111,17 @@ public final class IncomingGroupCallActionProcessor extends DeviceAwareActionPro
 
     Log.i(TAG, "Requesting new ring: " + ringId);
 
+    long groupThreadId = SignalDatabase.threads().getThreadIdIfExistsFor(remotePeerGroup.getId());
+    if (!SignalStore.parentalControl().isThreadCallAllowed(groupThreadId)) {
+      Log.i(TAG, "Parental controls: rejecting group ring from non-allowed thread.");
+      try {
+        webRtcInteractor.getCallManager().cancelGroupRing(groupId.getDecodedId(), ringId, CallManager.RingCancelReason.DeclinedByUser);
+      } catch (CallException e) {
+        Log.w(TAG, "Error cancelling parental-blocked group ring", e);
+      }
+      return currentState;
+    }
+
     Recipient ringerRecipient = Recipient.externalPush(sender);
     SignalDatabase.calls().insertOrUpdateGroupCallFromRingState(
         ringId,

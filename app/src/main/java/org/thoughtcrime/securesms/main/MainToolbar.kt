@@ -108,6 +108,8 @@ interface MainToolbarCallback {
   fun onSearchFilterClick()
   fun onStarredMessagesClick()
   fun onNotificationProfileTooltipDismissed()
+  fun onPendingGroupInvitesClick()
+  fun onParentalControlsClick()
 
   object Empty : MainToolbarCallback {
     override fun onNewGroupClick() = Unit
@@ -131,6 +133,8 @@ interface MainToolbarCallback {
     override fun onSearchFilterClick() = Unit
     override fun onStarredMessagesClick() = Unit
     override fun onNotificationProfileTooltipDismissed() = Unit
+    override fun onPendingGroupInvitesClick() = Unit
+    override fun onParentalControlsClick() = Unit
   }
 }
 
@@ -661,17 +665,19 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
     )
   }
 
-  DropdownMenus.Item(
-    text = {
-      Text(
-        text = stringResource(R.string.text_secure_normal__menu_new_group)
-      )
-    },
-    onClick = {
-      callback.onNewGroupClick()
-      onOptionSelected()
-    }
-  )
+  if (!SignalStore.parentalControl.parentalModeEnabled) {
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.text_secure_normal__menu_new_group)
+        )
+      },
+      onClick = {
+        callback.onNewGroupClick()
+        onOptionSelected()
+      }
+    )
+  }
 
   DropdownMenus.Item(
     text = {
@@ -724,6 +730,32 @@ private fun ChatDropdownItems(state: MainToolbarState, callback: MainToolbarCall
       }
     )
   }
+
+  if (SignalStore.parentalControl.parentalModeEnabled) {
+    DropdownMenus.Item(
+      text = {
+        Text(
+          text = stringResource(R.string.parental_pending_invites)
+        )
+      },
+      onClick = {
+        callback.onPendingGroupInvitesClick()
+        onOptionSelected()
+      }
+    )
+  }
+
+  DropdownMenus.Item(
+    text = {
+      Text(
+        text = stringResource(R.string.parental_controls_menu_item)
+      )
+    },
+    onClick = {
+      callback.onParentalControlsClick()
+      onOptionSelected()
+    }
+  )
 
   DropdownMenus.Item(
     text = {
