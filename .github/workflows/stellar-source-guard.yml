@@ -1,23 +1,24 @@
-# Stellar source guard v1.0.0. No repository checkout or package installation.
+# Stellar source guard v2.0.0. No repository checkout or package installation.
 # PR content is read as data by the trusted base-branch workflow.
 name: Repository source guard
 on:
   push:
     branches: ['**']
   pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
   workflow_dispatch:
   schedule:
     - cron: '27 4 * * 1'
 permissions:
   contents: read
   checks: write
+  statuses: write
 concurrency:
   group: source-guard-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 jobs:
   scan:
-    name: Run source guard
+    name: Repository source guard
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -31,6 +32,7 @@ jobs:
           import base64
           import collections
           import hashlib
+          import http.client
           import json
           import os
           import re
@@ -39,16 +41,20 @@ jobs:
           import urllib.error
           import urllib.parse
           import urllib.request
+          import xml.etree.ElementTree as ET
+          import zlib
           
-          VERSION = '1.0.0'
+          VERSION = '2.0.0'
           CHECK_NAME = 'Repository source guard'
           WORKFLOW_PATH = '.github/workflows/stellar-source-guard.yml'
           MAX_FILE = 2_000_000
           SOURCE = re.compile(r'\.(js|jsx|mjs|cjs|ts|tsx|vue|svelte|html?|php|phtml|py|pyw|sh|bash|zsh|fish|ps1|psm1|bat|cmd|vbs|hta|wsf|cs|csproj|fsproj|props|targets|config|json|ya?ml|toml|gradle|kts|kt|java|swift|dart|go|mod|sum|rs|rb|podspec|pl|lua|groovy|c|cc|cpp|h|hpp|xml|mk|cmake|properties|lock|sql|plist|policy|desktop|service|socket|entitlements|xcconfig|pbxproj|bp|rc|conf|ini|nsi|nsh|iss|wxs|wxi)$', re.I)
-          CODE = re.compile(r'\.(js|jsx|mjs|cjs|ts|tsx|py|pyw|php|sh|bash|ps1|vbs|hta|rb|pl|lua|groovy|rs|java|kt|cs)$', re.I)
+          CODE = re.compile(r'\.(js|jsx|mjs|cjs|ts|tsx|vue|svelte|html?|py|pyw|php|phtml|sh|bash|zsh|fish|ps1|psm1|bat|cmd|vbs|hta|rb|pl|lua|groovy|rs|java|kt|kts|cs|swift|dart|go|c|cc|cpp|h|hpp)$', re.I)
           SPECIAL = {'Dockerfile', 'Makefile', 'Gemfile', 'Podfile', 'Podfile.lock', 'Package.resolved', 'gradlew', 'mvnw', '.gitmodules', '.npmrc', '.yarnrc', 'requirements.txt', 'CMakeLists.txt', 'Jenkinsfile'}
           SENSITIVE = re.compile(r'(^|/)(\.env($|\.)|id_(rsa|ed25519)|[^/]*\.(pem|p12|pfx|jks|keystore|key)$|google-services\.json$|GoogleService-Info\.plist$|appsettings[^/]*\.json$|[^/]*(credentials|service.account)[^/]*\.json$)', re.I)
-          ECOSYSTEMS = {'npm': 'npm', 'Packagist': 'composer', 'crates.io': 'rust', 'PyPI': 'pip', 'Maven': 'maven', 'Go': 'go', 'NuGet': 'nuget', 'SwiftURL': 'swift'}
+          ECOSYSTEMS = {'npm': 'npm', 'Packagist': 'composer', 'crates.io': 'rust', 'PyPI': 'pip', 'Maven': 'maven', 'Go': 'go', 'NuGet': 'nuget', 'SwiftURL': 'swift', 'RubyGems': 'rubygems'}
+          DECODE_LIMIT = 262144
+          DECODE_TOTAL = 1048576
           
           
           class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -76,7 +82,7 @@ jobs:
                           if isinstance(result, dict) and result.get('errors'):
                               raise RuntimeError('GraphQL returned an incomplete result')
                           return result
-                      except (urllib.error.URLError, TimeoutError):
+                      except (urllib.error.URLError, TimeoutError, http.client.RemoteDisconnected, http.client.IncompleteRead, ConnectionResetError):
                           if attempt == 2:
                               raise RuntimeError('Advisory or GitHub API request failed') from None
                           time.sleep(2 ** attempt)
@@ -91,12 +97,139 @@ jobs:
           
           def selected(entry):
               path = entry['path']
-              return entry['type'] == 'blob' and not SENSITIVE.search(path) and (SOURCE.search(path) or path.rsplit('/', 1)[-1] in SPECIAL or entry.get('mode') == '100755')
+              base = path.rsplit('/', 1)[-1]
+              return entry['type'] == 'blob' and not SENSITIVE.search(path) and (SOURCE.search(path) or base in SPECIAL or re.fullmatch(r'(?:requirements|constraints)[^/]*\.txt', base) or entry.get('mode') == '100755')
           
           
-          def source_rules(path, text):
+          def normalize_literals(text):
+              """Only transform ASCII escapes and adjacent simple string literals as data."""
+              text = re.sub(r'\\(?:x([0-9a-fA-F]{2})|u([0-9a-fA-F]{4}))',
+                            lambda m: chr(int(m[1] or m[2], 16)) if 32 <= int(m[1] or m[2], 16) < 127 else m[0], text)
+              adjacent = re.compile(r'''(["'])([A-Za-z0-9_./:-]{1,100})\1\s*\+\s*(["'])([A-Za-z0-9_./:-]{1,100})\3''')
+              for _ in range(8):
+                  changed = adjacent.sub(lambda m: m[1] + m[2] + m[4] + m[1], text)
+                  if changed == text:
+                      break
+                  text = changed
+              return text
+          
+          
+          def decoded_literals(text):
+              """Bounded literal-only decoding. Never evaluate expressions or execute output."""
+              count, total = 0, 0
+              pattern = re.compile(r'''["']([A-Za-z0-9+/=_-]{80,350000})["']''')
+              for m in pattern.finditer(text):
+                  count += 1
+                  if count > 32 or total >= DECODE_TOTAL:
+                      break
+                  value = m[1]
+                  try:
+                      if re.fullmatch(r'(?:[0-9a-fA-F]{2}){40,}', value):
+                          raw = bytes.fromhex(value)
+                      else:
+                          raw = base64.b64decode(value + '=' * (-len(value) % 4), altchars=b'-_', validate=True)
+                      if len(raw) > DECODE_LIMIT:
+                          continue
+                      if raw.startswith((b'\x1f\x8b', b'x\x9c', b'x\xda', b'x\x01')):
+                          stream = zlib.decompressobj(47)
+                          raw = stream.decompress(raw, DECODE_LIMIT + 1)
+                          if len(raw) > DECODE_LIMIT or not stream.eof:
+                              continue
+                      total += len(raw)
+                      value = raw.decode('utf-8')
+                      if value and sum(ch.isprintable() or ch in '\r\n\t' for ch in value) / len(value) > 0.95:
+                          yield text.count('\n', 0, m.start()) + 1, value
+                  except (ValueError, UnicodeError, zlib.error):
+                      continue
+          
+          
+          def behavior_rules(path, text):
+              """Heuristic correlations are review warnings; narrow execution patterns block."""
+              found = []
+              def add(rule, level, match=None):
+                  found.append({'path': path, 'rule': rule, 'level': level,
+                                'line': 1 if match is None else text.count('\n', 0, match.start()) + 1})
+              strong = {
+                  'encoded-function-execution': r'\b(?:new\s+)?Function\s*\(\s*(?:atob|Buffer\.from|base64_decode)\s*\(',
+                  'remote-response-evaluation': r'\.then\s*\(\s*(?:eval|exec)\s*\)',
+                  'shell-reverse-connection': r'\b(?:ba|z)?sh\s+-i\s*(?:>&|[12]>)[^\n]{0,80}/dev/tcp/',
+                  'powershell-encoded-execution': r'\b(?:powershell|pwsh)(?:\.exe)?\b[^\n]{0,160}\s-(?:enc|encodedcommand)\s+[A-Za-z0-9+/]{40,}',
+                  'php-request-shell-execution': r'\b(?:system|shell_exec|passthru|exec)\s*\(\s*\$_(?:GET|POST|REQUEST|COOKIE)\s*\[',
+              }
+              for rule, pattern in strong.items():
+                  m = re.search(pattern, text, re.I)
+                  if m:
+                      add(rule, 'error', m)
+              # A small, explicit assignment-to-sink relationship; not general data-flow analysis.
+              bindings = re.finditer(r'\b([A-Za-z_$][\w$]{0,79})\s*=\s*(?:atob|Buffer\.from|base64\.b64decode|base64_decode)\s*\([^\n;]{1,1500}', text)
+              for m in bindings:
+                  if re.search(r'\b(?:eval|exec|Function)\s*\(\s*' + re.escape(m[1]) + r'\s*\)', text[m.end():m.end() + 3000]):
+                      add('decoded-variable-execution', 'error', m)
+              network = re.search(r'\b(?:fetch|https?\.\w+|requests\.\w+|urlopen|WebClient|HttpClient|axios\.\w+|curl|wget)\b', text)
+              process = re.search(r'\b(?:child_process|execSync|spawnSync|subprocess|ProcessBuilder|Process\.Start|shell_exec|os\.system|Command::new|Runtime\.getRuntime)\b', text)
+              dynamic = re.search(r'\b(?:eval|Function)\s*\(|\bvm\.runIn(?:New|This)Context\s*\(', text)
+              secrets = re.search(r'Login Data|Local State|Cookies(?:\.sqlite)?|logins\.json|key4\.db|\.ssh[\\/]|\.aws[\\/]|\.azure[\\/]|\.gnupg[\\/]|Chrome[/\\].*User Data|wallet\.dat|keychain-db', text, re.I)
+              reads = re.search(r'\b(?:readFile(?:Sync)?|read_bytes|read_text|open|ReadAllBytes|ReadAllText|sqlite3|readdir(?:Sync)?)\s*\(', text)
+              if network and dynamic:
+                  add('network-and-dynamic-execution-review', 'warning', dynamic)
+              if secrets and reads:
+                  add('credential-or-browser-file-access-review', 'warning', secrets)
+                  if network:
+                      add('credential-access-and-network-review', 'warning', secrets)
+              if network and re.search(r'\b(?:zipfile|archiver|tarfile|JSZip|Compress-Archive)\b', text):
+                  add('archive-and-network-review', 'warning', network)
+              persistence = re.search(r'LaunchAgents|LaunchDaemons|launchctl|CurrentVersion[\\/]+Run\b|schtasks\b|crontab\b|systemctl\s+enable', text, re.I)
+              if persistence and process:
+                  add('persistence-and-process-review', 'warning', persistence)
+              if re.search(r'process\.env\s*\)|JSON\.stringify\s*\(\s*process\.env|dict\s*\(\s*os\.environ', text) and network:
+                  add('environment-collection-and-network-review', 'warning', network)
+              if re.search(r'\b(?:eth_getTransaction|eth_call|getTransactionReceipt)\b', text) and dynamic and process:
+                  add('blockchain-addressed-loader-review', 'error', dynamic)
+              if re.search(r'\bos\.dup2\s*\(', text) and re.search(r'\bsocket\s*\(', text) and process:
+                  add('socket-shell-redirection', 'error')
+              return found
+          
+          
+          def ci_rules(path, text):
+              if not (path.startswith('.github/workflows/') and path.endswith(('.yml', '.yaml'))):
+                  return []
+              found = []
+              def add(rule, level, line=1):
+                  found.append({'path': path, 'rule': rule, 'level': level, 'line': line})
+              untrusted = r'\$\{\{\s*github\.(?:event\.(?:pull_request\.(?:title|body|head\.(?:ref|label))|issue\.(?:title|body)|comment\.body|head_commit\.message)|head_ref)\b'
+              run_indent = None
+              for number, line in enumerate(text.splitlines(), 1):
+                  indent = len(line) - len(line.lstrip())
+                  is_run = re.match(r'\s*(?:-\s*)?run\s*:', line)
+                  if run_indent is not None and line.strip() and indent <= run_indent:
+                      run_indent = None
+                  if is_run:
+                      run_indent = indent + (2 if line.lstrip().startswith('-') else 0)
+                  if (is_run or run_indent is not None) and re.search(untrusted, line):
+                      add('ci-untrusted-expression-in-shell', 'error', number)
+                  action = re.match(r'\s*(?:-\s*)?uses:\s*["\x27]?([^\s"\x27#]+)', line)
+                  if action and not action[1].startswith('./'):
+                      ref = action[1]
+                      pinned = bool(re.search(r'@[0-9a-fA-F]{40}$', ref) or re.search(r'@sha256:[0-9a-fA-F]{64}$', ref))
+                      if not pinned:
+                          add('ci-action-not-immutable-review', 'warning', number)
+                  if re.search(r'permissions:\s*write-all\b', line):
+                      add('ci-broad-write-permissions-review', 'warning', number)
+                  if re.search(r'persist-credentials:\s*true\b', line):
+                      add('ci-persisted-checkout-credentials-review', 'warning', number)
+              if re.search(r'\bpull_request_target\b', text) and re.search(r'^\s*(?:-\s*)?uses:\s*["\x27]?actions/checkout@', text, re.M):
+                  if re.search(r'\$\{\{\s*github\.event\.pull_request\.(?:head|merge_commit_sha)', text):
+                      add('ci-privileged-untrusted-checkout', 'error')
+              return found
+          
+          
+          def source_rules(path, text, _depth=0, _budget=None):
               """Return labels and positions, never echo repository-controlled source."""
               found = []
+              if _budget is None:
+                  _budget = [DECODE_TOTAL, 32]
+              if CODE.search(path):
+                  text = normalize_literals(text)
               def add(rule, level, match=None):
                   found.append({'path': path, 'rule': rule, 'level': level, 'line': 1 if match is None else text.count('\n', 0, match.start()) + 1})
               if CODE.search(path):
@@ -119,10 +252,24 @@ jobs:
                       add('directional-controls-in-code', 'warning')
                   if re.search(r'(?:[A-Za-z0-9+/]{1500,}={0,2}|(?:\\x[0-9a-fA-F]{2}){100,})', text):
                       add('encoded-data-review', 'warning')
+                  found.extend(behavior_rules(path, text))
+                  if _depth < 2:
+                      for line, decoded in decoded_literals(text):
+                          size = len(decoded.encode())
+                          if size > _budget[0] or _budget[1] <= 0:
+                              break
+                          _budget[0] -= size
+                          _budget[1] -= 1
+                          for f in source_rules(path, decoded, _depth + 1, _budget):
+                              # The position is the encoded literal, not an invented source line.
+                              found.append(dict(f, line=line, rule='decoded-content:' + f['rule']))
               if path.endswith(('.sh', '.bash', '.ps1', '.yml', '.yaml', 'Dockerfile')):
                   m = re.search(r'\b(?:curl|wget)\b[^\n]{0,300}\|\s*(?:sudo\s+)?(?:ba|z|fi)?sh\b|\b(?:iex|Invoke-Expression)\s*\(?\s*(?:iwr|Invoke-WebRequest)', text, re.I)
                   if m:
                       add('remote-script-execution-review', 'warning', m)
+              found.extend(ci_rules(path, text))
+              if path.rsplit('/', 1)[-1] == '.npmrc' and re.search(r'(?m)^\s*ignore-scripts\s*=\s*false\s*$', text):
+                  add('npm-install-scripts-explicitly-enabled-review', 'warning')
               return found
           
           
@@ -142,9 +289,20 @@ jobs:
                   for kind in ('dependencies', 'devDependencies', 'optionalDependencies'):
                       for n, v in d.get(kind, {}).items():
                           dep('npm', n, v)
-                  for name in ('preinstall', 'install', 'postinstall', 'prepare'):
+                  for name in ('preinstall', 'install', 'postinstall', 'prepare', 'prepublish', 'prepublishOnly', 'dependencies'):
                       if d.get('scripts', {}).get(name):
                           warn('lifecycle-script-review:' + name)
+                          command = d['scripts'][name]
+                          if not isinstance(command, str):
+                              raise ValueError('Invalid lifecycle script')
+                          for finding in source_rules('lifecycle.js', command):
+                              warnings.append(dict(finding, path=path, line=1, rule='lifecycle:' + name + ':' + finding['rule']))
+                          if re.search(r'\b(?:curl|wget)\b[^\n]{0,400}\|\s*(?:ba|z)?sh\b', command):
+                              warnings.append({'path': path, 'rule': 'lifecycle-remote-shell-execution:' + name, 'level': 'error', 'line': 1})
+                  for kind in ('dependencies', 'devDependencies', 'optionalDependencies'):
+                      for n, v in d.get(kind, {}).items():
+                          if isinstance(v, str) and re.match(r'(?:git\+|https?://|github:)', v):
+                              warn('dependency-remote-source-review:' + n)
               elif base in ('package-lock.json', 'npm-shrinkwrap.json'):
                   d = json.loads(text)
                   for loc, item in d.get('packages', {}).items():
@@ -152,6 +310,10 @@ jobs:
                           continue
                       # Only public registry dependency coordinates leave GitHub for OSV.
                       url = item.get('resolved', '')
+                      if item.get('hasInstallScript'):
+                          warn('dependency-install-script-review:' + loc.rsplit('node_modules/', 1)[-1])
+                      if url.startswith('https://registry.npmjs.org/') and not item.get('integrity'):
+                          warn('dependency-integrity-missing-review:' + loc.rsplit('node_modules/', 1)[-1])
                       if url and not url.startswith('https://registry.npmjs.org/'):
                           warn('nonstandard-package-source')
                           continue
@@ -170,15 +332,55 @@ jobs:
                       dep('Packagist', item.get('name'), item.get('version'))
                       if item.get('type') == 'composer-plugin':
                           warn('composer-plugin-review')
+              elif base == 'composer.json':
+                  d = json.loads(text)
+                  if d.get('scripts'):
+                      warn('composer-scripts-review')
+                  if d.get('repositories'):
+                      warn('composer-custom-repositories-review')
               elif base == 'Cargo.lock':
                   for block in text.split('[[package]]')[1:]:
                       n = re.search(r'^name = "([^"]+)"', block, re.M)
                       v = re.search(r'^version = "([^"]+)"', block, re.M)
                       if n and v and 'registry+' in block:
                           dep('crates.io', n[1], v[1])
-              elif base.startswith('requirements') and base.endswith('.txt'):
+              elif base.startswith(('requirements', 'constraints')) and base.endswith('.txt'):
                   for m in re.finditer(r'^([\w.-]+)==([\w.+-]+)', text, re.M):
                       dep('PyPI', m[1], m[2])
+              elif base in ('poetry.lock', 'uv.lock'):
+                  # Read only the simple name/version fields, never interpret TOML as code.
+                  for block in text.split('[[package]]')[1:]:
+                      n = re.search(r'^name\s*=\s*"([^"]+)"', block, re.M)
+                      v = re.search(r'^version\s*=\s*"([^"]+)"', block, re.M)
+                      if n and v and not re.search(r'\b(?:editable|virtual|path|git)\s*=', block):
+                          dep('PyPI', n[1], v[1])
+              elif base in ('packages.lock.json', 'project.assets.json'):
+                  d = json.loads(text)
+                  if base == 'packages.lock.json':
+                      for framework in d.get('dependencies', {}).values():
+                          for name, item in framework.items():
+                              if item.get('type', '').lower() != 'project':
+                                  dep('NuGet', name, item.get('resolved'))
+                  else:
+                      for name_version, item in d.get('libraries', {}).items():
+                          if item.get('type') == 'package' and '/' in name_version:
+                              n, v = name_version.rsplit('/', 1)
+                              dep('NuGet', n, v)
+              elif base == 'packages.config' or base.endswith(('.csproj', '.fsproj')) or base == 'Directory.Packages.props':
+                  if '<!DOCTYPE' in text.upper() or '<!ENTITY' in text.upper():
+                      warn('xml-doctype-review')
+                  else:
+                      root = ET.fromstring(text)
+                      for item in root.iter():
+                          tag = item.tag.rsplit('}', 1)[-1]
+                          if tag in ('PackageReference', 'PackageVersion', 'package'):
+                              version = item.get('Version') or item.get('version')
+                              if version is None:
+                                  version = next((child.text for child in item if child.tag.rsplit('}', 1)[-1] == 'Version'), None)
+                              dep('NuGet', item.get('Include') or item.get('Update') or item.get('id'), version)
+              elif base == 'Gemfile.lock':
+                  for m in re.finditer(r'^    ([A-Za-z0-9_-]+) \(([0-9][^ )]*)\)', text, re.M):
+                      dep('RubyGems', m[1], m[2])
               elif base == 'yarn.lock':
                   names = []
                   for line in text.splitlines():
@@ -216,13 +418,16 @@ jobs:
               return deps, warnings
           
           
-          def read_sources(api, repo, sha):
-              tree = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
+          def read_sources(api, repo, sha, tree=None, paths=None):
+              if tree is None:
+                  tree = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
               if tree.get('truncated'):
                   raise RuntimeError('Repository tree is truncated; scan cannot be complete')
               grouped = collections.defaultdict(list)
               skipped = collections.Counter()
               for e in tree['tree']:
+                  if paths is not None and e['path'] not in paths:
+                      continue
                   if not selected(e):
                       skipped['not-selected'] += e['type'] != 'tree'
                   elif e.get('size', 0) > MAX_FILE:
@@ -230,6 +435,7 @@ jobs:
                       yield e, None, 'oversize'
                   elif e.get('mode') == '120000':
                       skipped['symlink'] += 1
+                      yield e, None, 'symlink'
                   else:
                       grouped[e['sha']].append(e)
               hashes = list(grouped)
@@ -243,6 +449,10 @@ jobs:
                       b = result['b%d' % i]
                       if b is None:
                           raise RuntimeError('Missing source blob')
+                      if b.get('isBinary'):
+                          for e in grouped[h]:
+                              yield e, None, 'binary'
+                          continue
                       raw = None if b.get('text') is None else b['text'].encode()
                       if raw is None or git_hash(raw) != h:
                           blob = api.gh('repos/' + repo + '/git/blobs/' + h)
@@ -252,8 +462,10 @@ jobs:
                       if git_hash(raw) != h:
                           raise RuntimeError('Source hash verification failed')
                       for e in grouped[h]:
-                          if b.get('isBinary') or b'\0' in raw[:4096]:
+                          if b'\0' in raw[:4096]:
                               yield e, None, 'binary'
+                          elif raw.startswith(b'version https://git-lfs.github.com/spec/v1'):
+                              yield e, None, 'lfs-content'
                           else:
                               yield e, raw.decode('utf-8', errors='replace'), None
                   print('Verified source groups: %d/%d' % (min(offset + 30, len(hashes)), len(hashes)), flush=True)
@@ -296,50 +508,91 @@ jobs:
           
           def markdown_safe(value):
               # Do not allow repository filenames to inject markdown or workflow commands.
-              return json.dumps(value, ensure_ascii=True).replace('`', '\\u0060').replace('<', '\\u003c').replace('>', '\\u003e')
+              value = json.dumps(value, ensure_ascii=True)
+              for char in '`<>[]()!*_':
+                  value = value.replace(char, '\\u%04x' % ord(char))
+              return value
+          
+          
+          def dependency_file(path):
+              base = path.rsplit('/', 1)[-1]
+              return base in ('package.json', 'package-lock.json', 'npm-shrinkwrap.json', 'composer.json', 'composer.lock', 'Cargo.lock', 'Gemfile.lock', 'yarn.lock', 'pnpm-lock.yaml', 'poetry.lock', 'uv.lock', 'packages.lock.json', 'project.assets.json', 'packages.config', 'Directory.Packages.props', 'Package.resolved', 'go.mod', 'go.sum') or base.endswith(('.csproj', '.fsproj', '.gradle', '.gradle.kts', '.versions.toml')) or bool(re.fullmatch(r'(?:requirements|constraints)[^/]*\.txt', base))
           
           
           def run(api, repo, sha, event):
               findings, deps, scanned = [], set(), 0
-              for entry, text, issue in read_sources(api, repo, sha):
+              tree = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
+              if tree.get('truncated'):
+                  raise RuntimeError('Repository tree is truncated')
+              entries = {e['path']: e for e in tree['tree'] if e['type'] != 'tree'}
+              for e in entries.values():
+                  if e['type'] == 'commit':
+                      findings.append({'path': e['path'], 'rule': 'submodule-content-not-scanned-review', 'level': 'warning', 'line': 1})
+              base_sha = event.get('pull_request', {}).get('base', {}).get('sha') or event.get('before')
+              before, changed, previous = None, set(), {}
+              if base_sha and re.fullmatch(r'[0-9a-f]{40}', base_sha) and base_sha != '0' * 40:
+                  before = api.gh('repos/' + repo + '/git/trees/' + base_sha + '?recursive=1')
+                  if before.get('truncated'):
+                      raise RuntimeError('Baseline tree is truncated')
+                  previous = {e['path']: e for e in before['tree'] if e['type'] != 'tree'}
+                  changed = {p for p in set(entries) | set(previous) if (entries.get(p, {}).get('sha'), entries.get(p, {}).get('mode')) != (previous.get(p, {}).get('sha'), previous.get(p, {}).get('mode'))}
+              changed_deps = set()
+              for entry, text, issue in read_sources(api, repo, sha, tree=tree):
                   path = entry['path']
                   if issue:
-                      level = 'error' if CODE.search(path) else 'warning'
+                      level = 'error' if CODE.search(path) and issue != 'symlink' else 'warning'
                       findings.append({'path': path, 'rule': 'unscanned-' + issue, 'level': level, 'line': 1})
                       continue
                   scanned += 1
                   findings.extend(source_rules(path, text))
                   extracted, warnings = dependencies(path, text)
                   deps.update(extracted)
+                  if path in changed:
+                      changed_deps.update(extracted)
                   findings.extend(warnings)
               # A PR must not silently weaken the trusted workflow which scans it.
               if event.get('pull_request'):
-                  base_sha = event['pull_request']['base']['sha']
-                  before = api.gh('repos/' + repo + '/git/trees/' + base_sha + '?recursive=1')
-                  after = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
-                  if before.get('truncated') or after.get('truncated'):
-                      raise RuntimeError('Incomplete policy comparison')
-                  get_policy = lambda d: next((x['sha'] for x in d['tree'] if x['path'] == WORKFLOW_PATH), None)
-                  if get_policy(before) != get_policy(after):
+                  if before is None:
+                      raise RuntimeError('Missing PR baseline')
+                  if previous.get(WORKFLOW_PATH, {}).get('sha') != entries.get(WORKFLOW_PATH, {}).get('sha'):
                       findings.append({'path': WORKFLOW_PATH, 'line': 1, 'level': 'error', 'rule': 'guard-policy-change-requires-maintainer-review'})
+              # Compare only relevant old files, while the entire selected candidate is scanned above.
+              old_rules, old_deps = set(), set()
+              compare_paths = ({f['path'] for f in findings} | {p for p in changed if dependency_file(p)}) & changed
+              if before is not None:
+                  for entry, text, issue in read_sources(api, repo, base_sha, tree=before, paths=compare_paths):
+                      if issue:
+                          continue
+                      old = source_rules(entry['path'], text)
+                      extracted, warnings = dependencies(entry['path'], text)
+                      old_deps.update(extracted)
+                      old_rules.update((f['path'], f['rule']) for f in old + warnings)
+                  for f in findings:
+                      f['introduced'] = f['path'] in changed and (f['path'], f['rule']) not in old_rules
+                  for eco, name, version in sorted(changed_deps - old_deps):
+                      findings.append({'path': 'changed dependency manifests', 'line': 1, 'level': 'warning',
+                                       'introduced': True, 'rule': 'new-dependency-version-review:' + eco + ':' + name + '@' + version})
               ids, malicious = advisory_scan(api, deps)
               for advisory in sorted(malicious):
                   findings.append({'path': 'dependency manifests', 'line': 1, 'level': 'error', 'rule': 'known-malicious-dependency:' + advisory})
-              findings = [dict(items) for items in sorted({tuple(sorted(f.items())) for f in findings})]
+              findings = [dict(items) for items in {tuple(sorted(f.items())) for f in findings}]
+              findings.sort(key=lambda f: (f['level'] != 'error', not f.get('introduced', False), f['path'], f['rule'], f['line']))
               errors = sum(f['level'] == 'error' for f in findings)
               summary = ['# Repository source guard', '', 'Version: ' + VERSION, 'Commit: `' + sha + '`', '',
                          '%d text files verified; %d exact dependency versions checked; %d blocking findings.' % (scanned, len(deps), errors),
                          '%d known vulnerability advisory IDs (review warnings, including development dependencies).' % len(ids), '',
+                         ('Compared with `' + base_sha + '`: %d changed paths; %d new review findings.' % (len(changed), sum(f.get('introduced', False) for f in findings))) if before is not None else 'Full current-tree scan; no prior-commit comparison for this event.', '',
+                         'Checks include bounded literal decoding, behavior correlations, lifecycle scripts and CI configuration. Review warnings are not proof of malicious intent.', '',
                          'Repository code, lifecycle scripts and dependencies were not executed or installed.',
                          'This is a static source and advisory check, not a binary antivirus or a guarantee of safety.', '', '## Findings', '']
               for f in findings[:150]:
-                  summary.append('- **%s** %s:%d — %s' % (f['level'], markdown_safe(f['path']), f['line'], markdown_safe(f['rule'])))
+                  summary.append('- **%s%s** %s:%d — %s' % (f['level'], ' NEW' if f.get('introduced') else '', markdown_safe(f['path']), f['line'], markdown_safe(f['rule'])))
               if len(findings) > 150:
                   summary.append('- Additional findings omitted from this summary: %d.' % (len(findings) - 150))
               if not findings:
                   summary.append('No source indicators were detected by the current rules.')
               summary += ['', '## Vulnerability advisory IDs', '', ', '.join(sorted(ids)[:300]) or 'None.', '',
-                          'Scope: selected source/configuration text up to 2 MB; secrets excluded; binaries, submodules, other refs and unpinned/unsupported dependencies are not fully covered. Minified source is included.']
+                          'Scope: selected source/configuration text up to 2 MB; secrets excluded; binary programs, submodules, other refs and unpinned/unsupported dependencies are not fully covered. Minified source is included. Decoding is limited to 2 layers, 32 literals and 1 MB per source file. Dependency package archives and registry provenance are not inspected. Heuristic correlations are not full interprocedural data-flow analysis.']
               return '\n'.join(summary), errors
           
           
@@ -355,7 +608,9 @@ jobs:
               sha = event.get('pull_request', {}).get('head', {}).get('sha') or os.environ['GITHUB_SHA']
               if not re.fullmatch(r'[0-9a-f]{40}', sha):
                   raise RuntimeError('Invalid target commit')
-              check = api.gh('repos/' + repo + '/check-runs', {'name': CHECK_NAME, 'head_sha': sha, 'status': 'in_progress', 'details_url': 'https://github.com/' + repo + '/actions/runs/' + os.environ['GITHUB_RUN_ID']})
+              details_url = 'https://github.com/' + repo + '/actions/runs/' + os.environ['GITHUB_RUN_ID']
+              api.gh('repos/' + repo + '/statuses/' + sha, {'state': 'pending', 'context': CHECK_NAME, 'description': 'Static source and dependency review in progress', 'target_url': details_url})
+              check = api.gh('repos/' + repo + '/check-runs', {'name': CHECK_NAME, 'head_sha': sha, 'status': 'in_progress', 'details_url': details_url})
               try:
                   summary, errors = run(api, repo, sha, event)
               except Exception as exc:
@@ -364,6 +619,7 @@ jobs:
               with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as file:
                   file.write(summary + '\n')
               api.gh('repos/' + repo + '/check-runs/' + str(check['id']), {'status': 'completed', 'conclusion': 'failure' if errors else 'success', 'output': {'title': 'Review required' if errors else 'Source checks completed', 'summary': summary[:60000]}}, method='PATCH')
+              api.gh('repos/' + repo + '/statuses/' + sha, {'state': 'failure' if errors else 'success', 'context': CHECK_NAME, 'description': 'Review required' if errors else 'Static source and dependency review passed', 'target_url': details_url})
               print('Source checks completed; blocking findings: ' + str(errors), flush=True)
               if errors:
                   sys.exit(1)
