@@ -1,4 +1,4 @@
-# Scan notifications v1.1.0. No checkout, external action or package install.
+# Scan notifications v1.2.0. No checkout, external action or package install.
 name: Scan notifications
 on:
   workflow_run:
@@ -11,11 +11,11 @@ concurrency:
   cancel-in-progress: false
 jobs:
   notify:
-    name: Send scan result to Pushover
+    name: Send malware findings to Pushover
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     steps:
-      - name: Send completion notification
+      - name: Notify only on malware indicators
         env:
           GH_REPORT_TOKEN: ${{ github.token }}
           PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
@@ -96,7 +96,7 @@ jobs:
                       raise NotificationError('GitHub report access is unavailable.')
                   connection = http.client.HTTPSConnection('api.github.com', timeout=20, context=ssl.create_default_context())
                   connection.request('GET', path, headers={'Authorization': 'Bearer ' + token,
-                                     'Accept': 'application/vnd.github+json', 'User-Agent': 'Stellar-Source-Guard-Notifier/1.1'})
+                                     'Accept': 'application/vnd.github+json', 'User-Agent': 'Stellar-Source-Guard-Notifier/1.2'})
                   response = connection.getresponse()
                   if response.status != 200:
                       raise NotificationError('GitHub did not return the scan report.')
@@ -193,26 +193,74 @@ jobs:
               counts = report_counts(reports[0]['output']['summary'])
               if reports[0].get('conclusion') != ('failure' if counts['blocking'] else 'success'):
                   raise NotificationError('The report result is inconsistent.')
+              counts['malware'] = malware_signals(reports[0]['output']['summary'])
               return counts
           
           
-          def show_warning_status(fields, event, counts):
-              run = event['workflow_run']
+          def malware_signals(summary):
+              """Allow only explicit malicious-package matches and narrow code indicators.
+          
+              General CVE/GHSA vulnerability counts, age, CI weaknesses and obfuscation
+              alone never qualify. Repository text is parsed as data, never executed.
+              """
+              section = summary.split('## Findings\n', 1)[1].split('\n## Vulnerability advisory IDs', 1)[0]
+              grouped, dependencies = {}, set()
+              visible_errors = 0
+              for line in section.splitlines():
+                  match = re.fullmatch(r'- \*\*(error|warning)(?: NEW)?\*\* ("(?:[^"\\]|\\.)*"):\d+ — ("(?:[^"\\]|\\.)*")', line)
+                  if not match:
+                      if line.startswith('- **error'):
+                          raise NotificationError('A blocking finding could not be classified safely.')
+                      continue
+                  if match[1] != 'error':
+                      continue
+                  visible_errors += 1
+                  path, rule = json.loads(match[2]), json.loads(match[3])
+                  for _ in range(8):
+                      cleaned = re.sub(r'^(?:decoded-content:|lifecycle:[^:]+:)', '', rule, count=1)
+                      if cleaned == rule:
+                          break
+                      rule = cleaned
+                  if rule.startswith(('decoded-content:', 'lifecycle:')):
+                      raise NotificationError('Finding nesting exceeds the classification limit.')
+                  if re.fullmatch(r'known-malicious-dependency:(?:MAL-\d{4}-\d+|GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4})', rule):
+                      dependencies.add(rule)
+                  grouped.setdefault(path, set()).add(rule)
+              if visible_errors < report_counts(summary)['blocking']:
+                  raise NotificationError('Omitted blocking findings require manual malware review.')
+              signatures, behavior = set(), set()
+              narrow = {'blockchain-addressed-loader-review', 'shell-reverse-connection',
+                        'socket-shell-redirection', 'php-request-shell-execution'}
+              encoded_execution = {'hidden-node-process', 'encoded-code-execution', 'php-encoded-execution',
+                                   'encoded-function-execution', 'decoded-variable-execution'}
+              for path, rules in grouped.items():
+                  if {'known-loader-marker', 'obfuscated-code'} <= rules:
+                      signatures.add(path)
+                  if rules & narrow or ('obfuscated-code' in rules and rules & encoded_execution):
+                      behavior.add(path)
+              return {'known_loader': bool(signatures), 'malicious_dependency': bool(dependencies),
+                      'strong_behavior': bool(behavior)}
+          
+          
+          def malware_message(fields, event, counts):
+              signals = counts['malware']
+              if not any(signals.values()):
+                  return None
               repo = event['repository']['full_name'].split('/', 1)[1]
-              if run['conclusion'] != 'success':
-                  fields['title'] = '🔴 SCANNING IKKE BESTÅET – ' + repo
-              elif counts is None:
-                  fields['title'] = '⚠️ ADVARSEL: STATUS UKENDT – ' + repo
-              elif counts['blocking']:
-                  fields['title'] = '🔴 BLOKERENDE FUND – ' + repo
-              elif counts['warnings'] or counts['advisories']:
-                  fields['title'] = '⚠️ ADVARSLER FUNDET – ' + repo
+              if signals['malicious_dependency']:
+                  fields['title'] = '🚨 KENDT MALWARE I DEPENDENCY – ' + repo
+              elif signals['known_loader']:
+                  fields['title'] = '🚨 KENDT MALWARESIGNATUR – ' + repo
               else:
-                  fields['title'] = '✅ INGEN ADVARSLER – ' + repo
-              detail = ('Advarselstal kunne ikke bekræftes. Se rapporten i GitHub.' if counts is None else
-                        '{} kode-/konfigurationsadvarsler; {} sårbarhedsregistreringer; {} blokerende fund.'.format(
-                            counts['warnings'], counts['advisories'], counts['blocking']))
-              fields['message'] = detail + '\n\n' + fields['message']
+                  fields['title'] = '🚨 MULIG MALWARE/SPYWARE – ' + repo
+              reasons = []
+              if signals['malicious_dependency']:
+                  reasons.append('En dependency-version matcher en databasepost klassificeret som malware.')
+              if signals['known_loader']:
+                  reasons.append('Koden matcher A9-loaderens markør sammen med kraftig obfuskering.')
+              if signals['strong_behavior']:
+                  reasons.append('Koden viser stærke indikatorer på skjult kodekørsel eller en bagdør. Fundet kræver kontrol.')
+              fields['message'] = '\n'.join(reasons) + '\n\n' + fields['message']
               return fields
           
           
@@ -227,7 +275,7 @@ jobs:
                   connection = http.client.HTTPSConnection(HOST, timeout=20, context=ssl.create_default_context())
                   connection.request('POST', ENDPOINT, body=body, headers={
                       'Content-Type': 'application/x-www-form-urlencoded',
-                      'User-Agent': 'Stellar-Source-Guard-Notifier/1.0',
+                      'User-Agent': 'Stellar-Source-Guard-Notifier/1.2',
                   })
                   response = connection.getresponse()
                   if response.status != 200:
@@ -259,11 +307,11 @@ jobs:
                       raise NotificationError('This notifier only accepts workflow_run events.')
                   event = json.loads(pathlib.Path(os.environ['GITHUB_EVENT_PATH']).read_text())
                   fields = message_fields(event, os.environ['GITHUB_REPOSITORY'])
-                  try:
-                      counts = scan_counts(event, os.environ['GITHUB_REPOSITORY'], os.environ.get('GH_REPORT_TOKEN', ''))
-                  except Exception:
-                      counts = None  # Never present missing or mismatched report data as zero warnings.
-                  show_warning_status(fields, event, counts)
+                  counts = scan_counts(event, os.environ['GITHUB_REPOSITORY'], os.environ.get('GH_REPORT_TOKEN', ''))
+                  fields = malware_message(fields, event, counts)
+                  if fields is None:
+                      print('No qualifying malware/spyware indicators. No Pushover notification sent.')
+                      return
                   send_notification(fields, os.environ.get('PUSHOVER_APP_TOKEN', ''), os.environ.get('PUSHOVER_USER_KEY', ''))
               except NotificationError as exc:
                   print('::error::' + str(exc))
