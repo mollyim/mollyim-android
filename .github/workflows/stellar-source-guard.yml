@@ -1,0 +1,374 @@
+# Stellar source guard v1.0.0. No repository checkout or package installation.
+# PR content is read as data by the trusted base-branch workflow.
+name: Repository source guard
+on:
+  push:
+    branches: ['**']
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+  schedule:
+    - cron: '27 4 * * 1'
+permissions:
+  contents: read
+  checks: write
+concurrency:
+  group: source-guard-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  scan:
+    name: Run source guard
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Read source and check dependency advisories
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 -I - <<'STELLAR_GUARD_PY'
+          """Stellar source guard. Python standard library only; source is never executed."""
+          import base64
+          import collections
+          import hashlib
+          import json
+          import os
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          
+          VERSION = '1.0.0'
+          CHECK_NAME = 'Repository source guard'
+          WORKFLOW_PATH = '.github/workflows/stellar-source-guard.yml'
+          MAX_FILE = 2_000_000
+          SOURCE = re.compile(r'\.(js|jsx|mjs|cjs|ts|tsx|vue|svelte|html?|php|phtml|py|pyw|sh|bash|zsh|fish|ps1|psm1|bat|cmd|vbs|hta|wsf|cs|csproj|fsproj|props|targets|config|json|ya?ml|toml|gradle|kts|kt|java|swift|dart|go|mod|sum|rs|rb|podspec|pl|lua|groovy|c|cc|cpp|h|hpp|xml|mk|cmake|properties|lock|sql|plist|policy|desktop|service|socket|entitlements|xcconfig|pbxproj|bp|rc|conf|ini|nsi|nsh|iss|wxs|wxi)$', re.I)
+          CODE = re.compile(r'\.(js|jsx|mjs|cjs|ts|tsx|py|pyw|php|sh|bash|ps1|vbs|hta|rb|pl|lua|groovy|rs|java|kt|cs)$', re.I)
+          SPECIAL = {'Dockerfile', 'Makefile', 'Gemfile', 'Podfile', 'Podfile.lock', 'Package.resolved', 'gradlew', 'mvnw', '.gitmodules', '.npmrc', '.yarnrc', 'requirements.txt', 'CMakeLists.txt', 'Jenkinsfile'}
+          SENSITIVE = re.compile(r'(^|/)(\.env($|\.)|id_(rsa|ed25519)|[^/]*\.(pem|p12|pfx|jks|keystore|key)$|google-services\.json$|GoogleService-Info\.plist$|appsettings[^/]*\.json$|[^/]*(credentials|service.account)[^/]*\.json$)', re.I)
+          ECOSYSTEMS = {'npm': 'npm', 'Packagist': 'composer', 'crates.io': 'rust', 'PyPI': 'pip', 'Maven': 'maven', 'Go': 'go', 'NuGet': 'nuget', 'SwiftURL': 'swift'}
+          
+          
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  raise RuntimeError('Unexpected API redirect')
+          
+          
+          class API:
+              def __init__(self, token):
+                  self.token = token
+                  self.opener = urllib.request.build_opener(NoRedirect)
+          
+              def call(self, url, data=None, method=None):
+                  host = urllib.parse.urlsplit(url).netloc
+                  if host not in ('api.github.com', 'api.osv.dev') or not url.startswith('https://'):
+                      raise RuntimeError('API host is not allowed')
+                  headers = {'User-Agent': 'Stellar-Source-Guard/' + VERSION, 'Content-Type': 'application/json'}
+                  if host == 'api.github.com':
+                      headers.update({'Authorization': 'Bearer ' + self.token, 'X-GitHub-Api-Version': '2022-11-28'})
+                  request = urllib.request.Request(url, data=None if data is None else json.dumps(data).encode(), headers=headers, method=method)
+                  for attempt in range(3):
+                      try:
+                          with self.opener.open(request, timeout=45) as response:
+                              result = json.load(response)
+                          if isinstance(result, dict) and result.get('errors'):
+                              raise RuntimeError('GraphQL returned an incomplete result')
+                          return result
+                      except (urllib.error.URLError, TimeoutError):
+                          if attempt == 2:
+                              raise RuntimeError('Advisory or GitHub API request failed') from None
+                          time.sleep(2 ** attempt)
+          
+              def gh(self, path, data=None, method=None):
+                  return self.call('https://api.github.com/' + path, data, method)
+          
+          
+          def git_hash(data):
+              return hashlib.sha1(('blob ' + str(len(data)) + '\0').encode() + data).hexdigest()
+          
+          
+          def selected(entry):
+              path = entry['path']
+              return entry['type'] == 'blob' and not SENSITIVE.search(path) and (SOURCE.search(path) or path.rsplit('/', 1)[-1] in SPECIAL or entry.get('mode') == '100755')
+          
+          
+          def source_rules(path, text):
+              """Return labels and positions, never echo repository-controlled source."""
+              found = []
+              def add(rule, level, match=None):
+                  found.append({'path': path, 'rule': rule, 'level': level, 'line': 1 if match is None else text.count('\n', 0, match.start()) + 1})
+              if CODE.search(path):
+                  obfuscated = len(re.findall(r'\b_0x[0-9a-f]{3,}\b', text, re.I))
+                  if obfuscated >= 30:
+                      add('obfuscated-code', 'error')
+                  patterns = {
+                      'encoded-code-execution': r'\b(?:eval|exec)\s*\(\s*(?:(?:Buffer\.from|atob|base64\.b64decode|marshal\.loads)\s*\()',
+                      'php-encoded-execution': r'\beval\s*\(\s*(?:base64_decode|gzinflate|gzuncompress|str_rot13)\s*\(',
+                      'hidden-node-process': r'\bspawn\s*\(\s*[\x22\x27]node[\x22\x27]\s*,\s*\[\s*[\x22\x27]-e[\x22\x27]',
+                  }
+                  for name, pattern in patterns.items():
+                      m = re.search(pattern, text, re.I)
+                      if m:
+                          add(name, 'error', m)
+                  m = re.search(r'global\s*\.\s*i\s*=\s*[\x22\x27]A9-\d+', text)
+                  if m:
+                      add('known-loader-marker', 'error', m)
+                  if re.search('[\u202a-\u202e\u2066-\u2069]', text):
+                      add('directional-controls-in-code', 'warning')
+                  if re.search(r'(?:[A-Za-z0-9+/]{1500,}={0,2}|(?:\\x[0-9a-fA-F]{2}){100,})', text):
+                      add('encoded-data-review', 'warning')
+              if path.endswith(('.sh', '.bash', '.ps1', '.yml', '.yaml', 'Dockerfile')):
+                  m = re.search(r'\b(?:curl|wget)\b[^\n]{0,300}\|\s*(?:sudo\s+)?(?:ba|z|fi)?sh\b|\b(?:iex|Invoke-Expression)\s*\(?\s*(?:iwr|Invoke-WebRequest)', text, re.I)
+                  if m:
+                      add('remote-script-execution-review', 'warning', m)
+              return found
+          
+          
+          def dependencies(path, text):
+              base = path.rsplit('/', 1)[-1]
+              deps, warnings = set(), []
+              def dep(eco, name, version):
+                  if not isinstance(name, str) or not isinstance(version, str):
+                      return
+                  version = version.lstrip('v')
+                  if re.fullmatch(r'\d+(?:\.\d+)*(?:[-+][\w.-]+)?', version) and re.fullmatch(r'[@\w./:-]+', name):
+                      deps.add((eco, name, version))
+              def warn(rule):
+                  warnings.append({'path': path, 'rule': rule, 'level': 'warning', 'line': 1})
+              if base == 'package.json':
+                  d = json.loads(text)
+                  for kind in ('dependencies', 'devDependencies', 'optionalDependencies'):
+                      for n, v in d.get(kind, {}).items():
+                          dep('npm', n, v)
+                  for name in ('preinstall', 'install', 'postinstall', 'prepare'):
+                      if d.get('scripts', {}).get(name):
+                          warn('lifecycle-script-review:' + name)
+              elif base in ('package-lock.json', 'npm-shrinkwrap.json'):
+                  d = json.loads(text)
+                  for loc, item in d.get('packages', {}).items():
+                      if not loc or item.get('link'):
+                          continue
+                      # Only public registry dependency coordinates leave GitHub for OSV.
+                      url = item.get('resolved', '')
+                      if url and not url.startswith('https://registry.npmjs.org/'):
+                          warn('nonstandard-package-source')
+                          continue
+                      if 'node_modules/' in loc:
+                          dep('npm', item.get('name') or loc.rsplit('node_modules/', 1)[-1], item.get('version'))
+                  def old(items):
+                      for n, item in items.items():
+                          if isinstance(item, dict):
+                              if not item.get('resolved') or item['resolved'].startswith('https://registry.npmjs.org/'):
+                                  dep('npm', n, item.get('version'))
+                              old(item.get('dependencies', {}))
+                  old(d.get('dependencies', {}))
+              elif base == 'composer.lock':
+                  d = json.loads(text)
+                  for item in d.get('packages', []) + d.get('packages-dev', []):
+                      dep('Packagist', item.get('name'), item.get('version'))
+                      if item.get('type') == 'composer-plugin':
+                          warn('composer-plugin-review')
+              elif base == 'Cargo.lock':
+                  for block in text.split('[[package]]')[1:]:
+                      n = re.search(r'^name = "([^"]+)"', block, re.M)
+                      v = re.search(r'^version = "([^"]+)"', block, re.M)
+                      if n and v and 'registry+' in block:
+                          dep('crates.io', n[1], v[1])
+              elif base.startswith('requirements') and base.endswith('.txt'):
+                  for m in re.finditer(r'^([\w.-]+)==([\w.+-]+)', text, re.M):
+                      dep('PyPI', m[1], m[2])
+              elif base == 'yarn.lock':
+                  names = []
+                  for line in text.splitlines():
+                      if line and not line.startswith((' ', '#')) and line.endswith(':'):
+                          names = [x.strip(' "').rsplit('@', 1)[0] for x in line[:-1].split(',')]
+                      m = re.match(r'\s+version[: ]+\s*[\x22\x27]?([^\x22\x27\s]+)', line)
+                      if m:
+                          for name in names:
+                              dep('npm', name, m[1])
+              elif base == 'pnpm-lock.yaml':
+                  for m in re.finditer(r'^  [\x22\x27]?/?(@?[^\s:\x22\x27]+?)@([0-9][^\s:\x22\x27]*)[\x22\x27]?:', text, re.M):
+                      dep('npm', m[1], m[2].split('(')[0])
+              elif base in ('go.mod', 'go.sum'):
+                  for m in re.finditer(r'^\s*([^\s]+)\s+v(\d[^\s/]+)', text, re.M):
+                      dep('Go', m[1], m[2])
+              elif base == 'Package.resolved':
+                  d = json.loads(text)
+                  for pin in d.get('pins', d.get('object', {}).get('pins', [])):
+                      dep('SwiftURL', pin.get('location') or pin.get('repositoryURL'), pin.get('state', {}).get('version'))
+              if base.endswith(('.gradle', '.gradle.kts', '.toml')):
+                  for m in re.finditer(r'[\x22\x27]([\w.-]+:[\w.-]+):(\d[^\x22\x27\s]+)[\x22\x27]', text):
+                      dep('Maven', m[1], m[2])
+              if base.endswith('.versions.toml'):
+                  versions, section = {}, ''
+                  for line in text.splitlines():
+                      if line.strip().startswith('['):
+                          section = line.strip()
+                      elif section == '[versions]':
+                          m = re.match(r'\s*([\w.-]+)\s*=\s*"([^"]+)"', line)
+                          if m:
+                              versions[m[1]] = m[2]
+                      elif section == '[libraries]':
+                          kv = dict(re.findall(r'([\w.]+)\s*=\s*"([^"]+)"', line))
+                          dep('Maven', kv.get('module') or (kv.get('group', '') + ':' + kv.get('name', '')), kv.get('version') or versions.get(kv.get('version.ref', '')))
+              return deps, warnings
+          
+          
+          def read_sources(api, repo, sha):
+              tree = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
+              if tree.get('truncated'):
+                  raise RuntimeError('Repository tree is truncated; scan cannot be complete')
+              grouped = collections.defaultdict(list)
+              skipped = collections.Counter()
+              for e in tree['tree']:
+                  if not selected(e):
+                      skipped['not-selected'] += e['type'] != 'tree'
+                  elif e.get('size', 0) > MAX_FILE:
+                      skipped['oversize'] += 1
+                      yield e, None, 'oversize'
+                  elif e.get('mode') == '120000':
+                      skipped['symlink'] += 1
+                  else:
+                      grouped[e['sha']].append(e)
+              hashes = list(grouped)
+              owner, name = repo.split('/')
+              for offset in range(0, len(hashes), 30):
+                  batch = hashes[offset:offset + 30]
+                  fields = ['b%d:object(oid:%s){... on Blob{text isBinary byteSize}}' % (i, json.dumps(h)) for i, h in enumerate(batch)]
+                  query = 'query{repository(owner:%s,name:%s){%s}}' % (json.dumps(owner), json.dumps(name), ' '.join(fields))
+                  result = api.gh('graphql', {'query': query})['data']['repository']
+                  for i, h in enumerate(batch):
+                      b = result['b%d' % i]
+                      if b is None:
+                          raise RuntimeError('Missing source blob')
+                      raw = None if b.get('text') is None else b['text'].encode()
+                      if raw is None or git_hash(raw) != h:
+                          blob = api.gh('repos/' + repo + '/git/blobs/' + h)
+                          if blob.get('encoding') != 'base64':
+                              raise RuntimeError('Unknown source encoding')
+                          raw = base64.b64decode(blob['content'])
+                      if git_hash(raw) != h:
+                          raise RuntimeError('Source hash verification failed')
+                      for e in grouped[h]:
+                          if b.get('isBinary') or b'\0' in raw[:4096]:
+                              yield e, None, 'binary'
+                          else:
+                              yield e, raw.decode('utf-8', errors='replace'), None
+                  print('Verified source groups: %d/%d' % (min(offset + 30, len(hashes)), len(hashes)), flush=True)
+              print('Excluded file counts: ' + json.dumps(dict(skipped)), flush=True)
+          
+          
+          def advisory_scan(api, deps):
+              ids, malicious = set(), set()
+              items = sorted(deps)
+              for start in range(0, len(items), 150):
+                  batch = items[start:start + 150]
+                  queries = [{'package': {'ecosystem': eco, 'name': name}, 'version': version} for eco, name, version in batch]
+                  results = api.call('https://api.osv.dev/v1/querybatch', {'queries': queries})['results']
+                  if len(results) != len(batch):
+                      raise RuntimeError('Incomplete advisory results')
+                  for query, result in zip(queries, results):
+                      while True:
+                          for vuln in result.get('vulns', []):
+                              ids.add(vuln['id'])
+                              if vuln['id'].startswith('MAL-'):
+                                  malicious.add(vuln['id'])
+                          if not result.get('next_page_token'):
+                              break
+                          result = api.call('https://api.osv.dev/v1/query', dict(query, page_token=result['next_page_token']))
+              for eco, gh_eco in ECOSYSTEMS.items():
+                  matching = [d for d in items if d[0] == eco]
+                  for start in range(0, len(matching), 40):
+                      batch = matching[start:start + 40]
+                      page = 1
+                      while True:
+                          params = {'type': 'malware', 'ecosystem': gh_eco, 'is_withdrawn': 'false', 'affects': ','.join(n + '@' + v for _, n, v in batch), 'per_page': 100, 'page': page}
+                          result = api.gh('advisories?' + urllib.parse.urlencode(params))
+                          for item in result:
+                              malicious.add(item['ghsa_id'])
+                          if len(result) < 100:
+                              break
+                          page += 1
+              return ids, malicious
+          
+          
+          def markdown_safe(value):
+              # Do not allow repository filenames to inject markdown or workflow commands.
+              return json.dumps(value, ensure_ascii=True).replace('`', '\\u0060').replace('<', '\\u003c').replace('>', '\\u003e')
+          
+          
+          def run(api, repo, sha, event):
+              findings, deps, scanned = [], set(), 0
+              for entry, text, issue in read_sources(api, repo, sha):
+                  path = entry['path']
+                  if issue:
+                      level = 'error' if CODE.search(path) else 'warning'
+                      findings.append({'path': path, 'rule': 'unscanned-' + issue, 'level': level, 'line': 1})
+                      continue
+                  scanned += 1
+                  findings.extend(source_rules(path, text))
+                  extracted, warnings = dependencies(path, text)
+                  deps.update(extracted)
+                  findings.extend(warnings)
+              # A PR must not silently weaken the trusted workflow which scans it.
+              if event.get('pull_request'):
+                  base_sha = event['pull_request']['base']['sha']
+                  before = api.gh('repos/' + repo + '/git/trees/' + base_sha + '?recursive=1')
+                  after = api.gh('repos/' + repo + '/git/trees/' + sha + '?recursive=1')
+                  if before.get('truncated') or after.get('truncated'):
+                      raise RuntimeError('Incomplete policy comparison')
+                  get_policy = lambda d: next((x['sha'] for x in d['tree'] if x['path'] == WORKFLOW_PATH), None)
+                  if get_policy(before) != get_policy(after):
+                      findings.append({'path': WORKFLOW_PATH, 'line': 1, 'level': 'error', 'rule': 'guard-policy-change-requires-maintainer-review'})
+              ids, malicious = advisory_scan(api, deps)
+              for advisory in sorted(malicious):
+                  findings.append({'path': 'dependency manifests', 'line': 1, 'level': 'error', 'rule': 'known-malicious-dependency:' + advisory})
+              findings = [dict(items) for items in sorted({tuple(sorted(f.items())) for f in findings})]
+              errors = sum(f['level'] == 'error' for f in findings)
+              summary = ['# Repository source guard', '', 'Version: ' + VERSION, 'Commit: `' + sha + '`', '',
+                         '%d text files verified; %d exact dependency versions checked; %d blocking findings.' % (scanned, len(deps), errors),
+                         '%d known vulnerability advisory IDs (review warnings, including development dependencies).' % len(ids), '',
+                         'Repository code, lifecycle scripts and dependencies were not executed or installed.',
+                         'This is a static source and advisory check, not a binary antivirus or a guarantee of safety.', '', '## Findings', '']
+              for f in findings[:150]:
+                  summary.append('- **%s** %s:%d — %s' % (f['level'], markdown_safe(f['path']), f['line'], markdown_safe(f['rule'])))
+              if len(findings) > 150:
+                  summary.append('- Additional findings omitted from this summary: %d.' % (len(findings) - 150))
+              if not findings:
+                  summary.append('No source indicators were detected by the current rules.')
+              summary += ['', '## Vulnerability advisory IDs', '', ', '.join(sorted(ids)[:300]) or 'None.', '',
+                          'Scope: selected source/configuration text up to 2 MB; secrets excluded; binaries, submodules, other refs and unpinned/unsupported dependencies are not fully covered. Minified source is included.']
+              return '\n'.join(summary), errors
+          
+          
+          def main():
+              api = API(os.environ['GH_TOKEN'])
+              repo = os.environ['GITHUB_REPOSITORY']
+              if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repo):
+                  raise RuntimeError('Invalid repository name')
+              with open(os.environ['GITHUB_EVENT_PATH']) as file:
+                  event = json.load(file)
+              if event.get('deleted'):
+                  return
+              sha = event.get('pull_request', {}).get('head', {}).get('sha') or os.environ['GITHUB_SHA']
+              if not re.fullmatch(r'[0-9a-f]{40}', sha):
+                  raise RuntimeError('Invalid target commit')
+              check = api.gh('repos/' + repo + '/check-runs', {'name': CHECK_NAME, 'head_sha': sha, 'status': 'in_progress', 'details_url': 'https://github.com/' + repo + '/actions/runs/' + os.environ['GITHUB_RUN_ID']})
+              try:
+                  summary, errors = run(api, repo, sha, event)
+              except Exception as exc:
+                  summary, errors = '# Repository source guard\n\nScan incomplete. Error type: ' + type(exc).__name__ + '. No clean result can be reported.', 1
+                  print('Source guard failed: ' + type(exc).__name__, flush=True)
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as file:
+                  file.write(summary + '\n')
+              api.gh('repos/' + repo + '/check-runs/' + str(check['id']), {'status': 'completed', 'conclusion': 'failure' if errors else 'success', 'output': {'title': 'Review required' if errors else 'Source checks completed', 'summary': summary[:60000]}}, method='PATCH')
+              print('Source checks completed; blocking findings: ' + str(errors), flush=True)
+              if errors:
+                  sys.exit(1)
+          
+          
+          if __name__ == '__main__':
+              main()
+          STELLAR_GUARD_PY
