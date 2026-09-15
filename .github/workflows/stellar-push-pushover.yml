@@ -1,0 +1,131 @@
+# Code push notifications v1.0. No checkout or third-party actions.
+name: Code push notifications
+on:
+  push:
+    branches: ['**']
+permissions: {}
+jobs:
+  notify:
+    name: Notify about new code
+    if: github.event.deleted == false && github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Send push metadata to Pushover
+        env:
+          PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
+          PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}
+        shell: bash
+        run: |
+          python3 -I - <<'STELLAR_CODE_PUSH_PY'
+          """Push metadata only. No checkout, package installation or execution of app code."""
+          import http.client
+          import json
+          import os
+          import pathlib
+          import re
+          import ssl
+          import unicodedata
+          import urllib.parse
+          
+          ORGS = {'StellerSecurity', 'Stellar-seo-websites', 'StellarMail', 'StellarSecurity-Packages'}
+          
+          
+          class NotificationError(Exception):
+              """Only fixed, non-sensitive error messages may be logged."""
+          
+          
+          def display(value, limit):
+              if not isinstance(value, str):
+                  raise NotificationError('Invalid event text.')
+              # Branches are untrusted metadata, never shell/YAML/HTML input.
+              return ''.join(c for c in value if not unicodedata.category(c).startswith('C'))[:limit]
+          
+          
+          def message_fields(event, repository):
+              if not isinstance(repository, str) or not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]{1,100}', repository):
+                  raise NotificationError('Invalid repository.')
+              if repository.split('/')[0] not in ORGS or event.get('repository', {}).get('full_name') != repository:
+                  raise NotificationError('Repository is outside the approved scope.')
+              ref = event.get('ref', '')
+              if event.get('deleted') is True or not ref.startswith('refs/heads/'):
+                  return None
+              before, after = event.get('before'), event.get('after')
+              if not all(isinstance(s, str) and re.fullmatch('[0-9a-f]{40}', s) for s in (before, after)):
+                  raise NotificationError('Invalid commit identifiers.')
+              if before == after or after == '0' * 40:
+                  return None
+              actor = event.get('sender', {}).get('login')
+              if not isinstance(actor, str) or not re.fullmatch(r'[A-Za-z0-9_.\[\]-]{1,100}', actor):
+                  raise NotificationError('Invalid push actor.')
+              branch = display(ref[len('refs/heads/'):], 180)
+              if not branch:
+                  raise NotificationError('Missing branch.')
+              # Construct links from validated identifiers; ignore event-supplied URLs.
+              link = ('commit/' + after if before == '0' * 40 else 'compare/' + before + '...' + after)
+              return {
+                  'title': ('NY KODE – ' + repository.split('/')[1])[:250],
+                  'message': repository + '\nBranch: ' + branch + '\nPushet af: ' + actor
+                             + '\nCommit: ' + after[:12] + '\nKode-push modtaget. Scan og deploy har egne resultater.',
+                  'url': 'https://github.com/' + repository + '/' + link,
+                  'url_title': 'Se ændringerne i GitHub',
+                  'priority': '0', 'html': '0',
+              }
+          
+          
+          def send_notification(fields, token, user):
+              if not all(re.fullmatch(r'[A-Za-z0-9]{30}', value or '') for value in (token, user)):
+                  raise NotificationError('Required Pushover secrets are missing or invalid.')
+              body = urllib.parse.urlencode(dict(fields, token=token, user=user)).encode('utf-8')
+              connection = None
+              try:
+                  # Fixed destination, verified TLS, no redirects, proxies, or auto retry.
+                  connection = http.client.HTTPSConnection('api.pushover.net', timeout=20, context=ssl.create_default_context())
+                  connection.request('POST', '/1/messages.json', body=body, headers={
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                      'User-Agent': 'Stellar-Push-Notifier/1.0',
+                  })
+                  response = connection.getresponse()
+                  if response.status != 200:
+                      raise NotificationError('Pushover rejected the notification. Check configuration or quota.')
+                  data = response.read(65537)
+                  if len(data) > 65536:
+                      raise NotificationError('Pushover response exceeded the permitted size.')
+                  result = json.loads(data)
+                  if not isinstance(result, dict) or type(result.get('status')) is not int or result['status'] != 1:
+                      raise NotificationError('Pushover did not confirm acceptance.')
+              except NotificationError:
+                  raise
+              except Exception:
+                  raise NotificationError('Delivery is uncertain. No automatic retry was made.') from None
+              finally:
+                  if connection is not None:
+                      connection.close()
+          
+          
+          def main():
+              try:
+                  if os.environ.get('GITHUB_EVENT_NAME') != 'push':
+                      raise NotificationError('Only push events are accepted.')
+                  # Re-running a successful job must not resend the same message.
+                  if os.environ.get('GITHUB_RUN_ATTEMPT') != '1':
+                      print('Repeated workflow attempt: no duplicate notification sent.')
+                      return
+                  event = json.loads(pathlib.Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+                  fields = message_fields(event, os.environ['GITHUB_REPOSITORY'])
+                  if fields is None:
+                      print('No branch commit update: no notification sent.')
+                      return
+                  send_notification(fields, os.environ.get('PUSHOVER_APP_TOKEN', ''), os.environ.get('PUSHOVER_USER_KEY', ''))
+              except NotificationError as exc:
+                  print('::error::' + str(exc))
+                  raise SystemExit(1) from None
+              except Exception:
+                  print('::error::Notification could not be processed safely.')
+                  raise SystemExit(1) from None
+              print('Pushover accepted the code-push notification. Device delivery is not independently verified.')
+          
+          
+          if __name__ == '__main__':
+              main()
+          STELLAR_CODE_PUSH_PY
