@@ -1,0 +1,21 @@
+# Stable caller contract: stellar-shared-main-v1. Shared scanner has no code-write permission.
+name: Repository source guard
+on:
+  push:
+    branches: ['**']
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  workflow_dispatch:
+  schedule:
+    - cron: '27 4 * * 1'
+permissions:
+  contents: read
+  checks: write
+  statuses: write
+concurrency:
+  group: source-guard-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  scan:
+    name: Source scan
+    uses: StellerSecurity/stellar-security-scanner/.github/workflows/source-check.yml@main

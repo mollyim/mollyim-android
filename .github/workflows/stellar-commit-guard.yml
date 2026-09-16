@@ -1,0 +1,27 @@
+# Stable caller contract: stellar-shared-main-v1. Shared scanner has no code-write permission.
+name: Repository commit guard
+run-name: Commit guard ${{ inputs.request_id }} ${{ inputs.target_sha }}
+on:
+  workflow_dispatch:
+    inputs:
+      target_sha:
+        description: Exact repository commit to inspect as data
+        required: true
+        type: string
+      request_id:
+        description: Durable queue request identifier
+        required: true
+        type: string
+permissions:
+  contents: read
+  checks: write
+jobs:
+  scan:
+    name: Commit scan
+    uses: StellerSecurity/stellar-security-scanner/.github/workflows/commit-check.yml@main
+    with:
+      target_sha: ${{ inputs.target_sha }}
+      request_id: ${{ inputs.request_id }}
+    secrets:
+      PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}

@@ -1,0 +1,13 @@
+# Stable caller contract: stellar-shared-main-v1. Shared scanner has no code-write permission.
+name: Code push notifications
+on:
+  push:
+    branches: ['**']
+permissions: {}
+jobs:
+  notify:
+    name: Push notification
+    uses: StellerSecurity/stellar-security-scanner/.github/workflows/push-notify.yml@main
+    secrets:
+      PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}

@@ -1,0 +1,18 @@
+# Stable caller contract: stellar-shared-main-v1. Shared scanner has no code-write permission.
+name: Scan notifications
+on:
+  workflow_run:
+    workflows: [Repository source guard]
+    types: [completed]
+permissions:
+  checks: read
+concurrency:
+  group: pushover-scan-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
+  cancel-in-progress: false
+jobs:
+  notify:
+    name: Scan notification
+    uses: StellerSecurity/stellar-security-scanner/.github/workflows/scan-notify.yml@main
+    secrets:
+      PUSHOVER_APP_TOKEN: ${{ secrets.PUSHOVER_APP_TOKEN }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}
