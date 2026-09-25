@@ -3,7 +3,7 @@ name: Sync Upstream
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 2,18,22 * * *'
 
 permissions:
   contents: read
@@ -30,7 +30,20 @@ jobs:
         env:
           GIT_LFS_SKIP_SMUDGE: 1
 
+      - run: git fetch --tags upstream
       - run: git lfs fetch --all upstream
       - run: git push origin upstream-main
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_PAT }}
+
+      - name: Track upstream stable release
+        run: |
+          curl -fsSL -o latest.json https://updates.signal.org/android/latest.json
+          tag="v$(jq -r .versionName latest.json)"
+          if ! git rev-parse -q --verify "refs/tags/${tag}"; then
+            echo "::notice::tag ${tag} not pushed to upstream yet, skipping"
+            exit 0
+          fi
+          git push -f origin "${tag}^{commit}:refs/heads/upstream-stable"
         env:
           GH_TOKEN: ${{ secrets.SYNC_PAT }}
