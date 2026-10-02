@@ -12,7 +12,7 @@ import androidx.webkit.WebViewFeature;
 
 import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.AppForegroundObserver;
-import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
@@ -124,7 +124,10 @@ public class NetworkManager {
     existingProxy = newProxy;
 
     if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
-      SignalExecutors.UNBOUNDED.execute(() -> {
+      // Must run on the main thread: newer WebView versions throw "Must be started
+      // before we block!" when ProxyController is used from a background thread
+      // before the WebView engine has been initialized.
+      ThreadUtil.postToMain(() -> {
         if (newProxy != null) {
           String newProxyUrl = newProxy.getUrl();
           if (newProxyUrl == null) {
