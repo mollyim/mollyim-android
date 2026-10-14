@@ -7,7 +7,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import org.thoughtcrime.securesms.R;
@@ -17,7 +17,7 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
-public final class WallpaperImageSelectionActivity extends AppCompatActivity
+public final class WallpaperImageSelectionActivity extends BaseActivity
         implements MediaGalleryFragment.Callbacks
 {
   private static final String EXTRA_RECIPIENT_ID = "RECIPIENT_ID";

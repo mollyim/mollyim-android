@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.service.webrtc
 
+import org.thoughtcrime.securesms.ScreenLockController
+
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -207,12 +209,14 @@ class TelecomCallController(
   private fun onAnswer(callType: Int) {
     val hasRecordAudio = Permissions.hasAll(context, android.Manifest.permission.RECORD_AUDIO)
     Log.i(TAG, "onAnswer(callType=$callType) recipientId=$recipientId hasRecordAudio=$hasRecordAudio")
-    if (hasRecordAudio) {
-      AppDependencies.signalCallManager.acceptCall(false)
+    val token = SignalCallManager.incomingDirectCallToken(recipientId, callId)
+    if (hasRecordAudio && ScreenLockController.isAccessAllowed()) {
+      AppDependencies.signalCallManager.acceptCall(token, false)
     } else {
       Log.i(TAG, "Missing RECORD_AUDIO permission, launching CallIntent activity")
       val intent = CallIntent.Builder(context)
         .withAddedIntentFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        .withIncomingCallToken(token)
         .withAction(if (isVideoCall) CallIntent.Action.ANSWER_VIDEO else CallIntent.Action.ANSWER_AUDIO)
         .build()
       context.startActivity(intent)

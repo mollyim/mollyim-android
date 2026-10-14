@@ -293,7 +293,7 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
   }
 
   override fun canReply(context: Context): Boolean {
-    if (ScreenLockController.lockScreenAtStart ||
+    if (!ScreenLockController.isAccessAllowed() ||
       record.isRemoteDelete ||
       record.isGroupCall ||
       record.isViewOnce ||

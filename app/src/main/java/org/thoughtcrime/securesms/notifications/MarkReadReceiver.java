@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.notifications;
 
+import org.thoughtcrime.securesms.ScreenLockController;
+
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,34 +41,34 @@ public class MarkReadReceiver extends ExportedBroadcastReceiver {
   @SuppressLint("StaticFieldLeak")
   @Override
   public void onReceiveUnlock(final Context context, Intent intent) {
-    if (!CLEAR_ACTION.equals(intent.getAction()))
+    if (!CLEAR_ACTION.equals(intent.getAction()) || !ScreenLockController.isAccessAllowed())
       return;
 
+    final long generation = ScreenLockController.authenticationGeneration();
     final ArrayList<ConversationId> threads = intent.getParcelableArrayListExtra(THREADS_EXTRA);
 
     if (threads != null) {
-      MessageNotifier notifier = AppDependencies.getMessageNotifier();
-      for (ConversationId thread : threads) {
-        notifier.removeStickyThread(thread);
-      }
-
-      NotificationCancellationHelper.cancelLegacy(context, intent.getIntExtra(NOTIFICATION_ID_EXTRA, -1));
-
       PendingResult finisher = goAsync();
       SignalExecutors.BOUNDED.execute(() -> {
-        List<MarkedMessageInfo> messageIdsCollection = new LinkedList<>();
+        try {
+          ScreenLockController.runIfAccessAllowed(generation, () -> {
+            MessageNotifier notifier = AppDependencies.getMessageNotifier();
+            for (ConversationId thread : threads) notifier.removeStickyThread(thread);
+            NotificationCancellationHelper.cancelLegacy(context, intent.getIntExtra(NOTIFICATION_ID_EXTRA, -1));
+            List<MarkedMessageInfo> messageIdsCollection = new LinkedList<>();
 
-        for (ConversationId thread : threads) {
-          Log.i(TAG, "Marking as read: " + thread);
-          List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(thread);
-          messageIdsCollection.addAll(messageIds);
-        }
+            for (ConversationId thread : threads) {
+              Log.i(TAG, "Marking as read: " + thread);
+              List<MarkedMessageInfo> messageIds = SignalDatabase.threads().setRead(thread);
+              messageIdsCollection.addAll(messageIds);
+            }
 
-        process(messageIdsCollection);
-        processCallEvents(threads, System.currentTimeMillis());
+            process(messageIdsCollection);
+            processCallEvents(threads, System.currentTimeMillis());
 
-        AppDependencies.getMessageNotifier().updateNotification(context);
-        finisher.finish();
+            AppDependencies.getMessageNotifier().updateNotification(context);
+          });
+        } finally { finisher.finish(); }
       });
     }
   }

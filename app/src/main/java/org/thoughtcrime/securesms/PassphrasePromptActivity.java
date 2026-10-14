@@ -101,8 +101,8 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     dynamicTheme.onResume(this);
     setInputEnabled(true);
 
-    // Manually lock the screen since the app lifecycle observer is not running yet
-    ScreenLockController.setLockScreenAtStart(ScreenLockController.getAutoLock());
+    // Database authentication does not change the independent app authentication state.
+    ScreenLockController.onActivityResuming();
   }
 
   @Override
@@ -136,10 +136,10 @@ public class PassphrasePromptActivity extends PassphraseActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     super.onOptionsItemSelected(item);
     if (item.getItemId() == R.id.menu_submit_debug_logs) {
-      handleLogSubmit();
+      authenticateScreenLockAction(this::handleLogSubmit);
       return true;
     } else if (item.getItemId() == R.id.menu_contact_support) {
-      sendEmailToSupport();
+      authenticateScreenLockAction(this::sendEmailToSupport);
       return true;
     }
 
@@ -148,6 +148,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
 
   private void handleLogSubmit() {
     final Intent intent = new Intent(this, SubmitDebugLogActivity.class);
+    // The log viewer applies the same screen-lock authentication, even while the DB is closed.
     startActivity(chainIntents(intent, getIntent().getParcelableExtra("next_intent")));
   }
 
@@ -162,14 +163,15 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     char[] passphrase = getEnteredPassphrase(passphraseInput);
     if (passphrase.length > 0) {
       setInputEnabled(false);
-      if (ScreenLockController.getLockScreenAtStart()) {
+      if (ScreenLockController.getLockScreenAtStart() && TextSecurePreferences.isBiometricScreenLockEnabled(this)) {
+        final long generation = ScreenLockController.authenticationGeneration();
         BiometricDialogFragment.authenticate(
             this, new BiometricDialogFragment.Listener() {
               @Override
               public boolean onSuccess() {
                 setInputEnabled(false);
-                ScreenLockController.setLockScreenAtStart(false);
-                handlePassphrase(passphrase);
+                if (ScreenLockController.completeAuthentication(generation)) handlePassphrase(passphrase);
+                else showFailureAndEnableInput(false);
                 return true;
               }
 
@@ -193,9 +195,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
               @Override
               public boolean onNotEnrolled(@NonNull CharSequence errString) {
                 Toast.makeText(PassphrasePromptActivity.this, errString, Toast.LENGTH_LONG).show();
-                TextSecurePreferences.setBiometricScreenLockEnabled(PassphrasePromptActivity.this, false);
-                ScreenLockController.enableAutoLock(false);
-                handlePassphrase(passphrase);
+                showFailureAndEnableInput(false);
                 return true;
               }
             }

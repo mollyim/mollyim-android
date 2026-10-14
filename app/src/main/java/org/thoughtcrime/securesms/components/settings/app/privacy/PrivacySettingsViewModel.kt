@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.thoughtcrime.securesms.ScreenLockController
+import org.thoughtcrime.securesms.screenlock.ScreenLockMode
+import org.thoughtcrime.securesms.screenlock.ScreenLockPinStore
+import org.thoughtcrime.securesms.screenlock.ScreenLockPreferences
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.TextSecurePreferences
@@ -61,10 +64,16 @@ class PrivacySettingsViewModel(
     refresh()
   }
 
-  fun setBiometricScreenLock(enabled: Boolean) {
-    TextSecurePreferences.setBiometricScreenLockEnabled(application, enabled)
-    ScreenLockController.enableAutoLock(enabled)
-    ScreenLockController.lockScreenAtStart = false
+  fun setScreenLockMode(mode: ScreenLockMode, generation: Long): Boolean {
+    return try {
+      if (!ScreenLockPinStore.changeMode(application, mode, generation)) return false
+      refresh()
+      true
+    } catch (_: Exception) { false }
+  }
+
+  fun setScreenLockTimeout(seconds: Long) {
+    ScreenLockPreferences.setTimeoutSeconds(application, seconds)
     refresh()
   }
 
@@ -91,7 +100,8 @@ class PrivacySettingsViewModel(
       passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(application),
       passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(application).triggers,
       passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(application),
-      biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
+      screenLockMode = ScreenLockPreferences.getMode(application),
+      screenLockTimeout = ScreenLockPreferences.getTimeoutSeconds(application),
       screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
       incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
       universalExpireTimer = SignalStore.settings.universalExpireTimer

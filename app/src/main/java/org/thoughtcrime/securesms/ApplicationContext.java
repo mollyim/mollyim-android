@@ -192,7 +192,7 @@ public class ApplicationContext extends Application implements AppForegroundObse
     SqlCipherLibraryLoader.load();
     EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
     DynamicTheme.setDefaultDayNightMode(this);
-    ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
+    ScreenLockController.initialize(this);
     AppDependencies.installDependencyProviders();
 
     initializePassphraseLock();

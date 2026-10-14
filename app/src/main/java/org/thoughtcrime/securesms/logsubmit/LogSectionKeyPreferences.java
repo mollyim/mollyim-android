@@ -19,7 +19,7 @@ final class LogSectionKeyPreferences implements LogSection {
 
   @Override
   public @NonNull CharSequence getContent(@NonNull Context context) {
-    return new StringBuilder().append("Screen Lock              : ").append(TextSecurePreferences.isBiometricScreenLockEnabled(context)).append("\n")
+    return new StringBuilder().append("Screen Lock              : ").append(org.thoughtcrime.securesms.screenlock.ScreenLockPreferences.getMode(context)).append("\n")
                               .append("Passphrase Lock          : ").append(TextSecurePreferences.isPassphraseLockEnabled(context)).append("\n")
                               .append("Lock Trigger             : ").append(TextSecurePreferences.getPassphraseLockTrigger(context)).append("\n")
                               .append("Lock Timeout             : ").append(TextSecurePreferences.getPassphraseLockTimeout(context)).append("\n")

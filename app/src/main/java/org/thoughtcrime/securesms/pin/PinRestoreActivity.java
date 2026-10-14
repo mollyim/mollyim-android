@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
@@ -13,7 +13,7 @@ import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
-public final class PinRestoreActivity extends AppCompatActivity {
+public final class PinRestoreActivity extends BaseActivity {
 
   private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();
 

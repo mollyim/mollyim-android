@@ -19,12 +19,17 @@ import org.signal.core.util.ConfigurationUtil;
 import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment;
+import org.thoughtcrime.securesms.screenlock.ScreenLockAuthentication;
+import org.thoughtcrime.securesms.screenlock.ScreenLockMode;
+import org.thoughtcrime.securesms.screenlock.ScreenLockPreferences;
+import org.thoughtcrime.securesms.screenlock.ScreenLockPinDialogFragment;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,19 +42,22 @@ public abstract class BaseActivity extends AppCompatActivity {
   private static final String TAG = Log.tag(BaseActivity.class);
 
   private boolean lockScreenState;
-  private boolean biometricPromptLaunched;
+  private boolean screenLockPromptLaunched;
+  private final ArrayDeque<Runnable> pendingScreenLockActions = new ArrayDeque<>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     AppStartup.getInstance().onCriticalRenderEventStart();
     logEvent("onCreate()");
     super.onCreate(savedInstanceState);
+    lockScreenState = ScreenLockController.getLockScreenAtStart();
     blockRecentAppsScreenshot(ScreenLockController.getAutoLock());
     AppStartup.getInstance().onCriticalRenderEventEnd();
   }
 
   @Override
   protected void onResume() {
+    if (useScreenLock()) ScreenLockController.onActivityResuming();
     super.onResume();
     WindowUtil.initializeScreenshotSecurity(this, getWindow());
   }
@@ -63,6 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     if (!screenLocked && lockScreenState) {
       logEvent("onPostResume: screen no longer locked");
       BiometricDialogFragment.cancelAuthentication(this);
+      ScreenLockPinDialogFragment.cancelAuthentication(this);
+      screenLockPromptLaunched = false;
       onPostResume(false);
     } else {
       onPostResume(screenLocked);
@@ -77,19 +87,54 @@ public abstract class BaseActivity extends AppCompatActivity {
   public void onTopResumedActivityChanged(boolean isTopResumedActivity) {
     boolean isTopOfTask = isTopResumedActivity && !isFinishing();
     if (isTopOfTask && lockScreenState && useScreenLock()) {
-      showBiometricPromptForAuthentication(!hasShowWhenLockedWindow());
+      showScreenLockPrompt(true);
     }
   }
 
   protected void onPostResume(boolean screenLocked) {
-    this.lockScreenState = screenLocked;
+    this.lockScreenState = screenLocked || !ScreenLockController.isAccessAllowed();
 
-    if (!screenLocked) {
+    if (!lockScreenState) {
+      ScreenLockController.revealProtectedWindow(getWindow());
       ScreenLockController.unBlankScreen();
       if (getWindow() != null) {
         onWindowAttributesChanged(getWindow().getAttributes());
       }
+      while (!pendingScreenLockActions.isEmpty() && ScreenLockController.isAccessAllowed()) {
+        pendingScreenLockActions.removeFirst().run();
+      }
     }
+  }
+
+  public final void runWhenScreenUnlocked(Runnable action) {
+    if (ScreenLockController.isAccessAllowed()) action.run();
+    else pendingScreenLockActions.addLast(action);
+  }
+
+  protected final void clearPendingScreenLockActions() {
+    pendingScreenLockActions.clear();
+  }
+
+  /** Authentication/initialization screens may expose only guarded support actions. */
+  protected final void authenticateScreenLockAction(Runnable action) {
+    if (ScreenLockController.isAccessAllowed()) { action.run(); return; }
+    final long generation = ScreenLockController.authenticationGeneration();
+    ScreenLockAuthentication.authenticate(this, new BiometricDialogFragment.Listener() {
+      @Override public boolean onSuccess() {
+        if (ScreenLockController.completeAuthentication(generation)) action.run();
+        return true;
+      }
+      @Override public boolean onCancel(boolean fromUser) {
+        if (fromUser) onAuthenticationCancel();
+        return true;
+      }
+      @Override public boolean onError(@NonNull CharSequence message) {
+        Toast.makeText(BaseActivity.this, message, Toast.LENGTH_LONG).show();
+        onAuthenticationCancel();
+        return true;
+      }
+      @Override public boolean onNotEnrolled(@NonNull CharSequence message) { return onError(message); }
+    }, true);
   }
 
   protected void onAuthenticationCancel() {
@@ -101,6 +146,38 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   public boolean useScreenLock() {
     return true;
+  }
+
+  public void onScreenLockStateChanged() {
+    if (isFinishing() || isDestroyed()) return;
+    blockRecentAppsScreenshot(ScreenLockController.getAutoLock());
+    WindowUtil.initializeScreenshotSecurity(this, getWindow());
+    if (ScreenLockController.isAccessAllowed()) {
+      screenLockPromptLaunched = false;
+      onPostResume(false);
+      ScreenLockPinDialogFragment.cancelAuthentication(this, false);
+      BiometricDialogFragment.cancelAuthentication(this);
+    } else if (useScreenLock()) {
+      lockScreenState = true;
+      ScreenLockController.hideProtectedWindow(getWindow());
+      ScreenLockController.blankScreen();
+      onWindowAttributesChanged(getWindow().getAttributes());
+    }
+  }
+
+  protected void refreshScreenLockProtection() {
+    if (!useScreenLock()) {
+      ScreenLockController.revealExemptWindow(getWindow());
+      ScreenLockPinDialogFragment.cancelAuthentication(this);
+      BiometricDialogFragment.cancelAuthentication(this);
+      screenLockPromptLaunched = false;
+    } else {
+      ScreenLockController.hideWhenLocked(getWindow());
+      lockScreenState = ScreenLockController.shouldLockScreenAtStart();
+      if (lockScreenState) ScreenLockController.blankScreen();
+      else onPostResume(false);
+    }
+    onWindowAttributesChanged(getWindow().getAttributes());
   }
 
   public void blockRecentAppsScreenshot(boolean block) {
@@ -122,7 +199,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   @Override
   public void onAttachedToWindow() {
-    boolean alwaysVisible = !useScreenLock() || hasShowWhenLockedWindow();
+    boolean alwaysVisible = !useScreenLock();
     if (alwaysVisible) {
       logEvent("onAttachedToWindow: window excluded from screen lock");
       ScreenLockController.showWhenLocked(getWindow());
@@ -131,38 +208,39 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     if (lockScreenState) {
+      if (useScreenLock()) ScreenLockController.hideProtectedWindow(getWindow());
       ScreenLockController.blankScreen();
     }
   }
 
-  private void showBiometricPromptForAuthentication(boolean fullScreen) {
-    if (biometricPromptLaunched) {
+  private void showScreenLockPrompt(boolean fullScreen) {
+    if (screenLockPromptLaunched && ScreenLockPreferences.getMode(this) != ScreenLockMode.PIN) {
       return;
     }
 
-    logEvent("Prompting for biometrics: fullScreen=" + fullScreen);
+    logEvent("Prompting for screen lock: fullScreen=" + fullScreen);
 
-    final BiometricDialogFragment dialog = BiometricDialogFragment.findOrAddFragment(
-        getSupportFragmentManager(), fullScreen);
-
-    dialog.setCancelable(false);
-    dialog.showPrompt(
+    final long generation = ScreenLockController.authenticationGeneration();
+    screenLockPromptLaunched = true;
+    ScreenLockAuthentication.authenticate(
         this,
         new BiometricDialogFragment.Listener() {
           @Override
           public boolean onSuccess() {
-            biometricPromptLaunched = false;
-            ScreenLockController.setLockScreenAtStart(false);
-            onPostResume(false);
+            screenLockPromptLaunched = false;
+            if (ScreenLockController.completeAuthentication(generation) || !ScreenLockController.getLockScreenAtStart()) {
+              onPostResume(false);
+            }
             return true;
           }
 
           @Override
           public boolean onCancel(boolean fromUser) {
-            biometricPromptLaunched = false;
+            screenLockPromptLaunched = false;
             if (!ScreenLockController.getLockScreenAtStart()) {
               logEvent("Screen already unlocked by another activity. Ignore the cancel event.");
-              return onSuccess();
+              onPostResume(false);
+              return true;
             }
             if (fromUser) {
               logEvent("Authentication canceled from user");
@@ -173,7 +251,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
           @Override
           public boolean onError(@NonNull CharSequence errString) {
-            biometricPromptLaunched = false;
+            screenLockPromptLaunched = false;
             Toast.makeText(BaseActivity.this, errString, Toast.LENGTH_LONG).show();
             finishAndRemoveTask();
             return false;
@@ -181,36 +259,33 @@ public abstract class BaseActivity extends AppCompatActivity {
 
           @Override
           public boolean onNotEnrolled(@NonNull CharSequence errString) {
-            biometricPromptLaunched = false;
-            logError("No biometrics. Screen lock will be disabled.");
+            screenLockPromptLaunched = false;
             Toast.makeText(BaseActivity.this, errString, Toast.LENGTH_LONG).show();
-            // If passphrase is available, PassphrasePromptActivity will disable the screen lock
-            // after authenticating the user with the passphrase. Otherwise it cannot be helped.
-            if (TextSecurePreferences.isPassphraseLockEnabled(BaseActivity.this)) {
-              Intent lockIntent = new Intent(BaseActivity.this, KeyCachingService.class);
-              lockIntent.setAction(KeyCachingService.CLEAR_KEY_ACTION);
-              startService(lockIntent);
-            } else {
-              TextSecurePreferences.setBiometricScreenLockEnabled(BaseActivity.this, false);
-              ScreenLockController.enableAutoLock(false);
-              onSuccess();
-              recreate();
-            }
+            onAuthenticationCancel();
             return false;
           }
-        }
+        }, fullScreen
     );
+  }
 
-    biometricPromptLaunched = true;
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    super.onWindowFocusChanged(hasFocus);
+    if (hasFocus && useScreenLock() && ScreenLockController.getLockScreenAtStart() && !screenLockPromptLaunched && !isFinishing()) {
+      showScreenLockPrompt(true);
+    }
   }
 
   @Override
   protected void onStart() {
     logEvent("onStart()");
+    ScreenLockController.onActivityStarting(this);
     super.onStart();
 
-    if (ScreenLockController.shouldLockScreenAtStart()) {
+    lockScreenState = useScreenLock() ? ScreenLockController.shouldLockScreenAtStart() : ScreenLockController.getLockScreenAtStart();
+    if (lockScreenState) {
       logEvent("onStart: screen locked");
+      if (useScreenLock()) ScreenLockController.hideProtectedWindow(getWindow());
       ScreenLockController.blankScreen();
     }
   }
@@ -218,6 +293,9 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onStop() {
     logEvent("onStop()");
+    ScreenLockController.onActivityStopping(this);
+    screenLockPromptLaunched = false;
+    pendingScreenLockActions.clear();
     super.onStop();
   }
 

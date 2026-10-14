@@ -12,6 +12,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
+import kotlinx.coroutines.launch
+import org.thoughtcrime.securesms.BaseActivity
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import org.signal.core.ui.util.ThemeUtil
@@ -42,6 +46,11 @@ import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import kotlin.time.Duration.Companion.seconds
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.thoughtcrime.securesms.screenlock.ScreenLockAuthentication
+import org.thoughtcrime.securesms.screenlock.ScreenLockMode
+import org.thoughtcrime.securesms.screenlock.ScreenLockPinDialogFragment
+import org.thoughtcrime.securesms.screenlock.ScreenLockPreferences
 
 private val TAG = Log.tag(PrivacySettingsFragment::class.java)
 
@@ -64,6 +73,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
   override fun onResume() {
     super.onResume()
+    viewModel.refresh()
     viewModel.refreshBlockedCount()
   }
 
@@ -222,14 +232,43 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
 
       sectionHeaderPref(R.string.PrivacySettingsFragment__app_security)
 
-      switchPref(
-        title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock),
-        summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition),
-        isChecked = state.biometricScreenLock,
+      clickPref(
+        title = DSLSettingsText.from(R.string.screen_lock_method),
+        summary = DSLSettingsText.from(modeLabel(state.screenLockMode)),
         onClick = {
-          onBiometricScreenLockClicked(!state.biometricScreenLock)
+          val modes = ScreenLockMode.values()
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.screen_lock_method)
+            .setSingleChoiceItems(modes.map { getString(modeLabel(it)) }.toTypedArray(), state.screenLockMode.ordinal) { dialog, which ->
+              dialog.dismiss()
+              if (modes[which] != state.screenLockMode) changeScreenLockMode(modes[which])
+            }.setNegativeButton(android.R.string.cancel, null).show()
         }
       )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.screen_lock_timeout),
+        summary = DSLSettingsText.from(timeoutLabel(state.screenLockTimeout)),
+        isEnabled = state.screenLockMode != ScreenLockMode.OFF,
+        onClick = {
+          val durations = ScreenLockPreferences.timeouts
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.screen_lock_timeout)
+            .setSingleChoiceItems(durations.map { timeoutLabel(it) }.toTypedArray(), durations.indexOf(state.screenLockTimeout)) { dialog, which ->
+              dialog.dismiss()
+              viewModel.setScreenLockTimeout(durations[which])
+            }.setNegativeButton(android.R.string.cancel, null).show()
+        }
+      )
+
+      if (state.screenLockMode == ScreenLockMode.PIN) {
+        clickPref(
+          title = DSLSettingsText.from(R.string.screen_lock_change_pin),
+          onClick = { authenticateCurrentLock { showPinSetup() } }
+        )
+      }
+
+      textPref(summary = DSLSettingsText.from(R.string.screen_lock_device_only))
 
       switchPref(
         title = DSLSettingsText.from(R.string.preferences__screen_security),
@@ -268,8 +307,21 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
   }
 
   private val biometricEnrollment = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-    onBiometricEnrollFinished()
+    viewLifecycleOwner.lifecycleScope.launch {
+      viewLifecycleOwner.lifecycle.withResumed {
+        if (BiometricDialogFragment.checkBiometricAvailability(requireContext(), BiometricDialogFragment.BIOMETRIC_AUTHENTICATORS_ALLOWED) == BiometricManager.BIOMETRIC_SUCCESS) {
+          (requireActivity() as BaseActivity).runWhenScreenUnlocked {
+            if (isResumed) {
+              pendingBiometricGeneration = ScreenLockController.authenticationGeneration()
+              onBiometricScreenLockClicked(true)
+            }
+          }
+        }
+      }
+    }
   }
+
+  private var pendingBiometricGeneration: Long = 0
 
   private fun onBiometricScreenLockClicked(enabled: Boolean) {
     if (enabled) {
@@ -312,7 +364,8 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
       requireActivity(),
       object : BiometricDialogFragment.Listener {
         override fun onSuccess(): Boolean {
-          setBiometricScreenLock(true)
+          if (!isResumed || !ScreenLockController.isCurrentAuthentication(pendingBiometricGeneration)) return true
+          setBiometricScreenLock(true, pendingBiometricGeneration)
           return true
         }
 
@@ -324,10 +377,61 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
     )
   }
 
-  private fun setBiometricScreenLock(enabled: Boolean) {
-    viewModel.setBiometricScreenLock(enabled)
-    (activity as PassphraseActivity).blockRecentAppsScreenshot(enabled)
+  private fun setBiometricScreenLock(enabled: Boolean, generation: Long = ScreenLockController.authenticationGeneration()) {
+    if (!viewModel.setScreenLockMode(if (enabled) ScreenLockMode.BIOMETRIC else ScreenLockMode.OFF, generation)) {
+      Toast.makeText(context, R.string.screen_lock_pin_unavailable, Toast.LENGTH_LONG).show()
+    }
+    (activity as PassphraseActivity).blockRecentAppsScreenshot(ScreenLockController.autoLock)
     WindowUtil.initializeScreenshotSecurity(requireContext(), requireActivity().window)
+  }
+
+  private fun modeLabel(mode: ScreenLockMode): Int = when (mode) {
+    ScreenLockMode.OFF -> R.string.screen_lock_off
+    ScreenLockMode.BIOMETRIC -> R.string.screen_lock_biometric
+    ScreenLockMode.PIN -> R.string.screen_lock_pin
+  }
+
+  private fun timeoutLabel(seconds: Long): String = getDeviceLockTimeoutSummary(seconds)
+
+  private fun changeScreenLockMode(mode: ScreenLockMode) {
+    authenticateCurrentLock {
+      when (mode) {
+        ScreenLockMode.OFF -> setBiometricScreenLock(false)
+        ScreenLockMode.BIOMETRIC -> {
+          pendingBiometricGeneration = ScreenLockController.authenticationGeneration()
+          onBiometricScreenLockClicked(true)
+        }
+        ScreenLockMode.PIN -> showPinSetup()
+      }
+    }
+  }
+
+  private fun authenticateCurrentLock(action: () -> Unit) {
+    ScreenLockAuthentication.authenticate(requireActivity(), object : BiometricDialogFragment.Listener {
+      override fun onSuccess(): Boolean {
+        if (isResumed) action()
+        return true
+      }
+      override fun onError(message: CharSequence): Boolean {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        return true
+      }
+    }, false)
+  }
+
+  private fun showPinSetup() {
+    ScreenLockPinDialogFragment.show(requireActivity(), true, object : BiometricDialogFragment.Listener {
+      override fun onSuccess(): Boolean {
+        viewModel.refresh()
+        (activity as? PassphraseActivity)?.blockRecentAppsScreenshot(ScreenLockController.autoLock)
+        activity?.window?.let { WindowUtil.initializeScreenshotSecurity(requireContext(), it) }
+        return true
+      }
+      override fun onError(message: CharSequence): Boolean {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        return true
+      }
+    })
   }
 
   private fun getDeviceLockTimeoutSummary(timeoutSeconds: Long): String {

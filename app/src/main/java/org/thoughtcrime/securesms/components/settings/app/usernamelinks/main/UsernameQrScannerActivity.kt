@@ -16,7 +16,8 @@ import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import org.thoughtcrime.securesms.BaseActivity
+import org.thoughtcrime.securesms.ScreenLockController
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -53,7 +54,19 @@ import org.signal.mediasend.R as MediaSendR
  * Prompts the user to scan a username QR code. Uses the activity result to communicate the recipient that was found, or null if no valid usernames were scanned.
  * See [Contract].
  */
-class UsernameQrScannerActivity : AppCompatActivity() {
+class UsernameQrScannerActivity : BaseActivity() {
+
+  private val screenLockAccess = androidx.compose.runtime.mutableStateOf(false)
+
+  override fun onPostResume(screenLocked: Boolean) {
+    super.onPostResume(screenLocked)
+    screenLockAccess.value = !screenLocked && ScreenLockController.isAccessAllowed()
+  }
+
+  override fun onStop() {
+    screenLockAccess.value = false
+    super.onStop()
+  }
 
   companion object {
     private const val KEY_RECIPIENT_ID = "recipient_id"
@@ -71,11 +84,13 @@ class UsernameQrScannerActivity : AppCompatActivity() {
 
     val galleryLauncher = registerForActivityResult(QrImageSelectionActivity.Contract()) { uri ->
       if (uri != null) {
-        viewModel.onQrImageSelected(this, uri)
+        runWhenScreenUnlocked { viewModel.onQrImageSelected(this, uri) }
       }
     }
 
     setContent {
+      // A full-screen authentication dialog does not pause the activity or its camera lifecycle.
+      if (!screenLockAccess.value) return@setContent
       val galleryPermissionState: MultiplePermissionsState = rememberMultiplePermissionsState(permissions = PermissionCompat.forImages().toList()) { grants ->
         if (grants.values.all { it }) {
           galleryLauncher.launch(Unit)
@@ -92,7 +107,7 @@ class UsernameQrScannerActivity : AppCompatActivity() {
 
       LaunchedEffect(cameraViewModel) {
         cameraViewModel.qrCodeDetected.collect { url ->
-          viewModel.onQrScanned(url)
+          if (ScreenLockController.isAccessAllowed()) viewModel.onQrScanned(url)
         }
       }
 

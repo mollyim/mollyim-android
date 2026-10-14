@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.IntDef;
@@ -125,6 +126,8 @@ public class CallNotificationBuilder {
             ActiveCallManager.denyCallIntent(context),
             getActivityPendingIntent(context, isVideoCall ? LaunchCallScreenIntentState.VIDEO : LaunchCallScreenIntentState.AUDIO)
         ).setIsVideo(isVideoCall));
+      } else {
+        builder.addAction(getServiceNotificationAction(context, ActiveCallManager.denyCallIntent(context), R.drawable.symbol_phone_down_fill_24, R.string.WebRtcCallScreen__decline));
       }
 
       return builder.build();
@@ -155,6 +158,8 @@ public class CallNotificationBuilder {
             person,
             ActiveCallManager.hangupIntent(context)
         ).setIsVideo(isVideoCall));
+      } else {
+        builder.addAction(getServiceNotificationAction(context, ActiveCallManager.hangupIntent(context), R.drawable.symbol_phone_down_fill_24, R.string.WebRtcCallView__end_call));
       }
 
       return builder.build();
@@ -236,6 +241,11 @@ public class CallNotificationBuilder {
   private static PendingIntent getActivityPendingIntent(@NonNull Context context, @NonNull LaunchCallScreenIntentState launchCallScreenIntentState) {
     CallIntent.Builder builder = new CallIntent.Builder(context);
     builder.withAction(launchCallScreenIntentState.action);
+    String incomingToken = null;
+    if (launchCallScreenIntentState != LaunchCallScreenIntentState.CONTENT) {
+      incomingToken = org.thoughtcrime.securesms.dependencies.AppDependencies.getSignalCallManager().getIncomingCallToken();
+      builder.withIncomingCallToken(incomingToken);
+    }
 
     if (launchCallScreenIntentState == LaunchCallScreenIntentState.CONTENT) {
       // MOLLY: Set a non-empty action to clear any pending action held by the screen lock
@@ -246,7 +256,12 @@ public class CallNotificationBuilder {
     builder.withStartedFromFullScreen(launchCallScreenIntentState == LaunchCallScreenIntentState.CONTENT);
     builder.withEnableVideoIfAvailable(false);
 
-    return PendingIntent.getActivity(context, launchCallScreenIntentState.requestCode, builder.build(), PendingIntentFlags.updateCurrent());
+    Intent intent = builder.build();
+    if (incomingToken != null) {
+      // UPDATE_CURRENT must not turn an old notification's answer request into a new call's request.
+      intent.setData(Uri.parse("molly://screen-lock-call/" + Uri.encode(incomingToken)));
+    }
+    return PendingIntent.getActivity(context, launchCallScreenIntentState.requestCode, intent, PendingIntentFlags.updateCurrent());
   }
 
   private static boolean deviceVersionSupportsIncomingCallStyle() {

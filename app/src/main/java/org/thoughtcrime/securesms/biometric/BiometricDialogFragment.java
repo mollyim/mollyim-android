@@ -156,7 +156,7 @@ public class BiometricDialogFragment extends DialogFragment {
   @Override
   public void onPause() {
     super.onPause();
-    biometricCallback.onHostActivityPaused();
+    if (biometricCallback != null) biometricCallback.onHostActivityPaused();
   }
 
   @Override
