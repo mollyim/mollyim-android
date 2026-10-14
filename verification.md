@@ -63,3 +63,20 @@ ANDROID_HOME=/tmp/molly-toolchain/android-sdk \
 - 경로: `app/build/outputs/apk/prodWebsite/debug/app-prod-website-debug.apk`.
 - 패키지: `im.molly.app`, 디버그 서명. 기존 설치 앱과 서명이 다르면 업데이트 설치할 수 없으므로 별도 테스트 기기·프로필에서 검증한다.
 - SHA-256: `365c0b4722adca7e8303b63e1921ff48e059f9d5e4519aa1af7153ec0d7d0246`.
+
+## 개인 서명 GitHub Release 구성 — 2026-10-14
+
+- `release.yml`: 기존 개인 태그 수동 실행 및 `v*-personal.*` 태그 push 지원.
+- `tagrelease.yml`: 선택한 브랜치에 개인 태그를 새로 만들고 release workflow 호출.
+- 서명 Secret 세 개 필수, `prodStoreRelease`만 배포, 공식 자동 업데이트 비활성화.
+- 화면 잠금 테스트 이후 서명 APK 생성. 서명 인증서, 패키지, debuggable 여부,
+  최근 공개된 개인 APK 대비 인증서·버전 코드 호환성을 확인한 후 업로드.
+- 기존 태그 및 공개된 Release를 덮어쓰지 않음. 기본은 초안, 수동 실행에서 자동 공개 선택 가능.
+- APK 검증 helper 모의 테스트 **11개 통과**.
+- workflow 두 개의 GitHub Actions JSON schema 검사 통과.
+- inline shell step **13개**의 `bash -n` 통과, 태그·Secret 입력 guard **10개 사례** 통과.
+- `git diff --check` 통과.
+- 이번 단계에서는 Android 앱 소스를 추가 수정하지 않았다. 기존 화면 잠금 테스트 결과는
+  43개 통과이며, 이번 CI 수정으로 Android 테스트를 새로 실행한 결과는 아니다.
+- 실제 GitHub runner에서 개인 release 빌드·서명·배포는 아직 실행하지 않았다.
+  개인 keystore Secret 등록이 필요하다. 설정과 사용 순서는 `PERSONAL_RELEASE.md`를 참고한다.

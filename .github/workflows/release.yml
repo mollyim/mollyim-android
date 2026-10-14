@@ -1,181 +1,218 @@
-name: Release
+name: Personal signed APK release
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*-personal.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Existing tag, for example v8.19.2-4-personal.1'
+        required: true
+        type: string
+      publish:
+        description: 'Publish after verification (otherwise leave a draft)'
+        default: false
+        type: boolean
   workflow_call:
     inputs:
       version:
         required: true
         type: string
+      publish:
+        default: false
+        type: boolean
 
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  contents: read
+
+concurrency:
+  group: personal-release-${{ inputs.version || github.ref_name }}
+  cancel-in-progress: false
 
 env:
-  TAG_REF: "${{ inputs.version || github.ref_name }}"
-  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
-  HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
+  TAG_REF: ${{ inputs.version || github.ref_name }}
+  CI_BUILD_VARIANTS: prodStore
 
 jobs:
   build:
-    name: Build
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
+    name: Test, build and verify signed APK
     runs-on: ubuntu-24.04
-
+    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v6
+      - name: Validate release inputs and signing secrets
+        env:
+          KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
+          KEY_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
+        run: |
+          [[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-personal\.[0-9]+$ ]] || {
+            echo '::error::Use a version tag ending in -personal.<number>.'
+            exit 1
+          }
+          for name in KEYSTORE KEY_ALIAS KEY_PASSWORD; do
+            [[ -n "${!name}" ]] || {
+              echo '::error::Set SECRET_KEYSTORE, SECRET_KEYSTORE_ALIAS and SECRET_KEYSTORE_PASSWORD.'
+              exit 1
+            }
+          done
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: "${{ env.TAG_REF }}"
+          ref: ${{ env.TAG_REF }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify checked-out tag
+        run: test "$(git rev-parse HEAD)" = "$(git rev-parse "refs/tags/$TAG_REF^{commit}")"
+
+      - name: Test APK verification rejection paths
+        run: python3 .github/scripts/test-verify-personal-apk.py
 
       - name: Free up disk space in runner
         uses: ./.github/actions/disk-cleanup
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v5
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: temurin
           java-version: 21
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+
+      - name: Install Android toolchain pinned by the project
+        run: |
+          python3 - <<'PYTHON'
+          import os, subprocess, tomllib
+          with open('gradle/libs.versions.toml', 'rb') as source:
+              versions = tomllib.load(source)['versions']
+          subprocess.run(['sdkmanager', 'platform-tools',
+                          'build-tools;' + versions['buildTools'],
+                          'platforms;' + versions['compileSdk'],
+                          'ndk;' + versions['ndk']], check=True)
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('BUILD_TOOLS_VERSION=' + versions['buildTools'] + '\n')
+          PYTHON
+
+      - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
         with:
           cache-read-only: true
 
-      - name: Build Docker image
-        run: docker compose build
-        working-directory: reproducible-builds
-
-      - name: Export CI environment variables
+      - name: Run screen lock unit tests
         run: |
-          cp -v "ci/$BUILD_ENV_FILE" .env
-          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
-                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
-                     MAPS_API_KEY; do
-            if [ -n "${!var}" ]; then
-              echo "Setting CI_$var=${!var}"
-              echo "CI_$var=${!var}" >> $GITHUB_ENV
-            fi
-          done
-        working-directory: reproducible-builds
-        env:
-          APP_TITLE: ${{ vars.CI_APP_TITLE }}
-          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
-          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
-          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
-          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
+          ./gradlew -PCI=true :app:testProdStoreDebugUnitTest \
+            --tests 'org.thoughtcrime.securesms.screenlock.*' \
+            '-Dorg.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3' \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            --max-workers=2 --no-parallel --no-daemon --no-configuration-cache
 
-      - name: Extract signing keys
-        if: "env.HAVE_KEYSTORE == 'true'"
-        run: printenv KEYSTORE | base64 -d > certs/keystore.jks
-        working-directory: reproducible-builds
+      - name: Decode private keystore
         env:
           KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
+        run: |
+          umask 077
+          CI_KEYSTORE_PATH="$RUNNER_TEMP/molly-release.jks"
+          echo "CI_KEYSTORE_PATH=$CI_KEYSTORE_PATH" >> "$GITHUB_ENV"
+          printf '%s' "$KEYSTORE" | base64 --decode > "$CI_KEYSTORE_PATH"
 
-      - name: Build without signing
-        if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
-
-      - name: Build and sign
-        if: "env.HAVE_KEYSTORE == 'true'"
-        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
+      - name: Build signed release APK
         env:
-          CI_KEYSTORE_PATH: certs/keystore.jks
           CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
           CI_KEYSTORE_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
+        run: |
+          ./gradlew -PCI=true :app:assembleProdStoreRelease \
+            '-Dorg.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3' \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            --max-workers=2 --no-parallel --no-daemon --no-configuration-cache
 
-      - name: Clean up keystore
-        if: "always()"
-        run: rm -f certs/keystore.jks
-        working-directory: reproducible-builds
+      - name: Verify APK signature and upgrade compatibility
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
+          CI_KEYSTORE_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
+        run: |
+          keytool -exportcert -keystore "$CI_KEYSTORE_PATH" \
+            -alias "$CI_KEYSTORE_ALIAS" -storepass:env CI_KEYSTORE_PASSWORD \
+            -file "$RUNNER_TEMP/molly-signing-cert.der"
+          export EXPECTED_CERT_SHA256
+          EXPECTED_CERT_SHA256=$(sha256sum "$RUNNER_TEMP/molly-signing-cert.der" | cut -d ' ' -f 1)
+          shopt -s nullglob
+          apks=(app/build/outputs/apk/prodStore/release/*.apk)
+          [[ ${#apks[@]} -eq 1 ]] || { echo '::error::Expected one release APK.'; exit 1; }
+          gh release list --exclude-drafts --limit 100 --json tagName --jq '.[].tagName' > "$RUNNER_TEMP/release-tags"
+          previous=''
+          while IFS= read -r tag; do
+            if [[ "$tag" != "$TAG_REF" && "$tag" =~ ^v[0-9][A-Za-z0-9._-]*-personal\.[0-9]+$ ]]; then
+              previous=$tag
+              break
+            fi
+          done < "$RUNNER_TEMP/release-tags"
+          old_apk=''
+          if [[ -n "$previous" ]]; then
+            gh release download "$previous" --pattern '*.apk' --dir "$RUNNER_TEMP/previous-apk"
+            old_apks=("$RUNNER_TEMP"/previous-apk/*.apk)
+            [[ ${#old_apks[@]} -eq 1 ]] || { echo '::error::Expected one previous APK.'; exit 1; }
+            old_apk=${old_apks[0]}
+          fi
+          bash .github/scripts/verify-personal-apk.sh "${apks[0]}" "$old_apk"
+          mkdir -p release-apk
+          cp "${apks[0]}" release-apk/
+          (cd release-apk && sha256sum ./*.apk > SHA256SUMS)
 
-      - name: Log APK and AAB checksums
-        run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
-        working-directory: reproducible-builds
+      - name: Remove signing material
+        if: always()
+        run: rm -f "$RUNNER_TEMP/molly-release.jks" "$RUNNER_TEMP/molly-signing-cert.der"
 
-      - name: Upload APKs
-        uses: actions/upload-artifact@v7
+      - name: Upload verified APK and checksum
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
-          name: apk
-          path: reproducible-builds/outputs/apk/*/release/*.apk
+          name: signed-personal-apk
+          path: release-apk/
           if-no-files-found: error
 
-      - name: Upload Bundles
-        uses: actions/upload-artifact@v7
+      - name: Upload unit test reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
-          name: bundle
-          path: reproducible-builds/outputs/bundle/*Release/*.aab
-          if-no-files-found: error
+          name: screen-lock-test-results
+          path: app/build/test-results/testProdStoreDebugUnitTest/
+          if-no-files-found: ignore
 
-  prepare_release:
-    name: Prepare release
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
+  release:
+    name: Upload GitHub Release
+    needs: build
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PUBLISH: ${{ inputs.publish || false }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          ref: "${{ env.TAG_REF }}"
+          name: signed-personal-apk
+          path: release-apk
 
-      - name: Check if release exists
-        id: check_release
+      - name: Create or update release draft
         run: |
-          if gh release view "$TAG_REF"; then
-            echo "release_exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "release_exists=false" >> $GITHUB_OUTPUT
+          gh api "repos/$GH_REPO/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
+          state=$(jq -r --arg tag "$TAG_REF" 'map(select(.tag_name == $tag)) | if length == 0 then "missing" elif .[0].draft then "draft" else "published" end' "$RUNNER_TEMP/releases.json")
+          [[ "$state" != published ]] || { echo '::error::Refusing to replace a published release.'; exit 1; }
+          if [[ "$state" == missing ]]; then
+            printf '%s\n' \
+              'Personal Molly build signed with a private release key.' \
+              'Official Molly installations require backup and migration; this APK cannot update their signature.' \
+              'Screen lock unit tests, APK signature and upgrade compatibility checks passed.' \
+              'Official automatic updates are disabled. See PERSONAL_RELEASE.md for setup and migration.' \
+              > "$RUNNER_TEMP/release-notes.md"
+            gh release create "$TAG_REF" --draft --verify-tag \
+              --title "Molly personal build $TAG_REF" --notes-file "$RUNNER_TEMP/release-notes.md"
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release draft
-        if: "steps.check_release.outputs.release_exists == 'false'"
-        run: gh release create -d --verify-tag -t "$TAG_REF" "$TAG_REF"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
-
-  upload:
-    name: Upload
-    runs-on: ubuntu-24.04
-    needs:
-      - build
-      - prepare_release
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-
-      - name: Check version for upgrade compatibility
+      - name: Upload release assets and optionally publish
         run: |
-          echo "Listing latest APKs"
-          gh release list --exclude-drafts --limit 10
-          gh release download --pattern '*.apk' --dir latest || exit 0
-          latest_apks=(latest/*.apk)
-          build_apks=(apk/*/release/*.apk)
-          aapt=($ANDROID_HOME/build-tools/*/aapt)
-          version_code() {
-            $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
-          }
-          echo "Using aapt: $aapt"
-          latest_version_code=$(version_code "$latest_apks")
-          build_version_code=$(version_code "$build_apks")
-          echo "Latest version code: $latest_version_code"
-          echo "Build version code: $build_version_code"
-          if [ "$build_version_code" -le "$latest_version_code" ]; then
-            echo "Build version code must be greater than the latest version code" >&2
-            exit 1
+          gh release upload "$TAG_REF" release-apk/*.apk release-apk/SHA256SUMS --clobber
+          if [[ "$PUBLISH" == true ]]; then
+            gh release edit "$TAG_REF" --draft=false --latest=false
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload APKs to GitHub release
-        run: gh release upload "$TAG_REF" ./apk/*/release/*.apk --clobber
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}

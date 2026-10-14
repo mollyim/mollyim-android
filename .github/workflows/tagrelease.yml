@@ -1,49 +1,60 @@
-name: Tag Commit for Release
+name: Tag commit for personal release
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'New tag, for example v8.19.2-4-personal.1'
+        required: true
+        type: string
+      publish:
+        description: 'Publish after verification (otherwise leave a draft)'
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
 
 jobs:
   push_tag:
-    name: Push version tag
+    name: Tag selected commit
     runs-on: ubuntu-24.04
-    outputs:
-      version: ${{ steps.extract_version.outputs.version }}
-      should_call_release: ${{ steps.release_trigger.outputs.should_call_release }}
+    env:
+      TAG_REF: ${{ inputs.version }}
 
     steps:
-      - uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 21
-
-      - name: Extract version from source
-        id: extract_version
-        run: |
-          ver=$(./gradlew -q :app:printVersion | jq -r .android.versionName)
-          echo "version=v$ver" >> $GITHUB_OUTPUT
-
-      - name: Tag current commit and push
-        run: |
-          git tag -f "${{ steps.extract_version.outputs.version }}"
-          git push -f origin "${{ steps.extract_version.outputs.version }}"
-
-      - name: Determine release trigger
-        id: release_trigger
-        run: echo "should_call_release=$IS_PAT_MISSING" >> $GITHUB_OUTPUT
+      - name: Validate tag and signing secrets
         env:
-          IS_PAT_MISSING: ${{ secrets.PUBLISH_PAT == '' }}
+          KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
+          KEY_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
+        run: |
+          [[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-personal\.[0-9]+$ ]] || {
+            echo '::error::Use a version tag ending in -personal.<number>.'
+            exit 1
+          }
+          for name in KEYSTORE KEY_ALIAS KEY_PASSWORD; do
+            [[ -n "${!name}" ]] || { echo '::error::Set all three signing secrets before tagging.'; exit 1; }
+          done
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+
+      - name: Create and push tag without replacing existing tags
+        run: |
+          if git show-ref --verify --quiet "refs/tags/$TAG_REF"; then
+            echo '::error::Tag already exists. Rerun the release workflow for that tag.'
+            exit 1
+          fi
+          git tag "$TAG_REF"
+          git push origin "refs/tags/$TAG_REF"
 
   call_release_workflow:
-    name: Release workflow
-    if: "needs.push_tag.outputs.should_call_release == 'true'"
+    name: Build release
     needs: push_tag
     uses: ./.github/workflows/release.yml
     with:
-      version: ${{ needs.push_tag.outputs.version }}
+      version: ${{ inputs.version }}
+      publish: ${{ inputs.publish }}
     secrets: inherit
