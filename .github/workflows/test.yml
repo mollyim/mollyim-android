@@ -37,6 +37,9 @@ jobs:
       - name: Copy Docker gradle.properties
         run: cp gradle.properties.docker "$GRADLE_USER_HOME/gradle.properties"
 
+      - name: Run activity lint regression tests
+        run: ./gradlew :lintchecks:test
+
       - name: Build and run tests
         run: ./gradlew build
 

@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.mediasend;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -33,6 +34,8 @@ import org.thoughtcrime.securesms.util.MediaUtil;
 import java.io.FileDescriptor;
 import java.util.Collections;
 
+// Also used during profile setup: enforce screen lock without requiring registration to be complete.
+@SuppressLint("BaseActivitySubclass")
 public class AvatarSelectionActivity extends BaseActivity implements CameraFragment.Controller, ImageEditorFragment.Controller, MediaGalleryFragment.Callbacks {
 
   private static final Point AVATAR_DIMENSIONS = new Point(AvatarHelper.AVATAR_DIMENSIONS, AvatarHelper.AVATAR_DIMENSIONS);

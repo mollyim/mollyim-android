@@ -54,7 +54,9 @@
 
 - 서명 Secret 세 개가 모두 있어야 진행합니다. unsigned APK를 배포하지 않습니다.
 - 고정된 JDK 21과 프로젝트에 명시된 Android SDK/NDK 버전을 설치합니다.
-- 화면 잠금 테스트를 실행한 뒤 개인 키로 release APK를 서명합니다.
+- Activity lint 회귀 테스트와 화면 잠금 테스트를 실행합니다.
+- release 변형의 lint 검사를 통과한 뒤 개인 키를 복호화하고 APK를 서명합니다.
+  lint 또는 테스트가 실패하면 APK를 배포하지 않으며, 검사 보고서를 Actions artifact에 저장합니다.
 - APK 서명, 실제 서명 인증서, `im.molly.app` 패키지, debuggable 여부를 확인합니다.
 - 최근 공개된 개인 Release가 있으면 인증서가 같고 `versionCode`가 증가했는지 확인합니다.
   초안·로컬 설치 버전과의 비교는 하지 않으므로 그 경우에는 직접 버전 증가를 확인합니다.

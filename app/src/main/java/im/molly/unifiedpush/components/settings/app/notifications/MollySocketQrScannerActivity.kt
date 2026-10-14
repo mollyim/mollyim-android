@@ -51,6 +51,8 @@ import org.signal.mediasend.R as MediaSendR
  * Prompts the user to scan a MollySocket QR code. Uses the activity result to communicate the recipient that was found, or null if no valid deeplink were scanned.
  * See [Contract].
  */
+// Preserve upstream scanner/result routing while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
 class MollySocketQrScannerActivity : BaseActivity() {
 
   private val screenLockAccess = androidx.compose.runtime.mutableStateOf(false)

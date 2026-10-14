@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.pin;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
+// Keep the upstream account-recovery entry flow while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
 public final class PinRestoreActivity extends BaseActivity {
 
   private final DynamicTheme dynamicTheme = new DynamicNoActionBarTheme();

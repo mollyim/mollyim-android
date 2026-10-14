@@ -55,6 +55,8 @@ import java.util.concurrent.ExecutionException;
  * <p>
  * Based on https://github.com/suchoX/PlacePicker
  */
+// Preserve upstream selection/result routing while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
 public final class PlacePickerActivity extends BaseActivity {
 
   private static final String TAG = Log.tag(PlacePickerActivity.class);

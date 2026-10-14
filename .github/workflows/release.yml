@@ -38,7 +38,7 @@ jobs:
   build:
     name: Test, build and verify signed APK
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 180
     steps:
       - name: Validate release inputs and signing secrets
         env:
@@ -100,10 +100,24 @@ jobs:
         with:
           cache-read-only: true
 
+      - name: Run activity lint regression tests
+        run: |
+          ./gradlew -PCI=true :lintchecks:test \
+            '-Dorg.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3' \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            --max-workers=2 --no-parallel --no-daemon --no-configuration-cache
+
       - name: Run screen lock unit tests
         run: |
           ./gradlew -PCI=true :app:testProdStoreDebugUnitTest \
             --tests 'org.thoughtcrime.securesms.screenlock.*' \
+            '-Dorg.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3' \
+            -Pkotlin.compiler.execution.strategy=in-process \
+            --max-workers=2 --no-parallel --no-daemon --no-configuration-cache
+
+      - name: Lint release sources before signing
+        run: |
+          ./gradlew -PCI=true :app:lintProdStoreRelease \
             '-Dorg.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3' \
             -Pkotlin.compiler.execution.strategy=in-process \
             --max-workers=2 --no-parallel --no-daemon --no-configuration-cache
@@ -172,12 +186,15 @@ jobs:
           path: release-apk/
           if-no-files-found: error
 
-      - name: Upload unit test reports
+      - name: Upload test and lint reports
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: screen-lock-test-results
-          path: app/build/test-results/testProdStoreDebugUnitTest/
+          path: |
+            app/build/test-results/testProdStoreDebugUnitTest/
+            app/build/reports/lint-results-prodStoreRelease.*
+            lintchecks/build/test-results/test/
           if-no-files-found: ignore
 
   release:
@@ -206,7 +223,7 @@ jobs:
             printf '%s\n' \
               'Personal Molly build signed with a private release key.' \
               'Official Molly installations require backup and migration; this APK cannot update their signature.' \
-              'Screen lock unit tests, APK signature and upgrade compatibility checks passed.' \
+              'Screen lock unit tests, activity lint regression tests, release lint, APK signature and upgrade compatibility checks passed.' \
               'Official automatic updates are disabled. See PERSONAL_RELEASE.md for setup and migration.' \
               > "$RUNNER_TEMP/release-notes.md"
             gh release create "$TAG_REF" --draft --verify-tag \

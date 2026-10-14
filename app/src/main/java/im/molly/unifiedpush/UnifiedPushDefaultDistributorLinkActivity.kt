@@ -1,5 +1,6 @@
 package im.molly.unifiedpush
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,8 @@ import org.thoughtcrime.securesms.BaseActivity
 import org.signal.core.util.logging.Log
 import org.unifiedpush.android.connector.LinkActivityHelper
 
+// Preserve the external distributor result flow; connection actions still require screen authentication.
+@SuppressLint("BaseActivitySubclass")
 class UnifiedPushDefaultDistributorLinkActivity : BaseActivity() {
   private val helper = LinkActivityHelper(this)
 

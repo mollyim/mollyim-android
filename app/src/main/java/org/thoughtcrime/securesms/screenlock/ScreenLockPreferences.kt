@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.screenlock
 import android.content.Context
 import android.util.AtomicFile
 import org.json.JSONObject
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.File
@@ -11,6 +12,7 @@ enum class ScreenLockMode { OFF, BIOMETRIC, PIN }
 
 /** Kept in noBackupFilesDir: device-bound credentials must never enter a chat backup. */
 object ScreenLockPreferences {
+  private val TAG = Log.tag(ScreenLockPreferences::class.java)
   private const val MODE_MARKER = "screen-lock-mode"
   internal data class Record(
     val mode: ScreenLockMode,
@@ -112,7 +114,7 @@ object ScreenLockPreferences {
       }
     } catch (_: Exception) {
       // Do not roll back a committed credential or delete its key on marker failure.
-      android.util.Log.w("ScreenLockPreferences", "Could not persist screen lock presence marker")
+      Log.w(TAG, "Could not persist screen lock presence marker")
     }
   }
 

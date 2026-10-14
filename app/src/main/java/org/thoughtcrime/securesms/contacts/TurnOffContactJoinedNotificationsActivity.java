@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.contacts;
 
 import org.thoughtcrime.securesms.ScreenLockController;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,8 @@ import java.util.List;
 /**
  * Activity which displays a dialog to confirm whether to turn off "Contact Joined Signal" notifications.
  */
+// Preserve the notification entry flow; screen authentication guards the dialog and its action.
+@SuppressLint("BaseActivitySubclass")
 public class TurnOffContactJoinedNotificationsActivity extends BaseActivity {
   private androidx.appcompat.app.AlertDialog confirmationDialog;
 
