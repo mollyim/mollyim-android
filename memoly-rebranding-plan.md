@@ -116,4 +116,3 @@ Android는 다른 패키지 ID를 별도 앱으로 취급한다. 공식 Molly �
 - [Android: application ID와 namespace](https://developer.android.com/build/configure-app-module) — 설치 식별자와 코드 namespace는 독립적으로 설정할 수 있다.
 - [Firebase: Android 앱 등록](https://firebase.google.com/docs/android/setup) — Firebase Android 앱 등록의 패키지 이름은 등록 후 변경할 수 없다.
 - [Firebase: API 키 관리](https://firebase.google.com/docs/projects/api-keys) — 앱 제한 설정을 별도로 확인해야 한다.
-

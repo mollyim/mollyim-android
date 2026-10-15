@@ -13,7 +13,7 @@ runs:
     - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
       with:
         distribution: temurin
-        java-version: 21.0.11+10
+        java-version: '21.0.11+10.0.LTS'
     - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
       with:
         packages: platform-tools
