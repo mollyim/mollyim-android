@@ -15,8 +15,47 @@ permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
+  choose-test-run:
+    name: Choose test run
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+    outputs:
+      run_tests: ${{ steps.check.outputs.run_tests }}
+    steps:
+      - name: Check whether an open PR covers this push
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_tests=true
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then
+            if pr_repositories=$(gh api --method GET \
+              "repos/$GITHUB_REPOSITORY/pulls" \
+              -f state=open \
+              -f head="$GITHUB_REPOSITORY_OWNER:$GITHUB_REF_NAME" \
+              -f per_page=100 --paginate \
+              --jq '.[].head.repo.full_name'); then
+              while IFS= read -r pr_repository; do
+                if [[ "$pr_repository" == "$GITHUB_REPOSITORY" ]]; then
+                  run_tests=false
+                  break
+                fi
+              done <<< "$pr_repositories"
+            else
+              echo '::warning::Could not check open pull requests; running push tests as a fallback.'
+            fi
+          fi
+          echo "run_tests=$run_tests" >> "$GITHUB_OUTPUT"
+          if [[ "$run_tests" == false ]]; then
+            echo 'Skipping duplicate push tests: an open PR covers this branch.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
   test:
     name: Run tests
+    needs: choose-test-run
+    if: needs.choose-test-run.outputs.run_tests == 'true'
     runs-on: ubuntu-24.04
 
     steps:
