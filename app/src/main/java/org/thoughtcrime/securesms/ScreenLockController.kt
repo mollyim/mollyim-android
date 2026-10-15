@@ -24,14 +24,15 @@ import java.security.SecureRandom
 
 object ScreenLockController {
 
+  // Static synchronized methods and property guards must use the same monitor.
   private val session = ScreenLockSession(SecureRandom().nextLong())
   private var visibility: ScreenLockVisibilityObserver? = null
 
   @JvmStatic
-  val autoLock: Boolean get() = synchronized(this) { session.enabled }
+  val autoLock: Boolean get() = synchronized(ScreenLockController::class.java) { session.enabled }
 
   @JvmStatic
-  val lockScreenAtStart: Boolean get() = synchronized(this) {
+  val lockScreenAtStart: Boolean get() = synchronized(ScreenLockController::class.java) {
     refreshTaskRemoval()
     session.pendingLock
   }
@@ -86,6 +87,7 @@ object ScreenLockController {
     if (session.enabled && !session.requiresAuthentication(SystemClock.elapsedRealtime())) visibility?.checkTaskRemoval()
   }
 
+  @JvmStatic
   @Synchronized
   fun runIfCurrentAuthentication(generation: Long, action: () -> Unit): Boolean {
     if (!session.isCurrent(generation)) return false
@@ -118,11 +120,13 @@ object ScreenLockController {
   @Synchronized
   fun onActivityResuming() { session.resume(SystemClock.elapsedRealtime()) }
 
+  @JvmStatic
   @Synchronized
   fun onActivitiesHidden(context: Context) {
     hide(context, timeoutFor(context))
   }
 
+  @JvmStatic
   @Synchronized
   fun onScreenOff(context: Context) {
     hide(context, timeoutFor(context))
@@ -184,7 +188,7 @@ object ScreenLockController {
   @JvmStatic
   fun onAppBackgrounded(context: Context) {
     if (visibility?.hasVisibleActivities != true) {
-      synchronized(this) { hide(context, timeoutFor(context)) }
+      synchronized(ScreenLockController::class.java) { hide(context, timeoutFor(context)) }
     }
   }
 
@@ -203,7 +207,7 @@ object ScreenLockController {
       .mapNotNull { it?.findContent }
       .filter { !BiometricDialogFragment.isDialogViewAttachedTo(it) && it.findViewById<View>(R.id.screen_lock_pin_dialog) == null }
       .forEach {
-        synchronized(this) {
+        synchronized(ScreenLockController::class.java) {
           if (it.visibility == View.VISIBLE) {
             if (hidden && !it.alwaysVisible) {
               it.visibility = View.INVISIBLE
