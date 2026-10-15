@@ -53,7 +53,7 @@ PR artifact를 받아 서명하지 않습니다. PR과 release는 소스 SHA·�
 두 실행의 검증을 무조건 동일하게 취급하지 않습니다.
 
 서명 키는 sign 잡의 서명 단계에만 전달됩니다. APK는 zipalign 후 apksigner로 서명하며 재빌드하지 않습니다.
-설치 잡은 Android 15 에뮬레이터에서 PackageManager의 실제 실패 코드를 기록합니다.
+설치 잡은 Android 15·17 에뮬레이터에서 PackageManager의 실제 실패 코드를 기록합니다.
 통과 전에는 GitHub Release에 APK를 업로드하지 않습니다. 서명 artifact는 앞 단계에서 보관됩니다.
 
 공개한 Memoly Release의 재현성 검사는 Docker에서 독립적으로 빌드합니다.

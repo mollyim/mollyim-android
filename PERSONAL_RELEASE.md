@@ -53,7 +53,7 @@ fork Actions를 활성화합니다. 기본 브랜치에 workflow가 있어야 Ru
   provider authority, 앱 전용 권한, 실제 클래스 namespace와 런처를 검사합니다.
 - 최근 **공개된 Memoly**가 있으면 패키지·인증서가 같고 versionCode가 증가했는지 검사합니다.
   Molly `personal.*`는 비교 대상이 아닙니다. 초안·사용자 설치 버전은 이 비교에 포함되지 않습니다.
-- Android 15 에뮬레이터에 실제 설치하고 런처로 실행한 뒤 같은 버전 재설치를 확인합니다.
+- Android 15·17 에뮬레이터에 실제 설치하고 런처로 실행한 뒤 같은 버전 재설치를 확인합니다.
   이는 더 높은 versionCode의 향후 업데이트 데이터 보존 검증과는 별개입니다.
 - 임시 개인 키는 성공·실패 시 삭제합니다. configuration cache는 사용하지 않습니다.
 - 공개 후 재현 빌드는 Docker에서 같은 소스와 Memoly 변형을 독립적으로 재빌드합니다.

@@ -197,10 +197,14 @@ jobs:
           if-no-files-found: error
 
   install:
-    name: Install and launch signed APK on Android 15
+    name: Install and launch signed APK (API ${{ matrix.api }})
     needs: [build, sign]
     runs-on: ubuntu-24.04
     timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [35, 37]
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -222,14 +226,14 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - uses: ReactiveCircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
-          api-level: 35
+          api-level: ${{ matrix.api }}
           arch: x86_64
           target: google_apis
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash .github/scripts/smoke-install.sh release-apk/*.apk
       - name: Record emulator scope
-        run: echo 'Android 15 emulator fresh install, launcher startup and same-version reinstall passed. Android 17 Samsung installation, push delivery and calls still require device validation.' >> "$GITHUB_STEP_SUMMARY"
+        run: echo 'API ${{ matrix.api }} emulator fresh install, launcher startup and same-version reinstall passed. Samsung installation, push delivery and calls still require device validation.' >> "$GITHUB_STEP_SUMMARY"
 
   release:
     name: Upload GitHub Release
@@ -257,7 +261,7 @@ jobs:
               'Memoly personal build: package im.memoly.app, signed with the existing private release key.' \
               'Installs separately from Molly. Existing chats require encrypted backup and restore.' \
               'All prodStoreDebug app tests, common module checks, release lint, APK identity and signature checks passed.' \
-              'Android 15 emulator install and launch passed. Samsung Android 17, FCM delivery and calls require device validation.' \
+              'Android 15 and 17 emulator install and launch passed. Samsung device installation, FCM delivery and calls require device validation.' \
               'Official Molly automatic updates are disabled. See PERSONAL_RELEASE.md for setup and migration.' \
               > "$RUNNER_TEMP/release-notes.md"
             gh release create "$TAG_REF" --draft --verify-tag \
