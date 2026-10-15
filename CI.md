@@ -53,8 +53,18 @@ PR artifact를 받아 서명하지 않습니다. PR과 release는 소스 SHA·�
 두 실행의 검증을 무조건 동일하게 취급하지 않습니다.
 
 서명 키는 sign 잡의 서명 단계에만 전달됩니다. APK는 zipalign 후 apksigner로 서명하며 재빌드하지 않습니다.
-설치 잡은 Android 15·17 에뮬레이터에서 PackageManager의 실제 실패 코드를 기록합니다.
+설치 잡은 SDK 카탈로그에서 이미지를 확인하고 Android 15를 필수로, Android 17은 이미지가 있을 때 검사합니다.
+API 37 플랫폼 설치 여부와 시스템 이미지 선택을 분리하며 실제 에뮬레이터 API도 확인합니다.
+Android 17 이미지가 없으면 미검증임을 summary와 Release 설명에 명시합니다.
+런처는 CATEGORY_DEFAULT가 없는 MAIN/LAUNCHER 별칭도 지원하도록 resolve 후 명시적 컴포넌트로 시작합니다.
+PackageManager의 실제 설치 실패 코드와 시작 후 프로세스 생존 여부도 검사합니다.
 통과 전에는 GitHub Release에 APK를 업로드하지 않습니다. 서명 artifact는 앞 단계에서 보관됩니다.
+
+설치 검사 코드만 실패한 경우 `ci-recover-<기존 Memoly 태그>-run<원본 release 실행 ID>` 태그로
+서명 완료 artifact를 재검사할 수 있습니다. 원본 태그의 commit, release workflow 경로,
+build·sign 성공 및 유효한 artifact ID가 일치해야 합니다. PR 산출물은 허용하지 않습니다.
+재빌드·재서명 없이 체크섬·고정된 개인 인증서·패키지·manifest를 재확인한 뒤 설치하고,
+통과 시 원본 버전의 초안 Release에 같은 APK를 올립니다. 이미 공개한 Release는 덮어쓰지 않습니다.
 
 공개한 Memoly Release의 재현성 검사는 Docker에서 독립적으로 빌드합니다.
 APK의 내용은 서명 관련 파일을 제외하고 비교하며, 서명된 artifact 재사용으로 대체하지 않습니다.

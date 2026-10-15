@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*-memoly.*'
+      - 'ci-recover-v*-memoly.*-run*'
   workflow_dispatch:
     inputs:
       version:
@@ -25,17 +26,60 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: memoly-release-${{ inputs.version || github.ref_name }}
   cancel-in-progress: false
 
 env:
-  TAG_REF: ${{ inputs.version || github.ref_name }}
+  REQUESTED_REF: ${{ inputs.version || github.ref_name }}
 
 jobs:
+  prepare:
+    name: Resolve immutable release source
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.source.outputs.tag }}
+      sha: ${{ steps.source.outputs.sha }}
+      reuse: ${{ steps.source.outputs.reuse }}
+      artifact: ${{ steps.source.outputs.artifact }}
+      producer_run: ${{ steps.source.outputs.producer_run }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Validate source and any previously signed artifact
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release-source.py
+
+  platforms:
+    name: Select available emulator images
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.select.outputs.matrix }}
+      apis: ${{ steps.select.outputs.apis }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-build
+        with:
+          mode: sign
+      - name: Query SDK image catalog
+        run: sdkmanager --list --channel=3 > "$RUNNER_TEMP/sdk-catalog.txt"
+      - name: Select install checks
+        id: select
+        env:
+          SDK_CATALOG: ${{ runner.temp }}/sdk-catalog.txt
+        run: python3 .github/scripts/select-test-platforms.py
+
   build:
     name: Test and build unsigned APK once
+    needs: prepare
+    if: needs.prepare.outputs.reuse != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     outputs:
@@ -44,6 +88,7 @@ jobs:
       digest: ${{ steps.pack.outputs.digest }}
     env:
       CI_BUILD_VARIANTS: '^prodStore(Debug|Release)$'
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
     steps:
       - name: Validate release tag
         run: |
@@ -111,12 +156,14 @@ jobs:
 
   sign:
     name: Sign verified APK without rebuilding
-    needs: build
+    needs: [prepare, build]
+    if: needs.prepare.outputs.reuse != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     outputs:
       artifact: ${{ steps.upload.outputs.artifact-id }}
     env:
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
       EXPECTED_CERT_SHA256: 8aea791181502708cb1ec782dc7a8fb95575fbc6c1bd8c241fce19ac54301cc1
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -198,27 +245,41 @@ jobs:
 
   install:
     name: Install and launch signed APK (API ${{ matrix.api }})
-    needs: [build, sign]
+    needs: [prepare, build, sign, platforms]
+    if: >-
+      always() && !cancelled() && needs.prepare.result == 'success' &&
+      needs.platforms.result == 'success' &&
+      ((needs.build.result == 'success' && needs.sign.result == 'success') ||
+       (needs.prepare.outputs.reuse == 'true' && needs.build.result == 'skipped' && needs.sign.result == 'skipped'))
     runs-on: ubuntu-24.04
     timeout-minutes: 25
+    env:
+      EXPECTED_CERT_SHA256: 8aea791181502708cb1ec782dc7a8fb95575fbc6c1bd8c241fce19ac54301cc1
+      EXPECTED_ANDROID_API: ${{ matrix.api }}
     strategy:
       fail-fast: false
       matrix:
-        api: [35, 37]
+        include: ${{ fromJSON(needs.platforms.outputs.matrix) }}
     steps:
+      # CI fixes may retest an older APK; checkout this workflow's verification code.
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: ${{ needs.build.outputs.sha }}
           persist-credentials: false
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          artifact-ids: ${{ needs.sign.outputs.artifact }}
+          artifact-ids: ${{ needs.sign.outputs.artifact || needs.prepare.outputs.artifact }}
+          run-id: ${{ needs.prepare.outputs.producer_run || github.run_id }}
+          github-token: ${{ github.token }}
           merge-multiple: true
           path: release-apk
-      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+      - uses: ./.github/actions/setup-build
         with:
-          distribution: temurin
-          java-version: '21.0.11+10.0.LTS'
+          mode: sign
+      - name: Reverify exact signed APK before installation
+        run: |
+          (cd release-apk && sha256sum --check --strict SHA256SUMS)
+          bash .github/scripts/verify-personal-apk.sh release-apk/*.apk
+          apkanalyzer manifest print release-apk/*.apk | python3 .github/scripts/verify-apk-manifest.py
       - name: Enable emulator acceleration
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -226,7 +287,10 @@ jobs:
           sudo udevadm trigger --name-match=kvm
       - uses: ReactiveCircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
-          api-level: ${{ matrix.api }}
+          # Tool/platform installation and emulator image selection are independent.
+          api-level: 35
+          system-image-api-level: ${{ matrix.image }}
+          channel: ${{ matrix.channel }}
           arch: x86_64
           target: google_apis
           disable-animations: true
@@ -237,20 +301,33 @@ jobs:
 
   release:
     name: Upload GitHub Release
-    needs: [sign, install]
+    needs: [prepare, sign, platforms, install]
+    if: >-
+      always() && !cancelled() && needs.prepare.result == 'success' &&
+      needs.platforms.result == 'success' && needs.install.result == 'success' &&
+      (needs.sign.result == 'success' || (needs.prepare.outputs.reuse == 'true' && needs.sign.result == 'skipped'))
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+      actions: read
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
       PUBLISH: ${{ inputs.publish || false }}
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
+      TESTED_APIS: ${{ needs.platforms.outputs.apis }}
+      SOURCE_SHA: ${{ needs.prepare.outputs.sha }}
+      PRODUCER_RUN: ${{ needs.prepare.outputs.producer_run || github.run_id }}
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          artifact-ids: ${{ needs.sign.outputs.artifact }}
+          artifact-ids: ${{ needs.sign.outputs.artifact || needs.prepare.outputs.artifact }}
+          run-id: ${{ needs.prepare.outputs.producer_run || github.run_id }}
+          github-token: ${{ github.token }}
           merge-multiple: true
           path: release-apk
+      - name: Verify asset checksums
+        run: (cd release-apk && sha256sum --check --strict SHA256SUMS)
       - name: Create or update release draft
         run: |
           gh api "repos/$GH_REPO/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
@@ -261,7 +338,9 @@ jobs:
               'Memoly personal build: package im.memoly.app, signed with the existing private release key.' \
               'Installs separately from Molly. Existing chats require encrypted backup and restore.' \
               'All prodStoreDebug app tests, common module checks, release lint, APK identity and signature checks passed.' \
-              'Android 15 and 17 emulator install and launch passed. Samsung device installation, FCM delivery and calls require device validation.' \
+              "Emulator API levels verified for install, launch and reinstall: $TESTED_APIS. Android 17 is unverified if API 37 is absent." \
+              'Samsung device installation, FCM delivery and calls require device validation.' \
+              "APK source: $SOURCE_SHA; build/sign run: $PRODUCER_RUN; verification run: $GITHUB_RUN_ID." \
               'Official Molly automatic updates are disabled. See PERSONAL_RELEASE.md for setup and migration.' \
               > "$RUNNER_TEMP/release-notes.md"
             gh release create "$TAG_REF" --draft --verify-tag \
