@@ -48,6 +48,14 @@ internal class ScreenLockSession(private var generation: Long) {
     if (changed) generation++
   }
 
+  /** Removing a task ends its authentication even if a service keeps the process alive. */
+  fun end() {
+    locked = enabled
+    deadline = null
+    background = true
+    generation++
+  }
+
   fun isCurrent(token: Long): Boolean = token == generation && !background
 
   fun authenticate(token: Long): Boolean {

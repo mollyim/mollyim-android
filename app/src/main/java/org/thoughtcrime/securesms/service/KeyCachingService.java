@@ -38,6 +38,7 @@ import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.DummyActivity;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.ScreenLockController;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
@@ -146,6 +147,7 @@ public class KeyCachingService extends Service {
    */
   @Override
   public void onTaskRemoved(Intent rootIntent) {
+    ScreenLockController.onTaskRemoved(this);
     Intent intent = new Intent(this, DummyActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);

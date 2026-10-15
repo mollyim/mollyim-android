@@ -112,6 +112,14 @@ object ScreenLockController {
     blankScreen()
   }
 
+  @JvmStatic
+  @Synchronized
+  fun onTaskRemoved(context: Context) {
+    session.end()
+    visibility?.authenticationChanged()
+    if (autoLock) clearReplyActionFromNotifications(context)
+  }
+
   private fun hide(context: Context, timeout: Long) {
     session.hide(SystemClock.elapsedRealtime(), timeout)
     if (autoLock) clearReplyActionFromNotifications(context)

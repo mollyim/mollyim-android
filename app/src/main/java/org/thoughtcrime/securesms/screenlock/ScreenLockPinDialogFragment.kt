@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
@@ -83,6 +85,8 @@ class ScreenLockPinDialogFragment : DialogFragment() {
     super.onStart()
     dialog?.window?.let {
       it.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+      it.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+      it.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
       it.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
       ScreenLockController.showWhenLocked(it)
     }
@@ -97,10 +101,20 @@ class ScreenLockPinDialogFragment : DialogFragment() {
     if (!ScreenLockController.isCurrentAuthentication(generation)) {
       if (setup || ScreenLockPreferences.getMode(requireContext()) != ScreenLockMode.PIN) {
         dismissAllowingStateLoss()
+        return
       } else {
         requireArguments().putLong(GENERATION, ScreenLockController.authenticationGeneration())
       }
     }
+    showPinKeyboard()
+  }
+
+  private fun showPinKeyboard() {
+    val field = input ?: return
+    val window = dialog?.window ?: return
+    if (!isResumed || cancelled || !field.isEnabled) return
+    field.requestFocus()
+    WindowInsetsControllerCompat(window, field).show(WindowInsetsCompat.Type.ime())
   }
 
   override fun onPause() {
@@ -149,6 +163,7 @@ class ScreenLockPinDialogFragment : DialogFragment() {
     submit?.isEnabled = false
     input?.isEnabled = false
     work = viewLifecycleOwner.lifecycleScope.launch {
+      var retry = false
       try {
         val result = withContext(Dispatchers.IO) {
           try {
@@ -164,6 +179,7 @@ class ScreenLockPinDialogFragment : DialogFragment() {
           } finally { pin.fill('\u0000') }
         }
         if (cancelled || !isResumed || (!setup && !ScreenLockController.isCurrentAuthentication(requestGeneration))) return@launch
+        retry = result != ScreenLockPinStore.Result.Success
         when (result) {
           ScreenLockPinStore.Result.Success -> {
             val callback = listener
@@ -182,6 +198,7 @@ class ScreenLockPinDialogFragment : DialogFragment() {
         pin.fill('\u0000')
         submit?.isEnabled = true
         input?.isEnabled = true
+        if (retry) showPinKeyboard()
       }
     }
   }

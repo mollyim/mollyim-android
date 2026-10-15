@@ -73,6 +73,54 @@ class ScreenLockSessionTest {
     assertTrue(session.resume(100))
   }
 
+  @Test fun taskRemovalRequiresAuthenticationEvenInsideTheGracePeriod() {
+    val session = unlocked()
+    session.hide(100, 600_000)
+    session.end()
+    assertTrue(session.requiresAuthentication(100))
+    assertTrue(session.resume(100))
+  }
+
+  @Test fun taskRemovalInvalidatesAuthenticationFromAnAlreadyLockedDialog() {
+    val session = unlocked()
+    session.forceLock()
+    val token = session.authenticationGeneration
+    session.end()
+    assertFalse(session.authenticate(token))
+    session.resume(100)
+    assertFalse(session.authenticate(token))
+    assertTrue(session.locked)
+  }
+
+  @Test fun aNewAuthenticationCanUnlockAfterTaskRemoval() {
+    val session = unlocked()
+    session.end()
+    session.resume(100)
+    assertTrue(session.authenticate(session.authenticationGeneration))
+    assertFalse(session.requiresAuthentication(100))
+  }
+
+  @Test fun repeatedTaskRemovalInvalidatesEveryPreviousRequest() {
+    val session = unlocked()
+    session.end()
+    session.resume(100)
+    val token = session.authenticationGeneration
+    session.end()
+    session.resume(101)
+    assertFalse(session.authenticate(token))
+    assertTrue(session.locked)
+  }
+
+  @Test fun taskRemovalDoesNotEnableADisabledLockButCancelsPinSetup() {
+    val session = ScreenLockSession(100).apply { configure(false, false) }
+    val token = session.authenticationGeneration
+    session.end()
+    session.resume(100)
+    assertFalse(session.requiresAuthentication(100))
+    assertFalse(session.isCurrent(token))
+    assertTrue(session.canRunAction(100, token))
+  }
+
   @Test fun databasePromptIsForegroundButRepeatedLockDoesNotInvalidateItsAuthentication() {
     val session = unlocked()
     session.hide(100, 0)
