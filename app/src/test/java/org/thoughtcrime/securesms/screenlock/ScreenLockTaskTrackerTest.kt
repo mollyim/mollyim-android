@@ -48,4 +48,27 @@ class ScreenLockTaskTrackerTest {
     assertTrue(session.resume(101))
     assertFalse(session.authenticate(oldAuthentication))
   }
+
+  @Test fun backgroundActionsDetectTaskRemovalBeforeAnotherActivityStarts() {
+    val tracker = ScreenLockTaskTracker()
+    val session = ScreenLockSession(100).apply { configure(true, true) }
+    tracker.entering(10) { emptySet() }
+    session.hide(100, 600_000)
+    val token = session.authenticationGeneration
+    assertTrue(session.canRunAction(101, token))
+
+    if (tracker.removed { emptySet() }) session.end()
+
+    assertFalse(session.canRunAction(101, token))
+    assertTrue(session.requiresAuthentication(101))
+  }
+
+  @Test fun backgroundChecksPreserveAnExistingTaskAndHandleItsRemovalOnlyOnce() {
+    val tracker = ScreenLockTaskTracker()
+    tracker.entering(10) { emptySet() }
+    assertFalse(tracker.removed { setOf(10) })
+    assertTrue(tracker.removed { emptySet() })
+    assertFalse(tracker.removed { error("Removal was already handled") })
+    assertFalse(tracker.entering(20) { error("Session was already ended") })
+  }
 }

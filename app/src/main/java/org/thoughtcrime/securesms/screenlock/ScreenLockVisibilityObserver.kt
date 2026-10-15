@@ -20,11 +20,12 @@ import java.util.Collections
 import java.util.IdentityHashMap
 
 /** Counts visible activities rather than waiting for ProcessLifecycleOwner's 700 ms debounce. */
-internal class ScreenLockVisibilityObserver(application: Application) : Application.ActivityLifecycleCallbacks {
+internal class ScreenLockVisibilityObserver(private val application: Application) : Application.ActivityLifecycleCallbacks {
   private val visible = Collections.newSetFromMap(IdentityHashMap<Activity, Boolean>())
   private val guardedWindows = IdentityHashMap<Activity, Int>()
   private val tasks = ScreenLockTaskTracker()
-  val hasVisibleActivities: Boolean get() = visible.isNotEmpty()
+  @Volatile var hasVisibleActivities: Boolean = false
+    private set
 
   init {
     application.registerActivityLifecycleCallbacks(this)
@@ -38,6 +39,7 @@ internal class ScreenLockVisibilityObserver(application: Application) : Applicat
   fun starting(activity: Activity) {
     creating(activity)
     visible.add(activity)
+    hasVisibleActivities = true
     resuming(activity)
   }
 
@@ -50,17 +52,21 @@ internal class ScreenLockVisibilityObserver(application: Application) : Applicat
   fun creating(activity: Activity) {
     // The task-removal workaround has no UI and must not become the tracked app task.
     if (activity is DummyActivity || activity.isFinishing || activity.isDestroyed) return
-    if (tasks.entering(activity.taskId) { existingTasks(activity) }) ScreenLockController.onTaskRemoved(activity)
+    if (tasks.entering(activity.taskId) { existingTasks() }) ScreenLockController.onTaskRemoved(activity)
   }
 
   @Suppress("DEPRECATION")
-  private fun existingTasks(activity: Activity): Set<Int> = try {
-    (activity.getSystemService(ActivityManager::class.java)?.appTasks ?: emptyList()).mapNotNull { task ->
+  private fun existingTasks(): Set<Int> = try {
+    (application.getSystemService(ActivityManager::class.java)?.appTasks ?: emptyList()).mapNotNull { task ->
       task.taskInfo?.let { if (Build.VERSION.SDK_INT >= 29) it.taskId else it.persistentId }
     }.toSet()
   } catch (_: RuntimeException) {
     // Failure to confirm the old task exists must not authorize a new task.
     emptySet()
+  }
+
+  fun checkTaskRemoval() {
+    if (!hasVisibleActivities && tasks.removed { existingTasks() }) ScreenLockController.onTaskRemoved(application)
   }
 
   private fun protectWindow(activity: Activity) {
@@ -92,7 +98,9 @@ internal class ScreenLockVisibilityObserver(application: Application) : Applicat
   }
 
   fun stopping(activity: Activity) {
-    if (visible.remove(activity) && visible.isEmpty() && !activity.isChangingConfigurations) {
+    val removed = visible.remove(activity)
+    hasVisibleActivities = visible.isNotEmpty()
+    if (removed && !hasVisibleActivities && !activity.isChangingConfigurations) {
       ScreenLockController.onActivitiesHidden(activity)
     }
   }

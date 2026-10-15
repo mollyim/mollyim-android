@@ -31,7 +31,10 @@ object ScreenLockController {
   val autoLock: Boolean get() = synchronized(this) { session.enabled }
 
   @JvmStatic
-  val lockScreenAtStart: Boolean get() = synchronized(this) { session.pendingLock }
+  val lockScreenAtStart: Boolean get() = synchronized(this) {
+    refreshTaskRemoval()
+    session.pendingLock
+  }
 
   @JvmStatic
   fun initialize(context: Application) {
@@ -56,12 +59,16 @@ object ScreenLockController {
 
   @JvmStatic
   @Synchronized
-  fun isAccessAllowed(): Boolean = !session.requiresAuthentication(SystemClock.elapsedRealtime())
+  fun isAccessAllowed(): Boolean {
+    refreshTaskRemoval()
+    return !session.requiresAuthentication(SystemClock.elapsedRealtime())
+  }
 
   /** Recheck on the worker that performs a user action, not only when rendering its button. */
   @JvmStatic
   @Synchronized
   fun runIfAccessAllowed(generation: Long, action: Runnable): Boolean {
+    refreshTaskRemoval()
     if (!session.canRunAction(SystemClock.elapsedRealtime(), generation)) return false
     action.run()
     return true
@@ -69,8 +76,15 @@ object ScreenLockController {
 
   @JvmStatic
   @Synchronized
-  fun <T> withAccessAllowed(generation: Long, fallback: T, action: () -> T): T =
-    if (session.canRunAction(SystemClock.elapsedRealtime(), generation)) action() else fallback
+  fun <T> withAccessAllowed(generation: Long, fallback: T, action: () -> T): T {
+    refreshTaskRemoval()
+    return if (session.canRunAction(SystemClock.elapsedRealtime(), generation)) action() else fallback
+  }
+
+  /** Notification/call actions can arrive before any new activity checks its task. */
+  private fun refreshTaskRemoval() {
+    if (session.enabled && !session.requiresAuthentication(SystemClock.elapsedRealtime())) visibility?.checkTaskRemoval()
+  }
 
   @Synchronized
   fun runIfCurrentAuthentication(generation: Long, action: () -> Unit): Boolean {
