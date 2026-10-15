@@ -17,6 +17,8 @@
 
 package org.thoughtcrime.securesms.notifications;
 
+import org.thoughtcrime.securesms.ScreenLockController;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +57,8 @@ public class RemoteReplyReceiver extends ExportedBroadcastReceiver {
   @SuppressLint("StaticFieldLeak")
   @Override
   public void onReceiveUnlock(final Context context, Intent intent) {
-    if (!REPLY_ACTION.equals(intent.getAction())) return;
+    if (!REPLY_ACTION.equals(intent.getAction()) || !ScreenLockController.isAccessAllowed()) return;
+    final long generation = ScreenLockController.authenticationGeneration();
 
     Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
 
@@ -70,7 +73,7 @@ public class RemoteReplyReceiver extends ExportedBroadcastReceiver {
     if (replyMethod == null) throw new AssertionError("No reply method specified");
 
     if (responseText != null) {
-      SignalExecutors.BOUNDED.execute(() -> {
+      SignalExecutors.BOUNDED.execute(() -> ScreenLockController.runIfAccessAllowed(generation, () -> {
         long threadId;
 
         Recipient               recipient     = Recipient.resolved(recipientId);
@@ -107,7 +110,7 @@ public class RemoteReplyReceiver extends ExportedBroadcastReceiver {
 
         AppDependencies.getMessageNotifier().updateNotification(context);
         MarkReadReceiver.process(messageIds);
-      });
+      }));
     }
   }
 }

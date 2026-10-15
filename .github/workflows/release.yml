@@ -1,181 +1,354 @@
-name: Release
+name: Memoly signed APK release
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*-memoly.*'
+      - 'ci-recover-v*-memoly.*-run*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Existing tag, for example v8.19.2-4-memoly.1'
+        required: true
+        type: string
+      publish:
+        description: 'Publish after verification (otherwise leave a draft)'
+        default: false
+        type: boolean
   workflow_call:
     inputs:
       version:
         required: true
         type: string
+      publish:
+        default: false
+        type: boolean
 
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  contents: read
+  actions: read
+
+concurrency:
+  group: memoly-release-${{ inputs.version || github.ref_name }}
+  cancel-in-progress: false
 
 env:
-  TAG_REF: "${{ inputs.version || github.ref_name }}"
-  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
-  HAVE_KEYSTORE: ${{ secrets.SECRET_KEYSTORE != '' }}
+  REQUESTED_REF: ${{ inputs.version || github.ref_name }}
 
 jobs:
-  build:
-    name: Build
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
+  prepare:
+    name: Resolve immutable release source
     runs-on: ubuntu-24.04
-
+    outputs:
+      tag: ${{ steps.source.outputs.tag }}
+      sha: ${{ steps.source.outputs.sha }}
+      reuse: ${{ steps.source.outputs.reuse }}
+      artifact: ${{ steps.source.outputs.artifact }}
+      producer_run: ${{ steps.source.outputs.producer_run }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Free up disk space in runner
-        uses: ./.github/actions/disk-cleanup
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 21
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
-        with:
-          cache-read-only: true
-
-      - name: Build Docker image
-        run: docker compose build
-        working-directory: reproducible-builds
-
-      - name: Export CI environment variables
-        run: |
-          cp -v "ci/$BUILD_ENV_FILE" .env
-          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
-                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
-                     MAPS_API_KEY; do
-            if [ -n "${!var}" ]; then
-              echo "Setting CI_$var=${!var}"
-              echo "CI_$var=${!var}" >> $GITHUB_ENV
-            fi
-          done
-        working-directory: reproducible-builds
+          persist-credentials: false
+      - name: Validate source and any previously signed artifact
+        id: source
         env:
-          APP_TITLE: ${{ vars.CI_APP_TITLE }}
-          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
-          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
-          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
-          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release-source.py
 
-      - name: Extract signing keys
-        if: "env.HAVE_KEYSTORE == 'true'"
-        run: printenv KEYSTORE | base64 -d > certs/keystore.jks
-        working-directory: reproducible-builds
+  platforms:
+    name: Select available emulator images
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.select.outputs.matrix }}
+      apis: ${{ steps.select.outputs.apis }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-build
+        with:
+          mode: sign
+      - name: Query SDK image catalog
+        run: sdkmanager --list --channel=3 > "$RUNNER_TEMP/sdk-catalog.txt"
+      - name: Select install checks
+        id: select
+        env:
+          SDK_CATALOG: ${{ runner.temp }}/sdk-catalog.txt
+        run: python3 .github/scripts/select-test-platforms.py
+
+  build:
+    name: Test and build unsigned APK once
+    needs: prepare
+    if: needs.prepare.outputs.reuse != 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+      artifact: ${{ steps.upload.outputs.artifact-id }}
+      digest: ${{ steps.pack.outputs.digest }}
+    env:
+      CI_BUILD_VARIANTS: '^prodStore(Debug|Release)$'
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
+    steps:
+      - name: Validate release tag
+        run: |
+          [[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-memoly\.[0-9]+$ ]] || {
+            echo '::error::Use a version tag ending in -memoly.<number>.'
+            exit 1
+          }
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ env.TAG_REF }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Pin source commit
+        id: source
+        run: |
+          test "$(git rev-parse HEAD)" = "$(git rev-parse "refs/tags/$TAG_REF^{commit}")"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Check pipeline rejection and routing paths
+        run: for test in .github/scripts/test-*.py; do python3 "$test"; done
+      - uses: ./.github/actions/disk-cleanup
+      - uses: ./.github/actions/setup-build
+      - name: Run all app and module tests, release lint and unsigned assembly
+        run: |
+          test -z "${CI_KEYSTORE_PATH:-}"
+          ./gradlew -PCI=true ciReleaseCheck
+      - name: Bind unsigned APK to this workflow and source
+        id: pack
+        run: |
+          shopt -s nullglob
+          apks=(app/build/outputs/apk/prodStore/release/*-unsigned.apk)
+          [[ ${#apks[@]} -eq 1 ]] || { echo '::error::Expected one unsigned release APK.'; exit 1; }
+          mkdir unsigned-apk
+          cp "${apks[0]}" unsigned-apk/unsigned.apk
+          digest=$(sha256sum unsigned-apk/unsigned.apk | cut -d ' ' -f 1)
+          echo "digest=$digest" >> "$GITHUB_OUTPUT"
+          python3 - <<'PYTHON'
+          import json, os, subprocess
+          from pathlib import Path
+          Path('unsigned-apk/source.json').write_text(json.dumps({
+              'commit': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+              'tag': os.environ['TAG_REF'], 'variant': 'prodStoreRelease',
+              'run': os.environ['GITHUB_RUN_ID']
+          }))
+          PYTHON
+      - name: Upload unsigned build from this run
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: unsigned-memoly-apk
+          path: unsigned-apk/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Record test coverage
+        if: always()
+        run: python3 .github/scripts/summarize-tests.py
+      - name: Upload test and lint reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: release-verification-reports
+          path: |
+            **/build/test-results
+            **/build/reports
+          if-no-files-found: ignore
+
+  sign:
+    name: Sign verified APK without rebuilding
+    needs: [prepare, build]
+    if: needs.prepare.outputs.reuse != 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    outputs:
+      artifact: ${{ steps.upload.outputs.artifact-id }}
+    env:
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
+      EXPECTED_CERT_SHA256: 8aea791181502708cb1ec782dc7a8fb95575fbc6c1bd8c241fce19ac54301cc1
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ needs.build.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          artifact-ids: ${{ needs.build.outputs.artifact }}
+          merge-multiple: true
+          path: unsigned-apk
+      - name: Verify unsigned artifact source and digest
+        env:
+          SOURCE_SHA: ${{ needs.build.outputs.sha }}
+          UNSIGNED_DIGEST: ${{ needs.build.outputs.digest }}
+        run: |
+          printf '%s  %s\n' "$UNSIGNED_DIGEST" unsigned-apk/unsigned.apk | sha256sum --check --strict
+          python3 - <<'PYTHON'
+          import json, os
+          with open('unsigned-apk/source.json') as source:
+              record = json.load(source)
+          expected = {'commit': os.environ['SOURCE_SHA'], 'tag': os.environ['TAG_REF'],
+                      'variant': 'prodStoreRelease', 'run': os.environ['GITHUB_RUN_ID']}
+          if record != expected:
+              raise SystemExit('Unsigned artifact source does not match this release run')
+          PYTHON
+      - uses: ./.github/actions/setup-build
+        with:
+          mode: sign
+      - name: Align, sign and verify APK
         env:
           KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
-
-      - name: Build without signing
-        if: "env.HAVE_KEYSTORE == 'false'"
-        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
-
-      - name: Build and sign
-        if: "env.HAVE_KEYSTORE == 'true'"
-        run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
-        env:
-          CI_KEYSTORE_PATH: certs/keystore.jks
           CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
           CI_KEYSTORE_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
-
-      - name: Clean up keystore
-        if: "always()"
-        run: rm -f certs/keystore.jks
-        working-directory: reproducible-builds
-
-      - name: Log APK and AAB checksums
-        run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
-        working-directory: reproducible-builds
-
-      - name: Upload APKs
-        uses: actions/upload-artifact@v7
-        with:
-          name: apk
-          path: reproducible-builds/outputs/apk/*/release/*.apk
-          if-no-files-found: error
-
-      - name: Upload Bundles
-        uses: actions/upload-artifact@v7
-        with:
-          name: bundle
-          path: reproducible-builds/outputs/bundle/*Release/*.aab
-          if-no-files-found: error
-
-  prepare_release:
-    name: Prepare release
-    if: "github.event.base_ref != 'refs/heads/upstream-main'"
-    runs-on: ubuntu-24.04
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Check if release exists
-        id: check_release
+          GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view "$TAG_REF"; then
-            echo "release_exists=true" >> $GITHUB_OUTPUT
+          for name in KEYSTORE CI_KEYSTORE_ALIAS CI_KEYSTORE_PASSWORD; do
+            [[ -n "${!name}" ]] || { echo '::error::Set all three signing secrets.'; exit 1; }
+          done
+          umask 077
+          keystore="$RUNNER_TEMP/memoly-release.p12"
+          trap 'rm -f "$keystore"' EXIT
+          printf '%s' "$KEYSTORE" | base64 --decode > "$keystore"
+          tools="$ANDROID_HOME/build-tools/$BUILD_TOOLS_VERSION"
+          "$tools/zipalign" -P 16 -f 4 unsigned-apk/unsigned.apk "$RUNNER_TEMP/aligned.apk"
+          mkdir release-apk
+          apk="release-apk/Memoly-$TAG_REF.apk"
+          "$tools/apksigner" sign --ks "$keystore" --ks-key-alias "$CI_KEYSTORE_ALIAS" \
+            --ks-pass env:CI_KEYSTORE_PASSWORD --key-pass env:CI_KEYSTORE_PASSWORD \
+            --v4-signing-enabled false --out "$apk" "$RUNNER_TEMP/aligned.apk"
+          "$tools/zipalign" -P 16 -c 4 "$apk"
+          gh api "repos/$GITHUB_REPOSITORY/releases?per_page=100" --paginate \
+            --jq '.[] | select(.draft == false) | .tag_name' > "$RUNNER_TEMP/published-tags"
+          previous=$(python3 .github/scripts/select-memoly-release.py "$TAG_REF" < "$RUNNER_TEMP/published-tags")
+          old_apk=''
+          if [[ -n "$previous" ]]; then
+            gh release download "$previous" --pattern '*.apk' --dir "$RUNNER_TEMP/previous-apk"
+            shopt -s nullglob
+            old_apks=("$RUNNER_TEMP"/previous-apk/*.apk)
+            [[ ${#old_apks[@]} -eq 1 ]] || { echo '::error::Expected one previous Memoly APK.'; exit 1; }
+            old_apk=${old_apks[0]}
           else
-            echo "release_exists=false" >> $GITHUB_OUTPUT
+            echo 'First published Memoly baseline: no prior published Memoly APK was found.' >> "$GITHUB_STEP_SUMMARY"
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create release draft
-        if: "steps.check_release.outputs.release_exists == 'false'"
-        run: gh release create -d --verify-tag -t "$TAG_REF" "$TAG_REF"
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
-
-  upload:
-    name: Upload
-    runs-on: ubuntu-24.04
-    needs:
-      - build
-      - prepare_release
-
-    steps:
-      - uses: actions/checkout@v6
+          bash .github/scripts/verify-personal-apk.sh "$apk" "$old_apk"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/apkanalyzer" manifest print "$apk" \
+            | python3 .github/scripts/verify-apk-manifest.py
+          (cd release-apk && sha256sum ./*.apk > SHA256SUMS)
+      - name: Remove signing material
+        if: always()
+        run: rm -f "$RUNNER_TEMP/memoly-release.p12"
+      - name: Upload signed APK and checksum
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
-          ref: "${{ env.TAG_REF }}"
+          name: signed-memoly-apk
+          path: release-apk/
+          if-no-files-found: error
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-
-      - name: Check version for upgrade compatibility
+  install:
+    name: Install and launch signed APK (API ${{ matrix.api }})
+    needs: [prepare, build, sign, platforms]
+    if: >-
+      always() && !cancelled() && needs.prepare.result == 'success' &&
+      needs.platforms.result == 'success' &&
+      ((needs.build.result == 'success' && needs.sign.result == 'success') ||
+       (needs.prepare.outputs.reuse == 'true' && needs.build.result == 'skipped' && needs.sign.result == 'skipped'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      EXPECTED_CERT_SHA256: 8aea791181502708cb1ec782dc7a8fb95575fbc6c1bd8c241fce19ac54301cc1
+      EXPECTED_ANDROID_API: ${{ matrix.api }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.platforms.outputs.matrix) }}
+    steps:
+      # CI fixes may retest an older APK; checkout this workflow's verification code.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          artifact-ids: ${{ needs.sign.outputs.artifact || needs.prepare.outputs.artifact }}
+          run-id: ${{ needs.prepare.outputs.producer_run || github.run_id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: release-apk
+      - uses: ./.github/actions/setup-build
+        with:
+          mode: sign
+      - name: Reverify exact signed APK before installation
         run: |
-          echo "Listing latest APKs"
-          gh release list --exclude-drafts --limit 10
-          gh release download --pattern '*.apk' --dir latest || exit 0
-          latest_apks=(latest/*.apk)
-          build_apks=(apk/*/release/*.apk)
-          aapt=($ANDROID_HOME/build-tools/*/aapt)
-          version_code() {
-            $aapt d badging "$1" | gawk 'match($0, /^package:.*versionCode=.([0-9]+)/, v) {print v[1]}'
-          }
-          echo "Using aapt: $aapt"
-          latest_version_code=$(version_code "$latest_apks")
-          build_version_code=$(version_code "$build_apks")
-          echo "Latest version code: $latest_version_code"
-          echo "Build version code: $build_version_code"
-          if [ "$build_version_code" -le "$latest_version_code" ]; then
-            echo "Build version code must be greater than the latest version code" >&2
-            exit 1
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          (cd release-apk && sha256sum --check --strict SHA256SUMS)
+          bash .github/scripts/verify-personal-apk.sh release-apk/*.apk
+          apkanalyzer manifest print release-apk/*.apk | python3 .github/scripts/verify-apk-manifest.py
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: ReactiveCircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
+        with:
+          # Tool/platform installation and emulator image selection are independent.
+          api-level: 35
+          system-image-api-level: ${{ matrix.image }}
+          channel: ${{ matrix.channel }}
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: bash .github/scripts/smoke-install.sh release-apk/*.apk
+      - name: Record emulator scope
+        run: echo 'API ${{ matrix.api }} emulator fresh install, launcher startup and same-version reinstall passed. Samsung installation, push delivery and calls still require device validation.' >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload APKs to GitHub release
-        run: gh release upload "$TAG_REF" ./apk/*/release/*.apk --clobber
-        env:
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
+  release:
+    name: Upload GitHub Release
+    needs: [prepare, sign, platforms, install]
+    if: >-
+      always() && !cancelled() && needs.prepare.result == 'success' &&
+      needs.platforms.result == 'success' && needs.install.result == 'success' &&
+      (needs.sign.result == 'success' || (needs.prepare.outputs.reuse == 'true' && needs.sign.result == 'skipped'))
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PUBLISH: ${{ inputs.publish || false }}
+      TAG_REF: ${{ needs.prepare.outputs.tag }}
+      TESTED_APIS: ${{ needs.platforms.outputs.apis }}
+      SOURCE_SHA: ${{ needs.prepare.outputs.sha }}
+      PRODUCER_RUN: ${{ needs.prepare.outputs.producer_run || github.run_id }}
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          artifact-ids: ${{ needs.sign.outputs.artifact || needs.prepare.outputs.artifact }}
+          run-id: ${{ needs.prepare.outputs.producer_run || github.run_id }}
+          github-token: ${{ github.token }}
+          merge-multiple: true
+          path: release-apk
+      - name: Verify asset checksums
+        run: (cd release-apk && sha256sum --check --strict SHA256SUMS)
+      - name: Create or update release draft
+        run: |
+          gh api "repos/$GH_REPO/releases?per_page=100" > "$RUNNER_TEMP/releases.json"
+          state=$(jq -r --arg tag "$TAG_REF" 'map(select(.tag_name == $tag)) | if length == 0 then "missing" elif .[0].draft then "draft" else "published" end' "$RUNNER_TEMP/releases.json")
+          [[ "$state" != published ]] || { echo '::error::Refusing to replace a published release.'; exit 1; }
+          if [[ "$state" == missing ]]; then
+            printf '%s\n' \
+              'Memoly personal build: package im.memoly.app, signed with the existing private release key.' \
+              'Installs separately from Molly. Existing chats require encrypted backup and restore.' \
+              'All prodStoreDebug app tests, common module checks, release lint, APK identity and signature checks passed.' \
+              "Emulator API levels verified for install, launch and reinstall: $TESTED_APIS. Android 17 is unverified if API 37 is absent." \
+              'Samsung device installation, FCM delivery and calls require device validation.' \
+              "APK source: $SOURCE_SHA; build/sign run: $PRODUCER_RUN; verification run: $GITHUB_RUN_ID." \
+              'Official Molly automatic updates are disabled. See PERSONAL_RELEASE.md for setup and migration.' \
+              > "$RUNNER_TEMP/release-notes.md"
+            gh release create "$TAG_REF" --draft --verify-tag \
+              --title "Memoly $TAG_REF" --notes-file "$RUNNER_TEMP/release-notes.md"
+          fi
+      - name: Upload release assets and optionally publish
+        run: |
+          gh release upload "$TAG_REF" release-apk/*.apk release-apk/SHA256SUMS --clobber
+          if [[ "$PUBLISH" == true ]]; then
+            gh release edit "$TAG_REF" --draft=false --latest=false
+          fi

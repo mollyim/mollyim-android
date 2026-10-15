@@ -1,44 +1,178 @@
 package org.thoughtcrime.securesms
 
 import android.annotation.SuppressLint
-import android.content.ComponentName
+import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.os.SystemClock
 import android.view.View
 import android.view.Window
 import android.view.inspector.WindowInspector
-import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.concurrent.SignalExecutors
-import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations
-
-private val TAG = Log.tag(ScreenLockController.javaClass)
+import org.thoughtcrime.securesms.screenlock.ScreenLockMode
+import org.thoughtcrime.securesms.screenlock.ScreenLockPreferences
+import org.thoughtcrime.securesms.screenlock.ScreenLockSession
+import org.thoughtcrime.securesms.screenlock.ScreenLockVisibilityObserver
+import org.thoughtcrime.securesms.screenlock.ScreenLockPinDialogFragment
+import org.thoughtcrime.securesms.service.KeyCachingService
+import java.security.SecureRandom
 
 object ScreenLockController {
 
-  private const val SCREEN_LOCK_TIMEOUT_SHORT_MS = 5_000
-  private const val SCREEN_LOCK_TIMEOUT_LONG_MS = 60_000
-
-  private const val APP_BACKGROUNDED_EVENT_DELAY_MS = 700
-
-  private var graceTimeElapsed: Long = 0
+  // Static synchronized methods and property guards must use the same monitor.
+  private val session = ScreenLockSession(SecureRandom().nextLong())
+  private var visibility: ScreenLockVisibilityObserver? = null
 
   @JvmStatic
-  var autoLock: Boolean = false
-    private set
+  val autoLock: Boolean get() = synchronized(ScreenLockController::class.java) { session.enabled }
 
   @JvmStatic
-  var lockScreenAtStart: Boolean = false
+  val lockScreenAtStart: Boolean get() = synchronized(ScreenLockController::class.java) {
+    refreshTaskRemoval()
+    session.pendingLock
+  }
+
+  @JvmStatic
+  fun initialize(context: Application) {
+    configure(context, false)
+    visibility = ScreenLockVisibilityObserver(context)
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun configure(context: Context, authenticated: Boolean) {
+    session.configure(ScreenLockPreferences.getMode(context) != ScreenLockMode.OFF, authenticated)
+    visibility?.authenticationChanged()
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun authenticationGeneration(): Long = session.authenticationGeneration
+
+  @JvmStatic
+  @Synchronized
+  fun isCurrentAuthentication(generation: Long): Boolean = session.isCurrent(generation)
+
+  @JvmStatic
+  @Synchronized
+  fun isAccessAllowed(): Boolean {
+    refreshTaskRemoval()
+    return !session.requiresAuthentication(SystemClock.elapsedRealtime())
+  }
+
+  /** Recheck on the worker that performs a user action, not only when rendering its button. */
+  @JvmStatic
+  @Synchronized
+  fun runIfAccessAllowed(generation: Long, action: Runnable): Boolean {
+    refreshTaskRemoval()
+    if (!session.canRunAction(SystemClock.elapsedRealtime(), generation)) return false
+    action.run()
+    return true
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun <T> withAccessAllowed(generation: Long, fallback: T, action: () -> T): T {
+    refreshTaskRemoval()
+    return if (session.canRunAction(SystemClock.elapsedRealtime(), generation)) action() else fallback
+  }
+
+  /** Notification/call actions can arrive before any new activity checks its task. */
+  private fun refreshTaskRemoval() {
+    if (session.enabled && !session.requiresAuthentication(SystemClock.elapsedRealtime())) visibility?.checkTaskRemoval()
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun runIfCurrentAuthentication(generation: Long, action: () -> Unit): Boolean {
+    if (!session.isCurrent(generation)) return false
+    action()
+    return true
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun completeAuthentication(generation: Long): Boolean {
+    val completed = session.authenticate(generation)
+    if (completed) visibility?.authenticationChanged()
+    return completed
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun forceLock() = session.forceLock()
+
+  @JvmStatic
+  fun onActivityCreating(activity: Activity) = visibility?.creating(activity)
+
+  @JvmStatic
+  fun onActivityStarting(activity: Activity) = visibility?.starting(activity)
+
+  @JvmStatic
+  fun onActivityStopping(activity: Activity) = visibility?.stopping(activity)
+
+  @JvmStatic
+  @Synchronized
+  fun onActivityResuming() { session.resume(SystemClock.elapsedRealtime()) }
+
+  @JvmStatic
+  @Synchronized
+  fun onActivitiesHidden(context: Context) {
+    hide(context, timeoutFor(context))
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun onScreenOff(context: Context) {
+    hide(context, timeoutFor(context))
+    blankScreen()
+  }
+
+  @JvmStatic
+  @Synchronized
+  fun onTaskRemoved(context: Context) {
+    session.end()
+    visibility?.authenticationChanged()
+    if (autoLock) clearReplyActionFromNotifications(context)
+  }
+
+  private fun hide(context: Context, timeout: Long) {
+    session.hide(SystemClock.elapsedRealtime(), timeout)
+    if (autoLock) clearReplyActionFromNotifications(context)
+  }
 
   @JvmStatic
   fun blankScreen() = setAllViewsWithContentHidden(true)
 
   @JvmStatic
   fun unBlankScreen() = setAllViewsWithContentHidden(false)
+
+  /** Hide a library activity before its window is attached and appears in global window views. */
+  @JvmStatic
+  fun hideProtectedWindow(window: Window?) {
+    window?.decorView?.findContent?.let {
+      it.alwaysVisible = false
+      if (it.visibility == View.VISIBLE) {
+        it.visibility = View.INVISIBLE
+        it.overrideVisibleFlag = true
+      }
+    }
+  }
+
+  @JvmStatic
+  fun revealProtectedWindow(window: Window?) {
+    window?.decorView?.findContent?.let {
+      if (it.overrideVisibleFlag) {
+        it.visibility = View.VISIBLE
+        it.overrideVisibleFlag = false
+      }
+    }
+  }
 
   // FLAG_SECURE cannot be applied only in onPause() due to a gesture navigation bug
   // that leaks content in the recents view before authentication (b/123205795).
@@ -48,59 +182,20 @@ object ScreenLockController {
     get() = autoLock && Build.VERSION.SDK_INT < 33
 
   @JvmStatic
-  fun shouldLockScreenAtStart(): Boolean {
-    if (lockScreenAtStart) {
-      val left = graceTimeElapsed - SystemClock.elapsedRealtime()
-      if (left >= 0) {
-        lockScreenAtStart = false
-      } else {
-        Log.v(TAG, "Timeout expired: ${if (graceTimeElapsed > 0) "${-left} ms ago" else "now"}")
-      }
-    }
-    return lockScreenAtStart
-  }
-
-  @JvmStatic
-  fun enableAutoLock(enabled: Boolean) {
-    Log.d(TAG, "Auto-lock ${if (enabled) "enabled" else "disabled"}")
-    autoLock = enabled
-    lockScreenAtStart = enabled
-  }
+  @Synchronized
+  fun shouldLockScreenAtStart(): Boolean = session.resume(SystemClock.elapsedRealtime())
 
   @JvmStatic
   fun onAppBackgrounded(context: Context) {
-    if (autoLock) {
-      startScreenLock(timeoutFor(context) - APP_BACKGROUNDED_EVENT_DELAY_MS)
-      clearReplyActionFromNotifications(context)
+    if (visibility?.hasVisibleActivities != true) {
+      synchronized(ScreenLockController::class.java) { hide(context, timeoutFor(context)) }
     }
   }
 
-  private fun startScreenLock(timeout: Int) {
-    if (!lockScreenAtStart) {
-      lockScreenAtStart = true
-      graceTimeElapsed = SystemClock.elapsedRealtime() + timeout
-    }
-  }
-
-  @SuppressLint("NewApi")
-  private fun timeoutFor(context: Context): Int {
-    val activities = activitiesRunningOnTopOfTasks(context)
-    return when {
-      activities.any { context.packageName != it.packageName } -> SCREEN_LOCK_TIMEOUT_LONG_MS
-      else -> SCREEN_LOCK_TIMEOUT_SHORT_MS
-    }
-  }
-
-  private fun activitiesRunningOnTopOfTasks(context: Context): List<ComponentName> =
-    ServiceUtil.getActivityManager(context).appTasks
-      .map { it.taskInfo }
-      .filter {
-        if (Build.VERSION.SDK_INT >= 29) it.isRunning else true
-      }
-      .mapNotNull { it.topActivity }
+  private fun timeoutFor(context: Context): Long = ScreenLockPreferences.getTimeoutSeconds(context) * 1_000
 
   private fun clearReplyActionFromNotifications(context: Context) {
-    if (!ApplicationMigrations.isUpdate(context) && SignalStore.settings.messageNotificationsPrivacy.isDisplayMessage) {
+    if (!KeyCachingService.isLocked() && !ApplicationMigrations.isUpdate(context) && SignalStore.settings.messageNotificationsPrivacy.isDisplayMessage) {
       SignalExecutors.BOUNDED.execute {
         AppDependencies.messageNotifier.updateNotification(context)
       }
@@ -110,9 +205,9 @@ object ScreenLockController {
   private fun setAllViewsWithContentHidden(hidden: Boolean) {
     getGlobalWindowViews()
       .mapNotNull { it?.findContent }
-      .filter { !BiometricDialogFragment.isDialogViewAttachedTo(it) }
+      .filter { !BiometricDialogFragment.isDialogViewAttachedTo(it) && it.findViewById<View>(R.id.screen_lock_pin_dialog) == null }
       .forEach {
-        synchronized(this) {
+        synchronized(ScreenLockController::class.java) {
           if (it.visibility == View.VISIBLE) {
             if (hidden && !it.alwaysVisible) {
               it.visibility = View.INVISIBLE
@@ -136,6 +231,17 @@ object ScreenLockController {
   @JvmStatic
   fun hideWhenLocked(window: Window?) {
     window?.decorView?.findContent?.alwaysVisible = false
+  }
+
+  @JvmStatic
+  fun revealExemptWindow(window: Window?) {
+    window?.decorView?.findContent?.let {
+      it.alwaysVisible = true
+      if (it.overrideVisibleFlag) {
+        it.visibility = View.VISIBLE
+        it.overrideVisibleFlag = false
+      }
+    }
   }
 
   private val View.findContent: View?

@@ -1,11 +1,14 @@
 package org.thoughtcrime.securesms.contacts;
 
+import org.thoughtcrime.securesms.ScreenLockController;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -23,7 +26,10 @@ import java.util.List;
 /**
  * Activity which displays a dialog to confirm whether to turn off "Contact Joined Signal" notifications.
  */
-public class TurnOffContactJoinedNotificationsActivity extends AppCompatActivity {
+// Preserve the notification entry flow; screen authentication guards the dialog and its action.
+@SuppressLint("BaseActivitySubclass")
+public class TurnOffContactJoinedNotificationsActivity extends BaseActivity {
+  private androidx.appcompat.app.AlertDialog confirmationDialog;
 
   private final static String EXTRA_THREAD_ID = "thread_id";
 
@@ -36,10 +42,13 @@ public class TurnOffContactJoinedNotificationsActivity extends AppCompatActivity
   }
 
   @Override
-  protected void onResume() {
-    super.onResume();
+  protected void onPostResume(boolean screenLocked) {
+    super.onPostResume(screenLocked);
+    if (screenLocked || !ScreenLockController.isAccessAllowed() || isFinishing() ||
+        !getLifecycle().getCurrentState().isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED) ||
+        (confirmationDialog != null && confirmationDialog.isShowing())) return;
 
-    new MaterialAlertDialogBuilder(this)
+    confirmationDialog = new MaterialAlertDialogBuilder(this)
         .setMessage(R.string.TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal)
         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
           handlePositiveAction(dialog);
@@ -52,15 +61,18 @@ public class TurnOffContactJoinedNotificationsActivity extends AppCompatActivity
   }
 
   private void handlePositiveAction(@NonNull DialogInterface dialog) {
+    final long generation = ScreenLockController.authenticationGeneration();
     SimpleTask.run(getLifecycle(), () -> {
-      ThreadTable threadTable = SignalDatabase.threads();
+      ScreenLockController.runIfAccessAllowed(generation, () -> {
+        ThreadTable threadTable = SignalDatabase.threads();
 
-      List<MessageTable.MarkedMessageInfo> marked = threadTable.setRead(getIntent().getLongExtra(EXTRA_THREAD_ID, -1));
-      MarkReadReceiver.process(marked);
+        List<MessageTable.MarkedMessageInfo> marked = threadTable.setRead(getIntent().getLongExtra(EXTRA_THREAD_ID, -1));
+        MarkReadReceiver.process(marked);
 
-      SignalStore.settings().setNotifyWhenContactJoinsSignal(false);
-      AppDependencies.getMessageNotifier().updateNotification(this);
+        SignalStore.settings().setNotifyWhenContactJoinsSignal(false);
+        AppDependencies.getMessageNotifier().updateNotification(this);
 
+      });
       return null;
     }, unused -> {
       dialog.dismiss();

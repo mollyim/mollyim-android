@@ -1,19 +1,26 @@
 package im.molly.unifiedpush
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.appcompat.app.AppCompatActivity
+import org.thoughtcrime.securesms.BaseActivity
 import org.signal.core.util.logging.Log
 import org.unifiedpush.android.connector.LinkActivityHelper
 
-class UnifiedPushDefaultDistributorLinkActivity : AppCompatActivity() {
+// Preserve the external distributor result flow; connection actions still require screen authentication.
+@SuppressLint("BaseActivitySubclass")
+class UnifiedPushDefaultDistributorLinkActivity : BaseActivity() {
   private val helper = LinkActivityHelper(this)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    runWhenScreenUnlocked { startLink() }
+  }
+
+  private fun startLink() {
     if (!helper.startLinkActivityForResult()) {
       Log.d(TAG, "No distributor with link activity found.")
       setResult(RESULT_OK)
@@ -23,6 +30,10 @@ class UnifiedPushDefaultDistributorLinkActivity : AppCompatActivity() {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
+    runWhenScreenUnlocked { completeLink(requestCode, resultCode, data) }
+  }
+
+  private fun completeLink(requestCode: Int, resultCode: Int, data: Intent?) {
     if (helper.onLinkActivityResult(requestCode, resultCode, data)) {
       // The distributor is saved, you can request registrations with UnifiedPush.registerApp now
       Log.d(TAG, "Found a distributor with link activity found.")

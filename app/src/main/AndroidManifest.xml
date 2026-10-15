@@ -121,6 +121,11 @@
         <!-- Activities                              -->
         <!-- ======================================= -->
         <activity
+            android:name=".screenlock.ScreenLockGateActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:theme="@style/TextSecure.DarkNoActionBar" />
+        <activity
             android:name=".components.webrtc.v2.WebRtcCallActivity"
             android:excludeFromRecents="true"
             android:exported="false"

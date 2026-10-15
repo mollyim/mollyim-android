@@ -5,6 +5,8 @@
 
 package org.thoughtcrime.securesms.components.webrtc.v2
 
+import org.thoughtcrime.securesms.ScreenLockController
+
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.KeyguardManager
@@ -217,14 +219,16 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
 
     initializePendingParticipantFragmentListener()
 
-    if (!hasCameraPermission() && !hasAudioPermission()) {
-      askCameraAudioPermissions {
-        callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
-        handleSetMuteVideo(false)
-      }
-    } else if (!hasAudioPermission()) {
-      askAudioPermissions {
-        callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
+    runWhenScreenUnlocked {
+      if (!hasCameraPermission() && !hasAudioPermission()) {
+        askCameraAudioPermissions {
+          callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
+          handleSetMuteVideo(false)
+        }
+      } else if (!hasAudioPermission()) {
+        askAudioPermissions {
+          callScreen.setMicEnabled(viewModel.microphoneEnabled.value)
+        }
       }
     }
 
@@ -293,7 +297,7 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
       enterPipModeIfPossible()
     }
 
-    if (SignalStore.rateLimit.needsRecaptcha()) {
+    if (ScreenLockController.isAccessAllowed() && SignalStore.rateLimit.needsRecaptcha()) {
       RecaptchaProofBottomSheetFragment.show(supportFragmentManager)
     }
 
@@ -301,9 +305,10 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   }
 
   override fun onNewIntent(intent: Intent) {
-    val callIntent = getCallIntent()
-    Log.i(TAG, "onNewIntent(${callIntent.isStartedFromFullScreen})")
     super.onNewIntent(intent)
+    setIntent(intent)
+    val callIntent = CallIntent(intent)
+    Log.i(TAG, "onNewIntent(${callIntent.isStartedFromFullScreen})")
     logIntent(callIntent)
     processIntent(callIntent)
   }
@@ -734,17 +739,20 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
   private fun processIntent(callIntent: CallIntent) {
     when (callIntent.action) {
       CallIntent.Action.ANSWER_AUDIO -> {
-        handleAnswerWithAudio()
+        val token = callIntent.incomingCallToken ?: return
+        runWhenScreenUnlocked { handleAnswerWithAudio(token) }
         if (!callIntent.isStartedFromFullScreen) {
           answeredFromNotification = true
         }
       }
       CallIntent.Action.ANSWER_VIDEO -> {
-        handleAnswerWithVideo()
+        val token = callIntent.incomingCallToken ?: return
+        runWhenScreenUnlocked { handleAnswerWithVideo(token) }
         if (!callIntent.isStartedFromFullScreen) {
           answeredFromNotification = true
         }
       }
+      CallIntent.Action.NO_ACTION -> clearPendingScreenLockActions()
       CallIntent.Action.DENY -> handleDenyCall()
       CallIntent.Action.END_CALL -> handleEndCall()
       else -> Unit
@@ -868,18 +876,25 @@ class WebRtcCallActivity : PassphraseRequiredActivity(), SafetyNumberChangeDialo
     AppDependencies.signalCallManager.flipCamera()
   }
 
-  private fun handleAnswerWithAudio() {
+  private fun handleAnswerWithAudio(token: String? = AppDependencies.signalCallManager.incomingCallToken) {
+    if (token == null || token != AppDependencies.signalCallManager.incomingCallToken || !ScreenLockController.isAccessAllowed()) return
+    val generation = ScreenLockController.authenticationGeneration()
     askAudioPermissions {
-      callScreen.setStatus(getString(R.string.RedPhone_answering))
-      AppDependencies.signalCallManager.acceptCall(false)
+      ScreenLockController.runIfAccessAllowed(generation) {
+        callScreen.setStatus(getString(R.string.RedPhone_answering))
+        AppDependencies.signalCallManager.acceptCall(token, false)
+      }
     }
   }
 
-  private fun handleAnswerWithVideo() {
+  private fun handleAnswerWithVideo(token: String? = AppDependencies.signalCallManager.incomingCallToken) {
+    if (token == null || token != AppDependencies.signalCallManager.incomingCallToken || !ScreenLockController.isAccessAllowed()) return
+    val generation = ScreenLockController.authenticationGeneration()
     val onGranted: () -> Unit = {
-      callScreen.setStatus(getString(R.string.RedPhone_answering))
-      AppDependencies.signalCallManager.acceptCall(true)
-      handleSetMuteVideo(false)
+      ScreenLockController.runIfAccessAllowed(generation) {
+        callScreen.setStatus(getString(R.string.RedPhone_answering))
+        AppDependencies.signalCallManager.acceptCall(token, true)
+      }
     }
 
     if (!hasCameraPermission() && !hasAudioPermission()) {

@@ -49,6 +49,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.CallParticipant;
 import org.thoughtcrime.securesms.events.GroupCallPeekEvent;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
+import org.thoughtcrime.securesms.ScreenLockController;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.GroupManager;
 import org.thoughtcrime.securesms.jobmanager.JobManager;
@@ -139,7 +140,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   private final KeyedSerialMonoLifoExecutor keyedExecutor;
   private final LockManager                 lockManager;
 
-  private WebRtcServiceState            serviceState;
+  private volatile WebRtcServiceState   serviceState;
   private RxStore<WebRtcEphemeralState> ephemeralStateStore;
   private boolean                       needsToSetSelfUuid = true;
 
@@ -234,15 +235,18 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void startPreJoinCall(@NonNull Recipient recipient) {
-    process((s, p) -> p.handlePreJoinCall(s, new RemotePeer(recipient.getId())));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () -> p.handlePreJoinCall(s, new RemotePeer(recipient.getId()))));
   }
 
   public void startOutgoingAudioCall(@NonNull Recipient recipient) {
-    process((s, p) -> p.handleOutgoingCall(s, new RemotePeer(recipient.getId()), OfferMessage.Type.AUDIO_CALL));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () -> p.handleOutgoingCall(s, new RemotePeer(recipient.getId()), OfferMessage.Type.AUDIO_CALL)));
   }
 
   public void startOutgoingVideoCall(@NonNull Recipient recipient) {
-    process((s, p) -> p.handleOutgoingCall(s, new RemotePeer(recipient.getId()), OfferMessage.Type.VIDEO_CALL));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () -> p.handleOutgoingCall(s, new RemotePeer(recipient.getId()), OfferMessage.Type.VIDEO_CALL)));
   }
 
   public void cancelPreJoin() {
@@ -262,11 +266,13 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void setEnableVideo(boolean enabled) {
-    process((s, p) -> p.handleSetEnableVideo(s, enabled));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> enabled ? ScreenLockController.withAccessAllowed(generation, s, () -> p.handleSetEnableVideo(s, true)) : p.handleSetEnableVideo(s, false));
   }
 
   public void startScreenShare(@NonNull android.content.Intent mediaProjectionData) {
-    process((s, p) -> p.handleSetLocalScreenShare(s, true, mediaProjectionData));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () -> p.handleSetLocalScreenShare(s, true, mediaProjectionData)));
   }
 
   public void stopScreenShare() {
@@ -282,11 +288,32 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   }
 
   public void flipCamera() {
-    process((s, p) -> p.handleSetCameraFlip(s));
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () -> p.handleSetCameraFlip(s)));
   }
 
-  public void acceptCall(boolean answerWithVideo) {
-    process((s, p) -> p.handleAcceptCall(s, answerWithVideo));
+  public @Nullable String getIncomingCallToken() {
+    return incomingCallToken(serviceState);
+  }
+
+  public static @NonNull String incomingDirectCallToken(@NonNull RecipientId recipientId, long callId) {
+    return recipientId.serialize() + ":direct:" + callId;
+  }
+
+  private static @Nullable String incomingCallToken(@NonNull WebRtcServiceState state) {
+    if (state.getCallInfoState().getCallState() != CALL_INCOMING) return null;
+    Recipient recipient = state.getCallInfoState().getCallRecipient();
+    if (recipient.isGroup()) {
+      return recipient.getId().serialize() + ":group:" + state.getCallSetupState(RemotePeer.GROUP_CALL_ID).getRingId();
+    }
+    RemotePeer peer = state.getCallInfoState().getActivePeer();
+    return peer == null ? null : incomingDirectCallToken(recipient.getId(), peer.getCallId().longValue());
+  }
+
+  public void acceptCall(@Nullable String token, boolean answerWithVideo) {
+    final long generation = ScreenLockController.authenticationGeneration();
+    process((s, p) -> ScreenLockController.withAccessAllowed(generation, s, () ->
+        token != null && token.equals(incomingCallToken(s)) ? p.handleAcceptCall(s, answerWithVideo) : s));
   }
 
   public void denyCall() {

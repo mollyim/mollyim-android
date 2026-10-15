@@ -208,7 +208,6 @@ public class TextSecurePreferences {
       UPDATE_APK_ENABLED,
       UPDATE_APK_INCLUDE_BETA,
       BLOCK_UNKNOWN,
-      BIOMETRIC_SCREEN_LOCK,
       PASSPHRASE_LOCK_NOTIFICATIONS,
       DYNAMIC_COLORS_ENABLED,
   };
@@ -400,11 +399,13 @@ public class TextSecurePreferences {
   }
 
   public static boolean isBiometricScreenLockEnabled(@NonNull Context context) {
-    return getBooleanPreference(context, BIOMETRIC_SCREEN_LOCK, false);
+    return org.thoughtcrime.securesms.screenlock.ScreenLockPreferences.getMode(context) == org.thoughtcrime.securesms.screenlock.ScreenLockMode.BIOMETRIC;
   }
 
   public static void setBiometricScreenLockEnabled(@NonNull Context context, boolean value) {
-    setBooleanPreference(context, BIOMETRIC_SCREEN_LOCK, value);
+    if (value || isBiometricScreenLockEnabled(context)) {
+      org.thoughtcrime.securesms.screenlock.ScreenLockPinStore.setMode(context, value ? org.thoughtcrime.securesms.screenlock.ScreenLockMode.BIOMETRIC : org.thoughtcrime.securesms.screenlock.ScreenLockMode.OFF);
+    }
   }
 
   /**

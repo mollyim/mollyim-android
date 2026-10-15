@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.wallpaper.crop;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import org.thoughtcrime.securesms.R;
@@ -17,7 +18,9 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
-public final class WallpaperImageSelectionActivity extends AppCompatActivity
+// Preserve upstream selection/result routing while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
+public final class WallpaperImageSelectionActivity extends BaseActivity
         implements MediaGalleryFragment.Callbacks
 {
   private static final String EXTRA_RECIPIENT_ID = "RECIPIENT_ID";

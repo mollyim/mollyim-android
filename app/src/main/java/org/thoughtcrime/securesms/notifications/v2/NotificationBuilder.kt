@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.notifications.v2
 
+import org.thoughtcrime.securesms.ScreenLockController
+
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
@@ -202,6 +204,7 @@ sealed class NotificationBuilder(protected val context: Context) {
     val builder: NotificationCompat.Builder = NotificationCompat.Builder(context, NotificationChannels.getInstance().messagesChannel)
 
     override fun addActions(replyMethod: ReplyMethod, conversation: NotificationConversation) {
+      if (!ScreenLockController.isAccessAllowed()) return
       val extender: NotificationCompat.WearableExtender = NotificationCompat.WearableExtender()
 
       addMarkAsReadActionActual(conversation)
@@ -239,6 +242,7 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
 
     override fun addMarkAsReadActionActual(conversation: NotificationConversation) {
+      if (!ScreenLockController.isAccessAllowed()) return
       val markAsRead: PendingIntent? = conversation.getMarkAsReadIntent(context)
       if (markAsRead != null) {
         val markAsReadAction: NotificationCompat.Action =
@@ -253,6 +257,7 @@ sealed class NotificationBuilder(protected val context: Context) {
     }
 
     override fun addMarkAsReadActionActual(state: NotificationState) {
+      if (!ScreenLockController.isAccessAllowed()) return
       val markAsRead: PendingIntent? = state.getMarkAsReadIntent(context)
 
       if (markAsRead != null) {

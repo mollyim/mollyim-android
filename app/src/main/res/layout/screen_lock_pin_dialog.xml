@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen_lock_pin_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="?attr/colorSurface"
+    android:saveEnabled="false"
+    tools:viewBindingIgnore="true">
+
+    <TextView android:id="@+id/screen_lock_pin_title"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+    <TextView android:id="@+id/screen_lock_pin_description"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:hint="@string/screen_lock_pin" android:layout_marginTop="24dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/screen_lock_pin_input"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="numberPassword" android:maxLength="16"
+            android:saveEnabled="false" android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView android:id="@+id/screen_lock_pin_error"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:accessibilityLiveRegion="polite" android:layout_marginTop="8dp" />
+
+    <com.google.android.material.button.MaterialButton android:id="@+id/screen_lock_pin_submit"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" android:text="@string/screen_lock_continue" />
+
+    <com.google.android.material.button.MaterialButton android:id="@+id/screen_lock_pin_cancel"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@android:string/cancel" />
+</LinearLayout>

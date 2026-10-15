@@ -34,6 +34,8 @@ class CallIntent(
 
   val action: Action by lazy { Action.fromIntent(intent) }
 
+  val incomingCallToken: String? get() = intent.getStringExtra(getExtraString(Extra.INCOMING_CALL_TOKEN))
+
   @get:JvmName("shouldEnableVideoIfAvailable")
   var shouldEnableVideoIfAvailable: Boolean
     get() = intent.getBooleanExtra(getExtraString(Extra.ENABLE_VIDEO_IF_AVAILABLE), false)
@@ -75,6 +77,7 @@ class CallIntent(
   }
 
   private enum class Extra(val code: String) {
+    INCOMING_CALL_TOKEN("INCOMING_CALL_TOKEN"),
     ENABLE_VIDEO_IF_AVAILABLE("ENABLE_VIDEO_IF_AVAILABLE"),
     STARTED_FROM_FULLSCREEN("STARTED_FROM_FULLSCREEN"),
     STARTED_FROM_CALL_LINK("STARTED_FROM_CALL_LINK"),
@@ -98,6 +101,11 @@ class CallIntent(
 
     fun withIntentFlags(flags: Int): Builder {
       intent.flags = flags
+      return this
+    }
+
+    fun withIncomingCallToken(token: String?): Builder {
+      intent.putExtra(getExtraString(Extra.INCOMING_CALL_TOKEN), token)
       return this
     }
 

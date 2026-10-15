@@ -1,5 +1,7 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
+import org.thoughtcrime.securesms.screenlock.ScreenLockMode
+
 data class PrivacySettingsState(
   val blockedCount: Int,
   val blockUnknown: Boolean,
@@ -8,7 +10,8 @@ data class PrivacySettingsState(
   val passphraseLock: Boolean,
   val passphraseLockTriggerValues: Set<String>,
   val passphraseLockTimeout: Long,
-  val biometricScreenLock: Boolean,
+  val screenLockMode: ScreenLockMode,
+  val screenLockTimeout: Long,
   val screenSecurity: Boolean,
   val incognitoKeyboard: Boolean,
   val universalExpireTimer: Int

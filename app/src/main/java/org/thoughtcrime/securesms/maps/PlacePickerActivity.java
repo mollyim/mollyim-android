@@ -19,7 +19,7 @@ import android.view.animation.OvershootInterpolator;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
@@ -55,7 +55,9 @@ import java.util.concurrent.ExecutionException;
  * <p>
  * Based on https://github.com/suchoX/PlacePicker
  */
-public final class PlacePickerActivity extends AppCompatActivity {
+// Preserve upstream selection/result routing while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
+public final class PlacePickerActivity extends BaseActivity {
 
   private static final String TAG = Log.tag(PlacePickerActivity.class);
 

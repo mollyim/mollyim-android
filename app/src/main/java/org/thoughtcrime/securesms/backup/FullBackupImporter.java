@@ -312,11 +312,20 @@ public class FullBackupImporter extends FullBackupBase {
     KeyValueDatabase.getInstance(AppDependencies.getApplication()).writeDataSet(dataSet, Collections.emptyList());
   }
 
+  private static final String legacyMollyPackageName = "im.molly.app" + ("staging".equals(BuildConfig.FLAVOR_environment) ? ".staging" : "");
+
   private static final List<String> defaultSharedPreferencesFileNames = Arrays.asList(
       BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences",
       BuildConfig.APPLICATION_ID + "_preferences",
-      SecurePreferenceManager.getSecurePreferencesName()
+      SecurePreferenceManager.getSecurePreferencesName(),
+      legacyMollyPackageName,
+      legacyMollyPackageName + "_preferences"
   );
+
+  @VisibleForTesting
+  static boolean isDefaultSharedPreferencesFile(@NonNull String fileName) {
+    return defaultSharedPreferencesFileNames.contains(fileName);
+  }
 
   @SuppressLint("ApplySharedPref")
   private static void processPreference(@NonNull Context context, SharedPreference preference) {
@@ -333,7 +342,7 @@ public class FullBackupImporter extends FullBackupBase {
       return;
     }
 
-    if (defaultSharedPreferencesFileNames.contains(preference.file_)) {
+    if (isDefaultSharedPreferencesFile(preference.file_)) {
       preferences = SecurePreferenceManager.getSecurePreferences(context);
     } else {
       preferences = EncryptedPreferences.create(context, preference.file_);

@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.scribbles;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import org.signal.core.util.concurrent.SignalExecutors;
@@ -26,7 +27,9 @@ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
-public final class ImageEditorStickerSelectActivity extends AppCompatActivity implements StickerEventListener, MediaKeyboard.MediaKeyboardListener, StickerKeyboardPageFragment.Callback, ScribbleStickersFragment.Callback {
+// Avatar editing is available during profile setup; screen lock must not require completed registration.
+@SuppressLint("BaseActivitySubclass")
+public final class ImageEditorStickerSelectActivity extends BaseActivity implements StickerEventListener, MediaKeyboard.MediaKeyboardListener, StickerKeyboardPageFragment.Callback, ScribbleStickersFragment.Callback {
 
   public static final String EXTRA_FEATURE_STICKER = "imageEditor.featureSticker";
 

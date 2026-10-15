@@ -5,13 +5,14 @@
 
 package org.thoughtcrime.securesms.components.settings.app.usernamelinks.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContract
-import androidx.appcompat.app.AppCompatActivity
+import org.thoughtcrime.securesms.BaseActivity
 import androidx.appcompat.app.AppCompatDelegate
 import org.signal.core.models.media.Media
 import org.thoughtcrime.securesms.R
@@ -22,7 +23,9 @@ import org.thoughtcrime.securesms.util.DynamicTheme
 /**
  * Select qr code from gallery instead of using camera. Used in usernames and when linking devices
  */
-class QrImageSelectionActivity : AppCompatActivity(), MediaGalleryFragment.Callbacks {
+// Preserve upstream selection/result routing while adding BaseActivity's screen authentication.
+@SuppressLint("BaseActivitySubclass")
+class QrImageSelectionActivity : BaseActivity(), MediaGalleryFragment.Callbacks {
 
   private val theme: DynamicTheme = DynamicNoActionBarTheme()
 

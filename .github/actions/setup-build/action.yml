@@ -1,0 +1,47 @@
+name: Set up Android CI
+description: Pinned Android toolchain and a shared unsigned Gradle profile
+inputs:
+  mode:
+    description: build installs NDK and configures Gradle; sign installs only signing tools
+    default: build
+  cache-read-only:
+    description: Whether Gradle cache writes are disabled
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+      with:
+        distribution: temurin
+        java-version: '21.0.11+10.0.LTS'
+    - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+      with:
+        packages: platform-tools
+    - name: Install pinned Android tools
+      shell: bash
+      env:
+        SETUP_MODE: ${{ inputs.mode }}
+      run: |
+        python3 - <<'PYTHON'
+        import os, subprocess, tomllib
+        with open('gradle/libs.versions.toml', 'rb') as source:
+            versions = tomllib.load(source)['versions']
+        packages = ['platform-tools', 'build-tools;' + versions['buildTools']]
+        if os.environ['SETUP_MODE'] == 'build':
+            packages += ['platforms;' + versions['compileSdk'], 'ndk;' + versions['ndk']]
+        elif os.environ['SETUP_MODE'] != 'sign':
+            raise SystemExit('Unknown setup mode')
+        subprocess.run(['sdkmanager', *packages], check=True)
+        with open(os.environ['GITHUB_ENV'], 'a') as output:
+            output.write('BUILD_TOOLS_VERSION=' + versions['buildTools'] + '\n')
+        PYTHON
+    - uses: gradle/actions/setup-gradle@07d1f8453baaff67fb503883367f8b13e6158a54 # v6
+      if: inputs.mode == 'build'
+      with:
+        cache-read-only: ${{ inputs.cache-read-only }}
+    - name: Configure unsigned Gradle builds
+      if: inputs.mode == 'build'
+      shell: bash
+      run: |
+        mkdir -p "$GRADLE_USER_HOME"
+        cp gradle.properties.ci "$GRADLE_USER_HOME/gradle.properties"
