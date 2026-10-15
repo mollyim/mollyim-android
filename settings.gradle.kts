@@ -17,10 +17,11 @@ dependencyResolutionManagement {
         includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
       }
     }
-    mavenLocal {
+    // MOLLY: Prebuilt libraries added via the deps-overlay stage in the Dockerfile
+    maven {
+      url = uri(rootDir.resolve("prebuilts"))
       content {
         includeGroup("im.molly")
-        includeGroup("org.signal")
       }
     }
     maven {

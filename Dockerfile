@@ -3,18 +3,16 @@ FROM docker.io/eclipse-temurin:21.0.11_10-jdk-alpine-3.23@sha256:4ec2402e5ebb803
 # Stage 1: base
 # Minimal environment with only system tools. This stage is stable and reusable across merges.
 
-RUN apk add --no-cache curl gcompat git make
+RUN apk add --no-cache bash curl fd gcompat git make ripgrep
 
 # Set a default Git identity
 RUN git config --global user.name "builder" \
  && git config --global user.email "builder@docker.local"
 
-FROM base AS workspace
+FROM base AS toolchain
 
-# Stage 2: workspace
-# Adds toolchains, project source, and the build entrypoint.
-
-LABEL im.molly.artifacts.m2.path="/root/.m2/repository/"
+# Stage 2: toolchain
+# Language SDKs, compilers, and build tools.
 
 # Install Android SDK
 ARG ANDROID_SDK_DIST="commandlinetools-linux-13114758_latest.zip"
@@ -43,7 +41,7 @@ RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 ARG COMPILE_SDK="android-36.1"
 RUN sdkmanager "platforms;${COMPILE_SDK}"
 
-# Cache gradle wrapper
+# Pre-fetch Gradle wrapper
 COPY gradlew /molly/
 COPY gradle/wrapper /molly/gradle/wrapper
 RUN /molly/gradlew --version
@@ -54,23 +52,46 @@ ENV GRADLE_RO_DEP_CACHE=/.gradle-ro-cache
 # Override project's gradle.properties
 COPY gradle.properties.docker /root/.gradle/gradle.properties
 
-# Copy project and purge generated files
-COPY . /molly/
-WORKDIR /molly
-RUN git clean -ffdx
+FROM toolchain AS source
 
-# Use Make as the builder entrypoint
+# Stage 3: source
+# Full project source tree.
+
+WORKDIR /molly
+COPY . .
+
+FROM source AS deps-overlay
+
+# Stage 4: deps-overlay
+# Hook for pre-built dependencies, supplied via named build contexts.
+
+ARG LOA_DEP_LIBSIGNAL=scratch
+COPY --from=${LOA_DEP_LIBSIGNAL} / /molly/prebuilts/
+ARG LOA_DEP_RINGRTC=scratch
+COPY --from=${LOA_DEP_RINGRTC} / /molly/prebuilts/
+
+FROM deps-overlay AS assemble
+
+# Stage 5: assemble
+# Build stage for the project.
+# Can be overridden with a prebuilt image via:
+#  --build-context assemble=docker-image://<image>
+
+RUN make assemble
+
+FROM scratch AS artifacts
+
+# Stage 6: artifacts
+# Build outputs only, laid out exactly as consumers expect.
+
+COPY --from=assemble /molly/app/build/outputs/apk /apk
+COPY --from=assemble /molly/app/build/outputs/bundle /bundle
+
+FROM deps-overlay AS default
+
+# Stage 7: default
+# Runnable build environment without prebuilt outputs.
+# Left as the final stage so it becomes the default target.
+
 ENTRYPOINT ["make"]
 CMD ["help"]
-
-FROM workspace AS deps-override
-
-# Stage 2A: deps-override
-# Load pre-built dependencies from a local Maven repository.
-# Build with: docker build --build-context maven-local=<path/to/m2> --target deps-override .
-COPY --from=maven-local /repository/ /root/.m2/repository/
-
-FROM workspace AS builder
-
-# Stage 3: builder
-# Identical to workspace. Dependencies resolve from remote repositories only.

@@ -153,15 +153,11 @@ android {
     throw GradleException("Molly revision $mollyRevision or Hotfix version $currentHotfixVersion out of range")
   }
 
-  if (ciEnabled && !project.rootDir.resolve(".git").exists()) {
-    throw GradleException("CI build requires the project's Git repository (.git not found)")
-  }
-
   defaultConfig {
     val sourceVersionNameWithRevision = "${canonicalVersionName}-${mollyRevision}"
 
     versionCode = (canonicalVersionCode * maxHotfixVersions) + mollyRevision + currentHotfixVersion
-    versionName = if (ciEnabled) requireCommitTag() else sourceVersionNameWithRevision
+    versionName = sourceVersionNameWithRevision
 
     minSdk = libs.versions.minSdk.get().toInt()
     targetSdk = libs.versions.targetSdk.get().toInt()
@@ -179,9 +175,8 @@ android {
 
     vectorDrawables.useSupportLibrary = true
 
-    // MOLLY: BUILD_TIMESTAMP may be zero in debug builds.
-    buildConfigField("long", "BUILD_TIMESTAMP_OR_ZERO", getLastCommitTimestamp() + "L")
-    buildConfigField("String", "GIT_HASH", "\"${getGitHash()}\"")
+    buildConfigField("long", "BUILD_TIMESTAMP_OR_ZERO", buildFile.lastModified().toString() + "L")
+
     // MOLLY: Ensure to add any new URLs to SignalServiceNetworkAccess.HOSTNAMES list
     buildConfigField("String", "SIGNAL_URL", "\"https://chat.signal.org\"")
     buildConfigField("String", "STORAGE_URL", "\"https://storage.signal.org\"")
@@ -258,7 +253,6 @@ android {
       )
 
       buildConfigField("long", "BUILD_TIMESTAMP_OR_ZERO", "0L")
-      buildConfigField("String", "GIT_HASH", "\"abc123def456\"")
     }
 
     getByName("release") {
@@ -580,31 +574,3 @@ licensee {
     because("BSD-3-Clause")
   }
 }
-
-fun getLastCommitTimestamp(): String {
-  return try {
-    git("log", "-1", "--pretty=format:%ct000")
-  } catch (e: Exception) {
-    logger.warn("Failed to get Git commit timestamp: ${e.message}. Using mtime of current build script.")
-    buildFile.lastModified().toString()
-  }
-}
-
-fun getGitHash(): String {
-  return try {
-    git("rev-parse", "--short=12", "HEAD")
-  } catch (e: Exception) {
-    logger.warn("Failed to get Git commit hash: ${e.message}. Using default value.")
-    "abc123def456"
-  }
-}
-
-fun requireCommitTag(): String {
-  val tag = git("describe", "--tags", "--exact-match")
-  return tag.takeIf { it.isNotEmpty() } ?: "untagged"
-}
-
-private fun git(vararg args: String): String =
-  providers.exec {
-    commandLine("git", *args)
-  }.standardOutput.asText.get().trim()

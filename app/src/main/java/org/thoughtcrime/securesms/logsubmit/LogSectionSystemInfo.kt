@@ -105,7 +105,7 @@ class LogSectionSystemInfo : LogSection {
       val versionName = packageManager.getPackageInfo(context.packageName, 0).versionName
       val manifestApkVersion = ApkInfo.versionCode
 
-      "$appLabel $versionName (${ApkInfo.signalCanonicalVersionCode}, $manifestApkVersion) (${BuildConfig.GIT_HASH})"
+      "$appLabel $versionName (${ApkInfo.signalCanonicalVersionCode}, $manifestApkVersion))"
     } catch (_: PackageManager.NameNotFoundException) {
       "Unknown"
     }

@@ -1,13 +1,8 @@
-**/*.iml
+.git
+.idea
+local.properties
+prebuilts
 **/.gradle
-**/.idea
-**/.DS_Store
 **/build
-**/captures
-**/.externalNativeBuild
-**/.cxx
-**/local.properties
-**/signing.properties
-**/test/androidTestEspresso/res/values/arrays.xml
 reproducible-builds/certs
 reproducible-builds/outputs
