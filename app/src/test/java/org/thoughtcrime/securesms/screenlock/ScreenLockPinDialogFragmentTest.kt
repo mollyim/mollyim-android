@@ -31,14 +31,14 @@ class ScreenLockPinDialogFragmentTest {
 
   @Before fun setUp() {
     clearPreferenceCache()
-    val application = RuntimeEnvironment.getApplication<Application>()
+    val application = RuntimeEnvironment.getApplication()
     File(application.noBackupFilesDir, "screen-lock-mode").writeText("OFF")
     ScreenLockPreferences.write(application, ScreenLockPreferences.Record(ScreenLockMode.PIN))
     ScreenLockController.configure(application, false)
   }
 
   @After fun tearDown() {
-    val application = RuntimeEnvironment.getApplication<Application>()
+    val application = RuntimeEnvironment.getApplication()
     ScreenLockPreferences.write(application, ScreenLockPreferences.Record(ScreenLockMode.OFF))
     ScreenLockController.configure(application, false)
     clearPreferenceCache()
@@ -74,7 +74,7 @@ class ScreenLockPinDialogFragmentTest {
   }
 
   @Test fun returningToThePinDialogRestoresInputFocusAndClearsOldDigits() {
-    ScreenLockController.configure(RuntimeEnvironment.getApplication<Application>(), true)
+    ScreenLockController.configure(RuntimeEnvironment.getApplication(), true)
     val controller = Robolectric.buildActivity(HostActivity::class.java).setup()
     val fragment = show(controller.get(), setup = true)
     val input = fragment.requireView().findViewById<TextInputEditText>(R.id.screen_lock_pin_input)

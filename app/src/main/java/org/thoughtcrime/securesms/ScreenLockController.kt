@@ -92,6 +92,9 @@ object ScreenLockController {
   fun forceLock() = session.forceLock()
 
   @JvmStatic
+  fun onActivityCreating(activity: Activity) = visibility?.creating(activity)
+
+  @JvmStatic
   fun onActivityStarting(activity: Activity) = visibility?.starting(activity)
 
   @JvmStatic

@@ -48,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     AppStartup.getInstance().onCriticalRenderEventStart();
+    ScreenLockController.onActivityCreating(this);
     logEvent("onCreate()");
     super.onCreate(savedInstanceState);
     lockScreenState = ScreenLockController.getLockScreenAtStart();

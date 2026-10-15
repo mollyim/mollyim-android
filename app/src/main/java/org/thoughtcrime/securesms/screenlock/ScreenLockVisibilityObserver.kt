@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.screenlock
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,6 +15,7 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.BaseActivity
+import org.thoughtcrime.securesms.DummyActivity
 import java.util.Collections
 import java.util.IdentityHashMap
 
@@ -21,6 +23,7 @@ import java.util.IdentityHashMap
 internal class ScreenLockVisibilityObserver(application: Application) : Application.ActivityLifecycleCallbacks {
   private val visible = Collections.newSetFromMap(IdentityHashMap<Activity, Boolean>())
   private val guardedWindows = IdentityHashMap<Activity, Int>()
+  private val tasks = ScreenLockTaskTracker()
   val hasVisibleActivities: Boolean get() = visible.isNotEmpty()
 
   init {
@@ -33,13 +36,31 @@ internal class ScreenLockVisibilityObserver(application: Application) : Applicat
   }
 
   fun starting(activity: Activity) {
+    creating(activity)
     visible.add(activity)
     resuming(activity)
   }
 
   private fun resuming(activity: Activity) {
+    creating(activity)
     if (activity !is BaseActivity || activity.useScreenLock()) ScreenLockController.onActivityResuming()
     if (activity !is BaseActivity) protectWindow(activity)
+  }
+
+  fun creating(activity: Activity) {
+    // The task-removal workaround has no UI and must not become the tracked app task.
+    if (activity is DummyActivity || activity.isFinishing || activity.isDestroyed) return
+    if (tasks.entering(activity.taskId) { existingTasks(activity) }) ScreenLockController.onTaskRemoved(activity)
+  }
+
+  @Suppress("DEPRECATION")
+  private fun existingTasks(activity: Activity): Set<Int> = try {
+    (activity.getSystemService(ActivityManager::class.java)?.appTasks ?: emptyList()).mapNotNull { task ->
+      task.taskInfo?.let { if (Build.VERSION.SDK_INT >= 29) it.taskId else it.persistentId }
+    }.toSet()
+  } catch (_: RuntimeException) {
+    // Failure to confirm the old task exists must not authorize a new task.
+    emptySet()
   }
 
   private fun protectWindow(activity: Activity) {
@@ -86,8 +107,10 @@ internal class ScreenLockVisibilityObserver(application: Application) : Applicat
   override fun onActivityStopped(activity: Activity) = stopping(activity)
   override fun onActivityDestroyed(activity: Activity) { stopping(activity); guardedWindows.remove(activity) }
   override fun onActivityCreated(activity: Activity, state: Bundle?) {
+    creating(activity)
     if (activity !is BaseActivity) protectWindow(activity)
   }
+  override fun onActivityPreCreated(activity: Activity, state: Bundle?) = creating(activity)
   override fun onActivityPaused(activity: Activity) = Unit
   override fun onActivitySaveInstanceState(activity: Activity, state: Bundle) = Unit
 }
