@@ -1,0 +1,9 @@
+# Shared unsigned CI profile. Signing is performed outside Gradle in a separate job.
+kotlin.compiler.execution.strategy=in-process
+org.gradle.configuration-cache=false
+org.gradle.daemon=false
+org.gradle.parallel=false
+org.gradle.workers.max=2
+org.gradle.caching=true
+org.gradle.jvmargs=-Xmx6g -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:hashCode=3
+systemProp.com.android.tools.r8.deterministicdebugging=true

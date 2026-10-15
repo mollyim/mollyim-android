@@ -85,3 +85,24 @@ allprojects {
 tasks.register("clean", Delete::class) {
   delete(rootProject.layout.buildDirectory)
 }
+
+// Keep every library's verification tasks when selecting one app variant in CI.
+val ciModulesCheck by tasks.registering {
+  group = "verification"
+  description = "Runs check tasks from every non-app module."
+  subprojects.filter { it.path != ":app" }.forEach { module ->
+    dependsOn(module.tasks.matching { it.name == "check" })
+  }
+}
+
+tasks.register("ciCheck") {
+  group = "verification"
+  description = "Checks all modules and the complete prodStoreDebug app test suite."
+  dependsOn(ciModulesCheck, ":app:testProdStoreDebugUnitTest", ":app:lintProdStoreDebug", ":app:assembleProdStoreDebug")
+}
+
+tasks.register("ciReleaseCheck") {
+  group = "verification"
+  description = "Tests all modules and prodStoreDebug, lints and assembles one unsigned release."
+  dependsOn(ciModulesCheck, ":app:testProdStoreDebugUnitTest", ":app:lintProdStoreRelease", ":app:assembleProdStoreRelease")
+}

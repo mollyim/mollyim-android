@@ -28,7 +28,8 @@ if d.get('extra_signer'): print('Signer #2 certificate SHA-256 digest: '+'a'*64)
             "aapt": """import json,sys
 d=json.load(open(sys.argv[-1]))
 if d.get('bad_metadata'): sys.exit(1)
-print("package: name='%s' versionCode='%s'" % (d.get('package','im.molly.app'),d.get('version',101)))
+print("package: name='%s' versionCode='%s'" % (d.get('package','im.memoly.app'),d.get('version',101)))
+print("application-label:'%s'" % d.get('label','Memoly'))
 if d.get('debug'): print('application-debuggable')
 """,
         }.items():
@@ -72,7 +73,15 @@ if d.get('debug'): print('application-debuggable')
         self.assertNotEqual(self.verify({"debug": True}).returncode, 0)
 
     def test_wrong_package_rejected(self):
-        self.assertNotEqual(self.verify({"package": "im.molly.app.staging"}).returncode, 0)
+        for package in ("im.molly.app", "im.memoly.app.staging", "another.app"):
+            with self.subTest(package=package):
+                self.assertNotEqual(self.verify({"package": package}).returncode, 0)
+
+    def test_legacy_package_is_not_an_upgrade_baseline(self):
+        self.assertNotEqual(self.verify({"version": 102}, {"package": "im.molly.app"}).returncode, 0)
+
+    def test_wrong_label_rejected(self):
+        self.assertNotEqual(self.verify({"label": "Molly"}).returncode, 0)
 
     def test_invalid_version_rejected(self):
         self.assertNotEqual(self.verify({"version": ""}).returncode, 0)

@@ -1,5 +1,7 @@
 # Molly 공통 접근 잠금 및 전용 PIN 구현 계획
 
+이름 및 설치 패키지 분리의 후속 작업은 [Memoly 전환 계획](memoly-rebranding-plan.md)을 따른다. 표시 이름은 `Memoly`, 설치 패키지 ID는 `im.memoly.app`이다. 후속 구현과 검증 상태는 해당 문서 및 [CI 구성](CI.md)에 기록한다.
+
 ## 목표
 
 시스템 비밀번호·생체 정보 및 데이터베이스 암호 구문과 독립적인 **Molly 전용 숫자 PIN**으로 화면을 잠근다. SimpleX의 인증 방식 선택·PIN 설정·복귀 시 잠금 판단을 참고하고, Molly의 기존 화면 가림·스크린샷 보호·Activity 구조에 연결한다.

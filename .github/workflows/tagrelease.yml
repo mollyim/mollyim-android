@@ -1,10 +1,10 @@
-name: Tag commit for personal release
+name: Tag commit for Memoly release
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'New tag, for example v8.19.2-4-personal.1'
+        description: 'New tag, for example v8.19.2-4-memoly.1'
         required: true
         type: string
       publish:
@@ -29,8 +29,8 @@ jobs:
           KEY_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
           KEY_PASSWORD: ${{ secrets.SECRET_KEYSTORE_PASSWORD }}
         run: |
-          [[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-personal\.[0-9]+$ ]] || {
-            echo '::error::Use a version tag ending in -personal.<number>.'
+          [[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-memoly\.[0-9]+$ ]] || {
+            echo '::error::Use a version tag ending in -memoly.<number>.'
             exit 1
           }
           for name in KEYSTORE KEY_ALIAS KEY_PASSWORD; do

@@ -29,12 +29,16 @@ metadata() {
   badging=$("$tools/aapt" dump badging "$apk")
   package=$(printf '%s\n' "$badging" | sed -n "s/^package: name='\([^']*\)'.*/\1/p")
   version=$(printf '%s\n' "$badging" | sed -n "s/^package:.* versionCode='\([0-9]*\)'.*/\1/p")
-  [[ "$package" == im.molly.app && "$version" =~ ^[1-9][0-9]*$ ]] || {
-    echo 'Expected im.molly.app with a valid versionCode.' >&2
+  [[ "$package" == im.memoly.app && "$version" =~ ^[1-9][0-9]*$ ]] || {
+    echo 'Expected im.memoly.app with a valid versionCode.' >&2
     return 1
   }
   if [[ "$badging" == *application-debuggable* ]]; then
     echo 'Refusing to release a debuggable APK.' >&2
+    return 1
+  fi
+  if ! printf '%s\n' "$badging" | grep -qx "application-label:'Memoly'"; then
+    echo 'Expected Memoly application label.' >&2
     return 1
   fi
   printf '%s\n' "$version"
@@ -48,4 +52,4 @@ if [[ -n "$old_apk" ]]; then
     exit 1
   fi
 fi
-printf 'Verified personal release: package=im.molly.app versionCode=%s certificate=%s\n' "$new_version" "$expected"
+printf 'Verified personal release: package=im.memoly.app versionCode=%s certificate=%s\n' "$new_version" "$expected"

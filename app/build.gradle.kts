@@ -12,7 +12,7 @@ plugins {
 
 val canonicalVersionCode = 1719
 val canonicalVersionName = "8.19.2"
-val currentHotfixVersion = 1
+val currentHotfixVersion = 2
 val maxHotfixVersions = 100
 val mollyRevision = 4
 
@@ -277,7 +277,8 @@ android {
 
     create("website") {
       dimension = "distribution"
-      buildConfigField("boolean", "MANAGE_MOLLY_UPDATES", "true")
+      // Personal builds are updated with the same personal key from GitHub Releases.
+      buildConfigField("boolean", "MANAGE_MOLLY_UPDATES", "false")
       isDefault = true
     }
 
@@ -325,7 +326,7 @@ android {
     quiet = true
     disable += "LintError"
     lintConfig = rootProject.file("lint.xml")
-    if (ciEnabled) {
+    if (ciEnabled || project.hasProperty("ciVerification")) {
       // MOLLY: disable slow "newer dependency available" lint checks; versions are pinned.
       disable += setOf(
         "GradleDependency",

@@ -4,133 +4,85 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Enter the version to check"
+        description: Memoly version tag to independently rebuild
         required: true
   release:
-    types:
-      - published
+    types: [published]
 
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  contents: read
+
+concurrency:
+  group: reprocheck-${{ github.event.inputs.version || github.event.release.tag_name }}
+  cancel-in-progress: false
 
 env:
-  TAG_REF: "${{ github.event.inputs.version || github.event.release.tag_name }}"
-  BUILD_ENV_FILE: ${{ vars.BUILD_ENV_FILE || 'beta-stable.env' }}
+  TAG_REF: ${{ github.event.inputs.version || github.event.release.tag_name }}
+  CI_APP_TITLE: Memoly
+  CI_APP_FILENAME: Memoly
+  CI_PACKAGE_ID: im.memoly.app
+  CI_BUILD_VARIANTS: '^prodStoreRelease$'
+  CI_FORCE_INTERNAL_USER_FLAG: 'false'
 
 jobs:
   build:
-    name: Build new
+    name: Independently rebuild in Docker
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.release.tag_name, '-memoly.')
     runs-on: ubuntu-24.04
-
+    timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v6
+      - name: Validate Memoly tag
+        run: '[[ "$TAG_REF" =~ ^v[0-9][A-Za-z0-9._-]*-memoly\.[0-9]+$ ]]'
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Free up disk space in runner
-        uses: ./.github/actions/disk-cleanup
-
-      - name: Set up builder image
+          ref: ${{ env.TAG_REF }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./.github/actions/disk-cleanup
+      - name: Build independent builder image
         run: docker compose build
         working-directory: reproducible-builds
-
-      - name: Export CI environment variables
-        run: |
-          cp -v "ci/$BUILD_ENV_FILE" .env
-          for var in APP_TITLE APP_FILENAME PACKAGE_ID \
-                     BUILD_VARIANTS FORCE_INTERNAL_USER_FLAG \
-                     MAPS_API_KEY; do
-            if [ -n "${!var}" ]; then
-              echo "Setting CI_$var=${!var}"
-              echo "CI_$var=${!var}" >> $GITHUB_ENV
-            fi
-          done
+      - name: Rebuild unsigned release without signing secrets
+        run: docker compose run --rm assemble
         working-directory: reproducible-builds
-        env:
-          APP_TITLE: ${{ vars.CI_APP_TITLE }}
-          APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
-          PACKAGE_ID: ${{ vars.CI_PACKAGE_ID }}
-          BUILD_VARIANTS: ${{ vars.CI_BUILD_VARIANTS }}
-          FORCE_INTERNAL_USER_FLAG: ${{ vars.CI_FORCE_INTERNAL_USER_FLAG }}
-
-      - name: Build release
-        run: docker compose run assemble
-        working-directory: reproducible-builds
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: new
-          path: reproducible-builds/outputs/apk/*/release/*.apk
-          if-no-files-found: error
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: apkdiff
-          path: reproducible-builds/apkdiff/apkdiff.py
-          if-no-files-found: error
-
-  download:
-    name: Download original
-    runs-on: ubuntu-24.04
-    outputs:
-      apks: "${{ steps.set.outputs.apks }}"
-
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: "${{ env.TAG_REF }}"
-
-      - name: Download published APKs
-        run: gh release download --pattern '*.apk' "$TAG_REF"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: original
-          path: "*.apk"
-          if-no-files-found: error
-
-      - name: Output filenames to compare
-        id: set
+      - name: Collect matching Memoly APK
         run: |
-          apks=$(jq -c -n '[$ARGS.positional[] | sub("-unsigned-";"-")]' --args *.apk)
-          echo "apks=$apks" >> $GITHUB_OUTPUT
+          shopt -s nullglob
+          apks=(reproducible-builds/outputs/apk/prodStore/release/*-unsigned.apk)
+          [[ ${#apks[@]} -eq 1 ]] || { echo '::error::Expected one independently rebuilt Memoly APK.'; exit 1; }
+          mkdir rebuilt-apk
+          cp "${apks[0]}" "rebuilt-apk/Memoly-$TAG_REF.apk"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: independently-rebuilt-apk
+          path: rebuilt-apk/
+          if-no-files-found: error
 
   compare:
-    name: Compare
+    name: Compare published APK contents
+    needs: build
     runs-on: ubuntu-24.04
-    needs:
-      - build
-      - download
-    strategy:
-      fail-fast: false
-      matrix:
-        apk-file: ${{ fromJSON(needs.download.outputs.apks) }}
-
     steps:
-      - uses: actions/download-artifact@v4
-
-      - name: Install diffuse
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ env.TAG_REF }}
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: independently-rebuilt-apk
+          path: rebuilt-apk
+      - name: Download original APK and verify checksum
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          curl -o diffuse.jar -L https://github.com/JakeWharton/diffuse/releases/download/0.1.0/diffuse-0.1.0-binary.jar
-          echo "$SHA256" diffuse.jar | sha256sum -c -
-        env:
-          SHA256: 60d619373c46a5d06b8126c1d61e0adc18b72f2cbb9245ef920d3387e44b86cf
-
-      - name: Normalize APK filenames
-        run: |
-          mv -v new/*/release/*.apk new/
-          for fn in */*-unsigned-*.apk; do
-            mv -v "$fn" "$(sed 's/-unsigned-/-/' <<< $fn)"
-          done
-
-      - name: Log diffuse full output
-        run: java -jar diffuse.jar diff "original/$APK_FILE" "new/$APK_FILE"
-        env:
-          APK_FILE: "${{ matrix.apk-file }}"
-
-      - name: Check for reproducibility
-        run: python apkdiff/apkdiff.py "original/$APK_FILE" "new/$APK_FILE"
-        env:
-          APK_FILE: "${{ matrix.apk-file }}"
+          gh release download "$TAG_REF" --pattern 'Memoly-*.apk' --pattern SHA256SUMS --dir original-apk
+          (cd original-apk && sha256sum --check --strict SHA256SUMS)
+      - name: Compare APK contents excluding signature files
+        run: python3 reproducible-builds/apkdiff/apkdiff.py "original-apk/Memoly-$TAG_REF.apk" "rebuilt-apk/Memoly-$TAG_REF.apk"
+      - name: Upload mismatched entries
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: reproducibility-mismatches
+          path: mismatches/
+          if-no-files-found: ignore

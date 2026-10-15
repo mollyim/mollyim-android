@@ -1,9 +1,35 @@
 package org.thoughtcrime.securesms.backup
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.thoughtcrime.securesms.BuildConfig
 
 class FullBackupImporterTest {
+
+  @Test
+  fun `legacy Molly preferences use the current secure store`() {
+    val oldPackage = if (BuildConfig.FLAVOR_environment == "staging") "im.molly.app.staging" else "im.molly.app"
+    assertTrue(FullBackupImporter.isDefaultSharedPreferencesFile(oldPackage))
+    assertTrue(FullBackupImporter.isDefaultSharedPreferencesFile("${oldPackage}_preferences"))
+  }
+
+  @Test
+  fun `Signal and current app backups retain their preference mapping`() {
+    assertTrue(FullBackupImporter.isDefaultSharedPreferencesFile("${BuildConfig.SIGNAL_PACKAGE_NAME}_preferences"))
+    assertTrue(FullBackupImporter.isDefaultSharedPreferencesFile(BuildConfig.APPLICATION_ID))
+    assertTrue(FullBackupImporter.isDefaultSharedPreferencesFile("${BuildConfig.APPLICATION_ID}_preferences"))
+  }
+
+  @Test
+  fun `unrelated preference files are not merged into the secure store`() {
+    val otherEnvironment = if (BuildConfig.FLAVOR_environment == "staging") "im.molly.app" else "im.molly.app.staging"
+    assertFalse(FullBackupImporter.isDefaultSharedPreferencesFile(otherEnvironment))
+    assertFalse(FullBackupImporter.isDefaultSharedPreferencesFile("${otherEnvironment}_preferences"))
+    assertFalse(FullBackupImporter.isDefaultSharedPreferencesFile("im.molly.app.attacker"))
+    assertFalse(FullBackupImporter.isDefaultSharedPreferencesFile("other_preferences"))
+  }
 
   @Test
   fun `computeTableOrder - empty`() {
