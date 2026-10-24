@@ -6,7 +6,7 @@ on:
     workflows: ['Repository source guard']
     types: [completed]
   schedule:
-    - cron: '23 */6 * * *'
+    - cron: '23 4 * * 1'
   workflow_dispatch:
     inputs:
       mode:
