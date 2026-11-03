@@ -3,7 +3,7 @@ FROM docker.io/eclipse-temurin:21.0.11_10-jdk-alpine-3.23@sha256:4ec2402e5ebb803
 # Stage 1: base
 # Minimal environment with only system tools. This stage is stable and reusable across merges.
 
-RUN apk add --no-cache bash curl fd gcompat git make ripgrep
+RUN apk add --no-cache bash curl fd gcompat git make python3 ripgrep
 
 # Set a default Git identity
 RUN git config --global user.name "builder" \
