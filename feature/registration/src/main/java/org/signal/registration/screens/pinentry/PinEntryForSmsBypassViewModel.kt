@@ -10,12 +10,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import org.signal.core.models.MasterKey
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -23,7 +23,6 @@ import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateBack
 import org.signal.registration.util.SensitiveLog
 
@@ -50,13 +49,20 @@ class PinEntryForSmsBypassViewModel(
     )
   )
 
-  val state: StateFlow<PinEntryState> = _state
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PinEntryState(showNeedHelp = true))
+  val state: StateFlow<PinEntryState> = _state.asStateFlow()
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
+    parentState
+      .onEach { onEvent(PinEntryScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: PinEntryScreenEvents) {
-    applyEvent(state.value, event, parentEventEmitter) { _state.value = it }
+    applyEvent(_state.value, event, parentEventEmitter) { _state.value = it }
   }
 
   @VisibleForTesting
@@ -67,6 +73,9 @@ class PinEntryForSmsBypassViewModel(
     stateEmitter: (PinEntryState) -> Unit
   ) {
     when (event) {
+      is PinEntryScreenEvents.ParentStateChanged -> {
+        stateEmitter(applyParentState(state, event.parentState))
+      }
       is PinEntryScreenEvents.PinEntered -> {
         val localState = state.copy(loading = true)
         stateEmitter(localState)
@@ -77,13 +86,16 @@ class PinEntryForSmsBypassViewModel(
       }
       is PinEntryScreenEvents.CreateNewPin,
       is PinEntryScreenEvents.ContactSupport -> Unit
-      is PinEntryScreenEvents.ToggleKeyboard -> {
+      is PinEntryScreenEvents.ToggleKeyboard,
+      is PinEntryScreenEvents.NetworkErrorDialogDismissed,
+      is PinEntryScreenEvents.RateLimitedDialogDismissed,
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
   }
 
-  fun applyParentState(state: PinEntryState, parentState: RegistrationFlowState): PinEntryState {
+  private fun applyParentState(state: PinEntryState, parentState: RegistrationFlowState): PinEntryState {
     return state.copy(e164 = parentState.sessionE164)
   }
 
@@ -122,11 +134,11 @@ class PinEntryForSmsBypassViewModel(
       }
       is RequestResult.RetryableNetworkError -> {
         Log.w(TAG, "[PinEntered] Network error when restoring master key (sms-bypass).", result.networkError)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
         Log.w(TAG, "[PinEntered] Application error when restoring master key (sms-bypass).", result.cause)
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
     }
   }
@@ -156,10 +168,10 @@ class PinEntryForSmsBypassViewModel(
         state
       }
       is RequestResult.RetryableNetworkError -> {
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.NetworkError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(networkError = true))
       }
       is RequestResult.ApplicationError -> {
-        state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.UnknownError)
+        state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
       }
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
@@ -176,7 +188,7 @@ class PinEntryForSmsBypassViewModel(
           }
           is NetworkController.RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
-            state.copy(loading = false, oneTimeEvent = PinEntryState.OneTimeEvent.RateLimited(error.retryAfter))
+            state.copy(loading = false, dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
           }
           is NetworkController.RegisterAccountError.RegistrationLock -> {
             if (provideRegistrationLock) {

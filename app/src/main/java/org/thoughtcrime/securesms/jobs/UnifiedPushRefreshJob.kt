@@ -220,7 +220,9 @@ class UnifiedPushRefreshJob private constructor(
 
   @Throws(IOException::class)
   private fun removeAndClearDevice(device: MollySocketDevice) {
-    MollySocketRepository.removeDevice(device)
+    if (!MollySocketRepository.removeDevice(device)) {
+      throw IOException("Failed to remove MollySocket. Will retry.")
+    }
     clearDevice()
   }
 

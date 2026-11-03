@@ -71,6 +71,8 @@ class AdvancedPrivacySettingsViewModel(
 
   fun setAllowAutomaticVerification(enabled: Boolean) {
     SignalStore.settings.automaticVerificationEnabled = enabled
+    SignalStore.misc.hasKeyTransparencyFailure = false
+    SignalStore.misc.hasSeenKeyTransparencyFailure = false
     refresh()
     viewModelScope.launch(SignalDispatchers.Default) {
       if (!enabled) {

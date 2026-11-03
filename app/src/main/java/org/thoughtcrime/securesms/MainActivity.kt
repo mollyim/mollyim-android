@@ -75,6 +75,7 @@ import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -637,46 +638,54 @@ class MainActivity :
             }
           },
           primaryContent = {
-            when (mainNavigationState.currentListLocation) {
-              MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.chatsBackStackEntries,
-                  onBack = { mainNavigationViewModel.popChatsDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryProvider = entryProvider { chatsNavEntries(convoTransitionState) }
-                )
-              }
+            Box(
+              modifier = Modifier
+                .padding(end = contentLayoutData.detailPaddingEnd)
+                .clip(contentLayoutData.shape)
+                .background(color = MaterialTheme.colorScheme.surface)
+                .fillMaxSize()
+            ) {
+              when (mainNavigationState.currentListLocation) {
+                MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
+                  NavDisplay<NavKey>(
+                    backStack = mainNavigationViewModel.chatsBackStackEntries,
+                    onBack = { mainNavigationViewModel.popChatsDetailLocation() },
+                    transitionSpec = { TransitionSpecs.HorizontalSlide.transitionSpec },
+                    popTransitionSpec = { TransitionSpecs.HorizontalSlide.popTransitionSpec },
+                    predictivePopTransitionSpec = { TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec },
+                    entryProvider = entryProvider { chatsNavEntries(convoTransitionState) }
+                  )
+                }
 
-              MainNavigationListLocation.CALLS -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.callsBackStackEntries,
-                  onBack = { mainNavigationViewModel.popCallsDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryDecorators = listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator()
-                  ),
-                  entryProvider = entryProvider { callsNavEntries(isSplitPane) }
-                )
-              }
+                MainNavigationListLocation.CALLS -> {
+                  NavDisplay<NavKey>(
+                    backStack = mainNavigationViewModel.callsBackStackEntries,
+                    onBack = { mainNavigationViewModel.popCallsDetailLocation() },
+                    transitionSpec = { TransitionSpecs.HorizontalSlide.transitionSpec },
+                    popTransitionSpec = { TransitionSpecs.HorizontalSlide.popTransitionSpec },
+                    predictivePopTransitionSpec = { TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec },
+                    entryDecorators = listOf(
+                      rememberSaveableStateHolderNavEntryDecorator(),
+                      rememberViewModelStoreNavEntryDecorator()
+                    ),
+                    entryProvider = entryProvider { callsNavEntries(isSplitPane) }
+                  )
+                }
 
-              MainNavigationListLocation.STORIES -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.storiesBackStackEntries,
-                  onBack = { mainNavigationViewModel.popStoriesDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryDecorators = listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator()
-                  ),
-                  entryProvider = entryProvider { storiesNavEntries() }
-                )
+                MainNavigationListLocation.STORIES -> {
+                  NavDisplay<NavKey>(
+                    backStack = mainNavigationViewModel.storiesBackStackEntries,
+                    onBack = { mainNavigationViewModel.popStoriesDetailLocation() },
+                    transitionSpec = { TransitionSpecs.HorizontalSlide.transitionSpec },
+                    popTransitionSpec = { TransitionSpecs.HorizontalSlide.popTransitionSpec },
+                    predictivePopTransitionSpec = { TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec },
+                    entryDecorators = listOf(
+                      rememberSaveableStateHolderNavEntryDecorator(),
+                      rememberViewModelStoreNavEntryDecorator()
+                    ),
+                    entryProvider = entryProvider { storiesNavEntries() }
+                  )
+                }
               }
             }
           },

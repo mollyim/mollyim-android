@@ -8,6 +8,7 @@ import im.molly.unifiedpush.model.ConnectionResult
 import im.molly.unifiedpush.model.LinkStatus
 import im.molly.unifiedpush.model.MollySocketDevice
 import im.molly.unifiedpush.model.Response
+import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
@@ -129,9 +130,10 @@ object MollySocketRepository {
     }
   }
 
-  @Throws(IOException::class)
-  fun removeDevice(device: MollySocketDevice) {
-    LinkDeviceRepository.removeDevice(device.deviceId)
+  fun removeDevice(device: MollySocketDevice): Boolean {
+    return runBlocking {
+      LinkDeviceRepository.removeDevice(device.deviceId)
+    }
   }
 
   fun getDeviceStatus(device: MollySocketDevice): LinkStatus {

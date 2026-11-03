@@ -1492,7 +1492,7 @@
         </receiver>
 
         <receiver
-            android:name="org.thoughtcrime.securesms.jobs.ForegroundServiceUtil$Receiver"
+            android:name="org.signal.core.util.ForegroundServiceUtil$Receiver"
             android:exported="false" />
 
         <!-- MOLLY: Duplicates functionality of existing BootReceiver -->

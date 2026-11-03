@@ -9,7 +9,6 @@ data class AppSettingsState(
   val isPrimaryDevice: Boolean,
   val unreadPaymentsCount: Int,
   val userUnregistered: Boolean,
-  val isLinkedDevice: Boolean = false,
   val clientDeprecated: Boolean,
   val showInternalPreferences: Boolean = RemoteConfig.internalUser,
   val showAppUpdates: Boolean = BuildConfig.MANAGE_MOLLY_UPDATES,

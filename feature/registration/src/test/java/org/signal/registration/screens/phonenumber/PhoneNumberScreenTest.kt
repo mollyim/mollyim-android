@@ -60,7 +60,8 @@ class PhoneNumberScreenTest {
           state = PhoneNumberEntryState(
             countryCode = "1",
             nationalNumber = "5551234567",
-            formattedNumber = "(555) 123-4567"
+            formattedNumber = "(555) 123-4567",
+            isNumberPossible = true
           ),
           onEvent = {}
         )
@@ -82,7 +83,8 @@ class PhoneNumberScreenTest {
           state = PhoneNumberEntryState(
             countryCode = "1",
             nationalNumber = "5551234567",
-            formattedNumber = "(555) 123-4567"
+            formattedNumber = "(555) 123-4567",
+            isNumberPossible = true
           ),
           onEvent = { event ->
             emittedEvent = event
@@ -140,7 +142,8 @@ class PhoneNumberScreenTest {
           state = PhoneNumberEntryState(
             countryCode = "1",
             nationalNumber = "5551234567",
-            formattedNumber = "(555) 123-4567"
+            formattedNumber = "(555) 123-4567",
+            isNumberPossible = true
           ),
           onEvent = { event ->
             emittedEvent = event

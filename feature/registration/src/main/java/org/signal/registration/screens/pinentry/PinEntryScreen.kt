@@ -43,6 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -118,6 +119,28 @@ fun PinEntryScreen(
         onEvent(PinEntryScreenEvents.Skip)
       },
       onDismiss = { showSkipDialog = false }
+    )
+  }
+
+  val errorDialog: Pair<String, PinEntryScreenEvents>? = when {
+    state.dialogs.networkError -> stringResource(R.string.VerificationCodeScreen__network_error) to PinEntryScreenEvents.NetworkErrorDialogDismissed
+    state.dialogs.rateLimitedRetryAfter != null -> {
+      val message = if (state.dialogs.rateLimitedRetryAfter.isPositive()) {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.dialogs.rateLimitedRetryAfter.toString())
+      } else {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts)
+      }
+      message to PinEntryScreenEvents.RateLimitedDialogDismissed
+    }
+    state.dialogs.unknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to PinEntryScreenEvents.UnknownErrorDialogDismissed
+    else -> null
+  }
+
+  errorDialog?.let { (message, dismissedEvent) ->
+    Dialogs.SimpleMessageDialog(
+      message = message,
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(dismissedEvent) }
     )
   }
 
@@ -251,7 +274,8 @@ private fun TwoPaneLayout(
       ) {
         PinDescription(
           mode = state.mode,
-          modifier = Modifier.fillMaxWidth()
+          modifier = Modifier.fillMaxWidth(),
+          twoPane = true
         )
       }
     },
@@ -307,7 +331,8 @@ private fun TwoPaneLayout(
 @Composable
 private fun PinDescription(
   mode: PinEntryState.Mode,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   val titleString = when (mode) {
     PinEntryState.Mode.RegistrationLock -> stringResource(R.string.PinEntryScreen__registration_lock)
@@ -318,7 +343,7 @@ private fun PinDescription(
   Column(modifier = modifier) {
     Text(
       text = titleString,
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       textAlign = TextAlign.Start,
       modifier = Modifier
         .fillMaxWidth()
@@ -327,7 +352,7 @@ private fun PinDescription(
 
     Text(
       text = stringResource(R.string.PinEntryScreen__enter_the_pin_you_created),
-      style = MaterialTheme.typography.bodyLarge,
+      style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       textAlign = TextAlign.Start,
       modifier = Modifier.padding(top = 16.dp)

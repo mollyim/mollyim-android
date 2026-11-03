@@ -140,8 +140,11 @@ object TestTags {
   // Pin Creation Screen
   const val PIN_CREATION_SCREEN = "pin_creation_screen"
   const val PIN_CREATION_INPUT = "pin_creation_input"
+  const val PIN_CREATION_CONFIRM_INPUT = "pin_creation_confirm_input"
   const val PIN_CREATION_NEXT_BUTTON = "pin_creation_next_button"
   const val PIN_CREATION_TOGGLE_KEYBOARD_BUTTON = "pin_creation_toggle_keyboard_button"
+  const val PIN_CREATION_MENU_BUTTON = "pin_creation_menu_button"
+  const val PIN_CREATION_DISABLE_PIN_MENU_ITEM = "pin_creation_disable_pin_menu_item"
 
   // Pin Entry Screen
   const val PIN_ENTRY_SCREEN = "pin_entry_screen"

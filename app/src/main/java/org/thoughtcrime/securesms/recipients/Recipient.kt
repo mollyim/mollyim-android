@@ -660,7 +660,7 @@ class Recipient(
   }
 
   private fun getUnknownDisplayName(context: Context): String {
-    return if (registered == RegisteredState.NOT_REGISTERED) {
+    return if (!isResolving && registered == RegisteredState.NOT_REGISTERED) {
       context.getString(R.string.Recipient_deleted_account)
     } else {
       context.getString(R.string.Recipient_unknown)

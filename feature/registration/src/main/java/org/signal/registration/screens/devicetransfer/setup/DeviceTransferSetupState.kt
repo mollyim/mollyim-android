@@ -11,28 +11,23 @@ data class DeviceTransferSetupState(
   val takingTooLong: Boolean = false,
   val showVerifyRejectDialog: Boolean = false,
   val showErrorDialog: Boolean = false,
-  val oneTimeEvent: OneTimeEvent? = null
+  val pendingActions: PendingActions = PendingActions()
 ) {
 
-  override fun toString(): String = "DeviceTransferSetupState(step=$step, authenticationCode=${authenticationCode?.let { "present" }}, takingTooLong=$takingTooLong, showVerifyRejectDialog=$showVerifyRejectDialog, showErrorDialog=$showErrorDialog, oneTimeEvent=$oneTimeEvent)"
+  override fun toString(): String = "DeviceTransferSetupState(step=$step, authenticationCode=${authenticationCode?.let { "present" }}, takingTooLong=$takingTooLong, showVerifyRejectDialog=$showVerifyRejectDialog, showErrorDialog=$showErrorDialog, pendingActions=$pendingActions)"
 
-  sealed interface OneTimeEvent {
+  /** One-shot actions the screen should launch. The screen clears these once launched. */
+  data class PendingActions(
     /** The screen should launch a runtime permission request. */
-    data object RequestLocationPermission : OneTimeEvent
+    val requestLocationPermission: Boolean = false,
 
     /** The screen should launch the system Location settings. */
-    data object OpenLocationSettings : OneTimeEvent
+    val openLocationSettings: Boolean = false,
 
     /** The screen should launch the system Wi-Fi settings. */
-    data object OpenWifiSettings : OneTimeEvent
+    val openWifiSettings: Boolean = false,
 
     /** The screen should launch this app's system settings (for permanent-denial recovery). */
-    data object OpenAppSettings : OneTimeEvent
-
-    /** Both devices verified successfully; navigate to the Progress screen. */
-    data object NavigateToProgress : OneTimeEvent
-
-    /** Unrecoverable setup path (e.g. Wi-Fi Direct unavailable); navigate back. */
-    data object NavigateAway : OneTimeEvent
-  }
+    val openAppSettings: Boolean = false
+  )
 }

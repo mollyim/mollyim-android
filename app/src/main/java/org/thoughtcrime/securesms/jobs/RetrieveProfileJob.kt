@@ -28,6 +28,7 @@ import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
@@ -61,6 +62,7 @@ class RetrieveProfileJob private constructor(parameters: Parameters, private val
   private constructor(recipientIds: Set<RecipientId>, skipDebounce: Boolean) : this(
     parameters = Parameters.Builder()
       .addConstraint(NetworkConstraint.KEY)
+      .addConstraint(DataRestoreConstraint.KEY)
       .apply {
         if (recipientIds.size < 5) {
           setQueue(recipientIds.map { it.toLong() }.sorted().joinToString(separator = "_", prefix = QUEUE_PREFIX))

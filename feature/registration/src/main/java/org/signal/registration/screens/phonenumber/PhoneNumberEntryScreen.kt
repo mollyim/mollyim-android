@@ -54,11 +54,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -81,7 +81,6 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
-import org.signal.registration.screens.phonenumber.PhoneNumberEntryState.OneTimeEvent
 import org.signal.registration.test.TestTags
 import org.signal.core.ui.R as CoreR
 
@@ -114,9 +113,7 @@ fun PhoneNumberScreen(
   onEvent: (PhoneNumberEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  val resources = LocalResources.current
   val context = LocalContext.current
-  var simpleErrorMessage: String? by remember { mutableStateOf(null) }
   var hasRequestedPhoneNumberHint by rememberSaveable { mutableStateOf(false) }
   val currentNationalNumber by rememberUpdatedState(state.nationalNumber)
 
@@ -169,7 +166,7 @@ fun PhoneNumberScreen(
     prefillFromDeviceNumberIfAllowed()
   }
 
-  if (state.showDialog) {
+  if (state.dialogs.confirmNumber) {
     Dialogs.SimpleAlertDialog(
       title = stringResource(R.string.RegistrationActivity_is_the_phone_number),
       body = "+${state.countryCode} ${state.formattedNumber}\n\n${stringResource(R.string.RegistrationActivity_a_verification_code)}",
@@ -180,27 +177,36 @@ fun PhoneNumberScreen(
     )
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    onEvent(PhoneNumberEntryScreenEvents.ConsumeOneTimeEvent)
-    when (state.oneTimeEvent) {
-      OneTimeEvent.NetworkError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__network_error)
-      is OneTimeEvent.RateLimited -> simpleErrorMessage = if (state.oneTimeEvent.retryAfter.isPositive()) {
-        resources.getString(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.oneTimeEvent.retryAfter.toString())
+  val simpleError: Pair<String, PhoneNumberEntryScreenEvents>? = when {
+    state.dialogs.networkError -> stringResource(R.string.VerificationCodeScreen__network_error) to PhoneNumberEntryScreenEvents.NetworkErrorDialogDismissed
+    state.dialogs.rateLimitedRetryAfter != null -> {
+      val message = if (state.dialogs.rateLimitedRetryAfter.isPositive()) {
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts_try_again_in_s, state.dialogs.rateLimitedRetryAfter.toString())
       } else {
-        resources.getString(R.string.VerificationCodeScreen__too_many_attempts)
+        stringResource(R.string.VerificationCodeScreen__too_many_attempts)
       }
-      OneTimeEvent.UnknownError -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__an_unexpected_error_occurred)
-      OneTimeEvent.CouldNotRequestCodeWithSelectedTransport -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method)
-      OneTimeEvent.UnableToSendSms -> simpleErrorMessage = resources.getString(R.string.VerificationCodeScreen__unable_to_send_sms)
-      null -> Unit
+      message to PhoneNumberEntryScreenEvents.RateLimitedDialogDismissed
     }
+    state.dialogs.unknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to PhoneNumberEntryScreenEvents.UnknownErrorDialogDismissed
+    state.dialogs.couldNotRequestCodeWithSelectedTransport -> stringResource(R.string.VerificationCodeScreen__could_not_send_code_via_selected_method) to PhoneNumberEntryScreenEvents.CouldNotRequestCodeWithSelectedTransportDialogDismissed
+    state.dialogs.unableToSendSms -> stringResource(R.string.VerificationCodeScreen__unable_to_send_sms) to PhoneNumberEntryScreenEvents.UnableToSendSmsDialogDismissed
+    else -> null
   }
 
-  simpleErrorMessage?.let { message ->
+  simpleError?.let { (message, dismissedEvent) ->
     Dialogs.SimpleMessageDialog(
       message = message,
       dismiss = stringResource(android.R.string.ok),
-      onDismiss = { simpleErrorMessage = null }
+      onDismiss = { onEvent(dismissedEvent) }
+    )
+  }
+
+  if (state.dialogs.invalidPhoneNumber) {
+    Dialogs.SimpleMessageDialog(
+      title = stringResource(R.string.RegistrationActivity_invalid_phone_number),
+      message = stringResource(R.string.RegistrationActivity_the_number_you_entered_is_not_valid),
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(PhoneNumberEntryScreenEvents.InvalidPhoneNumberDialogDismissed) }
     )
   }
 
@@ -231,7 +237,7 @@ private fun OnePaneLayout(
 
   OnePaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, isLinkAndSyncAvailable = state.isLinkAndSyncAvailable, onEvent = onEvent) },
     content = { paddingValues ->
       Column(
         modifier = Modifier
@@ -256,13 +262,8 @@ private fun OnePaneLayout(
         Spacer(modifier = Modifier.height(16.dp))
 
         PhoneNumberInputFields(
-          hasValidCountry = state.countryName.isNotEmpty(),
-          countryCode = state.countryCode,
-          formattedNumber = state.formattedNumber,
-          canSubmit = !state.showSpinner && state.isNumberPossible,
-          onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
-          onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
-          onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
+          state = state,
+          onEvent = onEvent,
           modifier = Modifier.fillMaxWidth()
         )
       }
@@ -293,7 +294,7 @@ private fun TwoPaneLayout(
 
   TwoPaneRegistrationScaffold(
     params = params,
-    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, onEvent = onEvent) },
+    topBar = { TopAppBar(scrollBehavior = topBarScrollBehavior, isLinkAndSyncAvailable = state.isLinkAndSyncAvailable, onEvent = onEvent) },
     firstPane = { paddingValues ->
       Column(
         modifier = Modifier
@@ -302,7 +303,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        Description()
+        Description(twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -325,13 +326,8 @@ private fun TwoPaneLayout(
         Spacer(modifier = Modifier.height(16.dp))
 
         PhoneNumberInputFields(
-          hasValidCountry = state.countryName.isNotEmpty(),
-          countryCode = state.countryCode,
-          formattedNumber = state.formattedNumber,
-          canSubmit = !state.showSpinner && state.isNumberPossible,
-          onCountryCodeChanged = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
-          onPhoneNumberChanged = { onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(it)) },
-          onPhoneNumberSubmitted = { onEvent(PhoneNumberEntryScreenEvents.NextClicked) },
+          state = state,
+          onEvent = onEvent,
           modifier = Modifier.fillMaxWidth()
         )
       }
@@ -350,6 +346,7 @@ private fun TwoPaneLayout(
 @Composable
 fun TopAppBar(
   scrollBehavior: TopAppBarScrollBehavior,
+  isLinkAndSyncAvailable: Boolean,
   onEvent: (PhoneNumberEntryScreenEvents) -> Unit
 ) {
   val context = LocalContext.current
@@ -385,23 +382,25 @@ fun TopAppBar(
             menuController.hide()
           }
         )
-        DropdownMenus.Item(
-          text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
-          onClick = {
-            onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
-            menuController.hide()
-          }
-        )
+        if (isLinkAndSyncAvailable) {
+          DropdownMenus.Item(
+            text = { Text(text = stringResource(R.string.RegistrationActivity_link_device)) },
+            onClick = {
+              onEvent(PhoneNumberEntryScreenEvents.LinkDevice)
+              menuController.hide()
+            }
+          )
+        }
       }
     }
   )
 }
 
 @Composable
-private fun Description() {
+private fun Description(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.RegistrationActivity_phone_number),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -409,7 +408,7 @@ private fun Description() {
 
   Text(
     text = stringResource(R.string.RegistrationActivity_you_will_receive_a_verification_code),
-    style = MaterialTheme.typography.bodyLarge,
+    style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier.padding(top = 16.dp)
   )
@@ -501,28 +500,25 @@ private fun CountryPicker(
  */
 @Composable
 private fun PhoneNumberInputFields(
-  hasValidCountry: Boolean,
-  countryCode: String,
-  formattedNumber: String,
-  canSubmit: Boolean,
-  onCountryCodeChanged: (String) -> Unit,
-  onPhoneNumberChanged: (String) -> Unit,
-  onPhoneNumberSubmitted: () -> Unit,
+  state: PhoneNumberEntryState,
+  onEvent: (PhoneNumberEntryScreenEvents) -> Unit,
   modifier: Modifier = Modifier
 ) {
-  var phoneNumberTextFieldValue by remember { mutableStateOf(TextFieldValue(formattedNumber)) }
+  var phoneNumberTextFieldValue by remember { mutableStateOf(TextFieldValue(state.formattedNumber)) }
   val focusRequester = remember { FocusRequester() }
+  val hasValidCountry = state.countryName.isNotEmpty()
+  val canSubmit = !state.showSpinner && state.isNumberPossible
 
-  LaunchedEffect(formattedNumber) {
-    if (phoneNumberTextFieldValue.text != formattedNumber) {
+  LaunchedEffect(state.formattedNumber) {
+    if (phoneNumberTextFieldValue.text != state.formattedNumber) {
       val oldText = phoneNumberTextFieldValue.text
       val oldCursorPos = phoneNumberTextFieldValue.selection.end
       val digitsBeforeCursor = oldText.take(oldCursorPos).count { it.isDigit() }
 
       var digitCount = 0
-      var newCursorPos = formattedNumber.length
-      for (i in formattedNumber.indices) {
-        if (formattedNumber[i].isDigit()) {
+      var newCursorPos = state.formattedNumber.length
+      for (i in state.formattedNumber.indices) {
+        if (state.formattedNumber[i].isDigit()) {
           digitCount++
         }
         if (digitCount >= digitsBeforeCursor) {
@@ -532,7 +528,7 @@ private fun PhoneNumberInputFields(
       }
 
       phoneNumberTextFieldValue = TextFieldValue(
-        text = formattedNumber,
+        text = state.formattedNumber,
         selection = TextRange(newCursorPos)
       )
     }
@@ -547,11 +543,11 @@ private fun PhoneNumberInputFields(
   Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.Start,
-    verticalAlignment = Alignment.Bottom
+    verticalAlignment = Alignment.Top
   ) {
     TextField(
-      value = countryCode,
-      onValueChange = onCountryCodeChanged,
+      value = state.countryCode,
+      onValueChange = { onEvent(PhoneNumberEntryScreenEvents.CountryCodeChanged(it)) },
       modifier = Modifier
         .width(76.dp)
         .testTag(TestTags.PHONE_NUMBER_COUNTRY_CODE_FIELD),
@@ -581,8 +577,8 @@ private fun PhoneNumberInputFields(
     TextField(
       value = phoneNumberTextFieldValue,
       onValueChange = { newValue ->
+        onEvent(PhoneNumberEntryScreenEvents.NationalNumberChanged(oldValue = phoneNumberTextFieldValue.text, newValue = newValue.text))
         phoneNumberTextFieldValue = newValue
-        onPhoneNumberChanged(newValue.text)
       },
       modifier = Modifier
         .weight(1f)
@@ -591,6 +587,12 @@ private fun PhoneNumberInputFields(
       label = {
         Text(stringResource(R.string.RegistrationActivity_phone_number_description))
       },
+      isError = state.isNumberInvalid,
+      supportingText = if (state.isNumberInvalid) {
+        { Text(stringResource(R.string.RegistrationActivity_not_a_valid_phone_number)) }
+      } else {
+        null
+      },
       keyboardOptions = KeyboardOptions(
         keyboardType = KeyboardType.Phone,
         imeAction = ImeAction.Done
@@ -598,7 +600,7 @@ private fun PhoneNumberInputFields(
       keyboardActions = KeyboardActions(
         onDone = {
           if (canSubmit) {
-            onPhoneNumberSubmitted()
+            onEvent(PhoneNumberEntryScreenEvents.NextClicked)
           }
         }
       ),
@@ -608,7 +610,8 @@ private fun PhoneNumberInputFields(
       ),
       colors = TextFieldDefaults.colors(
         unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant
+        focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+        errorContainerColor = MaterialTheme.colorScheme.surfaceVariant
       )
     )
   }

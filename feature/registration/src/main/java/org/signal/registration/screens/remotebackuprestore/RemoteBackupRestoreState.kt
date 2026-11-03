@@ -7,6 +7,7 @@ package org.signal.registration.screens.remotebackuprestore
 
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.util.censor
+import org.signal.registration.screens.shared.RestoreProgress
 
 data class RemoteBackupRestoreState(
   val aep: AccountEntropyPool,
@@ -41,20 +42,5 @@ data class RemoteBackupRestoreState(
     data object PermanentSvrBFailure : RestoreState
 
     data object Failed : RestoreState
-  }
-
-  data class RestoreProgress(
-    val phase: Phase,
-    val bytesCompleted: Long,
-    val totalBytes: Long
-  ) {
-    val progress: Float
-      get() = if (totalBytes > 0) bytesCompleted.toFloat() / totalBytes.toFloat() else 0f
-
-    enum class Phase {
-      Downloading,
-      Restoring,
-      Finalizing
-    }
   }
 }

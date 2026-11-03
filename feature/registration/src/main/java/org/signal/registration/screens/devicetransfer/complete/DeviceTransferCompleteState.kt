@@ -5,8 +5,4 @@
 
 package org.signal.registration.screens.devicetransfer.complete
 
-data class DeviceTransferCompleteState(
-  val oneTimeEvent: OneTimeEvent? = null
-) {
-  sealed interface OneTimeEvent
-}
+class DeviceTransferCompleteState

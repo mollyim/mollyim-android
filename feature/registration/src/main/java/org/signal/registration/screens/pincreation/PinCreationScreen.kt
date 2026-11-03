@@ -51,12 +51,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -93,35 +93,30 @@ fun PinCreationScreen(
 ) {
   val activePin = remember { mutableStateOf("") }
   val canSubmitPin = activePin.value.length >= 4
-  val resources = LocalResources.current
-  var errorMessage: String? by remember { mutableStateOf(null) }
 
   BackHandler(enabled = state.isConfirmEnabled) {
     onEvent(PinCreationScreenEvents.BackToPinEntry)
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    val event = state.oneTimeEvent ?: return@LaunchedEffect
-    onEvent(PinCreationScreenEvents.ConsumeOneTimeEvent)
-    errorMessage = when (event) {
-      is PinCreationState.OneTimeEvent.ServiceError -> {
-        resources.getString(R.string.PinCreationScreen__service_error)
+  val errorDialog: Pair<String, PinCreationScreenEvents>? = when {
+    state.dialogs.serviceError -> stringResource(R.string.PinCreationScreen__service_error) to PinCreationScreenEvents.ServiceErrorDialogDismissed
+    state.dialogs.networkError != null -> {
+      val retryAfter = state.dialogs.networkError.retryAfter
+      val message = if (retryAfter != null) {
+        stringResource(R.string.PinCreationScreen__network_error_try_again_in_s, retryAfter.toString())
+      } else {
+        stringResource(R.string.PinCreationScreen__network_error)
       }
-      is PinCreationState.OneTimeEvent.NetworkError -> {
-        if (event.retryAfter != null) {
-          resources.getString(R.string.PinCreationScreen__network_error_try_again_in_s, event.retryAfter.toString())
-        } else {
-          resources.getString(R.string.PinCreationScreen__network_error)
-        }
-      }
+      message to PinCreationScreenEvents.NetworkErrorDialogDismissed
     }
+    else -> null
   }
 
-  errorMessage?.let { message ->
+  errorDialog?.let { (message, dismissedEvent) ->
     Dialogs.SimpleMessageDialog(
       message = message,
       dismiss = stringResource(android.R.string.ok),
-      onDismiss = { errorMessage = null }
+      onDismiss = { onEvent(dismissedEvent) }
     )
   }
 
@@ -245,7 +240,8 @@ private fun TwoPaneLayout(
         PinStepTransition(isConfirmEnabled = state.isConfirmEnabled) { isConfirm ->
           PinDescription(
             isConfirmEnabled = isConfirm,
-            onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) }
+            onLearnMore = { onEvent(PinCreationScreenEvents.LearnMore) },
+            twoPane = true
           )
         }
       }
@@ -313,7 +309,8 @@ private fun PinStepTransition(
 private fun PinDescription(
   isConfirmEnabled: Boolean,
   onLearnMore: () -> Unit,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   Column(modifier = modifier) {
     Text(
@@ -321,7 +318,7 @@ private fun PinDescription(
         isConfirmEnabled -> stringResource(R.string.PinCreationScreen__confirm_your_pin)
         else -> stringResource(R.string.PinCreationScreen__create_your_pin)
       },
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
@@ -330,7 +327,7 @@ private fun PinDescription(
     if (isConfirmEnabled) {
       Text(
         text = stringResource(R.string.PinCreationScreen__reenter_pin_description),
-        style = MaterialTheme.typography.bodyLarge,
+        style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(top = 16.dp)
       )
@@ -352,7 +349,7 @@ private fun PinDescription(
 
       ClickableText(
         text = descriptionText,
-        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+        style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal, color = MaterialTheme.colorScheme.onSurfaceVariant) else MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
         modifier = Modifier
           .fillMaxWidth()
           .padding(top = 16.dp),
@@ -395,6 +392,7 @@ private fun PinInputSection(
       focusRequester = focusRequester,
       onPinChanged = { pin = it },
       onSubmit = { onEvent(PinCreationScreenEvents.PinSubmitted(pin)) },
+      testTag = if (isConfirm) TestTags.PIN_CREATION_CONFIRM_INPUT else TestTags.PIN_CREATION_INPUT,
       modifier = Modifier.fillMaxWidth()
     )
 
@@ -420,13 +418,14 @@ private fun PinInputField(
   focusRequester: FocusRequester,
   onPinChanged: (String) -> Unit,
   onSubmit: () -> Unit,
+  testTag: String,
   modifier: Modifier = Modifier
 ) {
   TextField(
     value = pin,
     onValueChange = onPinChanged,
     modifier = modifier
-      .testTag(TestTags.PIN_CREATION_INPUT)
+      .testTag(testTag)
       .focusRequester(focusRequester),
     textStyle = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
     singleLine = true,
@@ -520,7 +519,9 @@ private fun PinCreationTopBar(
 
       IconButton(
         onClick = { menuController.show() },
-        modifier = Modifier.padding(horizontal = 8.dp)
+        modifier = Modifier
+          .padding(horizontal = 8.dp)
+          .testTag(TestTags.PIN_CREATION_MENU_BUTTON)
       ) {
         Icon(
           imageVector = ImageVector.vectorResource(CoreR.drawable.symbol_more_vertical_24),
@@ -545,7 +546,8 @@ private fun PinCreationTopBar(
           onClick = {
             menuController.hide()
             showOptOutDialog = true
-          }
+          },
+          modifier = Modifier.testTag(TestTags.PIN_CREATION_DISABLE_PIN_MENU_ITEM)
         )
       }
     }

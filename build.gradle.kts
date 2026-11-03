@@ -55,6 +55,7 @@ fun limiter(name: String, max: Int) =
 // MOLLY: Limit concurrency of high-RAM tasks to avoid OOMs (especially in CI)
 val kLimiter = limiter("CC-kotlin", max = 3)
 val lintLimiter = limiter("CC-lint", max = 1)
+val testLimiter = limiter("CC-test", max = 1)
 val r8Limiter = limiter("CC-r8", max = 1)
 
 gradle.projectsEvaluated {
@@ -69,6 +70,10 @@ gradle.projectsEvaluated {
     tasks.named { it.startsWith("lint") && it.contains("Analyze") }.configureEach {
       usesService(lintLimiter)
       mustRunAfter(kotlinCompiles)
+    }
+
+    tasks.named { it.startsWith("test") && it.endsWith("UnitTest") }.configureEach {
+      usesService(testLimiter)
     }
 
     tasks.named { it.startsWith("minify") }.configureEach {

@@ -14,7 +14,7 @@ data class PinEntryState(
   val showNoDataToRestoreDialog: Boolean = false,
   val triesRemaining: Int? = null,
   val mode: Mode = Mode.SvrRestore,
-  val oneTimeEvent: OneTimeEvent? = null,
+  val dialogs: Dialogs = Dialogs(),
   val e164: String? = null
 ) {
   enum class Mode {
@@ -23,10 +23,10 @@ data class PinEntryState(
     SvrRestore
   }
 
-  sealed interface OneTimeEvent {
-    data object NetworkError : OneTimeEvent
-    data class RateLimited(val retryAfter: Duration) : OneTimeEvent
-    data object SvrDataMissing : OneTimeEvent
-    data object UnknownError : OneTimeEvent
-  }
+  data class Dialogs(
+    val networkError: Boolean = false,
+    /** When non-null, shows a rate limit error dialog. A non-positive duration indicates the server didn't say how long to wait. */
+    val rateLimitedRetryAfter: Duration? = null,
+    val unknownError: Boolean = false
+  )
 }

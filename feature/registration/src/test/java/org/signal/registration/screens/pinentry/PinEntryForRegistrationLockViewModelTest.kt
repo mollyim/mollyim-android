@@ -10,7 +10,7 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
+import assertk.assertions.isTrue
 import assertk.assertions.prop
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -19,14 +19,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.libsignal.net.RequestResult
 import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
+import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.seconds
 
 class PinEntryForRegistrationLockViewModelTest {
@@ -116,6 +120,79 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
+  fun `PinEntered on re-registration with preExistingRegistrationData completes without restore selection`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val registerResponse = createRegisterAccountResponse(reregistration = true)
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    parentState.value = parentState.value.copy(preExistingRegistrationData = mockk<PreExistingRegistrationData>(relaxed = true))
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  @Test
+  fun `PinEntered resumes a pending local backup restore after clearing the registration lock`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val restoreAep = AccountEntropyPool.generate()
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    parentState.value = parentState.value.copy(
+      pendingRestoreOption = PendingRestoreOption.LocalBackup,
+      unverifiedRestoredAep = restoreAep
+    )
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(createRegisterAccountResponse() to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.LocalBackupRestore>()
+      .prop(RegistrationRoute.LocalBackupRestore::aep)
+      .isEqualTo(restoreAep)
+  }
+
+  @Test
+  fun `PinEntered resumes a pending remote backup restore after clearing the registration lock`() = runTest {
+    val masterKey = mockk<MasterKey>(relaxed = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val restoreAep = AccountEntropyPool.generate()
+    val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
+
+    parentState.value = parentState.value.copy(
+      pendingRestoreOption = PendingRestoreOption.RemoteBackup,
+      unverifiedRestoredAep = restoreAep
+    )
+
+    coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
+      RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any()) } returns
+      RequestResult.Success(createRegisterAccountResponse() to keyMaterial)
+
+    viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
+
+    assertThat(emittedParentEvents.last())
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.RemoteRestore>()
+      .prop(RegistrationRoute.RemoteRestore::aep)
+      .isEqualTo(restoreAep)
+  }
+
+  @Test
   fun `PinEntered with wrong PIN returns state with tries remaining`() = runTest {
     val triesRemaining = 3
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
@@ -183,7 +260,7 @@ class PinEntryForRegistrationLockViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -197,7 +274,7 @@ class PinEntryForRegistrationLockViewModelTest {
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -222,8 +299,10 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
-  fun `PinEntered with missing sessionId emits ResetState`() = runTest {
-    val masterKey = mockk<MasterKey>(relaxed = true)
+  fun `PinEntered with missing sessionId registers with the recovery password from the restored master key`() = runTest {
+    val masterKey = MasterKey(ByteArray(32) { it.toByte() })
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+    val registerResponse = createRegisterAccountResponse()
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
 
     parentState.value = RegistrationFlowState(
@@ -233,12 +312,23 @@ class PinEntryForRegistrationLockViewModelTest {
 
     coEvery { mockRepository.restoreMasterKeyFromSvr(any(), any(), forRegistrationLock = true) } returns
       RequestResult.Success(NetworkController.MasterKeyResponse(masterKey))
+    coEvery { mockRepository.registerAccountWithRecoveryPassword(any(), any(), any(), any()) } returns
+      RequestResult.Success(registerResponse to keyMaterial)
 
     viewModel.applyEvent(initialState, PinEntryScreenEvents.PinEntered("123456"), parentEventEmitter, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(2)
+    coVerify {
+      mockRepository.registerAccountWithRecoveryPassword(
+        e164 = "+15551234567",
+        recoveryPassword = masterKey.deriveRegistrationRecoveryPassword(),
+        registrationLock = masterKey.deriveRegistrationLock(),
+        skipDeviceTransfer = true
+      )
+    }
+    assertThat(emittedParentEvents).hasSize(3)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedParentEvents[2]).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }
 
   // ==================== Registration Error Tests ====================
@@ -283,7 +373,7 @@ class PinEntryForRegistrationLockViewModelTest {
   }
 
   @Test
-  fun `PinEntered with registration lock error during registration emits ResetState`() = runTest {
+  fun `PinEntered with registration lock error during registration navigates to AccountLocked`() = runTest {
     val masterKey = mockk<MasterKey>(relaxed = true)
     val registrationLockData = mockk<NetworkController.RegistrationLockResponse>(relaxed = true)
     val initialState = PinEntryState(mode = PinEntryState.Mode.RegistrationLock)
@@ -299,7 +389,12 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(2)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.ResetState)
+    assertThat(emittedParentEvents[1])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.AccountLocked>()
+      .prop(RegistrationRoute.AccountLocked::timeRemainingMs)
+      .isEqualTo(7.days.inWholeMilliseconds)
   }
 
   @Test
@@ -319,10 +414,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PinEntryState.OneTimeEvent.RateLimited>()
-      .prop(PinEntryState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(retryAfter)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(retryAfter)
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -342,7 +434,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -362,7 +454,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -380,7 +472,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 
@@ -398,7 +490,7 @@ class PinEntryForRegistrationLockViewModelTest {
 
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.MasterKeyRestoredFromSvr>()
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(PinEntryState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
     assertThat(emittedStates.last().loading).isEqualTo(false)
   }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.signal.core.util.PendingIntentFlags.immutable
 import org.signal.core.util.Stopwatch
+import org.signal.core.util.UnableToStartException
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.LocalExportProgress
@@ -28,6 +29,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import org.signal.core.ui.R as CoreUiR
 
 class LocalPlaintextArchiveJob internal constructor(
   private val destinationUri: String,
@@ -73,7 +75,7 @@ class LocalPlaintextArchiveJob internal constructor(
         context,
         context.getString(R.string.LocalBackupJob_creating_signal_backup),
         NotificationChannels.getInstance().BACKUPS,
-        R.drawable.ic_notification_backup,
+        CoreUiR.drawable.ic_notification_backup,
         contentIntent
       )
     } catch (e: UnableToStartException) {

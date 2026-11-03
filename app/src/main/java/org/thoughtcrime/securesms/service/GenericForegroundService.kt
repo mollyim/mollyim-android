@@ -12,13 +12,13 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
+import org.signal.core.util.ForegroundServiceUtil
 import org.signal.core.util.PendingIntentFlags.mutable
+import org.signal.core.util.UnableToStartException
 import org.signal.core.util.logging.Log
 import org.signal.network.util.Preconditions
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil
-import org.thoughtcrime.securesms.jobs.UnableToStartException
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock

@@ -610,6 +610,45 @@ class RegistrationViewModelTest {
   }
 
   @Test
+  fun `applyEvent VerificationCodeRequested updates both request windows`() = runTest(testDispatcher) {
+    coEvery { mockRepository.restoreFlowState() } returns null
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
+    advanceUntilIdle()
+
+    val result = viewModel.applyEvent(
+      RegistrationFlowState(),
+      RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = 12_345L, nextCallAllowedTimestamp = 23_456L)
+    )
+
+    assertThat(result.lastSmsVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 12_345L))
+    assertThat(result.lastCallVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 23_456L))
+  }
+
+  @Test
+  fun `applyEvent VerificationCodeRequested keeps the existing window when a timestamp is absent`() = runTest(testDispatcher) {
+    coEvery { mockRepository.restoreFlowState() } returns null
+    coEvery { mockRepository.getPreExistingRegistrationData() } returns null
+
+    val viewModel = RegistrationViewModel(mockRepository, SavedStateHandle())
+    advanceUntilIdle()
+
+    val initialState = RegistrationFlowState(
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", 12_345L),
+      lastCallVerificationCodeRequest = VerificationCodeRequest("+15551234567", 23_456L)
+    )
+
+    val result = viewModel.applyEvent(
+      initialState,
+      RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = 99_999L, nextCallAllowedTimestamp = null)
+    )
+
+    assertThat(result.lastSmsVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 99_999L))
+    assertThat(result.lastCallVerificationCodeRequest).isEqualTo(VerificationCodeRequest("+15551234567", 23_456L))
+  }
+
+  @Test
   fun `applyEvent E164Chosen updates sessionE164`() = runTest(testDispatcher) {
     coEvery { mockRepository.restoreFlowState() } returns null
     coEvery { mockRepository.getPreExistingRegistrationData() } returns null
@@ -723,11 +762,12 @@ class RegistrationViewModelTest {
     val aep = AccountEntropyPool.generate()
 
     val result = viewModel.applyEvent(
-      RegistrationFlowState(),
+      RegistrationFlowState(unverifiedRestoredAep = aep),
       RegistrationFlowEvent.UserSuppliedAepVerified(aep)
     )
 
     assertThat(result.accountEntropyPool).isEqualTo(aep)
+    assertThat(result.unverifiedRestoredAep).isNull()
     coVerify { mockRepository.saveVerifiedUserSuppliedAep(aep) }
   }
 

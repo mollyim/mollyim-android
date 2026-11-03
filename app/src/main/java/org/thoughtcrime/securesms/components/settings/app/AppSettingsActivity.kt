@@ -85,7 +85,11 @@ class AppSettingsActivity : DSLSettingsActivity() {
         is AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment().setLaunchCheckoutFlow(appSettingsRoute.launchCheckoutFlow)
         AppSettingsRoute.Invite -> AppSettingsFragmentDirections.actionDirectToInviteFragment()
         AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> AppSettingsFragmentDirections.actionDirectToStoragePreferenceFragment()
-        AppSettingsRoute.AccountRoute.Account -> AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
+        AppSettingsRoute.AccountRoute.Account -> if (SignalStore.account.isPrimaryDevice) {
+          AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
+        } else {
+          AppSettingsFragmentDirections.actionDirectToLinkedDeviceAccountSettingsFragment()
+        }
         else -> error("Unsupported start location: ${appSettingsRoute?.javaClass?.name}")
       }
     }

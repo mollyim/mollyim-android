@@ -5,7 +5,6 @@
 
 package org.signal.core.ui.navigation
 
-import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -17,23 +16,52 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.scene.Scene
+import androidx.navigation3.runtime.metadata
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigationevent.NavigationEvent
 
 /**
- * A collection of [TransitionSpecs] for setting up nav3 navigation.
+ * A collection of transition specs for setting up nav3 navigation.
  */
 object TransitionSpecs {
+
+  interface Transition {
+    companion object {
+      val NONE: ContentTransform = EnterTransition.None togetherWith ExitTransition.None
+    }
+
+    val transitionSpec: ContentTransform get() = NONE
+    val popTransitionSpec: ContentTransform get() = NONE
+    val predictivePopTransitionSpec: ContentTransform get() = NONE
+
+    val metadata: Map<String, Any> get() = metadata {
+      put(NavDisplay.TransitionKey) {
+        transitionSpec
+      }
+      put(NavDisplay.PopTransitionKey) {
+        popTransitionSpec
+      }
+      put(NavDisplay.PredictivePopTransitionKey) {
+        predictivePopTransitionSpec
+      }
+    }
+  }
+
+  /**
+   * No enter/exit animation.
+   */
+  object None : Transition {
+    override val transitionSpec: ContentTransform = Transition.NONE
+    override val popTransitionSpec: ContentTransform = Transition.NONE
+    override val predictivePopTransitionSpec: ContentTransform = Transition.NONE
+  }
 
   /**
    * Screens slide in from the right and slide out from the left.
    */
-  object HorizontalSlide {
+  object HorizontalSlide : Transition {
     private const val DURATION = 200
 
-    val transitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.() -> ContentTransform = {
+    override val transitionSpec: ContentTransform =
       (
         slideInHorizontally(
           initialOffsetX = { it },
@@ -46,9 +74,8 @@ object TransitionSpecs {
             animationSpec = tween(DURATION)
           ) + fadeOut(animationSpec = tween(DURATION))
           )
-    }
 
-    val popTransitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.() -> ContentTransform = {
+    override val popTransitionSpec: ContentTransform =
       (
         slideInHorizontally(
           initialOffsetX = { -it },
@@ -61,9 +88,8 @@ object TransitionSpecs {
             animationSpec = tween(DURATION)
           ) + fadeOut(animationSpec = tween(DURATION))
           )
-    }
 
-    val predictivePopTransitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.(@NavigationEvent.SwipeEdge Int) -> ContentTransform = {
+    override val predictivePopTransitionSpec: ContentTransform =
       (
         slideInHorizontally(
           initialOffsetX = { -it },
@@ -76,47 +102,33 @@ object TransitionSpecs {
             animationSpec = tween(DURATION)
           ) + fadeOut(animationSpec = tween(DURATION))
           )
-    }
   }
 
   /**
    * Screens slide in from the bottom and slide out to the bottom, like a sheet.
    */
-  object VerticalSlide {
+  object VerticalSlide : Transition {
     private const val DURATION = 300
 
-    val transitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.() -> ContentTransform = {
+    override val transitionSpec: ContentTransform =
       slideInVertically(
         initialOffsetY = { it },
         animationSpec = tween(DURATION)
       ) + fadeIn(animationSpec = tween(DURATION)) togetherWith
         fadeOut(animationSpec = tween(DURATION))
-    }
 
-    val popTransitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.() -> ContentTransform = {
+    override val popTransitionSpec: ContentTransform =
       fadeIn(animationSpec = tween(DURATION)) togetherWith
         slideOutVertically(
           targetOffsetY = { it },
           animationSpec = tween(DURATION)
         ) + fadeOut(animationSpec = tween(DURATION))
-    }
 
-    val predictivePopTransitionSpec: AnimatedContentTransitionScope<Scene<NavKey>>.(@NavigationEvent.SwipeEdge Int) -> ContentTransform = {
+    override val predictivePopTransitionSpec: ContentTransform =
       fadeIn(animationSpec = tween(DURATION)) togetherWith
         slideOutVertically(
           targetOffsetY = { it },
           animationSpec = tween(DURATION)
         ) + fadeOut(animationSpec = tween(DURATION))
-    }
-  }
-
-  /**
-   * No enter/exit animation.
-   */
-  object None {
-    val metadata: Map<String, Any> =
-      NavDisplay.transitionSpec { EnterTransition.None togetherWith ExitTransition.None } +
-        NavDisplay.popTransitionSpec { EnterTransition.None togetherWith ExitTransition.None } +
-        NavDisplay.predictivePopTransitionSpec { EnterTransition.None togetherWith ExitTransition.None }
   }
 }

@@ -13,6 +13,7 @@ import kotlinx.serialization.Serializable
 import okio.ByteString
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.util.censor
 import org.signal.core.util.serialization.ByteArrayToBase64Serializer
 import org.signal.libsignal.net.BadRequestError
 import org.signal.libsignal.net.RequestResult
@@ -371,6 +372,7 @@ interface NetworkController {
 
   sealed class UpdateSessionError : BadRequestError {
     data class RejectedUpdate(val message: String) : UpdateSessionError()
+    data class SessionNotFound(val message: String) : UpdateSessionError()
     data class InvalidRequest(val message: String) : UpdateSessionError()
     data class RateLimited(val retryAfter: Duration, val session: SessionMetadata) : UpdateSessionError()
   }
@@ -481,7 +483,9 @@ interface NetworkController {
     val allowedToRequestCode: Boolean,
     val requestedInformation: List<String>,
     val verified: Boolean
-  ) : Parcelable
+  ) : Parcelable {
+    override fun toString(): String = "SessionMetadata(id=${id.censor()}, nextSms=$nextSms, nextCall=$nextCall, nextVerificationAttempt=$nextVerificationAttempt, allowedToRequestCode=$allowedToRequestCode, requestedInformation=$requestedInformation, verified=$verified)"
+  }
 
   @Serializable
   class AccountAttributes(
@@ -565,7 +569,9 @@ interface NetworkController {
   data class SvrCredentials(
     val username: String,
     val password: String
-  ) : Parcelable
+  ) : Parcelable {
+    override fun toString(): String = "SvrCredentials(username=${username.censor()}, password=${password.censor()})"
+  }
 
   @Serializable
   data class CheckSvrCredentialsResponse(

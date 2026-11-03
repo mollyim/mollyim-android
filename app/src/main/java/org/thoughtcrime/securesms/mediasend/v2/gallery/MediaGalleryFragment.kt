@@ -16,6 +16,8 @@ import androidx.lifecycle.map
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import org.signal.core.models.media.Media
+import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.getWindowBreakpoint
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.ui.util.StorageUtil
 import org.signal.core.util.Stopwatch
@@ -40,6 +42,10 @@ import org.signal.core.ui.R as CoreUiR
  * media to send.
  */
 class MediaGalleryFragment : Fragment(R.layout.v2_media_gallery_fragment) {
+
+  companion object {
+    private const val SPAN_COUNT = 24
+  }
 
   private val viewModel: MediaGalleryViewModel by viewModels(
     factoryProducer = { MediaGalleryViewModel.Factory(null, null, MediaGalleryRepository(requireContext(), MediaRepository())) }
@@ -77,15 +83,28 @@ class MediaGalleryFragment : Fragment(R.layout.v2_media_gallery_fragment) {
       height = ViewUtil.getStatusBarHeight(view)
     }
 
-    binding.mediaGalleryGrid.layoutManager = object : GridLayoutManager(requireContext(), 4) {
+    binding.mediaGalleryGrid.layoutManager = object : GridLayoutManager(requireContext(), SPAN_COUNT) {
       override fun canScrollVertically() = shouldEnableScrolling
+    }
+
+    val breakpoint = resources.getWindowBreakpoint()
+    val folderSpans = when (breakpoint) {
+      is WindowBreakpoint.Large -> SPAN_COUNT / 4
+      is WindowBreakpoint.Medium -> SPAN_COUNT / 3
+      is WindowBreakpoint.Small -> SPAN_COUNT / 2
+    }
+
+    val fileSpans = when (breakpoint) {
+      is WindowBreakpoint.Large -> SPAN_COUNT / 8
+      is WindowBreakpoint.Medium -> SPAN_COUNT / 6
+      is WindowBreakpoint.Small -> SPAN_COUNT / 4
     }
 
     (binding.mediaGalleryGrid.layoutManager as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
       override fun getSpanSize(position: Int): Int {
         val isFolder: Boolean = (binding.mediaGalleryGrid.adapter as MappingAdapter).getModel(position).map { it is MediaGallerySelectableItem.FolderModel }.orElse(false)
 
-        return if (isFolder) 2 else 1
+        return if (isFolder) folderSpans else fileSpans
       }
     }
 

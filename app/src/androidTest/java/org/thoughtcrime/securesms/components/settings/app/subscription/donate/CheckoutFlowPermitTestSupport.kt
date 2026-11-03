@@ -7,10 +7,12 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.donate
 
 import android.app.Activity
 import android.content.Intent
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -18,6 +20,7 @@ import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import io.mockk.every
+import io.mockk.mockkObject
 import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.signal.donations.InAppPaymentType
 import org.signal.libsignal.net.RequestResult
@@ -26,23 +29,52 @@ import org.thoughtcrime.securesms.SignalInstrumentationApplicationContext
 import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewaySelectorTestTags
+import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.testing.flushUntil
 
 /**
- * Forces real donation-permit acquisition to fail at the issuer, exercising the permit code path through
- * [org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits].
+ * Forces donation-permit acquisition to fail, so the checkout surfaces a payment-setup error before
+ * reaching the payment method. Stubs the [DonationPermits] object directly (the underlying
+ * `createDonationPermits` call rides the websocket, which the responder does not mint valid permits
+ * for). Call `unmockkObject(DonationPermits)` in teardown.
  */
 fun failDonationPermitAcquisition(statusCode: Int = 500) {
   AppDependencies.donationPermitsRepository.clearPermits()
-  every { AppDependencies.donationsApi.createDonationPermits(any()) } returns RequestResult.NonSuccess(RestStatusCodeError(statusCode, emptyMap(), null))
+  mockkObject(DonationPermits)
+  every { DonationPermits.getDonationPermit() } returns RequestResult.NonSuccess(RestStatusCodeError(statusCode, emptyMap(), null))
+}
+
+/**
+ * Makes donation-permit acquisition succeed with a placeholder permit, letting the checkout proceed
+ * past the permit gate to the payment method. Call `unmockkObject(DonationPermits)` in teardown.
+ */
+fun succeedDonationPermitAcquisition() {
+  AppDependencies.donationPermitsRepository.clearPermits()
+  mockkObject(DonationPermits)
+  every { DonationPermits.getDonationPermit() } returns RequestResult.Success("permit")
 }
 
 /**
  * The instrumentation app stubs [org.thoughtcrime.securesms.ApplicationContext.beginJobLoop] to a no-op, so enqueued
  * jobs never run. The checkout pipeline drives a real setup job through the JobManager, so the loop must be started.
+ *
+ * Before starting it, cancel any leftover in-app-payment jobs. A recurring setup job retries indefinitely over a
+ * one-day lifespan, so a spec that fails setup leaves one persisted in the JobManager. On Firebase Test Lab the
+ * orchestrator's `clearPackageData` does not reliably wipe the JobManager between parameterized specs (it does on a
+ * local emulator, which is why this only surfaces on-device), so that job survives into the next spec and runs after
+ * its InAppPayment row was deleted in setup — `InAppPaymentsRepository.resolveLock` then throws "Not found" from the
+ * job thread and crashes the whole app. Clearing the queues here makes each test start from a clean job state.
  */
 fun startJobLoopForTests() {
+  AppDependencies.jobManager.cancelAllInQueues(
+    setOf(
+      InAppPaymentsRepository.getRecurringJobQueueKey(InAppPaymentType.RECURRING_DONATION),
+      InAppPaymentsRepository.getRecurringJobQueueKey(InAppPaymentType.RECURRING_BACKUP)
+    )
+  )
+  AppDependencies.jobManager.flush()
+
   (AppDependencies.application as SignalInstrumentationApplicationContext).beginJobLoopForTests()
 }
 
@@ -67,6 +99,7 @@ fun ActivityScenario<CheckoutFlowActivity>.selectGooglePay(
     composeRule.onAllNodesWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).fetchSemanticsNodes().isNotEmpty()
   }
 
+  composeRule.onNodeWithTag(GatewaySelectorTestTags.CONTAINER).performScrollToNode(hasTestTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON))
   composeRule.onNodeWithTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON).performClick()
 
   scheduler.flushUntil {

@@ -8,6 +8,7 @@ package org.signal.registration.screens.messagesync
 import assertk.assertThat
 import assertk.assertions.contains
 import assertk.assertions.doesNotContain
+import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import io.mockk.coVerify
@@ -136,15 +137,27 @@ class MessageSyncViewModelTest {
   }
 
   @Test
-  fun `restore Restoring switches to indeterminate finishing state`() = runTest(testDispatcher) {
+  fun `restore Finalizing switches to indeterminate finishing state`() = runTest(testDispatcher) {
     every { mockRepository.restoreLinkAndSyncBackup() } returns flowOf(
       LinkAndSyncProgress.Downloading(bytesDownloaded = 5.bytes, totalBytes = 10.bytes),
-      LinkAndSyncProgress.Restoring
+      LinkAndSyncProgress.Finalizing
     )
 
     val viewModel = createViewModel()
 
     assertThat(viewModel.state.value.isFinishing).isTrue()
+  }
+
+  @Test
+  fun `restore Restoring surfaces determinate restore progress without finishing`() = runTest(testDispatcher) {
+    every { mockRepository.restoreLinkAndSyncBackup() } returns flowOf(
+      LinkAndSyncProgress.Restoring(bytesRestored = 3.bytes, totalBytes = 10.bytes)
+    )
+
+    val viewModel = createViewModel()
+
+    assertThat(viewModel.state.value.stage).isEqualTo(MessageSyncScreenState.Stage.Restoring(restored = 3.bytes, total = 10.bytes))
+    assertThat(viewModel.state.value.isFinishing).isFalse()
   }
 
   private fun TestScope.createViewModel(): MessageSyncViewModel {

@@ -14,6 +14,7 @@ import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.util.censor
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
@@ -72,6 +73,9 @@ interface StorageController {
    * Reads the persisted [RegistrationData] (that is currently in the process of being worked on),
    * applies the [updater] to its builder, and writes the result back to persistent storage.
    *
+   * Note that [RegistrationData.accountData] must never be modified once [RegistrationData.accountDataCommitted] is
+   * true -- it describes the account that was registered, and [commitRegistrationData] will not apply it again.
+   *
    * Example usage:
    * ```
    * storageController.updateRegistrationData {
@@ -87,6 +91,10 @@ interface StorageController {
    * for the currently-registered account. Commits can happen multiple times. For instance, we will commit data right after
    * successfully registering, but then there may be more operations we perform after registration that need to be
    * separately committed.
+   *
+   * The one-time [RegistrationData.accountData] is applied exactly once, on the first commit where it is complete;
+   * it is frozen from then on (tracked via [RegistrationData.accountDataCommitted]). All other fields are mutable
+   * state that is (re-)applied on every commit.
    */
   suspend fun commitRegistrationData()
 
@@ -97,12 +105,15 @@ interface StorageController {
   suspend fun setRestoreDecision(decision: RestoreDecision)
 
   /**
-   * Begins restoring from a V1 (.backup) file identified by the given [uri].
+   * Begins restoring from a V1 (.backup) file identified by the given [backupUri].
    *
-   * Returns a [Flow] of [LocalBackupRestoreProgress] that reports the state of the restore operation
-   * from preparation through completion or error.
+   * @param rootUri The backup directory that contains the [backupUri] file. Persisted as the backup directory so
+   *   local backups can be re-enabled after the restore.
+   * @param backupUri The specific .backup file to restore from.
+   * @return A [Flow] of [LocalBackupRestoreProgress] that reports the state of the restore operation
+   *   from preparation through completion or error.
    */
-  fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress>
+  fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress>
 
   /**
    * Begins restoring from a V2 (folder-based) backup.
@@ -114,6 +125,13 @@ interface StorageController {
    *   from preparation through completion or error.
    */
   fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress>
+
+  /**
+   * Verifies that [aep] can decrypt the V2 (folder-based) backup at [backupUri], without restoring anything.
+   * Used to distinguish a mistyped recovery key from a key that belongs to a different account before
+   * attempting recovery-password registration.
+   */
+  suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean
 
   /**
    * Begins restoring from a remote (server-hosted) backup.
@@ -251,4 +269,8 @@ data class PreExistingRegistrationData(
   val unrestrictedUnidentifiedAccess: Boolean,
   val aciIdentityKeyPair: IdentityKeyPair,
   val pniIdentityKeyPair: IdentityKeyPair
-) : Parcelable
+) : Parcelable {
+  override fun toString(): String {
+    return "PreExistingRegistrationData(e164=$e164, aci=$aci, pni=$pni, servicePassword=${servicePassword.censor()}, aep=${aep.displayValue.censor()}, registrationLockEnabled=$registrationLockEnabled, unrestrictedUnidentifiedAccess=$unrestrictedUnidentifiedAccess, aciIdentityKeyPair=xxx, pniIdentityKeyPair=xxx)"
+  }
+}

@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.signal.core.util.Hex;
@@ -44,6 +45,7 @@ public class StickerDownloadJob extends BaseJob {
   StickerDownloadJob(@NonNull IncomingSticker sticker, boolean notify) {
     this(new Job.Parameters.Builder()
                            .addConstraint(NetworkConstraint.KEY)
+                           .addConstraint(DataRestoreConstraint.KEY)
                            .setLifespan(TimeUnit.DAYS.toMillis(30))
                            .build(),
         sticker,

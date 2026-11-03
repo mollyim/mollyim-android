@@ -21,4 +21,10 @@ sealed class EnterAepEvents {
 
   /** Dismiss a registration error dialog. */
   data object DismissError : EnterAepEvents()
+
+  /** User confirmed restoring a backup that belongs to a different account, deferring the restore until after SMS verification. */
+  data object ConfirmDifferentAccountRestore : EnterAepEvents()
+
+  /** User dismissed the different-account warning dialog without restoring. */
+  data object DismissDifferentAccountDialog : EnterAepEvents()
 }

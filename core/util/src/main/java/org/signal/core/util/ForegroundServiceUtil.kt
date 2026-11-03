@@ -1,4 +1,4 @@
-package org.thoughtcrime.securesms.jobs
+package org.signal.core.util
 
 import android.app.AlarmManager
 import android.app.ForegroundServiceStartNotAllowedException
@@ -10,12 +10,7 @@ import android.os.Build
 import android.os.SystemClock
 import androidx.annotation.WorkerThread
 import androidx.core.content.ContextCompat
-import org.signal.core.util.AppForegroundObserver
-import org.signal.core.util.PendingIntentFlags
-import org.signal.core.util.ServiceUtil
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.service.GenericForegroundService
-import org.thoughtcrime.securesms.service.NotificationController
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
@@ -116,17 +111,6 @@ object ForegroundServiceUtil {
     } catch (e: UnableToStartException) {
       Log.w(TAG, "Failed to start foreground service", e)
     }
-  }
-
-  /**
-   * Does its best to start a foreground service with your task name, including possibly blocking and waiting until we are able to.
-   * However, it is always possible that the attempt will fail, so always handle the [UnableToStartException].
-   */
-  @Throws(UnableToStartException::class)
-  @JvmStatic
-  fun startGenericTaskWhenCapable(context: Context, task: String): NotificationController {
-    blockUntilCapable(context)
-    return GenericForegroundService.startForegroundTask(context, task)
   }
 
   /**

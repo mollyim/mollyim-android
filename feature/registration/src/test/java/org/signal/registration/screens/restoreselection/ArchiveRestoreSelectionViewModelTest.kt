@@ -264,12 +264,14 @@ class ArchiveRestoreSelectionViewModelTest {
     assertThat(viewModel.state.value.restoreOptions).isEqualTo(options)
   }
 
+  // ==================== ParentStateChanged Tests ====================
+
   @Test
-  fun `applyParentState copies storageCapable from parent`() = runTest {
+  fun `ParentStateChanged copies storageCapable from parent`() = runTest {
     val viewModel = createViewModel()
 
-    val result = viewModel.applyParentState(ArchiveRestoreSelectionState(), RegistrationFlowState(storageCapable = true))
+    viewModel.applyEvent(ArchiveRestoreSelectionState(), ArchiveRestoreSelectionScreenEvents.ParentStateChanged(RegistrationFlowState(storageCapable = true)), stateEmitter)
 
-    assertThat(result.storageCapable).isTrue()
+    assertThat(emittedStates.last().storageCapable).isTrue()
   }
 }

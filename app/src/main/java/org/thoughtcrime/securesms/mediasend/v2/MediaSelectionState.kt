@@ -7,12 +7,13 @@ import org.signal.mediasend.SentMediaQuality
 import org.signal.mediasend.edit.video.VideoTrimData
 import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.mms.PushMediaConstraints
+import org.thoughtcrime.securesms.mms.TranscodingConfigProvider
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.stories.Stories
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.video.TranscodingPreset
+import org.thoughtcrime.securesms.video.TranscodingConfig
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 data class MediaSelectionState(
@@ -31,12 +32,11 @@ data class MediaSelectionState(
   val cameraFirstCapture: Media? = null,
   val isStory: Boolean,
   val storySendRequirements: Stories.MediaTransform.SendRequirements = Stories.MediaTransform.SendRequirements.CAN_NOT_SEND,
-  val suppressEmptyError: Boolean = true
+  val suppressEmptyError: Boolean = true,
+  val transcodingConfigs: List<TranscodingConfig.QualityTier> = TranscodingConfigProvider.getConfigsForMediaQuality(SentMediaQuality.fromCode(quality.code))
 ) {
 
   val isVideoTrimmingVisible: Boolean = focusedMedia != null && MediaUtil.isVideoType(focusedMedia.contentType) && MediaConstraints.isVideoTranscodeAvailable() && !focusedMedia.isVideoGif
-
-  val transcodingPreset: TranscodingPreset = PushMediaConstraints(SentMediaQuality.fromCode(quality.code)).videoTranscodingSettings
 
   val maxSelection = RemoteConfig.maxAttachmentCount
 
@@ -46,11 +46,11 @@ data class MediaSelectionState(
     return editorStateMap[uri] as? VideoTrimData ?: VideoTrimData()
   }
 
-  fun calculateMaxVideoDurationUs(maxFileSize: Long): Long {
+  fun calculateMaxVideoDurationUs(maxFileSize: Long, videoDuration: Duration): Long {
     return if (isStory && !MediaConstraints.isVideoTranscodeAvailable()) {
       Stories.MAX_VIDEO_DURATION_MILLIS
     } else {
-      transcodingPreset.calculateMaxVideoUploadDurationInSeconds(maxFileSize).seconds.inWholeMicroseconds
+      TranscodingConfig.calculateMaxVideoUploadDurationInSeconds(transcodingConfigs, videoDuration, maxFileSize).seconds.inWholeMicroseconds
     }
   }
 

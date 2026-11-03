@@ -7,9 +7,7 @@ package org.signal.registration.screens.devicetransfer.complete
 
 import assertk.assertThat
 import assertk.assertions.contains
-import assertk.assertions.hasSize
 import assertk.assertions.isEmpty
-import assertk.assertions.isNull
 import io.mockk.coVerify
 import io.mockk.coVerifyOrder
 import io.mockk.mockk
@@ -96,22 +94,6 @@ class DeviceTransferCompleteViewModelTest {
     )
 
     assertThat(emittedStates).isEmpty()
-  }
-
-  @Test
-  fun `ConsumeOneTimeEvent clears the one-time event without touching the repository`() = runTest {
-    viewModel.applyEvent(
-      DeviceTransferCompleteState(),
-      DeviceTransferCompleteScreenEvents.ConsumeOneTimeEvent,
-      parentEventEmitter,
-      mockRepository,
-      stateEmitter
-    )
-
-    assertThat(emittedStates).hasSize(1)
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
-    coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
-    coVerify(exactly = 0) { mockRepository.restoreAccountRecord(any()) }
   }
 
   @Test
