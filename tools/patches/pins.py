@@ -11,6 +11,8 @@ pin is gone from a file it names. Files absent from a branch are skipped.
 import sys
 
 SCOPE = 'tools/patches/scope.py'
+REPORT = 'tools/patches/port_report.py'
+ORIGIN = 'tools/patches/line_origin.py'
 PREPARE = 'tools/patches/prepare_port_report.py'
 PREFLIGHT = 'tools/patches/preflight.sh'
 RELEASE_WORKFLOW = '.github/workflows/molly-patch-release.yml'
@@ -19,11 +21,12 @@ SYNC_WORKFLOW = '.github/workflows/sync.yml'
 # (value, meaning, upstream whose new release changes it, files that contain it)
 PINS = [
     ('0e202dda90785771ff8c87526eaaf30c655f54f3', 'Molly 8.19.2-4 release commit, the Molly input', 'Molly',
-     [SCOPE, RELEASE_WORKFLOW]),
+     [SCOPE, REPORT, RELEASE_WORKFLOW]),
     ('c47a74ba0961903eeaeda6d22347a990056c3e83', 'Signal 8.19.2 commit under Molly 8.19.2-4', 'Molly',
-     [SCOPE]),
+     [SCOPE, REPORT]),
     ('3cd0bb01cf840e4b702187085432020d163d80ce', 'Molly 8.19.2-4 tree that the patches must rebuild', 'Molly', [SCOPE]),
     ('7a280ac23b61cef2c09009a6dbed02773fff3dfa', 'tree of the protected patches/molly forest', 'Molly', [SCOPE]),
+    ('signal-8.33.2', 'port directory patches/ports/signal-8.33.2', 'Signal', [REPORT, ORIGIN]),
     ('github.com/mollyim/mollyim-android.git', 'Molly source URL', 'none', [PREFLIGHT, PREPARE, RELEASE_WORKFLOW]),
     ('github.com/signalapp/Signal-Android.git', 'Signal source URL', 'none', [PREPARE, SYNC_WORKFLOW]),
 ]

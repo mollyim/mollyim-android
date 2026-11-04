@@ -25,7 +25,7 @@ import translation_stage
 
 METADATA_PATHS = (
     'tools/patches/', 'tools/native/', 'patches/molly/', 'patches/ports/',
-    'molly-build.json', 'native-ringrtc.json', 'docs/PATCH-PIPELINE.md',
+    'molly-build.json', 'native-ringrtc.json', 'docs/PATCH-PIPELINE.md', 'docs/PORT-REPORT.md',
     # Repository files stay Molly's own; they are not edits to the Signal base.
     '.github/', 'README.md', 'CONTRIBUTING.md',
 )
