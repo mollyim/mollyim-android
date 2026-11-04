@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.CursorUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
@@ -33,7 +34,6 @@ import org.thoughtcrime.securesms.database.model.ThreadWithRecipient;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.SignalTrace;
 import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.SerialExecutor;
@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -281,7 +280,9 @@ public class SearchRepository {
         BodyRangeList bodyRanges = record.getMessageRanges();
         List<Mention> mentions   = mentionQueryResults.get(record.getId());
 
-        if (Util.hasItems(mentions)) {
+        Recipient conversationRecipient = threadTable.getRecipientForThreadId(record.getThreadId());
+
+        if (Util.hasItems(mentions) && conversationRecipient != null) {
           SpannableString body = new SpannableString(record.getBody());
 
           if (bodyRanges != null) {
@@ -291,7 +292,7 @@ public class SearchRepository {
           CharSequence updatedBody    = MentionUtil.updateBodyAndMentionsWithDisplayNames(context, body, mentions).getBody();
           CharSequence updatedSnippet = makeSnippet(cleanQueries, Objects.requireNonNull(updatedBody));
 
-          results.add(new MessageResult(record.getFromRecipient(), record.getToRecipient(), updatedBody, updatedSnippet, record.getThreadId(), record.getId(), record.getDateReceived(), true));
+          results.add(new MessageResult(conversationRecipient, record.getFromRecipient(), updatedBody, updatedSnippet, record.getThreadId(), record.getId(), record.getDateReceived(), true));
         }
       }
     }
@@ -330,9 +331,9 @@ public class SearchRepository {
       return styledBody;
     }
 
-    String lowerBody  = styledBody.toString().toLowerCase(Locale.ROOT);
+    String lowerBody  = toLowerCasePreservingLength(styledBody);
     for (String query : queries) {
-      int foundIndex = lowerBody.indexOf(query.toLowerCase(Locale.ROOT));
+      int foundIndex = lowerBody.indexOf(toLowerCasePreservingLength(query));
       if (foundIndex != -1) {
         int snippetStart = Math.max(0, Math.max(TextUtils.lastIndexOf(styledBody,' ', foundIndex - 5) + 1, foundIndex - 15));
         int lastSpace    = TextUtils.indexOf(styledBody, ' ', foundIndex + 30);
@@ -353,6 +354,21 @@ public class SearchRepository {
 
     return new SpannableStringBuilder().append(styledBody.subSequence(0, snippetEnd))
                                        .append(SNIPPET_WRAP);
+  }
+
+  /**
+   * Lowercases each UTF-16 code unit individually so the result has the exact same length as the
+   * input. {@code String.toLowerCase} can change the number of code units for certain
+   * characters (e.g. {@code İ}, U+0130, folds to two code units), which would desynchronize match
+   * indices computed on the lowercased text from the positions they are later applied to on the
+   * original {@code styledBody}, producing invalid {@code subSequence} ranges that crash search.
+   */
+  private static @NonNull String toLowerCasePreservingLength(@NonNull CharSequence input) {
+    StringBuilder builder = new StringBuilder(input.length());
+    for (int i = 0; i < input.length(); i++) {
+      builder.append(Character.toLowerCase(input.charAt(i)));
+    }
+    return builder.toString();
   }
 
   private @NonNull <T> List<T> readToList(@Nullable Cursor cursor, @NonNull ModelBuilder<T> builder) {

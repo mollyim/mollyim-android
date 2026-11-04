@@ -106,7 +106,14 @@ class PreKeysSyncJob private constructor(
     Parameters.Builder()
       .setQueue("PreKeysSyncJob")
       .addConstraint(NetworkConstraint.KEY)
-      .setMaxInstancesForFactory(1)
+      .apply {
+        if (forceRotation) {
+          setMaxInstancesForFactory(Parameters.UNLIMITED)
+          setMaxInstancesForQueue(2)
+        } else {
+          setMaxInstancesForFactory(1)
+        }
+      }
       .setMaxAttempts(Parameters.UNLIMITED)
       .setLifespan(TimeUnit.DAYS.toMillis(30))
       .build(),
@@ -120,7 +127,7 @@ class PreKeysSyncJob private constructor(
   }
 
   override fun onRun() {
-    if (!SignalStore.account.isRegistered || SignalStore.account.aci == null || SignalStore.account.pni == null) {
+    if (!SignalStore.account.isRegistered || SignalStore.account.aci == null) {
       warn(TAG, "Not yet registered")
       return
     }
@@ -138,7 +145,7 @@ class PreKeysSyncJob private constructor(
       if (!checkPreKeyConsistency(ServiceIdType.ACI, AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys)) {
         warn(TAG, ServiceIdType.ACI, "Prekey consistency check failed! Must rotate keys!")
         true
-      } else if (!checkPreKeyConsistency(ServiceIdType.PNI, AppDependencies.protocolStore.pni(), SignalStore.account.pniPreKeys)) {
+      } else if (AppDependencies.protocolStore.pniOrNull()?.let { !checkPreKeyConsistency(ServiceIdType.PNI, it, SignalStore.account.pniPreKeys) } == true) {
         warn(TAG, ServiceIdType.PNI, "Prekey consistency check failed! Must rotate keys! (ACI consistency check must have passed)")
         true
       } else {
@@ -160,7 +167,13 @@ class PreKeysSyncJob private constructor(
     }
 
     syncPreKeys(ServiceIdType.ACI, SignalStore.account.aci, AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys, forceRotation)
-    syncPreKeys(ServiceIdType.PNI, SignalStore.account.pni, AppDependencies.protocolStore.pni(), SignalStore.account.pniPreKeys, forcePniRotation)
+
+    val pniProtocolStore = AppDependencies.protocolStore.pniOrNull()
+    if (pniProtocolStore != null) {
+      syncPreKeys(ServiceIdType.PNI, SignalStore.account.pni, pniProtocolStore, SignalStore.account.pniPreKeys, forcePniRotation)
+    } else {
+      warn(TAG, ServiceIdType.PNI, "No PNI store. Skipping PNI prekey sync.")
+    }
     SignalStore.misc.lastFullPrekeyRefreshTime = System.currentTimeMillis()
 
     if (forcePniRotation) {
@@ -179,7 +192,7 @@ class PreKeysSyncJob private constructor(
       return
     }
 
-    val availablePreKeyCounts = SignalNetwork.keys.getAvailablePreKeyCountsSync(serviceIdType).successOrThrow()
+    val availablePreKeyCounts = SignalNetwork.keysApi.getAvailablePreKeyCountsSync(serviceIdType).successOrThrow()
 
     val signedPreKeyToUpload: SignedPreKeyRecord? = signedPreKeyUploadIfNeeded(serviceIdType, protocolStore, metadataStore, forceRotation)
 
@@ -203,7 +216,7 @@ class PreKeysSyncJob private constructor(
 
     if (signedPreKeyToUpload != null || oneTimeEcPreKeysToUpload != null || lastResortKyberPreKeyToUpload != null || oneTimeKyberPreKeysToUpload != null) {
       log(serviceIdType, "Something to upload. SignedPreKey: ${signedPreKeyToUpload != null}, OneTimeEcPreKeys: ${oneTimeEcPreKeysToUpload != null}, LastResortKyberPreKey: ${lastResortKyberPreKeyToUpload != null}, OneTimeKyberPreKeys: ${oneTimeKyberPreKeysToUpload != null}")
-      SignalNetwork.keys.setPreKeysSync(
+      SignalNetwork.keysApi.setPreKeysSync(
         PreKeyUpload(
           serviceIdType = serviceIdType,
           signedPreKey = signedPreKeyToUpload,
@@ -272,7 +285,7 @@ class PreKeysSyncJob private constructor(
   @Throws(IOException::class)
   private fun checkPreKeyConsistency(serviceIdType: ServiceIdType, protocolStore: SignalServiceAccountDataStore, metadataStore: PreKeyMetadataStore): Boolean {
     val result: NetworkResult<Unit> = try {
-      SignalNetwork.keys.checkRepeatedUseKeysSync(
+      SignalNetwork.keysApi.checkRepeatedUseKeysSync(
         serviceIdType = serviceIdType,
         identityKey = protocolStore.identityKeyPair.publicKey,
         signedPreKeyId = metadataStore.activeSignedPreKeyId,

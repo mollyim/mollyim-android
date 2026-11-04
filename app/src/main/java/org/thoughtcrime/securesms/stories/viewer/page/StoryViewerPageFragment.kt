@@ -47,8 +47,10 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.coroutines.launch
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.permissions.Permissions
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.Debouncer
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.ServiceUtil
@@ -73,10 +75,10 @@ import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectFor
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
-import org.thoughtcrime.securesms.mediapreview.MediaPreviewFragment
+import org.thoughtcrime.securesms.mediapreview.MediaPreviewPageFragment
 import org.thoughtcrime.securesms.mediapreview.VideoControlsDelegate
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.ui.about.AboutSheet
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.stories.StorySlateView
@@ -98,8 +100,8 @@ import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.LinkUtil
 import org.thoughtcrime.securesms.util.LongClickCopySpan
 import org.thoughtcrime.securesms.util.LongClickMovementMethod
+import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.Projection
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.fragments.requireListener
 import org.thoughtcrime.securesms.util.views.TouchInterceptingFrameLayout
 import org.thoughtcrime.securesms.util.visible
@@ -117,7 +119,8 @@ class StoryViewerPageFragment :
   StorySlateView.Callback,
   StoryInfoBottomSheetDialogFragment.OnInfoSheetDismissedListener,
   SafetyNumberBottomSheet.Callbacks,
-  RecipientBottomSheetDialogFragment.Callback {
+  RecipientBottomSheetDialogFragment.Callback,
+  AboutSheet.Callback {
 
   private val storyVolumeViewModel: StoryVolumeViewModel by viewModels(ownerProducer = { requireActivity() })
 
@@ -559,7 +562,7 @@ class StoryViewerPageFragment :
   override fun onDestroyView() {
     super.onDestroyView()
     childFragmentManager.fragments.forEach {
-      if (it is MediaPreviewFragment) {
+      if (it is MediaPreviewPageFragment) {
         it.cleanUp()
       }
     }
@@ -850,7 +853,7 @@ class StoryViewerPageFragment :
 
   private fun markViewedIfAble() {
     val post = viewModel.getPost() ?: return
-    if (post.content.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE) {
+    if (post.content.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE || post.content.transferState == AttachmentTable.TRANSFER_PROGRESS_STARTED) {
       if (isResumed) {
         viewModel.markViewed(post)
       }
@@ -895,6 +898,7 @@ class StoryViewerPageFragment :
 
     when (post.content.transferState) {
       AttachmentTable.TRANSFER_PROGRESS_DONE -> {
+        Log.d(TAG, "Story content download is done.")
         storySlate.moveToState(StorySlateView.State.HIDDEN, post.id)
         viewModel.setIsDisplayingSlate(false)
         markViewedIfAble()
@@ -908,10 +912,18 @@ class StoryViewerPageFragment :
       }
 
       AttachmentTable.TRANSFER_PROGRESS_STARTED -> {
-        Log.d(TAG, "Story content download is in progress.")
-        storySlate.moveToState(StorySlateView.State.LOADING, post.id)
-        sharedViewModel.setContentIsReady()
-        viewModel.setIsDisplayingSlate(true)
+        val isStreamable = post.content is StoryPost.Content.AttachmentContent && MediaUtil.isInstantVideoSupported(post.content.attachment)
+        if (isStreamable) {
+          Log.d(TAG, "Story content is streamable while download is in progress.")
+          storySlate.moveToState(StorySlateView.State.HIDDEN, post.id)
+          viewModel.setIsDisplayingSlate(false)
+          markViewedIfAble()
+        } else {
+          Log.d(TAG, "Story content download is in progress.")
+          storySlate.moveToState(StorySlateView.State.LOADING, post.id)
+          sharedViewModel.setContentIsReady()
+          viewModel.setIsDisplayingSlate(true)
+        }
       }
 
       AttachmentTable.TRANSFER_PROGRESS_FAILED -> {
@@ -970,6 +982,10 @@ class StoryViewerPageFragment :
     storyCaptionBottomGradient.visible = displayBody.isNotEmpty()
 
     caption.text = displayBody
+    caption.post {
+      caption.scrollX = 0
+      caption.scrollY = 0
+    }
     largeCaption.text = displayBody
     caption.visible = displayBody.isNotEmpty()
     caption.requestLayout()
@@ -1133,14 +1149,14 @@ class StoryViewerPageFragment :
   }
 
   private fun presentPartialSendBottomBar() {
-    viewsAndReplies.setIconResource(R.drawable.symbol_error_circle_24)
+    viewsAndReplies.setIconResource(CoreUiR.drawable.symbol_error_circle_24)
     viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_light_colorError))
     viewsAndReplies.iconSize = 20.dp
     viewsAndReplies.setText(R.string.StoryViewerPageFragment__partially_sent)
   }
 
   private fun presentSendFailureBottomBar() {
-    viewsAndReplies.setIconResource(R.drawable.symbol_error_circle_24)
+    viewsAndReplies.setIconResource(CoreUiR.drawable.symbol_error_circle_24)
     viewsAndReplies.iconTint = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_light_colorError))
     viewsAndReplies.iconSize = 20.dp
     viewsAndReplies.setText(R.string.StoryViewerPageFragment__send_failed)
@@ -1495,6 +1511,10 @@ class StoryViewerPageFragment :
   }
 
   override fun onRecipientBottomSheetDismissed() {
+    viewModel.setIsDisplayingRecipientBottomSheet(false)
+  }
+
+  override fun onAboutSheetDismissed() {
     viewModel.setIsDisplayingRecipientBottomSheet(false)
   }
 

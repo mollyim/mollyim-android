@@ -44,7 +44,19 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">ជ្រើសរើសប្រទេសមួយ</string>
     <string name="RegistrationActivity_phone_number_description">លេខទូរសព្ទ</string>
+    <!-- Label the phone number field takes on when what has been typed reads as an account ID rather than a number -->
+    <string name="RegistrationActivity_account_id">លេខសម្គាល់គណនី</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">មិនមែនជាលេខទូរសព្ទដែលត្រឹមត្រូវទេ</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">លេខទូរសព្ទមិនត្រឹមត្រូវ</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">លេខដែលអ្នកបានបញ្ចូលហាក់ដូចជាមិនត្រឹមត្រូវទេ។ សូមពិនិត្យមើលលេខកូដប្រទេស និងលេខទូរសព្ទ ហើយព្យាយាមម្តងទៀត។</string>
     <string name="RegistrationActivity_next">បន្ទាប់</string>
+    <!-- Button on the phone number screen that starts registering with a purchased Signal Login instead of a phone number -->
+    <string name="RegistrationActivity_register_without_number">ចុះឈ្មោះដោយគ្មានលេខ</string>
+    <!-- Button on the phone number screen, shown when the user already said they have an account to restore, that goes straight to entering their existing Signal Login -->
+    <string name="RegistrationActivity_use_account_id">ប្រើលេខសម្គាល់គណនី</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">តើលេខទូរសព្ទខាងក្រោមត្រឹមត្រូវឬទេ?</string>
     <!-- Dialog body to confirm phone number -->
@@ -81,8 +93,8 @@
     <string name="VerificationCodeScreen__resend_code">ផ្ញើកូដម្តងទៀត</string>
     <!-- Button text for call me action -->
     <string name="VerificationCodeScreen__call_me_instead">ហៅទូរសព្ទមកខ្ញុំជំនួសវិញ</string>
-    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
-    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for resend SMS when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__resend_code_available_in">ផ្ញើលេខកូដឡើងវិញ (%1$02d:%2$02d)</string>
     <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
     <string name="VerificationCodeScreen__call_me_available_in">ហៅមកខ្ញុំ (%1$02d:%2$02d)</string>
     <!-- Toast shown when the user enters an incorrect verification code -->
@@ -99,6 +111,10 @@
     <string name="VerificationCodeScreen__unable_to_send_sms">យើងមិនអាចផ្ញើសារ SMS ទៅលេខរបស់អ្នកបានទេ។ សូមព្យាយាមម្តងទៀតក្នុងរយៈពេលពីរបីម៉ោង។</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">មិនអាចផ្ញើលេខកូដតាមវិធីដែលបានជ្រើសរើសទេ។ សូមសាកល្បងជម្រើសផ្សេងទៀត។</string>
+    <!-- Dialog shown when the provider rejected placing a verification phone call to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_call_provider_rejected">យើងមិនអាចហៅទូរសព្ទទៅអ្នកជាមួយលេខកូដផ្ទៀងផ្ទាត់បានទេ។ សូមព្យាយាមម្តងទៀត ឬស្នើសុំលេខកូដតាមរយៈសារ SMS វិញ។</string>
+    <!-- Dialog shown when the provider rejected sending a verification SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_sms_provider_rejected">យើងមិនអាចផ្ញើសារ SMS ដែលមានលេខកូដផ្ទៀងផ្ទាត់ទៅអ្នកបានទេ។ សូមព្យាយាមម្តងទៀត ឬស្នើសុំលេខកូដតាមរយៈការហៅទូរសព្ទវិញ។</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">ការចុះឈ្មោះមិនបានជោគជ័យទេ។ សូមព្យាយាមម្តងទៀត។</string>
     <!-- Button text for having trouble with verification -->
@@ -108,13 +124,15 @@
     <!-- Bulleted list of suggestions shown in the having trouble bottom sheet -->
     <string name="VerificationCodeScreen__support_bottom_sheet_body_suggestions">• ត្រូវប្រាកដថាទូរសព្ទរបស់អ្នកមានសញ្ញាសេវាទូរសព្ទ ដើម្បីអាចទទួលសារជាអក្សរ ឬការហៅចូលបាន\n • ត្រូវបញ្ជាក់ថាអ្នកអាចទទួលការហៅចូលទៅលេខទូរសព្ទនោះបាន\n • ត្រូវពិនិត្យមើលថាអ្នកបានបញ្ចូលលេខទូរសព្ទរបស់អ្នកបានត្រឹមត្រូវហើយ។</string>
     <!-- A call to action for a user having trouble entering the verification code to seek further help. The first placeholder is VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring, the second is VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring -->
-    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">សម្រាប់ព័ត៌មានបន្ថែម សូមអនុវត្តតាម %1$s ឬ %2$s</string>
+    <string name="VerificationCodeScreen__support_bottom_sheet_body_call_to_action">សម្រាប់ព័ត៌មានបន្ថែម សូមអនុវត្តតាម%1$s ឬ%2$s</string>
     <!-- Clickable substring linking to troubleshooting steps within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
     <string name="VerificationCodeScreen__support_bottom_sheet_cta_troubleshooting_steps_substring">ជំហានដោះស្រាយបញ្ហាទាំងនេះ</string>
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
     <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">ទាក់ទងផ្នែកជំនួយ</string>
     <!-- Email subject used when contacting support from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <string name="VerificationCodeScreen__contact_support_email_subject">ការចុះឈ្មោះ Signal - លេខកូដផ្ទៀងផ្ទាត់សម្រាប់ Android</string>
+    <!-- Text placed in the body of the support email composed from the verification code screen. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_filter" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
   <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
@@ -145,12 +163,6 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">បន្តដោយមិនចាំបាច់ផ្ទេរ</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_description">សារ និងមេឌៀនឹងមិនត្រូវបានផ្ទេរទេ</string>
-    <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">ពីថតឯកសារបម្រុងទុក</string>
-    <!-- Title for the backup file option card (V1 legacy format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">ពីឯកសារបម្រុងទុក</string>
-    <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">ជ្រើសរើសការបម្រុងទុកដែលអ្នកបានរក្សាទុក</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">ពីទូរសព្ទចាស់របស់អ្នក</string>
     <!-- Subtitle for the device transfer option card -->
@@ -195,8 +207,8 @@
     <string name="LocalBackupRestoreScreen__enter_backup_passphrase">បញ្ចូលឃ្លាសម្ងាត់បម្រុងទុក</string>
     <!-- Description for V1 passphrase entry screen -->
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">ឃ្លាសម្ងាត់បម្រុងទុកក្នុងឧបករណ៍របស់អ្នកគឺជាលេខកូដ 30 ខ្ទង់ដែលតម្រូវឱ្យមានដើម្បីស្តារយកគណនី និងទិន្នន័យរបស់អ្នកមកវិញ។</string>
-    <!-- Label for the recovery key text field -->
-    <string name="LocalBackupRestoreScreen__recovery_key">សោស្តារ</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">ឃ្លាសម្ងាត់</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">វែងពេក (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -212,22 +224,44 @@
     <string name="EnterAepScreen__recovery_key">សោស្តារ</string>
     <!-- Link for users who don\'t have their recovery key -->
     <string name="EnterAepScreen__no_recovery_key">មិនមានសោស្តារទេ?</string>
-    <!-- Error text when key is too long -->
-    <string name="EnterAepScreen__too_long">វែងពេក (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">សោស្តារមិនមានសុពលភាព</string>
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">សោស្តារមិនត្រឹមត្រូវ</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">បំពេញពីកម្មវិធីគ្រប់គ្រងពាក្យសម្ងាត់</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">ស្តារទៅគណនីថ្មីឬ?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">ការបម្រុងទុកដែលអ្នកកំពុងស្ដារឡើងវិញត្រូវបានបង្កើតឡើងដោយប្រើគណនី Signal ផ្សេង។ អ្នកអាចស្ដារការបម្រុងទុកនេះទៅគណនីថ្មីបាន ប៉ុន្តែអ្នកនឹងលែងជាសមាជិកនៃក្រុមណាមួយដែលត្រូវបានស្ដារឡើងវិញ។</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">ស្តារឡើងវិញ</string>
+    <!-- Title of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found">រកមិនឃើញការបម្រុងទុកទេ</string>
+    <!-- Body of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found_body">សោស្តាររបស់អ្នកត្រឹមត្រូវ ប៉ុន្តែមិនមានការបម្រុងទុក Signal សម្រាប់គណនីនេះទេ។ ត្រឡប់ក្រោយដើម្បីជ្រើសរើសវិធីផ្សេងទៀតដើម្បីស្ដារមកវិញ ឬបន្តដោយមិនចាំបាច់ស្ដារមកវិញ។</string>
+    <!-- Title of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_title">សោស្តារមិនត្រឹមត្រូវ</string>
+    <!-- Body of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_body">ត្រូវប្រាកដថាអ្នកកំពុងចុះឈ្មោះដោយប្រើលេខទូរសព្ទដដែល និងសោស្តារដែលមាន 64 តួអក្សរ ដែលអ្នកបានរក្សាទុកនៅពេលបើកការបម្រុងទុក Signal។ ការបម្រុងទុកមិនអាចស្តារបានទេបើគ្មានសោនេះ។</string>
+    <!-- Button in the incorrect recovery key dialog that dismisses it so the user can re-enter their key -->
+    <string name="EnterAepScreen__try_again">ព្យាយាមម្តងទៀត</string>
+    <!-- Button in the incorrect recovery key dialog that offers to verify the phone number over SMS instead -->
+    <string name="EnterAepScreen__try_another_way">សាកល្បងវិធីផ្សេងទៀត</string>
+    <!-- Button in the incorrect recovery key dialog that opens a support article about recovery keys -->
+    <string name="EnterAepScreen__recovery_key_help">ជំនួយសម្រាប់សោស្តារ</string>
+    <!-- Title of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code">ផ្ទៀងផ្ទាត់តាមលេខកូដពីសារ SMS?</string>
+    <!-- Body of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code_body">អ្នកអាចចុះឈ្មោះគណនីរបស់អ្នកបាន ដោយធ្វើការផ្ទៀងផ្ទាត់តាមរយៈលេខកូដពីសារ SMS ដែល Signal នឹងផ្ញើជូនអ្នក។ បន្ទាប់ពីបញ្ចូលលេខកូដរួច អ្នកអាចសាកល្បងស្តារការបម្រុងទុករបស់អ្នកមកវិញ ដោយប្រើសោស្តាររបស់អ្នកម្តងទៀត។</string>
+    <!-- Confirm button in the verify with SMS code dialog that requests an SMS verification code -->
+    <string name="EnterAepScreen__send_code">ផ្ញើលេខកូដ</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">កំពុងរៀបចំការស្ដារ…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">កំពុងស្ដារការបម្រុងទុក</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">សូមរង់ចាំខណៈពេលដែលសារ និងទិន្នន័យរបស់អ្នកកំពុងត្រូវបានស្ដារ។</string>
-    <!-- Description shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
     <string name="LocalBackupRestoreScreen__continue_button">បន្ត</string>
     <!-- Title shown when restore fails -->
@@ -236,6 +270,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">មានបញ្ហាកើតឡើងខណៈពេលកំពុងស្ដារការបម្រុងទុករបស់អ្នក។ សូមព្យាយាមម្តងទៀត។</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ព្យាយាមម្តងទៀត</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">ឃ្លាសម្ងាត់មិនត្រឹមត្រូវ</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">សោស្តារមិនត្រឹមត្រូវ</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">ព័ត៌មានផ្ទៀងផ្ទាត់ដែលអ្នកបានបញ្ចូលមិនត្រូវគ្នានឹងការបម្រុងទុកនេះទេ។ សូមពិនិត្យមើលវា ហើយព្យាយាមម្តងទៀត។</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">ភ្ជាប់គណនីរបស់អ្នក</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -284,8 +324,10 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">មានបញ្ហាកើតឡើងខណៈពេលកំពុងស្ដារការបម្រុងទុករបស់អ្នក។ ការបម្រុងទុករបស់អ្នកមិនអាចស្តារមកវិញបានទេ។ សូមទាក់ទងទៅកាន់ផ្នែកជំនួយដើម្បីទទួលបានជំនួយ។</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">ទាក់ទងផ្នែកជំនួយ</string>
-    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. -->
+    <string name="RemoteRestoreScreen__contact_support_email_subject">ការស្តារការបម្រុងទុក Signal Android បរាជ័យជាអចិន្ត្រៃយ៍</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about an unrecoverable backup. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">កំពុងទាញយកការបម្រុងទុក…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -352,6 +394,10 @@
     <string name="PinCreationScreen__reenter_pin">បញ្ចូលលេខកូដសម្ងាត់ឡើងវិញ</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
     <string name="PinCreationScreen__pins_dont_match">លេខកូដសម្ងាត់មិនត្រូវគ្នា។ ព្យាយាមម្តងទៀត។</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that is too easy to guess, such as one made of sequential or repeated digits. -->
+    <string name="PinCreationScreen__choose_a_stronger_pin">ជ្រើសរើសលេខកូដសម្ងាត់ខ្លាំងជាងនេះ</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that matches the code used to verify their phone number. -->
+    <string name="PinCreationScreen__reentered_verification_code">អ្នកបានបញ្ចូលឡើងវិញនូវលេខកូដដែលត្រូវបានប្រើរួចហើយដើម្បីផ្ទៀងផ្ទាត់លេខទូរសព្ទរបស់អ្នក។ ជ្រើសរើសលេខកូដសម្ងាត់ Signal ថ្មី និងតែមួយគត់។</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
     <string name="PinCreationScreen__learn_more_about_pins">ស្វែងយល់បន្ថែមអំពីលេខកូដសម្ងាត់</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
@@ -363,11 +409,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">បោះបង់</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">មានបញ្ហាក្នុងការភ្ជាប់ជាមួយសេវាកម្ម។</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
-    <string name="PinCreationScreen__network_error">បានជួបប្រទះកំហុសបណ្តាញ។</string>
+    <string name="PinCreationScreen__network_error">បានជួបប្រទះបញ្ហាបណ្តាញ។</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">បានជួបប្រទះបញ្ហាបណ្តាញ។ អ្នកអាចព្យាយាមម្តងទៀតក្នុងរយៈពេល %1$s ទៀត។</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">ការចាក់សោការចុះឈ្មោះ</string>
@@ -375,6 +421,8 @@
     <string name="PinEntryScreen__enter_your_pin">បញ្ចូលលេខកូដសម្ងាត់របស់អ្នក</string>
     <!-- Describes the PIN that needs to be entered. -->
     <string name="PinEntryScreen__enter_the_pin_you_created">បញ្ចូលលេខកូដសម្ងាត់ដែលអ្នកបានបង្កើតនៅពេលអ្នកដំឡើង Signal ដំបូង</string>
+    <!-- Error shown when the user enters the code used to verify their phone number instead of their PIN, and it was not their actual PIN. -->
+    <string name="PinEntryScreen__reentered_verification_code">អ្នកបានបញ្ចូលឡើងវិញនូវលេខកូដដែលត្រូវបានប្រើរួចហើយដើម្បីផ្ទៀងផ្ទាត់លេខទូរសព្ទរបស់អ្នក។ បញ្ចូលេខកូដសម្ងាត់ Signal តែមួយគត់ដែលអ្នកបានជ្រើសរើសពីមុនសម្រាប់គណនីរបស់អ្នក។</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
         <item quantity="other">លេខកូដសម្ងាត់មិនត្រឹមត្រូវ។ អាចព្យាយាមបាន %1$d ដងទៀត។</item>
@@ -399,8 +447,10 @@
     <string name="PinEntryScreen__no_data_could_be_found">រកមិនឃើញទិន្នន័យដើម្បីស្ដារគណនីរបស់អ្នកទេ។ សូមបង្កើតលេខកូដសម្ងាត់ថ្មី។</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">ទាក់ទងផ្នែកជំនួយ</string>
-    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. -->
+    <string name="PinEntryScreen__contact_support_email_subject">ការចុះឈ្មោះ Signal - ត្រូវការជំនួយចំពោះលេខកូដសម្ងាត់សម្រាប់ Android</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about PIN entry. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_filter" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">អនុញ្ញាតការជូនដំណឹង</string>
@@ -421,6 +471,8 @@
     <string name="MessageSyncScreen__preparing">កំពុងរៀបចំ…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">កំពុងបញ្ចប់…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">កំពុងស្ដារ…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">សារ និងព័ត៌មានជជែកត្រូវបានការពារដោយការអ៊ីនគ្រីបទាំងសងខាង រាប់បញ្ចូលទាំងដំណើរការធ្វើសមកាលកម្មផងដែរ។</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -428,13 +480,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">បោះបង់</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">មិនអាចស្តារសារបានទេ</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">មិនអាចផ្ទេរសាររបស់អ្នកពីឧបករណ៍ផ្សេងទៀតរបស់អ្នកបានទេ។ អ្នកអាចព្យាយាមម្តងទៀត ឬបន្តដោយគ្មានប្រវត្តិសាររបស់អ្នក។</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">ព្យាយាមម្តងទៀត</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">បន្តដោយគ្មានសារ</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">ស្គែនកូដនេះដើម្បីភ្ជាប់គណនីរបស់អ្នក</string>
@@ -465,11 +517,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">មានបញ្ហាកើតឡើងពេលកំពុងភ្ជាប់ឧបករណ៍នេះ</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">លុបទិន្នន័យកម្មវិធី?</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">អ្នកកំពុងព្យាយាមភ្ជាប់គណនី Signal ផ្សេង។ ប្រសិនបើអ្នកបន្ត ទិន្នន័យ Signal ទាំងអស់ដែលកំពុងមាននៅលើឧបករណ៍នេះនឹងត្រូវបានលុប។</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">លុប ហើយចាប់ផ្ដើមឡើងវិញ</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">បិទកូដ QR</string>
 
@@ -520,43 +572,250 @@
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">គណនីរបស់អ្នកឥឡូវនេះស្ថិតនៅលើឧបករណ៍នេះ។</string>
     <string name="DeviceTransferComplete__continue_registration">បន្ត</string>
 
-    <!-- Create profile screen -->
-    <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">រៀបចំប្រូហ្វាល់របស់អ្នក</string>
-    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">ប្រូហ្វាល់ និងការផ្លាស់ប្តូរចំពោះប្រូហ្វាល់របស់អ្នកនឹងមើលឃើញដោយមនុស្សដែលអ្នកផ្ញើសារ ទំនាក់ទំនង និងក្រុមនានា។</string>
-    <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">នាមខ្លួន (ចាំបាច់)</string>
-    <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">ត្រកូល (មិនតម្រូវ)</string>
-    <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">បន្ទាប់</string>
-    <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">កំណត់រូបតំណាង</string>
-
-    <!-- Phone number discoverability picker -->
-    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">តើនរណាខ្លះអាចរកខ្ញុំបានតាមលេខទូរសព្ទ?</string>
-    <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">នរណាក៏ដោយដែលមានលេខទូរសព្ទរបស់អ្នកនឹងមើលឃើញអ្នកនៅលើ Signal ហើយអាចចាប់ផ្តើមជជែកជាមួយអ្នកបាន។</string>
-    <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">គ្មាននរណាម្នាក់អាចមើលឃើញអ្នកនៅលើ Signal ទេ លើកលែងតែអ្នកផ្ញើសារទៅពួកគេ ឬមានការជជែកដែលមានស្រាប់ជាមួយពួកគេ។</string>
-    <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">អ្នករាល់គ្នា</string>
-    <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">គ្មាននរណាម្នាក់</string>
-    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">តើអ្នកប្រាកដឬទេ?</string>
-    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">ការកំណត់ \"នរណាខ្លះអាចរកខ្ញុំបានតាមលេខទូរសព្ទ\" ទៅជា \"គ្មាននរណាម្នាក់\" នឹងធ្វើឱ្យអ្នកផ្សេងកាន់តែពិបាកស្វែងរកអ្នកនៅលើ Signal។</string>
-    <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">បោះបង់</string>
-    <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">រក្សាទុក</string>
-    <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">ត្រឡប់ក្រោយ</string>
     <!-- Error message shown when the captcha fails to load. -->
     <string name="CaptchaScreen__failed_to_load_captcha">មិនអាចផ្ទុក captcha បានទេ</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">បោះបង់</string>
+
+    <!-- Shared registration strings -->
+    <!-- Content description for the back arrow in a registration screen header. -->
+    <string name="RegistrationScreen__back">ត្រឡប់ក្រោយ</string>
+
+    <!-- Signal Login purchase screen -->
+    <!-- Title of the screen where the user buys a Signal Login to register without a phone number. -->
+    <string name="SignalLoginPaymentScreen__signal_login">Signal Login</string>
+    <!-- Description of what a Signal Login is. Followed by a "learn more" link. -->
+    <string name="SignalLoginPaymentScreen__register_without_a_phone_number">ចុះឈ្មោះដោយគ្មានលេខទូរសព្ទដោយប្រើ Signal Login។ ជាមួយនឹងការទិញម្តង អ្នកនឹងទទួលបានលេខសម្គាល់គណនីដើម្បីចាប់ផ្តើម។</string>
+    <!-- Link at the end of the description that opens a support article about Signal Login. -->
+    <string name="SignalLoginPaymentScreen__learn_more">ស្វែងយល់បន្ថែម</string>
+    <!-- Subtitle of the purchase option, clarifying the price is not a subscription. -->
+    <string name="SignalLoginPaymentScreen__one_time_purchase">ការទិញតែម្តង</string>
+    <!-- Selling point of the purchase option: no phone number is required. -->
+    <string name="SignalLoginPaymentScreen__no_phone_number_needed">មិនត្រូវការលេខទូរសព្ទទេ</string>
+    <!-- Selling point of the purchase option: a username is used to reach the user. -->
+    <string name="SignalLoginPaymentScreen__username_for_messaging_and_calls">ឈ្មោះអ្នកប្រើសម្រាប់ការផ្ញើសារ និងការហៅទូរសព្ទ</string>
+    <!-- Selling point of the purchase option: the purchase supports Signal. -->
+    <string name="SignalLoginPaymentScreen__signal_is_a_non_profit">Signal គឺជាអង្គការមិនស្វែងរកប្រាក់ចំណេញ — ការទិញរបស់អ្នកជួយគាំទ្រដល់បេសកកម្មរបស់យើង</string>
+    <!-- Title of the option for users who already bought a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__i_have_a_signal_login">ខ្ញុំមាន Signal Login</string>
+    <!-- Subtitle of the existing-login option. -->
+    <string name="SignalLoginPaymentScreen__use_your_existing_account_key">ប្រើព័ត៌មានចូលគណនីដែលមានស្រាប់របស់អ្នក</string>
+    <!-- Selling point of the existing-login option: the account can be restored. -->
+    <string name="SignalLoginPaymentScreen__login_and_restore_your_account">ចូលគណនី និងស្តារគណនីរបស់អ្នក</string>
+    <!-- Selling point of the existing-login option, thanking the user for their previous purchase. -->
+    <string name="SignalLoginPaymentScreen__thanks_for_supporting_signal">សូមអរគុណចំពោះការគាំទ្រ Signal!</string>
+    <!-- Action button that starts the purchase. Placeholder is the localized price, e.g. "$1.99". -->
+    <string name="SignalLoginPaymentScreen__pay_s">ទូទាត់ %1$s</string>
+    <!-- Action button that starts the purchase, shown while the price is still loading. -->
+    <string name="SignalLoginPaymentScreen__pay">ទូទាត់</string>
+    <!-- Action button shown when the user indicated they already have a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__continue">បន្ត</string>
+    <!-- Error shown when the purchase does not go through. -->
+    <string name="SignalLoginPaymentScreen__your_purchase_could_not_be_completed">ការទិញរបស់អ្នកមិនអាចបញ្ចប់បានទេ។ អ្នកមិនត្រូវបានគិតប្រាក់ទេ។</string>
+    <!-- Shown in place of the price when Google Play cannot offer the purchase. -->
+    <string name="SignalLoginPaymentScreen__unavailable">មិនដំណើរការ</string>
+    <!-- Label for the button that retries loading the purchase price after it failed to load. -->
+    <string name="SignalLoginPaymentScreen__retry">ព្យាយាមម្តងទៀត</string>
+    <!-- Shown in place of the price when the user already paid for a Signal Login but it was never redeemed. -->
+    <string name="SignalLoginPaymentScreen__already_paid">បានបង់ប្រាក់រួចរាល់ហើយ</string>
+    <!-- Error shown when Signal Login cannot be purchased on this device, for example because the Google Play Store is unavailable. -->
+    <string name="SignalLoginPaymentScreen__signal_login_cant_be_purchased">មិនអាចទិញ Signal Login នៅលើឧបករណ៍នេះបានទេនៅពេលនេះ។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។</string>
+    <!-- Message shown when the user\'s payment has gone through but has not finished processing yet. -->
+    <string name="SignalLoginPaymentScreen__your_payment_is_still_processing">ការបង់ប្រាក់របស់អ្នកកំពុងដំណើរការនៅឡើយ។ ត្រឡប់មកវិញ ហើយចុច \"បន្ត\" នៅពេលដែលប្រតិបត្តិការបានសម្រេច ហើយអ្នកនឹងមិនត្រូវបានគិតប្រាក់ម្តងទៀតទេ។</string>
+    <!-- Label for the internal-testing text field where a receipt credential can be pasted to skip payment. Not shown to real users. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__paste_a_receipt_credential" translatable="false">Paste a receipt credential (testing)</string> -->
+    <!-- Error shown when a manually-pasted receipt credential can\'t be parsed or is rejected. Internal testing only. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__this_receipt_credential_is_invalid" translatable="false">This receipt credential is invalid.</string> -->
+    <!-- Title of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__update_google_play_services">ធ្វើបច្ចុប្បន្នភាពសេវាកម្ម Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_update_google_play_services">ដើម្បីទិញ Signal Login សូមធ្វើបច្ចុប្បន្នភាពសេវាកម្ម Google Play នៅលើឧបករណ៍នេះ។</string>
+    <!-- Button that updates Google Play services. -->
+    <string name="SignalLoginPaymentScreen__update">ធ្វើបច្ចុប្បន្នភាព</string>
+    <!-- Title of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_missing">បាត់សេវាកម្ម Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_google_play_services_needs_to_be_installed">ដើម្បីទិញ Signal Login ចាំបាច់ត្រូវដំឡើងសេវាកម្ម Google Play។</string>
+    <!-- Button that installs Google Play services. -->
+    <string name="SignalLoginPaymentScreen__install_play_services">ដំឡើងសេវាកម្ម Play</string>
+    <!-- Title of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_are_updating">សេវាកម្ម Google Play កំពុងធ្វើបច្ចុប្បន្នភាព</string>
+    <!-- Body of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_wait_for_google_play_services">ដើម្បីទិញ Signal Login សូមរង់ចាំឱ្យសេវាកម្ម Google Play បញ្ចប់ការធ្វើបច្ចុប្បន្នភាព។</string>
+    <!-- Title of the dialog shown when Google Play cannot be used to take a payment. -->
+    <string name="SignalLoginPaymentScreen__google_play_is_required">ចាំបាច់ត្រូវមាន Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is installed but turned off. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_enable_google_play_services">ដើម្បីទិញ Signal Login សូមបើកសេវាកម្ម Google Play នៅលើឧបករណ៍នេះ ហើយចូលទៅក្នុង Google Play Store។</string>
+    <!-- Body of the dialog shown when the device cannot run Google Play services at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_on_this_device">អ្នកមិនអាចទិញ Signal Login បានទេ ដោយសារឧបករណ៍នេះមិនអាចប្រើបានជាមួយសេវាកម្ម Google Play។ សូមទាក់ទងក្រុមហ៊ុនផលិតទូរសព្ទដើម្បីទទួលបានជំនួយ។</string>
+    <!-- Body of the dialog shown when Google Play services works but nobody is signed into the Play Store. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_sign_into_the_google_play_store">ដើម្បីទិញ Signal Login សូមចូលទៅក្នុង Google Play Store។</string>
+    <!-- Body of the dialog shown when this version of Signal cannot make Google Play purchases at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_in_this_version">អ្នកមិនអាចទិញ Signal Login នៅក្នុងកំណែ Signal នេះបានទេ។ ដំឡើង Signal ពី Google Play Store ដើម្បីទិញវា។</string>
+    <!-- Button that opens the Google Play store so the user can sign into it. -->
+    <string name="SignalLoginPaymentScreen__open_play_store">បើក Play Store</string>
+
+    <!-- Signal Login details screen -->
+    <!-- Title of the screen that shows the user their newly purchased Signal Login. -->
+    <string name="SignalLoginInfoScreen__your_signal_login">Signal Login របស់អ្នក</string>
+    <!-- Description warning the user that a lost Signal Login cannot be recovered. -->
+    <string name="SignalLoginInfoScreen__thanks_for_your_purchase">សូមអរគុណចំពោះការទិញរបស់អ្នក។ សូមប្រើ Signal Login របស់អ្នក ដើម្បីចុះឈ្មោះ និងស្ដារគណនីរបស់អ្នក។ ប្រសិនបើអ្នកភ្លេចសោរបស់អ្នក អ្នកនឹងមិនអាចស្តារគណនីរបស់អ្នកបានទេ។</string>
+    <!-- Action button that stores the Signal Login in the device password manager. -->
+    <string name="SignalLoginInfoScreen__save_to_password_manager">រក្សាទុកក្នុងមុខងារគ្រប់គ្រងពាក្យសម្ងាត់</string>
+    <!-- Toast shown when the user taps the disabled save to password manager button and the device has no password manager. -->
+    <string name="SignalLoginInfoScreen__no_password_manager_available">អ្នកមិនបានរៀបចំមុខងារគ្រប់គ្រងពាក្យសម្ងាត់ទេ។</string>
+    <!-- Body of the dialog asking the user to confirm saving their Signal Login credentials to the device password manager. -->
+    <string name="SignalLoginInfoScreen__only_store_your_credentials">រក្សាទុកព័ត៌មានផ្ទៀងផ្ទាត់របស់អ្នកនៅក្នុងកម្មវិធីគ្រប់គ្រងពាក្យសម្ងាត់ដែលអ្នកជឿជាក់ថាមានសុវត្ថិភាពតែប៉ុណ្ណោះ។ Signal មិនផ្តល់ការណែនាំថាតើកម្មវិធីគ្រប់គ្រងពាក្យសម្ងាត់មួយណាសក្តិសមសម្រាប់អ្នកនោះឡើយ។</string>
+    <!-- Action button for users who would rather write the Signal Login down themselves. -->
+    <string name="SignalLoginInfoScreen__save_manually">រក្សាទុកដោយផ្ទាល់ដៃ</string>
+    <!-- Error shown when the Signal Login could not be stored in the password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_saved">Signal Login របស់អ្នកមិនអាចរក្សាទុកបានទេ។ សូមរក្សាទុកវាដោយផ្ទាល់ដៃវិញ។</string>
+    <!-- Title of the dialog shown when the Signal Login could not be found in the password manager after saving it. -->
+    <string name="SignalLoginInfoScreen__error_confirming_login_info">មានបញ្ហាក្នុងការបញ្ជាក់ព័ត៌មានចូលគណនី</string>
+    <!-- Description telling the user that the Signal Login we saved could not be read back out of their password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_confirmed">Signal Login របស់អ្នកមិនអាចបញ្ជាក់បានទេ។ ត្រូវប្រាកដថាអ្នកបានរក្សាទុកវានៅក្នុងកម្មវិធីគ្រប់គ្រងពាក្យសម្ងាត់របស់អ្នក ឬរក្សាទុកវាដោយខ្លួនឯង។</string>
+
+    <!-- Sheet that double-checks the user\'s Signal Login really made it into their password manager -->
+    <!-- Title of the sheet asking the user to confirm their Signal Login was saved to their password manager. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_your_login_info_is_saved">បញ្ជាក់ថាព័ត៌មានចូលគណនីរបស់អ្នកត្រូវបានរក្សាទុក</string>
+    <!-- Description telling the user they are about to be asked to fill in the Signal Login they just saved. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_that_your_login_info_was_saved">បញ្ជាក់ថា Signal Login របស់អ្នកត្រូវបានរក្សាទុកយ៉ាងត្រឹមត្រូវ។ អ្នកនឹងត្រូវបានណែនាំឱ្យបំពេញពាក្យសម្ងាត់ដែលអ្នកបានរក្សាទុកនៅជំហានបន្ទាប់។</string>
+    <!-- Action button that starts checking the password manager for the Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_login_info">បញ្ជាក់ព័ត៌មានចូលគណនី</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__see_login_info_again">មើលព័ត៌មានចូលគណនីម្តងទៀត</string>
+
+    <!-- Save Signal Login screen -->
+    <!-- Title of the screen that spells out the Signal Login so the user can record it themselves. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_your_signal_login">រក្សាទុក Signal Login របស់អ្នក</string>
+    <!-- Description telling the user to keep their Signal Login somewhere safe and private. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__store_your_signal_login_somewhere_safe">រក្សាទុក Signal Login របស់អ្នកនៅកន្លែងណាដែលមានសុវត្ថិភាព។ កុំចែករំលែកព័ត៌មានចូលគណនីរបស់អ្នកជាមួយនរណាម្នាក់ឱ្យសោះ។</string>
+    <!-- Action button that saves the Signal Login to a PDF file. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_as_pdf">រក្សាទុកជា PDF</string>
+    <!-- Action button for users who are done recording their Signal Login. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__continue">បន្ត</string>
+
+    <!-- Sheet that double-checks the user really saved their Signal Login -->
+    <!-- Title of the sheet asking the user to confirm they saved their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__confirm_your_login_info_is_saved">បញ្ជាក់ថាព័ត៌មានចូលគណនីរបស់អ្នកត្រូវបានរក្សាទុក</string>
+    <!-- Description warning the user that they are about to be asked for their Signal Login and that it cannot be recovered. -->
+    <string name="ConfirmLoginSavedBottomSheet__you_will_be_prompted_to_sign_in">បន្ទាប់មក អ្នកនឹងត្រូវបានណែនាំឱ្យចូលគណនីដោយប្រើ Signal Login របស់អ្នក។ ត្រូវប្រាកដថាអ្នកបានរក្សាទុក ឬចម្លងព័ត៌មានលម្អិតទាំងនេះ។ Signal នឹងមិនអាចជួយអ្នកក្នុងការស្តារគណនីរបស់អ្នកទេ។</string>
+    <!-- Action button confirming the Signal Login is saved. -->
+    <string name="ConfirmLoginSavedBottomSheet__continue">បន្ត</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__show_login_info_again">បង្ហាញព័ត៌មានចូលគណនីម្តងទៀត</string>
+
+    <!-- Errors shown beneath an account ID text field, wherever one is offered -->
+    <!-- Error shown when the entered account ID contains characters that can\'t appear in one. -->
+    <string name="AccountIdField__invalid_account_id">លេខសម្គាល់គណនីមិនត្រឹមត្រូវ</string>
+
+    <!-- Signal Login credential entry screen -->
+    <!-- Title of the screen where a user with an existing Signal Login types it in to log back in. -->
+    <string name="SignalLoginCredentialEntryScreen__signal_login">Signal Login</string>
+    <!-- Description telling the user what to enter to log in. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_account_id_followed_by_your_recovery_key">បញ្ចូលលេខសម្គាល់គណនីរបស់អ្នក បន្ទាប់មកសោស្តាររបស់អ្នក ដើម្បីស្ដារគណនីរបស់អ្នកមកវិញ។</string>
+    <!-- Label of the text field the account ID is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__account_id">លេខសម្គាល់គណនី</string>
+    <!-- Label of the text field the recovery key is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__recovery_key">សោស្តារ</string>
+    <!-- Description of the button that spells out the typed recovery key instead of masking it. -->
+    <string name="SignalLoginCredentialEntryScreen__show_recovery_key">បង្ហាញសោស្តារ</string>
+    <!-- Description of the button that masks the typed recovery key. -->
+    <string name="SignalLoginCredentialEntryScreen__hide_recovery_key">លាក់សោស្តារ</string>
+    <!-- Button that opens a support article for users who can\'t find their Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__need_help">ត្រូវការជំនួយ?</string>
+    <!-- Action button that submits the entered Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__next">បន្ទាប់</string>
+    <!-- Error shown when the service rejects the entered login, which means one of the two halves is wrong. -->
+    <string name="SignalLoginCredentialEntryScreen__incorrect_account_id_or_recovery_key">លេខសម្គាល់គណនី ឬសោស្តារមិនត្រឹមត្រូវ</string>
+    <!-- Description shown instead when the user is typing back the Signal Login they were just given, to check they recorded it correctly. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_signal_login_to_confirm_it_was_recorded_correctly">បញ្ចូល Signal Login របស់អ្នកដើម្បីបញ្ជាក់ថាវាត្រូវបានកត់ត្រាយ៉ាងត្រឹមត្រូវ។</string>
+    <!-- Button that takes the user back to their Signal Login if they can\'t remember what they recorded. -->
+    <string name="SignalLoginCredentialEntryScreen__show_login_info_again">បង្ហាញព័ត៌មានចូលគណនីម្តងទៀត</string>
+    <!-- Error shown when what the user typed back doesn\'t match the Signal Login they were given. -->
+    <string name="SignalLoginCredentialEntryScreen__that_doesnt_match_the_signal_login_you_were_shown">វាមិនត្រូវគ្នានឹង Signal Login ដែលបានបង្ហាញទៅអ្នកទេ</string>
+
+    <!-- Add username screen -->
+    <!-- Title of the screen offering the user an optional username. -->
+    <string name="AddUsernameScreen__add_an_optional_username">បញ្ចូលឈ្មោះអ្នកប្រើជាជម្រើស</string>
+    <!-- Description explaining what a username is used for. -->
+    <string name="AddUsernameScreen__people_can_message_you_by_username">អ្នកប្រើអាចផ្ញើសារទៅអ្នកតាមរយៈឈ្មោះអ្នកប្រើជំនួសឱ្យលេខទូរសព្ទ។</string>
+    <!-- Prompt shown above the username field. -->
+    <string name="AddUsernameScreen__choose_your_username">ជ្រើសរើសឈ្មោះអ្នកប្រើរបស់អ្នក</string>
+    <!-- Label/hint for the username field. -->
+    <string name="AddUsernameScreen__username">ឈ្មោះអ្នកប្រើ</string>
+    <!-- Helper text below the username field. Followed by a "learn more" link. -->
+    <string name="AddUsernameScreen__usernames_are_always_paired_with_a_set_of_numbers">ឈ្មោះអ្នកប្រើតែងតែមានលេខប៉ុន្មានខ្ទង់។</string>
+    <!-- Link in the helper text that opens a support article about usernames. -->
+    <string name="AddUsernameScreen__learn_more">ស្វែងយល់បន្ថែម</string>
+    <!-- Button that skips choosing a username. -->
+    <string name="AddUsernameScreen__skip">រំលង</string>
+    <!-- Button that submits the chosen username. -->
+    <string name="AddUsernameScreen__next">បន្ទាប់</string>
+    <!-- Validation error shown when the entered username is too short. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_least_3_characters">ឈ្មោះអ្នកប្រើត្រូវតែមានយ៉ាងហោចណាស់ 3 តួអក្សរ</string>
+    <!-- Validation error shown when the entered username is too long. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_most_32_characters">ឈ្មោះអ្នកប្រើត្រូវតែមានច្រើនបំផុត 32 តួអក្សរ</string>
+    <!-- Validation error shown when the entered username contains disallowed characters. -->
+    <string name="AddUsernameScreen__usernames_can_only_contain">ឈ្មោះអ្នកប្រើអាចមានតែអក្សរ លេខ និងសញ្ញាគូសក្រោមប៉ុណ្ណោះ</string>
+    <!-- Validation error shown when the entered username starts with a digit. -->
+    <string name="AddUsernameScreen__usernames_cannot_begin_with_a_number">ឈ្មោះអ្នកប្រើមិនអាចចាប់ផ្តើមដោយលេខបានទេ</string>
+    <!-- Error shown when the chosen username cannot be reserved. -->
+    <string name="AddUsernameScreen__this_username_is_not_available">ឈ្មោះអ្នកប្រើនេះមិនអាចប្រើបានទេ។ សូមសាកល្បងឈ្មោះអ្នកប្រើផ្សេងទៀត។</string>
+    <!-- Error shown when the user\'s temporary hold on a username expired before they submitted it. -->
+    <string name="AddUsernameScreen__your_username_reservation_expired">ការកក់ឈ្មោះអ្នកប្រើរបស់អ្នកផុតកំណត់ហើយ។ សូមព្យាយាមម្តងទៀត។</string>
+    <!-- Error shown when the username formed by the entered name and the user\'s chosen number is already taken. -->
+    <string name="AddUsernameScreen__this_username_is_not_available_try_another_number">ឈ្មោះអ្នកប្រើនេះមិនអាចប្រើបានទេ។ សូមសាកល្បងលេខផ្សេងទៀត។</string>
+    <!-- Validation error shown when the number the user entered after their username has too few digits. -->
+    <string name="AddUsernameScreen__enter_a_minimum_of_d_digits">ឈ្មោះអ្នកប្រើមិនត្រឹមត្រូវ។ សូមបញ្ចូលលេខយ៉ាងតិចបំផុត %1$d ខ្ទង់។</string>
+    <!-- Validation error shown when the number the user entered after their username has too many digits. -->
+    <string name="AddUsernameScreen__enter_a_maximum_of_d_digits">ឈ្មោះអ្នកប្រើមិនត្រឹមត្រូវ។ សូមបញ្ចូលលេខយ៉ាងច្រើនបំផុត %1$d ខ្ទង់។</string>
+    <!-- Validation error shown when the number the user entered after their username is 00. -->
+    <string name="AddUsernameScreen__this_number_cant_be_00">លេខនេះមិនអាចជា 00 ទេ។ បញ្ចូលលេខមួយខ្ទង់ចន្លោះពី 1–9</string>
+    <!-- Validation error shown when the number the user entered after their username has a leading zero. -->
+    <string name="AddUsernameScreen__this_number_cant_start_with_0">លេខដែលមានច្រើនជាង 2 ខ្ទង់មិនអាចចាប់ផ្តើមដោយ 0 ទេ</string>
+    <!-- Title of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__are_you_sure">តើអ្នកប្រាកដឬទេ?</string>
+    <!-- Body of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__without_a_username_people_wont_be_able_to_find_you">បើគ្មានឈ្មោះអ្នកប្រើទេ អ្នកផ្សេងទៀតនឹងមិនអាចរកអ្នកឃើញនៅលើ Signal បានឡើយ។</string>
+    <!-- Button in the skip-username confirmation dialog that returns to the screen without skipping. -->
+    <string name="AddUsernameScreen__cancel">បោះបង់</string>
+    <!-- Button in the skip-username confirmation dialog that skips choosing a username. -->
+    <string name="AddUsernameScreen__continue">បន្ត</string>
+
+    <!-- ContactSupportDialog -->
+    <!-- Title of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__submit_debug_log">ដាក់បញ្ជូនកំណត់ត្រាបញ្ហាទេ?</string>
+    <!-- Body of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__your_debug_logs">កំណត់ត្រាបញ្ហារបស់អ្នកនឹងជួយយើងដោះស្រាយបញ្ហារបស់អ្នកឱ្យបានកាន់តែលឿន។ អ្នកមានជម្រើសដាក់ឬមិនដាក់បញ្ជូនកំណត់ត្រារបស់អ្នក។</string>
+    <!-- Button that contacts support with a debug log attached -->
+    <string name="ContactSupportDialog__submit_with_debug_log">ដាក់បញ្ជូនដោយមានកំណត់ត្រាបញ្ហា</string>
+    <!-- Button that contacts support without attaching a debug log -->
+    <string name="ContactSupportDialog__submit_without_debug_log">ដាក់បញ្ជូនដោយគ្មានកំណត់ត្រាបញ្ហា</string>
+
+    <!-- TotpEntryScreen -->
+    <!-- Title of the two-factor authentication code entry screen -->
+    <string name="TotpEntryScreen__two_factor_authentication">ការផ្ទៀងផ្ទាត់ពីរជំហាន</string>
+    <!-- Subtitle explaining where to find the code -->
+    <string name="TotpEntryScreen__to_continue_enter_the_code">ដើម្បីបន្ត សូមបញ្ចូលលេខកូដ 6 ខ្ទង់ពីកម្មវិធីផ្ទៀងផ្ទាត់របស់អ្នក។</string>
+    <!-- Button text to cancel entering a code -->
+    <string name="TotpEntryScreen__cancel">បោះបង់</string>
+
+    <!-- TwoFactorSelectionScreen -->
+    <!-- Title of the two-factor authentication method selection screen -->
+    <string name="TwoFactorSelectionScreen__two_factor_authentication">ការផ្ទៀងផ្ទាត់ពីរជំហាន</string>
+    <!-- Subtitle telling the user to pick one of the methods listed below -->
+    <string name="TwoFactorSelectionScreen__choose_a_method_below">សូមជ្រើសរើសវិធីខាងក្រោម ដើម្បីផ្ទៀងផ្ទាត់គណនីរបស់អ្នក។</string>
+    <!-- Title of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__passkey">សោសម្ងាត់</string>
+    <!-- Description of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__tap_to_use_your_device_biometrics">ចុចដើម្បីប្រើជីវមាត្រឧបករណ៍របស់អ្នក ឬសោសម្ងាត់ FIDO2</string>
+    <!-- Title of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__authenticator_app">កម្មវិធីផ្ទៀងផ្ទាត់</string>
+    <!-- Description of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__enter_a_one_time_code">បញ្ចូលលេខកូដដែលប្រើតែម្តង ដែលបង្កើតដោយកម្មវិធីផ្ទៀងផ្ទាត់របស់អ្នក។</string>
+    <!-- Button text to cancel two-factor authentication -->
+    <string name="TwoFactorSelectionScreen__cancel">បោះបង់</string>
+    <!-- Dialog message shown when a passkey verification attempt fails for a reason the user can\'t act on -->
+    <string name="TwoFactorSelectionScreen__something_went_wrong_with_your_passkey">មានអ្វីមួយមិនប្រក្រតីជាមួយសោសម្ងាត់របស់អ្នក។ សូមព្យាយាមម្តងទៀត ឬជ្រើសរើសវិធីផ្សេងទៀត។</string>
 </resources>

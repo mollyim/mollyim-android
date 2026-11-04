@@ -5,17 +5,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.groups.GroupChangeBusyException;
+import org.signal.core.util.groups.GroupChangeFailedException;
+import org.signal.core.util.groups.GroupInsufficientRightsException;
+import org.signal.core.util.groups.GroupNotAMemberException;
 import org.signal.core.util.logging.Log;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedMember;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.groups.GroupChangeBusyException;
-import org.thoughtcrime.securesms.groups.GroupChangeFailedException;
 import org.thoughtcrime.securesms.groups.GroupId;
-import org.thoughtcrime.securesms.groups.GroupInsufficientRightsException;
 import org.thoughtcrime.securesms.groups.GroupManager;
-import org.thoughtcrime.securesms.groups.GroupNotAMemberException;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.impl.DecryptionsDrainedConstraint;
@@ -118,7 +118,7 @@ public final class GroupV2UpdateSelfProfileKeyJob extends BaseJob {
 
       for (GroupId.V2 id : SignalDatabase.groups().getAllGroupV2Ids()) {
         Optional<GroupRecord> group = SignalDatabase.groups().getGroup(id);
-        if (!group.isPresent()) {
+        if (!group.isPresent() || !group.get().getHasV2GroupProperties()) {
           Log.w(TAG, "Group " + group + " no longer exists?");
           continue;
         }
@@ -187,6 +187,11 @@ public final class GroupV2UpdateSelfProfileKeyJob extends BaseJob {
 
     if (!group.get().isActive()) {
       Log.i(TAG, "Group is not active, skipping update.");
+      return;
+    }
+
+    if (!group.get().getHasV2GroupProperties()) {
+      Log.i(TAG, "Group is missing properties, likely deleted.");
       return;
     }
 

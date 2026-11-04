@@ -2,14 +2,17 @@ package org.thoughtcrime.securesms.payments.preferences;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.ContactSelectionListFragment;
 import org.signal.core.ui.logging.LoggingFragment;
@@ -23,8 +26,8 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.payments.CanNotSendPaymentDialog;
 import org.thoughtcrime.securesms.payments.preferences.model.PayeeParcelable;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.navigation.SafeNavigation;
 import org.signal.core.util.ExpiringProfileCredentialUtil;
 
@@ -46,6 +49,9 @@ public class PaymentRecipientSelectionFragment extends LoggingFragment implement
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     toolbar = view.findViewById(R.id.payment_recipient_selection_fragment_toolbar);
     toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
+
+    toolbar.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+    SystemWindowInsetsSetter.attach(toolbar, getViewLifecycleOwner(), WindowInsetsCompat.Type.statusBars());
 
     contactFilterView = view.findViewById(R.id.contact_filter_edit_text);
 

@@ -3,6 +3,10 @@ package org.thoughtcrime.securesms.profiles;
 
 import org.thoughtcrime.securesms.jobs.AttachmentUploadJob;
 import org.signal.mediasend.MediaConstraints;
+import org.thoughtcrime.securesms.video.TranscodingConfig;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ProfileMediaConstraints extends MediaConstraints {
   @Override
@@ -48,5 +52,10 @@ public class ProfileMediaConstraints extends MediaConstraints {
   @Override
   public long getMaxAttachmentSize() {
     return AttachmentUploadJob.getMaxPlaintextSize();
+  }
+
+  @Override
+  public List<TranscodingConfig.QualityTier> getVideoTranscodingSettings() {
+    return Collections.emptyList();
   }
 }

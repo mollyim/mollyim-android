@@ -44,6 +44,13 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
         <action
+            android:id="@+id/action_appSettingsFragment_to_linkedDeviceAccountSettingsFragment"
+            app:destination="@id/linkedDeviceAccountSettingsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
             android:id="@+id/action_appSettingsFragment_to_remoteBackupsSettingsFragment"
             app:destination="@id/remoteBackupsSettingsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -209,7 +216,125 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_settingsSignalLoginDetailsFragment"
+            app:destination="@id/settingsSignalLoginDetailsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_authenticatorSetupFragment"
+            app:destination="@id/authenticatorSetupFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_twoFactorNameFragment"
+            app:destination="@id/twoFactorNameFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_accountSettingsFragment_to_passkeySetupFragment"
+            app:destination="@id/passkeySetupFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
+
+    <fragment
+        android:id="@+id/passkeySetupFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.passkey.PasskeySetupFragment"
+        android:label="passkey_setup_fragment">
+        <action
+            android:id="@+id/action_passkeySetupFragment_to_twoFactorNameFragment"
+            app:destination="@id/twoFactorNameFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsSignalLoginDetailsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.signallogin.SettingsSignalLoginDetailsFragment"
+        android:label="settings_signal_login_details_fragment">
+        <action
+            android:id="@+id/action_settingsSignalLoginDetailsFragment_to_backupKeyDisplayFragment"
+            app:destination="@id/backupKeyDisplayFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authenticatorSetupFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.authenticator.TotpSetupFragment"
+        android:label="authenticator_setup_fragment">
+        <action
+            android:id="@+id/action_authenticatorSetupFragment_to_authenticatorCodeEntryFragment"
+            app:destination="@id/authenticatorCodeEntryFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authenticatorCodeEntryFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.authenticator.TotpCodeEntryFragment"
+        android:label="authenticator_code_entry_fragment">
+        <action
+            android:id="@+id/action_authenticatorCodeEntryFragment_to_twoFactorNameFragment"
+            app:destination="@id/twoFactorNameFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/twoFactorNameFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.twofactor.TwoFactorNameEntryFragment"
+        android:label="two_factor_name_fragment">
+
+        <argument
+            android:name="method_id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+
+        <argument
+            android:name="renaming"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <argument
+            android:name="method_kind"
+            android:defaultValue="AUTHENTICATOR_APP"
+            app:argType="string" />
+
+        <argument
+            android:name="method_name"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+        <argument
+            android:name="method_created_at"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/linkedDeviceAccountSettingsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.account.LinkedDeviceAccountSettingsFragment"
+        android:label="linked_device_account_settings_fragment"
+        tools:layout="@layout/dsl_settings_fragment" />
 
     <include app:graph="@navigation/app_settings_change_number" />
 
@@ -229,8 +354,7 @@
     <fragment
         android:id="@+id/deleteAccountFragment"
         android:name="org.thoughtcrime.securesms.delete.DeleteAccountFragment"
-        android:label="delete_account_fragment"
-        tools:layout="@layout/delete_account_fragment">
+        android:label="delete_account_fragment">
 
         <action
             android:id="@+id/action_deleteAccountFragment_to_deleteAccountCountryFragment"
@@ -435,6 +559,14 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
+        <action
+            android:id="@+id/action_localBackupsFragment_to_settingsSignalLoginDetailsFragment"
+            app:destination="@id/settingsSignalLoginDetailsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
         <argument
             android:name="trigger_update_flow"
             app:argType="boolean"
@@ -465,7 +597,7 @@
 
     <dialog
         android:id="@+id/chatFoldersEducationSheet"
-        android:name="org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFoldersEducationSheet"/>
+        android:name="org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFoldersEducationSheet" />
 
     <fragment
         android:id="@+id/createFoldersFragment"
@@ -514,6 +646,14 @@
         <action
             android:id="@+id/action_notificationsSettingsFragment_to_notificationProfilesFragment"
             app:destination="@id/notificationProfilesFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
+        <action
+            android:id="@+id/action_notificationsSettingsFragment_to_mutedNotificationsFragment"
+            app:destination="@id/mutedNotificationsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
@@ -609,7 +749,7 @@
 
     <fragment
         android:id="@+id/inviteFragment"
-        android:name="org.thoughtcrime.securesms.InviteFragment"
+        android:name="org.signal.appsettings.invite.InviteFragment"
         android:label="invite_fragment" />
 
     <!-- region Direct-To-Page actions -->
@@ -855,6 +995,16 @@
         app:popUpTo="@id/app_settings"
         app:popUpToInclusive="true" />
 
+    <action
+        android:id="@+id/action_direct_to_linkedDeviceAccountSettingsFragment"
+        app:destination="@id/linkedDeviceAccountSettingsFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:exitAnim="@anim/fragment_open_exit"
+        app:popEnterAnim="@anim/fragment_close_enter"
+        app:popExitAnim="@anim/fragment_close_exit"
+        app:popUpTo="@id/app_settings"
+        app:popUpToInclusive="true" />
+
     <!-- endregion -->
 
     <!-- Labs Settings -->
@@ -906,6 +1056,9 @@
         <action
             android:id="@+id/action_internalSettingsFragment_to_internalIssuesFragment"
             app:destination="@id/internalIssuesFragment" />
+        <action
+            android:id="@+id/action_internalSettingsFragment_to_internalRemoteConfigFragment"
+            app:destination="@id/internalRemoteConfigFragment" />
     </fragment>
 
     <fragment
@@ -978,6 +1131,11 @@
         android:name="org.thoughtcrime.securesms.components.settings.app.internal.issues.InternalIssuesFragment"
         android:label="internal_issues_fragment" />
 
+    <fragment
+        android:id="@+id/internalRemoteConfigFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.internal.remoteconfig.InternalRemoteConfigFragment"
+        android:label="internal_remote_config_fragment" />
+
     <!-- endregion -->
 
     <!-- App updates -->
@@ -1033,8 +1191,7 @@
     <fragment
         android:id="@+id/donationReceiptDetailFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.subscription.receipts.detail.DonationReceiptDetailFragment"
-        android:label="donation_receipt_detail_fragment"
-        tools:layout="@layout/donation_receipt_detail_fragment">
+        android:label="donation_receipt_detail_fragment">
 
         <argument
             android:name="id"
@@ -1051,10 +1208,14 @@
 
     <!-- endregion -->
 
+    <fragment
+        android:id="@+id/mutedNotificationsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.GlobalMutedNotificationsFragment" />
+
     <!-- Notification Profiles -->
     <fragment
         android:id="@+id/notificationProfilesFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfilesFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.list.NotificationProfilesFragment"
         tools:layout="@layout/notification_profiles_empty">
 
         <action
@@ -1076,8 +1237,7 @@
 
     <fragment
         android:id="@+id/editNotificationProfileFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.EditNotificationProfileFragment"
-        tools:layout="@layout/fragment_edit_notification_profile">
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.edit.EditNotificationProfileFragment">
 
         <argument
             android:name="profileId"
@@ -1098,7 +1258,7 @@
 
     <fragment
         android:id="@+id/addAllowedMembersFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.AddAllowedMembersFragment">
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.allowedmembers.AddAllowedMembersFragment">
 
         <argument
             android:name="profileId"
@@ -1134,15 +1294,14 @@
         <argument
             android:name="currentSelection"
             android:defaultValue="@null"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId[]"
+            app:argType="org.signal.core.models.recipients.RecipientId[]"
             app:nullable="true" />
 
     </fragment>
 
     <fragment
         android:id="@+id/notificationProfileDetailsFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfileDetailsFragment"
-        tools:layout="@layout/dsl_settings_fragment">
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.details.NotificationProfileDetailsFragment">
 
         <argument
             android:name="profileId"
@@ -1176,8 +1335,7 @@
 
     <fragment
         android:id="@+id/editNotificationProfileScheduleFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.EditNotificationProfileScheduleFragment"
-        tools:layout="@layout/fragment_edit_notification_profile_schedule">
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.schedule.EditNotificationProfileScheduleFragment">
 
         <argument
             android:name="profileId"
@@ -1201,8 +1359,7 @@
 
     <fragment
         android:id="@+id/notificationProfileCreatedFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.NotificationProfileCreatedFragment"
-        tools:layout="@layout/fragment_notification_profile_created">
+        android:name="org.thoughtcrime.securesms.components.settings.app.notifications.profiles.created.NotificationProfileCreatedFragment">
 
         <argument
             android:name="profileId"
@@ -1273,6 +1430,14 @@
         <action
             android:id="@+id/action_remoteBackupsSettingsFragment_to_backupKeyDisplayFragment"
             app:destination="@id/backupKeyDisplayFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+
+        <action
+            android:id="@+id/action_remoteBackupsSettingsFragment_to_settingsSignalLoginDetailsFragment"
+            app:destination="@id/settingsSignalLoginDetailsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"

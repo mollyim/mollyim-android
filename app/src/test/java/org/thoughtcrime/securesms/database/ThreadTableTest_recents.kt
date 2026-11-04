@@ -13,9 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.CursorUtil
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.testutil.RecipientTestRule
 
 @Suppress("ClassName")
@@ -37,7 +37,7 @@ class ThreadTableTest_recents {
   fun getRecentConversationList_excludes_blocked_recipients() {
     createActiveThreadFor(recipientId)
 
-    SignalDatabase.recipients.setBlocked(recipientId, true)
+    SignalDatabase.recipients.setBlocked(recipientId, true, 0)
 
     assertFalse(recipientId in getRecentConversationRecipients(limit = 10))
   }

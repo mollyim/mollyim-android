@@ -19,7 +19,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,14 +32,14 @@ import org.signal.core.ui.compose.FastScrollerState
 import org.signal.core.ui.compose.LazyColumnFastScroller
 import org.signal.core.ui.compose.LocalFragmentManager
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.util.logging.Log
+import org.signal.emoji.Emojifier
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.emoji.Emojifier
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.stories.settings.custom.PrivateStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.my.MyStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProvider
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyColumn
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyListController
@@ -138,7 +140,7 @@ fun ContactSearch(
     userScrollEnabled = !isDisplayingContextMenu,
     fastScrollerState = fastScrollerState,
     lazyListState = lazyListState,
-    modifier = modifier,
+    modifier = modifier.nestedScroll(rememberNestedScrollInteropConnection()),
     letterContent = {
       Emojifier(text = it.toString()) { annotatedText, inlineContent ->
         Text(
@@ -154,7 +156,7 @@ fun ContactSearch(
       userScrollEnabled = !isDisplayingContextMenu,
       controller = mappingCtrl,
       lazyListState = it,
-      modifier = modifier
+      modifier = Modifier.fillMaxSize()
     )
   }
 }

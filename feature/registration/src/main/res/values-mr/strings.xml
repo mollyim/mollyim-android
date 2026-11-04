@@ -44,7 +44,19 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">एक देश निवडा</string>
     <string name="RegistrationActivity_phone_number_description">फोन नंबर</string>
+    <!-- Label the phone number field takes on when what has been typed reads as an account ID rather than a number -->
+    <string name="RegistrationActivity_account_id">खाते आयडी</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">हा फोन नंबर वैध नाही</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">अवैध फोन नंबर</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">तुम्ही प्रविष्य केलेला क्रमांक वैध नाही असे दिसते. कृपया देशाचा कोड आणि फोन नंबर तपासा आणि पुन्हा प्रयत्न करा.</string>
     <string name="RegistrationActivity_next">पुढे</string>
+    <!-- Button on the phone number screen that starts registering with a purchased Signal Login instead of a phone number -->
+    <string name="RegistrationActivity_register_without_number">नंबर शिवाय नोंदणी करा</string>
+    <!-- Button on the phone number screen, shown when the user already said they have an account to restore, that goes straight to entering their existing Signal Login -->
+    <string name="RegistrationActivity_use_account_id">खाते आयडी वापरा</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">खाली दिलेला फोन नंबर बरोबर आहे काय?</string>
     <!-- Dialog body to confirm phone number -->
@@ -81,8 +93,8 @@
     <string name="VerificationCodeScreen__resend_code">कोड पुन्हा पाठवा</string>
     <!-- Button text for call me action -->
     <string name="VerificationCodeScreen__call_me_instead">मग मला कॉल करा</string>
-    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
-    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for resend SMS when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__resend_code_available_in">(%1$02d:%2$02d) कोड पुन्हा पाठवा</string>
     <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
     <string name="VerificationCodeScreen__call_me_available_in">(%1$02d:%2$02d) मला कॉल करा</string>
     <!-- Toast shown when the user enters an incorrect verification code -->
@@ -99,6 +111,10 @@
     <string name="VerificationCodeScreen__unable_to_send_sms">आम्हाला तुमच्या क्रमांकावर SMS पाठवता येत नाहीये. कृपया काही तासांनी पुन्हा प्रयत्न करा.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">निवडलेल्या पद्धतीने कोड पाठवता आला नाही. कृपया दुसरा मार्ग वापरून पाहा.</string>
+    <!-- Dialog shown when the provider rejected placing a verification phone call to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_call_provider_rejected">आम्ही तुम्हाला पडताळणी कोड सह कॉल करू शकलो नाही. कृपया पुन्हा प्रयत्न करा, किंवा त्याऐवजी SMSवरून कोड मागवा.</string>
+    <!-- Dialog shown when the provider rejected sending a verification SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_sms_provider_rejected">आम्ही तुम्हाला पडताळणी कोड SMS करू शकलो नाही. कृपया पुन्हा प्रयत्न करा, किंवा त्याऐवजी फोन कॉलवरून कोड मागवा.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">नोंदणी अपयशी ठरली. कृपया पुन्हा प्रयत्न करा.</string>
     <!-- Button text for having trouble with verification -->
@@ -114,7 +130,9 @@
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
     <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">सपोर्टशी संपर्क साधा</string>
     <!-- Email subject used when contacting support from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <string name="VerificationCodeScreen__contact_support_email_subject">Signal नोंदणी - Android करिता सत्यापन कोड</string>
+    <!-- Text placed in the body of the support email composed from the verification code screen. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_filter" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
   <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
@@ -145,12 +163,6 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">हस्तांतरित न करता पुढे जा</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_description">संदेश आणि मीडिया हस्तांतरित होणार नाहीत</string>
-    <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">बॅकअप फोल्डर मधून</string>
-    <!-- Title for the backup file option card (V1 legacy format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">बॅकअप फाईलमधून</string>
-    <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">तुम्ही जतन केलेला बॅकअप निवडा</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">आपल्या जुन्या फोनमधून</string>
     <!-- Subtitle for the device transfer option card -->
@@ -195,8 +207,8 @@
     <string name="LocalBackupRestoreScreen__enter_backup_passphrase">बॅकअप पासफ्रेझ प्रविष्ट करा</string>
     <!-- Description for V1 passphrase entry screen -->
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">तुमचे स्थानिक बॅकअप संकेतवाक्य एक 30 अंकी कोड आहे जो तुमचे खाते आणि डेटा परत मिळवण्यासाठी आवश्यक असतो.</string>
-    <!-- Label for the recovery key text field -->
-    <string name="LocalBackupRestoreScreen__recovery_key">रीकव्हरी की</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">पासफ्रेज</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">खूप लांब (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -212,22 +224,44 @@
     <string name="EnterAepScreen__recovery_key">रीकव्हरी की</string>
     <!-- Link for users who don\'t have their recovery key -->
     <string name="EnterAepScreen__no_recovery_key">रीकव्हरी की नाही?</string>
-    <!-- Error text when key is too long -->
-    <string name="EnterAepScreen__too_long">खूप लांब (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">अवैध रीकव्हरी की</string>
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">चुकीची रीकव्हरी की</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">पासवर्ड व्यवस्थापकामधून भरा</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">नवीन खात्यामध्ये पूर्ववत करायचा?</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">तुम्ही पूर्ववत करत असलेला बॅकअप एक वेगळे Signal खाते वापरून तयार केला गेला आहे. तुम्ही नवीन खात्यावर हा बॅकअप परत मिळवू शकता, पण तुम्ही पूर्ववत केलेल्या कोणत्याही गटाचे सदस्य असणार नाही.</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">पुनर्स्थापना करा</string>
+    <!-- Title of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found">बॅकअप मिळाला नाही</string>
+    <!-- Body of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found_body">तुमची रीकव्हरी की बरोबर आहे, पण या खात्यात कोणताही Signal बॅकअप नाही. रीस्टोर करण्यासाठी मागे जा आणि दुसरा मार्ग निवडा, किंवा रीस्टोर न करता पुढे जा.</string>
+    <!-- Title of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_title">चुकीची रीकव्हरी की</string>
+    <!-- Body of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_body">Signal बॅकअप्स सुरु करतेवेळी तुम्ही जतन केला होता तोच फोन नंबर आणि 64 अक्षरी रीकव्हरी की वापरून तुम्ही नोंदणी करत आहात याची खात्री करा. बॅकअप्स या की शिवाय पुन्हा मिळवता येत नाहीत.</string>
+    <!-- Button in the incorrect recovery key dialog that dismisses it so the user can re-enter their key -->
+    <string name="EnterAepScreen__try_again">पुन्हा प्रयत्न करा</string>
+    <!-- Button in the incorrect recovery key dialog that offers to verify the phone number over SMS instead -->
+    <string name="EnterAepScreen__try_another_way">दुसऱ्या मार्गाने प्रयत्न करून पाहा</string>
+    <!-- Button in the incorrect recovery key dialog that opens a support article about recovery keys -->
+    <string name="EnterAepScreen__recovery_key_help">रीकव्हरी की मदत</string>
+    <!-- Title of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code">SMS कोडने पडताळणी करायची का?</string>
+    <!-- Body of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code_body">तुम्ही Signalने तुम्हाला पाठवलेल्या SMS कोडमार्फत पडताळणी करून तुमच्या खात्याची नोंदणी करू शकता. कोड प्रविष्ट केल्यावर, तुम्ही तुमच्या रीकव्हरी कीने तुमचा बॅकअप पूर्ववत करण्याचा प्रयत्न करू शकता.</string>
+    <!-- Confirm button in the verify with SMS code dialog that requests an SMS verification code -->
+    <string name="EnterAepScreen__send_code">कोड पाठवा</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">रीस्टोर तयार होत आहे…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">बॅकअप परत मिळवत आहोत</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">तुमचे संदेश आणि डेटा रीस्टोर होत आहेत, तोपर्यंत कृपया थांबा.</string>
-    <!-- Description shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
     <string name="LocalBackupRestoreScreen__continue_button">सुरू ठेवा</string>
     <!-- Title shown when restore fails -->
@@ -236,6 +270,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">तुमचा बॅकअप रीस्टोर करतेवेळी एक त्रुटी उद्भवली. कृपया पुन्हा प्रयत्न करा.</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">पुन्हा प्रयत्न करा</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">चुकीची पासफ्रेज</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">चुकीची रीकव्हरी की</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">तुम्ही प्रविष्ट केलेला तपशील या बॅकअपशी जुळत नाही. कृपया तो तपासा आणि पुन्हा प्रयत्न करा.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">तुमचे खाते लिंक करा</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -284,8 +324,10 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">तुमचा बॅकअप रीस्टोर करतेवेळी एक त्रुटी उद्भवली. तुमचा बॅकअप परत मिळवता येणार नाही. कृपया मदतीसाठी सपोर्टशी संंपर्क साधा.</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">सपोर्टशी संपर्क साधा</string>
-    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. -->
+    <string name="RemoteRestoreScreen__contact_support_email_subject">Signal ॲन्ड्राइड बॅकअप रीस्टोर कायमस्वरूपी अपयशी</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about an unrecoverable backup. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">बॅकअप डाउनलोड करत आहे…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -353,6 +395,10 @@
     <string name="PinCreationScreen__reenter_pin">PIN पुन्हा प्रविष्ट करा</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
     <string name="PinCreationScreen__pins_dont_match">PIN जुळत नाहीत. पुन्हा प्रयत्न करा.</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that is too easy to guess, such as one made of sequential or repeated digits. -->
+    <string name="PinCreationScreen__choose_a_stronger_pin">एक शक्तिशाली PIN निवडा</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that matches the code used to verify their phone number. -->
+    <string name="PinCreationScreen__reentered_verification_code">तुम्ही तुमचा फोन नंबर पडताळण्यासाठी आधीच वापरलेला कोड पुन्हा प्रविष्ट केलात. एक नवा आणि अनोखा Signal पिन वापरा.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
     <string name="PinCreationScreen__learn_more_about_pins">PIN बद्दल अधिक जाणा</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
@@ -364,11 +410,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">रद्द करा</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">सेवेशी कनेक्ट करताना एक समस्या उद्भवली.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">एक नेटवर्क त्रुटी आढळली.</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">एक नेटवर्क त्रुटी आढळली. तुम्ही %1$s झाल्यावर पुन्हा प्रयत्न करू शकता.</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">नोंदणी लॉक</string>
@@ -376,6 +422,8 @@
     <string name="PinEntryScreen__enter_your_pin">आपला PIN प्रविष्ट करा</string>
     <!-- Describes the PIN that needs to be entered. -->
     <string name="PinEntryScreen__enter_the_pin_you_created">तुम्ही Signal पहिल्यांदा इन्स्टॉल केलेत तेव्हा तयार केलेला पिन प्रविष्ट करा</string>
+    <!-- Error shown when the user enters the code used to verify their phone number instead of their PIN, and it was not their actual PIN. -->
+    <string name="PinEntryScreen__reentered_verification_code">तुम्ही तुमचा फोन नंबर पडताळण्यासाठी आधीच वापरलेला कोड पुन्हा प्रविष्ट केलात. तुम्ही तुमच्या खात्यासाठी मागे वापरलेला अनोखा Signal पिन प्रविष्ट करा.</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
         <item quantity="one">चुकीचा PIN. %1$d प्रयत्न उर्वरित.</item>
@@ -401,8 +449,10 @@
     <string name="PinEntryScreen__no_data_could_be_found">तुमचे खाते पूर्ववत करण्यासाठी कोणताही डेटा मिळाला नाही. कृपया एक नवा पिन तयार करा.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">सपोर्टशी संपर्क साधा</string>
-    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. -->
+    <string name="PinEntryScreen__contact_support_email_subject">Signal नोंदणी - Android करिता PIN साठी मदत हवी</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about PIN entry. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_filter" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">अधिसूचनांना अनुमती द्या</string>
@@ -423,6 +473,8 @@
     <string name="MessageSyncScreen__preparing">तयार करत आहे…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">पूर्ण होत आहे…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">पुर्नस्थापित करत आहे…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">संदेशाची आणि चॅटची माहिती एन्ड-टू-एन्ड एन्क्रिप्शनने संरक्षित आहे, अगदी सिंकिंगची प्रक्रियासुद्धा.</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -430,13 +482,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">रद्द करा</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">संदेश परत मिळवता आले नाहीत</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">तुमचे संदेश तुमच्या दुसऱ्या डिव्हाईसवरून हस्तांतरित करता आले नाहीत. तुम्ही पुन्हा प्रयत्न करू शकता, किंवा तुमच्या संदेश इतिहासाशिवाय पुढे जाऊ शकता.</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">पुन्हा प्रयत्न करा</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">संदेशांशिवाय पुढे जा</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">तुमचे खाते लिंक करण्यासाठी हा कोड स्कॅन करा</string>
@@ -467,11 +519,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">हा डिव्हाईस लिंक करतेवेळी एक त्रुटी उद्भवली</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">ॲप डेटा हटवायचा का?</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">तुम्ही एक वेगळे Signal खाते लिंक करण्याचा प्रयत्न करत आहात. जर तुम्ही हे चालू ठेवले, तर या डिव्हाईसवर सध्या असलेला सगळा Signal डेटा हटवला जाईल.</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">हटवा आणि पुन्हा सुरुवात करा</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">QR कोड बंद करा</string>
 
@@ -522,43 +574,250 @@
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">तुमचे खाते आता या डिव्हाईसवर आहे.</string>
     <string name="DeviceTransferComplete__continue_registration">सुरू ठेवा</string>
 
-    <!-- Create profile screen -->
-    <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">आपली प्रोफाईल सेट अप करा</string>
-    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">आपले प्रोफाइल आणि त्यामधील बदल आपण संदेश करता असे लोक, संपर्क आणि ग्रुप्स ना दृश्यमान असतील.</string>
-    <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">पहिले नाव (आवश्यक)</string>
-    <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">शेवटचे नाव (पर्यायी)</string>
-    <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">पुढे</string>
-    <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">अवतार सेट करा</string>
-
-    <!-- Phone number discoverability picker -->
-    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">नंबराने माझा शोध कोण घेऊ शकतात?</string>
-    <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">आपला फोन नंबर असणारा कोणीही आपण Signal वर असल्याचे पाहू शकतो आणि आपणासह चॅट्स सुरु करू शकतो.</string>
-    <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">आपण त्यांना संदेश पाठवल्याशिवाय किंवा त्यांच्यासोबत सध्याचे चॅट्स असल्यााशिवाय आपणाला कोणीही Signal वर पाहू शकणार नाही.</string>
-    <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">प्रत्येकजण</string>
-    <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">कोणीही नाही</string>
-    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">आपल्याला खात्री आहे?</string>
-    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">सेटिंग्ज \"नंबरनुसार मला कोण शोधू शकेल\" हे \"कोणीही नाही\" वर सेट करून Signal वर लोकांना आपणांस शोधणे कठीण होईल.</string>
-    <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">रद्द करा</string>
-    <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">जतन करा</string>
-    <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">मागे</string>
     <!-- Error message shown when the captcha fails to load. -->
     <string name="CaptchaScreen__failed_to_load_captcha">कॅप्चा लोड करता आला नाही</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">रद्द करा</string>
+
+    <!-- Shared registration strings -->
+    <!-- Content description for the back arrow in a registration screen header. -->
+    <string name="RegistrationScreen__back">मागे</string>
+
+    <!-- Signal Login purchase screen -->
+    <!-- Title of the screen where the user buys a Signal Login to register without a phone number. -->
+    <string name="SignalLoginPaymentScreen__signal_login">Signal Login</string>
+    <!-- Description of what a Signal Login is. Followed by a "learn more" link. -->
+    <string name="SignalLoginPaymentScreen__register_without_a_phone_number">फोन नंबर शिवाय Signal Login वापरून नोंदणी करा. एकवेळच्या खरेदीसह, तुम्हाला सुरुवात करण्यासाठी खाते आयडी मिळेल.</string>
+    <!-- Link at the end of the description that opens a support article about Signal Login. -->
+    <string name="SignalLoginPaymentScreen__learn_more">अधिक जाणून घ्या</string>
+    <!-- Subtitle of the purchase option, clarifying the price is not a subscription. -->
+    <string name="SignalLoginPaymentScreen__one_time_purchase">एकवेळची खरेदी</string>
+    <!-- Selling point of the purchase option: no phone number is required. -->
+    <string name="SignalLoginPaymentScreen__no_phone_number_needed">फोन नंबर आवश्यक नाही</string>
+    <!-- Selling point of the purchase option: a username is used to reach the user. -->
+    <string name="SignalLoginPaymentScreen__username_for_messaging_and_calls">संदेश पाठवण्यासाठी आणि कॉल्स करण्यासाठी वापरकर्ता नाव</string>
+    <!-- Selling point of the purchase option: the purchase supports Signal. -->
+    <string name="SignalLoginPaymentScreen__signal_is_a_non_profit">Signal एक ना-नफा संस्था आहे — तुमच्या खरेदीने आमच्या उद्दिष्टास सपोर्ट मिळण्यास मदत होते</string>
+    <!-- Title of the option for users who already bought a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__i_have_a_signal_login">माझे Signal Login आहे</string>
+    <!-- Subtitle of the existing-login option. -->
+    <string name="SignalLoginPaymentScreen__use_your_existing_account_key">तुमची सध्याची लॉगिन माहिती वापरा</string>
+    <!-- Selling point of the existing-login option: the account can be restored. -->
+    <string name="SignalLoginPaymentScreen__login_and_restore_your_account">लॉगिन करा आणि तुमचे खाते परत मिळवा</string>
+    <!-- Selling point of the existing-login option, thanking the user for their previous purchase. -->
+    <string name="SignalLoginPaymentScreen__thanks_for_supporting_signal">Signal ला समर्थन दिल्याबद्दल धन्यवाद</string>
+    <!-- Action button that starts the purchase. Placeholder is the localized price, e.g. "$1.99". -->
+    <string name="SignalLoginPaymentScreen__pay_s">%1$s भरा</string>
+    <!-- Action button that starts the purchase, shown while the price is still loading. -->
+    <string name="SignalLoginPaymentScreen__pay">पे करा</string>
+    <!-- Action button shown when the user indicated they already have a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__continue">सुरू ठेवा</string>
+    <!-- Error shown when the purchase does not go through. -->
+    <string name="SignalLoginPaymentScreen__your_purchase_could_not_be_completed">तुमची खरेदी पूर्ण करता आली नाही. तुम्हाला पैसे आकारण्यात आले नाहीत.</string>
+    <!-- Shown in place of the price when Google Play cannot offer the purchase. -->
+    <string name="SignalLoginPaymentScreen__unavailable">अनुपलब्ध</string>
+    <!-- Label for the button that retries loading the purchase price after it failed to load. -->
+    <string name="SignalLoginPaymentScreen__retry">पुन्हा प्रयत्न करा</string>
+    <!-- Shown in place of the price when the user already paid for a Signal Login but it was never redeemed. -->
+    <string name="SignalLoginPaymentScreen__already_paid">आधीच भरले आहे</string>
+    <!-- Error shown when Signal Login cannot be purchased on this device, for example because the Google Play Store is unavailable. -->
+    <string name="SignalLoginPaymentScreen__signal_login_cant_be_purchased">Signal Login आत्ता या डिव्हाईसवर खरेदी करता येणार नाही. नंतर पुन्हा प्रयत्न करा.</string>
+    <!-- Message shown when the user\'s payment has gone through but has not finished processing yet. -->
+    <string name="SignalLoginPaymentScreen__your_payment_is_still_processing">तुमच्या पेमेंटवर अजूनही प्रक्रिया होत आहे. पूर्ण झाल्यावर परत या आणि चालू ठेवा वर टॅप करा, आणि तुम्हाला पुन्हा शुल्क आकारले जाणार नाही.</string>
+    <!-- Label for the internal-testing text field where a receipt credential can be pasted to skip payment. Not shown to real users. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__paste_a_receipt_credential" translatable="false">Paste a receipt credential (testing)</string> -->
+    <!-- Error shown when a manually-pasted receipt credential can\'t be parsed or is rejected. Internal testing only. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__this_receipt_credential_is_invalid" translatable="false">This receipt credential is invalid.</string> -->
+    <!-- Title of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__update_google_play_services">Google Play सेवांचे अद्यतन करा</string>
+    <!-- Body of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_update_google_play_services">Signal Login खरेदी करण्यासाठी, या डिव्हाईसवर Google Play सेवा अद्ययावत करा.</string>
+    <!-- Button that updates Google Play services. -->
+    <string name="SignalLoginPaymentScreen__update">अद्यतन</string>
+    <!-- Title of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_missing">Google Play सेवा आढळल्या नाहीत</string>
+    <!-- Body of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_google_play_services_needs_to_be_installed">Signal Login खरेदी करण्यासाठी, Google Play Store सेवा इन्स्टॉल करणे आवश्यक आहे.</string>
+    <!-- Button that installs Google Play services. -->
+    <string name="SignalLoginPaymentScreen__install_play_services">Play सेवा स्थापित करा</string>
+    <!-- Title of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_are_updating">Google Play सेवांचे अद्यतन होत आहेत</string>
+    <!-- Body of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_wait_for_google_play_services">Signal Login खरेदी करण्यासाठी, कृपया Google Play Store सेवा अद्ययावत होईपर्यंत थांबा.</string>
+    <!-- Title of the dialog shown when Google Play cannot be used to take a payment. -->
+    <string name="SignalLoginPaymentScreen__google_play_is_required">Google Play आवश्यक आहे</string>
+    <!-- Body of the dialog shown when Google Play services is installed but turned off. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_enable_google_play_services">Signal Login खरेदी करण्यासाठी, या डिव्हाईसवर Google Play सेवा चालू करा आणि Google Play Store मध्ये साईन इन करा.</string>
+    <!-- Body of the dialog shown when the device cannot run Google Play services at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_on_this_device">तुम्ही Signal Login खरेदी करू शकत नाही कारण या डिव्हाईसवर Google Play सेवा सपोर्ट नाहीत. साहाय्यासाठी फोन उत्पादकाशी संंपर्क साधा.</string>
+    <!-- Body of the dialog shown when Google Play services works but nobody is signed into the Play Store. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_sign_into_the_google_play_store">Signal Login खरेदी करण्यासाठी, कृपया Google Play Store मध्ये साईन इन करा.</string>
+    <!-- Body of the dialog shown when this version of Signal cannot make Google Play purchases at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_in_this_version">तुम्ही Signalच्या या आवृत्तीमध्ये Signal Login खरेदी करू शकत नाही. खरेदी करण्यासाठी Google Play Store मधून Signal इन्स्टॉल करा.</string>
+    <!-- Button that opens the Google Play store so the user can sign into it. -->
+    <string name="SignalLoginPaymentScreen__open_play_store">Play Store उघडा</string>
+
+    <!-- Signal Login details screen -->
+    <!-- Title of the screen that shows the user their newly purchased Signal Login. -->
+    <string name="SignalLoginInfoScreen__your_signal_login">तुमचे Signal Login</string>
+    <!-- Description warning the user that a lost Signal Login cannot be recovered. -->
+    <string name="SignalLoginInfoScreen__thanks_for_your_purchase">तुमच्या खरेदीसाठी धन्यवाद. तुमचे खाते नोंदवण्यासाठी आणि परत मिळवण्यासाठी तुमचे Signal Login वापरा. जर तुम्ही तुमच्या कीज् विसरलात, तर तुम्हाला तुमचे खाते परत मिळवता येणार नाही.</string>
+    <!-- Action button that stores the Signal Login in the device password manager. -->
+    <string name="SignalLoginInfoScreen__save_to_password_manager">पासवर्ड व्यवस्थापकामध्ये जतन करा</string>
+    <!-- Toast shown when the user taps the disabled save to password manager button and the device has no password manager. -->
+    <string name="SignalLoginInfoScreen__no_password_manager_available">तुम्ही पासवर्ड व्यवस्थापक सेट अप केलेला नाही.</string>
+    <!-- Body of the dialog asking the user to confirm saving their Signal Login credentials to the device password manager. -->
+    <string name="SignalLoginInfoScreen__only_store_your_credentials">केवळ तुम्हाला संरक्षित वाटेल अशा पासवर्ड व्यवस्थापकामध्येच तुमचे तपशील साठवून ठेवा. तुमच्यासाठी कोणता पासवर्ड व्यवस्थापक योग्य आहे याबाबत Signal कोणतीही शिफारस करत नाही.</string>
+    <!-- Action button for users who would rather write the Signal Login down themselves. -->
+    <string name="SignalLoginInfoScreen__save_manually">स्वतः जतन करा</string>
+    <!-- Error shown when the Signal Login could not be stored in the password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_saved">तुमचे Signal Login जतन करता आले नाही. कृपया ते स्वतः जतन करा.</string>
+    <!-- Title of the dialog shown when the Signal Login could not be found in the password manager after saving it. -->
+    <string name="SignalLoginInfoScreen__error_confirming_login_info">लॉगिन माहितीची पुष्टी करण्यात त्रुटी उद्भवली</string>
+    <!-- Description telling the user that the Signal Login we saved could not be read back out of their password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_confirmed">तुमच्या Signal Loginची पुष्टी करता आली नाही. तुम्ही एकतर ती तुमच्या पासवर्ड व्यवस्थापकात जतन करून ठेवा किंवा स्वतः जतन करून ठेवा.</string>
+
+    <!-- Sheet that double-checks the user\'s Signal Login really made it into their password manager -->
+    <!-- Title of the sheet asking the user to confirm their Signal Login was saved to their password manager. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_your_login_info_is_saved">तुमची लॉगिनची माहिती जतन केल्याची पुष्टी करा</string>
+    <!-- Description telling the user they are about to be asked to fill in the Signal Login they just saved. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_that_your_login_info_was_saved">तुमचे Signal Login नीट जतन झाल्याची पुष्टी करा. तुम्हाला पुढच्या पायरीमध्ये तुमचा जतन केलेला पासवर्ड भरायची विचारणा होईल.</string>
+    <!-- Action button that starts checking the password manager for the Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_login_info">लॉगिन माहितीची पुष्टी करा</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__see_login_info_again">लॉगिन माहिती पुन्हा पाहा</string>
+
+    <!-- Save Signal Login screen -->
+    <!-- Title of the screen that spells out the Signal Login so the user can record it themselves. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_your_signal_login">तुमचे Signal Login जतन करून ठेवा</string>
+    <!-- Description telling the user to keep their Signal Login somewhere safe and private. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__store_your_signal_login_somewhere_safe">तुमचे Signal Login कुठेतरी सुरक्षित आणि संरक्षित ठिकाणी साठवून ठेवा. तुमची लॉगिनची माहिती कधीच कोणालाही देऊ नका.</string>
+    <!-- Action button that saves the Signal Login to a PDF file. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_as_pdf">PDF स्वरूपात जतन करा</string>
+    <!-- Action button for users who are done recording their Signal Login. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__continue">सुरू ठेवा</string>
+
+    <!-- Sheet that double-checks the user really saved their Signal Login -->
+    <!-- Title of the sheet asking the user to confirm they saved their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__confirm_your_login_info_is_saved">तुमची लॉगिनची माहिती जतन केल्याची पुष्टी करा</string>
+    <!-- Description warning the user that they are about to be asked for their Signal Login and that it cannot be recovered. -->
+    <string name="ConfirmLoginSavedBottomSheet__you_will_be_prompted_to_sign_in">पुढच्या टप्प्यावर तुमचे Signal Login वापरून साईन इन करण्याची तुम्हाला विचारणा होईल. तुम्ही हे तपशील जतन केल्याची किंवा कॉपी केल्याची खात्री करा. Signal तुम्हाला तुमचे खाते परत मिळवण्यास मदत करू शकणार नाही.</string>
+    <!-- Action button confirming the Signal Login is saved. -->
+    <string name="ConfirmLoginSavedBottomSheet__continue">सुरू ठेवा</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__show_login_info_again">लॉगिन माहिती पुन्हा दाखवा</string>
+
+    <!-- Errors shown beneath an account ID text field, wherever one is offered -->
+    <!-- Error shown when the entered account ID contains characters that can\'t appear in one. -->
+    <string name="AccountIdField__invalid_account_id">अवैध खाते आयडी</string>
+
+    <!-- Signal Login credential entry screen -->
+    <!-- Title of the screen where a user with an existing Signal Login types it in to log back in. -->
+    <string name="SignalLoginCredentialEntryScreen__signal_login">Signal Login</string>
+    <!-- Description telling the user what to enter to log in. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_account_id_followed_by_your_recovery_key">तुमचे खाते रीस्टोर करण्यासाठी तुमचा खाते आयडी आणि मग तुमची रीकव्हरी की प्रविष्ट करा.</string>
+    <!-- Label of the text field the account ID is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__account_id">खाते आयडी</string>
+    <!-- Label of the text field the recovery key is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__recovery_key">रीकव्हरी की</string>
+    <!-- Description of the button that spells out the typed recovery key instead of masking it. -->
+    <string name="SignalLoginCredentialEntryScreen__show_recovery_key">रीकव्हरी की दाखवा</string>
+    <!-- Description of the button that masks the typed recovery key. -->
+    <string name="SignalLoginCredentialEntryScreen__hide_recovery_key">रीकव्हरी की लपवा</string>
+    <!-- Button that opens a support article for users who can\'t find their Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__need_help">मदत हवी?</string>
+    <!-- Action button that submits the entered Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__next">पुढे</string>
+    <!-- Error shown when the service rejects the entered login, which means one of the two halves is wrong. -->
+    <string name="SignalLoginCredentialEntryScreen__incorrect_account_id_or_recovery_key">खाते आयडी किंवा रीकव्हरी की चुकीची आहे</string>
+    <!-- Description shown instead when the user is typing back the Signal Login they were just given, to check they recorded it correctly. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_signal_login_to_confirm_it_was_recorded_correctly">तुमचे Signal Login नीट नोंदवले गेल्याची पुष्टी करण्यासाठी ते प्रविष्ट करा.</string>
+    <!-- Button that takes the user back to their Signal Login if they can\'t remember what they recorded. -->
+    <string name="SignalLoginCredentialEntryScreen__show_login_info_again">लॉगिन माहिती पुन्हा दाखवा</string>
+    <!-- Error shown when what the user typed back doesn\'t match the Signal Login they were given. -->
+    <string name="SignalLoginCredentialEntryScreen__that_doesnt_match_the_signal_login_you_were_shown">तुम्हाला दाखवलेल्या Signal Loginशी हे जुळत नाही</string>
+
+    <!-- Add username screen -->
+    <!-- Title of the screen offering the user an optional username. -->
+    <string name="AddUsernameScreen__add_an_optional_username">एक पर्यायी वापरकर्ता नाव समाविष्ट करा</string>
+    <!-- Description explaining what a username is used for. -->
+    <string name="AddUsernameScreen__people_can_message_you_by_username">लोक तुम्हाला फोन नंबर ऐवजी वापरकर्ता नाव वापरून संदेश पाठवू शकतात.</string>
+    <!-- Prompt shown above the username field. -->
+    <string name="AddUsernameScreen__choose_your_username">आपले वापरकर्तानाव निवडा</string>
+    <!-- Label/hint for the username field. -->
+    <string name="AddUsernameScreen__username">वापरकर्तानाव</string>
+    <!-- Helper text below the username field. Followed by a "learn more" link. -->
+    <string name="AddUsernameScreen__usernames_are_always_paired_with_a_set_of_numbers">वापरकर्ता नावे नेहमी संख्यांच्या संचासह जोडलेली असतात.</string>
+    <!-- Link in the helper text that opens a support article about usernames. -->
+    <string name="AddUsernameScreen__learn_more">अधिक जाणून घ्या</string>
+    <!-- Button that skips choosing a username. -->
+    <string name="AddUsernameScreen__skip">वगळा</string>
+    <!-- Button that submits the chosen username. -->
+    <string name="AddUsernameScreen__next">पुढे</string>
+    <!-- Validation error shown when the entered username is too short. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_least_3_characters">वापरकर्ता नाव किमान 3 अक्षरी असायला हवे</string>
+    <!-- Validation error shown when the entered username is too long. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_most_32_characters">वापरकर्ता नाव जास्तीत जास्त 32 अक्षरी असायला हवे</string>
+    <!-- Validation error shown when the entered username contains disallowed characters. -->
+    <string name="AddUsernameScreen__usernames_can_only_contain">वापरकर्ता नावात फक्त अक्षरे, अंक आणि अंडरस्कोर असू शकतात</string>
+    <!-- Validation error shown when the entered username starts with a digit. -->
+    <string name="AddUsernameScreen__usernames_cannot_begin_with_a_number">वापरकर्ता नावाची सुरुवात अंकाने होऊ शकत नाही</string>
+    <!-- Error shown when the chosen username cannot be reserved. -->
+    <string name="AddUsernameScreen__this_username_is_not_available">हे वापरकर्ता नाव उपलब्ध नाही. कृपया दुसरे आजमावून पाहा.</string>
+    <!-- Error shown when the user\'s temporary hold on a username expired before they submitted it. -->
+    <string name="AddUsernameScreen__your_username_reservation_expired">तुमचे वापरकर्ता नावाचे आरक्षण कालबाह्य झाले. कृपया पुन्हा प्रयत्न करा.</string>
+    <!-- Error shown when the username formed by the entered name and the user\'s chosen number is already taken. -->
+    <string name="AddUsernameScreen__this_username_is_not_available_try_another_number">हे वापरकर्ता नाव उपलब्ध नाही, दुसरा क्रमांक वापरून पहा.</string>
+    <!-- Validation error shown when the number the user entered after their username has too few digits. -->
+    <string name="AddUsernameScreen__enter_a_minimum_of_d_digits">अवैध वापरकर्ता नाव, कमीत कमी %1$d अंक प्रविष्ट करा.</string>
+    <!-- Validation error shown when the number the user entered after their username has too many digits. -->
+    <string name="AddUsernameScreen__enter_a_maximum_of_d_digits">अवैध वापरकर्ता नाव, कमाल %1$d अंक प्रविष्ट करा.</string>
+    <!-- Validation error shown when the number the user entered after their username is 00. -->
+    <string name="AddUsernameScreen__this_number_cant_be_00">हा क्रमांक 00 असू शकत नाही. 1–9 मधील अंक प्रविष्ट करा</string>
+    <!-- Validation error shown when the number the user entered after their username has a leading zero. -->
+    <string name="AddUsernameScreen__this_number_cant_start_with_0">2 पेक्षा जास्त अंक असलेल्या संख्या 0 ने सुरू होऊ शकत नाहीत</string>
+    <!-- Title of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__are_you_sure">आपल्याला खात्री आहे?</string>
+    <!-- Body of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__without_a_username_people_wont_be_able_to_find_you">वापरकर्ता नावाशिवाय लोक तुम्हाला Signal वर शोधू शकणार नाहीत.</string>
+    <!-- Button in the skip-username confirmation dialog that returns to the screen without skipping. -->
+    <string name="AddUsernameScreen__cancel">रद्द करा</string>
+    <!-- Button in the skip-username confirmation dialog that skips choosing a username. -->
+    <string name="AddUsernameScreen__continue">सुरू ठेवा</string>
+
+    <!-- ContactSupportDialog -->
+    <!-- Title of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__submit_debug_log">डीबग लॉग सबमिट करायचा?</string>
+    <!-- Body of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__your_debug_logs">आपले डीबग लॉग आम्हाला आपल्या समस्या जलदतेने सोडविण्यात मदत करतील. आपले लॉग प्रविष्ट करणे पर्यायी आहे.</string>
+    <!-- Button that contacts support with a debug log attached -->
+    <string name="ContactSupportDialog__submit_with_debug_log">डीबग लॉग सोबत प्रविष्ट करा</string>
+    <!-- Button that contacts support without attaching a debug log -->
+    <string name="ContactSupportDialog__submit_without_debug_log">डीबग लॉग विना प्रविष्ट करा</string>
+
+    <!-- TotpEntryScreen -->
+    <!-- Title of the two-factor authentication code entry screen -->
+    <string name="TotpEntryScreen__two_factor_authentication">दुहेरी अधिस्वीकृती</string>
+    <!-- Subtitle explaining where to find the code -->
+    <string name="TotpEntryScreen__to_continue_enter_the_code">पुढे जाण्यासाठी, तुमच्या ऑथेंटिकेटर ॲपमधील 6 अंकी कोड प्रविष्ट करा.</string>
+    <!-- Button text to cancel entering a code -->
+    <string name="TotpEntryScreen__cancel">रद्द करा</string>
+
+    <!-- TwoFactorSelectionScreen -->
+    <!-- Title of the two-factor authentication method selection screen -->
+    <string name="TwoFactorSelectionScreen__two_factor_authentication">दुहेरी अधिस्वीकृती</string>
+    <!-- Subtitle telling the user to pick one of the methods listed below -->
+    <string name="TwoFactorSelectionScreen__choose_a_method_below">तुमच्या खात्याची पडताळणी करण्यासाठी खालीलपैकी एक पद्धत निवडा.</string>
+    <!-- Title of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__passkey">पासकी</string>
+    <!-- Description of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__tap_to_use_your_device_biometrics">तुमच्या डिव्हाईस बायोमेट्रिक्स किंवा FIDO2 पासकी वापरण्यासाठी टॅप करा</string>
+    <!-- Title of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__authenticator_app">ऑथेंटिकेटर ॲप</string>
+    <!-- Description of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__enter_a_one_time_code">तुमच्या ऑथेंटिकेटर ॲपने तयार केलेला एक वेळचा कोड प्रविष्ट करा.</string>
+    <!-- Button text to cancel two-factor authentication -->
+    <string name="TwoFactorSelectionScreen__cancel">रद्द करा</string>
+    <!-- Dialog message shown when a passkey verification attempt fails for a reason the user can\'t act on -->
+    <string name="TwoFactorSelectionScreen__something_went_wrong_with_your_passkey">तुमच्या पासकीबाबत काहीतरी चुकले. कृपया पुन्हा प्रयत्न करा किंवा दुसरी पद्धत निवडा.</string>
 </resources>

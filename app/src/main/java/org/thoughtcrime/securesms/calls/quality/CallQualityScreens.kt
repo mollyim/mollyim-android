@@ -730,7 +730,7 @@ data class CallQualitySheetState(
   val isUserSatisfiedWithCall: Boolean = false,
   val selectedQualityIssues: Set<CallQualityIssue> = emptySet(),
   val somethingElseDescription: String = "",
-  val isShareDebugLogSelected: Boolean = false,
+  val isShareDebugLogSelected: Boolean = true,
   val failedDueToNetworkAvailability: Boolean = false
 ) {
   fun canContinueAfterIssueSelection(): Boolean {
@@ -775,10 +775,10 @@ private enum class CallQualitySheetNavEntry {
 enum class CallQualityIssueCategory(
   @param:DrawableRes val icon: Int
 ) {
-  AUDIO(icon = R.drawable.symbol_speaker_24),
+  AUDIO(icon = CoreUiR.drawable.symbol_speaker_24),
   VIDEO(icon = R.drawable.symbol_video_24),
   CALL_DROPPED(icon = R.drawable.symbol_x_circle_24),
-  SOMETHING_ELSE(icon = R.drawable.symbol_error_circle_24)
+  SOMETHING_ELSE(icon = CoreUiR.drawable.symbol_error_circle_24)
 }
 
 enum class CallQualityIssue(

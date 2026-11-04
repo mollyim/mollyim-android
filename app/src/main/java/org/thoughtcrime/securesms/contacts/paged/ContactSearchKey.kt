@@ -2,9 +2,9 @@ package org.thoughtcrime.securesms.contacts.paged
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.contacts.SelectedContact
 import org.thoughtcrime.securesms.groups.GroupId
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sharing.ShareContact
 
 /**
@@ -53,6 +53,11 @@ sealed class ContactSearchKey {
    * Key to an expand button for a given section
    */
   data class Expand(val sectionKey: ContactSearchConfiguration.SectionKey) : ContactSearchKey()
+
+  /**
+   * Key to the loading placeholder shown while a given section is still being queried
+   */
+  data class SectionLoading(val sectionKey: ContactSearchConfiguration.SectionKey) : ContactSearchKey()
 
   /**
    * Arbitrary takes a string type and will map to exactly one ArbitraryData object.

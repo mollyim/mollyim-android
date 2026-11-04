@@ -2,10 +2,9 @@
 
 import com.android.build.api.artifact.ArtifactTransformationRequest
 import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.variant.BuiltArtifactsLoader
 import com.android.build.api.variant.HasAndroidTest
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.process.ExecOperations
-import org.gradle.work.DisableCachingByDefault
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import java.time.Instant
@@ -13,14 +12,13 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.Properties
-import javax.inject.Inject
 
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.ktlint)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
-  alias(testLibs.plugins.compose.screenshot)
+  id("com.android.compose.screenshot")
   alias(benchmarkLibs.plugins.baselineprofile)
   id("androidx.navigation.safeargs")
   id("kotlin-parcelize")
@@ -32,13 +30,16 @@ plugins {
 val staticIps = Properties().apply { file("static-ips.properties").reader().use { load(it) } }
 staticIps.stringPropertyNames().forEach { rootProject.extra[it] = staticIps.getProperty(it) }
 
-val canonicalVersionCode = 1719
-val canonicalVersionName = "8.19.2"
+val canonicalVersionCode = 1772
+val canonicalVersionName = "8.33.2"
 val currentHotfixVersion = 0
 val maxHotfixVersions = 100
 
 // We don't want versions to ever end in 0 so that they don't conflict with nightly versions
 val possibleHotfixVersions = (0 until maxHotfixVersions).toList().filter { it % 10 != 0 }
+
+// Nightly tags look like v8.33.0-nightly-1767-3: the canonical version code of the tagged commit, then a build number from 0 to 9 that resets with it.
+val nightlyTagRegex = Regex("^v\\d+\\.\\d+\\.\\d+-nightly-(\\d+)-(\\d)$")
 
 val debugKeystorePropertiesProvider: Provider<Properties> = providers.of(PropertiesFileValueSource::class.java) {
   parameters.file.set(rootProject.layout.projectDirectory.file("keystore.debug.properties"))
@@ -132,6 +133,17 @@ ktlint {
   version.set("1.5.0")
 }
 
+// ktlint only scans convention source dirs, so the shared dirs added to the compile tasks are
+// otherwise skipped. Add them to the base test/androidTest ktlint tasks so ktlintCheck/format cover them.
+tasks.withType(org.jlleitschuh.gradle.ktlint.tasks.BaseKtLintCheckTask::class.java).configureEach {
+  if (name.endsWith("OverTestSourceSet") || name.endsWith("OverAndroidTestSourceSet")) {
+    source("$projectDir/src/testShared")
+  }
+  if (name.endsWith("OverAndroidTestSourceSet")) {
+    source("$projectDir/src/benchmarkShared/java")
+  }
+}
+
 screenshotTests {
   // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
   imageDifferenceThreshold = 0.0001f
@@ -143,7 +155,11 @@ android {
   experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
   buildToolsVersion = libs.versions.buildTools.get()
-  compileSdkVersion(libs.versions.compileSdk.get())
+
+  compileSdk {
+    version = release(libs.versions.compileSdk.get().toInt())
+  }
+
   ndkVersion = libs.versions.ndk.get()
 
   flavorDimensions += listOf("distribution", "environment")
@@ -180,12 +196,12 @@ android {
 
   sourceSets {
     getByName("test") {
-      java.srcDir("$projectDir/src/testShared")
+      java.directories += "$projectDir/src/testShared"
     }
 
     getByName("androidTest") {
-      java.srcDir("$projectDir/src/testShared")
-      java.srcDir("$projectDir/src/benchmarkShared/java")
+      java.directories += "$projectDir/src/testShared"
+      java.directories += "$projectDir/src/benchmarkShared/java"
     }
   }
 
@@ -271,18 +287,19 @@ android {
     buildConfigField("String[]", "SIGNAL_CDSI_IPS", rootProject.extra["cdsi_ips"] as String)
     buildConfigField("String[]", "SIGNAL_SVR2_IPS", rootProject.extra["svr2_ips"] as String)
     buildConfigField("String", "SIGNAL_AGENT", "\"OWA\"")
-    buildConfigField("String", "SVR2_MRENCLAVE_LEGACY", "\"1240acbd4aa26974184844c8a46b1022d3957ac8a76c1fd8f5b1a15141ee0708\"")
-    buildConfigField("String", "SVR2_MRENCLAVE", "\"ced8217b26228e4b210c985786999d095c4958a94faf37b14acaf25c4cbb02a4\"")
+    buildConfigField("String", "SVR2_MRENCLAVE_LEGACY", "\"ced8217b26228e4b210c985786999d095c4958a94faf37b14acaf25c4cbb02a4\"")
+    buildConfigField("String", "SVR2_MRENCLAVE", "\"fdbbacdc0c043d0d53fe1440f62728de0386f45ab0a275bd8f99e03a02af355e\"")
     buildConfigField("String[]", "UNIDENTIFIED_SENDER_TRUST_ROOTS", "new String[]{ \"BXu6QIKVz5MA8gstzfOgRQGqyLqOwNKHL6INkv3IHWMF\", \"BUkY0I+9+oPgDCn4+Ac6Iu813yvqkDr/ga8DzLxFxuk6\"}")
     buildConfigField("String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"AMhf5ywVwITZMsff/eCyudZx9JDmkkkbV6PInzG4p8x3VqVJSFiMvnvlEKWuRob/1eaIetR31IYeAbm0NdOuHH8Qi+Rexi1wLlpzIo1gstHWBfZzy1+qHRV5A4TqPp15YzBPm0WSggW6PbSn+F4lf57VCnHF7p8SvzAA2ZZJPYJURt8X7bbg+H3i+PEjH9DXItNEqs2sNcug37xZQDLm7X36nOoGPs54XsEGzPdEV+itQNGUFEjY6X9Uv+Acuks7NpyGvCoKxGwgKgE5XyJ+nNKlyHHOLb6N1NuHyBrZrgtY/JYJHRooo5CEqYKBqdFnmbTVGEkCvJKxLnjwKWf+fEPoWeQFj5ObDjcKMZf2Jm2Ae69x+ikU5gBXsRmoF94GXTLfN0/vLt98KDPnxwAQL9j5V1jGOY8jQl6MLxEs56cwXN0dqCnImzVH3TZT1cJ8SW1BRX6qIVxEzjsSGx3yxF3suAilPMqGRp4ffyopjMD1JXiKR2RwLKzizUe5e8XyGOy9fplzhw3jVzTRyUZTRSZKkMLWcQ/gv0E4aONNqs4P+NameAZYOD12qRkxosQQP5uux6B2nRyZ7sAV54DgFyLiRcq1FvwKw2EPQdk4HDoePrO/RNUbyNddnM/mMgj4FW65xCoT1LmjrIjsv/Ggdlx46ueczhMgtBunx1/w8k8V+l8LVZ8gAT6wkU5J+DPQalQguMg12Jzug3q4TbdHiGCmD9EunCwOmsLuLJkz6EcSYXtrlDEnAM+hicw7iergYLLlMXpfTdGxJCWJmP4zqUFeTTmsmhsjGBt7NiEB/9pFFEB3pSbf4iiUukw63Eo8Aqnf4iwob6X1QviCWuc8t0LUlT9vALgh/f2DPVOOmR0RW6bgRvc7DSF20V/omg+YBw==\"")
-    buildConfigField("String", "GENERIC_SERVER_PUBLIC_PARAMS", "\"AByD873dTilmOSG0TjKrvpeaKEsUmIO8Vx9BeMmftwUs9v7ikPwM8P3OHyT0+X3EUMZrSe9VUp26Wai51Q9I8mdk0hX/yo7CeFGJyzoOqn8e/i4Ygbn5HoAyXJx5eXfIbqpc0bIxzju4H/HOQeOpt6h742qii5u/cbwOhFZCsMIbElZTaeU+BWMBQiZHIGHT5IE0qCordQKZ5iPZom0HeFa8Yq0ShuEyAl0WINBiY6xE3H/9WnvzXBbMuuk//eRxXgzO8ieCeK8FwQNxbfXqZm6Ro1cMhCOF3u7xoX83QhpN\"")
-    buildConfigField("String", "BACKUP_SERVER_PUBLIC_PARAMS", "\"AJwNSU55fsFCbgaxGRD11wO1juAs8Yr5GF8FPlGzzvdJJIKH5/4CC7ZJSOe3yL2vturVaRU2Cx0n751Vt8wkj1bozK3CBV1UokxV09GWf+hdVImLGjXGYLLhnI1J2TWEe7iWHyb553EEnRb5oxr9n3lUbNAJuRmFM7hrr0Al0F0wrDD4S8lo2mGaXe0MJCOM166F8oYRQqpFeEHfiLnxA1O8ZLh7vMdv4g9jI5phpRBTsJ5IjiJrWeP0zdIGHEssUeprDZ9OUJ14m0v61eYJMKsf59Bn+mAT2a7YfB+Don9O\"")
+    buildConfigField("String", "GENERIC_SERVER_PUBLIC_PARAMS", "\"AeCO67P9mIv1yUHkdeZ9JF789GDbox61GvTqq3S4kYc1ADUWxWHQygU390tv1oRWt9WjkdZlU7mKkifF59ftjE+2ZlMmxns6I+ySiLpR8FEmfu+TGpVp3zYTjNV93obJJTyBCCsSHVETCyQRbKdCyb5TMa6LGrvcZaX0Q/VAavhuNA/m4kSiRMgSnYrUjGhVekdDnF+7xioo4wvFnxjIDh7uJQrYOWD6MloNGX7St5gbysTuQQ7i/HI38b9V8x8mKazuDSXxB//BKGZx/XHkK8cHX+QK1MPxYUVM1/CBI5oW\"")
+    buildConfigField("String", "BACKUP_SERVER_PUBLIC_PARAMS", "\"AZwNSU55fsFCbgaxGRD11wO1juAs8Yr5GF8FPlGzzvdJJIKH5/4CC7ZJSOe3yL2vturVaRU2Cx0n751Vt8wkj1Y4pyiScu0/S10n647ipo+iq97JZQv+UOlwH8ThyNlGT5DfxXCwTqivxHuXvZpuezPgHk5Gxl5aC6xuNxOnwmFlmu4CeSgdhW8+Pp0vAJOQ1MsU2D0+/kzI+tU94nB3tybY/Ao1AcGW2q41uKQbnOJUWwmQaFT6s+xTISgzsg7CPox6oORGX8rnyk/9lic3DbGsUHctIVpMAl/ogJBb4aYC\"")
     buildConfigField("String[]", "LANGUAGES", "new String[]{ ${languagesForBuildConfigProvider.get()} }")
     buildConfigField("int", "CANONICAL_VERSION_CODE", "$canonicalVersionCode")
     buildConfigField("String", "DEFAULT_CURRENCIES", "\"EUR,AUD,GBP,CAD,CNY\"")
     buildConfigField("String", "GIPHY_API_KEY", "\"3o6ZsYH6U6Eri53TXy\"")
     buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/registration/generate.html\"")
     buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/challenge/generate.html\"")
+    buildConfigField("String", "WEBAUTHN_RP_ID", "\"login.signal.org\"")
     buildConfigField("org.signal.libsignal.net.Network.Environment", "LIBSIGNAL_NET_ENV", "org.signal.libsignal.net.Network.Environment.PRODUCTION")
     buildConfigField("int", "LIBSIGNAL_LOG_LEVEL", "org.signal.libsignal.protocol.logging.SignalProtocolLogger.INFO")
 
@@ -330,11 +347,9 @@ android {
         "proguard/proguard-google-play-services.pro",
         "proguard/proguard-jackson.pro",
         "proguard/proguard-sqlite.pro",
-        "proguard/proguard-appcompat-v7.pro",
         "proguard/proguard-square-okhttp.pro",
         "proguard/proguard-square-okio.pro",
         "proguard/proguard-rounded-image-view.pro",
-        "proguard/proguard-glide.pro",
         "proguard/proguard-shortcutbadger.pro",
         "proguard/proguard-retrofit.pro",
         "proguard/proguard-klinker.pro",
@@ -400,6 +415,7 @@ android {
       isDefault = false
       isDebuggable = false
       isMinifyEnabled = true
+      isShrinkResources = true
       matchingFallbacks += "debug"
       buildConfigField("String", "BUILD_VARIANT_TYPE", "\"Benchmark\"")
       buildConfigField("boolean", "TRACING_ENABLED", "true")
@@ -477,12 +493,12 @@ android {
       buildConfigField("String", "SIGNAL_CDN3_URL", "\"https://cdn3-staging.signal.org\"")
       buildConfigField("String", "SIGNAL_CDSI_URL", "\"https://cdsi.staging.signal.org\"")
       buildConfigField("String", "SIGNAL_SVR2_URL", "\"https://svr2.staging.signal.org\"")
-      buildConfigField("String", "SVR2_MRENCLAVE_LEGACY", "\"97f151f6ed078edbbfd72fa9cae694dcc08353f1f5e8d9ccd79a971b10ffc535\"")
-      buildConfigField("String", "SVR2_MRENCLAVE", "\"3c699f4975aaa3d172c0aad042f94f031b2b03e10b9c19a45116a01693d83302\"")
+      buildConfigField("String", "SVR2_MRENCLAVE_LEGACY", "\"3c699f4975aaa3d172c0aad042f94f031b2b03e10b9c19a45116a01693d83302\"")
+      buildConfigField("String", "SVR2_MRENCLAVE", "\"0ff2d7d4efbe7cfc24ac069a16fba898928dbe6c40d500c8b6da55733c727d6e\"")
       buildConfigField("String[]", "UNIDENTIFIED_SENDER_TRUST_ROOTS", "new String[]{\"BbqY1DzohE4NUZoVF+L18oUPrK3kILllLEJh2UnPSsEx\", \"BYhU6tPjqP46KGZEzRs1OL4U39V5dlPJ/X09ha4rErkm\"}")
       buildConfigField("String", "ZKGROUP_SERVER_PUBLIC_PARAMS", "\"ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdlukrpzzsCIvEwjwQlJYVPOQPj4V0F4UXXBdHSLK05uoPBCQG8G9rYIGedYsClJXnbrgGYG3eMTG5hnx4X4ntARBgELuMWWUEEfSK0mjXg+/2lPmWcTZWR9nkqgQQP0tbzuiPm74H2wMO4u1Wafe+UwyIlIT9L7KLS19Aw8r4sPrXZSSsOZ6s7M1+rTJN0bI5CKY2PX29y5Ok3jSWufIKcgKOnWoP67d5b2du2ZVJjpjfibNIHbT/cegy/sBLoFwtHogVYUewANUAXIaMPyCLRArsKhfJ5wBtTminG/PAvuBdJ70Z/bXVPf8TVsR292zQ65xwvWTejROW6AZX6aqucUjlENAErBme1YHmOSpU6tr6doJ66dPzVAWIanmO/5mgjNEDeK7DDqQdB1xd03HT2Qs2TxY3kCK8aAb/0iM0HQiXjxZ9HIgYhbtvGEnDKW5ILSUydqH/KBhW4Pb0jZWnqN/YgbWDKeJxnDbYcUob5ZY5Lt5ZCMKuaGUvCJRrCtuugSMaqjowCGRempsDdJEt+cMaalhZ6gczklJB/IbdwENW9KeVFPoFNFzhxWUIS5ML9riVYhAtE6JE5jX0xiHNVIIPthb458cfA8daR0nYfYAUKogQArm0iBezOO+mPk5vCNWI+wwkyFCqNDXz/qxl1gAntuCJtSfq9OC3NkdhQlgYQ==\"")
-      buildConfigField("String", "GENERIC_SERVER_PUBLIC_PARAMS", "\"AHILOIrFPXX9laLbalbA9+L1CXpSbM/bTJXZGZiuyK1JaI6dK5FHHWL6tWxmHKYAZTSYmElmJ5z2A5YcirjO/yfoemE03FItyaf8W1fE4p14hzb5qnrmfXUSiAIVrhaXVwIwSzH6RL/+EO8jFIjJ/YfExfJ8aBl48CKHgu1+A6kWynhttonvWWx6h7924mIzW0Czj2ROuh4LwQyZypex4GuOPW8sgIT21KNZaafgg+KbV7XM1x1tF3XA17B4uGUaDbDw2O+nR1+U5p6qHPzmJ7ggFjSN6Utu+35dS1sS0P9N\"")
-      buildConfigField("String", "BACKUP_SERVER_PUBLIC_PARAMS", "\"AHYrGb9IfugAAJiPKp+mdXUx+OL9zBolPYHYQz6GI1gWjpEu5me3zVNSvmYY4zWboZHif+HG1sDHSuvwFd0QszSwuSF4X4kRP3fJREdTZ5MCR0n55zUppTwfHRW2S4sdQ0JGz7YDQIJCufYSKh0pGNEHL6hv79Agrdnr4momr3oXdnkpVBIp3HWAQ6IbXQVSG18X36GaicI1vdT0UFmTwU2KTneluC2eyL9c5ff8PcmiS+YcLzh0OKYQXB5ZfQ06d6DiINvDQLy75zcfUOniLAj0lGJiHxGczin/RXisKSR8\"")
+      buildConfigField("String", "GENERIC_SERVER_PUBLIC_PARAMS", "\"AYhaw+NbxtNLo/RlGFEsHd904hW38LpPJ59jYJlNmT4wwtyOq4xzCs/MyXsfRbIsAYhQjDnpE0rhFtWkMcn/kV740SISwFfpPHunrtZ9h0YWz5QNNbI5I3DRGUjhKXgMU7J7s7qOr0fdms+g0e+L9FMSjJLobDkOngp/m0B5TsxTyqLscJ5VyU69Cj8txImTfHMCKrYphYfRHO78RwPoz2g2tGUAzEbKHm12OgDna2qutkE5TvYqwZczvgZyLVHdHXpvdyOlEdv4afVyWkI7u/S0XYDonIJoHlxqJoTSepZR\"")
+      buildConfigField("String", "BACKUP_SERVER_PUBLIC_PARAMS", "\"AXYrGb9IfugAAJiPKp+mdXUx+OL9zBolPYHYQz6GI1gWjpEu5me3zVNSvmYY4zWboZHif+HG1sDHSuvwFd0QszS6h3nZ6vRdM/IYGK+cLynw3ucWo7idf3zjOG3b6JnGT/z7XYCr6HuOGkWH4DQWCH98hxVZMGOgmT8DCQoqebQb3oK1yrwEglRWmtI01KhRg9RGUKoQiwuej1JZEY8uaG4Uz9n1cVODJ1iuByhNqGHo+KfI4iWhjtx2AnhYqHViQ3CMd4ASGBJtic9UTFVk/4vegVIy0wfYsAmViftzK6t4\"")
       buildConfigField("String", "MOBILE_COIN_ENVIRONMENT", "\"testnet\"")
       buildConfigField("String", "SIGNAL_CAPTCHA_URL", "\"https://signalcaptchas.org/staging/registration/generate.html\"")
       buildConfigField("String", "RECAPTCHA_PROOF_URL", "\"https://signalcaptchas.org/staging/challenge/generate.html\"")
@@ -510,18 +526,18 @@ android {
   android.buildTypes.configureEach {
     val path = if (name == "release") releaseDir else debugDir
     sourceSets.named(name) {
-      java.srcDir(path)
+      java.directories += path
     }
   }
 
   sourceSets {
     getByName("mocked") {
-      java.srcDir("$projectDir/src/benchmarkShared/java")
+      java.directories += "$projectDir/src/benchmarkShared/java"
       manifest.srcFile("$projectDir/src/benchmarkShared/AndroidManifest.xml")
     }
 
     getByName("benchmark") {
-      java.srcDir("$projectDir/src/benchmarkShared/java")
+      java.directories += "$projectDir/src/benchmarkShared/java"
       manifest.srcFile("$projectDir/src/benchmarkShared/AndroidManifest.xml")
     }
   }
@@ -558,19 +574,21 @@ androidComponents {
 
     // Version overrides
     if (variant.name.contains("nightly", ignoreCase = true)) {
-      var tag = getNightlyTagForCurrentCommit()
-      if (!tag.isNullOrEmpty()) {
-        if (tag.startsWith("v")) {
-          tag = tag.substring(1)
-        }
-
-        // We add a multiple of maxHotfixVersions to nightlies to ensure we're always at least that many versions ahead
-        val nightlyBuffer = (5 * maxHotfixVersions)
-        val nightlyVersionCode = (canonicalVersionCode * maxHotfixVersions) + (getNightlyBuildNumber(tag) * 10) + nightlyBuffer
+      val tag = getNightlyTagForCurrentCommit()
+      if (tag != null) {
+        val nightlyVersionCode = providers.provider { getNightlyVersionCode(tag) }
 
         variant.outputs.forEach { output ->
-          output.versionName.set("$tag | ${getLastCommitDateTimeUtc()}")
+          output.versionName.set("${tag.removePrefix("v")} | ${getLastCommitDateTimeUtc()}")
           output.versionCode.set(nightlyVersionCode)
+        }
+      } else if (variant.buildType == "release") {
+        val missingTag = providers.provider<Int> {
+          throw GradleException("Nightly release builds need a tag like v<version>-nightly-$canonicalVersionCode-<n> pointing at HEAD.")
+        }
+
+        variant.outputs.forEach { output ->
+          output.versionCode.set(missingTag)
         }
       }
     }
@@ -612,6 +630,7 @@ androidComponents {
 
       appApkDirectory.set(variant.artifacts.get(SingleArtifact.APK))
       testApkDirectory.set(androidTest.artifacts.get(SingleArtifact.APK))
+      builtArtifactsLoader.set(variant.artifacts.getBuiltArtifactsLoader())
 
       val deviceOverride = project.providers.gradleProperty("ftl.devices").orNull
       devices.set(
@@ -668,28 +687,39 @@ dependencies {
   ktlintRuleset(libs.ktlint.twitter.compose)
   coreLibraryDesugaring(libs.android.tools.desugar)
 
+  implementation(project(":core:database"))
+  implementation(project(":core:models"))
+  implementation(project(":core:models-jvm"))
+  implementation(project(":core:serialization"))
+  implementation(project(":core:ui"))
+  implementation(project(":core:util"))
+
+  implementation(project(":lib:apng"))
   implementation(project(":lib:archive"))
+  implementation(project(":lib:contacts"))
+  implementation(project(":lib:blurhash"))
+  implementation(project(":lib:debuglogs-viewer"))
+  implementation(project(":lib:device-transfer"))
+  implementation(project(":lib:donations"))
+  implementation(project(":lib:emoji"))
+  implementation(project(":lib:glide"))
+  implementation(project(":lib:image-editor"))
   implementation(project(":lib:libsignal-service"))
   implementation(project(":lib:network"))
   implementation(project(":lib:paging"))
-  implementation(project(":core:util"))
-  implementation(project(":lib:glide"))
-  implementation(project(":lib:video"))
-  implementation(project(":lib:device-transfer"))
-  implementation(project(":lib:image-editor"))
-  implementation(project(":lib:donations"))
-  implementation(project(":lib:debuglogs-viewer"))
-  implementation(project(":lib:contacts"))
-  implementation(project(":lib:qr"))
-  implementation(project(":lib:sticky-header-grid"))
+  implementation(project(":lib:password-manager"))
   implementation(project(":lib:photoview"))
-  implementation(project(":lib:blurhash"))
-  implementation(project(":core:ui"))
-  implementation(project(":core:models"))
-  implementation(project(":core:models-jvm"))
+  implementation(project(":lib:qr"))
+  implementation(project(":lib:signal-login"))
+  implementation(project(":lib:sticky-header-grid"))
+  implementation(project(":lib:ui-components"))
+  implementation(project(":lib:video"))
+
+  implementation(project(":feature:app-settings"))
   implementation(project(":feature:camera"))
+  implementation(project(":feature:chat-settings"))
+  implementation(project(":feature:media-keyboard"))
   implementation(project(":feature:registration"))
-  implementation(project(":lib:apng"))
 
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.androidx.appcompat)
@@ -734,6 +764,8 @@ dependencies {
   implementation(libs.androidx.asynclayoutinflater)
   implementation(libs.androidx.asynclayoutinflater.appcompat)
   implementation(libs.androidx.emoji2)
+  implementation(libs.androidx.paging.runtime)
+  implementation(libs.androidx.paging.compose)
   implementation(libs.firebase.messaging) {
     exclude(group = "com.google.firebase", module = "firebase-core")
     exclude(group = "com.google.firebase", module = "firebase-analytics")
@@ -753,7 +785,6 @@ dependencies {
   implementation(libs.glide.glide)
   implementation(libs.roundedimageview)
   implementation(libs.materialish.progress)
-  implementation(libs.greenrobot.eventbus)
   implementation(libs.google.zxing.android.integration)
   implementation(libs.google.zxing.core)
   implementation(libs.google.flexbox)
@@ -787,12 +818,11 @@ dependencies {
   implementation(libs.rxjava3.rxandroid)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.rxdogtag)
-  implementation(libs.androidx.credentials)
-  implementation(libs.androidx.credentials.compat)
   implementation(libs.kotlinx.serialization.json)
 
   implementation(project(":lib:billing"))
   implementation(project(":feature:media-send"))
+  implementation(project(":feature:media-viewer"))
 
   "spinnerImplementation"(project(":lib:spinner"))
 
@@ -821,6 +851,7 @@ dependencies {
   testImplementation(testLibs.conscrypt.openjdk.uber)
   testImplementation(testLibs.mockk)
   testImplementation(testFixtures(project(":core:ui")))
+  testImplementation(testFixtures(project(":lib:emoji")))
   testImplementation(testFixtures(project(":lib:libsignal-service")))
   testImplementation(testLibs.espresso.core)
   testImplementation(testLibs.kotlinx.coroutines.test)
@@ -831,6 +862,7 @@ dependencies {
 
   androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+  androidTestImplementation(libs.androidx.compose.ui.test.manifest)
   androidTestImplementation(testLibs.androidx.test.ext.junit)
   androidTestImplementation(testLibs.espresso.core)
   androidTestImplementation(testLibs.espresso.contrib) {
@@ -879,21 +911,21 @@ fun getNightlyTagForCurrentCommit(): String? {
     commandLine("git", "tag", "--points-at", "HEAD")
   }.standardOutput.asText.get().trim()
 
-  return if (output.isNotEmpty()) {
-    val tags = output.split("\n").toList()
-    tags.firstOrNull { it.contains("nightly") } ?: tags[0]
-  } else {
-    null
-  }
+  return output.lines()
+    .mapNotNull { nightlyTagRegex.matchEntire(it) }
+    .maxByOrNull { it.groupValues[2].toInt() }
+    ?.value
 }
 
-fun getNightlyBuildNumber(tag: String?): Int {
-  if (tag == null) {
-    return 0
+fun getNightlyVersionCode(tag: String): Int {
+  val (tagCanonicalVersionCode, buildNumber) = checkNotNull(nightlyTagRegex.matchEntire(tag)).destructured
+
+  if (tagCanonicalVersionCode.toInt() != canonicalVersionCode) {
+    throw GradleException("Nightly tag '$tag' is for canonical version code $tagCanonicalVersionCode, but HEAD is at $canonicalVersionCode.")
   }
 
-  val match = Regex("-(\\d{3})$").find(tag)
-  return match?.groupValues?.get(1)?.toIntOrNull() ?: 0
+  // Nightlies sit 5 canonical versions ahead and only use version codes ending in 0, so they never collide with a release or hotfix.
+  return ((canonicalVersionCode + 5) * maxHotfixVersions) + (buildNumber.toInt() * 10)
 }
 
 fun getLastCommitDateTimeUtc(): String {
@@ -1082,10 +1114,13 @@ constructor(
   @get:Input
   abstract val extraArgs: ListProperty<String>
 
+  @get:Internal
+  abstract val builtArtifactsLoader: Property<BuiltArtifactsLoader>
+
   @TaskAction
   fun run() {
-    val appApk = findApk(appApkDirectory.get().asFile, "app")
-    val testApk = findApk(testApkDirectory.get().asFile, "instrumentation test")
+    val appApk = findApk(appApkDirectory.get(), "app")
+    val testApk = findApk(testApkDirectory.get(), "instrumentation test")
 
     val arguments = mutableListOf(
       gcloudExecutable.get(),
@@ -1123,9 +1158,19 @@ constructor(
     }
   }
 
-  private fun findApk(directory: File, label: String): File {
-    return directory.walkTopDown().firstOrNull { it.isFile && it.extension == "apk" }
-      ?: throw GradleException("No $label APK found under ${directory.absolutePath}. Was the assemble task run?")
+  /**
+   * Resolves the APK this build produced from the variant's own output metadata. The directory listing can't be
+   * trusted: APKs are named per version and ABI, so it also holds every earlier build's, plus this build's other
+   * splits.
+   */
+  private fun findApk(directory: Directory, label: String): File {
+    val elements = builtArtifactsLoader.get().load(directory)?.elements?.takeIf { it.isNotEmpty() }
+      ?: throw GradleException("No $label APK found under ${directory.asFile.absolutePath}. Was the assemble task run?")
+
+    val element = elements.firstOrNull { it.filters.isEmpty() }
+      ?: throw GradleException("The $label APK is split by ${elements.flatMap { it.filters }.joinToString { it.filterType.name }} with no universal output to run on Test Lab.")
+
+    return File(element.outputFile)
   }
 }
 

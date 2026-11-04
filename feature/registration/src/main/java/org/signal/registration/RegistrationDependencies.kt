@@ -12,21 +12,31 @@ import org.signal.registration.util.SensitiveLog
 /**
  * Injection point for dependencies needed by this module.
  *
+ * @param isPhoneNumberlessRegistrationAvailable Whether the in-progress phone-numberless registration flow (registering
+ *   with a purchased Signal Login instead of a phone number) is offered. The screens are always present in the
+ *   navigation graph; this only gates them off at runtime while the flow is unfinished. Also gates linking to an
+ *   account that has no phone number.
+ * @param isGooglePlayBillingAvailable Whether this build can use Google Play billing at all, which buying a Signal
+ *   Login requires.
+ * @param webAuthnRelyingPartyId The domain the account's passkeys are scoped to. It has to be a domain this app is
+ *   listed under in a digital asset links file, or the platform will refuse to run a ceremony for it.
  * @param sensitiveLogger A logger for logging sensitive material. The intention is this would only be used in the demo app for testing + debugging, while
  *   the actual app would just pass null.
  * @param debugLogCallback Callback to launch the debug log viewer. The actual app provides the real implementation.
  * @param proxyConfigCallback Callback to launch the proxy configuration settings. The actual app provides the real implementation.
- * @param contactSupportCallback Callback to let the user contact support, using the provided email subject. The actual app provides the real
- *   implementation.
+ * @param contactSupportController Lets the user contact support, optionally attaching a debug log. The actual app provides the real implementation.
  */
 class RegistrationDependencies(
   val networkController: NetworkController,
   val storageController: StorageController,
   val isLinkAndSyncAvailable: Boolean,
+  val isPhoneNumberlessRegistrationAvailable: Boolean,
+  val isGooglePlayBillingAvailable: Boolean,
+  val webAuthnRelyingPartyId: String,
   val sensitiveLogger: Log.Logger?,
   val debugLogCallback: ((Context) -> Unit)?,
   val proxyConfigCallback: ((Context) -> Unit)?,
-  val contactSupportCallback: ((Context, subject: String) -> Unit)?
+  val contactSupportController: ContactSupportController?
 ) {
   companion object {
     lateinit var dependencies: RegistrationDependencies

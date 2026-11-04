@@ -15,15 +15,22 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -39,24 +46,25 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
 import org.signal.core.ui.compose.FastScrollCharacterProvider
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.requireDrawable
+import org.signal.emoji.EmojiUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.fallback.FallbackAvatar
 import org.thoughtcrime.securesms.avatar.view.AvatarView
 import org.thoughtcrime.securesms.badges.BadgeImageView
 import org.thoughtcrime.securesms.components.AvatarImageView
 import org.thoughtcrime.securesms.components.FromTextView
-import org.thoughtcrime.securesms.components.emoji.EmojiUtil
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalContextMenu
+import org.thoughtcrime.securesms.components.settings.models.DSLComposePreference
 import org.thoughtcrime.securesms.contacts.LetterHeaderDecoration
 import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.SearchUtil
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
@@ -120,6 +128,10 @@ object ContactSearchModels {
       HeaderModel::class.java,
       LayoutFactory({ HeaderViewHolder(it) }, R.layout.contact_search_section_header)
     )
+  }
+
+  fun registerSectionLoading(mappingAdapter: MappingAdapter) {
+    DSLComposePreference.register<SectionLoadingModel>(mappingAdapter) { SectionLoadingViewHolder(it) }
   }
 
   fun registerExpands(mappingAdapter: MappingAdapter, expandListener: (ContactSearchData.Expand) -> Unit) {
@@ -213,6 +225,11 @@ object ContactSearchModels {
           R.layout.contact_search_section_header
         ).createViewHolder(FrameLayout(ctx))
       }
+      entry<SectionLoadingModel>(
+        key = { model -> "SECTION_LOADING${model.sectionLoading.sectionKey}" }
+      ) {
+        SectionLoadingRow()
+      }
       viewHolder<ExpandModel>(
         key = { model -> "EXPAND${model.expand.sectionKey}" }
       ) { ctx ->
@@ -234,6 +251,7 @@ object ContactSearchModels {
       ) { model ->
         Text(
           text = if (model.empty.query.isNullOrEmpty()) stringResource(R.string.SearchFragment_no_results_empty) else stringResource(R.string.SearchFragment_no_results, model.empty.query),
+          color = MaterialTheme.colorScheme.onSurface,
           textAlign = TextAlign.Center,
           modifier = Modifier
             .fillMaxWidth()
@@ -250,6 +268,7 @@ object ContactSearchModels {
           is ContactSearchData.Story -> StoryModel(it, selection.contains(it.contactSearchKey), SignalStore.story.userHasBeenNotifiedAboutStories)
           is ContactSearchData.KnownRecipient -> RecipientModel(it, selection.contains(it.contactSearchKey), it.shortSummary)
           is ContactSearchData.Expand -> ExpandModel(it)
+          is ContactSearchData.SectionLoading -> SectionLoadingModel(it)
           is ContactSearchData.Header -> HeaderModel(it)
           is ContactSearchData.TestRow -> error("This row exists for testing only.")
           is ContactSearchData.Arbitrary -> arbitraryRepository?.getMappingModel(it) ?: error("This row must be handled manually")
@@ -409,7 +428,7 @@ object ContactSearchModels {
 
     private fun getGroupStoryContextMenuActions(model: StoryModel, callbacks: ContactSearchAdapter.StoryContextMenuCallbacks): List<ActionItem> {
       return listOf(
-        ActionItem(R.drawable.symbol_minus_circle_24, context.getString(R.string.ContactSearchItems__remove_story)) {
+        ActionItem(CoreUiR.drawable.symbol_minus_circle_24, context.getString(R.string.ContactSearchItems__remove_story)) {
           callbacks.onRemoveGroupStory(model.story, model.isSelected)
         }
       )
@@ -787,6 +806,19 @@ object ContactSearchModels {
   }
 
   /**
+   * Mapping Model for the placeholder shown in place of a section whose query is still running.
+   */
+  class SectionLoadingModel(val sectionLoading: ContactSearchData.SectionLoading) : MappingModel<SectionLoadingModel> {
+    override fun areItemsTheSame(newItem: SectionLoadingModel): Boolean {
+      return sectionLoading.sectionKey == newItem.sectionLoading.sectionKey
+    }
+
+    override fun areContentsTheSame(newItem: SectionLoadingModel): Boolean {
+      return areItemsTheSame(newItem)
+    }
+  }
+
+  /**
    * Mapping Model for messages
    */
   class MessageModel(val message: ContactSearchData.Message) : MappingModel<MessageModel> {
@@ -819,6 +851,31 @@ object ContactSearchModels {
     override fun areContentsTheSame(newItem: GroupWithMembersModel): Boolean = newItem.groupWithMembers == groupWithMembers
 
     override fun areItemsTheSame(newItem: GroupWithMembersModel): Boolean = newItem.groupWithMembers.contactSearchKey == groupWithMembers.contactSearchKey
+  }
+
+  @Composable
+  private fun SectionLoadingRow() {
+    Box(
+      contentAlignment = Alignment.Center,
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 16.dp)
+    ) {
+      CircularProgressIndicator(
+        strokeWidth = 3.dp,
+        modifier = Modifier.size(24.dp)
+      )
+    }
+  }
+
+  /**
+   * View Holder for the placeholder shown in place of a section whose query is still running.
+   */
+  private class SectionLoadingViewHolder(composeView: ComposeView) : DSLComposePreference.ViewHolder<SectionLoadingModel>(composeView) {
+    @Composable
+    override fun Content(model: SectionLoadingModel) {
+      SectionLoadingRow()
+    }
   }
 
   /**

@@ -6,17 +6,19 @@
 package org.signal.registration.screens.linkaccount
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
@@ -26,7 +28,6 @@ import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.quickrestore.QrState
 import org.signal.registration.screens.util.navigateTo
 
@@ -39,7 +40,7 @@ class LinkAccountViewModel(
   private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
   showCreateAccount: Boolean = true
-) : EventDrivenViewModel<LinkAccountScreenEvent>(TAG) {
+) : EventDrivenViewModel<LinkAccountScreenEvent>(TAG, shouldLogEvents = true) {
 
   companion object {
     private val TAG = Log.tag(LinkAccountViewModel::class)
@@ -47,13 +48,18 @@ class LinkAccountViewModel(
   }
 
   private val _state = MutableStateFlow(LinkAccountScreenState(showCreateAccount = showCreateAccount))
-  val state: StateFlow<LinkAccountScreenState> = _state
-    .onEach { Log.d(TAG, "[State] $it") }
-    .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), _state.value)
+  val state: StateFlow<LinkAccountScreenState> = _state.asStateFlow()
+
+  private val _actions = Channel<LinkAccountScreenAction>(Channel.BUFFERED)
+  val actions: Flow<LinkAccountScreenAction> = _actions.receiveAsFlow()
 
   private var provisioningJob: Job? = null
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
     startProvisioning()
   }
 
@@ -64,7 +70,10 @@ class LinkAccountViewModel(
   @VisibleForTesting
   fun applyEvent(state: LinkAccountScreenState, event: LinkAccountScreenEvent, stateEmitter: (LinkAccountScreenState) -> Unit) {
     val result = when (event) {
-      LinkAccountScreenEvent.GetHelpClick -> error("This event is handled in the nav-entry.")
+      LinkAccountScreenEvent.GetHelpClick -> {
+        _actions.trySend(LinkAccountScreenAction.OpenGetHelpArticle)
+        state
+      }
       LinkAccountScreenEvent.CreateAccountClick -> {
         // Revisit permission screen if necessary
         if (parentState.value.backStack.any { it == RegistrationRoute.PhoneNumberEntry }) {
@@ -186,16 +195,5 @@ class LinkAccountViewModel(
 
   override fun onCleared() {
     provisioningJob?.cancel()
-  }
-
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    private val showCreateAccount: Boolean = true
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return LinkAccountViewModel(repository, parentState, parentEventEmitter, showCreateAccount) as T
-    }
   }
 }

@@ -12,9 +12,8 @@ import io.reactivex.rxjava3.subjects.Subject
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
-import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.settings.DSLSettingsActivity
+import org.thoughtcrime.securesms.components.NavGraphHostActivity
 import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRoute
 import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
 import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayRepository
@@ -22,9 +21,6 @@ import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditMode
-import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.service.KeyCachingService
-import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.SignalE164Util
@@ -32,14 +28,11 @@ import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 private const val START_ROUTE = "app.settings.args.START_ROUTE"
 private const val NOTIFICATION_CATEGORY = "android.intent.category.NOTIFICATION_PREFERENCES"
-private const val STATE_WAS_CONFIGURATION_UPDATED = "app.settings.state.configuration.updated"
 private const val EXTRA_PERFORM_ACTION_ON_CREATE = "extra_perform_action_on_create"
 
-class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
+class AppSettingsActivity : NavGraphHostActivity(), GooglePayComponent {
 
   private val TAG = Log.tag(AppSettingsActivity::class)
-
-  private var wasConfigurationUpdated = false
 
   override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
   override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
@@ -69,6 +62,7 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
         AppSettingsRoute.NotificationsRoute.Notifications -> AppSettingsFragmentDirections.actionDirectToNotificationsSettingsFragment()
         AppSettingsRoute.ChangeNumberRoute.Start -> AppSettingsFragmentDirections.actionDirectToChangeNumberFragment()
         is AppSettingsRoute.DonationsRoute.Donations -> AppSettingsFragmentDirections.actionDirectToManageDonations().setDirectToCheckoutType(appSettingsRoute.directToCheckoutType)
+        AppSettingsRoute.NotificationsRoute.MutedNotifications -> AppSettingsFragmentDirections.actionDirectToChatsSettingsFragment()
         AppSettingsRoute.NotificationsRoute.NotificationProfiles -> AppSettingsFragmentDirections.actionDirectToNotificationProfiles()
         is AppSettingsRoute.NotificationsRoute.EditProfile -> AppSettingsFragmentDirections.actionDirectToCreateNotificationProfiles()
         is AppSettingsRoute.NotificationsRoute.ProfileDetails -> AppSettingsFragmentDirections.actionDirectToNotificationProfileDetails(
@@ -90,16 +84,16 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
         is AppSettingsRoute.BackupsRoute.Backups -> AppSettingsFragmentDirections.actionDirectToBackupsSettingsFragment().setLaunchCheckoutFlow(appSettingsRoute.launchCheckoutFlow)
         AppSettingsRoute.Invite -> AppSettingsFragmentDirections.actionDirectToInviteFragment()
         AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> AppSettingsFragmentDirections.actionDirectToStoragePreferenceFragment()
-        AppSettingsRoute.AccountRoute.Account -> AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
+        AppSettingsRoute.AccountRoute.Account -> if (SignalStore.account.isPrimaryDevice) {
+          AppSettingsFragmentDirections.actionDirectToAccountSettingsFragment()
+        } else {
+          AppSettingsFragmentDirections.actionDirectToLinkedDeviceAccountSettingsFragment()
+        }
         else -> error("Unsupported start location: ${appSettingsRoute?.javaClass?.name}")
       }
     }
 
     intent = intent.putExtra(START_ROUTE, AppSettingsRoute.Empty)
-
-    if (startingAction == null && savedInstanceState != null) {
-      wasConfigurationUpdated = savedInstanceState.getBoolean(STATE_WAS_CONFIGURATION_UPDATED)
-    }
 
     startingAction?.let {
       navController.safeNavigate(it)
@@ -109,13 +103,6 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
       if (key == SettingsValues.THEME) {
         DynamicTheme.setDefaultDayNightMode(this)
         recreate()
-      } else if (key == SettingsValues.LANGUAGE) {
-        CachedInflater.from(this).clear()
-        wasConfigurationUpdated = true
-        recreate()
-        val intent = Intent(this, KeyCachingService::class.java)
-        intent.action = KeyCachingService.LOCALE_CHANGE_EVENT
-        startService(intent)
       }
     }
 
@@ -123,7 +110,7 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
       when (intent.getStringExtra(EXTRA_PERFORM_ACTION_ON_CREATE)) {
         ACTION_CHANGE_NUMBER_SUCCESS -> {
           MaterialAlertDialogBuilder(this)
-            .setMessage(getString(R.string.ChangeNumber__your_phone_number_has_changed_to_s, SignalE164Util.prettyPrint(Recipient.self().requireE164())))
+            .setMessage(getString(R.string.ChangeNumber__your_phone_number_has_changed_to_s, SignalE164Util.prettyPrint(SignalStore.account.requireE164())))
             .setPositiveButton(R.string.ChangeNumber__okay, null)
             .show()
         }
@@ -135,17 +122,6 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
     super.onNewIntent(intent)
     finish()
     startActivity(intent)
-  }
-
-  override fun onSaveInstanceState(outState: Bundle) {
-    super.onSaveInstanceState(outState)
-    outState.putBoolean(STATE_WAS_CONFIGURATION_UPDATED, wasConfigurationUpdated)
-  }
-
-  override fun onWillFinish() {
-    if (wasConfigurationUpdated) {
-      setResult(MainActivity.RESULT_CONFIG_CHANGED)
-    }
   }
 
   override fun resolveNavGraphId(): Int = R.navigation.app_settings_with_change_number
@@ -160,6 +136,8 @@ class AppSettingsActivity : DSLSettingsActivity(), GooglePayComponent {
 
   companion object {
     const val ACTION_CHANGE_NUMBER_SUCCESS = "action_change_number_success"
+
+    const val REQUEST_CODE_UPGRADE_LOCAL_BACKUPS = 1205
 
     @JvmStatic
     @JvmOverloads

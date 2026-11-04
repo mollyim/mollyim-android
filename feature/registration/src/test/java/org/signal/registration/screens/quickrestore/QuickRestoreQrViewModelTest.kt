@@ -7,10 +7,14 @@ package org.signal.registration.screens.quickrestore
 
 import assertk.assertThat
 import assertk.assertions.hasSize
+import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isInstanceOf
 import assertk.assertions.isNull
+import assertk.assertions.prop
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +28,26 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.signal.core.models.AccountEntropyPool
+import org.signal.core.models.ServiceId.ACI
+import org.signal.libsignal.net.RequestResult
+import org.signal.network.api.RegistrationApiV2.RegisterAccountError
+import org.signal.network.api.RegistrationApiV2.RegisterAccountResponse
+import org.signal.network.api.RegistrationApiV2.RegistrationLockResponse
+import org.signal.network.api.RegistrationApiV2.SvrCredentials
+import org.signal.registration.KeyMaterial
 import org.signal.registration.NetworkController
+import org.signal.registration.RegisteredAccountData
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
+import org.signal.registration.RegistrationRoute
+import org.signal.registration.fakes.FakeNetworkController
+import java.util.UUID
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class QuickRestoreQrViewModelTest {
+
+  private val testAci = ACI.from(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"))
 
   private val testDispatcher = UnconfinedTestDispatcher()
 
@@ -144,5 +162,90 @@ class QuickRestoreQrViewModelTest {
     flow.emit(NetworkController.ProvisioningEvent.Error(RuntimeException("boom")))
 
     assertThat(viewModel.state.value.qrState).isEqualTo(QrState.Failed)
+  }
+
+  @Test
+  fun `MessageReceived with RegistrationLock retries with the reglock token derived from the provisioned AEP`() = runTest(testDispatcher) {
+    val aep = AccountEntropyPool.generate()
+    val message = FakeNetworkController().provisioningMessage(aep = aep, e164 = "+15551234567")
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true) {
+      every { accountEntropyPool } returns aep
+    }
+    val response = mockk<RegisterAccountResponse>(relaxed = true)
+    val flow = MutableSharedFlow<NetworkController.ProvisioningEvent>(replay = 1)
+    every { mockRepository.startProvisioning() } returns flow
+
+    coEvery { mockRepository.registerAccountWithProvisioningData(any(), provideRegistrationLock = false) } returns
+      RequestResult.NonSuccess(
+        RegisterAccountError.RegistrationLock(registrationLockResponse())
+      )
+    coEvery { mockRepository.registerAccountWithProvisioningData(any(), provideRegistrationLock = true) } returns
+      RequestResult.Success(RegisteredAccountData(response, keyMaterial, testAci))
+
+    createViewModel()
+    flow.emit(NetworkController.ProvisioningEvent.MessageReceived(message))
+
+    coVerify { mockRepository.registerAccountWithProvisioningData(message, provideRegistrationLock = true) }
+    assertThat(emittedParentEvents).hasSize(4)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.RestoreMethodTokenReceived>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.E164Chosen("+15551234567"))
+    assertThat(emittedParentEvents[2]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedParentEvents[3])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.ArchiveRestoreSelection>()
+  }
+
+  @Test
+  fun `MessageReceived with RegistrationLock when already providing the reglock token navigates to PinEntryForRegistrationLock`() = runTest(testDispatcher) {
+    val message = FakeNetworkController().provisioningMessage(aep = AccountEntropyPool.generate(), e164 = "+15551234567")
+    val flow = MutableSharedFlow<NetworkController.ProvisioningEvent>(replay = 1)
+    every { mockRepository.startProvisioning() } returns flow
+
+    coEvery { mockRepository.registerAccountWithProvisioningData(any(), any()) } returns
+      RequestResult.NonSuccess(
+        RegisterAccountError.RegistrationLock(registrationLockResponse())
+      )
+
+    createViewModel()
+    flow.emit(NetworkController.ProvisioningEvent.MessageReceived(message))
+
+    coVerify { mockRepository.registerAccountWithProvisioningData(message, provideRegistrationLock = true) }
+    assertThat(emittedParentEvents).hasSize(3)
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.RestoreMethodTokenReceived>()
+    assertThat(emittedParentEvents[1]).isEqualTo(RegistrationFlowEvent.E164Chosen("+15551234567"))
+    assertThat(emittedParentEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForRegistrationLock>()
+  }
+
+  @Test
+  fun `MessageReceived without an e164 registers without emitting E164Chosen`() = runTest(testDispatcher) {
+    val aep = AccountEntropyPool.generate()
+    val message = FakeNetworkController().provisioningMessage(aep = aep, e164 = null)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true) {
+      every { accountEntropyPool } returns aep
+    }
+    val response = mockk<RegisterAccountResponse>(relaxed = true)
+    val flow = MutableSharedFlow<NetworkController.ProvisioningEvent>(replay = 1)
+    every { mockRepository.startProvisioning() } returns flow
+
+    coEvery { mockRepository.registerAccountWithProvisioningData(any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(response, keyMaterial, testAci))
+
+    createViewModel()
+    flow.emit(NetworkController.ProvisioningEvent.MessageReceived(message))
+
+    assertThat(emittedParentEvents.filterIsInstance<RegistrationFlowEvent.E164Chosen>()).isEmpty()
+    assertThat(emittedParentEvents[0]).isInstanceOf<RegistrationFlowEvent.RestoreMethodTokenReceived>()
+    assertThat(emittedParentEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+  }
+
+  private fun registrationLockResponse(): RegistrationLockResponse {
+    return RegistrationLockResponse(
+      timeRemaining = 86400000L,
+      svr2Credentials = SvrCredentials(username = "test-username", password = "test-password")
+    )
   }
 }

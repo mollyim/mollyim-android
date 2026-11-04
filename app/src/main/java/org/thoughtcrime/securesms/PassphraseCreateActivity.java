@@ -62,8 +62,10 @@ public class PassphraseCreateActivity extends PassphraseActivity {
 
       MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
       SignalStore.account().generateAciIdentityKeyIfNecessary();
-      SignalStore.account().generatePniIdentityKeyIfNecessary();
-      VersionTracker.updateLastSeenVersion(PassphraseCreateActivity.this);
+      if (SignalStore.account().getPni() != null) {
+        SignalStore.account().generatePniIdentityKeyIfNecessary();
+      }
+      VersionTracker.updateLastSeenVersion();
 
       return null;
     }

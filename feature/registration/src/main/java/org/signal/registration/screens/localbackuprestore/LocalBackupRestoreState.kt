@@ -8,6 +8,7 @@ package org.signal.registration.screens.localbackuprestore
 import android.net.Uri
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.util.censor
+import org.signal.registration.screens.shared.RestoreProgress
 
 data class LocalBackupRestoreState(
   val restorePhase: RestorePhase = RestorePhase.SelectFolder,
@@ -15,13 +16,15 @@ data class LocalBackupRestoreState(
   val allBackups: List<LocalBackupInfo> = emptyList(),
   val selectedFolderUri: Uri? = null,
   val progressFraction: Float = 0f,
+  val restoreProgress: RestoreProgress? = null,
   val errorMessage: String? = null,
   val launchFolderPicker: Boolean = false,
   val aep: AccountEntropyPool? = null,
-  val v1Passphrase: String? = null
+  val v1Passphrase: String? = null,
+  val storageCapable: Boolean = true
 ) {
 
-  override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()})"
+  override fun toString(): String = "LocalBackupRestoreState(restorePhase=$restorePhase, backupInfo=$backupInfo, allBackups=$allBackups, selectedFolderUri=$selectedFolderUri, progressFraction=$progressFraction, restoreProgress=$restoreProgress, errorMessage=$errorMessage, launchFolderPicker=$launchFolderPicker, aep=${aep?.displayValue?.censor()}, v1Passphrase=${v1Passphrase?.censor()}, storageCapable=$storageCapable)"
 
   enum class RestorePhase {
     /** Waiting for user to select a backup folder. */
@@ -41,6 +44,9 @@ data class LocalBackupRestoreState(
 
     /** Restore is actively in progress. */
     InProgress,
+
+    /** The entered passphrase/recovery key could not decrypt the backup. */
+    IncorrectCredential,
 
     /** Restore failed. */
     Error

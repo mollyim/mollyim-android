@@ -5,6 +5,7 @@
 
 package org.signal.registration.screens.localbackuprestore
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,6 +41,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
@@ -50,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.TextFields
 import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
@@ -170,7 +173,7 @@ private fun TwoPaneLayout(
           .verticalScroll(firstPaneScrollState)
           .padding(paddingValues)
       ) {
-        Description()
+        Description(twoPane = true)
       }
     },
     secondPane = { paddingValues ->
@@ -203,10 +206,10 @@ private fun TwoPaneLayout(
 }
 
 @Composable
-private fun Description() {
+private fun Description(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.LocalBackupRestoreScreen__enter_backup_passphrase),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -214,7 +217,7 @@ private fun Description() {
 
   Text(
     text = stringResource(R.string.LocalBackupRestoreScreen__enter_the_30_digit_passphrase),
-    style = MaterialTheme.typography.bodyLarge,
+    style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
     color = MaterialTheme.colorScheme.onSurfaceVariant,
     modifier = Modifier.padding(top = 16.dp)
   )
@@ -232,13 +235,15 @@ private fun PassphraseTextField(
   val focusRequester = remember { FocusRequester() }
   var requestFocus by remember { mutableStateOf(true) }
   val keyboardController = LocalSoftwareKeyboardController.current
+  val interactionSource = remember { MutableInteractionSource() }
 
   TextField(
     value = passphrase,
     onValueChange = { newValue ->
       onPassphraseChange(newValue.filter { it.isDigit() })
     },
-    label = { Text(stringResource(R.string.LocalBackupRestoreScreen__recovery_key)) },
+    label = { TextFields.Label(stringResource(R.string.LocalBackupRestoreScreen__passphrase), passphrase.isNotEmpty(), interactionSource) },
+    interactionSource = interactionSource,
     textStyle = MaterialTheme.typography.bodyLarge.copy(
       fontFamily = FontFamily.Monospace,
       lineHeight = 36.sp

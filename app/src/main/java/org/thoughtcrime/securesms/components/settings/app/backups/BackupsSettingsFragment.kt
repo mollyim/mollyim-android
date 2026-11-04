@@ -35,6 +35,11 @@ import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -58,6 +63,7 @@ import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.components.settings.app.subscription.MessageBackupsCheckoutLauncher.createBackupsCheckoutLauncher
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
+import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -86,7 +92,7 @@ class BackupsSettingsFragment : ComposeFragment() {
       findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_remoteBackupsSettingsFragment)
     }
 
-    if (savedInstanceState == null && args.launchCheckoutFlow) {
+    if (savedInstanceState == null && args.launchCheckoutFlow && SignalStore.account.isPrimaryDevice) {
       checkoutLauncher.launch(null)
     }
   }
@@ -103,7 +109,9 @@ class BackupsSettingsFragment : ComposeFragment() {
           is BackupState.Error -> Unit
 
           BackupState.None -> {
-            checkoutLauncher.launch(null)
+            if (!state.isLinkedDevice) {
+              checkoutLauncher.launch(null)
+            }
           }
 
           else -> {
@@ -112,13 +120,14 @@ class BackupsSettingsFragment : ComposeFragment() {
         }
       },
       onOnDeviceBackupsRowClick = {
-        if (SignalStore.backup.newLocalBackupsEnabled || (Environment.Backups.isNewFormatSupportedForLocalBackup() && !SignalStore.settings.isBackupEnabled)) {
+        if (state.isLinkedDevice || SignalStore.backup.newLocalBackupsEnabled || (Environment.Backups.isNewFormatSupportedForLocalBackup() && !SignalStore.settings.isBackupEnabled)) {
           findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_localBackupsFragment)
         } else {
           findNavController().safeNavigate(R.id.action_backupsSettingsFragment_to_backupsPreferenceFragment)
         }
       },
-      onBackupTierInternalOverrideChanged = { viewModel.onBackupTierInternalOverrideChanged(it) }
+      onBackupTierInternalOverrideChanged = { viewModel.onBackupTierInternalOverrideChanged(it) },
+      onLearnMoreClick = { CommunicationActions.openBrowserLink(requireContext(), "https://support.signal.org/hc/articles/360007059752") }
     )
   }
 }
@@ -129,7 +138,8 @@ private fun BackupsSettingsContent(
   onNavigationClick: () -> Unit = {},
   onBackupsRowClick: () -> Unit = {},
   onOnDeviceBackupsRowClick: () -> Unit = {},
-  onBackupTierInternalOverrideChanged: (MessageBackupTier?) -> Unit = {}
+  onBackupTierInternalOverrideChanged: (MessageBackupTier?) -> Unit = {},
+  onLearnMoreClick: () -> Unit = {}
 ) {
   Scaffolds.Settings(
     title = stringResource(R.string.preferences_chats__backups),
@@ -178,9 +188,13 @@ private fun BackupsSettingsContent(
           }
 
           is BackupState.Inactive -> {
-            InactiveBackupsRow(
-              onBackupsRowClick = onBackupsRowClick
-            )
+            if (backupsSettingsState.isLinkedDevice) {
+              BackupsOffLinkedDeviceRow(onLearnMoreClick = onLearnMoreClick)
+            } else {
+              InactiveBackupsRow(
+                onBackupsRowClick = onBackupsRowClick
+              )
+            }
 
             OtherWaysToBackUpHeading()
           }
@@ -196,9 +210,13 @@ private fun BackupsSettingsContent(
           }
 
           BackupState.None -> {
-            NeverEnabledBackupsRow(
-              onBackupsRowClick = onBackupsRowClick
-            )
+            if (backupsSettingsState.isLinkedDevice) {
+              BackupsOffLinkedDeviceRow(onLearnMoreClick = onLearnMoreClick)
+            } else {
+              NeverEnabledBackupsRow(
+                onBackupsRowClick = onBackupsRowClick
+              )
+            }
 
             OtherWaysToBackUpHeading()
           }
@@ -299,6 +317,51 @@ private fun NeverEnabledBackupsRow(
             text = stringResource(R.string.BackupsSettingsFragment_set_up)
           )
         }
+      }
+    }
+  )
+}
+
+@Composable
+private fun BackupsOffLinkedDeviceRow(
+  onLearnMoreClick: () -> Unit = {}
+) {
+  val description = buildAnnotatedString {
+    append(stringResource(R.string.BackupsSettingsFragment__automatic_backups_get_started_on_your_phone))
+    append(" ")
+    withLink(LinkAnnotation.Clickable(tag = "learn-more") { onLearnMoreClick() }) {
+      withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+        append(stringResource(R.string.RemoteBackupsSettingsFragment__learn_more))
+      }
+    }
+  }
+
+  Rows.TextRow(
+    modifier = Modifier.wrapContentHeight(),
+    icon = {
+      Box(
+        modifier = Modifier
+          .padding(top = 12.dp)
+          .align(Alignment.Top)
+      ) {
+        Icon(
+          painter = SignalIcons.Backup.painter,
+          contentDescription = null
+        )
+      }
+    },
+    text = {
+      Column {
+        Text(
+          text = stringResource(R.string.RemoteBackupsSettingsFragment__signal_backups),
+          style = MaterialTheme.typography.bodyLarge
+        )
+
+        Text(
+          text = description,
+          color = MaterialTheme.colorScheme.onSurfaceVariant,
+          style = MaterialTheme.typography.bodyMedium
+        )
       }
     }
   )
@@ -644,7 +707,8 @@ private fun BackupsSettingsContentPreview() {
           renewalTime = 0.seconds,
           price = FiatMoney(BigDecimal.valueOf(4), Currency.getInstance("CAD"))
         ),
-        lastBackupAt = 0.seconds
+        lastBackupAt = 0.seconds,
+        isLinkedDevice = false
       )
     )
   }
@@ -652,14 +716,21 @@ private fun BackupsSettingsContentPreview() {
 
 @DayNightPreviews
 @Composable
-private fun BackupsSettingsContentBackupTierInternalOverridePreview() {
+private fun BackupsSettingsContentLinkedDevicePreview() {
   Previews.Preview {
     BackupsSettingsContent(
       backupsSettingsState = BackupsSettingsState(
-        backupState = BackupState.None,
-        showBackupTierInternalOverride = true,
-        backupTierInternalOverride = null,
-        lastBackupAt = 0.seconds
+        backupState = BackupState.ActivePaid(
+          messageBackupsType = MessageBackupsType.Paid(
+            pricePerMonth = FiatMoney(BigDecimal.valueOf(2.99), Currency.getInstance("USD")),
+            storageAllowanceBytes = 1_000_000,
+            mediaTtl = 30.days
+          ),
+          renewalTime = 0.seconds,
+          price = FiatMoney(BigDecimal.valueOf(2.99), Currency.getInstance("USD"))
+        ),
+        lastBackupAt = 0.seconds,
+        isLinkedDevice = true
       )
     )
   }
@@ -756,5 +827,13 @@ private fun ActiveFreeBackupsRowPreview() {
 private fun NeverEnabledBackupsRowPreview() {
   Previews.Preview {
     NeverEnabledBackupsRow()
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun BackupsOffLinkedDeviceRowPreview() {
+  Previews.Preview {
+    BackupsOffLinkedDeviceRow()
   }
 }

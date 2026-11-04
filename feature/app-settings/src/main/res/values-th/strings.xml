@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- RegistrationLockV2Dialog -->
+    <string name="RegistrationLockV2Dialog_turn_on_registration_lock">เปิดใช้กุญแจลงทะเบียนหรือไม่</string>
+    <string name="RegistrationLockV2Dialog_turn_off_registration_lock">ปิดใช้กุญแจลงทะเบียนหรือไม่</string>
+    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">ถ้าคุณลืมรหัส PIN ของคุณตอนที่คุณลงทะเบียนกับ Signal อีกครั้ง คุณจะถูกล็อกจากบัญชีของคุณเป็นเวลา 7 วัน</string>
+    <string name="RegistrationLockV2Dialog_turn_on">เปิด</string>
+    <string name="RegistrationLockV2Dialog_turn_off">ปิด</string>
+    <string name="preferences__advanced_pin_settings">การตั้งค่า PIN ขั้นสูง</string>
+    <string name="preferences__delete_account">ลบบัญชี</string>
+    <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
+    <string name="RegistrationLockFragment__switch_keyboard">สลับแป้นพิมพ์</string>
+    <string name="preferences_chats__transfer_account">ถ่ายโอนบัญชี</string>
+    <string name="preferences_chats__transfer_account_to_a_new_android_device">ถ่ายโอนบัญชีไปยังอุปกรณ์ Android เครื่องใหม่</string>
+    <string name="preferences_app_protection__signal_pin">รหัส PIN ของ Signal</string>
+    <string name="preferences_app_protection__create_a_pin">สร้างรหัส PIN</string>
+    <string name="preferences_app_protection__change_your_pin">เปลี่ยนรหัส PIN ของคุณ</string>
+    <string name="preferences_app_protection__pin_reminders">เตือนความจำรหัส PIN</string>
+    <string name="preferences_app_protection__turn_off">ปิด</string>
+    <string name="preferences_app_protection__confirm_pin">ยืนยันรหัส PIN</string>
+    <string name="preferences_app_protection__confirm_your_signal_pin">ยืนยันรหัส PIN สำหรับ Signal ของคุณ</string>
+    <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">ตรวจสอบให้แน่ใจว่าคุณสามารถจำหรือเก็บรักษารหัส PIN ได้อย่างปลอดภัย เนื่องจากเราไม่สามารถกู้คืนรหัสให้คุณได้ ถ้าคุณลืมรหัส PIN ข้อมูลของคุณอาจสูญหายเมื่อคุณลงทะเบียนบัญชี Signal อีกครั้ง</string>
+    <string name="preferences_app_protection__incorrect_pin_try_again">PIN ไม่ถูกต้อง โปรดลองอีกครั้ง</string>
+    <string name="preferences_app_protection__registration_lock">กุญแจลงทะเบียน</string>
+    <!-- Option in settings that will take use to re-register if they are no longer registered -->
+    <string name="preferences_account_reregister">ลงทะเบียนบัญชีอีกครั้ง</string>
+    <!-- Option in settings that will take user to our website or playstore to update their expired build -->
+    <string name="preferences_account_update_signal">อัปเดต Signal</string>
+    <!-- Option in settings shown when user is no longer registered or expired client that will WIPE ALL THEIR DATA -->
+    <string name="preferences_account_delete_all_data">ลบข้อมูลทั้งหมด</string>
+    <!-- Title for confirmation dialog confirming user wants to delete all their data -->
+    <string name="preferences_account_delete_all_data_confirmation_title">ลบข้อมูลทั้งหมดหรือไม่</string>
+    <!-- Message in confirmation dialog to delete all data explaining how it works, and that the app will be closed after deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_message">การดำเนินการนี้จะรีเซ็ตแอปและลบข้อความทั้งหมด โดยแอปจะปิดลงหลังจากที่กระบวนการนี้เสร็จสิ้น</string>
+    <!-- Confirmation action to proceed with application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_proceed">ดำเนินการต่อ</string>
+    <!-- Confirmation action to cancel application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_cancel">ยกเลิก</string>
+
+    <!-- AccountSettingsFragment -->
+    <string name="AccountSettingsFragment__account">บัญชี</string>
+    <string name="AccountSettingsFragment__youll_be_asked_less_frequently">ระบบจะสอบถามคุณน้อยลงเรื่อยๆ</string>
+    <string name="AccountSettingsFragment__require_your_signal_pin">ต้องใช้รหัส Signal PIN ในการลงทะเบียนหมายเลขโทรศัพท์ของคุณกับ Signal อีกครั้ง</string>
+    <string name="AccountSettingsFragment__change_phone_number">เปลี่ยนหมายเลขโทรศัพท์</string>
+    <!-- Account setting that allows user to request and export their signal account data -->
+    <string name="AccountSettingsFragment__request_account_data">ข้อมูลบัญชีของคุณ</string>
+    <!-- Section header for the Signal Login section of account settings -->
+    <string name="AccountSettingsFragment__signal_login">Signal Login</string>
+    <!-- Title of the card that opens the user\'s Signal Login account and recovery keys -->
+    <string name="AccountSettingsFragment__account_and_recovery">บัญชีและการกู้คืน</string>
+    <!-- Description of what a Signal Login is, shown below the Signal Login card -->
+    <string name="AccountSettingsFragment__your_signal_login_is_used_to_recover">ใช้ Signal Login เพื่อกู้คืนบัญชีของคุณ โปรดเก็บกุญแจนี้ไว้กับตัวจัดการรหัสผ่านที่คุณมั่นใจว่าปลอดภัย</string>
+    <!-- Section header for the two-factor authentication section of account settings -->
+    <string name="AccountSettingsFragment__two_factor_authentication">การยืนยันตัวตนแบบสองขั้นตอน</string>
+    <!-- Row that opens the menu of second factors the user can add -->
+    <string name="AccountSettingsFragment__set_up">ตั้งชื่อผู้ใช้</string>
+    <!-- Menu option that starts setting up an authenticator app -->
+    <string name="AccountSettingsFragment__authenticator_app">แอปยืนยันตัวตน (Authenticator App)</string>
+    <!-- Description of the authenticator app menu option -->
+    <string name="AccountSettingsFragment__one_time_verification_codes">รหัสยืนยันแบบใช้ครั้งเดียว</string>
+    <!-- Name of a passkey in the list of second factors on the account -->
+    <string name="AccountSettingsFragment__passkey">พาสคีย์ (Passkey)</string>
+    <!-- Description of the passkey menu option -->
+    <string name="AccountSettingsFragment__use_your_fingerprint_face_or_screen_lock">ใช้ลายนิ้วมือ ใบหน้า หรือรหัสล็อกหน้าจอของคุณ</string>
+    <!-- Default name given to a passkey before the user chooses one -->
+    <string name="AccountSettingsRepository__passkey">พาสคีย์ (Passkey)</string>
+    <!-- Name given to a second factor added by a newer version of Signal that this one doesn\'t recognize -->
+    <string name="AccountSettingsFragment__two_factor_method">วิธียืนยันแบบสองขั้นตอน</string>
+    <!-- Subtitle of a second factor saying what kind it is and when it was added. First placeholder is the kind, second is a date or time. -->
+    <string name="AccountSettingsFragment__s_added_s">%1$s · เพิ่มเมื่อ %2$s</string>
+    <!-- Name shown for a second factor whose details couldn\'t be read -->
+    <string name="AccountSettingsFragment__unknown">ไม่ทราบ</string>
+    <!-- Content description of the button that opens a second factor\'s options -->
+    <string name="AccountSettingsFragment__open_two_factor_options">เปิดตัวเลือกการยืนยันตัวตนแบบสองขั้นตอน</string>
+    <!-- Menu option that renames a second factor -->
+    <string name="AccountSettingsFragment__rename">เปลี่ยนชื่อ</string>
+    <!-- Menu option that removes a second factor -->
+    <string name="AccountSettingsFragment__remove">ลบ</string>
+    <!-- Title of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__remove_authenticator_app">ลบแอปยืนยันตัวตนใช่หรือไม่</string>
+    <!-- Body of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_app">คุณจะไม่สามารถใช้แอปนี้ในการรับรหัสยืนยันแบบใช้ครั้งเดียวเมื่อลงชื่อเข้าใช้</string>
+    <!-- Title of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__remove_passkey">ลบพาสคีย์ใช่หรือไม่</string>
+    <!-- Body of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_passkey">คุณจะไม่สามารถใช้พาสคีย์นี้เมื่อลงชื่อเข้าใช้</string>
+    <!-- Title of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__remove_two_factor_method">ลบวิธียืนยันแบบสองขั้นตอนใช่หรือไม่</string>
+    <!-- Body of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_method">คุณจะไม่สามารถใช้วิธีนี้เมื่อลงชื่อเข้าใช้</string>
+    <!-- Toast shown after a second factor has been removed from the account -->
+    <string name="AccountSettingsFragment__two_factor_method_removed">ลบวิธียืนยันแบบสองขั้นตอนแล้ว</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a second factor -->
+    <string name="AccountSettingsFragment__couldnt_remove_two_factor_method">ไม่สามารถลบวิธียืนยันแบบสองขั้นตอนได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <!-- Toast shown after a passkey has been removed from the account -->
+    <string name="AccountSettingsFragment__passkey_removed">ลบพาสคีย์แล้ว</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a passkey -->
+    <string name="AccountSettingsFragment__couldnt_remove_passkey">ไม่สามารถลบพาสคีย์ได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <!-- Toast shown when the device has no passkey provider set up to create a passkey with -->
+    <string name="AccountSettingsFragment__no_passkey_provider">โปรดตั้งค่าตัวจัดการรหัสผ่านที่รองรับพาสคีย์บนอุปกรณ์เครื่องนี้แล้วลองอีกครั้ง</string>
+    <!-- Toast shown when creating a passkey didn\'t work -->
+    <string name="AccountSettingsFragment__couldnt_create_passkey">ไม่สามารถสร้างพาสคีย์ได้ โปรดลองอีกครั้ง</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__unlock_to_add_two_factor_method">ปลดล็อกเพื่อเพิ่มวิธียืนยันแบบสองขั้นตอน</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__to_add_this_method_confirm_its_you">โปรดยืนยันตัวตนเพื่อเพิ่มวิธีนี้</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__unlock_to_remove_two_factor_method">ปลดล็อกเพื่อลบวิธียืนยันแบบสองขั้นตอน</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__to_remove_this_method_confirm_its_you">โปรดยืนยันตัวตนเพื่อลบวิธีนี้</string>
+    <!-- Title of the device screen lock prompt shown before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__unlock_to_view_signal_login">ปลดล็อกเพื่อดู Signal Login</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__to_view_your_signal_login_confirm_its_you">โปรดยืนยันตัวตนเพื่อดู Signal Login ของคุณ</string>
+    <!-- Title of the device screen lock prompt shown before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__unlock_to_confirm_its_you">โปรดยืนยันตัวตนด้วยการปลดล็อก</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__to_delete_your_account_confirm_its_you">โปรดยืนยันตัวตนเพื่อลบบัญชีของคุณ</string>
+    <!-- Toast shown when the device screen lock wasn\'t confirmed, so nothing happened -->
+    <string name="AccountSettingsFragment__authentication_required">ต้องใช้การรับรองความถูกต้อง</string>
+    <!-- Title of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__cant_add_authenticator_app">ไม่สามารถเพิ่มแอปยืนยันตัวตน</string>
+    <!-- Body of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d">ไม่สามารถเพิ่มแอปยืนยันตัวตนเกิน %1$d แอป โปรดลบแอปเดิมออกหนึ่งแอป</string>
+    <!-- Body of the dialog shown when the account has room for another authenticator app but already has as many two-factor methods of all kinds as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d_two_factor_methods">ไม่สามารถเพิ่มวิธียืนยันตัวตนแบบสองขั้นตอนเกิน %1$d วิธี โปรดลองลบออกหนึ่งวิธี</string>
+    <!-- Shown in place of the list when we couldn\'t work out which second factors are on the account -->
+    <string name="AccountSettingsFragment__couldnt_load_your_two_factor_methods">ไม่สามารถโหลดวิธียืนยันตัวตนแบบสองขั้นตอนของคุณได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <!-- Toast shown after an authenticator app has been removed -->
+    <string name="AccountSettingsFragment__authenticator_app_removed">ลบแอปยืนยันตัวตนแล้ว</string>
+    <!-- Toast shown when an authenticator app couldn\'t be removed -->
+    <string name="AccountSettingsFragment__couldnt_remove_authenticator_app">ไม่สามารถลบแอปยืนยันตัวตนได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <!-- Description of two-factor authentication, shown below the two-factor authentication list -->
+    <string name="AccountSettingsFragment__use_a_second_form_of_authentication">ใช้การยืนยันตัวตนชั้นที่สองเพื่อปกป้องบัญชีของคุณเมื่อคุณใช้ Signal Login บนอุปกรณ์เครื่องใหม่</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="AccountSettingsFragment__learn_more">เรียนรู้เพิ่มเติม</string>
+
+    <!-- ExportAccountDataFragment -->
+  <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
+    <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
+    <string name="ExportAccountDataFragment__your_account_data">ข้อมูลบัญชีของคุณ</string>
+    <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
+    <string name="ExportAccountDataFragment__export_explanation">ส่งออกรายงานข้อมูลบัญชี Signal ของคุณ โดยรายงานนี้จะไม่มีข้อความหรือสื่อใดๆ %1$s</string>
+    <!-- Learn more link to more information about requesting account data -->
+    <string name="ExportAccountDataFragment__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Button action to export the report data to another app (e.g. email) -->
+    <string name="ExportAccountDataFragment__export_report">ส่งออกรายงาน</string>
+
+    <!-- Radio option to export the data as a text file .txt -->
+    <string name="ExportAccountDataFragment__export_as_txt">ส่งออกเป็นไฟล์ TXT</string>
+    <!-- Label for the text file option -->
+    <string name="ExportAccountDataFragment__export_as_txt_label">ไฟล์ข้อความที่อ่านง่าย</string>
+    <!-- Radio option to export the data as a json (java script object notation) file .json -->
+    <string name="ExportAccountDataFragment__export_as_json">ส่งออกเป็นไฟล์ JSON</string>
+    <!-- Label for the json file option, the account data in a machine readable file format -->
+    <string name="ExportAccountDataFragment__export_as_json_label">ไฟล์ที่คอมพิวเตอร์อ่านได้</string>
+
+    <!-- Action to cancel (in a dialog) -->
+    <string name="ExportAccountDataFragment__cancel_action">ยกเลิก</string>
+
+    <!-- Acknowledgement for download failure -->
+    <string name="ExportAccountDataFragment__ok_action">ตกลง</string>
+    <!-- Title of dialog shown when report fails to generate -->
+    <string name="ExportAccountDataFragment__report_generation_failed">ไม่สามารถสร้างรายงานได้</string>
+    <!-- Message of dialog shown when report fails to generate asking user to check network connection -->
+    <string name="ExportAccountDataFragment__check_network">กรุณาตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+
+    <!-- Title for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation">ส่งออกข้อมูลใช่หรือไม่</string>
+    <!-- Message for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation_message">เราขอแนะนำให้แชร์ข้อมูลบัญชี Signal ของคุณให้กับคนรู้จักหรือแอปที่คุณไว้วางใจเท่านั้น</string>
+    <!-- Action to export in for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_action">ส่งออก</string>
+
+    <!-- Shown in a dialog with a spinner while the report is downloading -->
+    <string name="ExportAccountDataFragment__download_progress">กำลังสร้างรายงาน…</string>
+    <!-- Explanation that the report is only generated on export and is not saved on the device -->
+    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">รายงานจะถูกสร้างในตอนที่ส่งออกเท่านั้น และ Signal จะไม่จัดเก็บรายงานไว้บนอุปกรณ์ของคุณ</string>
+
+    <!-- TotpSetupScreen -->
+    <!-- Title of the screen that walks the user through setting up an authenticator app -->
+    <string name="TotpSetupScreen__set_up_your_authenticator_app">ตั้งค่าแอปยืนยันตัวตนของคุณ</string>
+    <!-- Instructions shown at the top of the authenticator app setup screen -->
+    <string name="TotpSetupScreen__follow_these_steps">โปรดทำตามขั้นตอนต่อไปนี้เพื่อตั้งค่าแอปยืนยันตัวตนของคุณ</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="TotpSetupScreen__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Header of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_1">ขั้นตอนที่ 1</string>
+    <!-- Body of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__install_a_trusted_authenticator_app">ติดตั้งแอปยืนยันตัวตนที่คุณมั่นใจว่าปลอดภัยบนอุปกรณ์</string>
+    <!-- Header of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_2">ขั้นตอนที่ 2</string>
+    <!-- Body of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__open_your_authenticator_app">เปิดแอปยืนยันตัวตนนั้นโดยแตะที่ปุ่มด้านล่างเพื่อเพิ่มบัญชี Signal ของคุณ</string>
+    <!-- Button that opens the user\'s authenticator app -->
+    <string name="TotpSetupScreen__open">เปิด</string>
+    <!-- Text above the setup key explaining that it can be entered by hand instead -->
+    <string name="TotpSetupScreen__or_you_can_copy_this_key">หรือคัดลอกกุญแจนี้เพื่อตั้งค่าด้วยตัวเอง</string>
+    <!-- Button that copies the setup key to the clipboard -->
+    <string name="TotpSetupScreen__copy">คัดลอก</string>
+    <!-- Toast shown after the setup key has been copied to the clipboard -->
+    <string name="TotpSetupScreen__copied_to_clipboard">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
+    <!-- Toast shown when there is no app installed that can handle the authenticator setup link -->
+    <string name="TotpSetupScreen__no_authenticator_app_found">ไม่พบแอปยืนยันตัวตน</string>
+    <!-- Dialog message shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="TotpSetupScreen__you_cant_add_more_than_d">ไม่สามารถเพิ่มแอปยืนยันตัวตนเกิน %1$d แอป โปรดลบแอปเดิมออกหนึ่งแอป</string>
+    <!-- Dialog message shown when we couldn\'t reach the service to start setting up an authenticator app -->
+    <string name="TotpSetupScreen__couldnt_reach_signal">ไม่สามารถเข้าถึง Signal ได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <!-- Header of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_3">ขั้นตอนที่ 3</string>
+    <!-- Body of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__copy_the_code_thats_generated">คัดลอกรหัสที่แอปสร้าง จากนั้นกลับมาที่หน้านี้เพื่อดำเนินการต่อ</string>
+    <!-- Button that advances from the setup instructions to entering a code -->
+    <string name="TotpSetupScreen__continue">ทำต่อ</string>
+
+    <!-- PasskeySetupScreen -->
+    <!-- Title of the screen that explains passkeys before the user sets one up -->
+    <string name="PasskeySetupScreen__passkeys">พาสคีย์ (Passkey)</string>
+    <!-- Explanation of what passkeys are, shown above a "Learn more" link -->
+    <string name="PasskeySetupScreen__with_passkeys_you_can_easily_add">เพิ่มการยืนยันตัวตนชั้นที่สองให้บัญชีของคุณปลอดภัยได้ง่ายๆ ด้วยพาสคีย์ โดยพาสคีย์จะใช้ข้อมูลไบโอเมตริกของอุปกรณ์คุณหรือกุญแจความปลอดภัยที่รองรับ FIDO2</string>
+    <!-- Link that opens a support article about passkeys -->
+    <string name="PasskeySetupScreen__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Bullet point explaining that the user can name their passkey -->
+    <string name="PasskeySetupScreen__give_your_passkey_a_friendly_name">ตั้งชื่อพาสคีย์ที่คุณจะสามารถจำได้</string>
+    <!-- Bullet point explaining where the passkey is stored -->
+    <string name="PasskeySetupScreen__use_your_devices_biometrics">ใช้ข้อมูลไบโอเมตริกของอุปกรณ์คุณหรือกุญแจความปลอดภัยที่รองรับ FIDO2 ในการเก็บพาสคีย์ของคุณ</string>
+    <!-- Bullet point explaining that passkeys can be managed later -->
+    <string name="PasskeySetupScreen__add_or_remove_passkeys_at_any_time">คุณสามารถเพิ่มหรือลบพาสคีย์ได้ทุกเมื่อ</string>
+    <!-- Button that starts creating a passkey -->
+    <string name="PasskeySetupScreen__set_up_a_passkey">ตั้งค่าพาสคีย์</string>
+    <!-- Title of the dialog shown when the account already has as many two-factor methods as it\'s allowed -->
+    <string name="PasskeySetupScreen__cant_add_passkey">ไม่สามารถเพิ่มพาสคีย์ได้</string>
+    <!-- Body of the dialog shown when the account already has as many two-factor methods as it\'s allowed. %1$d is the limit. -->
+    <string name="PasskeySetupScreen__you_cant_add_more_than_d_two_factor_methods">ไม่สามารถเพิ่มวิธียืนยันตัวตนแบบสองขั้นตอนเกิน %1$d วิธี โปรดลองลบออกหนึ่งวิธี</string>
+
+    <!-- TotpCodeEntryScreen -->
+    <!-- Title of the screen where the user enters the code from their authenticator app -->
+    <string name="TotpCodeEntryScreen__enter_your_code">ใส่รหัสของคุณ</string>
+    <!-- Instructions shown above the code entry field -->
+    <string name="TotpCodeEntryScreen__enter_the_6_digit_code">ใส่รหัส 6 หลักจากแอปยืนยันตัวตนของคุณ</string>
+    <!-- Button that submits the entered code -->
+    <string name="TotpCodeEntryScreen__next">ดำเนินการต่อ</string>
+    <!-- Error shown under the code field when the code the user entered was rejected -->
+    <string name="TotpCodeEntryScreen__incorrect_code">รหัสไม่ถูกต้อง โปรดใส่รหัสที่แอปยืนยันตัวตนของคุณแสดงอยู่ขณะนี้</string>
+    <!-- Error shown under the code field when we couldn\'t reach the service to check the code -->
+    <string name="TotpCodeEntryScreen__couldnt_reach_signal">ไม่สามารถเข้าถึง Signal ได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+
+    <!-- Default name given to an authenticator app the moment it\'s set up, before the user chooses their own name for it -->
+    <string name="TotpRepository__authenticator">แอปยืนยันตัวตน</string>
+
+    <!-- TwoFactorNameEntryScreen -->
+    <!-- Title of the screen where the user names a second factor -->
+    <string name="TwoFactorNameEntryScreen__choose_a_name">เลือกชื่อ</string>
+    <!-- Instructions shown above the name field when renaming an authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name">ตั้งชื่อเฉพาะให้แอปยืนยันตัวตนแอปนี้</string>
+    <!-- Instructions shown above the name field when naming a newly configured authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_to_help_you_identify_it">ตั้งชื่อเฉพาะให้แอปยืนยันตัวตนแอปนี้ที่จะช่วยให้คุณจำได้ในภายหลัง</string>
+    <!-- Instructions shown above the name field when renaming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method">ตั้งชื่อเฉพาะให้วิธียืนยันแบบสองขั้นตอนนี้</string>
+    <!-- Instructions shown above the name field when naming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method_to_help_you_identify_it">ตั้งชื่อเฉพาะให้วิธียืนยันแบบสองขั้นตอนนี้ที่จะช่วยให้คุณจำได้ในภายหลัง</string>
+    <!-- Instructions shown above the name field when renaming a passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey">ตั้งชื่อเฉพาะให้พาสคีย์นี้</string>
+    <!-- Instructions shown above the name field when naming a newly created passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey_to_help_you_identify_it">ตั้งชื่อเฉพาะให้พาสคีย์นี้ที่จะช่วยให้คุณจำได้ในภายหลัง</string>
+    <!-- Label of the name field -->
+    <string name="TwoFactorNameEntryScreen__name">ชื่อ</string>
+    <!-- Button that submits the entered name -->
+    <string name="TwoFactorNameEntryScreen__next">ดำเนินการต่อ</string>
+    <!-- Toast shown after an authenticator app has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_set_up">ตั้งค่าแอปยืนยันตัวตนแล้ว</string>
+    <!-- Toast shown after an authenticator app has been renamed -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_renamed">เปลี่ยนชื่อแอปยืนยันตัวตนแล้ว</string>
+    <!-- Toast shown after a passkey has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__passkey_set_up">ตั้งค่าพาสคีย์แล้ว</string>
+    <!-- Toast shown after a passkey has been renamed -->
+    <string name="TwoFactorNameEntryScreen__passkey_renamed">เปลี่ยนชื่อพาสคีย์แล้ว</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been set up -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_set_up">ตั้งค่าวิธียืนยันแบบสองขั้นตอนแล้ว</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been renamed -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_renamed">เปลี่ยนชื่อวิธียืนยันแบบสองขั้นตอนแล้ว</string>
+    <!-- Toast shown when we couldn\'t reach the service to save the name -->
+    <string name="TwoFactorNameEntryScreen__couldnt_save_name">ไม่สามารถบันทึกชื่อได้ โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+
+    <!-- DeleteAccountScreen -->
+    <!-- DeleteAccountFragment -->
+    <string name="DeleteAccountFragment__deleting_your_account_will">การลบบัญชีของคุณจะเป็นการ:</string>
+    <string name="DeleteAccountFragment__enter_your_phone_number">ป้อนหมายเลขโทรศัพท์ของคุณ</string>
+    <string name="DeleteAccountFragment__delete_account">ลบบัญชี</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">ลบข้อมูลบัญชีและรูปโปรไฟล์ของคุณ</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">ลบข้อความทั้งหมดของคุณ</string>
+    <string name="DeleteAccountFragment__delete_s_in_your_payments_account">ลบ %1$s ในบัญชีการชำระเงินของคุณ</string>
+    <string name="DeleteAccountFragment__no_country_code">ไม่มีรหัสประเทศระบุไว้</string>
+    <string name="DeleteAccountFragment__no_number">ไม่มีหมายเลขระบุไว้</string>
+    <string name="DeleteAccountFragment__the_phone_number">หมายเลขโทรศัพท์ที่คุณป้อนไม่ตรงกับหมายเลขในบัญชีคุณ</string>
+    <string name="DeleteAccountFragment__are_you_sure">คุณแน่ใจหรือไม่ว่าต้องการลบบัญชี</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">การดำเนินการนี้จะลบบัญชี Signal ของคุณและรีเซ็ตแอปใหม่ โดยแอปจะปิดลงหลังจากที่กระบวนการนี้เสร็จสิ้น</string>
+    <string name="DeleteAccountFragment__failed_to_delete_local_data">ลบข้อมูลในเครื่องไม่สำเร็จ คุณสามารถล้างข้อมูลเองได้ในการตั้งค่าแอปพลิเคชันของระบบ</string>
+    <string name="DeleteAccountFragment__launch_app_settings">การตั้งค่าการเริ่มแอป</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
+    <string name="DeleteAccountFragment__leaving_groups">กำลังออกจากกลุ่ม…</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_account">กำลังลบบัญชี…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is canceling their subscription -->
+    <string name="DeleteAccountFragment__canceling_your_subscription">กำลังยกเลิกการเป็นสมาชิกของคุณ…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is leaving groups -->
+    <string name="DeleteAccountFragment__depending_on_the_number_of_groups">สิ่งนี้อาจจะใช้เวลาเล็กน้อย ขึ้นอยู่กับจำนวนกลุ่มที่คุณอยู่</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_all_user_data_and_resetting">กำลังลบข้อมูลผู้ใช้งานและรีเซ็ตแอป</string>
+    <!-- Title of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__account_not_deleted">บัญชีไม่ได้ถูกลบ</string>
+    <!-- Message of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__there_was_a_problem">กระบวนการลบมีปัญหา ตรวจสอบการเชื่อมต่อเครือข่าย แล้วลองอีกครั้ง</string>
+    <!-- Body text above the bullet list on the delete account screen, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__deleting_your_account_with_username_s_will">การลบบัญชีในชื่อผู้ใช้ \"%1$s\" ของคุณจะเป็นการ:</string>
+    <!-- Bullet point on the delete account screen, shown in place of the plain one when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__delete_your_account_info_and_profile_photo_including_your_username_s">ลบข้อมูลบัญชีและรูปโปรไฟล์ของคุณ รวมถึงชื่อผู้ใช้ \"%1$s\"</string>
+    <!-- Bullet point on the delete account screen warning the user that the deletion is permanent -->
+    <string name="DeleteAccountScreen__this_action_can_not_be_undone">เมื่อดำเนินการแล้วจะไม่สามารถแก้ไขหรือเปลี่ยนแปลงได้</string>
+    <!-- Message of the deletion confirmation dialog, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__this_will_delete_your_signal_account_with_username_s">การดำเนินการนี้จะลบบัญชี Signal ในชื่อผู้ใช้ \"%1$s\" ของคุณและรีเซ็ตแอปใหม่ โดยแอปจะปิดลงหลังจากที่กระบวนการนี้เสร็จสิ้น</string>
+    <!-- Label of the checkbox the user has to tick in the confirmation dialog before they can delete their account -->
+    <string name="DeleteAccountScreen__yes_delete_my_account">ใช่ ฉันต้องการลบบัญชี</string>
+
+    <!-- InviteScreen -->
+    <!-- Title of the screen where the user invites friends to join Signal -->
+    <string name="InviteScreen__invite_friends">เชิญเพื่อน</string>
+    <!-- Share button on invite screen to open the system share sheet -->
+    <string name="InviteScreen__share">แชร์</string>
+
+    <!-- Shared with the registration screens -->
+    <string name="RegistrationActivity_select_your_country">เลือกประเทศของคุณ</string>
+    <string name="RegistrationActivity_phone_number_description">หมายเลขโทรศัพท์</string>
+
+    <!-- ChatsSettingsFragment -->
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="other">%1$d โฟลเดอร์</item>
+    </plurals>
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
+    <string name="ChatsSettingsFragment__add_chat_folder">เพิ่มโฟลเดอร์แชท</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">เพิ่มหรือแก้ไขโฟลเดอร์</string>
+    <!-- Snackbar shown when biometric authentication fails before a chat export -->
+    <string name="ChatsSettingsFragment__authentication_failed">รับรองความถูกต้องไม่สำเร็จ</string>
+    <!-- Heading within chats settings for chat folders -->
+    <string name="ChatsSettingsFragment__chat_folders">โฟลเดอร์แชท</string>
+    <!-- Row title for the option to export chat history as a plaintext archive -->
+    <string name="ChatsSettingsFragment__export_chat_history">ส่งออกประวัติการแชท</string>
+    <!-- Row description for the plaintext chat export option -->
+    <string name="ChatsSettingsFragment__export_chat_history_label">ส่งออกแชททั้งหมดของคุณเป็นไฟล์ที่คอมพิวเตอร์อ่านได้ (JSON) โดยการส่งออกจะไม่รวมข้อความที่จะหายไป</string>
+    <string name="ChatsSettingsFragment__keyboard">แป้นพิมพ์</string>
+    <string name="ChatsSettingsFragment__send_with_enter">กด Enter เพื่อส่ง</string>
+    <!-- Title of the toggle row in chat settings that controls whether stickers and GIFs play automatically -->
+    <string name="ChatsSettingsFragment__autoplay_stickers_and_gifs">เล่นสติกเกอร์และไฟล์ GIF อัตโนมัติ</string>
+    <!-- Description beneath the autoplay stickers and GIFs toggle row in chat settings -->
+    <string name="ChatsSettingsFragment__when_turned_on_stickers_and_gifs_will_play_automatically">หากเปิดใช้งาน สติกเกอร์และไฟล์ GIF จะเล่นเองโดยอัตโนมัติ</string>
+    <!-- Biometrics prompt title shown before allowing the user to export chat history -->
+    <string name="ChatsSettingsFragment__unlock_to_export_chat_history">ปลดล็อกเพื่อส่งออกประวัติการแชท</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">แสดงรูปภาพผู้ติดต่อจากสมุดรายชื่อของคุณ (หากมี)</string>
+    <string name="preferences__generate_link_previews">กำลังสร้างภาพตัวอย่างลิงก์</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">แชทที่ปิดเสียงไว้ในที่เก็บถาวรจะยังคงเก็บถาวรอยู่เมื่อมีข้อความใหม่มาถึง</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">เก็บแชทที่ปิดเสียงถาวร</string>
+    <string name="preferences__pref_use_address_book_photos">ใช้รูปภาพจากสมุดรายชื่อผู้ติดต่อ</string>
+    <string name="preferences__retrieve_link_previews_from_websites_for_messages">เรียกภาพตัวอย่างลิงก์โดยตรงจากเว็บไซต์สำหรับข้อความที่คุณส่ง</string>
+    <string name="preferences_advanced__use_system_emoji">ใช้อีโมจิของระบบ</string>
+    <string name="preferences_chats__chats">แชท</string>
+
+    <!-- ChatExportDialogs -->
+    <!-- Bold warning prefix in the export complete dialog body -->
+    <string name="ChatExportDialogs__be_careful">โปรดระวัง</string>
+    <!-- Bold warning prefix in the export confirmation dialog body -->
+    <string name="ChatExportDialogs__be_careful_warning">โปรดระวัง!</string>
+    <!-- Progress dialog message shown while canceling an in-progress chat export -->
+    <string name="ChatExportDialogs__canceling_export">กำลังยกเลิกการส่งออก…</string>
+    <!-- Body of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_body">เลือกโฟลเดอร์ในอุปกรณ์ซึ่งคุณต้องการใช้จัดเก็บประวัติการแชท</string>
+    <!-- Title of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_title">เลือกโฟลเดอร์</string>
+    <!-- Button that opens the system folder picker -->
+    <string name="ChatExportDialogs__choose_folder_button">เลือกโฟลเดอร์</string>
+    <!-- Body of the export complete dialog, displayed after the bold "BE CAREFUL" prefix -->
+    <string name="ChatExportDialogs__complete_body">และจัดเก็บไฟล์ส่งออกประวัติการแชทของคุณไว้ในที่ปลอดภัย รวมถึงไม่แชร์ไฟล์นี้กับใคร แอปอื่นๆ ในอุปกรณ์คุณจะสามารถเข้าถึงไฟล์นี้ได้โดยขึ้นอยู่กับการอนุญาตสิทธิ์ของอุปกรณ์</string>
+    <!-- Title of the dialog shown when a chat export finishes successfully -->
+    <string name="ChatExportDialogs__complete_title">ส่งออกแชทเรียบร้อยแล้ว</string>
+    <!-- Title of the dialog asking the user to confirm they want to export chat history -->
+    <string name="ChatExportDialogs__export_chat_history_title">ส่งออกประวัติการแชทใช่หรือไม่</string>
+    <!-- Body of the export confirmation dialog, displayed after the bold "BE CAREFUL!" prefix -->
+    <string name="ChatExportDialogs__export_confirm_body">อย่าแชร์ไฟล์นี้กับใคร ประวัติการแชทของคุณจะถูกบันทึกลงในอุปกรณ์คุณ และแอปอื่นๆ จะสามารถเข้าถึงไฟล์นี้ได้โดยขึ้นอยู่กับการอนุญาตสิทธิ์ของอุปกรณ์ การส่งออกที่รวมไฟล์สื่อจะทำให้ไฟล์มีขนาดใหญ่ขึ้น</string>
+    <!-- Button in the export confirmation dialog to export messages and media -->
+    <string name="ChatExportDialogs__export_with_media">ส่งออกโดยรวมไฟล์สื่อ</string>
+    <!-- Button in the export confirmation dialog to export messages only -->
+    <string name="ChatExportDialogs__export_without_media">ส่งออกโดยไม่รวมไฟล์สื่อ</string>
+
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">กำลังส่งออกไฟล์สื่อ: %1$d%%</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">กำลังดำเนินการให้เสร็จสิ้น…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">กำลังเตรียมการสำรองข้อมูล…</string>
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">กำลังประมวลผลข้อมูลสำรอง…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">กำลังประมวลผลข้อความ…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">กำลังประมวลผลข้อความ: %1$s จาก %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">กำลังอัปโหลดไฟล์สื่อ: %1$d%%</string>
+
+    <!-- AppUpdatesSettingsScreen -->
+    <!-- Title of the app updates settings screen -->
+    <string name="preferences_app_updates__title">รุ่นอัปเดตของแอป</string>
+
+    <!-- AppearanceSettingsScreen -->
+    <string name="preferences__appearance">ลักษณะ</string>
+    <string name="preferences__language">ภาษา</string>
+    <string name="preferences__theme">ธีม</string>
+    <string name="preferences__system_default">ค่าเริ่มต้นของระบบ</string>
+    <string name="preferences__light_theme">สว่าง</string>
+    <string name="preferences__dark_theme">มืด</string>
+    <string name="preferences__chat_color_and_wallpaper">สีและภาพพื้นหลังแชท</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">ไอคอนของแอป</string>
+    <string name="preferences_chats__message_text_size">ขนาดอักษรของข้อความ</string>
+    <string name="arrays__small">เล็ก</string>
+    <string name="arrays__normal">ปกติ</string>
+    <string name="arrays__large">ใหญ่</string>
+    <string name="arrays__extra_large">ใหญ่พิเศษ</string>
+    <!-- Preference title for changing navigation (bottom) bar size -->
+    <string name="preferences_navigation_bar_size">ขนาดของแถบนำทาง</string>
+    <!-- Preference summary for normal navigation bar size -->
+    <string name="preferences_normal">ปกติ</string>
+    <!-- Preference summary for compact navigation bar size -->
+    <string name="preferences_compact">กะทัดรัด</string>
+    <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
+    <string name="preferences_language_change_confirmation_message">แอปจะรีสตาร์ทเพื่อเปลี่ยนภาษา</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">หมายเลขโทรศัพท์</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">คนที่สามารถเห็นหมายเลขโทรศัพท์ของฉัน</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">ผู้ใช้และกลุ่มที่คุณส่งข้อความหาจะเห็นหมายเลขโทรศัพท์ของคุณ</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">จะไม่มีใครเห็นหมายเลขโทรศัพท์ของคุณ เว้นแต่ว่าคนคนนั้นจะบันทึกเบอร์คุณไว้ในรายชื่อผู้ติดต่อบนโทรศัพท์</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">จะไม่มีใครเห็นหมายเลขโทรศัพท์ของคุณ</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">คนที่สามารถใช้หมายเลขโทรศัพท์ค้นหาฉันได้</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Signal และจะสามารถเริ่มแชทกับคุณได้</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">จะไม่มีใครเห็นว่าคุณใช้งาน Signal เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"หากต้องการเปลี่ยนการตั้งค่านี้ ให้ไปที่หัวข้อ “คนที่สามารถเห็นหมายเลขโทรศัพท์ของฉัน” แล้วเลือก “ไม่อนุญาตให้ใครเห็น”"</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ต้องการดำเนินการต่อหรือไม่</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">การตั้งค่า \"คนที่สามารถใช้หมายเลขโทรศัพท์ค้นหาฉันได้\" เป็น \"ไม่อนุญาตให้ใครค้นหา\" จะทำให้ผู้ใช้คนอื่นค้นหาคุณได้ยากขึ้นบน Signal</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">ยกเลิก</string>
+    <string name="PhoneNumberPrivacy_everyone">ทุกคน</string>
+    <string name="PhoneNumberPrivacy_nobody">คนที่คุณไม่รู้จัก</string>
+    <string name="arrays__images">รูปภาพ</string>
+    <string name="arrays__audio">เสียง</string>
+    <string name="arrays__video">วิดีโอ</string>
+    <string name="arrays__documents">เอกสาร</string>
+    <string name="preferences__data_and_storage">ข้อมูลและที่เก็บ</string>
+    <string name="preferences_chats__when_using_mobile_data">เมื่อใช้อินเทอร์เน็ตมือถือ</string>
+    <string name="preferences_chats__when_using_wifi">เมื่อใช้ Wi-Fi</string>
+    <string name="preferences_chats__when_roaming">เมื่อใช้บริการข้ามแดนอัตโนมัติ (โรมมิ่ง)</string>
+    <string name="preferences_chats__media_auto_download">ดาวน์โหลดสื่ออัตโนมัติ</string>
+    <string name="preferences_data_and_storage__manage_storage">จัดการพื้นที่จัดเก็บ</string>
+    <string name="preferences_data_and_storage__use_less_data_for_calls">ใช้อินเทอร์เน็ตน้อยลงในการโทร</string>
+    <string name="preferences_data_and_storage__never">ไม่เลย</string>
+    <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi และอินเทอร์เน็ตมือถือ</string>
+    <string name="preferences_data_and_storage__mobile_data_only">อินเทอร์เน็ตมือถือเท่านั้น</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">การใช้อินเทอร์เน็ตมือถือน้อยลงอาจช่วยปรับปรุงการโทรบนเครือข่ายที่ไม่เสถียร</string>
+    <string name="preferences_proxy">พร็อกซี</string>
+    <string name="preferences_use_proxy">ใช้พร็อกซี</string>
+    <!-- DataAndStorageSettingsFragment -->
+    <string name="DataAndStorageSettingsFragment__media_quality">คุณภาพของสื่อ</string>
+    <!-- Label shown on the manage storage row while total storage usage is still being computed -->
+    <string name="DataAndStorageSettingsFragment__calculating">กำลังคำนวณ…</string>
+    <!-- Category title for the quality of the media to be sent -->
+    <string name="DataAndStorageSettingsFragment__sent_media_quality">ส่งคุณภาพสื่อแล้ว</string>
+    <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">การส่งสื่อคุณภาพสูงจะใช้ข้อมูลมากขึ้น</string>
+    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">ระบบจะดาวน์โหลดข้อความเสียงและสติกเกอร์ (ต่ำกว่า %1$s) โดยอัตโนมัติเสมอ</string>
+    <string name="DataAndStorageSettingsFragment__calls">การโทร</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">เชื่อมต่อเสมอในพื้นหลัง</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">การทำงานแบบเชื่อมต่อเสมอในพื้นหลังจะทำให้อุปกรณ์ใช้แบตเตอรี่มากขึ้น อุปกรณ์ส่วนใหญ่มักไม่จำเป็นต้องใช้ตัวเลือกนี้ เราขอแนะนำให้เปิดใช้งานในกรณีที่คุณประสบปัญหาเกี่ยวกับการแจ้งเตือนเท่านั้น</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">เปิดใช้งาน</string>
+  <!-- Setting option that can be selected to default media to be sent as high quality by default -->
+  <string name="SentMediaQuality__high">สูง</string>
+  <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
+  <string name="SentMediaQuality__standard">มาตรฐาน</string>
+    <string name="preferences_app_protection__screen_lock">ล็อกหน้าจอ</string>
+    <!-- Text shown with toggle that when switched on will enable screen lock -->
+    <string name="ScreenLockSettingsFragment__use_screen_lock">ใช้การล็อกหน้าจอ</string>
+    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+    <string name="ScreenLockSettingsFragment__your_android_device">ระบบจะใช้รูปแบบการล็อกที่คุณตั้งค่าไว้บนอุปกรณ์ Android มาปลดล็อก Signal เมื่อคุณสลับหรือปิดแอป โดยแถบการแจ้งเตือนจะไม่แสดงเนื้อหาของข้อความในระหว่างที่แอปถูกล็อก</string>
+    <!-- Title text explaining when users should start the screen lock -->
+    <string name="ScreenLockSettingsFragment__start_screen_lock">เริ่มล็อกหน้าจอ</string>
+    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_1_min">ผ่านไป 1 นาที</string>
+    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_5_min">ผ่านไป 5 นาที</string>
+    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_30_min">ผ่านไป 30 นาที</string>
+    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+    <string name="ScreenLockSettingsFragment__custom_time">กำหนดเวลาเอง</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">ใช้การล็อกหน้าจอของ Signal</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">ปิดใช้การล็อกหน้าจอของ Signal</string>
+
+    <!-- HelpSettingsFragment -->
+    <string name="preferences__help">ช่วยเหลือ</string>
+    <string name="HelpSettingsFragment__support_center">ศูนย์ความช่วยเหลือ</string>
+    <string name="HelpSettingsFragment__contact_us">ติดต่อเรา</string>
+    <string name="HelpSettingsFragment__version">รุ่น</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">คัดลอกไปยังคลิปบอร์ดแล้ว</string>
+    <string name="HelpSettingsFragment__debug_log">ปูมดีบัก</string>
+    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+    <string name="HelpSettingsFragment__licenses">ใบอนุญาต</string>
+    <string name="HelpSettingsFragment__terms_amp_privacy_policy">เงื่อนไขและนโยบายความเป็นส่วนตัว</string>
+    <string name="HelpFragment__copyright_signal_messenger">ลิขสิทธิ์ Signal Messenger</string>
+    <string name="HelpFragment__licenced_under_the_agplv3">เผยแพร่ภายใต้สัญญาอนุญาต GNU AGPLv3</string>
+    <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
+    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal เป็นแอปไม่แสวงหาผลกำไร</string>
+
+    <!-- AppIconTutorialScreen -->
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">ไอคอนและชื่อของแอปจะแสดงในหน้าจอหลักและลิ้นชักแอป</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">ภาพกราฟิกแสดงตำแหน่งของไอคอนใหม่ของแอป</string>
+
+    <!-- AppIconSelectionScreen -->
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">อากาศ</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">บันทึก</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">ข่าว</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">คลื่น</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">ตกลง</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">ยกเลิก</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">เปลี่ยนไอคอนและชื่อของแอปเป็น \"%1$s\"</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Signal ต้องปิดแอปก่อน จึงจะเปลี่ยนไอคอนและชื่อของแอปได้ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">เลือกไอคอนและชื่อของแอป ซึ่งจะแสดงในหน้าจอหลักและลิ้นชักแอปของโทรศัพท์คุณ โดยระบบจะแสดงชื่อและไอคอนเริ่มต้นของแอป Signal ในการแจ้งเตือนเสมอ เรียนรู้เพิ่มเติม</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">เรียนรู้เพิ่มเติม</string>
+
+    <!-- QrCodeBadge -->
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">ยังไม่ได้ตั้งค่าลิงก์</string>
+
+    <!-- UsernameLinkQrColorPickerScreen -->
+    <!-- App bar title for the username QR code color picker screen -->
+    <string name="UsernameLinkSettings_color_picker_app_bar_title">สี</string>
+    <!-- Button label for a button that indicates that the user is done changing the current setting -->
+    <string name="UsernameLinkSettings_done_button_label">เสร็จสิ้น</string>
+
+    <!-- NotificationProfileCreatedScreen -->
+    <!-- Title for final screen shown after completing a profile creation -->
+    <string name="NotificationProfileCreated__profile_created">โปรไฟล์ที่สร้างไว้</string>
+    <!-- Call to action button to press to close the created screen and move to the profile details screen -->
+    <string name="NotificationProfileCreated__done">เสร็จสิ้น</string>
+    <!-- Descriptor text shown to indicate how to manually turn a profile on/off -->
+    <string name="NotificationProfileCreated__you_can_turn_your_profile_on_or_off_manually_via_the_menu_on_the_chat_list">คุณสามารถเปิดหรือปิดโปรไฟล์ได้ด้วยตัวเองผ่านทางเมนูที่อยู่บนรายการแชท</string>
+    <!-- Descriptor text shown to indicate you can add a schedule later since you did not add one during create flow -->
+    <string name="NotificationProfileCreated__add_a_schedule_in_settings_to_automate_your_profile">เพิ่มกำหนดการในการตั้งค่าเพื่อทำให้โปรไฟล์เป็นอัตโนมัติ</string>
+    <!-- Descriptor text shown to indicate your profile will follow the schedule set during create flow -->
+    <string name="NotificationProfileCreated__your_profile_will_turn_on_and_off_automatically_according_to_your_schedule">โปรไฟล์ของคุณจะเปิดและปิดอัตโนมัติตามตารางของคุณ</string>
+</resources>

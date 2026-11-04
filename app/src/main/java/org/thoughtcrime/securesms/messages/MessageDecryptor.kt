@@ -13,6 +13,7 @@ import com.squareup.wire.internal.toUnmodifiableList
 import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.LRUCache
 import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.UuidUtil
@@ -38,6 +39,7 @@ import org.signal.libsignal.protocol.groups.state.SenderKeyStore
 import org.signal.libsignal.protocol.message.CiphertextMessage
 import org.signal.libsignal.protocol.message.DecryptionErrorMessage
 import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage
+import org.signal.libsignal.zkgroup.InvalidInputException
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
@@ -57,7 +59,7 @@ import org.thoughtcrime.securesms.messages.protocol.BufferedProtocolStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientIds
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalTrace
 import org.thoughtcrime.securesms.util.asChain
@@ -101,7 +103,7 @@ object MessageDecryptor {
     serverDeliveredTimestamp: Long
   ): Result {
     val selfAci: ACI = SignalStore.account.requireAci()
-    val selfPni: PNI = SignalStore.account.requirePni()
+    val selfPni: PNI? = SignalStore.account.pni
 
     val destination: ServiceId? = ServiceId.parseOrNull(envelope.destinationServiceId, envelope.destinationServiceIdBinary)
 
@@ -121,7 +123,7 @@ object MessageDecryptor {
       val sourceServiceId = ServiceId.parseOrNull(envelope.sourceServiceId, envelope.sourceServiceIdBinary)
 
       if (sourceServiceId != null) {
-        val sender = RecipientId.from(sourceServiceId)
+        val sender = RecipientIds.from(sourceServiceId)
         SignalDatabase.recipients.markNeedsPniSignature(sender)
       } else {
         Log.w(TAG, "${logPrefix(envelope)} Could not mark sender as needing a PNI signature because the sender serviceId was invalid!")
@@ -152,146 +154,166 @@ object MessageDecryptor {
     val localAddress = SignalServiceAddress(destination, SignalStore.account.e164)
     val cipher = SignalServiceCipher(localAddress, SignalStore.account.deviceId, bufferedStore, ReentrantSessionLock.INSTANCE, SealedSenderAccessUtil.getCertificateValidator())
 
-    return try {
-      val startTimeNanos = System.nanoTime()
-      SignalTrace.beginSection("MessageDecryptor#cipherDecrypt")
-      val cipherResult: SignalServiceCipherResult? = cipher.decrypt(envelope, serverDeliveredTimestamp)
+    val startTimeNanos = System.nanoTime()
+    SignalTrace.beginSection("MessageDecryptor#cipherDecrypt")
+
+    val cipherResult: SignalServiceCipherResult? = try {
+      cipher.decrypt(envelope, serverDeliveredTimestamp)
+    } catch (e: Exception) {
+      return buildResultForDecryptionFailure(context, envelope, serverDeliveredTimestamp, followUpOperations, e)
+    } finally {
       SignalTrace.endSection()
-      val endTimeNanos = System.nanoTime()
+    }
 
-      val envelope = if (cipherResult?.metadata?.sourceServiceId != null) {
-        envelope.newBuilder()
-          .sourceServiceIdBinary(cipherResult.metadata.sourceServiceId.toByteString())
-          .sourceDeviceId(cipherResult.metadata.sourceDeviceId)
-          .build()
+    val endTimeNanos = System.nanoTime()
+
+    val hadSealedSenderSource = Util.allAreNull(envelope.sourceServiceId, envelope.sourceServiceIdBinary)
+
+    @Suppress("NAME_SHADOWING")
+    val envelope = if (cipherResult?.metadata?.sourceServiceId != null) {
+      envelope.newBuilder()
+        .sourceServiceIdBinary(cipherResult.metadata.sourceServiceId.toByteString())
+        .sourceDeviceId(cipherResult.metadata.sourceDeviceId)
+        .build()
+    } else {
+      envelope
+    }
+
+    if (cipherResult == null) {
+      Log.w(TAG, "${logPrefix(envelope)} Decryption resulted in a null result!", true)
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+    }
+
+    if (cipherResult.metadata.sourceServiceId is PNI && hadSealedSenderSource) {
+      Log.w(TAG, "${logPrefix(envelope)} Invalid message! Sealed sender used for a PNI.")
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+    }
+
+    Log.d(TAG, "${logPrefix(envelope, cipherResult)} Successfully decrypted the envelope in ${(endTimeNanos - startTimeNanos).nanoseconds.toDouble(DurationUnit.MILLISECONDS).roundedString(2)} ms  (GUID ${UuidUtil.getStringUUID(envelope.serverGuid, envelope.serverGuidBinary)}). Delivery latency: ${serverDeliveredTimestamp - envelope.serverTimestamp!!} ms, Urgent: ${envelope.urgent}")
+
+    val validationResult: EnvelopeContentValidator.Result = EnvelopeContentValidator.validate(envelope, cipherResult.content, SignalStore.account.aci!!, cipherResult.metadata.ciphertextMessageType)
+
+    if (validationResult is EnvelopeContentValidator.Result.Invalid) {
+      Log.w(TAG, "${logPrefix(envelope, cipherResult)} Invalid content! ${validationResult.reason}", validationResult.throwable)
+
+      if (RemoteConfig.internalUser) {
+        postInvalidMessageNotification(context, validationResult.reason)
+      }
+
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+    }
+
+    if (validationResult is EnvelopeContentValidator.Result.UnsupportedDataMessage) {
+      Log.w(TAG, "${logPrefix(envelope, cipherResult)} Unsupported DataMessage! Our version: ${validationResult.ourVersion}, their version: ${validationResult.theirVersion}")
+      return Result.UnsupportedDataMessage(envelope, serverDeliveredTimestamp, cipherResult.toErrorMetadata(), followUpOperations.toUnmodifiableList())
+    }
+
+    // Must handle SKDM's immediately, because subsequent decryptions could rely on it
+    if (cipherResult.content.senderKeyDistributionMessage != null) {
+      handleSenderKeyDistributionMessage(
+        envelope,
+        cipherResult.metadata.sourceServiceId,
+        cipherResult.metadata.sourceDeviceId,
+        SenderKeyDistributionMessage(cipherResult.content.senderKeyDistributionMessage!!.toByteArray()),
+        bufferedProtocolStore.getAciStore()
+      )
+    }
+
+    if (cipherResult.content.pniSignatureMessage != null) {
+      if (cipherResult.metadata.sourceServiceId is ACI) {
+        handlePniSignatureMessage(
+          envelope,
+          bufferedProtocolStore,
+          cipherResult.metadata.sourceServiceId as ACI,
+          cipherResult.metadata.sourceE164,
+          cipherResult.metadata.sourceDeviceId,
+          cipherResult.content.pniSignatureMessage!!
+        )
       } else {
-        envelope
+        Log.w(TAG, "${logPrefix(envelope)} Ignoring PNI signature because the sourceServiceId isn't an ACI!")
       }
+    } else if (cipherResult.content.pniSignatureMessage != null) {
+      Log.w(TAG, "${logPrefix(envelope)} Ignoring PNI signature because the feature flag is disabled!")
+    }
 
-      if (cipherResult == null) {
-        Log.w(TAG, "${logPrefix(envelope)} Decryption resulted in a null result!", true)
-        return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
-      }
+    // TODO We can move this to the "message processing" stage once we give it access to the envelope. But for now it'll stay here.
+    if (envelope.report_spam_token != null && envelope.report_spam_token!!.size > 0) {
+      val sender = RecipientIds.from(cipherResult.metadata.sourceServiceId)
+      SignalDatabase.recipients.setReportingToken(sender, envelope.report_spam_token!!.toByteArray())
+    }
 
-      if (cipherResult.metadata.sourceServiceId is PNI && (envelope.sourceServiceId == null && envelope.sourceServiceIdBinary == null)) {
-        Log.w(TAG, "${logPrefix(envelope)} Invalid message! Sealed sender used for a PNI.")
-        return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
-      }
+    return Result.Success(envelope, serverDeliveredTimestamp, cipherResult.content, cipherResult.metadata, followUpOperations.toUnmodifiableList())
+  }
 
-      Log.d(TAG, "${logPrefix(envelope, cipherResult)} Successfully decrypted the envelope in ${(endTimeNanos - startTimeNanos).nanoseconds.toDouble(DurationUnit.MILLISECONDS).roundedString(2)} ms  (GUID ${UuidUtil.getStringUUID(envelope.serverGuid, envelope.serverGuidBinary)}). Delivery latency: ${serverDeliveredTimestamp - envelope.serverTimestamp!!} ms, Urgent: ${envelope.urgent}")
-
-      val validationResult: EnvelopeContentValidator.Result = EnvelopeContentValidator.validate(envelope, cipherResult.content, SignalStore.account.aci!!, cipherResult.metadata.ciphertextMessageType)
-
-      if (validationResult is EnvelopeContentValidator.Result.Invalid) {
-        Log.w(TAG, "${logPrefix(envelope, cipherResult)} Invalid content! ${validationResult.reason}", validationResult.throwable)
+  private fun buildResultForDecryptionFailure(
+    context: Context,
+    envelope: Envelope,
+    serverDeliveredTimestamp: Long,
+    followUpOperations: MutableList<FollowUpOperation>,
+    e: Exception
+  ): Result {
+    return when (e) {
+      is ProtocolInvalidKeyIdException,
+      is ProtocolInvalidKeyException,
+      is ProtocolUntrustedIdentityException,
+      is ProtocolNoSessionException,
+      is ProtocolInvalidMessageException -> {
+        Log.w(TAG, "${logPrefix(envelope, e)} Decryption error!", e, true)
 
         if (RemoteConfig.internalUser) {
-          postInvalidMessageNotification(context, validationResult.reason)
+          postDecryptionErrorNotification(context)
         }
 
-        return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
-      }
-
-      if (validationResult is EnvelopeContentValidator.Result.UnsupportedDataMessage) {
-        Log.w(TAG, "${logPrefix(envelope, cipherResult)} Unsupported DataMessage! Our version: ${validationResult.ourVersion}, their version: ${validationResult.theirVersion}")
-        return Result.UnsupportedDataMessage(envelope, serverDeliveredTimestamp, cipherResult.toErrorMetadata(), followUpOperations.toUnmodifiableList())
-      }
-
-      // Must handle SKDM's immediately, because subsequent decryptions could rely on it
-      if (cipherResult.content.senderKeyDistributionMessage != null) {
-        handleSenderKeyDistributionMessage(
-          envelope,
-          cipherResult.metadata.sourceServiceId,
-          cipherResult.metadata.sourceDeviceId,
-          SenderKeyDistributionMessage(cipherResult.content.senderKeyDistributionMessage!!.toByteArray()),
-          bufferedProtocolStore.getAciStore()
-        )
-      }
-
-      if (cipherResult.content.pniSignatureMessage != null) {
-        if (cipherResult.metadata.sourceServiceId is ACI) {
-          handlePniSignatureMessage(
-            envelope,
-            bufferedProtocolStore,
-            cipherResult.metadata.sourceServiceId as ACI,
-            cipherResult.metadata.sourceE164,
-            cipherResult.metadata.sourceDeviceId,
-            cipherResult.content.pniSignatureMessage!!
-          )
+        if (RemoteConfig.retryReceipts) {
+          buildResultForDecryptionError(context, envelope, serverDeliveredTimestamp, followUpOperations, e)
         } else {
-          Log.w(TAG, "${logPrefix(envelope)} Ignoring PNI signature because the sourceServiceId isn't an ACI!")
-        }
-      } else if (cipherResult.content.pniSignatureMessage != null) {
-        Log.w(TAG, "${logPrefix(envelope)} Ignoring PNI signature because the feature flag is disabled!")
-      }
+          Log.w(TAG, "${logPrefix(envelope, e)} Retry receipts disabled! Enqueuing a session reset job, which will also insert an error message.", e, true)
 
-      // TODO We can move this to the "message processing" stage once we give it access to the envelope. But for now it'll stay here.
-      if (envelope.report_spam_token != null && envelope.report_spam_token!!.size > 0) {
-        val sender = RecipientId.from(cipherResult.metadata.sourceServiceId)
-        SignalDatabase.recipients.setReportingToken(sender, envelope.report_spam_token!!.toByteArray())
-      }
-
-      Result.Success(envelope, serverDeliveredTimestamp, cipherResult.content, cipherResult.metadata, followUpOperations.toUnmodifiableList())
-    } catch (e: Exception) {
-      when (e) {
-        is ProtocolInvalidKeyIdException,
-        is ProtocolInvalidKeyException,
-        is ProtocolUntrustedIdentityException,
-        is ProtocolNoSessionException,
-        is ProtocolInvalidMessageException -> {
-          check(e is ProtocolException)
-          Log.w(TAG, "${logPrefix(envelope, e)} Decryption error!", e, true)
-
-          if (RemoteConfig.internalUser) {
-            postDecryptionErrorNotification(context)
+          followUpOperations += FollowUpOperation {
+            Recipient.external(e.sender)?.takeUnless { it.isUnknown }?.let {
+              AutomaticSessionResetJob(it.id, e.senderDevice, envelope.clientTimestamp!!).asChain()
+            } ?: null.logW(TAG, "${logPrefix(envelope, e)} Failed to create a recipient with the provided identifier!")
           }
 
-          if (RemoteConfig.retryReceipts) {
-            buildResultForDecryptionError(context, envelope, serverDeliveredTimestamp, followUpOperations, e)
-          } else {
-            Log.w(TAG, "${logPrefix(envelope, e)} Retry receipts disabled! Enqueuing a session reset job, which will also insert an error message.", e, true)
-
-            followUpOperations += FollowUpOperation {
-              Recipient.external(e.sender)?.let {
-                AutomaticSessionResetJob(it.id, e.senderDevice, envelope.clientTimestamp!!).asChain()
-              } ?: null.logW(TAG, "${logPrefix(envelope, e)} Failed to create a recipient with the provided identifier!")
-            }
-
-            Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
-          }
-        }
-
-        is ProtocolDuplicateMessageException -> {
-          Log.w(TAG, "${logPrefix(envelope, e)} Duplicate message!", e)
           Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
         }
+      }
 
-        is InvalidMetadataVersionException,
-        is InvalidMetadataMessageException,
-        is InvalidMessageStructureException -> {
-          Log.w(TAG, "${logPrefix(envelope)} Invalid message structure!", e, true)
-          Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+      is ProtocolDuplicateMessageException -> {
+        Log.w(TAG, "${logPrefix(envelope, e)} Duplicate message!", e)
+        Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+      }
+
+      is InvalidMetadataVersionException,
+      is InvalidMetadataMessageException,
+      is InvalidMessageStructureException -> {
+        Log.w(TAG, "${logPrefix(envelope)} Invalid message structure!", e, true)
+        Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+      }
+
+      is SelfSendException -> {
+        Log.i(TAG, "[${envelope.clientTimestamp}] Dropping sealed sender message from self!", e)
+        Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
+      }
+
+      is ProtocolInvalidVersionException -> {
+        Log.w(TAG, "${logPrefix(envelope, e)} Invalid version!", e, true)
+        Result.InvalidVersion(envelope, serverDeliveredTimestamp, e.toErrorMetadata(), followUpOperations.toUnmodifiableList())
+      }
+
+      is ProtocolLegacyMessageException -> {
+        Log.w(TAG, "${logPrefix(envelope, e)} Legacy message!", e, true)
+        Result.LegacyMessage(envelope, serverDeliveredTimestamp, e.toErrorMetadata(), followUpOperations)
+      }
+
+      else -> {
+        Log.w(TAG, "${logPrefix(envelope)} Encountered an unexpected exception! Dropping the envelope so we don't block the queue.", e, true)
+
+        if (RemoteConfig.internalUser) {
+          postInvalidMessageNotification(context, "Unexpected exception: ${e.javaClass.simpleName}")
         }
 
-        is SelfSendException -> {
-          Log.i(TAG, "[${envelope.clientTimestamp}] Dropping sealed sender message from self!", e)
-          Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
-        }
-
-        is ProtocolInvalidVersionException -> {
-          Log.w(TAG, "${logPrefix(envelope, e)} Invalid version!", e, true)
-          Result.InvalidVersion(envelope, serverDeliveredTimestamp, e.toErrorMetadata(), followUpOperations.toUnmodifiableList())
-        }
-
-        is ProtocolLegacyMessageException -> {
-          Log.w(TAG, "${logPrefix(envelope, e)} Legacy message!", e, true)
-          Result.LegacyMessage(envelope, serverDeliveredTimestamp, e.toErrorMetadata(), followUpOperations)
-        }
-
-        else -> {
-          Log.w(TAG, "Encountered an unexpected exception! Throwing!", e, true)
-          throw e
-        }
+        Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
       }
     }
   }
@@ -305,13 +327,21 @@ object MessageDecryptor {
   ): Result {
     if (ServiceId.parseOrNull(envelope.destinationServiceId, envelope.destinationServiceIdBinary) == SignalStore.account.pni) {
       Log.w(TAG, "${logPrefix(envelope)} Decryption error for message sent to our PNI! Ignoring.")
-      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations)
+
+      if (envelope.type == Envelope.Type.PREKEY_MESSAGE) {
+        Log.w(TAG, "${logPrefix(envelope)} Decryption error was on a prekey message. Forcing a prekey rotation.", true)
+        followUpOperations += FollowUpOperation {
+          PreKeysSyncJob.create(forceRotationRequested = true).asChain()
+        }
+      }
+
+      return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations.toUnmodifiableList())
     }
 
     val contentHint: ContentHint = ContentHint.fromType(protocolException.contentHint)
     val senderDevice: Int = protocolException.senderDevice
     val receivedTimestamp: Long = System.currentTimeMillis()
-    val sender: Recipient = Recipient.external(protocolException.sender) ?: return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations)
+    val sender: Recipient = Recipient.external(protocolException.sender)?.takeUnless { it.isUnknown } ?: return Result.Ignore(envelope, serverDeliveredTimestamp, followUpOperations)
     val senderServiceId: ServiceId? = ServiceId.parseOrNull(protocolException.sender)
 
     if (sender.isSelf) {
@@ -561,13 +591,13 @@ object MessageDecryptor {
     return ErrorMetadata(
       sender = this.sender,
       senderDevice = this.senderDevice,
-      groupMasterKey = this.groupId.map(::GroupMasterKey).orNull()
+      groupMasterKey = this.groupId.map { it.toGroupMasterKeyOrNull() }.orNull()
     )
   }
 
   private fun SignalServiceCipherResult.toErrorMetadata(): ErrorMetadata {
     val groupMasterKey = if (this.content.dataMessage.hasGroupContext) {
-      GroupMasterKey(this.content.dataMessage!!.groupV2!!.masterKey!!.toByteArray())
+      this.content.dataMessage!!.groupV2!!.masterKey!!.toByteArray().toGroupMasterKeyOrNull()
     } else {
       null
     }
@@ -576,6 +606,15 @@ object MessageDecryptor {
       senderDevice = this.metadata.sourceDeviceId,
       groupMasterKey = groupMasterKey
     )
+  }
+
+  private fun ByteArray.toGroupMasterKeyOrNull(): GroupMasterKey? {
+    return try {
+      GroupMasterKey(this)
+    } catch (e: InvalidInputException) {
+      Log.w(TAG, "Malformed group master key while building error metadata. Dropping the group association.", e)
+      null
+    }
   }
 
   sealed interface Result {

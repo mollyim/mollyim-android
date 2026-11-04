@@ -24,11 +24,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import org.signal.emoji.Emoji;
+import org.signal.emoji.EmojiPageModel;
 
 public class RecentEmojiPageModel implements EmojiPageModel {
   private static final String TAG            = Log.tag(RecentEmojiPageModel.class);
   private static final int    EMOJI_LRU_SIZE = 50;
   public static final  String KEY            = "Recents";
+
+  /** The shared-prefs entry this model persists its LRU into. */
+  public static final String RECENT_STORAGE_KEY = "pref_recent_emoji2";
 
   private final SharedPreferences     prefs;
   private final String                preferenceName;
@@ -62,7 +67,7 @@ public class RecentEmojiPageModel implements EmojiPageModel {
   }
 
   @Override public int getIconAttr() {
-    return R.attr.emoji_category_recent;
+    return org.signal.emoji.R.attr.emoji_category_recent;
   }
 
   @Override public List<String> getEmoji() {

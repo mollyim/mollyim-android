@@ -8,11 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.components.webrtc.AudioOutputOption
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager
 
@@ -34,7 +34,7 @@ object AndroidTelecomUtil {
   @JvmStatic
   val telecomSupported: Boolean
     get() {
-      if (Build.VERSION.SDK_INT >= 36 && !systemRejected && isTelecomAllowedForDevice()) {
+      if (Build.VERSION.SDK_INT >= RemoteConfig.telecomMinSdkVersion && !systemRejected && isTelecomAllowedForDevice()) {
         if (!registered) {
           registerPhoneAccount()
         }
@@ -48,12 +48,11 @@ object AndroidTelecomUtil {
 
   @JvmStatic
   fun registerPhoneAccount() {
-    if (Build.VERSION.SDK_INT >= 36 && !systemRejected) {
+    if (Build.VERSION.SDK_INT >= RemoteConfig.telecomMinSdkVersion && !systemRejected) {
       Log.i(TAG, "Registering with CallsManager")
       try {
         callsManager.registerAppWithTelecom(
-          capabilities = CallsManager.CAPABILITY_BASELINE or CallsManager.CAPABILITY_SUPPORTS_VIDEO_CALLING,
-          backwardsCompatSdkLevel = 37
+          capabilities = CallsManager.CAPABILITY_BASELINE or CallsManager.CAPABILITY_SUPPORTS_VIDEO_CALLING
         )
         Log.i(TAG, "CallsManager registration successful")
         registered = true
@@ -89,9 +88,13 @@ object AndroidTelecomUtil {
           systemRejected = true
           AppDependencies.signalCallManager.dropCall(callId)
         } finally {
-          Log.i(TAG, "Removing incoming controller for recipientId=$recipientId")
           synchronized(controllers) {
-            controllers.remove(recipientId)
+            if (controllers[recipientId] === controller) {
+              Log.i(TAG, "Removing incoming controller for recipientId=$recipientId callId=$callId")
+              controllers.remove(recipientId)
+            } else {
+              Log.i(TAG, "Not removing incoming controller for recipientId=$recipientId callId=$callId, replaced by a newer call")
+            }
           }
         }
       }
@@ -124,9 +127,13 @@ object AndroidTelecomUtil {
           systemRejected = true
           AppDependencies.signalCallManager.dropCall(callId)
         } finally {
-          Log.i(TAG, "Removing outgoing controller for recipientId=$recipientId")
           synchronized(controllers) {
-            controllers.remove(recipientId)
+            if (controllers[recipientId] === controller) {
+              Log.i(TAG, "Removing outgoing controller for recipientId=$recipientId callId=$callId")
+              controllers.remove(recipientId)
+            } else {
+              Log.i(TAG, "Not removing outgoing controller for recipientId=$recipientId callId=$callId, replaced by a newer call")
+            }
           }
         }
       }
@@ -210,8 +217,9 @@ object AndroidTelecomUtil {
 
   private fun isTelecomAllowedForDevice(): Boolean {
     if (RemoteConfig.internalUser) {
-      return !SignalStore.internal.callingDisableTelecom
+      return SignalStore.internal.callingUseTelecom
     }
+
     return RingRtcDynamicConfiguration.isTelecomAllowedForDevice()
   }
 }

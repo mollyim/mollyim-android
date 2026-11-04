@@ -104,6 +104,7 @@ private val lightColorScheme = lightColorScheme(
 
 private val lightExtendedColors = ExtendedColors(
   neutralSurface = Color(0x99FFFFFF),
+  neutralFill = Color(0x1A000000),
   colorOnCustom = Color(0xFFFFFFFF),
   colorOnCustomVariant = Color(0xB3FFFFFF),
   colorSurface1 = Color(0xFFF2F5F9),
@@ -111,6 +112,7 @@ private val lightExtendedColors = ExtendedColors(
   colorSurface3 = Color(0xFFE8ECF4),
   colorSurface4 = Color(0xFFE6EAF3),
   colorSurface5 = Color(0xFFE3E7F1),
+  colorSurfaceVariantFill = Color(0xCCFFFFFF),
   colorTransparent1 = Color(0x14FFFFFF),
   colorTransparent2 = Color(0x29FFFFFF),
   colorTransparent3 = Color(0x8FFFFFFF),
@@ -126,18 +128,22 @@ private val lightExtendedColors = ExtendedColors(
   colorNeutralInverse = Color(0xFF121212),
   colorNeutralVariantInverse = Color(0xFF5C5C5C),
   colorWarning = Color(0x1FB44828),
-  colorOnWarning = Color(0xFFB44828)
+  colorOnWarning = Color(0xFFB44828),
+  colorAlert = Color(0xFFEF5350),
+  colorAlertDisabled = Color(0x80EF5350)
 )
 
 private val darkExtendedColors = ExtendedColors(
   neutralSurface = Color(0x14FFFFFF),
+  neutralFill = Color(0x33FFFFFF),
   colorOnCustom = Color(0xFFFFFFFF),
-  colorOnCustomVariant = Color(0xB3FFFFFF),
+  colorOnCustomVariant = Color(0x18FFFFFF),
   colorSurface1 = Color(0xFF23242A),
   colorSurface2 = Color(0xFF272A31),
   colorSurface3 = Color(0xFF2C2F37),
   colorSurface4 = Color(0xFF2E3039),
   colorSurface5 = Color(0xFF31343E),
+  colorSurfaceVariantFill = Color(0x33FFFFFF),
   colorTransparent1 = Color(0x0AFFFFFF),
   colorTransparent2 = Color(0x1FFFFFFF),
   colorTransparent3 = Color(0x29FFFFFF),
@@ -153,7 +159,9 @@ private val darkExtendedColors = ExtendedColors(
   colorNeutralInverse = Color(0xE0FFFFFF),
   colorNeutralVariantInverse = Color(0xA3FFFFFF),
   colorWarning = Color(0x1FEB977D),
-  colorOnWarning = Color(0xFFEB977D)
+  colorOnWarning = Color(0xFFEB977D),
+  colorAlert = Color(0xFFF44336),
+  colorAlertDisabled = Color(0x80F44336)
 )
 
 private val darkColorScheme = darkColorScheme(
@@ -211,6 +219,19 @@ fun SignalTheme(
         content = content
       )
     }
+  }
+}
+
+/**
+ * Applies the light color scheme to [content] regardless of the ambient theme, leaving typography and shapes untouched.
+ */
+@Composable
+fun ForceLightColors(content: @Composable () -> Unit) {
+  CompositionLocalProvider(LocalExtendedColors provides lightExtendedColors) {
+    MaterialTheme(
+      colorScheme = lightColorScheme,
+      content = content
+    )
   }
 }
 

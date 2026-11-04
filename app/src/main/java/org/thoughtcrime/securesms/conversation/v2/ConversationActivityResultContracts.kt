@@ -17,19 +17,21 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
 import org.signal.core.models.media.Media
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.location.SignalPlace
 import org.thoughtcrime.securesms.contactshare.Contact
-import org.thoughtcrime.securesms.contactshare.ContactShareEditActivity
+import org.thoughtcrime.securesms.contactshare.ContactShareActivity
+import org.thoughtcrime.securesms.contactshare.SharedContactSource
 import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity
 import org.thoughtcrime.securesms.maps.PlacePickerActivity
 import org.thoughtcrime.securesms.mediasend.MediaSendActivityResult
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.mediasend.MediaSendLauncher
+import org.thoughtcrime.securesms.util.RemoteConfig
 
 /**
  * This encapsulates the logic for interacting with other activities used throughout a conversation. The gist
@@ -46,7 +48,8 @@ class ConversationActivityResultContracts(private val fragment: Fragment, privat
   }
 
   private val contactShareLauncher = fragment.registerForActivityResult(ContactShareEditor) { contacts -> callbacks.onSendContacts(contacts) }
-  private val selectContactLauncher = fragment.registerForActivityResult(SelectContact) { uri -> callbacks.onContactSelect(uri) }
+  private val selectContactLauncher = fragment.registerForActivityResult(SelectContact) { contacts -> callbacks.onSendContacts(contacts) }
+  private val systemSelectContactLauncher = fragment.registerForActivityResult(SystemSelectContact) { source -> callbacks.onContactSelect(source) }
   private val mediaSelectionLauncher = fragment.registerForActivityResult(MediaSelection) { result -> callbacks.onMediaSend(result) }
   private val gifSearchLauncher = fragment.registerForActivityResult(GifSearch) { result -> callbacks.onMediaSend(result) }
   private val mediaGalleryLauncher = fragment.registerForActivityResult(MediaGallery) { result -> callbacks.onMediaSend(result) }
@@ -54,18 +57,29 @@ class ConversationActivityResultContracts(private val fragment: Fragment, privat
   private val selectFileLauncher = fragment.registerForActivityResult(SelectFile) { result -> callbacks.onFileSelected(result) }
   private val cameraLauncher = fragment.registerForActivityResult(MediaCapture) { result -> callbacks.onMediaSend(result) }
 
-  fun launchContactShareEditor(uri: Uri, chatColors: ChatColors) {
-    contactShareLauncher.launch(uri to chatColors)
+  fun launchVCardShareEditor(uri: Uri, recipientId: RecipientId) {
+    contactShareLauncher.launch(SharedContactSource.VCard(uri) to recipientId)
   }
 
-  fun launchSelectContact() {
-    Permissions
-      .with(fragment)
-      .request(Manifest.permission.READ_CONTACTS)
-      .ifNecessary()
-      .withPermanentDenialDialog(fragment.getString(R.string.AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information))
-      .onAllGranted { selectContactLauncher.launch(Unit) }
-      .execute()
+  fun launchContactShareEditor(source: SharedContactSource, recipientId: RecipientId) {
+    contactShareLauncher.launch(source to recipientId)
+  }
+
+  fun launchSelectContact(recipientId: RecipientId) {
+    if (RemoteConfig.contactSharingV2) {
+      // No permission gate on purpose. The new picker shows Signal connections without contacts
+      // permission and prompts for it inline, so asking in front of it would block a screen that
+      // works without it.
+      selectContactLauncher.launch(recipientId)
+    } else {
+      Permissions
+        .with(fragment)
+        .request(Manifest.permission.READ_CONTACTS)
+        .ifNecessary()
+        .withPermanentDenialDialog(fragment.getString(R.string.AttachmentManager_signal_requires_contacts_permission_in_order_to_attach_contact_information))
+        .onAllGranted { systemSelectContactLauncher.launch(Unit) }
+        .execute()
+    }
   }
 
   fun launchGallery(recipientId: RecipientId, text: CharSequence?, isReply: Boolean) {
@@ -121,74 +135,77 @@ class ConversationActivityResultContracts(private val fragment: Fragment, privat
   private object MediaSelection : ActivityResultContract<MediaSelectionInput, MediaSendActivityResult?>() {
     override fun createIntent(context: Context, input: MediaSelectionInput): Intent {
       val (media, recipientId, text) = input
-      return MediaSelectionActivity.editor(context, MessageSendType.SignalMessageSendType, media, recipientId, text)
+      return MediaSendLauncher.editor(context, media, recipientId, text)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): MediaSendActivityResult? {
-      return if (resultCode == Activity.RESULT_OK) {
-        intent?.let { MediaSendActivityResult.fromData(intent) }
-      } else {
-        null
-      }
+      return MediaSendLauncher.parseResult(resultCode, intent)
     }
   }
 
   private object MediaCapture : ActivityResultContract<MediaSelectionInput, MediaSendActivityResult?>() {
     override fun createIntent(context: Context, input: MediaSelectionInput): Intent {
       val (_, recipientId, _, isReply) = input
-      return MediaSelectionActivity.camera(context, MessageSendType.SignalMessageSendType, recipientId, isReply)
+      return MediaSendLauncher.camera(context, recipientId, isReply)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): MediaSendActivityResult? {
-      return if (resultCode == Activity.RESULT_OK) {
-        intent?.let { MediaSendActivityResult.fromData(intent) }
-      } else {
-        null
-      }
+      return MediaSendLauncher.parseResult(resultCode, intent)
     }
   }
 
   private object MediaGallery : ActivityResultContract<MediaSelectionInput, MediaSendActivityResult?>() {
     override fun createIntent(context: Context, input: MediaSelectionInput): Intent {
       val (media, recipientId, text, isReply) = input
-      return MediaSelectionActivity.gallery(context, MessageSendType.SignalMessageSendType, media, recipientId, text, isReply)
+      return MediaSendLauncher.gallery(context, media, recipientId, text, isReply)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): MediaSendActivityResult? {
-      return if (resultCode == Activity.RESULT_OK) {
-        intent?.let { MediaSendActivityResult.fromData(intent) }
-      } else {
-        null
-      }
+      return MediaSendLauncher.parseResult(resultCode, intent)
     }
   }
 
-  private object ContactShareEditor : ActivityResultContract<Pair<Uri, ChatColors>, List<Contact>>() {
-    override fun createIntent(context: Context, input: Pair<Uri, ChatColors>): Intent {
-      val (uri, chatColors) = input
-      return ContactShareEditActivity.getIntent(context, listOf(uri), chatColors.asSingleColor())
+  /**
+   * Always the new editor, whichever picker fed it. While [RemoteConfig.contactSharingV2] is off it
+   * leaves the Signal identity off new cards, so the old picker cannot share an ACI.
+   */
+  private object ContactShareEditor : ActivityResultContract<Pair<SharedContactSource, RecipientId>, List<Contact>>() {
+    override fun createIntent(context: Context, input: Pair<SharedContactSource, RecipientId>): Intent {
+      val (source, recipientId) = input
+      return ContactShareActivity.createShareIntent(context, source, recipientId)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): List<Contact> {
       return if (resultCode == Activity.RESULT_OK) {
-        intent?.let { IntentCompat.getParcelableArrayListExtra(intent, ContactShareEditActivity.KEY_CONTACTS, Contact::class.java) } ?: emptyList()
+        intent?.let { IntentCompat.getParcelableArrayListExtra(intent, ContactShareActivity.KEY_CONTACTS, Contact::class.java) } ?: emptyList()
       } else {
         emptyList()
       }
     }
   }
 
-  private object SelectContact : ActivityResultContract<Unit, Uri?>() {
+  /** The system contact picker, still used while [RemoteConfig.contactSharingV2] is off. */
+  private object SystemSelectContact : ActivityResultContract<Unit, SharedContactSource?>() {
     override fun createIntent(context: Context, input: Unit): Intent {
       return Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+    override fun parseResult(resultCode: Int, intent: Intent?): SharedContactSource? {
       return if (resultCode == Activity.RESULT_OK) {
-        intent?.data
+        intent?.data?.let { SharedContactSource.AddressBook(it) }
       } else {
         null
       }
+    }
+  }
+
+  private object SelectContact : ActivityResultContract<RecipientId, List<Contact>>() {
+    override fun createIntent(context: Context, input: RecipientId): Intent {
+      return ContactShareActivity.createSelectContactIntent(context, input)
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?): List<Contact> {
+      return ContactShareEditor.parseResult(resultCode, intent)
     }
   }
 
@@ -261,7 +278,7 @@ class ConversationActivityResultContracts(private val fragment: Fragment, privat
   interface Callbacks {
     fun onSendContacts(contacts: List<Contact>)
     fun onMediaSend(result: MediaSendActivityResult?)
-    fun onContactSelect(uri: Uri?)
+    fun onContactSelect(source: SharedContactSource?)
     fun onLocationSelected(place: SignalPlace?, uri: Uri?)
     fun onFileSelected(uri: Uri?)
   }

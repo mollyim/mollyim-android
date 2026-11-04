@@ -8,38 +8,56 @@ package org.signal.registration.sample.debug
 import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.usernames.Username
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredential
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequest
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequestContext
+import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse
+import org.signal.network.api.RegistrationApiV2.AccountAttributes
+import org.signal.network.api.RegistrationApiV2.CheckSvrCredentialsError
+import org.signal.network.api.RegistrationApiV2.CheckSvrCredentialsResponse
+import org.signal.network.api.RegistrationApiV2.CreateLoginReceiptCredentialError
+import org.signal.network.api.RegistrationApiV2.CreateLoginReceiptCredentialResult
+import org.signal.network.api.RegistrationApiV2.CreateSessionError
+import org.signal.network.api.RegistrationApiV2.DeviceAttributes
+import org.signal.network.api.RegistrationApiV2.GetLoginConfigurationError
+import org.signal.network.api.RegistrationApiV2.GetSessionStatusError
+import org.signal.network.api.RegistrationApiV2.LinkDeviceResponse
+import org.signal.network.api.RegistrationApiV2.LoginConfiguration
+import org.signal.network.api.RegistrationApiV2.LoginPurchasePaymentProvider
+import org.signal.network.api.RegistrationApiV2.PreKeyCollection
+import org.signal.network.api.RegistrationApiV2.RegisterAccountError
+import org.signal.network.api.RegistrationApiV2.RegisterAccountResponse
+import org.signal.network.api.RegistrationApiV2.RegisterAsLinkedDeviceError
+import org.signal.network.api.RegistrationApiV2.RequestVerificationCodeError
+import org.signal.network.api.RegistrationApiV2.RestoreMethod
+import org.signal.network.api.RegistrationApiV2.SessionMetadata
+import org.signal.network.api.RegistrationApiV2.SetRestoreMethodError
+import org.signal.network.api.RegistrationApiV2.SubmitVerificationCodeError
+import org.signal.network.api.RegistrationApiV2.SvrCredentials
+import org.signal.network.api.RegistrationApiV2.UpdateSessionError
+import org.signal.network.api.RegistrationApiV2.VerificationCodeTransport
+import org.signal.network.service.UsernameService.ConfirmUsernameError
+import org.signal.network.service.UsernameService.ConfirmedUsername
+import org.signal.network.service.UsernameService.ReserveUsernameError
 import org.signal.registration.LinkAndSyncWaitResult
 import org.signal.registration.NetworkController
-import org.signal.registration.NetworkController.AccountAttributes
 import org.signal.registration.NetworkController.BackupMasterKeyError
-import org.signal.registration.NetworkController.CheckSvrCredentialsError
-import org.signal.registration.NetworkController.CheckSvrCredentialsResponse
-import org.signal.registration.NetworkController.CreateSessionError
-import org.signal.registration.NetworkController.DeviceAttributes
 import org.signal.registration.NetworkController.GetBackupInfoError
 import org.signal.registration.NetworkController.GetBackupInfoResponse
-import org.signal.registration.NetworkController.GetSessionStatusError
 import org.signal.registration.NetworkController.GetSvrCredentialsError
 import org.signal.registration.NetworkController.MasterKeyResponse
-import org.signal.registration.NetworkController.PreKeyCollection
 import org.signal.registration.NetworkController.ProvisioningEvent
-import org.signal.registration.NetworkController.RegisterAccountError
-import org.signal.registration.NetworkController.RegisterAccountResponse
-import org.signal.registration.NetworkController.RequestVerificationCodeError
 import org.signal.registration.NetworkController.RestoreAccountRecordError
 import org.signal.registration.NetworkController.RestoreMasterKeyError
-import org.signal.registration.NetworkController.RestoreMethod
-import org.signal.registration.NetworkController.SessionMetadata
 import org.signal.registration.NetworkController.SetAccountAttributesError
 import org.signal.registration.NetworkController.SetProfileError
 import org.signal.registration.NetworkController.SetRegistrationLockError
-import org.signal.registration.NetworkController.SetRestoreMethodError
-import org.signal.registration.NetworkController.SubmitVerificationCodeError
-import org.signal.registration.NetworkController.SvrCredentials
-import org.signal.registration.NetworkController.UpdateSessionError
-import org.signal.registration.NetworkController.VerificationCodeTransport
+import org.signal.registration.ReceiptCredentialResult
 import java.util.Locale
 
 /**
@@ -81,7 +99,7 @@ class DebugNetworkController(
   }
 
   override suspend fun updateSession(
-    sessionId: String?,
+    sessionId: String,
     pushChallengeToken: String?,
     captchaToken: String?
   ): RequestResult<SessionMetadata, UpdateSessionError> {
@@ -117,21 +135,60 @@ class DebugNetworkController(
   }
 
   override suspend fun registerAccount(
-    e164: String,
+    e164: String?,
     password: String,
     sessionId: String?,
     recoveryPassword: String?,
+    receiptCredentialPresentation: ReceiptCredentialPresentation?,
     attributes: AccountAttributes,
     aciPreKeys: PreKeyCollection,
-    pniPreKeys: PreKeyCollection,
+    pniPreKeys: PreKeyCollection?,
     fcmToken: String?,
-    skipDeviceTransfer: Boolean
+    skipDeviceTransfer: Boolean,
+    aci: ACI?,
+    totp: Int?,
+    webAuthnResponse: String?
   ): RequestResult<RegisterAccountResponse, RegisterAccountError> {
     NetworkDebugState.getOverride<RequestResult<RegisterAccountResponse, RegisterAccountError>>("registerAccount")?.let {
       Log.d(TAG, "[registerAccount] Returning debug override")
       return it
     }
-    return delegate.registerAccount(e164, password, sessionId, recoveryPassword, attributes, aciPreKeys, pniPreKeys, fcmToken, skipDeviceTransfer)
+    return delegate.registerAccount(e164, password, sessionId, recoveryPassword, receiptCredentialPresentation, attributes, aciPreKeys, pniPreKeys, fcmToken, skipDeviceTransfer, aci, totp, webAuthnResponse)
+  }
+
+  override suspend fun getLoginConfiguration(): RequestResult<LoginConfiguration, GetLoginConfigurationError> {
+    NetworkDebugState.getOverride<RequestResult<LoginConfiguration, GetLoginConfigurationError>>("getLoginConfiguration")?.let {
+      Log.d(TAG, "[getLoginConfiguration] Returning debug override")
+      return it
+    }
+    return delegate.getLoginConfiguration()
+  }
+
+  override suspend fun createLoginPurchaseReceiptCredential(
+    purchaseIdentifier: String,
+    receiptCredentialRequest: ReceiptCredentialRequest,
+    paymentProvider: LoginPurchasePaymentProvider
+  ): RequestResult<CreateLoginReceiptCredentialResult, CreateLoginReceiptCredentialError> {
+    NetworkDebugState.getOverride<RequestResult<CreateLoginReceiptCredentialResult, CreateLoginReceiptCredentialError>>("createLoginPurchaseReceiptCredential")?.let {
+      Log.d(TAG, "[createLoginPurchaseReceiptCredential] Returning debug override")
+      return it
+    }
+    return delegate.createLoginPurchaseReceiptCredential(purchaseIdentifier, receiptCredentialRequest, paymentProvider)
+  }
+
+  override fun createReceiptCredentialRequestContext(): ReceiptCredentialRequestContext {
+    // No override support for pure computations
+    return delegate.createReceiptCredentialRequestContext()
+  }
+
+  override fun receiveReceiptCredential(requestContext: ReceiptCredentialRequestContext, response: ReceiptCredentialResponse): ReceiptCredentialResult<ReceiptCredential> {
+    // No override support for pure computations
+    return delegate.receiveReceiptCredential(requestContext, response)
+  }
+
+  override fun createReceiptCredentialPresentation(receiptCredential: ReceiptCredential): ReceiptCredentialResult<ReceiptCredentialPresentation> {
+    // No override support for pure computations
+    return delegate.createReceiptCredentialPresentation(receiptCredential)
   }
 
   override suspend fun getFcmToken(): String? {
@@ -220,6 +277,22 @@ class DebugNetworkController(
     return delegate.setProfile(givenName, familyName, avatar, discoverableByPhoneNumber)
   }
 
+  override suspend fun reserveUsername(nickname: String, discriminator: String?): RequestResult<Username, ReserveUsernameError> {
+    NetworkDebugState.getOverride<RequestResult<Username, ReserveUsernameError>>("reserveUsername")?.let {
+      Log.d(TAG, "[reserveUsername] Returning debug override")
+      return it
+    }
+    return delegate.reserveUsername(nickname, discriminator)
+  }
+
+  override suspend fun confirmUsername(username: Username): RequestResult<ConfirmedUsername, ConfirmUsernameError> {
+    NetworkDebugState.getOverride<RequestResult<ConfirmedUsername, ConfirmUsernameError>>("confirmUsername")?.let {
+      Log.d(TAG, "[confirmUsername] Returning debug override")
+      return it
+    }
+    return delegate.confirmUsername(username)
+  }
+
   override suspend fun restoreAccountRecord(timeout: kotlin.time.Duration): RequestResult<Unit, RestoreAccountRecordError> {
     NetworkDebugState.getOverride<RequestResult<Unit, RestoreAccountRecordError>>("restoreAccountRecord")?.let {
       Log.d(TAG, "[restoreAccountRecord] Returning debug override")
@@ -253,15 +326,15 @@ class DebugNetworkController(
   }
 
   override suspend fun registerAsLinkedDevice(
-    e164: String,
+    aci: ACI,
     password: String,
     provisioningCode: String,
     deviceAttributes: DeviceAttributes,
     aciPreKeys: PreKeyCollection,
-    pniPreKeys: PreKeyCollection,
+    pniPreKeys: PreKeyCollection?,
     fcmToken: String?
-  ): RequestResult<NetworkController.LinkDeviceResponse, NetworkController.RegisterAsLinkedDeviceError> {
-    return delegate.registerAsLinkedDevice(e164, password, provisioningCode, deviceAttributes, aciPreKeys, pniPreKeys, fcmToken)
+  ): RequestResult<LinkDeviceResponse, RegisterAsLinkedDeviceError> {
+    return delegate.registerAsLinkedDevice(aci, password, provisioningCode, deviceAttributes, aciPreKeys, pniPreKeys, fcmToken)
   }
 
   override suspend fun onLinkedDeviceRegistered() {
@@ -303,6 +376,14 @@ class DebugNetworkController(
       return it
     }
     return delegate.getRemoteBackupInfo(aep)
+  }
+
+  override suspend fun reserveBackupId(aep: AccountEntropyPool): RequestResult<Unit, NetworkController.ReserveBackupIdError> {
+    NetworkDebugState.getOverride<RequestResult<Unit, NetworkController.ReserveBackupIdError>>("reserveBackupId")?.let {
+      Log.d(TAG, "[reserveBackupId] Returning debug override")
+      return it
+    }
+    return delegate.reserveBackupId(aep)
   }
 
   override suspend fun getBackupFileLastModified(aep: AccountEntropyPool, backupInfo: NetworkController.GetBackupInfoResponse): RequestResult<Long, GetBackupInfoError> {

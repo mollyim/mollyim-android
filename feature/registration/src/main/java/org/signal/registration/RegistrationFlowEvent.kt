@@ -7,7 +7,11 @@ package org.signal.registration
 
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
 import org.signal.core.util.censor
+import org.signal.network.api.RegistrationApiV2.SessionMetadata
+import org.signal.network.api.RegistrationApiV2.VerificationCodeTransport
+import kotlin.time.Duration.Companion.seconds
 
 sealed interface RegistrationFlowEvent {
   /**
@@ -20,26 +24,62 @@ sealed interface RegistrationFlowEvent {
   /** Navigate back one screen. */
   data object NavigateBack : RegistrationFlowEvent
 
-  /** Pop the back stack back to an existing screen, removing everything above it. Replaces the current screen if the route isn't on the stack. */
+  /** Pop the back stack back to an existing screen (matched by route type), removing everything above it. Replaces the current screen if the route isn't on the stack. */
   data class NavigateBackToScreen(val route: RegistrationRoute) : RegistrationFlowEvent
 
   /** We've encountered some irrecoverable state where the best course of action is to completely reset registration. */
   data object ResetState : RegistrationFlowEvent
 
   /** An update has been made to the ongoing registration session.  */
-  data class SessionUpdated(val session: NetworkController.SessionMetadata) : RegistrationFlowEvent
+  data class SessionUpdated(val session: SessionMetadata) : RegistrationFlowEvent
 
   /** The e164 associated with this registration attempt has been updated.  */
   data class E164Chosen(val e164: String) : RegistrationFlowEvent
 
+  /** The user's phone number was successfully verified with the given code. Retained so later PIN screens can warn if the user re-enters it as their PIN. */
+  data class VerificationCodeAccepted(val code: String) : RegistrationFlowEvent {
+    override fun toString(): String = "VerificationCodeAccepted(code=${code.censor()})"
+  }
+
+  /**
+   * A verification code was requested for [e164] — either fulfilled or rejected as rate-limited. Records the epoch-millis
+   * times at which the server will allow the next SMS and call requests, since the response reports both regardless of
+   * which transport was used. A null timestamp means the response carried no information for that transport.
+   */
+  data class VerificationCodeRequested(
+    val e164: String,
+    val nextSmsAllowedTimestamp: Long?,
+    val nextCallAllowedTimestamp: Long?
+  ) : RegistrationFlowEvent {
+    companion object {
+      /** How long we assume the server will disallow another request when the response doesn't include a duration for the requested transport. */
+      private val DEFAULT_RETRY_WINDOW = 60.seconds
+
+      fun from(e164: String, transport: VerificationCodeTransport, session: SessionMetadata, now: Long): VerificationCodeRequested {
+        // We'll only fallback to a default if we're requesting that specific transport
+        val nextSmsIn = session.nextSms?.seconds ?: DEFAULT_RETRY_WINDOW.takeIf { transport == VerificationCodeTransport.SMS }
+        val nextCallIn = session.nextCall?.seconds ?: DEFAULT_RETRY_WINDOW.takeIf { transport == VerificationCodeTransport.VOICE }
+
+        return VerificationCodeRequested(
+          e164 = e164,
+          nextSmsAllowedTimestamp = nextSmsIn?.let { now + it.inWholeMilliseconds },
+          nextCallAllowedTimestamp = nextCallIn?.let { now + it.inWholeMilliseconds }
+        )
+      }
+    }
+  }
+
   /**
    * The user has successfully registered.
    *
+   * @param aci The account identifier the server assigned (or re-confirmed) in the registration response.
    * @param storageCapable Whether the server reports that this account already has SVR/PIN data, as returned in the
    * registration response. Used later (e.g. when skipping a restore) to decide between PIN entry and PIN creation.
+   * @param phoneNumberless Whether the registration response came back without a phone number. Such an account has no
+   * PIN, so the screens that would otherwise ask for or create one must be skipped.
    */
-  data class Registered(val accountEntropyPool: AccountEntropyPool, val storageCapable: Boolean) : RegistrationFlowEvent {
-    override fun toString(): String = "Registered(accountEntropyPool=${accountEntropyPool.displayValue.censor()}, storageCapable=$storageCapable)"
+  data class Registered(val aci: ACI, val accountEntropyPool: AccountEntropyPool, val storageCapable: Boolean, val phoneNumberless: Boolean) : RegistrationFlowEvent {
+    override fun toString(): String = "Registered(aci=${aci.logString()}, accountEntropyPool=${accountEntropyPool.displayValue.censor()}, storageCapable=$storageCapable, phoneNumberless=$phoneNumberless)"
   }
 
   /** The master key has been restored from SVR. */

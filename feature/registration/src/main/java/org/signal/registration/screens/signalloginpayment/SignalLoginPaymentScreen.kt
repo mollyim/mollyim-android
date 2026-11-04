@@ -1,0 +1,702 @@
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.signal.registration.screens.signalloginpayment
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
+import org.signal.core.ui.compose.AllDevicePreviews
+import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.DayNightPreviews
+import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.compose.TextFields
+import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.registration.R
+import org.signal.registration.screens.OnePaneRegistrationScaffold
+import org.signal.registration.screens.RegistrationScaffold
+import org.signal.registration.screens.TwoPaneRegistrationScaffold
+import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.screens.shared.BackTopAppBar
+import org.signal.registration.screens.signalloginpayment.SignalLoginPaymentState.Option
+import org.signal.registration.test.TestTags
+import org.signal.signallogin.beta.SignalLoginBetaDisclaimer
+import org.signal.signallogin.beta.SignalLoginBetaTag
+
+private val CARD_SHAPE = RoundedCornerShape(18.dp)
+private val CARD_BORDER_WIDTH = 3.5.dp
+private const val DISABLED_CARD_ALPHA = 0.5f
+
+/**
+ * Lets the user buy a Signal Login so they can register without a phone number, or indicate that they already have one.
+ */
+@Composable
+fun SignalLoginPaymentScreen(
+  state: SignalLoginPaymentState,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit,
+  modifier: Modifier = Modifier
+) {
+  val simpleError: Pair<String, SignalLoginPaymentScreenEvents>? = when {
+    state.dialogs.networkError -> stringResource(R.string.VerificationCodeScreen__network_error) to SignalLoginPaymentScreenEvents.NetworkErrorDialogDismissed
+    state.dialogs.purchaseFailed -> stringResource(R.string.SignalLoginPaymentScreen__your_purchase_could_not_be_completed) to SignalLoginPaymentScreenEvents.PurchaseFailedDialogDismissed
+    state.dialogs.purchaseUnavailable -> stringResource(R.string.SignalLoginPaymentScreen__signal_login_cant_be_purchased) to SignalLoginPaymentScreenEvents.PurchaseUnavailableDialogDismissed
+    state.dialogs.purchasePending -> stringResource(R.string.SignalLoginPaymentScreen__your_payment_is_still_processing) to SignalLoginPaymentScreenEvents.PurchasePendingDialogDismissed
+    state.dialogs.unknownError -> stringResource(R.string.VerificationCodeScreen__an_unexpected_error_occurred) to SignalLoginPaymentScreenEvents.UnknownErrorDialogDismissed
+    state.dialogs.invalidReceiptCredential -> stringResource(R.string.SignalLoginPaymentScreen__this_receipt_credential_is_invalid) to SignalLoginPaymentScreenEvents.InvalidReceiptCredentialDialogDismissed
+    else -> null
+  }
+
+  simpleError?.let { (message, dismissedEvent) ->
+    Dialogs.SimpleMessageDialog(
+      message = message,
+      dismiss = stringResource(android.R.string.ok),
+      onDismiss = { onEvent(dismissedEvent) }
+    )
+  }
+
+  if (state.dialogs.paymentUnavailable) {
+    PaymentUnavailableDialog(availability = state.paymentAvailability, onEvent = onEvent)
+  }
+
+  LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+    onEvent(SignalLoginPaymentScreenEvents.Foregrounded)
+  }
+
+  Surface(
+    modifier = modifier
+      .fillMaxSize()
+      .testTag(TestTags.SIGNAL_LOGIN_PAYMENT_SCREEN)
+  ) {
+    when (val params = RegistrationScaffold.rememberLayoutParams()) {
+      is RegistrationScaffold.Params.OnePane -> OnePaneLayout(params, state, onEvent)
+      is RegistrationScaffold.Params.TwoPane -> TwoPaneLayout(params, state, onEvent)
+    }
+  }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun OnePaneLayout(
+  params: RegistrationScaffold.Params.OnePane,
+  state: SignalLoginPaymentState,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  val scrollState = rememberScrollState()
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
+  OnePaneRegistrationScaffold(
+    params = params,
+    topBar = { BackTopAppBar(scrollBehavior = topBarScrollBehavior, onBackClick = { onEvent(SignalLoginPaymentScreenEvents.BackClicked) }) },
+    includeTopInset = false,
+    content = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .fillMaxSize()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+          .verticalScroll(scrollState)
+          .padding(paddingValues)
+      ) {
+        Header(onEvent = onEvent)
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        OptionCards(state = state, onEvent = onEvent)
+
+        if (state.showManualReceiptCredentialEntry) {
+          ManualReceiptCredentialEntry(state = state, onEvent = onEvent)
+        }
+      }
+    },
+    footer = { Footer(params, state, scrollState.canScrollForward, onEvent) }
+  )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TwoPaneLayout(
+  params: RegistrationScaffold.Params.TwoPane,
+  state: SignalLoginPaymentState,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  val firstPaneScrollState = rememberScrollState()
+  val secondPaneScrollState = rememberScrollState()
+  val topBarScrollBehavior = RegistrationScaffold.rememberTopBarScrollBehavior()
+
+  TwoPaneRegistrationScaffold(
+    params = params,
+    topBar = { BackTopAppBar(scrollBehavior = topBarScrollBehavior, onBackClick = { onEvent(SignalLoginPaymentScreenEvents.BackClicked) }) },
+    firstPane = { paddingValues ->
+      Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxHeight()
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+          .verticalScroll(firstPaneScrollState)
+          .padding(paddingValues)
+      ) {
+        Header(twoPane = true, onEvent = onEvent)
+      }
+    },
+    secondPane = { paddingValues ->
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+          .verticalScroll(secondPaneScrollState)
+          .padding(paddingValues)
+      ) {
+        OptionCards(state = state, onEvent = onEvent)
+
+        if (state.showManualReceiptCredentialEntry) {
+          ManualReceiptCredentialEntry(state = state, onEvent = onEvent)
+        }
+      }
+    },
+    footer = { Footer(params, state, firstPaneScrollState.canScrollForward || secondPaneScrollState.canScrollForward, onEvent) }
+  )
+}
+
+@Composable
+private fun Header(
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit,
+  twoPane: Boolean = false
+) {
+  Image(
+    painter = painterResource(R.drawable.image_signal_login_ring),
+    contentDescription = null,
+    modifier = Modifier.size(72.dp)
+  )
+
+  Spacer(modifier = Modifier.height(20.dp))
+
+  Row(
+    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+    verticalAlignment = Alignment.CenterVertically,
+    modifier = Modifier.fillMaxWidth()
+  ) {
+    Text(
+      text = stringResource(R.string.SignalLoginPaymentScreen__signal_login),
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
+      textAlign = TextAlign.Center,
+      modifier = Modifier
+        .weight(1f, fill = false)
+        .attachDebugLogHelper()
+    )
+
+    SignalLoginBetaTag()
+  }
+
+  Spacer(modifier = Modifier.height(12.dp))
+
+  Text(
+    text = buildAnnotatedString {
+      append(stringResource(R.string.SignalLoginPaymentScreen__register_without_a_phone_number))
+      append(' ')
+
+      withLink(
+        LinkAnnotation.Clickable(
+          tag = "learn-more",
+          styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colorScheme.primary)),
+          linkInteractionListener = { onEvent(SignalLoginPaymentScreenEvents.LearnMoreClicked) }
+        )
+      ) {
+        append(stringResource(R.string.SignalLoginPaymentScreen__learn_more))
+      }
+    },
+    style = MaterialTheme.typography.bodyLarge,
+    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    textAlign = TextAlign.Center,
+    modifier = Modifier
+      .fillMaxWidth()
+      .testTag(TestTags.SIGNAL_LOGIN_PAYMENT_LEARN_MORE_LINK)
+  )
+}
+
+/**
+ * Explains why Google Play cannot take a payment for a Signal Login, and offers whatever fix matches the problem.
+ */
+@Composable
+private fun PaymentUnavailableDialog(
+  availability: PaymentAvailability,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  val onDismiss = { onEvent(SignalLoginPaymentScreenEvents.PaymentUnavailableDialogDismissed) }
+  val onMakeAvailable = { onEvent(SignalLoginPaymentScreenEvents.MakeGooglePlayServicesAvailableClicked) }
+  val onLearnMore = { onEvent(SignalLoginPaymentScreenEvents.PaymentUnavailableLearnMoreClicked) }
+
+  val dialogModifier = Modifier.testTag(TestTags.SIGNAL_LOGIN_PAYMENT_UNAVAILABLE_DIALOG)
+
+  when (availability) {
+    PaymentAvailability.Available -> Unit
+
+    PaymentAvailability.ServiceUpdateRequired -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__update_google_play_services),
+        body = stringResource(R.string.SignalLoginPaymentScreen__to_purchase_a_signal_login_update_google_play_services),
+        confirm = stringResource(R.string.SignalLoginPaymentScreen__update),
+        dismiss = stringResource(android.R.string.cancel),
+        onConfirm = onMakeAvailable,
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.ServiceMissing -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_services_missing),
+        body = stringResource(R.string.SignalLoginPaymentScreen__to_purchase_a_signal_login_google_play_services_needs_to_be_installed),
+        confirm = stringResource(R.string.SignalLoginPaymentScreen__install_play_services),
+        dismiss = stringResource(android.R.string.cancel),
+        onConfirm = onMakeAvailable,
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.ServiceUpdating -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_services_are_updating),
+        body = stringResource(R.string.SignalLoginPaymentScreen__to_purchase_a_signal_login_wait_for_google_play_services),
+        confirm = stringResource(android.R.string.ok),
+        onConfirm = {},
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.ServiceDisabled -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_is_required),
+        body = stringResource(R.string.SignalLoginPaymentScreen__to_purchase_a_signal_login_enable_google_play_services),
+        confirm = stringResource(android.R.string.ok),
+        dismiss = stringResource(R.string.SignalLoginPaymentScreen__learn_more),
+        onConfirm = {},
+        onDeny = onLearnMore,
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.ServiceInvalid -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_is_required),
+        body = stringResource(R.string.SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_on_this_device),
+        confirm = stringResource(android.R.string.ok),
+        dismiss = stringResource(R.string.SignalLoginPaymentScreen__learn_more),
+        onConfirm = {},
+        onDeny = onLearnMore,
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.PurchasesUnavailable -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_is_required),
+        body = stringResource(R.string.SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_in_this_version),
+        confirm = stringResource(android.R.string.ok),
+        dismiss = stringResource(R.string.SignalLoginPaymentScreen__learn_more),
+        onConfirm = {},
+        onDeny = onLearnMore,
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+
+    PaymentAvailability.NotSignedIn -> {
+      Dialogs.SimpleAlertDialog(
+        title = stringResource(R.string.SignalLoginPaymentScreen__google_play_is_required),
+        body = stringResource(R.string.SignalLoginPaymentScreen__to_purchase_a_signal_login_sign_into_the_google_play_store),
+        confirm = stringResource(R.string.SignalLoginPaymentScreen__open_play_store),
+        dismiss = stringResource(android.R.string.cancel),
+        onConfirm = { onEvent(SignalLoginPaymentScreenEvents.OpenPlayStoreClicked) },
+        onDismiss = onDismiss,
+        modifier = dialogModifier
+      )
+    }
+  }
+}
+
+@Composable
+private fun OptionCards(
+  state: SignalLoginPaymentState,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  OptionCard(
+    title = {
+      // A purchase the user already paid for is what they will continue with, so the price no longer gates the card.
+      when {
+        state.price is SignalLoginPaymentState.Price.Available -> {
+          Text(text = state.price.formattedPrice, style = MaterialTheme.typography.titleMedium)
+        }
+
+        state.hasUnredeemedPurchase -> {
+          Text(
+            text = stringResource(R.string.SignalLoginPaymentScreen__already_paid),
+            style = MaterialTheme.typography.titleMedium
+          )
+        }
+
+        state.price is SignalLoginPaymentState.Price.TransientError -> {
+          Buttons.Small(
+            onClick = { onEvent(SignalLoginPaymentScreenEvents.PriceRetryClicked) },
+            modifier = Modifier.testTag(TestTags.SIGNAL_LOGIN_PAYMENT_PRICE_RETRY_BUTTON)
+          ) {
+            Text(text = stringResource(R.string.SignalLoginPaymentScreen__retry))
+          }
+        }
+
+        state.price is SignalLoginPaymentState.Price.Unavailable -> {
+          Text(
+            text = stringResource(R.string.SignalLoginPaymentScreen__unavailable),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+        }
+
+        else -> {
+          CircularProgressIndicator(
+            strokeWidth = 2.dp,
+            modifier = Modifier.size(20.dp)
+          )
+        }
+      }
+    },
+    subtitle = stringResource(R.string.SignalLoginPaymentScreen__one_time_purchase),
+    selected = state.selectedOption == Option.Purchase,
+    onClick = { onEvent(SignalLoginPaymentScreenEvents.OptionSelected(Option.Purchase)) },
+    enabled = state.isPurchaseOptionEnabled,
+    modifier = Modifier.testTag(TestTags.SIGNAL_LOGIN_PAYMENT_PURCHASE_OPTION)
+  ) {
+    FeatureRow(painterResource(R.drawable.symbol_no_phone_44), stringResource(R.string.SignalLoginPaymentScreen__no_phone_number_needed))
+    FeatureRow(SignalIcons.At.painter, stringResource(R.string.SignalLoginPaymentScreen__username_for_messaging_and_calls))
+    FeatureRow(painterResource(R.drawable.symbol_heart_24), stringResource(R.string.SignalLoginPaymentScreen__signal_is_a_non_profit))
+  }
+
+  Spacer(modifier = Modifier.height(16.dp))
+
+  OptionCard(
+    title = {
+      Text(
+        text = stringResource(R.string.SignalLoginPaymentScreen__i_have_a_signal_login),
+        style = MaterialTheme.typography.titleMedium
+      )
+    },
+    subtitle = stringResource(R.string.SignalLoginPaymentScreen__use_your_existing_account_key),
+    selected = state.selectedOption == Option.ExistingLogin,
+    onClick = { onEvent(SignalLoginPaymentScreenEvents.OptionSelected(Option.ExistingLogin)) },
+    modifier = Modifier.testTag(TestTags.SIGNAL_LOGIN_PAYMENT_EXISTING_LOGIN_OPTION)
+  ) {
+    FeatureRow(SignalIcons.DevicePhone.painter, stringResource(R.string.SignalLoginPaymentScreen__login_and_restore_your_account))
+    FeatureRow(painterResource(R.drawable.symbol_heart_24), stringResource(R.string.SignalLoginPaymentScreen__thanks_for_supporting_signal))
+  }
+}
+
+/**
+ * Testing escape hatch shown while the purchase flow is unfinished: pasting a base64-encoded receipt credential here
+ * lets us skip payment and register directly. Debug builds only.
+ */
+@Composable
+private fun ManualReceiptCredentialEntry(
+  state: SignalLoginPaymentState,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  val interactionSource = remember { MutableInteractionSource() }
+
+  Spacer(modifier = Modifier.height(16.dp))
+
+  TextField(
+    value = state.manualReceiptCredential.value,
+    onValueChange = { onEvent(SignalLoginPaymentScreenEvents.ManualReceiptCredentialChanged(ManualReceiptCredential(it))) },
+    label = { TextFields.Label(stringResource(R.string.SignalLoginPaymentScreen__paste_a_receipt_credential), state.manualReceiptCredential.value.isNotEmpty(), interactionSource) },
+    interactionSource = interactionSource,
+    enabled = !state.showSpinner,
+    maxLines = 3,
+    modifier = Modifier
+      .fillMaxWidth()
+      .testTag(TestTags.SIGNAL_LOGIN_PAYMENT_RECEIPT_CREDENTIAL_FIELD)
+  )
+}
+
+@Composable
+private fun OptionCard(
+  title: @Composable () -> Unit,
+  subtitle: String,
+  selected: Boolean,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  features: @Composable ColumnScope.() -> Unit
+) {
+  Column(
+    modifier = modifier
+      .fillMaxWidth()
+      .clip(CARD_SHAPE)
+      .selectable(selected = selected, enabled = enabled, role = Role.RadioButton, onClick = onClick)
+      .alpha(if (enabled) 1f else DISABLED_CARD_ALPHA)
+      .border(
+        width = CARD_BORDER_WIDTH,
+        color = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent,
+        shape = CARD_SHAPE
+      )
+      .padding(CARD_BORDER_WIDTH)
+      .clip(CARD_SHAPE)
+      .background(SignalTheme.colors.colorSurface2)
+      .padding(horizontal = 20.dp, vertical = 16.dp)
+  ) {
+    title()
+
+    Text(
+      text = subtitle,
+      style = MaterialTheme.typography.bodyLarge,
+      color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+      features()
+    }
+  }
+}
+
+@Composable
+private fun FeatureRow(
+  icon: Painter,
+  text: String
+) {
+  Row(verticalAlignment = Alignment.Top) {
+    Icon(
+      painter = icon,
+      contentDescription = null,
+      tint = MaterialTheme.colorScheme.onSurface,
+      modifier = Modifier
+        .padding(top = 2.dp)
+        .size(20.dp)
+    )
+
+    Spacer(modifier = Modifier.width(12.dp))
+
+    Text(
+      text = text,
+      style = MaterialTheme.typography.bodyLarge
+    )
+  }
+}
+
+@Composable
+private fun Footer(
+  params: RegistrationScaffold.Params,
+  state: SignalLoginPaymentState,
+  isElevated: Boolean,
+  onEvent: (SignalLoginPaymentScreenEvents) -> Unit
+) {
+  RegistrationScaffold.FooterSurface(isElevated = isElevated) {
+    Column(
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(16.dp),
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(params.footerPadding)
+    ) {
+      SignalLoginBetaDisclaimer(
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+          .widthIn(max = params.maxButtonWidth)
+          .fillMaxWidth()
+      )
+
+      Buttons.LargeTonal(
+        onClick = { onEvent(SignalLoginPaymentScreenEvents.ContinueClicked) },
+        enabled = state.isActionEnabled,
+        colors = ButtonDefaults.filledTonalButtonColors(
+          containerColor = MaterialTheme.colorScheme.primaryContainer,
+          contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        ),
+        modifier = Modifier
+          .widthIn(max = params.maxButtonWidth)
+          .fillMaxWidth()
+          .testTag(TestTags.SIGNAL_LOGIN_PAYMENT_CONTINUE_BUTTON)
+      ) {
+        if (state.showSpinner) {
+          CircularProgressIndicator(
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            strokeWidth = 2.dp,
+            modifier = Modifier.size(20.dp)
+          )
+        } else {
+          Text(
+            text = when {
+              state.manualReceiptCredential.isNotBlank -> stringResource(R.string.SignalLoginPaymentScreen__continue)
+              state.selectedOption == Option.ExistingLogin -> stringResource(R.string.SignalLoginPaymentScreen__continue)
+              state.hasUnredeemedPurchase -> stringResource(R.string.SignalLoginPaymentScreen__continue)
+              state.price is SignalLoginPaymentState.Price.Available -> stringResource(R.string.SignalLoginPaymentScreen__pay_s, state.price.formattedPrice)
+              else -> stringResource(R.string.SignalLoginPaymentScreen__pay)
+            }
+          )
+        }
+      }
+    }
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun SignalLoginPaymentScreenPreview() {
+  Previews.Preview {
+    SignalLoginPaymentScreen(
+      state = SignalLoginPaymentState(price = SignalLoginPaymentState.Price.Available("$1.99")),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun SignalLoginPaymentScreenExistingLoginPreview() {
+  Previews.Preview {
+    SignalLoginPaymentScreen(
+      state = SignalLoginPaymentState(
+        price = SignalLoginPaymentState.Price.Available("$1.99"),
+        selectedOption = Option.ExistingLogin
+      ),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun SignalLoginPaymentScreenManualReceiptCredentialPreview() {
+  Previews.Preview {
+    SignalLoginPaymentScreen(
+      state = SignalLoginPaymentState(
+        price = SignalLoginPaymentState.Price.Available("$1.99"),
+        manualReceiptCredential = ManualReceiptCredential("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+      ),
+      onEvent = {}
+    )
+  }
+}
+
+@AllDevicePreviews
+@Composable
+private fun SignalLoginPaymentScreenLoadingPricePreview() {
+  Previews.Preview {
+    SignalLoginPaymentScreen(
+      state = SignalLoginPaymentState(),
+      onEvent = {}
+    )
+  }
+}
+
+@Composable
+private fun PaymentUnavailablePreview(availability: PaymentAvailability) {
+  Previews.Preview {
+    SignalLoginPaymentScreen(
+      state = SignalLoginPaymentState(
+        price = if (availability.isTerminal) SignalLoginPaymentState.Price.Unavailable else SignalLoginPaymentState.Price.TransientError,
+        selectedOption = if (availability.isTerminal) Option.ExistingLogin else Option.Purchase,
+        paymentAvailability = availability,
+        dialogs = SignalLoginPaymentState.Dialogs(paymentUnavailable = true)
+      ),
+      onEvent = {}
+    )
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun ServiceUpdateRequiredPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.ServiceUpdateRequired)
+}
+
+@DayNightPreviews
+@Composable
+private fun ServiceMissingPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.ServiceMissing)
+}
+
+@DayNightPreviews
+@Composable
+private fun ServiceUpdatingPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.ServiceUpdating)
+}
+
+@DayNightPreviews
+@Composable
+private fun ServiceDisabledPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.ServiceDisabled)
+}
+
+@DayNightPreviews
+@Composable
+private fun ServiceInvalidPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.ServiceInvalid)
+}
+
+@DayNightPreviews
+@Composable
+private fun NotSignedInPreview() {
+  PaymentUnavailablePreview(PaymentAvailability.NotSignedIn)
+}
+
+@DayNightPreviews
+@Composable
+private fun PurchasesUnavailablePreview() {
+  PaymentUnavailablePreview(PaymentAvailability.PurchasesUnavailable)
+}

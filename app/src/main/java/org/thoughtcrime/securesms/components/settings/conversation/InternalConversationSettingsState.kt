@@ -13,6 +13,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.withStyle
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
 import org.signal.core.util.Hex
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
@@ -21,7 +22,6 @@ import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 import org.thoughtcrime.securesms.database.model.RecipientRecord
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 @Immutable
 data class InternalConversationSettingsState(
@@ -102,17 +102,26 @@ data class InternalConversationSettingsState(
       } else {
         val capabilities: RecipientRecord.Capabilities? = SignalDatabase.recipients.getCapabilities(recipient.id)
         if (capabilities != null) {
-          AnnotatedString("No capabilities right now.")
-          // Always leave one as an example in case we add one in the future
-          val style: SpanStyle = when (capabilities.usernameSyncMessages) {
-            Recipient.Capability.SUPPORTED -> SpanStyle(color = Color(0, 150, 0))
-            Recipient.Capability.NOT_SUPPORTED -> SpanStyle(color = Color.Red)
-            Recipient.Capability.UNKNOWN -> SpanStyle(fontStyle = FontStyle.Italic)
-          }
+          val named = listOf(
+            "usernameSyncMessages" to capabilities.usernameSyncMessages,
+            "optionalPhoneNumber" to capabilities.optionalPhoneNumber
+          )
 
           buildAnnotatedString {
-            withStyle(style = style) {
-              append("usernameSyncMessages")
+            named.forEachIndexed { index, (name, capability) ->
+              val style: SpanStyle = when (capability) {
+                Recipient.Capability.SUPPORTED -> SpanStyle(color = Color(0, 150, 0))
+                Recipient.Capability.NOT_SUPPORTED -> SpanStyle(color = Color.Red)
+                Recipient.Capability.UNKNOWN -> SpanStyle(fontStyle = FontStyle.Italic)
+              }
+
+              if (index > 0) {
+                append(", ")
+              }
+
+              withStyle(style = style) {
+                append(name)
+              }
             }
           }
         } else {

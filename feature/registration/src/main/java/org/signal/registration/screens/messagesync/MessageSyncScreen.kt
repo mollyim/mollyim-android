@@ -12,11 +12,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -37,12 +37,16 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import org.signal.core.ui.FormFactor
 import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.assumedFormFactor
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.KeepScreenOnEffect
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.fonts.SignalSymbols
+import org.signal.core.ui.fonts.SignalSymbols.SignalSymbol
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.core.util.kibiBytes
 import org.signal.core.util.mebiBytes
@@ -51,6 +55,7 @@ import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.screens.messagesync.MessageSyncScreenState.Stage
 import org.signal.registration.test.TestTags
 
 /**
@@ -63,6 +68,10 @@ fun MessageSyncScreen(
   modifier: Modifier = Modifier
 ) {
   val layoutParams = RegistrationScaffold.rememberLayoutParams()
+
+  if (!state.showSyncFailedDialog) {
+    KeepScreenOnEffect()
+  }
 
   Surface(modifier = modifier.testTag(TestTags.MESSAGE_SYNC_SCREEN)) {
     when (layoutParams) {
@@ -98,6 +107,7 @@ private fun OnePane(params: RegistrationScaffold.Params.OnePane, state: MessageS
           .padding(paddingValues)
       ) {
         FirstPaneContent(state)
+        Spacer(modifier = Modifier.height(16.dp))
         SecondPaneContent()
       }
     },
@@ -122,6 +132,7 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
     firstPane = { paddingValues ->
       FirstPaneContent(
         state = state,
+        twoPane = true,
         modifier = Modifier
           .weight(1f)
           .fillMaxHeight()
@@ -151,12 +162,13 @@ private fun TwoPane(params: RegistrationScaffold.Params.TwoPane, state: MessageS
 @Composable
 private fun FirstPaneContent(
   state: MessageSyncScreenState,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  twoPane: Boolean = false
 ) {
   Column(modifier = modifier) {
     Text(
       text = stringResource(R.string.MessageSyncScreen__syncing_messages),
-      style = MaterialTheme.typography.headlineMedium,
+      style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
       modifier = Modifier
         .fillMaxWidth()
         .attachDebugLogHelper()
@@ -164,37 +176,42 @@ private fun FirstPaneContent(
 
     Text(
       text = stringResource(R.string.MessageSyncScreen__this_may_take_a_few_minutes),
-      style = MaterialTheme.typography.bodyLarge,
+      style = if (twoPane) MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal) else MaterialTheme.typography.bodyLarge,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       modifier = Modifier.padding(top = 16.dp)
     )
 
-    val showDownloadProgress = state.totalBytes.bytes > 0 && !state.isFinishing
     val progressModifier = Modifier
       .padding(top = 48.dp, bottom = 16.dp)
       .widthIn(max = 415.dp)
       .fillMaxWidth()
 
-    if (showDownloadProgress) {
-      LinearProgressIndicator(
-        progress = { state.downloadedBytes.percentageOf(state.totalBytes) },
+    when (val stage = state.stage) {
+      is Stage.Downloading -> LinearProgressIndicator(
+        progress = { stage.downloaded.percentageOf(stage.total) },
         drawStopIndicator = {},
         gapSize = 0.dp,
         modifier = progressModifier
       )
-    } else {
-      LinearProgressIndicator(modifier = progressModifier)
+      is Stage.Restoring -> LinearProgressIndicator(
+        progress = { stage.restored.percentageOf(stage.total) },
+        drawStopIndicator = {},
+        gapSize = 0.dp,
+        modifier = progressModifier
+      )
+      Stage.Preparing, Stage.Finishing -> LinearProgressIndicator(modifier = progressModifier)
     }
 
     Text(
-      text = when {
-        state.isFinishing -> stringResource(R.string.MessageSyncScreen__finishing)
-        showDownloadProgress -> stringResource(
+      text = when (val stage = state.stage) {
+        Stage.Preparing -> stringResource(R.string.MessageSyncScreen__preparing)
+        is Stage.Downloading -> stringResource(
           R.string.MessageSyncScreen__downloading_s_of_s,
-          state.downloadedBytes.toUnitString(),
-          state.totalBytes.toUnitString()
+          stage.downloaded.toUnitString(),
+          stage.total.toUnitString()
         )
-        else -> stringResource(R.string.MessageSyncScreen__preparing)
+        is Stage.Restoring -> stringResource(R.string.MessageSyncScreen__restoring)
+        Stage.Finishing -> stringResource(R.string.MessageSyncScreen__finishing)
       },
       style = MaterialTheme.typography.bodyMedium,
       color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -206,9 +223,14 @@ private fun FirstPaneContent(
 private fun SecondPaneContent(
   modifier: Modifier = Modifier
 ) {
-  // TODO [regv5] Final image asset
+  val deviceImage = when (rememberWindowBreakpoint().assumedFormFactor) {
+    FormFactor.PHONE -> R.drawable.device_phone
+    FormFactor.FOLDABLE -> R.drawable.device_foldable
+    FormFactor.TABLET -> R.drawable.device_tablet
+  }
+
   Image(
-    painter = painterResource(R.drawable.welcome),
+    painter = painterResource(deviceImage),
     contentDescription = null,
     modifier = modifier
   )
@@ -275,7 +297,13 @@ private fun InlineFooter(
     verticalAlignment = Alignment.CenterVertically
   ) {
     Spacer(modifier = Modifier.weight(1f))
-    Notice(onEvent = onEvent)
+
+    Box(
+      modifier = Modifier.weight(2f),
+      contentAlignment = Alignment.Center
+    ) {
+      Notice(onEvent = onEvent)
+    }
 
     Box(
       modifier = Modifier.weight(1f),
@@ -298,17 +326,10 @@ private fun Notice(
   onEvent: (MessageSyncScreenEvent) -> Unit
 ) {
   Row(modifier = modifier) {
-    Icon(
-      imageVector = SignalIcons.Lock.imageVector,
-      contentDescription = null,
-      tint = MaterialTheme.colorScheme.onSurfaceVariant,
-      modifier = Modifier
-        .padding(end = 2.dp)
-        .align(Alignment.CenterVertically)
-    )
-
     Text(
       text = buildAnnotatedString {
+        SignalSymbol(glyph = SignalSymbols.Glyph.LOCK)
+        append(' ')
         append(stringResource(R.string.MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee))
         append(' ')
 
@@ -317,7 +338,7 @@ private fun Notice(
             tag = "learn-more",
             styles = TextLinkStyles(
               style = SpanStyle(
-                color = MaterialTheme.colorScheme.onSurface,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Bold,
                 textDecoration = TextDecoration.Underline
               )
@@ -358,8 +379,7 @@ private fun MessageSyncScreenPreview() {
   Previews.Preview {
     MessageSyncScreen(
       state = MessageSyncScreenState(
-        downloadedBytes = 1.mebiBytes,
-        totalBytes = 3300.kibiBytes
+        stage = Stage.Downloading(downloaded = 1.mebiBytes, total = 3300.kibiBytes)
       ),
       onEvent = {}
     )

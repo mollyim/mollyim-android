@@ -6,14 +6,27 @@
 package org.signal.registration.screens.phonenumber
 
 import org.signal.core.util.censor
+import org.signal.registration.RegistrationFlowState
 import org.signal.registration.screens.localbackuprestore.LocalBackupRestoreResult
 
 sealed class PhoneNumberEntryScreenEvents {
+  /** Emitted once when the screen is created to load initial data into the state. */
+  data object Initialize : PhoneNumberEntryScreenEvents()
+
+  /** The parent registration flow state changed and needs to be merged into this screen's state. */
+  data class ParentStateChanged(val parentState: RegistrationFlowState) : PhoneNumberEntryScreenEvents()
+
   /** The phone country code prefix (i.e. +1) was changed by the user. */
   data class CountryCodeChanged(val value: String) : PhoneNumberEntryScreenEvents()
 
-  /** The national number (basically the number without the country code) was changed by the user. */
-  data class NationalNumberChanged(val value: String) : PhoneNumberEntryScreenEvents()
+  /**
+   * The national number (basically the number without the country code) was changed by the user. Both the previous and
+   * new raw field text are provided so the view model can determine whether this was a single typed character or a bulk
+   * change (a paste or autofill).
+   */
+  data class NationalNumberChanged(val oldValue: String, val newValue: String) : PhoneNumberEntryScreenEvents() {
+    override fun toString(): String = "NationalNumberChanged(oldValue=${oldValue.censor()}, newValue=${newValue.censor()})"
+  }
 
   /** The user changed the country via the country picker. */
   data class CountrySelected(val countryCode: Int, val regionCode: String, val countryName: String, val countryEmoji: String) : PhoneNumberEntryScreenEvents()
@@ -40,6 +53,9 @@ sealed class PhoneNumberEntryScreenEvents {
   /** The user chose to link this device to an existing account instead of registering a new number. */
   data object LinkDevice : PhoneNumberEntryScreenEvents()
 
+  /** The user chose to register with a Signal Login instead of a phone number. */
+  data object RegisterWithoutNumber : PhoneNumberEntryScreenEvents()
+
   data class CaptchaCompleted(val token: String) : PhoneNumberEntryScreenEvents() {
     override fun toString(): String = "CaptchaCompleted(token=${token.censor()})"
   }
@@ -48,5 +64,25 @@ sealed class PhoneNumberEntryScreenEvents {
   data class LocalBackupRestoreCompleted(val result: LocalBackupRestoreResult) : PhoneNumberEntryScreenEvents() {
     override fun toString(): String = "LocalBackupRestoreCompleted(result=***)"
   }
-  data object ConsumeOneTimeEvent : PhoneNumberEntryScreenEvents()
+
+  /** The user chose to verify their number over SMS instead of entering their recovery key for a remote backup restore. */
+  data object RemoteBackupRestoreDeferredToSms : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the network error dialog. */
+  data object NetworkErrorDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the unknown error dialog. */
+  data object UnknownErrorDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the rate limited dialog. */
+  data object RateLimitedDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the unable-to-send-SMS dialog. */
+  data object UnableToSendSmsDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the could-not-request-code-with-selected-transport dialog. */
+  data object CouldNotRequestCodeWithSelectedTransportDialogDismissed : PhoneNumberEntryScreenEvents()
+
+  /** The user dismissed the invalid phone number dialog. */
+  data object InvalidPhoneNumberDialogDismissed : PhoneNumberEntryScreenEvents()
 }

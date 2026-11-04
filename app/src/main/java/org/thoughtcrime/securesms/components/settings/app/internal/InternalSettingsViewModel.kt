@@ -107,8 +107,8 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
-  fun setInternalCallingDisableTelecom(enabled: Boolean) {
-    preferenceDataStore.putBoolean(InternalValues.CALLING_DISABLE_TELECOM, enabled)
+  fun setInternalCallingUseTelecom(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_USE_TELECOM, enabled)
     refresh()
   }
 
@@ -142,18 +142,48 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     refresh()
   }
 
+  fun setInternalCallingSetVideoConfig(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_SET_VIDEO_CONFIG, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingUseHardwareVp9Encode(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_USE_HARDWARE_VP9_ENCODE, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingUseHardwareVp9Decode(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_USE_HARDWARE_VP9_DECODE, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingUseSoftwareVp9Encode(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_USE_SOFTWARE_VP9_ENCODE, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingUseSoftwareVp9Decode(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_USE_SOFTWARE_VP9_DECODE, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingEnableSvc(enabled: Boolean) {
+    preferenceDataStore.putBoolean(InternalValues.CALLING_ENABLE_SVC, enabled)
+    refresh()
+  }
+
+  fun setInternalCallingStatsIntervalSecs(intervalSecs: Int) {
+    preferenceDataStore.putInt(InternalValues.CALLING_STATS_INTERVAL_SECS, intervalSecs)
+    refresh()
+  }
+
+  fun setInternalCallingMinimumCaptureFps(minimumFps: Int) {
+    preferenceDataStore.putInt(InternalValues.CALLING_MINIMUM_CAPTURE_FPS, minimumFps)
+    refresh()
+  }
+
   fun setUseConversationItemV2Media(enabled: Boolean) {
     SignalStore.internal.useConversationItemV2Media = enabled
-    refresh()
-  }
-
-  fun setUseNewMediaActivity(enabled: Boolean) {
-    SignalStore.internal.useNewMediaActivity = enabled
-    refresh()
-  }
-
-  fun setHevcEncoding(enabled: Boolean) {
-    SignalStore.internal.hevcEncoding = enabled
     refresh()
   }
 
@@ -226,13 +256,21 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     allowCensorshipSetting = SignalStore.internal.allowChangingCensorshipSetting,
     callingServer = SignalStore.internal.groupCallingServer,
     callingDataMode = SignalStore.internal.callingDataMode,
-    callingDisableTelecom = SignalStore.internal.callingDisableTelecom,
+    callingUseTelecom = SignalStore.internal.callingUseTelecom,
     callingSetAudioConfig = SignalStore.internal.callingSetAudioConfig,
     callingUseOboeAdm = SignalStore.internal.callingUseOboeAdm,
     callingUseSoftwareAec = SignalStore.internal.callingUseSoftwareAec,
     callingUseSoftwareNs = SignalStore.internal.callingUseSoftwareNs,
     callingUseInputLowLatency = SignalStore.internal.callingUseInputLowLatency,
     callingUseInputVoiceComm = SignalStore.internal.callingUseInputVoiceComm,
+    callingSetVideoConfig = SignalStore.internal.callingSetVideoConfig,
+    callingUseHardwareVp9Encode = SignalStore.internal.callingUseHardwareVp9Encode,
+    callingUseHardwareVp9Decode = SignalStore.internal.callingUseHardwareVp9Decode,
+    callingUseSoftwareVp9Encode = SignalStore.internal.callingUseSoftwareVp9Encode,
+    callingUseSoftwareVp9Decode = SignalStore.internal.callingUseSoftwareVp9Decode,
+    callingEnableSvc = SignalStore.internal.callingEnableSvc,
+    callingStatsIntervalSecs = SignalStore.internal.callingStatsIntervalSecs,
+    callingMinimumCaptureFps = SignalStore.internal.callingMinimumCaptureFps,
     useBuiltInEmojiSet = SignalStore.internal.forceBuiltInEmoji,
     emojiVersion = null,
     removeSenderKeyMinimium = SignalStore.internal.removeSenderKeyMinimum,
@@ -242,10 +280,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
     pnpInitialized = SignalStore.misc.hasPniInitializedDevices,
     useConversationItemV2ForMedia = SignalStore.internal.useConversationItemV2Media,
     hasPendingOneTimeDonation = SignalStore.inAppPayments.getPendingOneTimeDonation() != null,
-    hevcEncoding = SignalStore.internal.hevcEncoding,
-    forceSplitPane = SignalStore.internal.forceSplitPane,
-    forceSinglePane = SignalStore.internal.forceSinglePane,
-    useNewMediaActivity = SignalStore.internal.useNewMediaActivity,
     disableInternalUser = RemoteConfig.internalUserDisabled
   )
 
@@ -259,16 +293,6 @@ class InternalSettingsViewModel(private val repository: InternalSettingsReposito
 
   fun setDisableInternalUser(disabled: Boolean) {
     RemoteConfig.internalUserDisabled = disabled
-    refresh()
-  }
-
-  fun setForceSplitPane(forceSplitPane: Boolean) {
-    SignalStore.internal.forceSplitPane = forceSplitPane
-    refresh()
-  }
-
-  fun setForceSinglePane(forceSinglePane: Boolean) {
-    SignalStore.internal.forceSinglePane = forceSinglePane
     refresh()
   }
 

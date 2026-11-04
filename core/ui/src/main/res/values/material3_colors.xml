@@ -7,6 +7,7 @@
     <color name="signal_colorSecondaryContainer">@color/signal_light_colorSecondaryContainer</color>
     <color name="signal_colorSurface">@color/signal_light_colorSurface</color>
     <color name="signal_colorSurfaceVariant">@color/signal_light_colorSurfaceVariant</color>
+    <color name="signal_colorSurfaceVariantFill">@color/signal_light_colorSurfaceVariantFill</color>
     <color name="signal_colorBackground">@color/signal_light_colorBackground</color>
     <color name="signal_colorError">@color/signal_light_colorError</color>
     <color name="signal_colorErrorContainer">@color/signal_light_colorErrorContainer</color>
@@ -20,6 +21,7 @@
     <color name="signal_colorOnBackground">@color/signal_light_colorOnBackground</color>
     <color name="signal_colorOutline">@color/signal_light_colorOutline</color>
     <color name="signal_neutralSurface">@color/signal_light_neutralSurface</color>
+    <color name="signal_neutralFill">@color/signal_dark_neutralFill</color>
     <color name="signal_colorOnCustom">@color/signal_light_colorOnCustom</color>
     <color name="signal_colorOnCustomVariant">@color/signal_light_colorOnCustomVariant</color>
 
@@ -65,4 +67,6 @@
     <!-- Core color alpha variants without alpha channel -->
     <color name="signal_colorSurfaceVariant_16_no_alpha">#D5D8DE</color>
     <color name="signal_colorSurfaceVariant_32_no_alpha">#B8BCC5</color>
+
+    <color name="reminder_background">#faf0dc</color>
 </resources>

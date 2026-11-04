@@ -3,12 +3,16 @@ package org.thoughtcrime.securesms.database
 import android.content.ContentValues
 import android.content.Context
 import androidx.core.content.contentValuesOf
-import org.signal.core.util.SqlUtil
-import org.signal.core.util.delete
-import org.signal.core.util.exists
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.delete
+import org.signal.core.database.exists
+import org.signal.core.database.insertInto
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.database.withinTransaction
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.forEach
 import org.signal.core.util.groupBy
-import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.readToMap
@@ -22,9 +26,6 @@ import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
-import org.signal.core.util.select
-import org.signal.core.util.update
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.polls.Poll
@@ -34,7 +35,6 @@ import org.thoughtcrime.securesms.polls.PollVote
 import org.thoughtcrime.securesms.polls.VoteState
 import org.thoughtcrime.securesms.polls.Voter
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Database table for polls
@@ -170,6 +170,20 @@ class PollTables(context: Context?, databaseHelper: SignalDatabase?) : DatabaseT
       .run()
 
     Log.d(TAG, "Remapped $fromId to $toId. count from polls: $countFromPoll from poll votes: $countFromVotes")
+  }
+
+  override fun onDeletedRecipient(recipientId: RecipientId) {
+    val deletedFromPoll = writableDatabase
+      .delete(PollTable.TABLE_NAME)
+      .where("${PollTable.AUTHOR_ID} = ?", recipientId)
+      .run()
+
+    val deletedFromVotes = writableDatabase
+      .delete(PollVoteTable.TABLE_NAME)
+      .where("${PollVoteTable.VOTER_ID} = ?", recipientId)
+      .run()
+
+    Log.d(TAG, "Deleted recipient: $deletedFromPoll $deletedFromVotes")
   }
 
   /**

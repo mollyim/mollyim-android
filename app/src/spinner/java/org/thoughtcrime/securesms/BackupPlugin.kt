@@ -5,6 +5,8 @@
 
 package org.thoughtcrime.securesms
 
+import arrow.core.Either
+import kotlinx.coroutines.runBlocking
 import okio.ByteString
 import org.signal.archive.proto.AccountData
 import org.signal.archive.proto.BackupDebugInfo
@@ -14,7 +16,6 @@ import org.signal.core.util.bytes
 import org.signal.core.util.decodeOrNull
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
-import org.signal.network.NetworkResult
 import org.signal.network.api.SvrBApi
 import org.signal.spinner.Plugin
 import org.signal.spinner.PluginResult
@@ -58,10 +59,10 @@ class BackupPlugin : Plugin {
     val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
 
     when (val result = BackupRepository.downloadBackupFile(tempBackupFile)) {
-      is NetworkResult.Success -> Log.i(TAG, "Download successful")
-      else -> {
-        Log.w(TAG, "Failed to download backup file", result.getCause())
-        return result.getCause().toString()
+      is Either.Right -> Log.i(TAG, "Download successful")
+      is Either.Left -> {
+        Log.w(TAG, "Failed to download backup file", result.value.cause)
+        return result.value.toString()
       }
     }
 
@@ -70,18 +71,18 @@ class BackupPlugin : Plugin {
       return "Failed to read forward secrecy metadata!"
     }
 
-    val svrBAuth = when (val result = BackupRepository.getSvrBAuth()) {
-      is NetworkResult.Success -> result.result
-      else -> return "Failed to read forward secrecy metadata!"
+    val svrBAuth = when (val result = runBlocking { SignalNetwork.archiveService.getSvrBAuth() }) {
+      is Either.Right -> result.value
+      is Either.Left -> return "Failed to read forward secrecy metadata!"
     }
 
-    val forwardSecrecyToken = when (val result = SignalNetwork.svrB.restore(svrBAuth, SignalStore.backup.messageBackupKey, forwardSecrecyMetadata)) {
+    val forwardSecrecyToken = when (val result = SignalNetwork.svrBApi.restore(svrBAuth, SignalStore.backup.messageBackupKey, forwardSecrecyMetadata)) {
       is SvrBApi.RestoreResult.Success -> result.data.forwardSecrecyToken
       else -> return "Failed to read forward secrecy metadata! $result"
     }
 
     val self = Recipient.self()
-    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.get(), self.e164.get(), ProfileKey(self.profileKey))
+    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.orElse(null), self.e164.orElse(null), ProfileKey(self.profileKey))
 
     val backupKey = SignalStore.backup.messageBackupKey
 
@@ -115,7 +116,7 @@ class BackupPlugin : Plugin {
     val snapshotFS = SnapshotFileSystem(AppDependencies.application, snapshot.file)
 
     val self = Recipient.self()
-    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.get(), self.e164.get(), ProfileKey(self.profileKey))
+    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.orElse(null), self.e164.orElse(null), ProfileKey(self.profileKey))
 
     val backupKey = SignalStore.backup.messageBackupKey
 

@@ -8,11 +8,11 @@ package org.thoughtcrime.securesms.components.settings.app.routes
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import kotlinx.parcelize.Parcelize
+import org.signal.core.models.recipients.RecipientId
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.profiles.manage.UsernameEditMode
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Describes a route that the AppSettings screen can open. Every route listed here is displayed in
@@ -74,6 +74,7 @@ sealed interface AppSettingsRoute : Parcelable {
   @Parcelize
   sealed interface NotificationsRoute : AppSettingsRoute {
     data object Notifications : NotificationsRoute
+    data object MutedNotifications : NotificationsRoute
     data object NotificationProfiles : NotificationsRoute
     data class EditProfile(val profileId: Long = -1L) : NotificationsRoute
     data class ProfileDetails(val profileId: Long) : NotificationsRoute

@@ -6,36 +6,47 @@
 package org.signal.registration.sample
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.conscrypt.Conscrypt
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.ui.CoreUiDependencies
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.AndroidLogger
 import org.signal.core.util.logging.Log
+import org.signal.network.config.SignalCdnUrl
+import org.signal.network.config.SignalCdsiUrl
+import org.signal.network.config.SignalServiceConfiguration
+import org.signal.network.config.SignalServiceUrl
+import org.signal.network.config.SignalStorageUrl
+import org.signal.network.config.SignalSvr2Url
+import org.signal.network.config.TrustStore
+import org.signal.registration.ContactSupportController
 import org.signal.registration.RegistrationDependencies
 import org.signal.registration.sample.debug.DebugNetworkController
 import org.signal.registration.sample.dependencies.DemoNetworkController
 import org.signal.registration.sample.dependencies.DemoStorageController
 import org.signal.registration.sample.storage.RegistrationPreferences
-import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.api.util.CredentialsProvider
-import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
-import org.whispersystems.signalservice.internal.configuration.SignalCdsiUrl
-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
-import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
-import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
-import org.whispersystems.signalservice.internal.configuration.SignalSvr2Url
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import java.io.InputStream
+import java.security.Security
 import java.util.Optional
 
 class RegistrationApplication : Application() {
 
   companion object {
+    private val TAG = Log.tag(RegistrationApplication::class)
+
     // Staging SVR2 mrEnclave value
     private const val SVR2_MRENCLAVE = "97f151f6ed078edbbfd72fa9cae694dcc08353f1f5e8d9ccd79a971b10ffc535"
+
+    /** The demo app isn't listed in the relying party's asset links, so passkey ceremonies fail here by design. */
+    private const val WEBAUTHN_RP_ID = "login.signal.org"
 
     lateinit var serviceConfiguration: SignalServiceConfiguration
       private set
@@ -45,6 +56,7 @@ class RegistrationApplication : Application() {
     super.onCreate()
 
     Log.initialize(AndroidLogger)
+    initializeSecurityProvider()
 
     RegistrationPreferences.init(this)
     createDeviceTransferNotificationChannel()
@@ -61,6 +73,7 @@ class RegistrationApplication : Application() {
       RegistrationDependencies(
         networkController = networkController,
         storageController = storageController,
+        webAuthnRelyingPartyId = WEBAUTHN_RP_ID,
         sensitiveLogger = LogLogger,
         debugLogCallback = {},
         proxyConfigCallback = { context ->
@@ -69,13 +82,20 @@ class RegistrationApplication : Application() {
             .setPositiveButton(android.R.string.ok, null)
             .show()
         },
-        contactSupportCallback = { context, subject ->
-          MaterialAlertDialogBuilder(context)
-            .setMessage("Contact support not supported in the demo. Subject: $subject")
-            .setPositiveButton(android.R.string.ok, null)
-            .show()
+        contactSupportController = object : ContactSupportController {
+          override suspend fun uploadDebugLog(): String? = null
+
+          override fun sendSupportEmail(context: Context, subject: String, filter: String, debugLogUrl: String?) {
+            MaterialAlertDialogBuilder(context)
+              .setMessage("Contact support not supported in the demo. Subject: $subject, Filter: $filter, Debug log: $debugLogUrl")
+              .setPositiveButton(android.R.string.ok, null)
+              .show()
+          }
         },
-        isLinkAndSyncAvailable = true
+        isLinkAndSyncAvailable = true,
+        isPhoneNumberlessRegistrationAvailable = true,
+        // The demo app is not published to the Play Store, so it can never complete a real purchase.
+        isGooglePlayBillingAvailable = false
       )
     )
 
@@ -85,17 +105,25 @@ class RegistrationApplication : Application() {
         override fun providePackageId(): String = BuildConfig.APPLICATION_ID
         override fun provideIsIncognitoKeyboardEnabled(): Boolean = false
         override fun provideIsScreenSecurityEnabled(): Boolean = false
-        override fun provideForceSplitPane(): Boolean = false
       }
     )
   }
 
+  private fun initializeSecurityProvider() {
+    val position = Security.insertProviderAt(Conscrypt.newProvider(), 1)
+    Log.i(TAG, "Installed Conscrypt provider: $position")
+  }
+
   private fun createDeviceTransferNotificationChannel() {
-    val manager = getSystemService(android.app.NotificationManager::class.java) ?: return
-    val channel = android.app.NotificationChannel(
+    if (Build.VERSION.SDK_INT < 26) {
+      return
+    }
+
+    val manager = getSystemService(NotificationManager::class.java) ?: return
+    val channel = NotificationChannel(
       DemoNetworkController.DEVICE_TRANSFER_NOTIFICATION_CHANNEL_ID,
       "Device transfer",
-      android.app.NotificationManager.IMPORTANCE_LOW
+      NotificationManager.IMPORTANCE_LOW
     )
     manager.createNotificationChannel(channel)
   }
@@ -126,7 +154,6 @@ class RegistrationApplication : Application() {
       networkInterceptors = emptyList(),
       dns = Optional.empty(),
       signalProxy = Optional.empty(),
-      systemHttpProxy = Optional.empty(),
       zkGroupServerPublicParams = Base64.decode("ABSY21VckQcbSXVNCGRYJcfWHiAMZmpTtTELcDmxgdFbtp/bWsSxZdMKzfCp8rvIs8ocCU3B37fT3r4Mi5qAemeGeR2X+/YmOGR5ofui7tD5mDQfstAI9i+4WpMtIe8KC3wU5w3Inq3uNWVmoGtpKndsNfwJrCg0Hd9zmObhypUnSkfYn2ooMOOnBpfdanRtrvetZUayDMSC5iSRcXKpdlukrpzzsCIvEwjwQlJYVPOQPj4V0F4UXXBdHSLK05uoPBCQG8G9rYIGedYsClJXnbrgGYG3eMTG5hnx4X4ntARBgELuMWWUEEfSK0mjXg+/2lPmWcTZWR9nkqgQQP0tbzuiPm74H2wMO4u1Wafe+UwyIlIT9L7KLS19Aw8r4sPrXZSSsOZ6s7M1+rTJN0bI5CKY2PX29y5Ok3jSWufIKcgKOnWoP67d5b2du2ZVJjpjfibNIHbT/cegy/sBLoFwtHogVYUewANUAXIaMPyCLRArsKhfJ5wBtTminG/PAvuBdJ70Z/bXVPf8TVsR292zQ65xwvWTejROW6AZX6aqucUjlENAErBme1YHmOSpU6tr6doJ66dPzVAWIanmO/5mgjNEDeK7DDqQdB1xd03HT2Qs2TxY3kCK8aAb/0iM0HQiXjxZ9HIgYhbtvGEnDKW5ILSUydqH/KBhW4Pb0jZWnqN/YgbWDKeJxnDbYcUob5ZY5Lt5ZCMKuaGUvCJRrCtuugSMaqjowCGRempsDdJEt+cMaalhZ6gczklJB/IbdwENW9KeVFPoFNFzhxWUIS5ML9riVYhAtE6JE5jX0xiHNVIIPthb458cfA8daR0nYfYAUKogQArm0iBezOO+mPk5vCNWI+wwkyFCqNDXz/qxl1gAntuCJtSfq9OC3NkdhQlgYQ=="),
       genericServerPublicParams = Base64.decode("AHILOIrFPXX9laLbalbA9+L1CXpSbM/bTJXZGZiuyK1JaI6dK5FHHWL6tWxmHKYAZTSYmElmJ5z2A5YcirjO/yfoemE03FItyaf8W1fE4p14hzb5qnrmfXUSiAIVrhaXVwIwSzH6RL/+EO8jFIjJ/YfExfJ8aBl48CKHgu1+A6kWynhttonvWWx6h7924mIzW0Czj2ROuh4LwQyZypex4GuOPW8sgIT21KNZaafgg+KbV7XM1x1tF3XA17B4uGUaDbDw2O+nR1+U5p6qHPzmJ7ggFjSN6Utu+35dS1sS0P9N"),
       backupServerPublicParams = Base64.decode("AHYrGb9IfugAAJiPKp+mdXUx+OL9zBolPYHYQz6GI1gWjpEu5me3zVNSvmYY4zWboZHif+HG1sDHSuvwFd0QszSwuSF4X4kRP3fJREdTZ5MCR0n55zUppTwfHRW2S4sdQ0JGz7YDQIJCufYSKh0pGNEHL6hv79Agrdnr4momr3oXdnkpVBIp3HWAQ6IbXQVSG18X36GaicI1vdT0UFmTwU2KTneluC2eyL9c5ff8PcmiS+YcLzh0OKYQXB5ZfQ06d6DiINvDQLy75zcfUOniLAj0lGJiHxGczin/RXisKSR8"),

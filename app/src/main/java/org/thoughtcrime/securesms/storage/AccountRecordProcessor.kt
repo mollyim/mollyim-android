@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.storage
 
-import android.content.Context
 import okio.ByteString
 import org.signal.core.util.isNotEmpty
 import org.signal.core.util.logging.Log
@@ -15,7 +14,6 @@ import org.whispersystems.signalservice.api.storage.safeSetBackupsSubscriber
 import org.whispersystems.signalservice.api.storage.safeSetPayments
 import org.whispersystems.signalservice.api.storage.safeSetSubscriber
 import org.whispersystems.signalservice.api.storage.toSignalAccountRecord
-import org.whispersystems.signalservice.internal.storage.protos.OptionalBool
 import java.util.Optional
 
 /**
@@ -24,7 +22,6 @@ import java.util.Optional
  * exactly one account record).
  */
 class AccountRecordProcessor(
-  private val context: Context,
   private val self: Recipient,
   private val localAccountRecord: SignalAccountRecord
 ) : DefaultStorageRecordProcessor<SignalAccountRecord>() {
@@ -35,10 +32,9 @@ class AccountRecordProcessor(
 
   private var foundAccountRecord = false
 
-  constructor(context: Context, self: Recipient) : this(
-    context = context,
+  constructor(self: Recipient) : this(
     self = self,
-    localAccountRecord = StorageSyncHelper.buildAccountRecord(context, self).let { it.proto.account!!.toSignalAccountRecord(it.id) }
+    localAccountRecord = StorageSyncHelper.buildAccountRecord(self).let { it.proto.account!!.toSignalAccountRecord(it.id) }
   )
 
   /**
@@ -100,19 +96,18 @@ class AccountRecordProcessor(
       backupsPurchaseToken = IAPSubscriptionId.from(local.proto.backupSubscriberData)
     }
 
-    val storyViewReceiptsState = if (remote.proto.storyViewReceiptsEnabled == OptionalBool.UNSET) {
-      local.proto.storyViewReceiptsEnabled
-    } else {
-      remote.proto.storyViewReceiptsEnabled
-    }
+    val storyViewReceiptsState = StorageSyncHelper.getOptionalBool(remote.proto.storyViewReceiptsEnabled, local.proto.storyViewReceiptsEnabled)
 
     val unknownFields = remote.serializedUnknowns
+
+    val unpublishedRotation = SignalStore.account.notSyncedRotatedSelfProfileKey
+    val keepLocalProfileKey = unpublishedRotation != null && local.proto.profileKey.toByteArray().contentEquals(unpublishedRotation)
 
     val merged = SignalAccountRecord.newBuilder(unknownFields).apply {
       givenName = mergedGivenName
       familyName = mergedFamilyName
-      avatarUrlPath = remote.proto.avatarUrlPath.nullIfEmpty() ?: local.proto.avatarUrlPath
-      profileKey = remote.proto.profileKey.nullIfEmpty() ?: local.proto.profileKey
+      avatarUrlPath = if (keepLocalProfileKey) local.proto.avatarUrlPath else remote.proto.avatarUrlPath.nullIfEmpty() ?: local.proto.avatarUrlPath
+      profileKey = if (keepLocalProfileKey) local.proto.profileKey else remote.proto.profileKey.nullIfEmpty() ?: local.proto.profileKey
       noteToSelfArchived = remote.proto.noteToSelfArchived
       noteToSelfMarkedUnread = remote.proto.noteToSelfMarkedUnread
       readReceipts = remote.proto.readReceipts
@@ -138,7 +133,8 @@ class AccountRecordProcessor(
       username = remote.proto.username
       usernameLink = remote.proto.usernameLink
       notificationProfileManualOverride = remote.proto.notificationProfileManualOverride
-      backupTier = local.proto.backupTier ?: remote.proto.backupTier
+      notificationProfileSyncDisabled = remote.proto.notificationProfileSyncDisabled
+      backupTier = if (SignalStore.account.isPrimaryDevice) local.proto.backupTier ?: remote.proto.backupTier else remote.proto.backupTier
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
       automaticKeyVerificationDisabled = remote.proto.automaticKeyVerificationDisabled
       hasSeenAdminDeleteEducationDialog = remote.proto.hasSeenAdminDeleteEducationDialog
@@ -146,6 +142,15 @@ class AccountRecordProcessor(
       releaseNotesChatMutedUntilTimestamp = remote.proto.releaseNotesChatMutedUntilTimestamp ?: local.proto.releaseNotesChatMutedUntilTimestamp
       releaseNotesChatBlocked = remote.proto.releaseNotesChatBlocked ?: local.proto.releaseNotesChatBlocked
       releaseNotesChatMarkedUnread = remote.proto.releaseNotesChatMarkedUnread ?: local.proto.releaseNotesChatMarkedUnread
+      releaseNotesChatBlockedAt = remote.proto.releaseNotesChatBlockedAt ?: local.proto.releaseNotesChatBlockedAt
+      unreadBadgeType = remote.proto.unreadBadgeType
+      includeMutedChatsInBadge = remote.proto.includeMutedChatsInBadge
+      notifyForCallsIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForCallsIfMuted, local.proto.notifyForCallsIfMuted)
+      notifyForMentionsIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForMentionsIfMuted, local.proto.notifyForMentionsIfMuted)
+      notifyForRepliesIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForRepliesIfMuted, local.proto.notifyForRepliesIfMuted)
+      reactionNotifications = StorageSyncHelper.getOptionalBool(remote.proto.reactionNotifications, local.proto.reactionNotifications)
+      showUnreadReminders = StorageSyncHelper.getOptionalBool(remote.proto.showUnreadReminders, local.proto.showUnreadReminders)
+      notifyWhenContactJoins = StorageSyncHelper.getOptionalBool(remote.proto.notifyWhenContactJoins, local.proto.notifyWhenContactJoins)
 
       safeSetPayments(payments?.enabled == true, payments?.entropy?.toByteArray())
       safeSetSubscriber(donationSubscriberId, donationSubscriberCurrencyCode)
@@ -166,7 +171,7 @@ class AccountRecordProcessor(
   }
 
   override fun updateLocal(update: StorageRecordUpdate<SignalAccountRecord>) {
-    applyAccountStorageSyncUpdates(context, self, update, true)
+    applyAccountStorageSyncUpdates(self, update, true)
   }
 
   override fun compare(lhs: SignalAccountRecord, rhs: SignalAccountRecord): Int {

@@ -21,6 +21,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -37,7 +40,7 @@ import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
 import org.signal.core.ui.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
 
 import java.util.ArrayList;
@@ -97,7 +100,14 @@ public class SubmitDebugLogActivity extends BaseActivity {
     dynamicTheme.onCreate(this);
     setContentView(R.layout.submit_debug_log_activity);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setTitle(R.string.HelpSettingsFragment__debug_log);
+    getSupportActionBar().setTitle(org.signal.appsettings.R.string.HelpSettingsFragment__debug_log);
+
+    // Insets are re-dispatched by appcompat's ActionBarOverlayLayout with the action bar height folded into the top inset.
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
+      Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+      v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+      return WindowInsetsCompat.CONSUMED;
+    });
 
     this.viewModel = new ViewModelProvider(this, new SubmitDebugLogViewModel.Factory()).get(SubmitDebugLogViewModel.class);
 
@@ -301,13 +311,6 @@ public class SubmitDebugLogActivity extends BaseActivity {
     }
 
     return false;
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (!viewModel.onBackPressed()) {
-      super.onBackPressed();
-    }
   }
 
   @Override

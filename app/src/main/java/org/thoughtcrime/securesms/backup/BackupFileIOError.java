@@ -19,6 +19,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity;
 import org.thoughtcrime.securesms.notifications.NotificationCancellationHelper;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.notifications.NotificationIds;
 
 import java.io.IOException;
 
@@ -31,7 +32,6 @@ public enum BackupFileIOError {
   UNKNOWN(R.string.LocalBackupJobApi29_backup_failed, R.string.LocalBackupJobApi29_tap_to_manage_backups);
 
   private static final String TAG = Log.tag(BackupFileIOError.class);
-  private static final short BACKUP_FAILED_ID = 31321;
 
   private final @StringRes int titleId;
   private final @StringRes int messageId;
@@ -42,7 +42,7 @@ public enum BackupFileIOError {
   }
 
   public static void clearNotification(@NonNull Context context) {
-    NotificationCancellationHelper.cancelLegacy(context, BACKUP_FAILED_ID);
+    NotificationCancellationHelper.cancelLegacy(context, NotificationIds.BACKUP_FILE_IO_ERROR);
   }
 
   public void postNotification(@NonNull Context context) {
@@ -53,7 +53,7 @@ public enum BackupFileIOError {
 
     PendingIntent pendingIntent           = PendingIntent.getActivity(context, -1, AppSettingsActivity.backups(context), PendingIntentFlags.mutable());
     Notification backupFailedNotification = new NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
-                                                                  .setSmallIcon(R.drawable.ic_signal_backup)
+                                                                  .setSmallIcon(org.signal.core.ui.R.drawable.ic_signal_backup)
                                                                   .setContentTitle(context.getString(titleId))
                                                                   .setContentText(context.getString(messageId))
                                                                   .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(messageId)))
@@ -61,7 +61,7 @@ public enum BackupFileIOError {
                                                                   .build();
 
     NotificationManagerCompat.from(context)
-                             .notify(BACKUP_FAILED_ID, backupFailedNotification);
+                             .notify(NotificationIds.BACKUP_FILE_IO_ERROR, backupFailedNotification);
   }
 
   public static void postNotificationForException(@NonNull Context context, @NonNull IOException e) {

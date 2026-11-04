@@ -13,10 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.SimpleColorFilter
 import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.database.model.DistributionListId
-import org.thoughtcrime.securesms.util.ViewUtil
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
 
 class EditStoryNameFragment : Fragment(R.layout.stories_edit_story_name_fragment) {
@@ -41,6 +42,8 @@ class EditStoryNameFragment : Fragment(R.layout.stories_edit_story_name_fragment
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     lifecycleDisposable.bindTo(viewLifecycleOwner)
+
+    SystemWindowInsetsSetter.attach(view, viewLifecycleOwner, SystemWindowInsetsSetter.SAFE_AREA_WITH_KEYBOARD)
 
     val toolbar: Toolbar = view.findViewById(R.id.toolbar)
     toolbar.navigationIcon?.colorFilter = SimpleColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_icon_tint_primary))

@@ -8,8 +8,7 @@ package org.signal.registration.screens.devicetransfer.progress
 data class DeviceTransferProgressState(
   val messageCount: Long = 0,
   val status: Status = Status.RECEIVING,
-  val errorReason: ErrorReason? = null,
-  val oneTimeEvent: OneTimeEvent? = null
+  val errorReason: ErrorReason? = null
 ) {
 
   enum class Status {
@@ -23,9 +22,5 @@ data class DeviceTransferProgressState(
     VERSION_DOWNGRADE,
     FOREIGN_KEY,
     UNKNOWN
-  }
-
-  sealed interface OneTimeEvent {
-    data object TransferCanceled : OneTimeEvent
   }
 }

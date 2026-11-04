@@ -8,6 +8,8 @@ package org.signal.registration
 import kotlinx.serialization.Serializable
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
+import org.signal.core.models.ServiceId.ACI
+import org.signal.network.api.RegistrationApiV2.SessionMetadata
 
 /**
  * A serializable snapshot of [RegistrationFlowState] fields that need to survive app kills.
@@ -19,13 +21,18 @@ import org.signal.core.models.MasterKey
 @Serializable
 data class PersistedFlowState(
   val backStack: List<RegistrationRoute>,
-  val sessionMetadata: NetworkController.SessionMetadata?,
+  val sessionMetadata: SessionMetadata?,
   val sessionE164: String?,
+  val submittedVerificationCode: String? = null,
+  val aci: String? = null,
   val doNotAttemptRecoveryPassword: Boolean,
   val pendingRestoreOption: PendingRestoreOption? = null,
   val restoredAepValue: String? = null,
   val restoreMethodToken: String? = null,
-  val storageCapable: Boolean = false
+  val storageCapable: Boolean = false,
+  val phoneNumberlessAccount: Boolean = false,
+  val smsVerificationCodeRequest: VerificationCodeRequest? = null,
+  val callVerificationCodeRequest: VerificationCodeRequest? = null
 )
 
 /**
@@ -36,11 +43,16 @@ fun RegistrationFlowState.toPersistedFlowState(): PersistedFlowState {
     backStack = backStack,
     sessionMetadata = sessionMetadata,
     sessionE164 = sessionE164,
+    submittedVerificationCode = submittedVerificationCode,
+    aci = aci?.toString(),
     doNotAttemptRecoveryPassword = doNotAttemptRecoveryPassword,
     pendingRestoreOption = pendingRestoreOption,
     restoredAepValue = unverifiedRestoredAep?.value,
     restoreMethodToken = restoreMethodToken,
-    storageCapable = storageCapable
+    storageCapable = storageCapable,
+    phoneNumberlessAccount = isPhoneNumberlessAccount,
+    smsVerificationCodeRequest = lastSmsVerificationCodeRequest,
+    callVerificationCodeRequest = lastCallVerificationCodeRequest
   )
 }
 
@@ -60,13 +72,18 @@ fun PersistedFlowState.toRegistrationFlowState(
     backStack = backStack,
     sessionMetadata = sessionMetadata,
     sessionE164 = sessionE164,
+    submittedVerificationCode = submittedVerificationCode,
     accountEntropyPool = accountEntropyPool,
+    aci = aci?.let { ACI.parseOrNull(it) },
     temporaryMasterKey = temporaryMasterKey,
     preExistingRegistrationData = preExistingRegistrationData,
     doNotAttemptRecoveryPassword = doNotAttemptRecoveryPassword,
     pendingRestoreOption = pendingRestoreOption,
     unverifiedRestoredAep = restoredAepValue?.let { AccountEntropyPool(it) },
     restoreMethodToken = restoreMethodToken,
-    storageCapable = storageCapable
+    storageCapable = storageCapable,
+    isPhoneNumberlessAccount = phoneNumberlessAccount,
+    lastSmsVerificationCodeRequest = smsVerificationCodeRequest,
+    lastCallVerificationCodeRequest = callVerificationCodeRequest
   )
 }

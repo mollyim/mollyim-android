@@ -121,6 +121,7 @@ fun MainScreen(
                   cameraViewModel.startRecording(
                     context = context,
                     output = viewModel.createVideoOutput(context),
+                    isRecordingLocked = event.isLocked,
                     onVideoCaptured = { result ->
                       viewModel.onEvent(MainScreenEvents.VideoSaved(result))
                     }
@@ -128,6 +129,12 @@ fun MainScreen(
                 }
                 is StandardCameraHudEvents.VideoCaptureStopped -> {
                   cameraViewModel.stopRecording()
+                }
+                is StandardCameraHudEvents.VideoCaptureLocked -> {
+                  cameraViewModel.onEvent(CameraScreenEvents.LockRecording)
+                }
+                is StandardCameraHudEvents.RecordingPauseToggled -> {
+                  cameraViewModel.onEvent(CameraScreenEvents.ToggleRecordingPaused)
                 }
                 is StandardCameraHudEvents.GalleryClick -> {
                   backStack.add(Screen.Gallery)
@@ -144,10 +151,16 @@ fun MainScreen(
                 is StandardCameraHudEvents.SetZoomLevel -> {
                   cameraViewModel.onEvent(CameraScreenEvents.LinearZoom(event.zoomLevel))
                 }
-                is StandardCameraHudEvents.MediaSelectionClick -> {
+                is StandardCameraHudEvents.SetZoomRatio -> {
+                  cameraViewModel.onEvent(CameraScreenEvents.SetZoomRatio(event.zoomRatio))
+                }
+                is StandardCameraHudEvents.CloseClick -> {
                   // Doesn't need to be handled
                 }
                 is StandardCameraHudEvents.AudioPermissionRequired -> {
+                  // Doesn't need to be handled
+                }
+                is StandardCameraHudEvents.ToggleMultiCapture -> {
                   // Doesn't need to be handled
                 }
               }

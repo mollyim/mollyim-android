@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.util.dp
 import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
@@ -24,21 +25,19 @@ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
 import org.thoughtcrime.securesms.components.settings.app.subscription.completed.InAppPaymentsBottomSheetDelegate
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
+import org.thoughtcrime.securesms.components.settings.app.subscription.isPaymentFailure
 import org.thoughtcrime.securesms.components.settings.app.subscription.ui.NetworkFailure
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.models.IndeterminateLoadingCircle
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.DonationErrorValue
-import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.database.model.databaseprotos.PendingOneTimeDonation
 import org.thoughtcrime.securesms.help.HelpFragment
-import org.thoughtcrime.securesms.jobs.InAppPaymentKeepAliveJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.subscription.Subscription
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import kotlin.time.Duration.Companion.seconds
@@ -73,6 +72,8 @@ class ManageDonationsFragment :
   }
 
   private val viewModel: ManageDonationsViewModel by viewModels()
+
+  override val listScrollsBehindToolbar: Boolean = true
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     viewLifecycleOwner.lifecycle.addObserver(InAppPaymentsBottomSheetDelegate(childFragmentManager, viewLifecycleOwner))
@@ -138,14 +139,14 @@ class ManageDonationsFragment :
 
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
     return object : Material3OnScrollHelper(activity = requireActivity(), views = listOf(toolbar!!), lifecycleOwner = viewLifecycleOwner) {
-      override val activeColorSet: ColorSet = ColorSet(R.color.transparent, CoreUiR.color.signal_colorBackground)
-      override val inactiveColorSet: ColorSet = ColorSet(R.color.transparent, CoreUiR.color.signal_colorBackground)
+      override val activeColorSet: ColorSet = ColorSet(R.color.transparent)
+      override val inactiveColorSet: ColorSet = ColorSet(R.color.transparent)
     }
   }
 
   private fun getConfiguration(state: ManageDonationsState): DSLConfiguration {
     return configure {
-      space(36.dp)
+      space(12.dp)
 
       customPref(
         BadgePreview.BadgeModel.SubscriptionModel(
@@ -267,9 +268,6 @@ class ManageDonationsFragment :
   ) {
     val price = payment.data.amount!!.toFiatMoney()
     val renewalTimestamp = payment.endOfPeriodSeconds.seconds.inWholeMilliseconds
-    val isPaymentFailure = payment.data.error?.let {
-      it.type != InAppPaymentData.Error.Type.REDEMPTION && it.data_ != InAppPaymentKeepAliveJob.KEEP_ALIVE
-    } ?: false
 
     presentSubscriptionSettingsWithState(state) {
       customPref(
@@ -282,7 +280,7 @@ class ManageDonationsFragment :
             requireActivity().finish()
             requireActivity().startActivity(AppSettingsActivity.help(requireContext(), HelpFragment.DONATION_INDEX))
           },
-          isPaymentFailure = isPaymentFailure,
+          isPaymentFailure = payment.isPaymentFailure(),
           subscriberRequiresCancel = state.subscriberRequiresCancel,
           onRowClick = {
             launcher.launch(InAppPaymentType.RECURRING_DONATION)

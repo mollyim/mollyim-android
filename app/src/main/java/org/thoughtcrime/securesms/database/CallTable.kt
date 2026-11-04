@@ -4,16 +4,20 @@ import android.content.Context
 import android.database.Cursor
 import androidx.annotation.Discouraged
 import androidx.core.content.contentValuesOf
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.count
+import org.signal.core.database.delete
+import org.signal.core.database.deleteAll
+import org.signal.core.database.exists
+import org.signal.core.database.insertInto
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.database.withinTransaction
 import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.IntSerializer
 import org.signal.core.util.Serializer
-import org.signal.core.util.SqlUtil
-import org.signal.core.util.count
-import org.signal.core.util.delete
-import org.signal.core.util.deleteAll
-import org.signal.core.util.exists
 import org.signal.core.util.flatten
-import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.readToMap
@@ -23,11 +27,8 @@ import org.signal.core.util.requireBoolean
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireObject
-import org.signal.core.util.select
 import org.signal.core.util.toInt
 import org.signal.core.util.toSingleLine
-import org.signal.core.util.update
-import org.signal.core.util.withinTransaction
 import org.signal.ringrtc.CallId
 import org.signal.ringrtc.CallManager.RingUpdate
 import org.thoughtcrime.securesms.database.CallTable.Companion.TIMESTAMP
@@ -36,7 +37,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.CallLinkUpdateSendJob
 import org.thoughtcrime.securesms.jobs.CallSyncEventJob
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.service.webrtc.links.CallLinkRoomId
 import org.whispersystems.signalservice.internal.push.SyncMessage.CallEvent
 import java.util.UUID
@@ -1387,6 +1387,20 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     Log.d(TAG, "Remapped $fromId to $toId. peerCount: $peerCount, ringerCount: $ringerCount")
   }
 
+  override fun onDeletedRecipient(recipientId: RecipientId) {
+    val deletedPeer = writableDatabase
+      .delete(TABLE_NAME)
+      .where("$PEER = ?", recipientId)
+      .run()
+
+    val deletedRinger = writableDatabase
+      .delete(TABLE_NAME)
+      .where("$RINGER = ?", recipientId)
+      .run()
+
+    Log.d(TAG, "Deleted recipient: $deletedPeer $deletedRinger")
+  }
+
   /**
    * @param isGroupCallActive - Whether the group call currently contains users. Only valid for group calls.
    * @param didLocalUserJoin   - Determines whether the local user joined this call. Only valid for group calls.
@@ -1411,7 +1425,7 @@ class CallTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTabl
     companion object Deserializer : Serializer<Call, Cursor> {
 
       private fun isDisplayedAsMissedCallInUi(call: Call): Boolean {
-        return call.direction == Direction.INCOMING && (call.event in Event.DISPLAY_AS_MISSED_CALL || (call.event == Event.GENERIC_GROUP_CALL && !call.didLocalUserJoin && !call.isGroupCallActive))
+        return call.direction == Direction.INCOMING && (call.event in Event.DISPLAY_AS_MISSED_CALL || (call.type == Type.GROUP_CALL && call.event == Event.GENERIC_GROUP_CALL && !call.didLocalUserJoin && !call.isGroupCallActive))
       }
 
       fun getMessageType(type: Type, direction: Direction, event: Event): Long {

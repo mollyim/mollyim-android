@@ -18,14 +18,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsIgnoringVisibility
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -61,14 +66,16 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.AllNightPreviews
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.TriggerAlignedPopupState
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.DimensionUnit
+import org.signal.emoji.EmojiStrings
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.emoji.EmojiStrings
 import org.thoughtcrime.securesms.components.webrtc.WebRtcLocalRenderState
 import org.thoughtcrime.securesms.components.webrtc.controls.RaiseHandSnackbar
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsPalette
@@ -78,7 +85,6 @@ import org.thoughtcrime.securesms.events.GroupCallRaiseHandEvent
 import org.thoughtcrime.securesms.events.GroupCallReactionEvent
 import org.thoughtcrime.securesms.events.WebRtcViewModel
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.ringrtc.CameraState
 import org.thoughtcrime.securesms.service.webrtc.PendingParticipantCollection
 import org.thoughtcrime.securesms.util.RemoteConfig
@@ -94,7 +100,7 @@ private const val SHEET_BOTTOM_PADDING = 16
 /**
  * In-App calling screen displaying controls, info, and participant camera feeds.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun CallScreen(
   callRecipient: Recipient,
@@ -134,6 +140,7 @@ fun CallScreen(
   onRemoteMuteToastDismissed: () -> Unit = {},
   isSelfAdmin: Boolean = false,
   isCallLink: Boolean = false,
+  canRemoteMute: Boolean = false,
   onMuteAudio: (CallParticipant) -> Unit = {},
   onRemoveFromCall: (CallParticipant) -> Unit = {},
   onContactDetails: (CallParticipant) -> Unit = {},
@@ -271,6 +278,19 @@ fun CallScreen(
         label = "animate-as-state"
       )
 
+      // With the bars left up, content still has to clear the nav bar once the sheet is gone.
+      val isFullBleed = rememberIsFullBleedCall(callParticipantsPagerState.callParticipants.size)
+      val navigationBarInset = WindowInsets.navigationBarsIgnoringVisibility.asPaddingValues().calculateBottomPadding()
+      val bottomInset = if (isFullBleed) padding else maxOf(padding, navigationBarInset)
+
+      // The pip clears the system bars itself, so exclude what the nav bar already covers.
+      val pipBottomInset = (padding - navigationBarInset).coerceAtLeast(0.dp)
+      val isLocalVideoLandscape = rememberIsLocalVideoLandscape(localParticipant)
+      val callScreenMetrics = rememberCallScreenMetrics()
+
+      // The pip lines up with the overflow strip when there is one. CallElementsLayout needs the same value.
+      val pipMargin = if (overflowParticipants.isEmpty()) PipMargin else callScreenMetrics.overflowStripEdgeInset
+
       val onCallInfoClick: () -> Unit = {
         scope.launch {
           if (scaffoldState.bottomSheetState.currentValue == SheetValue.Expanded) {
@@ -383,6 +403,7 @@ fun CallScreen(
                   participant = longPressedParticipant,
                   isSelfAdmin = isSelfAdmin,
                   isCallLink = isCallLink,
+                  canRemoteMute = canRemoteMute,
                   onDismiss = { longPressedParticipantId = null },
                   onMuteAudio = onMuteAudio,
                   onRemoveFromCall = onRemoveFromCall,
@@ -401,6 +422,8 @@ fun CallScreen(
               onClick = onLocalPictureInPictureClicked,
               onToggleCameraDirectionClick = callScreenControlsListener::onCameraDirectionChanged,
               onFocusLocalParticipantClick = onLocalPictureInPictureFocusClicked,
+              isVideoLandscape = isLocalVideoLandscape,
+              margin = pipMargin,
               modifier = Modifier.fillMaxSize()
             )
           },
@@ -424,7 +447,7 @@ fun CallScreen(
             PendingParticipantsInternal(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp))
           },
           callOverflowSlot = {
-            val metrics = rememberCallScreenMetrics()
+            val metrics = callScreenMetrics
             if (overflowParticipants.isNotEmpty()) {
               val lineType = if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 LayoutStrategyLineType.COLUMN
@@ -438,12 +461,12 @@ fun CallScreen(
                 modifier = when (lineType) {
                   LayoutStrategyLineType.COLUMN ->
                     Modifier
-                      .padding(horizontal = 16.dp)
+                      .padding(end = metrics.overflowStripEdgeInset)
                       .width(metrics.overflowParticipantRendererSize)
 
                   LayoutStrategyLineType.ROW ->
                     Modifier
-                      .padding(vertical = 16.dp)
+                      .padding(top = metrics.overflowStripGridGap, bottom = metrics.overflowStripEdgeInset)
                       .height(metrics.overflowParticipantRendererSize)
                 }
               )
@@ -458,8 +481,11 @@ fun CallScreen(
               )
             }
           },
-          bottomInset = padding,
+          bottomInset = bottomInset,
+          pipBottomInset = pipBottomInset,
           bottomSheetWidth = CallScreenMetrics.SheetMaxWidth,
+          isLocalVideoLandscape = isLocalVideoLandscape,
+          pipMargin = pipMargin,
           localRenderState = localRenderState,
           modifier = Modifier.fillMaxSize()
         )
@@ -482,7 +508,7 @@ fun CallScreen(
       Box(
         modifier = Modifier
           .fillMaxSize()
-          .padding(bottom = padding)
+          .padding(bottom = bottomInset)
       ) {
         AnimatedCallStateUpdate(
           callControlsChange = callScreenState.callControlsChange,
@@ -498,7 +524,7 @@ fun CallScreen(
     CallParticipantUpdatePopup(
       controller = callParticipantUpdatePopupController,
       modifier = Modifier
-        .statusBarsPadding()
+        .windowInsetsPadding(WindowInsets.statusBarsIgnoringVisibility)
         .fillMaxWidth()
     )
   }
@@ -507,7 +533,7 @@ fun CallScreen(
     visible = callScreenState.displayWifiToCellularPopup,
     onDismiss = onWifiToCellularPopupDismissed,
     modifier = Modifier
-      .statusBarsPadding()
+      .windowInsetsPadding(WindowInsets.statusBarsIgnoringVisibility)
       .fillMaxWidth()
   )
 
@@ -515,7 +541,7 @@ fun CallScreen(
     hintType = callScreenState.swipeHint,
     onDismiss = onSwipeToSpeakerHintDismissed,
     modifier = Modifier
-      .statusBarsPadding()
+      .windowInsetsPadding(WindowInsets.statusBarsIgnoringVisibility)
       .fillMaxWidth()
   )
 
@@ -523,7 +549,7 @@ fun CallScreen(
     message = callScreenState.remoteMuteToastMessage,
     onDismiss = onRemoteMuteToastDismissed,
     modifier = Modifier
-      .statusBarsPadding()
+      .windowInsetsPadding(WindowInsets.statusBarsIgnoringVisibility)
       .fillMaxWidth()
   )
 
@@ -587,6 +613,7 @@ private fun ParticipantContextMenu(
   participant: CallParticipant?,
   isSelfAdmin: Boolean,
   isCallLink: Boolean,
+  canRemoteMute: Boolean,
   onDismiss: () -> Unit,
   onMuteAudio: (CallParticipant) -> Unit,
   onRemoveFromCall: (CallParticipant) -> Unit,
@@ -620,7 +647,7 @@ private fun ParticipantContextMenu(
         .background(color = MaterialTheme.colorScheme.surfaceVariant)
     )
 
-    if (resolved.isMicrophoneEnabled) {
+    if (canRemoteMute && resolved.isMicrophoneEnabled) {
       DropdownMenuItem(
         text = { Text(stringResource(R.string.CallParticipantSheet__mute_audio)) },
         leadingIcon = { Icon(painter = painterResource(R.drawable.symbol_mic_slash_24), contentDescription = null) },
@@ -634,7 +661,7 @@ private fun ParticipantContextMenu(
     if (isSelfAdmin && isCallLink) {
       DropdownMenuItem(
         text = { Text(stringResource(R.string.CallParticipantSheet__remove_from_call)) },
-        leadingIcon = { Icon(painter = painterResource(R.drawable.symbol_minus_circle_24), contentDescription = null) },
+        leadingIcon = { Icon(painter = SignalIcons.MinusCircle.painter, contentDescription = null) },
         onClick = {
           onRemoveFromCall(resolved)
           onDismiss()
@@ -683,6 +710,7 @@ private fun ParticipantContextMenuAdminPreview() {
         ),
         isSelfAdmin = true,
         isCallLink = true,
+        canRemoteMute = true,
         onDismiss = {},
         onMuteAudio = {},
         onRemoveFromCall = {},
@@ -705,6 +733,7 @@ private fun ParticipantContextMenuNonAdminPreview() {
         ),
         isSelfAdmin = false,
         isCallLink = false,
+        canRemoteMute = true,
         onDismiss = {},
         onMuteAudio = {},
         onRemoveFromCall = {},

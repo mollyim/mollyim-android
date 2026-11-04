@@ -23,12 +23,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -36,29 +36,21 @@ import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.layout.PaneAdaptedValue
-import androidx.compose.material3.adaptive.layout.PaneExpansionAnchor
-import androidx.compose.material3.adaptive.layout.ThreePaneScaffoldRole
-import androidx.compose.material3.adaptive.layout.rememberPaneExpansionState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -67,18 +59,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.compose.AndroidFragment
-import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
-import androidx.navigation3.ui.NavDisplay
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -90,11 +76,22 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.ui.BottomSheetUtil
+import org.signal.core.ui.NavigationType
 import org.signal.core.ui.compose.Snackbars
+import org.signal.core.ui.compose.navigationBarsCompat
+import org.signal.core.ui.compose.split.ListDetailEvents
+import org.signal.core.ui.compose.split.ListDetailNavDisplay
+import org.signal.core.ui.compose.split.ListDetailPaneLayout
+import org.signal.core.ui.compose.split.ListDetailPaneMetrics
+import org.signal.core.ui.compose.split.ListPaneChrome
+import org.signal.core.ui.compose.split.PaneAnchor
+import org.signal.core.ui.compose.split.rememberListDetailPaneLayout
+import org.signal.core.ui.compose.split.rememberListDetailPaneMetrics
+import org.signal.core.ui.compose.systemBarsCompat
 import org.signal.core.ui.compose.theme.SignalTheme
-import org.signal.core.ui.navigation.TransitionSpecs
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.ui.rememberIsSplitPane
+import org.signal.core.ui.viewModel
 import org.signal.core.util.AppForegroundObserver
 import org.signal.core.util.Util
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -102,20 +99,16 @@ import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
 import org.signal.donations.StripeApi
-import org.signal.mediasend.MediaSendActivityContract
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState
 import org.thoughtcrime.securesms.backup.v2.ui.CouldNotCompleteBackupRestoreSheet
 import org.thoughtcrime.securesms.backup.v2.ui.verify.VerifyBackupKeyActivity
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar.show
-import org.thoughtcrime.securesms.calls.callsNavEntries
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.calls.log.CallLogFragment
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
 import org.thoughtcrime.securesms.calls.quality.CallQuality
 import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
-import org.thoughtcrime.securesms.chats.ConversationTransitionState
-import org.thoughtcrime.securesms.chats.chatsNavEntries
 import org.thoughtcrime.securesms.components.DebugLogsPromptDialogFragment
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
 import org.thoughtcrime.securesms.components.compose.ConnectivityWarningBottomSheet
@@ -134,8 +127,6 @@ import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.NewConversationActivity
 import org.thoughtcrime.securesms.conversation.v2.MotionEventRelay
-import org.thoughtcrime.securesms.conversation.v2.ShareDataTimestampViewModel
-import org.thoughtcrime.securesms.conversationlist.ConversationListArchiveFragment
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment
 import org.thoughtcrime.securesms.conversationlist.RestoreCompleteBottomSheetDialog
@@ -145,16 +136,17 @@ import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.lock.v2.CreateSvrPinActivity
+import org.thoughtcrime.securesms.main.EmptyDetailScreen
 import org.thoughtcrime.securesms.main.MainBottomChrome
 import org.thoughtcrime.securesms.main.MainBottomChromeCallback
 import org.thoughtcrime.securesms.main.MainBottomChromeState
-import org.thoughtcrime.securesms.main.MainContentLayoutData
+import org.thoughtcrime.securesms.main.MainDetailRoute
+import org.thoughtcrime.securesms.main.MainListRoute
 import org.thoughtcrime.securesms.main.MainMegaphoneState
 import org.thoughtcrime.securesms.main.MainNavigationBar
-import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
-import org.thoughtcrime.securesms.main.MainNavigationListLocation
+import org.thoughtcrime.securesms.main.MainNavigationEventSink
+import org.thoughtcrime.securesms.main.MainNavigationEvents
 import org.thoughtcrime.securesms.main.MainNavigationRail
-import org.thoughtcrime.securesms.main.MainNavigationRouter
 import org.thoughtcrime.securesms.main.MainNavigationViewModel
 import org.thoughtcrime.securesms.main.MainSnackbar
 import org.thoughtcrime.securesms.main.MainSnackbarHostKey
@@ -164,8 +156,8 @@ import org.thoughtcrime.securesms.main.MainToolbarMode
 import org.thoughtcrime.securesms.main.MainToolbarState
 import org.thoughtcrime.securesms.main.MainToolbarViewModel
 import org.thoughtcrime.securesms.main.Material3OnScrollHelperBinder
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
-import org.thoughtcrime.securesms.mediasend.v3.mediaSendLauncher
+import org.thoughtcrime.securesms.main.rememberDecoratedDetailEntries
+import org.thoughtcrime.securesms.mediasend.MediaSendLauncher
 import org.thoughtcrime.securesms.megaphone.Megaphone
 import org.thoughtcrime.securesms.megaphone.MegaphoneActionController
 import org.thoughtcrime.securesms.megaphone.Megaphones
@@ -178,8 +170,6 @@ import org.thoughtcrime.securesms.service.BackupMediaRestoreService
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.starred.StarredMessagesActivity
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.stories.landing.StoriesLandingFragment
-import org.thoughtcrime.securesms.stories.storiesNavEntries
 import org.thoughtcrime.securesms.util.AppStartup
 import org.thoughtcrime.securesms.util.CachedInflater
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -187,13 +177,6 @@ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.util.SplashScreenUtil
 import org.thoughtcrime.securesms.util.TopToastPopup
-import org.thoughtcrime.securesms.util.viewModel
-import org.thoughtcrime.securesms.window.AppPaneDragHandle
-import org.thoughtcrime.securesms.window.AppScaffold
-import org.thoughtcrime.securesms.window.AppScaffoldAnimationStateFactory
-import org.thoughtcrime.securesms.window.AppScaffoldNavigator
-import org.thoughtcrime.securesms.window.NavigationType
-import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import kotlin.time.Duration.Companion.minutes
 import org.signal.core.ui.R as CoreUiR
@@ -204,7 +187,7 @@ class MainActivity :
   MainNavigator.NavigatorProvider,
   Material3OnScrollHelperBinder,
   ConversationListFragment.Callback,
-  MainNavigationRouter,
+  MainNavigationEventSink,
   CallLogFragment.Callback,
   GooglePayComponent {
 
@@ -213,7 +196,10 @@ class MainActivity :
 
     private const val KEY_STARTING_TAB = "STARTING_TAB"
     private const val KEY_DETAIL_LOCATION = "DETAIL_LOCATION"
-    const val RESULT_CONFIG_CHANGED = Activity.RESULT_FIRST_USER + 901
+    private const val KEY_EXIT_DETAIL = "EXIT_DETAIL"
+
+    /** Width the navigation rail occupies inside the list pane. */
+    private val RAIL_WIDTH = 80.dp
 
     @JvmStatic
     fun clearTop(context: Context): Intent {
@@ -222,13 +208,22 @@ class MainActivity :
     }
 
     @JvmStatic
-    fun clearTopAndOpenTab(context: Context, startingTab: MainNavigationListLocation): Intent {
+    fun clearTopAndOpenTab(context: Context, startingTab: MainListRoute): Intent {
       return clearTop(context).putExtra(KEY_STARTING_TAB, startingTab)
     }
 
     @JvmStatic
-    fun clearTopAndOpenDetail(context: Context, location: MainNavigationDetailLocation): Intent {
+    fun clearTopAndOpenDetail(context: Context, location: MainDetailRoute): Intent {
       return clearTop(context).putExtra(KEY_DETAIL_LOCATION, location)
+    }
+
+    /**
+     * Opens the main screen with the current tab's detail content dropped, leaving its list displayed.
+     * Used by screens that finish having invalidated whatever the detail pane was showing.
+     */
+    @JvmStatic
+    fun clearTopAndExitDetail(context: Context): Intent {
+      return clearTop(context).putExtra(KEY_EXIT_DETAIL, true)
     }
   }
 
@@ -242,23 +237,18 @@ class MainActivity :
     get() = mediaController
 
   private val mainNavigationViewModel: MainNavigationViewModel by viewModel {
-    val startingTab = intent.extras?.getSerializableCompat(KEY_STARTING_TAB, MainNavigationListLocation::class.java)
-    MainNavigationViewModel(it.createSavedStateHandle(), startingTab ?: MainNavigationListLocation.CHATS)
+    val startingTab = intent.extras?.getSerializableCompat(KEY_STARTING_TAB, MainListRoute::class.java)
+    MainNavigationViewModel(it.createSavedStateHandle(), startingTab ?: MainListRoute.Chats)
   }
 
   private val vitalsViewModel: VitalsViewModel by viewModel {
     VitalsViewModel(application)
   }
 
-  private val openSettings: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-    if (result.resultCode == RESULT_CONFIG_CHANGED) {
-      recreate()
-    }
-  }
+  private val openSettings: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
 
   private val toolbarViewModel: MainToolbarViewModel by viewModels()
   private val toolbarCallback = ToolbarCallback()
-  private val shareDataTimestampViewModel: ShareDataTimestampViewModel by viewModels()
 
   private val motionEventRelay: MotionEventRelay by viewModels()
 
@@ -267,12 +257,10 @@ class MainActivity :
 
   private val mainBottomChromeCallback = BottomChromeCallback()
   private val megaphoneActionController = MainMegaphoneActionController()
-  private val mainNavigationCallback = MainNavigationCallback()
+  private val mainNavigationCallback: (MainListRoute) -> Unit = { mainNavigationViewModel.onEvent(MainNavigationEvents.GoToTab(it)) }
 
   override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
   override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
-
-  private lateinit var mediaSendLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
     return motionEventRelay.offer(ev) || super.dispatchTouchEvent(ev)
@@ -291,11 +279,9 @@ class MainActivity :
     super.onCreate(savedInstanceState, ready)
     navigator = MainNavigator(this, mainNavigationViewModel)
 
-    mediaSendLauncher = mediaSendLauncher()
-
     AppForegroundObserver.addListener(object : AppForegroundObserver.Listener {
       override fun onForeground() {
-        mainNavigationViewModel.getNextMegaphone()
+        mainNavigationViewModel.onEvent(MainNavigationEvents.RequestNextMegaphone)
       }
     })
 
@@ -309,7 +295,7 @@ class MainActivity :
           mainNavigationViewModel.navigationEvents.collectLatest {
             when (it) {
               MainNavigationViewModel.NavigationEvent.STORY_CAMERA_FIRST -> {
-                mainBottomChromeCallback.onCameraClick(MainNavigationListLocation.STORIES)
+                mainBottomChromeCallback.onCameraClick(MainListRoute.Stories)
               }
             }
           }
@@ -387,31 +373,25 @@ class MainActivity :
       }
     }
 
-    shareDataTimestampViewModel.setTimestampFromActivityCreation(savedInstanceState, intent)
-
     setContent {
       val mainToolbarState by toolbarViewModel.state.collectAsStateWithLifecycle()
-      val megaphone by mainNavigationViewModel.megaphone.collectAsStateWithLifecycle()
-      val mainNavigationState by mainNavigationViewModel.mainNavigationState.collectAsStateWithLifecycle()
+      val mainNavigationState by mainNavigationViewModel.mainNavigationBarState.collectAsStateWithLifecycle()
 
       LaunchedEffect(mainNavigationState.currentListLocation) {
         when (mainNavigationState.currentListLocation) {
-          MainNavigationListLocation.CHATS -> toolbarViewModel.presentToolbarForConversationListFragment()
-          MainNavigationListLocation.ARCHIVE -> toolbarViewModel.presentToolbarForConversationListArchiveFragment()
-          MainNavigationListLocation.CALLS -> toolbarViewModel.presentToolbarForCallLogFragment()
-          MainNavigationListLocation.STORIES -> toolbarViewModel.presentToolbarForStoriesLandingFragment()
+          MainListRoute.Chats -> toolbarViewModel.presentToolbarForConversationListFragment()
+          MainListRoute.Archive -> toolbarViewModel.presentToolbarForConversationListArchiveFragment()
+          MainListRoute.Calls -> toolbarViewModel.presentToolbarForCallLogFragment()
+          MainListRoute.Stories -> toolbarViewModel.presentToolbarForStoriesLandingFragment()
         }
       }
 
       val isActionModeActive = mainToolbarState.mode == MainToolbarMode.ACTION_MODE
       val isSearchModeActive = mainToolbarState.mode == MainToolbarMode.SEARCH
-      val isNavigationRailVisible = mainToolbarState.mode != MainToolbarMode.SEARCH
-      val isNavigationBarVisible = mainToolbarState.mode == MainToolbarMode.FULL
-      val isBackHandlerEnabled = mainToolbarState.destination != MainNavigationListLocation.CHATS && !isActionModeActive && !isSearchModeActive
+      val isBackHandlerEnabled = mainToolbarState.destination != MainListRoute.Chats && !isActionModeActive && !isSearchModeActive
 
       BackHandler(enabled = isBackHandlerEnabled) {
-        mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Secondary)
-        mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS)
+        mainNavigationViewModel.onEvent(MainNavigationEvents.GoToList(MainListRoute.Chats))
       }
 
       BackHandler(enabled = isActionModeActive) {
@@ -429,307 +409,82 @@ class MainActivity :
         }
       }
 
-      val mainBottomChromeState = remember(mainToolbarState.destination, mainToolbarState.mode, megaphone) {
-        MainBottomChromeState(
-          destination = mainToolbarState.destination,
-          mainToolbarMode = mainToolbarState.mode,
-          megaphoneState = MainMegaphoneState(
-            megaphone = megaphone,
-            mainToolbarMode = mainToolbarState.mode
-          )
-        )
-      }
-
       val isSplitPane = LocalResources.current.rememberIsSplitPane()
-      val contentLayoutData = MainContentLayoutData.rememberContentLayoutData(mainToolbarState.mode)
+      val contentLayoutData = rememberListDetailPaneMetrics(listPaddingStart = mainToolbarState.mode.listPaddingStart)
 
       MainContainer {
-        val wrappedNavigator = rememberNavigator(isSplitPane, contentLayoutData, maxWidth)
-        val listPaneWidth = contentLayoutData.rememberDefaultPanePreferredWidth(maxWidth)
-        val navigationType = NavigationType.rememberNavigationType()
+        val detailLocation by mainNavigationViewModel.detailLocation.collectAsStateWithLifecycle()
+        val isConversationFullscreen = !isSplitPane && detailLocation is MainDetailRoute.Conversation
 
-        val anchors = remember(contentLayoutData, mainToolbarState, listPaneWidth, navigationType) {
-          val halfPartitionWidth = contentLayoutData.partitionWidth / 2
-
-          val detailOffset = when {
-            mainToolbarState.mode == MainToolbarMode.SEARCH -> 0.dp
-            navigationType == NavigationType.BAR -> 0.dp
-            else -> 80.dp
-          }
-
-          val detailOnlyAnchor = PaneExpansionAnchor.Offset.fromStart(detailOffset + contentLayoutData.listPaddingStart + halfPartitionWidth)
-          val detailAndListAnchor = PaneExpansionAnchor.Offset.fromStart(listPaneWidth + halfPartitionWidth)
-          val listOnlyAnchor = PaneExpansionAnchor.Offset.fromEnd(contentLayoutData.detailPaddingEnd - halfPartitionWidth)
-
-          listOf(detailOnlyAnchor, detailAndListAnchor, listOnlyAnchor)
+        val context = LocalContext.current
+        val isDarkTheme = isSystemInDarkTheme()
+        val navBarColor = when {
+          isSplitPane -> SignalTheme.colors.colorSurface1.toArgb()
+          isConversationFullscreen -> Color.Transparent.toArgb()
+          else -> ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface2)
         }
 
-        val (detailOnlyAnchor, detailAndListAnchor, listOnlyAnchor) = anchors
+        LaunchedEffect(isDarkTheme, navBarColor) {
+          if (Build.VERSION.SDK_INT >= 26) {
+            enableEdgeToEdge(
+              navigationBarStyle = if (isDarkTheme) {
+                SystemBarStyle.dark(navBarColor)
+              } else {
+                SystemBarStyle.light(navBarColor, navBarColor)
+              }
+            )
+          } else {
+            enableEdgeToEdge()
+          }
+        }
 
-        val paneExpansionState = rememberPaneExpansionState(
-          key = wrappedNavigator.scaffoldValue.paneExpansionStateKey,
-          anchors = anchors,
-          initialAnchoredIndex = 1
+        val paneAnchor by mainNavigationViewModel.paneAnchor.collectAsStateWithLifecycle()
+        val hasDetailContent by mainNavigationViewModel.hasDetailContent.collectAsStateWithLifecycle()
+
+        val tabEntries = rememberDecoratedDetailEntries(mainNavigationViewModel, isSplitPane)
+
+        val paneLayout = rememberMainPaneLayout(
+          contentLayoutData = contentLayoutData,
+          maxWidth = maxWidth,
+          toolbarMode = mainToolbarState.mode,
+          paneAnchor = paneAnchor
         )
 
-        val paneAnchorIndex = rememberSaveable(paneExpansionState.currentAnchor) {
-          anchors.indexOf(paneExpansionState.currentAnchor)
+        val listPaneChrome: ListPaneChrome = remember {
+          { content -> MainListPaneChrome(content = content) }
         }
 
-        LaunchedEffect(anchors) {
-          val index = when {
-            paneAnchorIndex < 0 -> 1
-            paneAnchorIndex > anchors.lastIndex -> anchors.lastIndex
-            else -> paneAnchorIndex
-          }
-
-          if (index in anchors.indices) {
-            val anchor = anchors[index]
-            paneExpansionState.animateTo(anchor)
-          }
+        val emptyDetailContent: @Composable () -> Unit = remember {
+          { EmptyDetailScreen() }
         }
 
-        val convoTransitionState = ConversationTransitionState.remember(isSplitPane)
-        val mutableInteractionSource = remember { MutableInteractionSource() }
-
-        LaunchedEffect(convoTransitionState) {
-          mainNavigationViewModel.setChatListSnapshotCaptureProvider { convoTransitionState.writeGraphicsLayerToBitmap() }
-        }
-
-        LaunchedEffect(isSplitPane) {
-          mainNavigationViewModel.onSplitPaneChanged(isSplitPane)
-        }
-
-        val scope = rememberCoroutineScope()
-
-        BackHandler(paneExpansionState.currentAnchor == detailOnlyAnchor) {
-          mainNavigationViewModel.goTo(MainNavigationDetailLocation.Empty)
-          scope.launch {
-            paneExpansionState.animateTo(listOnlyAnchor)
-          }
-        }
-
-        LaunchedEffect(paneExpansionState.currentAnchor, detailOnlyAnchor, listOnlyAnchor, detailAndListAnchor) {
-          val isFullScreenPane = when (paneExpansionState.currentAnchor) {
-            listOnlyAnchor, detailOnlyAnchor -> {
-              true
-            }
-
-            else -> {
-              false
-            }
-          }
-
-          mainNavigationViewModel.onPaneAnchorChanged(isFullScreenPane)
-        }
-
-        LaunchedEffect(paneExpansionState.currentAnchor) {
-          when (paneExpansionState.currentAnchor) {
-            listOnlyAnchor -> {
-              mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Secondary)
-            }
-
-            detailOnlyAnchor -> {
-              mainNavigationViewModel.setFocusedPane(ThreePaneScaffoldRole.Primary)
-            }
-
-            else -> Unit
-          }
-        }
-
-        val paneFocusRequest by mainNavigationViewModel.paneFocusRequests.collectAsStateWithLifecycle(null)
-        LaunchedEffect(paneFocusRequest) {
-          if (paneFocusRequest == null) {
-            return@LaunchedEffect
-          }
-
-          if (paneFocusRequest == ThreePaneScaffoldRole.Secondary && paneExpansionState.currentAnchor == detailOnlyAnchor) {
-            paneExpansionState.animateTo(listOnlyAnchor)
-          }
-
-          if (paneFocusRequest == ThreePaneScaffoldRole.Primary && paneExpansionState.currentAnchor == listOnlyAnchor) {
-            paneExpansionState.animateTo(detailOnlyAnchor)
-          }
-        }
-
-        val noEnterTransitionFactory = remember {
-          AppScaffoldAnimationStateFactory(
-            enabledStates = AppScaffoldNavigator.NavigationState.entries.filterNot {
-              it == AppScaffoldNavigator.NavigationState.ENTER
-            }.toSet()
-          )
-        }
-
-        AppScaffold(
-          navigator = wrappedNavigator,
-          modifier = convoTransitionState.writeContentToGraphicsLayer(),
-          paneExpansionState = paneExpansionState,
+        Scaffold(
+          containerColor = Color.Transparent,
           contentWindowInsets = WindowInsets(),
           snackbarHost = {
-            if (wrappedNavigator.scaffoldValue.primary == PaneAdaptedValue.Expanded) {
+            // MainBottomChrome renders its own host over the list, but only in single pane, so this one
+            // has to cover both split pane and whatever fills the window in single pane.
+            if (isSplitPane || hasDetailContent) {
               MainSnackbar(
                 hostKey = SnackbarHostKey.Global,
                 onDismissed = mainBottomChromeCallback::onSnackbarDismissed,
-                modifier = Modifier.navigationBarsPadding()
+                modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBarsCompat)
               )
             }
-          },
-          bottomNavContent = {
-            if (isNavigationBarVisible) {
-              Column(
-                modifier = Modifier
-                  .clip(contentLayoutData.navigationBarShape)
-                  .background(color = SignalTheme.colors.colorSurface2)
-              ) {
-                MainNavigationBar(
-                  state = mainNavigationState,
-                  onDestinationSelected = mainNavigationCallback
-                )
-
-                if (!LocalResources.current.rememberIsSplitPane()) {
-                  Spacer(Modifier.navigationBarsPadding())
-                }
-              }
-            }
-          },
-          navRailContent = {
-            if (isNavigationRailVisible) {
-              MainNavigationRail(
-                state = mainNavigationState,
-                mainFloatingActionButtonsCallback = mainBottomChromeCallback,
-                onDestinationSelected = mainNavigationCallback
-              )
-            }
-          },
-          secondaryContent = {
-            val listContainerColor = if (isSplitPane) {
-              SignalTheme.colors.colorSurface1
-            } else {
-              MaterialTheme.colorScheme.surface
-            }
-
-            Column(
-              modifier = Modifier
-                .padding(start = contentLayoutData.listPaddingStart)
-                .fillMaxSize()
-                .background(listContainerColor, contentLayoutData.shape)
-                .clip(contentLayoutData.shape)
-            ) {
-              MainToolbar(
-                state = mainToolbarState,
-                callback = toolbarCallback
-              )
-
-              Box(
-                modifier = Modifier.weight(1f)
-              ) {
-                when (val destination = mainNavigationState.currentListLocation) {
-                  MainNavigationListLocation.CHATS -> {
-                    val state = key(destination) { rememberFragmentState() }
-                    AndroidFragment(
-                      clazz = ConversationListFragment::class.java,
-                      fragmentState = state,
-                      modifier = Modifier.fillMaxSize()
-                    )
-                  }
-
-                  MainNavigationListLocation.ARCHIVE -> {
-                    val state = key(destination) { rememberFragmentState() }
-                    AndroidFragment(
-                      clazz = ConversationListArchiveFragment::class.java,
-                      fragmentState = state,
-                      modifier = Modifier.fillMaxSize()
-                    )
-                  }
-
-                  MainNavigationListLocation.CALLS -> {
-                    val state = key(destination) { rememberFragmentState() }
-                    AndroidFragment(
-                      clazz = CallLogFragment::class.java,
-                      fragmentState = state,
-                      modifier = Modifier.fillMaxSize()
-                    )
-                  }
-
-                  MainNavigationListLocation.STORIES -> {
-                    val state = key(destination) { rememberFragmentState() }
-                    AndroidFragment(
-                      clazz = StoriesLandingFragment::class.java,
-                      fragmentState = state,
-                      modifier = Modifier.fillMaxSize()
-                    )
-                  }
-                }
-
-                MainBottomChrome(
-                  state = mainBottomChromeState,
-                  callback = mainBottomChromeCallback,
-                  megaphoneActionController = megaphoneActionController,
-                  modifier = Modifier.align(Alignment.BottomCenter)
-                )
-              }
-            }
-          },
-          primaryContent = {
-            when (mainNavigationState.currentListLocation) {
-              MainNavigationListLocation.CHATS, MainNavigationListLocation.ARCHIVE -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.chatsBackStackEntries,
-                  onBack = { mainNavigationViewModel.popChatsDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryProvider = entryProvider { chatsNavEntries(convoTransitionState) }
-                )
-              }
-
-              MainNavigationListLocation.CALLS -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.callsBackStackEntries,
-                  onBack = { mainNavigationViewModel.popCallsDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryDecorators = listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator()
-                  ),
-                  entryProvider = entryProvider { callsNavEntries(isSplitPane) }
-                )
-              }
-
-              MainNavigationListLocation.STORIES -> {
-                NavDisplay(
-                  backStack = mainNavigationViewModel.storiesBackStackEntries,
-                  onBack = { mainNavigationViewModel.popStoriesDetailLocation() },
-                  transitionSpec = TransitionSpecs.HorizontalSlide.transitionSpec,
-                  popTransitionSpec = TransitionSpecs.HorizontalSlide.popTransitionSpec,
-                  predictivePopTransitionSpec = TransitionSpecs.HorizontalSlide.predictivePopTransitionSpec,
-                  entryDecorators = listOf(
-                    rememberSaveableStateHolderNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator()
-                  ),
-                  entryProvider = entryProvider { storiesNavEntries() }
-                )
-              }
-            }
-          },
-          paneExpansionDragHandle = if (contentLayoutData.hasDragHandle()) {
-            {
-              AppPaneDragHandle(
-                paneExpansionState = paneExpansionState,
-                mutableInteractionSource = mutableInteractionSource
-              )
-            }
-          } else {
-            null
-          },
-          animatorFactory = if (mainNavigationState.currentListLocation.isChatsTab) {
-            noEnterTransitionFactory
-          } else {
-            AppScaffoldAnimationStateFactory.Default
           }
-        )
+        ) { paddingValues ->
+          ListDetailNavDisplay(
+            entries = tabEntries,
+            isSplitPane = isSplitPane,
+            paneAnchor = paneAnchor,
+            onBack = { mainNavigationViewModel.onEvent(MainNavigationEvents.ListDetailEvent(ListDetailEvents.Back)) },
+            onExitDetail = { mainNavigationViewModel.onEvent(MainNavigationEvents.ExitDetail) },
+            layout = paneLayout,
+            listPaneChrome = listPaneChrome,
+            emptyDetailContent = emptyDetailContent,
+            modifier = Modifier.padding(paddingValues)
+          )
+        }
       }
     }
 
@@ -757,26 +512,118 @@ class MainActivity :
   }
 
   /**
-   * Creates and wraps a scaffold navigator such that we can use it to operate with both
-   * our split pane and legacy activities.
+   * Builds the geometry for the list/detail split and keeps it following the view-model's anchor.
    */
-  @OptIn(ExperimentalMaterial3AdaptiveApi::class)
   @Composable
-  private fun rememberNavigator(
-    isSplitPane: Boolean,
-    contentLayoutData: MainContentLayoutData,
-    maxWidth: Dp
-  ): AppScaffoldNavigator<Any> {
-    val scaffoldNavigator = rememberThreePaneScaffoldNavigatorDelegate(
-      isSplitPane = isSplitPane,
-      horizontalPartitionSpacerSize = contentLayoutData.partitionWidth,
-      defaultPanePreferredWidth = contentLayoutData.rememberDefaultPanePreferredWidth(maxWidth)
+  private fun rememberMainPaneLayout(
+    contentLayoutData: ListDetailPaneMetrics,
+    maxWidth: Dp,
+    toolbarMode: MainToolbarMode,
+    paneAnchor: PaneAnchor
+  ): ListDetailPaneLayout {
+    val navigationType = NavigationType.rememberNavigationType()
+
+    return rememberListDetailPaneLayout(
+      paneAnchor = paneAnchor,
+      maxWidth = maxWidth,
+      onAnchorSelected = { mainNavigationViewModel.onEvent(MainNavigationEvents.ListDetailEvent(ListDetailEvents.AnchorSelected(it))) },
+      metrics = contentLayoutData,
+      // Searching hides the rail, leaving nothing of the list pane behind once the detail fills the window.
+      collapsedListWidth = when {
+        toolbarMode == MainToolbarMode.SEARCH -> 0.dp
+        navigationType == NavigationType.BAR -> 0.dp
+        else -> RAIL_WIDTH
+      }
     )
+  }
 
-    val coroutine = rememberCoroutineScope()
+  /**
+   * The chrome belonging to the list pane — navigation rail or bar, toolbar, and the floating buttons and
+   * megaphones layered over the list — wrapped around [content].
+   *
+   * Handed to [ListDetailNavDisplay] as a [ListPaneChrome] rather than as a scene parameter: a scene excludes
+   * its content lambda from equality, so anything captured there would go stale when an equal instance is
+   * retained.
+   */
+  @Composable
+  private fun MainListPaneChrome(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+  ) {
+    val mainToolbarState by toolbarViewModel.state.collectAsStateWithLifecycle()
+    val mainNavigationState by mainNavigationViewModel.mainNavigationBarState.collectAsStateWithLifecycle()
+    val megaphone by mainNavigationViewModel.megaphone.collectAsStateWithLifecycle()
 
-    return remember(scaffoldNavigator, coroutine) {
-      mainNavigationViewModel.wrapNavigator(coroutine, scaffoldNavigator)
+    val isSplitPane = LocalResources.current.rememberIsSplitPane()
+    val contentLayoutData = rememberListDetailPaneMetrics(listPaddingStart = mainToolbarState.mode.listPaddingStart)
+    val navigationType = NavigationType.rememberNavigationType()
+
+    val bottomChromeState = remember(mainToolbarState.destination, mainToolbarState.mode, megaphone) {
+      MainBottomChromeState(
+        destination = mainToolbarState.destination,
+        mainToolbarMode = mainToolbarState.mode,
+        megaphoneState = MainMegaphoneState(
+          megaphone = megaphone,
+          mainToolbarMode = mainToolbarState.mode
+        )
+      )
+    }
+
+    val listContainerColor = if (isSplitPane) {
+      SignalTheme.colors.colorSurface1
+    } else {
+      MaterialTheme.colorScheme.surface
+    }
+
+    Row(modifier = modifier.fillMaxSize()) {
+      if (navigationType == NavigationType.RAIL && mainToolbarState.mode != MainToolbarMode.SEARCH) {
+        MainNavigationRail(
+          state = mainNavigationState,
+          mainFloatingActionButtonsCallback = mainBottomChromeCallback,
+          onDestinationSelected = mainNavigationCallback
+        )
+      }
+
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .fillMaxSize()
+          .background(listContainerColor, contentLayoutData.shape)
+          .clip(contentLayoutData.shape)
+      ) {
+        MainToolbar(
+          state = mainToolbarState,
+          callback = toolbarCallback
+        )
+
+        Box(modifier = Modifier.weight(1f)) {
+          content()
+
+          MainBottomChrome(
+            state = bottomChromeState,
+            callback = mainBottomChromeCallback,
+            megaphoneActionController = megaphoneActionController,
+            modifier = Modifier.align(Alignment.BottomCenter)
+          )
+        }
+
+        if (navigationType == NavigationType.BAR && mainToolbarState.mode == MainToolbarMode.FULL) {
+          Column(
+            modifier = Modifier
+              .clip(contentLayoutData.navigationBarShape)
+              .background(color = SignalTheme.colors.colorSurface2)
+          ) {
+            MainNavigationBar(
+              state = mainNavigationState,
+              onDestinationSelected = mainNavigationCallback
+            )
+
+            if (!isSplitPane) {
+              Spacer(Modifier.windowInsetsPadding(WindowInsets.navigationBarsCompat))
+            }
+          }
+        }
+      }
     }
   }
 
@@ -792,34 +639,17 @@ class MainActivity :
           SignalTheme.colors.colorSurface1
         }
 
-        val context = LocalContext.current
-        val isDarkTheme = isSystemInDarkTheme()
-        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface2)
-        LaunchedEffect(isDarkTheme, navBarColor) {
-          if (Build.VERSION.SDK_INT >= 26) {
-            enableEdgeToEdge(
-              navigationBarStyle = if (isDarkTheme) {
-                SystemBarStyle.dark(navBarColor)
-              } else {
-                SystemBarStyle.light(navBarColor, navBarColor)
-              }
-            )
-          } else {
-            enableEdgeToEdge()
-          }
-        }
-
         val modifier = when {
           isSplitPane -> {
             Modifier
-              .systemBarsPadding()
+              .windowInsetsPadding(WindowInsets.systemBarsCompat)
               .displayCutoutPadding()
           }
 
           else ->
             Modifier
               .windowInsetsPadding(
-                WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
+                WindowInsets.navigationBarsCompat.only(WindowInsetsSides.Horizontal)
                   .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
               )
         }
@@ -845,25 +675,21 @@ class MainActivity :
 
     val extras = intent.extras ?: return
 
-    val detailLocation = extras.getParcelableCompat(KEY_DETAIL_LOCATION, MainNavigationDetailLocation::class.java)
-    if (detailLocation != null) {
-      goTo(detailLocation)
+    if (extras.getBoolean(KEY_EXIT_DETAIL, false)) {
+      mainNavigationViewModel.onEvent(MainNavigationEvents.ExitDetail)
       return
     }
 
-    val startingTab = extras.getSerializableCompat(KEY_STARTING_TAB, MainNavigationListLocation::class.java)
+    val detailLocation = extras.getParcelableCompat(KEY_DETAIL_LOCATION, MainDetailRoute::class.java)
+    if (detailLocation != null) {
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToDetail(detailLocation))
+      return
+    }
 
-    when (startingTab) {
-      MainNavigationListLocation.CHATS -> mainNavigationViewModel.onChatsSelected()
-      MainNavigationListLocation.ARCHIVE -> mainNavigationViewModel.onArchiveSelected()
-      MainNavigationListLocation.CALLS -> mainNavigationViewModel.onCallsSelected()
-      MainNavigationListLocation.STORIES -> {
-        if (Stories.isFeatureEnabled()) {
-          mainNavigationViewModel.onStoriesSelected()
-        }
-      }
+    val startingTab = extras.getSerializableCompat(KEY_STARTING_TAB, MainListRoute::class.java) ?: return
 
-      null -> Unit
+    if (startingTab != MainListRoute.Stories || Stories.isFeatureEnabled()) {
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToTab(startingTab))
     }
   }
 
@@ -900,7 +726,7 @@ class MainActivity :
     }
 
     vitalsViewModel.checkSlowNotificationHeuristics()
-    mainNavigationViewModel.refreshNavigationBarState()
+    mainNavigationViewModel.onEvent(MainNavigationEvents.RefreshNavigationBar)
 
     CallQuality.consumeQualityRequest()?.let {
       CallQualityBottomSheetFragment.create(it).show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
@@ -912,19 +738,17 @@ class MainActivity :
     SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings.theme)
   }
 
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, deviceId: Int) {
+  @Suppress("OVERRIDE_DEPRECATION")
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     Permissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == MainNavigator.REQUEST_CONFIG_CHANGES && resultCode == RESULT_CONFIG_CHANGED) {
-      recreate()
-    }
-
     if (resultCode == RESULT_OK && requestCode == CreateSvrPinActivity.REQUEST_NEW_PIN) {
       mainNavigationViewModel.snackbarRegistry.emit(SnackbarState(message = getString(R.string.ConfirmKbsPinFragment__pin_created), hostKey = MainSnackbarHostKey.MainChrome))
-      mainNavigationViewModel.onMegaphoneCompleted(Megaphones.Event.PINS_FOR_ALL)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneCompleted(Megaphones.Event.PINS_FOR_ALL))
     }
 
     if (resultCode == RESULT_OK && requestCode == UsernameEditFragment.REQUEST_CODE) {
@@ -945,7 +769,11 @@ class MainActivity :
           hostKey = MainSnackbarHostKey.MainChrome
         )
       )
-      mainNavigationViewModel.onMegaphoneSnoozed(Megaphones.Event.VERIFY_BACKUP_KEY)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneSnoozed(Megaphones.Event.VERIFY_BACKUP_KEY))
+    }
+
+    if (requestCode == AppSettingsActivity.REQUEST_CODE_UPGRADE_LOCAL_BACKUPS) {
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneSnoozed(Megaphones.Event.USE_NEW_ON_DEVICE_BACKUPS))
     }
   }
 
@@ -965,7 +793,6 @@ class MainActivity :
       onSetToolbarColor = {
         toolbarViewModel.setToolbarColor(it)
       },
-      setStatusBarColor = {},
       lifecycleOwner = lifecycleOwner
     ).attach(recyclerView)
   }
@@ -975,7 +802,6 @@ class MainActivity :
       activity = this,
       views = listOf(chatFolders),
       viewStubs = listOf(),
-      setStatusBarColor = {},
       onSetToolbarColor = {
         toolbarViewModel.setToolbarColor(it)
       },
@@ -1047,8 +873,7 @@ class MainActivity :
         return
       }
 
-      mainNavigationViewModel.goTo(MainNavigationListLocation.CHATS)
-      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Conversation(ConversationIntents.readArgsFromBundle(extras)))
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToDetail(MainDetailRoute.Conversation(ConversationIntents.readArgsFromBundle(extras))))
       intent.action = null
       setIntent(intent)
     }
@@ -1099,7 +924,7 @@ class MainActivity :
   private fun handleQuickRestoreIntent(intent: Intent) {
     intent.data?.let { data ->
       CommunicationActions.handlePotentialQuickRestoreUrl(this, data.toString()) {
-        onCameraClick(MainNavigationListLocation.CHATS, isForQuickRestore = true)
+        onCameraClick(MainListRoute.Chats, isForQuickRestore = true)
       }
     }
   }
@@ -1142,22 +967,15 @@ class MainActivity :
     }
   }
 
-  private fun onCameraClick(destination: MainNavigationListLocation, isForQuickRestore: Boolean) {
+  private fun onCameraClick(destination: MainListRoute, isForQuickRestore: Boolean) {
     val onGranted = {
       if (isForQuickRestore) {
-        startActivity(MediaSelectionActivity.cameraForQuickRestore(context = this@MainActivity))
-      } else if (SignalStore.internal.useNewMediaActivity) {
-        mediaSendLauncher.launch(
-          MediaSendActivityContract.Args(
-            isCameraFirst = true,
-            isStory = destination == MainNavigationListLocation.STORIES
-          )
-        )
+        startActivity(MediaSendLauncher.cameraForQuickRestore(context = this@MainActivity))
       } else {
         startActivity(
-          MediaSelectionActivity.camera(
+          MediaSendLauncher.camera(
             context = this@MainActivity,
-            isStory = destination == MainNavigationListLocation.STORIES
+            isStory = destination == MainListRoute.Stories
           )
         )
       }
@@ -1182,16 +1000,16 @@ class MainActivity :
       toolbarViewModel.markAllMessagesRead()
     }
 
-    override fun onInviteFriendsClick() {
-      openSettings.launch(AppSettingsActivity.invite(this@MainActivity))
-    }
-
     override fun onFilterUnreadChatsClick() {
       toolbarViewModel.setChatFilter(ConversationFilter.UNREAD)
     }
 
     override fun onClearUnreadChatsFilterClick() {
       toolbarViewModel.setChatFilter(ConversationFilter.OFF)
+    }
+
+    override fun onOpenArchiveClick() {
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToTab(MainListRoute.Archive))
     }
 
     override fun onStarredMessagesClick() {
@@ -1227,11 +1045,11 @@ class MainActivity :
     }
 
     override fun onStoryPrivacyClick() {
-      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Stories.PrivacySettings)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToDetail(MainDetailRoute.Stories.PrivacySettings))
     }
 
     override fun onStoryArchiveClick() {
-      mainNavigationViewModel.goTo(MainNavigationDetailLocation.Stories.Archive)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.GoToDetail(MainDetailRoute.Stories.Archive))
     }
 
     override fun onCloseSearchClick() {
@@ -1278,12 +1096,12 @@ class MainActivity :
       startActivity(NewCallActivity.createIntent(this@MainActivity))
     }
 
-    override fun onCameraClick(destination: MainNavigationListLocation) {
+    override fun onCameraClick(destination: MainListRoute) {
       onCameraClick(destination, false)
     }
 
     override fun onMegaphoneVisible(megaphone: Megaphone) {
-      mainNavigationViewModel.onMegaphoneVisible(megaphone)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneVisible(megaphone))
     }
 
     override fun onSnackbarDismissed() = Unit
@@ -1312,11 +1130,11 @@ class MainActivity :
     }
 
     override fun onMegaphoneSnooze(event: Megaphones.Event) {
-      mainNavigationViewModel.onMegaphoneSnoozed(event)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneSnoozed(event))
     }
 
     override fun onMegaphoneCompleted(event: Megaphones.Event) {
-      mainNavigationViewModel.onMegaphoneCompleted(event)
+      mainNavigationViewModel.onEvent(MainNavigationEvents.MegaphoneCompleted(event))
     }
 
     override fun onMegaphoneDialogFragmentRequested(dialogFragment: DialogFragment) {
@@ -1324,17 +1142,5 @@ class MainActivity :
     }
   }
 
-  private inner class MainNavigationCallback : (MainNavigationListLocation) -> Unit {
-    override fun invoke(location: MainNavigationListLocation) {
-      when (location) {
-        MainNavigationListLocation.CHATS -> mainNavigationViewModel.onChatsSelected()
-        MainNavigationListLocation.CALLS -> mainNavigationViewModel.onCallsSelected()
-        MainNavigationListLocation.STORIES -> mainNavigationViewModel.onStoriesSelected()
-        MainNavigationListLocation.ARCHIVE -> mainNavigationViewModel.onArchiveSelected()
-      }
-    }
-  }
-
-  override fun goTo(location: MainNavigationListLocation) = mainNavigationViewModel.goTo(location)
-  override fun goTo(location: MainNavigationDetailLocation) = mainNavigationViewModel.goTo(location)
+  override fun onEvent(event: MainNavigationEvents) = mainNavigationViewModel.onEvent(event)
 }

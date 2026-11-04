@@ -3,8 +3,8 @@ package org.thoughtcrime.securesms.components;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.Camera;
 import android.text.SpannableString;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -38,6 +38,8 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.models.database.StickerRecord;
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.ui.view.Stub;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
@@ -48,9 +50,8 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
 import org.thoughtcrime.securesms.animation.AnimationStartListener;
 import org.thoughtcrime.securesms.audio.AudioRecordingHandler;
-import org.thoughtcrime.securesms.components.emoji.EmojiEventListener;
+import org.signal.emoji.EmojiEventListener;
 import org.thoughtcrime.securesms.components.emoji.EmojiToggle;
-import org.thoughtcrime.securesms.components.emoji.MediaKeyboard;
 import org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackState;
 import org.thoughtcrime.securesms.conversation.ConversationMessage;
 import org.thoughtcrime.securesms.conversation.ConversationStickerSuggestionAdapter;
@@ -61,7 +62,6 @@ import org.thoughtcrime.securesms.database.model.MessageId;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.Quote;
-import org.thoughtcrime.securesms.database.model.StickerRecord;
 import org.thoughtcrime.securesms.keyboard.KeyboardPage;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository;
@@ -69,9 +69,8 @@ import org.thoughtcrime.securesms.mms.QuoteModel;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 
 import java.util.Arrays;
@@ -82,7 +81,6 @@ import java.util.concurrent.TimeUnit;
 
 public class InputPanel extends ConstraintLayout
     implements AudioRecordingHandler,
-               KeyboardAwareLinearLayout.OnKeyboardShownListener,
                EmojiEventListener,
                ConversationStickerSuggestionAdapter.EventListener
 {
@@ -102,6 +100,7 @@ public class InputPanel extends ConstraintLayout
   private AnimatingToggle       buttonToggle;
   private SendButton            sendButton;
   private View                  recordingContainer;
+  private final int[]           recordingContainerLocation = new int[2];
   private View                  recordLockCancel;
   private View                  composeContainer;
   private View                  editMessageCancel;
@@ -196,7 +195,7 @@ public class InputPanel extends ConstraintLayout
 
     mediaKeyboard.setOnClickListener(v -> listener.onEmojiToggle());
 
-    if (Camera.getNumberOfCameras() > 0) {
+    if (getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
       quickCameraToggle.setOnClickListener(v -> listener.onQuickCameraToggleClicked());
       quickCameraToggle.setVisibility(View.VISIBLE);
     } else {
@@ -398,11 +397,20 @@ public class InputPanel extends ConstraintLayout
     return mediaKeyboard.isStickerMode();
   }
 
+  /** True only while a keyboard of ours is the one on screen. */
+  public void setMediaKeyboardToggleOffersIme(boolean offersIme) {
+    if (offersIme) {
+      mediaKeyboard.setToIme();
+    } else {
+      mediaKeyboard.setToMedia();
+    }
+  }
+
   public View getMediaKeyboardToggleAnchorView() {
     return mediaKeyboard;
   }
 
-  public MediaKeyboard.MediaKeyboardListener getMediaKeyboardListener() {
+  public EmojiToggle getMediaKeyboardToggle() {
     return mediaKeyboard;
   }
 
@@ -643,7 +651,9 @@ public class InputPanel extends ConstraintLayout
   public void onRecordMoved(float offsetX, float absoluteX) {
     slideToCancel.moveTo(offsetX);
 
-    float position  = absoluteX / recordingContainer.getWidth();
+    recordingContainer.getLocationOnScreen(recordingContainerLocation);
+
+    float position = (absoluteX - recordingContainerLocation[0]) / recordingContainer.getWidth();
 
     if (ViewUtil.isLtr(this) && position <= 0.5 ||
         ViewUtil.isRtl(this) && position >= 0.6)
@@ -712,11 +722,6 @@ public class InputPanel extends ConstraintLayout
   }
 
   @Override
-  public void onKeyboardShown() {
-    mediaKeyboard.setToMedia();
-  }
-
-  @Override
   public void onKeyEvent(KeyEvent keyEvent) {
     composeText.dispatchKeyEvent(keyEvent);
   }
@@ -739,6 +744,10 @@ public class InputPanel extends ConstraintLayout
 
   public boolean isRecordingInLockedMode() {
     return microphoneRecorderView.isRecordingLocked();
+  }
+
+  public boolean isRecordingInProgress() {
+    return microphoneRecorderView.isRecording();
   }
 
   public void releaseRecordingLockAndSend() {

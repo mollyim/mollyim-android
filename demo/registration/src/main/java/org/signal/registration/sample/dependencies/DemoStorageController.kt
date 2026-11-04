@@ -33,12 +33,14 @@ import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.network.NetworkResult
+import org.signal.network.api.RegistrationApiV2.SvrCredentials
 import org.signal.registration.NetworkController
 import org.signal.registration.NewRegistrationData
 import org.signal.registration.PreExistingRegistrationData
 import org.signal.registration.RestoreDecision
 import org.signal.registration.StorageController
 import org.signal.registration.StoredProfileData
+import org.signal.registration.proto.AccountData
 import org.signal.registration.proto.ProvisioningData
 import org.signal.registration.proto.RegistrationData
 import org.signal.registration.sample.RegistrationApplication
@@ -50,6 +52,7 @@ import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestorePr
 import org.whispersystems.signalservice.api.SignalServiceMessageReceiver
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
+import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider
 import java.io.File
@@ -83,6 +86,12 @@ class DemoStorageController(private val context: Context) : StorageController {
       avatar = RegistrationPreferences.profileAvatar,
       discoverableByPhoneNumber = RegistrationPreferences.profileDiscoverableByPhoneNumber
     )
+  }
+
+  override suspend fun saveUsername(username: String, usernameLink: UsernameLinkComponents) = withContext(Dispatchers.IO) {
+    RegistrationPreferences.username = username
+    RegistrationPreferences.usernameLinkEntropy = usernameLink.entropy
+    RegistrationPreferences.usernameLinkServerId = usernameLink.serverId.toString()
   }
 
   override suspend fun clearAllData() = withContext(Dispatchers.IO) {
@@ -123,22 +132,23 @@ class DemoStorageController(private val context: Context) : StorageController {
   override suspend fun commitRegistrationData() = withContext(Dispatchers.IO) {
     val file = File(context.filesDir, TEMP_PROTO_FILENAME)
     val data = RegistrationData.ADAPTER.decode(file.readBytes())
+    val accountData = data.accountData ?: AccountData()
 
     // Key material
-    if (data.aciIdentityKeyPair.size > 0) {
-      RegistrationPreferences.aciIdentityKeyPair = IdentityKeyPair(data.aciIdentityKeyPair.toByteArray())
+    if (accountData.aciIdentityKeyPair.size > 0) {
+      RegistrationPreferences.aciIdentityKeyPair = IdentityKeyPair(accountData.aciIdentityKeyPair.toByteArray())
     }
-    if (data.pniIdentityKeyPair.size > 0) {
-      RegistrationPreferences.pniIdentityKeyPair = IdentityKeyPair(data.pniIdentityKeyPair.toByteArray())
+    if (accountData.pniIdentityKeyPair.size > 0) {
+      RegistrationPreferences.pniIdentityKeyPair = IdentityKeyPair(accountData.pniIdentityKeyPair.toByteArray())
     }
-    if (data.aciRegistrationId != 0) {
-      RegistrationPreferences.aciRegistrationId = data.aciRegistrationId
+    if (accountData.aciRegistrationId != 0) {
+      RegistrationPreferences.aciRegistrationId = accountData.aciRegistrationId
     }
-    if (data.pniRegistrationId != 0) {
-      RegistrationPreferences.pniRegistrationId = data.pniRegistrationId
+    if (accountData.pniRegistrationId != 0) {
+      RegistrationPreferences.pniRegistrationId = accountData.pniRegistrationId
     }
-    if (data.servicePassword.isNotEmpty()) {
-      RegistrationPreferences.servicePassword = data.servicePassword
+    if (accountData.servicePassword.isNotEmpty()) {
+      RegistrationPreferences.servicePassword = accountData.servicePassword
     }
     if (data.accountEntropyPool.isNotEmpty()) {
       RegistrationPreferences.aep = AccountEntropyPool(data.accountEntropyPool)
@@ -146,30 +156,32 @@ class DemoStorageController(private val context: Context) : StorageController {
     if (data.profileKey.size > 0) {
       RegistrationPreferences.profileKey = ProfileKey(data.profileKey.toByteArray())
     }
-    RegistrationPreferences.fetchesMessages = data.fetchesMessages
+    RegistrationPreferences.fetchesMessages = accountData.fetchesMessages
 
     // Pre-keys
-    if (data.aciSignedPreKey.size > 0) {
-      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, SignedPreKeyRecord(data.aciSignedPreKey.toByteArray()))
+    if (accountData.aciSignedPreKey.size > 0) {
+      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, SignedPreKeyRecord(accountData.aciSignedPreKey.toByteArray()))
     }
-    if (data.pniSignedPreKey.size > 0) {
-      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, SignedPreKeyRecord(data.pniSignedPreKey.toByteArray()))
+    if (accountData.pniSignedPreKey.size > 0) {
+      db.signedPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, SignedPreKeyRecord(accountData.pniSignedPreKey.toByteArray()))
     }
-    if (data.aciLastResortKyberPreKey.size > 0) {
-      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, KyberPreKeyRecord(data.aciLastResortKyberPreKey.toByteArray()))
+    if (accountData.aciLastResortKyberPreKey.size > 0) {
+      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_ACI, KyberPreKeyRecord(accountData.aciLastResortKyberPreKey.toByteArray()))
     }
-    if (data.pniLastResortKyberPreKey.size > 0) {
-      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, KyberPreKeyRecord(data.pniLastResortKyberPreKey.toByteArray()))
+    if (accountData.pniLastResortKyberPreKey.size > 0) {
+      db.kyberPreKeys.insert(RegistrationDatabase.ACCOUNT_TYPE_PNI, KyberPreKeyRecord(accountData.pniLastResortKyberPreKey.toByteArray()))
     }
 
     // Account identity
-    if (data.e164.isNotEmpty() && data.aci.isNotEmpty() && data.pni.isNotEmpty() && data.servicePassword.isNotEmpty() && data.accountEntropyPool.isNotEmpty()) {
+    val e164 = accountData.e164
+    val pni = accountData.pni
+    if (!e164.isNullOrEmpty() && accountData.aci.isNotEmpty() && !pni.isNullOrEmpty() && accountData.servicePassword.isNotEmpty() && data.accountEntropyPool.isNotEmpty()) {
       RegistrationPreferences.saveRegistrationData(
         NewRegistrationData(
-          e164 = data.e164,
-          aci = ACI.parseOrThrow(data.aci),
-          pni = PNI.parseOrThrow(data.pni),
-          servicePassword = data.servicePassword,
+          e164 = e164,
+          aci = ACI.parseOrThrow(accountData.aci),
+          pni = PNI.parseOrThrow(pni),
+          servicePassword = accountData.servicePassword,
           aep = AccountEntropyPool(data.accountEntropyPool)
         )
       )
@@ -177,7 +189,7 @@ class DemoStorageController(private val context: Context) : StorageController {
 
     // Linked-device data (persisted so the link-and-sync step can authenticate as this device and the
     // home screen can show the linked account).
-    data.linkedDeviceData?.let { linkData ->
+    accountData.linkedDeviceData?.let { linkData ->
       RegistrationPreferences.linkedDeviceId = linkData.deviceId
       RegistrationPreferences.ephemeralBackupKey = linkData.ephemeralBackupKey?.toByteArray()
     }
@@ -187,15 +199,15 @@ class DemoStorageController(private val context: Context) : StorageController {
       RegistrationPreferences.pin = data.pin
       RegistrationPreferences.pinAlphanumeric = data.pin.any { !it.isDigit() }
     }
-    if (data.temporaryMasterKey.size > 0) {
-      RegistrationPreferences.temporaryMasterKey = MasterKey(data.temporaryMasterKey.toByteArray())
+    if (data.masterKeyForInitialDataRestore.size > 0) {
+      RegistrationPreferences.temporaryMasterKey = MasterKey(data.masterKeyForInitialDataRestore.toByteArray())
     }
     RegistrationPreferences.registrationLockEnabled = data.registrationLockEnabled
 
     // SVR credentials
     if (data.svrCredentials.isNotEmpty()) {
       RegistrationPreferences.restoredSvr2Credentials = data.svrCredentials.map {
-        NetworkController.SvrCredentials(username = it.username, password = it.password)
+        SvrCredentials(username = it.username, password = it.password)
       }
     }
 
@@ -204,10 +216,11 @@ class DemoStorageController(private val context: Context) : StorageController {
       RegistrationPreferences.saveProvisioningData(
         NetworkController.ProvisioningMessage(
           accountEntropyPool = data.accountEntropyPool,
-          e164 = data.e164,
+          aci = ACI.parseOrThrow(accountData.aci),
+          e164 = accountData.e164?.takeIf { it.isNotEmpty() },
           pin = data.pin.ifEmpty { null },
-          aciIdentityKeyPair = IdentityKeyPair(data.aciIdentityKeyPair.toByteArray()),
-          pniIdentityKeyPair = IdentityKeyPair(data.pniIdentityKeyPair.toByteArray()),
+          aciIdentityKeyPair = IdentityKeyPair(accountData.aciIdentityKeyPair.toByteArray()),
+          pniIdentityKeyPair = accountData.pniIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) },
           platform = when (prov.platform) {
             ProvisioningData.Platform.ANDROID -> NetworkController.ProvisioningMessage.Platform.ANDROID
             ProvisioningData.Platform.IOS -> NetworkController.ProvisioningMessage.Platform.IOS
@@ -228,6 +241,8 @@ class DemoStorageController(private val context: Context) : StorageController {
 
     Unit
   }
+
+  override suspend fun onRegistrationFlowFinished() = Unit
 
   override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.IO) {
     Log.i(TAG, "[setRestoreDecision] Recording restore decision: $decision")
@@ -298,10 +313,10 @@ class DemoStorageController(private val context: Context) : StorageController {
     backups.sortedByDescending { it.date }
   }
 
-  override fun restoreLocalBackupV1(uri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {
-    Log.d(TAG, "Starting simulated V1 local backup restore from: $uri")
+  override fun restoreLocalBackupV1(rootUri: Uri, backupUri: Uri, passphrase: String): Flow<LocalBackupRestoreProgress> = flow {
+    Log.d(TAG, "Starting simulated V1 local backup restore from: $backupUri")
 
-    require(DocumentFile.fromSingleUri(context, uri)?.exists() == true) { "Backup file does not exist: $uri" }
+    require(DocumentFile.fromSingleUri(context, backupUri)?.exists() == true) { "Backup file does not exist: $backupUri" }
 
     emit(LocalBackupRestoreProgress.Preparing)
     delay(SIMULATED_STAGE_DELAY_MS)
@@ -312,9 +327,11 @@ class DemoStorageController(private val context: Context) : StorageController {
       delay(SIMULATED_STAGE_DELAY_MS)
     }
 
-    emit(LocalBackupRestoreProgress.Complete)
+    emit(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
     Log.d(TAG, "Simulated V1 restore complete.")
   }.flowOn(Dispatchers.IO)
+
+  override suspend fun verifyLocalBackupKey(backupUri: Uri, aep: AccountEntropyPool): Boolean = true
 
   override fun restoreLocalBackupV2(rootUri: Uri, backupUri: Uri, aep: AccountEntropyPool): Flow<LocalBackupRestoreProgress> = flow {
     Log.d(TAG, "Starting simulated V2 local backup restore from backup=$backupUri, root=$rootUri")
@@ -330,7 +347,7 @@ class DemoStorageController(private val context: Context) : StorageController {
       delay(SIMULATED_STAGE_DELAY_MS)
     }
 
-    emit(LocalBackupRestoreProgress.Complete)
+    emit(LocalBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
     Log.d(TAG, "Simulated V2 restore complete.")
   }.flowOn(Dispatchers.IO)
 
@@ -402,7 +419,7 @@ class DemoStorageController(private val context: Context) : StorageController {
 
         // Decrypt + parse the backup proto to prove the round-trip worked. We intentionally do NOT
         // import the frames into a database -- that is the app's full backup-restore pipeline.
-        trySend(LinkAndSyncProgress.Restoring)
+        trySend(LinkAndSyncProgress.Finalizing)
         val downloadedBytes = tempFile.length()
         var frameCount = 0
         EncryptedBackupReader.createForLocalOrLinking(

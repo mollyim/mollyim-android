@@ -12,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
@@ -29,10 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.ui.bottomsheet.RecipientBottomSheetDialogFragment
 import java.util.UUID
 
@@ -62,6 +65,7 @@ fun InternalSearchFragmentScreen(query: String, results: ImmutableList<InternalS
       modifier = modifier
         .fillMaxWidth()
         .background(backgroundColor)
+        .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
       item(key = -1) {
         SearchBar(query, onSearchUpdated)

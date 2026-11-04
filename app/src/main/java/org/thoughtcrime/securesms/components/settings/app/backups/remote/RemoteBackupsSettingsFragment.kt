@@ -69,6 +69,8 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.signal.core.ui.biometrics.BiometricsAuthentication
+import org.signal.core.ui.biometrics.rememberBiometricsAuthentication
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.ComposeFragment
@@ -83,6 +85,7 @@ import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.Texts
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.viewModel
 import org.signal.core.util.bytes
 import org.signal.core.util.gibiBytes
 import org.signal.core.util.mebiBytes
@@ -101,21 +104,17 @@ import org.thoughtcrime.securesms.backup.v2.ui.status.BackupStatusRow
 import org.thoughtcrime.securesms.backup.v2.ui.status.RestoreType
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.MessageBackupsType
 import org.thoughtcrime.securesms.billing.launchManageBackupsSubscription
-import org.thoughtcrime.securesms.components.compose.BiometricsAuthentication
-import org.thoughtcrime.securesms.components.compose.rememberBiometricsAuthentication
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.components.settings.app.backups.BackupState
 import org.thoughtcrime.securesms.components.settings.app.subscription.MessageBackupsCheckoutLauncher.createBackupsCheckoutLauncher
-import org.thoughtcrime.securesms.compose.StatusBarColorNestedScrollConnection
 import org.thoughtcrime.securesms.help.HelpFragment
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity
+import org.thoughtcrime.securesms.mediasend.MediaSendLauncher
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import org.thoughtcrime.securesms.util.viewModel
 import java.math.BigDecimal
 import java.util.Currency
 import java.util.Locale
@@ -151,8 +150,7 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
       backupRestoreState = restoreState,
       backupDeleteState = deleteState,
       contentCallbacks = callbacks,
-      backupProgress = backupProgress,
-      statusBarColorNestedScrollConnection = remember { StatusBarColorNestedScrollConnection(requireActivity()) }
+      backupProgress = backupProgress
     )
   }
 
@@ -280,12 +278,16 @@ class RemoteBackupsSettingsFragment : ComposeFragment() {
     }
 
     override fun onTransferScanQrCodeClick() {
-      startActivity(MediaSelectionActivity.camera(context!!))
+      startActivity(MediaSendLauncher.camera(context!!))
     }
   }
 
   private fun displayBackupKey() {
-    findNavController().safeNavigate(R.id.action_remoteBackupsSettingsFragment_to_backupKeyDisplayFragment)
+    if (SignalStore.account.isPhoneNumberless) {
+      findNavController().safeNavigate(R.id.action_remoteBackupsSettingsFragment_to_settingsSignalLoginDetailsFragment)
+    } else {
+      findNavController().safeNavigate(R.id.action_remoteBackupsSettingsFragment_to_backupKeyDisplayFragment)
+    }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -360,8 +362,7 @@ private fun RemoteBackupsSettingsContent(
   backupRestoreState: BackupRestoreState,
   backupDeleteState: DeletionState,
   contentCallbacks: ContentCallbacks,
-  backupProgress: ArchiveUploadProgressState?,
-  statusBarColorNestedScrollConnection: StatusBarColorNestedScrollConnection?
+  backupProgress: ArchiveUploadProgressState?
 ) {
   val context = LocalContext.current
   val biometrics = rememberBiometricsAuthentication(
@@ -397,18 +398,11 @@ private fun RemoteBackupsSettingsContent(
         },
         onNavigationClick = contentCallbacks::onNavigationClick,
         navigationIcon = SignalIcons.ArrowStart.imageVector,
-        navigationContentDescription = stringResource(R.string.DefaultTopAppBar__navigate_up_content_description),
+        navigationContentDescription = stringResource(CoreUiR.string.DefaultTopAppBar__navigate_up_content_description),
         scrollBehavior = scrollBehavior
       )
     },
     modifier = Modifier
-      .then(
-        if (statusBarColorNestedScrollConnection != null) {
-          Modifier.nestedScroll(statusBarColorNestedScrollConnection)
-        } else {
-          Modifier
-        }
-      )
       .nestedScroll(scrollBehavior.nestedScrollConnection),
     snackbarHost = {
       Snackbars.Host(snackbarHostState = snackbarHostState)
@@ -452,7 +446,8 @@ private fun RemoteBackupsSettingsContent(
               state = state.backupState,
               onLearnMoreClick = contentCallbacks::onLearnMoreAboutLostSubscription,
               onRenewClick = contentCallbacks::onRenewLostSubscription,
-              isRenewEnabled = backupDeleteState.isIdle()
+              isRenewEnabled = backupDeleteState.isIdle(),
+              isLinkedDevice = state.isLinkedDevice
             )
           }
 
@@ -464,7 +459,8 @@ private fun RemoteBackupsSettingsContent(
               onBackupTypeActionButtonClicked = contentCallbacks::onBackupTypeActionClick,
               isPaidTierPricingAvailable = state.isPaidTierPricingAvailable,
               isGooglePlayServicesAvailable = state.isGooglePlayServicesAvailable,
-              buttonsEnabled = backupDeleteState.isIdle()
+              buttonsEnabled = backupDeleteState.isIdle(),
+              isLinkedDevice = state.isLinkedDevice
             )
           }
 
@@ -473,13 +469,20 @@ private fun RemoteBackupsSettingsContent(
               title = stringResource(R.string.RemoteBackupsSettingsFragment__your_subscription_was_not_found),
               onRenewClick = contentCallbacks::onRenewLostSubscription,
               onLearnMoreClick = contentCallbacks::onLearnMoreAboutLostSubscription,
-              isRenewEnabled = backupDeleteState.isIdle()
+              isRenewEnabled = backupDeleteState.isIdle(),
+              isLinkedDevice = state.isLinkedDevice
             )
           }
         }
       }
 
-      if (backupDeleteState != DeletionState.NONE && backupDeleteState != DeletionState.CLEAR_LOCAL_STATE) {
+      if (state.isLinkedDevice) {
+        appendReducedBackupDetailsItems(
+          state = state,
+          backupRestoreState = backupRestoreState,
+          contentCallbacks = contentCallbacks
+        )
+      } else if (backupDeleteState != DeletionState.NONE && backupDeleteState != DeletionState.CLEAR_LOCAL_STATE) {
         appendBackupDeletionItems(
           backupDeleteState = backupDeleteState,
           backupRestoreState = backupRestoreState,
@@ -973,12 +976,68 @@ private fun LazyListScope.appendBackupDetailsItems(
   }
 }
 
+private fun LazyListScope.appendReducedBackupDetailsItems(
+  state: RemoteBackupsSettingsState,
+  backupRestoreState: BackupRestoreState,
+  contentCallbacks: ContentCallbacks
+) {
+  item {
+    Dividers.Default()
+  }
+
+  item {
+    Texts.SectionHeader(text = stringResource(id = R.string.RemoteBackupsSettingsFragment__backup_details))
+  }
+
+  if (backupRestoreState is BackupRestoreState.Restoring) {
+    appendRestoreFromBackupStatusData(
+      backupRestoreState = backupRestoreState,
+      canRestoreUsingCellular = state.canRestoreUsingCellular,
+      contentCallbacks = contentCallbacks
+    )
+  }
+
+  item {
+    ReadOnlyLastBackupRow(lastBackupTimestamp = state.lastBackupTimestamp)
+  }
+}
+
+@Composable
+private fun ReadOnlyLastBackupRow(
+  lastBackupTimestamp: Long
+) {
+  val label = if (lastBackupTimestamp > 0) {
+    val context = LocalContext.current
+
+    val day = remember(lastBackupTimestamp) {
+      DateUtils.getDayPrecisionTimeString(context, Locale.getDefault(), lastBackupTimestamp)
+    }
+
+    val time = remember(lastBackupTimestamp) {
+      DateUtils.getOnlyTimeString(context, lastBackupTimestamp)
+    }
+
+    stringResource(
+      id = R.string.RemoteBackupsSettingsFragment__your_phone_s,
+      stringResource(id = R.string.RemoteBackupsSettingsFragment__s_at_s, day, time)
+    )
+  } else {
+    stringResource(id = R.string.RemoteBackupsSettingsFragment__never)
+  }
+
+  Rows.TextRow(
+    text = stringResource(id = R.string.RemoteBackupsSettingsFragment__last_backup),
+    label = label
+  )
+}
+
 @Composable
 private fun BackupCard(
   backupState: BackupState.WithTypeAndRenewalTime,
   isPaidTierPricingAvailable: Boolean,
   isGooglePlayServicesAvailable: Boolean,
   buttonsEnabled: Boolean,
+  isLinkedDevice: Boolean = false,
   onBackupTypeActionButtonClicked: (MessageBackupTier) -> Unit = {}
 ) {
   val messageBackupsType = backupState.messageBackupsType
@@ -1070,7 +1129,21 @@ private fun BackupCard(
       )
     }
 
-    if (backupState.isActive() && isPaidTierPricingAvailable && isGooglePlayServicesAvailable) {
+    if (isLinkedDevice) {
+      val primaryDeviceText = when (backupState) {
+        is BackupState.ActivePaid -> stringResource(R.string.RemoteBackupsSettingsFragment__you_can_manage_or_cancel_your_subscription_on_your_primary_device)
+        is BackupState.Canceled -> stringResource(R.string.RemoteBackupsSettingsFragment__you_can_manage_or_renew_your_subscription_on_your_primary_device)
+        is BackupState.ActiveFree -> stringResource(R.string.RemoteBackupsSettingsFragment__you_can_manage_or_upgrade_your_subscription_on_your_primary_device)
+        else -> stringResource(R.string.RemoteBackupsSettingsFragment__you_can_manage_or_upgrade_backups_on_your_primary_device)
+      }
+
+      Text(
+        text = primaryDeviceText,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 12.dp)
+      )
+    } else if (backupState.isActive() && isPaidTierPricingAvailable && isGooglePlayServicesAvailable) {
       val buttonText = when (messageBackupsType) {
         is MessageBackupsType.Paid -> stringResource(R.string.RemoteBackupsSettingsFragment__manage_or_cancel)
         is MessageBackupsType.Free -> stringResource(R.string.RemoteBackupsSettingsFragment__upgrade)
@@ -1270,6 +1343,7 @@ private fun PendingCard(
 private fun SubscriptionNotFoundCard(
   title: String,
   isRenewEnabled: Boolean,
+  isLinkedDevice: Boolean = false,
   onRenewClick: () -> Unit = {},
   onLearnMoreClick: () -> Unit = {}
 ) {
@@ -1308,38 +1382,47 @@ private fun SubscriptionNotFoundCard(
       }
     }
 
-    Row(
-      horizontalArrangement = spacedBy(16.dp)
-    ) {
-      Buttons.MediumTonal(
-        onClick = onRenewClick,
-        colors = ButtonDefaults.filledTonalButtonColors().copy(
-          containerColor = SignalTheme.colors.colorTransparent5,
-          contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
-        ),
-        modifier = Modifier
-          .padding(top = 24.dp)
-          .weight(1f)
+    if (isLinkedDevice) {
+      Text(
+        text = stringResource(R.string.RemoteBackupsSettingsFragment__you_can_manage_or_upgrade_backups_on_your_primary_device),
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 12.dp)
+      )
+    } else {
+      Row(
+        horizontalArrangement = spacedBy(16.dp)
       ) {
-        Text(
-          text = stringResource(R.string.RemoteBackupsSettingsFragment__renew)
-        )
-      }
+        Buttons.MediumTonal(
+          onClick = onRenewClick,
+          enabled = isRenewEnabled,
+          colors = ButtonDefaults.filledTonalButtonColors().copy(
+            containerColor = SignalTheme.colors.colorTransparent5,
+            contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
+          ),
+          modifier = Modifier
+            .padding(top = 24.dp)
+            .weight(1f)
+        ) {
+          Text(
+            text = stringResource(R.string.RemoteBackupsSettingsFragment__renew)
+          )
+        }
 
-      Buttons.MediumTonal(
-        onClick = onLearnMoreClick,
-        enabled = isRenewEnabled,
-        colors = ButtonDefaults.filledTonalButtonColors().copy(
-          containerColor = SignalTheme.colors.colorTransparent5,
-          contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
-        ),
-        modifier = Modifier
-          .padding(top = 24.dp)
-          .weight(1f)
-      ) {
-        Text(
-          text = stringResource(R.string.RemoteBackupsSettingsFragment__learn_more)
-        )
+        Buttons.MediumTonal(
+          onClick = onLearnMoreClick,
+          colors = ButtonDefaults.filledTonalButtonColors().copy(
+            containerColor = SignalTheme.colors.colorTransparent5,
+            contentColor = colorResource(CoreUiR.color.signal_light_colorOnSurface)
+          ),
+          modifier = Modifier
+            .padding(top = 24.dp)
+            .weight(1f)
+        ) {
+          Text(
+            text = stringResource(R.string.RemoteBackupsSettingsFragment__learn_more)
+          )
+        }
       }
     }
   }
@@ -1349,14 +1432,22 @@ private fun SubscriptionNotFoundCard(
 private fun SubscriptionMismatchMissingGooglePlayCard(
   state: BackupState.SubscriptionMismatchMissingGooglePlay,
   isRenewEnabled: Boolean,
+  isLinkedDevice: Boolean = false,
   onRenewClick: () -> Unit = {},
   onLearnMoreClick: () -> Unit = {}
 ) {
   val days by rememberUpdatedState((state.renewalTime - System.currentTimeMillis().milliseconds).inWholeDays)
 
+  val title = if (state.isBilledThroughOtherStore || days <= 0) {
+    stringResource(R.string.RemoteBackupsSettingsFragment__your_subscription_was_not_found)
+  } else {
+    pluralStringResource(R.plurals.RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid, days.toInt(), days)
+  }
+
   SubscriptionNotFoundCard(
-    title = pluralStringResource(R.plurals.RemoteBackupsSettingsFragment__your_subscription_on_this_device_is_valid, days.toInt(), days),
+    title = title,
     isRenewEnabled = isRenewEnabled,
+    isLinkedDevice = isLinkedDevice,
     onRenewClick = onRenewClick,
     onLearnMoreClick = onLearnMoreClick
   )
@@ -1808,7 +1899,6 @@ private fun RemoteBackupsSettingsContentPreview() {
         hasRedemptionError = true,
         isOutOfStorageSpace = true
       ),
-      statusBarColorNestedScrollConnection = null,
       backupDeleteState = DeletionState.NONE,
       backupRestoreState = BackupRestoreState.None,
       contentCallbacks = ContentCallbacks.Empty,
@@ -1838,7 +1928,62 @@ private fun RemoteBackupsSettingsInternalUserContentPreview() {
         internalUser = true,
         includeDebuglog = true
       ),
-      statusBarColorNestedScrollConnection = null,
+      backupDeleteState = DeletionState.NONE,
+      backupRestoreState = BackupRestoreState.None,
+      contentCallbacks = ContentCallbacks.Empty,
+      backupProgress = null
+    )
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun RemoteBackupsSettingsLinkedDevicePaidContentPreview() {
+  Previews.Preview {
+    RemoteBackupsSettingsContent(
+      state = RemoteBackupsSettingsState(
+        backupsEnabled = true,
+        isLinkedDevice = true,
+        lastBackupTimestamp = -1,
+        canBackUpUsingCellular = false,
+        canRestoreUsingCellular = false,
+        dialog = RemoteBackupsSettingsState.Dialog.NONE,
+        snackbar = RemoteBackupsSettingsState.Snackbar.NONE,
+        backupMediaSize = 2300000,
+        backupState = BackupState.ActivePaid(
+          messageBackupsType = MessageBackupsType.Paid(
+            pricePerMonth = FiatMoney(BigDecimal.valueOf(2.99), Currency.getInstance("USD")),
+            storageAllowanceBytes = 1_000_000,
+            mediaTtl = 30.days
+          ),
+          price = FiatMoney(BigDecimal.valueOf(2.99), Currency.getInstance("USD")),
+          renewalTime = 1_752_710_400.seconds
+        )
+      ),
+      backupDeleteState = DeletionState.NONE,
+      backupRestoreState = BackupRestoreState.None,
+      contentCallbacks = ContentCallbacks.Empty,
+      backupProgress = null
+    )
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun RemoteBackupsSettingsLinkedDeviceNotFoundContentPreview() {
+  Previews.Preview {
+    RemoteBackupsSettingsContent(
+      state = RemoteBackupsSettingsState(
+        backupsEnabled = true,
+        isLinkedDevice = true,
+        lastBackupTimestamp = -1,
+        canBackUpUsingCellular = false,
+        canRestoreUsingCellular = false,
+        dialog = RemoteBackupsSettingsState.Dialog.NONE,
+        snackbar = RemoteBackupsSettingsState.Snackbar.NONE,
+        backupMediaSize = 2300000,
+        backupState = BackupState.NotFound
+      ),
       backupDeleteState = DeletionState.NONE,
       backupRestoreState = BackupRestoreState.None,
       contentCallbacks = ContentCallbacks.Empty,
@@ -1875,10 +2020,8 @@ private fun ErrorCardPreview() {
 @Composable
 private fun PendingCardPreview() {
   Previews.Preview {
-    val locale = LocalLocale.current.platformLocale
-
     PendingCard(
-      price = FiatMoney(BigDecimal.TEN, Currency.getInstance(locale))
+      price = FiatMoney(BigDecimal.TEN, Currency.getInstance(Locale.US))
     )
   }
 }
@@ -1906,6 +2049,25 @@ private fun SubscriptionMismatchMissingGooglePlayCardPreview() {
           mediaTtl = 30.days
         ),
         renewalTime = System.currentTimeMillis().milliseconds + 30.days
+      ),
+      isRenewEnabled = true
+    )
+  }
+}
+
+@DayNightPreviews
+@Composable
+private fun SubscriptionMismatchBilledThroughOtherStoreCardPreview() {
+  Previews.Preview {
+    SubscriptionMismatchMissingGooglePlayCard(
+      state = BackupState.SubscriptionMismatchMissingGooglePlay(
+        messageBackupsType = MessageBackupsType.Paid(
+          pricePerMonth = FiatMoney(BigDecimal.valueOf(3), Currency.getInstance("CAD")),
+          storageAllowanceBytes = 100_000_000,
+          mediaTtl = 30.days
+        ),
+        renewalTime = System.currentTimeMillis().milliseconds + 30.days,
+        isBilledThroughOtherStore = true
       ),
       isRenewEnabled = true
     )

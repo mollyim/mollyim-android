@@ -8,11 +8,7 @@ package org.signal.registration
 import android.Manifest
 import android.os.Build
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -21,22 +17,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.core.util.logging.Log
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.restoreselection.RegisteredState
-import kotlin.reflect.KClass
 
 /**
  * ViewModel shared across the registration flow.
  * Manages state and logic for registration screens.
  */
 class RegistrationViewModel(
-  private val repository: RegistrationRepository,
+  val repository: RegistrationRepository,
   private val savedStateHandle: SavedStateHandle,
   startDestination: RegistrationRoute? = null,
   private val startFresh: Boolean = false
-) : EventDrivenViewModel<RegistrationFlowEvent>(TAG) {
+) : EventDrivenViewModel<RegistrationFlowEvent>(TAG, shouldLogEvents = false) {
 
   companion object {
     private val TAG = Log.tag(RegistrationViewModel::class)
@@ -91,6 +86,10 @@ class RegistrationViewModel(
     }
   }
 
+  override fun onCleared() {
+    repository.close()
+  }
+
   override suspend fun processEvent(event: RegistrationFlowEvent) {
     _state.value = applyEvent(_state.value, event)
     persistFlowState(event)
@@ -101,13 +100,22 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.ResetState -> RegistrationFlowState(isRestoringNavigationState = false)
       is RegistrationFlowEvent.SessionUpdated -> state.copy(sessionMetadata = event.session)
       is RegistrationFlowEvent.E164Chosen -> state.copy(sessionE164 = event.e164)
-      is RegistrationFlowEvent.Registered -> state.copy(accountEntropyPool = event.accountEntropyPool, storageCapable = event.storageCapable)
+      is RegistrationFlowEvent.VerificationCodeAccepted -> state.copy(submittedVerificationCode = event.code)
+      is RegistrationFlowEvent.VerificationCodeRequested -> state.copy(
+        lastSmsVerificationCodeRequest = event.nextSmsAllowedTimestamp?.let { VerificationCodeRequest(event.e164, it) } ?: state.lastSmsVerificationCodeRequest,
+        lastCallVerificationCodeRequest = event.nextCallAllowedTimestamp?.let { VerificationCodeRequest(event.e164, it) } ?: state.lastCallVerificationCodeRequest
+      )
+      is RegistrationFlowEvent.Registered -> state.copy(aci = event.aci, accountEntropyPool = event.accountEntropyPool, storageCapable = event.storageCapable, isPhoneNumberlessAccount = event.phoneNumberless)
       is RegistrationFlowEvent.MasterKeyRestoredFromSvr -> state.copy(temporaryMasterKey = event.masterKey)
       is RegistrationFlowEvent.NavigateToScreen -> applyNavigationToScreenEvent(state, event)
       is RegistrationFlowEvent.NavigateBackToScreen -> applyNavigateBackToScreenEvent(state, event)
       is RegistrationFlowEvent.NavigateBack -> {
         if (state.backStack.size > 1) {
-          state.copy(backStack = state.backStack.dropLast(1))
+          val poppedRoute = state.backStack.last()
+          state.copy(
+            backStack = state.backStack.dropLast(1),
+            pendingRestoreOption = if (poppedRoute.abandonsPendingRestore()) null else state.pendingRestoreOption
+          )
         } else {
           finishChannel.trySend(Unit)
           state
@@ -119,7 +127,7 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.UserSuppliedAepSubmitted -> state.copy(unverifiedRestoredAep = event.aep)
       is RegistrationFlowEvent.UserSuppliedAepVerified -> {
         repository.saveVerifiedUserSuppliedAep(event.aep)
-        state.copy(accountEntropyPool = event.aep)
+        state.copy(accountEntropyPool = event.aep, unverifiedRestoredAep = null)
       }
       is RegistrationFlowEvent.RegistrationComplete -> {
         repository.commitFinalRegistrationData()
@@ -148,14 +156,32 @@ class RegistrationViewModel(
       is RegistrationRoute.Welcome,
       is RegistrationRoute.PinCreate,
       is RegistrationRoute.PinEntryForSvrRestore,
-      is RegistrationRoute.RemoteRestore -> true
+      is RegistrationRoute.SignalLoginInfo -> true
+      is RegistrationRoute.RemoteRestore -> !this.backwardNavigationAllowed
       is RegistrationRoute.ArchiveRestoreSelection -> this.registeredState != RegisteredState.NotRegistered
       else -> false
     }
   }
 
+  /**
+   * Whether backing out of this route means the user is abandoning a restore they selected before phone number entry.
+   * Without clearing [RegistrationFlowState.pendingRestoreOption], re-submitting a phone number would route them right
+   * back into the restore flow they just backed out of, with no way to register over SMS instead.
+   *
+   * [RegistrationRoute.LocalBackupRestore] is intentionally absent: it pops itself when a restore is deferred to SMS
+   * verification, and that flow relies on the still-set pending option to resume the restore after registration.
+   * Abandoning it is instead handled by its explicit cancel action.
+   */
+  private fun RegistrationRoute.abandonsPendingRestore(): Boolean {
+    return when (this) {
+      is RegistrationRoute.PhoneNumberEntry,
+      is RegistrationRoute.EnterAepForRemoteBackupPreRegistration -> true
+      else -> false
+    }
+  }
+
   private fun applyNavigateBackToScreenEvent(inputState: RegistrationFlowState, event: RegistrationFlowEvent.NavigateBackToScreen): RegistrationFlowState {
-    val index = inputState.backStack.indexOfLast { it == event.route }
+    val index = inputState.backStack.indexOfLast { it::class == event.route::class }
     return if (index >= 0) {
       inputState.copy(backStack = inputState.backStack.take(index + 1))
     } else {
@@ -221,6 +247,8 @@ class RegistrationViewModel(
       is RegistrationFlowEvent.NavigateBackToScreen,
       is RegistrationFlowEvent.SessionUpdated,
       is RegistrationFlowEvent.E164Chosen,
+      is RegistrationFlowEvent.VerificationCodeAccepted,
+      is RegistrationFlowEvent.VerificationCodeRequested,
       is RegistrationFlowEvent.RecoveryPasswordInvalid,
       is RegistrationFlowEvent.PendingRestoreOptionSelected,
       is RegistrationFlowEvent.RestoreMethodTokenReceived,
@@ -231,12 +259,6 @@ class RegistrationViewModel(
       // No need to persist anything new, fields accounted for in proto already
       is RegistrationFlowEvent.Registered,
       is RegistrationFlowEvent.MasterKeyRestoredFromSvr -> { }
-    }
-  }
-
-  class Factory(private val repository: RegistrationRepository, private val startDestination: RegistrationRoute? = null, private val startFresh: Boolean = false) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-      return RegistrationViewModel(repository, extras.createSavedStateHandle(), startDestination, startFresh) as T
     }
   }
 }

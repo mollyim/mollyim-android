@@ -1,5 +1,6 @@
 package org.signal.camera
 
+import android.view.Surface
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.compose.ui.geometry.Offset
@@ -13,12 +14,21 @@ data class CameraScreenState(
   val showFocusIndicator: Boolean = false,
   val lensFacing: Int = CameraSelector.LENS_FACING_BACK,
   val zoomRatio: Float = 1f,
+  /** What the bound lens can reach. A single point until the camera reports otherwise. */
+  val zoomRange: ClosedFloatingPointRange<Float> = 1f..1f,
   val flashMode: FlashMode = FlashMode.Off,
   val isRecording: Boolean = false,
+  /** Whether the running recording keeps running without the capture button being held. */
+  val isRecordingLocked: Boolean = false,
+  /** Whether the running recording is paused, as the recorder reports it rather than as it was requested. */
+  val isRecordingPaused: Boolean = false,
   val recordingDuration: Long = 0L,
   val showShutter: Boolean = false,
   val showSelfieFlash: Boolean = false,
-  val captureError: CaptureError? = null
+  val captureError: CaptureError? = null,
+  val isLandscape: Boolean = false,
+  /** Committed physical device rotation ([Surface] rotation). Drives Small-screen HUD icon rotation. */
+  val deviceRotation: Int = Surface.ROTATION_0
 )
 
 sealed interface CaptureError {

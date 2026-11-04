@@ -7,14 +7,12 @@ package org.signal.registration.screens.pincreation
 
 import assertk.assertThat
 import assertk.assertions.contains
+import assertk.assertions.containsExactly
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
-import assertk.assertions.prop
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -78,6 +76,21 @@ class PinCreationViewModelTest {
     return states
   }
 
+  private fun TestScope.collectActions(): List<PinCreationScreenActions> {
+    val actions = mutableListOf<PinCreationScreenActions>()
+    backgroundScope.launch(testDispatcher) { viewModel.actions.collect { actions.add(it) } }
+    return actions
+  }
+
+  @Test
+  fun `LearnMore emits an action to open the learn more article`() = runTest(testDispatcher) {
+    val actions = collectActions()
+
+    viewModel.applyEvent(PinCreationState(), PinCreationScreenEvents.LearnMore)
+
+    assertThat(actions).containsExactly(PinCreationScreenActions.OpenLearnMoreArticle)
+  }
+
   // ==================== PIN Confirmation Tests ====================
 
   @Test
@@ -85,7 +98,7 @@ class PinCreationViewModelTest {
     val states = collectStates()
     val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
 
-    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("148502"))
 
     coVerify(exactly = 0) { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) }
     assertThat(emittedParentEvents).hasSize(0)
@@ -126,6 +139,124 @@ class PinCreationViewModelTest {
     assertThat(states.last().isConfirmEnabled).isFalse()
     assertThat(states.last().firstPin).isNull()
     assertThat(states.last().pinMismatch).isFalse()
+  }
+
+  @Test
+  fun `first PinSubmitted matching the verification code warns and does not advance`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate(), submittedVerificationCode = "123456")
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().isConfirmEnabled).isFalse()
+    assertThat(states.last().pinMatchesVerificationCode).isTrue()
+  }
+
+  @Test
+  fun `first PinSubmitted not matching the verification code advances to confirm`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate(), submittedVerificationCode = "123456")
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("148502"))
+
+    assertThat(states.last().isConfirmEnabled).isTrue()
+    assertThat(states.last().pinMatchesVerificationCode).isFalse()
+  }
+
+  // ==================== Weak PIN Tests ====================
+
+  @Test
+  fun `first PinSubmitted with an ascending sequential PIN is rejected as too weak`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("1234"))
+
+    coVerify(exactly = 0) { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) }
+    assertThat(emittedParentEvents).hasSize(0)
+    assertThat(states.last().pinTooWeak).isTrue()
+    assertThat(states.last().isConfirmEnabled).isFalse()
+    assertThat(states.last().firstPin).isNull()
+  }
+
+  @Test
+  fun `first PinSubmitted with a descending sequential PIN is rejected as too weak`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("43210"))
+
+    assertThat(states.last().pinTooWeak).isTrue()
+    assertThat(states.last().isConfirmEnabled).isFalse()
+  }
+
+  @Test
+  fun `first PinSubmitted with a repeated-digit PIN is rejected as too weak`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("9999"))
+
+    assertThat(states.last().pinTooWeak).isTrue()
+    assertThat(states.last().isConfirmEnabled).isFalse()
+  }
+
+  @Test
+  fun `first PinSubmitted with a sequential non-arabic-numeral PIN is rejected as too weak`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate())
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("١٢٣٤٥"))
+
+    assertThat(states.last().pinTooWeak).isTrue()
+    assertThat(states.last().isConfirmEnabled).isFalse()
+  }
+
+  @Test
+  fun `first PinSubmitted with a sequential alphanumeric PIN is allowed`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate(), isAlphanumericKeyboard = true)
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("abcd"))
+
+    assertThat(states.last().pinTooWeak).isFalse()
+    assertThat(states.last().isConfirmEnabled).isTrue()
+  }
+
+  @Test
+  fun `first PinSubmitted matching the verification code is reported as such rather than as too weak`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val initialState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate(), submittedVerificationCode = "123456")
+
+    viewModel.applyEvent(initialState, PinCreationScreenEvents.PinSubmitted("123456"))
+
+    assertThat(states.last().pinMatchesVerificationCode).isTrue()
+    assertThat(states.last().pinTooWeak).isFalse()
+  }
+
+  @Test
+  fun `first PinSubmitted with a strong PIN clears a previous too-weak error`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val weakState = PinCreationState(accountEntropyPool = AccountEntropyPool.generate(), pinTooWeak = true)
+
+    viewModel.applyEvent(weakState, PinCreationScreenEvents.PinSubmitted("148502"))
+
+    assertThat(states.last().pinTooWeak).isFalse()
+    assertThat(states.last().isConfirmEnabled).isTrue()
+  }
+
+  @Test
+  fun `weak PIN check is skipped on the confirmation step`() = runTest(testDispatcher) {
+    val aep = AccountEntropyPool.generate()
+    val confirmState = PinCreationState(accountEntropyPool = aep, isConfirmEnabled = true, firstPin = "148502")
+
+    coEvery { mockRepository.setNewlyCreatedPin(any(), any(), any<MasterKey>()) } returns RequestResult.Success(null)
+
+    viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("148502"))
+
+    coVerify { mockRepository.setNewlyCreatedPin("148502", any(), any<MasterKey>()) }
+    assertThat(emittedParentEvents).contains(RegistrationFlowEvent.RegistrationComplete)
   }
 
   // ==================== PinSubmitted Success Tests ====================
@@ -187,7 +318,7 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().dialogs.serviceError).isTrue()
     assertThat(states.last().loading).isFalse()
   }
 
@@ -203,7 +334,7 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isEqualTo(PinCreationState.OneTimeEvent.ServiceError)
+    assertThat(states.last().dialogs.serviceError).isTrue()
     assertThat(states.last().loading).isFalse()
   }
 
@@ -220,21 +351,29 @@ class PinCreationViewModelTest {
     viewModel.applyEvent(confirmState, PinCreationScreenEvents.PinSubmitted("123456"))
 
     assertThat(emittedParentEvents).hasSize(0)
-    assertThat(states.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<PinCreationState.OneTimeEvent.NetworkError>()
-      .prop(PinCreationState.OneTimeEvent.NetworkError::retryAfter)
-      .isEqualTo(retryAfter)
+    assertThat(states.last().dialogs.networkError).isEqualTo(PinCreationState.Dialogs.NetworkError(retryAfter))
     assertThat(states.last().loading).isFalse()
   }
 
   @Test
-  fun `ConsumeOneTimeEvent clears the one-time event`() = runTest(testDispatcher) {
+  fun `ServiceErrorDialogDismissed clears only the service error dialog`() = runTest(testDispatcher) {
     val states = collectStates()
-    val stateWithEvent = PinCreationState(oneTimeEvent = PinCreationState.OneTimeEvent.ServiceError)
+    val networkError = PinCreationState.Dialogs.NetworkError(retryAfter = null)
+    val stateWithEvent = PinCreationState(dialogs = PinCreationState.Dialogs(serviceError = true, networkError = networkError))
 
-    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.ConsumeOneTimeEvent)
+    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.ServiceErrorDialogDismissed)
 
-    assertThat(states.last().oneTimeEvent).isNull()
+    assertThat(states.last().dialogs).isEqualTo(PinCreationState.Dialogs(networkError = networkError))
+  }
+
+  @Test
+  fun `NetworkErrorDialogDismissed clears only the network error dialog`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val stateWithEvent = PinCreationState(dialogs = PinCreationState.Dialogs(serviceError = true, networkError = PinCreationState.Dialogs.NetworkError(retryAfter = null)))
+
+    viewModel.applyEvent(stateWithEvent, PinCreationScreenEvents.NetworkErrorDialogDismissed)
+
+    assertThat(states.last().dialogs).isEqualTo(PinCreationState.Dialogs(serviceError = true))
   }
 
   // ==================== OptOut Tests ====================
@@ -251,26 +390,36 @@ class PinCreationViewModelTest {
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState copies accountEntropyPool from parent`() {
+  fun `ParentStateChanged copies accountEntropyPool from parent`() = runTest(testDispatcher) {
+    val states = collectStates()
     val aep = AccountEntropyPool.generate()
     val parentFlowState = RegistrationFlowState(accountEntropyPool = aep)
-    val initialState = PinCreationState()
 
-    val result = viewModel.applyParentState(initialState, parentFlowState)
+    viewModel.applyEvent(PinCreationState(), PinCreationScreenEvents.ParentStateChanged(parentFlowState))
 
-    assertThat(result.accountEntropyPool).isEqualTo(aep)
+    assertThat(states.last().accountEntropyPool).isEqualTo(aep)
   }
 
   @Test
-  fun `applyParentState with null accountEntropyPool keeps null`() {
+  fun `ParentStateChanged with null accountEntropyPool keeps null`() = runTest(testDispatcher) {
+    val states = collectStates()
     val parentFlowState = RegistrationFlowState(accountEntropyPool = null)
-    val initialState = PinCreationState()
 
-    val result = viewModel.applyParentState(initialState, parentFlowState)
+    viewModel.applyEvent(PinCreationState(), PinCreationScreenEvents.ParentStateChanged(parentFlowState))
 
-    assertThat(result.accountEntropyPool).isNull()
+    assertThat(states.last().accountEntropyPool).isNull()
+  }
+
+  @Test
+  fun `parent state changes are merged into state through the event stream`() = runTest(testDispatcher) {
+    val states = collectStates()
+    val aep = AccountEntropyPool.generate()
+
+    parentState.value = RegistrationFlowState(accountEntropyPool = aep)
+
+    assertThat(states.last().accountEntropyPool).isEqualTo(aep)
   }
 }

@@ -16,8 +16,8 @@ import org.thoughtcrime.securesms.jobmanager.impl.DefaultExecutorFactory;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobSpec;
 import org.thoughtcrime.securesms.jobmanager.persistence.JobStorage;
 import org.thoughtcrime.securesms.jobs.MinimalJobSpec;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.signal.core.util.Debouncer;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.FilteredExecutor;
 
@@ -87,7 +87,7 @@ public class JobManager implements ConstraintObserver.Notifier {
         jobStorage.init();
 
         int latestVersion = configuration.getJobMigrator().migrate(jobStorage);
-        TextSecurePreferences.setJobManagerVersion(application, latestVersion);
+        SignalStore.misc().setJobManagerVersion(latestVersion);
 
         jobController.init();
 
@@ -296,6 +296,19 @@ public class JobManager implements ConstraintObserver.Notifier {
   public @NonNull List<JobSpec> find(@NonNull Predicate<JobSpec> predicate) {
     waitUntilInitialized();
     return jobController.findJobs(predicate);
+  }
+
+  /**
+   * Search through the list of pending jobs and find all that match a given predicate. Unlike {@link #find(Predicate)}, this reads from the in-memory job list,
+   * making it dramatically cheaper when there are many jobs enqueued. The tradeoff is that the predicate can only consider the properties present on a
+   * {@link MinimalJobSpec}.
+   *
+   * Note that there will always be races here, and the result you get back may not be valid anymore by the time you get it. Use with caution.
+   */
+  @WorkerThread
+  public @NonNull List<MinimalJobSpec> findMinimalJobs(@NonNull Predicate<MinimalJobSpec> predicate) {
+    waitUntilInitialized();
+    return jobController.findMinimalJobs(predicate);
   }
 
   /**

@@ -58,13 +58,16 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
+import org.signal.core.ui.FormFactor
 import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.assumedFormFactor
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
@@ -75,6 +78,9 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.QrCode
 import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.compose.SmallTabletLandscapeDayPreview
+import org.signal.core.ui.fonts.SignalSymbols
+import org.signal.core.ui.fonts.SignalSymbols.SignalSymbol
 import org.signal.core.ui.rememberWindowBreakpoint
 import org.signal.registration.R
 import org.signal.registration.screens.OnePaneRegistrationScaffold
@@ -98,7 +104,7 @@ fun LinkAccountScreen(
   modifier: Modifier = Modifier
 ) {
   val layoutParams = RegistrationScaffold.rememberLayoutParams()
-  val isPhone = rememberWindowBreakpoint() is WindowBreakpoint.Small
+  val isPhone = rememberWindowBreakpoint().assumedFormFactor == FormFactor.PHONE
 
   // Sequence the expand button animation with the QR morph
   var expandButtonVisible by remember { mutableStateOf(!state.displayQrOverlay) }
@@ -235,8 +241,9 @@ private fun TwoPane(
       FirstPaneContent(
         onEvent = onEvent,
         modifier = Modifier
-          .padding(paddingValues)
           .weight(1f)
+          .verticalScroll(rememberScrollState())
+          .padding(paddingValues)
       )
     },
     secondPane = { paddingValues ->
@@ -272,17 +279,17 @@ private fun FirstPaneContent(
     modifier = modifier,
     verticalArrangement = spacedBy(32.dp)
   ) {
-    Title()
+    Title(twoPane = true)
 
     Steps(verticalArrangement = spacedBy(32.dp), centerGetHelp = false, onEvent = onEvent)
   }
 }
 
 @Composable
-private fun Title() {
+private fun Title(twoPane: Boolean = false) {
   Text(
     text = stringResource(R.string.LinkAccountScreen__scan_this_code_to_link_your_account),
-    style = MaterialTheme.typography.headlineMedium,
+    style = if (twoPane) MaterialTheme.typography.headlineLarge else MaterialTheme.typography.headlineMedium,
     modifier = Modifier
       .fillMaxWidth()
       .attachDebugLogHelper()
@@ -364,10 +371,17 @@ private fun QrCodeContent(
     }
   }
 
-  Box(
+  BoxWithConstraints(
     contentAlignment = if (isInOverlay) Alignment.Center else Alignment.CenterEnd,
     modifier = modifier
   ) {
+    val outerBorderSize = getQrOuterBorderSize(isInOverlay, overlayMaxWidth)
+
+    // The breakpoint sizes are fixed, so scale them down uniformly when the window can't fit them (e.g. a landscape small tablet)
+    val scale = (minOf(maxWidth, maxHeight) / outerBorderSize).coerceAtMost(1f)
+    val innerBorderSize = getQrInnerBorderSize(isInOverlay, overlayMaxWidth) * scale
+    val qrCodeSize = getQrCodeSize(isInOverlay, overlayMaxWidth) * scale
+
     with(sharedTransitionScope) {
       Box(
         contentAlignment = Alignment.Center,
@@ -377,8 +391,8 @@ private fun QrCodeContent(
             animatedVisibilityScope = animatedVisibilityScope,
             boundsTransform = qrBoundsTransform
           )
-          .size(getQrOuterBorderSize(isInOverlay, overlayMaxWidth))
-          .background(color = colorResource(org.signal.core.ui.R.color.signal_light_colorPrimary), shape = RoundedCornerShape(if (isPhone) 48.dp else 64.dp))
+          .size(outerBorderSize * scale)
+          .background(color = colorResource(org.signal.core.ui.R.color.signal_light_colorPrimary), shape = RoundedCornerShape((if (isPhone) 48.dp else 64.dp) * scale))
       ) {
         AnimatedContent(
           targetState = state.qrCodeState,
@@ -388,8 +402,8 @@ private fun QrCodeContent(
               animatedVisibilityScope = animatedVisibilityScope,
               boundsTransform = qrBoundsTransform
             )
-            .size(getQrInnerBorderSize(isInOverlay, overlayMaxWidth))
-            .background(color = Color.White, shape = RoundedCornerShape(if (isPhone) 26.dp else 24.dp))
+            .size(innerBorderSize)
+            .background(color = Color.White, shape = RoundedCornerShape((if (isPhone) 26.dp else 24.dp) * scale))
         ) { target ->
           Box(
             contentAlignment = Alignment.Center,
@@ -397,7 +411,7 @@ private fun QrCodeContent(
           ) {
             when (target) {
               QrState.Failed -> QrCodeFailed(onEvent)
-              is QrState.Loaded -> QrCodeDisplay(target.qrCodeData, isInOverlay, overlayMaxWidth, qrBoundsTransform, sharedTransitionScope, animatedVisibilityScope)
+              is QrState.Loaded -> QrCodeDisplay(target.qrCodeData, qrCodeSize, qrBoundsTransform, sharedTransitionScope, animatedVisibilityScope)
               QrState.Loading -> QrCodeLoading()
               QrState.Scanned -> QrCodeScanned()
             }
@@ -436,8 +450,7 @@ private fun QrCodeContent(
 @Composable
 private fun QrCodeDisplay(
   qrCodeData: QrCodeData,
-  isInOverlay: Boolean,
-  overlayMaxWidth: Dp?,
+  size: Dp,
   boundsTransform: BoundsTransform,
   sharedTransitionScope: SharedTransitionScope,
   animatedVisibilityScope: AnimatedVisibilityScope
@@ -452,7 +465,7 @@ private fun QrCodeDisplay(
           animatedVisibilityScope = animatedVisibilityScope,
           boundsTransform = boundsTransform
         )
-        .size(getQrCodeSize(isInOverlay, overlayMaxWidth))
+        .size(size)
     )
   }
 }
@@ -609,10 +622,7 @@ private fun OnePaneFooterContent(
         .fillMaxWidth()
         .padding(params.footerPadding)
     ) {
-      Row {
-        DontHaveSignal()
-      }
-      CreateAccount(onEvent)
+      DontHaveSignal(onEvent)
     }
   }
 }
@@ -633,8 +643,7 @@ private fun TwoPaneFooterContent(
     ) {
       Spacer(modifier = Modifier.weight(1f))
 
-      DontHaveSignal()
-      CreateAccount(onEvent)
+      DontHaveSignal(onEvent)
 
       Spacer(modifier = Modifier.weight(1f))
     }
@@ -642,29 +651,20 @@ private fun TwoPaneFooterContent(
 }
 
 @Composable
-private fun DontHaveSignal() {
-  Icon(
-    imageVector = SignalIcons.DevicePhone.imageVector,
-    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-    contentDescription = null
-  )
-
-  Text(
-    text = stringResource(R.string.LinkAccountScreen__dont_have_signal_on_another_device),
-    color = MaterialTheme.colorScheme.onSurfaceVariant
-  )
-}
-
-@Composable
-private fun CreateAccount(onEvent: (LinkAccountScreenEvent) -> Unit) {
+private fun DontHaveSignal(onEvent: (LinkAccountScreenEvent) -> Unit) {
   Text(
     text = buildAnnotatedString {
+      SignalSymbol(glyph = SignalSymbols.Glyph.DEVICE_PHONE)
+      append(' ')
+      append(stringResource(R.string.LinkAccountScreen__dont_have_signal_on_another_device))
+      append(' ')
+
       withLink(
         LinkAnnotation.Clickable(
           tag = "create-account",
           styles = TextLinkStyles(
             style = SpanStyle(
-              color = MaterialTheme.colorScheme.onSurface,
+              color = MaterialTheme.colorScheme.onSurfaceVariant,
               fontWeight = FontWeight.Bold,
               textDecoration = TextDecoration.Underline
             )
@@ -674,14 +674,18 @@ private fun CreateAccount(onEvent: (LinkAccountScreenEvent) -> Unit) {
           }
         )
       ) {
-        append(stringResource(R.string.LinkAccountScreen__create_account))
+        append(stringResource(R.string.LinkAccountScreen__create_account).replace(' ', '\u00A0'))
       }
     },
+    color = MaterialTheme.colorScheme.onSurfaceVariant,
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.bodyMedium,
     modifier = Modifier.testTag(TestTags.LINK_ACCOUNT_CREATE_ACCOUNT_LINK)
   )
 }
 
 @AllDevicePreviews
+@SmallTabletLandscapeDayPreview
 @Composable
 private fun LinkAccountScreenPreview() {
   var displayQrOverlay by remember { mutableStateOf(false) }

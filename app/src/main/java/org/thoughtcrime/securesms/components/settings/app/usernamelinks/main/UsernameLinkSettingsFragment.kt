@@ -45,7 +45,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
-import androidx.core.app.TaskStackBuilder
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -57,6 +56,8 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
+import org.signal.appsettings.usernamelinks.QrCodeState
+import org.signal.appsettings.usernamelinks.UsernameQrCodeColorScheme
 import org.signal.camera.CameraScreenEvents
 import org.signal.camera.CameraScreenState
 import org.signal.camera.CameraScreenViewModel
@@ -65,15 +66,12 @@ import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.ui.permissions.Permissions
-import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeData
-import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeState
-import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.UsernameLinkSettingsState.ActiveTab
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.util.CommunicationActions
@@ -249,11 +247,7 @@ private fun MainScreen(
         hasCameraPermission = cameraPermissionState.status.isGranted,
         modifier = Modifier.padding(contentPadding),
         onRecipientFound = { recipient ->
-          val taskStack = TaskStackBuilder
-            .create(context)
-            .addNextIntent(MainActivity.clearTop(context))
-
-          CommunicationActions.startConversation(context, recipient, null, taskStack)
+          CommunicationActions.startConversation(context, recipient, null)
         }
       )
     }

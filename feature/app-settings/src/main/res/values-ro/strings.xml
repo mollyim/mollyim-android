@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- RegistrationLockV2Dialog -->
+    <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Activează Blocarea Înregistrării?</string>
+    <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Dezactivează Blocarea Înregistrării?</string>
+    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Dacă îți uiți PIN-ul Signal atunci când te înregistrezi din nou cu Signal, contul tău va fi blocat timp de 7 zile.</string>
+    <string name="RegistrationLockV2Dialog_turn_on">Activare</string>
+    <string name="RegistrationLockV2Dialog_turn_off">Dezactivare</string>
+    <string name="preferences__advanced_pin_settings">Setări PIN avansate</string>
+    <string name="preferences__delete_account">Șterge-ți contul</string>
+    <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
+    <string name="RegistrationLockFragment__switch_keyboard">Schimbă tastaturile</string>
+    <string name="preferences_chats__transfer_account">Transfer cont</string>
+    <string name="preferences_chats__transfer_account_to_a_new_android_device">Transfer cont pe un nou dispozitiv Android</string>
+    <string name="preferences_app_protection__signal_pin">PIN Signal</string>
+    <string name="preferences_app_protection__create_a_pin">Creează un PIN</string>
+    <string name="preferences_app_protection__change_your_pin">Modificare PIN</string>
+    <string name="preferences_app_protection__pin_reminders">Mementouri PIN</string>
+    <string name="preferences_app_protection__turn_off">Dezactivare</string>
+    <string name="preferences_app_protection__confirm_pin">Confirmare PIN</string>
+    <string name="preferences_app_protection__confirm_your_signal_pin">Confirmă PIN-ul tău Signal</string>
+    <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Asigură-te că memorezi sau salvezi în siguranță codul PIN, deoarece acesta nu poate fi recuperat. Dacă uiți codul PIN, este posibil să pierzi date la înregistrarea din nou a contului tău Signal.</string>
+    <string name="preferences_app_protection__incorrect_pin_try_again">PIN incorect. Încearcă din nou.</string>
+    <string name="preferences_app_protection__registration_lock">Blocarea Înregistrării</string>
+    <!-- Option in settings that will take use to re-register if they are no longer registered -->
+    <string name="preferences_account_reregister">Înregistrează din nou contul</string>
+    <!-- Option in settings that will take user to our website or playstore to update their expired build -->
+    <string name="preferences_account_update_signal">Actualizează Signal</string>
+    <!-- Option in settings shown when user is no longer registered or expired client that will WIPE ALL THEIR DATA -->
+    <string name="preferences_account_delete_all_data">Șterge toate datele</string>
+    <!-- Title for confirmation dialog confirming user wants to delete all their data -->
+    <string name="preferences_account_delete_all_data_confirmation_title">Ștergi toate datele?</string>
+    <!-- Message in confirmation dialog to delete all data explaining how it works, and that the app will be closed after deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_message">Această acțiune va reseta aplicația și va șterge toate mesajele. Aplicația se va închide după ce se încheie procesul.</string>
+    <!-- Confirmation action to proceed with application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_proceed">Continuă</string>
+    <!-- Confirmation action to cancel application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_cancel">Anulează</string>
+
+    <!-- AccountSettingsFragment -->
+    <string name="AccountSettingsFragment__account">Cont</string>
+    <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Vei fi întrebat mai rar în timp</string>
+    <string name="AccountSettingsFragment__require_your_signal_pin">Solicitare PIN Signal pentru a înregistra din nou numărul tău de telefon la Signal.</string>
+    <string name="AccountSettingsFragment__change_phone_number">Schimbare număr de telefon</string>
+    <!-- Account setting that allows user to request and export their signal account data -->
+    <string name="AccountSettingsFragment__request_account_data">Datele contului tău</string>
+    <!-- Section header for the Signal Login section of account settings -->
+    <string name="AccountSettingsFragment__signal_login">Login Signal</string>
+    <!-- Title of the card that opens the user\'s Signal Login account and recovery keys -->
+    <string name="AccountSettingsFragment__account_and_recovery">Cont și recuperare</string>
+    <!-- Description of what a Signal Login is, shown below the Signal Login card -->
+    <string name="AccountSettingsFragment__your_signal_login_is_used_to_recover">Loginul Signal este folosit pentru a-ți recupera și restaura contul. Păstrează aceste coduri cheie în siguranță într-un manager de parole în care ai încredere.</string>
+    <!-- Section header for the two-factor authentication section of account settings -->
+    <string name="AccountSettingsFragment__two_factor_authentication">Autentificare în doi pași</string>
+    <!-- Row that opens the menu of second factors the user can add -->
+    <string name="AccountSettingsFragment__set_up">Stabilește</string>
+    <!-- Menu option that starts setting up an authenticator app -->
+    <string name="AccountSettingsFragment__authenticator_app">Aplicație de autentificare</string>
+    <!-- Description of the authenticator app menu option -->
+    <string name="AccountSettingsFragment__one_time_verification_codes">Coduri de verificare unice</string>
+    <!-- Name of a passkey in the list of second factors on the account -->
+    <string name="AccountSettingsFragment__passkey">Cod de acces</string>
+    <!-- Description of the passkey menu option -->
+    <string name="AccountSettingsFragment__use_your_fingerprint_face_or_screen_lock">Folosește amprenta digitală, recunoașterea facială sau blocarea ecranului</string>
+    <!-- Default name given to a passkey before the user chooses one -->
+    <string name="AccountSettingsRepository__passkey">Cod de acces</string>
+    <!-- Name given to a second factor added by a newer version of Signal that this one doesn\'t recognize -->
+    <string name="AccountSettingsFragment__two_factor_method">Metodă de autentificare cu doi factori</string>
+    <!-- Subtitle of a second factor saying what kind it is and when it was added. First placeholder is the kind, second is a date or time. -->
+    <string name="AccountSettingsFragment__s_added_s">%1$s · Adăugare %2$s</string>
+    <!-- Name shown for a second factor whose details couldn\'t be read -->
+    <string name="AccountSettingsFragment__unknown">Necunoscut</string>
+    <!-- Content description of the button that opens a second factor\'s options -->
+    <string name="AccountSettingsFragment__open_two_factor_options">Deschise opțiunile de autentificare cu doi factori</string>
+    <!-- Menu option that renames a second factor -->
+    <string name="AccountSettingsFragment__rename">Redenumește</string>
+    <!-- Menu option that removes a second factor -->
+    <string name="AccountSettingsFragment__remove">Elimină</string>
+    <!-- Title of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__remove_authenticator_app">Elimini aplicația de autentificare?</string>
+    <!-- Body of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_app">Nu vei putea să folosești această aplicație pentru coduri de verificare unice când te conectezi.</string>
+    <!-- Title of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__remove_passkey">Elimini codul de acces?</string>
+    <!-- Body of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_passkey">Nu vei putea să folosești acest cod de acces când te conectezi.</string>
+    <!-- Title of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__remove_two_factor_method">Elimini metoda de autentificare cu doi factori?</string>
+    <!-- Body of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_method">Nu vei putea să folosești această metodă când te conectezi.</string>
+    <!-- Toast shown after a second factor has been removed from the account -->
+    <string name="AccountSettingsFragment__two_factor_method_removed">Metodă cu doi factori eliminată</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a second factor -->
+    <string name="AccountSettingsFragment__couldnt_remove_two_factor_method">Nu s-a putut elimina metoda de autentificare cu doi factori. Verifică-ți conexiunea și încearcă din nou.</string>
+    <!-- Toast shown after a passkey has been removed from the account -->
+    <string name="AccountSettingsFragment__passkey_removed">Cod de acces eliminat</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a passkey -->
+    <string name="AccountSettingsFragment__couldnt_remove_passkey">Nu s-a putut elimina codul de acces. Verifică-ți conexiunea și încearcă din nou.</string>
+    <!-- Toast shown when the device has no passkey provider set up to create a passkey with -->
+    <string name="AccountSettingsFragment__no_passkey_provider">Configurează un manager de parole care acceptă cheile de acces pe acest dispozitiv, apoi încearcă din nou.</string>
+    <!-- Toast shown when creating a passkey didn\'t work -->
+    <string name="AccountSettingsFragment__couldnt_create_passkey">Nu s-a putut crea un cod de acces. Încearcă din nou.</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__unlock_to_add_two_factor_method">Unlock to add two-factor method</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__to_add_this_method_confirm_its_you">To add this method, confirm it\'s you</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__unlock_to_remove_two_factor_method">Deblochează pentru a înlătura metoda cu doi factori</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__to_remove_this_method_confirm_its_you">Ca să elimini această metodă, confirmă că ești tu</string>
+    <!-- Title of the device screen lock prompt shown before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__unlock_to_view_signal_login">Deblochează ca să vezi Login-ul Signal</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__to_view_your_signal_login_confirm_its_you">Ca să vezi Login-ul Signal, confirmă că ești tu</string>
+    <!-- Title of the device screen lock prompt shown before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__unlock_to_confirm_its_you">Deblochează ca să confirmi că ești chiar tu</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__to_delete_your_account_confirm_its_you">Ca să-ți eliminăm contul, confirmă că ești chiar tu</string>
+    <!-- Toast shown when the device screen lock wasn\'t confirmed, so nothing happened -->
+    <string name="AccountSettingsFragment__authentication_required">Este necesară autentificarea</string>
+    <!-- Title of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__cant_add_authenticator_app">Nu poți să adaugi aplicația de autentificare</string>
+    <!-- Body of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d">Nu poți adăuga mai mult de %1$d aplicații de autentificare. Încearcă să o elimini pe prima mai întâi.</string>
+    <!-- Body of the dialog shown when the account has room for another authenticator app but already has as many two-factor methods of all kinds as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d_two_factor_methods">Nu poți să adaugi mai mult decât %1$d metode de autentificare cu doi factori. Încearcă să o elimini pe prima mai întâi.</string>
+    <!-- Shown in place of the list when we couldn\'t work out which second factors are on the account -->
+    <string name="AccountSettingsFragment__couldnt_load_your_two_factor_methods">Nu s-a putut încărca metodele tale de autentificare cu doi factori. Verifică-ți conexiunea și încearcă din nou.</string>
+    <!-- Toast shown after an authenticator app has been removed -->
+    <string name="AccountSettingsFragment__authenticator_app_removed">Aplicația de autentificare eliminată</string>
+    <!-- Toast shown when an authenticator app couldn\'t be removed -->
+    <string name="AccountSettingsFragment__couldnt_remove_authenticator_app">Nu s-a putut elimina aplicația de autentificare. Verifică-ți conexiunea și încearcă din nou.</string>
+    <!-- Description of two-factor authentication, shown below the two-factor authentication list -->
+    <string name="AccountSettingsFragment__use_a_second_form_of_authentication">Folosește o a doua formă de autentificare ca să-ți protejezi contul când folosești Login Signal pe un dispozitiv nou.</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="AccountSettingsFragment__learn_more">Află mai multe</string>
+
+    <!-- ExportAccountDataFragment -->
+  <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
+    <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
+    <string name="ExportAccountDataFragment__your_account_data">Datele contului tău</string>
+    <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
+    <string name="ExportAccountDataFragment__export_explanation">Exportă un raport al datelor contului tău Signal. Raportul nu include mesaje sau fișiere media. %1$s</string>
+    <!-- Learn more link to more information about requesting account data -->
+    <string name="ExportAccountDataFragment__learn_more">Află mai multe</string>
+    <!-- Button action to export the report data to another app (e.g. email) -->
+    <string name="ExportAccountDataFragment__export_report">Exportă raportul</string>
+
+    <!-- Radio option to export the data as a text file .txt -->
+    <string name="ExportAccountDataFragment__export_as_txt">Exportă ca TXT</string>
+    <!-- Label for the text file option -->
+    <string name="ExportAccountDataFragment__export_as_txt_label">Fișier text ușor de citit</string>
+    <!-- Radio option to export the data as a json (java script object notation) file .json -->
+    <string name="ExportAccountDataFragment__export_as_json">Exportă ca JSON</string>
+    <!-- Label for the json file option, the account data in a machine readable file format -->
+    <string name="ExportAccountDataFragment__export_as_json_label">Fișier lizibil electronic</string>
+
+    <!-- Action to cancel (in a dialog) -->
+    <string name="ExportAccountDataFragment__cancel_action">Anulează</string>
+
+    <!-- Acknowledgement for download failure -->
+    <string name="ExportAccountDataFragment__ok_action">OK</string>
+    <!-- Title of dialog shown when report fails to generate -->
+    <string name="ExportAccountDataFragment__report_generation_failed">Nu s-a putut genera raportul</string>
+    <!-- Message of dialog shown when report fails to generate asking user to check network connection -->
+    <string name="ExportAccountDataFragment__check_network">Verifică-ți conexiunea și încearcă din nou.</string>
+
+    <!-- Title for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation">Exporți datele?</string>
+    <!-- Message for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation_message">Distribuie datele contului tău de Signal doar către persoane sau aplicații în care ai încredere.</string>
+    <!-- Action to export in for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_action">Exportă</string>
+
+    <!-- Shown in a dialog with a spinner while the report is downloading -->
+    <string name="ExportAccountDataFragment__download_progress">Se generează raportul…</string>
+    <!-- Explanation that the report is only generated on export and is not saved on the device -->
+    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">Raportul tău este generat numai în momentul exportului și nu este stocat de Signal pe dispozitiv.</string>
+
+    <!-- TotpSetupScreen -->
+    <!-- Title of the screen that walks the user through setting up an authenticator app -->
+    <string name="TotpSetupScreen__set_up_your_authenticator_app">Stabilește-ți aplicația de autentificare</string>
+    <!-- Instructions shown at the top of the authenticator app setup screen -->
+    <string name="TotpSetupScreen__follow_these_steps">Urmează acești pași și setează-ți aplicația de autentificare.</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="TotpSetupScreen__learn_more">Află mai multe</string>
+    <!-- Header of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_1">Pasul 1</string>
+    <!-- Body of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__install_a_trusted_authenticator_app">Instalează-ți pe dispozitiv o aplicație de autentificare în care ai încredere.</string>
+    <!-- Header of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_2">Pasul 2</string>
+    <!-- Body of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__open_your_authenticator_app">Deschide aplicația de autentificare atingând butonul mai jos ca să-ți adaugi contul de Signal.</string>
+    <!-- Button that opens the user\'s authenticator app -->
+    <string name="TotpSetupScreen__open">Deschide</string>
+    <!-- Text above the setup key explaining that it can be entered by hand instead -->
+    <string name="TotpSetupScreen__or_you_can_copy_this_key">Sau poți să copiezi acest cod ca să o setezi manual.</string>
+    <!-- Button that copies the setup key to the clipboard -->
+    <string name="TotpSetupScreen__copy">Copiază</string>
+    <!-- Toast shown after the setup key has been copied to the clipboard -->
+    <string name="TotpSetupScreen__copied_to_clipboard">S-a copiat în clipboard</string>
+    <!-- Toast shown when there is no app installed that can handle the authenticator setup link -->
+    <string name="TotpSetupScreen__no_authenticator_app_found">Nu s-a găsit nicio aplicație de autentificare</string>
+    <!-- Dialog message shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="TotpSetupScreen__you_cant_add_more_than_d">Nu poți adăuga mai mult de %1$d aplicații de autentificare. Încearcă să o elimini pe prima mai întâi.</string>
+    <!-- Dialog message shown when we couldn\'t reach the service to start setting up an authenticator app -->
+    <string name="TotpSetupScreen__couldnt_reach_signal">Nu s-a putut accesa Signal. Verifică-ți conexiunea și încearcă din nou.</string>
+    <!-- Header of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_3">Pasul 3</string>
+    <!-- Body of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__copy_the_code_thats_generated">Copiază codul care este generat și revino aici pentru a continua.</string>
+    <!-- Button that advances from the setup instructions to entering a code -->
+    <string name="TotpSetupScreen__continue">Continuare</string>
+
+    <!-- PasskeySetupScreen -->
+    <!-- Title of the screen that explains passkeys before the user sets one up -->
+    <string name="PasskeySetupScreen__passkeys">Parole</string>
+    <!-- Explanation of what passkeys are, shown above a "Learn more" link -->
+    <string name="PasskeySetupScreen__with_passkeys_you_can_easily_add">Cu ajutorul codurilor de acces, poți adăuga cu ușurință o a doua metodă sigură de autentificare la contul tău. Passkeys poate utiliza datele biometrice ale dispozitivului tău sau un cod de securitate compatibil cu standardul FIDO2.</string>
+    <!-- Link that opens a support article about passkeys -->
+    <string name="PasskeySetupScreen__learn_more">Află mai multe</string>
+    <!-- Bullet point explaining that the user can name their passkey -->
+    <string name="PasskeySetupScreen__give_your_passkey_a_friendly_name">Acordă-i codului de acces un nume ușor de reținut, pentru a-l identifica</string>
+    <!-- Bullet point explaining where the passkey is stored -->
+    <string name="PasskeySetupScreen__use_your_devices_biometrics">Folosește datele biometrice ale dispozitivului sau un cod de securitate FIDO2 pentru a stoca codul de acces</string>
+    <!-- Bullet point explaining that passkeys can be managed later -->
+    <string name="PasskeySetupScreen__add_or_remove_passkeys_at_any_time">Adaugă sau elimină coduri de acces oricând.</string>
+    <!-- Button that starts creating a passkey -->
+    <string name="PasskeySetupScreen__set_up_a_passkey">Stabilește un cod de acces</string>
+    <!-- Title of the dialog shown when the account already has as many two-factor methods as it\'s allowed -->
+    <string name="PasskeySetupScreen__cant_add_passkey">Can\'t add passkey</string>
+    <!-- Body of the dialog shown when the account already has as many two-factor methods as it\'s allowed. %1$d is the limit. -->
+    <string name="PasskeySetupScreen__you_cant_add_more_than_d_two_factor_methods">Nu poți să adaugi mai mult decât %1$d metode de autentificare cu doi factori. Încearcă să o elimini pe prima mai întâi.</string>
+
+    <!-- TotpCodeEntryScreen -->
+    <!-- Title of the screen where the user enters the code from their authenticator app -->
+    <string name="TotpCodeEntryScreen__enter_your_code">Introdu-ți codul</string>
+    <!-- Instructions shown above the code entry field -->
+    <string name="TotpCodeEntryScreen__enter_the_6_digit_code">Introdu un cod de 6 cifre din aplicația de autentificare.</string>
+    <!-- Button that submits the entered code -->
+    <string name="TotpCodeEntryScreen__next">Următorul</string>
+    <!-- Error shown under the code field when the code the user entered was rejected -->
+    <string name="TotpCodeEntryScreen__incorrect_code">Cod incorect. Introdu codul care apare în aplicația ta de autentificare acum.</string>
+    <!-- Error shown under the code field when we couldn\'t reach the service to check the code -->
+    <string name="TotpCodeEntryScreen__couldnt_reach_signal">Nu s-a putut accesa Singal. Verifică-ți conexiunea și încearcă din nou.</string>
+
+    <!-- Default name given to an authenticator app the moment it\'s set up, before the user chooses their own name for it -->
+    <string name="TotpRepository__authenticator">Authenticator</string>
+
+    <!-- TwoFactorNameEntryScreen -->
+    <!-- Title of the screen where the user names a second factor -->
+    <string name="TwoFactorNameEntryScreen__choose_a_name">Alege un nume</string>
+    <!-- Instructions shown above the name field when renaming an authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name">Alege un nume unic pentru această aplicație de autentificare.</string>
+    <!-- Instructions shown above the name field when naming a newly configured authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_to_help_you_identify_it">Alege un nume unic pentru această aplicație de autentificare care să te ajute să o identifici mai târziu.</string>
+    <!-- Instructions shown above the name field when renaming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method">Alege un nume unic pentru această metodă de autentificare cu doi factori.</string>
+    <!-- Instructions shown above the name field when naming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method_to_help_you_identify_it">Alege un nume unic pentru această metodă de autentificare în doi pași, pentru a o putea identifica mai târziu.</string>
+    <!-- Instructions shown above the name field when renaming a passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey">Alege un nume unic pentru acest cod de acces.</string>
+    <!-- Instructions shown above the name field when naming a newly created passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey_to_help_you_identify_it">Alege un nume unic pentru această parolă, care să te ajute să o identifici ulterior.</string>
+    <!-- Label of the name field -->
+    <string name="TwoFactorNameEntryScreen__name">Nume</string>
+    <!-- Button that submits the entered name -->
+    <string name="TwoFactorNameEntryScreen__next">Următorul</string>
+    <!-- Toast shown after an authenticator app has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_set_up">Aplicația de autentificare a fost instalată</string>
+    <!-- Toast shown after an authenticator app has been renamed -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_renamed">Aplicația de autentificare a fost redenumită</string>
+    <!-- Toast shown after a passkey has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__passkey_set_up">Cod de acces stabilit</string>
+    <!-- Toast shown after a passkey has been renamed -->
+    <string name="TwoFactorNameEntryScreen__passkey_renamed">Cod de acces redenumit</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been set up -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_set_up">Metodă de autentificare cu doi factori stabilită</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been renamed -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_renamed">Metodă de autentificare cu doi factori redenumită</string>
+    <!-- Toast shown when we couldn\'t reach the service to save the name -->
+    <string name="TwoFactorNameEntryScreen__couldnt_save_name">Nu s-a putut salva numele. Verifică-ți conexiunea și încearcă din nou.</string>
+
+    <!-- DeleteAccountScreen -->
+    <!-- DeleteAccountFragment -->
+    <string name="DeleteAccountFragment__deleting_your_account_will">Ștergerea contului tău implică:</string>
+    <string name="DeleteAccountFragment__enter_your_phone_number">Introdu numărul tău de telefon</string>
+    <string name="DeleteAccountFragment__delete_account">Șterge contul</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Ștergerea informațiilor despre contul tău și poza de profil</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">Ștergerea tuturor mesajelor tale</string>
+    <string name="DeleteAccountFragment__delete_s_in_your_payments_account">Ștergerea a %1$s din contul tău de plăți</string>
+    <string name="DeleteAccountFragment__no_country_code">Codul țării nu este specificat</string>
+    <string name="DeleteAccountFragment__no_number">Niciun număr specificat</string>
+    <string name="DeleteAccountFragment__the_phone_number">Numărul de telefon pe care l-ai introdus nu se potrivește cu cel al contului tău.</string>
+    <string name="DeleteAccountFragment__are_you_sure">Ești sigur că vrei să ștergi contul?</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Această acțiune va șterge contul Signal și va reseta aplicația. Aplicația se va închide după finalizarea procesului.</string>
+    <string name="DeleteAccountFragment__failed_to_delete_local_data">Ștergerea datelor locale nu a reușit. Le poți șterge manual din setările de sistem pentru aplicație.</string>
+    <string name="DeleteAccountFragment__launch_app_settings">Deschide Setările Aplicației</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
+    <string name="DeleteAccountFragment__leaving_groups">Se părăsesc grupurile…</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_account">Se șterge contul…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is canceling their subscription -->
+    <string name="DeleteAccountFragment__canceling_your_subscription">Se anulează abonamentul…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is leaving groups -->
+    <string name="DeleteAccountFragment__depending_on_the_number_of_groups">În funcție de numărul de grupuri în care te afli, acest lucru poate dura câteva minute</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_all_user_data_and_resetting">Se șterg datele de utilizator și se resetează aplicația</string>
+    <!-- Title of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__account_not_deleted">Contul nu a Fost Șters</string>
+    <!-- Message of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__there_was_a_problem">Procesul de ștergere a întâmpinat o problemă. Verifică-ți conexiunea la rețea și încearcă din nou.</string>
+    <!-- Body text above the bullet list on the delete account screen, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__deleting_your_account_with_username_s_will">Eliminarea contului tău cu numele de utilizator „%1$s“ înseamnă:</string>
+    <!-- Bullet point on the delete account screen, shown in place of the plain one when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__delete_your_account_info_and_profile_photo_including_your_username_s">Elimină informațiile despre contul tău și poza de profil inclusiv numele de utilizator „%1$s“</string>
+    <!-- Bullet point on the delete account screen warning the user that the deletion is permanent -->
+    <string name="DeleteAccountScreen__this_action_can_not_be_undone">Această acțiune este ireversibilă</string>
+    <!-- Message of the deletion confirmation dialog, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__this_will_delete_your_signal_account_with_username_s">Această acțiune va elimina contul Signal cu numele de utilizator „%1$s“ și va reseta aplicația. Aplicația se va închide după ce se încheie procesul.</string>
+    <!-- Label of the checkbox the user has to tick in the confirmation dialog before they can delete their account -->
+    <string name="DeleteAccountScreen__yes_delete_my_account">Da, elimină-mi contul</string>
+
+    <!-- InviteScreen -->
+    <!-- Title of the screen where the user invites friends to join Signal -->
+    <string name="InviteScreen__invite_friends">Invită prieteni</string>
+    <!-- Share button on invite screen to open the system share sheet -->
+    <string name="InviteScreen__share">Distribuie</string>
+
+    <!-- Shared with the registration screens -->
+    <string name="RegistrationActivity_select_your_country">Alege țara ta.</string>
+    <string name="RegistrationActivity_phone_number_description">Număr de telefon</string>
+
+    <!-- ChatsSettingsFragment -->
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="one">%1$d dosar</item>
+        <item quantity="few">%1$d dosare</item>
+        <item quantity="other">%1$d de dosare</item>
+    </plurals>
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
+    <string name="ChatsSettingsFragment__add_chat_folder">Adaugă un dosar de conversații</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">Adaugă sau editează dosare</string>
+    <!-- Snackbar shown when biometric authentication fails before a chat export -->
+    <string name="ChatsSettingsFragment__authentication_failed">Autentificare eșuată</string>
+    <!-- Heading within chats settings for chat folders -->
+    <string name="ChatsSettingsFragment__chat_folders">Dosare de conversații</string>
+    <!-- Row title for the option to export chat history as a plaintext archive -->
+    <string name="ChatsSettingsFragment__export_chat_history">Exportă istoricul conversațiilor</string>
+    <!-- Row description for the plaintext chat export option -->
+    <string name="ChatsSettingsFragment__export_chat_history_label">Exportă o copie JSON, citibilă automat, a tuturor conversațiilor tale. Mesajele temporare nu vor fi exportate.</string>
+    <string name="ChatsSettingsFragment__keyboard">Tastatură</string>
+    <string name="ChatsSettingsFragment__send_with_enter">Trimite cu enter</string>
+    <!-- Title of the toggle row in chat settings that controls whether stickers and GIFs play automatically -->
+    <string name="ChatsSettingsFragment__autoplay_stickers_and_gifs">Abțibilduri de redare automată și GIF-uri</string>
+    <!-- Description beneath the autoplay stickers and GIFs toggle row in chat settings -->
+    <string name="ChatsSettingsFragment__when_turned_on_stickers_and_gifs_will_play_automatically">Când sunt activate, abțibildurile și GIF-urile vor rula automat</string>
+    <!-- Biometrics prompt title shown before allowing the user to export chat history -->
+    <string name="ChatsSettingsFragment__unlock_to_export_chat_history">Deblochează pentru a exporta istoricul conversațiilor</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">Prefer fotografiile contactelor din agendă dacă sunt disponibile</string>
+    <string name="preferences__generate_link_previews">Generează previzualizări ale linkurilor</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Conversațiile pe silențios arhivate vor rămâne arhivate atunci când sosește un mesaj nou.</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">Păstrează arhivate conversațiile pe silențios</string>
+    <string name="preferences__pref_use_address_book_photos">Prefer pozele din agendă</string>
+    <string name="preferences__retrieve_link_previews_from_websites_for_messages">Obține previzualizările link-urilor direct de pe site-urile web pentru mesajele pe care le trimiți.</string>
+    <string name="preferences_advanced__use_system_emoji">Folosește emoji de sistem</string>
+    <string name="preferences_chats__chats">Conversații</string>
+
+    <!-- ChatExportDialogs -->
+    <!-- Bold warning prefix in the export complete dialog body -->
+    <string name="ChatExportDialogs__be_careful">ATENȚIE</string>
+    <!-- Bold warning prefix in the export confirmation dialog body -->
+    <string name="ChatExportDialogs__be_careful_warning">ATENȚIE!</string>
+    <!-- Progress dialog message shown while canceling an in-progress chat export -->
+    <string name="ChatExportDialogs__canceling_export">Se anulează exportul…</string>
+    <!-- Body of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_body">Alege un folder din spațiul de stocare al dispozitivului tău în care va fi salvat istoricul conversațiilor.</string>
+    <!-- Title of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_title">Alege dosarul</string>
+    <!-- Button that opens the system folder picker -->
+    <string name="ChatExportDialogs__choose_folder_button">Alege directorul</string>
+    <!-- Body of the export complete dialog, displayed after the bold "BE CAREFUL" prefix -->
+    <string name="ChatExportDialogs__complete_body">unde stochezi fișierul de export al conversației și nu îl transmite nimănui. Alte aplicații de pe dispozitivul tău ar putea să-l acceseze, în funcție de permisiunile dispozitivului.</string>
+    <!-- Title of the dialog shown when a chat export finishes successfully -->
+    <string name="ChatExportDialogs__complete_title">Exportul conversației a fost finalizat</string>
+    <!-- Title of the dialog asking the user to confirm they want to export chat history -->
+    <string name="ChatExportDialogs__export_chat_history_title">Exporți istoricul conversațiilor?</string>
+    <!-- Body of the export confirmation dialog, displayed after the bold "BE CAREFUL!" prefix -->
+    <string name="ChatExportDialogs__export_confirm_body">NU trimite acest fișier nimănui. Istoricul conversațiilor va fi salvat pe dispozitivul tău, iar alte aplicații îl vor putea accesa în funcție de permisiunile dispozitivului. Exportul cu media va duce la o dimensiune mai mare a fișierului.</string>
+    <!-- Button in the export confirmation dialog to export messages and media -->
+    <string name="ChatExportDialogs__export_with_media">Exportă cu fișiere media</string>
+    <!-- Button in the export confirmation dialog to export messages only -->
+    <string name="ChatExportDialogs__export_without_media">Exportă fără fișiere media</string>
+
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Se exportă fișierele: %1$d%%</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">Se finalizează…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">Se pregătește backup-ul…</string>
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">Se procesează backup-ul…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Mesaje de procesare…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Mesaje de procesare: %1$s din %2$s (%3$d%%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Se încarcă fișierele: %1$d%%</string>
+
+    <!-- AppUpdatesSettingsScreen -->
+    <!-- Title of the app updates settings screen -->
+    <string name="preferences_app_updates__title">Actualizări aplicație</string>
+
+    <!-- AppearanceSettingsScreen -->
+    <string name="preferences__appearance">Aspect</string>
+    <string name="preferences__language">Limba</string>
+    <string name="preferences__theme">Tema</string>
+    <string name="preferences__system_default">Setarea telefonului</string>
+    <string name="preferences__light_theme">Luminoasă</string>
+    <string name="preferences__dark_theme">Întunecată</string>
+    <string name="preferences__chat_color_and_wallpaper">Culoare conversație și fundal</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">Pictograma Aplicației</string>
+    <string name="preferences_chats__message_text_size">Mărimea textului</string>
+    <string name="arrays__small">Mic</string>
+    <string name="arrays__normal">Normal</string>
+    <string name="arrays__large">Mare</string>
+    <string name="arrays__extra_large">Foarte mare</string>
+    <!-- Preference title for changing navigation (bottom) bar size -->
+    <string name="preferences_navigation_bar_size">Dimensiunea barei de navigare</string>
+    <!-- Preference summary for normal navigation bar size -->
+    <string name="preferences_normal">Normal</string>
+    <!-- Preference summary for compact navigation bar size -->
+    <string name="preferences_compact">Compact</string>
+    <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
+    <string name="preferences_language_change_confirmation_message">Aplicația va reporni pentru a aplica noua setare de limbă.</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Număr de telefon</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Cine îmi poate vedea numărul</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Numărul tău de telefon va fi vizibil pentru toate persoanele și grupurile cărora le trimiți mesaje.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Numărul tău de telefon nu va fi vizibil nimănui, cu excepția cazului în care acesta este salvat în contactele telefonului său.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Numărul tău de telefon nu va fi vizibil pentru nimeni.</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">Cine mă poate găsi după număr</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">Oricine are numărul tău de telefon va vedea că ești pe Signal și poate începe conversații cu tine.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Nimeni nu va putea să vadă că eșți pe Signal decât dacă îi trimiți un mesaj sau dacă ai o conversație existentă cu acesta.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Pentru a schimba această setare, setează „Cine poate vedea numărul meu” la „Nimeni”."</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Ești sigur/ă?</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Dacă setezi \"Cine mă poate găsi după număr\" la \"Nimeni\", oamenii te vor găsi mai greu pe Signal.</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Anulează</string>
+    <string name="PhoneNumberPrivacy_everyone">Toată lumea</string>
+    <string name="PhoneNumberPrivacy_nobody">Nimeni</string>
+    <string name="arrays__images">Imagini</string>
+    <string name="arrays__audio">Audio</string>
+    <string name="arrays__video">Video</string>
+    <string name="arrays__documents">Documente</string>
+    <string name="preferences__data_and_storage">Date și stocare</string>
+    <string name="preferences_chats__when_using_mobile_data">Când se utilizează datele mobile</string>
+    <string name="preferences_chats__when_using_wifi">Când se utilizează Wi-Fi</string>
+    <string name="preferences_chats__when_roaming">Când se utilizează roaming-ul</string>
+    <string name="preferences_chats__media_auto_download">Descărcare automată Media</string>
+    <string name="preferences_data_and_storage__manage_storage">Administrare stocare</string>
+    <string name="preferences_data_and_storage__use_less_data_for_calls">Reducerea consumului de date pentru apeluri</string>
+    <string name="preferences_data_and_storage__never">Niciodată</string>
+    <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi și date mobile</string>
+    <string name="preferences_data_and_storage__mobile_data_only">Doar date mobile</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Reducând consumul de date, se pot îmbunătăți apelurile în rețelele cu probleme.</string>
+    <string name="preferences_proxy">Proxy</string>
+    <string name="preferences_use_proxy">Utilizează proxy</string>
+    <!-- DataAndStorageSettingsFragment -->
+    <string name="DataAndStorageSettingsFragment__media_quality">Calitate Media</string>
+    <!-- Label shown on the manage storage row while total storage usage is still being computed -->
+    <string name="DataAndStorageSettingsFragment__calculating">Se calculează…</string>
+    <!-- Category title for the quality of the media to be sent -->
+    <string name="DataAndStorageSettingsFragment__sent_media_quality">Calitatea fișierelor media trimise</string>
+    <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Trimiterea fișierelor media la calitate înaltă va duce la un consum mai mare de date.</string>
+    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Mesajele vocale și autocolantele (sub %1$s) sunt întotdeauna descărcate automat.</string>
+    <string name="DataAndStorageSettingsFragment__calls">Apeluri</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Rămâi conectat(ă) în fundal</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Dacă aplicația rămâne activă în fundal, este probabil ca consumul bateriei să crească. Nu e necesar pentru majoritatea dispozitivelor. Activează asta doar dacă ai avut probleme cu notificările.</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">Activează</string>
+  <!-- Setting option that can be selected to default media to be sent as high quality by default -->
+  <string name="SentMediaQuality__high">Mare</string>
+  <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
+  <string name="SentMediaQuality__standard">Standard</string>
+    <string name="preferences_app_protection__screen_lock">Blocare ecran</string>
+    <!-- Text shown with toggle that when switched on will enable screen lock -->
+    <string name="ScreenLockSettingsFragment__use_screen_lock">Folosește blocarea ecranului</string>
+    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+    <string name="ScreenLockSettingsFragment__your_android_device">Setările de blocare ale dispozitivului Android vor fi necesare pentru a debloca Signal atunci când părăsești sau schimbi aplicațiile. Atunci când este blocat, previzualizarea notificărilor nu va afișa conținutul mesajului.</string>
+    <!-- Title text explaining when users should start the screen lock -->
+    <string name="ScreenLockSettingsFragment__start_screen_lock">Începe blocarea ecranului</string>
+    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_1_min">După 1 minut</string>
+    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_5_min">După 5 minute</string>
+    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_30_min">După 30 de minute</string>
+    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+    <string name="ScreenLockSettingsFragment__custom_time">Timp personalizat</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Folosește blocarea ecranului Signal</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Dezactivează blocarea ecranului Signal</string>
+
+    <!-- HelpSettingsFragment -->
+    <string name="preferences__help">Ajutor</string>
+    <string name="HelpSettingsFragment__support_center">Centru de asistență</string>
+    <string name="HelpSettingsFragment__contact_us">Contactează-ne</string>
+    <string name="HelpSettingsFragment__version">Versiunea</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">S-a copiat în clipboard</string>
+    <string name="HelpSettingsFragment__debug_log">Jurnal depanare</string>
+    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+    <string name="HelpSettingsFragment__licenses">Licențe</string>
+    <string name="HelpSettingsFragment__terms_amp_privacy_policy">Termeni &amp; Politica de confidențialitate</string>
+    <string name="HelpFragment__copyright_signal_messenger">Drepturi de autor Signal Messenger</string>
+    <string name="HelpFragment__licenced_under_the_agplv3">Licențiat în cadrul GNU AGPLv3</string>
+    <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
+    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal este o organizație non-profit</string>
+
+    <!-- AppIconTutorialScreen -->
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">Numele și pictogramele aplicațiilor sunt vizibile pe ecranul principal și în categoria aplicații.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">Notificările vor afișa întotdeauna pictograma și numele standard Signal.</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Ilustrație grafică unde pictograma de rezervă aplicației va fi vizibilă.</string>
+
+    <!-- AppIconSelectionScreen -->
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">Vremea</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">Notițe</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">Știri</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">Valuri</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">OK</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">Anulează</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">Schimbă pictograma aplicației și numele la „%1$s“</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Signal va trebui să se închidă pentru a schimba pictograma și numele aplicației. Notificările vor afișa întotdeauna pictograma și numele Signal.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">Selectează pictograma și numele aplicației, care va fi vizibilă pe ecranul principal al telefonului și în categoria aplicații. Notificările vor afișa întotdeauna pictograma și numele standard Signal. Află mai multe</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">Află mai multe</string>
+
+    <!-- QrCodeBadge -->
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Linkul nu este setat</string>
+
+    <!-- UsernameLinkQrColorPickerScreen -->
+    <!-- App bar title for the username QR code color picker screen -->
+    <string name="UsernameLinkSettings_color_picker_app_bar_title">Culoare</string>
+    <!-- Button label for a button that indicates that the user is done changing the current setting -->
+    <string name="UsernameLinkSettings_done_button_label">Gata</string>
+
+    <!-- NotificationProfileCreatedScreen -->
+    <!-- Title for final screen shown after completing a profile creation -->
+    <string name="NotificationProfileCreated__profile_created">Profil creat</string>
+    <!-- Call to action button to press to close the created screen and move to the profile details screen -->
+    <string name="NotificationProfileCreated__done">Gata</string>
+    <!-- Descriptor text shown to indicate how to manually turn a profile on/off -->
+    <string name="NotificationProfileCreated__you_can_turn_your_profile_on_or_off_manually_via_the_menu_on_the_chat_list">Poți activa sau dezactiva manual profilul folosind meniul din lista de conversații.</string>
+    <!-- Descriptor text shown to indicate you can add a schedule later since you did not add one during create flow -->
+    <string name="NotificationProfileCreated__add_a_schedule_in_settings_to_automate_your_profile">Adaugă un program în setări pentru ați automatiza profilul.</string>
+    <!-- Descriptor text shown to indicate your profile will follow the schedule set during create flow -->
+    <string name="NotificationProfileCreated__your_profile_will_turn_on_and_off_automatically_according_to_your_schedule">Profilul tău se va activa și dezactiva automat în funcție de programul setat.</string>
+</resources>

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.ByteUnit;
 import org.signal.core.util.SetUtil;
 import org.signal.core.util.Util;
@@ -41,12 +42,11 @@ import org.thoughtcrime.securesms.mms.MmsException;
 import org.thoughtcrime.securesms.mms.OutgoingMessage;
 import org.thoughtcrime.securesms.ratelimit.ProofRequiredExceptionHandler;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.RecipientIds;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
 import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 import org.thoughtcrime.securesms.util.GroupUtil;
-import org.thoughtcrime.securesms.util.MessageUtil;
 import org.thoughtcrime.securesms.util.RecipientAccessList;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
@@ -56,6 +56,7 @@ import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceEditMessage;
 import org.whispersystems.signalservice.api.messages.SignalServiceGroupV2;
+import org.whispersystems.signalservice.api.messages.SignalServiceMessageLimits;
 import org.whispersystems.signalservice.api.messages.SignalServicePreview;
 import org.whispersystems.signalservice.api.messages.SignalServiceStoryMessage;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
@@ -119,6 +120,10 @@ public final class PushGroupSendJob extends PushSendJob {
                              boolean isScheduledSend)
   {
     try {
+      if (!SignalDatabase.recipients().containsId(destination)) {
+        throw new MmsException("Recipient no longer exists, likely deleted group.");
+      }
+
       RecipientRecord group = SignalDatabase.recipients().getRecord(destination);
       if (group.getGroupId() == null || !group.getGroupId().isPush()) {
         throw new AssertionError("Not a group!");
@@ -244,7 +249,15 @@ public final class PushGroupSendJob extends PushSendJob {
         skipped = result.skipped;
       }
 
-      List<SendMessageResult> results = deliver(message, originalEditedMessage, groupRecipient, target);
+      Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroup(groupRecipient.requireGroupId());
+
+      if (!groupRecord.isPresent()) {
+        log(TAG, String.valueOf(message.getSentTimeMillis()), "Group " + groupRecipient.requireGroupId() + " no longer exists (likely left and deleted). Skipping send of message " + messageId);
+        SignalLocalMetrics.GroupMessageSend.cancel(messageId);
+        return;
+      }
+
+      List<SendMessageResult> results = deliver(message, originalEditedMessage, groupRecipient, groupRecord.get(), target);
       processGroupMessageResults(context, messageId, threadId, groupRecipient, message, results, target, skipped, existingNetworkFailures, existingIdentityMismatches);
       ConversationShortcutRankingUpdateJob.enqueueForOutgoingIfNecessary(groupRecipient);
       Log.i(TAG, JobLogger.format(this, "Finished send."));
@@ -269,11 +282,11 @@ public final class PushGroupSendJob extends PushSendJob {
     SignalDatabase.messages().markAsSentFailed(messageId);
   }
 
-  private List<SendMessageResult> deliver(OutgoingMessage message, @Nullable MessageRecord originalEditedMessage, @NonNull Recipient groupRecipient, @NonNull List<Recipient> destinations)
+  private List<SendMessageResult> deliver(OutgoingMessage message, @Nullable MessageRecord originalEditedMessage, @NonNull Recipient groupRecipient, @NonNull GroupRecord groupRecord, @NonNull List<Recipient> destinations)
       throws IOException, UntrustedIdentityException, UndeliverableMessageException, NoSessionException
   {
-    if (Utf8.size(message.getBody()) > MessageUtil.MAX_INLINE_BODY_SIZE_BYTES) {
-      throw new UndeliverableMessageException("The total body size was greater than our limit of " + MessageUtil.MAX_INLINE_BODY_SIZE_BYTES + " bytes.");
+    if (Utf8.size(message.getBody()) > SignalServiceMessageLimits.MAX_INLINE_BODY_SIZE_BYTES) {
+      throw new UndeliverableMessageException("The total body size was greater than our limit of " + SignalServiceMessageLimits.MAX_INLINE_BODY_SIZE_BYTES + " bytes.");
     }
 
     try {
@@ -296,35 +309,33 @@ public final class PushGroupSendJob extends PushSendJob {
       boolean                                    isRecipientUpdate                = hasPreviouslyDeliveredRecipients && SignalDatabase.messages().isSent(messageId);
 
       if (message.getStoryType().isStory()) {
-        Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroup(groupId);
-
-        if (groupRecord.isPresent() && groupRecord.get().isAnnouncementGroup() && !groupRecord.get().isAdmin(Recipient.self())) {
+        if (groupRecord.isAnnouncementGroup() && !groupRecord.isAdmin(Recipient.self())) {
           throw new UndeliverableMessageException("Non-admins cannot send stories in announcement groups!");
         }
 
-        if (groupRecord.isPresent()) {
-          GroupTable.V2GroupProperties v2GroupProperties = groupRecord.get().requireV2GroupProperties();
-          SignalServiceGroupV2 groupContext = SignalServiceGroupV2.newBuilder(v2GroupProperties.getGroupMasterKey())
-                                                                  .withRevision(v2GroupProperties.getGroupRevision())
-                                                                  .build();
-
-          final SignalServiceStoryMessage storyMessage;
-          if (message.getStoryType().isTextStory()) {
-            storyMessage = SignalServiceStoryMessage.forTextAttachment(Recipient.self().getProfileKey(),
-                                                                       groupContext,
-                                                                       StorySendUtil.deserializeBodyToStoryTextAttachment(message, this::getPreviewsFor),
-                                                                       message.getStoryType().isStoryWithReplies(),
-                                                                       bodyRanges);
-          } else if (!attachmentPointers.isEmpty()) {
-            storyMessage = SignalServiceStoryMessage.forFileAttachment(Recipient.self().getProfileKey(), groupContext, attachmentPointers.get(0), message.getStoryType().isStoryWithReplies(), bodyRanges);
-          } else {
-            throw new UndeliverableMessageException("No attachment on non-text story.");
-          }
-
-          return GroupSendUtil.sendGroupStoryMessage(context, groupId.requireV2(), destinations, isRecipientUpdate, new MessageId(messageId), message.getSentTimeMillis(), storyMessage);
-        } else {
-          throw new UndeliverableMessageException("No group found! " + groupId);
+        if (!groupRecord.getHasV2GroupProperties()) {
+          throw new UndeliverableMessageException("Cannot send stories to deleted groups!");
         }
+
+        GroupTable.V2GroupProperties v2GroupProperties = groupRecord.requireV2GroupProperties();
+        SignalServiceGroupV2 groupContext = SignalServiceGroupV2.newBuilder(v2GroupProperties.getGroupMasterKey())
+                                                                .withRevision(v2GroupProperties.getGroupRevision())
+                                                                .build();
+
+        final SignalServiceStoryMessage storyMessage;
+        if (message.getStoryType().isTextStory()) {
+          storyMessage = SignalServiceStoryMessage.forTextAttachment(Recipient.self().getProfileKey(),
+                                                                     groupContext,
+                                                                     StorySendUtil.deserializeBodyToStoryTextAttachment(message, this::getPreviewsFor),
+                                                                     message.getStoryType().isStoryWithReplies(),
+                                                                     bodyRanges);
+        } else if (!attachmentPointers.isEmpty()) {
+          storyMessage = SignalServiceStoryMessage.forFileAttachment(Recipient.self().getProfileKey(), groupContext, attachmentPointers.get(0), message.getStoryType().isStoryWithReplies(), bodyRanges);
+        } else {
+          throw new UndeliverableMessageException("No attachment on non-text story.");
+        }
+
+        return GroupSendUtil.sendGroupStoryMessage(context, groupId.requireV2(), destinations, isRecipientUpdate, new MessageId(messageId), message.getSentTimeMillis(), storyMessage);
       } else if (message.isGroup() && message.isGroupUpdate()) {
         if (message.isV2Group()) {
           MessageGroupContext.GroupV2Properties properties   = message.requireGroupV2Properties();
@@ -354,18 +365,16 @@ public final class PushGroupSendJob extends PushSendJob {
           throw new UndeliverableMessageException("Messages can no longer be sent to V1 groups!");
         }
       } else {
-        Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroup(groupRecipient.requireGroupId());
-
-        if (pinnedMessage != null && groupRecord.isPresent() && groupRecord.get().getAttributesAccessControl() == GroupAccessControl.ONLY_ADMINS && !groupRecord.get().isAdmin(Recipient.self())) {
+        if (pinnedMessage != null && groupRecord.getAttributesAccessControl() == GroupAccessControl.ONLY_ADMINS && !groupRecord.isAdmin(Recipient.self())) {
           throw new UndeliverableMessageException("Non-admins cannot pin messages in this group!");
-        } else if (pinnedMessage == null && groupRecord.isPresent() && groupRecord.get().isAnnouncementGroup() && !groupRecord.get().isAdmin(Recipient.self())) {
+        } else if (pinnedMessage == null && groupRecord.isAnnouncementGroup() && !groupRecord.isAdmin(Recipient.self())) {
           throw new UndeliverableMessageException("Non-admins cannot send messages in announcement groups!");
         }
 
         SignalServiceDataMessage.Builder builder = SignalServiceDataMessage.newBuilder()
                                                                            .withTimestamp(message.getSentTimeMillis());
 
-        GroupUtil.setDataMessageGroupContext(context, builder, groupId);
+        GroupUtil.setDataMessageGroupContext(builder, groupRecord);
 
         SignalServiceDataMessage.Builder groupMessageBuilder = builder.withAttachments(attachmentPointers)
                                                                       .withBody(message.getBody())
@@ -455,8 +464,8 @@ public final class PushGroupSendJob extends PushSendJob {
     Set<RecipientId>                 successIds                = successUnidentifiedStatus.stream().map(Pair::getFirst).collect(Collectors.toSet());
     Set<NetworkFailure>              resolvedNetworkFailures   = existingNetworkFailures.stream().filter(failure -> successIds.contains(failure.getRecipientId())).collect(Collectors.toSet());
     Set<IdentityKeyMismatch>         resolvedIdentityFailures  = existingIdentityMismatches.stream().filter(failure -> successIds.contains(failure.getRecipientId())).collect(Collectors.toSet());
-    List<RecipientId>                unregisteredRecipients    = results.stream().filter(SendMessageResult::isUnregisteredFailure).map(result -> RecipientId.from(result.getAddress())).collect(Collectors.toList());
-    List<RecipientId>                invalidPreKeyRecipients   = results.stream().filter(SendMessageResult::isInvalidPreKeyFailure).map(result -> RecipientId.from(result.getAddress())).collect(Collectors.toList());
+    List<RecipientId>                unregisteredRecipients    = results.stream().filter(SendMessageResult::isUnregisteredFailure).map(result -> RecipientIds.from(result.getAddress())).collect(Collectors.toList());
+    List<RecipientId>                invalidPreKeyRecipients   = results.stream().filter(SendMessageResult::isInvalidPreKeyFailure).map(result -> RecipientIds.from(result.getAddress())).collect(Collectors.toList());
     Set<RecipientId>                 skippedRecipients         = new HashSet<>();
 
     skippedRecipients.addAll(skipped);

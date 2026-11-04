@@ -8,6 +8,8 @@ package org.thoughtcrime.securesms.testutil
 import androidx.test.core.app.ApplicationProvider
 import io.mockk.clearMocks
 import org.junit.rules.ExternalResource
+import org.signal.core.util.PartAuthorityUris
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.dependencies.MockApplicationDependencyProvider
 import kotlin.reflect.KVisibility
@@ -25,6 +27,7 @@ class MockAppDependenciesRule : ExternalResource() {
     "databaseObserver",
     "groupsV2Authorization",
     "isInitialized",
+    "networkProxyState",
     "okHttpClient",
     "signalOkHttpClient",
     "webSocketObserver"
@@ -36,6 +39,8 @@ class MockAppDependenciesRule : ExternalResource() {
     .filterNot { skipList.contains(it.name) }
 
   override fun before() {
+    PartAuthorityUris.init(BuildConfig.APPLICATION_ID)
+
     if (!AppDependencies.isInitialized) {
       AppDependencies.init(ApplicationProvider.getApplicationContext(), MockApplicationDependencyProvider())
     }

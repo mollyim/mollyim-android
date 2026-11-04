@@ -1,19 +1,16 @@
 package org.thoughtcrime.securesms.messages
 
 import android.annotation.SuppressLint
-import android.content.Context
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Stopwatch
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.jobs.PushProcessEarlyMessagesJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.log
 import org.thoughtcrime.securesms.messages.MessageContentProcessor.Companion.warn
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.SignalTrace
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
 import org.whispersystems.signalservice.internal.push.Content
 import org.whispersystems.signalservice.internal.push.Envelope
@@ -24,13 +21,13 @@ object ReceiptMessageProcessor {
 
   private const val VERBOSE = false
 
-  fun process(context: Context, senderRecipient: Recipient, envelope: Envelope, content: Content, metadata: EnvelopeMetadata, earlyMessageCacheEntry: EarlyMessageCacheEntry?, batchCache: BatchCache) {
+  fun process(senderRecipient: Recipient, envelope: Envelope, content: Content, metadata: EnvelopeMetadata, earlyMessageCacheEntry: EarlyMessageCacheEntry?, batchCache: BatchCache) {
     val receiptMessage = content.receiptMessage!!
 
     when (receiptMessage.type) {
       ReceiptMessage.Type.DELIVERY -> handleDeliveryReceipt(envelope, metadata, receiptMessage, senderRecipient.id, batchCache)
-      ReceiptMessage.Type.READ -> handleReadReceipt(context, senderRecipient.id, envelope, metadata, receiptMessage, earlyMessageCacheEntry, batchCache)
-      ReceiptMessage.Type.VIEWED -> handleViewedReceipt(context, envelope, metadata, receiptMessage, senderRecipient.id, earlyMessageCacheEntry)
+      ReceiptMessage.Type.READ -> handleReadReceipt(senderRecipient.id, envelope, metadata, receiptMessage, earlyMessageCacheEntry, batchCache)
+      ReceiptMessage.Type.VIEWED -> handleViewedReceipt(envelope, metadata, receiptMessage, senderRecipient.id, earlyMessageCacheEntry, batchCache)
       else -> warn(envelope.clientTimestamp!!, "Unknown recipient message type ${receiptMessage.type}")
     }
   }
@@ -56,7 +53,7 @@ object ReceiptMessageProcessor {
     }
 
     if (missingTargetTimestamps.isNotEmpty()) {
-      PushProcessEarlyMessagesJob.enqueue()
+      batchCache.requiresEarlyMessageProcessing()
     }
 
     SignalDatabase.pendingPniSignatureMessages.acknowledgeReceipts(senderRecipientId, deliveryReceipt.timestamp, metadata.sourceDeviceId)
@@ -70,7 +67,6 @@ object ReceiptMessageProcessor {
 
   @SuppressLint("DefaultLocale")
   private fun handleReadReceipt(
-    context: Context,
     senderRecipientId: RecipientId,
     envelope: Envelope,
     metadata: EnvelopeMetadata,
@@ -78,7 +74,7 @@ object ReceiptMessageProcessor {
     earlyMessageCacheEntry: EarlyMessageCacheEntry?,
     batchCache: BatchCache
   ) {
-    if (!TextSecurePreferences.isReadReceiptsEnabled(context)) {
+    if (!SignalStore.settings.isReadReceiptsEnabled) {
       log(envelope.clientTimestamp!!, "Ignoring read receipts for IDs: " + readReceipt.timestamp.joinToString(", "))
       return
     }
@@ -101,19 +97,19 @@ object ReceiptMessageProcessor {
     }
 
     if (missingTargetTimestamps.isNotEmpty() && earlyMessageCacheEntry != null) {
-      PushProcessEarlyMessagesJob.enqueue()
+      batchCache.requiresEarlyMessageProcessing()
     }
   }
 
   private fun handleViewedReceipt(
-    context: Context,
     envelope: Envelope,
     metadata: EnvelopeMetadata,
     viewedReceipt: ReceiptMessage,
     senderRecipientId: RecipientId,
-    earlyMessageCacheEntry: EarlyMessageCacheEntry?
+    earlyMessageCacheEntry: EarlyMessageCacheEntry?,
+    batchCache: BatchCache
   ) {
-    val readReceipts = TextSecurePreferences.isReadReceiptsEnabled(context)
+    val readReceipts = SignalStore.settings.isReadReceiptsEnabled
     val storyViewedReceipts = SignalStore.story.viewedReceiptsEnabled
 
     if (!readReceipts && !storyViewedReceipts) {
@@ -146,7 +142,7 @@ object ReceiptMessageProcessor {
     }
 
     if (missingTargetTimestamps.isNotEmpty() && earlyMessageCacheEntry != null) {
-      PushProcessEarlyMessagesJob.enqueue()
+      batchCache.requiresEarlyMessageProcessing()
     }
   }
 }

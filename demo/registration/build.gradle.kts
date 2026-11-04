@@ -18,7 +18,7 @@ android {
     versionCode = 1
     versionName = "1.0"
 
-    minSdk = 26
+    minSdk = 23
     targetSdk = 34
   }
 
@@ -58,6 +58,7 @@ dependencies {
   // Core dependencies
   implementation(project(":core:ui"))
   implementation(project(":core:util"))
+  implementation(project(":core:database"))
   implementation(project(":core:models-jvm"))
   implementation(project(":lib:libsignal-service"))
   implementation(project(":lib:network"))
@@ -65,6 +66,9 @@ dependencies {
 
   // libsignal-protocol for PreKeyCollection types
   implementation(libs.libsignal.client)
+
+  // Bundled TLS provider, required for TLS to work on older API levels
+  implementation(libs.conscrypt.android)
 
   // Kotlin serialization for JSON parsing
   implementation(libs.kotlinx.serialization.json)

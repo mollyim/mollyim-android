@@ -11,7 +11,7 @@ import org.signal.core.util.ResourceUtil;
 import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.thoughtcrime.securesms.backup.v2.MessageBackupTier;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
 
@@ -84,7 +84,9 @@ public final class SupportEmailUtil {
            "\n" +
            context.getString(R.string.SupportEmailUtil_challenge_received) + " " + getChallengeReceived() +
            "\n" +
-           context.getString(R.string.SupportEmailUtil_registered) + " " + getRegistered(context);
+           context.getString(R.string.SupportEmailUtil_registered) + " " + getRegistered() +
+           "\n" +
+           context.getString(R.string.SupportEmailUtil_backups) + " " + getBackupTier();
   }
 
   private static CharSequence getDeviceInfo() {
@@ -114,8 +116,22 @@ public final class SupportEmailUtil {
     return receivedRecently ? "yes" : "no";
   }
 
-  private static String getRegistered(Context context) {
-    boolean registered = SignalStore.account().isRegistered() && !TextSecurePreferences.isUnauthorizedReceived(context);
+  private static String getRegistered() {
+    boolean registered = SignalStore.account().isRegistered() && !SignalStore.account().isUnauthorizedReceived();
     return registered ? "yes" : "no";
+  }
+
+  private static String getBackupTier() {
+    MessageBackupTier tier = SignalStore.backup().getBackupTier();
+
+    if (tier == null) {
+      return "D1";
+    }
+
+    switch (tier) {
+      case FREE: return "U1";
+      case PAID: return "P1";
+      default:   return "D1";
+    }
   }
 }

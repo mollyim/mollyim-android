@@ -9,12 +9,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.DialogFragment
 import org.signal.core.ui.R
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.enableEdgeToEdge
 import org.signal.core.ui.initializeScreenshotSecurity
 import org.signal.core.ui.util.ThemeUtil
 
@@ -26,10 +32,22 @@ import org.signal.core.ui.util.ThemeUtil
  */
 abstract class ComposeFullScreenDialogFragment : DialogFragment() {
 
+  /**
+   * Whether [DialogContent] is kept clear of the system bars, cutouts and keyboard. Turn it off for content that runs
+   * edge to edge and keeps itself clear where it needs to.
+   */
+  protected open val padForSafeDrawing: Boolean = true
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val fullScreenDialogStyle = ThemeUtil.getThemedResourceId(requireContext(), R.attr.fullScreenDialogStyle)
     setStyle(STYLE_NO_FRAME, fullScreenDialogStyle)
+  }
+
+  override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+    return super.onGetLayoutInflater(savedInstanceState).also {
+      dialog?.window?.enableEdgeToEdge()
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,7 +55,13 @@ abstract class ComposeFullScreenDialogFragment : DialogFragment() {
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         SignalTheme {
-          DialogContent()
+          if (padForSafeDrawing) {
+            Box(modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing)) {
+              DialogContent()
+            }
+          } else {
+            DialogContent()
+          }
         }
       }
     }
