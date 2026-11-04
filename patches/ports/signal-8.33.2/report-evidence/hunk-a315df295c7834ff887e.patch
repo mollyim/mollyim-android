@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/dependencies/CoreUiDependenciesProvider.kt b/app/src/main/java/org/thoughtcrime/securesms/dependencies/CoreUiDependenciesProvider.kt
+index 3c2abc35f6..5bd52e1a4e 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/dependencies/CoreUiDependenciesProvider.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/dependencies/CoreUiDependenciesProvider.kt
+@@ -10,6 +10,7 @@ import org.thoughtcrime.securesms.ScreenLockController
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.service.KeyCachingService
+ import org.thoughtcrime.securesms.util.BackupUtil
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ 
+ object CoreUiDependenciesProvider : CoreUiDependencies.Provider {
+   override fun provideBackupBaseDirName(): String {

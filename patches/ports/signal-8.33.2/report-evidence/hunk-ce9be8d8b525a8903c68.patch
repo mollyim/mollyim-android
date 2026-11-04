@@ -1,0 +1,21 @@
+diff --git a/app/src/main/res/navigation/app_settings_with_change_number.xml b/app/src/main/res/navigation/app_settings_with_change_number.xml
+index 4357f6ef91..a7ab080f83 100644
+--- a/app/src/main/res/navigation/app_settings_with_change_number.xml
++++ b/app/src/main/res/navigation/app_settings_with_change_number.xml
+@@ -433,8 +433,14 @@
+     </fragment>
+     <dialog
+         android:id="@+id/linkDeviceIntroBottomSheet"
+-        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet" >
+-        <action android:id="@+id/action_linkDeviceIntroBottomSheet_to_addLinkDeviceFragment" app:destination="@id/addLinkDeviceFragment" app:enterAnim="@anim/fragment_open_enter" app:exitAnim="@anim/fragment_open_exit" app:popEnterAnim="@anim/fragment_close_enter" app:popExitAnim="@anim/fragment_close_exit"/>
++        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet">
++        <action
++            android:id="@+id/action_linkDeviceIntroBottomSheet_to_addLinkDeviceFragment"
++            app:destination="@id/addLinkDeviceFragment"
++            app:enterAnim="@anim/fragment_open_enter"
++            app:exitAnim="@anim/fragment_open_exit"
++            app:popEnterAnim="@anim/fragment_close_enter"
++            app:popExitAnim="@anim/fragment_close_exit" />
+     </dialog>
+     <dialog
+         android:id="@+id/linkDeviceSyncBottomSheet"

@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "f2761ebbd68f100bc03ddffccdb9af3125123705",
+  "after_tree": "8750060cd450649171c48327054f5e9c67f273d5",
+  "files": [
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/screenlock/ScreenLockSettingsFragment.kt",
+      "mode": "100644",
+      "blob": "65c0b23c0342eb97c3a280350dae5a3707005435"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/screenlock/ScreenLockSettingsRepository.kt",
+      "mode": "100644",
+      "blob": "35215ee131e902a3c0d705c9fde09d52388578ed"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/screenlock/ScreenLockSettingsViewModel.kt",
+      "mode": "100644",
+      "blob": "bc381d82dd5feafc19428c9cb30f68b24695b8b6"
+    },
+    {
+      "path": "app/src/test/java/org/thoughtcrime/securesms/components/settings/app/privacy/screenlock/ScreenLockSettingsViewModelTest.kt",
+      "mode": "100644",
+      "blob": "9307d3ef28b41fd11b3e901fa7a8c2b137ca2487"
+    }
+  ]
+}

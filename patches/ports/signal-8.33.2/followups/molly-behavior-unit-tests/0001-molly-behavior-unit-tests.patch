@@ -1,0 +1,400 @@
+From 284a8b47c8a7f613551f6b8b2cadb565b70c081b Mon Sep 17 00:00:00 2001
+From: 0cwa <0@none.org>
+Date: Thu, 5 Nov 2026 00:09:34 +0100
+Subject: [PATCH] Fix unit tests that did not match Molly behavior in the
+ Signal 8.33.2 port
+
+Apply remote config overrides in internal builds. Molly derives internalUser
+from the build type, not from the service, so loading overrides must ask
+internalUser instead of the service's android.internalUser value, which Molly
+does not read. Overrides were never applied before.
+
+Adapt the Signal 8.33.2 tests to intended Molly differences:
+
+- IndividualSettingsViewModelTest stubs getLinkedDeviceCount, which Molly
+  adds to the contact details. Molly has no profile badges and no donations,
+  so badge and donate clicks produce no action.
+- RemoteConfigOverrideTest runs as an internal debug build instead of faking
+  the service's internalUser flag.
+- NotificationProfileDetailsScreenTest builds the expected schedule text with
+  formatHours, since Molly formats times with the locale's best pattern.
+- StoryContextMenuTest sets up app dependencies itself rather than relying on
+  another test having initialized PartAuthority.
+- The app-settings, registration, media-viewer and media-send tests expect
+  Molly's music-labelled waves icon, Molly name in the notification warning,
+  version row click event, always-shown link device button, a Material 3 theme
+  for the Molly video player layout, and Molly's minimum SDK (27).
+
+Based-On-Source-Commit: e8a0ac3c8af37fa22d891633379392344d690e6e
+Source-Commit: 284a8b47c8a7f613551f6b8b2cadb565b70c081b
+
+---
+ .../securesms/util/RemoteConfig.kt             |  4 ++--
+ .../NotificationProfileDetailsScreenTest.kt    |  8 +++++++-
+ .../IndividualSettingsViewModelTest.kt         | 10 +++++-----
+ .../stories/dialogs/StoryContextMenuTest.kt    |  6 ++++++
+ .../securesms/util/RemoteConfigOverrideTest.kt |  8 +++++---
+ .../appicon/AppIconSelectionScreenTest.kt      |  3 ++-
+ .../appicon/AppIconTutorialScreenTest.kt       |  4 +++-
+ .../appsettings/help/HelpSettingsScreenTest.kt |  5 ++---
+ .../capture/MediaCaptureViewModelTest.kt       | 17 +++++++++++++----
+ .../mediaviewer/MediaViewerScreenTest.kt       | 18 +++++++++++++-----
+ .../registration/RegistrationNavigationTest.kt | 18 +++++++++---------
+ 11 files changed, 67 insertions(+), 34 deletions(-)
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/util/RemoteConfig.kt b/app/src/main/java/org/thoughtcrime/securesms/util/RemoteConfig.kt
+index 17314013..bf7cce4d 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/util/RemoteConfig.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/util/RemoteConfig.kt
+@@ -372,8 +372,8 @@ object RemoteConfig {
+   private fun loadOverrides() {
+     overrideValues = emptyMap()
+ 
+-    // Read through the config rather than the delegate, which would re-enter the init() we're in the middle of.
+-    if (configsByKey[INTERNAL_USER_KEY]?.resolve() != true) {
++    // MOLLY: internalUser comes from the build, not the service, and reads no remote value, so it can't re-enter init().
++    if (!internalUser) {
+       return
+     }
+ 
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/notifications/profiles/details/NotificationProfileDetailsScreenTest.kt b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/notifications/profiles/details/NotificationProfileDetailsScreenTest.kt
+index 531011e8..efc4c82c 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/notifications/profiles/details/NotificationProfileDetailsScreenTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/notifications/profiles/details/NotificationProfileDetailsScreenTest.kt
+@@ -36,7 +36,10 @@ import org.thoughtcrime.securesms.notifications.profiles.NotificationProfiles
+ import org.thoughtcrime.securesms.recipients.Recipient
+ import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
+ import org.thoughtcrime.securesms.testutil.SignalStoreRule
++import org.thoughtcrime.securesms.util.formatHours
+ import java.time.DayOfWeek
++import java.time.LocalTime
++import java.util.Locale
+ import java.util.UUID
+ 
+ @RunWith(RobolectricTestRunner::class)
+@@ -134,7 +137,10 @@ class NotificationProfileDetailsScreenTest {
+     setContent(loadedState(schedule = NotificationProfileSchedule(id = 1L, enabled = true, start = 900, end = 1700, daysEnabled = DayOfWeek.entries.toSet())))
+ 
+     scrollTo(NotificationProfileDetailsTestTags.ROW_SCHEDULE)
+-    composeTestRule.onNodeWithText("9:00 AM to 5:00 PM\nEveryday", substring = true).assertExists()
++    // MOLLY: times use the locale's best pattern (Robolectric returns the raw skeleton), so don't hard-code "9:00 AM".
++    val start = LocalTime.of(9, 0).formatHours(is24Hour = false, locale = Locale.getDefault())
++    val end = LocalTime.of(17, 0).formatHours(is24Hour = false, locale = Locale.getDefault())
++    composeTestRule.onNodeWithText("$start to $end\nEveryday", substring = true).assertExists()
+     composeTestRule.onNodeWithTag(NotificationProfileDetailsTestTags.ROW_SCHEDULE).performClick()
+ 
+     assertThat(events).containsExactly(NotificationProfileDetailsEvent.ScheduleClicked)
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/components/settings/conversation/individual/IndividualSettingsViewModelTest.kt b/app/src/test/java/org/thoughtcrime/securesms/components/settings/conversation/individual/IndividualSettingsViewModelTest.kt
+index fc8f28d9..e4841225 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/components/settings/conversation/individual/IndividualSettingsViewModelTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/components/settings/conversation/individual/IndividualSettingsViewModelTest.kt
+@@ -77,6 +77,7 @@ class IndividualSettingsViewModelTest {
+     every { repository.observeStoryViewState(RECIPIENT_ID) } returns flowOf(StoryViewState.NONE)
+     every { repository.observeGroupsInCommon(RECIPIENT_ID) } returns flowOf(emptyList())
+     every { repository.observeCalls(any<Flow<Long>>(), any()) } returns flowOf(emptyList())
++    coEvery { repository.getLinkedDeviceCount(any()) } returns null
+     coEvery { repository.getThreadId(RECIPIENT_ID) } returns THREAD_ID
+     coEvery { repository.hasGroups() } returns true
+     coEvery { repository.getIdentity(RECIPIENT_ID) } returns null
+@@ -265,14 +266,14 @@ class IndividualSettingsViewModelTest {
+   }
+ 
+   @Test
+-  fun `badge click opens the badge sheet`() = runTest(testDispatcher) {
++  fun `badge click does nothing because Molly has no badges`() = runTest(testDispatcher) {
+     val badge = mockk<Badge>()
+     val viewModel = createViewModel()
+     val actions = collectActions(viewModel)
+ 
+     viewModel.onEvent(IndividualSettingsEvent.BadgeClicked(badge))
+ 
+-    assertEquals(ConversationSettingsAction.ShowBadgeSheet(RECIPIENT_ID, badge), actions.single())
++    assertTrue(actions.isEmpty())
+   }
+ 
+   @Test
+@@ -733,7 +734,7 @@ class IndividualSettingsViewModelTest {
+   }
+ 
+   @Test
+-  fun `release notes help rows open their destinations`() = runTest(testDispatcher) {
++  fun `release notes help rows open their destinations, except donate which Molly does not have`() = runTest(testDispatcher) {
+     recipientFlow.value = individual(isReleaseNotes = true)
+     val viewModel = createViewModel(kind = ConversationSettingsKind.RELEASE_NOTES)
+     val actions = collectActions(viewModel)
+@@ -745,8 +746,7 @@ class IndividualSettingsViewModelTest {
+     assertEquals(
+       listOf(
+         ConversationSettingsAction.OpenSupportCenter,
+-        ConversationSettingsAction.OpenContactUs,
+-        ConversationSettingsAction.OpenDonate
++        ConversationSettingsAction.OpenContactUs
+       ),
+       actions
+     )
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/stories/dialogs/StoryContextMenuTest.kt b/app/src/test/java/org/thoughtcrime/securesms/stories/dialogs/StoryContextMenuTest.kt
+index 978fc907..558830bf 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/stories/dialogs/StoryContextMenuTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/stories/dialogs/StoryContextMenuTest.kt
+@@ -12,6 +12,7 @@ import io.mockk.slot
+ import io.mockk.verify
+ import org.junit.Assert.assertEquals
+ import org.junit.Assert.assertTrue
++import org.junit.Rule
+ import org.junit.Test
+ import org.junit.runner.RunWith
+ import org.robolectric.RobolectricTestRunner
+@@ -26,12 +27,17 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreview
+ import org.thoughtcrime.securesms.mms.ImageSlide
+ import org.thoughtcrime.securesms.mms.PartAuthority
+ import org.thoughtcrime.securesms.mms.SlideDeck
++import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
+ import org.thoughtcrime.securesms.util.MediaUtil
+ import java.util.Optional
+ 
+ @RunWith(RobolectricTestRunner::class)
+ @Config(application = Application::class)
+ class StoryContextMenuTest {
++  // PartAuthority needs its uris and blob provider when its class initializes; don't rely on another test having set them up.
++  @get:Rule
++  val appDependencies = MockAppDependenciesRule()
++
+   private val context: Context = ApplicationProvider.getApplicationContext()
+   private val intentSlot = slot<Intent>()
+   private val fragment = mockk<Fragment>(relaxUnitFun = true) {
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/util/RemoteConfigOverrideTest.kt b/app/src/test/java/org/thoughtcrime/securesms/util/RemoteConfigOverrideTest.kt
+index 8e709b29..7987e95d 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/util/RemoteConfigOverrideTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/util/RemoteConfigOverrideTest.kt
+@@ -40,14 +40,15 @@ class RemoteConfigOverrideTest {
+   @Before
+   fun setup() {
+     Log.initialize(LogRecorder())
+-    RemoteConfig.underTest = true
++    // MOLLY: internalUser comes from the build type (debug builds are internal), not from the service value.
++    RemoteConfig.underTest = false
+     reset()
+   }
+ 
+   @After
+   fun tearDown() {
+     reset()
+-    RemoteConfig.underTest = false
++    RemoteConfig.internalUserDisabled = false
+   }
+ 
+   @Test
+@@ -72,7 +73,8 @@ class RemoteConfigOverrideTest {
+ 
+   @Test
+   fun `overrides are ignored for non-internal users`() {
+-    setServiceValues(INTERNAL_USER to false, BOOLEAN_FLAG to false)
++    RemoteConfig.internalUserDisabled = true
++    setServiceValues(BOOLEAN_FLAG to false)
+     SignalStore.internal.remoteConfigOverrides = mapOf(BOOLEAN_FLAG to "true")
+ 
+     RemoteConfig.init()
+diff --git a/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconSelectionScreenTest.kt b/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconSelectionScreenTest.kt
+index c104c14d..fc552701 100644
+--- a/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconSelectionScreenTest.kt
++++ b/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconSelectionScreenTest.kt
+@@ -19,6 +19,7 @@ import org.junit.Rule
+ import org.junit.Test
+ import org.junit.runner.RunWith
+ import org.robolectric.RobolectricTestRunner
++import org.robolectric.RuntimeEnvironment
+ import org.robolectric.annotation.Config
+ import org.signal.appsettings.R
+ 
+@@ -39,7 +40,7 @@ class AppIconSelectionScreenTest {
+     setContent(AppIconSelectionState())
+ 
+     scrollTo(AppIconSelectionTestTags.icon(AppIconPreset.WAVES))
+-    composeTestRule.onNodeWithContentDescription("Waves").performClick()
++    composeTestRule.onNodeWithContentDescription(RuntimeEnvironment.getApplication().getString(AppIconPreset.WAVES.labelResId!!)).performClick()
+ 
+     assertThat(events).containsExactly(AppIconSelectionEvent.IconClicked(AppIconPreset.WAVES))
+   }
+diff --git a/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconTutorialScreenTest.kt b/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconTutorialScreenTest.kt
+index f4a61dfb..da4148a7 100644
+--- a/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconTutorialScreenTest.kt
++++ b/feature/app-settings/src/test/java/org/signal/appsettings/appicon/AppIconTutorialScreenTest.kt
+@@ -20,7 +20,9 @@ import org.junit.Rule
+ import org.junit.Test
+ import org.junit.runner.RunWith
+ import org.robolectric.RobolectricTestRunner
++import org.robolectric.RuntimeEnvironment
+ import org.robolectric.annotation.Config
++import org.signal.appsettings.R
+ 
+ @RunWith(RobolectricTestRunner::class)
+ @Config(application = Application::class)
+@@ -46,7 +48,7 @@ class AppIconTutorialScreenTest {
+ 
+     composeTestRule.onNodeWithText("App icons and names are visible on the home screen and app drawer.").assertIsDisplayed()
+ 
+-    val notificationWarning = "Notifications will always display the default Signal icon and name."
++    val notificationWarning = RuntimeEnvironment.getApplication().getString(R.string.preferences__app_icon_notification_warning)
+     composeTestRule.onNodeWithTag(AppIconTutorialTestTags.SCROLLER).performScrollToNode(hasText(notificationWarning))
+     composeTestRule.onNodeWithText(notificationWarning).assertIsDisplayed()
+   }
+diff --git a/feature/app-settings/src/test/java/org/signal/appsettings/help/HelpSettingsScreenTest.kt b/feature/app-settings/src/test/java/org/signal/appsettings/help/HelpSettingsScreenTest.kt
+index 063ab514..a222f84d 100644
+--- a/feature/app-settings/src/test/java/org/signal/appsettings/help/HelpSettingsScreenTest.kt
++++ b/feature/app-settings/src/test/java/org/signal/appsettings/help/HelpSettingsScreenTest.kt
+@@ -17,7 +17,6 @@ import androidx.compose.ui.test.performScrollToNode
+ import androidx.compose.ui.test.performTouchInput
+ import assertk.assertThat
+ import assertk.assertions.containsExactly
+-import assertk.assertions.isEmpty
+ import org.junit.Rule
+ import org.junit.Test
+ import org.junit.runner.RunWith
+@@ -67,13 +66,13 @@ class HelpSettingsScreenTest {
+   }
+ 
+   @Test
+-  fun `tapping the version does nothing`() {
++  fun `tapping the version emits VersionClicked`() {
+     setContent(HelpSettingsState(versionName = "8.33.0"))
+ 
+     scrollTo(HelpSettingsTestTags.ROW_VERSION)
+     composeTestRule.onNodeWithTag(HelpSettingsTestTags.ROW_VERSION).performClick()
+ 
+-    assertThat(events).isEmpty()
++    assertThat(events).containsExactly(HelpSettingsEvent.VersionClicked)
+   }
+ 
+   private fun assertClickEmits(tag: String, expected: HelpSettingsEvent) {
+diff --git a/feature/media-send/src/test/java/org/signal/mediasend/screens/capture/MediaCaptureViewModelTest.kt b/feature/media-send/src/test/java/org/signal/mediasend/screens/capture/MediaCaptureViewModelTest.kt
+index 97a7aacf..39ae180c 100644
+--- a/feature/media-send/src/test/java/org/signal/mediasend/screens/capture/MediaCaptureViewModelTest.kt
++++ b/feature/media-send/src/test/java/org/signal/mediasend/screens/capture/MediaCaptureViewModelTest.kt
+@@ -162,12 +162,21 @@ class MediaCaptureViewModelTest {
+       .containsExactly(MediaCaptureMode.VIDEO, MediaCaptureMode.PHOTO, MediaCaptureMode.TEXT_STORY)
+   }
+ 
++  /**
++   * Molly's minSdk (27) is above the first release that can transcode video (26), so no device the app installs on is
++   * unable to record. The withheld-video state is therefore checked on [MediaCaptureState] rather than by running the view
++   * model on a pre-26 Robolectric SDK, which the manifest's minSdk rules out.
++   */
+   @Test
+-  @Config(sdk = [25])
+-  fun `Given a device that cannot record, when created, then video is withheld`() = runTest {
+-    val viewModel = createViewModel(cameraFirstStoryCapableState())
++  fun `Given a state that cannot record, then video is withheld`() {
++    val state = MediaCaptureState(
++      isCameraFirst = true,
++      storiesEnabled = true,
++      mode = MediaSendFlowActivityContract.Mode.ChooseAfterMediaSelection,
++      isVideoCaptureSupported = false
++    )
+ 
+-    assertThat(viewModel.state.value.availableCaptureModes)
++    assertThat(state.availableCaptureModes)
+       .containsExactly(MediaCaptureMode.PHOTO, MediaCaptureMode.TEXT_STORY)
+   }
+ 
+diff --git a/feature/media-viewer/src/test/java/org/signal/mediaviewer/MediaViewerScreenTest.kt b/feature/media-viewer/src/test/java/org/signal/mediaviewer/MediaViewerScreenTest.kt
+index f71718f4..276cc37a 100644
+--- a/feature/media-viewer/src/test/java/org/signal/mediaviewer/MediaViewerScreenTest.kt
++++ b/feature/media-viewer/src/test/java/org/signal/mediaviewer/MediaViewerScreenTest.kt
+@@ -8,7 +8,10 @@ package org.signal.mediaviewer
+ import android.app.Application
+ import android.net.Uri
+ import android.os.Looper
++import android.view.ContextThemeWrapper
++import androidx.compose.runtime.CompositionLocalProvider
+ import androidx.compose.ui.geometry.Offset
++import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.test.assertIsDisplayed
+ import androidx.compose.ui.test.assertIsNotDisplayed
+ import androidx.compose.ui.test.assertTextEquals
+@@ -309,11 +312,16 @@ class MediaViewerScreenTest {
+     playbackController: MediaViewerPlaybackController = MediaViewerPlaybackController()
+   ) {
+     composeTestRule.setContent {
+-      MediaViewerScreen(
+-        state = state,
+-        onEvent = { events += it },
+-        playbackController = playbackController
+-      )
++      // Molly's video_player layout tints its progress bar from the theme's colorOnSurfaceVariant, which the bare
++      // Robolectric activity theme does not define, so the video pages need a Material 3 theme to inflate.
++      val themedContext = ContextThemeWrapper(LocalContext.current, com.google.android.material.R.style.Theme_Material3_DayNight_NoActionBar)
++      CompositionLocalProvider(LocalContext provides themedContext) {
++        MediaViewerScreen(
++          state = state,
++          onEvent = { events += it },
++          playbackController = playbackController
++        )
++      }
+     }
+   }
+ 
+diff --git a/feature/registration/src/test/java/org/signal/registration/RegistrationNavigationTest.kt b/feature/registration/src/test/java/org/signal/registration/RegistrationNavigationTest.kt
+index b602ba0c..22d97ac5 100644
+--- a/feature/registration/src/test/java/org/signal/registration/RegistrationNavigationTest.kt
++++ b/feature/registration/src/test/java/org/signal/registration/RegistrationNavigationTest.kt
+@@ -231,7 +231,7 @@ class RegistrationNavigationTest {
+   }
+ 
+   @Test
+-  fun `when isLinkAndSyncAvailable is true on compact display, link device button is not shown`() {
++  fun `when isLinkAndSyncAvailable is true on compact display, link device button is shown as a text button`() {
+     // Given
+     every { mockRepository.isLinkAndSyncAvailable } returns true
+     val permissionsState = createMockPermissionsState()
+@@ -245,15 +245,15 @@ class RegistrationNavigationTest {
+       }
+     }
+ 
+-    // Then - compact layout always uses the primary buttons regardless of the flag
+-    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertDoesNotExist()
++    // Then - compact layout always uses the primary buttons regardless of the flag; Molly adds a link device text button below them
++    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_GET_STARTED_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON).assertIsDisplayed()
+   }
+ 
+   @Test
+   @Config(qualifiers = "w800dp-h800dp-xhdpi")
+-  fun `when isLinkAndSyncAvailable is true on medium display, link device button is not shown`() {
++  fun `when isLinkAndSyncAvailable is true on medium display, link device button is shown as a text button`() {
+     // Given
+     every { mockRepository.isLinkAndSyncAvailable } returns true
+     val permissionsState = createMockPermissionsState()
+@@ -267,15 +267,15 @@ class RegistrationNavigationTest {
+       }
+     }
+ 
+-    // Then - medium layout always uses the primary buttons regardless of the flag
+-    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertDoesNotExist()
++    // Then - medium layout always uses the primary buttons regardless of the flag; Molly adds a link device text button below them
++    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_GET_STARTED_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON).assertIsDisplayed()
+   }
+ 
+   @Test
+   @Config(qualifiers = "w1280dp-h800dp-xhdpi")
+-  fun `when isLinkAndSyncAvailable is false, Welcome does not show the link device button`() {
++  fun `when isLinkAndSyncAvailable is false, Welcome still shows the link device button`() {
+     // Given - relaxed mock returns false for isLinkAndSyncAvailable by default
+     val permissionsState = createMockPermissionsState()
+ 
+@@ -288,8 +288,8 @@ class RegistrationNavigationTest {
+       }
+     }
+ 
+-    // Then
+-    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertDoesNotExist()
++    // Then - Molly always offers linking on the primary layout, so the flag only decides whether restore is hidden
++    composeTestRule.onNodeWithTag(TestTags.WELCOME_LINK_DEVICE_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_RESTORE_OR_TRANSFER_BUTTON).assertIsDisplayed()
+     composeTestRule.onNodeWithTag(TestTags.WELCOME_GET_STARTED_BUTTON).assertIsDisplayed()
+   }
+-- 
+2.56.0
+

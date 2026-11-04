@@ -1,0 +1,122 @@
+--- a/app/src/main/res/layout/donation_pill_toggle.xml
++++ b/app/src/main/res/layout/donation_pill_toggle.xml
+@@ -1,14 +1,113 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="@dimen/dsl_settings_gutter">
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:paddingHorizontal="@dimen/dsl_settings_gutter">
+ 
+-    <androidx.constraintlayout.widget.Guideline android:id="@+id/center_guide" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" app:layout_constraintGuide_percent="0.5"/>
++    <androidx.constraintlayout.widget.Guideline
++        android:id="@+id/center_guide"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:orientation="vertical"
++        app:layout_constraintGuide_percent="0.5" />
+ 
+-    <com.google.android.material.button.MaterialButton android:id="@+id/one_time_start_invisible" style="@style/Signal.Widget.Button.Medium.Primary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:text="@string/DonationPillToggle__one_time" android:textAppearance="@style/Signal.Text.LabelLarge" android:textColor="?attr/colorOnSurface" android:visibility="invisible" app:backgroundTint="@color/donation_pill_toggle_background_tint" app:icon="@drawable/ic_check_20" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="?attr/colorOnSurface" app:layout_constrainedWidth="true" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/center_guide" app:layout_constraintHorizontal_bias="1" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.Start"/>
++    <com.google.android.material.button.MaterialButton
++        android:id="@+id/one_time_start_invisible"
++        style="@style/Signal.Widget.Button.Medium.Primary"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:maxLines="1"
++        android:text="@string/DonationPillToggle__one_time"
++        android:textAppearance="@style/Signal.Text.LabelLarge"
++        android:textColor="?attr/colorOnSurface"
++        android:visibility="invisible"
++        app:backgroundTint="@color/donation_pill_toggle_background_tint"
++        app:icon="@drawable/ic_check_20"
++        app:iconGravity="textStart"
++        app:iconSize="20dp"
++        app:iconTint="?attr/colorOnSurface"
++        app:layout_constrainedWidth="true"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toStartOf="@id/center_guide"
++        app:layout_constraintHorizontal_bias="1"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.Start" />
+ 
+-    <com.google.android.material.button.MaterialButton android:id="@+id/one_time" style="@style/Signal.Widget.Button.Medium.Primary" android:layout_width="0dp" android:layout_height="0dp" android:ellipsize="end" android:maxLines="1" android:text="@string/DonationPillToggle__one_time" android:textAppearance="@style/Signal.Text.LabelLarge" android:textColor="?attr/colorOnSurface" android:visibility="visible" app:autoSizeMaxTextSize="14sp" app:autoSizeMinTextSize="10dp" app:autoSizeStepGranularity="1sp" app:autoSizeTextType="uniform" app:backgroundTint="@color/donation_pill_toggle_background_tint" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="?attr/colorOnSurface" app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible" app:layout_constraintEnd_toStartOf="@id/center_guide" app:layout_constraintStart_toStartOf="@id/one_time_start_invisible" app:layout_constraintTop_toTopOf="@id/one_time_start_invisible" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.Start"/>
++    <com.google.android.material.button.MaterialButton
++        android:id="@+id/one_time"
++        style="@style/Signal.Widget.Button.Medium.Primary"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:ellipsize="end"
++        android:maxLines="1"
++        android:text="@string/DonationPillToggle__one_time"
++        android:textAppearance="@style/Signal.Text.LabelLarge"
++        android:textColor="?attr/colorOnSurface"
++        android:visibility="visible"
++        app:autoSizeMaxTextSize="14sp"
++        app:autoSizeMinTextSize="10dp"
++        app:autoSizeStepGranularity="1sp"
++        app:autoSizeTextType="uniform"
++        app:backgroundTint="@color/donation_pill_toggle_background_tint"
++        app:iconGravity="textStart"
++        app:iconSize="20dp"
++        app:iconTint="?attr/colorOnSurface"
++        app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible"
++        app:layout_constraintEnd_toStartOf="@id/center_guide"
++        app:layout_constraintStart_toStartOf="@id/one_time_start_invisible"
++        app:layout_constraintTop_toTopOf="@id/one_time_start_invisible"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.Start" />
+ 
+-    <com.google.android.material.button.MaterialButton android:id="@+id/monthly" style="@style/Signal.Widget.Button.Medium.Primary" android:layout_width="0dp" android:layout_height="0dp" android:ellipsize="end" android:maxLines="1" android:text="@string/DonationPillToggle__monthly" android:textAppearance="@style/Signal.Text.LabelLarge" android:textColor="?attr/colorOnSurface" android:visibility="visible" app:autoSizeMaxTextSize="14sp" app:autoSizeMinTextSize="10dp" app:autoSizeStepGranularity="1sp" app:autoSizeTextType="uniform" app:backgroundTint="@color/donation_pill_toggle_background_tint" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="?attr/colorOnSurface" app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible" app:layout_constraintEnd_toEndOf="@id/monthly_end_invisible" app:layout_constraintStart_toEndOf="@id/center_guide" app:layout_constraintTop_toTopOf="@id/one_time_start_invisible" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.End" tools:icon="@drawable/ic_check_20"/>
++    <com.google.android.material.button.MaterialButton
++        android:id="@+id/monthly"
++        style="@style/Signal.Widget.Button.Medium.Primary"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:ellipsize="end"
++        android:maxLines="1"
++        android:text="@string/DonationPillToggle__monthly"
++        android:textAppearance="@style/Signal.Text.LabelLarge"
++        android:textColor="?attr/colorOnSurface"
++        android:visibility="visible"
++        app:autoSizeMaxTextSize="14sp"
++        app:autoSizeMinTextSize="10dp"
++        app:autoSizeStepGranularity="1sp"
++        app:autoSizeTextType="uniform"
++        app:backgroundTint="@color/donation_pill_toggle_background_tint"
++        app:iconGravity="textStart"
++        app:iconSize="20dp"
++        app:iconTint="?attr/colorOnSurface"
++        app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible"
++        app:layout_constraintEnd_toEndOf="@id/monthly_end_invisible"
++        app:layout_constraintStart_toEndOf="@id/center_guide"
++        app:layout_constraintTop_toTopOf="@id/one_time_start_invisible"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.End"
++        tools:icon="@drawable/ic_check_20" />
+ 
+-    <com.google.android.material.button.MaterialButton android:id="@+id/monthly_end_invisible" style="@style/Signal.Widget.Button.Medium.Primary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:text="@string/DonationPillToggle__monthly" android:textAppearance="@style/Signal.Text.LabelLarge" android:textColor="?attr/colorOnSurface" android:visibility="invisible" app:backgroundTint="@color/donation_pill_toggle_background_tint" app:icon="@drawable/ic_check_20" app:iconGravity="textStart" app:iconSize="20dp" app:iconTint="?attr/colorOnSurface" app:layout_constrainedWidth="true" app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0" app:layout_constraintStart_toEndOf="@id/center_guide" app:layout_constraintTop_toTopOf="@id/one_time_start_invisible" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.End"/>
++    <com.google.android.material.button.MaterialButton
++        android:id="@+id/monthly_end_invisible"
++        style="@style/Signal.Widget.Button.Medium.Primary"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:maxLines="1"
++        android:text="@string/DonationPillToggle__monthly"
++        android:textAppearance="@style/Signal.Text.LabelLarge"
++        android:textColor="?attr/colorOnSurface"
++        android:visibility="invisible"
++        app:backgroundTint="@color/donation_pill_toggle_background_tint"
++        app:icon="@drawable/ic_check_20"
++        app:iconGravity="textStart"
++        app:iconSize="20dp"
++        app:iconTint="?attr/colorOnSurface"
++        app:layout_constrainedWidth="true"
++        app:layout_constraintBottom_toBottomOf="@id/one_time_start_invisible"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintHorizontal_bias="0"
++        app:layout_constraintStart_toEndOf="@id/center_guide"
++        app:layout_constraintTop_toTopOf="@id/one_time_start_invisible"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.DonationTogglePill.End" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>

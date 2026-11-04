@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-in/strings.xml b/core/util/src/main/res/values-in/strings.xml
+index bbf578db880b2fccd99c75e3259a610f674be78e..a0428ed18ae858ea95b432950fbd63ba700e0b2b 100644
+--- a/core/util/src/main/res/values-in/strings.xml
++++ b/core/util/src/main/res/values-in/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Undang ke Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

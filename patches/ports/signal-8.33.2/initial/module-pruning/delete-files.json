@@ -1,0 +1,2614 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "1508ac831e8832fad2fb6c5ad111882192d44dc8",
+  "after_tree": "1ca62f1da76b0bb7f07198e6f24647fd94b0e797",
+  "files": [
+    {
+      "path": "app/src/benchmark/java/org/thoughtcrime/securesms/BenchmarkApplicationContext.kt",
+      "mode": "100644",
+      "blob": "ba4d396d785d7c4796ab3a0ff9303c40d7cbdf46"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkCommandReceiver.kt",
+      "mode": "100644",
+      "blob": "b5bc6040c14d077a9568ae11dafe7d1bc03c652a"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkSetupActivity.kt",
+      "mode": "100644",
+      "blob": "3de850a4e0d8f016fc720ba0708792e1c4ff180a"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/signal/benchmark/setup/NoOpJob.kt",
+      "mode": "100644",
+      "blob": "16f200094bce4d50ce4bbe66562d07cad225467a"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/signal/benchmark/setup/OtherClient.kt",
+      "mode": "100644",
+      "blob": "1c8a4ed3beeb5f2ccad2f58f66ec1cee602cc656"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/signal/benchmark/setup/TestUsers.kt",
+      "mode": "100644",
+      "blob": "0329bebeb5ff83feab7a6d9589e42648d719b958"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/thoughtcrime/securesms/database/TestDbUtils.kt",
+      "mode": "100644",
+      "blob": "0003a5dcc6caae9e600311c9ed5eb9b8046a8a6b"
+    },
+    {
+      "path": "app/src/benchmarkShared/java/org/whispersystems/signalservice/internal/websocket/BenchmarkWebSocketConnection.kt",
+      "mode": "100644",
+      "blob": "0977b2c814ce19ef3a25aeefadf341652d6d034c"
+    },
+    {
+      "path": "app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartRestoreActivity.kt",
+      "mode": "100644",
+      "blob": "67c7525aae5edea4ff2ae14e3b02c63ab2528385"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "c03400dc126d3d5e7b03f90506a49616c497a7de"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "4125f531abed699ad2cbfbdb378aa67073f715b6"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "574f84e156acbb71676a635c638045a3ff297149"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "1d9925febbb04ff19a3b32194033528c731a00e4"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "c65ee6b9014ca47dbed183ec0d54709bb31df18c"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "44dedf00905d994b36a754bb3824594f59084d91"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "fc2262697ea8a8801f6f6f90333c2199f47afd7e"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "59cae532f9a13d9c2dee0a06bd2bfe3b69c76d09"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "72fc4cf95b2af54dca86625a84d3adf6a61afd1f"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "06a62410068fad63d36e8de49082a42ba6665adf"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "7c2b96d611658caa00ac37103385e394d9b124d6"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "9b46c361336caa4254d1be94e9b8dfd6668bcf80"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "cf4e547d914d511d59191d8f37c3acdb4b27b81a"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "dfc6e09d86feb2dc070b2d5d7813b31b5e887a08"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "3ae4dd5d48b9cb6c5684f53e64063861387f36cc"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "612d536c88b7acb71e965429134a880a6ca52500"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "1a9c196795bde6a7b1af97528e340c8c4e926cdf"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "d7389340b147f50710622bd95650e9b7aee5a684"
+    },
+    {
+      "path": "app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "0e2c65ae560164c60c3881fe567d653a9ee7ac1d"
+    },
+    {
+      "path": "app/src/spinner/java/org/thoughtcrime/securesms/ApiPlugin.kt",
+      "mode": "100644",
+      "blob": "ead7d991068c5edd2042d7fed0daf15d523057a2"
+    },
+    {
+      "path": "app/src/spinner/java/org/thoughtcrime/securesms/BackupPlugin.kt",
+      "mode": "100644",
+      "blob": "44e8e68f12eaada819f73eb15edd12751600050e"
+    },
+    {
+      "path": "app/src/spinner/java/org/thoughtcrime/securesms/StorageServicePlugin.kt",
+      "mode": "100644",
+      "blob": "caf143838cfd0ac7ea56bbf5c329e59430815114"
+    },
+    {
+      "path": "app/src/spinner/java/org/thoughtcrime/securesms/database/ProfileKeyCredentialTransformer.kt",
+      "mode": "100644",
+      "blob": "eb686853c21c500980cf2bc340dae3343bc46a83"
+    },
+    {
+      "path": "app/src/spinner/java/org/thoughtcrime/securesms/database/TimestampTransformer.kt",
+      "mode": "100644",
+      "blob": "bca7cfc35d3c4f54ec420a8ce7a200c4708bf973"
+    },
+    {
+      "path": "benchmark/build.gradle.kts",
+      "mode": "100644",
+      "blob": "15c3ef574bdc4bddd5c31ea64c559dc51ce0121d"
+    },
+    {
+      "path": "demo/camera/build.gradle.kts",
+      "mode": "100644",
+      "blob": "de80975442e60b8c297d8c7e66c5a9a04f07f922"
+    },
+    {
+      "path": "demo/camera/src/main/java/org/signal/camera/demo/CameraDemoApplication.kt",
+      "mode": "100644",
+      "blob": "595e83e3113b99d4ea6ebd91d1714e914f9ee938"
+    },
+    {
+      "path": "demo/camera/src/main/java/org/signal/camera/demo/screens/main/MainScreen.kt",
+      "mode": "100644",
+      "blob": "8582547a2090909c5df7d9456939fa28a641a816"
+    },
+    {
+      "path": "demo/contacts/src/main/java/org/signal/contactstest/ContactListViewModel.kt",
+      "mode": "100644",
+      "blob": "b416846b7d5d89c028f0468975bf67c86a66545b"
+    },
+    {
+      "path": "demo/contacts/src/main/java/org/signal/contactstest/ContactLookupViewModel.kt",
+      "mode": "100644",
+      "blob": "0deb9e729cd7db098e0f3adc0e730a3b532e45c7"
+    },
+    {
+      "path": "demo/device-transfer/build.gradle.kts",
+      "mode": "100644",
+      "blob": "6c15d0dbf0050f0f58ed5d5c2721434519287599"
+    },
+    {
+      "path": "demo/device-transfer/proguard/proguard.cfg",
+      "mode": "100644",
+      "blob": "ab5bcf0bc3e9f0541750f246a98477dcb933cc0d"
+    },
+    {
+      "path": "demo/device-transfer/src/main/AndroidManifest.xml",
+      "mode": "100644",
+      "blob": "2f27e018833c5354066b954ec2d5145b00cb92c1"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferApplication.kt",
+      "mode": "100644",
+      "blob": "466c67672239821d812a44ca2773ac63ce1631a9"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestAction.kt",
+      "mode": "100644",
+      "blob": "c9ca81f52aaf034662961fbd5cc633cde443cafc"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestEvent.kt",
+      "mode": "100644",
+      "blob": "cb1efdd91250ef1a9e219c9e7df58a3fb8f980a1"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestRepository.kt",
+      "mode": "100644",
+      "blob": "405b099d5abfaad0b6cbba21a015e82b78eca932"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestScreen.kt",
+      "mode": "100644",
+      "blob": "2e6409c8a24c53d6d9aed508da742d8f09df66a6"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestState.kt",
+      "mode": "100644",
+      "blob": "c5e0fe43a6db81beac44f13cbb6d4f397f74f2fe"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/DeviceTransferTestViewModel.kt",
+      "mode": "100644",
+      "blob": "a7d9d34c0a35fdceee90a92091b9cf9047a77584"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/MainActivity.kt",
+      "mode": "100644",
+      "blob": "ed06ddae6d57ad547a9297ae13f5ad7b62f601d4"
+    },
+    {
+      "path": "demo/device-transfer/src/main/java/org/signal/devicetransfer/app/TestTransferTasks.kt",
+      "mode": "100644",
+      "blob": "c14a3f98350c24551fad3e48de623207929c2874"
+    },
+    {
+      "path": "demo/device-transfer/src/main/res/values/themes.xml",
+      "mode": "100644",
+      "blob": "deb5eb97a02abe2f6a4d659b4a1f4d03513d675a"
+    },
+    {
+      "path": "demo/list-detail/.gitignore",
+      "mode": "100644",
+      "blob": "42afabfd2abebf31384ca7797186a27a4b7dbee8"
+    },
+    {
+      "path": "demo/list-detail/build.gradle.kts",
+      "mode": "100644",
+      "blob": "1bf91c1961be30b5bb96d90577a674006a62969e"
+    },
+    {
+      "path": "demo/list-detail/src/main/AndroidManifest.xml",
+      "mode": "100644",
+      "blob": "089a6cc085a3265bf49185989b5d2a8088eb4668"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoData.kt",
+      "mode": "100644",
+      "blob": "ea523061247832b4009d23588a6d69935b225e0b"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoEvents.kt",
+      "mode": "100644",
+      "blob": "02ee2708aa2a339fb5e40d0653b5d0d79b402fd2"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoRoutes.kt",
+      "mode": "100644",
+      "blob": "43888f197e981c87e6833ec50c7bf676a85a5d5c"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoScreens.kt",
+      "mode": "100644",
+      "blob": "16fc7c2054daf2dcdc295ce60a96485787ba89d4"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoSettings.kt",
+      "mode": "100644",
+      "blob": "7d478c1444e8971b73b6a38fe9f88ac39b1c6e35"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/DemoViewModel.kt",
+      "mode": "100644",
+      "blob": "be9ba10038ee9f814f37cb9023bd46995a8f6e10"
+    },
+    {
+      "path": "demo/list-detail/src/main/java/org/signal/listdetail/demo/MainActivity.kt",
+      "mode": "100644",
+      "blob": "e83689e9f8e5acfbf3f6a1ea63f96edc8fa6dd6c"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/drawable/ic_launcher_background.xml",
+      "mode": "100644",
+      "blob": "c71b77f4d299fad1b3a5c943c67d0be71840f436"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/drawable/ic_launcher_foreground.xml",
+      "mode": "100644",
+      "blob": "18c0565852e7c62c7b29149e80bf84c08c188730"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "mode": "100644",
+      "blob": "7efa3313d2912b34a16ae53f6514c5d724215984"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "mode": "100644",
+      "blob": "7efa3313d2912b34a16ae53f6514c5d724215984"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/values/strings.xml",
+      "mode": "100644",
+      "blob": "03ea05746c30de1d8865ce90aeeedc51204c1253"
+    },
+    {
+      "path": "demo/list-detail/src/main/res/values/themes.xml",
+      "mode": "100644",
+      "blob": "7e7c1d9610565e4d1307795fd088fdca93a290ab"
+    },
+    {
+      "path": "demo/media-keyboard/build.gradle.kts",
+      "mode": "100644",
+      "blob": "6d8bac6eedcca9816cda507db92277209585e8e5"
+    },
+    {
+      "path": "demo/media-keyboard/proguard-rules.pro",
+      "mode": "100644",
+      "blob": "481bb434814107eb79d7a30b676d344b0df2f8ce"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/AndroidManifest.xml",
+      "mode": "100644",
+      "blob": "2503503c145d0a84fe08c134ed156d9ed719e5e5"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/DemoExoPlayerPool.kt",
+      "mode": "100644",
+      "blob": "ed1bd6f59edb343d0e9ef44ffe03a26339183f47"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/MainActivity.kt",
+      "mode": "100644",
+      "blob": "4d82b3622c392a7d9012dbf54efa7f54c0a4523f"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/MediaKeyboardDemoApplication.kt",
+      "mode": "100644",
+      "blob": "d9d61183c797417a629ba5bcc8ce7e4e6c6c3c8d"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/data/DemoEmojiKeyboardRepository.kt",
+      "mode": "100644",
+      "blob": "1a1d908ff04eb23da6486c1089333a2903ad3f29"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/data/DemoGifKeyboardRepository.kt",
+      "mode": "100644",
+      "blob": "a75adc9d4a1bfcc888718b5a39f90245d9cec3b6"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/data/DemoMediaKeyboardRepository.kt",
+      "mode": "100644",
+      "blob": "8bd53765259c9400fa07bb535383f898d5082dd2"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/data/DemoStickerKeyboardRepository.kt",
+      "mode": "100644",
+      "blob": "e241d351c585c4f48c67bba18564e1a8c7a746ea"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/main/MainScreen.kt",
+      "mode": "100644",
+      "blob": "82e91c599b61f78208ce3ca59560b5ea40deb5da"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/main/MainScreenEvents.kt",
+      "mode": "100644",
+      "blob": "c64040954598951505b541f0129ed3ca9e9286f6"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/main/MainScreenState.kt",
+      "mode": "100644",
+      "blob": "9f9435d8ad40131fbcf5b4ed8508c866ce16e1cc"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/java/org/signal/mediakeyboard/demo/main/MainScreenViewModel.kt",
+      "mode": "100644",
+      "blob": "01cad089d5467fe38f9b5cd71f504cbf4f21b0a8"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_1.png",
+      "mode": "100644",
+      "blob": "6b665eba39da999a7f30415076d8f659deb5d142"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_2.png",
+      "mode": "100644",
+      "blob": "c98e14bb5cb9761c0cb1480b24de90d93239e84e"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_3.png",
+      "mode": "100644",
+      "blob": "86edb99409b422399e15987f8178050b033f2598"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_4.png",
+      "mode": "100644",
+      "blob": "44d9f1ae7c86e8189c0ba40a4a92010b98f8edae"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_5.png",
+      "mode": "100644",
+      "blob": "43c722049d7058d826eda2b2792a43fa2e1bc9d8"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable-nodpi/demo_gif_still_6.png",
+      "mode": "100644",
+      "blob": "8bc20cadd5dcc17c157fcf19b7abc728b2c685d5"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/ic_launcher_background.xml",
+      "mode": "100644",
+      "blob": "dc71d770f19c60d2ddd130ed018a77b30ae3fea0"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/ic_launcher_foreground.xml",
+      "mode": "100644",
+      "blob": "47c0b369d4c27ffd0ba36e3b42f38a19ce5f97e3"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_bolt.xml",
+      "mode": "100644",
+      "blob": "69144543dd7a07db8adff2970785b8579fa7fe73"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_circle.xml",
+      "mode": "100644",
+      "blob": "5432420ccfe762fbe970928e9965637fac5c0e48"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_diamond.xml",
+      "mode": "100644",
+      "blob": "601f0f3f005650629aba06539d40c2e128faae8c"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_angry.xml",
+      "mode": "100644",
+      "blob": "331b651e39229bda44b3f6f4e69478db3c7eb8cd"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_cool.xml",
+      "mode": "100644",
+      "blob": "7e28ee4ae6c13579ffef5566fedaec27976029b7"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_happy.xml",
+      "mode": "100644",
+      "blob": "b2569c5b9d0f2787a7bf8d0b9ba40a4f868bb75f"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_sad.xml",
+      "mode": "100644",
+      "blob": "eb5cc9bc5504ce2265af9db4bc33c40a03b6bef4"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_surprised.xml",
+      "mode": "100644",
+      "blob": "e367bd49782d165fa7080951dd7e3719e31676af"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_face_wink.xml",
+      "mode": "100644",
+      "blob": "d0b17fbae67c3bbb4353e66b84378b21fac394dc"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_heart.xml",
+      "mode": "100644",
+      "blob": "c6cbd19fe0d2efa1036be23c026d2c359a8807b2"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_moon.xml",
+      "mode": "100644",
+      "blob": "06b31ce10be0abcb39ca5180f340b816e106cf57"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_star.xml",
+      "mode": "100644",
+      "blob": "7bc3632d844f34c4c89308872ae51eb6e75bf56f"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_sun.xml",
+      "mode": "100644",
+      "blob": "60d6be5cc22e16cd4861cc2904a91a71c4de5d59"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/drawable/sticker_triangle.xml",
+      "mode": "100644",
+      "blob": "2ecabab769a3f48fe7507d7ce4e4e828aa6ac08e"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "mode": "100644",
+      "blob": "81f724fa88cab7ce4461517eee5ebfbe966026c0"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "mode": "100644",
+      "blob": "81f724fa88cab7ce4461517eee5ebfbe966026c0"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-hdpi/ic_launcher.webp",
+      "mode": "100644",
+      "blob": "c209e78ecd372343283f4157dcfd918ec5165bb3"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-hdpi/ic_launcher_round.webp",
+      "mode": "100644",
+      "blob": "b2dfe3d1ba5cf3ee31b3ecc1ced89044a1f3b7a9"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-mdpi/ic_launcher.webp",
+      "mode": "100644",
+      "blob": "4f0f1d64e58ba64d180ce43ee13bf9a17835fbca"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-mdpi/ic_launcher_round.webp",
+      "mode": "100644",
+      "blob": "62b611da081676d42f6c3f78a2c91e7bcedddedb"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xhdpi/ic_launcher.webp",
+      "mode": "100644",
+      "blob": "948a3070fe34c611c42c0d3ad3013a0dce358be0"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xhdpi/ic_launcher_round.webp",
+      "mode": "100644",
+      "blob": "1b9a6956b3acdc11f40ce2bb3f6efbd845cc243f"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xxhdpi/ic_launcher.webp",
+      "mode": "100644",
+      "blob": "28d4b77f9f036a47549d47db79c16788749dca10"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp",
+      "mode": "100644",
+      "blob": "9287f5083623b375139afb391af71cc533a7dd37"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xxxhdpi/ic_launcher.webp",
+      "mode": "100644",
+      "blob": "aa7d6427e6fa1074b79ccd52ef67ac15c5637e85"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp",
+      "mode": "100644",
+      "blob": "9126ae37cbc3587421d6889eadd1d91fbf1994d4"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_1.mp4",
+      "mode": "100644",
+      "blob": "d7ca00e933af9c77f964bef39cd89f38177b8285"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_2.mp4",
+      "mode": "100644",
+      "blob": "af2cfed228099704c606ad22ebbcec910afe36e6"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_3.mp4",
+      "mode": "100644",
+      "blob": "54727ee5c968dd9e8b63b40abe3384eed96778a6"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_4.mp4",
+      "mode": "100644",
+      "blob": "a864e4a0aca78477694325c88ee4f57b36a82729"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_5.mp4",
+      "mode": "100644",
+      "blob": "e9576df0e6e5617e1a8f01d3229ee63857e083f0"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/raw/demo_gif_6.mp4",
+      "mode": "100644",
+      "blob": "2ee00134cd44cd05349f9457fb69ee1c4ebc2a92"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/values/strings.xml",
+      "mode": "100644",
+      "blob": "96d301522b4494e8f9d9ad6d38b442eedd2e8e80"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/values/themes.xml",
+      "mode": "100644",
+      "blob": "40d53bba383aea7e02ef178b87f452eb1594d4cc"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/xml/backup_rules.xml",
+      "mode": "100644",
+      "blob": "3b702029df4e35e14f2b9a455e26a777cc1aa9b8"
+    },
+    {
+      "path": "demo/media-keyboard/src/main/res/xml/data_extraction_rules.xml",
+      "mode": "100644",
+      "blob": "f72df1c105ca4cbfed08aab0a7ed8cb359b3f7be"
+    },
+    {
+      "path": "demo/registration/build.gradle.kts",
+      "mode": "100644",
+      "blob": "de0f95b85e671d1e485028551282ec26d64882ea"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/MainActivity.kt",
+      "mode": "100644",
+      "blob": "6975c1467966560dc8e3bdf026381b9c150ea10a"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/RegistrationApplication.kt",
+      "mode": "100644",
+      "blob": "3e83ca0c4b2b3ccc8e291b98ca8d17b5c963d519"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/absbackup/RegistrationBackupAgent.kt",
+      "mode": "100644",
+      "blob": "315304a41b7e8173f15f22d214d7a5a070ff8474"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/debug/DebugNetworkController.kt",
+      "mode": "100644",
+      "blob": "45ae451957bfa35dfcdaf734a4cbe40390a43952"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/debug/DebugNetworkMockData.kt",
+      "mode": "100644",
+      "blob": "c916c123118215b2dca38c9891fcdc943d91adba"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/dependencies/DemoDeviceTransferServerTask.kt",
+      "mode": "100644",
+      "blob": "14f774b6d99469a85d46e6261185bc68bd8069a2"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/dependencies/DemoNetworkController.kt",
+      "mode": "100644",
+      "blob": "50b03df5207568baa06f7ac493d71c6e40992bbf"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/dependencies/DemoStorageController.kt",
+      "mode": "100644",
+      "blob": "25adbd2eec4d7f3b420ca5dd0da483235a841224"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/dependencies/FakeDeviceTransferRunner.kt",
+      "mode": "100644",
+      "blob": "6999f714003027b64c0497aa129a74e1f87cfeb3"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/screens/olddevicetransfer/TransferAccountViewModel.kt",
+      "mode": "100644",
+      "blob": "5bc5245e9de27cd3b740a9cf911ba6ea5f261f7f"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/screens/pinsettings/PinSettingsViewModel.kt",
+      "mode": "100644",
+      "blob": "7e35eb12f534501a2da729a9cd8fc9acf36b8728"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/storage/RegistrationDatabase.kt",
+      "mode": "100644",
+      "blob": "cadbf5f1dcd1ccd849489d4ca71f91aaae24e3cc"
+    },
+    {
+      "path": "demo/registration/src/main/java/org/signal/registration/sample/storage/RegistrationPreferences.kt",
+      "mode": "100644",
+      "blob": "c78d37c73747407e4c9d96dabbe63d579d6540c0"
+    },
+    {
+      "path": "demo/video/build.gradle.kts",
+      "mode": "100644",
+      "blob": "16958cc22a4aec390d987e692ffebb4303188be6"
+    },
+    {
+      "path": "demo/video/src/androidTest/java/org/thoughtcrime/video/app/transcode/VideoTranscodeInstrumentationTest.kt",
+      "mode": "100644",
+      "blob": "6fb7311431e212d45b87a75971de0d04b2ee2ef6"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/MainActivity.kt",
+      "mode": "100644",
+      "blob": "880572e7746fb89bc3eb6fb2e4c4d1c54a90656b"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/batch/BatchTranscodeViewModel.kt",
+      "mode": "100644",
+      "blob": "afccf39bd42f57c95172ea3ca54897bdf72d1232"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/batch/composables/BatchConfigScreen.kt",
+      "mode": "100644",
+      "blob": "a0dc0403e7aaaf5fed74cbd473163a4eccefdad7"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/batch/composables/BatchProfileConfigScreen.kt",
+      "mode": "100644",
+      "blob": "5adeb18e662cffcad015e2e64e1d61d9c678cb2f"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/Constants.kt",
+      "mode": "100644",
+      "blob": "e08bd9d0c23f89fc9afe74749fe7aea0ca58d27c"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/TranscodeTestRepository.kt",
+      "mode": "100644",
+      "blob": "8a3b622d3875cab4388364d5366ee23073aa1d76"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/TranscodeTestViewModel.kt",
+      "mode": "100644",
+      "blob": "3c23c9686968ad62913df93599e138185fdefa6e"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/TranscodingState.kt",
+      "mode": "100644",
+      "blob": "92d3617b2e3dbdd602b1ffabe916d81836ad4b33"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/composables/ConfigurationSelection.kt",
+      "mode": "100644",
+      "blob": "0714c2e94ded61a48a23ba3175ca80d6dd38fce0"
+    },
+    {
+      "path": "demo/video/src/main/java/org/thoughtcrime/video/app/transcode/composables/TranscodingScreen.kt",
+      "mode": "100644",
+      "blob": "60b6411d7ec0018ed0c46d4c9a9466c47fb02224"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTest/kotlin/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "89d06bedf3f18ffa7ea3cd0a4659a5a81ec162b6"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTest/kotlin/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "59abe31145b51f6e1a25ddc9bcb273a29c9e778c"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTest/kotlin/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "1c6b2bb2212bd4fc01ff4e90cb457a0d07ac3249"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTest/kotlin/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "cf2a56e1c21fe4c4ce6b9a6c463b0dc947f2b605"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTest/kotlin/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "df829e46d79611683426284a4bc74ec3c0eccef6"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "37b6daaba5541c84e47d82800d799c7bbd3482f9"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_phone landscape (night)_9b208707_0.png",
+      "mode": "100644",
+      "blob": "e30a6ea4658c19dcdb393c863ee060d37d7da91a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "e492da6e2e91e62427ffe12937b78cbe888728bd"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "259f39830751ec4b18626cc00f67d16776ca1821"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "20b3da3b32d3f7605a395d51b268a0bf0c07a94a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenPhotoPreview_tablet portrait (night)_4413f5b7_0.png",
+      "mode": "100644",
+      "blob": "f4c9565535f9d4778c81013f5ab923ce57187adc"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "4efb1930639ed25a1c1c7f154d492c2ad411219e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_phone landscape (night)_9b208707_0.png",
+      "mode": "100644",
+      "blob": "059134bc0e742ff482ed59ee0153b187b2b086ce"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "10c28a1b2ce2fee0f09c0972988ae2a9769cdd9c"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "54d3814f1896681fa0328704326c97254b30b30c"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "97398f978fecce3c79e0ccc37d44a81d1841d4e5"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenVideoPreview_tablet portrait (night)_4413f5b7_0.png",
+      "mode": "100644",
+      "blob": "df2ab5d66817ef4e4fb8d0ad43c98a3db178063e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "c29937cd07cba092dd237b552ba81f02a5ae9563"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_phone landscape (night)_9b208707_0.png",
+      "mode": "100644",
+      "blob": "a56ddbafac4bb7315ca69414773b73c32bc28d51"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "06d8332257029fa94b3e6f5ca7bfea1a5aabda69"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "cda0af6e05a07cad8c905e9f03024095a4a240e0"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "32fba6b4ae50c0e6ea62d0ce4a0c8fda7de019f2"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/capture/MediaCaptureScreenScreenshotTests/MediaCaptureScreenWithSelectedMediaPreview_tablet portrait (night)_4413f5b7_0.png",
+      "mode": "100644",
+      "blob": "1760c091f7cabfc744d70acc778476937d3a3e37"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/AddToGroupStoryConfirmationDialogPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "4923321738c254cd24a517b1b4f1c179453a29d4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/AddToGroupStoryConfirmationDialogPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "4c7f005ca34db40e00d27d7cc39e3ad4e40acfd7"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/AddToGroupStoryConfirmationDialogPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "c08277d6b927388821f6215700e379ab10e4bc98"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/DiscardEditsConfirmationDialogPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "fa92010794020de10d5f4a8f1a712a2630e15c42"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/DiscardEditsConfirmationDialogPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "c1f6b41ccca70ec2f58bc969406f7451710dcdaa"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/DiscardEditsConfirmationDialogPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "d5f36b6552af39c2bb16f1ada13508254fb92f08"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SaveToStorageConfirmationDialogPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "3b03faf4e41ded19efaa47abda3401077dfc6039"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SaveToStorageConfirmationDialogPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "ae50f54ddb0f3dd6a784ca11fa691075f9b7f7e6"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SaveToStorageConfirmationDialogPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "8f6fc12a005e000859a1e2d018df950bedd17220"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SavingToStorageProgressDialogPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "99c2ddd4b140790a84dc1238031a000aa6488fc1"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SavingToStorageProgressDialogPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "26054de36bbdfde2bcbc5bf460b25e6879792aab"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenDialogsScreenshotTests/SavingToStorageProgressDialogPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "db3be1ae5b4ce251c0f1cddb79ed99e02c8671f1"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "0754bf87e97027398e8d6f52c248a12e1c04787a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "5f07c7690937455ced215378d9007cb231ff5e84"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "751cdded7af36555bfcbfb034b5d77315ce0fba2"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "77680ead9824f0580312ae6a4eb972092716e4da"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "41388b1551ceb529c184e439d9b3605cd1e6ddcb"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "931a7e6a85eed47f2a50b6e0f4a3836a6142834d"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "693fad7e72e95b2323da49fd134f108074adee0b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "eaa848fbb42d678362df4e10d3ad350a787a4e9c"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "eabdec960915b538cfc26f060ec5f74aea49f8de"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenImagePreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "3f6ec7b3e6fe5c09dee0a3a9dc2a8cc0caa42344"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "cc970059d914463daa8aae1de9a2ce3501bab2b5"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "7b5dfd9866a39e0b25d172a01bd8b4c5ec52c7e0"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "20f7120f85ae1077fb2032c52e7a93d515927087"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "6ecf07066527e4f1e9879e3d936043df6993299b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "edce1b0c00fc97b542678e9056a132fb967b7055"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "a689ed61c5ebb3675eb0ad8ce2161ce3bf76675a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "2872823f97e2799a3601e44282e07ed8c22c5fa5"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "f1046fab588763b43d0b0ed426c74732842dcb16"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "268895e9ce2f5dc12b8fbc9c0aaf7eb2b8141edb"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenSingleImagePreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "49cd7594a040d3edc7cf7364ad7b00eb45738844"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "29aebacd147703c8fc0c565529db2101164fc167"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "81f3ecaa9fd53391b44103705dcebf47e1aa23fb"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "27ed4ff40f40ea7d7047a492cef884776dddaa88"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "d6ec26de063786bd4b032140e322f51c6e3440d7"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "8db9ca6c342547f9e6442c6c41f96e9e41bdd021"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "be8adb2a9e5af222b1766600f3b33cdf3ad7dce4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "c0daccc9731af7f17e0ac621cd5d2a9e3c007665"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "cdf4adf56693778e5b4d8805e5e476cdc0a61e9b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "8d9e36bbbd931b7b53907ae7b907c23bda01c661"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/MediaEditScreenScreenshotTests/MediaEditScreenVideoPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "d95be206fd380c4ac43e19e63196ffd73510ce89"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentHighPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "ba14f42181c2976ff31caceca3df77e069ee2c47"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentHighPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "d66a7ac66db19bd6ecd694191efa2765d2a44efa"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentHighPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "e5fc010bb8dc0e9611da174766b25d819c10064e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentStandardPreview_day mode_7e480c1c_0.png",
+      "mode": "100644",
+      "blob": "8e4fa98c49f1eae905af78cdb6fbf9ad99e10883"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentStandardPreview_night mode_c0572229_0.png",
+      "mode": "100644",
+      "blob": "fc9afa2a4ef08ed0d291995e1d681c39b4202e58"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/edit/QualitySelectorSheetContentScreenshotTests/QualitySelectorSheetContentStandardPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "aaf372314f84216809a7a3a5609fce69d911b23e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "11f793da46d34be0102b19c0c9725bc216b7d2cf"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "4e441b926e5add263fed72d2019bd18cd3d9a263"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "3d93c50a31019de99befcc64a695de7eaa30e0c0"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "f0b6b964d4b475b35144684c5ee6a5c0f12dd22e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "b994b078b8fce1bc290f1e06d7fa75f1699b5f6b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "59b92cdc00d7a342d28939517ae185d5e25a543a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "521274a448125e0aed5567ceb520a13f699bdc08"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "9d045321c0a3cc26c1668ba13d036e1d74a6e024"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "5c6cb5c4bfe8bc2c4e33c4837db3b0a0cbed818b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "d50e7ab794bd23efdaf892a3a4bea59c15ca5cbc"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "b998a31b241ddab700d376fbbc6ae518622ec11a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "b109021a8d4c954c9346589524105384ac8b64a5"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "d80f2809d65d0fb1fd038d6969421c3dc164c2a7"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "921565daa668cd330a4752f3716806bef309dcd7"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "71a8e42cc73e09e123f3e836d8982dda434c0486"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "3c0261768d0daef0096a2054248682888103a5f6"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "16dcc33e70a4ffccf5368acbbec5ee8efb88c767"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "201fd6e9f5b93ec37d98d7eb352c1d27b1f9ea44"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "0804c007fa7366509ad944d41967604e4fee42a3"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFilesWithSelectionPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "450da78213ce243b4416a140c78d43acd6a0c27f"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "bc6c1feedd07000ce188ddca5cf74ca20e9e6498"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "72c5917c1206bea028b5f75c12bbbc7a4038e0d7"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "cf36a496fa38ee73c277a7f8fd306ac654ceba2c"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "c37149cad6b529af8a848c2981da618e908bcdd4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "1d1d0d8f2d1ff3243d9ff326ec5015c78acae575"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "fccff3d7b655d751cfbade2cc6bea7ffc2427139"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "f2f14d848edb2113071c8aa26d3e327b230fec75"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "d6d7b01759ad75057485ff53a035bcae3d87982e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "8cd0987c4e296d91947083720fb70645d068b1bb"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenFoldersPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "b7d5e434e833ed24832ae919f9158e7bfec3221f"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "b56059211e30512f625d4cdcb97fffebba03f22e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "17df8cc3102abbd2d32abd530318588cbea8784a"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "fd451c5b197261299ebc7918214c1532b5930fb4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "4cc166b6c52470869662519b38dd0952e59b2311"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "5e2ed35d4d72918935ef588135d3319ecc3bc113"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "2c5d310b4c3a74f8925b4c43be48639b947f9f81"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "448efa352e1c4559c09f1415cb0bdd143590384b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "7c34bc50069577d58f9ac740ec4655c687af6c27"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "06c182a0ed93cd035a27f3e13bde2643defa51dd"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenNoPermissionPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "4f741bb4200188897532930651ea567cdc8103cc"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "eab02614ec788cf774d77b2fd8451af4b08e1332"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "50536fb7d2b3a2ae3b20409547a775fe5b134bb4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "01be1ad5eb1ad0a95a02b5f082d9dcd3d2ca24b4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "2d88cd335405ae809f3a5453be6ad368993118a4"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "6295270543be59c8f5e6fdbc911180c17ed30bea"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "f2292dcd29a3489a5b375bceefdc41a09de35a61"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "87a0a77e0fcbc1da7b08d1fbd73e8f57389bf76b"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "7a992883b2feb6128231ea164d7396f42144993e"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "e26a782455fb8f9ba22a42283fb55048550d3808"
+    },
+    {
+      "path": "feature/media-send/src/screenshotTestDebug/reference/org/signal/mediasend/screens/select/MediaSelectScreenScreenshotTests/MediaSelectScreenPartialPermissionPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "7b62bbad519373d4d6d2c07e26fa20f0f2afb11a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "49f4355407ed72a1f93739c458f38f1cd4f95380"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "9375c6f0d12b45171a4744a0a4abcdbc2a4ed95b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "4f1466c57aaaf98df7c7b8c9ac1bc2fd82326acb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "4e2b920567d3ed866c7775ae05214f2a815dd7bd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "1a8101c1e6399e1f5bbd103ece6d0b424b5cbecc"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "4fee15ddcc83786be03ccf324e24361feeb798bd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "59fb2f3c445a0cd9e52c038032a3a176ca4fd0fb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "8dbc3e086c961bed78d239b1bcfa732c55716d78"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "f45814741be6b8f91d9052e14be6f44040e83ac6"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "82786198984fdb99abfd9bc26e742d458ada069f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "166d43f412dd136e14ee74436bfe619f77910633"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "a2c242196b71a9a5025fce54c0b0cf5a9488d943"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "110738e750156bef7803323d9a2078ba898295ba"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "9bbb566879bd5eb6ecbb10b9cf4e9503c19bd50e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "018bc1c4dffbac8620a0d4a3f6105ba44b95c512"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "0847beb1835b5fb2560523cd1f81d50bf3f6b9c3"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "293fcfc0eb42c5b705a5a9205f5dd4d45273fab8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "9a78ccd048777682518ed01bfc5ca23cabce22ae"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "3cdd12de8932af3a7480e0f861e9eb0c4894e497"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "25b5c052628d6668aca084df7539dad0e0da56f5"
+    },
+    {
+      "path": "feature/registration/src/screenshotTest/kotlin/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests.kt",
+      "mode": "100644",
+      "blob": "9334d2f0227398501dd7bb58fb8c2e94b43c3e7a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "14fc85df396a9b1a118090b8629a94929b0c8739"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "17ab8f19d34c0af755250c1c2702283a4655d945"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "24b9c078dde6b83f66de47378fd10aceae827b39"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "aaecebabf88c3215c5f1716933a09584a133bb17"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "68e21aa3ca5164431c2a389774a47c24821f433e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "58b7c65550ae68306a0a4a80f278851b5cf693b1"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "6a9011f1420d7f7d202179c60203dcc74049e6d4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "407e7506078ef1d86db9125249f52c1b716bb975"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/accountlocked/AccountLockedScreenScreenshotTests/AccountLockedScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "0df09e5dfc7a6708ca33b08c316572f417571889"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "beebc1916ea8ee71c346bbfb10391a67a8733807"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "740f2848c35521c55b82fb5d08fcd1224b97c1f8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "c531442407418e83c9f3766ea9a2cf71288eb874"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "7767e872bdc26581f1b9e1377a5840468939ab7d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "2ee21cbb0337e7bc054241bffd78507b5a202651"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "47da6d5d86d695dcf5ff09c88303ba8c60bf2e84"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "2fe16fffb0c9545645af0ea525a5accda721e84d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "111e0a89cf43f1d722b7c6e3c16dbd77717290a8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/aepentry/EnterAepScreenScreenshotTests/EnterAepScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "b1bc9030401a6ebc249dccd51aa308ab036ea7af"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "4b9d11e23fc95664f49b0c31b06dc090f0a63aa9"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "fa03320a0779361cd7d527dbaea7fda3e4fae786"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "655b7109d4e1d7e19d3c18d99e52c6280299e4d4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "dbabcc4f157fd3d90a2e64fe22257e92d3fa66b4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "0b24f54dfe0b9571cb43097e068c40803301282e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "e4009ce89c04989dcd877cc2c7d3a2e4f55c0c29"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "217d346b69b8fa3ffdd6127b888f347db0e3ee41"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "b44c3d0531e348daa65ed2be05fbcbcce5008f59"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "e40df32be0c05b6506d762d8b5d9190fb6167609"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/allownotifications/AllowNotificationsScreenScreenshotTests/AllowNotificationsScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "a535e5b21a1df2c3c354a85aa2f9728f7ff863f4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "41cc2267da0d0980084ebdd72a551bb21eb03bb3"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "b2c613b99757c5f2139fc3a0153854799820544e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "91ebf0785db04caa03cf6cc76d347d8ed9bc5aee"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "e74cffe299f16dad18cc1c25819b9f7a3d8f0f2c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "f7bfe50ce7b4d2fcf568d54339aab107025f939c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "a1da2bc286789e2e9f39cfafe868a6c3872fdfcb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "d8da3dd068a75c4b64b900ef10352e0424361a5e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "3099a535c7f061a445865c79c7a08a9068180924"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/countrycode/CountryCodePickerScreenScreenshotTests/CountryCodePickerScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "e676ef699d7371aebeafbb9a105c1ccb4cb9e6dd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "6598cf125888ba6ab24ad6454e4d2abf571536e2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "b53b75117ddb0ce9a47bd3b054b2aa2b3853f9cb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "ba1d052f7375efa59ca12afbb1df30ac413b8e5e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "4be8caa15ad24d78145010b5256486e7e763d468"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "393f41a292c7d037ff34c990931486de9c563f01"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "c7c4d9de17621621e6f31810b73a95f97ef6ff29"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "42530709dccfa49efd41bc343ec66c45d3803443"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "5caf8e0bd545d7cdaf14a253d1c9d6e55424c551"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "61aa1935dc0746141923e9bc6a531db951182f3d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "e6db9ac28e2d1dae579fd2395f7bd71dce56846a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "b63a1b8706fa33eb0f49e1bbead3ec72e50e25ab"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "1a409d9ddadd092b0d57e4288a04fb05d7d0114b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "eebb4ccd0ecb964236695893ae18e05d70748a9a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "5fd48e18e6800190fb08a8b1ced46da58bfec3e4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "85767d8ed5fb02f14c39e147db254f2da6c818e7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "5d88c901bcab0b91920049e231ab4cf431d56e62"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "c07bb56fbe5120ae3fcfebf88275798071885158"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "6cfc5bae47e82c8abb619b9cd4801ee9b733fa25"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "6b90700f87be04cf0db2a4c33c94c49800386040"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "842a237c0c8459fcc2f9d4a15dfaf3bce089dfd3"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "369a59306fe78361c9f62130201211663a0ab9f4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "9a6a3a792fbbde34d3bee18d3c673504d7f62ecf"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "644d12fc2afd6473c339a1ba4e67f99b8d529e97"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "3d8386920354540cd8875ae4cd3be398a318cb6e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "16a18193c390b8f75ab33e0f638622345719035c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "85d5564faf18681a6727f9411bed6748b0228803"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "6ed166e7509ba899d8c4caf5548097e16dff9323"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "6fcba0630f7f1391077cad76229641d8afbe8dbb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "74a63eae2dacc766bc9ce616baaabab3672d42a0"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "fd89ef04816de75d014884938971b98c1319254d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "a8ef09c9b55f50eea1a654990ad8f91853c27591"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "aafb19e212a24420343781f7d36bca6e986735d5"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "bb9d9bf19b46c69241430032b3bd0cdc5a4a7307"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "94d09f30c9476d4eb6bd5d7dff98445dff39ef92"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "fb7ab825b87c936dc350120313761bb1034ae225"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "2016a6e644ce4a402a464911b91810c4072952b5"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "91f5b572496e2b82ae7b8f1cc6b2c764e5c2bb1d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "e50258a8ea501e1a028dd441b6ff77a103f54277"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "d0a46b4095af3091d9922164e59ceeece0d5af4f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "b048467ab2d3dbacf4f1f9c0ca102a3f29b9bd77"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "4daa679e7591989a4d11ab05cce02af269914deb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "868ffd84cfa453b64dd364c0da6b2b7e5ffb2a8c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "1e04cfe255c3da65d31b5068d4d030732c66c936"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "a12b7cf1b844ba31f0a816c8bead7bc3869627c6"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "5c82184569d87b2306a1e0fad16fa8d5a7aeb6cc"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "9ec9d347ebf21009d71c6fb7f1b836572503024c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "48d62954189ed212740953d1fdf7b767a03b6232"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "6b0cf3c6082e63b4beb2717c7fdea34c89f2cc81"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenFinishingPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "eef30e120c24e72a37b610006ccf257eaec73cec"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "3fc0eb24029599298b855622ad8ad2e26bea58b8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "1b8259467d87ecd733d207dfa990eec1542da9b2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "bfa819bb25e7fca17fcb9d71a739dcc9c94cad5a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "f2b1ed224f8a80116c441b8c219474b3a786845b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "04b436318e74e101cc55af67d44bb5b511b61af2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "156306a6d3a6b2d4c54c6eaf328ff5585eda48e6"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "0d4064c024d585a3c6c7ed3229c3105e9c1e9603"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "ba8fe7cba25465d3f00c02164250f0b002de70d0"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "d5aa82326c597aee18d6faf6227ac22e5131df8f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreparingPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "11aec9bb489d0eb1a1f9ac370fe8944ad7634e05"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "4e042ef0e2155deca7e251b6508d0a7b237d1372"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "6fce3d3c022e5c47d55fe485f7039f194afb1168"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "7f8f574c8ac58d8a4f7e54493cf9272c6e4bff2e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "6fc3c8926579b783d859f4e8bfad4f274c6cd849"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "72be683d481bcf25f424a8e5c75ff9aa72ac5d5d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "7303faf6b1a70ef43922ca2e623e5159118045d7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "33a50351d04dd247ef936cfbe767252f4e5e8994"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "6973e52f5b671a8a74c4cedf8a910e866addfc6f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "75b82f6ab6005f4d24cd9dc7b0df3286cddec390"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "d9e3ba22e68b941bf6c73e7f5d24d45e9a349836"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "2e36531233e81bbdefaf8cb7d2e0e3426727f523"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "d36a48bca02ac8bae2b2ce1e9fafc2d980c58991"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "de67c5094f745e540ef62be58d05152d1a6579bd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "90206063d6fd30d816610661f2df4e217044fbd8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "a42d0513d2fffa8ed1ab0c419705fa6117be405c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "81d926af1b9ca7196ed81b7e6970644c49fee997"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "ff098b5e58d11a4c15cd936aeb0dc58607994517"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "95606dd2be8f9c15352e98e3f31bcbb8b9df1b22"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "392f145400d7873532e685440e4786397032e233"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenRestoringPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "2a5aeb7d9610f873b881bb090fb7d11de5c9dc01"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "7b6021a892436ce83f9fb08c04e6de6f9888218a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "dd3afddaae1aa0c51fbb1462f4b186502c3b3165"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "b3c0080889b3d88564fba7cb4a27a3eed56f51c3"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "0c9617265388b3d1ba044bb82f73ed0642ca131b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "e8d6595afdb2b1afae2816864b344e7ed3ae875a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "4138931ba7dc1fbca776c431d13cbeeeae4ec954"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "58e8c86752d66a9754bd0740bf6c69004a0bb0d5"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "68e0cb73ab6ae42b07813d2759e86cd92b83f639"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "95ed497116fb22d1b754d788da4df4fba67668c4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "726ef513608f579d3e51aa751b3697f1ff06959e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "fc0eafc302f36ea4d3ab1ddeb1303a59c2961d9d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "35ab9552e795023b6993cc4798e5b3f39c64f015"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "9a83f2366d3e71a044bfe021933e366207e0ff8a"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "8e96a703c7e9bdd890ddc603aa63e7630cd95c6d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "816a929b07a345e9be89cade9fb4aa50c86df752"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "42cb7695b4ed9d8aface53290e787b4736143032"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "750ee6e85228d8f316f3a96bd9d8caee707a0ced"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "5e30ebd87153519232e578fa1e6b200d31f00c2f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/phonenumber/PhoneNumberScreenScreenshotTests/PhoneNumberScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "96efaf44593495acc159b05367621ec45ef86fcf"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "42944dda35d541ddf291438329ff5b80b9ae5518"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "1b37f26a6824930ba6bb215148f4b5cb5a768c58"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "01ee6edb9d7ef575e75c6613e7c0d7fa61cf771b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "b80b226de20346c7ce03f5c5a7ab57aa2bd64158"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "ef221c5dc6bc660c9fa5f30609ceed62100993a9"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "87e065220844c8ee4fefaf853ead325fddae55fd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "9715af019a9a4a7b899ea990c29da387f2e2d69b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "9956e00a7f1757b819db506e1edbdfb019dc6dd1"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pincreation/PinCreationScreenScreenshotTests/PinCreationScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "53281fb6e350dac0093eeb3f9900b5bb0fcf03dd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "fd4f9e1812b49b60968b7ccd465dbad5e8717314"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "4f3665e537ec8aee5b558933a94c3bacd0da9634"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "4bc8c474568d2af7141ea5b5639a39a35f238298"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "fe896013bb25a91e1d99539703e582d0e59d7f52"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "62e339d6ac1b54c27dbcc1a54aa2af21d85aabef"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "a395d66fe3014719ceb652e1ed997f9dc7451970"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "dffc9e80a16327da72931b5e43b69bba2da240f1"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "6728b37aa363bab28caf608af2bb60bd29004fa7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/pinentry/PinEntryScreenScreenshotTests/PinEntryScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "40eb59a473a3219f488e2d256c14cd1b98381f6d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "39d0fd70be6961d33e53dda2efed6db2350cb9e2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "5b50fff481cdd03f865658c39db41c6b61a20f58"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "e4e76d70846002c8518fe097806ae7769c11d336"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "0f2899aae43ef1a5a1d9dd997061cadc9cfac69c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "aa8fb7fff2600bbe08103524302935cbcdbda04d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "f360942edcfb4f096a3a955ff741ab7dff3a7926"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "83c1aa07aced7f24d5df891cd372a8b84606a770"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "29f56909bee034bfdc711a7d6c90d18923bf4fcb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "eb9e99d2091e20ddaf804eb335874bcbfe08b04f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/quickrestore/QuickRestoreQrScreenScreenshotTests/QuickRestoreQrScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "991136c48aa595a7de87237ae6361d77a7d425fc"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "917cff140a581aa3d5fe7c5d2f8fe71f164217e7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "2b55c06bf9e837abee327ebbf1aeda01623ac758"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "3256f2c6b508f0322051dacd46b30a856f68f7e9"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "6fc42a78527ca6243ba9f1903cb656a189eb651d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "2cda855adf5ba06dba9560e6a6a599adbd0dd0b2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "211a9fe50f0e952c12f7d2b26bb32cc088d80cfa"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "a230b5bbfeee2748f8f1ada988f12c12513ce795"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "ec8abd19e608818fd7e6c0c2f56deb524836a195"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/remotebackuprestore/RemoteRestoreScreenScreenshotTests/RemoteRestoreScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "6f9e99c6580419991c78545c71294e7e13b25a60"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "1e00a39cdf6244973b4d5705085183f1a31084f1"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "e5d4d24f8c72737c00a4fe74f100d927ce623d61"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "23e547c81ccba06df9a569cff42fa7f2dccbbdf0"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "60be937c664aed09e52e6beb7cdd1ed368ca08a7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "0de099792e09106acb3387a97bc5949656bf9295"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "310e436002dc8c950febc1a9fbed00b22e2db7b6"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "034747d1eed329bde7f764c936a93fb1fa4bf64e"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "87641202d7529d466c5c9d3fac9dc44e8e1b9aee"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/restoreselection/ArchiveRestoreSelectionScreenScreenshotTests/ArchiveRestoreSelectionScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "5f2b1e2b48e86090d08860693b4a196a64843d73"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "52812452b1602081d98a7a96345391f8f010ccce"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "a77496fd7f8d20a6fdd2463e7e1504c050a8b6f1"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "b042125155ca8adcb463a86ed3f7b3ddd4d3bcf7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "111a1dc72e2b3e6b7f1603f36c684c0c09234e5d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "7c72d568ae22add3cb338ac6c82d5c14cabbe942"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "78180fefa765703b093fdf6548d4154b1583267c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "bf730bbc6ad61e217e132a3cf0ab6367738eeb5c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "566eafeef1588148ed072410bacb698615f112d0"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "e13acb592e634b789f719f388a82ffc9cb095efa"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "86351ac52129baeda8bd2eeb530b9b03d154e3bb"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "2072e8d917c3dcae92f881efae0e73bc9a3f82ca"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "52e1b61489f325b72662f8ae1a9ec1a48eabb9ae"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "cfd20450a50c4737756bd138a8f899742787e06f"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "111a1dc72e2b3e6b7f1603f36c684c0c09234e5d"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "88c2eb1e2d19259520d1c4800aa3df21cedf963b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "f88cef193e7abc2c2c619b76c0efffd95b13a4e6"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "fbd313a73d701c94350ffe2f1718e45968a02ec2"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "ca6846a1e5437d99162469f90f32fd0732ac1e85"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "3eecff5170f9d34279495e59e26e093c1849a43c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/signallogincredentials/SignalLoginCredentialEntryScreenScreenshotTests/SignalLoginCredentialEntryScreenRevealedPreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "cafd5945b17590a303902cb4ebc2a98ac7f852f7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "e87ad9e422387471b1b64019fad78f35270cd22b"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "bf356b09499c9f08b61d3fbcef93853e8c7ed413"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "f597bb56729f0a47f328ee8683d76b3c0f52b2b4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "4a6e8c67534898a621819b600d752441fc4430e7"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "a81991dc5094e377c805258ed9dd0022c6c7e756"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "ea6204406b63800bbb10c2887c93cbe183323317"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "6518947ae4164a2355e2d06a06ead2cff6c78af4"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "e118b358cf03f29b44a03718be0fa28af0c1dd5c"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/verificationcode/VerificationCodeScreenScreenshotTests/VerificationCodeScreenPreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "a8917d1345575144e06e5741535424d146af9125"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenLinkedDevicePreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "0bfb858dc214ff756f68b19afd87fd0b1948eba5"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenLinkedDevicePreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "c60ef4b8c69d4bf6c2915a7525d907e27f76c1e0"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenLinkedDevicePreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "bfaf6d4a8edc5c8acc7fcf9f9d7e06487f2ec591"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenLinkedDevicePreview_tablet portrait (night)_4413f5b7_0.png",
+      "mode": "100644",
+      "blob": "48bf30ed12ce6c01c5cf9b5586511727de957a44"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable landscape (day)_41c0d57c_0.png",
+      "mode": "100644",
+      "blob": "78fd993805b27f10faa069a1e0956f66e7fa79fd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable portrait (day)_bf09cc79_0.png",
+      "mode": "100644",
+      "blob": "e676786b9937cf1034d782443fce44b8221f4928"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable portrait (night)_7382068f_0.png",
+      "mode": "100644",
+      "blob": "2ca6196d21b92bdfbfde337e1b45f2e51a971fee"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (day)_5d9eaff2_0.png",
+      "mode": "100644",
+      "blob": "7f84b193a256e18df593fa44854a5ae31bcd0af8"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone portrait (day)_e052ce8c_0.png",
+      "mode": "100644",
+      "blob": "6571544d7de6ec5b0c3dee2b0b5c3a703793b4fd"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone portrait (night)_cc3c9530_0.png",
+      "mode": "100644",
+      "blob": "0dedb230d798a150a05dffb751e63e37887bf073"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_rtl_5f2f3345_0.png",
+      "mode": "100644",
+      "blob": "d9389ec98e9f959ff91d1e66c020710ce36fadda"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (day)_308754cb_0.png",
+      "mode": "100644",
+      "blob": "d4d6b32aa14d3b709d12ca3d2de2b4c78a152c71"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (night)_d25401fe_0.png",
+      "mode": "100644",
+      "blob": "bc44546c2536effda90af5e6ca3b8d3833f70f49"
+    },
+    {
+      "path": "feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet portrait (day)_ae17fb11_0.png",
+      "mode": "100644",
+      "blob": "2cede58ad3512d16e83f2d96623d4077c14b9f24"
+    },
+    {
+      "path": "lib/spinner/build.gradle.kts",
+      "mode": "100644",
+      "blob": "ef3aa87f276f1d59e2b3eb843020aca025bee2d3"
+    },
+    {
+      "path": "lib/spinner/src/main/java/org/signal/spinner/SpinnerServer.kt",
+      "mode": "100644",
+      "blob": "da94bfc3eb85df36009760d93fb794c0afe97a8f"
+    },
+    {
+      "path": "microbenchmark/build.gradle.kts",
+      "mode": "100644",
+      "blob": "aea2edc2f2ce1024c83affc7fb544a5eba49f294"
+    }
+  ]
+}

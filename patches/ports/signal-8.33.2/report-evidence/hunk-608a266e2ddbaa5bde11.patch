@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..5bd09266c1 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -4780,7 +4780,7 @@
+     <string name="VoiceNotePlaybackPreparer__failed_to_play_voice_message">Failed to play voice message</string>
+ 
+     <!-- VoiceNoteMediaDescriptionCompatFactory -->
+-    <string name="VoiceNoteMediaItemFactory__voice_message">Voice message · %1$s</string>
++    <string name="VoiceNoteMediaItemFactory__voice_message">Voice message &#183; %1$s</string>
+     <!-- This is a title in a banner describing the conversation sender to receiver placeholders of the currently playing voice memo. -->
+     <string name="VoiceNoteMediaItemFactory__s_to_s">%1$s to %2$s</string>
+ 

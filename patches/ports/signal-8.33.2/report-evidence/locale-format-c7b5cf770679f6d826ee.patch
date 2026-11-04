@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-sk/strings.xml b/core/util/src/main/res/values-sk/strings.xml
+index 49754e933156c492d6bef2b3b9ff098d49418164..41894c3d7443748f27e4444a3ccbbd63dfd97d3b 100644
+--- a/core/util/src/main/res/values-sk/strings.xml
++++ b/core/util/src/main/res/values-sk/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Pozvať do Signalu</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

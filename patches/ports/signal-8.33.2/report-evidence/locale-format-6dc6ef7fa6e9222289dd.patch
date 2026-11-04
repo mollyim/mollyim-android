@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-zh-rHK/strings.xml b/core/util/src/main/res/values-zh-rHK/strings.xml
+index 95f4ca44184a4ba31ffb599d303ea702df808fe2..6f51c432cbe05bc77b901f482ce895e1b4b894c1 100644
+--- a/core/util/src/main/res/values-zh-rHK/strings.xml
++++ b/core/util/src/main/res/values-zh-rHK/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">邀請加入 Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

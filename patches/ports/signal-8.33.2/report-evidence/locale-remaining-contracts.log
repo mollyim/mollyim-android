@@ -1,0 +1,12 @@
+agent-heavy: all 2 slots busy, waiting:
+357982 01:08:02 ./gradlew --no-daemon --no-parallel --no-configuration-cache --max-workers=1 --dependency-verification=strict --init-script /var/home/x/agent-sc
+361383 01:11:24 /home/x/Dev/omni-mic/edda-venv/bin/python ts.py
+MARKER 2fcbd48f7e04b0b3dfb1 baseline rg exit 1 inverse rg exit 0 inverse output 750:>>>>>>> SIGNAL
+MARKER 6cf83bac075165093e80 baseline rg exit 1 inverse rg exit 0 inverse output 2690:>>>>>>> SIGNAL
+AAPT sha256 7f0587c898f8401986b9c32385fb25d1ecea1e9007907376215f30f99c4894a9 android.jar sha256 2981111371989ae7141868d6162070c89f0f1d505f66ac9dc7fdfd4d8c744264
+BRANDING 9e219bacc82afa4c3b39 DeprecatedNotificationJob_update_signal baseline compile=0 link=0 assert-current-Molly= PASS value= Molly 업데이트
+BRANDING 9e219bacc82afa4c3b39 DeprecatedNotificationJob_update_signal inverse compile=0 link=0 assert-current-Molly= FAIL value= Signal 업데이트
+BRANDING 2ba53a3a1f452b453e4a GroupLinkBottomSheet_share_via_signal baseline compile=0 link=0 assert-current-Molly= PASS value= Molly로 공유하기
+BRANDING 2ba53a3a1f452b453e4a GroupLinkBottomSheet_share_via_signal inverse compile=0 link=0 assert-current-Molly= FAIL value= Signal로 공유하기
+BRANDING 89596a0601c89ef6401b UpdateSignalExpiredDialog__title baseline compile=0 link=0 assert-current-Molly= PASS value= Molly 업데이트
+BRANDING 89596a0601c89ef6401b UpdateSignalExpiredDialog__title inverse compile=0 link=0 assert-current-Molly= FAIL value= Signal 업데이트

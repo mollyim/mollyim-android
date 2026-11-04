@@ -1,0 +1,15 @@
+diff --git a/app/src/main/res/navigation/app_settings_with_change_number.xml b/app/src/main/res/navigation/app_settings_with_change_number.xml
+index 4357f6ef91..2dc3468e0f 100644
+--- a/app/src/main/res/navigation/app_settings_with_change_number.xml
++++ b/app/src/main/res/navigation/app_settings_with_change_number.xml
+@@ -391,7 +391,9 @@
+         android:id="@+id/linkDeviceFragment"
+         android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceFragment"
+         android:label="link_device_fragment">
+-        <action android:id="@+id/action_linkDeviceFragment_to_linkDeviceIntroBottomSheet" app:destination="@id/linkDeviceIntroBottomSheet"/>
++        <action
++            android:id="@+id/action_linkDeviceFragment_to_linkDeviceIntroBottomSheet"
++            app:destination="@id/linkDeviceIntroBottomSheet" />
+         <action
+             android:id="@+id/action_linkDeviceFragment_to_editDeviceNameFragment"
+             app:destination="@id/editDeviceNameFragment"

@@ -1,0 +1,12 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..e265c3f609 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -1268,7 +1268,6 @@
+     <!-- Title for dialog asking user to submit logs for a situation where they\'re not able to connect to the signal service -->
+     <string name="PromptLogsSlowNotificationsDialog__title_connectivity_warning">You may not be receiving messages. Submit debug log?</string>
+ 
+-
+     <!-- Title for dialog asking user to submit logs for debugging slow notification issues -->
+     <string name="PromptBatterySaverBottomSheet__title">Notifications may be delayed due to battery optimizations</string>
+     <!-- Message explaining that battery saver may delay notifications -->

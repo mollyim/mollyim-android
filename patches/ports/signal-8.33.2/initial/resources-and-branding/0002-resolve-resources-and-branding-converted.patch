@@ -1,0 +1,158 @@
+From 0ed5be2b8dfe463eee6f4cc674674f300a06ee10 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 2
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 25 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-af/strings2.xml b/app/src/main/res/values-af/strings2.xml
+index c852c620259f7e88606407971cc6738fef1da418..1848cb9ab60dbcd01876fa1aaadee607a5a8207d 100644
+--- a/app/src/main/res/values-af/strings2.xml
++++ b/app/src/main/res/values-af/strings2.xml
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly is gesluit</string>
++    <string name="NotificationsSettingsFragment__notify_when">Stel in kennis wanneer…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play-dienste word bygewerk of is nie tydelik beskikbaar nie. Probeer asseblief weer.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ar/strings2.xml b/app/src/main/res/values-ar/strings2.xml
+index c1a849124908aee5bf157cc1736e51680c439b5f..b1cc14ef0674e1452ced71d8660b5e0209419f31 100644
+--- a/app/src/main/res/values-ar/strings2.xml
++++ b/app/src/main/res/values-ar/strings2.xml
+@@ -174,4 +174,6 @@
+     <string name="UnifiedPushNotificationBuilder__registration_failed">فشل التسجيل مع موزع الدفع الموحد(UnifiedPush) الخاص بك. قد يكون ذلك بسبب مشكلة في الشبكة أو متطلبات مفقودة من موزعك.</string>
+     <string name="UnifiedPushNotificationBuilder__this_is_a_test_notification">هذا إشعار تجريبي من خادم مولي سوكيت(MollySocket).</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">الإصدار المثبت من خدمات Google Play على هذا الجهاز قديم.</string>
++    <string name="NotificationsSettingsFragment__notify_when">أخبرني عند…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">جارٍ تحديث خدمات Google Play أو أنها غير موجودة مؤقتًا. حاوِل مرّة أخرى.</string>
+ </resources>
+diff --git a/app/src/main/res/values-az/strings2.xml b/app/src/main/res/values-az/strings2.xml
+index 919169fb639f0194152c0b6299e3d42f5ea6914f..24dede5878ceb88317df7c89df7cf57d4fcb7146 100644
+--- a/app/src/main/res/values-az/strings2.xml
++++ b/app/src/main/res/values-az/strings2.xml
+@@ -3,4 +3,6 @@
+     <string name="preferences__enable_debug_log">Düzəltmə girişini fəallaşdır</string>
+     <string name="AppProtectionPreferenceFragment_instant">Ani</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly kilidlənib</string>
++    <string name="NotificationsSettingsFragment__notify_when">Bildir…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Xidmətləri yenilənir və ya müvəqqəti olaraq əlçatmazdır. Zəhmət olmasa yenidən sınayın.</string>
+ </resources>
+diff --git a/app/src/main/res/values-be/strings2.xml b/app/src/main/res/values-be/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..5b5ee1ca0e2e13b5664d0efc2dec28851c6b460c
+--- /dev/null
++++ b/app/src/main/res/values-be/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="NotificationsSettingsFragment__notify_when">Апавяшчаць, калі…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Сэрвісы Google Play абнаўляюцца або часова недаступныя. Калі ласка, паўтарыце спробу.</string>
++</resources>
+diff --git a/app/src/main/res/values-bg/strings2.xml b/app/src/main/res/values-bg/strings2.xml
+index 1313d8ed002df47ac1d4c603f0829bbb0bc484b2..2fb77981dd555d3d5b09bfab55bbe2d896ed8123 100644
+--- a/app/src/main/res/values-bg/strings2.xml
++++ b/app/src/main/res/values-bg/strings2.xml
+@@ -19,4 +19,6 @@
+     <string name="preferences__passphrase_lock">Криптиране на база данни</string>
+     <string name="BlockUnblockDialog_block_and_delete">Блокиране и изтриване</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly е заключен</string>
++    <string name="NotificationsSettingsFragment__notify_when">Известявай когато…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services се обновяват или временно не са достъпни. Моля, опитайте отново.</string>
+ </resources>
+diff --git a/app/src/main/res/values-bn/strings2.xml b/app/src/main/res/values-bn/strings2.xml
+index 8acb7b6a2b1d4470d8a2d9f0d3f28e8efc8b5df9..2e3556ab4e25c56e29ab0b0be264458f6016299f 100644
+--- a/app/src/main/res/values-bn/strings2.xml
++++ b/app/src/main/res/values-bn/strings2.xml
+@@ -3,4 +3,6 @@
+     <string name="AppProtectionPreferenceFragment_instant">তাত্ক্ষনিক</string>
+     <string name="BlockUnblockDialog_block_and_delete">অবরুদ্ধ করুন এবং মুছুন</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly লক্ করা আছে</string>
++    <string name="NotificationsSettingsFragment__notify_when">জানান, যখন…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">গুগল প্লে পরিষেবাদি আপডেট করছে বা অস্থায়ীভাবে অনুপলব্ধ। অনুগ্রহপূর্বক আবার চেষ্টা করুন।</string>
+ </resources>
+diff --git a/app/src/main/res/values-bs/strings2.xml b/app/src/main/res/values-bs/strings2.xml
+index 16619db595b339463d7c72dc8205e9b0a428f833..fdb18bfcca74d6870d8e1d1ef76cb3a5545bd7c5 100644
+--- a/app/src/main/res/values-bs/strings2.xml
++++ b/app/src/main/res/values-bs/strings2.xml
+@@ -170,4 +170,6 @@
+     <string name="UnifiedPushSettingsFragment__mollysocket_server">MollySocket server</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Izolovan</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Instalirana verzija Google Play usluga na ovom uređaju je zastarjela.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Obavijesti kad…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se ažuriraju ili su privremeno nedostupni. Pokušajte ponovo.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ca/strings2.xml b/app/src/main/res/values-ca/strings2.xml
+index 520b692628dc51762364008a4200ef1507c60e8e..8b83955efbfc1d90bb7c3e4ba30f6079d1804634 100644
+--- a/app/src/main/res/values-ca/strings2.xml
++++ b/app/src/main/res/values-ca/strings2.xml
+@@ -119,4 +119,6 @@
+     <string name="DozeReminder_disable_battery_restrictions">Deshabilita les restriccions de la bateria</string>
+     <string name="preferences__follow_system">Mimetitza el sistema</string>
+     <string name="MollySocketLink_experienced_a_network_error_please_try_again">S\'ha produït un error de xarxa. Si us plau, torneu-ho a provar.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Notifica quan…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">El Google Play Services s\'està actualitzant o no està disponible. Torneu a provar-ho.</string>
+ </resources>
+diff --git a/app/src/main/res/values-cs/strings2.xml b/app/src/main/res/values-cs/strings2.xml
+index 5704a934c1788c95539ea3852cf875a638fcedfd..4e216fdd6176a6c974634f4a4eb2c69a8d3cfa50 100644
+--- a/app/src/main/res/values-cs/strings2.xml
++++ b/app/src/main/res/values-cs/strings2.xml
+@@ -170,4 +170,6 @@
+     <string name="UnifiedPushNotificationBuilder__registration_failed">Registrace s vaší doručovací službou UnitedPush selhala. Mohlo se tak stát z důvodu chyby sítě nebo chybějícího požadavku od doručovací služby.</string>
+     <string name="MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code">Zkuste naskenovat jiný obrázek obsahující QR kód MollySocket.</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Nainstalovaná verze Služeb Google Play na tomto zařízení je zastaralá.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Upozornit, když…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Služba Google Play se aktualizuje nebo je dočasně nedostupná. Zkuste to prosím znovu.</string>
+ </resources>
+diff --git a/app/src/main/res/values-da/strings2.xml b/app/src/main/res/values-da/strings2.xml
+index 7cffc0832078a49f6bb1a61dcb6bfc013d853fc1..4b1e3c8d4abb713316681c38cb8b45b4d1806c32 100644
+--- a/app/src/main/res/values-da/strings2.xml
++++ b/app/src/main/res/values-da/strings2.xml
+@@ -19,4 +19,6 @@
+     <string name="arrays__on_inactivity_timeout">Hvis du går et bestemt tidspunkt uden at låse din enhed op</string>
+     <string name="BlockUnblockDialog_block_and_delete">Blokér og slet</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly er låst</string>
++    <string name="NotificationsSettingsFragment__notify_when">Underret når …</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play-tjenester opdateres eller er midlertidigt utilgængelig. Prøv venligst igen.</string>
+ </resources>
+diff --git a/app/src/main/res/values-de/strings2.xml b/app/src/main/res/values-de/strings2.xml
+index a6833a732c646d644130f2977b98a550bf7227db..0cf6611e1bd3fe5dc6781ca39b5330fc7c492b97 100644
+--- a/app/src/main/res/values-de/strings2.xml
++++ b/app/src/main/res/values-de/strings2.xml
+@@ -170,4 +170,6 @@
+     <string name="preferences_appearance__dynamic_colors">Dynamische Farben</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Darstellung farblich an die Systemfarben anpassen</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Die auf diesem Gerät installierte Version der Google Play-Dienste ist veraltet.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Benachrichtigen, wenn …</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google-Play-Dienste werden aktualisiert oder sind vorübergehend nicht verfügbar. Bitte versuche es erneut.</string>
+ </resources>
+diff --git a/app/src/main/res/values-el/strings2.xml b/app/src/main/res/values-el/strings2.xml
+index 68f8712221dcd54e9dd29a55c35e977ff127dab9..de811ea111b159bdf22ec1bc6e3fcada3fc1a3a2 100644
+--- a/app/src/main/res/values-el/strings2.xml
++++ b/app/src/main/res/values-el/strings2.xml
+@@ -168,4 +168,6 @@
+     <string name="preferences_appearance__dynamic_colors">Δυναμικά Χρώματα</string>
+     <string name="UnifiedPushNotificationBuilder__registration_failed">Η εγγραφή με τον διανομέα UnifiedPush απέτυχε. Αυτό θα μπορούσε να οφείλεται σε ένα ζήτημα δικτύου ή σε μια αγνοούμενη απαίτηση από τον διανομέα σου.</string>
+     <string name="MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code">Προσπάθησε να σαρώσεις μια άλλη εικόνα που περιέχει έναν κωδικό MollySocket QR.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Να ειδοποιούμαι όταν…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Οι υπηρεσίες Google Play αναβαθμίζονται ή είναι προσωρινά μη διαθέσιμες. Παρακαλώ ξαναπροσπάθησε.</string>
+ </resources>

@@ -1,0 +1,261 @@
+From 6e7161ab6bac415d2654892df492183ed8a93d68 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port registration-and-linking to Signal 8.33.2, part 2
+
+Adapt Molly registration and Android linked-device policies to the new Signal registration architecture.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 35 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/feature/registration/src/main/res/values-ro/strings2.xml b/feature/registration/src/main/res/values-ro/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..4efe2dfd3e0bd9b52c490b8eb023febd966bb23d
+--- /dev/null
++++ b/feature/registration/src/main/res/values-ro/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Reglări rețea</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-ru/strings2.xml b/feature/registration/src/main/res/values-ru/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..467e86fced2bf5037a305f78ff11d0f65f59cde3
+--- /dev/null
++++ b/feature/registration/src/main/res/values-ru/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Настройки сети</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-sr/strings2.xml b/feature/registration/src/main/res/values-sr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b12c2e356faf5388ec30089659e8677248f029a3
+--- /dev/null
++++ b/feature/registration/src/main/res/values-sr/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Подешавања мреже</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-sv/strings2.xml b/feature/registration/src/main/res/values-sv/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..bfd845cbfde9190186832cbe89800fc973ca0ffe
+--- /dev/null
++++ b/feature/registration/src/main/res/values-sv/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Nätverksinställningar</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-ta/strings2.xml b/feature/registration/src/main/res/values-ta/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..1d4c4c02152f7cc626e3b88386e5d798ee18beac
+--- /dev/null
++++ b/feature/registration/src/main/res/values-ta/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">பிணைய அமைப்புகள்</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-tr/strings2.xml b/feature/registration/src/main/res/values-tr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..7677b041b72ab2ee888f4771616471777a814643
+--- /dev/null
++++ b/feature/registration/src/main/res/values-tr/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Ağ ayarları</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-ug/strings2.xml b/feature/registration/src/main/res/values-ug/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..e9a57bfbfcd5712e041fb2ee6f38658acd2b9ef1
+--- /dev/null
++++ b/feature/registration/src/main/res/values-ug/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">تور تەڭشىكى</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-uk/strings2.xml b/feature/registration/src/main/res/values-uk/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..302c3c1d3a2ea40e34c2f9b36b517040d2400369
+--- /dev/null
++++ b/feature/registration/src/main/res/values-uk/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Налаштування мережі</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-vi/strings2.xml b/feature/registration/src/main/res/values-vi/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..d2e4b87ee2e44aa4d2ea99199d7798aad73f5389
+--- /dev/null
++++ b/feature/registration/src/main/res/values-vi/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Cài đặt mạng</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-zh-rCN/strings2.xml b/feature/registration/src/main/res/values-zh-rCN/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..710b7e0765e68e5fa026ce1208edfe062ecc7061
+--- /dev/null
++++ b/feature/registration/src/main/res/values-zh-rCN/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">网络设置</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values-zh-rTW/strings2.xml b/feature/registration/src/main/res/values-zh-rTW/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..c400b95e1c2b9fddbbc916ad3818d9a79340ccb5
+--- /dev/null
++++ b/feature/registration/src/main/res/values-zh-rTW/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">網絡設定</string>
++</resources>
+diff --git a/feature/registration/src/main/res/values/strings.xml b/feature/registration/src/main/res/values/strings.xml
+index 67174115a3993d6a4fc002f1357b1f4d169604c7..8c6aa1c3ea86ffba5cb8bcac8a6cdf34d62bf3c2 100644
+--- a/feature/registration/src/main/res/values/strings.xml
++++ b/feature/registration/src/main/res/values/strings.xml
+@@ -144,7 +144,7 @@
+     <!-- Row title for restore/transfer without using a previous device -->
+     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">I don\'t have my old phone</string>
+     <!-- Row subtitle for restore/transfer without using a previous device -->
+-    <string name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Signal on the same device</string>
++    <string name="WelcomeFragment_restore_action_reinstalling" mollyify="true">Or you\'re reinstalling Molly on the same device</string>
+ 
+     <!-- ArchiveRestoreSelectionScreen -->
+     <!-- Title text for the archive restore selection screen -->
+diff --git a/feature/registration/src/main/res/values/strings2.xml b/feature/registration/src/main/res/values/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..197ad4c94ebebee072c67ef22ad3228c9b640057
+--- /dev/null
++++ b/feature/registration/src/main/res/values/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="RegistrationActivity_network_settings">Network settings</string>
++</resources>
+diff --git a/feature/registration/src/test/java/org/signal/registration/RegistrationRepositoryTest.kt b/feature/registration/src/test/java/org/signal/registration/RegistrationRepositoryTest.kt
+index 8882ff7d389900659a227baa691fdc83e5364800..c8a44f561ea59fa6234cfa84a1c3dcb74aa7f2f4 100644
+--- a/feature/registration/src/test/java/org/signal/registration/RegistrationRepositoryTest.kt
++++ b/feature/registration/src/test/java/org/signal/registration/RegistrationRepositoryTest.kt
+@@ -16,6 +16,8 @@ import assertk.assertions.isNull
+ import assertk.assertions.isTrue
+ import io.mockk.mockk
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
++import kotlinx.coroutines.flow.emptyFlow
++import kotlinx.coroutines.flow.toList
+ import kotlinx.coroutines.test.runTest
+ import okio.ByteString.Companion.toByteString
+ import org.junit.Before
+@@ -80,6 +82,32 @@ class RegistrationRepositoryTest {
+     )
+   }
+ 
++  @Test
++  fun `a fresh registration does not enable network before the user proceeds`() {
++    assertThat(networkController.networkEnabledForRegistration).isEqualTo(false)
++  }
++
++  @Test
++  fun `linking enables network before provisioning and does not advertise disabled transfer`() = runTest {
++    networkController.onStartLinkDeviceProvisioning = { allowLinkAndSync ->
++      assertThat(networkController.networkEnabledForRegistration).isEqualTo(true)
++      assertThat(allowLinkAndSync).isEqualTo(false)
++      emptyFlow()
++    }
++
++    repository.startLinkDeviceProvisioning().toList()
++  }
++
++  @Test
++  fun `quick restore enables network before starting its provisioning connection`() = runTest {
++    networkController.onStartProvisioning = {
++      assertThat(networkController.networkEnabledForRegistration).isEqualTo(true)
++      emptyFlow()
++    }
++
++    repository.startProvisioning().toList()
++  }
++
+   // ==================== getAndMaybeHealRemoteBackupInfo ====================
+ 
+   @Test
+diff --git a/feature/registration/src/test/java/org/signal/registration/fakes/FakeNetworkController.kt b/feature/registration/src/test/java/org/signal/registration/fakes/FakeNetworkController.kt
+index aeed7dc3a650649c2d7d70d36b57c534ec95c996..231f062c8c9365448c1bd8a0b0142bdf9921ee5c 100644
+--- a/feature/registration/src/test/java/org/signal/registration/fakes/FakeNetworkController.kt
++++ b/feature/registration/src/test/java/org/signal/registration/fakes/FakeNetworkController.kt
+@@ -500,7 +500,14 @@ class FakeNetworkController(
+     return onStartProvisioning()
+   }
+ 
+-  override fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<LinkDeviceProvisioningEvent> = notExpected()
++  var networkEnabledForRegistration = false
++  var onStartLinkDeviceProvisioning: (Boolean) -> Flow<LinkDeviceProvisioningEvent> = { notExpected() }
++
++  override fun enableNetworkForRegistration() {
++    networkEnabledForRegistration = true
++  }
++
++  override fun startLinkDeviceProvisioning(allowLinkAndSync: Boolean): Flow<LinkDeviceProvisioningEvent> = onStartLinkDeviceProvisioning(allowLinkAndSync)
+ 
+   override suspend fun registerAsLinkedDevice(
+     aci: ACI,
+diff --git a/feature/registration/src/test/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryViewModelTest.kt b/feature/registration/src/test/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryViewModelTest.kt
+index af05ac27b8b5c2ad543d9350d6826c639af34e70..402635c50290e90ee9747702a95071202d419fed 100644
+--- a/feature/registration/src/test/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryViewModelTest.kt
++++ b/feature/registration/src/test/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryViewModelTest.kt
+@@ -19,6 +19,7 @@ import io.mockk.coEvery
+ import io.mockk.coVerify
+ import io.mockk.every
+ import io.mockk.mockk
++import io.mockk.verify
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.ExperimentalCoroutinesApi
+ import kotlinx.coroutines.flow.MutableStateFlow
+@@ -526,6 +527,15 @@ class PhoneNumberEntryViewModelTest {
+   // ==================== Trunk Prefix Normalization Tests ====================
+ 
+   @Test
++  fun `entering a number and opening confirmation leave networking disabled`() = runTest {
++    val initialState = PhoneNumberEntryState(countryCode = "1", nationalNumber = "2025550123")
++
++    viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.NextClicked, parentEventEmitter, stateEmitter)
++
++    verify(exactly = 0) { mockRepository.enableNetworkForRegistration() }
++  }
++
++  @Test
+   fun `NextClicked strips a redundant leading trunk prefix before showing the confirmation dialog`() = runTest {
+     // Dutch users habitually type their number with the leading national '0' (e.g. 0612345678), which must not end
+     // up in the E164 (+31612345678, not +310612345678).
+@@ -584,6 +594,7 @@ class PhoneNumberEntryViewModelTest {
+ 
+     viewModel.applyEvent(initialState, PhoneNumberEntryScreenEvents.PhoneNumberConfirmed, parentEventEmitter, stateEmitter)
+ 
++    verify(exactly = 1) { mockRepository.enableNetworkForRegistration() }
+     coVerify(exactly = 1) { mockRepository.createSession("+31612345678") }
+     assertThat(emittedStates.last().nationalNumber).isEqualTo("612345678")
+     assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.E164Chosen>())

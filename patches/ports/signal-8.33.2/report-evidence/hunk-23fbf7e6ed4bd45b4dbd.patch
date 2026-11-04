@@ -1,0 +1,18 @@
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+@@ -36,9 +36,12 @@
+       }
+     }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+ 
+-    EventBus.getDefault().subscribe(NetworkAvailableEvent.class, ThreadMode.MAIN, event -> {
+-      if (NetworkConstraint.isMet(application)) {
+-        notifier.onConstraintMet(REASON);
++    EventBus.getDefault().register(new Object() {
++      @Subscribe(threadMode = ThreadMode.MAIN)
++      public void onNetworkReadyEvent(@NonNull NetworkAvailableEvent event) {
++        if (NetworkConstraint.isMet(application)) {
++          notifier.onConstraintMet(REASON);
++        }
+       }
+     });
+   }

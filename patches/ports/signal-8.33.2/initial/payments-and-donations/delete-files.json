@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "033e8df2879a3901d3f1ec33f663e1086f542acf",
+  "after_tree": "b60f980333b0cb31e8a761d0c2b28688ca2650cd",
+  "files": [
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/jobs/InAppPaymentGiftSendJob.kt",
+      "mode": "100644",
+      "blob": "d6ba70efe2a348fe6d7e6c14f5f44f3f7ab5eedf"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/jobs/PaymentNotificationSendJobV2.kt",
+      "mode": "100644",
+      "blob": "ef4e9eefcf970f71e78b7652c0125495f1766e48"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/jobs/PaymentSendJob.java",
+      "mode": "100644",
+      "blob": "a8858a423def34dbda6430203fc5d4cb5acf22a4"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/Payee.java",
+      "mode": "100644",
+      "blob": "86b796ee5a94d2fd1fad16b458e395bd3d19ea80"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/Payments.java",
+      "mode": "100644",
+      "blob": "1c5e74a0f37b41345ffca454c9db0b1784b50d59"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/PaymentsRecoveryPasteFragment.java",
+      "mode": "100644",
+      "blob": "bef67de75af8b77bee7d324c313933f45b7c1c22"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/PaymentsRecoveryStartFragment.java",
+      "mode": "100644",
+      "blob": "e51558d8d299faa826d3c4eca04d594851d05ba1"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/confirm/PaymentsRecoveryPhraseConfirmFragment.java",
+      "mode": "100644",
+      "blob": "b19cb2b83ad68346c8d22d8eb0dd706f9aeb4ed9"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/entry/PaymentsRecoveryEntryFragment.java",
+      "mode": "100644",
+      "blob": "1a0296d52c37bdf251b25ce6940daf8833fa8505"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/phrase/MnemonicPartAdapter.java",
+      "mode": "100644",
+      "blob": "1dbcbc224c23d046a2f3bab1b5af43c7daa6fd59"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/backup/phrase/PaymentsRecoveryPhraseFragment.java",
+      "mode": "100644",
+      "blob": "4111221ecbb12c3f6dd83ba743c7a3b87e5a62c9"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/confirm/ConfirmPaymentAdapter.java",
+      "mode": "100644",
+      "blob": "3e7db5816c4ff05049895459c842c1d768887dd0"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/confirm/ConfirmPaymentFragment.java",
+      "mode": "100644",
+      "blob": "d3bf1019df3c270230a90120e151931d8287ad85"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/confirm/ConfirmPaymentRepository.java",
+      "mode": "100644",
+      "blob": "f9f5946014c02fead5f2009d970ea4c1a17aecdc"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/create/CreatePaymentFragment.java",
+      "mode": "100644",
+      "blob": "afa9dff1effa2249f35e4d80f0ad09c1d3f3c50a"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/create/EditNoteFragment.java",
+      "mode": "100644",
+      "blob": "1354016b37c4ed71c191db0e60ec33164c712878"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/deactivate/DeactivateWalletFragment.java",
+      "mode": "100644",
+      "blob": "930204bb389f29c8030ec35a15dbd83003ff9f5d"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/PaymentRecipientSelectionFragment.java",
+      "mode": "100644",
+      "blob": "b61605b1c906219e0fd6afa426f0d84380f2c7d7"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/PaymentsAllActivityFragment.java",
+      "mode": "100644",
+      "blob": "75248bc404fed0091674dbcf0ed1bee0aeb3aa9c"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/PaymentsHomeFragment.java",
+      "mode": "100644",
+      "blob": "142956c3e9084d09fb94e6c1cac8584a92153725"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/PaymentsPagerItemFragment.java",
+      "mode": "100644",
+      "blob": "564d7a2264bbdab9461a1921e9b5dccc15af0edd"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/SetCurrencyFragment.java",
+      "mode": "100644",
+      "blob": "a06f9747437c6c8088f7481557aee8dc401d4e31"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/addmoney/PaymentsAddMoneyFragment.java",
+      "mode": "100644",
+      "blob": "3b2d954bc7b291586fa0ad45b56f0200db0517b3"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/details/PaymentDetailsFragment.java",
+      "mode": "100644",
+      "blob": "4a152db19ff6c1816fcd177ba8322778454fc456"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/model/InfoCard.java",
+      "mode": "100644",
+      "blob": "26688cd637920dea6213d0e4e4405468afcd48af"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/model/PayeeParcelable.java",
+      "mode": "100644",
+      "blob": "aaffd6ac68a9b1f3bad696a63aa26b54e237f80c"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/model/PaymentItem.java",
+      "mode": "100644",
+      "blob": "d3e13b63e14636bc2ca6bf0835b3bb8f86369cfa"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/transfer/PaymentsTransferFragment.java",
+      "mode": "100644",
+      "blob": "7618475bc7f8e31a0992f9810d312bd09176a0a7"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/preferences/viewholder/PaymentItemViewHolder.java",
+      "mode": "100644",
+      "blob": "0630287fe10f0ce4cf53052fad8e7c605a18d071"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/payments/securitysetup/PaymentsSecuritySetupFragment.kt",
+      "mode": "100644",
+      "blob": "170a0c767fdec866b51b87641a1b76838d87d221"
+    },
+    {
+      "path": "app/src/test/java/org/thoughtcrime/securesms/payments/reconciliation/LedgerReconcileTest.java",
+      "mode": "100644",
+      "blob": "0dd6ba0048c580d53c1c439b25d5cd49ebbee395"
+    },
+    {
+      "path": "lib/billing/src/main/java/org/signal/billing/BillingApiImpl.kt",
+      "mode": "100644",
+      "blob": "7a96246e18dcc52006408a499dd47eb807baeb41"
+    },
+    {
+      "path": "lib/billing/src/main/java/org/signal/billing/BillingClientConnection.kt",
+      "mode": "100644",
+      "blob": "b55d401d2da697996b0e03e5debcfa6a682243cf"
+    },
+    {
+      "path": "lib/billing/src/main/java/org/signal/billing/BillingFactory.kt",
+      "mode": "100644",
+      "blob": "8510fef5493fea28f63ff054dcf9e1dee99d06a4"
+    },
+    {
+      "path": "lib/billing/src/main/java/org/signal/billing/OneTimePurchaseApiImpl.kt",
+      "mode": "100644",
+      "blob": "946ff6bea8fa88cd82639b55be7c5824fbdaa4e4"
+    }
+  ]
+}

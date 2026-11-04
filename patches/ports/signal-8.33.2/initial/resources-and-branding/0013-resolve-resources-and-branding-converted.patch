@@ -1,0 +1,189 @@
+From 42fae3cb1728ca3c24761b7c468409228ff79ed4 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 13
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 77 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/feature/app-settings/src/main/res/values-vi/strings2.xml b/feature/app-settings/src/main/res/values-vi/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..fd29cd84ba7f6a67a71a145ad29624011cd11b0c
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-vi/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_zen">Thiền</string>
++    <string name="app_icon_label_moon">Mặt trăng</string>
++    <string name="app_icon_label_music">Âm nhạc</string>
++    <string name="preferences_appearance__navigation_bar">Thanh điều hướng</string>
++    <string name="preferences_appearance__dynamic_colors">Màu linh động</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Sử dụng màu của hệ thống cho giao diện ứng dụng</string>
++<string name="preferences__enable_debug_log">Bật chế độ ghi lỗi</string>
++    <string name="HelpSettingsFragment__molly_im_website">Trang chủ Molly.im</string>
++<string name="preferences__never">Không bao giờ</string>
++    <string name="preferences__autoupdate_molly">Tự động cập nhật Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Kiểm tra định kỳ và hỏi để cài đặt các bản cập nhật mới</string>
++    <string name="preferences__include_beta_updates">Bảo gồm các bản cập nhật beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Các phiên bản beta chỉ nên được dùng cho mục đính thử nghiệm và có thể phát sinh lỗi</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Để cập nhật, kiểm tra cửa hành ứng dụng của bạn. Phiên bản này không bảo gồm trình cập nhật.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Kiểm tra cập nhật</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Lần cuối kiểm tra: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-yue/strings2.xml b/feature/app-settings/src/main/res/values-yue/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..d599d3587742d0d5114a5f2d08be95cba6913a22
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-yue/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">唔使喇</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-zh-rCN/strings2.xml b/feature/app-settings/src/main/res/values-zh-rCN/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..1ac828171eec65c1d4f6b36c0e85db55953364dd
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-zh-rCN/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">导航栏</string>
++    <string name="app_icon_label_zen">禅</string>
++    <string name="app_icon_label_moon">月亮</string>
++    <string name="app_icon_label_music">音乐</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">应用主题使用系统颜色</string>
++    <string name="preferences_appearance__dynamic_colors">动态颜色</string>
++<string name="preferences__enable_debug_log">启用调试日志</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im 网站</string>
++<string name="preferences__never">永不</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期检查新版本并请求安装它们</string>
++    <string name="preferences__autoupdate_molly">自动更新Molly</string>
++    <string name="preferences__include_beta_updates">包括测试版更新</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta 版本用于测试目的，可能包含 bug</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">检查更新</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">更新应用请查询你的应用商店。此版本不含应用内更新器。</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">上次检查：%s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-zh-rHK/strings2.xml b/feature/app-settings/src/main/res/values-zh-rHK/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..ba82e9eda93adb008cc74e2473729f070cb7eadd
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-zh-rHK/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">永不</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-zh-rTW/strings2.xml b/feature/app-settings/src/main/res/values-zh-rTW/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..4ad92e12646a9430ca70c07c782b1c6400fe324c
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-zh-rTW/strings2.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">啟用除錯日誌</string>
++<string name="preferences__never">永不</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期檢查新版本並要求安裝它們</string>
++    <string name="preferences__autoupdate_molly">自動更新Molly</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values/strings.xml b/feature/app-settings/src/main/res/values/strings.xml
+index d258886301b2537a6e5afb374e3e3aea553b1b60..ae683503ed245e16d71bf7c19b3c92980527a12c 100644
+--- a/feature/app-settings/src/main/res/values/strings.xml
++++ b/feature/app-settings/src/main/res/values/strings.xml
+@@ -505,7 +505,7 @@
+     <!-- Text shown with toggle that when switched on will enable screen lock -->
+     <string name="ScreenLockSettingsFragment__use_screen_lock">Use screen lock</string>
+     <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+-    <string name="ScreenLockSettingsFragment__your_android_device">Your Android device lock settings will be required to unlock Signal when you leave or switch apps. When locked, notification previews will not show message content.</string>
++    <string name="ScreenLockSettingsFragment__your_android_device" mollyify="true">Your Android device lock settings will be required to unlock Molly when you leave or switch apps. When locked, notification previews will not show message content.</string>
+     <!-- Title text explaining when users should start the screen lock -->
+     <string name="ScreenLockSettingsFragment__start_screen_lock">Start screen lock</string>
+     <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+@@ -517,9 +517,9 @@
+     <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+     <string name="ScreenLockSettingsFragment__custom_time">Custom time</string>
+     <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+-    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Use Signal screen lock</string>
++    <string name="ScreenLockSettingsFragment__use_signal_screen_lock" mollyify="true">Use Molly screen lock</string>
+     <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+-    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Turn off Signal screen lock</string>
++    <string name="ScreenLockSettingsFragment__turn_off_signal_lock" mollyify="true">Turn off Molly screen lock</string>
+ 
+     <!-- HelpSettingsFragment -->
+     <string name="preferences__help">Help</string>
+@@ -532,7 +532,7 @@
+     <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+     <string name="HelpSettingsFragment__licenses">Licenses</string>
+     <string name="HelpSettingsFragment__terms_amp_privacy_policy">Terms &amp; Privacy Policy</string>
+-    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
++    <string name="HelpFragment__copyright_signal_messenger" mollyify="true">Copyright Molly Messenger</string>
+     <string name="HelpFragment__licenced_under_the_agplv3">Licensed under the GNU AGPLv3</string>
+     <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
+     <string name="HelpSettingsFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit</string>
+@@ -541,7 +541,7 @@
+     <!-- Visible warning label for the limitations of changing the app icon. -->
+     <string name="preferences__app_icon_warning">App icons and names are visible on the home screen and app drawer.</string>
+     <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+-    <string name="preferences__app_icon_notification_warning">Notifications will always display the default Signal icon and name.</string>
++    <string name="preferences__app_icon_notification_warning" mollyify="true">Notifications will always display the default Molly icon and name.</string>
+     <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+     <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Graphic illustrating where the replacement app icon will be visible.</string>
+ 
+@@ -561,9 +561,9 @@
+     <!-- Title for the confirmation dialog of changing the app icon. -->
+     <string name="preferences__app_icon_dialog_title">Change app icon and name to \"%1$s\"</string>
+     <!-- Description for the confirmation dialog of changing the app icon. -->
+-    <string name="preferences__app_icon_dialog_description">Signal will need to close to change the app icon and name. Notifications will always display the default Signal icon and name.</string>
++    <string name="preferences__app_icon_dialog_description" mollyify="true">Molly will need to close to change the app icon and name. Notifications will always display the default Molly icon and name.</string>
+     <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+-    <string name="preferences__app_icon_warning_learn_more">Select an app icon and name, which will be visible on your phone\'s home screen and app drawer. Notifications will always display the default Signal icon and name. Learn\u00A0more</string>
++    <string name="preferences__app_icon_warning_learn_more" mollyify="true">Select an app icon and name, which will be visible on your phone\'s home screen and app drawer. Notifications will always display the default Molly icon and name. Learn\u00A0more</string>
+     <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+     <string name="preferences__app_icon_learn_more">Learn\u00A0more</string>
+ 
+diff --git a/feature/app-settings/src/main/res/values/strings2.xml b/feature/app-settings/src/main/res/values/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..181349299f20a26473f78f87f36ab50b0d0b544d
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Moon</string>
++    <string name="app_icon_label_music">Music</string>
++    <string name="preferences_appearance__navigation_bar">Navigation bar</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamic Colors</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Use system colors for the app\'s theme</string>
++<string name="preferences__enable_debug_log">Enable debug log</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im website</string>
++<string name="preferences__never">Never</string>
++    <string name="preferences__autoupdate_molly">Auto-update Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodically check for new releases and ask to install them</string>
++    <string name="preferences__include_beta_updates">Include beta updates</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta versions are intended for testing purposes and may contain bugs</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">For updates, please check your app store. This version does not include an in-app updater.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Check for updates</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Last checked: %s</string>
++</resources>

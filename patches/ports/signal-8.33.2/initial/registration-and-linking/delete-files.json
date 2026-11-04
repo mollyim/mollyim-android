@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "ac7f0307fe389e475a3290b06cee6b82a3fedcdc",
+  "after_tree": "104aaecffdc802a09883204fd51619f772f7872e",
+  "files": [
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/sms/SmsRetrieverReceiver.java",
+      "mode": "100644",
+      "blob": "d55ba99c77c4ba97f07b896d38257ea3016c218a"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/permissions/GrantPermissionsFragment.kt",
+      "mode": "100644",
+      "blob": "0974394ad24f227f958d1faee013cbd12dae5c9f"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberFragment.kt",
+      "mode": "100644",
+      "blob": "de6e5996bca8a9cb528c82845f26699f3c615395"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberState.kt",
+      "mode": "100644",
+      "blob": "4af3c46ab5d8c672ffe38a7bd1ce673ed9a47dd3"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RemoteRestoreActivity.kt",
+      "mode": "100644",
+      "blob": "5f0c81f8c9979f215ea5c9f497ae120172d086fc"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RestoreViaQrFragment.kt",
+      "mode": "100644",
+      "blob": "0c7d1f3d37cc8683fef51e7134e1136eedf328ff"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/local/RestoreLocalBackupActivity.kt",
+      "mode": "100644",
+      "blob": "3147fb8e46a48b333a4fb04a6edf8a58b138dda4"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/registration/ui/welcome/WelcomeFragment.kt",
+      "mode": "100644",
+      "blob": "09cec68de5305ec1072d67c53c188ae279aeb407"
+    },
+    {
+      "path": "feature/registration/src/main/java/org/signal/registration/util/RegistrationCredentialManager.kt",
+      "mode": "100644",
+      "blob": "ae30605a17d17ff3fec5b677f23a715dfd910d98"
+    }
+  ]
+}

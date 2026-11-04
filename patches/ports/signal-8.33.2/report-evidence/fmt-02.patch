@@ -1,0 +1,61 @@
+--- a/app/src/main/res/layout/blocked_users_adapter_item.xml
++++ b/app/src/main/res/layout/blocked_users_adapter_item.xml
+@@ -1,12 +1,53 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" tools:viewBindingIgnore="true" android:layout_width="match_parent" android:layout_height="?attr/listPreferredItemHeight" android:background="?attr/selectableItemBackground">
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:layout_width="match_parent"
++    android:layout_height="?attr/listPreferredItemHeight"
++    android:background="?attr/selectableItemBackground">
+ 
+-    <org.thoughtcrime.securesms.components.AvatarImageView android:id="@+id/avatar" android:layout_width="48dp" android:layout_height="48dp" android:layout_marginStart="16dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
++    <org.thoughtcrime.securesms.components.AvatarImageView
++        android:id="@+id/avatar"
++        android:layout_width="48dp"
++        android:layout_height="48dp"
++        android:layout_marginStart="16dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent" />
+ 
+-    <TextView android:id="@+id/display_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textAppearance="@style/TextAppearance.AppCompat.Body1" app:layout_constraintBottom_toTopOf="@id/username" app:layout_constraintStart_toEndOf="@id/avatar" app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_chainStyle="packed" tools:text="Aadam"/>
++    <TextView
++        android:id="@+id/display_name"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="8dp"
++        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
++        app:layout_constraintBottom_toTopOf="@id/username"
++        app:layout_constraintStart_toEndOf="@id/avatar"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_chainStyle="packed"
++        tools:text="Aadam" />
+ 
+-    <TextView android:id="@+id/username" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Signal.Body2" android:textColor="?attr/signal_text_secondary" app:layout_constraintBottom_toTopOf="@id/blocked_at" app:layout_constraintStart_toStartOf="@id/display_name" app:layout_constraintTop_toBottomOf="@id/display_name" tools:text="1 234 567 8901"/>
++    <TextView
++        android:id="@+id/username"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textAppearance="@style/TextAppearance.Signal.Body2"
++        android:textColor="?attr/signal_text_secondary"
++        app:layout_constraintBottom_toTopOf="@id/blocked_at"
++        app:layout_constraintStart_toStartOf="@id/display_name"
++        app:layout_constraintTop_toBottomOf="@id/display_name"
++        tools:text="1 234 567 8901" />
+ 
+-    <TextView android:id="@+id/blocked_at" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.Signal.Body2" android:textColor="?attr/signal_text_secondary" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="@id/display_name" app:layout_constraintTop_toBottomOf="@id/username" tools:text="Blocked on Aug 5, 12:30pm"/>
++    <TextView
++        android:id="@+id/blocked_at"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:textAppearance="@style/TextAppearance.Signal.Body2"
++        android:textColor="?attr/signal_text_secondary"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintStart_toStartOf="@id/display_name"
++        app:layout_constraintTop_toBottomOf="@id/username"
++        tools:text="Blocked on Aug 5, 12:30pm" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>

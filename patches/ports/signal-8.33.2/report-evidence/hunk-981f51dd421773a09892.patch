@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
+index 5fe4fd1e47..c48215ed4a 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
+@@ -14,6 +14,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.jobs.ApkUpdateJob;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
+ import org.thoughtcrime.securesms.service.PersistentAlarmManagerListener;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ 
+ import java.util.concurrent.TimeUnit;
+ 

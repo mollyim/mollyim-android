@@ -1,0 +1,20 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..4fbc9ebcd8 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -113,14 +113,12 @@
+     <!-- Alert dialog description asking for location permission -->
+     <string mollyify="true" name="AttachmentManager_signal_allow_signal_access_location">Allow Molly access to send your location.</string>
+     <!-- Toast text explaining Signal\'s need for location access -->
+-    <string mollyify="true" name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string>
+-    <!-- Dialog title asking users for gallery storage permission -->
++    <string mollyify="true" name="AttachmentManager_signal_needs_location_access">Molly needs location access to send your location.</string><!-- Dialog title asking users for gallery storage permission -->
+     <string name="AttachmentManager_signal_allow_storage">Allow access to storage</string>
+     <!-- Dialog description that will explain the steps needed to give gallery storage permission -->
+     <string name="AttachmentManager_signal_to_show_photos">To show photos and videos:</string>
+     <!-- Toast text explaining Signal\'s need for storage access -->
+     <string mollyify="true" name="AttachmentManager_signal_needs_storage_access">Molly needs access to show your photos and videos.</string>
+-
+     <!-- Alert dialog title to show the recipient has not activated payments -->
+     <string name="AttachmentManager__not_activated_payments">%1$s hasn\'t activated Payments </string>
+     <!-- Alert dialog description to send the recipient a request to activate payments -->

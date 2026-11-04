@@ -1,0 +1,25 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupExporter.java b/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupExporter.java
+index e1330d6feb..ec70462130 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupExporter.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupExporter.java
+@@ -86,6 +86,7 @@ public class FullBackupExporter extends FullBackupBase {
+   private static final long TABLE_RECORD_COUNT_MULTIPLIER    = 3L;
+   private static final long IDENTITY_KEY_BACKUP_RECORD_COUNT = 2L;
+   private static final long FINAL_MESSAGE_COUNT              = 1L;
++  private static final long EXPIRATION_BACKUP_THRESHOLD      = TimeUnit.DAYS.toMillis(1);
+ 
+   /**
+    * Tables in list will still have their *schema* exported (so the tables will be created),
+@@ -636,8 +637,10 @@ public class FullBackupExporter extends FullBackupBase {
+       }
+     }
+ 
+-    // Molly excludes every message whose disappearing-message timer has started, regardless of time remaining.
+-    return expiresIn <= 0 || expireStarted <= 0;
++    long expiresAt     = expireStarted + expiresIn;
++    long timeRemaining = expiresAt - System.currentTimeMillis();
++
++    return !(expireStarted > 0 && timeRemaining <= EXPIRATION_BACKUP_THRESHOLD);
+   }
+ 
+   private static boolean isForNonExpiringMessage(@NonNull SQLiteDatabase db, long messageId) {

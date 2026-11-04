@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+index 67a515ff99..f2480e01ff 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+@@ -87,6 +87,7 @@ import org.signal.core.ui.compose.split.rememberListDetailPaneMetrics
+ import org.signal.core.ui.compose.systemBarsCompat
+ import org.signal.core.ui.compose.theme.SignalTheme
+ import org.signal.core.ui.compose.theme.colorAttribute
++import org.signal.core.ui.navigation.TransitionSpecs
+ import org.signal.core.ui.permissions.Permissions
+ import org.signal.core.ui.rememberIsSplitPane
+ import org.signal.core.ui.viewModel

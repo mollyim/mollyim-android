@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/mediasend/v3/MediaSendV3ForwardFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/mediasend/v3/MediaSendV3ForwardFragment.kt
+index 1c07abc58a..90f1358f80 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/mediasend/v3/MediaSendV3ForwardFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/mediasend/v3/MediaSendV3ForwardFragment.kt
+@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.mediasend.v3
+ import android.net.Uri
+ import android.os.Bundle
+ import android.view.View
++import android.view.ViewGroup
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.height

@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/layout/conversation_input_panel.xml b/app/src/main/res/layout/conversation_input_panel.xml
+index 0a74ec2d6f..efc19c4d61 100644
+--- a/app/src/main/res/layout/conversation_input_panel.xml
++++ b/app/src/main/res/layout/conversation_input_panel.xml
+@@ -158,7 +158,7 @@
+             android:paddingVertical="8dp"
+             tools:hint="Send TextSecure message">
+ 
+-            <requestFocus/>
++            <requestFocus />
+         </org.thoughtcrime.securesms.components.ComposeText>
+ 
+     </FrameLayout>

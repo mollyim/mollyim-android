@@ -1,0 +1,14 @@
+diff --git a/app/src/main/res/layout/conversation_list_item_view.xml b/app/src/main/res/layout/conversation_list_item_view.xml
+index a8d9eaca92..1c50865e8c 100644
+--- a/app/src/main/res/layout/conversation_list_item_view.xml
++++ b/app/src/main/res/layout/conversation_list_item_view.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <org.thoughtcrime.securesms.conversationlist.ConversationListItem xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+     tools:viewBindingIgnore="true"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:animateLayoutChanges="true"

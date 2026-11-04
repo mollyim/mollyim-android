@@ -1,0 +1,14 @@
+diff --git a/app/src/main/res/layout/conversation_item_update.xml b/app/src/main/res/layout/conversation_item_update.xml
+index e499b8f310..821bf6170d 100644
+--- a/app/src/main/res/layout/conversation_item_update.xml
++++ b/app/src/main/res/layout/conversation_item_update.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <org.thoughtcrime.securesms.conversation.ConversationUpdateItem
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+     tools:viewBindingIgnore="true"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/conversation_update_item"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"

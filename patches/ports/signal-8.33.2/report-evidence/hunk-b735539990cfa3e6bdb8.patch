@@ -1,0 +1,26 @@
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+index 5980b9cd3f..be4becdd68 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+@@ -65,21 +64,11 @@ import org.whispersystems.signalservice.api.push.exceptions.SubmitVerificationCo
+ import org.whispersystems.signalservice.api.push.exceptions.TokenNotAcceptedException;
+ import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserException;
+ import org.whispersystems.signalservice.api.registration.RestoreMethodBody;
+-import org.whispersystems.signalservice.api.svr.Svr3Credentials;
+ import org.whispersystems.signalservice.api.util.CredentialsProvider;
+-<<<<<<< MOLLY
+-import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
+-import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
+-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
+-import org.whispersystems.signalservice.internal.configuration.SignalUrl;
+-=======
+ import org.signal.network.util.Tls12SocketFactory;
+-import org.signal.network.util.TlsProxySocketFactory;
+ import org.signal.network.config.SignalCdnUrl;
+-import org.signal.network.config.SignalProxy;
+ import org.signal.network.config.SignalServiceConfiguration;
+ import org.signal.network.config.SignalUrl;
+->>>>>>> SIGNAL
+ import org.whispersystems.signalservice.internal.crypto.AttachmentDigest;
+ import org.whispersystems.signalservice.internal.push.exceptions.ForbiddenException;
+ import org.whispersystems.signalservice.internal.push.exceptions.GroupExistsException;

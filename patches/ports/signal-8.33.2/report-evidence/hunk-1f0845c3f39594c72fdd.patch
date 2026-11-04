@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/navigation/app_settings_with_change_number.xml b/app/src/main/res/navigation/app_settings_with_change_number.xml
+index 4357f6ef91..efb6b33792 100644
+--- a/app/src/main/res/navigation/app_settings_with_change_number.xml
++++ b/app/src/main/res/navigation/app_settings_with_change_number.xml
+@@ -337,7 +337,7 @@
+         android:label="linked_device_account_settings_fragment"
+         tools:layout="@layout/dsl_settings_fragment" />
+ 
+-    <include app:graph="@navigation/app_settings_change_number"/>
++    <include app:graph="@navigation/app_settings_change_number" />
+ 
+     <fragment
+         android:id="@+id/advancedPinSettingsFragment"

@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-sl/strings.xml b/core/util/src/main/res/values-sl/strings.xml
+index 3a18c25b9e343957e054ac6e0261b2a3c1fc72dd..b47f1db4d643d2c0c0634395b24b6458cfe9cf3d 100644
+--- a/core/util/src/main/res/values-sl/strings.xml
++++ b/core/util/src/main/res/values-sl/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Povabi v Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

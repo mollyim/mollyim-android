@@ -1,0 +1,76 @@
+--- a/app/src/main/res/layout/conversation_item_update.xml
++++ b/app/src/main/res/layout/conversation_item_update.xml
+@@ -1,15 +1,67 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.conversation.ConversationUpdateItem xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" tools:viewBindingIgnore="true" android:id="@+id/conversation_update_item" android:layout_width="match_parent" android:layout_height="wrap_content" android:focusable="true" android:paddingStart="24dp" android:paddingEnd="24dp">
++<org.thoughtcrime.securesms.conversation.ConversationUpdateItem
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:id="@+id/conversation_update_item"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:focusable="true"
++    android:paddingStart="24dp"
++    android:paddingEnd="24dp">
+ 
+-    <LinearLayout android:id="@+id/conversation_update_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:orientation="vertical" android:gravity="center">
++    <LinearLayout
++        android:id="@+id/conversation_update_background"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_gravity="center"
++        android:orientation="vertical"
++        android:gravity="center">
+ 
+-        <androidx.appcompat.widget.AppCompatButton android:id="@+id/conversation_update_collapsed" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="0dp" android:paddingVertical="6dp" android:textSize="13sp" android:background="@drawable/rounded_rectangle_38" android:paddingHorizontal="12dp" android:textColor="?attr/colorOnSurfaceVariant" android:textAllCaps="false" style="?android:attr/borderlessButtonStyle" android:backgroundTint="?attr/colorSurfaceContainerLow" tools:text="12 group updates"/>
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/conversation_update_collapsed"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:minHeight="0dp"
++            android:paddingVertical="6dp"
++            android:textSize="13sp"
++            android:background="@drawable/rounded_rectangle_38"
++            android:paddingHorizontal="12dp"
++            android:textColor="?attr/colorOnSurfaceVariant"
++            android:textAllCaps="false"
++            style="?android:attr/borderlessButtonStyle"
++            android:backgroundTint="?attr/colorSurfaceContainerLow"
++            tools:text="12 group updates" />
+ 
+-        <LinearLayout android:id="@+id/conversation_update_body_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:orientation="vertical" android:paddingHorizontal="12dp" android:gravity="center">
++        <LinearLayout
++            android:id="@+id/conversation_update_body_background"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_gravity="center"
++            android:orientation="vertical"
++            android:paddingHorizontal="12dp"
++            android:gravity="center" >
+ 
+-            <org.thoughtcrime.securesms.components.emoji.EmojiTextView android:id="@+id/conversation_update_body" style="@style/Signal.Text.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center" android:includeFontPadding="false" android:textColor="?attr/conversation_item_update_text_color" android:textDirection="locale" tools:text="Gwen Stacy set the disappearing message timer to 1 hour"/>
++            <org.thoughtcrime.securesms.components.emoji.EmojiTextView
++                android:id="@+id/conversation_update_body"
++                style="@style/Signal.Text.BodySmall"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:gravity="center"
++                android:includeFontPadding="false"
++                android:textColor="?attr/conversation_item_update_text_color"
++                android:textDirection="locale"
++                tools:text="Gwen Stacy set the disappearing message timer to 1 hour" />
+ 
+-            <com.google.android.material.button.MaterialButton android:id="@+id/conversation_update_action" style="@style/Widget.Signal.Button.Small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:visibility="gone" tools:text="Learn more" tools:visibility="visible"/>
++            <com.google.android.material.button.MaterialButton
++                android:id="@+id/conversation_update_action"
++                style="@style/Widget.Signal.Button.Small"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginTop="8dp"
++                android:visibility="gone"
++                tools:text="Learn more"
++                tools:visibility="visible" />
+ 
+         </LinearLayout>
+ 

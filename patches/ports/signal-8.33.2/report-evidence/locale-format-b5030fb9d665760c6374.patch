@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-bn/strings.xml b/core/util/src/main/res/values-bn/strings.xml
+index 5533992077c68c723156142cd96ccd91cd5bac51..f2850acb961001a90c974351d0cc531ffdcfd3da 100644
+--- a/core/util/src/main/res/values-bn/strings.xml
++++ b/core/util/src/main/res/values-bn/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Signal এ আমন্ত্রন জানান</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

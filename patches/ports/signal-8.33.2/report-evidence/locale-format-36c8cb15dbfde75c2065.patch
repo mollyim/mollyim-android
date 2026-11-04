@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-ga/strings.xml b/core/util/src/main/res/values-ga/strings.xml
+index 91e4606bd570979c011538f7371ae6f0c2f3b2ff..19ad069fbd9e1f1df1c1735a58e5048be35c05f3 100644
+--- a/core/util/src/main/res/values-ga/strings.xml
++++ b/core/util/src/main/res/values-ga/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Tabhair cuireadh chuig Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

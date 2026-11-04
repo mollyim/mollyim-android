@@ -1,0 +1,104 @@
+From c6f9b2ca46703f62d9139767ef1c461d970ba7b7 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 5
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 13 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-km/strings2.xml b/app/src/main/res/values-km/strings2.xml
+index 03cf046835d87b25dccbbcf2017e7e53fb0f20cf..7eeb790d7c44495d12a979fcafbe4d3647550819 100644
+--- a/app/src/main/res/values-km/strings2.xml
++++ b/app/src/main/res/values-km/strings2.xml
+@@ -4,4 +4,6 @@
+     <string name="AppProtectionPreferenceFragment_instant">ភ្លាមៗ</string>
+     <string name="BlockUnblockDialog_block_and_delete">ហាមឃាត់ និងលុបចោល</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly ជាប់សោរ</string>
++    <string name="NotificationsSettingsFragment__notify_when">ជូនដំណឹងនៅពេល</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services កំពុងធ្វើបច្ចុប្បន្នភាព ឬមិនអាចប្រើបានជាបណ្តោះអាសន្ន។ សូមព្យាយាមម្តងទៀត។</string>
+ </resources>
+diff --git a/app/src/main/res/values-kn/strings2.xml b/app/src/main/res/values-kn/strings2.xml
+index 5a8f011323a1422249750f35ede6e2e296560eda..30af5cdbaf921d65f55a6f8c3cccf5e9616ba612 100644
+--- a/app/src/main/res/values-kn/strings2.xml
++++ b/app/src/main/res/values-kn/strings2.xml
+@@ -2,4 +2,6 @@
+ <resources>
+     <string name="BlockUnblockDialog_block_and_delete">ನಿರ್ಬಂಧಿಸಿ ಮತ್ತು ಅಳಿಸಿ</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly ಅನ್‌‌ಲಾಕ್ ಆಗಿದೆ</string>
++    <string name="NotificationsSettingsFragment__notify_when">ಈ ಸಮಯದಲ್ಲಿ ನನಗೆ ತಿಳಿಸಿ…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google ಪ್ಲೇ ಸರ್ವೀಸಸ್ ಅಪ್‌ಡೇಟ್ ಆಗುತ್ತಿದೆ ಅಥವಾ ತಾತ್ಕಾಲಿಕವಾಗಿ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ko/strings2.xml b/app/src/main/res/values-ko/strings2.xml
+index 8aa361429fe7eda6f2362f91381f5f88a98b8728..e29a74080bbd1f29d176a26e5fd803803a0bbc16 100644
+--- a/app/src/main/res/values-ko/strings2.xml
++++ b/app/src/main/res/values-ko/strings2.xml
+@@ -148,4 +148,6 @@
+     <string name="UnifiedPushSettingsFragment__tap_to_copy_to_clipboard">클립보드에 복사하기</string>
+     <string name="UnifiedPushSettingsFragment__status_summary_missing_endpoint">UnifedPush 배포자 응답을 기다리는 중입니다</string>
+     <string name="UnifiedPushSettingsFragment__status_summary_bad_response">서버의 잘못된 응답</string>
++    <string name="NotificationsSettingsFragment__notify_when">다음 경우에 알림</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services가 업데이트 중이거나 잠시 제공되지 않고 있습니다. 다시 시도해 주세요.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ky/strings2.xml b/app/src/main/res/values-ky/strings2.xml
+index afcfab7b8a1a0e5bcff190f6590c57b46356d1a9..50cbfb9206581bf01aa7156d186ac26501766388 100644
+--- a/app/src/main/res/values-ky/strings2.xml
++++ b/app/src/main/res/values-ky/strings2.xml
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly кулпуланган</string>
++    <string name="NotificationsSettingsFragment__notify_when">Качан эскертме жөнөтүү керек…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play кызматтары жаңыртылууда же убактылуу иштебей жатат. Сураныч, дагы бир жолу аракет кылып көрүңүз.</string>
+ </resources>
+diff --git a/app/src/main/res/values-lt/strings2.xml b/app/src/main/res/values-lt/strings2.xml
+index c9a31c61ec2f4f84a019f9c6bd8ced8e7389e486..8bf886ca43c682dbeb8b152fce0593607c691cee 100644
+--- a/app/src/main/res/values-lt/strings2.xml
++++ b/app/src/main/res/values-lt/strings2.xml
+@@ -90,4 +90,6 @@
+     <string name="preferences_appearance__navigation_bar">Navigacijos juosta</string>
+     <string name="preferences_appearance__show_calls">Rodyti skambučius</string>
+     <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">Perjungti, jei norite rodyti arba slėpti piktogramą naršymo juostoje</string>
++    <string name="NotificationsSettingsFragment__notify_when">Pranešti, kai…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">„Google Play“ paslaugos yra atnaujinamos arba laikinai neprieinamos. Prašome bandyti dar kartą.</string>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-lv/strings2.xml b/app/src/main/res/values-lv/strings2.xml
+index c8fb08ae9e1b1ad982860e7b609cfe14ed7f4468..362abadffb2d3714633f08846db72e3963668840 100644
+--- a/app/src/main/res/values-lv/strings2.xml
++++ b/app/src/main/res/values-lv/strings2.xml
+@@ -170,4 +170,6 @@
+     <string name="preferences_appearance__dynamic_colors">Pielāgojošas krāsas</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Lietotnes izskatā izmantot sistēmas krāsas</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Šajā ierīcē uzstādīto Google Play pakalpojumu versija ir novecojusi.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Paziņot, kad…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play pakalpojumi tiek aktualizēti vai īslaicīgi nav pieejami. Lūdzu, mēģiniet vēlreiz.</string>
+ </resources>
+diff --git a/app/src/main/res/values-mk/strings2.xml b/app/src/main/res/values-mk/strings2.xml
+index e0ee5694d1f918fa3461201d68225586625e6dfb..45878c7c7a8b2994ae09da329ac43c7c28a079db 100644
+--- a/app/src/main/res/values-mk/strings2.xml
++++ b/app/src/main/res/values-mk/strings2.xml
+@@ -3,4 +3,6 @@
+     <string name="preferences__enable_debug_log">Овозможете листа за отстранување грешки</string>
+     <string name="BlockUnblockDialog_block_and_delete">Блокирај и избриши</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly е заклучен</string>
++    <string name="NotificationsSettingsFragment__notify_when">Извести кога…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play услугите се ажурираат или привремено се недостапни. Ве молиме обидете се повторно.</string>
+ </resources>

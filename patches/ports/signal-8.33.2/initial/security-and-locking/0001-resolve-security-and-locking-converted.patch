@@ -1,0 +1,188 @@
+From 0c016f19d8a38f5a53ce0255970346e00b70f87a Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port security-and-locking to Signal 8.33.2, part 1
+
+Integrate encrypted preferences, secret handling and lock-aware application behavior with the updated Signal classes.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 8 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/PassphraseCreateActivity.java b/app/src/main/java/org/thoughtcrime/securesms/PassphraseCreateActivity.java
+index 54dc9b7b45fe3faf78f5f7169345d3220d86f2dd..3a20b9beb1eb90fb2232b4b6e54ed480eaa56889 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/PassphraseCreateActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/PassphraseCreateActivity.java
+@@ -49,42 +49,6 @@ public class PassphraseCreateActivity extends PassphraseActivity {
+     initializeResources();
+   }
+ 
+-<<<<<<< MOLLY
+-=======
+-  private void initializeResources() {
+-    new SecretGenerator().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, MasterSecretUtil.UNENCRYPTED_PASSPHRASE);
+-  }
+-
+-  private class SecretGenerator extends AsyncTask<String, Void, Void> {
+-    private MasterSecret   masterSecret;
+-
+-    @Override
+-    protected void onPreExecute() {
+-    }
+-
+-    @Override
+-    protected Void doInBackground(String... params) {
+-      String passphrase = params[0];
+-      masterSecret      = MasterSecretUtil.generateMasterSecret(PassphraseCreateActivity.this,
+-                                                                passphrase);
+-
+-      MasterSecretUtil.generateAsymmetricMasterSecret(PassphraseCreateActivity.this, masterSecret);
+-      SignalStore.account().generateAciIdentityKeyIfNecessary();
+-      if (SignalStore.account().getPni() != null) {
+-        SignalStore.account().generatePniIdentityKeyIfNecessary();
+-      }
+-      VersionTracker.updateLastSeenVersion();
+-
+-      return null;
+-    }
+-
+-    @Override
+-    protected void onPostExecute(Void param) {
+-      setMasterSecret(masterSecret);
+-    }
+-  }
+-
+->>>>>>> SIGNAL
+   @Override
+   public boolean useScreenLock() {
+     return false;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/PassphrasePromptActivity.java b/app/src/main/java/org/thoughtcrime/securesms/PassphrasePromptActivity.java
+index fb01d6d69b17e4b4c3ae5c11be2cce4daa7c162b..a5728d6c6c5d2373815eef3e269dddcf2bc56e55 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/PassphrasePromptActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/PassphrasePromptActivity.java
+@@ -45,7 +45,6 @@ import androidx.annotation.Nullable;
+ 
+ import org.signal.core.util.ServiceUtil;
+ import org.signal.core.util.ThreadUtil;
+-import org.signal.core.ui.biometrics.BiometricDeviceAuthentication;
+ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.biometric.BiometricDialogFragment;
+ import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
+@@ -238,25 +237,11 @@ public class PassphrasePromptActivity extends PassphraseActivity {
+ 
+   private void initializeResources() {
+     passphraseAuthContainer = findViewById(R.id.password_auth_container);
+-<<<<<<< MOLLY
+     headerText              = findViewById(R.id.header_text);
+     passphraseLayout        = findViewById(R.id.passphrase_layout);
+     passphraseInput         = findViewById(R.id.passphrase_input);
+     okButton                = findViewById(R.id.ok_button);
+     successView             = findViewById(R.id.success);
+-=======
+-    unlockView              = findViewById(R.id.unlock_view);
+-    lockScreenButton        = findViewById(R.id.lock_screen_button);
+-    learnMoreText           = findViewById(R.id.learn_more_text);
+-    biometricManager        = BiometricManager.from(this);
+-    biometricPrompt         = new BiometricPrompt(this, new BiometricAuthenticationListener());
+-    BiometricPrompt.PromptInfo biometricPromptInfo = BiometricDeviceAuthentication.createPromptInfoBuilder()
+-                                                                                  .setTitle(getString(R.string.PassphrasePromptActivity_unlock_signal))
+-                                                                                  .build();
+-    biometricAuth = new BiometricDeviceAuthentication(biometricManager, biometricPrompt, biometricPromptInfo);
+-    setSupportActionBar(toolbar);
+-    getSupportActionBar().setTitle("");
+->>>>>>> SIGNAL
+ 
+     SpannableString hint = new SpannableString(getString(R.string.PassphrasePromptActivity_enter_passphrase));
+     hint.setSpan(new RelativeSizeSpan(0.9f), 0, hint.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/PassphraseRequiredActivity.java b/app/src/main/java/org/thoughtcrime/securesms/PassphraseRequiredActivity.java
+index 3ba3792aa845b582400b959314238cde4b9b09d8..78bc218b154a1bcc2136faa587d88f07c6ffcd21 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/PassphraseRequiredActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/PassphraseRequiredActivity.java
+@@ -14,7 +14,7 @@ import org.signal.core.util.AppForegroundObserver;
+ import org.signal.core.util.eventbus.EventBus;
+ import org.signal.core.util.logging.Log;
+ import org.signal.devicetransfer.TransferStatus;
+-import org.signal.registration.RegistrationActivity;
++import org.thoughtcrime.securesms.registration.ui.RegistrationActivity;
+ import org.signal.registration.RegistrationRoute;
+ import org.thoughtcrime.securesms.clockskew.ClockSkewActivity;
+ import org.thoughtcrime.securesms.clockskew.ClockSkewDetector;
+@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.recipients.Recipient;
+ import org.thoughtcrime.securesms.registration.ui.RegistrationIntents;
+ import org.thoughtcrime.securesms.service.KeyCachingService;
+ import org.thoughtcrime.securesms.util.AppStartup;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ 
+ public abstract class PassphraseRequiredActivity extends PassphraseActivity implements MasterSecretListener {
+   private static final String TAG = Log.tag(PassphraseRequiredActivity.class);
+@@ -76,6 +77,9 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
+   }
+ 
+   protected void onPreCreate() {}
++
++  /** Registration hosts still require the local passphrase, but own their registration navigation. */
++  protected boolean isRegistrationFlow() { return false; }
+   protected void onCreate(Bundle savedInstanceState, boolean ready) {}
+ 
+   @Override
+@@ -130,6 +134,8 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
+       return STATE_PROMPT_PASSPHRASE;
+     } else if (ApplicationMigrations.isUpdate(this) && ApplicationMigrations.isUiBlockingMigrationRunning()) {
+       return STATE_UI_BLOCKING_UPGRADE;
++    } else if (isRegistrationFlow()) {
++      return STATE_NORMAL;
+     } else if (!SignalStore.registration().getHasPromptedPushRegistration()) {
+       return STATE_WELCOME_PUSH_SCREEN;
+     } else if (shouldResumeLinkingRegistration()) {
+@@ -171,7 +177,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
+ 
+   /**
+    * The registration module owns every step of the flow until it marks registration complete, including the steps that
+-   * happen after the account itself is registered (restore, PIN). If we come back to a cold start in the middle of that, 
++   * happen after the account itself is registered (restore, PIN). If we come back to a cold start in the middle of that,
+    * hand the user back to the registration module.
+    */
+   private boolean shouldResumeRegistration() {
+@@ -201,14 +207,7 @@ public abstract class PassphraseRequiredActivity extends PassphraseActivity impl
+   }
+ 
+   private Intent getUiBlockingUpgradeIntent() {
+-<<<<<<< MOLLY
+     return getRoutedIntent(ApplicationMigrationActivity.class, MainActivity.clearTop(this));
+-=======
+-    return getRoutedIntent(ApplicationMigrationActivity.class,
+-                           SignalStore.registration().getHasPromptedPushRegistration()
+-                               ? getConversationListIntent()
+-                               : getPushRegistrationIntent());
+->>>>>>> SIGNAL
+   }
+ 
+   private Intent getPushRegistrationIntent() {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java b/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
+index 5cae6c1f89370db040884ffc5c2a3a5874c9e64f..fc504d32cccb2d6d7b4a1b024634f1049a786be0 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
+@@ -17,7 +17,7 @@ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.MainActivity;
+ import org.thoughtcrime.securesms.R;
+ import org.thoughtcrime.securesms.gcm.FcmFetchManager;
+-import org.thoughtcrime.securesms.jobs.ForegroundServiceUtil;
++import org.signal.core.util.ForegroundServiceUtil;
+ import org.thoughtcrime.securesms.notifications.NotificationChannels;
+ import org.thoughtcrime.securesms.util.WakeLockUtil;
+ 

@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/glide/ChunkedImageUrlLoader.java b/app/src/main/java/org/thoughtcrime/securesms/glide/ChunkedImageUrlLoader.java
+index c8f0f5e527..aa549b8d6b 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/glide/ChunkedImageUrlLoader.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/glide/ChunkedImageUrlLoader.java
+@@ -13,6 +13,7 @@ import org.thoughtcrime.securesms.giph.model.ChunkedImageUrl;
+ import org.thoughtcrime.securesms.net.ContentProxySafetyInterceptor;
+ import org.thoughtcrime.securesms.net.ContentProxySelector;
+ import org.thoughtcrime.securesms.net.Networking;
++import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+ 
+ import java.io.InputStream;
+ 

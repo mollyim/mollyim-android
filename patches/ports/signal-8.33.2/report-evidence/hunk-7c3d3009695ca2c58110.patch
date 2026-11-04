@@ -1,0 +1,14 @@
+diff --git a/core/util/src/main/java/org/signal/core/util/logging/AndroidLogger.kt b/core/util/src/main/java/org/signal/core/util/logging/AndroidLogger.kt
+index b1f56e285a..ab98fa2504 100644
+--- a/core/util/src/main/java/org/signal/core/util/logging/AndroidLogger.kt
++++ b/core/util/src/main/java/org/signal/core/util/logging/AndroidLogger.kt
+@@ -39,8 +39,7 @@ object AndroidLogger : Log.Logger() {
+   @get:WorkerThread
+   val logcatDump: CharSequence?
+     get() = runCatching {
+-      // Some OEM builds log a View message for every draw pass.
+-      val process = Runtime.getRuntime().exec(arrayOf("logcat", "-d", "View:S", "*:V"))
++      val process = Runtime.getRuntime().exec("logcat -d")
+       val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+       val log = StringBuilder()
+       val separator = System.lineSeparator()

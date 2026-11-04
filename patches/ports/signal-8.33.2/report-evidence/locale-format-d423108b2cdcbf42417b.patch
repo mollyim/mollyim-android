@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-lv/strings.xml b/core/util/src/main/res/values-lv/strings.xml
+index 71ca2f35dc7c5a7fb0ad3f6325b3f7e7df2328b3..7ac013066bcf6f06232fb3f396a66b0080e50fc3 100644
+--- a/core/util/src/main/res/values-lv/strings.xml
++++ b/core/util/src/main/res/values-lv/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Uzaicināt uz Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

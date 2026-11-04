@@ -1,0 +1,13 @@
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/backup/FullBackupExporterTest.kt b/app/src/test/java/org/thoughtcrime/securesms/backup/FullBackupExporterTest.kt
+index 971059b776..154847d2fe 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/backup/FullBackupExporterTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/backup/FullBackupExporterTest.kt
+@@ -14,7 +14,7 @@ class FullBackupExporterTest {
+ 
+   @Test
+   fun `started disappearing messages are excluded even with substantial time remaining`() {
+-    val row = messageCursor(id = 1, expiresIn = 86_400_000L, expireStarted = System.currentTimeMillis())
++    val row = messageCursor(id = 1, expiresIn = 7 * 86_400_000L, expireStarted = System.currentTimeMillis())
+ 
+     assertFalse(FullBackupExporter.isNonExpiringMessage(mockk(), row))
+   }

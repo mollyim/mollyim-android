@@ -1,0 +1,59 @@
+AAPT2 Android Asset Packaging Tool (aapt) 2.20-15978811 sha256 7f0587c898f8401986b9c32385fb25d1ecea1e9007907376215f30f99c4894a9
+ANDROID_JAR /home/x/Android/Sdk/platforms/android-36.1/android.jar sha256 2981111371989ae7141868d6162070c89f0f1d505f66ac9dc7fdfd4d8c744264
+
+CASE baseline
+Binary APK
+Package name=org.example.localeprobe id=7f
+  type string id=01 entryCount=1
+    resource 0x7f010000 string/please_wait
+      () "Please wait…"
+      (be) "Пачакайце, калі ласка…"
+      (af) "Wag asseblief…"
+      (ar) "يُرجى الانتظار…"
+      (az) "Zəhmət olmasa gözləyin…"
+
+
+CASE af
+Binary APK
+Package name=org.example.localeprobe id=7f
+  type string id=01 entryCount=1
+    resource 0x7f010000 string/please_wait
+      () "Please wait…"
+      (be) "Пачакайце, калі ласка…"
+      (ar) "يُرجى الانتظار…"
+      (az) "Zəhmət olmasa gözləyin…"
+
+
+CASE ar
+Binary APK
+Package name=org.example.localeprobe id=7f
+  type string id=01 entryCount=1
+    resource 0x7f010000 string/please_wait
+      () "Please wait…"
+      (be) "Пачакайце, калі ласка…"
+      (af) "Wag asseblief…"
+      (az) "Zəhmət olmasa gözləyin…"
+
+
+CASE az
+Binary APK
+Package name=org.example.localeprobe id=7f
+  type string id=01 entryCount=1
+    resource 0x7f010000 string/please_wait
+      () "Please wait…"
+      (be) "Пачакайце, калі ласка…"
+      (af) "Wag asseblief…"
+      (ar) "يُرجى الانتظار…"
+
+
+CASE be
+Binary APK
+Package name=org.example.localeprobe id=7f
+  type string id=01 entryCount=1
+    resource 0x7f010000 string/please_wait
+      () "Please wait…"
+      (af) "Wag asseblief…"
+      (ar) "يُرجى الانتظار…"
+      (az) "Zəhmət olmasa gözləyin…"
+
+ASSERTIONS: exact old Molly/default values preserved in baseline; each counterfactual loses only the selected locale value; default remains

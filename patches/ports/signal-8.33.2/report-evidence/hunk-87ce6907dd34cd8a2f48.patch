@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/push/SignalServiceNetworkAccess.kt b/app/src/main/java/org/thoughtcrime/securesms/push/SignalServiceNetworkAccess.kt
+index 2ce6c1db09..a07d65ec8e 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/push/SignalServiceNetworkAccess.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/push/SignalServiceNetworkAccess.kt
+@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor
+ import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
+ import org.thoughtcrime.securesms.net.StorageServiceSizeLoggingInterceptor
+ import java.io.IOException
++import java.util.Optional
+ import kotlin.time.Duration.Companion.minutes
+ 
+ /**

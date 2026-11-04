@@ -1,0 +1,1947 @@
+From 78152f4f132937be25ede2dde86975d1f5524235 Mon Sep 17 00:00:00 2001
+From: 0cwa <0@none.org>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Adapt Molly integrations and tests to Signal 8.33.2
+
+Update linked-device provisioning and FCM cleanup for the current service APIs while preserving proxy configuration, error types, user-selected delivery and retry credentials. Move remaining event producers and lifecycle-bound subscribers to Signal's event bus.
+
+Repair lock-aware receivers, encrypted backup preference imports, retained donation completion, dynamic theme resources and moved branding references. Keep Molly's excluded profile-badge and payment-wallet features excluded, and adapt inherited test fixtures accordingly.
+
+Add transport and cleanup regressions for MollySocket, UnifiedPush and FCM.
+
+AI-assisted compatibility changes: restore imports across source checkpoints.
+
+AI-assisted compatibility changes: use a seven-day duration in the existing backup exporter test.
+
+AI-assisted compatibility changes: restore Molly logger collection.
+
+Carry this AI-assisted source change as its own
+reviewable patch, preserving the original source author and diff.
+The official Molly snapshot and earlier resolution patches do
+not receive regenerated provenance headers.
+
+Source-Commit: 0fd34d542166482b6c58fae49d554f61d2e8d15f
+AI-Generated: true
+
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+index 035766643bf39c1c14a4aedead1fa712ebd3088b..0251c30d7f837f4886074be40c8c361469336a6d 100644
+--- a/app/src/main/AndroidManifest.xml
++++ b/app/src/main/AndroidManifest.xml
+@@ -618,7 +618,7 @@
+             android:exported="false"
+             android:label="@string/AndroidManifest__media_preview"
+             android:launchMode="singleTask"
+-            android:theme="@style/Signal.DayNight.NoActionBar"
++            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+             android:windowSoftInputMode="stateHidden" />
+ 
+         <activity
+diff --git a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+index 03a37a20bc0435ea955f03d893438b0b265f9916..2404bc4683658f8234fef9fce31a3fe8a9c0c636 100644
+--- a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
++++ b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+@@ -1,5 +1,6 @@
+ package im.molly.unifiedpush
+ 
++import androidx.annotation.WorkerThread
+ import com.fasterxml.jackson.core.JsonParseException
+ import com.fasterxml.jackson.core.JsonProcessingException
+ import com.fasterxml.jackson.databind.JsonMappingException
+@@ -8,6 +9,7 @@ import im.molly.unifiedpush.model.ConnectionResult
+ import im.molly.unifiedpush.model.LinkStatus
+ import im.molly.unifiedpush.model.MollySocketDevice
+ import im.molly.unifiedpush.model.Response
++import kotlinx.coroutines.runBlocking
+ import okhttp3.HttpUrl
+ import okhttp3.MediaType.Companion.toMediaType
+ import okhttp3.Request
+@@ -15,6 +17,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
+ import org.signal.core.util.Base64
+ import org.signal.core.util.JsonUtils
+ import org.signal.core.util.Util
++import org.signal.core.util.ThreadUtil
+ import org.signal.core.util.crypto.DeviceNameCipher
+ import org.signal.core.util.logging.Log
+ import org.signal.libsignal.protocol.SessionBuilder
+@@ -129,12 +132,18 @@ object MollySocketRepository {
+     }
+   }
+ 
++  @WorkerThread
+   @Throws(IOException::class)
+   fun removeDevice(device: MollySocketDevice) {
+-    LinkDeviceRepository.removeDevice(device.deviceId)
++    ThreadUtil.assertNotMainThread()
++    if (!runBlocking { LinkDeviceRepository.removeDevice(device.deviceId) }) {
++      throw IOException("Failed to remove MollySocket linked device")
++    }
+   }
+ 
++  @WorkerThread
+   fun getDeviceStatus(device: MollySocketDevice): LinkStatus {
++    ThreadUtil.assertNotMainThread()
+     return when (device.isLinked()) {
+       true -> LinkStatus.LINKED
+       false -> LinkStatus.NOT_LINKED
+@@ -143,7 +152,7 @@ object MollySocketRepository {
+   }
+ 
+   private fun MollySocketDevice.isLinked(): Boolean? {
+-    return LinkDeviceRepository.loadDevices()?.any {
++    return runBlocking { LinkDeviceRepository.loadDevices() }?.any {
+       it.id == deviceId && it.name == DEVICE_NAME
+     }
+   }
+diff --git a/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt b/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
+index d2d0295c5f66dbea51a334156ff1bd3a500a56f4..e9c5c0a040d80754b8e72019f5f7d6f89cbd2f8a 100644
+--- a/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
++++ b/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
+@@ -4,18 +4,18 @@ import android.widget.Toast
+ import androidx.activity.result.ActivityResultLauncher
+ import androidx.activity.result.launch
+ import androidx.annotation.StringRes
++import androidx.lifecycle.Lifecycle
+ import androidx.lifecycle.ViewModelProvider
+ import im.molly.unifiedpush.model.RegistrationStatus
+-import org.greenrobot.eventbus.EventBus
+-import org.greenrobot.eventbus.Subscribe
+-import org.greenrobot.eventbus.ThreadMode
++import org.signal.core.util.eventbus.EventBus
++import org.signal.core.util.eventbus.RestartableSubscription
++import org.signal.core.util.eventbus.ThreadMode
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.components.settings.DSLConfiguration
+ import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
+ import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
+ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
+ import org.thoughtcrime.securesms.components.settings.configure
+-import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+ import org.thoughtcrime.securesms.events.PushServiceEvent
+ import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+ 
+@@ -39,13 +39,13 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
+       adapter.submitList(getConfiguration(it).toMappingModelList())
+     }
+ 
+-    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
++    RestartableSubscription { EventBus.default.subscribe<PushServiceEvent>(ThreadMode.MAIN, ::onPushServiceEvent) }
++      .bindTo(viewLifecycleOwner, Lifecycle.State.RESUMED)
+ 
+     viewModel.updateRegistration()
+   }
+ 
+-  @Subscribe(threadMode = ThreadMode.MAIN)
+-  fun onPushServiceEvent(event: PushServiceEvent) {
++  private fun onPushServiceEvent(event: PushServiceEvent) {
+     viewModel.refresh()
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+index 68b6a48fa582222d713aad0f3c3cd3acb6fdea09..e609ad257371e53a4a6dc6795a4b2500ba0937d6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+@@ -197,7 +197,6 @@ public class ApplicationContext extends Application implements AppForegroundObse
+     super.onCreate();
+ 
+     SqlCipherLibraryLoader.load();
+-    EventBus.builder().logNoSubscriberMessages(false).installDefaultEventBus();
+     DynamicTheme.setDefaultDayNightMode(this);
+     ScreenLockController.enableAutoLock(TextSecurePreferences.isBiometricScreenLockEnabled(this));
+     AppDependencies.installDependencyProviders();
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+index 83dda7fa566fcb5d0965bf9c30f016ccb2264844..7b8f0e5a189bf446aa95803aa6c81b0651fe5222 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+@@ -342,8 +342,6 @@ class MainActivity :
+       }
+     }
+ 
+-    shareDataTimestampViewModel.setTimestampFromActivityCreation(savedInstanceState, intent)
+-
+     setContent {
+       val mainToolbarState by toolbarViewModel.state.collectAsStateWithLifecycle()
+       val mainNavigationState by mainNavigationViewModel.mainNavigationBarState.collectAsStateWithLifecycle()
+@@ -387,7 +385,6 @@ class MainActivity :
+         val detailLocation by mainNavigationViewModel.detailLocation.collectAsStateWithLifecycle()
+         val isConversationFullscreen = !isSplitPane && detailLocation is MainDetailRoute.Conversation
+ 
+-        val context = LocalContext.current
+         val isDarkTheme = isSystemInDarkTheme()
+         val navBarColor = when {
+           isSplitPane -> SignalTheme.colors.colorSurface1.toArgb()
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/ScreenLockController.kt b/app/src/main/java/org/thoughtcrime/securesms/ScreenLockController.kt
+index 22708f831920264ee2c3765cbafb5635d1fc0ec5..ee57ebf79368ee8cc8ece2cfd302c8c955d7fc27 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/ScreenLockController.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/ScreenLockController.kt
+@@ -8,7 +8,7 @@ import android.os.SystemClock
+ import android.view.View
+ import android.view.Window
+ import android.view.inspector.WindowInspector
+-import org.signal.core.util.ServiceUtil;
++import org.signal.core.util.ServiceUtil
+ import org.signal.core.util.concurrent.SignalExecutors
+ import org.signal.core.util.logging.Log
+ import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
+@@ -93,7 +93,7 @@ object ScreenLockController {
+ 
+   private fun activitiesRunningOnTopOfTasks(context: Context): List<ComponentName> =
+     ServiceUtil.getActivityManager(context).appTasks
+-      .map { it.taskInfo }
++      .mapNotNull { it.taskInfo }
+       .filter {
+         if (Build.VERSION.SDK_INT >= 29) it.isRunning else true
+       }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/backup/v2/ui/status/ArchiveRestoreStatusBannerView.kt b/app/src/main/java/org/thoughtcrime/securesms/backup/v2/ui/status/ArchiveRestoreStatusBannerView.kt
+index b9281db941118e0a6f56ff2668dac62b27e2493b..83fcf73299ee6ad7eb7f7bae466c3c00e1af6f58 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/backup/v2/ui/status/ArchiveRestoreStatusBannerView.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/backup/v2/ui/status/ArchiveRestoreStatusBannerView.kt
+@@ -31,7 +31,6 @@ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.StrokeCap
+-import androidx.compose.ui.res.colorResource
+ import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
+@@ -39,6 +38,7 @@ import org.signal.core.ui.compose.Buttons
+ import org.signal.core.ui.compose.DayNightPreviews
+ import org.signal.core.ui.compose.Previews
+ import org.signal.core.ui.compose.SignalIcons
++import org.signal.core.ui.compose.theme.SignalTheme
+ import org.signal.core.util.mebiBytes
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.backup.RestoreState
+@@ -71,7 +71,7 @@ fun ArchiveRestoreStatusBanner(
+     modifier = Modifier
+       .padding(contentPadding)
+       .background(
+-        color = colorResource(CoreUiR.color.signal_colorSurface2),
++        color = SignalTheme.colors.colorSurface2,
+         shape = RoundedCornerShape(24.dp)
+       )
+       .fillMaxWidth()
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/banner/banners/PendingGroupJoinRequestsBanner.kt b/app/src/main/java/org/thoughtcrime/securesms/banner/banners/PendingGroupJoinRequestsBanner.kt
+index a48bfd7fcd52dcc52d22d9b20c1f498d4e7e86cb..26274a4c0790c63bbecddb7845df47ea0ececf64 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/banner/banners/PendingGroupJoinRequestsBanner.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/banner/banners/PendingGroupJoinRequestsBanner.kt
+@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+ import androidx.compose.ui.graphics.vector.ImageVector
+-import androidx.compose.ui.res.colorResource
+ import androidx.compose.ui.res.pluralStringResource
+ import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.res.vectorResource
+@@ -36,9 +35,9 @@ import kotlinx.coroutines.flow.flowOf
+ import org.signal.core.ui.compose.DayNightPreviews
+ import org.signal.core.ui.compose.Previews
+ import org.signal.core.ui.compose.SignalIcons
++import org.signal.core.ui.compose.theme.SignalTheme
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.banner.Banner
+-import org.signal.core.ui.R as CoreUiR
+ 
+ /**
+  * Shows the number of pending requests to join the group.
+@@ -74,7 +73,7 @@ private fun Banner(contentPadding: PaddingValues, suggestionsSize: Int, onViewCl
+     modifier = Modifier
+       .padding(horizontal = 12.dp, vertical = 8.dp)
+       .clip(RoundedCornerShape(24.dp))
+-      .background(color = colorResource(CoreUiR.color.signal_colorSurface2))
++      .background(color = SignalTheme.colors.colorSurface2)
+       .padding(horizontal = 16.dp)
+   ) {
+     Icon(
+@@ -100,7 +99,7 @@ private fun Banner(contentPadding: PaddingValues, suggestionsSize: Int, onViewCl
+     TextButton(
+       onClick = onViewClicked,
+       colors = ButtonDefaults.textButtonColors(
+-        containerColor = colorResource(CoreUiR.color.signal_colorSurface5),
++        containerColor = SignalTheme.colors.colorSurface5,
+         contentColor = MaterialTheme.colorScheme.onSurface
+       ),
+       modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/banner/ui/compose/DefaultBanner.kt b/app/src/main/java/org/thoughtcrime/securesms/banner/ui/compose/DefaultBanner.kt
+index b5a417788a47344dae76c1248b69b3bc45c7a6f4..768497b58f6820809fc3c65ffa95ec164d8a9f9e 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/banner/ui/compose/DefaultBanner.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/banner/ui/compose/DefaultBanner.kt
+@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
+ import org.signal.core.ui.compose.DayNightPreviews
+ import org.signal.core.ui.compose.Previews
+ import org.signal.core.ui.compose.SignalIcons
++import org.signal.core.ui.compose.theme.SignalTheme
+ import org.signal.core.util.isNotNullOrBlank
+ import org.thoughtcrime.securesms.R
+ import org.signal.core.ui.R as CoreUiR
+@@ -64,7 +65,7 @@ fun DefaultBanner(
+       .clip(RoundedCornerShape(24.dp))
+       .background(
+         color = when (importance) {
+-          Importance.NORMAL -> colorResource(CoreUiR.color.signal_colorSurface2)
++          Importance.NORMAL -> SignalTheme.colors.colorSurface2
+           Importance.ERROR -> colorResource(id = R.color.reminder_background)
+         }
+       )
+@@ -149,7 +150,7 @@ fun DefaultBanner(
+                   contentDescription = stringResource(id = R.string.DefaultBanner__cancel),
+                   tint = when (importance) {
+                     Importance.NORMAL -> MaterialTheme.colorScheme.onSurfaceVariant
+-                    Importance.ERROR -> colorResource(id = CoreUiR.color.signal_colorOnSurface)
++                    Importance.ERROR -> MaterialTheme.colorScheme.onSurface
+                   }
+                 )
+               }
+@@ -167,7 +168,7 @@ fun DefaultBanner(
+               onClick = action.onClick,
+               colors = when (importance) {
+                 Importance.NORMAL -> ButtonDefaults.textButtonColors(
+-                  containerColor = colorResource(CoreUiR.color.signal_colorSurface5),
++                  containerColor = SignalTheme.colors.colorSurface5,
+                   contentColor = MaterialTheme.colorScheme.onSurface
+                 )
+                 Importance.ERROR -> ButtonDefaults.textButtonColors(
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/NavGraphHostActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/components/NavGraphHostActivity.kt
+index f85a02fcbc5e9c6d8d16fc6661f46e86f5337c60..afb75e8cff58e9346b17b5f56d652c428b81d727 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/NavGraphHostActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/NavGraphHostActivity.kt
+@@ -6,15 +6,14 @@ import android.os.Bundle
+ import androidx.activity.OnBackPressedCallback
+ import androidx.activity.SystemBarStyle
+ import androidx.activity.enableEdgeToEdge
+-import androidx.core.content.ContextCompat
+ import androidx.navigation.NavController
+ import androidx.navigation.Navigation
+ import androidx.navigation.fragment.NavHostFragment
++import org.signal.core.ui.util.ThemeUtil
+ import org.thoughtcrime.securesms.PassphraseRequiredActivity
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+ import org.thoughtcrime.securesms.util.DynamicTheme
+-import org.signal.core.ui.R as CoreUiR
+ 
+ /**
+  * Hosts a [NavHostFragment] for the nav graph and start bundle passed via [ARG_NAV_GRAPH] and [ARG_START_BUNDLE].
+@@ -73,7 +72,7 @@ open class NavGraphHostActivity : PassphraseRequiredActivity() {
+   }
+ 
+   private fun enableSettingsEdgeToEdge() {
+-    val navBarColor = ContextCompat.getColor(this, CoreUiR.color.signal_colorSurface2)
++    val navBarColor = ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurfaceContainer)
+     val isDark = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+ 
+     if (Build.VERSION.SDK_INT >= 26) {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/backups/BackupsSettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/backups/BackupsSettingsFragment.kt
+index 7c4bf0e9c96f7a94837ab3f3d4ff2f24f0e84d11..2e3f066ceaaac2010af2d5561016fdf7adeb0653 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/backups/BackupsSettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/backups/BackupsSettingsFragment.kt
+@@ -105,11 +105,11 @@ class BackupsSettingsFragment : ComposeFragment() {
+       backupsSettingsState = state,
+       onNavigationClick = { requireActivity().onNavigateUp() },
+       onBackupsRowClick = {
+-        when (state.backupState) {
++        when (val backupState = state.backupState) {
+           is BackupState.Error -> Unit
+ 
+           is BackupState.None -> {
+-            if (!state.isLinkedDevice && state.backupState.featureSupported) {
++            if (!state.isLinkedDevice && backupState.featureSupported) {
+               checkoutLauncher.launch(null)
+             }
+           }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/data/DataAndStorageSettingsRepository.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/data/DataAndStorageSettingsRepository.kt
+index 5ebd29ae597b07c5b47c8d6f18141e5a42477d5d..fb43c71a1a48fc160788bbfa9bab1a954d4917e1 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/data/DataAndStorageSettingsRepository.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/data/DataAndStorageSettingsRepository.kt
+@@ -85,7 +85,7 @@ object DataAndStorageSettingsRepository {
+     return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(AppDependencies.application) == ConnectionResult.SUCCESS
+   }
+ 
+-  fun isProxyEnabled(): Boolean = SignalStore.proxy.isProxyEnabled
++  fun isProxyEnabled(): Boolean = AppDependencies.networkManager.isProxyEnabled
+ 
+   /** The discrete MIME type (the part before the "/") stored in [SignalStore.settings] for each media type. */
+   private val AutoDownloadMediaType.storageValue: String
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
+index 9ed577d80f5366a2322f8fb1910fe594cf265e68..4e0b6134f9048225fb7029745300cca7c01fd5fa 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
+@@ -50,9 +50,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
+ import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
+ import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
+ import kotlinx.coroutines.launch
+-import org.greenrobot.eventbus.EventBus
+-import org.greenrobot.eventbus.Subscribe
+-import org.greenrobot.eventbus.ThreadMode
++import org.signal.core.util.eventbus.EventBus
++import org.signal.core.util.eventbus.RestartableSubscription
++import org.signal.core.util.eventbus.ThreadMode
+ import org.signal.core.ui.BottomSheetUtil
+ import org.signal.core.ui.compose.ComposeFragment
+ import org.signal.core.ui.compose.DayNightPreviews
+@@ -70,7 +70,6 @@ import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
+ import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRoute
+ import org.thoughtcrime.securesms.components.settings.app.routes.AppSettingsRouter
+ import org.thoughtcrime.securesms.components.settings.models.Banner
+-import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+ import org.thoughtcrime.securesms.events.PushServiceEvent
+ import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
+ import org.thoughtcrime.securesms.notifications.NotificationChannels
+@@ -125,7 +124,8 @@ class NotificationsSettingsFragment : ComposeFragment() {
+       viewModel.setPlayServicesErrorCode(args.playServicesErrorCode)
+     }
+ 
+-    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
++    RestartableSubscription { EventBus.default.subscribe<PushServiceEvent>(ThreadMode.MAIN, ::onPushServiceEvent) }
++      .bindTo(viewLifecycleOwner, Lifecycle.State.RESUMED)
+   }
+ 
+   override fun onResume() {
+@@ -133,8 +133,7 @@ class NotificationsSettingsFragment : ComposeFragment() {
+     viewModel.refresh()
+   }
+ 
+-  @Subscribe(threadMode = ThreadMode.MAIN)
+-  fun onPushServiceEvent(event: PushServiceEvent) {
++  private fun onPushServiceEvent(event: PushServiceEvent) {
+     viewModel.refresh()
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/subscription/thanks/ThanksForYourSupportBottomSheetDialogFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/subscription/thanks/ThanksForYourSupportBottomSheetDialogFragment.kt
+index 77355c446e46104b38283e6a6e323cd8b2084a55..46d0f17e1617f86403658f7212d281620a4dcf13 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/subscription/thanks/ThanksForYourSupportBottomSheetDialogFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/subscription/thanks/ThanksForYourSupportBottomSheetDialogFragment.kt
+@@ -2,28 +2,15 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.thanks
+ 
+ import android.content.DialogInterface
+ import android.os.Bundle
+-import android.text.SpannableStringBuilder
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+-import android.widget.TextView
+-import androidx.core.text.method.LinkMovementMethodCompat
+-import com.airbnb.lottie.LottieAnimationView
+ import com.google.android.material.button.MaterialButton
+-import com.google.android.material.materialswitch.MaterialSwitch
+ import org.signal.core.models.badges.Badge
+ import org.signal.core.ui.FixedRoundedCornerBottomSheetDialogFragment
+-import org.signal.core.ui.util.SpanUtil
+-import org.signal.core.ui.util.ThemeUtil
+ import org.thoughtcrime.securesms.R
+-import org.thoughtcrime.securesms.badges.BadgeImageView
+-import org.thoughtcrime.securesms.badges.BadgeRepository.DonationBadgeToggle
+ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.recipients.Recipient
+ import org.thoughtcrime.securesms.util.fragments.findListener
+-import org.thoughtcrime.securesms.util.visible
+-import org.signal.core.ui.R as CoreUiR
+ 
+ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFragment() {
+ 
+@@ -41,77 +28,12 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
+ 
+   override val peekHeightPercentage: Float = 1f
+ 
+-  private lateinit var switch: MaterialSwitch
+-  private lateinit var heading: TextView
+-
+-  private lateinit var controlState: DonationBadgeToggle
+-
+   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+     return inflater.inflate(R.layout.thanks_for_your_support_bottom_sheet_dialog_fragment, container, false)
+   }
+ 
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+-    val badgeView: BadgeImageView = view.findViewById(R.id.thanks_bottom_sheet_badge)
+-    val lottie: LottieAnimationView = view.findViewById(R.id.thanks_bottom_sheet_lottie)
+     val done: MaterialButton = view.findViewById(R.id.thanks_bottom_sheet_done)
+-    val controlText: TextView = view.findViewById(R.id.thanks_bottom_sheet_control_text)
+-    val controlNote: View = view.findViewById(R.id.thanks_bottom_sheet_featured_note)
+-    val subhead: TextView = view.findViewById(R.id.thanks_bottom_sheet_subhead)
+-
+-    heading = view.findViewById(R.id.thanks_bottom_sheet_heading)
+-    switch = view.findViewById(R.id.thanks_bottom_sheet_switch)
+-
+-    val args = ThanksForYourSupportBottomSheetDialogFragmentArgs.fromBundle(requireArguments())
+-
+-    badgeView.setBadge(args.badge)
+-
+-    if (args.badge.isBoost()) {
+-      if (Recipient.self().badges.any { !it.isBoost() }) {
+-        subhead.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge)
+-      } else {
+-        subhead.movementMethod = LinkMovementMethodCompat.getInstance()
+-        subhead.text = SpannableStringBuilder(getString(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge))
+-          .append(" ")
+-          .append(getString(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__you_can_also))
+-          .append(" ")
+-          .append(
+-            SpanUtil.clickable(
+-              getString(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__become_a_montly_sustainer),
+-              ThemeUtil.getThemedColor(requireContext(), org.signal.core.ui.R.attr.signal_accent_primary)
+-            ) {
+-              requireActivity().finish()
+-              requireActivity().startActivity(AppSettingsActivity.subscriptions(requireContext()))
+-            }
+-          )
+-      }
+-    } else {
+-      subhead.text = getString(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__youve_earned_a_donor_badge)
+-    }
+-
+-    val otherBadges = Recipient.self().badges.filterNot { it.id == args.badge.id }
+-    val hasOtherBadges = otherBadges.isNotEmpty()
+-    val displayingBadges = SignalStore.inAppPayments.getDisplayBadgesOnProfile()
+-
+-    if (hasOtherBadges && displayingBadges) {
+-      switch.isChecked = false
+-      controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge)
+-      controlNote.visible = true
+-      controlState = DonationBadgeToggle.MAKE_FEATURED
+-    } else if (hasOtherBadges) {
+-      switch.isChecked = false
+-      controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile)
+-      controlNote.visible = false
+-      controlState = DonationBadgeToggle.DISPLAY_ON_PROFILE
+-    } else {
+-      switch.isChecked = true
+-      controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile)
+-      controlNote.visible = false
+-      controlState = DonationBadgeToggle.DISPLAY_ON_PROFILE
+-    }
+-
+-    // New badge does not have a lottie, so we just hide it and show a static image.
+-    lottie.visible = false
+-
+     done.setOnClickListener { dismissAllowingStateLoss() }
+   }
+ 
+@@ -119,21 +41,6 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
+     super.onDismiss(dialog)
+     val args = ThanksForYourSupportBottomSheetDialogFragmentArgs.fromBundle(requireArguments())
+ 
+-    // MOLLY: TODO
+-    // if (controlState == ControlState.DISPLAY) {
+-    //   badgeRepository.setVisibilityForAllBadges(controlChecked).subscribeBy(
+-    //     onError = {
+-    //       Log.w(TAG, "Failure while updating badge visibility", it)
+-    //     }
+-    //   )
+-    // } else if (controlChecked) {
+-    //   badgeRepository.setFeaturedBadge(args.badge).subscribeBy(
+-    //     onError = {
+-    //       Log.w(TAG, "Failure while updating featured badge", it)
+-    //     }
+-    //   )
+-    // }
+-
+     if (args.badge.isSubscription()) {
+       requireActivity().finish()
+       requireActivity().startActivity(AppSettingsActivity.manageSubscriptions(requireContext()))
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java b/app/src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java
+index acd9a5f1d846d6c6cb779df9862f9e399b6edf95..8973ebe5a8df38391c1a684b27eba7dfd17b98f8 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/conversation/ConversationItem.java
+@@ -1202,7 +1202,7 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
+       SpannableString italics        = new SpannableString(deletedMessage);
+       italics.setSpan(new StyleSpan(android.graphics.Typeface.ITALIC), 0, deletedMessage.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+       int textColor = hasWallpaper ? colorizer.getOutgoingDeleteTextColor(context)
+-                                   : ContextCompat.getColor(context, R.color.signal_text_primary);
++                                   : ThemeUtil.getThemedColor(context, R.attr.signal_text_primary);
+       italics.setSpan(new ForegroundColorSpan(textColor),
+                       0,
+                       deletedMessage.length(),
+@@ -1658,8 +1658,12 @@ public final class ConversationItem extends RelativeLayout implements BindableCo
+ 
+     linkPreviewActionStub.setVisibility(View.VISIBLE);
+     button.setText(label);
+-    button.setTextColor(ContextCompat.getColor(context, messageRecord.isOutgoing() ? org.signal.core.ui.R.color.signal_light_colorOnPrimary : org.signal.core.ui.R.color.signal_colorOnPrimaryContainer));
+-    button.setBackgroundColor(ContextCompat.getColor(context, messageRecord.isOutgoing() ? org.signal.core.ui.R.color.signal_light_colorTransparent2 : org.signal.core.ui.R.color.signal_colorOnPrimary));
++    button.setTextColor(messageRecord.isOutgoing()
++                        ? ContextCompat.getColor(context, org.signal.core.ui.R.color.signal_light_colorOnPrimary)
++                        : ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer));
++    button.setBackgroundColor(messageRecord.isOutgoing()
++                              ? ContextCompat.getColor(context, org.signal.core.ui.R.color.signal_light_colorTransparent2)
++                              : ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnPrimary));
+     button.setOnClickListener(onClickListener);
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ChatReactionOverlay.kt b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ChatReactionOverlay.kt
+index 70a20b54ccb502e4734eea288898f55a1cfdc379..7751de32f1a057764b5fbbc2e4c461d5b2451983 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ChatReactionOverlay.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ChatReactionOverlay.kt
+@@ -50,16 +50,17 @@ import androidx.compose.ui.unit.IntOffset
+ import androidx.compose.ui.unit.LayoutDirection
+ import androidx.compose.ui.unit.dp
+ import com.google.accompanist.drawablepainter.rememberDrawablePainter
++import kotlin.math.PI
++import kotlin.math.cos
++import kotlin.math.roundToInt
+ import kotlinx.coroutines.coroutineScope
+ import kotlinx.coroutines.launch
+ import org.signal.core.ui.compose.navigationBarsCompat
++import org.signal.core.ui.compose.theme.SignalTheme
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.conversation.ConversationItem
+ import org.thoughtcrime.securesms.conversation.ReactionOverlayPlacement
+ import org.thoughtcrime.securesms.conversation.ReactionScrubber
+-import kotlin.math.PI
+-import kotlin.math.cos
+-import kotlin.math.roundToInt
+ import org.signal.core.ui.R as CoreUiR
+ 
+ const val REACTION_EMOJI_COUNT = 7
+@@ -305,7 +306,7 @@ fun ChatReactionOverlay(
+         .height(with(density) { barHeightPx.toDp() })
+         .graphicsLayer { alpha = stripReveal.value }
+         .background(
+-          color = colorResource(CoreUiR.color.signal_colorSurface2),
++          color = SignalTheme.colors.colorSurface2,
+           shape = RoundedCornerShape(STRIP_CORNER_RADIUS)
+         )
+         .onGloballyPositioned { coordinates ->
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt
+index 6ba653e5954ed7eae948a43922a58f2564274f0b..de4a8fdc0b6032e6a6b331ec716d42ccebb33b3f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.kt
+@@ -138,6 +138,7 @@ import org.signal.core.ui.isSplitPane
+ import org.signal.core.ui.logging.LoggingFragment
+ import org.signal.core.ui.permissions.Permissions
+ import org.signal.core.ui.util.ThemeUtil
++import org.signal.donations.InAppPaymentType
+ import org.signal.core.ui.util.ViewUtil
+ import org.signal.core.ui.view.Stub
+ import org.signal.core.ui.viewModel
+@@ -199,6 +200,7 @@ import org.thoughtcrime.securesms.components.mention.MentionAnnotation
+ import org.thoughtcrime.securesms.components.menu.ActionItem
+ import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar
+ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
++import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
+ import org.thoughtcrime.securesms.components.snackbars.makeSnackbar
+ import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation
+ import org.thoughtcrime.securesms.components.voice.VoiceNoteDraft
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationViewModel.kt
+index 3bae275e4ad73fb708c8720240dff924ecc55ecb..8ab5de62564a2fad780726b7ecacfc5118c6c745 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/ConversationViewModel.kt
+@@ -340,8 +340,7 @@ class ConversationViewModel(
+         messageRequestState = messageRequestRepository.getMessageRequestState(recipient, threadId),
+         groupRecord = groupRecord.orNull(),
+         isClientExpired = SignalStore.misc.isClientDeprecated,
+-        isUnauthorized = SignalStore.account.isUnauthorizedReceived,
+-        threadContainsSms = !recipient.isRegistered && !recipient.isPushGroup && !recipient.isSelf && messageRequestRepository.threadContainsSms(threadId)
++        isUnauthorized = SignalStore.account.isUnauthorizedReceived
+       )
+     }.doOnNext {
+       hasMessageRequestStateSubject.onNext(it.messageRequestState)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/DisabledInputView.kt b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/DisabledInputView.kt
+index bff9516a5c32f3e02c8737a0219bacbd61ff66ad..e257337d1516575461305a00d4fcfa555b174bdc 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/DisabledInputView.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/conversation/v2/DisabledInputView.kt
+@@ -207,8 +207,6 @@ class DisabledInputView @JvmOverloads constructor(
+       bind = {
+         findViewById<TextView>(R.id.export_sms_message).text = if (recipient.isMmsGroup) {
+           context.getString(R.string.ConversationActivity__sms_messaging_is_no_longer_supported)
+-        } else if (threadContainsSms) {
+-          context.getString(R.string.ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here, recipient.getDisplayName(context))
+         } else if (recipient.hasAci) {
+           context.getString(R.string.ConversationActivity__this_person_is_no_longer_using_signal)
+         } else {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V190_UpdatePendingSelfDataMigration.kt b/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V190_UpdatePendingSelfDataMigration.kt
+index 6642be2368b91b7f087e926d3a18750c157fcda5..74635a829a93c8e738ffba1678334e44497e47c5 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V190_UpdatePendingSelfDataMigration.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V190_UpdatePendingSelfDataMigration.kt
+@@ -8,7 +8,7 @@ import org.signal.core.util.logging.Log
+ import org.signal.core.util.readToSingleObject
+ import org.signal.core.util.requireLong
+ import org.signal.core.util.requireString
+-import org.signal.core.util.update
++import org.signal.core.database.update
+ import org.thoughtcrime.securesms.database.KeyValueDatabase
+ import org.thoughtcrime.securesms.database.SQLiteDatabase
+ import org.thoughtcrime.securesms.database.ThreadTable
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V238_FixAttachmentIdJsonSerialization.kt b/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V238_FixAttachmentIdJsonSerialization.kt
+index c64b0bf996009812c4861dbf6ba6cbe4e18a37b7..71273b562d1bdd845ac466950d65107f29e2b1d9 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V238_FixAttachmentIdJsonSerialization.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/database/helpers/migration/V238_FixAttachmentIdJsonSerialization.kt
+@@ -6,7 +6,7 @@ import org.json.JSONArray
+ import org.json.JSONObject
+ import org.signal.core.util.requireLong
+ import org.signal.core.util.requireString
+-import org.signal.core.util.update
++import org.signal.core.database.update
+ 
+ /**
+  * Fix the JSON for AttachmentId in link_previews and shared_contacts message's columns.
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/gcm/FcmFetchManager.kt b/app/src/main/java/org/thoughtcrime/securesms/gcm/FcmFetchManager.kt
+index f59a2ff52f02b9e62e3b7d9146cd02180d2b02b5..6b74a121198b83e93cbc61d9a9e502622e107103 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/gcm/FcmFetchManager.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/gcm/FcmFetchManager.kt
+@@ -95,7 +95,7 @@ object FcmFetchManager {
+ 
+     val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
+       .setSmallIcon(R.drawable.ic_notification)
+-      .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
++      .setColor(ContextCompat.getColor(context, org.signal.core.ui.R.color.core_ultramarine))
+       .setContentTitle(context.getString(R.string.FcmFetchManager__you_may_have_messages))
+       .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+       .setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.clearTop(context), mutable()))
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/glide/OkHttpUrlLoader.java b/app/src/main/java/org/thoughtcrime/securesms/glide/OkHttpUrlLoader.java
+index 40e2321a51e055360bb019034db0fd85d1f857ae..47a27790521d2e4857bbc42dfc29e61a254e17be 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/glide/OkHttpUrlLoader.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/glide/OkHttpUrlLoader.java
+@@ -13,6 +13,7 @@ import org.signal.glide.load.OkHttpStreamFetcher;
+ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.net.ContentProxySelector;
+ import org.thoughtcrime.securesms.net.Networking;
++import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+ 
+ import java.io.InputStream;
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/glide/SignalGlideComponents.java b/app/src/main/java/org/thoughtcrime/securesms/glide/SignalGlideComponents.java
+index e6fb6cfc18d9b9174f3449a27bf8e8bfae604d44..0a87c1af52a51aa53a1744de537a789737b4522b 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/glide/SignalGlideComponents.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/glide/SignalGlideComponents.java
+@@ -112,7 +112,7 @@ public class SignalGlideComponents implements RegisterGlideComponents {
+     registry.append(ChunkedImageUrl.class, InputStream.class, new ChunkedImageUrlLoader.Factory());
+     registry.append(StickerRemoteUri.class, InputStream.class, new StickerRemoteUriLoader.Factory());
+     registry.append(BlurHash.class, BlurHash.class, new BlurHashModelLoader.Factory());
+-    registry.append(Badge.class, InputStream.class, BadgeLoader.createFactory());
++    registry.append(Badge.class, InputStream.class, new BadgeLoader.Factory(AppDependencies.getSignalOkHttpClient()));
+     registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+index 0736adfbf10f16abe75186ccd2f4ba72bcee5fc4..19b8ef8ca9c345f38b199e78ddf93abfb15b83a1 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+@@ -9,9 +9,8 @@ import android.net.ConnectivityManager;
+ 
+ import androidx.annotation.NonNull;
+ 
+-import org.greenrobot.eventbus.EventBus;
+-import org.greenrobot.eventbus.Subscribe;
+-import org.greenrobot.eventbus.ThreadMode;
++import org.signal.core.util.eventbus.EventBus;
++import org.signal.core.util.eventbus.ThreadMode;
+ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
+ import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
+@@ -37,12 +36,9 @@ public class NetworkConstraintObserver implements ConstraintObserver {
+       }
+     }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+ 
+-    EventBus.getDefault().register(new Object() {
+-      @Subscribe(threadMode = ThreadMode.MAIN)
+-      public void onNetworkReadyEvent(@NonNull NetworkAvailableEvent event) {
+-        if (NetworkConstraint.isMet(application)) {
+-          notifier.onConstraintMet(REASON);
+-        }
++    EventBus.getDefault().subscribe(NetworkAvailableEvent.class, ThreadMode.MAIN, event -> {
++      if (NetworkConstraint.isMet(application)) {
++        notifier.onConstraintMet(REASON);
+       }
+     });
+   }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt b/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
+index 2db68428cce6b0eabbf9b439a8d787cf93a4326f..890852ee2bc19dba6337d42286cf24bdaf3de66c 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
+@@ -8,7 +8,7 @@ import android.net.Uri
+ import com.fasterxml.jackson.annotation.JsonProperty
+ import okhttp3.OkHttpClient
+ import okhttp3.Request
+-import org.greenrobot.eventbus.EventBus
++import org.signal.core.util.eventbus.EventBus
+ import org.signal.core.util.Hex
+ import org.signal.core.util.JsonUtils
+ import org.signal.core.util.forEach
+@@ -125,7 +125,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
+     }
+ 
+     SignalStore.apkUpdate.lastSuccessfulCheck = System.currentTimeMillis()
+-    EventBus.getDefault().post(ApkUpdateEvent)
++    EventBus.default.post(ApkUpdateEvent)
+   }
+ 
+   public override fun onShouldRetry(e: Exception): Boolean {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobs/DeprecatedNotificationJob.kt b/app/src/main/java/org/thoughtcrime/securesms/jobs/DeprecatedNotificationJob.kt
+index 233df78d38c5769d89ac6b890227a74ab1760aec..a4a325bd73675732c85e2da2d8182c6a09590dce 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobs/DeprecatedNotificationJob.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobs/DeprecatedNotificationJob.kt
+@@ -47,7 +47,7 @@ class DeprecatedNotificationJob private constructor(parameters: Parameters) : Jo
+   override fun run(): Result {
+     if (NotificationChannels.getInstance().areNotificationsEnabled()) {
+       Log.d(TAG, "Showing deprecated notification for website APK")
+-      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.install_url)))
++      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(org.signal.core.util.R.string.install_url)))
+ 
+       val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+       val builder = NotificationCompat.Builder(context, NotificationChannels.getInstance().APP_ALERTS)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobs/FcmRefreshJob.java b/app/src/main/java/org/thoughtcrime/securesms/jobs/FcmRefreshJob.java
+index 07aa74a042b73a84a32a211d9ef7eda9493124a7..979235104997625358efd7ab990f21195ff95169 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobs/FcmRefreshJob.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobs/FcmRefreshJob.java
+@@ -30,7 +30,7 @@ import androidx.core.app.NotificationManagerCompat;
+ import com.google.android.gms.common.ConnectionResult;
+ import com.google.android.gms.common.GoogleApiAvailability;
+ 
+-import org.greenrobot.eventbus.EventBus;
++import org.signal.core.util.eventbus.EventBus;
+ import org.signal.core.util.PendingIntentFlags;
+ import org.signal.core.util.logging.Log;
+ import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
+@@ -90,7 +90,7 @@ public class FcmRefreshJob extends BaseJob {
+       if (wasFcmTokenSet) {
+         Log.i(TAG, "FCM is disabled: clearing existing token...");
+         try {
+-          RequestResultUtil.successOrThrowNoError(SignalNetwork.accountApi().clearFcmToken());
++          RequestResultUtil.successOrThrowNoError(SignalNetwork.accountApi().clearFcmTokenSync());
+         } finally {
+           SignalStore.account().invalidateFcmToken();
+           FcmUtil.deleteFirebaseInstallationId(context);
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJob.kt b/app/src/main/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJob.kt
+index 4dca4616dff449267c496afa84ae892aa2323811..62baf0bab7426426dd0fbd8cd9ab82c552e4c6fc 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJob.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJob.kt
+@@ -8,7 +8,7 @@ import im.molly.unifiedpush.model.MollySocketDevice
+ import im.molly.unifiedpush.model.RegistrationStatus
+ import im.molly.unifiedpush.model.toRegistrationStatus
+ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+-import org.greenrobot.eventbus.EventBus
++import org.signal.core.util.eventbus.EventBus
+ import org.signal.core.util.logging.Log
+ import org.signal.network.exceptions.NonSuccessfulResponseCodeException
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+@@ -103,7 +103,7 @@ class UnifiedPushRefreshJob private constructor(
+       }
+     } finally {
+       AppDependencies.resetNetwork(restartMessageObserver = true)
+-      EventBus.getDefault().post(PushServiceEvent)
++      EventBus.default.post(PushServiceEvent)
+     }
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/OnboardingValues.java b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/OnboardingValues.java
+index 967622690d57e81477f943a44956d3598fd08241..332ad59a6152192f5da5096ef9d2ceaa500bb9ce 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/OnboardingValues.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/OnboardingValues.java
+@@ -10,8 +10,6 @@ import java.util.List;
+ public final class OnboardingValues extends SignalStoreValues {
+ 
+   private static final String SHOW_STORIES         = "onboarding.stories_molly";
+-  private static final String SHOW_NEW_GROUP       = "onboarding.new_group";
+-  private static final String SHOW_INVITE_FRIENDS  = "onboarding.invite_friends";
+   private static final String SHOW_APPEARANCE      = "onboarding.appearance";
+   private static final String SHOW_ADD_PHOTO       = "onboarding.add_photo";
+   private static final String SHOW_SET_UP_USERNAME = "onboarding.set_up_username";
+@@ -42,8 +40,6 @@ public final class OnboardingValues extends SignalStoreValues {
+ 
+   public boolean hasOnboarding(@NonNull Context context) {
+     return shouldShowStories()       ||
+-           shouldShowNewGroup()      ||
+-           shouldShowInviteFriends() ||
+            shouldShowAppearance()    ||
+            shouldShowAddPhoto()      ||
+            shouldShowSetUpUsername();
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
+index 2fdc14e05bc8af19404a8cfbfae756c32958c9b3..13de971b376da7b873b65bac2359e4c2b9ce9677 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
+@@ -45,7 +45,7 @@ class LinkDeviceLearnMoreBottomSheetFragment : ComposeBottomSheetDialogFragment(
+ @Composable
+ fun LearnMoreSheet() {
+   val context = LocalContext.current
+-  val downloadUrl = stringResource(R.string.install_url)
++  val downloadUrl = stringResource(org.signal.core.util.R.string.install_url)
+   val linkText = downloadUrl.removePrefix("https://")
+   val fullString = stringResource(id = R.string.LinkDeviceFragment__for_android_devices_visit_s_to_install_molly, linkText)
+   val spanned = SpanUtil.urlSubsequence(fullString, linkText, downloadUrl)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionKeyPreferences.java b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionKeyPreferences.java
+index dd2a047915bedd8cd645f295f11f6690ece27f91..4d3e6f0c81ac734143bce3a0413507a467608058 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionKeyPreferences.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionKeyPreferences.java
+@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
+ import org.thoughtcrime.securesms.keyvalue.KeepMessagesDuration;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
+ import org.thoughtcrime.securesms.recipients.Recipient;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ import org.signal.core.util.Util;
+ 
+ final class LogSectionKeyPreferences implements LogSection {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionSystemInfo.kt b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionSystemInfo.kt
+index 3b10d3a60d4a2ca91ac0a1d0155e0fe3e2c0248a..ed5b105c64a4bc794a4a96a9570d83e79dec0811 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionSystemInfo.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionSystemInfo.kt
+@@ -91,7 +91,6 @@ class LogSectionSystemInfo : LogSection {
+       IgnoringBatteryOpt: ${PowerManagerCompat.isIgnoringBatteryOptimizations(context)}
+       BkgRestricted     : ${if (Build.VERSION.SDK_INT >= 28) DeviceProperties.isBackgroundRestricted(context) else "N/A"}
+       Data Saver        : ${DeviceProperties.getDataSaverState(context)}
+-      APNG Animation    : ${if (locked) LOCKED else DeviceProperties.shouldAllowApngStickerAnimation(context)}
+       Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
+       App               : ${getAppInfo(context)}
+       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogActivity.java b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogActivity.java
+index b03dd3edad48cd98ef9c74a4f16a570b41d6977d..4e5e89f644c96b5acddf1159211dec0f6e1e33a8 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogActivity.java
+@@ -118,13 +118,11 @@ public class SubmitDebugLogActivity extends BaseActivity {
+     getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+       @Override
+       public void handleOnBackPressed() {
+-        if (!viewModel.onBackPressed()) {
+-          final Intent nextIntent = getIntent().getParcelableExtra("next_intent");
+-          if (nextIntent != null) {
+-            startActivity(nextIntent);
+-          }
+-          finish();
++        final Intent nextIntent = getIntent().getParcelableExtra("next_intent");
++        if (nextIntent != null) {
++          startActivity(nextIntent);
+         }
++        finish();
+       }
+     });
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogRepository.java b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogRepository.java
+index 0f58a5bde3c1712af5a9b7b5249dc5492f616152..c580c39d61c7e6ac56b0ec65ca7e878f7f90e7ba 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogRepository.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/logsubmit/SubmitDebugLogRepository.java
+@@ -21,6 +21,7 @@ import org.signal.debuglogsviewer.DebugLogsViewer;
+ import org.thoughtcrime.securesms.database.LogDatabase;
+ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.net.Networking;
++import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+ import org.thoughtcrime.securesms.service.KeyCachingService;
+ import org.thoughtcrime.securesms.util.RemoteConfig;
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/megaphone/Megaphones.java b/app/src/main/java/org/thoughtcrime/securesms/megaphone/Megaphones.java
+index f30c53c307fcebc010845612f2053f7050edd41b..354c545c39f54a6f661c50561793673a2e62ee45 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/megaphone/Megaphones.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/megaphone/Megaphones.java
+@@ -353,7 +353,7 @@ public final class Megaphones {
+         .setTitle(R.string.DonateMegaphone_molly_is_free_software)
+         .setBody(R.string.DonateMegaphone_we_maintain_molly_with_your_support_consider_donating_at_open_collective)
+         .setImage(R.drawable.ic_donate_megaphone)
+-        .setActionButton(R.string.BecomeASustainerMegaphone__donate, (megaphone, listener) -> {
++        .setActionButton(R.string.ConversationUpdateItem_donate, (megaphone, listener) -> {
+           CommunicationActions.openBrowserLink(listener.getMegaphoneActivity(), context.getString(R.string.donate_url));
+           listener.onMegaphoneCompleted(megaphone.getEvent());
+         })
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java
+index 0a4ae49f6e1a80a8d2778fd61bdc12c4810caa7f..ddddac0a43889733bcd9ea9ac5e57103079781a1 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java
+@@ -10,7 +10,7 @@ import androidx.webkit.ProxyConfig;
+ import androidx.webkit.ProxyController;
+ import androidx.webkit.WebViewFeature;
+ 
+-import org.greenrobot.eventbus.EventBus;
++import org.signal.core.util.eventbus.EventBus;
+ import org.signal.core.util.AppForegroundObserver;
+ import org.signal.core.util.concurrent.SignalExecutors;
+ import org.signal.core.util.logging.Log;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/UnregisteredNotifier.kt b/app/src/main/java/org/thoughtcrime/securesms/notifications/UnregisteredNotifier.kt
+index 1cc560c667c7f0e5c0898a7f3695d4299a991518..b66465e225dc1bc0f5b83f13a71d9e790e69a3c1 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/UnregisteredNotifier.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/UnregisteredNotifier.kt
+@@ -45,7 +45,7 @@ object UnregisteredNotifier {
+     )
+ 
+     val notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().FAILURES)
+-      .setSmallIcon(R.drawable.ic_signal_logo_large)
++      .setSmallIcon(R.drawable.ic_notification)
+       .setContentText(context.getString(R.string.LoggedOutNotification_you_have_been_logged_out))
+       .setContentIntent(reRegistrationIntent)
+       .setOnlyAlertOnce(true)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/preferences/BackupsPreferenceFragment.java b/app/src/main/java/org/thoughtcrime/securesms/preferences/BackupsPreferenceFragment.java
+index 98c5bb9bb9345e7bd3fd7e21998c5740e3ee41fe..eede46648fae3291b9dfad1cfa1070d2066d8117 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/preferences/BackupsPreferenceFragment.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/preferences/BackupsPreferenceFragment.java
+@@ -47,6 +47,7 @@ import org.thoughtcrime.securesms.service.LocalBackupListener;
+ import org.thoughtcrime.securesms.util.BackupUtil;
+ import org.thoughtcrime.securesms.util.Environment;
+ import org.thoughtcrime.securesms.util.LocalTimeExtensionsKt;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ 
+ import java.text.NumberFormat;
+ import java.time.LocalTime;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/recipients/ui/RecipientPicker.kt b/app/src/main/java/org/thoughtcrime/securesms/recipients/ui/RecipientPicker.kt
+index 7a31092f57643fe4e7c55c2f98781ffba2cf8fd0..9294e82564ff8a7db182cedee77081d6ecd4e3ef 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/recipients/ui/RecipientPicker.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/recipients/ui/RecipientPicker.kt
+@@ -58,6 +58,7 @@ import org.thoughtcrime.securesms.recipients.ui.RecipientPicker.DisplayMode.Comp
+ import org.thoughtcrime.securesms.recipients.ui.RecipientPicker.KeyboardType
+ import java.util.Optional
+ import java.util.function.Consumer
++import org.signal.core.ui.R as CoreUiR
+ 
+ private typealias AndroidKeyboardType = androidx.compose.ui.text.input.KeyboardType
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/service/KeyCachingService.java b/app/src/main/java/org/thoughtcrime/securesms/service/KeyCachingService.java
+index be99680a42a2ef40a5e67fd0c7ddf599cb5752b5..8b392dc3ba3adf6b6abb6f0125ab766ca537994a 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/service/KeyCachingService.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/service/KeyCachingService.java
+@@ -31,7 +31,7 @@ import android.os.SystemClock;
+ 
+ import androidx.core.app.NotificationCompat;
+ 
+-import org.greenrobot.eventbus.EventBus;
++import org.signal.core.util.eventbus.EventBus;
+ import org.signal.core.util.ServiceUtil;
+ import org.signal.core.util.concurrent.SignalExecutors;
+ import org.signal.core.util.logging.Log;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/service/LocalBackupListener.java b/app/src/main/java/org/thoughtcrime/securesms/service/LocalBackupListener.java
+index d722628da15363dd5b6e69194f644766fccdcb79..519432351993d3a4df0b8ea7b5396d850f36d8c0 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/service/LocalBackupListener.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/service/LocalBackupListener.java
+@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
+ import org.signal.core.util.JavaTimeExtensionsKt;
+ import org.thoughtcrime.securesms.jobs.LocalBackupJob;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ 
+ import java.time.Instant;
+ import java.time.LocalDateTime;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/service/UnreadReminderManager.kt b/app/src/main/java/org/thoughtcrime/securesms/service/UnreadReminderManager.kt
+index f5a00253c68748e4804c4b14c8195a19f9d93f34..2fb91250ece43ec28e7c606e5a31e958573fafb3 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/service/UnreadReminderManager.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/service/UnreadReminderManager.kt
+@@ -1,7 +1,6 @@
+ package org.thoughtcrime.securesms.service
+ 
+ import android.app.Application
+-import android.content.BroadcastReceiver
+ import android.content.Context
+ import android.content.Intent
+ import androidx.annotation.WorkerThread
+@@ -66,13 +65,13 @@ class UnreadReminderManager(
+ 
+   data class Event(val delay: Long, val threadId: Long)
+ 
+-  class UnreadReminderAlarm : BroadcastReceiver() {
++  class UnreadReminderAlarm : ExportedBroadcastReceiver() {
+ 
+     companion object {
+       private val TAG = Log.tag(UnreadReminderAlarm::class.java)
+     }
+ 
+-    override fun onReceive(context: Context?, intent: Intent?) {
++    override fun onReceiveUnlock(context: Context, intent: Intent) {
+       Log.d(TAG, "onReceive()")
+       AppDependencies.unreadReminderManager.scheduleIfNecessary()
+     }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java b/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
+index fc504d32cccb2d6d7b4a1b024634f1049a786be0..4310201c07260b75ecada956d6bac93517d6709a 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/service/WipeMemoryService.java
+@@ -216,7 +216,7 @@ public class WipeMemoryService extends IntentService {
+         .setContentText(getString(R.string.WipeMemoryService_clearing_unencrypted_data_from_ram))
+         .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.WipeMemoryService_clearing_unencrypted_data_from_ram)))
+         .setSmallIcon(R.drawable.ic_notification)
+-        .setColor(getResources().getColor(R.color.core_ultramarine))
++        .setColor(getResources().getColor(org.signal.core.ui.R.color.core_ultramarine))
+         .setContentIntent(pendingIntent)
+         .setShowWhen(false)
+         .setProgress(0, 0, true)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/starred/StarredMessagesActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/starred/StarredMessagesActivity.kt
+index da753415506fc382094c9a11e0ee7065053f2701..b031ed682482fca270443e221ee21263c16c30e2 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/starred/StarredMessagesActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/starred/StarredMessagesActivity.kt
+@@ -391,7 +391,6 @@ private class StarredMessageClickListener(
+   override fun onShowGroupDescriptionClicked(groupName: String, description: String, shouldLinkifyWebLinks: Boolean) = Unit
+   override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey) = Unit
+   override fun onViewStickerPackLink(packId: String, packKey: String) = Unit
+-  override fun onPaymentTombstoneClicked() = Unit
+   override fun onDisplayMediaNoLongerAvailableSheet() = Unit
+   override fun onShowUnverifiedProfileSheet(forGroup: Boolean) = Unit
+   override fun onUpdateSignalClicked() = Unit
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/util/PlayStoreUtil.java b/app/src/main/java/org/thoughtcrime/securesms/util/PlayStoreUtil.java
+index 596f533d0a592f60d3f6301bd8707003076fad63..c54adcccfb8bca40b55664756dd4564e2d61b745 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/util/PlayStoreUtil.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/util/PlayStoreUtil.java
+@@ -6,7 +6,7 @@ import android.net.Uri;
+ 
+ import androidx.annotation.NonNull;
+ 
+-import org.thoughtcrime.securesms.R;
++import org.signal.core.util.R;
+ 
+ public final class PlayStoreUtil {
+ 
+diff --git a/app/src/main/res/color/bottom_sheet_navigation_bar_surface.xml b/app/src/main/res/color/bottom_sheet_navigation_bar_surface.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..133c9359780327cd678aed852bf1e04c90f543a0
+--- /dev/null
++++ b/app/src/main/res/color/bottom_sheet_navigation_bar_surface.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="?attr/colorSurface" />
++</selector>
+diff --git a/app/src/main/res/layout/call_log_adapter_item.xml b/app/src/main/res/layout/call_log_adapter_item.xml
+index ce967eba572b83032183c64f4dd6e06c550b24ed..41401a7324c2c4221bc3304a1b7f2ac3dda499ed 100644
+--- a/app/src/main/res/layout/call_log_adapter_item.xml
++++ b/app/src/main/res/layout/call_log_adapter_item.xml
+@@ -78,7 +78,7 @@
+         app:layout_constraintEnd_toStartOf="@id/call_status_barrier"
+         app:layout_constraintStart_toEndOf="@id/call_recipient_name"
+         app:layout_constraintTop_toTopOf="@id/call_recipient_name"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+         android:id="@+id/call_info"
+diff --git a/app/src/main/res/layout/conversation_list_item_action.xml b/app/src/main/res/layout/conversation_list_item_action.xml
+index f5c0cba4a9055ab3b59a6bdddf76857d7f5ceabc..c662e9832f6f999703b5263de0909378d34f36e2 100644
+--- a/app/src/main/res/layout/conversation_list_item_action.xml
++++ b/app/src/main/res/layout/conversation_list_item_action.xml
+@@ -4,7 +4,7 @@
+     tools:viewBindingIgnore="true"
+     android:layout_width="match_parent"
+     android:layout_height="70dp"
+-    android:background="@color/signal_background_primary">
++    android:background="?attr/signal_background_primary">
+ 
+     <TextView
+         android:id="@+id/description"
+diff --git a/app/src/main/res/layout/media_viewer_activity.xml b/app/src/main/res/layout/media_viewer_activity.xml
+index f87e28f0f58ff8d52ced5d6d7e682061ab39c99d..7161f659fea394dfa4108533eaf9adfad1576ea7 100644
+--- a/app/src/main/res/layout/media_viewer_activity.xml
++++ b/app/src/main/res/layout/media_viewer_activity.xml
+@@ -9,7 +9,7 @@
+         android:id="@+id/background_scrim"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:background="@color/signal_colorBackground" />
++        android:background="?attr/colorSurface" />
+ 
+     <FrameLayout
+         android:id="@+id/transition_container"
+diff --git a/app/src/main/res/layout/sender_name_with_label_view.xml b/app/src/main/res/layout/sender_name_with_label_view.xml
+index ef6c85f1e16ac4ab3830f5903c2ce13ae49edcf2..2428f2d0cb757a5842b39d43ad396885ec8b5521 100644
+--- a/app/src/main/res/layout/sender_name_with_label_view.xml
++++ b/app/src/main/res/layout/sender_name_with_label_view.xml
+@@ -10,7 +10,7 @@
+         android:layout_height="wrap_content"
+         android:ellipsize="end"
+         android:maxLines="1"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         android:textStyle="bold"
+         tools:text="Peter Parker" />
+ 
+diff --git a/app/src/main/res/layout/story_video_player.xml b/app/src/main/res/layout/story_video_player.xml
+index 6eb46c038a4a47edb207b12596cd0daf70603941..ae99dc4f9805e6087b86b70cd6436859ce9762ac 100644
+--- a/app/src/main/res/layout/story_video_player.xml
++++ b/app/src/main/res/layout/story_video_player.xml
+@@ -23,7 +23,7 @@
+         android:layout_height="48dp"
+         android:layout_gravity="center"
+         style="?android:attr/progressBarStyleLarge"
+-        android:indeterminateTint="@color/signal_colorOnSurfaceVariant"
++        android:indeterminateTint="?attr/colorOnSurfaceVariant"
+         android:indeterminate="true" />
+ 
+ </FrameLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
+index 4ef4cea6cb510137caa25db39fa43ca3a3e3dfa1..eeb5a0d946638ff9ad51763c2b35b0ab5136531e 100644
+--- a/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
++++ b/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
+@@ -39,97 +39,7 @@
+                 android:textAppearance="@style/Signal.Text.TitleLarge"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_badge" />
+-
+-            <TextView
+-                android:id="@+id/thanks_bottom_sheet_subhead"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_marginStart="@dimen/dsl_settings_gutter"
+-                android:layout_marginTop="6dp"
+-                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+-                android:gravity="center"
+-                android:textAppearance="@style/Signal.Text.BodyLarge"
+-                android:textColor="?attr/colorOnSurfaceVariant"
+-                app:layout_constraintEnd_toEndOf="parent"
+-                app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_heading"
+-                tools:text="@string/SubscribeThanksForYourSupportBottomSheetDialogFragment__thanks_for_your_support" />
+-
+-            <org.thoughtcrime.securesms.badges.BadgeImageView
+-                android:id="@+id/thanks_bottom_sheet_badge"
+-                android:layout_width="80dp"
+-                android:layout_height="80dp"
+-                android:layout_marginTop="28dp"
+-                app:badge_size="badge_112"
+-                app:layout_constraintEnd_toEndOf="parent"
+-                app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toTopOf="parent"
+-                tools:src="@drawable/test_gradient" />
+-
+-            <com.airbnb.lottie.LottieAnimationView
+-                android:id="@+id/thanks_bottom_sheet_lottie"
+-                android:layout_width="80dp"
+-                android:layout_height="80dp"
+-                app:layout_constraintBottom_toBottomOf="@id/thanks_bottom_sheet_badge"
+-                app:layout_constraintEnd_toEndOf="@id/thanks_bottom_sheet_badge"
+-                app:layout_constraintStart_toStartOf="@id/thanks_bottom_sheet_badge"
+-                app:layout_constraintTop_toTopOf="@id/thanks_bottom_sheet_badge"
+-                app:lottie_rawRes="@raw/lottie_rocket" />
+-
+-            <View
+-                android:id="@+id/thanks_bottom_sheet_control_outline"
+-                android:layout_width="0dp"
+-                android:layout_height="0dp"
+-                android:background="@drawable/rounded_outline"
+-                app:layout_constraintBottom_toBottomOf="@id/thanks_bottom_sheet_control_text"
+-                app:layout_constraintEnd_toEndOf="@id/thanks_bottom_sheet_switch"
+-                app:layout_constraintStart_toStartOf="@id/thanks_bottom_sheet_control_text"
+-                app:layout_constraintTop_toTopOf="@id/thanks_bottom_sheet_control_text" />
+-
+-            <TextView
+-                android:id="@+id/thanks_bottom_sheet_control_text"
+-                android:layout_width="0dp"
+-                android:layout_height="48sp"
+-                android:layout_marginStart="@dimen/dsl_settings_gutter"
+-                android:layout_marginTop="36dp"
+-                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+-                android:gravity="center_vertical"
+-                android:paddingStart="16dp"
+-                android:paddingEnd="16dp"
+-                android:text="@string/SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile"
+-                android:textAppearance="@style/TextAppearance.Signal.Body1"
+-                app:layout_constraintEnd_toStartOf="@id/thanks_bottom_sheet_switch"
+-                app:layout_constraintHorizontal_chainStyle="spread"
+-                app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_subhead" />
+-
+-            <com.google.android.material.materialswitch.MaterialSwitch
+-                style="@style/Widget.Signal.CompoundButton.MaterialSwitch"
+-                android:id="@+id/thanks_bottom_sheet_switch"
+-                android:layout_width="wrap_content"
+-                android:layout_height="48sp"
+-                android:layout_marginEnd="@dimen/dsl_settings_gutter"
+-                android:paddingStart="16dp"
+-                android:paddingEnd="16dp"
+-                app:layout_constraintBottom_toBottomOf="@id/thanks_bottom_sheet_control_text"
+-                app:layout_constraintEnd_toEndOf="parent"
+-                app:layout_constraintStart_toEndOf="@id/thanks_bottom_sheet_control_text"
+-                app:layout_constraintTop_toTopOf="@id/thanks_bottom_sheet_control_text" />
+-
+-            <TextView
+-                android:id="@+id/thanks_bottom_sheet_featured_note"
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:layout_marginStart="40dp"
+-                android:layout_marginTop="12dp"
+-                android:layout_marginEnd="40dp"
+-                android:text="@string/ThanksForYourSupportBottomSheetFragment__when_you_have_more"
+-                android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="?attr/colorOnSurfaceVariant"
+-                android:visibility="gone"
+-                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_control_outline"
+-                tools:visibility="visible" />
++                app:layout_constraintTop_toTopOf="parent" />
+ 
+             <com.google.android.material.button.MaterialButton
+                 android:id="@+id/thanks_bottom_sheet_done"
+@@ -143,8 +53,7 @@
+                 android:text="@string/SubscribeThanksForYourSupportBottomSheetDialogFragment__continue"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_featured_note"
+-                app:layout_goneMarginTop="72dp" />
++                app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_heading" />
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </androidx.core.widget.NestedScrollView>
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+index 7bd7da33fc34009c98c350f7b3fd81ae9af885c7..fea337faab883b4a523fd9733c0105f1628bc8ed 100644
+--- a/app/src/main/res/values/colors.xml
++++ b/app/src/main/res/values/colors.xml
+@@ -68,7 +68,6 @@
+     <!-- Bottom-sheet dialog navigation bar color. Opaque below API 27 (keeps the legacy colored
+          strip); overridden to transparent in values-v27 so Material's BottomSheetDialog lays the
+          sheet out edge-to-edge and pads it for the navigation bar itself. -->
+-    <color name="bottom_sheet_navigation_bar_surface">@color/signal_colorSurface</color>
+ 
+     <color name="reminder_background">#faf0dc</color>
+ </resources>
+diff --git a/app/src/main/res/values/strings2.xml b/app/src/main/res/values/strings2.xml
+index 4dc6c30026790623d7447ec0306a7a6c50af2b38..ecacd13e91b46afa309eca77211d20033d70b587 100644
+--- a/app/src/main/res/values/strings2.xml
++++ b/app/src/main/res/values/strings2.xml
+@@ -1,5 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
++    <string name="please_wait">Please wait…</string>
+     <string name="website_url" translatable="false">https://molly.im</string>
+     <string name="mollysocket_setup_url" translatable="false">https://github.com/mollyim/mollysocket</string>
+     <string name="app_icon_label_zen">Zen</string>
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/subscription/SubscriptionsConfigurationExtensionsKtTest.kt b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/subscription/SubscriptionsConfigurationExtensionsKtTest.kt
+index cd532d069e15254d03684edf9d8ba159207c0802..d54bb96a3635eed34bc6af018bc959fccee4ced3 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/subscription/SubscriptionsConfigurationExtensionsKtTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/subscription/SubscriptionsConfigurationExtensionsKtTest.kt
+@@ -30,7 +30,7 @@ class SubscriptionsConfigurationExtensionsKtTest {
+ 
+   @Before
+   fun setUp() {
+-    CoreUtilDependencies.init(ApplicationProvider.getApplicationContext(), mockk(relaxed = true), CoreUtilDependencies.BuildInfo(0, 0))
++    CoreUtilDependencies.init(ApplicationProvider.getApplicationContext(), mockk(relaxed = true), CoreUtilDependencies.BuildInfo(buildTimestamp = 0))
+   }
+ 
+   @Test
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModelTest.kt b/app/src/test/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModelTest.kt
+index a27c2e21c59c2d747430d0199f2bca3824e9a245..5c12137bd1c662b4bebbd32e766d811c45c147ac 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModelTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModelTest.kt
+@@ -11,6 +11,7 @@ import assertk.assertions.containsExactly
+ import assertk.assertions.isEmpty
+ import assertk.assertions.isEqualTo
+ import assertk.assertions.isFalse
++import assertk.assertions.isNull
+ import io.mockk.coEvery
+ import io.mockk.coVerify
+ import io.mockk.every
+@@ -50,7 +51,6 @@ class DeleteAccountViewModelTest {
+ 
+     every { repository.isPhoneNumberless() } returns false
+     every { repository.getUsername() } returns null
+-    every { repository.getFormattedWalletBalance() } returns null
+     every { repository.getRegionDisplayName(any()) } returns ""
+     every { repository.getRegionDisplayName("US") } returns "United States"
+     every { repository.getRegionCountryCode("US") } returns 1
+@@ -64,12 +64,10 @@ class DeleteAccountViewModelTest {
+   }
+ 
+   @Test
+-  fun `a wallet balance is read out of the repository up front`() = runTest(testDispatcher) {
+-    every { repository.getFormattedWalletBalance() } returns "0.1000 MOB"
+-
++  fun `wallet balance is absent when payments are disabled`() = runTest(testDispatcher) {
+     val viewModel = createViewModel()
+ 
+-    assertThat(viewModel.state.value.walletBalance).isEqualTo("0.1000 MOB")
++    assertThat(viewModel.state.value.walletBalance).isNull()
+   }
+ 
+   @Test
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/jobs/FcmRefreshJobTest.kt b/app/src/test/java/org/thoughtcrime/securesms/jobs/FcmRefreshJobTest.kt
+index c081b43a0f7db8962335e0c671fe122eee781ecf..922fc601e7e02f1592f2c86c946e9a293cf857d4 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/jobs/FcmRefreshJobTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/jobs/FcmRefreshJobTest.kt
+@@ -5,24 +5,62 @@
+ 
+ package org.thoughtcrime.securesms.jobs
+ 
++import android.content.Context
++import io.mockk.Runs
++import io.mockk.coEvery
++import io.mockk.coVerify
+ import io.mockk.every
++import io.mockk.just
++import io.mockk.mockk
++import io.mockk.mockkStatic
++import io.mockk.unmockkStatic
+ import io.mockk.verify
++import org.junit.After
++import org.junit.Assert.assertEquals
++import org.junit.Assert.assertSame
++import org.junit.Assert.assertThrows
++import org.junit.Assert.assertTrue
+ import org.junit.Before
+ import org.junit.Rule
+ import org.junit.Test
+ import org.signal.core.util.logging.Log
++import org.signal.libsignal.net.RequestResult
++import org.thoughtcrime.securesms.gcm.FcmUtil
+ import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
++import org.thoughtcrime.securesms.net.SignalNetwork
+ import org.thoughtcrime.securesms.testutil.MockSignalStoreRule
+ import org.thoughtcrime.securesms.testutil.SystemOutLogger
++import org.whispersystems.signalservice.api.account.AccountApi
++import java.io.IOException
+ 
+ class FcmRefreshJobTest {
+ 
+   @get:Rule
+   val signalStore = MockSignalStoreRule()
+ 
++  private val context = mockk<Context>()
++  private val accountApi = mockk<AccountApi>()
++  private var tokenLastSetTime = 1234L
++
+   @Before
+   fun setUp() {
+     Log.initialize(SystemOutLogger())
++    val network = mockk<SignalNetwork>()
++    every { network.accountApi } returns accountApi
++    SignalNetwork.init(network)
++
++    mockkStatic(FcmUtil::class)
++    every { FcmUtil.deleteFirebaseInstallationId(context) } just Runs
++    every { signalStore.account.fcmEnabled } returns false
++    every { signalStore.account.fcmTokenLastSetTime } answers { tokenLastSetTime }
++    every { signalStore.account.fcmToken = null } answers { tokenLastSetTime = 0 }
++    every { accountApi.clearFcmTokenSync() } answers { callOriginal() }
++  }
++
++  @After
++  fun tearDown() {
++    unmockkStatic(FcmUtil::class)
++    SignalNetwork.init(SignalNetwork())
+   }
+ 
+   @Test
+@@ -34,4 +72,47 @@ class FcmRefreshJobTest {
+     verify(exactly = 0) { signalStore.settings.preferredNotificationMethod = any() }
+     verify(exactly = 0) { signalStore.settings.forceWebsocketMode = any() }
+   }
++
++  @Test
++  fun `failed FCM removal keeps the pending timestamp and reports the original retryable error`() {
++    val networkError = IOException("offline")
++    coEvery { accountApi.clearFcmToken() } returns RequestResult.RetryableNetworkError(networkError)
++    val job = FcmRefreshJob().apply { setContext(context) }
++
++    val thrown = assertThrows(IOException::class.java) { job.onRun() }
++
++    assertSame(networkError, thrown)
++    assertTrue(job.onShouldRetry(thrown))
++    assertEquals(1234L, tokenLastSetTime)
++    coVerify(exactly = 1) { accountApi.clearFcmToken() }
++    verify(exactly = 1) { signalStore.account.invalidateFcmToken() }
++    verify(exactly = 1) { FcmUtil.deleteFirebaseInstallationId(context) }
++    verify(exactly = 0) { signalStore.account.fcmToken = any() }
++    verify(exactly = 0) { signalStore.account.fcmEnabled = any() }
++  }
++
++  @Test
++  fun `successful FCM removal clears the pending timestamp without enabling FCM`() {
++    coEvery { accountApi.clearFcmToken() } returns RequestResult.Success(Unit)
++
++    FcmRefreshJob().apply { setContext(context) }.onRun()
++
++    assertEquals(0L, tokenLastSetTime)
++    coVerify(exactly = 1) { accountApi.clearFcmToken() }
++    verify(exactly = 1) { signalStore.account.invalidateFcmToken() }
++    verify(exactly = 1) { FcmUtil.deleteFirebaseInstallationId(context) }
++    verify(exactly = 1) { signalStore.account.fcmToken = null }
++    verify(exactly = 0) { signalStore.account.fcmEnabled = any() }
++  }
++
++  @Test
++  fun `disabled FCM without a previously set token skips network and Firebase cleanup`() {
++    tokenLastSetTime = 0
++
++    FcmRefreshJob().apply { setContext(context) }.onRun()
++
++    coVerify(exactly = 0) { accountApi.clearFcmToken() }
++    verify(exactly = 0) { FcmUtil.deleteFirebaseInstallationId(context) }
++    verify(exactly = 0) { signalStore.account.fcmToken = any() }
++  }
+ }
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJobTest.kt b/app/src/test/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJobTest.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..0cbe5c8f8cc240f47f9815e67854fe0afe93b673
+--- /dev/null
++++ b/app/src/test/java/org/thoughtcrime/securesms/jobs/UnifiedPushRefreshJobTest.kt
+@@ -0,0 +1,117 @@
++/*
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.thoughtcrime.securesms.jobs
++
++import android.app.Application
++import im.molly.unifiedpush.model.MollySocketDevice
++import im.molly.unifiedpush.model.RegistrationStatus
++import io.mockk.coEvery
++import io.mockk.coVerify
++import io.mockk.every
++import io.mockk.mockk
++import io.mockk.mockkObject
++import io.mockk.unmockkObject
++import io.mockk.verify
++import org.junit.After
++import org.junit.Assert.assertNull
++import org.junit.Assert.assertSame
++import org.junit.Assert.assertTrue
++import org.junit.Before
++import org.junit.Rule
++import org.junit.Test
++import org.junit.runner.RunWith
++import org.robolectric.RobolectricTestRunner
++import org.robolectric.annotation.Config
++import org.signal.core.util.logging.Log
++import org.thoughtcrime.securesms.keyvalue.SignalStore
++import org.thoughtcrime.securesms.keyvalue.UnifiedPushValues
++import org.thoughtcrime.securesms.linkdevice.Device
++import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository
++import org.thoughtcrime.securesms.testutil.MockSignalStoreRule
++import org.thoughtcrime.securesms.testutil.SystemOutLogger
++import java.io.IOException
++import java.util.concurrent.Executors
++import java.util.concurrent.TimeUnit
++
++@RunWith(RobolectricTestRunner::class)
++@Config(manifest = Config.NONE, application = Application::class)
++class UnifiedPushRefreshJobTest {
++
++  @get:Rule
++  val signalStore = MockSignalStoreRule()
++
++  private val unifiedPush = mockk<UnifiedPushValues>(relaxUnitFun = true)
++  private val device = MollySocketDevice(deviceId = 4, password = "retained-relay-credential")
++  private var storedDevice: MollySocketDevice? = device
++
++  @Before
++  fun setUp() {
++    Log.initialize(SystemOutLogger())
++    mockkObject(LinkDeviceRepository)
++
++    every { SignalStore.unifiedpush } returns unifiedPush
++    every { signalStore.account.isRegistered } returns true
++    every { unifiedPush.enabled } returns false
++    every { unifiedPush.airGapped } returns false
++    every { unifiedPush.registrationStatus } returns RegistrationStatus.UNKNOWN
++    every { unifiedPush.device } answers { storedDevice }
++    every { unifiedPush.device = any() } answers { storedDevice = firstArg() }
++
++    coEvery { LinkDeviceRepository.loadDevices() } returns listOf(
++      Device(id = device.deviceId, name = "MollySocket", createdMillis = null, lastSeenMillis = 0, registrationId = 1)
++    )
++  }
++
++  @After
++  fun tearDown() {
++    unmockkObject(LinkDeviceRepository)
++  }
++
++  @Test
++  fun `failed unlink keeps relay credentials and reports a retryable failure`() {
++    coEvery { LinkDeviceRepository.removeDevice(device.deviceId) } returns false
++
++    val failure = runCleanup()
++
++    assertTrue(failure is IOException)
++    assertTrue(UnifiedPushRefreshJob().onShouldRetry(failure as IOException))
++    assertSame(device, storedDevice)
++    verify(exactly = 0) { unifiedPush.device = any() }
++    coVerify(exactly = 1) { LinkDeviceRepository.removeDevice(device.deviceId) }
++  }
++
++  @Test
++  fun `successful unlink clears relay credentials`() {
++    coEvery { LinkDeviceRepository.removeDevice(device.deviceId) } returns true
++
++    assertNull(runCleanup())
++
++    assertNull(storedDevice)
++    verify(exactly = 1) { unifiedPush.device = null }
++    coVerify(exactly = 1) { LinkDeviceRepository.removeDevice(device.deviceId) }
++  }
++
++  @Test
++  fun `unknown link status keeps relay credentials without attempting unlink`() {
++    coEvery { LinkDeviceRepository.loadDevices() } returns null
++
++    assertTrue(runCleanup() is IOException)
++
++    assertSame(device, storedDevice)
++    verify(exactly = 0) { unifiedPush.device = any() }
++    coVerify(exactly = 0) { LinkDeviceRepository.removeDevice(any()) }
++  }
++
++  private fun runCleanup(): Throwable? {
++    val executor = Executors.newSingleThreadExecutor()
++    return try {
++      executor.submit<Throwable?> {
++        runCatching { UnifiedPushRefreshJob().onRun() }.exceptionOrNull()
++      }.get(5, TimeUnit.SECONDS)
++    } finally {
++      executor.shutdownNow()
++    }
++  }
++}
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationStorageControllerTest.kt b/app/src/test/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationStorageControllerTest.kt
+index eddca8777f4a5614e6d91cb46304631af3de31ab..e722ac1d955efbd97c0b8a79f2162b749a47b141 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationStorageControllerTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationStorageControllerTest.kt
+@@ -745,8 +745,7 @@ class AppRegistrationStorageControllerTest {
+ 
+   /** Puts onboarding into the state a fresh install leaves it in, where the get-started megaphone would show. */
+   private fun seedOnboardingState() {
+-    SignalStore.onboarding.setShowNewGroup(true)
+-    SignalStore.onboarding.setShowInviteFriends(true)
++    SignalStore.onboarding.setShowStories(true)
+     SignalStore.onboarding.setShowAppearance(true)
+     SignalStore.onboarding.setShowAddPhoto(true)
+   }
+diff --git a/core/ui/src/main/res/color/signal_bottom_sheet_navigation_bar.xml b/core/ui/src/main/res/color/signal_bottom_sheet_navigation_bar.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..11d0c73850b98b6181eb41fd753e99a1eeab08a6
+--- /dev/null
++++ b/core/ui/src/main/res/color/signal_bottom_sheet_navigation_bar.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- The fallback matches the bottom sheet's active day/night or dynamic theme. The values-v27
++     override remains transparent so Material lays the sheet out edge-to-edge. -->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="?attr/colorSurfaceContainerLow" />
++</selector>
+diff --git a/core/ui/src/main/res/values/colors.xml b/core/ui/src/main/res/values/colors.xml
+index afba574b1df980db35c6f34f04887266bca045e1..f054d09ea32a61039315d0af674321e75e568f2e 100644
+--- a/core/ui/src/main/res/values/colors.xml
++++ b/core/ui/src/main/res/values/colors.xml
+@@ -4,7 +4,6 @@
+     <!-- Bottom-sheet dialog navigation bar color. Opaque below API 27 (keeps the legacy colored
+          strip); overridden to transparent in values-v27 so Material's BottomSheetDialog lays the
+          sheet out edge-to-edge and pads it for the navigation bar itself. -->
+-    <color name="signal_bottom_sheet_navigation_bar">@color/signal_colorSurface1</color>
+ 
+     <color name="signal_accent_primary">@color/core_ultramarine</color>
+     <color name="signal_inverse_primary">@color/core_black</color>
+diff --git a/feature/media-send/src/main/res/layout/mediasend_video_player.xml b/feature/media-send/src/main/res/layout/mediasend_video_player.xml
+index d5e63f3768a62c1c8b69b0b5a328b59acf80b8e1..d5811fafaf8c04fe07fc4c36b71bc91154219ec1 100644
+--- a/feature/media-send/src/main/res/layout/mediasend_video_player.xml
++++ b/feature/media-send/src/main/res/layout/mediasend_video_player.xml
+@@ -29,6 +29,6 @@
+         android:layout_height="48dp"
+         android:layout_gravity="center"
+         android:indeterminate="true"
+-        android:indeterminateTint="@color/signal_dark_colorOnSurfaceVariant" />
++        android:indeterminateTint="@color/molly_on_surface_variant_dark" />
+ 
+ </FrameLayout>
+diff --git a/feature/registration/src/test/java/org/signal/registration/fakes/SystemOutLogger.kt b/feature/registration/src/test/java/org/signal/registration/fakes/SystemOutLogger.kt
+index c00c3f0289c742cbfd36786ff5ad07a87ee5f8b7..9a9820fdcc00886c760a7c7af669103d532ffae2 100644
+--- a/feature/registration/src/test/java/org/signal/registration/fakes/SystemOutLogger.kt
++++ b/feature/registration/src/test/java/org/signal/registration/fakes/SystemOutLogger.kt
+@@ -17,6 +17,7 @@ class SystemOutLogger : Log.Logger() {
+   override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = print("W", tag, message, t)
+   override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) = print("E", tag, message, t)
+   override fun flush() = Unit
++  override fun clear() = Unit
+ 
+   private fun print(level: String, tag: String, message: String?, t: Throwable?) {
+     println("[$level][$tag] $message")
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
+index 22d6559ecc495a849df7d35614fc048c5662c0bc..932e209b0781e43dd8c3088abce07e790df90503 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
+@@ -10,10 +10,12 @@ import org.signal.libsignal.net.Network;
+ import org.signal.libsignal.protocol.InvalidKeyException;
+ import org.whispersystems.signalservice.api.account.AccountApi;
+ import org.whispersystems.signalservice.api.account.AccountAttributes;
++import org.whispersystems.signalservice.api.account.DeviceAttributes;
+ import org.whispersystems.signalservice.api.account.PreKeyCollection;
+ import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
+ import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
+ import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
++import org.whispersystems.signalservice.api.messages.multidevice.RegisterAsSecondaryDeviceResponse;
+ import org.signal.core.models.ServiceId.ACI;
+ import org.signal.core.models.ServiceId.PNI;
+ import org.whispersystems.signalservice.api.registration.RegistrationApi;
+@@ -123,8 +125,22 @@ public class SignalServiceAccountManager {
+                                          @Nullable String fcmToken)
+       throws IOException, InvalidKeyException
+   {
+-    int deviceId = pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
+-    return deviceId;
++    DeviceAttributes deviceAttributes = new DeviceAttributes(attributes.getFetchesMessages(),
++                                                             attributes.getRegistrationId(),
++                                                             attributes.getPniRegistrationId(),
++                                                             attributes.getName(),
++                                                             attributes.getCapabilities());
++    RegisterAsSecondaryDeviceResponse response = NetworkResultUtil.successOrThrow(
++        getRegistrationApi().registerAsSecondaryDevice(provisioningCode,
++                                                      deviceAttributes,
++                                                      aciPreKeys,
++                                                      pniPreKeys,
++                                                      attributes.getFetchesMessages() ? null : fcmToken));
++    try {
++      return Integer.parseInt(response.getDeviceId());
++    } catch (NumberFormatException e) {
++      throw new IOException("Invalid linked device ID in registration response", e);
++    }
+   }
+ 
+   public void checkNetworkConnection() throws IOException {
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/account/AccountApi.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/account/AccountApi.kt
+index 2dcd56af2abe0f1e957712a31ceb92ce22e2e304..b30ce26ceff67b5182fc2d3c2f344fa23fc2229e 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/account/AccountApi.kt
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/account/AccountApi.kt
+@@ -72,6 +72,11 @@ class AccountApi(private val authWebSocket: SignalWebSocket.AuthenticatedWebSock
+     }
+   }
+ 
++  /** Blocking variant of [clearFcmToken] for Java callers running on a worker thread. */
++  fun clearFcmTokenSync(): RequestResult<Unit, Nothing> {
++    return runBlocking { clearFcmToken() }
++  }
++
+   /**
+    * Set account attributes.
+    *
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+index a8bc4986f27f3dcb2187a6f307dcf8de6117b873..224f7cf88878d39b1cc62ad9528c6070ce16bfed 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+@@ -77,6 +77,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.GroupNotFoundEx
+ import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAcceptedException;
+ import org.whispersystems.signalservice.internal.push.exceptions.GroupTerminatedException;
+ import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
++import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException;
+ import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
+ import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
+ import org.whispersystems.signalservice.internal.push.http.CancelationSignal;
+@@ -372,7 +373,11 @@ public class PushServiceSocket {
+   }
+ 
+   public RegisterAsSecondaryDeviceResponse registerAsSecondaryDevice(RegisterAsSecondaryDeviceRequest request) throws IOException {
+-    String responseText = makeServiceRequest("/v1/devices/link", "PUT", JsonUtil.toJson(request));
++    String responseText = makeServiceRequest(DEVICE_LINK_PATH, "PUT", JsonUtil.toJson(request), NO_HEADERS,
++                                            (responseCode, body, getHeader) -> {
++                                              // This endpoint uses 409 for a missing account capability.
++                                              if (responseCode == 409) throw new MissingCapabilitiesException();
++                                            }, SealedSenderAccess.NONE);
+     return JsonUtil.fromJson(responseText, RegisterAsSecondaryDeviceResponse.class);
+   }
+ 
+diff --git a/lib/libsignal-service/src/test/java/org/whispersystems/signalservice/api/SignalServiceAccountManagerLinkedRegistrationTest.kt b/lib/libsignal-service/src/test/java/org/whispersystems/signalservice/api/SignalServiceAccountManagerLinkedRegistrationTest.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..2a0808ac56d7fa48d763800195e41a0aaa3e9d18
+--- /dev/null
++++ b/lib/libsignal-service/src/test/java/org/whispersystems/signalservice/api/SignalServiceAccountManagerLinkedRegistrationTest.kt
+@@ -0,0 +1,226 @@
++/*
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.whispersystems.signalservice.api
++
++import com.fasterxml.jackson.databind.JsonNode
++import com.fasterxml.jackson.databind.ObjectMapper
++import io.mockk.every
++import io.mockk.mockk
++import io.mockk.mockkStatic
++import io.mockk.unmockkStatic
++import okhttp3.Credentials
++import okhttp3.Dns
++import okhttp3.Interceptor
++import okhttp3.MediaType.Companion.toMediaType
++import okhttp3.Protocol
++import okhttp3.Request
++import okhttp3.Response
++import okhttp3.ResponseBody.Companion.toResponseBody
++import okio.Buffer
++import org.junit.Assert.assertEquals
++import org.junit.Assert.assertThrows
++import org.junit.Assert.assertTrue
++import org.junit.Test
++import org.signal.core.util.Base64
++import org.signal.libsignal.protocol.IdentityKey
++import org.signal.libsignal.protocol.ecc.ECKeyPair
++import org.signal.libsignal.protocol.kem.KEMKeyPair
++import org.signal.libsignal.protocol.kem.KEMKeyType
++import org.signal.libsignal.protocol.state.KyberPreKeyRecord
++import org.signal.libsignal.protocol.state.SignedPreKeyRecord
++import org.signal.network.config.SignalServiceConfiguration
++import org.signal.network.config.SignalServiceUrl
++import org.signal.network.config.TrustStore
++import org.whispersystems.signalservice.api.account.AccountAttributes
++import org.whispersystems.signalservice.api.account.PreKeyCollection
++import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
++import org.whispersystems.signalservice.api.push.SignalServiceAddress
++import org.whispersystems.signalservice.internal.push.DeviceLimitExceededException
++import org.whispersystems.signalservice.internal.push.PushServiceSocket
++import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException
++import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
++import org.whispersystems.signalservice.internal.util.StaticCredentialsProvider
++import java.io.IOException
++import java.net.InetSocketAddress
++import java.net.ProxySelector
++import javax.net.SocketFactory
++import javax.net.ssl.TrustManager
++
++/** Exercises the HTTP contract used by MollySocket without contacting the Signal service. */
++class SignalServiceAccountManagerLinkedRegistrationTest {
++
++  private val mapper = ObjectMapper()
++  private val aciPreKeys = preKeys(11)
++  private val pniPreKeys = preKeys(21)
++
++  @Test
++  fun `fetching linked device preserves credentials attributes and both prekey collections`() {
++    val (deviceId, request) = register(fcmToken = "must-not-be-sent")
++    val body = body(request)
++
++    assertEquals(7, deviceId)
++    assertEquals("PUT", request.method)
++    assertEquals("https://linked-registration.invalid/v1/devices/link", request.url.toString())
++    // createForDeviceLink has no ACI or number yet; this is the new device's password.
++    assertEquals(Credentials.basic("null", DEVICE_PASSWORD), request.header("Authorization"))
++    assertEquals("MollySocket-test", request.header("X-Signal-Agent"))
++    assertEquals("provisioning-code", body["verificationCode"].asText())
++    assertEquals(
++      mapper.readTree(
++        """{
++          "fetchesMessages": true,
++          "registrationId": 123,
++          "pniRegistrationId": 456,
++          "name": "ZW5jcnlwdGVkLW5hbWU=",
++          "capabilities": {
++            "storage": false,
++            "versionedExpirationTimer": true,
++            "attachmentBackfill": true,
++            "spqr": true,
++            "usernameChangeSyncMessage": true,
++            "optionalPhoneNumber": false
++          }
++        }"""
++      ),
++      body["accountAttributes"]
++    )
++    assertPreKeys(body, "aci", aciPreKeys)
++    assertPreKeys(body, "pni", pniPreKeys)
++    assertTrue(body.path("gcmToken").isNull)
++  }
++
++  @Test
++  fun `push linked device retains its FCM token`() {
++    val (_, request) = register(fetchesMessages = false, fcmToken = "linked-device-fcm")
++    val body = body(request)
++
++    assertEquals(false, body["accountAttributes"]["fetchesMessages"].asBoolean())
++    assertEquals("linked-device-fcm", body["gcmToken"]["gcmRegistrationId"].asText())
++    assertEquals(true, body["gcmToken"]["webSocketChannel"].asBoolean())
++  }
++
++  @Test
++  fun `link capability conflict retains its endpoint-specific exception`() {
++    assertThrows(MissingCapabilitiesException::class.java) {
++      register(responseCode = 409, responseBody = """{"missingCapabilities":["spqr"]}""")
++    }
++  }
++
++  @Test
++  fun `device limit retains the counts used by UnifiedPush notification`() {
++    val error = assertThrows(DeviceLimitExceededException::class.java) {
++      register(responseCode = 411, responseBody = """{"current":6,"max":6}""")
++    }
++
++    assertEquals(6, error.current)
++    assertEquals(6, error.max)
++  }
++
++  @Test
++  fun `invalid response device ID fails as an IO error`() {
++    val error = assertThrows(IOException::class.java) {
++      register(responseBody = response("not-a-device-id"))
++    }
++
++    assertTrue(error.cause is NumberFormatException)
++  }
++
++  private fun register(
++    responseCode: Int = 200,
++    responseBody: String = response("7"),
++    fetchesMessages: Boolean = true,
++    fcmToken: String? = null
++  ): Pair<Int, Request> {
++    var captured: Request? = null
++    val interceptor = Interceptor { chain ->
++      val request = chain.request().also { captured = it }
++      Response.Builder()
++        .request(request)
++        .protocol(Protocol.HTTP_1_1)
++        .code(responseCode)
++        .message("Fixture response")
++        .body(responseBody.toResponseBody("application/json".toMediaType()))
++        .build()
++    }
++    val trustStore = mockk<TrustStore>()
++    val defaultTrustManager = BlacklistingTrustManager.createForDefaultTrustStore()
++    // Android's BKS store is irrelevant to this in-process HTTP exchange. Keep the real
++    // request, JSON, response handling, and configured client/interceptor path intact.
++    mockkStatic(BlacklistingTrustManager::class)
++    try {
++      every { BlacklistingTrustManager.createFor(trustStore) } returns arrayOf<TrustManager>(defaultTrustManager)
++      val configuration = SignalServiceConfiguration(
++        signalServiceUrls = arrayOf(SignalServiceUrl("https://linked-registration.invalid", trustStore)),
++        signalCdnUrlMap = mapOf(0 to emptyArray(), 2 to emptyArray()),
++        signalStorageUrls = emptyArray(),
++        signalCdsiUrls = emptyArray(),
++        signalSvr2Urls = emptyArray(),
++        networkInterceptors = listOf(interceptor),
++        socketFactory = SocketFactory.getDefault(),
++        proxySelector = ProxySelector.of(InetSocketAddress.createUnresolved("proxy.invalid", 1080)),
++        dns = Dns { throw AssertionError("Registration fixture must not resolve a network host") },
++        zkGroupServerPublicParams = byteArrayOf(),
++        genericServerPublicParams = byteArrayOf(),
++        backupServerPublicParams = byteArrayOf(),
++        censored = false
++      )
++      val credentials = StaticCredentialsProvider(null, null, null, SignalServiceAddress.DEFAULT_DEVICE_ID, DEVICE_PASSWORD)
++      val socket = PushServiceSocket(configuration, credentials, "MollySocket-test", false)
++      val manager = SignalServiceAccountManager(null, null, socket, mockk<GroupsV2Operations>())
++      val attributes = AccountAttributes(
++        signalingKey = null,
++        registrationId = 123,
++        fetchesMessages = fetchesMessages,
++        registrationLock = null,
++        unidentifiedAccessKey = null,
++        unrestrictedUnidentifiedAccess = true,
++        capabilities = AccountAttributes.Capabilities(false, true, true, true, true, false),
++        discoverableByPhoneNumber = false,
++        name = "ZW5jcnlwdGVkLW5hbWU=",
++        pniRegistrationId = 456,
++        recoveryPassword = null
++      )
++      val deviceId = manager.finishNewDeviceRegistration("provisioning-code", attributes, aciPreKeys, pniPreKeys, fcmToken)
++      return deviceId to checkNotNull(captured)
++    } finally {
++      unmockkStatic(BlacklistingTrustManager::class)
++    }
++  }
++
++  private fun body(request: Request): JsonNode {
++    val buffer = Buffer()
++    checkNotNull(request.body).writeTo(buffer)
++    return mapper.readTree(buffer.readUtf8())
++  }
++
++  private fun assertPreKeys(body: JsonNode, prefix: String, keys: PreKeyCollection) {
++    val signed = body["${prefix}SignedPreKey"]
++    assertEquals(keys.signedPreKey.id, signed["keyId"].asInt())
++    assertEquals(Base64.encodeWithoutPadding(keys.signedPreKey.keyPair.publicKey.serialize()), signed["publicKey"].asText())
++    assertEquals(Base64.encodeWithoutPadding(keys.signedPreKey.signature), signed["signature"].asText())
++    val pq = body["${prefix}PqLastResortPreKey"]
++    assertEquals(keys.lastResortKyberPreKey.id, pq["keyId"].asInt())
++    assertEquals(Base64.encodeWithoutPadding(keys.lastResortKyberPreKey.keyPair.publicKey.serialize()), pq["publicKey"].asText())
++    assertEquals(Base64.encodeWithoutPadding(keys.lastResortKyberPreKey.signature), pq["signature"].asText())
++  }
++
++  private fun preKeys(id: Int): PreKeyCollection {
++    val identity = ECKeyPair.generate()
++    val signed = ECKeyPair.generate()
++    val pq = KEMKeyPair.generate(KEMKeyType.KYBER_1024)
++    return PreKeyCollection(
++      IdentityKey(identity.publicKey),
++      SignedPreKeyRecord(id, 1L, signed, identity.privateKey.calculateSignature(signed.publicKey.serialize())),
++      KyberPreKeyRecord(id + 1, 1L, pq, identity.privateKey.calculateSignature(pq.publicKey.serialize()))
++    )
++  }
++
++  private fun response(deviceId: String): String =
++    """{"uuid":"00000000-0000-4000-8000-000000000001","pni":"00000000-0000-4000-8000-000000000002","deviceId":"$deviceId"}"""
++
++  companion object {
++    private const val DEVICE_PASSWORD = "new-linked-device-password"
++  }
++}

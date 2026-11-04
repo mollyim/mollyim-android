@@ -1,0 +1,1752 @@
+From bc5ef3c59236b5dd03ecec9b90c58866c1c4837b Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 10
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 25 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-uk/strings2.xml b/app/src/main/res/values-uk/strings2.xml
+index d81b91abb924c0a10972c37f75c9934c84dc8dc4..06dc7e2c2de2edeed8b59f0937ea87113f0452b3 100644
+--- a/app/src/main/res/values-uk/strings2.xml
++++ b/app/src/main/res/values-uk/strings2.xml
+@@ -174,4 +174,6 @@
+     <string name="preferences__follow_system">Слідкуйте за системою</string>
+     <string name="preferences_appearance__dynamic_colors">Динамічні кольори</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Встановлена на цьому пристрої версія сервісів Google Play застаріла.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Сповіщати, коли…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Триває оновлення сервісів Google Play або вони тимчасово недоступні. Спробуйте пізніше.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ur/strings2.xml b/app/src/main/res/values-ur/strings2.xml
+index b1b93eba47dae069aec7d5ca6255608f26cea68b..6609bd2e51ddc82fedb944987082b89738c06498 100644
+--- a/app/src/main/res/values-ur/strings2.xml
++++ b/app/src/main/res/values-ur/strings2.xml
+@@ -3,4 +3,6 @@
+     <string name="AppProtectionPreferenceFragment_instant">فوری کریں</string>
+     <string name="BlockUnblockDialog_block_and_delete">بلاک کریں اور حذف کریں</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly لاک ہے</string>
++    <string name="NotificationsSettingsFragment__notify_when">مطلع کریں جب…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">گوگل پلے سروسز تجدید ہو رہی ہیں یا عارضی طور پر دستیاب نہیں۔ براہ کرم دوبارہ کوشش کریں۔</string>
+ </resources>
+diff --git a/app/src/main/res/values-vi/strings2.xml b/app/src/main/res/values-vi/strings2.xml
+index 3a59155543bb75beb5854ce203e9a62b98d5be3d..cdaee4ab68cd0fa31bbb5e231f5e9a9f83460001 100644
+--- a/app/src/main/res/values-vi/strings2.xml
++++ b/app/src/main/res/values-vi/strings2.xml
+@@ -168,4 +168,6 @@
+     <string name="MollySocketLink_experienced_a_network_error_please_try_again">Xảy ra lỗi mạng. Hãy thử lại.</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server">Máy chủ MollySocket</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Khoảng trống</string>
++    <string name="NotificationsSettingsFragment__notify_when">Thông báo khi…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Dịch vụ Google Play đang cập nhật hoặc tạm thời không khả dụng. Hãy thử lại sau.</string>
+ </resources>
+diff --git a/app/src/main/res/values-yue/strings2.xml b/app/src/main/res/values-yue/strings2.xml
+index 0e736e05847d2c5866945617b55354df613ff69d..8c68a574061404492be17fe50c9762a67c318b8e 100644
+--- a/app/src/main/res/values-yue/strings2.xml
++++ b/app/src/main/res/values-yue/strings2.xml
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly 已經上鎖</string>
++    <string name="NotificationsSettingsFragment__notify_when">通知我…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務一係更新緊，一係暫時用唔到。請您再試下啦。</string>
+ </resources>
+diff --git a/app/src/main/res/values-zh-rCN/strings2.xml b/app/src/main/res/values-zh-rCN/strings2.xml
+index b41ef6721b99e2a5d6e434a41c839b04302cc80d..d60497478083e9441155bac3b281c93cf2b50da6 100644
+--- a/app/src/main/res/values-zh-rCN/strings2.xml
++++ b/app/src/main/res/values-zh-rCN/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="preferences__follow_system">跟随系统</string>
+     <string name="preferences_appearance__dynamic_colors">动态颜色</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">此设备上安装的 Google Play 服务已过时。</string>
++    <string name="NotificationsSettingsFragment__notify_when">发送通知，当…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服务正在更新或者暂时不可用，请稍后再试。</string>
+ </resources>
+diff --git a/app/src/main/res/values-zh-rHK/strings2.xml b/app/src/main/res/values-zh-rHK/strings2.xml
+index 09483c9b72075cd1226effa65085fd48d6b8616b..67f4ecb24e076b8248a0b6b2335ffb0d1bf8caeb 100644
+--- a/app/src/main/res/values-zh-rHK/strings2.xml
++++ b/app/src/main/res/values-zh-rHK/strings2.xml
+@@ -1,4 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly 已鎖定</string>
++    <string name="NotificationsSettingsFragment__notify_when">通知下列事件</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務正在更新，或暫時未能運作。請再試一次。</string>
+ </resources>
+diff --git a/app/src/main/res/values-zh-rTW/strings2.xml b/app/src/main/res/values-zh-rTW/strings2.xml
+index 935e35cbab55cc2ee12e3030c3383bcfd9036253..665aef8c275790d0af2b9ae722b43a90a19f9299 100644
+--- a/app/src/main/res/values-zh-rTW/strings2.xml
++++ b/app/src/main/res/values-zh-rTW/strings2.xml
+@@ -48,4 +48,6 @@
+     <string name="arrays__none">沒有</string>
+     <string name="BlockUnblockDialog_block_and_delete">封鎖並刪除</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly 已被鎖定</string>
++    <string name="NotificationsSettingsFragment__notify_when">發生以下事件時通知你</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務正在更新或暫時無法使用。請再重試。</string>
+ </resources>
+diff --git a/app/src/main/res/values/attrs.xml b/app/src/main/res/values/attrs.xml
+index f544582e058225c7d705fed3caf2fae57cd6f269..0ce20429735b1045bd52d71fdca336af67c52d55 100644
+--- a/app/src/main/res/values/attrs.xml
++++ b/app/src/main/res/values/attrs.xml
+@@ -17,7 +17,6 @@
+ 
+     <!-- From light_colors.xml, dark_colors.xml -->
+     <attr name="conversation_toolbar_color" format="color" />
+-    <attr name="signal_accent_primary" format="color" />
+     <attr name="signal_background_primary" format="color" />
+     <attr name="signal_background_secondary" format="color" />
+     <attr name="signal_background_dialog" format="color" />
+@@ -415,4 +414,5 @@
+     <declare-styleable name="InsetAwareConstraintLayout">
+         <attr name="animateKeyboardChanges" format="boolean" />
+     </declare-styleable>
++    <attr name="custom_pref_toggle" format="string"/>
+ </resources>
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+index b1c0744358905433db13607bd9a83bf80403cf2d..7bd7da33fc34009c98c350f7b3fd81ae9af885c7 100644
+--- a/app/src/main/res/values/colors.xml
++++ b/app/src/main/res/values/colors.xml
+@@ -52,34 +52,18 @@
+ 
+     <color name="media_preview_bar_background">@color/signal_dark_colorNeutral_87</color>
+ 
+-<<<<<<< MOLLY
+     <color name="storage_color_empty">#FFA8A8A8</color>
+     <color name="storage_color_photos">#FF9B8AF2</color>
+     <color name="storage_color_videos">#FF68B0A8</color>
+     <color name="storage_color_audio">#FF5A83EC</color>
+     <color name="storage_color_files">#FFC7518B</color>
+-    <!-- <color name="conversation_list_archive_background_start">@color/signal_colorPrimary</color> -->
+-    <!-- <color name="conversation_list_archive_background_end">@color/signal_colorPrimary</color> -->
+-=======
+-    <color name="storage_color_empty">@color/core_grey_50</color>
+-    <color name="storage_color_photos">#ff5951C8</color>
+-    <color name="storage_color_videos">#ff9BCFBD</color>
+-    <color name="storage_color_audio">@color/core_ultramarine</color>
+-    <color name="storage_color_files">#ffA23474</color>
+     <color name="storage_color_messages">#ffE8734A</color>
+     <color name="storage_color_stickers">#ff3DAE6F</color>
+     <color name="storage_color_other">#ff8C8F97</color>
+-    <color name="conversation_list_archive_background_start">@color/signal_colorPrimary</color>
+-    <color name="conversation_list_archive_background_end">@color/signal_colorPrimary</color>
+->>>>>>> SIGNAL
+-
+     <color name="safety_number_card_grey">@color/molly_tertiary_fixed</color>
+     <color name="safety_number_card_blue">@color/molly_core_ultramarine</color>
+ 
+-<<<<<<< MOLLY
+     <color name="notification_background_ultramarine">#6341FF</color>
+-=======
+-    <color name="notification_background_ultramarine">#3B45FD</color>
+ 
+     <!-- Bottom-sheet dialog navigation bar color. Opaque below API 27 (keeps the legacy colored
+          strip); overridden to transparent in values-v27 so Material's BottomSheetDialog lays the
+@@ -87,5 +71,4 @@
+     <color name="bottom_sheet_navigation_bar_surface">@color/signal_colorSurface</color>
+ 
+     <color name="reminder_background">#faf0dc</color>
+->>>>>>> SIGNAL
+ </resources>
+diff --git a/app/src/main/res/values/light_colors.xml b/app/src/main/res/values/light_colors.xml
+index 016f06a5e44214e13678d673ea587a18eaa326fe..39d583e9bc614c15f3b7df0c6a0cbddf513626e8 100644
+--- a/app/src/main/res/values/light_colors.xml
++++ b/app/src/main/res/values/light_colors.xml
+@@ -1,55 +1,20 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <!-- <color name="conversation_toolbar_color">?attr/colorSurfaceContainer</color> -->
+     <color name="conversation_toolbar_color_wallpaper">@color/signal_colorTransparent5</color>
+     <color name="conversation_toolbar_color_wallpaper_scrolled">@color/signal_colorTransparent5</color>
+     <color name="conversation_toolbar_color_incognito">#C4A8E0</color>
+ 
+-<<<<<<< MOLLY
+-    <!-- <color name="signal_accent_primary">@color/core_ultramarine</color> -->
+-
+-    <color name="signal_inverse_primary">@color/core_black</color>
+-
+-=======
+->>>>>>> SIGNAL
+     <color name="pulse_incoming_message">@color/transparent_black_10</color>
+     <color name="pulse_outgoing_message">@color/transparent_black_25</color>
+ 
+-    <!-- <color name="signal_background_primary">?attr/colorSurface</color> -->
+-    <!-- <color name="signal_background_secondary">?attr/colorSurfaceContainerLow</color> -->
+     <color name="signal_background_tertiary">@color/core_grey_02</color>
+-    <!-- <color name="signal_background_dialog">?attr/colorSurfaceContainer</color> -->
+-    <!-- <color name="signal_background_dialog_secondary">?attr/signal_background_secondary</color> -->
+-
+-    <!-- <color name="signal_text_primary">?attr/colorOnSurface</color> -->
+     <color name="signal_text_primary_disabled">@color/core_grey_25</color>
+     <color name="signal_text_primary_dialog">@color/core_grey_65</color>
+ 
+-    <!-- <color name="signal_text_secondary">?attr/colorOnSurfaceVariant</color> -->
+-
+     <color name="signal_text_hint">@color/core_grey_45</color>
+ 
+-    <!-- <color name="signal_text_toolbar_title">?attr/colorSurface</color> -->
+     <color name="signal_text_toolbar_subtitle">@color/transparent_white_90</color>
+ 
+-    <!-- <color name="signal_icon_tint_primary">?attr/colorOnSurface</color> -->
+-    <!-- <color name="signal_icon_tint_secondary">?attr/colorOnSurfaceVariant</color> -->
+-    <!-- <color name="signal_icon_tint_action">@color/core_black</color> -->
+-
+-    <!-- <color name="signal_icon_tint_tab_selected">?attr/colorOnSurface</color> -->
+-    <!-- <color name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</color> -->
+-
+-    <!-- <color name="signal_button_primary">@color/core_ultramarine</color> -->
+-    <!-- <color name="signal_button_primary_ripple">@color/transparent_black_15</color> -->
+-    <!-- <color name="signal_button_primary_text">@color/core_white</color> -->
+-    <!-- <color name="signal_button_primary_text_disabled">@color/transparent_white_20</color> -->
+-
+-    <!-- <color name="signal_button_secondary">@color/core_grey_05</color> -->
+-    <!-- <color name="signal_button_secondary_ripple">@color/core_grey_02</color> -->
+-    <!-- <color name="signal_button_secondary_text">@color/core_ultramarine</color> -->
+-    <!-- <color name="signal_button_secondary_text_disabled">@color/core_grey_25</color> -->
+-    <!-- <color name="signal_button_secondary_stroke">@color/core_grey_15</color> -->
+-
+     <color name="signal_divider_minor">@color/core_grey_15</color>
+     <color name="signal_divider_major">@color/core_grey_25</color>
+ 
+@@ -71,10 +36,6 @@
+     <color name="signal_inverse_transparent_60">@color/transparent_black_60</color>
+     <color name="signal_inverse_transparent_80">@color/transparent_black_80</color>
+ 
+-    <!-- <color name="conversation_compose_background">?attr/colorSurfaceContainerHigh</color> -->
+-    <!-- <color name="contact_filter_edit_background">?attr/colorSurfaceContainerHighest</color> -->
+-    <!-- <color name="reactions_pill_selected_color">?attr/colorTertiaryContainer</color> -->
+-
+     <!-- Stuff -->
+     <color name="attachment_keyboard_button_foreground">@color/core_grey_65</color>
+ 
+@@ -86,19 +47,11 @@
+     <color name="insight_body_2">@color/core_grey_60</color>
+     <color name="insight_progress_background">@color/core_grey_15</color>
+ 
+-    <!-- <color name="qr_card_color">?attr/colorSurfaceContainerLow</color> -->
+-    <!-- <color name="qr_card_text_color">?attr/colorOnSurfaceVariant</color> -->
+-
+     <color name="conversation_item_sent_text_primary_color">@color/core_white</color>
+     <color name="conversation_item_sent_text_secondary_color">@color/transparent_white_80</color>
+-    <!-- <color name="conversation_item_update_text_color">?attr/colorOnSurfaceVariant</color> -->
+     <color name="conversation_item_recv_icon_color">@color/core_grey_60</color>
+-    <!-- <color name="conversation_item_quote_text_color">?attr/colorOnSurface</color> -->
+-    <!-- <color name="conversation_item_quote_text_color_sent">?attr/colorOnSurface</color> -->
+-    <!-- <color name="conversation_item_recv_bubble_color_normal">?attr/colorSurfaceContainerHigh</color> -->
+     <color name="conversation_item_recv_bubble_color_wallpaper">@color/signal_colorNeutral</color>
+     <color name="conversation_item_outgoing_audio_foreground_tint">@color/signal_colorNeutral</color>
+-    <!-- <color name="conversation_item_incoming_audio_foreground_tint_normal">?attr/colorOnSurface</color> -->
+     <color name="conversation_item_incoming_audio_foreground_tint_wallpaper">@color/signal_colorNeutralInverse</color>
+     <color name="conversation_item_incoming_audio_play_pause_background_tint_normal">@color/signal_colorTransparent5</color>
+     <color name="conversation_item_incoming_audio_play_pause_background_tint_wallpaper">@color/signal_colorTransparentInverse2</color>
+@@ -110,17 +63,12 @@
+     <color name="conversation_item_sent_view_once_circle_wallpaper">@color/transparent_white_20</color>
+     <color name="conversation_item_sent_view_once_unopened">@color/core_white</color>
+     <color name="conversation_item_sent_view_once_opened">@color/transparent_white_90</color>
+-    <!-- <color name="conversation_typing_indicator_foreground_tint_normal">?attr/colorOnSurfaceVariant</color> -->
+     <color name="conversation_typing_indicator_foreground_tint_wallpaper">@color/signal_colorNeutralVariantInverse</color>
+     <color name="conversation_navigation_wallpaper">#80FFFFFF</color>
+ 
+     <color name="wallpaper_bubble_color">@color/signal_colorTransparent4</color>
+     <color name="sticky_header_foreground_wallpaper">@color/signal_colorNeutralVariantInverse</color>
+ 
+-    <!-- <color name="conversation_scroll_to_bottom_foreground_color">?attr/colorOnSurfaceVariant</color> -->
+-
+-    <!-- <color name="conversation_list_selected_color">?attr/colorSurfaceContainerHigh</color> -->
+-
+     <color name="camera_icon_background_tint">@color/core_grey_02</color>
+ 
+     <color name="debuglog_color_none">@color/debuglog_light_none</color>
+@@ -142,23 +90,15 @@
+ 
+     <color name="quote_missing_icon_color">@color/core_grey_60</color>
+ 
+-    <!-- <color name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</color> -->
+     <color name="reactions_pill_selected_text_color">@color/core_grey_75</color>
+     <color name="reactions_screen_dark_shade_color">#6676727F</color>
+     <color name="reactions_screen_light_shade_color">@color/transparent_white_20</color>
+-    <!-- <color name="reactions_overlay_any_emoji_background">?attr/colorTertiaryContainer</color> -->
+-    <!-- <color name="reactions_overlay_any_emoji_foreground">?attr/colorOnTertiaryContainer</color> -->
+-
+     <color name="shared_contact_details_titlebar">@color/grey_400</color>
+     <color name="shared_contact_item_button_color">@color/core_grey_02</color>
+ 
+     <color name="megaphone_background_color">@color/core_white</color>
+-    <!-- <color name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</color> -->
+-
+     <color name="sticker_management_action_button_color">@color/core_grey_90</color>
+ 
+-    <!-- <color name="tooltip_default_color">?attr/colorSecondaryContainer</color> -->
+-
+     <color name="wallpaper_preview_background">@color/transparent_white_30</color>
+     <color name="wallpaper_compose_background">@color/signal_colorTransparent4</color>
+     <color name="conversation_send_button_tint">@color/signal_colorNeutral</color>
+@@ -169,35 +109,6 @@
+     <color name="payment_currency_code_foreground_color">@color/core_grey_45</color>
+ 
+     <color name="settings_ripple_color">@color/transparent_black_10</color>
+-    <color name="settings_chat_wallpaper_preview_background">@color/core_white</color>
+-
+-    <!-- <color name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparentInverse2</color> -->
+-    <!-- <color name="quote_view_bar_incoming_wallpaper">@color/signal_colorTransparentInverse2</color> -->
+-    <!-- <color name="quote_view_foreground_incoming_wallpaper">@color/signal_colorNeutralInverse</color> -->
+-    <!-- <color name="quote_view_background_outgoing_wallpaper">@color/signal_neutralSurface</color> -->
+-    <!-- <color name="quote_view_bar_outgoing_wallpaper">@color/signal_colorOnCustom</color> -->
+-    <!-- <color name="quote_view_foreground_outgoing_wallpaper">@color/signal_colorOnSurface</color> -->
+-    <!-- <color name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</color> -->
+-    <!-- <color name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</color> -->
+-    <!-- <color name="quote_view_foreground_incoming_normal">@color/signal_colorOnSurface</color> -->
+-    <!-- <color name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</color> -->
+-    <!-- <color name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</color> -->
+-    <!-- <color name="quote_view_foreground_outgoing_normal">@color/signal_colorOnSurface</color> -->
+-    <!-- <color name="quote_view_label_background_incoming_normal">@color/signal_colorOnSurface_8</color> -->
+-    <!-- <color name="quote_view_label_background_incoming_wallpaper">@color/signal_colorOnSurface_8</color> -->
+-    <!-- <color name="quote_view_label_background_outgoing_normal">@color/transparent_white_36</color> -->
+-    <!-- <color name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_36</color> -->
+-
+-<<<<<<< MOLLY
+-    <!-- <color name="react_with_any_background">?attr/colorSurfaceContainerLow</color> -->
+-    <!-- <color name="react_with_any_search_background">?attr/conversation_compose_background</color> -->
+-    <!-- <color name="react_with_any_search_hint">?attr/colorOnSurfaceVariant</color> -->
+-    <!-- <color name="react_with_any_customize_background">?attr/colorSurfaceVariant</color> -->
+-=======
+-    <color name="react_with_any_background">@color/signal_colorSurface1</color>
+->>>>>>> SIGNAL
+-
+-    <!-- <color name="voice_note_player_view_background">?attr/colorSurfaceContainerLow</color> -->
+ 
+     <color name="num_pad_key_background">#E3DBF9</color>
+ 
+@@ -206,18 +117,6 @@
+     <color name="sent_gift_button_tint">@color/transparent_white_70</color>
+     <color name="recv_gift_button_tint">@color/transparent_white_80</color>
+ 
+-    <!-- <color name="message_request_bar_container_background_normal">?attr/colorSurface</color> -->
+-    <!-- <color name="message_request_bar_background_normal">?attr/colorSurfaceContainerHigh</color> -->
+-    <!-- <color name="message_request_bar_denyForeground_normal">?attr/colorError</color> -->
+-    <!-- <color name="message_request_bar_acceptForeground_normal">?attr/colorSurfaceInverse</color> -->
+-    <!-- <color name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</color> -->
+-    <!-- <color name="message_request_bar_background_wallpaper">@color/signal_colorNeutralVariant</color> -->
+-    <!-- <color name="message_request_bar_denyForeground_wallpaper">?attr/colorError</color> -->
+-    <!-- <color name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</color> -->
+-
+-    <!-- <color name="safety_tip_background">@color/core_white</color> -->
+-    <!-- <color name="safety_tip_image_background">#99F3F0FF</color> -->
+-
+     <color name="signal_colorOnWarning">#FFB44828</color>
+ 
+     <color name="release_notes_bubble">#FF9294BC</color>
+@@ -229,4 +128,6 @@
+     <color name="release_notes_header_background">#FFF6F7FF</color>
+     <color name="release_notes_toolbar_scrolled">#FFEAEDF8</color>
+     <color name="release_notes_toolbar_transparent">#00EAEDF8</color>
+-</resources>
++<color name="settings_chat_wallpaper_preview_background">@color/core_white</color>
++
++    </resources>
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index f3b8a186dc2472d358ae0efb504a5491f52143aa..acdb8f3a783227ae4e2455a4b99534df819943dd 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -1,23 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-
+ <!--
+   ~ Copyright 2024 Signal Messenger, LLC
+   ~ SPDX-License-Identifier: AGPL-3.0-only
+   -->
+-
+-<!-- smartling.instruction_comments_enabled = on -->
+-<<<<<<< MOLLY
+-<resources>
+-    <!-- <string name="app_name" translatable="false">Signal</string> -->
+-
+-    <string name="install_url" translatable="false">https://molly.im/install</string>
+-    <string name="donate_url" translatable="false">https://opencollective.com/mollyim</string>
+-=======
+ <resources xmlns:tools="http://schemas.android.com/tools">
+-    <string name="app_name" translatable="false">Signal</string>
+-
+-    <string name="donate_url" translatable="false">https://signal.org/donate</string>
+->>>>>>> SIGNAL
++    <string name="donate_url" translatable="false">https://opencollective.com/mollyim</string>
+     <string name="backup_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string>
+     <string name="remote_backup_support_url" translatable="false">https://support.signal.org/hc/articles/9708267671322</string>
+     <string name="transfer_support_url" translatable="false">https://support.signal.org/hc/articles/360007059752</string>
+@@ -437,10 +424,6 @@
+     <string name="ConversationActivity_this_device_does_not_appear_to_support_dial_actions">This device does not appear to support dial actions.</string>
+     <!-- The content description for button to send a message in a conversation -->
+     <string name="ConversationActivity_send_message_content_description">Send message</string>
+-<<<<<<< MOLLY
+-    <string mollyify="true" name="ConversationActivity_lets_switch_to_signal">Let\'s switch to Molly %1$s</string>
+-=======
+->>>>>>> SIGNAL
+     <string name="ConversationActivity_specify_recipient">Please choose a contact</string>
+     <string name="ConversationActivity_unable_to_record_audio">Unable to record audio!</string>
+     <string name="ConversationActivity_you_cant_send_messages_to_this_group">You can\'t send messages to this group because you\'re no longer a member.</string>
+@@ -465,16 +448,6 @@
+     <string mollyify="true" name="ConversationActivity_signal_needs_microphone_access_voice_message">Molly needs microphone access to record a voice message.</string>
+     <string mollyify="true" name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">Molly requires the Microphone permission in order to send audio messages, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\".</string>
+ 
+-<<<<<<< MOLLY
+-    <string mollyify="true" name="ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s">Molly needs the Microphone and Camera permissions in order to call %s, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\" and \"Camera\".</string>
+-    <string mollyify="true" name="ConversationActivity_to_capture_photos_and_video_allow_signal_access_to_the_camera">To capture photos and video, allow Molly access to the camera.</string>
+-    <string mollyify="true" name="ConversationActivity_signal_needs_the_camera_permission_to_take_photos_or_video">Molly needs the Camera permission to take photos or video, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
+-    <string mollyify="true" name="ConversationActivity_signal_needs_camera_permissions_to_take_photos_or_video">Molly needs Camera permissions to take photos or video</string>
+-    <string name="ConversationActivity_enable_the_microphone_permission_to_capture_videos_with_sound">Enable the microphone permission to capture videos with sound.</string>
+-    <string mollyify="true" name="ConversationActivity_signal_needs_recording_permissions_to_capture_video">Molly needs microphone permissions to record videos.</string>
+-
+-=======
+->>>>>>> SIGNAL
+     <string name="ConversationActivity_quoted_contact_message">%1$s %2$s</string>
+     <string name="ConversationActivity_search_position">%1$d of %2$d</string>
+     <string name="ConversationActivity_no_results">No results</string>
+@@ -509,19 +482,11 @@
+     <!-- Message shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+     <string name="ConversationActivity__sms_messaging_is_no_longer_supported_in_signal_invite_s_to_to_signal_to_keep_the_conversation_here">SMS messaging is no longer supported in Signal. Invite %1$s to Signal to keep the conversation here.</string>
+     <!-- Message shown when opening a conversation with an unregistered user who used to be on Signal -->
+-<<<<<<< MOLLY
+     <string mollyify="true" name="ConversationActivity__this_person_is_no_longer_using_signal">This person is no longer using Molly. Invite them to Molly to keep the conversation here.</string>
+-    <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+-    <string mollyify="true" name="ConversationActivity__invite_to_signal">Invite to Molly</string>
+-    <!-- Snackbar message shown after dismissing the full screen sms export megaphone indicating we\'ll do it again soon -->
+-    <string name="ConversationActivity__you_will_be_reminded_again_soon">You will be reminded again soon.</string>
+-=======
+-    <string name="ConversationActivity__this_person_is_no_longer_using_signal">This person is no longer using Signal. Invite them to Signal to keep the conversation here.</string>
+     <!-- Message shown when opening a conversation with an unregistered user who is not on Signal -->
+     <string name="ConversationActivity__this_person_is_not_using_signal">This person is not using Signal. Invite them to keep the conversation here.</string>
+     <!-- Action button shown when opening an SMS conversation with SMS disabled and there are no exported messages -->
+-    <string name="ConversationActivity__invite_to_signal">Invite to Signal</string>
+->>>>>>> SIGNAL
++    <string mollyify="true" name="ConversationActivity__invite_to_signal">Invite to Molly</string>
+     <!-- Toast message shown when trying to record a voice message during an ongoing call -->
+     <string name="ConversationFragment_cannot_record_voice_message_during_call">Cannot record voice message during call.</string>
+ 
+@@ -1011,11 +976,7 @@
+     <!-- Bottom sheet description explaining that messages on linked devices are private -->
+     <string name="LinkDeviceFragment__all_messaging_is_private">All messaging on linked devices is private</string>
+     <!-- Bottom sheet description explaining that future messages on linked devices will be in sync with your phone but previous messages will not appear -->
+-<<<<<<< MOLLY
+-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Molly messages are synchronized with Molly on your mobile phone after it is linked. Your previous message history will not appear.</string>
+-=======
+-    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Signal messages are synchronized with Signal on your mobile phone after it is linked.</string>
+->>>>>>> SIGNAL
++    <string name="LinkDeviceFragment__signal_messages_are_synchronized">Molly messages are synchronized with Molly on your mobile phone after it is linked.</string>
+     <!-- Bottom sheet description explaining that for non-desktop/iPad devices, they should go to %s to download Signal where %s is Signal\'s website -->
+     <string name="LinkDeviceFragment__on_other_device_visit_signal">On the device you want to link, visit %s to install Molly</string>
+     <string name="LinkDeviceFragment__signal_download_url" translatable="false">signal.org/download</string>
+@@ -1428,69 +1389,6 @@
+     <string name="ManageGroupActivity_add_group_description">Add group description…</string>
+ 
+     <!-- RemoteRestoreActivity -->
+-<<<<<<< MOLLY
+-    <!-- Progress dialog label when downloading a backup -->
+-    <string name="RemoteRestoreActivity__downloading_backup">Downloading backup…</string>
+-    <!-- Progress dialog label when restoring a backup -->
+-    <string name="RemoteRestoreActivity__restoring_messages">Restoring messages…</string>
+-    <!-- Progress dialog label when finishing a backup restore -->
+-    <string name="RemoteRestoreActivity__finishing_restore">Finishing…</string>
+-    <!-- Progress dialog label while awaiting updates -->
+-    <string name="RemoteRestoreActivity__restoring">Restoring…</string>
+-    <!-- Progress readout for dialog while downloading or restoring a backup. First placeholder is the formatted size of the backup downloaded, the second is formatted total amount to go, and the last is a percentage. -->
+-    <string name="RemoteRestoreActivity__s_of_s_s">%1$s of %2$s (%3$s)</string>
+-    <!-- Feature list media label for paid tier -->
+-    <string name="RemoteRestoreActivity__all_of_your_media">All of your media</string>
+-    <!-- Feature list media label for free tier. Placeholder is days, and is currently fixed at 30. -->
+-    <string name="RemoteRestoreActivity__your_last_d_days_of_media">Your last %1$d days of media</string>
+-    <!-- Feature list message label for free and paid tier -->
+-    <string name="RemoteRestoreActivity__all_of_your_messages">All of your messages</string>
+-    <!-- Screen title for restoring from backup -->
+-    <string name="RemoteRestoreActivity__restore_from_backup">Restore from backup</string>
+-    <!-- Section title for explaining what your backup includes -->
+-    <string name="RemoteRestoreActivity__your_backup_includes">Your backup includes:</string>
+-    <!-- Primary action button copy for starting restoration -->
+-    <string name="RemoteRestoreActivity__restore_backup">Restore backup</string>
+-    <!-- Displayed at restore time to tell the user when their last backup was made. %1$s is replaced with the date (e.g. March 5, 2024) and %2$s is replaced with the time (e.g. 9:00am) -->
+-    <string name="RemoteRestoreActivity__backup_created_at">Your last backup was made on %1$s at %2$s.</string>
+-    <!-- Displayed at restore time to tell the user when their last backup was made and size. %1$s is replaced with the date (e.g. March 5, 2024), %2$s is replaced with the time (e.g. 9:00am), %3$1 is replaced with size (e.g., 1.2GB) -->
+-    <string name="RemoteRestoreActivity__backup_created_at_with_size">Your last backup was made on %1$s at %2$s. Your backup size is %3$s.</string>
+-    <!-- Progress dialog label while fetching backup info if we don\'t already have it -->
+-    <string name="RemoteRestoreActivity__fetching_backup_details">Fetching backup details…</string>
+-    <!-- Text label button to skip restore from remote -->
+-    <string name="RemoteRestoreActivity__skip_restore">Skip restore</string>
+-    <!-- Dialog title displayed when remote restore failed -->
+-    <string name="RemoteRestoreActivity__couldnt_transfer">Couldn\'t finish transfer</string>
+-    <!-- Dialog title displayed when remote restore failed and we want them to contact support -->
+-    <string name="RemoteRestoreActivity__failure_with_log_prompt_title">Can\'t restore backup</string>
+-    <!-- Dialog body displayed when remote restore failed and we want them to contact support -->
+-    <string name="RemoteRestoreActivity__failure_with_log_prompt_body">An error occurred while restoring your backup. Your backup is not recoverable. Please contact support for help.</string>
+-    <!-- Dialog action button that will link users to a flow to contact support, displayed when remote restore failed -->
+-    <string name="RemoteRestoreActivity__failure_with_log_prompt_contact_button">Contact support</string>
+-    <!-- Dialog message displayed when remote restore failed -->
+-    <string name="RemoteRestoreActivity__error_occurred">An error occurred and your account couldn’t be transferred. Try again by choosing your transfer method.</string>
+-    <!-- Dialog title displayed when remote restore failed because of an outdated backup version. -->
+-    <string name="RemoteRestoreActivity__couldnt_restore">Couldn\'t restore this backup</string>
+-    <!-- Dialog message explaining that an update to Signal is required to restore the backup. -->
+-    <string mollyify="true" name="RemoteRestoreActivity__update_latest">This version of Molly can\'t restore your backup. Update to the latest version and try again.</string>
+-    <!-- Text on button that when pressed will redirect them to update Signal -->
+-    <string mollyify="true" name="RemoteRestoreActivity__update_signal">Update Molly</string>
+-    <!-- Text label button to dismiss the dialog -->
+-    <string name="RemoteRestoreActivity__not_now">Not now</string>
+-    <!-- Text shown on restore screen as information on what will happen if you skip -->
+-    <string name="RemoteRestoreActivity__your_media_will_restore_in_the_background">Your media will restore in the background. If you choose not to restore now, you won\'t be able to restore later.</string>
+-    <!-- Dialog title -->
+-    <string name="RestoreActivity__no_longer_registered_title">This device is no longer registered</string>
+-    <!-- Dialog message -->
+-    <string name="RestoreActivity__no_longer_registered_message">This is likely because you registered your Signal account on a different device.</string>
+-
+-    <!-- GroupMentionSettingDialog -->
+-    <string name="GroupMentionSettingDialog_notify_me_for_mentions">Notify me for Mentions</string>
+-    <string name="GroupMentionSettingDialog_receive_notifications_when_youre_mentioned_in_muted_chats">Receive notifications when you’re mentioned in muted chats?</string>
+-    <string name="GroupMentionSettingDialog_always_notify_me">Always notify me</string>
+-    <string name="GroupMentionSettingDialog_dont_notify_me">Don\'t notify me</string>
+-=======
+->>>>>>> SIGNAL
+ 
+     <!-- ManageProfileFragment -->
+     <!-- Explanation text about usernames etc displayed underneath buttons to view and edit username etc -->
+@@ -1647,32 +1545,6 @@
+     <!-- Button inside an alert dialog confirming the deletion of their draft -->
+     <string name="InputPanel__discard">Discard</string>
+ 
+-<<<<<<< MOLLY
+-    <!-- InviteActivity -->
+-    <string name="InviteActivity_share">Share</string>
+-    <string name="InviteActivity_share_with_contacts">Share with contacts</string>
+-    <string name="InviteActivity_share_via">Share via…</string>
+-
+-    <string name="InviteActivity_cancel">Cancel</string>
+-    <string name="InviteActivity_sending">Sending…</string>
+-    <string name="InviteActivity_invitations_sent">Invitations sent!</string>
+-    <string mollyify="true" name="InviteActivity_invite_to_signal">Invite to Molly</string>
+-    <string name="InviteActivity_send_sms">Send SMS (%d)</string>
+-    <plurals name="InviteActivity_send_sms_invites">
+-        <item quantity="one">Send %d SMS invite?</item>
+-        <item quantity="other">Send %d SMS invites?</item>
+-    </plurals>
+-    <string mollyify="true" name="InviteActivity_lets_switch_to_signal">Let\'s switch to Molly: %1$s</string>
+-    <!-- Toast shown when Signal is unable to find an external app to share the Invite text string to -->
+-    <string name="InviteActivity_no_app_to_share_to">It looks like you don\'t have any apps to share to.</string>
+-
+-    <!-- LearnMoreTextView -->
+-    <string name="LearnMoreTextView_learn_more">Learn more</string>
+-
+-    <string name="SpanUtil__read_more">Read more</string>
+-
+-=======
+->>>>>>> SIGNAL
+     <!-- LongMessageActivity -->
+     <string name="LongMessageActivity_unable_to_find_message">Unable to find message</string>
+     <string name="LongMessageActivity_message_from_s">Message from %1$s</string>
+@@ -2105,13 +1977,7 @@
+     </plurals>
+ 
+     <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+-<<<<<<< MOLLY
+-    <string name="MessageRecord__you_will_no_longer_be_able_to_send_sms_messages_from_signal_soon">You will no longer be able to send SMS messages from Signal soon. Invite %1$s to Signal to keep the conversation here.</string>
+-    <!-- In-conversation update message to indicate that the current contact is sms only and will need to migrate to signal to continue the conversation in signal. -->
+     <string mollyify="true" name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">You can no longer send SMS messages in Molly. Invite %1$s to Molly to keep the conversation here.</string>
+-=======
+-    <string name="MessageRecord__you_can_no_longer_send_sms_messages_in_signal">You can no longer send SMS messages in Signal. Invite %1$s to Signal to keep the conversation here.</string>
+->>>>>>> SIGNAL
+     <!-- Body for quote when message being quoted is an in-app payment message -->
+     <string name="MessageRecord__payment_s">Payment: %1$s</string>
+     <!-- Body for quote when message being quoted is an in-app payment message tombstone without an amount -->
+@@ -2226,22 +2092,10 @@
+     <string name="DeviceProvisioningActivity_link_a_signal_device">Link a Signal device?</string>
+     <string name="DeviceProvisioningActivity_to_link_a_desktop_or_ipad_to_this_signal_account">To link a desktop or iPad to this Signal account, go to Linked Devices and tap \"Link a New Device\" and scan the QR code again. Make sure you only scan QR codes that come directly from Signal.</string>
+ 
+-<<<<<<< MOLLY
+-    <string mollyify="true" name="DeviceActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code">Molly needs the Camera permission in order to scan a QR code, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
+-    <string name="DeviceActivity_unable_to_scan_a_qr_code_without_the_camera_permission">Unable to scan a QR code without the Camera permission</string>
+-
+-    <!-- OutdatedBuildReminder -->
+-    <string name="OutdatedBuildReminder_update_now">Update now</string>
+     <string mollyify="true" name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">This version of Molly will expire today. Update to the most recent version.</string>
+     <plurals mollyify="true" name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
+         <item quantity="one">This version of Molly will expire tomorrow. Update to the most recent version.</item>
+         <item quantity="other">This version of Molly will expire in %d days. Update to the most recent version.</item>
+-=======
+-    <string name="OutdatedBuildReminder_your_version_of_signal_will_expire_today">This version of Signal will expire today. Update to the most recent version.</string>
+-    <plurals name="OutdatedBuildReminder_your_version_of_signal_will_expire_in_n_days">
+-        <item quantity="one">This version of Signal will expire tomorrow. Update to the most recent version.</item>
+-        <item quantity="other">This version of Signal will expire in %d days. Update to the most recent version.</item>
+->>>>>>> SIGNAL
+     </plurals>
+ 
+     <!-- PassphrasePromptActivity -->
+@@ -2353,10 +2207,6 @@
+ 
+     <!-- WebRtcCallActivity -->
+     <string name="WebRtcCallActivity__tap_here_to_turn_on_your_video">Tap here to turn on your video</string>
+-<<<<<<< MOLLY
+-    <string mollyify="true" name="WebRtcCallActivity__to_call_s_signal_needs_access_to_your_camera">To call %1$s, Molly needs access to your camera</string>
+-=======
+->>>>>>> SIGNAL
+     <!-- Subtitle shown at top of call where %s is the elapsed time of the call -->
+     <string mollyify="true" name="WebRtcCallActivity__signal_s">Molly %1$s</string>
+     <string name="WebRtcCallActivity__calling">Calling…</string>
+@@ -2692,45 +2542,12 @@
+ 
+     <!-- Dialog title shown when re-registering and skip sms flow failed or was aborted and now need perform additional verification via sms and warn about carrier charges -->
+     <string name="RegistrationActivity_additional_verification_required">Additional verification required</string>
+-<<<<<<< MOLLY
+-    <!-- Dialog message shown when we need to verify sms and carrier rates may apply. -->
+-    <string name="RegistrationActivity_a_verification_code_will_be_sent_to_this_number">A verification code will be sent to this number. Carrier rates may apply.</string>
+-    <!-- Text explaining to users that they will be receiving a verification for their phone number and that carrier rates could apply -->
+-    <string name="RegistrationActivity_you_will_receive_a_verification_code">You will receive a verification code. Carrier rates may apply.</string>
+-    <!-- Hint text to select a country -->
+-    <string name="RegistrationActivity_select_a_country">Select a country</string>
+-    <!-- Hint text explaining that this is where the country code should go -->
+-    <string name="RegistrationActivity_default_country_code">0</string>
+-    <string name="RegistrationActivity_you_will_receive_a_call_to_verify_this_number">You\'ll receive a call to verify this number.</string>
+-    <string name="RegistrationActivity_edit_number">Edit number</string>
+-    <string name="RegistrationActivity_missing_google_play_services">Missing Google Play Services</string>
+-    <string mollyify="true" name="RegistrationActivity_this_device_is_missing_google_play_services">This device is missing Google Play Services. You can still use Molly, but this configuration may result in reduced reliability or performance.\n\nIf you are not an advanced user, are not running an aftermarket Android ROM, or believe that you are seeing this in error, please contact support@molly.im for help troubleshooting.</string>
+-    <string name="RegistrationActivity_i_understand">I understand</string>
+-    <string name="RegistrationActivity_play_services_error">Play Services Error</string>
+-    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services is updating or temporarily unavailable. Please try again.</string>
+-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">Molly needs the contacts and media permissions to help you connect with friends and send messages. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
+-    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Molly needs the contacts permission to help you connect with friends. Your contacts are uploaded using Signal\'s private contact discovery, which means they are end-to-end encrypted and never visible to the Signal service.</string>
+-=======
+->>>>>>> SIGNAL
+     <string name="RegistrationActivity_rate_limited_to_service">You\'ve made too many attempts to register this number. Please try again later.</string>
+     <string name="RegistrationActivity_unable_to_connect_to_service">Unable to connect to service. Please check network connection and try again.</string>
+     <!-- Dialog error message shown when we are unable to send an SMS to the user\'s number -->
+     <string name="RegistrationActivity_sms_provider_error">We are unable to send an SMS to your number. Please try again in several hours.</string>
+     <!-- Generic error when the app is unable to request an SMS code for an unknown reason. -->
+     <string name="RegistrationActivity_unable_to_request_verification_code">Unable to request a verification code. Please check network connection and try again.</string>
+-<<<<<<< MOLLY
+-    <string name="RegistrationActivity_non_standard_number_format">Non-standard number format</string>
+-    <!-- Dialog message shown to confirm when entering phone number (first placeholder) is normalized and formatted differently by the app (second placeholder). -->
+-    <string name="RegistrationActivity_the_number_you_entered_appears_to_be_a_non_standard">The number you entered (%1$s) appears to be a non-standard format.\n\nDid you mean %2$s?</string>
+-    <string mollyify="true" name="RegistrationActivity_signal_android_phone_number_format">Molly Android - Phone Number Format</string>
+-    <!--    Small "toast" notification to the user confirming that they have requested a new code via voice call.-->
+-    <string name="RegistrationActivity_call_requested">Call requested</string>
+-    <!--    Small "toast" notification to the user confirming that they have requested a new code via SMS.-->
+-    <string name="RegistrationActivity_sms_requested">SMS requested</string>
+-    <!--    Small "toast" notification to the user confirming that they have requested a new code (through an unspecified channel).-->
+-    <string name="RegistrationActivity_code_requested">Verification code requested</string>
+-=======
+->>>>>>> SIGNAL
+     <plurals name="RegistrationActivity_debug_log_hint">
+         <item quantity="one">You are now %d step away from submitting a debug log.</item>
+         <item quantity="other">You are now %d steps away from submitting a debug log.</item>
+@@ -2779,19 +2596,6 @@
+     <string name="ShakeToReport_failed_to_submit" translatable="false">Failed to submit :(</string>
+     <string name="ShakeToReport_success" translatable="false">Success!</string>
+     <string name="ShakeToReport_share" translatable="false">Share</string>
+-<<<<<<< MOLLY
+-
+-    <!-- SharedContactDetailsActivity -->
+-    <string name="SharedContactDetailsActivity_add_to_contacts">Add to Contacts</string>
+-    <string mollyify="true" name="SharedContactDetailsActivity_invite_to_signal">Invite to Molly</string>
+-    <string name="SharedContactDetailsActivity_signal_message">Signal Message</string>
+-    <string name="SharedContactDetailsActivity_signal_call">Signal Call</string>
+-
+-    <!-- SharedContactView -->
+-    <string name="SharedContactView_add_to_contacts">Add to Contacts</string>
+-    <string mollyify="true" name="SharedContactView_invite_to_signal">Invite to Molly</string>
+-    <string name="SharedContactView_message">Signal Message</string>
+-=======
+     <string name="ShakeToReport_submitting" translatable="false">Submitting debug log</string>
+     <string name="ShakeToReport_submitting_body" translatable="false">Collecting and uploading logs. This can take a minute.</string>
+     <string name="ShakeToReport_retry" translatable="false">Retry</string>
+@@ -2801,14 +2605,13 @@
+ 
+     <!-- SharedContactView -->
+     <string name="SharedContactView_add_to_contacts">Add to Contacts</string>
+-    <string name="SharedContactView_invite_to_signal">Invite to Signal</string>
++    <string mollyify="true" name="SharedContactView_invite_to_signal">Invite to Molly</string>
+     <!-- Button on a shared contact card that opens a chat with that contact. It can share a row with other buttons, so a short label is preferred -->
+     <string name="SharedContactView_message_button">Message</string>
+     <!-- Button on a contact card shared in a group chat that adds the person on the card to that group -->
+     <string name="SharedContactView_add_to_group">Add to group</string>
+     <!-- Confirmation dialog body when adding the person on a shared contact card to the current group. %1$s is the person\'s name, %2$s is the group name -->
+     <string name="SharedContactView_add_s_to_s">Add %1$s to “%2$s”?</string>
+->>>>>>> SIGNAL
+ 
+     <!-- SignalBottomActionBar -->
+     <!-- Text to describe a button that will show more options -->
+@@ -3164,12 +2967,7 @@
+     <string name="VerifyIdentityActivity_our_signal_safety_number">Our Signal safety number:</string>
+     <string name="VerifyIdentityActivity_no_app_to_share_to">It looks like you don\'t have any apps to share to.</string>
+     <string name="VerifyIdentityActivity_no_safety_number_to_compare_was_found_in_the_clipboard">No safety number to compare was found in the clipboard</string>
+-<<<<<<< MOLLY
+     <string mollyify="true" name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Molly needs the Camera permission in order to scan a QR code, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
+-    <string name="VerifyIdentityActivity_unable_to_scan_qr_code_without_camera_permission">Unable to scan QR code without Camera permission</string>
+-=======
+-    <string name="VerifyIdentityActivity_signal_needs_the_camera_permission_in_order_to_scan_a_qr_code_but_it_has_been_permanently_denied">Signal needs the Camera permission in order to scan a QR code, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Camera\".</string>
+->>>>>>> SIGNAL
+     <string name="VerifyIdentityActivity_you_must_first_exchange_messages_in_order_to_view">You must first exchange messages in order to view %1$s\'s safety number.</string>
+     <!-- Dialog message explaining to user they must exchange messages first to create a safety number -->
+     <string name="VerifyIdentityActivity_dialog_exchange_messages_to_create_safety_number_message">A safety number will be created with this person after they exchange messages with you.</string>
+@@ -3325,15 +3123,8 @@
+     <string name="NotificationChannel_additional_message_notifications">Additional message notifications</string>
+     <!-- Notification channel name for notifications sent when a device has been linked -->
+     <string name="NotificationChannel_new_linked_device">New linked device</string>
+-<<<<<<< MOLLY
+-
+-    <!-- QuickResponseService -->
+-    <string mollyify="true" name="QuickResponseService_quick_response_unavailable_when_Signal_is_locked">Quick response unavailable when Molly is locked!</string>
+-    <string name="QuickResponseService_problem_sending_message">Problem sending message!</string>
+-=======
+     <!-- Notification channel name for unread reminder notifications -->
+     <string name="NotificationChannel_unread_reminders">Unread reminders</string>
+->>>>>>> SIGNAL
+ 
+     <!-- A toast notification that is shown when the app does not have sufficient permissions to save media files to the device storage. -->
+     <string name="SaveAttachment_unable_to_write_to_sd_card_exclamation">Unable to write to storage!</string>
+@@ -3486,14 +3277,6 @@
+     <string name="EnclaveFailureReminder_update_signal">Update Signal to continue using payments. Your balance may not be up-to-date.</string>
+     <!-- Banner button to update now -->
+ 
+-<<<<<<< MOLLY
+-    <!-- WebRtcCallActivity -->
+-    <string mollyify="true" name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone">To answer the call, give Molly access to your microphone.</string>
+-    <!-- Message shown in permission dialog when attempting to answer a video call without camera or microphone permissions already granted. -->
+-    <string mollyify="true" name="WebRtcCallActivity_to_answer_the_call_give_signal_access_to_your_microphone_and_camera">To answer the video call, give Molly access to your microphone and camera.</string>
+-    <string mollyify="true" name="WebRtcCallActivity_signal_requires_microphone_and_camera_permissions_in_order_to_make_or_receive_calls">Molly requires Microphone and Camera permissions in order to make or receive calls, but they have been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\" and \"Camera\".</string>
+-=======
+->>>>>>> SIGNAL
+     <string name="WebRtcCallActivity__answered_on_a_linked_device">Answered on a linked device.</string>
+     <string name="WebRtcCallActivity__declined_on_a_linked_device">Declined on a linked device.</string>
+     <string name="WebRtcCallActivity__busy_on_a_linked_device">Busy on a linked device.</string>
+@@ -3587,24 +3370,6 @@
+     <!-- Text asking for user\'s contact permission -->
+     <string name="ContactSelectionListFragment__allow_access_to_your_contacts_encrypted">Allow access to your contacts. Your contacts are encrypted and not visible to the Signal service.</string>
+ 
+-<<<<<<< MOLLY
+-    <!-- contact_selection_list_fragment -->
+-    <string mollyify="true" name="contact_selection_list_fragment__signal_needs_access_to_your_contacts_in_order_to_display_them">Molly needs access to your contacts in order to display them.</string>
+-    <string name="contact_selection_list_fragment__show_contacts">Show Contacts</string>
+-
+-    <!-- contact_selection_list_item -->
+-    <plurals name="contact_selection_list_item__number_of_members">
+-        <item quantity="one">%1$d member</item>
+-        <item quantity="other">%1$d members</item>
+-    </plurals>
+-    <!-- Displays number of viewers for a story -->
+-    <plurals name="contact_selection_list_item__number_of_viewers">
+-        <item quantity="one">%1$d viewer</item>
+-        <item quantity="other">%1$d viewers</item>
+-    </plurals>
+-
+-=======
+->>>>>>> SIGNAL
+     <!-- conversation_activity -->
+     <string name="conversation_activity__type_message_push">Signal message</string>
+     <!-- Option in send button context menu to schedule the message instead of sending it directly -->
+@@ -4116,34 +3881,6 @@
+     <string name="preferences__conversation_length_limit">Chat length limit</string>
+     <string name="preferences__keep_messages">Keep messages</string>
+     <string name="preferences__linked_devices">Linked devices</string>
+-<<<<<<< MOLLY
+-    <string name="preferences__light_theme">Light</string>
+-    <string name="preferences__dark_theme">Dark</string>
+-    <string name="preferences__appearance">Appearance</string>
+-    <string name="preferences__theme">Theme</string>
+-    <string name="preferences__chat_color_and_wallpaper">Chat color &amp; wallpaper</string>
+-    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+-    <string name="preferences__app_icon">App Icon</string>
+-    <!-- Approval for changing the app icon. -->
+-    <string name="preferences__app_icon_dialog_ok">OK</string>
+-    <!-- Cancelling the operation of changing the app icon. -->
+-    <string name="preferences__app_icon_dialog_cancel">Cancel</string>
+-    <!-- Title for the confirmation dialog of changing the app icon. -->
+-    <string name="preferences__app_icon_dialog_title">Change app icon and name to \"%1$s\"</string>
+-    <!-- Description for the confirmation dialog of changing the app icon. -->
+-    <string mollyify="true" name="preferences__app_icon_dialog_description">Molly will need to close to change the app icon and name. Notifications will always display the default Molly icon and name.</string>
+-    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+-    <string mollyify="true" name="preferences__app_icon_warning_learn_more">Select an app icon and name, which will be visible on your phone\'s home screen and app drawer. Notifications will always display the default Molly icon and name. Learn\u00A0more</string>
+-    <!-- Visible warning label for the limitations of changing the app icon. -->
+-    <string name="preferences__app_icon_warning">App icons and names are visible on the home screen and app drawer.</string>
+-    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+-    <string mollyify="true" name="preferences__app_icon_notification_warning">Notifications will always display the default Molly icon and name.</string>
+-    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+-    <string name="preferences__app_icon_learn_more">Learn\u00A0more</string>
+-    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+-    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Graphic illustrating where the replacement app icon will be visible.</string>
+-=======
+->>>>>>> SIGNAL
+     <string name="preferences__disable_pin">Disable PIN</string>
+     <string name="preferences__enable_pin">Enable PIN</string>
+     <string name="preferences__if_you_disable_the_pin_you_will_lose_all_data">If you disable the PIN, you will lose all data when you re-register Signal unless you manually back up and restore. You can not turn on Registration Lock while the PIN is disabled.</string>
+@@ -4394,17 +4131,9 @@
+     <string name="PaymentsTransferFragment__next">Next</string>
+     <string name="PaymentsTransferFragment__invalid_address">Invalid address</string>
+     <string name="PaymentsTransferFragment__check_the_wallet_address">Check the wallet address you\'re attempting to transfer to and try again.</string>
+-<<<<<<< MOLLY
+     <string mollyify="true" name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">You can\'t transfer to your own Molly wallet address. Enter the wallet address from your account at a supported exchange.</string>
+     <string mollyify="true" name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">To scan a QR code, Molly needs access to the camera.</string>
+-    <string mollyify="true" name="PaymentsTransferFragment__signal_needs_the_camera_permission_to_capture_qr_code_go_to_settings">Molly needs the Camera permission to capture a QR code. Go to settings, select \"Permissions\", and enable \"Camera\".</string>
+     <string mollyify="true" name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">To scan a QR code, Molly needs access to the camera.</string>
+-    <string name="PaymentsTransferFragment__settings">Settings</string>
+-=======
+-    <string name="PaymentsTransferFragment__you_cant_transfer_to_your_own_signal_wallet_address">You can\'t transfer to your own Signal wallet address. Enter the wallet address from your account at a supported exchange.</string>
+-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs">To scan a QR code, Signal needs access to the camera.</string>
+-    <string name="PaymentsTransferFragment__to_scan_a_qr_code_signal_needs_access_to_the_camera">To scan a QR code, Signal needs access to the camera.</string>
+->>>>>>> SIGNAL
+ 
+     <!-- PaymentsTransferQrScanFragment -->
+     <string name="PaymentsTransferQrScanFragment__scan_address_qr_code">Scan Address QR Code</string>
+@@ -4818,49 +4547,13 @@
+     <string name="RegistrationActivity_call_me_instead_available_in">Call me (%1$02d:%2$02d)</string>
+     <!--    Countdown to when the user can request a new SMS code during registration.-->
+     <string name="RegistrationActivity_resend_sms_available_in">Resend Code (%1$02d:%2$02d)</string>
+-<<<<<<< MOLLY
+-    <string mollyify="true" name="RegistrationActivity_contact_signal_support">Contact Molly Support</string>
+     <string mollyify="true" name="RegistrationActivity_code_support_subject">Molly Registration - Verification Code for Android</string>
+-=======
+-    <string name="RegistrationActivity_code_support_subject">Signal Registration - Verification Code for Android</string>
+->>>>>>> SIGNAL
+     <string name="RegistrationActivity_incorrect_code">Incorrect code</string>
+     <string name="BackupUtil_never">Never</string>
+     <!-- Subtext below last backup time when we do not know when the last backup was -->
+     <string name="BackupUtil_unknown">Unknown</string>
+     <!-- Subtext below option to launch into phone number privacy settings screen -->
+-<<<<<<< MOLLY
+     <string mollyify="true" name="preferences_app_protection__choose_who_can_see">Choose who can see your phone number and who can contact you on Molly with it.</string>
+-    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+-    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Who can see my number</string>
+-    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+-    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Your phone number will be visible to people and groups you message.</string>
+-    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+-    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Your phone number will not be visible to anyone unless they have it saved in their phone\'s contacts.</string>
+-    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+-    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Your phone number will not be visible to anyone.</string>
+-    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+-    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">Who can find me by number</string>
+-    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+-    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">Anyone who has your phone number will see you\'re on Signal and can start chats with you.</string>
+-    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+-    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Nobody will be able to see you\'re on Signal unless you message them or have an existing chat with them.</string>
+-    <!-- Snackbar text when pressing invalid radio item -->
+-    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">To change this setting, set "Who can see my number" to "Nobody".</string>
+-    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Are you sure?</string>
+-    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Setting \"Who can find me by number\" to \"Nobody\" will make it harder for people to find you on Signal.</string>
+-    <!-- Dialog button text for canceling change action -->
+-    <string name="PhoneNumberPrivacySettingsFragment__cancel">Cancel</string>
+-    <string name="PhoneNumberPrivacy_everyone">Everyone</string>
+-    <string name="PhoneNumberPrivacy_nobody">Nobody</string>
+-    <string name="preferences_app_protection__screen_lock">Screen lock</string>
+-    <string name="preferences_app_protection__lock_signal_access_with_android_screen_lock_or_fingerprint">Lock Signal access with Android screen lock or fingerprint</string>
+-    <string name="preferences_app_protection__screen_lock_inactivity_timeout">Screen lock inactivity timeout</string>
+-=======
+-    <string name="preferences_app_protection__choose_who_can_see">Choose who can see your phone number and who can contact you on Signal with it.</string>
+->>>>>>> SIGNAL
+     <!-- Snackbar text shown when trying to enable screen lock but the user does not have a password or biometrics enabled -->
+     <string name="preferences_app_protection__to_use_screen_lock">To use screen lock set a PIN, pattern, or password on this device.</string>
+     <string name="preferences_app_protection__failed_to_enable_registration_lock">Failed to enable registration lock.</string>
+@@ -4887,29 +4580,6 @@
+     <!-- ScreenLockSettingsFragment -->
+     <!-- Text shown when screen lock is not enabled -->
+     <string name="ScreenLockSettingsFragment__off">Off</string>
+-<<<<<<< MOLLY
+-    <!-- Text shown with toggle that when switched on will enable screen lock -->
+-    <string name="ScreenLockSettingsFragment__use_screen_lock">Use screen lock</string>
+-    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+-    <string mollyify="true" name="ScreenLockSettingsFragment__your_android_device">Your Android device lock settings will be required to unlock Molly when you leave or switch apps. When locked, notification previews will not show message content.</string>
+-    <!-- Title text explaining when users should start the screen lock -->
+-    <string name="ScreenLockSettingsFragment__start_screen_lock">Start screen lock</string>
+-    <!-- Option text explaining that screen lock should start immediately -->
+-    <string name="ScreenLockSettingsFragment__immediately">Immediately</string>
+-    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+-    <string name="ScreenLockSettingsFragment__after_1_min">After 1 minute</string>
+-    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+-    <string name="ScreenLockSettingsFragment__after_5_min">After 5 minutes</string>
+-    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+-    <string name="ScreenLockSettingsFragment__after_30_min">After 30 minutes</string>
+-    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+-    <string name="ScreenLockSettingsFragment__custom_time">Custom time</string>
+-    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+-    <string mollyify="true" name="ScreenLockSettingsFragment__use_signal_screen_lock">Use Molly screen lock</string>
+-    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+-    <string mollyify="true" name="ScreenLockSettingsFragment__turn_off_signal_lock">Turn off Molly screen lock</string>
+-=======
+->>>>>>> SIGNAL
+ 
+     <string name="Recipient_unknown">Unknown</string>
+     <!-- Name to use for a user across the UI when they are unregistered and have no other name available -->
+@@ -4955,18 +4625,6 @@
+     <!-- NewDeviceTransferInstructionsFragment -->
+ 
+     <!-- NewDeviceTransferSetupFragment -->
+-<<<<<<< MOLLY
+-    <string name="NewDeviceTransferSetup__preparing_to_connect_to_old_android_device">Preparing to connect to old Android device…</string>
+-    <string name="NewDeviceTransferSetup__take_a_moment_should_be_ready_soon">Taking a moment, should be ready soon</string>
+-    <string name="NewDeviceTransferSetup__waiting_for_old_device_to_connect">Waiting for old Android device to connect…</string>
+-    <string mollyify="true" name="NewDeviceTransferSetup__signal_needs_the_location_permission_to_discover_and_connect_with_your_old_device">Molly needs the location permission to discover and connect to your old Android device.</string>
+-    <string mollyify="true" name="NewDeviceTransferSetup__signal_needs_location_services_enabled_to_discover_and_connect_with_your_old_device">Molly needs location services enabled to discover and connect with your old Android device.</string>
+-    <string mollyify="true" name="NewDeviceTransferSetup__signal_needs_wifi_on_to_discover_and_connect_with_your_old_device">Molly needs Wi-Fi on to discover and connect with your old Android device. Wi-Fi needs to be on but it does not have to be connected to a Wi-Fi network.</string>
+-    <string mollyify="true" name="NewDeviceTransferSetup__sorry_it_appears_your_device_does_not_support_wifi_direct">Sorry, it appears this device does not support Wi-Fi Direct. Molly uses Wi-Fi Direct to discover and connect with your old Android device. You can still restore a backup to restore your account from your old Android device.</string>
+-    <string name="NewDeviceTransferSetup__restore_a_backup">Restore a backup</string>
+-    <string name="NewDeviceTransferSetup__an_unexpected_error_occurred_while_attempting_to_connect_to_your_old_device">An unexpected error occurred while attempting to connect to your old Android device.</string>
+-=======
+->>>>>>> SIGNAL
+ 
+     <!-- OldDeviceTransferSetupFragment -->
+     <string name="OldDeviceTransferSetup__searching_for_new_android_device">Searching for new Android device…</string>
+@@ -5682,44 +5340,6 @@
+     <string name="ExpireTimerSettingsFragment__custom_time">Custom time</string>
+     <string name="ExpireTimerSettingsFragment__save">Save</string>
+ 
+-<<<<<<< MOLLY
+-    <string name="CustomExpireTimerSelectorView__seconds">seconds</string>
+-    <string name="CustomExpireTimerSelectorView__minutes">minutes</string>
+-    <string name="CustomExpireTimerSelectorView__hours">hours</string>
+-    <string name="CustomExpireTimerSelectorView__days">days</string>
+-    <string name="CustomExpireTimerSelectorView__weeks">weeks</string>
+-
+-    <!-- HelpSettingsFragment -->
+-    <string name="HelpSettingsFragment__support_center">Support center</string>
+-    <string name="HelpSettingsFragment__contact_us">Contact us</string>
+-    <string name="HelpSettingsFragment__version">Version</string>
+-    <!-- Displayed when copying help screen text to the clipboard -->
+-    <string name="HelpSettingsFragment__copied_to_clipboard">Copied to clipboard</string>
+-    <string name="HelpSettingsFragment__debug_log">Debug log</string>
+-    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+-    <string name="HelpSettingsFragment__licenses">Licenses</string>
+-    <string name="HelpSettingsFragment__terms_amp_privacy_policy">Terms &amp; Privacy Policy</string>
+-    <string mollyify="true" name="HelpFragment__copyright_signal_messenger">Copyright Molly Messenger</string>
+-    <string name="HelpFragment__licenced_under_the_agplv3">Licensed under the GNU AGPLv3</string>
+-    <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
+-    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal is a 501c3 nonprofit</string>
+-
+-    <!-- DataAndStorageSettingsFragment -->
+-    <string name="DataAndStorageSettingsFragment__media_quality">Media quality</string>
+-    <!-- Category title for the quality of the media to be sent -->
+-    <string name="DataAndStorageSettingsFragment__sent_media_quality">Sent media quality</string>
+-    <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Sending high quality media will use more data.</string>
+-    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+-    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Voice messages and stickers (under %1$s) are always auto-downloaded.</string>
+-    <string name="DataAndStorageSettingsFragment__calls">Calls</string>
+-    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+-    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Stay connected in background</string>
+-    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+-    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Staying connected while in the background will likely result in increased battery usage. This is not necessary for most devices. Only enable this if you\'ve been experiencing notification issues.</string>
+-    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+-    <string name="DataAndStorageSettingsFragment__enable">Enable</string>
+-=======
+->>>>>>> SIGNAL
+ 
+     <!-- ChatColorSelectionFragment -->
+     <!-- Text shown on a circle button to indicate the app will automatically select a color for conversation bubbles for this chat. -->
+@@ -8551,13 +8171,7 @@
+     <!-- Bottom sheet title -->
+     <string name="MessageBackupsKeyRecordScreen__keep_your_key_safe">Keep your key safe</string>
+     <!-- Bottom sheet subtitle -->
+-<<<<<<< MOLLY
+     <string mollyify="true" name="MessageBackupsKeyRecordScreen__signal_will_not">Molly will not be able to help you restore your backup if you lose your key. Store it somewhere safe and secure, and do not share it with others.</string>
+-    <!-- Checkbox label -->
+-    <string name="MessageBackupsKeyRecordScreen__ive_recorded_my_key">I\'ve recorded my key</string>
+-=======
+-    <string name="MessageBackupsKeyRecordScreen__signal_will_not">Signal will not be able to help you restore your backup if you lose your key. Store it somewhere safe and secure, and do not share it with others.</string>
+->>>>>>> SIGNAL
+     <!-- Sheet action button label -->
+     <string name="MessageBackupsKeyRecordScreen__continue">Continue</string>
+     <!-- Sheet secondary action button label -->
+@@ -8694,244 +8308,6 @@
+     <string name="MessageBackupsTypeSelectionScreen__current_plan">Current plan</string>
+ 
+     <!-- ConfirmBackupCancellationDialog -->
+-<<<<<<< MOLLY
+-    <!-- Dialog title -->
+-    <string name="ConfirmBackupCancellationDialog__confirm_cancellation">Confirm cancellation</string>
+-    <!-- Dialog body -->
+-    <string name="ConfirmBackupCancellationDialog__you_wont_be_charged_again">You won\'t be charged again. Backups will be turned off at the end of your billing cycle. After that date you will have 30 days to download the media you\'re currently backing up.</string>
+-    <!-- Action button label to cancel subscription and download now -->
+-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_now">Confirm and download now</string>
+-    <!-- Action button label to cancel subscription and download later -->
+-    <string name="ConfirmBackupCancellationDialog__confirm_and_download_later">Confirm and download later</string>
+-    <!-- Action button label to keep current subscription -->
+-    <string name="ConfirmBackupCancellationDialog__keep_subscription">Keep subscription</string>
+-
+-    <!-- Accessible content description for the reminder view, describing the icon in the view. -->
+-    <string name="ReminderView_icon_content_description">Reminder icon</string>
+-
+-    <!-- Row title for restore/transfer using a previous registered phone/device -->
+-    <string name="WelcomeFragment_restore_action_i_have_my_old_phone">I have my old phone</string>
+-    <!-- Row subtitle for restore/transfer using a previous registered phone/device -->
+-    <string name="WelcomeFragment_restore_action_scan_qr">Scan a QR code from your current Signal account to get started quickly</string>
+-
+-    <!-- Row title for restore/transfer without using a previous device -->
+-    <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">I don\'t have my old phone</string>
+-    <!-- Row subtitle for restore/transfer without using a previous device -->
+-    <string mollyify="true" name="WelcomeFragment_restore_action_reinstalling">Or you\'re reinstalling Molly on the same device</string>
+-
+-    <!-- Screen title for selecting which restore method to use during registration -->
+-    <string name="SelectRestoreMethodFragment__restore_or_transfer_account">Restore or transfer account</string>
+-    <!-- Screen subtitle for selecting which restore method to use during registration -->
+-    <string name="SelectRestoreMethodFragment__get_your_signal_account">Get your Signal account and message history onto this device.</string>
+-    <!-- Option title for restoring via signal secure backups -->
+-    <string name="SelectRestoreMethodFragment__restore_signal_backup">Restore Signal backup</string>
+-    <!-- Option subtitle for restoring via signal secure backups -->
+-    <string name="SelectRestoreMethodFragment__restore_your_text_messages_and_media_from">Restore your text messages and media from your Signal backup plan.</string>
+-    <!-- Option title for restoring via a local backup file or folder -->
+-    <string name="SelectRestoreMethodFragment__restore_on_device_backup">Restore on-device backup</string>
+-    <!-- Option subtitle fdor restoring via a local backup file or folder -->
+-    <string name="SelectRestoreMethodFragment__restore_your_messages_from">Restore your messages from a backup you saved on your device.</string>
+-    <!-- Option title for restoring via a local backup file -->
+-    <string name="SelectRestoreMethodFragment__from_a_backup_file">From a backup file</string>
+-    <!-- Option subtitle for restoring via a local backup -->
+-    <string name="SelectRestoreMethodFragment__choose_a_backup_youve_saved">Choose a backup you’ve saved</string>
+-    <!-- Option title for restoring via device transfer -->
+-    <string name="SelectRestoreMethodFragment__from_your_old_phone">From your old phone</string>
+-    <!-- Option subtitle for restoring via device transfer -->
+-    <string name="SelectRestoreMethodFragment__transfer_directly_from_old">Transfer directly from your old Android</string>
+-    <!-- Dialog title shown as a warning when skipping restore during registration -->
+-    <string name="SelectRestoreMethodFragment__skip_restore_title">Skip restore?</string>
+-    <!-- Dialog message shown as a warning when skipping restore during registration -->
+-    <string name="SelectRestoreMethodFragment__skip_restore_warning">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+-    <!-- Dialog confirm text shown as a warning when skipping restore during registration -->
+-    <string name="SelectRestoreMethodFragment__skip_restore">Skip restore</string>
+-
+-    <!-- Screen title for restore via local backup -->
+-    <string name="RestoreLocalBackup_title">Restore local backup</string>
+-    <!-- Screen subtitle for restore via local backup -->
+-    <string name="RestoreLocalBackup_subtitle">Restore your messages from the backup you saved on your device. If you don\'t restore now, you won\'t be able to restore later.</string>
+-
+-    <!-- Screen title for manual entry of recovery key material for restoring via signal secure backups -->
+-    <string name="EnterBackupKey_title">Enter your recovery key</string>
+-    <!-- Screen subtitle for manual entry of recovery key material for restoring via signal secure backups -->
+-    <string name="EnterBackupKey_subtitle">Your recovery key is a 64-character code required to recover your account and data.</string>
+-    <!-- Button to skip entering recovery key and resuming normal registration flow -->
+-    <string name="EnterBackupKey_no_backup_key">No recovery key?</string>
+-    <!-- Recovery key text field hint -->
+-    <string name="EnterBackupKey_backup_key">Recovery key</string>
+-    <!-- Recovery key not known bottom sheet info paragraph 1 -->
+-    <string name="EnterBackupKey_no_key_paragraph_1">Backups can\'t be recovered without their 64-character recovery code. If you\'ve lost your recovery key Signal can\'t help restore your backup.</string>
+-    <!-- Recovery key not known bottom sheet info paragraph 2 -->
+-    <string name="EnterBackupKey_no_key_paragraph_2">If you have your old device you can view your recovery key in Settings > Backups. Then tap View recovery key.</string>
+-    <!-- Recovery key not known bottom sheet button to learn more about it -->
+-    <string name="EnterBackupKey_learn_more">Learn more</string>
+-    <!-- Recovery key not known bottom sheet button to skip recovery key entry and resume normal reregistration -->
+-    <string name="EnterBackupKey_skip_and_dont_restore">Skip and don\'t restore</string>
+-    <!-- Dialog title shown when entered AEP doesn\'t work to register with provided e164 -->
+-    <string name="EnterBackupKey_incorrect_backup_key_title">Incorrect recovery key</string>
+-    <!-- Dialog message shown when entered AEP doesn\'t work to register with provided e164 -->
+-    <string name="EnterBackupKey_incorrect_backup_key_message">Make sure you\'re registering with the same phone number and 64-character recovery key you saved when enabling Signal Secure Backups. Backups can not be recovered without this key.</string>
+-    <!-- Dialog positive button text to try entering their recovery key again -->
+-    <string name="EnterBackupKey_try_again">Try again</string>
+-    <!-- Dialog negative button text to get help with recovery key -->
+-    <string name="EnterBackupKey_backup_key_help">Recovery key help</string>
+-    <!-- Text field error text when the recovery key provided has been confirmed invalid -->
+-    <string name="EnterBackupKey_incorrect_backup_key_error">Incorrect recovery key</string>
+-    <!-- Text field error text when the recovery key is too long -->
+-    <string name="EnterBackupKey_too_long_error">Too long (%1$d/%2$d)</string>
+-    <!-- Text field error when the recovery key is invalid -->
+-    <string name="EnterBackupKey_invalid_backup_key_error">Invalid recovery key</string>
+-    <!-- Dialog title shown during registration and trying to restore a remote backup -->
+-    <string name="EnterBackupKey_backup_not_found">Backup not found</string>
+-    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+-    <string name="EnterBackupKey_backup_key_you_entered_is_correct_but_no_backup">The recovery key you entered is correct, but there is no backup associated with it. If you still have your old phone, make sure backups are enabled and that a backup has been completed and try again.</string>
+-    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+-    <string name="EnterBackupKey_backup_key_incorrect_or_backups_not_enabled">You may have entered your recovery key incorrectly, or you have not completed at least one backup on your old device.\n\nMake sure you’re registering with the same phone number and recovery key you saved when enabling Signal Secure Backups, and confirm that your old device has completed a backup.</string>
+-    <!-- Dialog message shown during registration and trying to restore a remote backup -->
+-    <string name="EnterBackupKey_backup_key_check_rate_limited">You have run out of recovery key attempts. For your security, the number of attempts you can make is limited. Wait one hour and try again.</string>
+-    <!-- Dialog button shown during registration and trying to restore a remote backup to instead skip said backup process -->
+-    <string name="EnterBackupKey_skip_restore">Skip restore</string>
+-    <!-- Dialog title text when encountering backup restore network error -->
+-    <string name="EnterBackupKey_cant_restore_backup">Can\'t restore backup</string>
+-    <!-- Dialog body text when encountering backup restore network error -->
+-    <string name="EnterBackupKey_your_backup_cant_be_restored_right_now">Your backup can\'t be restored right now. Check your internet connection and try again. </string>
+-    <!-- Dialog button text to contact support on network error -->
+-    <string name="EnterBackupKey_contact_support">Contact support</string>
+-
+-    <!-- Email subject when contacting support on a restore backup network issue -->
+-    <string name="EnterBackupKey_network_failure_support_email">Signal Android Backup restore network error</string>
+-    <string name="EnterBackupKey_network_failure_support_email_filter" translatable="false">Android SignalBackups Import Failed</string>
+-    <!-- Email subject when contacting support on a permanent backup import failure -->
+-    <string name="EnterBackupKey_permanent_failure_support_email">Signal Android Backup restore permanent failure</string>
+-    <string name="EnterBackupKey_permanent_failure_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string>
+-
+-    <!-- EnterLocalBackupKeyScreen: Screen title for entering recovery key for local backup restore -->
+-    <string name="EnterLocalBackupKeyScreen__enter_your_recovery_key">Enter your recovery key</string>
+-    <!-- EnterLocalBackupKeyScreen: Screen subtitle explaining what the recovery key is -->
+-    <string name="EnterLocalBackupKeyScreen__your_recovery_key_is_a_64_character_code">Your recovery key is a 64-character code required to recover your account and data.</string>
+-    <!-- EnterLocalBackupKeyScreen: Button text when user does not have a recovery key -->
+-    <string name="EnterLocalBackupKeyScreen__no_recovery_key">No recovery key?</string>
+-    <!-- EnterLocalBackupKeyScreen: Button to proceed to next step -->
+-    <string name="EnterLocalBackupKeyScreen__next">Next</string>
+-
+-    <!-- RestoreLocalBackupDialog: Error message when the selected archive fails to load -->
+-    <string name="RestoreLocalBackupDialog__failed_to_load_archive">Failed to load archive. Please select a different directory.</string>
+-    <!-- RestoreLocalBackupDialog: Dismiss button for dialog -->
+-    <string name="RestoreLocalBackupDialog__ok">OK</string>
+-    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm skipping backup restore -->
+-    <string name="RestoreLocalBackupDialog__skip_restore">Skip restore?</string>
+-    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user about the consequences of skipping backup restore -->
+-    <string name="RestoreLocalBackupDialog__skip_restore_body">If you skip restore now you will not be able to restore later. If you re-enable backups after skipping restore, your current backup will be replaced with your new messaging history.</string>
+-    <!-- RestoreLocalBackupDialog: Confirm button label for the skip restore dialog -->
+-    <string name="RestoreLocalBackupDialog__skip_restore_confirm">Skip restore</string>
+-    <!-- RestoreLocalBackupDialog: Title of the dialog asking the user to confirm restoring a backup from a different account -->
+-    <string name="RestoreLocalBackupDialog__restore_to_new_account">Restore to new account?</string>
+-    <!-- RestoreLocalBackupDialog: Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+-    <string name="RestoreLocalBackupDialog__restore_to_new_account_body">The backup you are restoring was created using a different Signal account. You can restore this backup to a new account, but you will no longer be a member of any groups that were restored.</string>
+-    <!-- RestoreLocalBackupDialog: Confirm button label for the restore to new account dialog -->
+-    <string name="RestoreLocalBackupDialog__restore">Restore</string>
+-
+-    <!-- RestoreLocalBackupActivity: Toast message when backup restore fails -->
+-    <string name="RestoreLocalBackupActivity__backup_restore_failed">Backup restore failed</string>
+-    <!-- RestoreLocalBackupActivity: Screen title shown during restore -->
+-    <string name="RestoreLocalBackupActivity__restoring_backup">Restoring backup</string>
+-    <!-- RestoreLocalBackupActivity: Screen subtitle explaining restore duration -->
+-    <string name="RestoreLocalBackupActivity__depending_on_the_size">Depending on the size of your backup, this could take a few minutes.</string>
+-    <!-- RestoreLocalBackupActivity: Status text while restoring messages -->
+-    <string name="RestoreLocalBackupActivity__restoring_messages">Restoring messages…</string>
+-    <!-- RestoreLocalBackupActivity: Status text while finalizing restore -->
+-    <string name="RestoreLocalBackupActivity__finalizing">Finalizing…</string>
+-    <!-- RestoreLocalBackupActivity: Status text when restore is complete -->
+-    <string name="RestoreLocalBackupActivity__restore_complete">Restore complete</string>
+-    <!-- RestoreLocalBackupActivity: Status text when restore fails -->
+-    <string name="RestoreLocalBackupActivity__restore_failed">Restore failed</string>
+-    <!-- RestoreLocalBackupActivity: Progress text showing bytes read of total with percentage, e.g. "1.2 MB of 5.0 MB (24%)" -->
+-    <string name="RestoreLocalBackupActivity__s_of_s_d_percent">%1$s of %2$s (%3$d%%)</string>
+-
+-    <!-- RestoreLocalBackupActivity: Title for the dialog shown when backup restore fails and is not recoverable -->
+-    <string name="RestoreLocalBackupActivity__cant_restore_backup">Can\'t restore backup</string>
+-
+-    <!-- RestoreLocalBackupActivity: Body for the dialog shown when backup restore fails and is not recoverable -->
+-    <string name="RestoreLocalBackupActivity__error_occurred_while_restoring">An error occurred while restoring your backup. Your backup is not recoverable. Please contact support for help.</string>
+-
+-    <!-- RestoreLocalBackupActivity: Label for the button that opens the contact support form -->
+-    <string name="RestoreLocalBackupActivity__contact_support">Contact support</string>
+-
+-    <!-- RestoreLocalBackupActivity: Title for the dialog shown when on-device backups could not be automatically re-enabled -->
+-    <string name="RestoreLocalBackupActivity__turn_on_on_device_backups">Turn on on-device backups?</string>
+-
+-    <!-- RestoreLocalBackupActivity: Body for the dialog shown when on-device backups could not be automatically re-enabled, prompting the user to re-enable on-device backups -->
+-    <string name="RestoreLocalBackupActivity__to_continue_using_on_device_backups">To continue using on-device backups, you need to enable them for this account. You can do this at any time from Settings &gt; Backups.</string>
+-
+-    <!-- RestoreLocalBackupActivity: Confirm button label for the dialog prompting the user to re-enable on-device backups -->
+-    <string name="RestoreLocalBackupActivity__turn_on_now">Turn on now</string>
+-
+-    <!-- RestoreLocalBackupActivity: Dismiss button label for the dialog prompting the user to re-enable on-device backups -->
+-    <string name="RestoreLocalBackupActivity__not_now">Not now</string>
+-
+-    <!-- RestoreLocalBackupActivity: Body text for the dialog shown after a successful restore, prompting the user to choose a backup folder -->
+-    <string name="RestoreLocalBackupActivity__choose_a_folder_for_backups">To continue using on-device backups, choose a folder on your device where new backups will be saved.</string>
+-
+-    <!-- RestoreLocalBackupActivity: Positive button label for the dialog shown after a successful restore; keeps the current backup folder -->
+-    <string name="RestoreLocalBackupActivity__use_current_folder">Use current folder</string>
+-
+-    <!-- RestoreLocalBackupActivity: Neutral button label for the dialog shown after a successful restore; opens folder picker to select a different backup location -->
+-    <string name="RestoreLocalBackupActivity__choose_new_folder">Choose new folder</string>
+-
+-    <!-- RestoreLocalBackupActivity: Negative button label for the dialog shown after a successful restore; disables on-device backups -->
+-    <string name="RestoreLocalBackupActivity__disable_backups">Disable backups</string>
+-
+-    <!-- SelectInstructionsSheet: Title for the select backup folder instruction sheet -->
+-    <string name="SelectInstructionsSheet__select_your_backup_folder">Select your backup folder</string>
+-    <!-- SelectInstructionsSheet: Instruction to tap the select this folder button -->
+-    <string name="SelectInstructionsSheet__tap_select_this_folder">Tap \"Select this folder\"</string>
+-    <!-- SelectInstructionsSheet: Instruction not to select individual files -->
+-    <string name="SelectInstructionsSheet__do_not_select_individual_files">Do not select individual files</string>
+-    <!-- SelectInstructionsSheet: Title for the select backup file instruction sheet -->
+-    <string name="SelectInstructionsSheet__select_your_backup_file">Select your backup file</string>
+-    <!-- SelectInstructionsSheet: Instruction to tap the backup file saved to device -->
+-    <string name="SelectInstructionsSheet__tap_on_the_backup_file">Tap on the backup file you saved to your device</string>
+-    <!-- SelectInstructionsSheet: Subtitle explaining how to access backup after tapping continue -->
+-    <string name="SelectInstructionsSheet__after_tapping_continue">After tapping \"Continue,\" here\'s how to access your backup:</string>
+-    <!-- SelectInstructionsSheet: Instruction to select the top-level backup folder -->
+-    <string name="SelectInstructionsSheet__select_the_top_level_folder">Select the top-level folder where your backup is stored</string>
+-    <!-- SelectInstructionsSheet: Continue button text -->
+-    <string name="SelectInstructionsSheet__continue_button">Continue</string>
+-
+-    <!-- SelectLocalBackupScreen: Screen title for restoring on-device backup -->
+-    <string name="SelectLocalBackupScreen__restore_on_device_backup">Restore on-device backup</string>
+-    <!-- SelectLocalBackupScreen: Screen subtitle explaining the restore process -->
+-    <string name="SelectLocalBackupScreen__restore_your_messages_from_the_backup_folder">Restore your messages from the backup folder you saved on your device. If you don\'t restore now, you won\'t be able to restore later.</string>
+-    <!-- SelectLocalBackupScreen: Button to initiate backup restoration -->
+-    <string name="SelectLocalBackupScreen__restore_backup">Restore backup</string>
+-    <!-- SelectLocalBackupScreen: Button to choose an earlier backup when current is latest -->
+-    <string name="SelectLocalBackupScreen__choose_an_earlier_backup">Choose an earlier backup</string>
+-    <!-- SelectLocalBackupScreen: Button to choose a different backup -->
+-    <string name="SelectLocalBackupScreen__choose_a_different_backup">Choose a different backup</string>
+-    <!-- SelectLocalBackupScreen: Label for latest backup card -->
+-    <string name="SelectLocalBackupScreen__your_latest_backup">Your latest backup:</string>
+-    <!-- SelectLocalBackupScreen: Label for non-latest backup card -->
+-    <string name="SelectLocalBackupScreen__your_backup">Your backup:</string>
+-
+-    <!-- SelectLocalBackupSheet: Title for backup selection bottom sheet -->
+-    <string name="SelectLocalBackupSheet__choose_a_backup_to_restore">Choose a backup to restore</string>
+-    <!-- SelectLocalBackupSheet: Subtitle warning about choosing an older backup -->
+-    <string name="SelectLocalBackupSheet__choosing_an_older_backup">Choosing an older backup may result in lost messages or media.</string>
+-    <!-- SelectLocalBackupSheet: Continue button text -->
+-    <string name="SelectLocalBackupSheet__continue_button">Continue</string>
+-
+-    <!-- SelectLocalBackupTypeScreen: Screen title for selecting backup type -->
+-    <string name="SelectLocalBackupTypeScreen__restore_on_device_backup">Restore on-device backup</string>
+-    <!-- SelectLocalBackupTypeScreen: Screen subtitle explaining restore options -->
+-    <string name="SelectLocalBackupTypeScreen__restore_your_messages_from_the_backup">Restore your messages from the backup you saved on your device. If you don\'t restore now, you won\'t be able to restore later.</string>
+-    <!-- SelectLocalBackupTypeScreen: Button for users who saved backup as single file -->
+-    <string name="SelectLocalBackupTypeScreen__i_saved_my_backup_as_a_single_file">I saved my backup as a single file</string>
+-    <!-- SelectLocalBackupTypeScreen: Card title for choosing backup folder -->
+-    <string name="SelectLocalBackupTypeScreen__choose_backup_folder">Choose backup folder</string>
+-    <!-- SelectLocalBackupTypeScreen: Card description for choosing backup folder -->
+-    <string name="SelectLocalBackupTypeScreen__select_the_folder_on_your_device">Select the folder on your device where your backup is stored</string>
+-=======
+->>>>>>> SIGNAL
+ 
+     <!-- Email subject when contacting support on a create backup failure -->
+     <string name="BackupAlertBottomSheet_network_failure_support_email">Signal Android Backup export network error</string>
+diff --git a/app/src/main/res/values/strings2.xml b/app/src/main/res/values/strings2.xml
+index 2a8881c37bd221de5d3a7ea21803a95d77662066..4dc6c30026790623d7447ec0306a7a6c50af2b38 100644
+--- a/app/src/main/res/values/strings2.xml
++++ b/app/src/main/res/values/strings2.xml
+@@ -177,4 +177,6 @@
+     <string name="MollySocketLink_experienced_a_network_error_please_try_again">Experienced a network error. Please try again.</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server">MollySocket server</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Air gapped</string>
++    <string name="NotificationsSettingsFragment__notify_when">Notify when…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services is updating or temporarily unavailable. Please try again.</string>
+ </resources>
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+index b486736caa095e898e14ed701a26e65c64d98e75..a1619af7ea78f12ee2a6d2868973f07b8f681a45 100644
+--- a/app/src/main/res/values/themes.xml
++++ b/app/src/main/res/values/themes.xml
+@@ -13,18 +13,6 @@
+         <item name="contactCheckboxBackground">@drawable/contact_selection_checkbox</item>
+     </style>
+ 
+-    <!-- MOLLY: Theme.Signal.DayNight.NoActionBar now in light_themes.xml -->
+-
+-    <style name="Theme.Molly.Starting.Light" parent="Theme.SplashScreen">
+-        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon</item>
+-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+-    </style>
+-
+-    <style name="Theme.Molly.Starting.Dark" parent="Theme.SplashScreen">
+-        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon_dark</item>
+-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+-    </style>
+-
+     <style name="TextSecure.LightNoActionBar" parent="@style/TextSecure.BaseLightNoActionBar">
+         <!-- leave empty to allow overriding -->
+     </style>
+@@ -75,36 +63,10 @@
+         <item name="windowActionModeOverlay">true</item>
+     </style>
+ 
+-<<<<<<< MOLLY
+     <style name="TextSecure.LightIntroTheme" parent="@style/Signal.DayNight.Registration">
+-=======
+-    <style name="Signal.Light.NoActionBar.Invite" parent="Base.Signal.Light.NoActionBar.Invite">
+-        <!-- Empty for override -->
+-    </style>
+-
+-    <style name="Base.Signal.Light.NoActionBar.Invite" parent="@style/TextSecure.LightNoActionBar">
+-        <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
+-    </style>
+-
+-    <style name="Signal.NoActionBar.Invite" parent="Base.Signal.NoActionBar.Invite">
+-        <!-- Empty for override -->
+-    </style>
+-
+-    <style name="Base.Signal.NoActionBar.Invite" parent="@style/TextSecure.DarkNoActionBar">
+-        <item name="contact_filter_toolbar_icon_tint">@color/signal_text_toolbar_subtitle</item>
+-    </style>
+-
+-    <style name="TextSecure.LightIntroTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+-        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
+-        <item name="android:windowActionBar">false</item>
+-        <item name="android:windowNoTitle">true</item>
+->>>>>>> SIGNAL
+         <item name="windowActionBar">false</item>
+         <item name="windowNoTitle">true</item>
+         <item name="android:windowBackground">@color/white</item>
+-        <item name="android:statusBarColor">@color/core_ultramarine</item>
+-        <item name="android:navigationBarColor">@color/core_grey_95</item>
+         <item name="android:windowLightStatusBar">false</item>
+         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+     </style>
+@@ -112,11 +74,6 @@
+     <style name="TextSecure.DarkIntroTheme" parent="@style/Theme.AppCompat">
+         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
+-<<<<<<< MOLLY
+-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainer</item>
+-        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
+-=======
+->>>>>>> SIGNAL
+         <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+         <item name="android:windowActionBar">false</item>
+         <item name="android:windowNoTitle">true</item>
+@@ -141,115 +98,12 @@
+         <item name="android:backgroundDimEnabled">false</item>
+     </style>
+ 
+-    <style name="Theme.Molly.Material3.Light" parent="@style/Theme.Material3.Light">
+-        <item name="colorPrimaryInverse">@color/molly_primary_inverse_light</item>
+-        <item name="colorPrimary">@color/molly_primary_light</item>
+-        <item name="colorPrimaryDark">@color/molly_primary_light</item>
+-        <item name="colorOnPrimary">@color/molly_on_primary_light</item>
+-        <item name="colorPrimaryContainer">@color/molly_primary_container_light</item>
+-        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_light</item>
+-        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
+-        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
+-        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
+-        <item name="colorSecondary">@color/molly_secondary_light</item>
+-        <item name="colorOnSecondary">@color/molly_on_secondary_light</item>
+-        <item name="colorSecondaryContainer">@color/molly_secondary_container_light</item>
+-        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_light</item>
+-        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
+-        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
+-        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
+-        <item name="colorSurfaceInverse">@color/molly_surface_inverse_light</item>
+-        <item name="colorSurfaceVariant">@color/molly_surface_variant_light</item>
+-        <item name="colorSurface">@color/molly_surface_light</item>
+-        <item name="colorSurfaceDim">@color/molly_surface_dim_light</item>
+-        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_light</item>
+-        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_light</item>
+-        <item name="colorSurfaceContainer">@color/molly_surface_container_light</item>
+-        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_light</item>
+-        <item name="colorSurfaceBright">@color/molly_surface_bright_light</item>
+-        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_light</item>
+-        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_light</item>
+-        <item name="colorOnSurface">@color/molly_on_surface_light</item>
+-        <item name="colorOnBackground">@color/molly_on_background_light</item>
+-        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_light</item>
+-        <item name="colorOutline">@color/molly_outline_light</item>
+-        <item name="colorOutlineVariant">@color/molly_outline_variant_light</item>
+-        <item name="colorError">@color/molly_error_light</item>
+-        <item name="colorOnError">@color/molly_on_error_light</item>
+-        <item name="colorErrorContainer">@color/molly_error_container_light</item>
+-        <item name="colorOnErrorContainer">@color/molly_on_error_container_light</item>
+-        <item name="colorTertiary">@color/molly_tertiary_light</item>
+-        <item name="colorOnTertiary">@color/molly_on_tertiary_light</item>
+-        <item name="colorTertiaryContainer">@color/molly_tertiary_container_light</item>
+-        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_light</item>
+-        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
+-        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
+-        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
+-        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
+-        <item name="colorAccent">@color/molly_primary_light</item>
+-        <item name="colorControlActivated">@color/molly_primary_light</item>
+-    </style>
+-
+-    <style name="Theme.Molly.Material3.Dark" parent="@style/Theme.Material3.Dark">
+-        <item name="colorPrimaryInverse">@color/molly_primary_inverse_dark</item>
+-        <item name="colorPrimary">@color/molly_primary_dark</item>
+-        <item name="colorPrimaryDark">@color/molly_primary_dark</item>
+-        <item name="colorOnPrimary">@color/molly_on_primary_dark</item>
+-        <item name="colorPrimaryContainer">@color/molly_primary_container_dark</item>
+-        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_dark</item>
+-        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
+-        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
+-        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
+-        <item name="colorSecondary">@color/molly_secondary_dark</item>
+-        <item name="colorOnSecondary">@color/molly_on_secondary_dark</item>
+-        <item name="colorSecondaryContainer">@color/molly_secondary_container_dark</item>
+-        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_dark</item>
+-        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
+-        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
+-        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
+-        <item name="colorSurfaceInverse">@color/molly_surface_inverse_dark</item>
+-        <item name="colorSurfaceVariant">@color/molly_surface_variant_dark</item>
+-        <item name="colorSurface">@color/molly_surface_dark</item>
+-        <item name="colorSurfaceBright">@color/molly_surface_bright_dark</item>
+-        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_dark</item>
+-        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_dark</item>
+-        <item name="colorSurfaceContainer">@color/molly_surface_container_dark</item>
+-        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_dark</item>
+-        <item name="colorSurfaceDim">@color/molly_surface_dim_dark</item>
+-        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_dark</item>
+-        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_dark</item>
+-        <item name="colorOnSurface">@color/molly_on_surface_dark</item>
+-        <item name="colorOnBackground">@color/molly_on_background_dark</item>
+-        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_dark</item>
+-        <item name="colorOutline">@color/molly_outline_dark</item>
+-        <item name="colorOutlineVariant">@color/molly_outline_variant_dark</item>
+-        <item name="colorError">@color/molly_error_dark</item>
+-        <item name="colorOnError">@color/molly_on_error_dark</item>
+-        <item name="colorErrorContainer">@color/molly_error_container_dark</item>
+-        <item name="colorOnErrorContainer">@color/molly_on_error_container_dark</item>
+-        <item name="colorTertiary">@color/molly_tertiary_dark</item>
+-        <item name="colorOnTertiary">@color/molly_on_tertiary_dark</item>
+-        <item name="colorTertiaryContainer">@color/molly_tertiary_container_dark</item>
+-        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_dark</item>
+-        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
+-        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
+-        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
+-        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
+-        <item name="colorAccent">@color/molly_primary_dark</item>
+-        <item name="colorControlActivated">@color/molly_primary_dark</item>
+-    </style>
+-
+     <style name="TextSecure.LightTheme" parent="TextSecure.BaseLightTheme">
+         <!-- Allows for Overrides -->
+     </style>
+ 
+     <style name="TextSecure.BaseLightTheme" parent="@style/Theme.Molly.Material3.Light">
+         <item name="theme_type">light</item>
+-        <item name="dynamic_colors">false</item>
+-        <item name="android:navigationBarColor">@color/molly_surface_light</item>
+-        <item name="android:statusBarColor">@color/molly_surface_light</item>
+-        <item name="android:windowLightNavigationBar">true</item>
+-        <item name="android:windowLightStatusBar">true</item>
+         <item name="fullScreenDialogStyle">@style/Signal.DayNight.Dialog.FullScreen</item>
+         <item name="fixedRoundedCornerBottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners</item>
+         <item name="permissionsRationaleDialogTheme">@style/Theme.Signal.AlertDialog.Light.Cornered</item>
+@@ -262,8 +116,8 @@
+         <item name="android:enforceNavigationBarContrast" tools:targetApi="29">false</item>
+         <item name="android:enforceStatusBarContrast" tools:targetApi="29">false</item>
+ 
++        <!-- Material 3 -->
+         <item name="colorControlHighlight">@color/transparent_black_10</item>
+-
+         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
+         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
+         <item name="textAppearanceLabelLarge">@style/Signal.Text.LabelLarge</item>
+@@ -325,8 +179,11 @@
+         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
+         <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
+         <item name="collapsingToolbarLayoutStyle">@style/Signal.Widget.CollapsingToolbar</item>
+-
+-        <!-- light_colors.xml -->
++    <item name="dynamic_colors">false</item>
++        <item name="android:navigationBarColor">@color/molly_surface_light</item>
++        <item name="android:statusBarColor">@color/molly_surface_light</item>
++        <item name="android:windowLightNavigationBar">true</item>
++        <item name="android:windowLightStatusBar">true</item>
+         <item name="conversation_toolbar_color">?attr/colorSurface</item>
+         <item name="signal_accent_primary">@color/core_ultramarine</item>
+         <item name="signal_background_primary">?attr/colorSurface</item>
+@@ -393,26 +250,22 @@
+         <item name="message_request_bar_background_normal">?attr/colorSurfaceContainerHigh</item>
+         <item name="message_request_bar_denyForeground_normal">?attr/colorError</item>
+         <item name="message_request_bar_acceptForeground_normal">?attr/colorSurfaceInverse</item>
+-        <item name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</item> -->
+-        <item name="message_request_bar_background_wallpaper">@color/signal_colorNeutralVariant</item> -->
++        <item name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</item> --&gt;
++        <item name="message_request_bar_background_wallpaper">@color/signal_colorNeutralVariant</item> --&gt;
+         <item name="message_request_bar_denyForeground_wallpaper">?attr/colorError</item>
+-        <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item> -->
++        <item name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</item> --&gt;
+         <item name="safety_tip_background">@color/core_white</item>
+         <item name="safety_tip_image_background">#99F3F0FF</item>
+ 
+-        <!-- signal_styles.xml -->
+         <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.DayNight</item>
+         <item name="extended_action_button_container_color">@color/molly_tertiary_container_light</item>
+         <item name="extended_action_button_icon_color">@color/molly_on_tertiary_container_light</item>
+ 
+-        <!-- contact_selection_*_item.xml -->
+         <item name="filled_tonal_icon_button_container_color">@color/molly_surface_container_highest_light</item>
+         <item name="filled_tonal_icon_button_icon_color">@color/molly_on_surface_light</item>
+ 
+-        <!-- signal_context_menu_background.xml -->
+         <item name="context_menu_container_color">@color/molly_surface_container_light</item>
+ 
+-        <!-- MainNavigation.kt -->
+         <item name="navbar_active_indicator_color">@color/molly_secondary_container_light</item>
+         <item name="navbar_container_color">@color/molly_surface_container_light</item>
+     </style>
+@@ -423,11 +276,6 @@
+ 
+     <style name="TextSecure.BaseDarkTheme" parent="@style/Theme.Molly.Material3.Dark">
+         <item name="theme_type">dark</item>
+-        <item name="dynamic_colors">false</item>
+-        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
+-        <item name="android:statusBarColor">@color/molly_surface_dark</item>
+-        <item name="android:windowLightNavigationBar">false</item>
+-        <item name="android:windowLightStatusBar">false</item>
+         <item name="fullScreenDialogStyle">@style/Signal.DayNight.Dialog.FullScreen</item>
+         <item name="fixedRoundedCornerBottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners</item>
+         <item name="permissionsRationaleDialogTheme">@style/Theme.Signal.AlertDialog.Dark.Cornered</item>
+@@ -436,8 +284,8 @@
+         <item name="android:enforceNavigationBarContrast" tools:targetApi="29">false</item>
+         <item name="android:enforceStatusBarContrast" tools:targetApi="29">false</item>
+ 
++        <!-- Material 3 -->
+         <item name="colorControlHighlight">@color/transparent_white_10</item>
+-
+         <item name="textAppearanceBodyMedium">@style/Signal.Text.BodyMedium</item>
+         <item name="textAppearanceBodyLarge">@style/Signal.Text.BodyLarge</item>
+         <item name="textAppearanceLabelLarge">@style/Signal.Text.LabelLarge</item>
+@@ -501,8 +349,11 @@
+         <item name="materialCalendarTheme">@style/Signal.ThemeOverlay.Calendar</item>
+         <item name="materialCardViewOutlinedStyle">@style/Widget.Material3.CardView.Filled</item>
+         <item name="collapsingToolbarLayoutStyle">@style/Signal.Widget.CollapsingToolbar</item>
+-
+-        <!-- dark_colors.xml -->
++    <item name="dynamic_colors">false</item>
++        <item name="android:navigationBarColor">@color/molly_surface_dark</item>
++        <item name="android:statusBarColor">@color/molly_surface_dark</item>
++        <item name="android:windowLightNavigationBar">false</item>
++        <item name="android:windowLightStatusBar">false</item>
+         <item name="conversation_toolbar_color">?attr/colorSurface</item>
+         <item name="signal_accent_primary">@color/core_ultramarine_light</item>
+         <item name="signal_background_primary">?attr/colorSurface</item>
+@@ -576,19 +427,15 @@
+         <item name="safety_tip_background">?attr/colorSecondaryContainer</item>
+         <item name="safety_tip_image_background">?attr/colorSecondary</item>
+ 
+-        <!-- signal_styles.xml -->
+         <item name="switchThemeOverlay">@style/ThemeOverlay.MaterialSwitch.DayNight</item>
+         <item name="extended_action_button_container_color">@color/molly_tertiary_container_dark</item>
+         <item name="extended_action_button_icon_color">@color/molly_on_tertiary_container_dark</item>
+ 
+-        <!-- contact_selection_*_item.xml -->
+         <item name="filled_tonal_icon_button_container_color">@color/molly_surface_container_highest_dark</item>
+         <item name="filled_tonal_icon_button_icon_color">@color/molly_on_surface_dark</item>
+ 
+-        <!-- signal_context_menu_background.xml -->
+         <item name="context_menu_container_color">@color/molly_surface_container_high_dark</item>
+ 
+-        <!-- MainNavigation.kt -->
+         <item name="navbar_active_indicator_color">@color/molly_surface_bright_dark</item>
+         <item name="navbar_container_color">@color/molly_surface_container_dark</item>
+     </style>
+@@ -631,8 +478,6 @@
+         <item name="android:windowFullscreen">true</item>
+     </style>
+ 
+-    <!-- MOLLY: Deprecated themes -->
+-
+     <style name="TextSecure.DarkTheme.WebRTCCall">
+         <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+         <item name="android:windowActionBar">false</item>
+@@ -643,19 +488,22 @@
+     </style>
+ 
+     <style name="Theme.Signal.Light.BottomSheetDialog" parent="Theme.Material3.Light.BottomSheetDialog">
+-        <item name="android:navigationBarColor">?attr/colorSurfaceContainerLow</item>
++        <item name="android:navigationBarColor">@color/signal_bottom_sheet_navigation_bar</item>
++    <item name="enableEdgeToEdge">true</item>
+     </style>
+ 
+     <style name="Theme.Signal.BottomSheetDialog" parent="Theme.Material3.Dark.BottomSheetDialog">
+-        <item name="android:navigationBarColor">?attr/colorSurfaceContainerLow</item>
++        <item name="android:navigationBarColor">@color/signal_bottom_sheet_navigation_bar</item>
++    <item name="enableEdgeToEdge">true</item>
+     </style>
+ 
+     <style name="Theme.Signal.BottomSheetDialog.Fixed" parent="Theme.Design.BottomSheetDialog">
+         <item name="android:windowIsFloating">false</item>
+         <item name="android:statusBarColor">@color/transparent</item>
+-        <item name="android:navigationBarColor">?attr/colorSurface</item>
++        <item name="android:navigationBarColor">@android:color/transparent</item>
+         <item name="android:windowLightStatusBar">false</item>
+         <item name="android:windowLightNavigationBar">false</item>
++    <item name="enableEdgeToEdge">true</item>
+     </style>
+ 
+     <style name="Theme.Signal.BottomSheetDialog.Fixed.ReactWithAny">
+@@ -663,8 +511,6 @@
+         <item name="android:backgroundDimEnabled">true</item>
+     </style>
+ 
+-    <!-- MOLLY: Signal.DayNight.Dialog.Animated.Bottom moved to signal_styles.xml -->
+-
+     <style name="Widget.Signal.BottomSheet.ReactWithAny" parent="Widget.Material3.BottomSheet">
+         <item name="backgroundTint">?attr/colorSurfaceContainerLow</item>
+         <item name="behavior_peekHeight">@dimen/react_with_any_emoji_bottom_sheet_dialog_fragment_min_height</item>
+@@ -683,13 +529,9 @@
+ 
+     <style name="Widget.Signal.ReactWithAny.BottomSheet" parent="Widget.Material3.BottomSheet">
+         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Signal.BottomSheet.Rounded</item>
+-<<<<<<< MOLLY
+         <item name="backgroundTint">?attr/react_with_any_background</item>
+-=======
+-        <item name="backgroundTint">@color/react_with_any_background</item>
+         <!-- The content keeps clear of the navigation bar and keyboard itself. -->
+         <item name="paddingBottomSystemWindowInsets">false</item>
+->>>>>>> SIGNAL
+     </style>
+ 
+     <style name="Widget.Signal.FixedRoundedCorners" parent="Widget.CoreUi.FixedRoundedCorners">
+@@ -704,11 +546,7 @@
+     -->
+     <style name="Widget.Signal.FixedRoundedCorners.Messages" parent="Widget.Signal.FixedRoundedCorners">
+         <item name="bottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners.Messages.BottomSheet</item>
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainer</item>
+-=======
+         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/bottom_sheet_navigation_bar_surface</item>
+->>>>>>> SIGNAL
+     </style>
+ 
+     <style name="Widget.Signal.FixedRoundedCorners.Messages.BottomSheet" parent="Widget.Material3.BottomSheet">
+@@ -719,11 +557,7 @@
+ 
+     <style name="Widget.Signal.FixedRoundedCorners.Stories">
+         <item name="bottomSheetStyle">@style/Widget.Signal.FixedRoundedCorners.BottomSheet.Stories</item>
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainer</item>
+-=======
+         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/bottom_sheet_navigation_bar_surface</item>
+->>>>>>> SIGNAL
+     </style>
+ 
+     <style name="Widget.Signal.FixedRoundedCorners.BottomSheet.Stories" parent="Widget.CoreUi.FixedRoundedCorners.BottomSheet">
+@@ -817,11 +651,7 @@
+ 
+         <item name="colorAccent">@color/core_ultramarine</item>
+ 
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainerLow</item>
+-=======
+         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/signal_bottom_sheet_navigation_bar</item>
+->>>>>>> SIGNAL
+         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+ 
+         <item name="android:colorForeground">@color/black</item>
+@@ -836,11 +666,7 @@
+ 
+         <item name="colorAccent">@color/core_ultramarine_light</item>
+ 
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainerLow</item>
+-=======
+         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/signal_bottom_sheet_navigation_bar</item>
+->>>>>>> SIGNAL
+         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+         <item name="android:statusBarColor" tools:ignore="NewApi">@color/transparent</item>
+         <item name="materialButtonStyle">@style/Widget.Signal.BottomSheet.MaterialButtonStyle</item>
+@@ -856,11 +682,7 @@
+ 
+         <item name="colorAccent">?attr/colorPrimary</item>
+ 
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:ignore="NewApi">?attr/colorSurfaceContainer</item>
+-=======
+         <item name="android:navigationBarColor" tools:ignore="NewApi">@color/bottom_sheet_navigation_bar_surface</item>
+->>>>>>> SIGNAL
+         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+         <item name="android:statusBarColor" tools:ignore="NewApi">@color/transparent</item>
+     </style>
+@@ -889,4 +711,112 @@
+         <item name="colorControlHighlight">?attr/signal_accent_primary</item>
+         <item name="colorControlActivated">?attr/signal_accent_primary</item>
+     </style>
+-</resources>
++<style name="Theme.Molly.Starting.Light" parent="Theme.SplashScreen">
++        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon</item>
++        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
++    </style>
++
++    <style name="Theme.Molly.Starting.Dark" parent="Theme.SplashScreen">
++        <item name="windowSplashScreenBackground">@color/core_ultramarine_icon_dark</item>
++        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
++    </style>
++
++    <style name="Theme.Molly.Material3.Light" parent="@style/Theme.Material3.Light">
++        <item name="colorPrimaryInverse">@color/molly_primary_inverse_light</item>
++        <item name="colorPrimary">@color/molly_primary_light</item>
++        <item name="colorPrimaryDark">@color/molly_primary_light</item>
++        <item name="colorOnPrimary">@color/molly_on_primary_light</item>
++        <item name="colorPrimaryContainer">@color/molly_primary_container_light</item>
++        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_light</item>
++        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
++        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
++        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
++        <item name="colorSecondary">@color/molly_secondary_light</item>
++        <item name="colorOnSecondary">@color/molly_on_secondary_light</item>
++        <item name="colorSecondaryContainer">@color/molly_secondary_container_light</item>
++        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_light</item>
++        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
++        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
++        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
++        <item name="colorSurfaceInverse">@color/molly_surface_inverse_light</item>
++        <item name="colorSurfaceVariant">@color/molly_surface_variant_light</item>
++        <item name="colorSurface">@color/molly_surface_light</item>
++        <item name="colorSurfaceDim">@color/molly_surface_dim_light</item>
++        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_light</item>
++        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_light</item>
++        <item name="colorSurfaceContainer">@color/molly_surface_container_light</item>
++        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_light</item>
++        <item name="colorSurfaceBright">@color/molly_surface_bright_light</item>
++        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_light</item>
++        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_light</item>
++        <item name="colorOnSurface">@color/molly_on_surface_light</item>
++        <item name="colorOnBackground">@color/molly_on_background_light</item>
++        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_light</item>
++        <item name="colorOutline">@color/molly_outline_light</item>
++        <item name="colorOutlineVariant">@color/molly_outline_variant_light</item>
++        <item name="colorError">@color/molly_error_light</item>
++        <item name="colorOnError">@color/molly_on_error_light</item>
++        <item name="colorErrorContainer">@color/molly_error_container_light</item>
++        <item name="colorOnErrorContainer">@color/molly_on_error_container_light</item>
++        <item name="colorTertiary">@color/molly_tertiary_light</item>
++        <item name="colorOnTertiary">@color/molly_on_tertiary_light</item>
++        <item name="colorTertiaryContainer">@color/molly_tertiary_container_light</item>
++        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_light</item>
++        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
++        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
++        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
++        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
++        <item name="colorAccent">@color/molly_primary_light</item>
++        <item name="colorControlActivated">@color/molly_primary_light</item>
++    </style>
++
++    <style name="Theme.Molly.Material3.Dark" parent="@style/Theme.Material3.Dark">
++        <item name="colorPrimaryInverse">@color/molly_primary_inverse_dark</item>
++        <item name="colorPrimary">@color/molly_primary_dark</item>
++        <item name="colorPrimaryDark">@color/molly_primary_dark</item>
++        <item name="colorOnPrimary">@color/molly_on_primary_dark</item>
++        <item name="colorPrimaryContainer">@color/molly_primary_container_dark</item>
++        <item name="colorOnPrimaryContainer">@color/molly_on_primary_container_dark</item>
++        <item name="colorPrimaryFixed">@color/molly_primary_fixed</item>
++        <item name="colorPrimaryFixedDim">@color/molly_primary_fixed_dim</item>
++        <item name="colorOnPrimaryFixed">@color/molly_on_primary_fixed</item>
++        <item name="colorSecondary">@color/molly_secondary_dark</item>
++        <item name="colorOnSecondary">@color/molly_on_secondary_dark</item>
++        <item name="colorSecondaryContainer">@color/molly_secondary_container_dark</item>
++        <item name="colorOnSecondaryContainer">@color/molly_on_secondary_container_dark</item>
++        <item name="colorSecondaryFixed">@color/molly_secondary_fixed</item>
++        <item name="colorSecondaryFixedDim">@color/molly_secondary_fixed_dim</item>
++        <item name="colorOnSecondaryFixed">@color/molly_on_secondary_fixed</item>
++        <item name="colorSurfaceInverse">@color/molly_surface_inverse_dark</item>
++        <item name="colorSurfaceVariant">@color/molly_surface_variant_dark</item>
++        <item name="colorSurface">@color/molly_surface_dark</item>
++        <item name="colorSurfaceBright">@color/molly_surface_bright_dark</item>
++        <item name="colorSurfaceContainerHighest">@color/molly_surface_container_highest_dark</item>
++        <item name="colorSurfaceContainerHigh">@color/molly_surface_container_high_dark</item>
++        <item name="colorSurfaceContainer">@color/molly_surface_container_dark</item>
++        <item name="colorSurfaceContainerLow">@color/molly_surface_container_low_dark</item>
++        <item name="colorSurfaceDim">@color/molly_surface_dim_dark</item>
++        <item name="colorSurfaceContainerLowest">@color/molly_surface_container_lowest_dark</item>
++        <item name="colorOnSurfaceInverse">@color/molly_on_surface_inverse_dark</item>
++        <item name="colorOnSurface">@color/molly_on_surface_dark</item>
++        <item name="colorOnBackground">@color/molly_on_background_dark</item>
++        <item name="colorOnSurfaceVariant">@color/molly_on_surface_variant_dark</item>
++        <item name="colorOutline">@color/molly_outline_dark</item>
++        <item name="colorOutlineVariant">@color/molly_outline_variant_dark</item>
++        <item name="colorError">@color/molly_error_dark</item>
++        <item name="colorOnError">@color/molly_on_error_dark</item>
++        <item name="colorErrorContainer">@color/molly_error_container_dark</item>
++        <item name="colorOnErrorContainer">@color/molly_on_error_container_dark</item>
++        <item name="colorTertiary">@color/molly_tertiary_dark</item>
++        <item name="colorOnTertiary">@color/molly_on_tertiary_dark</item>
++        <item name="colorTertiaryContainer">@color/molly_tertiary_container_dark</item>
++        <item name="colorOnTertiaryContainer">@color/molly_on_tertiary_container_dark</item>
++        <item name="colorTertiaryFixed">@color/molly_tertiary_fixed</item>
++        <item name="colorTertiaryFixedDim">@color/molly_tertiary_fixed_dim</item>
++        <item name="colorOnTertiaryFixed">@color/molly_on_tertiary_fixed</item>
++        <item name="colorOnTertiaryFixedVariant">@color/molly_on_tertiary_fixed_variant</item>
++        <item name="colorAccent">@color/molly_primary_dark</item>
++        <item name="colorControlActivated">@color/molly_primary_dark</item>
++    </style>
++
++    </resources>

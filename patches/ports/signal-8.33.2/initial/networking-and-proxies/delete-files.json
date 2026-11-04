@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "6c9c3cc8601d2b3818ebc5f5969e747fc08c06f3",
+  "after_tree": "51e7a4314b53dd5e92058188898d5b525f3c62da",
+  "files": [
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/dependencies/NetworkProxyState.kt",
+      "mode": "100644",
+      "blob": "efc48918a82014485f1320f29a3c2f2deb666d6f"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyActivity.kt",
+      "mode": "100644",
+      "blob": "984c620a93acae298d6812134511517113a7dbab"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyFragment.java",
+      "mode": "100644",
+      "blob": "9578276ca8d4cb7584a0c42ed172adf9986844e5"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyViewModel.java",
+      "mode": "100644",
+      "blob": "e0cd70b9dc2fad4e1c9a0b90a4e01ad485077af1"
+    },
+    {
+      "path": "core/network/src/main/java/org/signal/network/util/TlsProxySocketFactory.kt",
+      "mode": "100644",
+      "blob": "b39669197b922d796d292ebc8270add4cb1841ac"
+    },
+    {
+      "path": "lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/LibSignalNetworkExtensions.kt",
+      "mode": "100644",
+      "blob": "7c381c47c695a5ed3224e494207f3ad34ecd2b2c"
+    }
+  ]
+}

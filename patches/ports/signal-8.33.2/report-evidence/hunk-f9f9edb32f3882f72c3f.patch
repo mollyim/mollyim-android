@@ -1,0 +1,13 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/mms/AttachmentManager.java b/app/src/main/java/org/thoughtcrime/securesms/mms/AttachmentManager.java
+index 2c1ed791a0..560122c8d5 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/mms/AttachmentManager.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/mms/AttachmentManager.java
+@@ -60,6 +60,8 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
+ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
+ import org.thoughtcrime.securesms.maps.PlacePickerActivity;
++import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
++import org.thoughtcrime.securesms.mediapreview.MediaPreviewCache;
+ import org.thoughtcrime.securesms.mediasend.MediaSendLauncher;
+ import org.thoughtcrime.securesms.recipients.Recipient;
+ import org.thoughtcrime.securesms.sms.MessageSender;

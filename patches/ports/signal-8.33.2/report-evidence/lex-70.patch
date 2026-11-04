@@ -1,0 +1,11 @@
+--- a/core/util/src/main/res/values/strings.xml
++++ b/core/util/src/main/res/values/strings.xml
+@@ -1,4 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
++<!--
++  ~ Copyright 2024 Signal Messenger, LLC
++  ~ SPDX-License-Identifier: AGPL-3.0-only
++  -->
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+     <string name="install_url" translatable="false">https://molly.im/install</string>

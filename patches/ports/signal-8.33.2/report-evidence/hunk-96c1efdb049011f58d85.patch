@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..8563095031 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -3193,7 +3193,7 @@
+     <string name="SingleRecipientNotificationBuilder_message_request">Message request</string>
+     <string name="SingleRecipientNotificationBuilder_you">You</string>
+     <!-- Notification subtext for group stories -->
+-    <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s • Story</string>
++    <string name="SingleRecipientNotificationBuilder__s_dot_story">%1$s &#8226; Story</string>
+ 
+     <!-- NewWaysToConnectDialogFragment -->
+     <!-- Fragment title, displayed at the top of the content -->

@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-et/strings.xml b/core/util/src/main/res/values-et/strings.xml
+index 29ac2377f442ed38dfc66ed9e720666e38cd5c78..ed79788010cd4dda5f8d1b7866c2bef7269ea591 100644
+--- a/core/util/src/main/res/values-et/strings.xml
++++ b/core/util/src/main/res/values-et/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Kutsu Signalisse</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->
