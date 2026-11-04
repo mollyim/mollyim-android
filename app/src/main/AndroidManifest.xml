@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:targetSandboxVersion="2">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- ======================================= -->
     <!-- Features                                -->
@@ -21,7 +20,7 @@
     <!-- Permissions                             -->
     <!-- ======================================= -->
     <permission android:name="${applicationId}.ACCESS_SECRETS" android:label="Access to TextSecure Secrets" android:protectionLevel="signature" />
-    <uses-permission android:name="${applicationId}.ACCESS_SECRETS" />
+    <uses-permission android:name="org.thoughtcrime.securesms.ACCESS_SECRETS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -29,9 +28,11 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -40,6 +41,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
@@ -49,8 +51,6 @@
     <uses-permission android:name="android.permission.RAISED_THREAD_PRIORITY" />
     <uses-permission android:name="android.permission.READ_CALL_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- MOLLY: Keep for backward compatibility with Android 11–12 storage model -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
@@ -64,7 +64,6 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" tools:ignore="ExactAlarm" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -82,13 +81,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:memtagMode="async"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:resizeableActivity="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Molly.Starting"
-        tools:replace="android:networkSecurityConfig">
+        android:theme="@style/TextSecure.LightTheme">
 
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${mapsKey}" />
         <meta-data
             android:name="android.supports_size_changes"
             android:value="true" />
@@ -111,11 +113,8 @@
             android:name="android.webkit.WebView.MetricsOptOut"
             android:value="true" />
         <meta-data
-            android:name="android.webkit.WebView.EnableSafeBrowsing"
-            android:value="false" />
-        <meta-data
             android:name="android.telephony.PROPERTY_SATELLITE_DATA_OPTIMIZED"
-            android:value="${applicationId}" />
+            android:value="org.thoughtcrime.securesms" />
 
         <!-- ======================================= -->
         <!-- Activities                              -->
@@ -226,7 +225,7 @@
                     android:host="addstickers"
                     android:scheme="sgnl" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -257,6 +256,7 @@
             </intent-filter>
 
             <intent-filter
+                android:autoVerify="true"
                 tools:targetApi="23">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -268,7 +268,7 @@
                     android:scheme="https" />
             </intent-filter>
 
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -289,7 +289,27 @@
                 <data android:host="ideal" />
             </intent-filter>
 
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="signal.tube" />
+            </intent-filter>
+
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sgnl" />
+                <data android:host="signal.tube" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -309,7 +329,7 @@
                 <data android:host="signal.me" />
             </intent-filter>
 
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -380,7 +400,7 @@
             android:name=".recipients.ui.disappearingmessages.RecipientDisappearingMessagesActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
@@ -396,21 +416,20 @@
             android:exported="false"
             android:label="@string/AndroidManifest__create_passphrase"
             android:launchMode="singleTask"
-            android:theme="@style/TextSecure.LightIntroTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateUnchanged" />
 
         <activity
             android:name=".PassphrasePromptActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
             android:launchMode="singleTask"
-            android:theme="@style/Signal.DayNight"
-            android:windowSoftInputMode="stateVisible" />
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".conversation.NewConversationActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".recipients.ui.findby.FindByActivity"
@@ -424,7 +443,7 @@
         <activity
             android:name=".calls.new.NewCallActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".PushContactSelectionActivity"
@@ -462,34 +481,40 @@
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
             android:name=".conversation.mutiselect.forward.MultiselectForwardActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
 
         <activity
             android:name=".mediasend.v2.stories.StoriesMultiselectForwardActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing" />
+
+        <activity
+            android:name=".PassphraseChangeActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:label="@string/AndroidManifest__change_passphrase" />
 
         <activity
             android:name=".verify.VerifyIdentityActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".components.settings.app.AppSettingsActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="true"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -498,24 +523,31 @@
         </activity>
 
         <activity
+            android:name=".preferences.EditProxyActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/Signal.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".stories.my.MyStoriesActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name=".stories.settings.StorySettingsActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
         <activity
             android:name=".stories.archive.StoryArchiveActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".stories.viewer.StoryViewerActivity"
@@ -536,7 +568,7 @@
             android:name=".components.settings.app.changenumber.ChangeNumberLockActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".components.settings.conversation.ConversationSettingsActivity"
@@ -549,7 +581,7 @@
             android:name=".components.settings.conversation.CallInfoActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
@@ -612,7 +644,7 @@
         <activity
             android:name=".stickers.manage.StickerManagementActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".logsubmit.SubmitDebugLogActivity"
@@ -672,9 +704,15 @@
             android:theme="@android:style/Theme.NoDisplay" />
 
         <activity
+            android:name=".PlayServicesProblemActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/TextSecure.DialogActivity" />
+
+        <activity
             android:name=".SystemContactsEntrypointActivity"
             android:exported="true">
-            <intent-filter tools:ignore="AppLinkUrlError">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/vnd.org.thoughtcrime.securesms.contact" />
@@ -682,7 +720,7 @@
         </activity>
 
         <activity
-            android:name=".webrtc.VoiceCallShare"
+            android:name="org.thoughtcrime.securesms.webrtc.VoiceCallShare"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:excludeFromRecents="true"
             android:exported="true"
@@ -721,7 +759,7 @@
             android:name=".scribbles.ImageEditorStickerSelectActivity"
             android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".profiles.edit.CreateProfileActivity"
@@ -732,12 +770,12 @@
         <activity
             android:name=".registration.ui.restore.RemoteRestoreActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".registration.ui.restore.local.RestoreLocalBackupActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".profiles.manage.EditProfileActivity"
@@ -750,6 +788,12 @@
             android:exported="false"
             android:theme="@style/TextSecure.LightTheme"
             android:windowSoftInputMode="stateVisible|adjustResize" />
+
+        <activity
+            android:name=".payments.preferences.PaymentsActivity"
+            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+            android:exported="false"
+            android:theme="@style/TextSecure.LightRegistrationTheme" />
 
         <activity
             android:name=".lock.v2.CreateSvrPinActivity"
@@ -807,7 +851,7 @@
             android:enableOnBackInvokedCallback="true"
             android:exported="false"
             android:resizeableActivity="true"
-            android:theme="@style/Theme.Molly.Starting"
+            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="stateUnchanged" />
 
         <activity
@@ -819,17 +863,17 @@
         <activity
             android:name=".groups.ui.creategroup.CreateGroupActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".groups.ui.addtogroup.AddToGroupsActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".groups.ui.addmembers.AddMembersActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".groups.ui.creategroup.details.AddGroupDetailsActivity"
@@ -902,29 +946,18 @@
         <activity
             android:name=".backup.v2.ui.verify.VerifyBackupKeyActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+            android:theme="@style/Signal.DayNight.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".groups.ui.incommon.GroupsInCommonActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
-
-        <activity
-            android:name="im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity"
-            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-            android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
-
-        <activity
-            android:name="im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity"
-            android:exported="false"
-            android:theme="@style/TextSecure.DialogActivity" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <activity
             android:name=".groups.memberlabel.MemberLabelActivity"
             android:exported="false"
-            android:theme="@style/Theme.Signal.DayNight.NoActionBar" />
+            android:theme="@style/Signal.DayNight.NoActionBar" />
 
         <!-- ======================================= -->
         <!-- Activity Aliases                        -->
@@ -958,7 +991,7 @@
             android:name=".RoutingActivityAltYellow"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_heart"
+            android:icon="@mipmap/ic_launcher_alt_yellow"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -970,10 +1003,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_heart" />
+                android:resource="@mipmap/ic_launcher_alt_yellow" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_heart" />
+                android:resource="@mipmap/ic_launcher_alt_yellow" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -984,7 +1017,7 @@
             android:name=".RoutingActivityAltBubbles"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_xmas"
+            android:icon="@mipmap/ic_launcher_alt_bubbles"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -996,10 +1029,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_xmas" />
+                android:resource="@mipmap/ic_launcher_alt_bubbles" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_xmas" />
+                android:resource="@mipmap/ic_launcher_alt_bubbles" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1010,7 +1043,7 @@
             android:name=".RoutingActivityAltChat"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_neon"
+            android:icon="@mipmap/ic_launcher_alt_chat"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1022,10 +1055,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_neon" />
+                android:resource="@mipmap/ic_launcher_alt_chat" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_neon" />
+                android:resource="@mipmap/ic_launcher_alt_chat" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1036,8 +1069,8 @@
             android:name=".RoutingActivityAltNews"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_zen"
-            android:label="@string/app_icon_label_zen"
+            android:icon="@mipmap/ic_launcher_alt_news"
+            android:label="@string/app_icon_label_news"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1049,10 +1082,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_zen" />
+                android:resource="@mipmap/ic_launcher_alt_news" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_zen" />
+                android:resource="@mipmap/ic_launcher_alt_news" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1090,7 +1123,7 @@
             android:name=".RoutingActivityAltColor"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_signal"
+            android:icon="@mipmap/ic_launcher_alt_signal_color"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1102,10 +1135,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal" />
+                android:resource="@mipmap/ic_launcher_alt_signal_color" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_signal" />
+                android:resource="@mipmap/ic_launcher_alt_signal_color" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1116,7 +1149,7 @@
             android:name=".RoutingActivityAltDark"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_colorful"
+            android:icon="@mipmap/ic_launcher_alt_signal_dark"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1128,10 +1161,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_colorful" />
+                android:resource="@mipmap/ic_launcher_alt_signal_dark" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_colorful" />
+                android:resource="@mipmap/ic_launcher_alt_signal_dark" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1142,7 +1175,7 @@
             android:name=".RoutingActivityAltDarkVariant"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_gold"
+            android:icon="@mipmap/ic_launcher_alt_signal_dark_variant"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1154,10 +1187,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_gold" />
+                android:resource="@mipmap/ic_launcher_alt_signal_dark_variant" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_gold" />
+                android:resource="@mipmap/ic_launcher_alt_signal_dark_variant" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1168,7 +1201,7 @@
             android:name=".RoutingActivityAltWhite"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_light"
+            android:icon="@mipmap/ic_launcher_alt_signal_white"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1180,10 +1213,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_light" />
+                android:resource="@mipmap/ic_launcher_alt_signal_white" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_light" />
+                android:resource="@mipmap/ic_launcher_alt_signal_white" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1194,8 +1227,8 @@
             android:name=".RoutingActivityAltWaves"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_music"
-            android:label="@string/app_icon_label_music"
+            android:icon="@mipmap/ic_launcher_alt_waves"
+            android:label="@string/app_icon_label_waves"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1207,10 +1240,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_music" />
+                android:resource="@mipmap/ic_launcher_alt_waves" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_music" />
+                android:resource="@mipmap/ic_launcher_alt_waves" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1221,8 +1254,8 @@
             android:name=".RoutingActivityAltWeather"
             android:enabled="false"
             android:exported="true"
-            android:icon="@mipmap/ic_launcher_alt_moon"
-            android:label="@string/app_icon_label_moon"
+            android:icon="@mipmap/ic_launcher_alt_weather"
+            android:label="@string/app_icon_label_weather"
             android:targetActivity=".MainActivity">
 
             <intent-filter>
@@ -1234,10 +1267,10 @@
 
             <meta-data
                 android:name="com.sec.minimode.icon.portrait.normal"
-                android:resource="@mipmap/ic_launcher_alt_moon" />
+                android:resource="@mipmap/ic_launcher_alt_weather" />
             <meta-data
                 android:name="com.sec.minimode.icon.landscape.normal"
-                android:resource="@mipmap/ic_launcher_alt_moon" />
+                android:resource="@mipmap/ic_launcher_alt_weather" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -1254,18 +1287,13 @@
             android:foregroundServiceType="remoteMessaging" />
 
         <service
-            android:name=".service.WipeMemoryService"
-            android:exported="false"
-            android:foregroundServiceType="remoteMessaging" />
-
-        <service
             android:name=".messages.IncomingMessageObserver$ForegroundService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="remoteMessaging" />
 
         <service
-            android:name=".messages.IncomingMessageObserver$ProcessLifetimeHintService"
+            android:name=".messages.IncomingMessageObserver$BackgroundService"
             android:enabled="true"
             android:exported="false" />
 
@@ -1353,20 +1381,36 @@
 
         <service
             android:name=".gcm.FcmJobService"
+            android:enabled="@bool/enable_job_service"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"
             tools:targetApi="26" />
 
         <service
             android:name=".jobmanager.JobSchedulerScheduler$SystemService"
+            android:enabled="@bool/enable_job_service"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"
             tools:targetApi="26" />
 
         <service
-            android:name=".service.webrtc.ActiveCallManager$ActiveCallForegroundService"
+            android:name=".jobmanager.KeepAliveService"
+            android:enabled="@bool/enable_alarm_manager"
+            android:exported="false" />
+
+        <receiver
+            android:name=".jobmanager.AlarmManagerScheduler$RetryReceiver"
+            android:enabled="@bool/enable_alarm_manager"
+            android:exported="false" />
+
+        <service
+            android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallManager$ActiveCallForegroundService"
             android:exported="false"
             android:foregroundServiceType="dataSync|microphone|camera|phoneCall|mediaProjection" />
+
+        <service
+            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+            tools:node="remove" />
 
         <!-- ======================================= -->
         <!-- Receivers                               -->
@@ -1430,7 +1474,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="org.thoughtcrime.securesms.RESTART" />
             </intent-filter>
         </receiver>
 
@@ -1495,13 +1539,18 @@
             android:name="org.thoughtcrime.securesms.jobs.ForegroundServiceUtil$Receiver"
             android:exported="false" />
 
-        <!-- MOLLY: Duplicates functionality of existing BootReceiver -->
+        <receiver
+            android:name=".service.PersistentConnectionBootListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".notifications.LocaleChangedReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.TIME_SET"/> <!-- MOLLY: Triggered by 12/24h format change -->
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
         </receiver>
@@ -1524,28 +1573,23 @@
             </intent-filter>
         </receiver>
 
-        <!-- MOLLY: Duplicates functionality of existing BootReceiver -->
+        <receiver
+            android:name=".jobmanager.BootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
-            android:name=".service.webrtc.ActiveCallManager$ActiveCallServiceReceiver"
+            android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallManager$ActiveCallServiceReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.DENY" />
             </intent-filter>
             <intent-filter>
                 <action android:name="org.thoughtcrime.securesms.service.webrtc.ActiveCallAction.HANGUP" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name="im.molly.unifiedpush.receiver.UnifiedPushReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="org.unifiedpush.android.connector.MESSAGE" />
-                <action android:name="org.unifiedpush.android.connector.UNREGISTERED" />
-                <action android:name="org.unifiedpush.android.connector.NEW_ENDPOINT" />
-                <action android:name="org.unifiedpush.android.connector.REGISTRATION_FAILED" />
             </intent-filter>
         </receiver>
 

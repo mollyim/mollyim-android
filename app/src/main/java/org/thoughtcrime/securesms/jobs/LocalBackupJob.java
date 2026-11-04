@@ -117,7 +117,7 @@ public final class LocalBackupJob extends BaseJob {
     try (NotificationController notification = GenericForegroundService.startForegroundTask(context,
                                                                      context.getString(R.string.LocalBackupJob_creating_signal_backup),
                                                                      NotificationChannels.getInstance().BACKUPS,
-                                                                     R.drawable.ic_notification_backup))
+                                                                     R.drawable.ic_signal_backup))
     {
       updater.setNotification(notification);
       EventBus.getDefault().register(updater);
@@ -126,7 +126,7 @@ public final class LocalBackupJob extends BaseJob {
       String backupPassword  = BackupPassphrase.get(context);
       File   backupDirectory = StorageUtil.getOrCreateBackupDirectory();
       String timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String fileName        = String.format("%s-%s.backup", BackupUtil.getBackupFilenamePrefix(), timestamp);
+      String fileName        = String.format("signal-%s.backup", timestamp);
       File   backupFile      = new File(backupDirectory, fileName);
 
       deleteOldTemporaryBackups(backupDirectory);

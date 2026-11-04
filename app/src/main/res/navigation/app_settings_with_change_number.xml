@@ -93,13 +93,6 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
         <action
-            android:id="@+id/action_appSettingsFragment_to_networkPreferenceFragment"
-            app:destination="@id/networkPreferenceFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit"  />
-        <action
             android:id="@+id/action_appSettingsFragment_to_dataAndStorageSettingsFragment"
             app:destination="@id/dataAndStorageSettingsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -274,8 +267,12 @@
         android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceFragment"
         android:label="link_device_fragment">
         <action
-            android:id="@+id/action_linkDeviceFragment_to_linkDeviceIntroBottomSheet"
-            app:destination="@id/linkDeviceIntroBottomSheet" />
+            android:id="@+id/action_linkDeviceFragment_to_addLinkDeviceFragment"
+            app:destination="@id/addLinkDeviceFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_linkDeviceFragment_to_editDeviceNameFragment"
             app:destination="@id/editDeviceNameFragment"
@@ -312,20 +309,15 @@
         android:name="org.thoughtcrime.securesms.linkdevice.AddLinkDeviceFragment"
         android:label="link_device_add_fragment">
         <action
+            android:id="@+id/action_addLinkDeviceFragment_to_linkDeviceIntroBottomSheet"
+            app:destination="@id/linkDeviceIntroBottomSheet" />
+        <action
             android:id="@+id/action_addLinkDeviceFragment_to_linkDeviceSyncBottomSheet"
             app:destination="@id/linkDeviceSyncBottomSheet" />
     </fragment>
     <dialog
         android:id="@+id/linkDeviceIntroBottomSheet"
-        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet">
-        <action
-            android:id="@+id/action_linkDeviceIntroBottomSheet_to_addLinkDeviceFragment"
-            app:destination="@id/addLinkDeviceFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-    </dialog>
+        android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceIntroBottomSheet" />
     <dialog
         android:id="@+id/linkDeviceSyncBottomSheet"
         android:name="org.thoughtcrime.securesms.linkdevice.LinkDeviceSyncBottomSheet" />
@@ -527,31 +519,11 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
-        <action
-            android:id="@+id/action_notificationsSettingsFragment_to_unifiedPushFragment"
-            app:destination="@id/notificationUnifiedPushFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-
-        <argument
-            android:name="play_services_error_code"
-            android:defaultValue="0"
-            app:argType="integer" />
-
     </fragment>
 
     <!-- region Privacy -->
 
     <include app:graph="@navigation/privacy_settings" />
-
-    <!-- region Network -->
-
-    <fragment
-        android:id="@+id/networkPreferenceFragment"
-        android:name="org.thoughtcrime.securesms.preferences.NetworkPreferenceFragment"
-        android:label="network_preference_fragment" />
 
     <!-- region Data and Storage -->
 
@@ -566,12 +538,21 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_dataAndStorageSettingsFragment_to_editProxyFragment"
+            app:destination="@id/edit_proxy"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 
     <fragment
         android:id="@+id/storagePreferenceFragment"
         android:name="org.thoughtcrime.securesms.components.settings.app.storage.ManageStorageSettingsFragment"
         android:label="storage_preference_fragment" />
+
+    <include app:graph="@navigation/edit_proxy" />
 
     <!-- endregion -->
 
@@ -597,13 +578,6 @@
         <action
             android:id="@+id/action_helpSettingsFragment_to_licenseFragment"
             app:destination="@id/licenseFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit" />
-        <action
-            android:id="@+id/action_helpSettingsFragment_to_appUpdatesFragment"
-            app:destination="@id/appUpdatesFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
@@ -687,10 +661,8 @@
         app:popUpToInclusive="true" />
 
     <action
-        android:id="@+id/action_direct_to_networkPreferenceFragment"
-        app:destination="@id/networkPreferenceFragment"
-        app:popUpTo="@id/appSettingsFragment"
-        app:popUpToInclusive="true"
+        android:id="@+id/action_direct_to_editProxyFragment"
+        app:destination="@id/edit_proxy"
         app:enterAnim="@anim/fragment_open_enter"
         app:exitAnim="@anim/fragment_open_exit"
         app:popEnterAnim="@anim/fragment_close_enter"
@@ -1022,6 +994,13 @@
         android:label="manage_donations_fragment"
         tools:layout="@layout/dsl_settings_fragment">
         <action
+            android:id="@+id/action_manageDonationsFragment_to_manage_badges"
+            app:destination="@id/manage_badges"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
             android:id="@+id/action_manageDonationsFragment_to_donationReceiptListFragment"
             app:destination="@id/donationReceiptListFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -1068,6 +1047,8 @@
         android:label="subscribe_learn_more_bottom_sheet_dialog"
         tools:layout="@layout/subscribe_learn_more_bottom_sheet_dialog_fragment" />
 
+    <include app:graph="@navigation/manage_badges" />
+
     <!-- endregion -->
 
     <!-- Notification Profiles -->
@@ -1092,11 +1073,6 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
-
-    <!-- UnifiedPush -->
-    <fragment
-        android:id="@+id/notificationUnifiedPushFragment"
-        android:name="im.molly.unifiedpush.components.settings.app.notifications.UnifiedPushSettingsFragment" />
 
     <fragment
         android:id="@+id/editNotificationProfileFragment"

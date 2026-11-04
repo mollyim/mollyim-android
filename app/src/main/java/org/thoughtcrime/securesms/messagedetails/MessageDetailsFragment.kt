@@ -328,6 +328,14 @@ class MessageDetailsFragment : Fragment(), MessageDetailsAdapter.Callbacks {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 
+  override fun onActivatePaymentsClicked() {
+    Log.w(TAG, "Not yet implemented!", Exception())
+  }
+
+  override fun onSendPaymentClicked(recipientId: RecipientId) {
+    Log.w(TAG, "Not yet implemented!", Exception())
+  }
+
   override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
@@ -335,6 +343,14 @@ class MessageDetailsFragment : Fragment(), MessageDetailsAdapter.Callbacks {
   override fun onUrlClicked(url: String): Boolean {
     Log.w(TAG, "Not yet implemented!", Exception())
     return false
+  }
+
+  override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) {
+    Log.w(TAG, "Not yet implemented!", Exception())
+  }
+
+  override fun onGiftBadgeRevealed(messageRecord: MessageRecord) {
+    Log.w(TAG, "Not yet implemented!", Exception())
   }
 
   override fun goToMediaPreview(parent: ConversationItem?, sharedElement: View?, args: MediaPreviewArgs?) {
@@ -366,6 +382,10 @@ class MessageDetailsFragment : Fragment(), MessageDetailsAdapter.Callbacks {
   }
 
   override fun onItemDoubleClick(multiselectPart: MultiselectPart?) {
+    Log.w(TAG, "Not yet implemented!", Exception())
+  }
+
+  override fun onPaymentTombstoneClicked() {
     Log.w(TAG, "Not yet implemented!", Exception())
   }
 

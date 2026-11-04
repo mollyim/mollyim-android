@@ -24,8 +24,8 @@ object CoreUiDependencies {
   val application: Application
     get() = _application
 
-  val backupBaseDirName: String
-    get() = _provider.provideBackupBaseDirName()
+  val packageId: String
+    get() = _provider.providePackageId()
 
   val isIncognitoKeyboardEnabled: Boolean
     get() = _provider.provideIsIncognitoKeyboardEnabled()
@@ -37,7 +37,7 @@ object CoreUiDependencies {
     get() = _provider.provideForceSplitPane()
 
   interface Provider {
-    fun provideBackupBaseDirName(): String
+    fun providePackageId(): String
     fun provideIsIncognitoKeyboardEnabled(): Boolean
     fun provideIsScreenSecurityEnabled(): Boolean
     fun provideForceSplitPane(): Boolean

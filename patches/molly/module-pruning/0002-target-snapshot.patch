@@ -1,0 +1,2581 @@
+From 9952f7be96eb2da77a006e694beb04309c49f04d Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly module-pruning, part 2
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Removed demos, benchmark/spinner/quickstart flavors and screenshot-test infrastructure.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 318f146fcdcc4bda9c3226373ea467d719fee681..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e371bea069004c0962c69596f1666302ddd6a958d08d50c50abe47926fdca67e
+-size 59211
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_night mode_c0572229_0.png
+deleted file mode 100644
+index 00def187e141748b3ab71094f8089c59d686fea7..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:b17052aa8f7cc9bee573b77f9325b6b5a68cca9af5d0de33670e5ef644c2f250
+-size 59377
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 88129e70c4db2cd151eca7d63e317fce9e21c6c0..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/IdealTransferDetails_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:976fb565f93378200e2085e43690ecefed813c307cd48a5e084cec04662bcd57
+-size 70169
+diff --git a/app/src/spinner/AndroidManifest.xml b/app/src/spinner/AndroidManifest.xml
+deleted file mode 100644
+index 40ebd5ba92f971d736e70b9500d682d56be40c71..0000000000000000000000000000000000000000
+--- a/app/src/spinner/AndroidManifest.xml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-          xmlns:tools="http://schemas.android.com/tools">
+-
+-    <application
+-        android:name=".SpinnerApplicationContext"
+-        tools:replace="android:name" />
+-
+-</manifest>
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/ApiPlugin.kt b/app/src/spinner/java/org/thoughtcrime/securesms/ApiPlugin.kt
+deleted file mode 100644
+index 9dda65899458ad074e5de6ebbe885c7c6593ec0c..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/ApiPlugin.kt
++++ /dev/null
+@@ -1,760 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import com.fasterxml.jackson.annotation.JsonCreator
+-import com.fasterxml.jackson.annotation.JsonProperty
+-import org.signal.core.models.ServiceId
+-import org.signal.core.util.Base64
+-import org.signal.core.util.Hex
+-import org.signal.core.util.Util
+-import org.signal.core.util.logging.Log
+-import org.signal.core.util.orNull
+-import org.signal.libsignal.zkgroup.groups.GroupMasterKey
+-import org.signal.network.util.JsonUtil
+-import org.signal.spinner.Plugin
+-import org.signal.spinner.PluginResult
+-import org.signal.storageservice.storage.protos.groups.Member
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedMember
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMember
+-import org.thoughtcrime.securesms.attachments.UriAttachment
+-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
+-import org.thoughtcrime.securesms.database.AttachmentTable
+-import org.thoughtcrime.securesms.database.JobDatabase
+-import org.thoughtcrime.securesms.database.KeyValueDatabase
+-import org.thoughtcrime.securesms.database.LocalMetricsDatabase
+-import org.thoughtcrime.securesms.database.LogDatabase
+-import org.thoughtcrime.securesms.database.MegaphoneDatabase
+-import org.thoughtcrime.securesms.database.MessageType
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.mms.IncomingMessage
+-import org.thoughtcrime.securesms.mms.OutgoingMessage
+-import org.thoughtcrime.securesms.profiles.ProfileName
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.recipients.RecipientId
+-import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
+-
+-class ApiPlugin : Plugin {
+-  companion object {
+-    private val TAG = Log.tag(ApiPlugin::class.java)
+-    const val PATH = "/api"
+-
+-    /** Incoming [MessageType]s that [createMessage] can insert. Others need extra context (group/payment/etc.) we don't supply. */
+-    private val SUPPORTED_INCOMING_TYPES = listOf(
+-      MessageType.NORMAL,
+-      MessageType.IDENTITY_UPDATE,
+-      MessageType.IDENTITY_VERIFIED,
+-      MessageType.IDENTITY_DEFAULT,
+-      MessageType.CONTACT_JOINED,
+-      MessageType.EXPIRATION_UPDATE
+-    )
+-  }
+-
+-  override val name: String = "APIs"
+-  override val path: String = PATH
+-
+-  private val apis: Map<String, ApiSpec> = mapOf(
+-    "localBackups" to ApiSpec(::localBackups, listOf(Param("cacheBust", "false"))),
+-    "recipient" to ApiSpec(::recipient, listOf(Param("id", "1"))),
+-    "thread" to ApiSpec(::thread, listOf(Param("id", "1"))),
+-    "message" to ApiSpec(::message, listOf(Param("id", "1"))),
+-    "query" to ApiSpec(
+-      ::query,
+-      listOf(
+-        Param("sql", "", placeholder = "SELECT ..."),
+-        Param("db", "signal", placeholder = "signal|keyvalue|jobmanager|megaphones|localmetrics|logs")
+-      )
+-    ),
+-    "createRecipient" to ApiSpec(
+-      ::createRecipient,
+-      listOf(
+-        Param("aci", "", placeholder = "blank = random UUID"),
+-        Param("e164", "", placeholder = "+15551234567"),
+-        Param("givenName", "Test"),
+-        Param("familyName", "User"),
+-        Param("nicknameGiven", ""),
+-        Param("nicknameFamily", ""),
+-        Param("note", ""),
+-        Param("systemContactName", ""),
+-        Param("username", ""),
+-        Param("profileSharing", "true"),
+-        Param("blocked", "false"),
+-        Param("hidden", "false"),
+-        Param("registered", "true")
+-      )
+-    ),
+-    "createGroup" to ApiSpec(
+-      ::createGroup,
+-      listOf(
+-        Param("title", "Test Group"),
+-        Param("description", ""),
+-        Param("memberAcis", "", placeholder = "comma-separated ACIs"),
+-        Param("pendingAcis", "", placeholder = "comma-separated ACIs"),
+-        Param("blocked", "false"),
+-        Param("profileSharing", "false")
+-      )
+-    ),
+-    "createThread" to ApiSpec(::createThread, listOf(Param("recipientId", "1"))),
+-    "createMessage" to ApiSpec(
+-      ::createMessage,
+-      listOf(
+-        Param("threadId", "1"),
+-        Param("fromRecipientId", "1"),
+-        Param("toRecipientId", "1"),
+-        Param("body", "Hello"),
+-        Param("outgoing", "false"),
+-        Param("type", "NORMAL", placeholder = "NORMAL|IDENTITY_UPDATE|IDENTITY_VERIFIED|IDENTITY_DEFAULT|CONTACT_JOINED|EXPIRATION_UPDATE"),
+-        Param("timestamp", "", placeholder = "blank = now (epoch millis)")
+-      )
+-    ),
+-    "createAttachment" to ApiSpec(
+-      ::createAttachment,
+-      listOf(
+-        Param("messageId", "1"),
+-        Param("contentType", "image/jpeg", placeholder = "any MIME type: image/jpeg, audio/aac, video/mp4, ..."),
+-        Param("data", "", placeholder = "base64 bytes; blank = random of sizeBytes"),
+-        Param("sizeBytes", "1024", placeholder = "random byte count when data is blank"),
+-        Param("fileName", "", placeholder = "optional original filename"),
+-        Param("voiceNote", "false"),
+-        Param("width", "0"),
+-        Param("height", "0"),
+-        Param("validForArchive", "true", placeholder = "true = fill remote_key + data_hash_end so it exports to backup")
+-      )
+-    )
+-  )
+-
+-  override fun get(parameters: Map<String, List<String>>): PluginResult {
+-    val api = parameters["api"]?.firstOrNull()
+-
+-    if (api == null) {
+-      val apiSections = apis.entries.joinToString("\n") { (apiName, spec) ->
+-        val inputs = spec.params.joinToString("\n") { p ->
+-          val placeholder = p.placeholder?.let { " placeholder=\"${escape(it)}\"" } ?: ""
+-          """
+-            <label style="display: inline-block; margin-right: 10px;">
+-              ${p.name}:
+-              <input type="text" data-api="$apiName" data-parameter="${p.name}" value="${escape(p.default)}"$placeholder style="padding: 4px;" />
+-            </label>
+-          """.trimIndent()
+-        }
+-        """
+-          <div style="margin-bottom: 24px; padding: 10px; border: 1px solid #ccc;">
+-            <div style="font-weight: bold; margin-bottom: 6px;">$apiName</div>
+-            <div style="margin-bottom: 8px;">$inputs</div>
+-            <button id="button_$apiName" style="padding: 8px 14px; margin-right: 10px;">Call</button>
+-            <pre id="result_$apiName" style="display: inline-block; vertical-align: top; margin: 0; white-space: pre-wrap; font-weight: bold;"></pre>
+-          </div>
+-        """.trimIndent()
+-      }
+-
+-      val apiScripts = apis.keys.joinToString("\n") { apiName ->
+-        """
+-          document.getElementById('button_$apiName').addEventListener('click', async function() {
+-            const resultElement = document.getElementById('result_$apiName');
+-            resultElement.textContent = 'Loading...';
+-
+-            const inputElements = document.querySelectorAll('input[data-api="$apiName"]');
+-            const queryParameters = new URLSearchParams();
+-            queryParameters.append('api', '$apiName');
+-            inputElements.forEach(function(inputElement) {
+-              if (inputElement.value !== '') {
+-                queryParameters.append(inputElement.dataset.parameter, inputElement.value);
+-              }
+-            });
+-
+-            try {
+-              const response = await fetch('$PATH?' + queryParameters.toString());
+-              const responseText = await response.text();
+-              if (!response.ok) {
+-                resultElement.textContent = 'Error: ' + responseText;
+-                return;
+-              }
+-              try {
+-                resultElement.textContent = JSON.stringify(JSON.parse(responseText), null, 2);
+-              } catch (parseError) {
+-                resultElement.textContent = responseText;
+-              }
+-            } catch (fetchError) {
+-              resultElement.textContent = 'Error: ' + fetchError.message;
+-            }
+-          });
+-        """.trimIndent()
+-      }
+-
+-      val html = """
+-        <h3>Available APIs</h3>
+-        $apiSections
+-
+-        <script>
+-          $apiScripts
+-        </script>
+-      """.trimIndent()
+-
+-      return PluginResult.RawHtmlResult(html)
+-    }
+-
+-    return apis[api]?.handler?.invoke(parameters) ?: PluginResult.ErrorResult.notFound(message = "not found")
+-  }
+-
+-  private fun escape(value: String): String {
+-    return value
+-      .replace("&", "&amp;")
+-      .replace("\"", "&quot;")
+-      .replace("<", "&lt;")
+-      .replace(">", "&gt;")
+-  }
+-
+-  private fun localBackups(parameters: Map<String, List<String>>): PluginResult {
+-    // Check if cache bust is requested
+-    val cacheBust = parameters["cacheBust"]?.firstOrNull() == "true"
+-    if (cacheBust) {
+-      Log.i(TAG, "Cache bust requested, clearing local backups cache")
+-      PluginCache.clearBackupCache()
+-    }
+-
+-    if (PluginCache.localBackups != null) {
+-      return PluginResult.JsonResult(JsonUtil.toJson(PluginCache.localBackups))
+-    }
+-
+-    val fs = PluginCache.getArchiveFileSystem() ?: return PluginResult.ErrorResult(message = "Unable to load archive file system! Ensure backup directory is configured.")
+-
+-    val snapshots = fs.listSnapshots()
+-
+-    PluginCache.localBackups = LocalBackups(
+-      snapshots.map { LocalBackup(name = "${it.name} - ${it.timestamp}", it.timestamp) }
+-    )
+-
+-    return PluginResult.JsonResult(JsonUtil.toJson(PluginCache.localBackups))
+-  }
+-
+-  private fun recipient(parameters: Map<String, List<String>>): PluginResult {
+-    val recipientId = parameters["id"]?.firstOrNull()?.toLongOrNull() ?: return PluginResult.ErrorResult.notFound("recipient not found")
+-
+-    val recipient = Recipient.resolved(RecipientId.from(recipientId))
+-
+-    val groupType = when {
+-      recipient.isMmsGroup -> "MMS"
+-      recipient.isPushV2Group -> "Signal V2"
+-      recipient.isPushV1Group -> "Signal V1"
+-      recipient.isPushGroup -> "Signal"
+-      else -> null
+-    }
+-
+-    return RecipientInfo(
+-      name = recipient.getDisplayName(AppDependencies.application),
+-      aci = recipient.aci.map { it.toString() }.orNull(),
+-      pni = recipient.pni.map { it.toString() }.orNull(),
+-      e164 = recipient.e164.orNull(),
+-      username = recipient.username.orNull(),
+-      nickname = recipient.nickname.toString().takeIf { it.isNotBlank() },
+-      note = recipient.note,
+-      about = recipient.about,
+-      aboutEmoji = recipient.aboutEmoji,
+-      isBlocked = recipient.isBlocked,
+-      isSystemContact = recipient.isSystemContact,
+-      isGroup = recipient.isGroup,
+-      groupId = recipient.groupId.map { it.toString() }.orNull(),
+-      groupType = groupType,
+-      isActiveGroup = recipient.isActiveGroup,
+-      participantCount = if (recipient.isGroup) recipient.participantIds.size else null
+-    ).toJsonResult()
+-  }
+-
+-  private fun thread(parameters: Map<String, List<String>>): PluginResult {
+-    val threadId = parameters["id"]?.firstOrNull()?.toLongOrNull() ?: return PluginResult.ErrorResult.notFound("thread not found")
+-
+-    val threadRecord = SignalDatabase.threads.getThreadRecord(threadId) ?: return PluginResult.ErrorResult(message = "Thread not found")
+-    val recipient = Recipient.resolved(threadRecord.recipientId).fresh()
+-
+-    return ThreadInfo(
+-      threadId = threadRecord.threadId,
+-      recipientName = recipient.getDisplayName(AppDependencies.application),
+-      recipientId = recipient.id.toLong(),
+-      unreadCount = threadRecord.unreadCount,
+-      snippet = threadRecord.snippet,
+-      date = threadRecord.date,
+-      archived = threadRecord.archived,
+-      pinned = threadRecord.pinnedOrder != null,
+-      unreadSelfMentionsCount = threadRecord.unreadSelfMentionCount
+-    ).toJsonResult()
+-  }
+-
+-  private fun message(parameters: Map<String, List<String>>): PluginResult {
+-    val messageId = parameters["id"]?.firstOrNull()?.toLongOrNull() ?: return PluginResult.ErrorResult.notFound("message not found")
+-
+-    val messageRecord = try {
+-      SignalDatabase.messages.getMessageRecord(messageId)
+-    } catch (e: Exception) {
+-      return PluginResult.ErrorResult(message = "Message not found: ${e.message}")
+-    }
+-
+-    val messageType = when {
+-      messageRecord.isUpdate -> "Update"
+-      messageRecord.isOutgoing -> "Outgoing"
+-      else -> "Incoming"
+-    }
+-
+-    return MessageInfo(
+-      messageId = messageRecord.id,
+-      threadId = messageRecord.threadId,
+-      body = messageRecord.body,
+-      fromRecipientName = messageRecord.fromRecipient.getDisplayName(AppDependencies.application),
+-      fromRecipientId = messageRecord.fromRecipient.id.toLong(),
+-      toRecipientName = messageRecord.toRecipient.getDisplayName(AppDependencies.application),
+-      toRecipientId = messageRecord.toRecipient.id.toLong(),
+-      dateSent = messageRecord.dateSent,
+-      dateReceived = messageRecord.dateReceived,
+-      isOutgoing = messageRecord.isOutgoing,
+-      type = messageType
+-    ).toJsonResult()
+-  }
+-
+-  private fun query(parameters: Map<String, List<String>>): PluginResult {
+-    val sql = parameters["sql"]?.firstOrNull() ?: return PluginResult.ErrorResult(message = "Missing 'sql' parameter")
+-    val dbName = parameters["db"]?.firstOrNull() ?: "signal"
+-
+-    return try {
+-      val db = when (dbName) {
+-        "signal" -> SignalDatabase.rawDatabase
+-        "keyvalue" -> KeyValueDatabase.getInstance(AppDependencies.application).sqlCipherDatabase
+-        "jobmanager" -> JobDatabase.getInstance(AppDependencies.application).sqlCipherDatabase
+-        "megaphones" -> MegaphoneDatabase.getInstance(AppDependencies.application).sqlCipherDatabase
+-        "localmetrics" -> LocalMetricsDatabase.getInstance(AppDependencies.application).sqlCipherDatabase
+-        "logs" -> LogDatabase.getInstance(AppDependencies.application).sqlCipherDatabase
+-        else -> return PluginResult.ErrorResult(message = "Unknown database: $dbName. Available: signal, keyvalue, jobmanager, megaphones, localmetrics, logs")
+-      }
+-      val cursor = db.rawQuery(sql, null)
+-      val columns = (0 until cursor.columnCount).map { cursor.getColumnName(it) }
+-
+-      val rows = object : Iterator<List<String?>>, AutoCloseable {
+-        private var advanced = false
+-        private var hasMore = false
+-
+-        override fun hasNext(): Boolean {
+-          if (!advanced) {
+-            hasMore = cursor.moveToNext()
+-            advanced = true
+-            if (!hasMore) cursor.close()
+-          }
+-          return hasMore
+-        }
+-
+-        override fun next(): List<String?> {
+-          if (!hasNext()) throw NoSuchElementException()
+-          advanced = false
+-          return (0 until cursor.columnCount).map { i ->
+-            when {
+-              cursor.isNull(i) -> null
+-              cursor.getType(i) == android.database.Cursor.FIELD_TYPE_BLOB -> {
+-                val bytes = cursor.getBlob(i)
+-                "<BLOB ${bytes.size} bytes: ${Hex.toStringCondensed(bytes)}>"
+-              }
+-              else -> cursor.getString(i)
+-            }
+-          }
+-        }
+-
+-        override fun close() {
+-          cursor.close()
+-        }
+-      }
+-
+-      PluginResult.TsvResult(columns, rows)
+-    } catch (e: Exception) {
+-      PluginResult.ErrorResult(message = "Query failed: ${e.message}")
+-    }
+-  }
+-
+-  private fun createRecipient(parameters: Map<String, List<String>>): PluginResult {
+-    val aciStr = parameters["aci"]?.firstOrNull() ?: java.util.UUID.randomUUID().toString()
+-    val e164 = parameters["e164"]?.firstOrNull()
+-    val givenName = parameters["givenName"]?.firstOrNull()
+-    val familyName = parameters["familyName"]?.firstOrNull()
+-    val nicknameGiven = parameters["nicknameGiven"]?.firstOrNull()
+-    val nicknameFamily = parameters["nicknameFamily"]?.firstOrNull()
+-    val note = parameters["note"]?.firstOrNull()
+-    val systemContactName = parameters["systemContactName"]?.firstOrNull()
+-    val username = parameters["username"]?.firstOrNull()
+-    val profileSharing = parameters.boolOrDefault("profileSharing", true)
+-    val blocked = parameters.boolOrDefault("blocked", false)
+-    val hidden = parameters.boolOrDefault("hidden", false)
+-    val registered = parameters.boolOrDefault("registered", true)
+-
+-    return try {
+-      val aci = ServiceId.ACI.parseOrThrow(aciStr)
+-      val recipientId = if (e164 != null) {
+-        SignalDatabase.recipients.getAndPossiblyMerge(aci = aci, pni = null, e164 = e164)
+-      } else {
+-        SignalDatabase.recipients.getOrInsertFromServiceId(aci)
+-      }
+-
+-      if (givenName != null || familyName != null) {
+-        SignalDatabase.recipients.setProfileName(recipientId, ProfileName.fromParts(givenName, familyName))
+-      }
+-
+-      SignalDatabase.recipients.setProfileKeyIfAbsent(recipientId, ProfileKeyUtil.createNew())
+-      SignalDatabase.recipients.setCapabilities(recipientId, SignalServiceProfile.Capabilities(true, true, true))
+-      SignalDatabase.recipients.setProfileSharing(recipientId, profileSharing)
+-
+-      if (registered) {
+-        SignalDatabase.recipients.markRegistered(recipientId, aci)
+-      }
+-
+-      if (nicknameGiven != null || nicknameFamily != null || note != null) {
+-        SignalDatabase.recipients.setNicknameAndNote(
+-          recipientId,
+-          ProfileName.fromParts(nicknameGiven, nicknameFamily),
+-          note ?: ""
+-        )
+-      }
+-
+-      if (systemContactName != null) {
+-        SignalDatabase.recipients.setSystemContactName(recipientId, systemContactName)
+-      }
+-
+-      if (username != null) {
+-        SignalDatabase.recipients.setUsername(recipientId, username)
+-      }
+-
+-      if (blocked) {
+-        SignalDatabase.recipients.setBlocked(recipientId, true)
+-      }
+-
+-      if (hidden) {
+-        SignalDatabase.recipients.markHidden(recipientId)
+-      }
+-
+-      CreateRecipientResponse(recipientId.toLong(), aciStr).toJsonResult()
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to create recipient", e)
+-      PluginResult.ErrorResult(message = "Failed: ${e.message}")
+-    }
+-  }
+-
+-  private fun createGroup(parameters: Map<String, List<String>>): PluginResult {
+-    val title = parameters["title"]?.firstOrNull() ?: return PluginResult.ErrorResult(message = "Missing 'title' parameter")
+-    val description = parameters["description"]?.firstOrNull()
+-    val memberAcis = parameters["memberAcis"]?.firstOrNull()?.split(",")?.map { it.trim() } ?: emptyList()
+-    val pendingAcis = parameters["pendingAcis"]?.firstOrNull()?.split(",")?.map { it.trim() } ?: emptyList()
+-    val blocked = parameters.boolOrDefault("blocked", false)
+-    val profileSharing = parameters.boolOrDefault("profileSharing", false)
+-
+-    return try {
+-      val masterKeyBytes = ByteArray(32).also { java.security.SecureRandom().nextBytes(it) }
+-      val groupMasterKey = GroupMasterKey(masterKeyBytes)
+-
+-      memberAcis.forEach { SignalDatabase.recipients.getOrInsertFromServiceId(ServiceId.ACI.parseOrThrow(it)) }
+-
+-      val members = memberAcis.map { aciStr ->
+-        val aci = ServiceId.ACI.parseOrThrow(aciStr)
+-        DecryptedMember(
+-          aciBytes = aci.toByteString(),
+-          role = Member.Role.DEFAULT,
+-          profileKey = okio.ByteString.of(*ByteArray(32)),
+-          joinedAtRevision = 0
+-        )
+-      }
+-
+-      val pendingMembers = pendingAcis.map { aciStr ->
+-        val aci = ServiceId.ACI.parseOrThrow(aciStr)
+-        DecryptedPendingMember(
+-          serviceIdBytes = aci.toByteString(),
+-          role = Member.Role.DEFAULT,
+-          addedByAci = if (members.isNotEmpty()) members.first().aciBytes else okio.ByteString.of(*ByteArray(16)),
+-          timestamp = System.currentTimeMillis()
+-        )
+-      }
+-
+-      val groupState = DecryptedGroup(
+-        title = title,
+-        description = description ?: "",
+-        revision = 1,
+-        members = members,
+-        pendingMembers = pendingMembers
+-      )
+-
+-      val groupId = SignalDatabase.groups.create(groupMasterKey, groupState, groupSendEndorsements = null)
+-        ?: return PluginResult.ErrorResult(message = "Failed to create group, may already exist")
+-
+-      val groupRecipientId = SignalDatabase.recipients.getOrInsertFromGroupId(groupId)
+-
+-      if (blocked) {
+-        SignalDatabase.recipients.setBlocked(groupRecipientId, true)
+-      }
+-      SignalDatabase.recipients.setProfileSharing(groupRecipientId, profileSharing)
+-
+-      CreateGroupResponse(
+-        recipientId = groupRecipientId.toLong(),
+-        groupId = groupId.toString()
+-      ).toJsonResult()
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to create group", e)
+-      PluginResult.ErrorResult(message = "Failed: ${e.message}")
+-    }
+-  }
+-
+-  private fun createThread(parameters: Map<String, List<String>>): PluginResult {
+-    val recipientIdLong = parameters["recipientId"]?.firstOrNull()?.toLongOrNull()
+-      ?: return PluginResult.ErrorResult(message = "Missing or invalid 'recipientId' parameter")
+-
+-    return try {
+-      val recipientId = RecipientId.from(recipientIdLong)
+-      val recipient = Recipient.resolved(recipientId)
+-      val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(recipientId, isGroup = recipient.isGroup)
+-      CreateThreadResponse(threadId).toJsonResult()
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to create thread", e)
+-      PluginResult.ErrorResult(message = "Failed: ${e.message}")
+-    }
+-  }
+-
+-  private fun createMessage(parameters: Map<String, List<String>>): PluginResult {
+-    val threadId = parameters["threadId"]?.firstOrNull()?.toLongOrNull()
+-      ?: return PluginResult.ErrorResult(message = "Missing or invalid 'threadId' parameter")
+-    val fromRecipientId = parameters["fromRecipientId"]?.firstOrNull()?.toLongOrNull()
+-      ?: return PluginResult.ErrorResult(message = "Missing or invalid 'fromRecipientId' parameter")
+-    val toRecipientId = parameters["toRecipientId"]?.firstOrNull()?.toLongOrNull()
+-      ?: return PluginResult.ErrorResult(message = "Missing or invalid 'toRecipientId' parameter")
+-    val body = parameters["body"]?.firstOrNull() ?: ""
+-    val outgoing = parameters.boolOrDefault("outgoing", false)
+-    val timestamp = parameters["timestamp"]?.firstOrNull()?.takeIf { it.isNotBlank() }?.toLongOrNull() ?: System.currentTimeMillis()
+-
+-    val typeParam = parameters["type"]?.firstOrNull()?.takeIf { it.isNotBlank() }
+-    val messageType = if (typeParam != null) {
+-      MessageType.entries.find { it.name.equals(typeParam, ignoreCase = true) }
+-        ?: return PluginResult.ErrorResult(message = "Unknown message type '$typeParam'. Supported: ${SUPPORTED_INCOMING_TYPES.joinToString { it.name }}")
+-    } else {
+-      MessageType.NORMAL
+-    }
+-
+-    return try {
+-      if (outgoing) {
+-        if (messageType != MessageType.NORMAL) {
+-          return PluginResult.ErrorResult(message = "'type' is only supported for incoming messages; outgoing messages are always NORMAL text")
+-        }
+-        val threadRecipient = Recipient.resolved(RecipientId.from(toRecipientId))
+-        val outgoingMessage = OutgoingMessage.text(
+-          threadRecipient = threadRecipient,
+-          body = body,
+-          expiresIn = 0,
+-          sentTimeMillis = timestamp
+-        )
+-        val result = SignalDatabase.messages.insertMessageOutbox(outgoingMessage, threadId)
+-        CreateMessageResponse(result.messageId).toJsonResult()
+-      } else {
+-        val from = RecipientId.from(fromRecipientId)
+-        val incomingMessage = when (messageType) {
+-          MessageType.NORMAL -> IncomingMessage(
+-            type = MessageType.NORMAL,
+-            from = from,
+-            sentTimeMillis = timestamp,
+-            serverTimeMillis = timestamp,
+-            receivedTimeMillis = timestamp,
+-            body = body
+-          )
+-          MessageType.IDENTITY_UPDATE -> IncomingMessage.identityUpdate(from, timestamp, null)
+-          MessageType.IDENTITY_VERIFIED -> IncomingMessage.identityVerified(from, timestamp, null)
+-          MessageType.IDENTITY_DEFAULT -> IncomingMessage.identityDefault(from, timestamp, null)
+-          MessageType.CONTACT_JOINED -> IncomingMessage.contactJoined(from, timestamp)
+-          MessageType.EXPIRATION_UPDATE -> IncomingMessage(
+-            type = MessageType.EXPIRATION_UPDATE,
+-            from = from,
+-            sentTimeMillis = timestamp,
+-            serverTimeMillis = timestamp,
+-            receivedTimeMillis = timestamp
+-          )
+-          else -> return PluginResult.ErrorResult(message = "Message type '${messageType.name}' is not supported for insertion via the API. Supported: ${SUPPORTED_INCOMING_TYPES.joinToString { it.name }}")
+-        }
+-        val inserted = SignalDatabase.messages.insertMessageInbox(incomingMessage, candidateThreadId = threadId)
+-        if (inserted.isPresent) {
+-          CreateMessageResponse(inserted.get().messageId).toJsonResult()
+-        } else {
+-          PluginResult.ErrorResult(message = "Incoming message was not inserted (likely a duplicate or filtered)")
+-        }
+-      }
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to create message", e)
+-      PluginResult.ErrorResult(message = "Failed: ${e.message}")
+-    }
+-  }
+-
+-  /**
+-   * Attaches a media file to an existing message so it lands on-device with real bytes on disk.
+-   *
+-   * The bytes are written through the normal attachment pipeline ([AttachmentTable.insertAttachmentsForMessage]),
+-   * leaving the attachment at [AttachmentTable.TRANSFER_PROGRESS_DONE] with a local `data_file`. When
+-   * `validForArchive` is set (the default) we additionally fill `remote_key` + `data_hash_end` via
+-   * [AttachmentTable.debugMakeValidForArchive] so the attachment satisfies the backup exporter's validity
+-   * check and its media is included when a backup is created.
+-   *
+-   * `contentType` is arbitrary — images, audio (set `voiceNote=true` for a voice note), video, or any file.
+-   */
+-  private fun createAttachment(parameters: Map<String, List<String>>): PluginResult {
+-    val messageId = parameters["messageId"]?.firstOrNull()?.toLongOrNull()
+-      ?: return PluginResult.ErrorResult(message = "Missing or invalid 'messageId' parameter")
+-
+-    if (SignalDatabase.messages.getMessageRecordOrNull(messageId) == null) {
+-      return PluginResult.ErrorResult(message = "No message with id $messageId")
+-    }
+-
+-    val contentType = parameters["contentType"]?.firstOrNull()?.takeIf { it.isNotBlank() } ?: "image/jpeg"
+-    val fileName = parameters["fileName"]?.firstOrNull()?.takeIf { it.isNotBlank() }
+-    val voiceNote = parameters.boolOrDefault("voiceNote", false)
+-    val width = parameters["width"]?.firstOrNull()?.toIntOrNull() ?: 0
+-    val height = parameters["height"]?.firstOrNull()?.toIntOrNull() ?: 0
+-    val validForArchive = parameters.boolOrDefault("validForArchive", true)
+-
+-    val bytes = try {
+-      parameters["data"]?.firstOrNull()?.takeIf { it.isNotBlank() }?.let { Base64.decode(it) }
+-        ?: Util.getSecretBytes(parameters["sizeBytes"]?.firstOrNull()?.toIntOrNull() ?: 1024)
+-    } catch (e: Exception) {
+-      return PluginResult.ErrorResult(message = "Failed to decode 'data' as base64: ${e.message}")
+-    }
+-
+-    return try {
+-      val blobUri = AppDependencies.blobs
+-        .forData(bytes)
+-        .withMimeType(contentType)
+-        .apply { if (fileName != null) withFileName(fileName) }
+-        .createForSingleSessionInMemory()
+-
+-      val attachment = UriAttachment(
+-        dataUri = blobUri,
+-        contentType = contentType,
+-        transferState = AttachmentTable.TRANSFER_PROGRESS_DONE,
+-        size = bytes.size.toLong(),
+-        width = width,
+-        height = height,
+-        fileName = fileName,
+-        fastPreflightId = null,
+-        voiceNote = voiceNote,
+-        borderless = false,
+-        videoGif = false,
+-        quote = false,
+-        quoteTargetContentType = null,
+-        caption = null,
+-        stickerLocator = null,
+-        blurHash = null,
+-        audioHash = null,
+-        transformProperties = null
+-      )
+-
+-      val attachmentId = SignalDatabase.attachments.insertAttachmentsForMessage(messageId, listOf(attachment), emptyList())[attachment]
+-        ?: return PluginResult.ErrorResult(message = "Attachment was not inserted")
+-
+-      if (validForArchive) {
+-        SignalDatabase.attachments.debugMakeValidForArchive(attachmentId)
+-      }
+-
+-      CreateAttachmentResponse(
+-        attachmentId = attachmentId.id,
+-        messageId = messageId,
+-        size = bytes.size.toLong(),
+-        contentType = contentType,
+-        validForArchive = validForArchive
+-      ).toJsonResult()
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to create attachment", e)
+-      PluginResult.ErrorResult(message = "Failed: ${e.message}")
+-    }
+-  }
+-
+-  private data class ApiSpec(
+-    val handler: (Map<String, List<String>>) -> PluginResult,
+-    val params: List<Param>
+-  )
+-
+-  private data class Param(
+-    val name: String,
+-    val default: String,
+-    val placeholder: String? = null
+-  )
+-
+-  data class CreateRecipientResponse @JsonCreator constructor(
+-    @field:JsonProperty val recipientId: Long,
+-    @field:JsonProperty val aci: String
+-  )
+-
+-  data class CreateGroupResponse @JsonCreator constructor(
+-    @field:JsonProperty val recipientId: Long,
+-    @field:JsonProperty val groupId: String
+-  )
+-
+-  data class CreateThreadResponse @JsonCreator constructor(
+-    @field:JsonProperty val threadId: Long
+-  )
+-
+-  data class CreateMessageResponse @JsonCreator constructor(
+-    @field:JsonProperty val messageId: Long
+-  )
+-
+-  data class CreateAttachmentResponse @JsonCreator constructor(
+-    @field:JsonProperty val attachmentId: Long,
+-    @field:JsonProperty val messageId: Long,
+-    @field:JsonProperty val size: Long,
+-    @field:JsonProperty val contentType: String,
+-    @field:JsonProperty val validForArchive: Boolean
+-  )
+-
+-  data class LocalBackups @JsonCreator constructor(@field:JsonProperty val backups: List<LocalBackup>)
+-
+-  data class LocalBackup @JsonCreator constructor(@field:JsonProperty val name: String, @field:JsonProperty val timestamp: Long)
+-
+-  data class RecipientInfo @JsonCreator constructor(
+-    @field:JsonProperty val name: String,
+-    @field:JsonProperty val aci: String? = null,
+-    @field:JsonProperty val pni: String? = null,
+-    @field:JsonProperty val e164: String? = null,
+-    @field:JsonProperty val username: String? = null,
+-    @field:JsonProperty val nickname: String? = null,
+-    @field:JsonProperty val note: String? = null,
+-    @field:JsonProperty val about: String? = null,
+-    @field:JsonProperty val aboutEmoji: String? = null,
+-    @field:JsonProperty val isBlocked: Boolean = false,
+-    @field:JsonProperty val isSystemContact: Boolean = false,
+-    @field:JsonProperty val isGroup: Boolean = false,
+-    @field:JsonProperty val groupId: String? = null,
+-    @field:JsonProperty val groupType: String? = null,
+-    @field:JsonProperty val isActiveGroup: Boolean = false,
+-    @field:JsonProperty val participantCount: Int? = null
+-  )
+-
+-  data class ThreadInfo @JsonCreator constructor(
+-    @field:JsonProperty val threadId: Long,
+-    @field:JsonProperty val recipientName: String,
+-    @field:JsonProperty val recipientId: Long,
+-    @field:JsonProperty val unreadCount: Int,
+-    @field:JsonProperty val snippet: String? = null,
+-    @field:JsonProperty val date: Long,
+-    @field:JsonProperty val archived: Boolean = false,
+-    @field:JsonProperty val pinned: Boolean = false,
+-    @field:JsonProperty val unreadSelfMentionsCount: Int = 0
+-  )
+-
+-  data class MessageInfo @JsonCreator constructor(
+-    @field:JsonProperty val messageId: Long,
+-    @field:JsonProperty val threadId: Long,
+-    @field:JsonProperty val body: String? = null,
+-    @field:JsonProperty val fromRecipientName: String,
+-    @field:JsonProperty val fromRecipientId: Long,
+-    @field:JsonProperty val toRecipientName: String? = null,
+-    @field:JsonProperty val toRecipientId: Long? = null,
+-    @field:JsonProperty val dateSent: Long,
+-    @field:JsonProperty val dateReceived: Long,
+-    @field:JsonProperty val isOutgoing: Boolean,
+-    @field:JsonProperty val type: String
+-  )
+-
+-  fun Any.toJsonResult(): PluginResult.JsonResult {
+-    return PluginResult.JsonResult(JsonUtil.toJson(this))
+-  }
+-
+-  private fun Map<String, List<String>>.boolOrDefault(key: String, default: Boolean): Boolean {
+-    return this[key]?.firstOrNull()?.toBooleanStrictOrNull() ?: default
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/AttachmentPlugin.kt b/app/src/spinner/java/org/thoughtcrime/securesms/AttachmentPlugin.kt
+deleted file mode 100644
+index cdf9848d30d85716f70ff72f9f9b7144593dff24..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/AttachmentPlugin.kt
++++ /dev/null
+@@ -1,57 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import okio.IOException
+-import org.signal.core.models.database.AttachmentId
+-import org.signal.spinner.Plugin
+-import org.signal.spinner.PluginResult
+-import org.thoughtcrime.securesms.database.AttachmentTable
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-
+-class AttachmentPlugin : Plugin {
+-  companion object {
+-    const val PATH = "/attachment"
+-  }
+-
+-  override val name: String = "Attachment"
+-  override val path: String = PATH
+-
+-  override fun get(parameters: Map<String, List<String>>): PluginResult {
+-    var errorContent = ""
+-
+-    parameters["attachment_id"]?.firstOrNull()?.let { id ->
+-      val attachmentId = id.toLongOrNull()?.let { AttachmentId(it) }
+-      if (attachmentId != null) {
+-        try {
+-          val attachment = SignalDatabase.attachments.getAttachment(attachmentId)
+-          if (attachment != null) {
+-            val inputStream = if (attachment.transferState == AttachmentTable.TRANSFER_PROGRESS_DONE) {
+-              SignalDatabase.attachments.getAttachmentStream(attachmentId, 0)
+-            } else {
+-              SignalDatabase.attachments.getAttachmentThumbnailStream(attachmentId, 0)
+-            }
+-            return PluginResult.RawFileResult(attachment.size, inputStream, attachment.contentType ?: "application/octet-stream")
+-          } else {
+-            throw IOException("Missing attachment, not found for: $attachmentId")
+-          }
+-        } catch (e: IOException) {
+-          errorContent = "${e.javaClass}: ${e.message}"
+-        }
+-      }
+-    }
+-
+-    val formContent = """
+-      <form action="$PATH" method="GET">
+-          <label for="number">Enter an attachment_id:</label>
+-          <input type="number" id="attachment_id" name="attachment_id" required>
+-          <button type="submit">Submit</button>
+-      </form>
+-    """.trimIndent()
+-
+-    return PluginResult.RawHtmlResult("$formContent<br>$errorContent")
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/BackupPlugin.kt b/app/src/spinner/java/org/thoughtcrime/securesms/BackupPlugin.kt
+deleted file mode 100644
+index 5f90ab42becdcbf7bf272cd00bcc74db3003d259..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/BackupPlugin.kt
++++ /dev/null
+@@ -1,646 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import okio.ByteString
+-import org.signal.archive.proto.AccountData
+-import org.signal.archive.proto.BackupDebugInfo
+-import org.signal.archive.proto.FilePointer
+-import org.signal.archive.stream.EncryptedBackupReader
+-import org.signal.core.util.bytes
+-import org.signal.core.util.decodeOrNull
+-import org.signal.core.util.logging.Log
+-import org.signal.libsignal.zkgroup.profiles.ProfileKey
+-import org.signal.network.NetworkResult
+-import org.signal.network.api.SvrBApi
+-import org.signal.spinner.Plugin
+-import org.signal.spinner.PluginResult
+-import org.thoughtcrime.securesms.backup.v2.BackupRepository
+-import org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.net.SignalNetwork
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import java.io.IOException
+-import java.text.SimpleDateFormat
+-import java.util.Date
+-import java.util.Locale
+-
+-class BackupPlugin : Plugin {
+-  companion object {
+-    private val TAG = Log.tag(BackupPlugin::class.java)
+-    const val PATH = "/backups"
+-  }
+-
+-  override val name: String = "Backups"
+-  override val path: String = PATH
+-
+-  override fun get(parameters: Map<String, List<String>>): PluginResult {
+-    val page = """
+-      <h3>Remote Backup</h3>
+-      <p>${getRemoteBackup()}
+-      <h3>Local Backups</h3>
+-      <p>
+-      ${getLocalBackups()}
+-      </p>
+-      <h4>Selected Backup</h4>
+-      ${if (parameters.containsKey("remoteBackup")) getSelectedRemoteBackup() else getSelectedLocalBackup(parameters["localBackup"])}
+-    """.trimIndent()
+-
+-    return PluginResult.RawHtmlResult(page)
+-  }
+-
+-  private fun getSelectedRemoteBackup(): String {
+-    Log.d(TAG, "Downloading file...")
+-    val tempBackupFile = AppDependencies.blobs.forNonAutoEncryptingSingleSessionOnDisk(AppDependencies.application)
+-
+-    when (val result = BackupRepository.downloadBackupFile(tempBackupFile)) {
+-      is NetworkResult.Success -> Log.i(TAG, "Download successful")
+-      else -> {
+-        Log.w(TAG, "Failed to download backup file", result.getCause())
+-        return result.getCause().toString()
+-      }
+-    }
+-
+-    val forwardSecrecyMetadata = tempBackupFile.inputStream().use { EncryptedBackupReader.readForwardSecrecyMetadata(it) }
+-    if (forwardSecrecyMetadata == null) {
+-      return "Failed to read forward secrecy metadata!"
+-    }
+-
+-    val svrBAuth = when (val result = BackupRepository.getSvrBAuth()) {
+-      is NetworkResult.Success -> result.result
+-      else -> return "Failed to read forward secrecy metadata!"
+-    }
+-
+-    val forwardSecrecyToken = when (val result = SignalNetwork.svrB.restore(svrBAuth, SignalStore.backup.messageBackupKey, forwardSecrecyMetadata)) {
+-      is SvrBApi.RestoreResult.Success -> result.data.forwardSecrecyToken
+-      else -> return "Failed to read forward secrecy metadata! $result"
+-    }
+-
+-    val self = Recipient.self()
+-    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.get(), self.e164.get(), ProfileKey(self.profileKey))
+-
+-    val backupKey = SignalStore.backup.messageBackupKey
+-
+-    val frameReader = EncryptedBackupReader.createForSignalBackup(
+-      key = backupKey,
+-      aci = selfData.aci,
+-      forwardSecrecyToken = forwardSecrecyToken,
+-      length = tempBackupFile.length(),
+-      dataStream = { tempBackupFile.inputStream() }
+-    )
+-
+-    val output = StringBuilder()
+-
+-    frameReader.use { reader ->
+-      dumpBackupData(reader, output)
+-    }
+-
+-    return output.toString()
+-  }
+-
+-  private fun getSelectedLocalBackup(key: List<String>?): String {
+-    if (key?.size != 1) {
+-      return "No selection"
+-    }
+-
+-    val timestamp = key.first().toLongOrNull() ?: return "Timestamp invalid"
+-
+-    val fs = PluginCache.getArchiveFileSystem() ?: return "Unable to load archive file system! Ensure backup directory is configured."
+-
+-    val snapshot = fs.listSnapshots().firstOrNull { it.timestamp == timestamp } ?: return "No snapshot for timestamp $timestamp"
+-    val snapshotFS = SnapshotFileSystem(AppDependencies.application, snapshot.file)
+-
+-    val self = Recipient.self()
+-    val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.get(), self.e164.get(), ProfileKey(self.profileKey))
+-
+-    val backupKey = SignalStore.backup.messageBackupKey
+-
+-    val frameReader = try {
+-      EncryptedBackupReader.createForLocalOrLinking(
+-        key = backupKey,
+-        aci = selfData.aci,
+-        length = snapshotFS.mainLength()!!,
+-        dataStream = { snapshotFS.mainInputStream()!! }
+-      )
+-    } catch (e: IOException) {
+-      return "Unable to import local archive: $e"
+-    }
+-
+-    val output = StringBuilder()
+-
+-    frameReader.use { reader ->
+-      dumpBackupData(reader, output)
+-    }
+-
+-    return output.toString()
+-  }
+-
+-  private fun dumpBackupData(reader: EncryptedBackupReader, output: StringBuilder) {
+-    val header = reader.getHeader()
+-    if (header != null) {
+-      val debugInfoRow = if (header.debugInfo.size > 0) {
+-        val debugInfo = BackupDebugInfo.ADAPTER.decodeOrNull(header.debugInfo.toByteArray())
+-        """<tr><td><strong>Debug Info</strong></td><td>${formatDebugInfo(debugInfo)}</td></tr>"""
+-      } else {
+-        ""
+-      }
+-
+-      output.append(
+-        """
+-        <h5>Header</h5>
+-        <table border='1' cellpadding='5' style='border-collapse: collapse;'>
+-          <tr><th>Field</th><th>Value</th></tr>
+-          <tr><td><strong>Version</strong></td><td>${header.version}</td></tr>
+-          <tr><td><strong>Backup Time</strong></td><td>${formatTimestamp(header.backupTimeMs)}</td></tr>
+-          <tr><td><strong>Media Root Backup Key</strong></td><td>${formatBytes(header.mediaRootBackupKey)}</td></tr>
+-          <tr><td><strong>Current App Version</strong></td><td>${header.currentAppVersion ?: "N/A"}</td></tr>
+-          <tr><td><strong>First App Version</strong></td><td>${header.firstAppVersion ?: "N/A"}</td></tr>
+-          $debugInfoRow
+-        </table>
+-        """.trimIndent()
+-      )
+-    } else {
+-      output.append("<p>No header found</p>")
+-    }
+-
+-    // Collect frame data on the fly
+-    Log.i(TAG, "Starting to process backup frames")
+-    var accountData: AccountData? = null
+-
+-    // Store only essential data
+-    val recipientNames = mutableMapOf<Long, String>()
+-    val chatInfos = mutableMapOf<Long, ChatInfo>()
+-
+-    // Statistics counters
+-    var contactCount = 0
+-    var groupCount = 0
+-    var distributionListCount = 0
+-    var selfCount = 0
+-    var releaseNotesCount = 0
+-    var callLinkCount = 0
+-    var totalRecipients = 0
+-    var totalFrames = 0
+-
+-    val attachmentCounters = AttachmentCounters()
+-
+-    val startTime = System.currentTimeMillis()
+-
+-    for (frame in reader) {
+-      totalFrames++
+-
+-      if (totalFrames % 10000 == 0) {
+-        Log.i(TAG, "Processed $totalFrames frames...")
+-      }
+-
+-      when {
+-        frame.account != null -> {
+-          accountData = frame.account
+-          Log.i(TAG, "Found account data")
+-        }
+-        frame.recipient != null -> {
+-          totalRecipients++
+-          val recipient = frame.recipient!!
+-          recipientNames[recipient.id] = extractRecipientName(recipient)
+-
+-          when {
+-            recipient.contact != null -> contactCount++
+-            recipient.group != null -> groupCount++
+-            recipient.distributionList != null -> distributionListCount++
+-            recipient.self != null -> selfCount++
+-            recipient.releaseNotes != null -> releaseNotesCount++
+-            recipient.callLink != null -> callLinkCount++
+-          }
+-        }
+-        frame.chat != null -> {
+-          val chat = frame.chat!!
+-          chatInfos[chat.id] = ChatInfo(
+-            chatId = chat.id,
+-            recipientId = chat.recipientId,
+-            archived = chat.archived,
+-            pinnedOrder = chat.pinnedOrder,
+-            messageCount = 0,
+-            attachmentCount = 0
+-          )
+-
+-          // Count wallpaper photo
+-          chat.style?.wallpaperPhoto?.let { wallpaper ->
+-            processFilePointer(wallpaper, attachmentCounters, FilePointerType.WALLPAPER)
+-          }
+-        }
+-        frame.chatItem != null -> {
+-          val item = frame.chatItem!!
+-          chatInfos[item.chatId]?.let { chatInfo ->
+-            chatInfo.messageCount++
+-            chatInfo.attachmentCount += item.standardMessage?.attachments?.size ?: 0
+-          }
+-
+-          // Process StandardMessage file pointers
+-          item.standardMessage?.let { msg ->
+-            // Link preview images
+-            msg.linkPreview.forEach { preview ->
+-              preview.image?.let { image ->
+-                processFilePointer(image, attachmentCounters, FilePointerType.LINK_PREVIEW)
+-              }
+-            }
+-
+-            // Standard attachments
+-            msg.attachments.forEach { attachment ->
+-              attachment.pointer?.let { pointer ->
+-                processFilePointer(pointer, attachmentCounters, FilePointerType.ATTACHMENT)
+-              }
+-            }
+-
+-            // Long text
+-            msg.longText?.let { longText ->
+-              processFilePointer(longText, attachmentCounters, FilePointerType.LONG_TEXT)
+-            }
+-
+-            // Quote attachments
+-            msg.quote?.attachments?.forEach { quotedAttachment ->
+-              quotedAttachment.thumbnail?.pointer?.let { pointer ->
+-                processFilePointer(pointer, attachmentCounters, FilePointerType.QUOTE)
+-              }
+-            }
+-          }
+-
+-          // Process StickerMessage file pointers
+-          item.stickerMessage?.sticker?.data_?.let { stickerData ->
+-            processFilePointer(stickerData, attachmentCounters, FilePointerType.STICKER)
+-          }
+-
+-          // Process ContactMessage file pointers
+-          item.contactMessage?.contact?.avatar?.let { avatar ->
+-            processFilePointer(avatar, attachmentCounters, FilePointerType.CONTACT_AVATAR)
+-          }
+-        }
+-      }
+-    }
+-
+-    val elapsed = System.currentTimeMillis() - startTime
+-    Log.i(TAG, "Finished processing $totalFrames frames in ${elapsed}ms")
+-
+-    // Format account data
+-    if (accountData != null) {
+-      output.append(formatAccountData(accountData))
+-    }
+-
+-    // Format recipients summary
+-    output.append(
+-      formatRecipientsSummary(
+-        totalRecipients = totalRecipients,
+-        contactCount = contactCount,
+-        groupCount = groupCount,
+-        distributionListCount = distributionListCount,
+-        selfCount = selfCount,
+-        releaseNotesCount = releaseNotesCount,
+-        callLinkCount = callLinkCount
+-      )
+-    )
+-
+-    // Format attachments summary
+-    output.append(formatAttachmentsSummary(attachmentCounters))
+-
+-    // Format chats summary
+-    output.append(formatChatsSummary(chatInfos, recipientNames))
+-  }
+-
+-  private fun processFilePointer(
+-    filePointer: FilePointer,
+-    counters: AttachmentCounters,
+-    type: FilePointerType
+-  ) {
+-    // Increment total attachments for any file pointer
+-    counters.total++
+-
+-    // Check for plaintextHash
+-    val hasPlaintextHash = filePointer.locatorInfo?.plaintextHash != null && filePointer.locatorInfo?.plaintextHash!!.size > 0
+-    if (hasPlaintextHash) {
+-      counters.withPlaintextHash++
+-    } else {
+-      // Track missing plaintextHash by type
+-      counters.withoutPlaintextHashByType[type] = counters.withoutPlaintextHashByType.getOrDefault(type, 0) + 1
+-    }
+-
+-    // Check for localKey
+-    val hasLocalKey = filePointer.locatorInfo?.localKey != null && filePointer.locatorInfo?.localKey!!.size > 0
+-    if (hasLocalKey) {
+-      counters.withLocalKey++
+-    } else {
+-      // Track missing local keys by type
+-      counters.withoutLocalKeyByType[type] = counters.withoutLocalKeyByType.getOrDefault(type, 0) + 1
+-    }
+-  }
+-
+-  private fun formatTimestamp(timestampMs: Long?): String {
+-    if (timestampMs == null) return "N/A"
+-    return try {
+-      val date = Date(timestampMs)
+-      val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+-      "${formatter.format(date)} (${timestampMs}ms)"
+-    } catch (_: Exception) {
+-      timestampMs.toString()
+-    }
+-  }
+-
+-  private fun formatBytes(bytes: ByteString?): String {
+-    if (bytes == null || bytes.size == 0) return "N/A"
+-    return if (bytes.size <= 32) {
+-      bytes.hex()
+-    } else {
+-      "${bytes.hex().take(64)}... (${bytes.size} bytes)"
+-    }
+-  }
+-
+-  private fun formatDebugInfo(debugInfo: BackupDebugInfo?): String {
+-    if (debugInfo == null) return "N/A"
+-
+-    val attachmentDetailsHtml = debugInfo.attachmentDetails?.let { details ->
+-      """
+-        <table border='1' cellpadding='3' style='border-collapse: collapse; margin-top: 5px;'>
+-          <tr><th colspan='2'>Attachment Details</th></tr>
+-          <tr><td>Not Started</td><td>${details.notStartedCount}</td></tr>
+-          <tr><td>Upload In Progress</td><td>${details.uploadInProgressCount}</td></tr>
+-          <tr><td>Copy Pending</td><td>${details.copyPendingCount}</td></tr>
+-          <tr><td>Finished</td><td>${details.finishedCount}</td></tr>
+-          <tr><td>Permanent Failure</td><td>${details.permanentFailureCount}</td></tr>
+-          <tr><td>Temporary Failure</td><td>${details.temporaryFailureCount}</td></tr>
+-        </table>
+-      """.trimIndent()
+-    } ?: "No attachment details"
+-
+-    val debugLogUrlHtml = if (debugInfo.debuglogUrl.isNotEmpty()) {
+-      "<a href='${debugInfo.debuglogUrl}' target='_blank'>${debugInfo.debuglogUrl}</a>"
+-    } else {
+-      "N/A"
+-    }
+-
+-    return """
+-      <div>
+-        <strong>Debug Log URL:</strong> $debugLogUrlHtml<br/>
+-        <strong>Using Paid Tier:</strong> ${debugInfo.usingPaidTier}<br/>
+-        $attachmentDetailsHtml
+-      </div>
+-    """.trimIndent()
+-  }
+-
+-  private fun formatAccountData(account: AccountData): String {
+-    return """
+-      <h5>Account Details</h5>
+-      <table border='1' cellpadding='5' style='border-collapse: collapse;'>
+-        <tr><th>Field</th><th>Value</th></tr>
+-        <tr><td><strong>Given Name</strong></td><td>${account.givenName}</td></tr>
+-        <tr><td><strong>Family Name</strong></td><td>${account.familyName}</td></tr>
+-        <tr><td><strong>Username</strong></td><td>${account.username ?: "N/A"}</td></tr>
+-        <tr><td><strong>Profile Key</strong></td><td>${formatBytes(account.profileKey)}</td></tr>
+-        <tr><td><strong>Avatar URL Path</strong></td><td>${account.avatarUrlPath.ifEmpty { "N/A" }}</td></tr>
+-        <tr><td><strong>Bio Text</strong></td><td>${account.bioText.ifEmpty { "N/A" }}</td></tr>
+-        <tr><td><strong>Bio Emoji</strong></td><td>${account.bioEmoji.ifEmpty { "N/A" }}</td></tr>
+-      </table>
+-    """.trimIndent()
+-  }
+-
+-  private fun formatRecipientsSummary(
+-    totalRecipients: Int,
+-    contactCount: Int,
+-    groupCount: Int,
+-    distributionListCount: Int,
+-    selfCount: Int,
+-    releaseNotesCount: Int,
+-    callLinkCount: Int
+-  ): String {
+-    return """
+-      <h5>Recipients Summary</h5>
+-      <table border='1' cellpadding='5' style='border-collapse: collapse;'>
+-        <tr><th>Type</th><th>Count</th></tr>
+-        <tr><td><strong>Total Recipients</strong></td><td>$totalRecipients</td></tr>
+-        <tr><td>1:1 Contacts</td><td>$contactCount</td></tr>
+-        <tr><td>Groups</td><td>$groupCount</td></tr>
+-        <tr><td>Distribution Lists</td><td>$distributionListCount</td></tr>
+-        <tr><td>Self</td><td>$selfCount</td></tr>
+-        <tr><td>Release Notes</td><td>$releaseNotesCount</td></tr>
+-        <tr><td>Call Links</td><td>$callLinkCount</td></tr>
+-      </table>
+-    """.trimIndent()
+-  }
+-
+-  private fun formatChatsSummary(
+-    chatInfos: Map<Long, ChatInfo>,
+-    recipientNames: Map<Long, String>
+-  ): String {
+-    val output = StringBuilder()
+-
+-    output.append(
+-      """
+-      <h5>Chats Summary</h5>
+-      <p><strong>Total Chats:</strong> ${chatInfos.size}</p>
+-      """.trimIndent()
+-    )
+-
+-    if (chatInfos.isNotEmpty()) {
+-      output.append(
+-        """
+-        <table border='1' cellpadding='5' style='border-collapse: collapse; width: 100%;'>
+-          <tr>
+-            <th>Chat</th>
+-            <th>Recipient</th>
+-            <th>Messages</th>
+-            <th>Attachments</th>
+-            <th>Archived</th>
+-            <th>Pinned</th>
+-          </tr>
+-        """.trimIndent()
+-      )
+-
+-      chatInfos.values.sortedByDescending { it.messageCount }.forEach { chatInfo ->
+-        val recipientName = recipientNames[chatInfo.recipientId] ?: "Unknown ${chatInfo.recipientId}"
+-
+-        output.append(
+-          """
+-          <tr>
+-            <td>${chatInfo.chatId}</td>
+-            <td>$recipientName</td>
+-            <td>${chatInfo.messageCount}</td>
+-            <td>${chatInfo.attachmentCount}</td>
+-            <td>${if (chatInfo.archived) "Yes" else "No"}</td>
+-            <td>${chatInfo.pinnedOrder?.let { "Yes (#$it)" } ?: "No"}</td>
+-          </tr>
+-          """.trimIndent()
+-        )
+-      }
+-
+-      output.append("</table>")
+-    }
+-
+-    return output.toString()
+-  }
+-
+-  private fun formatAttachmentsSummary(
+-    counters: AttachmentCounters
+-  ): String {
+-    val totalWithoutPlaintextHash = counters.withoutPlaintextHashByType.values.sum()
+-    val totalWithoutLocalKey = counters.withoutLocalKeyByType.values.sum()
+-
+-    // Define the order we want to display the types
+-    val orderedTypes = listOf(
+-      FilePointerType.LINK_PREVIEW to "Link Previews",
+-      FilePointerType.ATTACHMENT to "Attachments",
+-      FilePointerType.LONG_TEXT to "Long Text",
+-      FilePointerType.QUOTE to "Quotes",
+-      FilePointerType.STICKER to "Stickers",
+-      FilePointerType.CONTACT_AVATAR to "Contact Avatars",
+-      FilePointerType.WALLPAPER to "Wallpapers"
+-    )
+-
+-    return """
+-      <h5>Attachments Summary</h5>
+-      <table border='1' cellpadding='5' style='border-collapse: collapse;'>
+-        <tr><th>Property</th><th>Count</th></tr>
+-        <tr><td><strong>Total File Pointers</strong></td><td>${counters.total}</td></tr>
+-        <tr><td>With FilePointer LocatorInfo PlaintextHash</td><td>${counters.withPlaintextHash}</td></tr>
+-        <tr><td>With LocalKey</td><td>${counters.withLocalKey}</td></tr>
+-      </table>
+-
+-      <h5>File Pointers Missing Fields (by type)</h5>
+-      <table border='1' cellpadding='5' style='border-collapse: collapse;'>
+-        <tr>
+-          <th>Type</th>
+-          <th>Without PlaintextHash</th>
+-          <th>Without LocalKey</th>
+-        </tr>
+-        ${orderedTypes.joinToString("\n") { (type, label) ->
+-      val withoutHash = counters.withoutPlaintextHashByType.getOrDefault(type, 0)
+-      val withoutKey = counters.withoutLocalKeyByType.getOrDefault(type, 0)
+-      "<tr><td>$label</td><td>$withoutHash</td><td>$withoutKey</td></tr>"
+-    }}
+-        <tr>
+-          <td><strong>Total</strong></td>
+-          <td><strong>$totalWithoutPlaintextHash</strong></td>
+-          <td><strong>$totalWithoutLocalKey</strong></td>
+-        </tr>
+-      </table>
+-    """.trimIndent()
+-  }
+-
+-  private fun extractRecipientName(recipient: org.signal.archive.proto.Recipient?): String {
+-    if (recipient == null) return "Unknown"
+-
+-    return when {
+-      recipient.contact != null -> {
+-        val contact = recipient.contact!!
+-        val name = buildString {
+-          if (contact.profileGivenName?.isNotEmpty() == true) {
+-            append(contact.profileGivenName)
+-            if (contact.profileFamilyName?.isNotEmpty() == true) {
+-              append(" ${contact.profileFamilyName}")
+-            }
+-          } else if (contact.nickname?.given?.isNotEmpty() == true) {
+-            append(contact.nickname!!.given)
+-            if (contact.nickname!!.family.isNotEmpty()) {
+-              append(" ${contact.nickname!!.family}")
+-            }
+-          } else if (contact.e164 != null) {
+-            append("+${contact.e164}")
+-          } else {
+-            append("Contact ${recipient.id}")
+-          }
+-        }
+-        name
+-      }
+-      recipient.group != null -> {
+-        val group = recipient.group!!
+-        group.snapshot?.title?.title ?: "Group ${recipient.id}"
+-      }
+-      recipient.self != null -> "Self"
+-      recipient.releaseNotes != null -> "Release Notes"
+-      recipient.distributionList != null -> "Distribution List ${recipient.id}"
+-      recipient.callLink != null -> "Call Link ${recipient.id}"
+-      else -> "Unknown ${recipient.id}"
+-    }
+-  }
+-
+-  private fun getRemoteBackup(): String {
+-    return if (SignalStore.backup.hasBackupBeenUploaded) {
+-      """<a href="$PATH?remoteBackup=true">${formatTimestamp(SignalStore.backup.lastBackupTime)} - ${SignalStore.backup.lastBackupProtoSize.bytes.toUnitString()}</a>"""
+-    } else {
+-      "No remote backup"
+-    }
+-  }
+-
+-  private fun getLocalBackups(): String {
+-    return """
+-      <p><span id="localBackupsList">Loading local backups...</span></p>
+-      <p><button id="refreshBackupsButton" style="margin-bottom: 10px;">Refresh Local Backups</button></p>
+-
+-      <script>
+-        async function loadBackups(cacheBust = false) {
+-          const backupsSpan = document.getElementById('localBackupsList');
+-          backupsSpan.textContent = 'Loading local backups...';
+-
+-          try {
+-            const url = cacheBust ? '/api?api=localBackups&cacheBust=true' : '/api?api=localBackups';
+-            const response = await fetch(url);
+-            if (!response.ok) {
+-              const errorText = await response.text();
+-              backupsSpan.textContent = 'Error: ' + errorText;
+-              return;
+-            }
+-
+-            const data = await response.json();
+-
+-            if (!data.backups || data.backups.length === 0) {
+-              backupsSpan.textContent = 'No local backups found.';
+-              return;
+-            }
+-
+-            const backupLinks = data.backups.map(backup =>
+-              '<a href="$PATH?localBackup=' + backup.timestamp + '">' + backup.name + '</a>'
+-            ).join('</br>');
+-
+-            backupsSpan.innerHTML = backupLinks;
+-          } catch (error) {
+-            backupsSpan.textContent = 'Error loading backups: ' + error.message;
+-          }
+-        }
+-
+-        // Load backups on page load
+-        loadBackups();
+-
+-        // Add refresh button click handler
+-        document.getElementById('refreshBackupsButton').addEventListener('click', function() {
+-          loadBackups(true);
+-        });
+-      </script>
+-    """.trimIndent()
+-  }
+-
+-  private data class ChatInfo(
+-    val chatId: Long,
+-    val recipientId: Long,
+-    val archived: Boolean,
+-    val pinnedOrder: Int?,
+-    var messageCount: Int,
+-    var attachmentCount: Int
+-  )
+-
+-  private enum class FilePointerType {
+-    LINK_PREVIEW,
+-    ATTACHMENT,
+-    LONG_TEXT,
+-    QUOTE,
+-    STICKER,
+-    CONTACT_AVATAR,
+-    WALLPAPER
+-  }
+-
+-  private data class AttachmentCounters(
+-    var total: Int = 0,
+-    var withPlaintextHash: Int = 0,
+-    var withLocalKey: Int = 0,
+-    val withoutPlaintextHashByType: MutableMap<FilePointerType, Int> = mutableMapOf(),
+-    val withoutLocalKeyByType: MutableMap<FilePointerType, Int> = mutableMapOf()
+-  )
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/PluginCache.kt b/app/src/spinner/java/org/thoughtcrime/securesms/PluginCache.kt
+deleted file mode 100644
+index 06da7d262af7dc3e96c352319382157edf04926b..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/PluginCache.kt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import android.net.Uri
+-import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-
+-object PluginCache {
+-  private var archiveFileSystem: ArchiveFileSystem? = null
+-  var localBackups: ApiPlugin.LocalBackups? = null
+-
+-  fun getArchiveFileSystem(): ArchiveFileSystem? {
+-    if (archiveFileSystem == null) {
+-      val backupDirectoryUri = SignalStore.backup.newLocalBackupsDirectory?.let { Uri.parse(it) }
+-      if (backupDirectoryUri == null || backupDirectoryUri.path == null) {
+-        return null
+-      }
+-
+-      archiveFileSystem = ArchiveFileSystem.fromUri(AppDependencies.application, backupDirectoryUri)
+-    }
+-    return archiveFileSystem
+-  }
+-
+-  fun clearBackupCache() {
+-    archiveFileSystem = null
+-    localBackups = null
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/SpinnerApplicationContext.kt b/app/src/spinner/java/org/thoughtcrime/securesms/SpinnerApplicationContext.kt
+deleted file mode 100644
+index ef22ec165aef7ed3945d5499639ee467808e5333..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/SpinnerApplicationContext.kt
++++ /dev/null
+@@ -1,119 +0,0 @@
+-package org.thoughtcrime.securesms
+-
+-import android.content.ContentValues
+-import android.os.Build
+-import org.signal.core.util.logging.AndroidLogger
+-import org.signal.core.util.logging.Log
+-import org.signal.spinner.Spinner
+-import org.signal.spinner.Spinner.DatabaseConfig
+-import org.signal.spinner.SpinnerLogger
+-import org.thoughtcrime.securesms.database.AttachmentTransformer
+-import org.thoughtcrime.securesms.database.CollapsedStateTransformer
+-import org.thoughtcrime.securesms.database.DatabaseMonitor
+-import org.thoughtcrime.securesms.database.GV2Transformer
+-import org.thoughtcrime.securesms.database.GV2UpdateTransformer
+-import org.thoughtcrime.securesms.database.IdPopupTransformer
+-import org.thoughtcrime.securesms.database.IsStoryTransformer
+-import org.thoughtcrime.securesms.database.JobDatabase
+-import org.thoughtcrime.securesms.database.KeyValueDatabase
+-import org.thoughtcrime.securesms.database.KyberKeyTransformer
+-import org.thoughtcrime.securesms.database.LocalMetricsDatabase
+-import org.thoughtcrime.securesms.database.LogDatabase
+-import org.thoughtcrime.securesms.database.MegaphoneDatabase
+-import org.thoughtcrime.securesms.database.MessageBitmaskColumnTransformer
+-import org.thoughtcrime.securesms.database.MessageRangesTransformer
+-import org.thoughtcrime.securesms.database.PollTransformer
+-import org.thoughtcrime.securesms.database.ProfileKeyCredentialTransformer
+-import org.thoughtcrime.securesms.database.QueryMonitor
+-import org.thoughtcrime.securesms.database.RecipientTransformer
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.SignalStoreTransformer
+-import org.thoughtcrime.securesms.database.TimestampTransformer
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.logging.PersistentLogger
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.util.AppSignatureUtil
+-import org.thoughtcrime.securesms.util.RemoteConfig
+-import java.util.Locale
+-
+-class SpinnerApplicationContext : ApplicationContext() {
+-  override fun onCreate() {
+-    super.onCreate()
+-
+-    try {
+-      Class.forName("dalvik.system.CloseGuard")
+-        .getMethod("setEnabled", Boolean::class.javaPrimitiveType)
+-        .invoke(null, true)
+-    } catch (e: ReflectiveOperationException) {
+-      throw RuntimeException(e)
+-    }
+-
+-    Spinner.init(
+-      this,
+-      mapOf(
+-        "Device" to { "${Build.MODEL} (Android ${Build.VERSION.RELEASE}, API ${Build.VERSION.SDK_INT})" },
+-        "Package" to { "$packageName (${AppSignatureUtil.getAppSignature(this)})" },
+-        "App Version" to { "${BuildConfig.VERSION_NAME} (${BuildConfig.CANONICAL_VERSION_CODE}, ${BuildConfig.GIT_HASH})" },
+-        "Profile Name" to { (if (SignalStore.account.isRegistered) Recipient.self().profileName.toString() else "none") },
+-        "E164" to { SignalStore.account.e164 ?: "none" },
+-        "ACI" to { SignalStore.account.aci?.toString() ?: "none" },
+-        "PNI" to { SignalStore.account.pni?.toString() ?: "none" },
+-        Spinner.KEY_ENVIRONMENT to { BuildConfig.FLAVOR_environment.uppercase(Locale.US) }
+-      ),
+-      linkedMapOf(
+-        "signal" to DatabaseConfig(
+-          db = { SignalDatabase.rawDatabase },
+-          columnTransformers = listOf(
+-            MessageBitmaskColumnTransformer,
+-            GV2Transformer,
+-            GV2UpdateTransformer,
+-            IsStoryTransformer,
+-            TimestampTransformer,
+-            ProfileKeyCredentialTransformer,
+-            MessageRangesTransformer,
+-            KyberKeyTransformer,
+-            RecipientTransformer,
+-            AttachmentTransformer,
+-            PollTransformer,
+-            IdPopupTransformer,
+-            CollapsedStateTransformer
+-          )
+-        ),
+-        "jobmanager" to DatabaseConfig(db = { JobDatabase.getInstance(this).sqlCipherDatabase }, columnTransformers = listOf(TimestampTransformer)),
+-        "keyvalue" to DatabaseConfig(db = { KeyValueDatabase.getInstance(this).sqlCipherDatabase }, columnTransformers = listOf(SignalStoreTransformer)),
+-        "megaphones" to DatabaseConfig(db = { MegaphoneDatabase.getInstance(this).sqlCipherDatabase }),
+-        "localmetrics" to DatabaseConfig(db = { LocalMetricsDatabase.getInstance(this).sqlCipherDatabase }),
+-        "logs" to DatabaseConfig(
+-          db = { LogDatabase.getInstance(this).sqlCipherDatabase },
+-          columnTransformers = listOf(TimestampTransformer)
+-        )
+-      ),
+-      linkedMapOf(
+-        StorageServicePlugin.PATH to StorageServicePlugin(),
+-        AttachmentPlugin.PATH to AttachmentPlugin(),
+-        BackupPlugin.PATH to BackupPlugin(),
+-        ApiPlugin.PATH to ApiPlugin()
+-      )
+-    )
+-
+-    Log.initialize({ RemoteConfig.internalUser }, AndroidLogger, PersistentLogger.getInstance(this), SpinnerLogger)
+-
+-    DatabaseMonitor.initialize(object : QueryMonitor {
+-      override fun onSql(sql: String, args: Array<Any>?) {
+-        Spinner.onSql("signal", sql, args)
+-      }
+-
+-      override fun onQuery(distinct: Boolean, table: String, projection: Array<String>?, selection: String?, args: Array<Any>?, groupBy: String?, having: String?, orderBy: String?, limit: String?) {
+-        Spinner.onQuery("signal", distinct, table, projection, selection, args, groupBy, having, orderBy, limit)
+-      }
+-
+-      override fun onDelete(table: String, selection: String?, args: Array<Any>?) {
+-        Spinner.onDelete("signal", table, selection, args)
+-      }
+-
+-      override fun onUpdate(table: String, values: ContentValues, selection: String?, args: Array<Any>?) {
+-        Spinner.onUpdate("signal", table, values, selection, args)
+-      }
+-    })
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/StorageServicePlugin.kt b/app/src/spinner/java/org/thoughtcrime/securesms/StorageServicePlugin.kt
+deleted file mode 100644
+index 081b0f6ce4dd30bbc51853b2941b3700c486dcd2..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/StorageServicePlugin.kt
++++ /dev/null
+@@ -1,139 +0,0 @@
+-package org.thoughtcrime.securesms
+-
+-import org.signal.core.util.Base64
+-import org.signal.core.util.nullIfBlank
+-import org.signal.network.service.StorageServiceService
+-import org.signal.spinner.Plugin
+-import org.signal.spinner.PluginResult
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.net.SignalNetwork
+-import org.whispersystems.signalservice.api.storage.signalAci
+-import org.whispersystems.signalservice.api.storage.signalPni
+-
+-class StorageServicePlugin : Plugin {
+-  override val name: String = "Storage"
+-  override val path: String = PATH
+-
+-  override fun get(parameters: Map<String, List<String>>): PluginResult {
+-    val columns = listOf("Type", "Id", "Data")
+-    val rows = mutableListOf<List<String>>()
+-
+-    val repository = StorageServiceService(SignalNetwork.storageService)
+-    val storageServiceKey = SignalStore.storageService.storageKey
+-
+-    val manifest = when (val result = repository.getStorageManifest(storageServiceKey)) {
+-      is StorageServiceService.ManifestResult.Success -> result.manifest
+-      else -> return PluginResult.StringResult("Failed to find manifest!")
+-    }
+-
+-    val signalStorageRecords = when (val result = repository.readStorageRecords(storageServiceKey, manifest.recordIkm, manifest.storageIds)) {
+-      is StorageServiceService.StorageRecordResult.Success -> result.records
+-      else -> return PluginResult.StringResult("Failed to read records!")
+-    }
+-
+-    for (record in signalStorageRecords) {
+-      val row = mutableListOf<String>()
+-
+-      if (record.proto.account != null) {
+-        row += "Account"
+-        row += record.proto.account.toString().prettyPrintProto()
+-      } else if (record.proto.contact != null) {
+-        row += "Contact"
+-        val contact = record.proto.contact!!
+-        val readable = contact.copy(
+-          aci = contact.aci.nullIfBlank() ?: contact.signalAci?.toString()?.let { "**$it**" } ?: contact.aci,
+-          pni = contact.pni.nullIfBlank() ?: contact.signalPni?.toString()?.let { "**$it**" } ?: contact.pni
+-        )
+-        row += readable.toString().prettyPrintProto()
+-      } else if (record.proto.groupV1 != null) {
+-        row += "GV1"
+-        row += record.proto.groupV1.toString().prettyPrintProto()
+-      } else if (record.proto.groupV2 != null) {
+-        row += "GV2"
+-        row += record.proto.groupV2.toString().prettyPrintProto()
+-      } else if (record.proto.storyDistributionList != null) {
+-        row += "Distribution List"
+-        row += record.proto.storyDistributionList.toString().prettyPrintProto()
+-      } else if (record.proto.callLink != null) {
+-        row += "Call Link"
+-        row += record.proto.callLink.toString().prettyPrintProto()
+-      } else if (record.proto.chatFolder != null) {
+-        row += "Chat Folder"
+-        row += record.proto.chatFolder.toString().prettyPrintProto()
+-      } else if (record.proto.notificationProfile != null) {
+-        row += "Notification Profile"
+-        row += record.proto.notificationProfile.toString().prettyPrintProto()
+-      } else {
+-        row += "Unknown"
+-        row += ""
+-      }
+-
+-      row.add(1, Base64.encodeWithPadding(record.id.raw))
+-
+-      rows += row
+-    }
+-
+-    rows.sortBy { it.first() }
+-
+-    return PluginResult.TableResult(
+-      columns = columns,
+-      rows = rows
+-    )
+-  }
+-
+-  companion object {
+-    const val PATH = "/storage"
+-  }
+-}
+-
+-private fun String.prettyPrintProto(): String {
+-  val out = StringBuilder(length + length / 4)
+-  var indent = 0
+-  var compactDepth = 0
+-  fun newline() {
+-    out.append('\n').append("  ".repeat(indent))
+-  }
+-  var i = 0
+-  while (i < length) {
+-    val c = this[i]
+-    when (c) {
+-      '{', '[' -> {
+-        val compact = c == '[' && this.regionMatches(i + 1, "hex", 0, 3, ignoreCase = true)
+-        if (compact) {
+-          compactDepth++
+-          out.append(c)
+-        } else {
+-          indent++
+-          out.append(c)
+-          newline()
+-        }
+-      }
+-      '}', ']' -> {
+-        if (compactDepth > 0 && c == ']') {
+-          compactDepth--
+-          out.append(c)
+-        } else {
+-          indent = (indent - 1).coerceAtLeast(0)
+-          val opener = if (c == '}') '{' else '['
+-          while (out.isNotEmpty() && (out.last() == ' ' || out.last() == '\n')) {
+-            out.deleteCharAt(out.length - 1)
+-          }
+-          if (out.isNotEmpty() && out.last() == opener) {
+-            out.append(c)
+-          } else {
+-            newline()
+-            out.append(c)
+-          }
+-        }
+-      }
+-      ',' -> {
+-        out.append(c)
+-        if (compactDepth == 0) newline()
+-      }
+-      ' ' -> if (out.isNotEmpty() && out.last() != '\n' && out.last() != ' ') out.append(c)
+-      else -> out.append(c)
+-    }
+-    i++
+-  }
+-  return out.toString()
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/AttachmentTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/AttachmentTransformer.kt
+deleted file mode 100644
+index cfaa3ef59304998d6b456f920cd486e5940a6c77..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/AttachmentTransformer.kt
++++ /dev/null
+@@ -1,51 +0,0 @@
+-/*
+- * Copyright 2024 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireInt
+-import org.signal.spinner.ColumnTransformer
+-
+-object AttachmentTransformer : ColumnTransformer {
+-
+-  val COLUMNS = setOf(
+-    AttachmentTable.TRANSFER_STATE,
+-    AttachmentTable.ARCHIVE_TRANSFER_STATE
+-  )
+-
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return (tableName == AttachmentTable.TABLE_NAME || tableName == null) && columnName in COLUMNS
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String {
+-    return when (columnName) {
+-      AttachmentTable.TRANSFER_STATE -> return cursor.toTransferState()
+-      AttachmentTable.ARCHIVE_TRANSFER_STATE -> return cursor.toArchiveTransferState()
+-      else -> "UNKNOWN"
+-    }
+-  }
+-
+-  private fun Cursor.toTransferState(): String {
+-    val value = this.requireInt(AttachmentTable.TRANSFER_STATE)
+-    val string = when (value) {
+-      AttachmentTable.TRANSFER_PROGRESS_DONE -> "DONE"
+-      AttachmentTable.TRANSFER_PROGRESS_PENDING -> "PENDING"
+-      AttachmentTable.TRANSFER_PROGRESS_FAILED -> "FAILED"
+-      AttachmentTable.TRANSFER_PROGRESS_STARTED -> "STARTED"
+-      AttachmentTable.TRANSFER_PROGRESS_PERMANENT_FAILURE -> "PERMANENT_FAILURE"
+-      AttachmentTable.TRANSFER_NEEDS_RESTORE -> "NEEDS_RESTORE"
+-      AttachmentTable.TRANSFER_RESTORE_IN_PROGRESS -> "RESTORE_IN_PROGRESS"
+-      AttachmentTable.TRANSFER_RESTORE_OFFLOADED -> "RESTORE_OFFLOADED"
+-      else -> "UNKNOWN"
+-    }
+-    return "$string ($value)"
+-  }
+-
+-  private fun Cursor.toArchiveTransferState(): String {
+-    val state = AttachmentTable.ArchiveTransferState.deserialize(this.requireInt(AttachmentTable.ARCHIVE_TRANSFER_STATE))
+-    return "${state.name} (${state.value})"
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/CollapsedStateTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/CollapsedStateTransformer.kt
+deleted file mode 100644
+index f4e408b496855020124a19e642434bd96f65e23f..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/CollapsedStateTransformer.kt
++++ /dev/null
+@@ -1,20 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireInt
+-import org.signal.core.util.requireLong
+-import org.signal.spinner.ColumnTransformer
+-
+-/**
+- * Transforms enum integers for [CollapsedState] into a human readable state
+- */
+-object CollapsedStateTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == MessageTable.COLLAPSED_STATE && (tableName == null || tableName == MessageTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val state = CollapsedState.deserialize(cursor.requireLong(MessageTable.COLLAPSED_STATE))
+-    return "${cursor.requireInt(MessageTable.COLLAPSED_STATE)}<br><br>$state"
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2Transformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2Transformer.kt
+deleted file mode 100644
+index 7f41c363d21d283735b8c53c131fd04513e24eb0..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2Transformer.kt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import okio.ByteString
+-import org.signal.core.util.UuidUtil
+-import org.signal.core.util.requireBlob
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedBannedMember
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedMember
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMember
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedRequestingMember
+-
+-object GV2Transformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == GroupTable.V2_DECRYPTED_GROUP
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    return if (columnName == GroupTable.V2_DECRYPTED_GROUP) {
+-      val groupBytes = cursor.requireBlob(GroupTable.V2_DECRYPTED_GROUP)
+-      val group = DecryptedGroup.ADAPTER.decode(groupBytes!!)
+-      group.formatAsHtml()
+-    } else {
+-      null
+-    }
+-  }
+-}
+-
+-private fun DecryptedGroup.formatAsHtml(): String {
+-  val members: String = describeList(members, DecryptedMember::aciBytes)
+-  val pending: String = describeList(pendingMembers, DecryptedPendingMember::serviceIdBytes)
+-  val requesting: String = describeList(requestingMembers, DecryptedRequestingMember::aciBytes)
+-  val banned: String = describeList(bannedMembers, DecryptedBannedMember::serviceIdBytes)
+-
+-  return """
+-    Revision:     $revision
+-    Title:        $title
+-    Avatar:       ${(avatar.length) != 0}
+-    Timer:        ${disappearingMessagesTimer?.duration}
+-    Description:  "$description"
+-    Announcement: $isAnnouncementGroup
+-    Access:       attributes(${accessControl?.attributes}) members(${accessControl?.members}) link(${accessControl?.addFromInviteLink})
+-    Members:      $members
+-    Pending:      $pending
+-    Requesting:   $requesting
+-    Banned:       $banned
+-    Placeholder:  $isPlaceholderGroup
+-  """.trimIndent().replace("\n", "<br>")
+-}
+-
+-private fun <T> describeList(list: List<T>, getUuid: (T) -> ByteString): String {
+-  return if (list.isNotEmpty() && list.size < 10) {
+-    var pendingMembers = "${list.size}\n"
+-    list.forEachIndexed { i, pendingMember ->
+-      pendingMembers += "      ${UuidUtil.fromByteString(getUuid(pendingMember))}"
+-      if (i != list.lastIndex) {
+-        pendingMembers += "\n"
+-      }
+-    }
+-    pendingMembers
+-  } else {
+-    list.size.toString()
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2UpdateTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2UpdateTransformer.kt
+deleted file mode 100644
+index b9528bb7b5820517df3d79912655820a46e66b44..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/GV2UpdateTransformer.kt
++++ /dev/null
+@@ -1,64 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.Base64
+-import org.signal.core.util.CursorUtil
+-import org.signal.core.util.requireLong
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-import org.thoughtcrime.securesms.database.model.MessageRecord
+-import org.thoughtcrime.securesms.database.model.UpdateDescription
+-import org.thoughtcrime.securesms.database.model.databaseprotos.DecryptedGroupV2Context
+-import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-
+-object GV2UpdateTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return (columnName == MessageTable.BODY || columnName == MessageTable.MESSAGE_EXTRAS) && (tableName == null || tableName == MessageTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val type: Long = cursor.getMessageType()
+-
+-    if (type == -1L || !MessageTypes.isGroupV2(type) || !MessageTypes.isGroupUpdate(type)) {
+-      return DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    }
+-
+-    return when (columnName) {
+-      MessageTable.BODY -> {
+-        val body: String? = CursorUtil.requireString(cursor, MessageTable.BODY)
+-        body?.let { bodyGroupUpdate(it) }
+-      }
+-
+-      MessageTable.MESSAGE_EXTRAS -> {
+-        val messageExtras = CursorUtil.requireBlob(cursor, MessageTable.MESSAGE_EXTRAS)?.let { MessageExtras.ADAPTER.decode(it) }
+-        messageExtras?.let { messageExtrasGroupUpdate(messageExtras) }
+-      }
+-
+-      else -> DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    }
+-  }
+-
+-  private fun bodyGroupUpdate(body: String): String {
+-    val decoded = Base64.decode(body)
+-    val decryptedGroupV2Context = DecryptedGroupV2Context.ADAPTER.decode(decoded)
+-    val gv2ChangeDescription: UpdateDescription = MessageRecord.getGv2ChangeDescription(AppDependencies.application, body, null)
+-
+-    return "${gv2ChangeDescription.spannable}<br><br>${decryptedGroupV2Context.change}"
+-  }
+-
+-  private fun messageExtrasGroupUpdate(messageExtras: MessageExtras): String {
+-    val gv2ChangeDescription: UpdateDescription = MessageRecord.getGv2ChangeDescription(AppDependencies.application, messageExtras, null)
+-
+-    val gv2ChangeProto: Any? = messageExtras.gv2UpdateDescription?.gv2ChangeDescription?.change ?: messageExtras.gv2UpdateDescription?.groupChangeUpdate
+-
+-    return "${gv2ChangeDescription.spannable}<br><br>$gv2ChangeProto"
+-  }
+-}
+-
+-private fun Cursor.getMessageType(): Long {
+-  return when {
+-    getColumnIndex(MessageTable.TYPE) != -1 -> requireLong(MessageTable.TYPE)
+-    else -> -1
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/IdPopupTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/IdPopupTransformer.kt
+deleted file mode 100644
+index 86366928363aa47cbef33d11b53baf30e726fc84..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/IdPopupTransformer.kt
++++ /dev/null
+@@ -1,52 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-
+-object IdPopupTransformer : ColumnTransformer {
+-
+-  private val recipientColumns = setOf(
+-    MessageTable.FROM_RECIPIENT_ID,
+-    MessageTable.TO_RECIPIENT_ID,
+-    ThreadTable.RECIPIENT_ID
+-  )
+-
+-  private val threadIdColumns = setOf(
+-    MessageTable.THREAD_ID
+-  )
+-
+-  private val messageIdColumns = setOf(
+-    AttachmentTable.MESSAGE_ID,
+-    ThreadTable.SNIPPET_MESSAGE_ID
+-  )
+-
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return recipientColumns.contains(columnName) || threadIdColumns.contains(columnName) || messageIdColumns.contains(columnName)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val default = DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-
+-    return if (recipientColumns.contains(columnName)) {
+-      default?.let {
+-        """<div class="popup" data-recipient-id="$it">$it<span class="tooltip">Loading...</span></div>"""
+-      }
+-    } else if (threadIdColumns.contains(columnName)) {
+-      default?.let {
+-        """<div class="popup" data-thread-id="$it">$it<span class="tooltip">Loading...</span></div>"""
+-      }
+-    } else if (messageIdColumns.contains(columnName)) {
+-      default?.let {
+-        """<div class="popup" data-message-id="$it">$it<span class="tooltip">Loading...</span></div>"""
+-      }
+-    } else {
+-      default
+-    }
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/IsStoryTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/IsStoryTransformer.kt
+deleted file mode 100644
+index 9778b4cf8b7685a9351946d7f13e86aa8a4a2d35..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/IsStoryTransformer.kt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireInt
+-import org.signal.spinner.ColumnTransformer
+-import org.thoughtcrime.securesms.database.model.StoryType.Companion.fromCode
+-
+-object IsStoryTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == MessageTable.STORY_TYPE && (tableName == null || tableName == MessageTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val storyType = fromCode(cursor.requireInt(MessageTable.STORY_TYPE))
+-    return "${cursor.requireInt(MessageTable.STORY_TYPE)}<br><br>$storyType"
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/KyberKeyTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/KyberKeyTransformer.kt
+deleted file mode 100644
+index 4563f5f641ef47e6e13308aac47e22398dbfb72d..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/KyberKeyTransformer.kt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-/*
+- * Copyright 2023 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.Base64
+-import org.signal.core.util.requireBlob
+-import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+-import org.signal.spinner.ColumnTransformer
+-
+-object KyberKeyTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return tableName == KyberPreKeyTable.TABLE_NAME && columnName == KyberPreKeyTable.SERIALIZED
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val record = KyberPreKeyRecord(cursor.requireBlob(columnName))
+-    return "ID: ${record.id}\nTimestamp: ${record.timestamp}\nPublicKey: ${Base64.encodeWithoutPadding(record.keyPair.publicKey.serialize())}\nPrivateKey: ${Base64.encodeWithoutPadding(record.keyPair.secretKey.serialize())}\nSignature: ${Base64.encodeWithoutPadding(record.signature)}"
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageBitmaskColumnTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageBitmaskColumnTransformer.kt
+deleted file mode 100644
+index 35995dd387b6857fce20c141cd4e96fb630a3417..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageBitmaskColumnTransformer.kt
++++ /dev/null
+@@ -1,155 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireString
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-import org.thoughtcrime.securesms.database.MessageTypes.BAD_DECRYPT_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_DRAFT_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_INBOX_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_OUTBOX_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_PENDING_INSECURE_SMS_FALLBACK
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_PENDING_SECURE_SMS_FALLBACK
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_SENDING_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_SENT_FAILED_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_SENT_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.BASE_TYPE_MASK
+-import org.thoughtcrime.securesms.database.MessageTypes.CHANGE_NUMBER_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.ENCRYPTION_REMOTE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.ENCRYPTION_REMOTE_DUPLICATE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.ENCRYPTION_REMOTE_FAILED_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.ENCRYPTION_REMOTE_LEGACY_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.ENCRYPTION_REMOTE_NO_SESSION_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.END_SESSION_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.EXPIRATION_TIMER_UPDATE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.GROUP_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.GROUP_LEAVE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.GROUP_UPDATE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.GROUP_V2_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.GROUP_V2_LEAVE_BITS
+-import org.thoughtcrime.securesms.database.MessageTypes.GV1_MIGRATION_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.INCOMING_AUDIO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.INCOMING_VIDEO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.INVALID_MESSAGE_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.JOINED_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_BUNDLE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_IDENTITY_DEFAULT_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_IDENTITY_UPDATE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_IDENTITY_VERIFIED_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.KEY_EXCHANGE_INVALID_VERSION_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.MESSAGE_FORCE_SMS_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.MESSAGE_RATE_LIMITED_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.MISSED_AUDIO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.MISSED_VIDEO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.OUTGOING_AUDIO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.OUTGOING_MESSAGE_TYPES
+-import org.thoughtcrime.securesms.database.MessageTypes.OUTGOING_VIDEO_CALL_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.PROFILE_CHANGE_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.PUSH_MESSAGE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.RELEASE_CHANNEL_DONATION_REQUEST_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.SECURE_MESSAGE_BIT
+-import org.thoughtcrime.securesms.database.MessageTypes.SMS_EXPORT_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPES_MASK
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_BLOCKED
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_GIFT_BADGE
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_MESSAGE_REQUEST_ACCEPTED
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_PAYMENTS_ACTIVATED
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_PAYMENTS_ACTIVATE_REQUEST
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_PAYMENTS_NOTIFICATION
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_POLL_TERMINATE
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_REPORTED_SPAM
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_STORY_REACTION
+-import org.thoughtcrime.securesms.database.MessageTypes.SPECIAL_TYPE_UNBLOCKED
+-import org.thoughtcrime.securesms.database.MessageTypes.THREAD_MERGE_TYPE
+-import org.thoughtcrime.securesms.database.MessageTypes.UNSUPPORTED_MESSAGE_TYPE
+-
+-object MessageBitmaskColumnTransformer : ColumnTransformer {
+-
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return if (tableName != null && tableName != MessageTable.TABLE_NAME) {
+-      false
+-    } else {
+-      columnName == "type" || columnName == "msg_box"
+-    }
+-  }
+-
+-  @Suppress("FoldInitializerAndIfToElvis")
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val type: Long? = cursor.requireString(columnName)?.toLongOrNull()
+-
+-    if (type == null) {
+-      return DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    }
+-
+-    val describe = """
+-      isOutgoingMessageType:${isOutgoingMessageType(type)}
+-      isForcedSms:${type and MESSAGE_FORCE_SMS_BIT != 0L}
+-      isDraftMessageType:${type and BASE_TYPE_MASK == BASE_DRAFT_TYPE}
+-      isFailedMessageType:${type and BASE_TYPE_MASK == BASE_SENT_FAILED_TYPE}
+-      isPendingMessageType:${type and BASE_TYPE_MASK == BASE_OUTBOX_TYPE || type and BASE_TYPE_MASK == BASE_SENDING_TYPE }
+-      isSentType:${type and BASE_TYPE_MASK == BASE_SENT_TYPE}
+-      isPendingSmsFallbackType:${type and BASE_TYPE_MASK == BASE_PENDING_INSECURE_SMS_FALLBACK || type and BASE_TYPE_MASK == BASE_PENDING_SECURE_SMS_FALLBACK}
+-      isPendingSecureSmsFallbackType:${type and BASE_TYPE_MASK == BASE_PENDING_SECURE_SMS_FALLBACK}
+-      isPendingInsecureSmsFallbackType:${type and BASE_TYPE_MASK == BASE_PENDING_INSECURE_SMS_FALLBACK}
+-      isInboxType:${type and BASE_TYPE_MASK == BASE_INBOX_TYPE}
+-      isJoinedType:${type and BASE_TYPE_MASK == JOINED_TYPE}
+-      isUnsupportedMessageType:${type and BASE_TYPE_MASK == UNSUPPORTED_MESSAGE_TYPE}
+-      isInvalidMessageType:${type and BASE_TYPE_MASK == INVALID_MESSAGE_TYPE}
+-      isBadDecryptType:${type and BASE_TYPE_MASK == BAD_DECRYPT_TYPE}
+-      isSecureType:${type and SECURE_MESSAGE_BIT != 0L}
+-      isPushType:${type and PUSH_MESSAGE_BIT != 0L}
+-      isEndSessionType:${type and END_SESSION_BIT != 0L}
+-      isKeyExchangeType:${type and KEY_EXCHANGE_BIT != 0L}
+-      isIdentityVerified:${type and KEY_EXCHANGE_IDENTITY_VERIFIED_BIT != 0L}
+-      isIdentityDefault:${type and KEY_EXCHANGE_IDENTITY_DEFAULT_BIT != 0L}
+-      isInvalidVersionKeyExchange:${type and KEY_EXCHANGE_INVALID_VERSION_BIT != 0L}
+-      isBundleKeyExchange:${type and KEY_EXCHANGE_BUNDLE_BIT != 0L}
+-      isIdentityUpdate:${type and KEY_EXCHANGE_IDENTITY_UPDATE_BIT != 0L}
+-      isRateLimited:${type and MESSAGE_RATE_LIMITED_BIT != 0L}
+-      isExpirationTimerUpdate:${type and EXPIRATION_TIMER_UPDATE_BIT != 0L}
+-      isIncomingAudioCall:${type == INCOMING_AUDIO_CALL_TYPE}
+-      isIncomingVideoCall:${type == INCOMING_VIDEO_CALL_TYPE}
+-      isOutgoingAudioCall:${type == OUTGOING_AUDIO_CALL_TYPE}
+-      isOutgoingVideoCall:${type == OUTGOING_VIDEO_CALL_TYPE}
+-      isMissedAudioCall:${type == MISSED_AUDIO_CALL_TYPE}
+-      isMissedVideoCall:${type == MISSED_VIDEO_CALL_TYPE}
+-      isGroupCall:${type == GROUP_CALL_TYPE}
+-      isGroupUpdate:${type and GROUP_UPDATE_BIT != 0L}
+-      isGroupV2:${type and GROUP_V2_BIT != 0L}
+-      isGroupQuit:${type and GROUP_LEAVE_BIT != 0L && type and GROUP_V2_BIT == 0L}
+-      isChatSessionRefresh:${type and ENCRYPTION_REMOTE_FAILED_BIT != 0L}
+-      isDuplicateMessageType:${type and ENCRYPTION_REMOTE_DUPLICATE_BIT != 0L}
+-      isDecryptInProgressType:${type and 0x40000000 != 0L}
+-      isNoRemoteSessionType:${type and ENCRYPTION_REMOTE_NO_SESSION_BIT != 0L}
+-      isLegacyType:${type and ENCRYPTION_REMOTE_LEGACY_BIT != 0L || type and ENCRYPTION_REMOTE_BIT != 0L}
+-      isProfileChange:${type == PROFILE_CHANGE_TYPE}
+-      isGroupV1MigrationEvent:${type == GV1_MIGRATION_TYPE}
+-      isChangeNumber:${type == CHANGE_NUMBER_TYPE}
+-      isReleaseChannelDonationRequest:${type == RELEASE_CHANNEL_DONATION_REQUEST_TYPE}
+-      isThreadMerge:${type == THREAD_MERGE_TYPE}
+-      isSmsExport:${type == SMS_EXPORT_TYPE}
+-      isGroupV2LeaveOnly:${type and GROUP_V2_LEAVE_BITS == GROUP_V2_LEAVE_BITS}
+-      isSpecialType:${type and SPECIAL_TYPES_MASK != 0L}
+-      isStoryReaction:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_STORY_REACTION}
+-      isGiftBadge:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_GIFT_BADGE}
+-      isPaymentsNotificaiton:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_PAYMENTS_NOTIFICATION}
+-      isRequestToActivatePayments:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_PAYMENTS_ACTIVATE_REQUEST}
+-      isPaymentsActivated:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_PAYMENTS_ACTIVATED}
+-      isReportSpam:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_REPORTED_SPAM}
+-      isMessageRequestAccepted:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_MESSAGE_REQUEST_ACCEPTED}
+-      isBlockedType:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_BLOCKED}
+-      isUnblockedType:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_UNBLOCKED}
+-      isPollEnd:${type and SPECIAL_TYPES_MASK == SPECIAL_TYPE_POLL_TERMINATE}
+-    """.trimIndent()
+-
+-    return "$type<br><br>" + describe.replace(Regex("is[A-Z][A-Za-z0-9]*:false\n?"), "").replace("\n", "<br>")
+-  }
+-
+-  private fun isOutgoingMessageType(type: Long): Boolean {
+-    for (outgoingType in OUTGOING_MESSAGE_TYPES) {
+-      if (type and BASE_TYPE_MASK == outgoingType) return true
+-    }
+-    return false
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageRangesTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageRangesTransformer.kt
+deleted file mode 100644
+index 7b728f808183f572bee3e9f2ee9ad70be899003f..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/MessageRangesTransformer.kt
++++ /dev/null
+@@ -1,49 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireBlob
+-import org.signal.spinner.ColumnTransformer
+-import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
+-
+-object MessageRangesTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == MessageTable.MESSAGE_RANGES && (tableName == null || tableName == MessageTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val messageRangesData: ByteArray? = cursor.requireBlob(MessageTable.MESSAGE_RANGES)
+-
+-    return if (messageRangesData != null) {
+-      val ranges = BodyRangeList.ADAPTER.decode(messageRangesData)
+-      ranges.ranges
+-        .take(5)
+-        .map { range ->
+-          val mention = range.mentionUuid != null
+-          val style = range.style != null
+-          val start = range.start
+-          val length = range.length
+-
+-          var rangeString = "<br>Type: ${if (mention) "mention" else "style"}<br>-start: $start<br>-length: $length"
+-
+-          if (mention) {
+-            rangeString += "<br>-uuid: ${range.mentionUuid}"
+-          }
+-
+-          if (style) {
+-            rangeString += "<br>-style: ${range.style}"
+-          }
+-
+-          rangeString
+-        }.joinToString("<br>")
+-        .let {
+-          if (ranges.ranges.size > 5) {
+-            it + "<br>" + "Not showing an additional ${ranges.ranges.size - 5} body ranges."
+-          } else {
+-            it
+-          }
+-        }
+-    } else {
+-      null
+-    }
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/PollTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/PollTransformer.kt
+deleted file mode 100644
+index 6fb6767cd129e13f1ad17392ca1135acc26c6e00..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/PollTransformer.kt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireInt
+-import org.signal.spinner.ColumnTransformer
+-import org.thoughtcrime.securesms.polls.VoteState
+-
+-object PollTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == PollTables.PollVoteTable.VOTE_STATE && (tableName == null || tableName == PollTables.PollVoteTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val voteState = VoteState.fromValue(cursor.requireInt(PollTables.PollVoteTable.VOTE_STATE))
+-    return "${cursor.requireInt(PollTables.PollVoteTable.VOTE_STATE)}<br><br>$voteState"
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/ProfileKeyCredentialTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/ProfileKeyCredentialTransformer.kt
+deleted file mode 100644
+index 45ecf44e413761ab6b294dfcd16a8b5fb0005661..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/ProfileKeyCredentialTransformer.kt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.Base64
+-import org.signal.core.util.Hex
+-import org.signal.core.util.requireString
+-import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-import org.thoughtcrime.securesms.database.model.databaseprotos.ExpiringProfileKeyCredentialColumnData
+-import org.thoughtcrime.securesms.util.toLocalDateTime
+-import java.security.MessageDigest
+-
+-object ProfileKeyCredentialTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == RecipientTable.EXPIRING_PROFILE_KEY_CREDENTIAL && (tableName == null || tableName == RecipientTable.TABLE_NAME)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val columnDataString = cursor.requireString(RecipientTable.EXPIRING_PROFILE_KEY_CREDENTIAL) ?: return DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    val columnDataBytes = Base64.decode(columnDataString)
+-    val columnData = ExpiringProfileKeyCredentialColumnData.ADAPTER.decode(columnDataBytes)
+-    val credential = ExpiringProfileKeyCredential(columnData.expiringProfileKeyCredential.toByteArray())
+-
+-    return """
+-      Credential: ${Hex.toStringCondensed(MessageDigest.getInstance("SHA-256").digest(credential.serialize()))}
+-      Expires:    ${credential.expirationTime.toLocalDateTime()}
+-      
+-      Matching Profile Key: 
+-        ${Base64.encodeWithPadding(columnData.profileKey.toByteArray())}
+-    """.trimIndent().replace("\n", "<br>")
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/RecipientTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/RecipientTransformer.kt
+deleted file mode 100644
+index 25140d8c5693bb27466ac32aff446bc40f909939..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/RecipientTransformer.kt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireInt
+-import org.signal.spinner.ColumnTransformer
+-
+-object RecipientTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return tableName == RecipientTable.TABLE_NAME && columnName == RecipientTable.TYPE
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    return RecipientTable.RecipientType.fromId(cursor.requireInt(RecipientTable.TYPE)).toString()
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/SignalStoreTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/SignalStoreTransformer.kt
+deleted file mode 100644
+index 301ba9e4c2159771403e2454d2788373284dea55..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/SignalStoreTransformer.kt
++++ /dev/null
+@@ -1,38 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import com.squareup.wire.ProtoAdapter
+-import org.signal.core.util.requireBlob
+-import org.signal.core.util.requireString
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+-import org.thoughtcrime.securesms.keyvalue.BackupValues
+-import org.thoughtcrime.securesms.keyvalue.RegistrationValues
+-import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
+-
+-/**
+- * Transform non-user friendly store values into less-non-user friendly representations.
+- */
+-object SignalStoreTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName == KeyValueDatabase.VALUE
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    return when (cursor.requireString(KeyValueDatabase.KEY)) {
+-      RegistrationValues.RESTORE_DECISION_STATE -> decodeProto(cursor, RestoreDecisionState.ADAPTER)
+-      BackupValues.KEY_ARCHIVE_UPLOAD_STATE -> decodeProto(cursor, ArchiveUploadProgressState.ADAPTER)
+-      else -> DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    }
+-  }
+-
+-  private fun decodeProto(cursor: Cursor, adapter: ProtoAdapter<*>): String? {
+-    return cursor.requireBlob(KeyValueDatabase.VALUE)?.let { adapter.decode(it) }?.toString()
+-  }
+-}
+diff --git a/app/src/spinner/java/org/thoughtcrime/securesms/database/TimestampTransformer.kt b/app/src/spinner/java/org/thoughtcrime/securesms/database/TimestampTransformer.kt
+deleted file mode 100644
+index acaf4f0779280f859c05d6eb0961259d0a19ad31..0000000000000000000000000000000000000000
+--- a/app/src/spinner/java/org/thoughtcrime/securesms/database/TimestampTransformer.kt
++++ /dev/null
+@@ -1,28 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.database.Cursor
+-import org.signal.core.util.requireLong
+-import org.signal.spinner.ColumnTransformer
+-import org.signal.spinner.DefaultColumnTransformer
+-import org.thoughtcrime.securesms.util.toLocalDateTime
+-import org.thoughtcrime.securesms.util.toMillis
+-import java.time.LocalDateTime
+-
+-object TimestampTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return columnName.contains("date", true) ||
+-      columnName.contains("timestamp", true) ||
+-      columnName.contains("created_at", true) ||
+-      columnName.endsWith("time", true)
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val timestamp: Long = cursor.requireLong(columnName)
+-
+-    return if (timestamp > LocalDateTime.of(2000, 1, 1, 0, 0, 0, 0).toMillis()) {
+-      "$timestamp<br><br>${timestamp.toLocalDateTime()}"
+-    } else {
+-      DefaultColumnTransformer.transform(tableName, columnName, cursor)
+-    }
+-  }
+-}
+diff --git a/baseline-profile/src/main/AndroidManifest.xml b/baseline-profile/src/main/AndroidManifest.xml
+deleted file mode 100644
+index cc947c56799598205b8fb518f3ba95843c1bab71..0000000000000000000000000000000000000000
+--- a/baseline-profile/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1 +0,0 @@
+-<manifest />
+
+--------------false--
+
+

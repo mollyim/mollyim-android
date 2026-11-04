@@ -35,7 +35,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/BackupsPreferenceFragment__backups_are_encrypted_with_a_passphrase"
             android:textAppearance="@style/Signal.Text.Preview"
-            android:textColor="?attr/signal_text_secondary" />
+            android:textColor="@color/signal_text_secondary" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/fragment_backup_create"
@@ -54,7 +54,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__create_backup"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintBottom_toTopOf="@id/fragment_backup_create_summary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__last_backup"
                 android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 app:layout_constraintBottom_toTopOf="@id/fragment_backup_progress"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_backup_create_title" />
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__backup_folder"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary" />
+                android:textColor="@color/signal_text_primary" />
 
             <TextView
                 android:id="@+id/fragment_backup_folder_name"
@@ -129,7 +129,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary" />
+                android:textColor="@color/signal_text_secondary" />
         </LinearLayout>
 
 
@@ -150,7 +150,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__backup_time"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary" />
+                android:textColor="@color/signal_text_primary" />
 
             <TextView
                 android:id="@+id/fragment_backup_time_value"
@@ -159,66 +159,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 tools:text="3:00" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_backup_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightLarge"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/BackupsPreferenceFragment__schedule"
-                android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary" />
-
-            <TextView
-                android:id="@+id/fragment_backup_schedule_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_backup_max_files"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeightLarge"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/BackupsPreferenceFragment__number_of_backups_to_retain"
-                android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary" />
-
-            <TextView
-                android:id="@+id/fragment_backup_max_files_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary" />
         </LinearLayout>
 
         <LinearLayout
@@ -238,7 +180,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__verify_backup_passphrase"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary" />
+                android:textColor="@color/signal_text_primary" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -247,19 +189,22 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/BackupsPreferenceFragment__test_your_backup_passphrase"
                 android:textAppearance="@style/Signal.Text.Preview"
-                android:textColor="?attr/signal_text_secondary" />
+                android:textColor="@color/signal_text_secondary" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fragment_backup_toggle"
-            style="@style/Signal.Widget.Button.Medium.Primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/primary_action_button_background_36dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:text="@string/BackupsPreferenceFragment__turn_on"
-            android:textAllCaps="true" />
+            android:textColor="@color/core_white"
+            app:backgroundTint="?colorAccent" />
 
         <View
             android:layout_width="match_parent"
@@ -276,7 +221,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/BackupsPreferenceFragment__to_restore_a_backup"
             android:textAppearance="@style/Signal.Text.Preview"
-            android:textColor="?attr/signal_text_secondary" />
+            android:textColor="@color/signal_text_secondary" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,8 +1,8 @@
 package org.thoughtcrime.securesms.dependencies
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.media3.exoplayer.ExoPlayer
-import im.molly.app.base.ApplicationInstance
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import org.signal.camera.CameraDependencies
@@ -12,6 +12,7 @@ import org.signal.core.util.billing.BillingApi
 import org.signal.core.util.concurrent.DeadlockDetector
 import org.signal.core.util.concurrent.LatestValueObservable
 import org.signal.core.util.contentproviders.BlobProvider
+import org.signal.core.util.orNull
 import org.signal.core.util.resettableLazy
 import org.signal.donations.permits.DonationPermitsRepository
 import org.signal.glide.SignalGlideDependencies
@@ -47,8 +48,8 @@ import org.thoughtcrime.securesms.groups.GroupsV2Authorization
 import org.thoughtcrime.securesms.jobmanager.JobManager
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
-import org.thoughtcrime.securesms.net.NetworkManager
 import org.thoughtcrime.securesms.notifications.MessageNotifier
+import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager
@@ -61,6 +62,7 @@ import org.thoughtcrime.securesms.service.PinnedMessageManager
 import org.thoughtcrime.securesms.service.ScheduledMessageManager
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
+import org.thoughtcrime.securesms.shakereport.ShakeToReport
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache
@@ -81,6 +83,7 @@ import org.whispersystems.signalservice.api.services.ProfileService
 import org.whispersystems.signalservice.api.storage.StorageServiceApi
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+import org.whispersystems.signalservice.internal.configuration.HttpProxy
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.push.PushServiceSocket
 import java.util.function.Supplier
@@ -93,29 +96,27 @@ import java.util.function.Supplier
  * All future application-scoped singletons should be written as normal objects, then placed here
  * to manage their singleton-ness.
  */
+@SuppressLint("StaticFieldLeak")
 object AppDependencies {
-
+  private lateinit var _application: Application
   private lateinit var provider: Provider
 
   @JvmStatic
   @Synchronized
-  fun init(provider: Provider) {
-    if (this::provider.isInitialized) {
+  fun init(application: Application, provider: Provider) {
+    if (this::_application.isInitialized || this::provider.isInitialized) {
       return
     }
 
+    _application = application
     AppDependencies.provider = provider
-    installDependencyProviders()
-  }
 
-  @JvmStatic
-  @Synchronized
-  fun installDependencyProviders() {
     CoreUtilDependencies.init(
       application,
       CoreUtilDependenciesProvider,
       CoreUtilDependencies.BuildInfo(
-        buildTimestamp = BuildConfig.BUILD_TIMESTAMP_OR_ZERO.takeUnless { it == 0L }
+        canonicalVersionCode = BuildConfig.CANONICAL_VERSION_CODE,
+        buildTimestamp = BuildConfig.BUILD_TIMESTAMP
       )
     )
     CoreUiDependencies.init(application, CoreUiDependenciesProvider)
@@ -126,12 +127,11 @@ object AppDependencies {
 
   @JvmStatic
   val isInitialized: Boolean
-    get() = this::provider.isInitialized
+    get() = this::_application.isInitialized
 
   @JvmStatic
   val application: Application
-    // MOLLY: Ensure the app instance is always available for non-test runs, even before init() is called
-    get() = ApplicationInstance.get()
+    get() = _application
 
   @JvmStatic
   val recipientCache: LiveRecipientCache by lazy {
@@ -196,6 +196,11 @@ object AppDependencies {
   @JvmStatic
   val signalCallManager: SignalCallManager by lazy {
     provider.provideSignalCallManager()
+  }
+
+  @JvmStatic
+  val shakeToReport: ShakeToReport by lazy {
+    provider.provideShakeToReport()
   }
 
   @JvmStatic
@@ -272,11 +277,6 @@ object AppDependencies {
   @JvmStatic
   val webSocketObserver: LatestValueObservable<WebSocketConnectionState> = LatestValueObservable(_webSocketObserver)
 
-  @JvmStatic
-  val networkManager: NetworkManager by lazy {
-    provider.provideNetworkManager()
-  }
-
   private val _networkModule = resettableLazy {
     NetworkDependenciesModule(application, provider, _webSocketObserver)
   }
@@ -315,10 +315,6 @@ object AppDependencies {
     get() = networkModule.libsignalNetwork
 
   @JvmStatic
-  val networkProxyState: NetworkProxyState
-    get() = networkModule.networkProxyState
-
-  @JvmStatic
   val authWebSocket: SignalWebSocket.AuthenticatedWebSocket
     get() = networkModule.authWebSocket
 
@@ -337,6 +333,10 @@ object AppDependencies {
   @JvmStatic
   val clientZkReceiptOperations
     get() = networkModule.clientZkReceiptOperations
+
+  @JvmStatic
+  val payments: Payments
+    get() = networkModule.payments
 
   @JvmStatic
   val profileService: ProfileService
@@ -438,17 +438,24 @@ object AppDependencies {
   }
 
   @JvmStatic
-  fun resetNetwork(restartMessageObserver: Boolean) {
+  fun resetNetwork() {
     networkModule.closeConnections()
     _networkModule.reset()
-    if (restartMessageObserver) {
-      startNetwork()
-    }
   }
 
   @JvmStatic
   fun startNetwork() {
     networkModule.openConnections()
+  }
+
+  fun onSystemHttpProxyChange(systemHttpProxy: HttpProxy?): Boolean {
+    val currentSystemProxy = signalServiceNetworkAccess.getConfiguration().systemHttpProxy.orNull()
+    return if (currentSystemProxy?.host != systemHttpProxy?.host || currentSystemProxy?.port != systemHttpProxy?.port) {
+      resetNetwork()
+      true
+    } else {
+      false
+    }
   }
 
   interface Provider {
@@ -477,6 +484,8 @@ object AppDependencies {
     fun provideTypingStatusRepository(): TypingStatusRepository
     fun provideTypingStatusSender(): TypingStatusSender
     fun provideDatabaseObserver(): DatabaseObserver
+    fun providePayments(paymentsApi: PaymentsApi): Payments
+    fun provideShakeToReport(): ShakeToReport
     fun provideSignalCallManager(): SignalCallManager
     fun providePendingRetryReceiptManager(): PendingRetryReceiptManager
     fun providePendingRetryReceiptCache(): PendingRetryReceiptCache
@@ -490,9 +499,8 @@ object AppDependencies {
     fun provideDeadlockDetector(): DeadlockDetector
     fun provideClientZkReceiptOperations(signalServiceConfiguration: SignalServiceConfiguration): ClientZkReceiptOperations
     fun provideScheduledMessageManager(): ScheduledMessageManager
-    fun provideNetworkManager(): NetworkManager
     fun providePinnedMessageManager(): PinnedMessageManager
-    fun provideLibsignalNetwork(config: SignalServiceConfiguration, proxyState: NetworkProxyState): Network
+    fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network
     fun provideBillingApi(): BillingApi
     fun provideArchiveApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket, pushServiceSocket: PushServiceSocket, signalServiceConfiguration: SignalServiceConfiguration): ArchiveApi
     fun provideKeysApi(authWebSocket: SignalWebSocket.AuthenticatedWebSocket, unauthWebSocket: SignalWebSocket.UnauthenticatedWebSocket): KeysApi

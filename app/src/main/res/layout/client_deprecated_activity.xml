@@ -24,14 +24,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo_round_filled" />
+        app:srcCompat="@drawable/ic_signal_logo_large" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:text="@string/ClientDeprecatedActivity_update_signal"
-        android:textColor="?attr/colorOnBackground"
         style="@style/Signal.Text.Headline"
         android:textStyle="bold"
         android:gravity="center" />
@@ -41,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported"
-        android:textColor="?attr/colorOnBackground"
         style="@style/Signal.Text.Body"
         android:gravity="center" />
 
@@ -61,6 +59,7 @@
       android:layout_height="wrap_content"
       android:text="@string/ClientDeprecatedActivity_dont_update"
       style="@style/Signal.Widget.Button.Large.Secondary"
+      android:textColor="@color/low_priority_button_text_color"
       app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

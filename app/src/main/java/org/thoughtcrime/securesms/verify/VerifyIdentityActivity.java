@@ -94,14 +94,9 @@ public class VerifyIdentityActivity extends PassphraseRequiredActivity {
   }
 
   @Override
-  protected void onPreCreate() {
-    super.onPreCreate();
-    dynamicTheme.onCreate(this);
-  }
-
-  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
+    dynamicTheme.onCreate(this);
 
     VerifyIdentityFragment fragment = VerifyIdentityFragment.create(
         getIntent().getParcelableExtra(RECIPIENT_EXTRA),

@@ -56,13 +56,13 @@ class DeletedCallEventManager(
 
   data class Event(val delay: Long)
 
-  class DeleteCallEventsAlarm : ExportedBroadcastReceiver() {
+  class DeleteCallEventsAlarm : BroadcastReceiver() {
 
     companion object {
       private val TAG = Log.tag(DeleteCallEventsAlarm::class.java)
     }
 
-    override fun onReceiveUnlock(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context?, intent: Intent?) {
       Log.d(TAG, "onReceive()")
       AppDependencies.deletedCallEventManager.scheduleIfNecessary()
     }

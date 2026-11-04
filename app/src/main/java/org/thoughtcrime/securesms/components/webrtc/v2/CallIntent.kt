@@ -13,7 +13,7 @@ import android.content.Intent
  * CallIntent wraps an intent inside one of the call activities to allow for easy typed access to the necessary data within it.
  */
 class CallIntent(
-  val intent: Intent
+  private val intent: Intent
 ) {
 
   companion object {
@@ -61,7 +61,6 @@ class CallIntent(
 
   enum class Action(val code: String) {
     VIEW(Intent.ACTION_VIEW),
-    NO_ACTION("NO_ACTION"),
     ANSWER_AUDIO("ANSWER_ACTION"),
     ANSWER_VIDEO("ANSWER_VIDEO_ACTION"),
     DENY("DENY_ACTION"),

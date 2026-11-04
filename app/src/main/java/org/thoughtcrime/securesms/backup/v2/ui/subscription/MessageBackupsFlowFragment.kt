@@ -229,7 +229,11 @@ class MessageBackupsFlowFragment : ComposeFragment(), InAppPaymentCheckoutDelega
               getString(R.string.remote_backup_support_url)
             )
           },
-          onMakeGooglePlayServicesAvailable = {},
+          onMakeGooglePlayServicesAvailable = {
+            GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(requireActivity()).addOnSuccessListener {
+              viewModel.setGooglePlayApiAvailability(GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(requireContext()))
+            }
+          },
           onOpenPlayStore = {
             PlayStoreUtil.openPlayStoreHome(requireContext())
           }

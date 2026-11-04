@@ -9,5 +9,9 @@ data class DataAndStorageSettingsState(
   val wifiAutoDownloadValues: Set<String>,
   val roamingAutoDownloadValues: Set<String>,
   val callDataMode: CallDataMode,
+  val isProxyEnabled: Boolean,
   val sentMediaQuality: SentMediaQuality,
+  val forceWebsocketMode: Boolean,
+  val playServicesAvailable: Boolean,
+  val showStayConnectedDialog: Boolean
 )

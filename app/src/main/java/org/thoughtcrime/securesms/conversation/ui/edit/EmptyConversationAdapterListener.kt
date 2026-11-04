@@ -72,8 +72,12 @@ object EmptyConversationAdapterListener : ConversationAdapter.ItemClickListener 
   override fun onBlockJoinRequest(recipient: Recipient) = Unit
   override fun onRecipientNameClicked(target: RecipientId) = Unit
   override fun onInviteToSignalClicked() = Unit
+  override fun onActivatePaymentsClicked() = Unit
+  override fun onSendPaymentClicked(recipientId: RecipientId) = Unit
   override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
   override fun onUrlClicked(url: String): Boolean = false
+  override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) = Unit
+  override fun onGiftBadgeRevealed(messageRecord: MessageRecord) = Unit
   override fun goToMediaPreview(parent: ConversationItem?, sharedElement: View?, args: MediaIntentFactory.MediaPreviewArgs?) = Unit
   override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) = Unit
   override fun onShowGroupDescriptionClicked(groupName: String, description: String, shouldLinkifyWebLinks: Boolean) = Unit
@@ -82,6 +86,7 @@ object EmptyConversationAdapterListener : ConversationAdapter.ItemClickListener 
   override fun onReportSpamLearnMoreClicked() = Unit
   override fun onMessageRequestAcceptOptionsClicked() = Unit
   override fun onItemDoubleClick(multiselectPart: MultiselectPart?) = Unit
+  override fun onPaymentTombstoneClicked() = Unit
   override fun onDisplayMediaNoLongerAvailableSheet() = Unit
   override fun onShowUnverifiedProfileSheet(forGroup: Boolean) = Unit
   override fun onUpdateSignalClicked() = Unit

@@ -360,7 +360,7 @@ private fun EmojiButton(
   val isDark = isSystemInDarkTheme()
 
   val backgroundColor = if (isSelected) {
-    if (isDark) Color(0xFF8F77FF) else Color(0xFF7152FF)
+    if (isDark) Color(0xFF6191f3) else Color(0xFF2C6BED)
   } else {
     if (isDark) Color(0xFF3b3b3b) else Color(0xFFE9E9E9)
   }

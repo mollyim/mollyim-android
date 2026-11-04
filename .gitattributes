@@ -1,11 +1,2 @@
-# MOLLY: Reduce the number of merge conflicts.
-#
-# Note: also need:
-# git config merge.ours.driver true
-# git config merge.theirs.driver 'cp -- %B %A'
-
-/app/src/main/res/values-*/strings.xml merge=theirs
-/core/*/src/main/res/values-*/strings.xml merge=theirs
-/feature/*/src/main/res/values-*/strings.xml merge=theirs
-/lib/*/src/main/res/values-*/strings.xml merge=theirs
-/gradle/verification-metadata.xml merge=union
+*.ai binary
+**/src/screenshotTest*/reference/**/*.png filter=lfs diff=lfs merge=lfs -text

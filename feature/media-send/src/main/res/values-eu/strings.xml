@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Aldaketak baztertu?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Eman mikrofonoa atzitzeko baimena</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Argazkiak eta bideoak grabatzeko, eman baimena Mollyi kamera erabiltzeko.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Argazkiak eta bideoak grabatzeko, eman baimena Signali kamera erabiltzeko.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Argazkiak atera eta bideoak grabatzeko, eman Molly-i kamera eta mikrofonoa erabiltzeko baimena.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Argazkiak atera eta bideoak grabatzeko, eman Signal-i kamera eta mikrofonoa erabiltzeko baimena.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Soinua duten bideoak grabatzeko, eman Molly-i mikrofonoa erabiltzeko baimena.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Soinua duten bideoak grabatzeko, eman Signal-i mikrofonoa erabiltzeko baimena.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR kodeak eskaneatzeko, eman Molly-i kamera erabiltzeko baimena.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR kodeak eskaneatzeko, eman Signal-i kamera erabiltzeko baimena.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly-ek kamera erabili behar du argazkiak ateratzeko</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal-ek kamera erabili behar du argazkiak ateratzeko</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly-ek kamera erabili behar du QR kodeak eskaneatzeko</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal-ek kamera erabili behar du QR kodeak eskaneatzeko</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Molly-ek mikrofonoa erabili behar du bideoak grabatzeko</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal-ek mikrofonoa erabili behar du bideoak grabatzeko</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Molly-en argazkiak ateratzeko:</string>
+  <string name="CameraXFragment_to_capture_photos">Signal-en argazkiak ateratzeko:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Molly-en argazkiak atera eta bideoak grabatzeko:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Signal-en argazkiak atera eta bideoak grabatzeko:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Soinua duten bideoak grabatzeko:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Bidali</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Molly aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal aplikazioak bideoak grabatu ahal izateko mikrofonorako baimenak behar ditu, baina ukatu egin dira. Mesedez, joan zaitez aplikazioaren ezarpenetara, aukeratu \"Baimenak\" eta gaitu \"Mikrofonoa\" eta \"Kamera\".</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Errore bat gertatu da bideoa grabatzean</string>

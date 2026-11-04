@@ -27,7 +27,7 @@ class StoriesPrivacySettingsRepository {
     return Completable.fromAction {
       SignalStore.story.isFeatureDisabled = !isEnabled
       Stories.onStorySettingsChanged(Recipient.self().id)
-      AppDependencies.resetNetwork(restartMessageObserver = true)
+      AppDependencies.resetNetwork()
 
       SignalDatabase.messages.getAllOutgoingStories(false, -1).use { reader ->
         reader.map { record -> record.id }

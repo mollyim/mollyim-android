@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -28,9 +30,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
@@ -102,8 +106,8 @@ class AppSettingsFragment : ComposeFragment(), Callbacks {
             is AppSettingsRoute.PrivacyRoute.Privacy -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_privacySettingsFragment)
             is AppSettingsRoute.BackupsRoute.Backups -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_backupsSettingsFragment)
             is AppSettingsRoute.DataAndStorageRoute.DataAndStorage -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_dataAndStorageSettingsFragment)
-            is AppSettingsRoute.DataAndStorageRoute.Proxy -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_networkPreferenceFragment)
             is AppSettingsRoute.AppUpdates -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_appUpdatesSettingsFragment)
+            is AppSettingsRoute.Payments -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_paymentsActivity)
             is AppSettingsRoute.HelpRoute.Settings -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_helpSettingsFragment)
             is AppSettingsRoute.Invite -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_inviteFragment)
             is AppSettingsRoute.LabsRoute.Labs -> findNavController().safeNavigate(R.id.action_appSettingsFragment_to_labsSettingsFragment)
@@ -288,25 +292,27 @@ private fun AppSettingsContent(
           BackupFailureState.NONE -> Unit
         }
 
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.AccountSettingsFragment__account),
-            icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
-            }
-          )
-        }
+        if (state.isPrimaryDevice) {
+          item {
+            Rows.TextRow(
+              text = stringResource(R.string.AccountSettingsFragment__account),
+              icon = painterResource(CoreUiR.drawable.symbol_person_circle_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.AccountRoute.Account)
+              }
+            )
+          }
 
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.preferences__linked_devices),
-            icon = painterResource(CoreUiR.drawable.symbol_devices_24),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
-            },
-            enabled = isRegisteredAndUpToDate
-          )
+          item {
+            Rows.TextRow(
+              text = stringResource(R.string.preferences__linked_devices),
+              icon = painterResource(CoreUiR.drawable.symbol_devices_24),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
+              },
+              enabled = isRegisteredAndUpToDate
+            )
+          }
         }
 
         item {
@@ -314,11 +320,37 @@ private fun AppSettingsContent(
           val donateUrl = stringResource(R.string.donate_url)
 
           Rows.TextRow(
-            text = stringResource(R.string.preferences__donate_to_signal),
-            icon = painterResource(R.drawable.symbol_heart_24),
-            onClick = {
-              CommunicationActions.openBrowserLink(context, donateUrl)
+            text = {
+              Text(
+                text = stringResource(R.string.preferences__donate_to_signal),
+                modifier = Modifier.weight(1f)
+              )
+
+              if (state.hasExpiredGiftBadge) {
+                Icon(
+                  painter = painterResource(R.drawable.symbol_info_fill_24),
+                  tint = colorResource(R.color.signal_accent_primary),
+                  contentDescription = null
+                )
+              }
             },
+            icon = {
+              Icon(
+                painter = painterResource(R.drawable.symbol_heart_24),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface
+              )
+            },
+            onClick = {
+              if (state.allowUserToGoToDonationManagementScreen) {
+                callbacks.navigate(AppSettingsRoute.DonationsRoute.Donations())
+              } else {
+                CommunicationActions.openBrowserLink(context, donateUrl)
+              }
+            },
+            onLongClick = {
+              callbacks.copyDonorBadgeSubscriberIdToClipboard()
+            }
           )
         }
 
@@ -380,27 +412,20 @@ private fun AppSettingsContent(
           )
         }
 
-        item {
-          Rows.TextRow(
-            icon =  SignalIcons.Backup.imageVector,
-            text = stringResource(R.string.preferences_chats__backups),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.BackupsRoute.Backups())
-            },
-            onLongClick = {
-              callbacks.copyRemoteBackupsSubscriberIdToClipboard()
-            },
-          )
-        }
-
-        item {
-          Rows.TextRow(
-            text = stringResource(R.string.preferences__network),
-            icon = painterResource(R.drawable.ic_network_24),
-            onClick = {
-              callbacks.navigate(AppSettingsRoute.DataAndStorageRoute.Proxy)
-            }
-          )
+        if (state.isPrimaryDevice) {
+          item {
+            Rows.TextRow(
+              icon = SignalIcons.Backup.imageVector,
+              text = stringResource(R.string.preferences_chats__backups),
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.BackupsRoute.Backups())
+              },
+              onLongClick = {
+                callbacks.copyRemoteBackupsSubscriberIdToClipboard()
+              },
+              enabled = isRegisteredAndUpToDate
+            )
+          }
         }
 
         item {
@@ -425,6 +450,49 @@ private fun AppSettingsContent(
           }
         }
 
+        if (state.isPrimaryDevice && state.showPayments) {
+          item {
+            Dividers.Default()
+          }
+
+          item {
+            Rows.TextRow(
+              text = {
+                Text(
+                  text = stringResource(R.string.preferences__payments),
+                  modifier = Modifier.weight(1f)
+                )
+
+                if (state.unreadPaymentsCount > 0) {
+                  Text(
+                    text = state.unreadPaymentsCount.toString(),
+                    color = MaterialTheme.colorScheme.inverseOnSurface,
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                      .background(
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = RoundedCornerShape(50)
+                      )
+                      .defaultMinSize(minWidth = 30.dp)
+                      .padding(4.dp)
+                  )
+                }
+              },
+              icon = {
+                Icon(
+                  painter = painterResource(R.drawable.symbol_payment_24),
+                  contentDescription = null,
+                  tint = MaterialTheme.colorScheme.onSurface
+                )
+              },
+              onClick = {
+                callbacks.navigate(AppSettingsRoute.Payments)
+              }
+            )
+          }
+        }
+
         item {
           Dividers.Default()
         }
@@ -435,6 +503,16 @@ private fun AppSettingsContent(
             icon = painterResource(R.drawable.symbol_help_24),
             onClick = {
               callbacks.navigate(AppSettingsRoute.HelpRoute.Settings())
+            }
+          )
+        }
+
+        item {
+          Rows.TextRow(
+            text = stringResource(R.string.AppSettingsFragment__invite_your_friends),
+            icon = painterResource(R.drawable.symbol_invite_24),
+            onClick = {
+              callbacks.navigate(AppSettingsRoute.Invite)
             }
           )
         }
@@ -625,9 +703,12 @@ private fun AppSettingsContentPreview() {
       state = AppSettingsState(
         isPrimaryDevice = true,
         unreadPaymentsCount = 5,
+        hasExpiredGiftBadge = true,
+        allowUserToGoToDonationManagementScreen = true,
         userUnregistered = false,
         clientDeprecated = false,
         showInternalPreferences = true,
+        showPayments = true,
         showAppUpdates = true,
         backupFailureState = BackupFailureState.OUT_OF_STORAGE_SPACE
       ),
@@ -659,9 +740,12 @@ private fun AppSettingsContentUnregisteredPreview() {
       state = AppSettingsState(
         isPrimaryDevice = true,
         unreadPaymentsCount = 5,
+        hasExpiredGiftBadge = true,
+        allowUserToGoToDonationManagementScreen = true,
         userUnregistered = true,
         clientDeprecated = false,
         showInternalPreferences = true,
+        showPayments = true,
         showAppUpdates = true,
         backupFailureState = BackupFailureState.OUT_OF_STORAGE_SPACE
       ),

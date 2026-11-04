@@ -7,23 +7,18 @@ package org.thoughtcrime.securesms.registration.ui.welcome
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.logging.LoggingFragment
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.databinding.FragmentRegistrationWelcomeV3Binding
-import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate.setDebugLogSubmitMultiTapView
 import org.thoughtcrime.securesms.registration.fragments.WelcomePermissions
 import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
@@ -32,7 +27,6 @@ import org.thoughtcrime.securesms.registration.ui.permissions.GrantPermissionsFr
 import org.thoughtcrime.securesms.registration.ui.phonenumber.EnterPhoneNumberMode
 import org.thoughtcrime.securesms.util.BackupUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible
 
@@ -59,7 +53,16 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
     binding.welcomeTransferOrRestore.setOnClickListener { onRestoreOrTransferClicked() }
     binding.welcomeTransferOrRestore.visible = !sharedViewModel.isReregister
 
-    binding.link.setOnClickListener { onLinkDeviceClicked() }
+    if (BuildConfig.LINK_DEVICE_UX_ENABLED) {
+      binding.image.setOnLongClickListener {
+        MaterialAlertDialogBuilder(requireContext())
+          .setMessage("Link device?")
+          .setPositiveButton("Link", { _, _ -> onLinkDeviceClicked() })
+          .setNegativeButton(android.R.string.cancel, null)
+          .show()
+        true
+      }
+    }
 
     childFragmentManager.setFragmentResultListener(RestoreWelcomeBottomSheet.REQUEST_KEY, viewLifecycleOwner) { requestKey, bundle ->
       if (requestKey == RestoreWelcomeBottomSheet.REQUEST_KEY) {
@@ -82,14 +85,6 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
         }
       }
     }
-
-    with(requireActivity() as AppCompatActivity) {
-      setSupportActionBar(binding.toolbar)
-      supportActionBar?.apply {
-        setDisplayShowTitleEnabled(false)
-      }
-      addMenuProvider(UseProxyMenuProvider(), viewLifecycleOwner)
-    }
   }
 
   private fun onLinkDeviceClicked() {
@@ -101,13 +96,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
   }
 
   private fun navigateToLinkDevice() {
-    enableNetwork()
     findNavController().safeNavigate(WelcomeFragmentDirections.goToLinkViaQr())
-  }
-
-  private fun enableNetwork() {
-    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
-    AppDependencies.networkManager.setNetworkEnabled(true)
   }
 
   override fun onResume() {
@@ -152,7 +141,6 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
       WelcomeUserSelection.LINK,
       WelcomeUserSelection.CONTINUE -> throw IllegalArgumentException()
       WelcomeUserSelection.RESTORE_WITH_OLD_PHONE -> {
-        enableNetwork()
         sharedViewModel.intendToRestore(hasOldDevice = true, fromRemote = true)
         findNavController().safeNavigate(WelcomeFragmentDirections.goToRestoreViaQr())
       }
@@ -166,18 +154,5 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
   private fun hasAllPermissions(): Boolean {
     val isUserSelectionRequired = BackupUtil.isUserSelectionRequired(requireContext())
     return WelcomePermissions.getWelcomePermissions(isUserSelectionRequired).all { ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED }
-  }
-
-  private inner class UseProxyMenuProvider : MenuProvider {
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-      menuInflater.inflate(R.menu.enter_phone_number, menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = if (menuItem.itemId == R.id.phone_menu_use_proxy) {
-      NavHostFragment.findNavController(this@WelcomeFragment).safeNavigate(WelcomeFragmentDirections.actionEditProxy())
-      true
-    } else {
-      false
-    }
   }
 }

@@ -14,7 +14,7 @@
         android:layout_height="2dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:background="?attr/signal_icon_tint_tab_unselected"
+        android:background="@color/signal_icon_tint_tab_unselected"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -54,7 +54,7 @@
         android:id="@+id/unpin_all_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurfaceContainer"
+        android:background="@color/signal_colorSurface"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">

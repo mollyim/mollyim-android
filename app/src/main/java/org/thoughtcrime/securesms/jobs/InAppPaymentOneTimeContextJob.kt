@@ -69,12 +69,11 @@ class InAppPaymentOneTimeContextJob private constructor(
             .then(RefreshOwnProfileJob())
             .then(MultiDeviceProfileContentUpdateJob())
         }
-        // MOLLY: TODO
-        // InAppPaymentType.ONE_TIME_GIFT -> {
-        //   AppDependencies.jobManager
-        //     .startChain(create(inAppPayment))
-        //     .then(InAppPaymentGiftSendJob.create(inAppPayment))
-        // }
+        InAppPaymentType.ONE_TIME_GIFT -> {
+          AppDependencies.jobManager
+            .startChain(create(inAppPayment))
+            .then(InAppPaymentGiftSendJob.create(inAppPayment))
+        }
         else -> error("Unsupported type: ${inAppPayment.type}")
       }
     }

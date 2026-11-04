@@ -37,7 +37,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface)
     }
   }
 
@@ -46,7 +46,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
     }
   }
 
@@ -55,7 +55,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
     }
   }
 

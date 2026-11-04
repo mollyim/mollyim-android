@@ -28,8 +28,6 @@ data class RegistrationState(
   val enteredCode: String = "",
   val phoneNumber: Phonenumber.PhoneNumber? = fetchExistingE164FromValues(),
   val nationalNumber: String = "",
-  val linkDeviceName: String? = null,
-  val deviceLinkUrl: String? = null,
   val inProgress: Boolean = false,
   val isReRegister: Boolean = false,
   val recoveryPassword: String? = null,

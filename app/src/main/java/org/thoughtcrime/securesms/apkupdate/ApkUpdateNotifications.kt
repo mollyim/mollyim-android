@@ -5,10 +5,10 @@
 
 package org.thoughtcrime.securesms.apkupdate
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import org.signal.core.util.PendingIntentFlags
@@ -28,15 +28,19 @@ object ApkUpdateNotifications {
    * Note: This is an 'ongoing' notification (i.e. not-user dismissable) and never dismissed programatically. This is because the act of installing the APK
    * will dismiss it for us.
    */
-  fun showInstallPrompt(context: Context, uri: Uri) {
+  @SuppressLint("LaunchActivityFromNotification")
+  fun showInstallPrompt(context: Context, downloadId: Long) {
+    Log.d(TAG, "Showing install prompt. DownloadId: $downloadId")
     ServiceUtil.getNotificationManager(context).cancel(NotificationIds.APK_UPDATE_FAILED_INSTALL)
 
-    // MOLLY: Use legacy install method until LaunchActivityFromNotification is fixed
-    val pendingIntent = PendingIntent.getActivity(
+    val pendingIntent = PendingIntent.getBroadcast(
       context,
-      0,
-      Intent(Intent.ACTION_INSTALL_PACKAGE).setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION).setData(uri),
-      PendingIntentFlags.immutable()
+      1,
+      Intent(context, ApkUpdateNotificationReceiver::class.java).apply {
+        action = ApkUpdateNotificationReceiver.ACTION_INITIATE_INSTALL
+        putExtra(ApkUpdateNotificationReceiver.EXTRA_DOWNLOAD_ID, downloadId)
+      },
+      PendingIntentFlags.updateCurrent()
     )
 
     val notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().APP_UPDATES)
@@ -45,8 +49,6 @@ object ApkUpdateNotifications {
       .setContentText(context.getString(R.string.ApkUpdateNotifications_prompt_install_body))
       .setSmallIcon(R.drawable.ic_notification)
       .setColor(ContextCompat.getColor(context, R.color.notification_background_ultramarine))
-      .setPriority(NotificationCompat.PRIORITY_HIGH)
-      .setCategory(NotificationCompat.CATEGORY_REMINDER)
       .setContentIntent(pendingIntent)
       .build()
 
@@ -79,6 +81,34 @@ object ApkUpdateNotifications {
       .build()
 
     ServiceUtil.getNotificationManager(context).notify(NotificationIds.APK_UPDATE_FAILED_INSTALL, notification)
+  }
+
+  fun showUpdateSuccess(context: Context, userInitiated: Boolean) {
+    val pendingIntent = PendingIntent.getActivity(
+      context,
+      0,
+      Intent(context, MainActivity::class.java),
+      PendingIntentFlags.immutable()
+    )
+
+    val appVersionName = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+
+    val body = if (userInitiated) {
+      context.getString(R.string.ApkUpdateNotifications_manual_update_success_body, appVersionName)
+    } else {
+      context.getString(R.string.ApkUpdateNotifications_auto_update_success_body, appVersionName)
+    }
+
+    val notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().APP_UPDATES)
+      .setContentTitle(context.getString(R.string.ApkUpdateNotifications_auto_update_success_title))
+      .setContentText(body)
+      .setSmallIcon(R.drawable.ic_notification)
+      .setColor(ContextCompat.getColor(context, R.color.notification_background_ultramarine))
+      .setContentIntent(pendingIntent)
+      .setAutoCancel(true)
+      .build()
+
+    ServiceUtil.getNotificationManager(context).notify(NotificationIds.APK_UPDATE_SUCCESSFUL_INSTALL, notification)
   }
 
   enum class FailureReason {

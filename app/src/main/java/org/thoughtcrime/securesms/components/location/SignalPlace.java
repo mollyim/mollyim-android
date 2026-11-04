@@ -16,13 +16,10 @@ import org.thoughtcrime.securesms.maps.AddressData;
 import org.signal.core.util.JsonUtils;
 
 import java.io.IOException;
-import java.util.Locale;
 
 public class SignalPlace {
 
-  private static final String OSM_URL = "https://www.openstreetmap.org/";
-  private static final String GMS_URL = "https://maps.google.com/maps";
-
+  private static final String URL = "https://maps.google.com/maps";
   private static final String TAG = Log.tag(SignalPlace.class);
 
   @JsonProperty
@@ -55,33 +52,22 @@ public class SignalPlace {
 
   @JsonIgnore
   public String getDescription() {
-    final StringBuilder description = new StringBuilder();
+    String description = "";
 
     if (!TextUtils.isEmpty(name)) {
-      description.append(name).append("\n");
+      description += (name + "\n");
     }
 
     if (!TextUtils.isEmpty(address)) {
-      description.append(address).append("\n");
+      description += (address + "\n");
     }
 
-    String lat = String.format(Locale.US, "%.6f", latitude);
-    String lon = String.format(Locale.US, "%.6f", longitude);
+    description += Uri.parse(URL)
+                      .buildUpon()
+                      .appendQueryParameter("q", String.format("%s,%s", latitude, longitude))
+                      .build().toString();
 
-    description.append("\nOpenStreetMap: ")
-               .append(Uri.parse(OSM_URL)
-                          .buildUpon()
-                          .appendQueryParameter("mlat", lat)
-                          .appendQueryParameter("mlon", lon)
-                          .appendQueryParameter("zoom", "16") // Street level zoom
-                          .build().toString())
-               .append("\n\nGoogle Maps: ")
-               .append(Uri.parse(GMS_URL)
-                          .buildUpon()
-                          .appendQueryParameter("q", String.format("%s,%s", lat, lon))
-                          .build().toString());
-
-    return description.toString();
+    return description;
   }
 
   public @Nullable String serialize() {

@@ -7,7 +7,7 @@
       android:icon="@drawable/symbol_search_24"
       android:title="@string/CameraContacts__menu_search"
       app:actionViewClass="org.thoughtcrime.securesms.components.SearchView"
-      app:iconTint="?attr/colorOnSurface"
+      app:iconTint="@color/signal_colorOnSurface"
       app:showAsAction="collapseActionView|always" />
 
 </menu>

@@ -24,6 +24,7 @@ import org.thoughtcrime.securesms.backup.proto.KeyValue;
 import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.backup.proto.SqlStatement;
 import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.ClassicDecryptingPartInputStream;
 import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable;
@@ -81,6 +82,7 @@ public class FullBackupExporter extends FullBackupBase {
   private static final long TABLE_RECORD_COUNT_MULTIPLIER    = 3L;
   private static final long IDENTITY_KEY_BACKUP_RECORD_COUNT = 2L;
   private static final long FINAL_MESSAGE_COUNT              = 1L;
+  private static final long EXPIRATION_BACKUP_THRESHOLD      = TimeUnit.DAYS.toMillis(1);
 
   /**
    * Tables in list will still have their *schema* exported (so the tables will be created),
@@ -535,7 +537,11 @@ public class FullBackupExporter extends FullBackupBase {
   }
 
   private static InputStream openAttachmentStream(@NonNull AttachmentSecret attachmentSecret, @Nullable byte[] random, @NonNull String data) throws IOException {
-    return ModernDecryptingPartInputStream.createFor(attachmentSecret, random, new File(data), 0);
+    if (random != null && random.length == 32) {
+      return ModernDecryptingPartInputStream.createFor(attachmentSecret, random, new File(data), 0);
+    } else {
+      return ClassicDecryptingPartInputStream.createFor(attachmentSecret, new File(data));
+    }
   }
 
   private static int exportKeyValues(@NonNull BackupFrameOutputStream outputStream,
@@ -591,9 +597,23 @@ public class FullBackupExporter extends FullBackupBase {
   }
 
   private static boolean isNonExpiringMessage(@NonNull SQLiteDatabase db, @NonNull Cursor cursor) {
-    // MOLLY: Exclude any message whose expire timer has started regardless of remaining time
-    return CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN) <= 0 ||
-           CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED) <= 0;
+    long id                = CursorUtil.requireLong(cursor, MessageTable.ID);
+    long expireStarted     = CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED);
+    long expiresIn         = CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN);
+    long latestRevisionId  = CursorUtil.requireLong(cursor, MessageTable.LATEST_REVISION_ID);
+
+    long expiresAt     = expireStarted + expiresIn;
+    long timeRemaining = expiresAt - System.currentTimeMillis();
+
+    if (latestRevisionId > 0 && latestRevisionId != id ) {
+      return isForNonExpiringMessage(db, latestRevisionId);
+    }
+
+    if (expireStarted > 0 && timeRemaining <= EXPIRATION_BACKUP_THRESHOLD) {
+      return false;
+    }
+
+    return true;
   }
 
   private static boolean isForNonExpiringMessage(@NonNull SQLiteDatabase db, long messageId) {

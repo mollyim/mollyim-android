@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.migrations;
 
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,7 +10,6 @@ import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 import static org.thoughtcrime.securesms.keyvalue.SettingsValues.THREAD_TRIM_ENABLED;
 import static org.thoughtcrime.securesms.keyvalue.SettingsValues.THREAD_TRIM_LENGTH;
@@ -35,7 +35,7 @@ public class TrimByLengthSettingsMigrationJob extends MigrationJob {
 
   @Override
   void performMigration() throws Exception {
-    SharedPreferences preferences = SecurePreferenceManager.getSecurePreferences(AppDependencies.getApplication());
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AppDependencies.getApplication());
     if (preferences.contains(THREAD_TRIM_ENABLED)) {
       SignalStore.settings().setThreadTrimByLengthEnabled(preferences.getBoolean(THREAD_TRIM_ENABLED, false));
       //noinspection ConstantConditions

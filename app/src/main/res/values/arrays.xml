@@ -285,18 +285,6 @@
 
   <string-array name="pref_media_download_roaming_default" />
 
-  <string-array name="pref_passphrase_lock_trigger_entries">
-      <item>timeout</item>
-  </string-array>
-
-  <string-array name="pref_passphrase_lock_trigger_values">
-      <item>@string/arrays__on_inactivity_timeout</item>
-  </string-array>
-
-  <string-array name="pref_passphrase_lock_trigger_default">
-      <item>timeout</item>
-  </string-array>
-
     <!-- RedPhone -->
 
     <integer-array name="conversation_length_limit">
@@ -344,11 +332,6 @@
         <item>@string/MediaOverviewActivity_Newest</item>
         <item>@string/MediaOverviewActivity_Oldest</item>
         <item>@string/MediaOverviewActivity_Storage_used</item>
-    </string-array>
-
-    <string-array name="backup_intervals">
-        <item>@string/arrays__daily</item>
-        <item>@string/arrays__weekly</item>
     </string-array>
 
     <string-array name="ExpireTimerSettingsFragment__labels">

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Cuileáil na hathruithe?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Ceadaigh rochtain ar do mhicreafón</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Ceadaigh do Molly rochtain a fháil ar an gceamara chun grianghraif agus físeáin a ghabháil.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Ceadaigh do Signal rochtain a fháil ar an gceamara chun grianghraif agus físeáin a ghabháil.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Ceadaigh do Molly rochtain a fháil ar an gceamara agus ar an micreafón chun grianghraif agus físeáin a ghabháil.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Ceadaigh do Signal rochtain a fháil ar an gceamara agus ar an micreafón chun grianghraif agus físeáin a ghabháil.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Ceadaigh do Molly rochtain a fháil ar do mhicreafón chun físeáin le fuaim a ghabháil.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Ceadaigh do Signal rochtain a fháil ar do mhicreafón chun físeáin le fuaim a ghabháil.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Ceadaigh do Molly rochtain a fháil ar an gceamara chun cód QR a scanadh.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Ceadaigh do Signal rochtain a fháil ar an gceamara chun cód QR a scanadh.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Teastaíonn rochtain ar an gceamara ó Molly chun grianghraif a ghabháil</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Teastaíonn rochtain ar an gceamara ó Signal chun grianghraif a ghabháil</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Teastaíonn rochtain ar an gceamara ó Molly chun cóid QR a scanadh</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Teastaíonn rochtain ar an gceamara ó Signal chun cóid QR a scanadh</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Teastaíonn rochtain ar an micreafón ó Molly chun físeáin a ghabháil</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Teastaíonn rochtain ar an micreafón ó Signal chun físeáin a ghabháil</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Chun grianghraif a ghabháil in Molly:</string>
+  <string name="CameraXFragment_to_capture_photos">Chun grianghraif a ghabháil in Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Chun grianghraif agus físeáin a ghabháil in Molly:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Chun grianghraif agus físeáin a ghabháil in Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Chun físeáin le fuaim a ghabháil:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Seol</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Molly chun físeáin a thaifeadadh, ach diúltaíodh dóibh. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Tá ceadanna micreafóin de dhíth ar Signal chun físeáin a thaifeadadh, ach diúltaíodh dóibh. Lean ar aghaidh chuig socruithe na haipe, roghnaigh \"Ceadanna\", agus cumasaigh \"Micreafón\" agus \"Ceamara\".</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Earráid le físeán a thaifeadadh</string>

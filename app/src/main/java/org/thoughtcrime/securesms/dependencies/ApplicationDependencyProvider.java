@@ -85,14 +85,12 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository;
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
 import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor;
-import org.thoughtcrime.securesms.net.NetworkManager;
-import org.thoughtcrime.securesms.net.NetworkProxyKt;
-import org.thoughtcrime.securesms.net.Networking;
-import org.thoughtcrime.securesms.net.ProxyConfig;
 import org.thoughtcrime.securesms.net.SignalWebSocketHealthMonitor;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.OptimizedMessageNotifier;
+import org.thoughtcrime.securesms.payments.MobileCoinConfig;
+import org.thoughtcrime.securesms.payments.Payments;
 import org.thoughtcrime.securesms.push.SecurityEventListener;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
@@ -106,6 +104,7 @@ import org.thoughtcrime.securesms.service.PinnedMessageManager;
 import org.thoughtcrime.securesms.service.ScheduledMessageManager;
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager;
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
+import org.thoughtcrime.securesms.shakereport.ShakeToReport;
 import org.thoughtcrime.securesms.stories.Stories;
 import org.thoughtcrime.securesms.util.AlarmSleepTimer;
 import org.thoughtcrime.securesms.util.EarlyMessageCache;
@@ -238,11 +237,6 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull NetworkManager provideNetworkManager() {
-    return NetworkManager.create(context);
-  }
-
-  @Override
   public @NonNull LiveRecipientCache provideRecipientCache() {
     return new LiveRecipientCache(context);
   }
@@ -338,13 +332,9 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
   }
 
   @Override
-  public @NonNull Network provideLibsignalNetwork(@NonNull SignalServiceConfiguration config, @NonNull NetworkProxyState proxyState) {
+  public @NonNull Network provideLibsignalNetwork(@NonNull SignalServiceConfiguration config) {
     Network network = new Network(BuildConfig.LIBSIGNAL_NET_ENV, StandardUserAgentInterceptor.USER_AGENT, RemoteConfig.getLibsignalConfigs(), Network.BuildVariant.PRODUCTION);
     LibSignalNetworkExtensions.applyConfiguration(network, config);
-
-    ProxyConfig proxyConfig = NetworkProxyKt.resolveProxyConfig();
-    NetworkProxyKt.configureProxy(network, proxyConfig);
-    proxyState.update(proxyConfig);
 
     return network;
   }
@@ -364,6 +354,23 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
     return new DatabaseObserver();
   }
 
+  @SuppressWarnings("ConstantConditions")
+  @Override
+  public @NonNull Payments providePayments(@NonNull PaymentsApi paymentsApi) {
+    MobileCoinConfig network;
+
+    if      (BuildConfig.MOBILE_COIN_ENVIRONMENT.equals("mainnet")) network = MobileCoinConfig.getMainNet(paymentsApi);
+    else if (BuildConfig.MOBILE_COIN_ENVIRONMENT.equals("testnet")) network = MobileCoinConfig.getTestNet(paymentsApi);
+    else throw new AssertionError("Unknown network " + BuildConfig.MOBILE_COIN_ENVIRONMENT);
+
+    return new Payments(network);
+  }
+
+  @Override
+  public @NonNull ShakeToReport provideShakeToReport() {
+    return new ShakeToReport(context);
+  }
+
   @Override
   public @NonNull SignalCallManager provideSignalCallManager() {
     return new SignalCallManager(context);
@@ -381,7 +388,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull SignalWebSocket.AuthenticatedWebSocket provideAuthWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<Network> libSignalNetworkSupplier) {
-    SleepTimer                   sleepTimer    = !SignalStore.account().isPushAvailable() || SignalStore.settings().getForceWebsocketMode().isEnabled() ? new AlarmSleepTimer(context) : new UptimeSleepTimer();
+    SleepTimer                   sleepTimer    = !SignalStore.account().isFcmEnabled() || SignalStore.settings().getForceWebsocketMode().isEnabled() ? new AlarmSleepTimer(context) : new UptimeSleepTimer();
     SignalWebSocketHealthMonitor healthMonitor = new SignalWebSocketHealthMonitor(sleepTimer, true);
 
     WebSocketFactory authFactory = () -> {
@@ -414,7 +421,7 @@ public class ApplicationDependencyProvider implements AppDependencies.Provider {
 
   @Override
   public @NonNull SignalWebSocket.UnauthenticatedWebSocket provideUnauthWebSocket(@NonNull Supplier<SignalServiceConfiguration> signalServiceConfigurationSupplier, @NonNull Supplier<Network> libSignalNetworkSupplier) {
-    SleepTimer                   sleepTimer    = !SignalStore.account().isPushAvailable() || SignalStore.settings().getForceWebsocketMode().isEnabled() ? new AlarmSleepTimer(context) : new UptimeSleepTimer();
+    SleepTimer                   sleepTimer    = !SignalStore.account().isFcmEnabled() || SignalStore.settings().getForceWebsocketMode().isEnabled() ? new AlarmSleepTimer(context) : new UptimeSleepTimer();
     SignalWebSocketHealthMonitor healthMonitor = new SignalWebSocketHealthMonitor(sleepTimer, false);
 
     WebSocketFactory unauthFactory = () -> {

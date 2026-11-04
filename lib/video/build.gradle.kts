@@ -12,7 +12,6 @@ dependencies {
   implementation(libs.google.guava.android)
   implementation(libs.androidx.media3.ui)
   implementation(libs.androidx.media3.exoplayer)
-  api(libs.material.material)
 
   implementation(libs.bundles.mp4parser) {
     exclude(group = "junit", module = "junit")

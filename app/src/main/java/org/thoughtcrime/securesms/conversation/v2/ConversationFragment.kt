@@ -83,7 +83,6 @@ import androidx.recyclerview.widget.ConversationLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.R as MaterialR
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -135,6 +134,7 @@ import org.signal.core.util.orNull
 import org.signal.core.util.requireDrawable
 import org.signal.core.util.requireParcelableCompat
 import org.signal.core.util.setActionItemTint
+import org.signal.donations.InAppPaymentType
 import org.signal.ringrtc.CallLinkRootKey
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.MainActivity
@@ -144,6 +144,10 @@ import org.thoughtcrime.securesms.attachments.AttachmentSaver
 import org.thoughtcrime.securesms.audio.AudioRecorder
 import org.thoughtcrime.securesms.backup.v2.ui.subscription.BackupUpgradeAvailabilityChecker
 import org.thoughtcrime.securesms.backup.v2.ui.warning.guardAgainstRecoveryKeyPaste
+import org.thoughtcrime.securesms.badges.gifts.OpenableGift
+import org.thoughtcrime.securesms.badges.gifts.OpenableGiftItemDecoration
+import org.thoughtcrime.securesms.badges.gifts.viewgift.received.ViewReceivedGiftBottomSheet
+import org.thoughtcrime.securesms.badges.gifts.viewgift.sent.ViewSentGiftBottomSheet
 import org.thoughtcrime.securesms.billing.upgrade.UpgradeToStartMediaBackupSheet
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
 import org.thoughtcrime.securesms.components.AnimatingToggle
@@ -169,6 +173,8 @@ import org.thoughtcrime.securesms.components.mention.MentionAnnotation
 import org.thoughtcrime.securesms.components.menu.ActionItem
 import org.thoughtcrime.securesms.components.menu.SignalBottomActionBar
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.CheckoutFlowActivity
+import org.thoughtcrime.securesms.components.settings.app.subscription.donate.DonateToSignalFragment
 import org.thoughtcrime.securesms.components.snackbars.makeSnackbar
 import org.thoughtcrime.securesms.components.spoiler.SpoilerAnnotation
 import org.thoughtcrime.securesms.components.voice.VoiceNoteDraft
@@ -314,6 +320,7 @@ import org.thoughtcrime.securesms.mms.StickerSlide
 import org.thoughtcrime.securesms.mms.VideoSlide
 import org.thoughtcrime.securesms.nicknames.NicknameActivity
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
+import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity
 import org.thoughtcrime.securesms.polls.Poll
 import org.thoughtcrime.securesms.polls.PollOption
 import org.thoughtcrime.securesms.polls.PollRecord
@@ -346,7 +353,6 @@ import org.thoughtcrime.securesms.util.BubbleUtil
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.DateUtils
-import org.thoughtcrime.securesms.util.DateUtils.is24HourFormat
 import org.thoughtcrime.securesms.util.DeleteDialog
 import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.DoubleClickDebouncer
@@ -370,6 +376,7 @@ import org.thoughtcrime.securesms.util.getPoll
 import org.thoughtcrime.securesms.util.getQuote
 import org.thoughtcrime.securesms.util.getRecordQuoteType
 import org.thoughtcrime.securesms.util.hasAudio
+import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.hasLinkPreview
 import org.thoughtcrime.securesms.util.hasNonTextSlide
 import org.thoughtcrime.securesms.util.isValidReactionTarget
@@ -452,6 +459,10 @@ class ConversationFragment :
 
   private val messageRequestRepository: MessageRequestRepository by lazy {
     MessageRequestRepository(requireContext())
+  }
+
+  private val checkoutLauncher by lazy {
+    registerForActivityResult(CheckoutFlowActivity.Contract()) {}
   }
 
   private val disposables = LifecycleDisposable()
@@ -565,6 +576,7 @@ class ConversationFragment :
   private lateinit var recyclerViewColorizer: RecyclerViewColorizer
   private lateinit var attachmentManager: AttachmentManager
   private lateinit var multiselectItemDecoration: MultiselectItemDecoration
+  private lateinit var openableGiftItemDecoration: OpenableGiftItemDecoration
   private lateinit var conversationHeaderPositionDecoration: ConversationHeaderPositionDecoration
   private lateinit var conversationItemDecorations: ConversationItemDecorations
   private lateinit var optionsMenuCallback: ConversationOptionsMenuCallback
@@ -793,15 +805,9 @@ class ConversationFragment :
     outState.putBoolean(SAVED_STATE_IS_SEARCH_REQUESTED, isSearchRequested)
   }
 
-  private var previous24HourFormat: Boolean? = null
-
   override fun onStart() {
     super.onStart()
-    val current24HourFormat = requireContext().is24HourFormat()
-    if (current24HourFormat != previous24HourFormat) {
-      recomputeMessageDates(forceUpdate = true)
-      previous24HourFormat = current24HourFormat
-    }
+    recomputeMessageDates(forceUpdate = true)
   }
 
   override fun onResume() {
@@ -1602,7 +1608,7 @@ class ConversationFragment :
       inputReadyState.isActiveGroup == false -> disabledInputView.showAsNoLongerAMember()
       inputReadyState.isAnnouncementGroup == true && inputReadyState.isAdmin == false -> disabledInputView.showAsAnnouncementGroupAdminsOnly()
       isReleaseNotes -> Unit
-      inputReadyState.shouldShowInviteToSignal() -> disabledInputView.showAsInviteToSignal(requireContext(), inputReadyState.conversationRecipient)
+      inputReadyState.shouldShowInviteToSignal() -> disabledInputView.showAsInviteToSignal(requireContext(), inputReadyState.conversationRecipient, inputReadyState.threadContainsSms)
       else -> inputDisabled = false
     }
 
@@ -1814,9 +1820,9 @@ class ConversationFragment :
     if (!resources.isSplitPane() || isFullScreenPane) {
       binding.toolbar.setNavigationIcon(CoreUiR.drawable.symbol_arrow_start_24)
       binding.toolbar.navigationIcon?.setTint(
-        ThemeUtil.getThemedColor(
+        ContextCompat.getColor(
           requireContext(),
-          if (viewModel.wallpaperSnapshot != null) CoreUiR.color.signal_colorNeutralInverse else MaterialR.attr.colorOnSurfaceVariant
+          if (viewModel.wallpaperSnapshot != null) CoreUiR.color.signal_colorNeutralInverse else CoreUiR.color.signal_colorOnSurface
         )
       )
       binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_back_button)
@@ -1840,7 +1846,7 @@ class ConversationFragment :
   private fun presentNavigationIconForBubble() {
     binding.toolbar.navigationIcon = DrawableUtil.tint(
       requireContext().requireDrawable(R.drawable.ic_notification),
-      ThemeUtil.getThemedColor(requireContext(), R.attr.signal_accent_primary)
+      ContextCompat.getColor(requireContext(), R.color.signal_accent_primary)
     )
 
     binding.toolbar.setNavigationContentDescription(R.string.ConversationFragment__content_description_launch_signal_button)
@@ -1900,12 +1906,12 @@ class ConversationFragment :
 
     val wallpaperEnabled = chatWallpaper != null || recipient.isReleaseNotes
 
-    val toolbarTint = ThemeUtil.getThemedColor(
+    val toolbarTint = ContextCompat.getColor(
       requireContext(),
       if (wallpaperEnabled) {
         CoreUiR.color.signal_colorNeutralInverse
       } else {
-        MaterialR.attr.colorOnSurface
+        CoreUiR.color.signal_colorOnSurface
       }
     )
 
@@ -1931,9 +1937,9 @@ class ConversationFragment :
     )
 
     binding.scrollDateHeader.setTextColor(
-      ThemeUtil.getThemedColor(
+      ContextCompat.getColor(
         requireContext(),
-        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else MaterialR.attr.colorOnSurfaceVariant
+        if (wallpaperEnabled) R.color.sticky_header_foreground_wallpaper else CoreUiR.color.signal_colorOnSurfaceVariant
       )
     )
 
@@ -1973,10 +1979,10 @@ class ConversationFragment :
     val navColor = if (hasWallpaper) {
       R.color.conversation_navigation_wallpaper
     } else {
-      MaterialR.attr.colorSurface
+      CoreUiR.color.signal_colorBackground
     }
 
-    binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), navColor))
+    binding.navBar.setBackgroundColor(ContextCompat.getColor(requireContext(), navColor))
   }
 
   private fun presentChatColors(chatColors: ChatColors) {
@@ -2290,6 +2296,9 @@ class ConversationFragment :
       requireContext()
     ) { viewModel.wallpaperSnapshot }
 
+    openableGiftItemDecoration = OpenableGiftItemDecoration(requireContext())
+    binding.conversationItemRecycler.addItemDecoration(openableGiftItemDecoration)
+
     binding.conversationItemRecycler.addItemDecoration(multiselectItemDecoration)
     viewLifecycleOwner.lifecycle.addObserver(multiselectItemDecoration)
 
@@ -2384,6 +2393,7 @@ class ConversationFragment :
 
   private fun initializeMediaKeyboard() {
     val keyboardMode: TextSecurePreferences.MediaKeyboardMode = TextSecurePreferences.getMediaKeyboardMode(requireContext())
+    val stickerIntro: Boolean = !TextSecurePreferences.hasSeenStickerIntroTooltip(requireContext())
 
     keyboardPagerViewModel.resetPages()
     inputPanel.showMediaKeyboardToggle(true)
@@ -2396,6 +2406,14 @@ class ConversationFragment :
 
     inputPanel.setMediaKeyboardToggleMode(keyboardPage)
     keyboardPagerViewModel.switchToPage(keyboardPage)
+
+    if (stickerIntro) {
+      TextSecurePreferences.setMediaKeyboardMode(requireContext(), TextSecurePreferences.MediaKeyboardMode.STICKER)
+      inputPanel.setMediaKeyboardToggleMode(KeyboardPage.STICKER)
+      conversationTooltips.displayStickerIntroductionTooltip(inputPanel.mediaKeyboardToggleAnchorView) {
+        EventBus.getDefault().removeStickyEvent(StickerPackInstallEvent::class.java)
+      }
+    }
   }
 
   private fun initializeStickerSuggestions() {
@@ -2844,6 +2862,18 @@ class ConversationFragment :
     }
   }
 
+  private fun isUnopenedGift(itemView: View, messageRecord: MessageRecord): Boolean {
+    if (itemView is OpenableGift) {
+      val projection = (itemView as OpenableGift).getOpenableGiftProjection(false)
+      if (projection != null) {
+        projection.release()
+        return !openableGiftItemDecoration.hasOpenedGiftThisSession(messageRecord.id)
+      }
+    }
+
+    return false
+  }
+
   private fun clearFocusedItem() {
     multiselectItemDecoration.setFocusedItem(null)
     binding.conversationItemRecycler.invalidateItemDecorations()
@@ -3070,6 +3100,18 @@ class ConversationFragment :
     val parts = conversationMessage.multiselectCollection.toSet()
     parts.forEach { adapter.toggleSelection(it) }
     startActionMode()
+  }
+
+  private fun handleViewPaymentDetails(conversationMessage: ConversationMessage) {
+    val record: MmsMessageRecord = conversationMessage.messageRecord as? MmsMessageRecord ?: return
+    val payment = record.payment
+    if (payment == null || record.isPaymentTombstone) {
+      showPaymentTombstoneLearnMoreDialog()
+      return
+    }
+    if (record.isPaymentNotification) {
+      startActivity(PaymentsActivity.navigateToPaymentDetails(requireContext(), payment.uuid))
+    }
   }
 
   private fun showPaymentTombstoneLearnMoreDialog() {
@@ -3615,6 +3657,10 @@ class ConversationFragment :
       DoubleTapEditEducationSheet(conversationMessage).show(childFragmentManager, DoubleTapEditEducationSheet.KEY)
     }
 
+    override fun onPaymentTombstoneClicked() {
+      this@ConversationFragment.showPaymentTombstoneLearnMoreDialog()
+    }
+
     override fun onDisplayMediaNoLongerAvailableSheet() {
       viewLifecycleOwner.lifecycleScope.launch {
         val isUpgradeAvailable = BackupUpgradeAvailabilityChecker.isUpgradeAvailable(requireContext())
@@ -3815,7 +3861,7 @@ class ConversationFragment :
 
     override fun onCallToAction(action: String) {
       when (action) {
-        "gift_badge" -> Unit  // MOLLY: No action
+        "gift_badge" -> checkoutLauncher.launch(InAppPaymentType.ONE_TIME_GIFT)
         "username_edit" -> startActivity(EditProfileActivity.getIntentForUsernameEdit(requireContext()))
         "calls_tab" -> startActivity(MainActivity.clearTopAndOpenTab(requireContext(), MainNavigationListLocation.CALLS))
         "chat_folder" -> startActivity(AppSettingsActivity.chatFolders(requireContext()))
@@ -3830,6 +3876,11 @@ class ConversationFragment :
     }
 
     override fun onDonateClicked() {
+      requireActivity()
+        .supportFragmentManager
+        .beginTransaction()
+        .add(DonateToSignalFragment.Dialog.create(InAppPaymentType.ONE_TIME_DONATION), "one_time_nav")
+        .commitNow()
     }
 
     override fun onBlockJoinRequest(recipient: Recipient) {
@@ -3865,10 +3916,36 @@ class ConversationFragment :
       )
     }
 
+    override fun onActivatePaymentsClicked() {
+      startActivity(Intent(requireContext(), PaymentsActivity::class.java))
+    }
+
+    override fun onSendPaymentClicked(recipientId: RecipientId) {
+      val recipient = viewModel.recipientSnapshot ?: return
+      AttachmentManager.selectPayment(this@ConversationFragment, recipient)
+    }
+
     override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
 
     override fun onUrlClicked(url: String): Boolean {
-      return CommunicationActions.handlePotentialGroupLinkUrl(requireActivity(), url)
+      return CommunicationActions.handlePotentialGroupLinkUrl(requireActivity(), url) ||
+        CommunicationActions.handlePotentialProxyLinkUrl(requireActivity(), url)
+    }
+
+    override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) {
+      if (!messageRecord.hasGiftBadge()) {
+        return
+      }
+
+      if (messageRecord.isOutgoing) {
+        ViewSentGiftBottomSheet.show(childFragmentManager, (messageRecord as MmsMessageRecord))
+      } else {
+        ViewReceivedGiftBottomSheet.show(childFragmentManager, (messageRecord as MmsMessageRecord))
+      }
+    }
+
+    override fun onGiftBadgeRevealed(messageRecord: MessageRecord) {
+      viewModel.markGiftBadgeRevealed(messageRecord)
     }
 
     override fun goToMediaPreview(parent: ConversationItem, sharedElement: View, args: MediaIntentFactory.MediaPreviewArgs) {
@@ -3957,6 +4034,10 @@ class ConversationFragment :
 
       val messageRecord = item.getMessageRecord()
       val recipient = viewModel.recipientSnapshot ?: return
+
+      if (isUnopenedGift(itemView, messageRecord)) {
+        return
+      }
 
       if (messageRecord.isValidReactionTarget() &&
         !recipient.isBlocked &&
@@ -4217,12 +4298,12 @@ class ConversationFragment :
         }
       }
 
-      val toolbarTextAndIconColor = ThemeUtil.getThemedColor(
+      val toolbarTextAndIconColor = ContextCompat.getColor(
         requireContext(),
         if (viewModel.wallpaperSnapshot != null) {
           CoreUiR.color.signal_colorNeutralInverse
         } else {
-          MaterialR.attr.colorOnSurface
+          CoreUiR.color.signal_colorOnSurface
         }
       )
 
@@ -4439,6 +4520,7 @@ class ConversationFragment :
         ConversationReactionOverlay.Action.DOWNLOAD -> handleSaveAttachment(conversationMessage.messageRecord as MmsMessageRecord)
         ConversationReactionOverlay.Action.COPY -> handleCopyMessage(conversationMessage.multiselectCollection.toSet())
         ConversationReactionOverlay.Action.MULTISELECT -> handleEnterMultiselect(conversationMessage)
+        ConversationReactionOverlay.Action.PAYMENT_DETAILS -> handleViewPaymentDetails(conversationMessage)
         ConversationReactionOverlay.Action.VIEW_INFO -> handleDisplayDetails(conversationMessage)
         ConversationReactionOverlay.Action.DELETE -> handleDeleteMessages(conversationMessage.multiselectCollection.toSet())
         ConversationReactionOverlay.Action.END_POLL -> handleEndPoll(conversationMessage.messageRecord.getPoll()?.id)
@@ -5064,6 +5146,8 @@ class ConversationFragment :
 
           AttachmentKeyboardButton.LOCATION -> conversationActivityResultContracts.launchSelectLocation(recipient.chatColors)
 
+          AttachmentKeyboardButton.PAYMENT -> AttachmentManager.selectPayment(this@ConversationFragment, recipient)
+
           AttachmentKeyboardButton.FILE -> {
             if (!conversationActivityResultContracts.launchSelectFile()) {
               toast(R.string.AttachmentManager_cant_open_media_selection, Toast.LENGTH_LONG)
@@ -5100,9 +5184,9 @@ class ConversationFragment :
       when (fragmentCreatorId) {
         ATTACHMENT_KEYBOARD_FRAGMENT_CREATOR_ID -> {
           if (viewModel.recipientSnapshot?.wallpaper != null) {
-            binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), R.color.wallpaper_compose_background))
+            binding.navBar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.wallpaper_compose_background))
           } else {
-            binding.navBar.setBackgroundColor(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_background_primary))
+            binding.navBar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.signal_background_primary))
           }
         }
 
@@ -5157,6 +5241,10 @@ class ConversationFragment :
   @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
   fun onStickerPackInstalled(event: StickerPackInstallEvent?) {
     if (event == null) {
+      return
+    }
+
+    if (!TextSecurePreferences.hasSeenStickerIntroTooltip(requireContext())) {
       return
     }
 

@@ -56,13 +56,9 @@ public class ChatWallpaperPreviewActivity extends PassphraseRequiredActivity {
   }
 
   @Override
-  protected void onPreCreate() {
-    super.onPreCreate();
-    dynamicTheme.onCreate(this);
-  }
-
-  @Override
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
+    dynamicTheme.onCreate(this);
+
     setContentView(R.layout.chat_wallpaper_preview_activity);
 
     adapter       = new ChatWallpaperPreviewAdapter();

@@ -16,7 +16,11 @@
  */
 package org.thoughtcrime.securesms;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
@@ -32,23 +36,43 @@ public abstract class PassphraseActivity extends BaseActivity {
 
   private static final String TAG = Log.tag(PassphraseActivity.class);
 
-  public void setMasterSecret(final MasterSecret masterSecret) {
-    KeyCachingService.setMasterSecret(masterSecret);
-    startService(new Intent(this, KeyCachingService.class));
+  private KeyCachingService keyCachingService;
+  private MasterSecret masterSecret;
 
-    ApplicationContext.getInstance(this).onUnlock();
+  protected void setMasterSecret(MasterSecret masterSecret) {
+    this.masterSecret = masterSecret;
+    Intent bindIntent = new Intent(this, KeyCachingService.class);
+    startService(bindIntent);
+    bindService(bindIntent, serviceConnection, Context.BIND_AUTO_CREATE);
   }
 
-  void launchRoutedActivity() {
-    Intent nextIntent = getIntent().getParcelableExtra("next_intent");
-    if (nextIntent != null) {
-      try {
-        nextIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(nextIntent);
-      } catch (java.lang.SecurityException e) {
-        Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
+  protected abstract void cleanup();
+
+  private ServiceConnection serviceConnection = new ServiceConnection() {
+      @Override
+      public void onServiceConnected(ComponentName className, IBinder service) {
+        keyCachingService = ((KeyCachingService.KeySetBinder)service).getService();
+        keyCachingService.setMasterSecret(masterSecret);
+
+        PassphraseActivity.this.unbindService(PassphraseActivity.this.serviceConnection);
+
+        masterSecret = null;
+        cleanup();
+
+        Intent nextIntent = getIntent().getParcelableExtra("next_intent");
+        if (nextIntent != null) {
+            try {
+                startActivity(nextIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            } catch (java.lang.SecurityException e) {
+                Log.w(TAG, "Access permission not passed from PassphraseActivity, retry sharing.");
+            }
+        }
+        finish();
       }
-      finish();
-    }
-  }
+      @Override
+      public void onServiceDisconnected(ComponentName name) {
+        keyCachingService = null;
+      }
+  };
 }

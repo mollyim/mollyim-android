@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:viewBindingIgnore="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:navigationIcon="@drawable/symbol_arrow_start_24"
+      app:title="@string/preferences_use_proxy" />
+
+  <TextView
+      android:id="@+id/edit_proxy_switch_title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/preferences_use_proxy"
+      style="@style/Signal.Text.Body"
+      android:layout_marginHorizontal="16dp"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/edit_proxy_switch"/>
+
+  <org.thoughtcrime.securesms.util.views.LearnMoreTextView
+      android:id="@+id/edit_proxy_switch_title_description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/preferences_only_use_a_proxy_if"
+      style="@style/Signal.Text.Preview"
+      android:textColor="@color/signal_text_secondary"
+      android:layout_marginStart="16dp"
+      app:layout_constraintTop_toBottomOf="@id/edit_proxy_switch_title"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/edit_proxy_switch"/>
+
+  <com.google.android.material.materialswitch.MaterialSwitch
+      style="@style/Widget.Signal.CompoundButton.MaterialSwitch"
+      android:id="@+id/edit_proxy_switch"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/edit_proxy_switch_title"
+      app:layout_constraintBottom_toBottomOf="@id/edit_proxy_switch_title_description"/>
+
+  <TextView
+      android:id="@+id/edit_proxy_address_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="25dp"
+      android:layout_marginHorizontal="16dp"
+      style="@style/Signal.Text.Preview"
+      android:fontFamily="sans-serif-medium"
+      android:textColor="@color/signal_accent_primary"
+      android:text="@string/preferences_proxy_address"
+      app:layout_constraintTop_toBottomOf="@id/edit_proxy_switch_title_description"/>
+
+  <EditText
+      android:id="@+id/edit_proxy_host"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/preferences_enter_proxy_address"
+      android:inputType="textUri"
+      android:layout_marginHorizontal="16dp"
+      app:layout_constraintTop_toBottomOf="@id/edit_proxy_address_title"
+      tools:hint="https://proxy.parker.org"/>
+
+  <TextView
+      android:id="@+id/edit_proxy_status"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:layout_marginHorizontal="16dp"
+      style="@style/Signal.Text.Caption"
+      app:layout_constraintTop_toBottomOf="@id/edit_proxy_host"
+      tools:text="@string/preferences_connected_to_proxy"/>
+
+  <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/edit_proxy_share"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="19dp"
+      android:layout_marginHorizontal="16dp"
+      style="@style/Signal.Text.Body"
+      android:text="@string/preferences_share"
+      app:drawableStartCompat="@drawable/symbol_share_android_24"
+      app:drawableTint="@color/signal_text_primary"
+      android:drawablePadding="10dp"
+      android:paddingStart="13dp"
+      android:paddingEnd="13dp"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:background="?selectableItemBackground"
+      app:layout_constraintTop_toBottomOf="@id/edit_proxy_status"
+      app:layout_constraintStart_toStartOf="parent" />
+
+  <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
+      android:id="@+id/edit_proxy_save"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_marginEnd="32dp"
+      android:layout_marginBottom="32dp"
+      android:textColor="@color/white"
+      android:text="@string/preferences_save"
+      app:cornerRadius="80dp"
+      app:elevation="4dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:circularProgressMaterialButton__label="@string/preferences_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

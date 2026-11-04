@@ -9,7 +9,10 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import org.thoughtcrime.securesms.jobs.BackupMessagesJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import java.time.ZonedDateTime
+import org.thoughtcrime.securesms.util.toMillis
+import org.thoughtcrime.securesms.util.toOffset
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.Random
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.minutes
@@ -48,7 +51,7 @@ class MessageBackupListener : PersistentAlarmManagerListener() {
 
     @VisibleForTesting
     @JvmStatic
-    fun getNextDailyBackupTimeFromNowWithJitter(now: ZonedDateTime, hour: Int, minute: Int, maxJitterSeconds: Int, randomSource: Random = Random()): ZonedDateTime {
+    fun getNextDailyBackupTimeFromNowWithJitter(now: LocalDateTime, hour: Int, minute: Int, maxJitterSeconds: Int, randomSource: Random = Random()): LocalDateTime {
       var next = now.withHour(hour).withMinute(minute).withSecond(0)
 
       val endOfJitterWindowForNow = now.plusSeconds(maxJitterSeconds.toLong() / 2)
@@ -61,11 +64,11 @@ class MessageBackupListener : PersistentAlarmManagerListener() {
     }
 
     @VisibleForTesting
-    fun setNextBackupTimeToIntervalFromNow(now: ZonedDateTime = ZonedDateTime.now(), maxJitterSeconds: Int = BACKUP_JITTER_WINDOW_SECONDS, randomSource: Random = Random()): Long {
+    fun setNextBackupTimeToIntervalFromNow(zoneId: ZoneId = ZoneId.systemDefault(), now: LocalDateTime = LocalDateTime.now(zoneId), maxJitterSeconds: Int = BACKUP_JITTER_WINDOW_SECONDS, randomSource: Random = Random()): Long {
       val hour = SignalStore.settings.signalBackupHour
       val minute = SignalStore.settings.signalBackupMinute
       val next = getNextDailyBackupTimeFromNowWithJitter(now, hour, minute, maxJitterSeconds, randomSource)
-      val nextTime = next.toInstant().toEpochMilli()
+      val nextTime = next.toMillis(zoneId.toOffset())
       SignalStore.backup.nextBackupTime = nextTime
       return nextTime
     }

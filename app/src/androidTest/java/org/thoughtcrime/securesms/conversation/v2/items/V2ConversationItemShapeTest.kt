@@ -311,9 +311,17 @@ class V2ConversationItemShapeTest {
 
     override fun onInviteToSignalClicked() = Unit
 
+    override fun onActivatePaymentsClicked() = Unit
+
+    override fun onSendPaymentClicked(recipientId: RecipientId) = Unit
+
     override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
 
     override fun onUrlClicked(url: String): Boolean = false
+
+    override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) = Unit
+
+    override fun onGiftBadgeRevealed(messageRecord: MessageRecord) = Unit
 
     override fun goToMediaPreview(parent: ConversationItem?, sharedElement: View?, args: MediaIntentFactory.MediaPreviewArgs?) = Unit
 

@@ -116,7 +116,7 @@ class RemoteMegaphoneTable(context: Context, databaseHelper: SignalDatabase) : D
     val records: List<RemoteMegaphoneRecord> = readableDatabase
       .select()
       .from(TABLE_NAME)
-      .where("$FINISHED_AT = ? AND $MINIMUM_VERSION <= ? AND ($DONT_SHOW_AFTER > ? AND $DONT_SHOW_BEFORE < ?)", 0, BuildConfig.SIGNAL_CANONICAL_VERSION_CODE, now, now)
+      .where("$FINISHED_AT = ? AND $MINIMUM_VERSION <= ? AND ($DONT_SHOW_AFTER > ? AND $DONT_SHOW_BEFORE < ?)", 0, BuildConfig.CANONICAL_VERSION_CODE, now, now)
       .orderBy("$PRIORITY DESC")
       .run()
       .readToList { it.toRemoteMegaphoneRecord() }

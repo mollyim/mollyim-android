@@ -58,7 +58,7 @@ public class CreateSvrPinActivity extends PassphraseRequiredActivity {
   public void onCreate(Bundle bundle, boolean ready) {
     super.onCreate(bundle, ready);
 
-    if (KeyCachingService.isLocked()) {
+    if (KeyCachingService.isLocked(this)) {
       startActivity(getPromptPassphraseIntent());
       finish();
       return;

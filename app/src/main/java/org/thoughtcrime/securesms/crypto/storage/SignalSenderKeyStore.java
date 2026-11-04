@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.crypto.storage;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import org.signal.libsignal.protocol.SignalProtocolAddress;
 import org.signal.libsignal.protocol.groups.state.SenderKeyRecord;
@@ -17,6 +16,8 @@ import org.whispersystems.signalservice.api.push.DistributionId;
 import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
+
+import javax.annotation.Nullable;
 
 /**
  * An implementation of the storage interface used by the protocol layer to store sender keys. For

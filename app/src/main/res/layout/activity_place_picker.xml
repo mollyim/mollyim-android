@@ -6,14 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
     tools:context="org.thoughtcrime.securesms.maps.PlacePickerActivity">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="210dp"
         android:layout_height="210dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -27,39 +26,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/map_type_overlay"
-        android:layout_width="wrap_content"
-        android:layout_height="140dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <Button
-            android:id="@+id/btnMapTypeNormal"
-            style="@style/Signal.Widget.Button.Large.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences__map_normal" />
-
-        <Button
-            android:id="@+id/btnMapTypeSatellite"
-            style="@style/Signal.Widget.Button.Large.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences__map_satellite" />
-
-        <Button
-            android:id="@+id/btnMapTypeTerrain"
-            style="@style/Signal.Widget.Button.Large.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences__map_terrain" />
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.0"
+        app:backgroundColor="@color/signal_colorBackground"/>
 
     <ImageView
         android:id="@+id/marker_shadow_image_view"

@@ -30,7 +30,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GooglePlayServicesUtil
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.i18n.phonenumbers.AsYouTypeFormatter
@@ -38,6 +38,7 @@ import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
 import org.signal.core.ui.logging.LoggingFragment
+import org.signal.core.util.PlayServicesUtil
 import org.signal.core.util.ThreadUtil
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.isNotNullOrBlank
@@ -67,7 +68,6 @@ import org.thoughtcrime.securesms.util.Dialogs
 import org.thoughtcrime.securesms.util.SignalE164Util
 import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.SupportEmailUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.livedata.LiveDataObserverCallback
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -346,6 +346,14 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
         }
       }
 
+      EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING -> {
+        handlePromptForNoPlayServices()
+      }
+
+      EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE -> {
+        GoogleApiAvailability.getInstance().getErrorDialog(requireActivity(), ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED, 0)?.show()
+      }
+
       EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT -> {
         MaterialAlertDialogBuilder(requireContext()).apply {
           setTitle(R.string.RegistrationActivity_play_services_error)
@@ -549,7 +557,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   }
 
   private fun onRegistrationButtonClicked() {
-    enableNetwork()
     when (enterPhoneNumberMode) {
       EnterPhoneNumberMode.NORMAL,
       EnterPhoneNumberMode.RESTART_AFTER_COLLECTION -> startNormalRegistration()
@@ -557,11 +564,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       EnterPhoneNumberMode.COLLECT_FOR_MANUAL_SIGNAL_BACKUPS_RESTORE -> findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.goToEnterBackupKey())
       EnterPhoneNumberMode.COLLECT_FOR_LOCAL_V2_SIGNAL_BACKUPS_RESTORE -> findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.goToRestoreLocalBackupFragment())
     }
-  }
-
-  private fun enableNetwork() {
-    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
-    AppDependencies.networkManager.setNetworkEnabled(true)
   }
 
   private fun startNormalRegistration() {
@@ -603,12 +605,34 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
   }
 
   private fun validateFcmStatus(context: Context): Boolean {
-    val fcmStatus = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+    val fcmStatus = PlayServicesUtil.getPlayServicesStatus(context)
     Log.d(TAG, "Got $fcmStatus for Play Services status.")
-    if (fcmStatus == ConnectionResult.SERVICE_UPDATING) {
-      fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
+    when (fcmStatus) {
+      PlayServicesUtil.PlayServicesStatus.SUCCESS -> {
+        return true
+      }
+
+      PlayServicesUtil.PlayServicesStatus.MISSING -> {
+        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
+        return false
+      }
+
+      PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> {
+        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE)
+        return false
+      }
+
+      PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> {
+        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
+        return false
+      }
+
+      null -> {
+        Log.w(TAG, "Null result received from PlayServicesUtil, marking Play Services as missing.")
+        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
+        return false
+      }
     }
-    return fcmStatus == ConnectionResult.SUCCESS
   }
 
   private fun handleConfirmNumberDialogCanceled() {
@@ -637,11 +661,35 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
       setMessage(message)
       setPositiveButton(android.R.string.ok) { _, _ ->
         Log.d(TAG, "User confirmed number.")
-        sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
+        if (missingFcmConsentRequired) {
+          handlePromptForNoPlayServices()
+        } else {
+          sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
+        }
       }
       setNegativeButton(R.string.RegistrationActivity_edit_number) { _, _ -> handleConfirmNumberDialogCanceled() }
       setOnCancelListener { _ -> handleConfirmNumberDialogCanceled() }
     }.show()
+  }
+
+  private fun handlePromptForNoPlayServices() {
+    val context = activity
+
+    if (context != null) {
+      Log.d(TAG, "Device does not have Play Services, showing consent dialog.")
+      MaterialAlertDialogBuilder(context).apply {
+        setTitle(R.string.RegistrationActivity_missing_google_play_services)
+        setMessage(R.string.RegistrationActivity_this_device_is_missing_google_play_services)
+        setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
+          Log.d(TAG, "User confirmed number.")
+          sharedViewModel.onUserConfirmedPhoneNumber(AppDependencies.application)
+        }
+        setNegativeButton(android.R.string.cancel, null)
+        setOnCancelListener { fragmentViewModel.clearError() }
+        setOnDismissListener { fragmentViewModel.clearError() }
+        show()
+      }
+    }
   }
 
   private fun moveToEnterPinScreen() {

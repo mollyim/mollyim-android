@@ -23,7 +23,7 @@
                 android:id="@+id/pull_view"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:background="?attr/colorSurface"
+                android:background="@color/signal_colorBackground"
                 app:layout_scrollInterpolator="@android:anim/linear_interpolator" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -34,7 +34,7 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurface"
+        android:background="@color/signal_colorBackground"
         android:clipToPadding="false"
         android:paddingBottom="80dp"
         android:scrollbars="vertical"

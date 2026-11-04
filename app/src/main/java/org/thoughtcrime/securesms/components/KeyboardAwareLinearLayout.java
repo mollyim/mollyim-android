@@ -19,6 +19,7 @@ package org.thoughtcrime.securesms.components;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Surface;
@@ -29,7 +30,6 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
@@ -44,9 +44,6 @@ import java.util.Set;
  */
 public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
   private static final String TAG = Log.tag(KeyboardAwareLinearLayout.class);
-
-  public static final String KEYBOARD_HEIGHT_LANDSCAPE = "keyboard_height_landscape";
-  public static final String KEYBOARD_HEIGHT_PORTRAIT  = "keyboard_height_portrait";
 
   private static final long KEYBOARD_DEBOUNCE = 150;
 
@@ -238,8 +235,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
       return getRootView().getHeight() - minCustomKeyboardTopMarginLandscapeBubble;
     }
 
-    int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
-                                                .getInt(KEYBOARD_HEIGHT_LANDSCAPE, defaultCustomKeyboardSize);
+    int keyboardHeight = PreferenceManager.getDefaultSharedPreferences(getContext())
+                                          .getInt("keyboard_height_landscape", defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginLandscape);
   }
 
@@ -249,8 +246,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
       return height - (int)(height * 0.45);
     }
 
-    int keyboardHeight = SecurePreferenceManager.getSecurePreferences(getContext())
-                                                .getInt(KEYBOARD_HEIGHT_PORTRAIT, defaultCustomKeyboardSize);
+    int keyboardHeight = PreferenceManager.getDefaultSharedPreferences(getContext())
+                                          .getInt("keyboard_height_portrait", defaultCustomKeyboardSize);
     return Util.clamp(keyboardHeight, minCustomKeyboardSize, getRootView().getHeight() - minCustomKeyboardTopMarginPortrait);
   }
 
@@ -259,8 +256,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
       return;
     }
 
-    SecurePreferenceManager.getSecurePreferences(getContext())
-                           .edit().putInt(KEYBOARD_HEIGHT_PORTRAIT, height).apply();
+    PreferenceManager.getDefaultSharedPreferences(getContext())
+                     .edit().putInt("keyboard_height_portrait", height).apply();
   }
 
   private void setKeyboardLandscapeHeight(int height) {
@@ -268,8 +265,8 @@ public class KeyboardAwareLinearLayout extends LinearLayoutCompat {
       return;
     }
 
-    SecurePreferenceManager.getSecurePreferences(getContext())
-                           .edit().putInt(KEYBOARD_HEIGHT_LANDSCAPE, height).apply();
+    PreferenceManager.getDefaultSharedPreferences(getContext())
+                     .edit().putInt("keyboard_height_landscape", height).apply();
   }
 
   public void postOnKeyboardClose(final Runnable runnable) {

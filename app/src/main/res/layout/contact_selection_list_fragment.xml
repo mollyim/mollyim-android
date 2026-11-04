@@ -45,7 +45,7 @@
         android:paddingEnd="@dimen/dsl_settings_gutter"
         android:scrollbars="none"
         android:visibility="gone"
-        android:background="?attr/colorSurfaceContainer"
+        android:background="@color/signal_colorSurface"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/contact_selection_list_chip"

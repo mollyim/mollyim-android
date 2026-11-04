@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "signal": {
+    "version": "8.19.2",
+    "commit": "c47a74ba0961903eeaeda6d22347a990056c3e83"
+  },
+  "molly": {
+    "version": "8.19.2-4",
+    "patches": "patches/molly",
+    "target": "0e202dda90785771ff8c87526eaaf30c655f54f3",
+    "tree": "3cd0bb01cf840e4b702187085432020d163d80ce"
+  },
+  "port": null,
+  "target_tree": "3cd0bb01cf840e4b702187085432020d163d80ce",
+  "native": null,
+  "android": {
+    "sdk": "36.1",
+    "build_tools": "36.0.0",
+    "ndk": "28.0.13004108",
+    "assemble": ":app:assembleProdWebsiteDebug",
+    "tests": [
+      ":app:testProdWebsiteDebugUnitTest",
+      "--tests",
+      "org.thoughtcrime.securesms.backup.FullBackupExporterTest",
+      "--tests",
+      "org.thoughtcrime.securesms.backup.FullBackupImporterTest",
+      "--tests",
+      "org.thoughtcrime.securesms.backup.v2.stream.EncryptedBackupReaderWriterTest"
+    ]
+  }
+}

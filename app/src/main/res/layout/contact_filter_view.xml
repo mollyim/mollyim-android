@@ -33,6 +33,7 @@
                 android:inputType="textPersonName"
                 android:lineSpacingExtra="6sp"
                 android:textAppearance="@style/TextSecure.TitleTextStyle"
+                android:textColorHint="@color/signal_colorOnSurfaceVariant"
                 android:textCursorDrawable="@drawable/search_cursor" />
 
             <org.thoughtcrime.securesms.components.AnimatingToggle
@@ -50,7 +51,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/contact_filter_toolbar__show_dial_pad_description"
                     android:focusable="true"
-                    android:tint="?attr/signal_icon_tint_primary"
+                    android:tint="@color/signal_icon_tint_primary"
                     app:srcCompat="@drawable/ic_number_pad_conversation_filter_24" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -62,7 +63,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/contact_filter_toolbar__show_keyboard_description"
                     android:focusable="true"
-                    android:tint="?attr/signal_icon_tint_primary"
+                    android:tint="@color/signal_icon_tint_primary"
                     android:visibility="gone"
                     app:srcCompat="@drawable/ic_keyboard_24" />
 

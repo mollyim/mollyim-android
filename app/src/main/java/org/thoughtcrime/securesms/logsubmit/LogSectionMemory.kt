@@ -43,8 +43,6 @@ class LogSectionMemory : LogSection {
     return base
   }
 
-  override fun getContentLocked(context: Context) = getContent(context)
-
   private fun Long.byteDisplay(): String {
     return "$this bytes (${bytes.inMebiBytes.roundedString(2)} MiB)"
   }

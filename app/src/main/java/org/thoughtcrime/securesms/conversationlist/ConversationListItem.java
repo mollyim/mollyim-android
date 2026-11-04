@@ -47,7 +47,6 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.makeramen.roundedimageview.RoundedDrawable;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.ContextUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.StringUtil;
@@ -175,7 +174,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     this.unreadMentions          = findViewById(R.id.conversation_list_item_unread_mentions_indicator);
     this.thumbSize               = (int) DimensionUnit.SP.toPixels(16f);
     this.thumbTarget             = new GlideLiveDataTarget(thumbSize, thumbSize);
-    this.searchStyleFactory      = () -> new CharacterStyle[] { new ForegroundColorSpan(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface)), SpanUtil.getBoldSpan() };
+    this.searchStyleFactory      = () -> new CharacterStyle[] { new ForegroundColorSpan(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurface)), SpanUtil.getBoldSpan() };
 
     getLayoutTransition().setDuration(150);
   }
@@ -247,7 +246,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     if (appendSystemContactIcon && recipient.get().isSystemContact() && !recipient.get().getShowVerified()) {
       suffix = new SpannableStringBuilder();
       Drawable drawable = ContextUtil.requireDrawable(getContext(), org.signal.core.ui.R.drawable.symbol_person_circle_24);
-      drawable.setTint(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface));
+      drawable.setTint(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurface));
       SpanUtil.appendCenteredImageSpan(suffix, drawable, 16, 16);
     }
 
@@ -268,8 +267,8 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
 
     if (thread.getDate() > 0) {
       dateView.setTypeface(thread.isRead() ? LIGHT_TYPEFACE : BOLD_TYPEFACE);
-      dateView.setTextColor(ThemeUtil.getThemedColor(getContext(), thread.isRead() ? R.attr.signal_text_secondary
-                                                                                   : R.attr.signal_text_primary));
+      dateView.setTextColor(thread.isRead() ? ContextCompat.getColor(getContext(), R.color.signal_text_secondary)
+                                            : ContextCompat.getColor(getContext(), R.color.signal_text_primary));
 
       updateDateView = () -> {
         Pair<String, String> date = DateUtils.getBriefRelativeTimeSpanString(getContext(), locale, thread.getDate());
@@ -602,7 +601,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
                                                                          @Px int thumbSize,
                                                                          @NonNull GlideLiveDataTarget thumbTarget)
   {
-    int defaultTint = ThemeUtil.getThemedColor(context, R.attr.signal_text_secondary);
+    int defaultTint = ContextCompat.getColor(context, R.color.signal_text_secondary);
 
     if (!thread.isMessageRequestAccepted()) {
       if (thread.isRecipientHidden()) {

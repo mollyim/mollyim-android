@@ -9,6 +9,7 @@ import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
 import org.whispersystems.signalservice.api.push.TrustStore
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory
+import org.whispersystems.signalservice.api.util.TlsProxySocketFactory
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.configuration.SignalUrl
 import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
@@ -34,9 +35,6 @@ fun <T : SignalUrl> T.buildOkHttpClient(configuration: SignalServiceConfiguratio
   val (socketFactory, trustManager) = createTlsSocketFactory(this.trustStore)
 
   val builder = OkHttpClient.Builder()
-    .socketFactory(configuration.socketFactory)
-    .proxySelector(configuration.proxySelector)
-    .dns(configuration.dns)
     .sslSocketFactory(socketFactory, trustManager)
     .connectionSpecs(this.connectionSpecs.orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
     .retryOnConnectionFailure(false)
@@ -45,6 +43,11 @@ fun <T : SignalUrl> T.buildOkHttpClient(configuration: SignalServiceConfiguratio
 
   for (interceptor in configuration.networkInterceptors) {
     builder.addInterceptor(interceptor)
+  }
+
+  if (configuration.signalProxy.isPresent) {
+    val proxy = configuration.signalProxy.get()
+    builder.socketFactory(TlsProxySocketFactory(proxy.host, proxy.port, configuration.dns))
   }
 
   return builder.build()

@@ -17,7 +17,6 @@ import androidx.documentfile.provider.DocumentFile;
 import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.util.ByteUtil;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupPassphrase;
 import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem;
@@ -137,14 +136,12 @@ public class BackupUtil {
   }
 
   public static void deleteOldBackups() {
-    int maxFiles = TextSecurePreferences.getBackupMaxFiles(AppDependencies.getApplication());
-
-    Log.i(TAG, "Deleting older backups. Keep " + maxFiles + " max.");
+    Log.i(TAG, "Deleting older backups");
 
     try {
       List<BackupInfo> backups = getAllBackupsNewestFirst();
 
-      for (int i = maxFiles; i < backups.size(); i++) {
+      for (int i = 2; i < backups.size(); i++) {
         backups.get(i).delete();
       }
     } catch (NoExternalStorageException e) {
@@ -203,9 +200,8 @@ public class BackupUtil {
     List<BackupInfo> backups = new ArrayList<>(files.length);
 
     for (DocumentFile file : files) {
-      String backupName = file.getName();
-      if (file.isFile() && hasBackupExtension(backupName)) {
-        long backupTimestamp = getBackupTimestamp(backupName);
+      if (file.isFile() && file.getName() != null && file.getName().endsWith(".backup")) {
+        long backupTimestamp = getBackupTimestamp(file.getName());
 
         if (backupTimestamp != -1) {
           backups.add(new BackupInfo(backupTimestamp, file.length(), file.getUri()));
@@ -216,18 +212,6 @@ public class BackupUtil {
     Collections.sort(backups, (a, b) -> Long.compare(b.timestamp, a.timestamp));
 
     return backups;
-  }
-
-  public static String getBackupBaseDirName() {
-    return BuildConfig.BACKUP_BASE_NAME;
-  }
-
-  public static String getBackupFilenamePrefix() {
-    return BuildConfig.BACKUP_BASE_NAME.toLowerCase(Locale.ROOT);
-  }
-
-  private static boolean hasBackupExtension(String fileName) {
-    return fileName != null && fileName.endsWith(".backup");
   }
 
   public static @Nullable BackupInfo getBackupInfoFromSingleUri(@NonNull Context context, @NonNull Uri singleUri) throws BackupFileException {
@@ -241,7 +225,7 @@ public class BackupUtil {
     BackupFileState backupFileState = getBackupFileState(documentFile);
 
     if (backupFileState.isSuccess()) {
-      long backupTimestamp = getBackupTimestamp(documentFile.getName());
+      long backupTimestamp = getBackupTimestamp(Objects.requireNonNull(documentFile.getName()));
       return new BackupInfo(backupTimestamp, documentFile.length(), documentFile.getUri());
     } else {
       Log.w(TAG, "Could not load backup info.");
@@ -303,14 +287,11 @@ public class BackupUtil {
     }
   }
 
-  private static long getBackupTimestamp(@Nullable String backupName) {
-    final String prefix = getBackupFilenamePrefix();
-    if (backupName != null &&
-        backupName.startsWith(prefix) &&
-        backupName.endsWith(".backup")) {
-      String ts = backupName.substring(prefix.length(),
-                                       backupName.length() - ".backup".length());
-      String[] parts = ts.split("\\-");
+  private static long getBackupTimestamp(@NonNull String backupName) {
+    String[] prefixSuffix = backupName.split("[.]");
+
+    if (prefixSuffix.length == 2) {
+      String[] parts = prefixSuffix[0].split("\\-");
 
       if (parts.length == 7) {
         try {
@@ -338,7 +319,7 @@ public class BackupUtil {
       return BackupFileState.NOT_FOUND;
     } else if (!documentFile.canRead()) {
       return BackupFileState.NOT_READABLE;
-    } else if (!hasBackupExtension(documentFile.getName())) {
+    } else if (Util.isEmpty(documentFile.getName()) || !documentFile.getName().endsWith(".backup")) {
       return BackupFileState.UNSUPPORTED_FILE_EXTENSION;
     } else {
       return BackupFileState.READABLE;

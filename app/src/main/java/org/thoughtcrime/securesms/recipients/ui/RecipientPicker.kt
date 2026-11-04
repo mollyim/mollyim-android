@@ -58,6 +58,7 @@ import org.thoughtcrime.securesms.recipients.ui.RecipientPicker.DisplayMode.Comp
 import org.thoughtcrime.securesms.recipients.ui.RecipientPicker.KeyboardType
 import java.util.Optional
 import java.util.function.Consumer
+import org.signal.core.ui.R as CoreUiR
 
 private typealias AndroidKeyboardType = androidx.compose.ui.text.input.KeyboardType
 
@@ -319,7 +320,7 @@ private suspend fun showItemContextMenu(
     val messageItem = ActionItem(
       iconRes = R.drawable.ic_chat_message_24,
       title = context.getString(R.string.NewConversationActivity__message),
-      tintRes = com.google.android.material.R.attr.colorOnSurface,
+      tintRes = CoreUiR.color.signal_colorOnSurface,
       action = { callbacks.onMessage(recipient.id) }
     )
     add(messageItem)
@@ -328,7 +329,7 @@ private suspend fun showItemContextMenu(
       val voiceCallItem = ActionItem(
         iconRes = R.drawable.ic_phone_right_24,
         title = context.getString(R.string.NewConversationActivity__audio_call),
-        tintRes = com.google.android.material.R.attr.colorOnSurface,
+        tintRes = CoreUiR.color.signal_colorOnSurface,
         action = { callbacks.onVoiceCall(recipient) }
       )
       add(voiceCallItem)
@@ -338,7 +339,7 @@ private suspend fun showItemContextMenu(
       val videoCallItem = ActionItem(
         iconRes = R.drawable.ic_video_call_24,
         title = context.getString(R.string.NewConversationActivity__video_call),
-        tintRes = com.google.android.material.R.attr.colorOnSurface,
+        tintRes = CoreUiR.color.signal_colorOnSurface,
         action = { callbacks.onVideoCall(recipient) }
       )
       add(videoCallItem)
@@ -348,7 +349,7 @@ private suspend fun showItemContextMenu(
       val removeItem = ActionItem(
         iconRes = R.drawable.ic_minus_circle_20,
         title = context.getString(R.string.NewConversationActivity__remove),
-        tintRes = com.google.android.material.R.attr.colorOnSurface,
+        tintRes = CoreUiR.color.signal_colorOnSurface,
         action = { callbacks.onRemove(recipient) }
       )
       add(removeItem)
@@ -358,7 +359,7 @@ private suspend fun showItemContextMenu(
       val blockItem = ActionItem(
         iconRes = R.drawable.ic_block_tinted_24,
         title = context.getString(R.string.NewConversationActivity__block),
-        tintRes = com.google.android.material.R.attr.colorError,
+        tintRes = CoreUiR.color.signal_colorError,
         action = { callbacks.onBlock(recipient) }
       )
       add(blockItem)

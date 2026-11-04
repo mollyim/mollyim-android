@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Atmest izmaiņas?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Atļaujiet piekļuvi mikrofonam</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Molly piekļūt kamerai.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Lai uzņemtu fotogrāfijas un video, ļaujiet Signal piekļūt kamerai.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Lai uzņemtu fotoattēlus un videoklipus, atļaujiet Molly piekļuvi kamerai un mikrofonam.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Lai uzņemtu fotoattēlus un videoklipus, atļaujiet Signal piekļuvi kamerai un mikrofonam.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Lai ierakstītu videoklipus un skaņu, atļaujiet Molly piekļuvi mikrofonam.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Lai ierakstītu videoklipus un skaņu, atļaujiet Signal piekļuvi mikrofonam.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Lai skenētu QR kodu, atļaujiet Molly piekļuvi kamerai.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Lai skenētu QR kodu, atļaujiet Signal piekļuvi kamerai.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Lai varētu uzņemtu fotoattēlus, Molly ir nepieciešama piekļuve kamerai</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Lai varētu uzņemtu fotoattēlus, Signal ir nepieciešama piekļuve kamerai</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Lai varētu skenēt QR kodus, Molly ir nepieciešama piekļuve kamerai</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Lai varētu skenēt QR kodus, Signal ir nepieciešama piekļuve kamerai</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Lai varētu uzņemt videoklipus, Molly ir nepieciešama piekļuve mikrofonam</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Lai varētu uzņemt videoklipus, Signal ir nepieciešama piekļuve mikrofonam</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Lai uzņemtu fotoattēlus platformā Molly:</string>
+  <string name="CameraXFragment_to_capture_photos">Lai uzņemtu fotoattēlus platformā Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Lai uzņemtu fotoattēlus un videoklipus platformā Molly:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Lai uzņemtu fotoattēlus un videoklipus platformā Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Lai uzņemtu videoklipus ar skaņu:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Sūtīt</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Molly ir vajadzīgas mikrofona atļaujas video ierakstīšanai, taču tās tika liegtas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un iespējojiet “Mikrofons” un “Kamera”.</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal ir vajadzīgas mikrofona atļaujas video ierakstīšanai, taču tās tika liegtas. Lūdzu, dodieties uz lietotnes iestatījumiem, izvēlieties “Atļaujas” un iespējojiet “Mikrofons” un “Kamera”.</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Ierakstot video, radās kļūda</string>

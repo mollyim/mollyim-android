@@ -9,11 +9,11 @@ import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.conversation.v2.items.V2ConversationItemUtils.isThumbnailAtBottomOfBubble
 import org.thoughtcrime.securesms.util.hasNoBubble
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Color information for conversation items.
@@ -26,7 +26,7 @@ class V2ConversationItemTheme(
   @ColorInt
   fun getReplyIconBackgroundColor(): Int {
     return if (conversationContext.hasWallpaper()) {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorSurfaceContainerLow)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface1)
     } else {
       Color.TRANSPARENT
     }
@@ -37,7 +37,7 @@ class V2ConversationItemTheme(
     conversationMessage: ConversationMessage
   ): Int {
     if (conversationMessage.messageRecord.isThumbnailAtBottomOfBubble(context)) {
-      return ContextCompat.getColor(context, org.signal.core.ui.R.color.signal_colorOnCustom)
+      return ContextCompat.getColor(context, CoreUiR.color.signal_colorOnCustom)
     }
 
     if (conversationMessage.messageRecord.isOutgoing && conversationMessage.messageRecord.hasNoBubble(context) && !conversationContext.hasWallpaper()) {
@@ -92,7 +92,7 @@ class V2ConversationItemTheme(
       if (conversationContext.hasWallpaper()) {
         ContextCompat.getColor(context, R.color.conversation_item_recv_bubble_color_wallpaper)
       } else {
-        ThemeUtil.getThemedColor(context, R.attr.conversation_item_recv_bubble_color_normal)
+        ContextCompat.getColor(context, R.color.conversation_item_recv_bubble_color_normal)
       }
     }
   }

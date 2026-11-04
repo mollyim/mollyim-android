@@ -2489,7 +2489,7 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     val groupAddedBy: String? = null,
     @field:JsonProperty
     @param:JsonProperty("individualRecipientId")
-    val individualRecipientId: String,
+    private val individualRecipientId: String,
     @field:JsonProperty
     @param:JsonProperty("bodyRanges")
     val bodyRanges: String? = null,
@@ -2503,6 +2503,10 @@ class ThreadTable(context: Context, databaseHelper: SignalDatabase) : DatabaseTa
     @param:JsonProperty("isPoll")
     val isPoll: Boolean = false
   ) {
+
+    fun getIndividualRecipientId(): String {
+      return individualRecipientId
+    }
 
     companion object {
       fun forViewOnce(individualRecipient: RecipientId): Extra {

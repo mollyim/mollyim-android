@@ -25,7 +25,6 @@ class AccountSettingsViewModel : ViewModel() {
 
   private fun getCurrentState(): AccountSettingsState {
     return AccountSettingsState(
-      isLinkedDevice = SignalStore.account.isLinkedDevice,
       hasPin = SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut(),
       pinKeyboardType = SignalStore.pin.keyboardType,
       hasRestoredAep = SignalStore.account.restoredAccountEntropyPool,

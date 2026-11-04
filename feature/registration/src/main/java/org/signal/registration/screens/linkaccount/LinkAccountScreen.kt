@@ -496,13 +496,13 @@ private fun QrCodeFailed(
     Icon(
       imageVector = SignalIcons.ErrorCircle.imageVector,
       contentDescription = null,
-      tint = MaterialTheme.colorScheme.error,
+      tint = colorResource(org.signal.core.ui.R.color.signal_light_colorError),
       modifier = Modifier.size(48.dp)
     )
     Text(
       text = stringResource(R.string.LinkAccountScreen__failed_to_generate_code),
       style = MaterialTheme.typography.bodyMedium,
-      color = MaterialTheme.colorScheme.error,
+      color = colorResource(org.signal.core.ui.R.color.signal_light_colorError)
     )
     Buttons.Small(onClick = { onEvent(LinkAccountScreenEvent.RetryQrCode) }) {
       Text(text = stringResource(R.string.LinkAccountScreen__retry))

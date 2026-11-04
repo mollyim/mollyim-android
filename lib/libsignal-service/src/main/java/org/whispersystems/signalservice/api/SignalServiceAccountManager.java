@@ -7,10 +7,7 @@
 package org.whispersystems.signalservice.api;
 
 import org.signal.libsignal.net.Network;
-import org.signal.libsignal.protocol.InvalidKeyException;
 import org.whispersystems.signalservice.api.account.AccountApi;
-import org.whispersystems.signalservice.api.account.AccountAttributes;
-import org.whispersystems.signalservice.api.account.PreKeyCollection;
 import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
@@ -109,22 +106,6 @@ public class SignalServiceAccountManager {
    */
   public void requestRegistrationPushChallenge(String sessionId, String gcmRegistrationId) throws IOException {
     pushServiceSocket.requestPushChallenge(sessionId, gcmRegistrationId);
-  }
-
-  /**
-   * Finishes a registration as a new device. Called by the new device.<br>
-   * This method blocks until the already verified device has verified this device.
-   * @param provisioningCode The provisioning code from the getNewDeviceRegistration method
-   * @return The deviceId given by the server.
-   */
-  public int finishNewDeviceRegistration(String provisioningCode,
-                                         AccountAttributes attributes,
-                                         PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
-                                         @Nullable String fcmToken)
-      throws IOException, InvalidKeyException
-  {
-    int deviceId = pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
-    return deviceId;
   }
 
   public void checkNetworkConnection() throws IOException {

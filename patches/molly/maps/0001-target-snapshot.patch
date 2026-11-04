@@ -1,0 +1,763 @@
+From de13e2be147bb4721bb7089fad59f555004fb543 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly maps, part 1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+OpenStreetMap/osmdroid and Google Maps API compatibility layer.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/java/com/google/android/gms/maps/CameraUpdate.java b/app/src/main/java/com/google/android/gms/maps/CameraUpdate.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..b2a850858bc5acaab643ec53c5314a2741301572
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/CameraUpdate.java
+@@ -0,0 +1,13 @@
++package com.google.android.gms.maps;
++
++import com.google.android.gms.maps.model.LatLng;
++
++public class CameraUpdate {
++  final LatLng latLng;
++  final float  zoom;
++
++  CameraUpdate(LatLng latLng, float zoom) {
++    this.latLng = latLng;
++    this.zoom   = zoom;
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/CameraUpdateFactory.java b/app/src/main/java/com/google/android/gms/maps/CameraUpdateFactory.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..0fbeeda0d7cceb59bd0a720f92ea3d8dcb515711
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/CameraUpdateFactory.java
+@@ -0,0 +1,9 @@
++package com.google.android.gms.maps;
++
++import com.google.android.gms.maps.model.LatLng;
++
++public class CameraUpdateFactory {
++  public static CameraUpdate newLatLngZoom(LatLng latLng, float zoom) {
++    return new CameraUpdate(latLng, zoom);
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/GoogleMap.java b/app/src/main/java/com/google/android/gms/maps/GoogleMap.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..7d284fa2467197ac07aae0f248bafc500fb76d9f
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/GoogleMap.java
+@@ -0,0 +1,145 @@
++package com.google.android.gms.maps;
++
++import android.graphics.Bitmap;
++
++import com.google.android.gms.maps.model.CameraPosition;
++import com.google.android.gms.maps.model.LatLng;
++import com.google.android.gms.maps.model.MapStyleOptions;
++import com.google.android.gms.maps.model.Marker;
++import com.google.android.gms.maps.model.MarkerOptions;
++
++import org.osmdroid.api.IGeoPoint;
++import org.osmdroid.events.MapListener;
++import org.osmdroid.events.ScrollEvent;
++import org.osmdroid.events.ZoomEvent;
++
++public class GoogleMap {
++  public static final int MAP_TYPE_NONE = 0;
++  public static final int MAP_TYPE_NORMAL = 1;
++  public static final int MAP_TYPE_SATELLITE = 2;
++  public static final int MAP_TYPE_TERRAIN = 3;
++  public static final int MAP_TYPE_HYBRID = 4;
++
++  private final MapView     mapView;
++  private final UiSettings  uiSettings  = new UiSettings();
++  private final MapListener mapListener = new MapListener() {
++
++    private boolean moving = false;
++
++    private final Runnable idleDetector = () -> {
++      moving = false;
++      onCameraIdle();
++    };
++
++    @Override
++    public boolean onScroll(ScrollEvent event) {
++      if (moving) return true;
++
++      onCameraMoveStarted();
++      moving = true;
++      mapView.getHandler().removeCallbacks(idleDetector);
++      mapView.getHandler().postDelayed(idleDetector, 1000);
++
++      return true;
++    }
++
++    @Override
++    public boolean onZoom(ZoomEvent event) {
++      return false;
++    }
++  };
++
++  private CameraPosition              cameraPosition;
++  private OnCameraIdleListener        onCameraIdleListener;
++  private OnCameraMoveStartedListener onCameraMoveStartedListener;
++
++  public GoogleMap(MapView mapView) {
++    this.mapView = mapView;
++    this.mapView.addMapListener(mapListener);
++  }
++
++  public void setOnCameraMoveStartedListener(OnCameraMoveStartedListener onCameraMoveStartedListener) {
++    this.onCameraMoveStartedListener = onCameraMoveStartedListener;
++  }
++
++  public void setOnCameraIdleListener(OnCameraIdleListener onCameraIdleListener) {
++    this.onCameraIdleListener = onCameraIdleListener;
++  }
++
++  public CameraPosition getCameraPosition() {
++    return cameraPosition;
++  }
++
++  public void moveCamera(CameraUpdate update) {
++    // Zoom in a little bit because OSM Droid's zoom level is slightly wider than Google Maps'
++    float zoom = update.zoom + 2.0f;
++    cameraPosition = new CameraPosition(update.latLng, zoom);
++    mapView.setMapPosition(cameraPosition);
++  }
++
++  public Marker addMarker(MarkerOptions options) {
++    mapView.addMarker(options);
++    return new Marker();
++  }
++
++  public void setMyLocationEnabled(boolean myLocationEnabled) {
++    mapView.setMyLocationEnabled(myLocationEnabled);
++  }
++
++  public void setBuildingsEnabled(boolean isBuildingsEnabled) { }
++
++  public void setMapType (int type) { }
++
++  public boolean setMapStyle(MapStyleOptions loadRawResourceStyle) {
++    return false;
++  }
++
++  public UiSettings getUiSettings() {
++    return uiSettings;
++  }
++
++  public void setOnMapLoadedCallback (OnMapLoadedCallback callback) {
++    mapView.setOnMapLoadedCallback(callback);
++  }
++
++  public void snapshot(SnapshotReadyCallback callback) {
++    Bitmap bitmap = mapView.snapshot();
++    callback.onSnapshotReady(bitmap);
++  }
++
++  private void updateCameraPosition() {
++    IGeoPoint geoPoint = mapView.getMapCenter();
++    LatLng    center   = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
++    cameraPosition = new CameraPosition(center, (float) mapView.getZoomLevelDouble());
++  }
++
++  private void onCameraIdle() {
++    updateCameraPosition();
++    if (onCameraIdleListener != null) {
++      onCameraIdleListener.onCameraIdle();
++    }
++  }
++
++  private void onCameraMoveStarted() {
++    updateCameraPosition();
++    if (onCameraMoveStartedListener != null) {
++      onCameraMoveStartedListener.onCameraMoveStarted(0);
++    }
++  }
++
++  public interface OnCameraMoveStartedListener {
++    void onCameraMoveStarted(int reason);
++  }
++
++  public interface OnCameraIdleListener {
++    void onCameraIdle();
++  }
++
++  public interface OnMapLoadedCallback {
++    void onMapLoaded();
++  }
++
++  public interface SnapshotReadyCallback {
++    void onSnapshotReady(Bitmap snapshot);
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/MapView.java b/app/src/main/java/com/google/android/gms/maps/MapView.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..4f27b93367371e3bfe71cb0de2c2324ded775a7d
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/MapView.java
+@@ -0,0 +1,177 @@
++package com.google.android.gms.maps;
++
++import android.content.Context;
++import android.graphics.Bitmap;
++import android.graphics.Canvas;
++import android.graphics.drawable.Drawable;
++import android.os.Bundle;
++import android.util.AttributeSet;
++
++import androidx.core.content.res.ResourcesCompat;
++
++import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
++import com.google.android.gms.maps.model.CameraPosition;
++import com.google.android.gms.maps.model.LatLng;
++import com.google.android.gms.maps.model.MarkerOptions;
++
++import org.osmdroid.api.IMapController;
++import org.osmdroid.config.Configuration;
++import org.osmdroid.config.IConfigurationProvider;
++import org.osmdroid.tileprovider.MapTileProviderBase;
++import org.osmdroid.tileprovider.TileStates;
++import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
++import org.osmdroid.util.GeoPoint;
++import org.osmdroid.views.CustomZoomButtonsDisplay;
++import org.osmdroid.views.overlay.Marker;
++
++import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
++import org.thoughtcrime.securesms.BuildConfig;
++import org.thoughtcrime.securesms.R;
++import org.thoughtcrime.securesms.net.Networking;
++import org.thoughtcrime.securesms.osm.MapTileProvider;
++
++import java.net.Proxy;
++
++public class MapView extends org.osmdroid.views.MapView {
++  private Marker               marker;
++  private boolean isMyLocationEnabled = false;
++  private MyLocationNewOverlay myLocationNewOverlay;
++  private OnMapLoadedCallback  onMapLoadedCallback;
++  private boolean              isMapRenderWatcherRunning = false;
++
++  static private MapTileProviderBase createTileProvider(Context context) {
++    return new MapTileProvider(context, TileSourceFactory.DEFAULT_TILE_SOURCE);
++  }
++
++  public MapView(Context context) {
++    super(context, createTileProvider(context));
++  }
++
++  public MapView(Context context, AttributeSet attrs) {
++    super(context, createTileProvider(context), null, attrs);
++  }
++
++  public MapView(Context context, AttributeSet attrs, int defStyle) {
++    super(context, createTileProvider(context), null, attrs);
++  }
++
++  public void getMapAsync(OnMapReadyCallback callback) {
++    setDefaultConfiguration(getContext());
++    this.setTilesScaledToDpi(true);
++
++    GoogleMap googleMap = new GoogleMap(this);
++    callback.onMapReady(googleMap);
++  }
++
++  private void setDefaultConfiguration(Context context) {
++    final String userAgent = context.getPackageName();
++    final Proxy proxy = Networking.getProxy();
++    final IConfigurationProvider config = Configuration.getInstance();
++    config.setDebugMode(BuildConfig.DEBUG);
++    config.setUserAgentValue(userAgent);
++    config.setHttpProxy((proxy == Proxy.NO_PROXY) ? null : proxy);
++
++    getZoomController().getDisplay().setPositions(
++        false,
++        CustomZoomButtonsDisplay.HorizontalPosition.RIGHT,
++        CustomZoomButtonsDisplay.VerticalPosition.TOP);
++    setMultiTouchControls(true);
++  }
++
++  void addMarker(MarkerOptions markerOptions) {
++    removeExistingMarker();
++
++    marker = new Marker(this);
++    marker.setPosition(toPoint(markerOptions.getPosition()));
++    Drawable icon = ResourcesCompat.getDrawable(
++        getContext().getResources(),
++        R.drawable.ic_map_marker,
++        getContext().getTheme());
++    marker.setIcon(icon);
++    getOverlays().add(marker);
++  }
++
++  private void removeExistingMarker() {
++    if (marker == null) return;
++    getOverlays().remove(marker);
++    marker = null;
++  }
++
++  void setMapPosition(CameraPosition position) {
++    IMapController mapController = getController();
++    mapController.setCenter(toPoint(position.target));
++    mapController.setZoom(position.zoom);
++  }
++
++  Bitmap snapshot() {
++    Bitmap bitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
++    Canvas canvas = new Canvas(bitmap);
++    layout(getLeft(), getTop(), getRight(), getBottom());
++    draw(canvas);
++    return bitmap;
++  }
++
++  private void waitMapRender() {
++    if(isMapRenderWatcherRunning) return;
++    isMapRenderWatcherRunning = true;
++    postDelayed(new Runnable() {
++      @Override
++      public void run() {
++        TileStates tileStates = getOverlayManager().getTilesOverlay().getTileStates();
++        if (tileStates.getTotal() > 0 && (tileStates.getTotal() == tileStates.getUpToDate())) {
++          if (onMapLoadedCallback != null) onMapLoadedCallback.onMapLoaded();
++          isMapRenderWatcherRunning = false;
++        } else {
++          // We are not done yet. wait for a few cycles and check again
++          postDelayed(this, 72);
++        }
++      }
++    }, 72);
++  }
++
++  void setOnMapLoadedCallback(OnMapLoadedCallback onMapLoadedCallback) {
++    this.onMapLoadedCallback = onMapLoadedCallback;
++    waitMapRender();
++  }
++
++  void setMyLocationEnabled(boolean isMyLocationEnabled) {
++    // TODO this code does not add the "jump to my location" button on the map atm.
++    this.isMyLocationEnabled = isMyLocationEnabled;
++    if (isMyLocationEnabled) {
++      if (myLocationNewOverlay == null) {
++        myLocationNewOverlay = new MyLocationNewOverlay(this);
++        myLocationNewOverlay.enableMyLocation();
++      }
++      getOverlays().add(myLocationNewOverlay);
++    } else if (myLocationNewOverlay != null) {
++      getOverlays().remove(myLocationNewOverlay);
++      myLocationNewOverlay.disableMyLocation();
++    }
++  }
++
++  public final void onCreate(Bundle savedInstanceState) { }
++
++  public final void onStart() { }
++
++  public final void onResume() {
++    super.onResume();
++    if (myLocationNewOverlay != null && isMyLocationEnabled) {
++      myLocationNewOverlay.enableMyLocation();
++    }
++  }
++
++  public final void onPause() {
++    super.onPause();
++    if (myLocationNewOverlay != null) {
++      myLocationNewOverlay.disableMyLocation();
++    }
++  }
++
++  public final void onStop() { }
++
++  public final void onDestroy() { }
++
++  private GeoPoint toPoint(LatLng latLng) {
++    return new GeoPoint(latLng.latitude, latLng.longitude);
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/OnMapReadyCallback.java b/app/src/main/java/com/google/android/gms/maps/OnMapReadyCallback.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..00a58a0aebf5de0e26a1757eb224618f59507261
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/OnMapReadyCallback.java
+@@ -0,0 +1,5 @@
++package com.google.android.gms.maps;
++
++public interface OnMapReadyCallback {
++  void onMapReady(GoogleMap googleMap);
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/SupportMapFragment.java b/app/src/main/java/com/google/android/gms/maps/SupportMapFragment.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1f3e9bf2c8a1a2a49be1fd7e6a593fdc0a0a121b
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/SupportMapFragment.java
+@@ -0,0 +1,60 @@
++package com.google.android.gms.maps;
++
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import androidx.annotation.NonNull;
++import androidx.annotation.Nullable;
++import androidx.fragment.app.Fragment;
++
++public class SupportMapFragment extends Fragment {
++  private MapView mapView;
++
++  public void getMapAsync(OnMapReadyCallback callback) {
++    if (mapView == null) return;
++    mapView.getMapAsync(callback);
++  }
++
++  @Nullable
++  @Override
++  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
++                           @Nullable Bundle savedInstanceState)
++  {
++    mapView = new MapView(inflater.getContext());
++    mapView.onCreate(savedInstanceState);
++    return mapView;
++  }
++
++  @Override
++  public void onStart() {
++    super.onStart();
++    mapView.onStart();
++  }
++
++  @Override
++  public void onResume() {
++    super.onResume();
++    mapView.onResume();
++  }
++
++  @Override
++  public void onPause() {
++    super.onPause();
++    mapView.onPause();
++  }
++
++  @Override
++  public void onStop() {
++    super.onStop();
++    mapView.onStop();
++  }
++
++  @Override
++  public void onDestroyView() {
++    super.onDestroyView();
++    mapView.onDestroy();
++    mapView = null;
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/UiSettings.java b/app/src/main/java/com/google/android/gms/maps/UiSettings.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..31df88ca105e10694ee97f1bf10c5aeb35f7a72a
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/UiSettings.java
+@@ -0,0 +1,7 @@
++package com.google.android.gms.maps;
++
++public final class UiSettings {
++  public void setAllGesturesEnabled(boolean isAllGesturesEnabled) {
++    // TODO mock
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/model/CameraPosition.java b/app/src/main/java/com/google/android/gms/maps/model/CameraPosition.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..ba47bbbcdbb2aa5fe73c9e76f51da2edaa7429f4
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/model/CameraPosition.java
+@@ -0,0 +1,11 @@
++package com.google.android.gms.maps.model;
++
++public final class CameraPosition {
++  public final LatLng target;
++  public final float  zoom;
++
++  public CameraPosition(LatLng target, float zoom) {
++    this.target = target;
++    this.zoom   = zoom;
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/model/LatLng.java b/app/src/main/java/com/google/android/gms/maps/model/LatLng.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..88e71d90bdd399e067875274d78b0d7514441403
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/model/LatLng.java
+@@ -0,0 +1,10 @@
++package com.google.android.gms.maps.model;
++
++public final class LatLng {
++  public final double latitude;
++  public final double longitude;
++  public LatLng(double latitude, double longitude) {
++    this.latitude  = latitude;
++    this.longitude = longitude;
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/model/MapStyleOptions.java b/app/src/main/java/com/google/android/gms/maps/model/MapStyleOptions.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..e870a58bc16ca361f45c56914a486a66f299c51a
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/model/MapStyleOptions.java
+@@ -0,0 +1,9 @@
++package com.google.android.gms.maps.model;
++
++import android.content.Context;
++
++public class MapStyleOptions {
++  public static MapStyleOptions loadRawResourceStyle(Context clientContext, int resourceId) {
++    return new MapStyleOptions();
++  }
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/model/Marker.java b/app/src/main/java/com/google/android/gms/maps/model/Marker.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..a47768363accc248f4c0a6ef3b41e9a1c0f6dbfd
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/model/Marker.java
+@@ -0,0 +1,5 @@
++package com.google.android.gms.maps.model;
++
++public class Marker {
++
++}
+diff --git a/app/src/main/java/com/google/android/gms/maps/model/MarkerOptions.java b/app/src/main/java/com/google/android/gms/maps/model/MarkerOptions.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..8049c0b54bb629c81283d906e44f3518e5c4e5c4
+--- /dev/null
++++ b/app/src/main/java/com/google/android/gms/maps/model/MarkerOptions.java
+@@ -0,0 +1,14 @@
++package com.google.android.gms.maps.model;
++
++public final class MarkerOptions {
++  private LatLng latLng;
++
++  public LatLng getPosition() {
++    return latLng;
++  }
++
++  public MarkerOptions position(LatLng latlng) {
++    this.latLng = latlng;
++    return this;
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileProvider.kt b/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileProvider.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..2fcf480ebe6fd649d2cfc4e418da8d072a30b226
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileProvider.kt
+@@ -0,0 +1,50 @@
++package org.thoughtcrime.securesms.osm
++
++import android.content.Context
++import org.osmdroid.tileprovider.MapTileProviderArray
++import org.osmdroid.tileprovider.modules.IFilesystemCache
++import org.osmdroid.tileprovider.modules.MapTileApproximater
++import org.osmdroid.tileprovider.modules.MapTileDownloader
++import org.osmdroid.tileprovider.modules.NetworkAvailabliltyCheck
++import org.osmdroid.tileprovider.tilesource.ITileSource
++import org.osmdroid.util.MapTileAreaBorderComputer
++import org.osmdroid.util.MapTileAreaZoomComputer
++
++class MapTileProvider(
++  context: Context,
++  tileSource: ITileSource,
++) : MapTileProviderArray(tileSource, null) {
++
++  private val cacheWriter = SingleSessionDiskTileWriter(context)
++
++  init {
++    val networkAvailabilityCheck = NetworkAvailabliltyCheck(context)
++
++    val cacheProvider = MapTileWriterCacheProvider(tileSource, cacheWriter)
++
++    val downloaderProvider = MapTileDownloader(tileSource, cacheWriter, networkAvailabilityCheck)
++
++    val approximationProvider = MapTileApproximater().also {
++      it.addProvider(cacheProvider)
++    }
++
++    mTileProviderList.add(cacheProvider)
++    mTileProviderList.add(approximationProvider)
++    mTileProviderList.add(downloaderProvider)
++
++    tileCache.protectedTileComputers.add(MapTileAreaZoomComputer(-1))
++    tileCache.protectedTileComputers.add(MapTileAreaBorderComputer(1))
++    // Upstream sets setAutoEnsureCapacity to false due to an issue not related to our context
++    tileCache.setAutoEnsureCapacity(true)
++    tileCache.setStressedMemory(false)
++
++    tileCache.preCache.addProvider(cacheProvider)
++    tileCache.preCache.addProvider(downloaderProvider)
++
++    tileCache.protectedTileContainers.add(this)
++  }
++
++  override fun getTileWriter(): IFilesystemCache {
++    return cacheWriter
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileWriterCacheProvider.kt b/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileWriterCacheProvider.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..1087f0806552d1fb395902d39824bba965f21915
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/osm/MapTileWriterCacheProvider.kt
+@@ -0,0 +1,50 @@
++package org.thoughtcrime.securesms.osm
++
++import android.graphics.drawable.Drawable
++import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants
++import org.osmdroid.tileprovider.modules.IFilesystemCache
++import org.osmdroid.tileprovider.modules.MapTileModuleProviderBase
++import org.osmdroid.tileprovider.tilesource.ITileSource
++import org.osmdroid.util.TileSystem
++import org.signal.core.util.logging.Log
++
++private val TAG = Log.tag(MapTileWriterCacheProvider::class.java)
++
++class MapTileWriterCacheProvider(
++  tileSource: ITileSource,
++  tileWriter: IFilesystemCache,
++  threadPoolSize: Int = 2,
++  pendingQueueSize: Int = 40,
++) : MapTileModuleProviderBase(threadPoolSize, pendingQueueSize) {
++
++  private var currentTileSource: ITileSource? = tileSource
++
++  override fun getName() = "Tile Writer Cache Provider"
++
++  override fun getThreadGroupName() = "filesystem"
++
++  private val tileLoader = object : TileLoader() {
++    override fun loadTile(mapTileIndex: Long): Drawable? {
++      try {
++        return tileWriter.loadTile(currentTileSource ?: return null, mapTileIndex)
++      } catch (t: Throwable) {
++        Log.w(TAG, "Error loading tile", t)
++        return null
++      }
++    }
++  }
++
++  override fun getTileLoader() = tileLoader
++
++  override fun getUsesDataConnection() = false
++
++  override fun getMinimumZoomLevel(): Int =
++    currentTileSource?.minimumZoomLevel ?: OpenStreetMapTileProviderConstants.MINIMUM_ZOOMLEVEL
++
++  override fun getMaximumZoomLevel(): Int =
++    currentTileSource?.maximumZoomLevel ?: TileSystem.getMaximumZoomLevel()
++
++  override fun setTileSource(tileSource: ITileSource?) {
++    currentTileSource = tileSource
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/osm/SingleSessionDiskTileWriter.kt b/app/src/main/java/org/thoughtcrime/securesms/osm/SingleSessionDiskTileWriter.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..4bb75637c886e219d98f5fafd964fa46553928b7
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/osm/SingleSessionDiskTileWriter.kt
+@@ -0,0 +1,77 @@
++package org.thoughtcrime.securesms.osm
++
++import android.content.Context
++import android.graphics.drawable.Drawable
++import org.osmdroid.tileprovider.modules.IFilesystemCache
++import org.osmdroid.tileprovider.tilesource.ITileSource
++import org.signal.core.util.logging.Log
++import org.thoughtcrime.securesms.util.EncryptedStreamUtils
++import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
++import java.io.ByteArrayInputStream
++import java.io.File
++import java.io.IOException
++import java.io.InputStream
++import java.security.SecureRandom
++import java.util.UUID
++
++private val TAG = Log.tag(SingleSessionDiskTileWriter::class.java)
++
++private val RandomSessionId = SecureRandom().nextInt()
++
++class SingleSessionDiskTileWriter(private val context: Context) : IFilesystemCache {
++
++  companion object {
++    private const val DIRECTORY = "tiles"
++
++    fun getTileCacheDir(context: Context): File {
++      return File(context.cacheDir, DIRECTORY)
++    }
++  }
++
++  private val tileCacheDir by lazy { getTileCacheDir(context) }
++
++  private fun buildTileFile(tileSource: ITileSource, mapTileIndex: Long): File {
++    val uniqueName = tileSource.name() + mapTileIndex.toString(36) + RandomSessionId.toString(36)
++    val uuid = UUID.nameUUIDFromBytes(uniqueName.toByteArray())
++    return File(tileCacheDir, uuid.toString())
++  }
++
++  override fun saveFile(tileSource: ITileSource, mapTileIndex: Long, inputStream: InputStream, expirationTime: Long): Boolean {
++    val tileFile = buildTileFile(tileSource, mapTileIndex)
++    tileFile.deleteOnExit()
++    try {
++      tileCacheDir.mkdir()
++      inputStream.use { input ->
++        val data = input.readBytes()
++        val paddedInput = PaddingInputStream(ByteArrayInputStream(data), data.size.toLong())
++        EncryptedStreamUtils.getOutputStream(context, tileFile).use { output ->
++          paddedInput.copyTo(output)
++        }
++      }
++    } catch (e: IOException) {
++      Log.w(TAG, "Failed to save tile ${tileSource.name()}/$mapTileIndex to cache")
++      return false
++    }
++    return true
++  }
++
++  override fun exists(tileSource: ITileSource, mapTileIndex: Long): Boolean =
++    buildTileFile(tileSource, mapTileIndex).exists()
++
++  override fun onDetach() = Unit
++
++  override fun remove(tileSource: ITileSource, mapTileIndex: Long): Boolean =
++    buildTileFile(tileSource, mapTileIndex).delete()
++
++  override fun getExpirationTimestamp(pTileSource: ITileSource, mapTileIndex: Long): Long? = null
++
++  override fun loadTile(tileSource: ITileSource, mapTileIndex: Long): Drawable? {
++    val tileFile = buildTileFile(tileSource, mapTileIndex)
++    if (!tileFile.exists()) {
++      return null
++    }
++    EncryptedStreamUtils.getInputStream(context, tileFile).use { input ->
++      return tileSource.getDrawable(input)
++    }
++  }
++}
+
+--------------false--
+
+

@@ -8,7 +8,6 @@ package org.thoughtcrime.securesms.components.settings.app.updates
 import kotlin.time.Duration
 
 data class AppUpdatesSettingsState(
-  val lastCheckedTime: Long,
-  val includeBetaEnabled: Boolean,
+  val lastCheckedTime: Duration,
   val autoUpdateEnabled: Boolean
 )

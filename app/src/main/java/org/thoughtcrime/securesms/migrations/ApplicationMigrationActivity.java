@@ -20,20 +20,20 @@ package org.thoughtcrime.securesms.migrations;
 import android.os.Bundle;
 
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.PassphraseRequiredActivity;
+import org.thoughtcrime.securesms.BaseActivity;
 import org.thoughtcrime.securesms.R;
 
 /**
  * An activity that can be shown to block access to the rest of the app when a long-running or
  * otherwise blocking application-level migration is happening.
  */
-public class ApplicationMigrationActivity extends PassphraseRequiredActivity {
+public class ApplicationMigrationActivity extends BaseActivity {
 
   private static final String TAG = Log.tag(ApplicationMigrationActivity.class);
 
   @Override
-  public void onCreate(Bundle bundle, boolean ready) {
-    super.onCreate(bundle, ready);
+  public void onCreate(Bundle bundle) {
+    super.onCreate(bundle);
 
     ApplicationMigrations.getUiBlockingMigrationStatus().observe(this, running -> {
       if (running == null) {
@@ -43,16 +43,11 @@ public class ApplicationMigrationActivity extends PassphraseRequiredActivity {
       if (running) {
         Log.i(TAG, "UI-blocking migration is in progress. Showing spinner.");
         setContentView(R.layout.application_migration_activity);
-      } else if (!isFinishing()) {
+      } else {
         Log.i(TAG, "UI-blocking migration is no-longer in progress. Finishing.");
         startActivity(getIntent().getParcelableExtra("next_intent"));
         finish();
       }
     });
-  }
-
-  @Override
-  public boolean useScreenLock() {
-    return false;
   }
 }

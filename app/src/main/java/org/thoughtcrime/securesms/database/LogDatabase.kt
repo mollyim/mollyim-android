@@ -27,6 +27,7 @@ import org.signal.core.util.requireString
 import org.signal.core.util.select
 import org.signal.core.util.update
 import org.signal.core.util.withinTransaction
+import org.thoughtcrime.securesms.crash.CrashConfig
 import org.thoughtcrime.securesms.crypto.DatabaseSecret
 import org.thoughtcrime.securesms.crypto.DatabaseSecretProvider
 import org.thoughtcrime.securesms.database.model.IssueEntry
@@ -296,7 +297,6 @@ class LogDatabase private constructor(
 
     fun clearAll() {
       writableDatabase.deleteAll(TABLE_NAME)
-      writableDatabase.execSQL("VACUUM")
     }
 
     private fun getSize(query: String, args: Array<String>, index: String): Long {
@@ -382,6 +382,43 @@ class LogDatabase private constructor(
       trimToSize()
     }
 
+    /**
+     * Returns true if crashes exists that
+     * (1) match any of the provided crash patterns
+     * (2) have not been prompted within the [promptThreshold]
+     */
+    fun anyMatch(patterns: Collection<CrashConfig.CrashPattern>, promptThreshold: Long): Boolean {
+      for (pattern in patterns) {
+        val (query, args) = pattern.asLikeQuery()
+
+        val found = readableDatabase
+          .exists(TABLE_NAME)
+          .where("$query AND $LAST_PROMPTED_AT < $promptThreshold", args)
+          .run()
+
+        if (found) {
+          return true
+        }
+      }
+
+      return false
+    }
+
+    /**
+     * Marks all crashes that match any of the provided patterns as being prompted at the provided [promptedAt] time.
+     */
+    fun markAsPrompted(patterns: Collection<CrashConfig.CrashPattern>, promptedAt: Long) {
+      for (pattern in patterns) {
+        val (query, args) = pattern.asLikeQuery()
+
+        readableDatabase
+          .update(TABLE_NAME)
+          .values(LAST_PROMPTED_AT to promptedAt)
+          .where(query, args)
+          .run()
+      }
+    }
+
     fun trimToSize() {
       // Delete crashes older than 30 days
       val threshold = System.currentTimeMillis() - 30.days.inWholeMilliseconds
@@ -399,7 +436,34 @@ class LogDatabase private constructor(
 
     fun clear() {
       writableDatabase.deleteAll(TABLE_NAME)
-      writableDatabase.execSQL("VACUUM")
+    }
+
+    private fun CrashConfig.CrashPattern.asLikeQuery(): Pair<String, Array<String>> {
+      val query = StringBuilder()
+      var args = arrayOf<String>()
+
+      if (namePattern != null) {
+        query.append("$NAME LIKE ?")
+        args += "%$namePattern%"
+      }
+
+      if (messagePattern != null) {
+        if (query.isNotEmpty()) {
+          query.append(" AND ")
+        }
+        query.append("$MESSAGE LIKE ?")
+        args += "%$messagePattern%"
+      }
+
+      if (stackTracePattern != null) {
+        if (query.isNotEmpty()) {
+          query.append(" AND ")
+        }
+        query.append("$STACK_TRACE LIKE ?")
+        args += "%$stackTracePattern%"
+      }
+
+      return query.toString() to args
     }
   }
 
@@ -471,7 +535,6 @@ class LogDatabase private constructor(
 
     fun clear() {
       writableDatabase.deleteAll(TABLE_NAME)
-      writableDatabase.execSQL("VACUUM")
     }
 
     data class AnrRecord(

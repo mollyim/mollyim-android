@@ -2,10 +2,10 @@ root = true
 
 [*.{kt,kts}]
 indent_size = 2
-ktlint_standard_trailing-comma-on-call-site = disable
-ktlint_standard_trailing-comma-on-declaration-site = disable
-ktlint_standard_spacing-between-declarations-with-annotations = disable
+ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_allow_trailing_comma = false
 ktlint_code_style = intellij_idea
+twitter_compose_allowed_composition_locals=LocalExtendedColors
 ktlint_standard_class-naming = disabled
 
 # below rules disabled during ktlint version migration because they were preexisting but should be corrected and re-enabled ASAP

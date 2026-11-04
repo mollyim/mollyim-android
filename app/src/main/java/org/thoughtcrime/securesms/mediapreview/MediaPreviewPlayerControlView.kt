@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.OptIn
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.LegacyPlayerControlView
 import androidx.media3.ui.TimeBar
@@ -19,12 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.model.KeyPath
-import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.visible
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * The bottom bar for the media preview. This includes the standard seek bar as well as playback controls,
@@ -128,7 +129,7 @@ class LottieAnimatedButton @JvmOverloads constructor(
 ) : LottieAnimationView(context, attrs) {
 
   init {
-    addValueCallback(KeyPath("**"), LottieProperty.COLOR) { ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface) }
+    addValueCallback(KeyPath("**"), LottieProperty.COLOR) { ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface) }
   }
 
   override fun onTouchEvent(event: MotionEvent?): Boolean {

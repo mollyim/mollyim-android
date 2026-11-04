@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Buang perubahan?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Izinkan akses ke mikrofon</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Untuk mengambil foto dan video, izinkan Molly mengakses kamera.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Untuk mengambil foto dan video, izinkan Signal mengakses kamera.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Untuk mengambil foto dan video, izinkan Molly mengakses kamera dan mikrofon.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Untuk mengambil foto dan video, izinkan Signal mengakses kamera dan mikrofon.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Untuk mengambil video dengan suara, izinkan Molly mengakses mikrofon.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Untuk mengambil video dengan suara, izinkan Signal mengakses mikrofon.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Untuk memindai kode QR, izinkan Molly mengakses kamera.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Untuk memindai kode QR, izinkan Signal mengakses kamera.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly memerlukan akses ke kamera untuk mengambil foto</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal memerlukan akses ke kamera untuk mengambil foto</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly memerlukan akses ke kamera untuk memindai kode QR</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal memerlukan akses ke kamera untuk memindai kode QR</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Molly memerlukan akses ke mikrofon untuk merekam video</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal memerlukan akses ke mikrofon untuk merekam video</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Untuk mengambil foto di Molly:</string>
+  <string name="CameraXFragment_to_capture_photos">Untuk mengambil foto di Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Untuk mengambil foto dan video di Molly:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Untuk mengambil foto dan video di Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Untuk mengambil video dengan suara:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Kirim</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Anda harus mengizinkan Molly menggunakan mikrofon untuk dapat merekam video. Harap buka pengaturan aplikasi Anda, pilih \"Perizinan\", lalu aktifkan izin \"Mikrofon\" dan \"Kamera\".</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Anda harus mengizinkan Signal menggunakan mikrofon untuk dapat merekam video. Harap buka pengaturan aplikasi Anda, pilih \"Perizinan\", lalu aktifkan izin \"Mikrofon\" dan \"Kamera\".</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Gagal merekam video</string>

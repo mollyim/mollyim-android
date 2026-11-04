@@ -113,10 +113,10 @@ public final class MessageFetchJob extends BaseJob {
       }
 
       if (Build.VERSION.SDK_INT < 31) {
-        notificationController.set(GenericForegroundService.startForegroundTaskDelayed(context, context.getString(R.string.BackgroundMessageRetriever_checking_for_messages), 300, R.drawable.ic_notification));
+        notificationController.set(GenericForegroundService.startForegroundTaskDelayed(context, context.getString(R.string.BackgroundMessageRetriever_checking_for_messages), 300, R.drawable.ic_signal_refresh));
       } else {
         try {
-          notificationController.set(GenericForegroundService.startForegroundTask(context, context.getString(R.string.BackgroundMessageRetriever_checking_for_messages), NotificationChannels.getInstance().OTHER, R.drawable.ic_notification));
+          notificationController.set(GenericForegroundService.startForegroundTask(context, context.getString(R.string.BackgroundMessageRetriever_checking_for_messages), NotificationChannels.getInstance().OTHER, R.drawable.ic_signal_refresh));
         } catch (UnableToStartException e) {
           Log.w(TAG, "Failed to start foreground service. Running without a foreground service.");
         }

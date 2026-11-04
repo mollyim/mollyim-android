@@ -37,8 +37,8 @@
         android:minHeight="44dp"
         android:paddingHorizontal="16dp"
         android:textAppearance="@style/Signal.Text.Body"
-        android:textColor="?attr/colorOnSurfaceVariant"
-        app:backgroundTint="?attr/colorSurfaceContainerHighest" />
+        android:textColor="@color/signal_colorOnSurfaceVariant"
+        app:backgroundTint="@color/signal_colorSurface5" />
 
     <org.thoughtcrime.securesms.contacts.paged.ContactSearchView
         android:id="@+id/contact_recycler"

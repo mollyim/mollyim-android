@@ -49,6 +49,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val storageIdDatabase: UnknownStorageIdTable = UnknownStorageIdTable(context, this)
   val remappedRecordTables: RemappedRecordTables = RemappedRecordTables(context, this)
   val mentionTable: MentionTable = MentionTable(context, this)
+  val paymentTable: PaymentTable = PaymentTable(context, this)
   val chatColorsTable: ChatColorsTable = ChatColorsTable(context, this)
   val emojiSearchTable: EmojiSearchTable = EmojiSearchTable(context, this)
   val messageSendLogTables: MessageSendLogTables = MessageSendLogTables(context, this)
@@ -436,6 +437,11 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     @get:JvmName("notificationProfiles")
     val notificationProfiles: NotificationProfileTables
       get() = instance!!.notificationProfileTables
+
+    @get:JvmStatic
+    @get:JvmName("payments")
+    val payments: PaymentTable
+      get() = instance!!.paymentTable
 
     @get:JvmStatic
     @get:JvmName("pendingRetryReceipts")

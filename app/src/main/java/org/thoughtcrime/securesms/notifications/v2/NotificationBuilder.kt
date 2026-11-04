@@ -49,7 +49,7 @@ private const val BIG_PICTURE_DIMEN = 500
 sealed class NotificationBuilder(protected val context: Context) {
 
   private val privacy: NotificationPrivacyPreference = SignalStore.settings.messageNotificationsPrivacy
-  private val isNotLocked: Boolean = !KeyCachingService.isLocked()
+  private val isNotLocked: Boolean = !KeyCachingService.isLocked(context)
 
   abstract fun setSmallIcon(@DrawableRes drawable: Int)
   abstract fun setColor(@ColorInt color: Int)
@@ -528,6 +528,6 @@ private fun Bitmap?.toIconCompat(): IconCompat? {
 private fun ReplyMethod.toLongDescription(): Int {
   return when (this) {
     ReplyMethod.GroupMessage -> R.string.MessageNotifier_reply
-    ReplyMethod.SecureMessage -> R.string.NewConversationActivity__message
+    ReplyMethod.SecureMessage -> R.string.MessageNotifier_signal_message
   }
 }

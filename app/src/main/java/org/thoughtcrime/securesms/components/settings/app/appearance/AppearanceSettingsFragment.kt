@@ -22,12 +22,10 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
-import org.signal.core.ui.compose.Texts
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.appearance.navbar.ChooseNavigationBarStyleFragment
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
-import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 
 /**
@@ -69,8 +67,8 @@ class AppearanceSettingsFragment : ComposeFragment() {
         .show()
     }
 
-    override fun onThemeSelected(selection: String, useDynamicColors: Boolean) {
-      viewModel.setTheme(activity, SettingsValues.Theme.deserialize(selection), useDynamicColors)
+    override fun onThemeSelected(selection: String) {
+      viewModel.setTheme(activity, SettingsValues.Theme.deserialize(selection))
     }
 
     override fun onChatColorAndWallpaperClick() {
@@ -94,7 +92,7 @@ class AppearanceSettingsFragment : ComposeFragment() {
 interface AppearanceSettingsCallbacks {
   fun onNavigationClick() = Unit
   fun onLanguageSelected(selection: String) = Unit
-  fun onThemeSelected(selection: String, useDynamicColors: Boolean) = Unit
+  fun onThemeSelected(selection: String) = Unit
   fun onChatColorAndWallpaperClick() = Unit
   fun onAppIconClick() = Unit
   fun onMessageFontSizeSelected(selection: String) = Unit
@@ -134,19 +132,8 @@ private fun AppearanceSettingsScreen(
           labels = stringArrayResource(R.array.pref_theme_entries),
           values = stringArrayResource(R.array.pref_theme_values),
           selectedValue = state.theme.serialize(),
-          onSelected = { callbacks.onThemeSelected(it, state.dynamicColors) },
+          onSelected = callbacks::onThemeSelected
         )
-      }
-
-      if (DynamicTheme.isDynamicColorsAvailable()) {
-        item {
-          Rows.ToggleRow(
-            text = stringResource(R.string.preferences_appearance__dynamic_colors),
-            label = stringResource(R.string.preferences_appearance__use_system_colors_for_the_app_theme),
-            checked = state.dynamicColors,
-            onCheckChanged = { callbacks.onThemeSelected(state.theme.serialize(), it) },
-          )
-        }
       }
 
       item {
@@ -176,10 +163,6 @@ private fun AppearanceSettingsScreen(
       }
 
       item {
-        Texts.SectionHeader(stringResource(R.string.preferences_appearance__navigation_bar))
-      }
-
-      item {
         val label = if (state.isCompactNavigationBar) {
           R.string.preferences_compact
         } else {
@@ -203,7 +186,6 @@ private fun AppearanceSettingsScreenPreview() {
     AppearanceSettingsScreen(
       state = AppearanceSettingsState(
         theme = SettingsValues.Theme.SYSTEM,
-        dynamicColors = true,
         messageFontSize = 0,
         language = "en-US",
         isCompactNavigationBar = false

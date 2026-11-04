@@ -127,7 +127,7 @@ fun UsernameLinkShareScreen(
         .padding(bottom = 24.dp),
       horizontalArrangement = Arrangement.Center
     ) {
-      Buttons.Small(tonal = true, onClick = onResetClicked) {
+      Buttons.Small(onClick = onResetClicked) {
         Text(
           text = stringResource(id = R.string.UsernameLinkSettings_reset_button_label)
         )

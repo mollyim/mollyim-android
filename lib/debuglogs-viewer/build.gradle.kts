@@ -23,5 +23,6 @@ dependencies {
     exclude(group = "com.google.protobuf", module = "protobuf-java")
   }
 
+  api(libs.google.play.services.wallet)
   api(libs.square.okhttp3)
 }

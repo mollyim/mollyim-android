@@ -5,16 +5,16 @@ import android.text.SpannableStringBuilder
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.dp
 import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.badges.gifts.ExpiredGiftSheet
 import org.thoughtcrime.securesms.badges.models.BadgePreview
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
@@ -42,6 +42,7 @@ import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Fragment displayed when a user enters "Subscriptions" via app settings but is already
@@ -50,7 +51,8 @@ import kotlin.time.Duration.Companion.seconds
 class ManageDonationsFragment :
   DSLSettingsFragment(
     layoutId = R.layout.manage_donations_fragment
-  ) {
+  ),
+  ExpiredGiftSheet.Callback {
 
   companion object {
     private val alertedIdealDonations = mutableSetOf<Long>()
@@ -61,10 +63,10 @@ class ManageDonationsFragment :
   private lateinit var launcher: ActivityResultLauncher<InAppPaymentType>
 
   private val supportTechSummary: CharSequence by lazy {
-    SpannableStringBuilder(SpanUtil.color(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant), requireContext().getString(R.string.DonateToSignalFragment__private_messaging)))
+    SpannableStringBuilder(SpanUtil.color(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant), requireContext().getString(R.string.DonateToSignalFragment__private_messaging)))
       .append("\n")
       .append(
-        SpanUtil.readMore(requireContext(), ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorPrimary)) {
+        SpanUtil.readMore(requireContext(), ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorPrimary)) {
           findNavController().safeNavigate(ManageDonationsFragmentDirections.actionManageDonationsFragmentToSubscribeLearnMoreBottomSheetDialog())
         }
       )
@@ -95,6 +97,12 @@ class ManageDonationsFragment :
     IndeterminateLoadingCircle.register(adapter)
     BadgePreview.register(adapter)
     NetworkFailure.register(adapter)
+
+    val expiredGiftBadge = SignalStore.inAppPayments.getExpiredGiftBadge()
+    if (expiredGiftBadge != null) {
+      SignalStore.inAppPayments.setExpiredGiftBadge(null)
+      ExpiredGiftSheet.show(childFragmentManager, expiredGiftBadge)
+    }
 
     viewModel.state.observe(viewLifecycleOwner) { state ->
       adapter.submitList(getConfiguration(state).toMappingModelList())
@@ -130,8 +138,8 @@ class ManageDonationsFragment :
 
   override fun getMaterial3OnScrollHelper(toolbar: Toolbar?): Material3OnScrollHelper {
     return object : Material3OnScrollHelper(activity = requireActivity(), views = listOf(toolbar!!), lifecycleOwner = viewLifecycleOwner) {
-      override val activeColorSet: ColorSet = ColorSet.from(requireContext(), R.color.transparent, MaterialR.attr.colorSurface)
-      override val inactiveColorSet: ColorSet = ColorSet.from(requireContext(), R.color.transparent, MaterialR.attr.colorSurface)
+      override val activeColorSet: ColorSet = ColorSet(R.color.transparent, CoreUiR.color.signal_colorBackground)
+      override val inactiveColorSet: ColorSet = ColorSet(R.color.transparent, CoreUiR.color.signal_colorBackground)
     }
   }
 
@@ -208,8 +216,7 @@ class ManageDonationsFragment :
 
     presentPendingOrProcessingOneTimeDonationState(state)
 
-    // MOLLY: TODO
-    // presentBadges()
+    presentBadges()
 
     presentOtherWaysToGive()
 
@@ -316,8 +323,7 @@ class ManageDonationsFragment :
 
     presentPendingOrProcessingOneTimeDonationState(state)
 
-    // MOLLY: TODO
-    // presentBadges()
+    presentBadges()
 
     presentOtherWaysToGive()
 
@@ -346,16 +352,15 @@ class ManageDonationsFragment :
     )
   }
 
-  // MOLLY: TODO
-  // private fun DSLConfiguration.presentBadges() {
-  //   clickPref(
-  //     title = DSLSettingsText.from(R.string.ManageDonationsFragment__badges),
-  //     icon = DSLSettingsIcon.from(R.drawable.symbol_badge_multi_24),
-  //     onClick = {
-  //       findNavController().safeNavigate(ManageDonationsFragmentDirections.actionManageDonationsFragmentToManageBadges())
-  //     }
-  //   )
-  // }
+  private fun DSLConfiguration.presentBadges() {
+    clickPref(
+      title = DSLSettingsText.from(R.string.ManageDonationsFragment__badges),
+      icon = DSLSettingsIcon.from(R.drawable.symbol_badge_multi_24),
+      onClick = {
+        findNavController().safeNavigate(ManageDonationsFragmentDirections.actionManageDonationsFragmentToManageBadges())
+      }
+    )
+  }
 
   private fun DSLConfiguration.presentReceipts() {
     clickPref(
@@ -439,5 +444,9 @@ class ManageDonationsFragment :
           .show()
       }
     }
+  }
+
+  override fun onMakeAMonthlyDonation() {
+    launcher.launch(InAppPaymentType.ONE_TIME_DONATION)
   }
 }

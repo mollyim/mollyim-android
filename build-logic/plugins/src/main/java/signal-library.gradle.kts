@@ -12,6 +12,7 @@ plugins {
   // We cannot use the version catalog in the plugins block in convention plugins (it's not supported).
   // Instead, plugin versions are controlled through the dependencies block in the build.gradle.kts.
   id("com.android.library")
+  id("ktlint")
 }
 
 android {
@@ -35,15 +36,8 @@ android {
 
   lint {
     targetSdk = libs.versions.targetSdk.get().toInt()
+    disable += "InvalidVectorPath"
     lintConfig = rootProject.file("lint.xml")
-    checkReleaseBuilds = false
-  }
-}
-
-androidComponents {
-  // MOLLY: Disable unit tests for release builds
-  beforeVariants(selector().withBuildType("release")) { variant ->
-    (variant as com.android.build.api.variant.HasUnitTestBuilder).enableUnitTest = false
   }
 }
 
@@ -67,6 +61,8 @@ dependencies {
   implementation(libs.rxjava3.rxjava)
   implementation(libs.rxjava3.rxkotlin)
   implementation(libs.kotlin.stdlib.jdk8)
+
+  ktlintRuleset(libs.ktlint.twitter.compose)
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.robolectric.robolectric)

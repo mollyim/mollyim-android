@@ -694,7 +694,7 @@ class Recipient(
 
       if (isIndividual && !isSelf) {
         val isLtr = ViewUtil.isLtr(context)
-        val chevronGlyph = SignalSymbols.getSpannedString(context, SignalSymbols.Weight.BOLD, if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT, com.google.android.material.R.attr.colorOutline)
+        val chevronGlyph = SignalSymbols.getSpannedString(context, SignalSymbols.Weight.BOLD, if (isLtr) SignalSymbols.Glyph.CHEVRON_RIGHT else SignalSymbols.Glyph.CHEVRON_LEFT, CoreUiR.color.signal_colorOutline)
           .let { SpanUtil.ofSize(it, 24) }
 
         if (isLtr) {

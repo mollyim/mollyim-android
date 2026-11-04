@@ -152,7 +152,7 @@ abstract class PushSendJob protected constructor(parameters: Parameters) : BaseJ
   @Throws(Exception::class)
   public override fun onRun() {
     if (SignalStore.misc.isClientDeprecated) {
-      throw TextSecureExpiredException("TextSecure expired (build ${BuildConfig.BUILD_TIMESTAMP_OR_ZERO}, now ${System.currentTimeMillis()})")
+      throw TextSecureExpiredException("TextSecure expired (build ${BuildConfig.BUILD_TIMESTAMP}, now ${System.currentTimeMillis()})")
     }
 
     Log.i(TAG, "Starting message send attempt")

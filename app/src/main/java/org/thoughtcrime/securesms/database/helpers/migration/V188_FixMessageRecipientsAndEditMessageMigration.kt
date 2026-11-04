@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.database.helpers.migration
 
 import android.app.Application
+import android.preference.PreferenceManager
 import androidx.core.content.contentValuesOf
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.util.SqlUtil
@@ -16,7 +17,6 @@ import org.thoughtcrime.securesms.database.KeyValueDatabase
 import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
 
 /**
  * This is a fix for a bad situation that could happen during [V185_MessageRecipientsAndEditMessageMigration].
@@ -300,7 +300,7 @@ object V188_FixMessageRecipientsAndEditMessageMigration : SignalDatabaseMigratio
   private fun getLocalAci(context: Application): ACI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.aci", "account.1.aci"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.aci"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           ACI.parseOrNull(cursor.requireString("value"))
         } else {
@@ -310,14 +310,14 @@ object V188_FixMessageRecipientsAndEditMessageMigration : SignalDatabaseMigratio
       }
     } else {
       Log.w(TAG, "Pre-KV database -- searching for ACI in shared prefs.")
-      return ACI.parseOrNull(SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_uuid", null))
+      return ACI.parseOrNull(PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_uuid", null))
     }
   }
 
   private fun getLocalE164(context: Application): String? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.e164", "account.1.e164"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.e164"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           cursor.requireString("value")
         } else {
@@ -327,7 +327,7 @@ object V188_FixMessageRecipientsAndEditMessageMigration : SignalDatabaseMigratio
       }
     } else {
       Log.w(TAG, "Pre-KV database -- searching for E164 in shared prefs.")
-      return SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_number", null)
+      return PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_number", null)
     }
   }
 

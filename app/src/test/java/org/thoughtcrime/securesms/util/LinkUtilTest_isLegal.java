@@ -27,7 +27,6 @@ public class LinkUtilTest_isLegal {
         { "https://кц.рф/some/path",               true  },
         { "https://abcdefg.onion",                 true  },
         { "https://abcdefg.i2p",                   true  },
-        { "monero:46BeWrHpwXmHDpDEUmZBWZfoQpdc6HaERCNmx1pEYL2rAcuwufPN9rXHHtyUA4QVy66qeFQkn6sfK8aHYjA3jk3o1Bv16em?tx_amount=239.39014&tx_description=donation", true },
         { "http://кц.com",                         false },
         { "кц.com",                                false },
         { "http://asĸ.com",                        false },

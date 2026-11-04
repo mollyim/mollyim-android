@@ -16,7 +16,6 @@ import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.ServiceUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -54,9 +53,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
   @Volatile private var lastScheduledReminder: Long = 0
 
-  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked()
-
-  @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
+  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked(context)
 
   @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings.messageNotificationsPrivacy
 
@@ -145,17 +142,11 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
       return
     }
 
-    val currentLockStatus: Boolean = KeyCachingService.isLocked()
+    val currentLockStatus: Boolean = KeyCachingService.isLocked(context)
     val currentPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings.messageNotificationsPrivacy
-    val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
-    val notificationConfigurationChanged: Boolean = (
-      currentLockStatus != previousLockedStatus ||
-        currentPrivacyPreference != previousPrivacyPreference ||
-        currentScreenLockState != previousScreenLockState
-      )
+    val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus || currentPrivacyPreference != previousPrivacyPreference
     previousLockedStatus = currentLockStatus
     previousPrivacyPreference = currentPrivacyPreference
-    previousScreenLockState = currentScreenLockState
 
     if (notificationConfigurationChanged) {
       stickyThreads.clear()
@@ -195,8 +186,11 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     stickyThreads.keys.retainAll { retainStickyThreadIds.contains(it) }
 
     if (state.isEmpty) {
-      // MOLLY: Extracted to a separate function
-      clearNotifications(context)
+      Log.i(TAG, "State is empty, cancelling all notifications")
+      cancelDelayedNotifications()
+      NotificationCancellationHelper.cancelAllMessageNotifications(context, stickyThreads.map { it.value.notificationId }.toSet())
+      updateBadge(context, 0)
+      clearReminderInternal(context)
       return
     }
 
@@ -231,23 +225,12 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
     if (Build.VERSION.SDK_INT >= 24) {
       val ids = state.conversations.filter { it.thread != visibleThread.get() }.map { it.notificationId } + stickyThreads.map { (_, stickyThread) -> stickyThread.notificationId }
-      val notShown = ids - getDisplayedNotificationIds(context)
+      val notShown = ids - ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
       if (notShown.isNotEmpty()) {
         Log.e(TAG, "Notifications should be showing but are not for ${notShown.size} threads")
       }
     }
   }
-
-  override fun clearNotifications(context: Context): Boolean {
-    cancelDelayedNotifications()
-    val activeNotifications = getDisplayedNotificationIds(context)
-    NotificationCancellationHelper.cancelAllMessageNotifications(context)
-    updateBadge(context, 0)
-    clearReminderInternal(context)
-    return activeNotifications.isNotEmpty()
-  }
-
-  private fun getDisplayedNotificationIds(context: Context) = ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
 
   override fun addStickyThread(conversationId: ConversationId, earliestTimestamp: Long) {
     stickyThreads[conversationId] = StickyThread(conversationId, NotificationIds.getNotificationIdForThread(conversationId), earliestTimestamp)

@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -24,7 +25,6 @@ import com.google.android.material.animation.ArgbEvaluatorCompat
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.signal.camera.CameraDisplay
 import org.signal.core.models.media.Media
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.Debouncer
 import org.signal.core.util.OVERRIDE_TRANSITION_CLOSE_COMPAT
@@ -50,13 +50,12 @@ import org.thoughtcrime.securesms.mediasend.v2.text.send.TextStoryPostSendReposi
 import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.safety.SafetyNumberBottomSheet
 import org.thoughtcrime.securesms.stories.Stories
-import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
-import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.FullscreenHelper
 import org.thoughtcrime.securesms.util.WindowUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible
 import kotlin.getValue
+import org.signal.core.ui.R as CoreUiR
 
 class MediaSelectionActivity :
   PassphraseRequiredActivity(),
@@ -96,22 +95,12 @@ class MediaSelectionActivity :
 
   private val debouncer = Debouncer(200)
 
-  private val theme: DynamicTheme = DynamicNoActionBarTheme()
-
-  override fun onResume() {
-    super.onResume()
-    theme.onResume(this)
-  }
-
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
     super.attachBaseContext(newBase)
   }
 
   override fun onPreCreate() {
-    super.onPreCreate()
-    theme.onCreate(this)
-
     val sendType: MessageSendType = requireNotNull(intent.getParcelableExtraCompat(MESSAGE_SEND_TYPE, MessageSendType::class.java))
     val initialMedia: List<Media> = intent.getParcelableArrayListExtraCompat(MEDIA, Media::class.java) ?: listOf()
     val message: CharSequence? = if (shareToTextStory) null else draftText
@@ -226,8 +215,8 @@ class MediaSelectionActivity :
   }
 
   private fun animateTextStyling(selectedSwitch: TextView, unselectedSwitch: TextView, duration: Long) {
-    val offTextColor = ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorOnSurface)
-    val onTextColor = ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSecondaryContainer)
+    val offTextColor = ContextCompat.getColor(this, CoreUiR.color.signal_colorOnSurface)
+    val onTextColor = ContextCompat.getColor(this, CoreUiR.color.signal_colorSecondaryContainer)
 
     animateInShadowLayerValueAnimator?.cancel()
     animateInTextColorValueAnimator?.cancel()

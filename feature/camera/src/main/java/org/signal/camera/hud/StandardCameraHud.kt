@@ -463,7 +463,7 @@ private fun FlashToggleButton(
 }
 
 /** Signal ultramarine blue color for the count badge */
-private val UltramarineBlue = Color(0xFF7152FF)
+private val UltramarineBlue = Color(0xFF2C6BED)
 
 /**
  * Media count indicator that shows the number of selected media items.

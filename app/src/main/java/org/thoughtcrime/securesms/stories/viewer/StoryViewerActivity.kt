@@ -27,8 +27,6 @@ import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewStateCache
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewStateViewModel
-import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme
-import org.thoughtcrime.securesms.util.DynamicTheme
 import org.thoughtcrime.securesms.util.ViewUtil
 import kotlin.math.max
 import kotlin.math.min
@@ -41,8 +39,6 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
   val ringerModeReceiver = RingerModeReceiver()
 
   override lateinit var voiceNoteMediaController: VoiceNoteMediaController
-
-  private val theme: DynamicTheme = DynamicMediaPreviewTheme()
 
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
@@ -83,7 +79,6 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
       padBottom.toInt()
     )
 
-    theme.onCreate(this)
     super.onCreate(savedInstanceState, ready)
     setContentView(R.layout.fragment_container)
 
@@ -111,7 +106,6 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
 
   override fun onResume() {
     super.onResume()
-    theme.onResume(this)
     registerReceiver(ringerModeReceiver, IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION))
     if (StoryMutePolicy.isContentMuted) {
       viewModel.mute()

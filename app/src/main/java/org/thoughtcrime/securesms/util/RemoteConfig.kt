@@ -618,14 +618,17 @@ object RemoteConfig {
   /** Whether or not the user is an 'internal' one, which activates certain developer tools. */
   @JvmStatic
   @get:JvmName("internalUser")
-  val internalUser: Boolean
-    get() = when {
+  val internalUser: Boolean by remoteValue(
+    key = "android.internalUser",
+    hotSwappable = true
+  ) { value ->
+    when {
       internalUserDisabled -> false
-      underTest -> false
+      underTest -> value.asBoolean(false)
       Environment.isInternal() -> true
-      else -> false
+      else -> value.asBoolean(false)
     }
-
+  }
 
   /** The raw client expiration JSON string.  */
   @JvmStatic
@@ -654,7 +657,13 @@ object RemoteConfig {
     inSeconds.seconds.inWholeMilliseconds
   }
 
-  val shareSelectionLimit: SelectionLimits = SelectionLimits.NO_LIMITS
+  val shareSelectionLimit: SelectionLimits by remoteValue(
+    key = "android.share.limit",
+    hotSwappable = true
+  ) { value ->
+    val limit = value.asInteger(5)
+    SelectionLimits(limit, limit)
+  }
 
   /** Whether or not to allow automatic session resets.  */
   @JvmStatic
@@ -846,6 +855,15 @@ object RemoteConfig {
     hotSwappable = false
   )
 
+  /** Whether client supports sending a request to another to activate payments  */
+  @JvmStatic
+  @get:JvmName("paymentsRequestActivateFlow")
+  val paymentsRequestActivateFlow: Boolean by remoteBoolean(
+    key = "android.payments.requestActivateFlow",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
   /** Serialized list of regions in which Google Pay is disabled for donations */
   @JvmStatic
   @get:JvmName("googlePayDisabledRegions")
@@ -901,6 +919,16 @@ object RemoteConfig {
     key = "android.calling.fieldTrial.anyAddressPortsKillSwitch",
     defaultValue = false,
     hotSwappable = false
+  )
+
+  /**
+   * Enable/disable for notification when we cannot fetch messages despite receiving an urgent push.
+   */
+  val fcmMayHaveMessagesNotificationKillSwitch: Boolean by remoteBoolean(
+    key = "android.fcmNotificationFallbackKillSwitch",
+    defaultValue = false,
+    hotSwappable = true,
+    sticky = true
   )
 
   /** Maximum number of attachments allowed to be sent/received.  */
@@ -975,6 +1003,15 @@ object RemoteConfig {
 
   val deviceSpecificNotificationConfig: String by remoteString(
     key = DEVICE_SPECIFIC_NOTIFICATION_CONFIG,
+    defaultValue = "",
+    hotSwappable = true
+  )
+
+  const val CRASH_PROMPT_CONFIG: String = "android.crashPromptConfig.2"
+
+  /** Config object for what crashes to prompt about.  */
+  val crashPromptConfig: String by remoteString(
+    key = CRASH_PROMPT_CONFIG,
     defaultValue = "",
     hotSwappable = true
   )
@@ -1187,10 +1224,34 @@ object RemoteConfig {
   )
 
   @JvmStatic
+  @get:JvmName("backupsMegaphone")
+  val backupsMegaphone: Boolean by remoteBoolean(
+    key = "android.backupsMegaphone.4",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
   @get:JvmName("pinLimit")
   val pinLimit: Int by remoteInt(
     key = "global.pinnedMessageLimit",
     defaultValue = 3,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("callQualitySurvey")
+  val callQualitySurvey: Boolean by remoteBoolean(
+    key = "android.callQualitySurvey.4",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  @JvmStatic
+  @get:JvmName("callQualitySurveyPPM")
+  val callQualitySurveyPPM: String by remoteString(
+    key = "android.callQualitySurveyPPM",
+    defaultValue = "*:10000",
     hotSwappable = true
   )
 

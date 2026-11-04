@@ -117,9 +117,9 @@ fun IncomingCallScreen(
         modifier = Modifier.padding(callTypePadding)
       ) {
         Icon(
-          imageVector = ImageVector.vectorResource(R.drawable.ic_notification),
+          imageVector = ImageVector.vectorResource(R.drawable.ic_signal_logo_small),
           contentDescription = null,
-          modifier = Modifier.padding(end = 6.dp).size(15.dp)
+          modifier = Modifier.padding(end = 6.dp)
         )
 
         Text(

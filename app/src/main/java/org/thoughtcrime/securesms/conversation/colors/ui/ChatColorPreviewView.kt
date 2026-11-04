@@ -143,12 +143,12 @@ class ChatColorPreviewView @JvmOverloads constructor(
     val backgroundColor = if (chatWallpaper != null) {
       R.color.conversation_item_recv_bubble_color_wallpaper
     } else {
-      R.attr.signal_background_secondary
+      R.color.signal_background_secondary
     }
 
     listOf(recv1, recv2).forEach {
       it.bubble.background.colorFilter = PorterDuffColorFilter(
-        ThemeUtil.getThemedColor(context, backgroundColor),
+        ContextCompat.getColor(context, backgroundColor),
         PorterDuff.Mode.SRC_IN
       )
     }

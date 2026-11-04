@@ -16,8 +16,6 @@ data class LinkDeviceSettingsState(
   val qrCodeState: QrCodeState = QrCodeState.NONE,
   val linkUri: Uri? = null,
   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
-  val linkWithoutQrCode: Boolean = false,
-  val canLinkDevices: Boolean = !SignalStore.account.isLinkedDevice,
   val seenQrEducationSheet: Boolean = SignalStore.uiHints.hasSeenLinkDeviceQrEducationSheet() || SignalStore.account.isMultiDevice,
   val bottomSheetVisible: Boolean = false,
   val deviceToEdit: Device? = null,

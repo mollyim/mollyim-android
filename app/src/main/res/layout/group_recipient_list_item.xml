@@ -85,11 +85,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/symbol_chevron_right_compact_bold_16"
-            android:drawableTint="?attr/colorOnSurfaceVariant"
+            android:drawableTint="@color/signal_colorOnSurfaceVariant"
             android:gravity="center_vertical"
             android:text="@string/GroupRecipientListItem__add_member_label"
             android:textAppearance="@style/Signal.Text.LabelMedium"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/signal_colorOnSurfaceVariant"
             android:visibility="gone" />
 
         <org.thoughtcrime.securesms.components.emoji.EmojiTextView
@@ -101,7 +101,7 @@
             android:maxLines="1"
             android:textAlignment="viewStart"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             android:visibility="gone"
             tools:text="Hangin' around the web"
             tools:visibility="visible" />
@@ -124,7 +124,7 @@
         android:gravity="start|center_vertical"
         android:text="@string/GroupRecipientListItem_admin"
         android:textAppearance="@style/Signal.Text.BodyMedium"
-        android:textColor="?attr/signal_text_secondary"
+        android:textColor="@color/signal_text_secondary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/popupMenuProgressContainer"
@@ -151,7 +151,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:visibility="gone"
-            app:background_tint="?attr/signal_text_primary"
+            app:background_tint="@color/signal_text_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

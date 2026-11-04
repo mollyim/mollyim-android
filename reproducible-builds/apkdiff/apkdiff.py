@@ -1,80 +1,324 @@
 #! /usr/bin/env python3
 
+import difflib
+import subprocess
 import sys
-import fnmatch
+import re
+import logging
+from xml.etree.ElementTree import Element
 from zipfile import ZipFile
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass
+from typing import Optional
+
+from androguard.core import axml
+from loguru import logger
+
+logging.getLogger("deepdiff").setLevel(logging.ERROR)
+
+logger.disable("androguard")
 
 
-class ApkDiff:
-    IGNORE_FILES = [
-        # Related to app signing. Not expected to be present in unsigned builds. Doesn't affect app code.
-        "META-INF/MANIFEST.MF",
-        "META-INF/*.RSA",
-        "META-INF/*.SF",
-        "META-INF/code_transparency_signed.jwt",
-        "stamp-cert-sha256"
-    ]
+@dataclass
+class XmlDifference:
+    """Represents a difference between two XML elements."""
 
-    # MOLLY: Allow to exclude files with glob patterns
-    def isIncluded(self, filepath):
-        for ignoreFile in self.IGNORE_FILES:
-            if fnmatch.fnmatchcase(filepath, ignoreFile):
-                return False
+    diff_type: str  # "tag", "attribute", "text", "child_count"
+    path: str
+    attribute_name: Optional[str] = None
+    first_value: Optional[str] = None
+    second_value: Optional[str] = None
+    child_tag: Optional[str] = None
+
+
+IGNORE_FILES = [
+    # Related to app signing. Not expected to be present in unsigned builds. Doesn"t affect app code.
+    "META-INF/MANIFEST.MF",
+    "META-INF/CERTIFIC.SF",
+    "META-INF/CERTIFIC.RSA",
+    "META-INF/TEXTSECU.SF",
+    "META-INF/TEXTSECU.RSA",
+    "META-INF/BNDLTOOL.SF",
+    "META-INF/BNDLTOOL.RSA",
+    "META-INF/code_transparency_signed.jwt",
+    "stamp-cert-sha256",
+]
+
+ALLOWED_ARSC_DIFF_PATHS = [".res1"]
+
+
+def compare(apk1, apk2) -> bool:
+    print(f"Comparing: \n\t{apk1}\n\t{apk2}\n")
+
+    print("Unzipping...")
+    zip1 = ZipFile(apk1, "r")
+    zip2 = ZipFile(apk2, "r")
+
+    entry_names = compare_entry_names(zip1, zip2)
+    entry_contents = compare_entry_contents(zip1, zip2)
+
+    # Some splits (e.g. ABI config splits) contain no resource table. Compare when both APKs have one, treat both
+    # missing as a match, and fail if only one of them has it.
+    has_arsc_1 = "resources.arsc" in zip1.namelist()
+    has_arsc_2 = "resources.arsc" in zip2.namelist()
+
+    if has_arsc_1 and has_arsc_2:
+        resources = compare_resources_arsc(apk1, apk2)
+    elif has_arsc_1 != has_arsc_2:
+        print("resources.arsc is present in only one of the APKs!")
+        resources = False
+    else:
+        resources = True
+
+    return entry_names and entry_contents and resources
+
+
+def compare_entry_names(zip1: ZipFile, zip2: ZipFile) -> bool:
+    print("Comparing zip entry names...")
+    name_list_sorted_1 = sorted(zip1.namelist())
+    name_list_sorted_2 = sorted(zip2.namelist())
+
+    for ignoreFile in IGNORE_FILES:
+        while ignoreFile in name_list_sorted_1:
+            name_list_sorted_1.remove(ignoreFile)
+        while ignoreFile in name_list_sorted_2:
+            name_list_sorted_2.remove(ignoreFile)
+
+    success = True
+    if len(name_list_sorted_1) != len(name_list_sorted_2):
+        print(f"Manifest lengths differ! {len(name_list_sorted_1)} vs {len(name_list_sorted_2)}")
+        success = False
+
+    only_in_first = sorted(list(set(name_list_sorted_1) - set(name_list_sorted_2)))
+    only_in_second = sorted(list(set(name_list_sorted_2) - set(name_list_sorted_1)))
+
+    if only_in_first:
+        print(f"Files present only in {zip1.filename}:")
+        for name in only_in_first:
+            print(f"  - {name}")
+        success = False
+
+    if only_in_second:
+        print(f"Files present only in {zip2.filename}:")
+        for name in only_in_second:
+            print(f"  - {name}")
+        success = False
+
+    # If sets are identical but ordering differs, still report ordering mismatches
+    if success:
+        for entry_name_1, entry_name_2 in zip(name_list_sorted_1, name_list_sorted_2):
+            if entry_name_1 != entry_name_2:
+                print(f"Sorted manifests don't match: {entry_name_1} vs {entry_name_2}")
+                success = False
+
+    return success
+
+
+def compare_entry_contents(zip1: ZipFile, zip2: ZipFile) -> bool:
+    print("Comparing zip entry contents...")
+    info_list_1 = list(filter(lambda info: info.filename not in IGNORE_FILES, zip1.infolist()))
+    info_list_2 = list(filter(lambda info: info.filename not in IGNORE_FILES, zip2.infolist()))
+
+    success = True
+    if len(info_list_1) != len(info_list_2):
+        print(f"APK info lists of different length! {len(info_list_1)} vs {len(info_list_2)}")
+        success = False
+
+    for entry_info_1 in info_list_1:
+        for entry_info_2 in list(info_list_2):
+            if entry_info_1.filename == entry_info_2.filename:
+                entry_bytes_1 = zip1.read(entry_info_1.filename)
+                entry_bytes_2 = zip2.read(entry_info_2.filename)
+
+                if entry_bytes_1 != entry_bytes_2 and not handle_special_cases(entry_info_1.filename, entry_bytes_1, entry_bytes_2):
+                    zip1.extract(entry_info_1, "mismatches/first")
+                    zip2.extract(entry_info_2, "mismatches/second")
+                    print(f"APKs differ on file {entry_info_1.filename}! Files extracted to the mismatches/ directory.")
+                    success = False
+
+                info_list_2.remove(entry_info_2)
+                break
+
+    return success
+
+
+def handle_special_cases(filename: str, bytes1: bytes, bytes2: bytes):
+    """
+    There are some specific files that expect will not be byte-for-byte identical. We want to ensure that the files
+    are matching except these expected differences. The differences are all related to extra XML attributes that the
+    Play Store may add as part of the bundle process. These differences do not affect the behavior of the app and are
+    unfortunately unavoidable given the modern realities of the Play Store.
+    """
+    if filename == "AndroidManifest.xml":
+        print("Comparing AndroidManifest.xml...")
+        return compare_android_xml(bytes1, bytes2)
+    elif filename == "resources.arsc":
+        # we will compare resources.arsc separately with aapt2, so we can ignore any differences here
         return True
+    elif re.match("res/xml/splits[0-9]+\\.xml", filename):
+        print(f"Comparing {filename}...")
+        return compare_split_xml(bytes1, bytes2)
 
-    def compare(self, firstApk, secondApk):
-        firstZip = ZipFile(firstApk, 'r')
-        secondZip = ZipFile(secondApk, 'r')
+    return False
 
-        return self.compareEntryNames(firstZip, secondZip) and self.compareEntryContents(firstZip, secondZip) == True
 
-    def compareEntryNames(self, firstZip, secondZip):
-        firstNameListSorted = sorted(n for n in firstZip.namelist() if self.isIncluded(n))
-        secondNameListSorted = sorted(n for n in secondZip.namelist() if self.isIncluded(n))
+def compare_android_xml(bytes1: bytes, bytes2: bytes) -> bool:
+    all_differences = compare_xml(bytes1, bytes2)
+    bad_differences = []
 
-        if len(firstNameListSorted) != len(secondNameListSorted):
-            print("Manifest lengths differ!")
+    for diff in all_differences:
+        is_split_attr = diff.diff_type == "attribute" and diff.path in ["manifest", "manifest/application"] and diff.attribute_name is not None and "split" in diff.attribute_name.lower()
+        is_meta_attr = diff.diff_type == "attribute" and diff.path == "manifest/application/meta-data"
+        is_meta_child_count = diff.diff_type == "child_count" and diff.child_tag == "meta-data"
 
-        for (firstEntryName, secondEntryName) in zip(firstNameListSorted, secondNameListSorted):
-            if firstEntryName != secondEntryName:
-                print("Sorted manifests don't match, %s vs %s" % (firstEntryName, secondEntryName))
-                return False
+        if not is_split_attr and not is_meta_attr and not is_meta_child_count:
+            bad_differences.append(diff)
 
+    if bad_differences:
+        print(bad_differences)
+        return False
+
+    return True
+
+
+def compare_split_xml(bytes1: bytes, bytes2: bytes) -> bool:
+    all_differences = compare_xml(bytes1, bytes2)
+    bad_differences = []
+
+    for diff in all_differences:
+        is_language = diff.diff_type == "attribute" and diff.path == "splits/module/language/entry"
+
+        if not is_language:
+            bad_differences.append(diff)
+
+    if bad_differences:
+        print(bad_differences)
+        return False
+
+    return True
+
+
+def compare_resources_arsc(apk1: str, apk2: str) -> bool:
+    """
+    Compares two resources.arsc files.
+    """
+    print("Comparing resources.arsc...")
+
+    resources1 = dump_resources(apk1)
+    resources2 = dump_resources(apk2)
+
+    if resources1 == resources2:
         return True
+    else:
+        print("resources.arsc files differ!")
+        diff = difflib.unified_diff(
+            resources1,
+            resources2,
+            fromfile=apk1,
+            tofile=apk2,
+            lineterm="",
+        )
+        for line in diff:
+            print(line)
+        return False
 
-    def compareEntryContents(self, firstZip, secondZip):
-        firstInfoList = list(filter(lambda info: self.isIncluded(info.filename), firstZip.infolist()))
-        secondInfoList = list(filter(lambda info: self.isIncluded(info.filename), secondZip.infolist()))
+def dump_resources(apk):
+    try:
+        with subprocess.Popen(
+            ['aapt2', 'dump', 'resources', apk],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        ) as process:
+            stdout, stderr = process.communicate()
+            if process.returncode != 0:
+                raise RuntimeError(f"aapt2 failed with error: {stderr.strip()}")
+    except FileNotFoundError:
+        raise RuntimeError("aapt2 is not installed or not in the PATH.")
 
-        if len(firstInfoList) != len(secondInfoList):
-            print("APK info lists of different length!")
-            return False
+    return stdout.strip().splitlines()
 
-        success = True
-        for firstEntryInfo in firstInfoList:
-            for secondEntryInfo in list(secondInfoList):
-                if firstEntryInfo.filename == secondEntryInfo.filename:
-                    firstEntryBytes = firstZip.read(firstEntryInfo.filename)
-                    secondEntryBytes = secondZip.read(secondEntryInfo.filename)
+def compare_xml(bytes1: bytes, bytes2: bytes) -> list[XmlDifference]:
+    printer = axml.AXMLPrinter(bytes1)
+    entry_text_1 = printer.get_xml().decode("utf-8")
 
-                    if firstEntryBytes != secondEntryBytes:
-                        firstZip.extract(firstEntryInfo, "mismatches/first")
-                        secondZip.extract(secondEntryInfo, "mismatches/second")
-                        print("APKs differ on file %s! Files extracted to the mismatches/ directory." % (firstEntryInfo.filename))
-                        success = False
+    printer = axml.AXMLPrinter(bytes2)
+    entry_text_2 = printer.get_xml().decode("utf-8")
 
-                    secondInfoList.remove(secondEntryInfo)
-                    break
+    if entry_text_1 == entry_text_2:
+        return []
 
-        return success
+    root1 = ET.fromstring(entry_text_1)
+    root2 = ET.fromstring(entry_text_2)
+
+    return compare_xml_elements(root1, root2)
 
 
-if __name__ == '__main__':
+def compare_xml_elements(elem1: Element, elem2: Element, path: str = "") -> list[XmlDifference]:
+    """Recursively compare two XML elements and return list of XmlDifference objects."""
+    differences: list[XmlDifference] = []
+
+    # Build current path
+    current_path = f"{path}/{elem1.tag}" if path else elem1.tag
+
+    # Compare tags
+    if elem1.tag != elem2.tag:
+        differences.append(XmlDifference(diff_type="tag", path=path, first_value=elem1.tag, second_value=elem2.tag))
+        return differences
+
+    # Compare attributes
+    attrs1 = elem1.attrib
+    attrs2 = elem2.attrib
+
+    all_keys = set(attrs1.keys()) | set(attrs2.keys())
+    for key in sorted(all_keys):
+        val1 = attrs1.get(key)
+        val2 = attrs2.get(key)
+
+        if val1 != val2:
+            differences.append(XmlDifference(diff_type="attribute", path=current_path, attribute_name=key, first_value=val1, second_value=val2))
+
+    # Compare text content
+    text1 = (elem1.text or "").strip()
+    text2 = (elem2.text or "").strip()
+    if text1 != text2:
+        differences.append(XmlDifference(diff_type="text", path=current_path, first_value=text1, second_value=text2))
+
+    # Compare children
+    children1 = list(elem1)
+    children2 = list(elem2)
+
+    # Try to match children by tag name for comparison
+    children1_by_tag: dict[str, list[Element]] = {}
+    for child in children1:
+        children1_by_tag.setdefault(child.tag, []).append(child)
+
+    children2_by_tag: dict[str, list[Element]] = {}
+    for child in children2:
+        children2_by_tag.setdefault(child.tag, []).append(child)
+
+    # Compare children with matching tags
+    all_child_tags = set(children1_by_tag.keys()) | set(children2_by_tag.keys())
+    for tag in sorted(all_child_tags):
+        list1 = children1_by_tag.get(tag, [])
+        list2 = children2_by_tag.get(tag, [])
+
+        if len(list1) != len(list2):
+            differences.append(XmlDifference(diff_type="child_count", path=current_path, child_tag=tag, first_value=str(len(list1)), second_value=str(len(list2))))
+
+        # Compare matching elements recursively
+        for child1, child2 in zip(list1, list2):
+            differences.extend(compare_xml_elements(child1, child2, current_path))
+
+    return differences
+
+
+if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: apkdiff <pathToFirstApk> <pathToSecondApk>")
         sys.exit(1)
 
-    if ApkDiff().compare(sys.argv[1], sys.argv[2]):
+    if compare(sys.argv[1], sys.argv[2]):
         print("APKs match!")
         sys.exit(0)
     else:

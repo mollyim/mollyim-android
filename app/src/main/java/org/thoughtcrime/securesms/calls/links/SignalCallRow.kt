@@ -150,6 +150,10 @@ fun SignalCallRow(
 
       Buttons.Small(
         onClick = onJoinClicked,
+        colors = ButtonDefaults.buttonColors(
+          containerColor = MaterialTheme.colorScheme.primaryContainer,
+          contentColor = MaterialTheme.colorScheme.onSurface
+        ),
         modifier = Modifier.align(CenterVertically)
       ) {
         val textId = if (callLinkPeekInfo?.isJoined == true) {

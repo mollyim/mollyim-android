@@ -34,7 +34,6 @@ import com.bumptech.glide.RequestManager;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.EditTextUtil;
 import org.signal.core.ui.logging.LoggingFragment;
 import org.thoughtcrime.securesms.R;
@@ -112,7 +111,7 @@ public class AddGroupDetailsFragment extends LoggingFragment {
 
     members.initializeAdapter(getViewLifecycleOwner());
     avatarPlaceholder = Objects.requireNonNull(VectorDrawableCompat.create(getResources(), R.drawable.ic_camera_outline_24, requireActivity().getTheme()));
-    avatarPlaceholder.setColorFilter(new SimpleColorFilter(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_icon_tint_primary)));
+    avatarPlaceholder.setColorFilter(new SimpleColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_icon_tint_primary)));
 
     if (savedInstanceState == null) {
       avatar.setImageDrawable(new InsetDrawable(avatarPlaceholder, ViewUtil.dpToPx(AVATAR_PLACEHOLDER_INSET_DP)));
@@ -169,7 +168,7 @@ public class AddGroupDetailsFragment extends LoggingFragment {
         sameGroupsHeader.setText(getResources().getQuantityString(R.plurals.AddGroupDetailsFragment__d_groups_with_same_members, groups.size(), groups.size()));
 
         RequestManager requestManager = Glide.with(this);
-        ColorStateList chevronTint    = ColorStateList.valueOf(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurface));
+        ColorStateList chevronTint    = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), org.signal.core.ui.R.color.signal_colorOnSurface));
         for (Recipient group : groups) {
           ContactChip chip = new ContactChip(requireContext());
           chip.setText(group.getDisplayName(requireContext()));

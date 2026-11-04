@@ -23,9 +23,8 @@ import org.signal.core.util.concurrent.SignalDispatchers
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
-import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class MainToolbarViewModel : ViewModel() {
   private val internalStateFlow = MutableStateFlow(MainToolbarState())
@@ -48,7 +47,7 @@ class MainToolbarViewModel : ViewModel() {
       it.copy(
         hasFailedBackups = BackupRepository.shouldDisplayBackupFailedIndicator() || BackupRepository.shouldDisplayBackupAlreadyRedeemedIndicator(),
         isOutOfRemoteStorageSpace = BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx(),
-        hasPassphrase = TextSecurePreferences.isPassphraseLockEnabled(AppDependencies.application)
+        hasPassphrase = !SignalStore.settings.passphraseDisabled
       )
     }
   }
@@ -151,6 +150,12 @@ class MainToolbarViewModel : ViewModel() {
   fun setShowNotificationProfilesTooltip(showNotificationProfilesTooltip: Boolean) {
     internalStateFlow.update {
       it.copy(showNotificationProfilesTooltip = showNotificationProfilesTooltip)
+    }
+  }
+
+  fun setHasUnreadPayments(hasUnreadPayments: Boolean) {
+    internalStateFlow.update {
+      it.copy(hasUnreadPayments = hasUnreadPayments)
     }
   }
 

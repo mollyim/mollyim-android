@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.module.kotlin.KotlinModule;
 
 import org.signal.core.util.Base64;
 import org.signal.libsignal.protocol.IdentityKey;
@@ -44,7 +45,7 @@ public class JsonUtil {
 
   static {
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    com.fasterxml.jackson.module.kotlin.ExtensionsKt.registerKotlinModule(objectMapper);
+    objectMapper.registerModule(new KotlinModule());
   }
 
   public static String toJson(Object object) {

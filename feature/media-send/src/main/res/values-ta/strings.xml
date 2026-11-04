@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">மாற்றங்களைக் கைவிடுவதா?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,7 +48,7 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">உங்கள் மைக்ரோஃபோனை அணுக அனுமதிக்கவும்</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Molly-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">புகைப்படங்கள் மற்றும் காணொளி பிடிக்க, Signal-ஐ கேமராவை அணுக அனுமதிக்கவும்.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
   <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">புகைப்படங்கள் மற்றும் வீடியோ படமெடுக்க, கேமரா மற்றும் மைக்ரோஃபோனை அணுக சிக்னலை அனுமதிக்கவும்.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">அனுப்புக</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Molly மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">காணொளிகளைப் பதிவு செய்ய Signal மைக்ரோஃபோன் அனுமதி தேவை, ஆனால் அது மறுக்கப்பட்டது. செயலியின் அமைப்புகளுக்கு சென்று, \"அனுமதிகள்\" என்பதைத் தேர்ந்தெடுத்து \"மைக்ரோஃபோன்\" மற்றும் \"கேமரா\" என்பவற்றை இயலச் செய்யவும்.</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">வீடியோவை பதிவு செய்வதில் பிழை</string>

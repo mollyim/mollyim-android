@@ -29,14 +29,12 @@ object BioTextPreference {
     abstract fun getHeadlineText(context: Context): CharSequence
     abstract fun getSubhead1Text(context: Context): String?
     abstract fun getSubhead2Text(): String?
-    abstract fun getSubhead2ExtraText(context: Context): String?
 
     open val onHeadlineClickListener: (() -> Unit)? = null
   }
 
   class RecipientModel(
     private val recipient: Recipient,
-    private val linkedDevices: Int?,
     override val onHeadlineClickListener: (() -> Unit)?
   ) : BioTextPreferenceModel<RecipientModel>() {
 
@@ -53,17 +51,6 @@ object BioTextPreference {
     }
 
     override fun getSubhead2Text(): String? = null
-
-    override fun getSubhead2ExtraText(context: Context): String? {
-      if (linkedDevices == null) {
-        return null
-      }
-      return if (linkedDevices > 0) {
-        context.resources.getQuantityString(R.plurals.BioTextPreference_n_linked_devices, linkedDevices, linkedDevices)
-      } else {
-        context.getString(R.string.BioTextPreference_no_linked_devices)
-      }
-    }
 
     override fun areContentsTheSame(newItem: RecipientModel): Boolean {
       return super.areContentsTheSame(newItem) && newItem.recipient.hasSameContent(recipient)
@@ -85,8 +72,6 @@ object BioTextPreference {
 
     override fun getSubhead2Text(): String? = null
 
-    override fun getSubhead2ExtraText(context: Context): String? = null
-
     override fun areContentsTheSame(newItem: GroupModel): Boolean {
       return super.areContentsTheSame(newItem) &&
         groupTitle == newItem.groupTitle &&
@@ -104,7 +89,6 @@ object BioTextPreference {
     private val headline: TextView = itemView.findViewById(R.id.bio_preference_headline)
     private val subhead1: TextView = itemView.findViewById(R.id.bio_preference_subhead_1)
     protected val subhead2: TextView = itemView.findViewById(R.id.bio_preference_subhead_2)
-    protected val subhead2extra: TextView = itemView.findViewById(R.id.bio_preference_subhead_2_extra)
     private val terminatedPill: TextView = itemView.findViewById(R.id.bio_preference_terminated_pill)
 
     override fun bind(model: T) {
@@ -134,11 +118,6 @@ object BioTextPreference {
       model.getSubhead2Text().let {
         subhead2.text = it
         subhead2.visibility = if (it == null) View.GONE else View.VISIBLE
-      }
-
-      model.getSubhead2ExtraText(context).let {
-        subhead2extra.text = it
-        subhead2extra.visibility = if (it == null) View.GONE else View.VISIBLE
       }
     }
   }

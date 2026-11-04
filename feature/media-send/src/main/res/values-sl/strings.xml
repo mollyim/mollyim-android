@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Želite zavreči spremembe?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Dovoli dostop do mikrofona</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Za zajemanje fotografij in videov dovolite aplikaciji Molly dostop do kamere naprave.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Za zajemanje fotografij in videov dovolite aplikaciji Signal dostop do kamere naprave.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za zajemanje fotografij in videov dovolite Mollyu dostop do kamere in mikrofona naprave.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Za zajemanje fotografij in videov dovolite Signalu dostop do kamere in mikrofona naprave.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Za zajemanje videov z zvokom dovolite Mollyu dostop do mikrofona naprave.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Za zajemanje videov z zvokom dovolite Signalu dostop do mikrofona naprave.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Za skeniranje QR kode dovolite Mollyu dostop do kamere.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Za skeniranje QR kode dovolite Signalu dostop do kamere.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly potrebuje dostop do kamere za zajemanje fotografij</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal potrebuje dostop do kamere za zajemanje fotografij</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly potrebuje dostop do kamere za optično branje QR kod</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal potrebuje dostop do kamere za optično branje QR kod</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Molly potrebuje dostop do mikrofona za zajemanje videoposnetkov</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal potrebuje dostop do mikrofona za zajemanje videoposnetkov</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Za zajemanje fotografij v Mollyu:</string>
+  <string name="CameraXFragment_to_capture_photos">Za zajemanje fotografij v Signalu:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Za zajemanje fotografij in videov v Mollyu:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Za zajemanje fotografij in videov v Signalu:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Za zajemanje videov z zvokom:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Pošlji</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Dostop do mikrofona je bil onemogočen. Za snemanje videa potrebuje aplikacija Molly dovoljenje za dostop do mikrofona. Prosimo, nadaljujte v nastavitve aplikacij, izberite »Dovoljenja« in omogočite dovoljenje pod postavko »Mikrofon«.</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Dostop do mikrofona je bil onemogočen. Za snemanje videa potrebuje aplikacija Signal dovoljenje za dostop do mikrofona. Prosimo, nadaljujte v nastavitve aplikacij, izberite »Dovoljenja« in omogočite dovoljenje pod postavko »Mikrofon«.</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Napaka pri snemanju videa</string>

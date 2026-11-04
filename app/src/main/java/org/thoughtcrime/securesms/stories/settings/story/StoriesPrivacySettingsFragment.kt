@@ -1,12 +1,11 @@
 package org.thoughtcrime.securesms.stories.settings.story
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
-import com.google.android.material.R as MaterialR
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.signal.core.ui.BottomSheetUtil
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
@@ -114,7 +113,7 @@ class StoriesPrivacySettingsFragment :
           title = DSLSettingsText.from(
             R.string.StoriesPrivacySettingsFragment__story_updates_automatically_disappear,
             DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant))
           )
         )
 
@@ -212,7 +211,7 @@ class StoriesPrivacySettingsFragment :
           summary = DSLSettingsText.from(
             R.string.StoriesPrivacySettingsFragment__if_you_opt_out,
             DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
-            DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
+            DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant))
           ),
           onClick = {
             StoryDialogs.disableStories(requireContext(), viewModel.userHasActiveStories) {

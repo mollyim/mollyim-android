@@ -29,7 +29,7 @@
             android:layout_height="@dimen/conversation_item_reply_size"
             android:layout_gravity="center"
             android:padding="9dp"
-            android:tint="?attr/signal_icon_tint_secondary"
+            android:tint="@color/signal_icon_tint_secondary"
             app:srcCompat="@drawable/symbol_reply_24" />
 
     </FrameLayout>
@@ -68,7 +68,7 @@
                 android:layout_marginEnd="4sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 tools:text="Reacted to your story" />
 
         </LinearLayout>
@@ -82,8 +82,8 @@
             android:layout_marginEnd="6dp"
             android:visibility="gone"
             app:message_type="outgoing"
-            app:quote_colorPrimary="?attr/conversation_item_quote_text_color_sent"
-            app:quote_colorSecondary="?attr/conversation_item_quote_text_color_sent"
+            app:quote_colorPrimary="@color/conversation_item_quote_text_color_sent"
+            app:quote_colorSecondary="@color/conversation_item_quote_text_color_sent"
             tools:background="@color/transparent_white_10"
             tools:visibility="visible" />
 
@@ -132,6 +132,18 @@
             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
             android:layout="@layout/conversation_item_sent_document" />
+
+        <ViewStub
+            android:id="@+id/gift_view_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/conversation_item_sent_gift" />
+
+        <ViewStub
+            android:id="@+id/payment_view_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/conversation_item_payment" />
 
         <ViewStub
             android:id="@+id/revealable_view_stub"
@@ -188,10 +200,10 @@
             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
             android:clipChildren="false"
             android:clipToPadding="false"
-            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+            app:footer_icon_color="@color/signal_icon_tint_secondary"
             app:footer_mode="outgoing"
-            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
-            app:footer_text_color="?attr/signal_text_secondary" />
+            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+            app:footer_text_color="@color/signal_text_secondary" />
 
         <org.thoughtcrime.securesms.components.ConversationItemFooter
             android:id="@+id/conversation_item_sticker_footer"
@@ -206,10 +218,10 @@
             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
             android:paddingBottom="3dp"
             android:visibility="gone"
-            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+            app:footer_icon_color="@color/signal_icon_tint_secondary"
             app:footer_mode="outgoing"
-            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
-            app:footer_text_color="?attr/signal_text_secondary" />
+            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+            app:footer_text_color="@color/signal_text_secondary" />
 
     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
 
@@ -236,9 +248,9 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:backgroundTint="@color/signal_colorSurfaceVariant"
             android:padding="6dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            android:tint="@color/signal_colorOnSurfaceVariant"
             app:srcCompat="@drawable/ic_replies_outline_20" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -247,9 +259,9 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:backgroundTint="@color/signal_colorSurfaceVariant"
             android:padding="6dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            android:tint="@color/signal_colorOnSurfaceVariant"
             app:srcCompat="@drawable/symbol_calendar_24" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -258,9 +270,9 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:backgroundTint="@color/signal_colorSurfaceVariant"
             android:padding="6dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            android:tint="@color/signal_colorOnSurfaceVariant"
             android:visibility="gone"
             app:srcCompat="@drawable/symbol_chat_arrow_24" />
 

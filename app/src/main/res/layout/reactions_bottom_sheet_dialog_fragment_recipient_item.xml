@@ -45,7 +45,7 @@
             android:gravity="center_vertical"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.Signal.Body1.Bold"
-            android:textColor="?attr/signal_text_primary"
+            android:textColor="@color/signal_text_primary"
             tools:text="@tools:sample/full_names" />
 
         <org.thoughtcrime.securesms.components.FromTextView
@@ -57,7 +57,7 @@
             android:maxLines="1"
             android:text="@string/ReactionsBottomSheetDialogFragment_tap_to_remove"
             android:textAppearance="@style/TextAppearance.Signal.Caption"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             android:visibility="gone"
             tools:text="Tap to remove"
             tools:visibility="visible" />

@@ -32,10 +32,13 @@ import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
+import org.thoughtcrime.securesms.payments.CryptoValueUtil;
 import org.thoughtcrime.securesms.payments.Payment;
 import org.thoughtcrime.securesms.polls.PollRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.whispersystems.signalservice.api.payments.FormatterOptions;
+import org.whispersystems.signalservice.api.payments.Money;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -226,9 +229,19 @@ public class MmsMessageRecord extends MessageRecord {
     if (MessageTypes.isChatSessionRefresh(type)) {
       return emphasisAdded(context.getString(R.string.MessageRecord_chat_session_refreshed));
     } else if (isPaymentNotification() && payment != null) {
-      return new SpannableString(context.getString(R.string.MessageRecord__payment_tombstone));
+      return new SpannableString(context.getString(R.string.MessageRecord__payment_s, payment.getAmount().toString(FormatterOptions.defaults())));
     } else if (isPaymentTombstone() || isPaymentNotification()) {
-      return new SpannableString(context.getString(R.string.MessageRecord__payment_tombstone));
+      MessageExtras extras = getMessageExtras();
+
+      Money amount = null;
+      if (extras != null && extras.paymentTombstone != null && extras.paymentTombstone.amount != null) {
+        amount = CryptoValueUtil.cryptoValueToMoney(extras.paymentTombstone.amount);
+      }
+      if (amount == null) {
+        return new SpannableString(context.getString(R.string.MessageRecord__payment_tombstone));
+      } else {
+        return new SpannableString(context.getString(R.string.MessageRecord__payment_s, amount.toString(FormatterOptions.defaults())));
+      }
     }
 
     return super.getDisplayBody(context);

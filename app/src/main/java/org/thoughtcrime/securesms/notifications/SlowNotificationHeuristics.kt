@@ -62,6 +62,18 @@ object SlowNotificationHeuristics {
   }
 
   @JvmStatic
+  fun shouldPromptUserForDelayedNotificationLogs(): Boolean {
+    if (!LocaleRemoteConfig.isDelayedNotificationPromptEnabled() || SignalStore.uiHints.hasDeclinedToShareNotificationLogs()) {
+      return false
+    }
+    if (System.currentTimeMillis() - SignalStore.uiHints.lastNotificationLogsPrompt < TimeUnit.DAYS.toMillis(7)) {
+      return false
+    }
+
+    return true
+  }
+
+  @JvmStatic
   fun shouldPromptBatterySaver(): Boolean {
     val remoteEnabled = LocaleRemoteConfig.isBatterySaverPromptEnabled() || LocaleRemoteConfig.isDelayedNotificationPromptEnabled()
     if (!remoteEnabled || SignalStore.uiHints.hasDismissedBatterySaverPrompt()) {

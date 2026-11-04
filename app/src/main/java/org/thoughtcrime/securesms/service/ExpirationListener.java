@@ -2,34 +2,26 @@ package org.thoughtcrime.securesms.service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import org.signal.core.util.PendingIntentFlags;
-import org.signal.core.util.ServiceUtil;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 
-public class ExpirationListener extends ExportedBroadcastReceiver {
+public class ExpirationListener extends BroadcastReceiver {
 
   @Override
-  public void onReceiveUnlock(Context context, Intent intent) {
+  public void onReceive(Context context, Intent intent) {
     AppDependencies.getExpiringMessageManager().checkSchedule();
   }
 
   public static void setAlarm(Context context, long waitTimeMillis) {
-    PendingIntent pendingIntent = buildExpirationPendingIntent(context);
-    AlarmManager  alarmManager  = ServiceUtil.getAlarmManager(context);
+    Intent        intent        = new Intent(context, ExpirationListener.class);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
+    AlarmManager  alarmManager  = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
     alarmManager.cancel(pendingIntent);
     alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + waitTimeMillis, pendingIntent);
-  }
-
-  public static void cancelAlarm(Context context) {
-    ServiceUtil.getAlarmManager(context).cancel(buildExpirationPendingIntent(context));
-  }
-
-  private static PendingIntent buildExpirationPendingIntent(Context context) {
-    Intent intent = new Intent(context, ExpirationListener.class);
-    return PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
   }
 }

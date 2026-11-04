@@ -5,6 +5,8 @@
 
 package org.thoughtcrime.securesms.components.settings.app.subscription
 
+import org.signal.donations.CreditCardPaymentSource
+import org.signal.donations.GooglePayPaymentSource
 import org.signal.donations.IDEALPaymentSource
 import org.signal.donations.PayPalPaymentSource
 import org.signal.donations.PaymentSource
@@ -42,6 +44,13 @@ fun PaymentSource.toProto(): InAppPaymentSourceData {
         email = sepaDebitData.email
       )
     } else null,
+    tokenData = if (this is CreditCardPaymentSource || this is GooglePayPaymentSource) {
+      InAppPaymentSourceData.TokenData(
+        parameters = parameterize().toString(),
+        tokenId = getTokenId(),
+        email = email()
+      )
+    } else null
   )
 }
 

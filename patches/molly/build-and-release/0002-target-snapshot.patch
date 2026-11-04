@@ -1,0 +1,523 @@
+From 78c9211e53aaab4947b334eac848c5e9cbf3a7ed Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly build-and-release, part 2
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Gradle/build conventions, dependency pins, reproducibility, native-library integration, lint, CI/release automation.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/reproducible-builds/certs/.keep b/reproducible-builds/certs/.keep
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/reproducible-builds/ci/beta-stable.env b/reproducible-builds/ci/beta-stable.env
+new file mode 100644
+index 0000000000000000000000000000000000000000..be3e0bbbb6985efb6ed19b4fdecee06c73769682
+--- /dev/null
++++ b/reproducible-builds/ci/beta-stable.env
+@@ -0,0 +1 @@
++CI_BUILD_VARIANTS=prod
+diff --git a/reproducible-builds/ci/insider.env b/reproducible-builds/ci/insider.env
+new file mode 100644
+index 0000000000000000000000000000000000000000..34d37d590b2e1a4e2c8eed56921ac1e01d5602bd
+--- /dev/null
++++ b/reproducible-builds/ci/insider.env
+@@ -0,0 +1,5 @@
++CI_BUILD_VARIANTS=(prod|staging)Website
++CI_APP_TITLE=Molly Insider
++CI_APP_FILENAME=Molly-Insider
++CI_PACKAGE_ID=im.molly.insider
++CI_FORCE_INTERNAL_USER_FLAG=true
+diff --git a/reproducible-builds/docker-compose.yml b/reproducible-builds/docker-compose.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..270c375ff25192592f80690d62324c9d8648f28b
+--- /dev/null
++++ b/reproducible-builds/docker-compose.yml
+@@ -0,0 +1,18 @@
++services:
++  assemble:
++    image: reproducible-molly
++    build:
++      context: ..
++    command: assemble
++    volumes:
++      - ./certs:/molly/app/certs:ro
++      - ./outputs:/molly/app/build/outputs
++    environment:
++      - CI_APP_TITLE
++      - CI_APP_FILENAME
++      - CI_PACKAGE_ID
++      - CI_BUILD_VARIANTS
++      - CI_FORCE_INTERNAL_USER_FLAG
++      - CI_KEYSTORE_PATH
++      - CI_KEYSTORE_PASSWORD
++      - CI_KEYSTORE_ALIAS
+diff --git a/reproducible-builds/docker/apt.conf b/reproducible-builds/docker/apt.conf
+deleted file mode 100644
+index cda34c6f18b1c869723a0584a380adacc7133954..0000000000000000000000000000000000000000
+--- a/reproducible-builds/docker/apt.conf
++++ /dev/null
+@@ -1,6 +0,0 @@
+-Acquire::Check-Valid-Until "false";
+-Acquire::Languages "none";
+-Binary::apt-get::Acquire::AllowInsecureRepositories "false";
+-
+-APT::Install-Recommends "false";
+-APT::Immediate-Configure "false";
+diff --git a/reproducible-builds/docker/sources.list b/reproducible-builds/docker/sources.list
+deleted file mode 100644
+index 180a1ced03ea0ecd5281cc76dd75c043bfdcaa26..0000000000000000000000000000000000000000
+--- a/reproducible-builds/docker/sources.list
++++ /dev/null
+@@ -1,3 +0,0 @@
+-deb http://mirror.signalusers.org/ubuntu/1782842750/ jammy main universe
+-deb http://mirror.signalusers.org/ubuntu/1782842750/ jammy-security main universe
+-deb http://mirror.signalusers.org/ubuntu/1782842750/ jammy-updates main universe
+diff --git a/reproducible-builds/outputs/.keep b/reproducible-builds/outputs/.keep
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+index a20b051e070784ece50fddabfa9366fd1508b0e5..3eaa4ba89a9f96ec044af96ce46554910def0d4d 100644
+--- a/settings.gradle.kts
++++ b/settings.gradle.kts
+@@ -1,76 +1,57 @@
+-val localProps = java.util.Properties().also { props ->
+-  val localPropsFile = file("local.properties")
+-  if (localPropsFile.exists()) {
+-    localPropsFile.inputStream().use { props.load(it) }
+-  }
+-}
+-
+-fun optionalBuildCacheValue(envKey: String, localKey: String): String? {
+-  return System.getenv(envKey)?.takeIf { it.isNotBlank() }
+-    ?: localProps.getProperty(localKey)?.takeIf { it.isNotBlank() }
+-}
+-
+-val remoteBuildCacheUrl: String? = optionalBuildCacheValue("SIGNAL_BUILD_CACHE_URL", "signal.build.cache.url")
+-val remoteBuildCacheUser: String? = optionalBuildCacheValue("SIGNAL_BUILD_CACHE_USER", "signal.build.cache.user")
+-val remoteBuildCachePassword: String? = optionalBuildCacheValue("SIGNAL_BUILD_CACHE_PASSWORD", "signal.build.cache.password")
+-
+-buildCache {
+-  if (remoteBuildCacheUrl != null) {
+-    remote<HttpBuildCache> {
+-      url = uri(remoteBuildCacheUrl)
+-      isPush = System.getenv("SIGNAL_BUILD_CACHE_PUSH") == "true"
+-      if (remoteBuildCacheUser != null && remoteBuildCachePassword != null) {
+-        credentials {
+-          username = remoteBuildCacheUser
+-          password = remoteBuildCachePassword
+-        }
+-      }
+-    }
+-  }
+-}
+-
+ pluginManagement {
+   repositories {
+-    google()
++    google {
++      content {
++        includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
++      }
++    }
+     mavenCentral()
+-    gradlePluginPortal()
+   }
+   includeBuild("build-logic")
+ }
+ dependencyResolutionManagement {
+   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+   repositories {
+-    google()
+-    mavenCentral()
+-    mavenLocal()
++    google {
++      content {
++        includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
++      }
++    }
++    mavenLocal {
++      content {
++        includeGroup("im.molly")
++        includeGroup("org.signal")
++      }
++    }
+     maven {
+-      url = uri("https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/")
++      url = uri("https://dl.cloudsmith.io/public/mollyim/ringrtc/maven/")
+       content {
+-        includeGroupByRegex("org\\.signal.*")
++        includeModule("im.molly", "ringrtc-android")
+       }
+     }
+     maven {
+-      url = uri("https://raw.githubusercontent.com/signalapp/maven/master/aesgcmprovider/release/")
++      url = uri("https://dl.cloudsmith.io/public/mollyim/libsignal/maven/")
+       content {
+-        includeGroupByRegex("org\\.signal.*")
++        includeModule("im.molly", "libsignal-client")
++        includeModule("im.molly", "libsignal-android")
+       }
+     }
+     maven {
+-      url = uri("https://dl.cloudsmith.io/qxAgwaeEE1vN8aLU/mobilecoin/mobilecoin/maven/")
++      url = uri("https://raw.githubusercontent.com/signalapp/maven/master/sqlcipher/release/")
++      content {
++        includeModule("org.signal", "sqlcipher-android")
++      }
+     }
+     maven {
+-      name = "SignalBuildArtifacts"
+-      url = uri("https://build-artifacts.signal.org/libraries/maven/")
++      url = uri("https://raw.githubusercontent.com/signalapp/maven/master/aesgcmprovider/release/")
+       content {
+-        includeGroupByRegex("org\\.signal.*")
++        includeModule("org.signal", "aesgcmprovider")
+       }
+     }
++    mavenCentral()
+   }
+   versionCatalogs {
+     // libs.versions.toml is automatically registered.
+-    create("benchmarkLibs") {
+-      from(files("gradle/benchmark-libs.versions.toml"))
+-    }
+     create("testLibs") {
+       from(files("gradle/test-libs.versions.toml"))
+     }
+@@ -86,8 +67,8 @@ if (libsignalClientPath is String) {
+   includeBuild(rootDir.resolve(libsignalClientPath + "/java")) {
+     name = "libsignal-client"
+     dependencySubstitution {
+-      substitute(module("org.signal:libsignal-client")).using(project(":client"))
+-      substitute(module("org.signal:libsignal-android")).using(project(":android"))
++      substitute(module("im.molly:libsignal-client")).using(project(":client"))
++      substitute(module("im.molly:libsignal-android")).using(project(":android"))
+     }
+   }
+ }
+@@ -104,19 +85,25 @@ include(":core:network")
+ include(":core:ui")
+ include(":core:serialization")
+ 
++// FOSS GMS modules
++include(":core-gms:base")
++include(":core-gms:cloud-messaging")
++include(":core-gms:safeparcel")
++include(":core-gms:safeparcel-processor")
++include(":core-gms:tasks")
++
+ // Lib modules
+ include(":lib:libsignal-service")
++include(":lib:netcipher")
+ include(":lib:network")
+ include(":lib:glide")
+ include(":lib:photoview")
+ include(":lib:sticky-header-grid")
+-include(":lib:billing")
+ include(":lib:paging")
+ include(":lib:device-transfer")
+ include(":lib:donations")
+ include(":lib:contacts")
+ include(":lib:qr")
+-include(":lib:spinner")
+ include(":lib:video")
+ include(":lib:image-editor")
+ include(":lib:debuglogs-viewer")
+@@ -129,27 +116,8 @@ include(":feature:registration")
+ include(":feature:camera")
+ include(":feature:media-send")
+ 
+-// Demo apps
+-include(":demo:paging")
+-include(":demo:device-transfer")
+-include(":demo:donations")
+-include(":demo:contacts")
+-include(":demo:qr")
+-include(":demo:spinner")
+-include(":demo:video")
+-include(":demo:image-editor")
+-include(":demo:debuglogs-viewer")
+-include(":demo:registration")
+-include(":demo:camera")
+-include(":demo:apng")
+-
+ // Testing/Lint modules
+ include(":lintchecks")
+ include(":fast-lint")
+-include(":benchmark")
+-include(":baseline-profile")
+-include(":microbenchmark")
+-// App project name
+-project(":app").name = "Signal-Android"
+ 
+-rootProject.name = "Signal"
++rootProject.name = "Molly"
+diff --git a/wire-handler/gradle b/wire-handler/gradle
+deleted file mode 120000
+index 3337596a2668a0b95b8c5499d0d832cfacf60929..0000000000000000000000000000000000000000
+--- a/wire-handler/gradle
++++ /dev/null
+@@ -1 +0,0 @@
+-../gradle
+\ No newline at end of file
+diff --git a/wire-handler/gradlew b/wire-handler/gradlew
+deleted file mode 120000
+index 502f5a2d3ec62262f17012eea81e52ad76758930..0000000000000000000000000000000000000000
+--- a/wire-handler/gradlew
++++ /dev/null
+@@ -1 +0,0 @@
+-../gradlew
+\ No newline at end of file
+diff --git a/wire-handler/gradlew.bat b/wire-handler/gradlew.bat
+deleted file mode 120000
+index 284013288712c2901e6bf17a08e37249a4dbfbb6..0000000000000000000000000000000000000000
+--- a/wire-handler/gradlew.bat
++++ /dev/null
+@@ -1 +0,0 @@
+-../gradlew.bat
+\ No newline at end of file
+diff --git a/wire-handler/lib/build.gradle.kts b/wire-handler/lib/build.gradle.kts
+deleted file mode 100644
+index 8d094a3bdc4a04eb328773ae8dbbe1a536877f0d..0000000000000000000000000000000000000000
+--- a/wire-handler/lib/build.gradle.kts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-plugins {
+-  id("org.jetbrains.kotlin.jvm") version "2.2.20"
+-  `java-library`
+-}
+-
+-version = "1.0.0"
+-
+-base {
+-  archivesName.set("wire-handler")
+-}
+-
+-repositories {
+-  mavenCentral()
+-}
+-
+-dependencies {
+-  implementation("com.squareup.wire:wire-schema:6.4.0")
+-}
+diff --git a/wire-handler/lib/src/main/kotlin/org/signal/wire/Factory.kt b/wire-handler/lib/src/main/kotlin/org/signal/wire/Factory.kt
+deleted file mode 100644
+index 42566ca2869fed0c5cf88da164d15bc142416291..0000000000000000000000000000000000000000
+--- a/wire-handler/lib/src/main/kotlin/org/signal/wire/Factory.kt
++++ /dev/null
+@@ -1,15 +0,0 @@
+-package org.signal.wire
+-
+-import com.squareup.wire.schema.SchemaHandler
+-
+-class Factory : SchemaHandler.Factory {
+-  override fun create(
+-    includes: List<String>,
+-    excludes: List<String>,
+-    exclusive: Boolean,
+-    outDirectory: String,
+-    options: Map<String, String>
+-  ): SchemaHandler {
+-    return Handler()
+-  }
+-}
+diff --git a/wire-handler/lib/src/main/kotlin/org/signal/wire/Handler.kt b/wire-handler/lib/src/main/kotlin/org/signal/wire/Handler.kt
+deleted file mode 100644
+index 576317ed59b2fc22234bd8f9d614306ff75289a5..0000000000000000000000000000000000000000
+--- a/wire-handler/lib/src/main/kotlin/org/signal/wire/Handler.kt
++++ /dev/null
+@@ -1,54 +0,0 @@
+-package org.signal.wire
+-
+-import com.squareup.wire.schema.*
+-import okio.Path
+-import okio.Path.Companion.toPath
+-import java.lang.UnsupportedOperationException
+-import java.nio.charset.Charset
+-
+-/**
+- * Iterate over all generated kotlin files and inline replace calls to countNonNull with calls to
+- * a 'to be defined' where the proto is used implementation of 'countNonDefa' (short for countNonDefault).
+- * This code runs as part of wire compilation via the gradle plugin system.
+- *
+- * To make the replacement easier, the new name is the same number of bytes as the old to allow using a
+- * seeking read/write file descriptor to making the updates.
+- *
+- * The algorithm for searching/replacing is basic and could be optimized if necessary for faster build times.
+- */
+-class Handler : SchemaHandler() {
+-
+-  companion object {
+-    private val CHECK_FUNCTION = "countNonNull".encodeToByteArray()
+-    private val REPLACEMENT    = "countNonDefa".encodeToByteArray()
+-  }
+-
+-  override fun handle(schema: Schema, context: Context) {
+-    context.fileSystem
+-      .listRecursively(context.outDirectory)
+-      .filter { it.name.endsWith("kt") }
+-      .forEach { path: Path ->
+-        val readInput = ByteArray(CHECK_FUNCTION.size)
+-        context.fileSystem.openReadWrite(path, mustCreate = false, mustExist = true).use {
+-          var fileOffset = 0L
+-
+-          var read = it.read(fileOffset = fileOffset, array = readInput, arrayOffset = 0, byteCount = readInput.size)
+-          while (read >= 0) {
+-            if (readInput.contentEquals(CHECK_FUNCTION)) {
+-              it.write(fileOffset = fileOffset, array = REPLACEMENT, arrayOffset = 0, byteCount = REPLACEMENT.size)
+-              fileOffset += REPLACEMENT.size
+-            } else {
+-              fileOffset++
+-            }
+-            read = it.read(fileOffset = fileOffset, array = readInput, arrayOffset = 0, byteCount = readInput.size)
+-          }
+-        }
+-      }
+-  }
+-
+-  override fun handle(extend: Extend, field: Field, context: Context): Path = throw UnsupportedOperationException()
+-
+-  override fun handle(service: Service, context: Context): List<Path> = throw UnsupportedOperationException()
+-
+-  override fun handle(type: Type, context: Context): Path = throw UnsupportedOperationException()
+-}
+diff --git a/wire-handler/settings.gradle.kts b/wire-handler/settings.gradle.kts
+deleted file mode 100644
+index 5557c95ff508fd2a59cd9c5fc9e1c1c4e0a9157e..0000000000000000000000000000000000000000
+--- a/wire-handler/settings.gradle.kts
++++ /dev/null
+@@ -1,11 +0,0 @@
+-/*
+- * This file was generated by the Gradle 'init' task.
+- *
+- * The settings file is used to specify which projects to include in your build.
+- *
+- * Detailed information about configuring a multi-project build in Gradle can be found
+- * in the user manual at https://docs.gradle.org/8.0.2/userguide/multi_project_builds.html
+- */
+-
+-rootProject.name = "wire-handler"
+-include("lib")
+diff --git a/wire-handler/wire-handler-1.0.0.jar b/wire-handler/wire-handler-1.0.0.jar
+deleted file mode 100644
+index 1d59d8d74e492e566b079eb4e9620e939e21b497..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 5334
+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
+
+
+--------------false--
+
+

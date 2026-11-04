@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">Vil du forkaste endringene?</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">Gi tilgang til mikrofonen</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Gi Molly tilgang til kameraet for å ta bilder og spille inn videoer.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">Gi Signal tilgang til kameraet for å ta bilder og spille inn videoer.</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Gi Molly tilgang til kameraet og mikrofonen for å ta bilder og spille inn videoer.</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">Gi Signal tilgang til kameraet og mikrofonen for å ta bilder og spille inn videoer.</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">Gi Molly tilgang til mikrofonen for å spille inn videoer med lyd.</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">Gi Signal tilgang til mikrofonen for å spille inn videoer med lyd.</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Gi Molly tilgang til kameraet for å skanne QR-koder.</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">Gi Signal tilgang til kameraet for å skanne QR-koder.</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Du må gi Molly tilgang til kameraet for å ta bilder</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Du må gi Signal tilgang til kameraet for å ta bilder</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Du må gi Molly tilgang til kameraet for å skanne QR-koder</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Du må gi Signal tilgang til kameraet for å skanne QR-koder</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Du må gi Molly tilgang til mikrofonen for å spille inn videoer</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Du må gi Signal tilgang til mikrofonen for å spille inn videoer</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Slik tar du bilder i Molly:</string>
+  <string name="CameraXFragment_to_capture_photos">Slik tar du bilder i Signal:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Slik tar du bilder og spiller inn videoer i Molly:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Slik tar du bilder og spiller inn videoer i Signal:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">Slik spiller du inn videoer med lyd:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">Send</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Molly trenger mikrofontillatelser for å spille inn videoer, men de har blitt nektet. Gå til appinnstillingene, velg «Tillatelser», og aktiver «Mikrofon» og «Kamera».</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal trenger mikrofontillatelser for å spille inn videoer, men de har blitt nektet. Gå til appinnstillingene, velg «Tillatelser», og aktiver «Mikrofon» og «Kamera».</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">Kunne ikke ta opp videoen</string>

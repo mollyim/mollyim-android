@@ -68,6 +68,12 @@ class DonationReceiptDetailFragment : DSLSettingsFragment(layoutId = R.layout.do
 
   private fun getConfiguration(record: InAppPaymentReceiptRecord, subscriptionName: String?): DSLConfiguration {
     return configure {
+      customPref(
+        SplashImage.Model(
+          splashImageResId = R.drawable.ic_signal_logo_type
+        )
+      )
+
       textPref(
         title = DSLSettingsText.from(
           charSequence = FiatMoneyUtil.format(resources, record.amount),

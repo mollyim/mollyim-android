@@ -13,14 +13,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.EditTextUtil;
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.signal.core.ui.logging.LoggingFragment;
@@ -126,7 +127,7 @@ public class UsernameEditFragment extends LoggingFragment {
       return false;
     });
 
-    binding.usernameDescription.setLinkColor(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorPrimary));
+    binding.usernameDescription.setLinkColor(ContextCompat.getColor(requireContext(), org.signal.core.ui.R.color.signal_colorPrimary));
     binding.usernameDescription.setLearnMoreVisible(true);
     binding.usernameDescription.setOnLinkClickListener(this::onLearnMore);
 
@@ -184,8 +185,8 @@ public class UsernameEditFragment extends LoggingFragment {
       case DISCRIMINATOR_CANNOT_START_WITH_0 -> getString(R.string.UsernameEditFragment__this_number_cant_start_with_0);
     };
 
-    int colorRes = error != null ? com.google.android.material.R.attr.colorError :com.google.android.material.R.attr.colorPrimary;
-    int color = ThemeUtil.getThemedColor(requireContext(), colorRes);
+    int colorRes = error != null ? org.signal.core.ui.R.color.signal_colorError : org.signal.core.ui.R.color.signal_colorPrimary;
+    int color = ContextCompat.getColor(requireContext(), colorRes);
 
     binding.usernameTextFocusedStroke.setBackgroundColor(color);
     binding.usernameTextWrapper.setHintTextColor(ColorStateList.valueOf(color));

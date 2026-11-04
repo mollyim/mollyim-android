@@ -1,0 +1,931 @@
+From d1796260e8e553e003b6672526cb3b5f46ed539f Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly module-pruning, part 12
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Removed demos, benchmark/spinner/quickstart flavors and screenshot-test infrastructure.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 774f591a7a2ea9ca81b97c7caaab3b8ecf6cfe55..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8d82e581f5c8adc0017b7968426a6d85aa1664110f506c5ee3a5b950c51e09c0
+-size 38356
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index c82aedab89f22bc9b4b106b2a841acdff07c90f2..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:752d025c045da2ed5a944770580b2f50f2b8f8c50ef1820ba468c81a3eafdcdc
+-size 55182
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 61cdb6ab49c2476cedd08b339571324881952e23..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e2fcc36797d9d4a353186c05c5e8858509d5900ca3232c0e0060020d23a78e5f
+-size 55502
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index c2f3e52f486529938ba4c632ebed01e9722e83e6..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/complete/DeviceTransferCompleteScreenScreenshotTests/DeviceTransferCompleteScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:cf4460917f8cf1db0987fe7e04dfd9aad0cd6b06bee6ba29614a7dba2aa7ca77
+-size 58161
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index 2b69a0a04abeb26cc38170b8d0e3e68166219c40..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:41a7f655f99dfeb2a009c8fedf963eec82bc5039e0fb218bc1365a09ba4fe4dd
+-size 53578
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 1a26cf896ff089c4677a8d4f6480e861aaaf1b81..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:6a8eb924dc0c72ea5d1b640fd4df226382f5e44f7780f497b6411249e188259b
+-size 53888
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 0ca5fbdc3abe44cd8264db0eca18f742b48613f3..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:3a3d7791ef6d60162fbcb7f6c111b9a10a96d621091e5dbc69d09b7e14be84a4
+-size 53876
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 37a46c7eda96a526b8dd0faaebf5d1773c95c7b0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:455965843540b62751fefccd91589d2ac112e1ecc1e0946c6f998950f5f03be9
+-size 35783
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index 8d21e36dd329204dda65f4f97451dd19e225b1e5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:80df21bfdf451a3a5a005e21da2cee157d2a90a998ab8c2406d11c0dda5fe389
+-size 36026
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 9c6e570eb3a802413fbac8eef3e5692fc70d6a12..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:81121ed49bee0aaabf7ec7212e30367759148d631a7dccbf564aa79c9aad3b66
+-size 39215
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 7f2eb4eb4dc2d36cf53dc8e7e12345e12b1fbfc5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:646685eaefb66d4a9a3891e5fb69983be9c946823cc29bc2e6baaae665f8b897
+-size 43442
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index afefe3f78cda183154fabb157b74d1a2d201506e..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:2f63ec18248583ccf995d9863ba760cbf5b6dd99180a8faa68f7365cd119cb24
+-size 43327
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index 73ed75733b09f5922bdfeab1f11e1f903f3453ab..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7a074e3fb6611fc45402227c2eb41b33428d757bec20978d4f72505090520e3c
+-size 43608
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index d1cbf9e73dcf97825beec517eb830ec608879d95..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ba834e7714b6cc2f864785dee4edfe8e36961cf1995a83de0fe5393d29753e80
+-size 45559
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index fedc472a71610f1f8e78e408bbb4afd3c8618ad5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:26d57307c6eee870c22bfd3cd6f33a75fd1ae5e633bc5140249cb4afe8175f30
+-size 60709
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index c139f19ce457cb2d4ce9bddb839647a49b48ffee..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:693853e7bf38fecce3133da42f59abcebfbb7a2713ea532db85c23836caa4426
+-size 60929
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index ce183ea07615afcee8eb50fa2f9345f36c97e614..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/instructions/DeviceTransferInstructionsScreenScreenshotTests/DeviceTransferInstructionsScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:59457ea6b00d70202f3b046672518244afe7550c02539e62dd4744e7073507a7
+-size 63769
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index 3e4156c3b4ac69d4bf7b0bcc5f6526b9acae5d38..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7b21112856ac0e528bd0d207489e14d32118e569ae59edb03e225f01ab401e84
+-size 42897
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index df4fe87b7052ef36c8a7aa71842e05323103ea12..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:6c6419714fbe550616f43b4529392f2d7c3323f824c0753a0bd8745aeb38729a
+-size 43167
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index f7373beca15ac365c71ebbffc53b902d40564879..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ad0e926c978a944e6c38616136a3d1ceb726fb06ce55e535d23072076b1bd443
+-size 43189
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 6b7614a31aed11f6dd6681ac21c9d5e6327b88ed..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:780994f04b5dd46ca0c7463d946ad5f657d876de9ab9954c550b9a4efc2589bc
+-size 25392
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index af5205f2e8e9743be3ae4cc1754a3fc338141d43..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:5a81b32d4db12c6fd953ccd52b85f2e924271f7a26756e84ef9a721417c59c6c
+-size 25644
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 011532080c944c76917e0f43fea59c492932cbc7..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:98de4b5b98ba2f77ea8012f3ecab063a3e17350dff896edc56f754584e0283eb
+-size 26458
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index b4fe4df29918d2ac2fd3f8bb5d88185653e5ccb6..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:9aabe7e2852b612c8404e38adc3f8a4dafbebdf3a86e9de53d92df0dc4372b93
+-size 33370
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index 13be77df1b86927a28588773ad2687c25a13a79b..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:339f2ea9b590a0db42b5dbc65d638c94d03dfe96fdc74ee26884ca22a7fc8ba8
+-size 32838
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index 13403e17dbd01f9eed2be185b1e8cbffb96b8e2a..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:4f0b49bdd053597724f8ac0bc029ab33bce1ba380a412f37e086c6747fbbc9f1
+-size 33110
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 8841861d3f5f61e3971bcf9fb6fabeda009f8422..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:991d1bc17d36aeea099bf7d8531a5e6f5366bafb8b066005ab1299b71122bca9
+-size 33338
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 7a8971bb8289166ff79a187ec3df62d4caa35661..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7c8a3f48d56395492c335266b91d73a234521cafb3bc8d0abab6e1dba8ea2b79
+-size 49957
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 4cb039432e01b841320917c9bbea65fa89fa09cb..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:da02e5c45238511b50345bbc7684c28a0e2115dca10c6411a5d4c01d210fa728
+-size 50173
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index 1613d9df752c72e6ad9251baaf8974a96a5f0f8e..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/progress/DeviceTransferProgressScreenScreenshotTests/DeviceTransferProgressScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:5ccc2d3973efbb87d38f27713105543f161e1f3d821984b12aba2d3ad5db26e0
+-size 53196
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index 991ea3c47378d36ad769e8225f3ca760f95e8ac0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:f426b78145aff930c287c3b21353985e3446828d045a467215ada52205c0786d
+-size 26197
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 1dca4777da6851173539aa42384fe98d0896bb31..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:02afc59100e0b9d5630655c5c78e1fc720aeda888737c2eba214306456643f3e
+-size 26209
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 2a652d2a3472414524ed24c9d7d719dd2a75beb9..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:d00a849150d520e892523fa87c734fd65e07ce466a865d673653ff719c698da4
+-size 26549
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 8cd50b850ebb86498aaa2c30ff61c86c14d51805..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:091ff1fdabab68c2a3c600c255c744197c602997717051301dedc640d53a6245
+-size 8935
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index 63af5e6caefd18a75c1faf62b3045cd275aa52a3..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ba821bbbc0f5b342ecb033de0829006112616f6de345dacbc72c0017191460ff
+-size 8947
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index aaaba660f658c95bdd9e07c24582cb578ba24ad9..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:3acc9c86f7b428e1f465df31399b5cbebd3c196aaa1216297d4c26a93b95dfbb
+-size 10722
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 842a237c0c8459fcc2f9d4a15dfaf3bce089dfd3..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:35c5213511487b72b9f5bc7b91b6d60a8364921d6da5c1e645bda6135a9cd785
+-size 16498
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index f0b91b17cebe8ff405e4a3a24b6f6fb7e38d7fc3..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:86d0b543a34104cdf11a55de68417ae5bad101834798728cbc773ca0087ab06c
+-size 16579
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index 0054b5a4fb0633a2a2f0762a97ec6173ac307b12..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:3dbc047db70dcf5724d378073464ac42d2fbdf8bd12eb28b66626697e38e8ede
+-size 16590
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 9f006229503fb69376bdbca1cde31ea94386c365..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:37120f1f1313e2f6034a790ad5cb45b118f30017720ec68b55e9053bfbf493ab
+-size 16971
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 941899c57861dda9c1e8b18895cb013ee680bf08..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:921a019b7ee601ed7fc7fa88013248fea6cec847395a59fc6b7f13f21a996674
+-size 32824
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 1d436d69dff61f753536f3d6de17d472b45eaa42..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:6519d062994b04f497edb9ea9a2f41c8d0861b06daa6b9a2155a1e71ad0c5410
+-size 32851
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index 9f890f74fc79aa609f460e099386ce3af64c1654..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/devicetransfer/setup/DeviceTransferSetupScreenScreenshotTests/DeviceTransferSetupScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:d328d9096a3ee2400c0dc449383ed3f8cba1cc5a331147019daaae25ecc62e68
+-size 36440
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index ef90a3b6f73293c07dc66277e36d822645c36630..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:910fcc416ccb82ec783522ef29e84b551963c6f25da6f72bfe74aca489b1ae40
+-size 62012
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 2e58eb1720dbdcbf0030504f35d008f364956f80..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:67e043faf9f160cd4bf82c8b524d4b0edb7053a1be138f2fd48fdb015d46d955
+-size 62330
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 1b082dc8a56b1168d444484d5dfe1828f257cffb..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:c9bd57cd415076915a586adbc966d00a4d5aed5d1aec07ec8ab31bb128394240
+-size 62348
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 0ef0b40e6b390d0063a3e9cd2e4dc1623cffae7b..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:483022caefd62c2dcf06f25bee917b5fc57fbe4d4cd61ea578ffb4db43254cdb
+-size 43989
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index 1d7b3044bbb9f3af8fabda7bee0069e4b8386bc4..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:02e2af52660d576c612055749eecca8946e31b7514b43d29e86c04187f70179a
+-size 44335
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 0ea12eb50a323c4a77ca46ead5f3237f0c38cd32..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:2bc370a682561e1299e8f8a0a37d30fcad9121acb54e5fb91a174032ea2cb3da
+-size 46885
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 83bec71a21a850784047b0c1fdbf61d24f6803a4..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a5be646174c9a22682bf2ba05c2c6f4bd39494689b25eeeab389ab965f739773
+-size 54716
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index 38aef18c8f9bc5b866c38d2db9e4731e5db22ffd..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:67303356ab3fe7b14b89933b1edc737c384e6b9b3c7f5b7bb7a9e38803dde3b4
+-size 51859
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index b58a52eeefb1d8637b45423dc51bceef2b4cd462..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:965ab8b8d97bdb64a4c01c4fe3b403821703dfff042e96e2ab69d61570f9e0d7
+-size 52179
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 722b91b22e25728e7542cf991449ac3e4de6eb71..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ea18907a7d1c22fcfd8c1ca542ffefd054de2b46b747ee9a62e89679b2be488f
+-size 51894
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index c4d888721f3e60418d2c3d7a73548b9e86c15e23..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:25a5116d58974a3b411cb7b19428427d85b7ab0ece367243be88cf31312d28f3
+-size 69766
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index cc4b2e846da3222769f09f861b9591c65fb1bcea..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:bf046e84391f1fb88f9635efa86413bd421ba770e3b3e15066b8a01906d3ce08
+-size 70015
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index 1e596dd30179cc3b1da36ef58c6857478897aef9..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/discoverability/PhoneNumberDiscoverabilityScreenScreenshotTests/PhoneNumberDiscoverabilityScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a5c9feb5ada26e088f75f47be47e56e4fca5b585b554cd1a5d5be744fecab005
+-size 72279
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index a4605dac760900d396290fd3061f7fe88f42526a..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8ceb2a33cab66ed861c645b8da91a6bd4a35580f1abf5f82666f712072ab2a4d
+-size 142115
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index f2b4644424f9d7a79563ebdafc3484dedceda59a..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:bc95057e3e386168d74cd2044bacd45cf7766922804fce4fdb4410185d355829
+-size 142802
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index a368ca933f55c4d7563b66c41ad5a029289989a8..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:b82aee35008f0c475e047a0cd17a1487012a5a0e18d68b569b98703313d036e8
+-size 145124
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 1f3b961fa310dad8a910c908c68390d7980eb30d..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:d509dc743ef920c6bb6141c48a10b52baa5f70a332bd7c3bc5ca18e723caf612
+-size 66012
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index f23ed231b09fdad43b7f0f9c2bd2c7ccb28a730b..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:797c4dbb2c5abc8e9a4135bbb936fb3380ad55fffa319f8ec8e51afdcfddec65
+-size 66118
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index dd14e53d3b8687a88ab68aa41111d7d210cf8d97..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:09689f4dccaaaec8625a898882c95a572603bbd9dadee030101682a9ccf3d509
+-size 101353
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 87a233c867fab364b383dc343f507cd13c1447aa..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1b8de9f3bc4ca18e25eaabddfbf96b3e3e706b364b04880c680431183cb4f7e4
+-size 127908
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index 454b5c505990e3d652c18c05816cc3ac9b369ff5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:cdd151ee5b13bd5f22c7befd7b551074c5df1000e3145e216782aed94f02eae0
+-size 133730
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index cb50dbc19bcffbcbca76a1586db0230a6cfdd3d0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:876a6960dd775c720253d825cdba3b9254910f3bb2de25c276143de930891601
+-size 134256
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 6be56d9611d17e3a86aee6a4a95b943ee562edf0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:69dc2428d68d799c2601aa683f3390c1e262fc40f5cc3e178f76c25d21aad980
+-size 134562
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 5435002d52dd56dc6e2aec9cb39a57bf598d2ead..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:9ca2c90d84057ab8c524f76de112fe1f3b77b648c919412543fe2da1f36344a4
+-size 160358
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index b9084f16e49ddc0175b6f17835c3ca3e4d25caf5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:4a21407f16e247975ca0d628f354c61fb226c64c6972b904c70b8a36d56c6e6e
+-size 160534
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index d01d59b75e38bd03ddf2115112044b3fff340129..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/linkaccount/LinkAccountScreenScreenshotTests/LinkAccountScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:d7d65a52d3b9a9d074dd4a26c83ed1988c1561cfdbcbfc9eaa3e312d75262b21
+-size 160919
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index e705107cabf96209ca06976e447de94fde9a6971..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ef180ca33c9c886a3c38ad7f41c12dc302b42ca0b7c351b241c4eb5e667dc96b
+-size 85217
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index c2522f166505acd2c39b8ed2e72be1fc3cfce3e9..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e0cc7d5d1e712eb977d424d1bd048ea726c341986f74d1ae6bae3c1f7883bec7
+-size 85024
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index c301cbde73c5765a01c35a8913c903d58fd74a5e..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7f52ea0f405724da5cf9253d76f41ff6bf6563062cee8f0cee69872916960cc6
+-size 86164
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index f55b5f2237bc3cfe10dde8ba720a78b5aebc5560..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:dcd1cda431f0882d351b300aa36e4c2016cd5c23333509a4bb005f781114ce3b
+-size 61707
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index cad674db2827b0828dfe7b0a67df35fc922cf7cb..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:12b2e2ca2fdfe8334943bfa28ae9b2c10b7d5d0d7634b32aa7acdd4d2235bffc
+-size 61674
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 7be0e602f4f090b07315712fadf399875ff88855..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:680d87ec0947664ecb52b332c33ec3ed7abbb49d0ae6a7e200f2a7f2655185ac
+-size 69401
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index f877b61de19eb1d0b09b945e7f4a2fdbfbe0de9a..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:d5841d68035031c2aba2b2890ba1b16ec22183f8386a95f46f0eb350b8edf977
+-size 77876
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index fffa12bf9b1a73cb4de3c75e18a3dd54fea33f3d..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:545b1d7c0bb2698827f1ad11294bfccb4a7ecb9b1363a4f02cf7c3f4b377fc98
+-size 78592
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index e37e76f9907e907efb15f7bea9aae9b43f3b84f5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a85522ed0bccb95fd26921d739626334f8dcfb9840b59020c5d34cb0b077f2ce
+-size 78504
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index f908e5d220fff10b8ae446bce71d3528c35aa146..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:05ef83ee2c6979861314d1080bb68e8218a3436a51a368f753b4e076c64c12ca
+-size 81599
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 6c1a4398eba8d90db7203b46b681062d8de8b5ba..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1bf12f6df2688ae24413024d39242a796fcafb1d29f1152aa76f3487e3e1cf64
+-size 90630
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 8fb9410127eb5ef0fa3baab9137ea90e87c7ff74..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:63766c427827716e986b2580305cb8e23c3f36d2ebbd860e974c54e0bff73a04
+-size 90474
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index 08131ae27b1dcefee68b33290864b1718c0d046c..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/localbackuprestore/LocalBackupRestoreScreenScreenshotTests/LocalBackupRestoreScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:c2b41eacbce26d08ad3fac4b1300e1ac5cac4f3c894d91c6c796de6df89e18ae
+-size 91256
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index afef49565bc00be73fb0f73f5641e543185eeb6f..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1c0b27c29f162631dc0674273f8fc6828df7ab5672e1b57aa81e156201567b79
+-size 134241
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 5851da03141a547fd7134b4b4d06e16cf24cca4f..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7dbadbaf947becaf9ccea000e309f325e431a76b02b6bfe6bf4355f3b917696c
+-size 129694
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 9a1a31c508b02a829097ef04ddad5ab587a504df..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:83272132744fdda955773eda00290b60cefa2b77d50ee8d4540a675898a431a1
+-size 134720
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 9895f27b667c432b6d9127b2cac9bf5d6157c82b..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a1d91f050752a2ba82d7d17fcc2ee41a4255285f016ee7f1f01b8ab882e038fa
+-size 53756
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index df549437f25c331828960f678351dddf904b2bbe..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:9edb6352998f387a355844ce065484e2808157c8df90e2492aa74e8c83f36b04
+-size 53934
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 68ffe421b69766ec0afe26bb99ee789c9df32bb4..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1e21d20aeefc590478c5bb5a619e8970f8d6df11009e2236347d9c9151542ee2
+-size 140910
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index e2f52b4c0be5b982ef87aeb2881c6aff919876e2..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:0c35a4904274cd63890dff658e6a3b2622f6a38f1a9180dda72a27fa449ab6c8
+-size 118444
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index 2f69e79e36a88e213df5484c5200e72efeab9744..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e541b3e498984fc3d3ce23e6d7b2248ff3580e9e82ec03b178699b20b762c28f
+-size 192258
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index bc62e8b7ff22e443880795392bb36140463267c0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:6cb569e4da00d9797c58a66f792e20260ff92d4d91df33dffc5d7c58ced7f50a
+-size 181738
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 783aba02c43846b1d25592b6bf9b4b3d2efd6d62..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:163846f014e30036f7547923395af3544b58a77c0f3948369aee369a30d50632
+-size 161745
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 2d567b5a920de87ce3ec3e5d4070efd9a5e964c0..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:0e2d876eb5f65a68e4d3fee1d3109cf471fbc09b5fd3ae67c7a4aefff9219390
+-size 143938
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 87fea0fa9ee4020fa8b2d565da25318918381369..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:97059570390c1c72cdc344347d044f640f48c786d587fe1be59727069f7c3d51
+-size 139573
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index ce85fa7012de71915df3df9b1ebe8f7dece09e80..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/messagesync/MessageSyncScreenScreenshotTests/MessageSyncScreenPreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:3d6b357b2dbda106d4b472144712f429e525c0e04e7ab4cbac47a2156c6ca817
+-size 144423
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (day)_41c0d57c_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (day)_41c0d57c_0.png
+deleted file mode 100644
+index 0344ad654c791ebeff1f420d65d350acf8085473..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (day)_41c0d57c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1e247629010dab7ae6caa4cefed457c5e31d7b5c586bf919a7ff0fd5e991b73e
+-size 137954
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 3f8a83ea48dddaf6d663cd95083ead763590d447..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:36b56dc05579c77405cf8ee7e2fd7683eca810726c15d37962769d69ad1bcf87
+-size 138254
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 3b753620bda5d91c9d911fa83d33dcf88b026231..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:0f8a2e259ac4a484c50ba29ba98474c659168102f1421651f4e738edbe1940da
+-size 141102
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index 61da26cccbdf7e7650635f494843a8fe34680211..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e1a9f6be7e1c516e9902f601d2968a19e899037cc4241dd895ab99979b279474
+-size 60364
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index 29878d69981efc6c65a4d9b8a77471e22cee9d15..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/permissions/PermissionsScreenScreenshotTests/PermissionsScreenPreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:1920f615aefb88476488fa91c84edd5e4112956181808734010bf4e007936a1e
+-size 60765
+
+--------------false--
+
+

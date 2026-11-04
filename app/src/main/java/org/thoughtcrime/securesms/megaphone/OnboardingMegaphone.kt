@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms.megaphone
 
-import android.content.Intent
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -49,13 +48,12 @@ import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.IconButtons
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
-import org.signal.core.util.concurrent.LifecycleDisposable
-import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
+import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.EmptyMegaphoneActionController
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
-import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity
 import org.signal.core.ui.R as CoreUiR
 
@@ -197,7 +195,7 @@ private fun OnboardingMegaphonePreview() {
 private fun OnboardingMegaphoneListItemPreview() {
   Previews.Preview {
     OnboardingMegaphoneListItem(
-      onboardingListItem = OnboardingListItem.STORIES,
+      onboardingListItem = OnboardingListItem.INVITE,
       onActionClick = {},
       onCloseClick = {}
     )
@@ -212,11 +210,15 @@ enum class OnboardingListItem(
   @DrawableRes val icon: Int,
   @ColorRes val cardColor: Int
 ) {
-  // MOLLY: STORIES (opt-in) replace the GROUP card; no INVITE card
-  STORIES(
-    title = R.string.Megaphones_turn_on_stories,
+  GROUP(
+    title = R.string.Megaphones_new_group,
     icon = R.drawable.symbol_group_24,
     cardColor = R.color.onboarding_background_1
+  ),
+  INVITE(
+    title = R.string.Megaphones_invite_friends,
+    icon = R.drawable.symbol_invite_24,
+    cardColor = R.color.onboarding_background_2
   ),
   ADD_PHOTO(
     title = R.string.Megaphones_add_a_profile_photo,
@@ -273,7 +275,8 @@ abstract class OnboardingState private constructor(
    */
   private object Preview : OnboardingState(
     initialState = DisplayState(
-      shouldShowStories = true,
+      shouldShowNewGroup = true,
+      shouldShowInviteFriends = true,
       shouldShowAddPhoto = true,
       shouldShowAppearance = true
     ),
@@ -281,7 +284,8 @@ abstract class OnboardingState private constructor(
   ) {
     override fun onItemCloseClick(onboardingListItem: OnboardingListItem) {
       displayState = when (onboardingListItem) {
-        OnboardingListItem.STORIES -> displayState.copy(shouldShowStories = false)
+        OnboardingListItem.GROUP -> displayState.copy(shouldShowNewGroup = false)
+        OnboardingListItem.INVITE -> displayState.copy(shouldShowInviteFriends = false)
         OnboardingListItem.ADD_PHOTO -> displayState.copy(shouldShowAddPhoto = false)
         OnboardingListItem.APPEARANCE -> displayState.copy(shouldShowAppearance = false)
       }
@@ -294,16 +298,10 @@ abstract class OnboardingState private constructor(
    * Real implementation, used automatically on-device. Backed by SignalStore.
    */
   private class Real(megaphoneActionController: MegaphoneActionController) : OnboardingState(megaphoneActionController = megaphoneActionController) {
-    private val storiesRepository = StoriesPrivacySettingsRepository()
-    private val disposable = LifecycleDisposable()
-
-    init {
-      disposable.bindTo(megaphoneActionController.megaphoneActivity.lifecycle)
-    }
-
     override fun onItemCloseClick(onboardingListItem: OnboardingListItem) {
       when (onboardingListItem) {
-        OnboardingListItem.STORIES -> SignalStore.onboarding.setShowStories(false)
+        OnboardingListItem.GROUP -> SignalStore.onboarding.setShowNewGroup(false)
+        OnboardingListItem.INVITE -> SignalStore.onboarding.setShowInviteFriends(false)
         OnboardingListItem.ADD_PHOTO -> SignalStore.onboarding.setShowAddPhoto(false)
         OnboardingListItem.APPEARANCE -> SignalStore.onboarding.setShowAppearance(false)
       }
@@ -317,12 +315,8 @@ abstract class OnboardingState private constructor(
 
     override fun onItemActionClick(onboardingListItem: OnboardingListItem) {
       when (onboardingListItem) {
-        OnboardingListItem.STORIES -> {
-          disposable.add(storiesRepository.setStoriesEnabled(true).subscribe {
-            megaphoneActionController.onMegaphoneNavigationRequested(Intent(megaphoneActionController.megaphoneActivity, MainActivity::class.java))
-          })
-          SignalStore.onboarding.setShowStories(false)
-        }
+        OnboardingListItem.GROUP -> megaphoneActionController.onMegaphoneNavigationRequested(CreateGroupActivity.createIntent(megaphoneActionController.megaphoneActivity))
+        OnboardingListItem.INVITE -> megaphoneActionController.onMegaphoneNavigationRequested(AppSettingsActivity.invite(megaphoneActionController.megaphoneActivity))
         OnboardingListItem.ADD_PHOTO -> {
           megaphoneActionController.onMegaphoneNavigationRequested(EditProfileActivity.getIntentForAvatarEdit(megaphoneActionController.megaphoneActivity))
           SignalStore.onboarding.setShowAddPhoto(false)
@@ -345,15 +339,17 @@ abstract class OnboardingState private constructor(
    * Simple display state, driven by [SignalStore] by default.
    */
   data class DisplayState(
-    private val shouldShowStories: Boolean = SignalStore.onboarding.shouldShowStories() && SignalStore.story.isFeatureDisabled,
+    private val shouldShowNewGroup: Boolean = SignalStore.onboarding.shouldShowNewGroup(),
+    private val shouldShowInviteFriends: Boolean = SignalStore.onboarding.shouldShowInviteFriends(),
     private val shouldShowAddPhoto: Boolean = SignalStore.onboarding.shouldShowAddPhoto() && !SignalStore.misc.hasEverHadAnAvatar,
     private val shouldShowAppearance: Boolean = SignalStore.onboarding.shouldShowAppearance()
   ) {
-    fun hasNoVisibleContent(): Boolean = !(shouldShowStories || shouldShowAddPhoto || shouldShowAppearance)
+    fun hasNoVisibleContent(): Boolean = !(shouldShowNewGroup || shouldShowInviteFriends || shouldShowAddPhoto || shouldShowAppearance)
 
     fun shouldDisplayListItem(onboardingListItem: OnboardingListItem): Boolean {
       return when (onboardingListItem) {
-        OnboardingListItem.STORIES -> shouldShowStories
+        OnboardingListItem.GROUP -> shouldShowNewGroup
+        OnboardingListItem.INVITE -> shouldShowInviteFriends
         OnboardingListItem.ADD_PHOTO -> shouldShowAddPhoto
         OnboardingListItem.APPEARANCE -> shouldShowAppearance
       }

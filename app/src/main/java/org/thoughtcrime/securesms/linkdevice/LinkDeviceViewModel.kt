@@ -152,9 +152,12 @@ class LinkDeviceViewModel : ViewModel() {
     pollJob?.cancel()
   }
 
-  fun requestLinkWithoutQrCode(value: Boolean) {
+  fun markQrEducationSheetSeen() {
+    SignalStore.uiHints.markHasSeenLinkDeviceQrEducationSheet()
     _state.update {
-      it.copy(linkWithoutQrCode = value)
+      it.copy(
+        seenQrEducationSheet = true
+      )
     }
   }
 

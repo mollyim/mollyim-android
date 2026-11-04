@@ -1,0 +1,1314 @@
+From 4cf65b2675340e259edd3e31a0e26389613df38f Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly resources-and-branding, part 8
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Shared localized resources, icons, artwork, layouts, XML policy and resource deletions.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/res/layout/username_edit_fragment.xml b/app/src/main/res/layout/username_edit_fragment.xml
+index d835e8f247f960d5c14be7bb106933b2edd11786..0a2d4e5b2db512dd03b5434c90120717bb9700b1 100644
+--- a/app/src/main/res/layout/username_edit_fragment.xml
++++ b/app/src/main/res/layout/username_edit_fragment.xml
+@@ -28,12 +28,12 @@
+         android:background="@drawable/circle_tintable"
+         android:importantForAccessibility="no"
+         android:padding="14dp"
+-        app:backgroundTint="@color/signal_colorSurface2"
++        app:backgroundTint="?attr/colorSurfaceContainer"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/toolbar"
+         app:srcCompat="@drawable/symbol_at_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+     <View
+         android:id="@+id/username_box_fill"
+@@ -55,7 +55,7 @@
+         android:layout_marginTop="24dp"
+         android:layout_marginRight="16dp"
+         android:theme="@style/Signal.ThemeOverlay.TextInputLayout"
+-        app:boxStrokeColor="@color/signal_colorPrimary"
++        app:boxStrokeColor="?attr/colorPrimary"
+         app:boxStrokeWidth="0dp"
+         app:boxStrokeWidthFocused="0dp"
+         app:errorTextAppearance="@style/Signal.Text.Zero"
+@@ -64,7 +64,7 @@
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toLeftOf="@id/suffix_progress"
+         app:layout_constraintTop_toBottomOf="@id/summary"
+-        app:suffixTextColor="@color/signal_colorOnSurface">
++        app:suffixTextColor="?attr/colorOnSurface">
+ 
+         <EditText
+             android:id="@+id/username_text"
+@@ -109,7 +109,7 @@
+         android:layout_height="16dp"
+         android:layout_marginRight="16dp"
+         android:layout_marginBottom="10dp"
+-        app:indicatorColor="@color/signal_colorOnSurfaceVariant"
++        app:indicatorColor="?attr/colorOnSurfaceVariant"
+         app:indicatorSize="16dp"
+         app:layout_constraintBottom_toBottomOf="@id/username_text_wrapper"
+         app:layout_constraintRight_toLeftOf="@id/discriminator_text"
+@@ -120,7 +120,7 @@
+         android:id="@+id/divider"
+         android:layout_width="1dp"
+         android:layout_height="20dp"
+-        android:background="@color/signal_colorOutline"
++        android:background="?attr/colorOutline"
+         app:layout_constraintBottom_toBottomOf="@id/discriminator_text"
+         app:layout_constraintLeft_toLeftOf="@id/discriminator_text"
+         app:layout_constraintTop_toTopOf="@id/discriminator_text" />
+@@ -129,7 +129,7 @@
+         android:id="@+id/username_text_focused_stroke"
+         android:layout_width="0dp"
+         android:layout_height="2dp"
+-        android:background="@color/signal_colorPrimary"
++        android:background="?attr/colorPrimary"
+         app:layout_constraintBottom_toBottomOf="@id/username_text_wrapper"
+         app:layout_constraintLeft_toLeftOf="@id/username_text_wrapper"
+         app:layout_constraintRight_toRightOf="@id/discriminator_text" />
+@@ -141,7 +141,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginHorizontal="16dp"
+         android:layout_marginTop="4dp"
+-        android:textColor="@color/signal_colorError"
++        android:textColor="?attr/colorError"
+         android:visibility="gone"
+         app:layout_constraintLeft_toLeftOf="@id/username_description"
+         app:layout_constraintRight_toRightOf="@id/username_description"
+@@ -159,7 +159,7 @@
+         android:gravity="center"
+         android:text="@string/UsernameEditFragment__choose_your_username"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/icon" />
+@@ -174,7 +174,7 @@
+         android:layout_marginEnd="@dimen/dsl_settings_gutter"
+         android:layout_marginBottom="24dp"
+         android:text="@string/UsernameEditFragment__usernames_let_others_message"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toTopOf="@id/username_button_barrier"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -204,12 +204,12 @@
+         android:layout_marginBottom="16dp"
+         android:contentDescription="@string/UsernameEditFragment__done"
+         android:visibility="gone"
+-        app:backgroundTint="@color/signal_colorPrimaryContainer"
++        app:backgroundTint="?attr/colorPrimaryContainer"
+         app:fabCustomSize="48dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:srcCompat="@drawable/ic_arrow_end_24"
+-        app:tint="@color/signal_colorOnPrimaryContainer"
++        app:tint="?attr/colorOnPrimaryContainer"
+         tools:visibility="visible" />
+ 
+     <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
+diff --git a/app/src/main/res/layout/v2_conversation_fragment.xml b/app/src/main/res/layout/v2_conversation_fragment.xml
+index 92d34d0a17f5572f9beae08926151d86d0b85570..d22c785c016a4deb5491dc716042f600aacd17b0 100644
+--- a/app/src/main/res/layout/v2_conversation_fragment.xml
++++ b/app/src/main/res/layout/v2_conversation_fragment.xml
+@@ -72,7 +72,7 @@
+         android:paddingTop="4dp"
+         android:paddingEnd="12dp"
+         android:paddingBottom="4dp"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:visibility="gone"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -304,7 +304,7 @@
+         android:paddingVertical="10dp"
+         android:text="@string/ConversationFragment_the_only_official_chat_from_signal"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         android:visibility="gone"
+         app:layout_constraintBottom_toTopOf="@id/keyboard_guideline"
+         app:layout_constraintEnd_toEndOf="@id/parent_end_guideline"
+diff --git a/app/src/main/res/layout/v2_conversation_item_media_incoming.xml b/app/src/main/res/layout/v2_conversation_item_media_incoming.xml
+index 3d24dcdd80d5fe3a15a26f5137a37dfe2f7f16db..7a4536ccd50b479f3f379ff052fcc35a7216ddc4 100644
+--- a/app/src/main/res/layout/v2_conversation_item_media_incoming.xml
++++ b/app/src/main/res/layout/v2_conversation_item_media_incoming.xml
+@@ -19,7 +19,7 @@
+         android:layout_width="@dimen/conversation_item_reply_size"
+         android:layout_height="@dimen/conversation_item_reply_size"
+         android:alpha="0"
+-        android:tint="@color/signal_icon_tint_secondary"
++        android:tint="?attr/signal_icon_tint_secondary"
+         app:contentPadding="9dp"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
+@@ -78,7 +78,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             tools:text="Alice › Book Club" />
+ 
+     </LinearLayout>
+@@ -228,7 +228,7 @@
+         android:linksClickable="false"
+         android:maxLines="1"
+         android:paddingBottom="@dimen/message_bubble_bottom_padding"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
+         app:layout_goneMarginEnd="@dimen/message_bubble_horizontal_padding"
+diff --git a/app/src/main/res/layout/v2_conversation_item_media_outgoing.xml b/app/src/main/res/layout/v2_conversation_item_media_outgoing.xml
+index 951c37c975dc9f780c12bfa36a93abd265ecea34..7121114c86b3dc7a56f63ddc587eba981e93a7bf 100644
+--- a/app/src/main/res/layout/v2_conversation_item_media_outgoing.xml
++++ b/app/src/main/res/layout/v2_conversation_item_media_outgoing.xml
+@@ -19,7 +19,7 @@
+         android:layout_width="@dimen/conversation_item_reply_size"
+         android:layout_height="@dimen/conversation_item_reply_size"
+         android:alpha="0"
+-        android:tint="@color/signal_icon_tint_secondary"
++        android:tint="?attr/signal_icon_tint_secondary"
+         app:contentPadding="9dp"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
+@@ -175,7 +175,7 @@
+         android:linksClickable="false"
+         android:maxLines="1"
+         android:paddingBottom="@dimen/message_bubble_bottom_padding"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
+         tools:text="13:14pm" />
+diff --git a/app/src/main/res/layout/v2_conversation_item_text_only_incoming.xml b/app/src/main/res/layout/v2_conversation_item_text_only_incoming.xml
+index 420390b55245afa48a24ed23720e72d345868b2d..be9482d5dd0d3d5ca07abda925451f4f8ee66170 100644
+--- a/app/src/main/res/layout/v2_conversation_item_text_only_incoming.xml
++++ b/app/src/main/res/layout/v2_conversation_item_text_only_incoming.xml
+@@ -23,7 +23,7 @@
+         android:layout_width="@dimen/conversation_item_reply_size"
+         android:layout_height="@dimen/conversation_item_reply_size"
+         android:alpha="0"
+-        android:tint="@color/signal_icon_tint_secondary"
++        android:tint="?attr/signal_icon_tint_secondary"
+         app:contentPadding="9dp"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
+@@ -81,7 +81,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             tools:text="Alice › Book Club" />
+ 
+     </LinearLayout>
+@@ -195,7 +195,7 @@
+         android:linksClickable="false"
+         android:maxLines="1"
+         android:paddingBottom="@dimen/message_bubble_footer_bottom_padding"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
+         app:layout_goneMarginEnd="0dp"
+diff --git a/app/src/main/res/layout/v2_conversation_item_text_only_outgoing.xml b/app/src/main/res/layout/v2_conversation_item_text_only_outgoing.xml
+index 5419b2ab54a647218773690e27cc11918de2c945..02d40a6141eb3a1d3e76118436df090e824d2e70 100644
+--- a/app/src/main/res/layout/v2_conversation_item_text_only_outgoing.xml
++++ b/app/src/main/res/layout/v2_conversation_item_text_only_outgoing.xml
+@@ -23,7 +23,7 @@
+         android:layout_width="@dimen/conversation_item_reply_size"
+         android:layout_height="@dimen/conversation_item_reply_size"
+         android:alpha="0"
+-        android:tint="@color/signal_icon_tint_secondary"
++        android:tint="?attr/signal_icon_tint_secondary"
+         app:contentPadding="9dp"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
+@@ -141,7 +141,7 @@
+         android:linksClickable="false"
+         android:maxLines="1"
+         android:paddingBottom="@dimen/message_bubble_footer_bottom_padding"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
+         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
+         tools:text="13:14pm" />
+diff --git a/app/src/main/res/layout/v2_media_add_message_dialog_fragment_content.xml b/app/src/main/res/layout/v2_media_add_message_dialog_fragment_content.xml
+index 6d1da65a75465a61ae6198b23ff54e6fee20be48..14b0ddb447a8d019d81fe457a40dea0322bfac7c 100644
+--- a/app/src/main/res/layout/v2_media_add_message_dialog_fragment_content.xml
++++ b/app/src/main/res/layout/v2_media_add_message_dialog_fragment_content.xml
+@@ -9,7 +9,7 @@
+         android:id="@+id/background_holder"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+-        android:background="@color/signal_colorSurface1"
++        android:background="?attr/colorSurfaceContainerLow"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintTop_toTopOf="@id/input_barrier" />
+ 
+@@ -44,7 +44,7 @@
+         android:paddingEnd="6dp"
+         app:layout_constraintBottom_toTopOf="@id/emoji_drawer_stub"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+     <org.thoughtcrime.securesms.components.ComposeText
+         android:id="@+id/add_a_message_input"
+@@ -60,7 +60,7 @@
+         android:minHeight="@dimen/conversation_compose_height"
+         android:paddingEnd="10dp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/emoji_drawer_stub"
+         app:layout_constraintEnd_toStartOf="@id/view_once_toggle"
+         app:layout_constraintStart_toEndOf="@id/emoji_toggle"
+@@ -85,7 +85,7 @@
+             android:layout_gravity="center"
+             android:scaleType="centerInside"
+             app:srcCompat="@drawable/symbol_view_once_infinite_24"
+-            app:tint="@color/signal_colorOnSurface" />
++            app:tint="?attr/colorOnSurface" />
+ 
+         <com.google.android.material.imageview.ShapeableImageView
+             android:layout_width="40dp"
+@@ -93,7 +93,7 @@
+             android:layout_gravity="center"
+             android:scaleType="centerInside"
+             app:srcCompat="@drawable/symbol_view_once_24"
+-            app:tint="@color/signal_colorOnSurface" />
++            app:tint="?attr/colorOnSurface" />
+ 
+     </ViewSwitcher>
+ 
+@@ -103,7 +103,7 @@
+         android:layout_height="wrap_content"
+         android:translationX="-6dp"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="@id/add_a_message_input"
+         app:layout_constraintStart_toStartOf="@id/view_once_toggle"
+@@ -116,7 +116,7 @@
+         android:layout_height="48dp"
+         android:layout_marginEnd="8dp"
+         android:layout_marginBottom="2dp"
+-        android:background="@color/signal_colorSecondaryContainer"
++        android:background="?attr/colorSecondaryContainer"
+         android:contentDescription="@string/MediaReviewFragment__finish_adding_a_message_accessibility_label"
+         android:padding="6dp"
+         android:scaleType="centerInside"
+diff --git a/app/src/main/res/layout/v2_media_count_indicator_button.xml b/app/src/main/res/layout/v2_media_count_indicator_button.xml
+index f2da3f82f9e21554a3bd994fac9d7f09f1bd2e09..88612d7f4c4fa192f4859d1f31182e861352b3ec 100644
+--- a/app/src/main/res/layout/v2_media_count_indicator_button.xml
++++ b/app/src/main/res/layout/v2_media_count_indicator_button.xml
+@@ -40,6 +40,6 @@
+         app:layout_constraintStart_toEndOf="@id/media_count_indicator_text"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/symbol_chevron_right_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+ </merge>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/v2_media_gallery_folder_item.xml b/app/src/main/res/layout/v2_media_gallery_folder_item.xml
+index a21059b463a0720b2e25fa0384366114aa4b1232..959d164cc20a3f417bdcfd4a71193853295c322b 100644
+--- a/app/src/main/res/layout/v2_media_gallery_folder_item.xml
++++ b/app/src/main/res/layout/v2_media_gallery_folder_item.xml
+@@ -44,7 +44,7 @@
+         android:lines="1"
+         android:paddingHorizontal="8dp"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/media_gallery_image"
+         tools:text="Lorem ipsum dolor sit amet" />
+diff --git a/app/src/main/res/layout/v2_media_gallery_fragment.xml b/app/src/main/res/layout/v2_media_gallery_fragment.xml
+index d4c3d875eb1dd9518670acf2cecbda90bf93dcbe..fb883e8994e364b6f45f021c71280387cfd0c503 100644
+--- a/app/src/main/res/layout/v2_media_gallery_fragment.xml
++++ b/app/src/main/res/layout/v2_media_gallery_fragment.xml
+@@ -95,8 +95,8 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             style="@style/Signal.Widget.Button.Large.Primary"
+-            app:backgroundTint="@color/signal_colorPrimaryContainer"
+-            android:textColor="@color/signal_colorOnPrimaryContainer"
++            app:backgroundTint="?attr/colorPrimaryContainer"
++            android:textColor="?attr/colorOnPrimaryContainer"
+             android:layout_marginTop="20dp"
+             android:text="@string/AttachmentKeyboard_allow_access" />
+ 
+@@ -106,7 +106,7 @@
+         android:id="@+id/bottom_bar_shade"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+-        android:background="@color/signal_colorSurface"
++        android:background="?attr/colorSurfaceContainer"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintTop_toTopOf="@id/media_gallery_bottom_bar_barrier" />
+ 
+diff --git a/app/src/main/res/layout/v2_media_gallery_item.xml b/app/src/main/res/layout/v2_media_gallery_item.xml
+index 1e1e87a35195a2dc5612dc9c5a79e218a001b4b1..8cfcac982ecf10e93ea37d227faeb57d11eb9044 100644
+--- a/app/src/main/res/layout/v2_media_gallery_item.xml
++++ b/app/src/main/res/layout/v2_media_gallery_item.xml
+@@ -5,7 +5,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/signal_colorSurfaceVariant">
++    android:background="?attr/colorSurfaceVariant">
+ 
+     <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/media_gallery_image"
+diff --git a/app/src/main/res/layout/v2_media_gallery_item_no_check.xml b/app/src/main/res/layout/v2_media_gallery_item_no_check.xml
+index 0bf7e1beec49f713059b142fa705249c34b6e2ec..4c8fd07e6ea66371e6d198521791075c7c506118 100644
+--- a/app/src/main/res/layout/v2_media_gallery_item_no_check.xml
++++ b/app/src/main/res/layout/v2_media_gallery_item_no_check.xml
+@@ -5,7 +5,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/signal_colorSurfaceVariant">
++    android:background="?attr/colorSurfaceVariant">
+ 
+     <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/media_gallery_image"
+diff --git a/app/src/main/res/layout/v2_media_gallery_placeholder_item.xml b/app/src/main/res/layout/v2_media_gallery_placeholder_item.xml
+index 04f437c3155120fbfa5192e53385e03ea1d53199..d2dc5f390b9f7015639cc58d1fde92df947397ec 100644
+--- a/app/src/main/res/layout/v2_media_gallery_placeholder_item.xml
++++ b/app/src/main/res/layout/v2_media_gallery_placeholder_item.xml
+@@ -5,7 +5,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/signal_colorSurfaceVariant">
++    android:background="?attr/colorSurfaceVariant">
+ 
+     <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/media_gallery_image"
+diff --git a/app/src/main/res/layout/v2_media_image_editor_hud.xml b/app/src/main/res/layout/v2_media_image_editor_hud.xml
+index 85b6413df3600cc47337636ffc1b40baddefad58..19de99f297a06598eaf8450f312013475933fb65 100644
+--- a/app/src/main/res/layout/v2_media_image_editor_hud.xml
++++ b/app/src/main/res/layout/v2_media_image_editor_hud.xml
+@@ -39,7 +39,7 @@
+             android:paddingBottom="7dp"
+             android:text="@string/ImageEditorHud__clear_all"
+             android:textAppearance="@style/Signal.Text.Body"
+-            android:textColor="@color/signal_dark_colorOnSecondaryContainer"
++            android:textColor="?attr/colorOnSecondaryContainer"
+             android:visibility="gone"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+@@ -66,7 +66,7 @@
+             android:layout_marginBottom="10dp"
+             android:alpha="0"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_dark_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:contentDescription="@string/ImageEditorHud__cancel"
+             android:padding="6dp"
+             android:translationY="56dp"
+@@ -75,7 +75,7 @@
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_goneMarginEnd="10dp"
+             app:srcCompat="@drawable/symbol_x_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:translationY="0dp"
+             tools:visibility="visible" />
+@@ -164,7 +164,7 @@
+             android:layout_marginBottom="10dp"
+             android:alpha="0"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_dark_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:contentDescription="@string/ImageEditorHud__done_editing"
+             android:padding="6dp"
+             android:translationY="56dp"
+@@ -173,7 +173,7 @@
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_goneMarginStart="10dp"
+             app:srcCompat="@drawable/symbol_check_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:translationY="0dp"
+             tools:visibility="visible" />
+@@ -228,7 +228,7 @@
+             app:layout_constraintBottom_toBottomOf="@id/image_editor_hud_draw_color_bar"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="@id/image_editor_hud_draw_color_bar"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:visibility="visible" />
+ 
+@@ -247,7 +247,7 @@
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="@id/image_editor_hud_draw_color_bar"
+             app:srcCompat="@drawable/symbol_text_square_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:visibility="visible" />
+ 
+@@ -324,7 +324,7 @@
+             app:layout_goneMarginEnd="10dp"
+             app:layout_goneMarginStart="10dp"
+             app:srcCompat="@drawable/symbol_crop_unlock_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:translationY="0dp"
+             tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/v2_media_review_fragment.xml b/app/src/main/res/layout/v2_media_review_fragment.xml
+index 57c9b808a7be5e2366000172be8a77685d6e7b18..7da9110925f4fdc83debc568ce90dfe724f2bb4a 100644
+--- a/app/src/main/res/layout/v2_media_review_fragment.xml
++++ b/app/src/main/res/layout/v2_media_review_fragment.xml
+@@ -22,7 +22,7 @@
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:alpha="0"
+-            android:background="@color/signal_dark_colorSurface"
++            android:background="?attr/colorSurface"
+             android:visibility="gone"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintTop_toTopOf="@id/timeline_placeholder"
+@@ -45,6 +45,7 @@
+             android:layout_marginEnd="16dp"
+             android:alpha="0"
+             android:background="@drawable/image_editor_hud_clear_all_background"
++            android:backgroundTint="?attr/conversation_compose_background"
+             android:drawablePadding="4dp"
+             android:maxLines="1"
+             android:paddingStart="14dp"
+@@ -53,10 +54,10 @@
+             android:paddingBottom="8dp"
+             android:gravity="center"
+             android:textAppearance="@style/TextAppearance.Signal.Body2"
+-            android:textColor="@color/signal_dark_colorOnSurface"
++            android:textColor="?attr/colorOnSurface"
+             android:visibility="gone"
+             app:drawableStartCompat="@drawable/symbol_arrow_right_24"
+-            app:drawableTint="@color/signal_dark_colorOnSurface"
++            app:drawableTint="?attr/colorOnSurface"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             tools:alpha="1"
+@@ -116,7 +117,7 @@
+             android:paddingEnd="48dp"
+             android:text="@string/MediaReviewFragment__add_a_message"
+             android:textAppearance="@style/Signal.Text.Body"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toStartOf="@id/send"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -144,7 +145,7 @@
+                 android:layout_gravity="center"
+                 android:scaleType="centerInside"
+                 app:srcCompat="@drawable/symbol_view_once_infinite_24"
+-                app:tint="@color/signal_colorOnSurface" />
++                app:tint="?attr/colorOnSurface" />
+ 
+             <com.google.android.material.imageview.ShapeableImageView
+                 android:layout_width="40dp"
+@@ -152,7 +153,7 @@
+                 android:layout_gravity="center"
+                 android:scaleType="centerInside"
+                 app:srcCompat="@drawable/symbol_view_once_24"
+-                app:tint="@color/signal_colorOnSurface" />
++                app:tint="?attr/colorOnSurface" />
+ 
+         </ViewSwitcher>
+ 
+@@ -169,7 +170,7 @@
+             app:layout_constraintBottom_toBottomOf="@id/add_a_message"
+             app:layout_constraintStart_toStartOf="@id/add_a_message"
+             app:layout_constraintTop_toTopOf="@id/add_a_message"
+-            app:tint="@color/signal_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:visibility="visible" />
+ 
+         <org.signal.mediasend.edit.video.VideoThumbnailsRangeSelectorView
+@@ -187,7 +188,7 @@
+             app:layout_constraintStart_toStartOf="parent"
+             app:thumbColor="@color/signal_light_colorOnPrimary"
+             app:thumbColorEdited="#ff0"
+-            app:thumbHintBackgroundColor="@color/signal_dark_colorSurfaceVariant"
++            app:thumbHintBackgroundColor="?attr/colorSurfaceVariant"
+             app:thumbHintTextColor="@color/signal_light_colorOnPrimary"
+             app:thumbHintTextSize="14sp"
+             app:thumbTouchRadius="24dp"
+@@ -201,7 +202,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginTop="4dp"
+             android:textAppearance="@style/Signal.Text.BodySmall"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintEnd_toEndOf="@id/video_timeline"
+             app:layout_constraintTop_toBottomOf="@id/video_timeline"
+             tools:text="0:04 · 399 KB" />
+@@ -229,7 +230,7 @@
+             app:layout_constraintStart_toStartOf="parent"
+             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+             app:srcCompat="@drawable/symbol_brush_pen_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:visibility="visible" />
+ 
+@@ -250,7 +251,7 @@
+             app:layout_goneMarginStart="10dp"
+             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+             app:srcCompat="@drawable/symbol_crop_rotate_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:visibility="visible" />
+ 
+@@ -271,7 +272,7 @@
+             app:layout_goneMarginStart="10dp"
+             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+             app:srcCompat="@drawable/symbol_quality_high_slash_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:alpha="1"
+             tools:visibility="visible" />
+ 
+@@ -291,7 +292,7 @@
+             app:layout_goneMarginStart="10dp"
+             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+             app:srcCompat="@drawable/symbol_save_android_24"
+-            app:tint="@color/signal_dark_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:visibility="visible" />
+ 
+         <com.google.android.material.imageview.ShapeableImageView
+@@ -300,10 +301,10 @@
+             android:layout_height="48dp"
+             android:layout_marginStart="12dp"
+             android:layout_marginEnd="10dp"
+-            android:layout_marginBottom="16dp"
++            android:layout_marginBottom="13dp"
+             android:background="@color/signal_light_colorPrimary"
+             android:contentDescription="@string/MediaReviewFragment__send_media_accessibility_label"
+-            android:padding="4dp"
++            android:padding="5dp"
+             android:scaleType="centerInside"
+             android:visibility="gone"
+             app:layout_constraintBottom_toBottomOf="parent"
+@@ -313,7 +314,7 @@
+             app:layout_goneMarginStart="10dp"
+             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+             app:srcCompat="@drawable/symbol_send_fill_24"
+-            app:tint="@color/signal_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             tools:visibility="visible" />
+ 
+     </androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/v2_media_review_quality_popup_window.xml b/app/src/main/res/layout/v2_media_review_quality_popup_window.xml
+index 97a74ce1241e9557492f7c28028d07fc818d69a0..f1f06bd4671cdf7d276c6ee052f31958ec627072 100644
+--- a/app/src/main/res/layout/v2_media_review_quality_popup_window.xml
++++ b/app/src/main/res/layout/v2_media_review_quality_popup_window.xml
+@@ -23,7 +23,7 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/symbol_quality_high_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+     <TextView
+         android:id="@+id/media_review_toast_popup_description"
+@@ -34,7 +34,7 @@
+         android:gravity="center_vertical"
+         android:paddingBottom="2dp"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+diff --git a/app/src/main/res/layout/v2_media_review_selected_item.xml b/app/src/main/res/layout/v2_media_review_selected_item.xml
+index 6b79bc5d012cd7df977351c1ec8ab827504c75a1..b3edc634646d8fb1bdd36ef6d180fde5e91d86d7 100644
+--- a/app/src/main/res/layout/v2_media_review_selected_item.xml
++++ b/app/src/main/res/layout/v2_media_review_selected_item.xml
+@@ -6,7 +6,7 @@
+     android:layout_width="48dp"
+     android:layout_height="48dp"
+     android:layout_marginStart="12dp"
+-    tools:background="@color/signal_dark_colorSurface">
++    tools:background="?attr/colorSurface">
+ 
+     <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/media_review_selected_image"
+diff --git a/app/src/main/res/layout/v2_quote_view.xml b/app/src/main/res/layout/v2_quote_view.xml
+index bd34df381cff3f206c2853b79a88720648386f05..79747707bb8c92269d5c0269e69763911f1fc72c 100644
+--- a/app/src/main/res/layout/v2_quote_view.xml
++++ b/app/src/main/res/layout/v2_quote_view.xml
+@@ -17,7 +17,7 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        tools:background="@color/signal_colorPrimary" />
++        tools:background="?attr/colorPrimary" />
+ 
+     <FrameLayout
+         android:id="@+id/quote_author_holder"
+diff --git a/app/src/main/res/layout/v2_quote_view_dismiss_stub.xml b/app/src/main/res/layout/v2_quote_view_dismiss_stub.xml
+index cbd6e03b8aa250d47091173cfe764737b5264857..3caf8bf22a932a36ddfcb56134bb9595b7bc471c 100644
+--- a/app/src/main/res/layout/v2_quote_view_dismiss_stub.xml
++++ b/app/src/main/res/layout/v2_quote_view_dismiss_stub.xml
+@@ -9,4 +9,4 @@
+     android:layout_height="48dp"
+     android:background="@drawable/dismiss_background"
+     app:srcCompat="@drawable/ic_x_20"
+-    app:tint="@color/signal_colorOnSurface" />
+\ No newline at end of file
++    app:tint="?attr/colorOnSurface" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/value_click_preference_item.xml b/app/src/main/res/layout/value_click_preference_item.xml
+index 6599d7fcad1f9e82782a70d4f4c0a086f7a45b4a..569e8980e4c0d7b6db4bfd3ee0650fa9e33c0baa 100644
+--- a/app/src/main/res/layout/value_click_preference_item.xml
++++ b/app/src/main/res/layout/value_click_preference_item.xml
+@@ -45,7 +45,7 @@
+         android:layout_marginBottom="16dp"
+         android:lineSpacingExtra="4sp"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/value_client_preference_value"
+         app:layout_constraintStart_toEndOf="@id/icon"
+@@ -63,7 +63,7 @@
+         android:width="48dp"
+         android:gravity="center_horizontal"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         android:layout_marginEnd="@dimen/dsl_settings_gutter"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+diff --git a/app/src/main/res/layout/verification_pin_keyboard_view.xml b/app/src/main/res/layout/verification_pin_keyboard_view.xml
+index f118ebde613e5d8ec94ff1af8cde8d8d79eb733a..723dc8e0429f97ef83f1be8a174ac3f7807c9664 100644
+--- a/app/src/main/res/layout/verification_pin_keyboard_view.xml
++++ b/app/src/main/res/layout/verification_pin_keyboard_view.xml
+@@ -5,9 +5,9 @@
+ 
+     <org.thoughtcrime.securesms.components.NumericKeyboardView
+             android:id="@+id/keyboard_view"
+-            android:keyBackground="@color/signal_colorSurface1"
+-            android:background="@color/signal_colorSurface1"
+-            android:keyTextColor="@color/signal_colorOnSurface"
++            android:keyBackground="?attr/colorSurfaceContainerLow"
++            android:background="?attr/colorSurfaceContainerLow"
++            android:keyTextColor="?attr/colorOnSurface"
+             android:shadowColor="@color/transparent"
+             android:keyTextSize="30sp"
+             android:elevation="3dp"
+diff --git a/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment.xml
+deleted file mode 100644
+index 98f7831fb7d8157eedef96e3876dd6e5e9baf13a..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment.xml
++++ /dev/null
+@@ -1,77 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_height="match_parent"
+-    android:layout_width="match_parent">
+-
+-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:orientation="vertical">
+-
+-        <ImageView
+-            android:id="@+id/pull_bar"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_horizontal"
+-            android:layout_marginTop="12dp"
+-            android:src="@drawable/bottom_sheet_handle"
+-            tools:ignore="ContentDescription" />
+-
+-        <androidx.viewpager2.widget.ViewPager2
+-            android:id="@+id/pager"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="12dp" />
+-
+-        <TextView
+-            android:id="@+id/no_support"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginStart="@dimen/dsl_settings_gutter"
+-            android:layout_marginTop="12dp"
+-            android:layout_marginEnd="@dimen/dsl_settings_gutter"
+-            android:text="@string/ViewBadgeBottomSheetDialogFragment__your_device_doesn_t_support"
+-            android:textAlignment="center"
+-            android:textAppearance="@style/TextAppearance.Signal.Body2"
+-            android:textColor="@color/signal_text_secondary"
+-            android:visibility="gone"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+-
+-        <com.google.android.material.tabs.TabLayout
+-            android:id="@+id/tab_layout"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:background="@color/signal_colorSurface1"
+-            android:visibility="gone"
+-            app:tabBackground="@drawable/tab_selector"
+-            app:tabGravity="center"
+-            app:tabIndicatorHeight="0dp" />
+-
+-        <com.google.android.material.button.MaterialButton
+-            android:id="@+id/action"
+-            style="@style/Signal.Widget.Button.Large.Tonal"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center_horizontal"
+-            android:layout_marginStart="48dp"
+-            android:layout_marginTop="16dp"
+-            android:layout_marginEnd="48dp"
+-            android:layout_marginBottom="32dp"
+-            android:minHeight="48dp"
+-            android:minWidth="220dp"
+-            android:text="@string/ViewBadgeBottomSheetDialogFragment__donate_now"
+-            app:iconGravity="textEnd"
+-            app:iconTint="@color/signal_colorOnSurfaceVariant"
+-            tools:icon="@drawable/ic_open_20" />
+-
+-        <Space
+-            android:id="@+id/single_page_space"
+-            android:layout_width="match_parent"
+-            android:layout_height="16dp" />
+-
+-    </LinearLayout>
+-
+-</androidx.core.widget.NestedScrollView>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment_page.xml b/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment_page.xml
+deleted file mode 100644
+index 346a2448d299053faef86a054c4fa6fd3c66af18..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/view_badge_bottom_sheet_dialog_fragment_page.xml
++++ /dev/null
+@@ -1,46 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:viewBindingIgnore="true">
+-
+-    <org.thoughtcrime.securesms.badges.BadgeImageView
+-        android:id="@+id/badge"
+-        android:layout_width="112dp"
+-        android:layout_height="112dp"
+-        android:layout_gravity="center_horizontal"
+-        android:layout_marginTop="36dp"
+-        android:contentDescription="@string/BadgesOverviewFragment__featured_badge"
+-        app:badge_size="xlarge"
+-        tools:src="@drawable/test_gradient" />
+-
+-    <TextView
+-        android:id="@+id/name"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal"
+-        android:layout_marginTop="16dp"
+-        android:textAppearance="@style/Signal.Text.TitleLarge"
+-        tools:text="Signal Sustainer" />
+-
+-    <TextView
+-        android:id="@+id/description"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="8dp"
+-        android:ellipsize="end"
+-        android:lineSpacingExtra="6sp"
+-        android:lines="4"
+-        android:maxLines="4"
+-        android:minLines="4"
+-        android:paddingStart="32dp"
+-        android:paddingEnd="32dp"
+-        android:textAlignment="center"
+-        android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
+-        tools:text="Paige supports Signal by making a monthly donation. Get your own badge by donating below." />
+-
+-</LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/voice_note_draft_view.xml b/app/src/main/res/layout/voice_note_draft_view.xml
+index 7b09c535c62d12dd72a7e0575175ad8857ff0dca..edde3698e780da00e257f2f6539c629b8682a72c 100644
+--- a/app/src/main/res/layout/voice_note_draft_view.xml
++++ b/app/src/main/res/layout/voice_note_draft_view.xml
+@@ -24,10 +24,10 @@
+         android:layout_marginEnd="16dp"
+         android:layout_weight="1"
+         app:audioView_mode="draft"
+-        app:foregroundTintColor="@color/signal_icon_tint_secondary"
++        app:foregroundTintColor="?attr/signal_icon_tint_secondary"
+         app:progressAndPlayTint="@android:color/transparent"
+-        app:waveformPlayedBarsColor="@color/signal_icon_tint_secondary"
+-        app:waveformThumbTint="@color/signal_icon_tint_secondary"
++        app:waveformPlayedBarsColor="?attr/signal_icon_tint_secondary"
++        app:waveformThumbTint="?attr/signal_icon_tint_secondary"
+         app:waveformUnplayedBarsColor="@color/signal_inverse_transparent_40" />
+ 
+ </merge>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/voice_note_player_stub.xml b/app/src/main/res/layout/voice_note_player_stub.xml
+index 357d0e84b4647fe27bdb7cf76717405c5ebb6e37..c66fbbf6a3c1c18f4fc5cb14a9a66d18b0645646 100644
+--- a/app/src/main/res/layout/voice_note_player_stub.xml
++++ b/app/src/main/res/layout/voice_note_player_stub.xml
+@@ -4,7 +4,7 @@
+     tools:viewBindingIgnore="true"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/voice_note_player_view_background">
++    android:background="?attr/voice_note_player_view_background">
+ 
+     <org.thoughtcrime.securesms.components.voice.VoiceNotePlayerView
+         android:id="@+id/voice_note_player_view"
+diff --git a/app/src/main/res/layout/voice_note_player_view.xml b/app/src/main/res/layout/voice_note_player_view.xml
+index 1605dd0b306e9632674caea2b9cf51a693dd208e..93d130b5df856b3ea8f03f70c895f2afe90b8f1e 100644
+--- a/app/src/main/res/layout/voice_note_player_view.xml
++++ b/app/src/main/res/layout/voice_note_player_view.xml
+@@ -15,7 +15,7 @@
+         app:layout_constraintBottom_toBottomOf="@id/voice_note_player_info"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@id/voice_note_player_info"
+-        app:lottie_colorFilter="@color/signal_colorOnSurface"
++        app:lottie_colorFilter="?attr/colorOnSurface"
+         app:lottie_rawRes="@raw/lottie_play_pause"
+         tools:background="@color/signal_alert_primary" />
+ 
+@@ -29,7 +29,7 @@
+         android:minHeight="36dp"
+         android:singleLine="true"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/voice_note_player_duration"
+@@ -48,7 +48,7 @@
+         android:paddingStart="4dp"
+         android:paddingEnd="13dp"
+         android:singleLine="true"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/voice_note_player_speed_touch_target"
+@@ -82,7 +82,7 @@
+             android:paddingStart="4dp"
+             android:paddingEnd="4dp"
+             android:textAppearance="@style/Signal.Text.LabelMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:backgroundTint="@color/signal_colorTransparentInverse1"
+             tools:text="1x" />
+     </FrameLayout>
+@@ -98,6 +98,6 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@id/voice_note_player_info"
+         app:srcCompat="@drawable/ic_x_20"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+ </merge>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/conversation_callable_groupv2.xml b/app/src/main/res/menu/conversation_callable_groupv2.xml
+index d34cfbba384ad9eeef68ce29d39e80079b99216a..8e3f3b3e6977d5ee48b25e8aade1c7628d263212 100644
+--- a/app/src/main/res/menu/conversation_callable_groupv2.xml
++++ b/app/src/main/res/menu/conversation_callable_groupv2.xml
+@@ -5,7 +5,7 @@
+     <item android:title="@string/conversation_callable_secure__menu_video"
+           android:id="@+id/menu_video_secure"
+           android:icon="@drawable/ic_video_call_24"
+-          app:iconTint="@color/signal_icon_tint_primary"
++          app:iconTint="?attr/signal_icon_tint_primary"
+           app:showAsAction="always" />
+ 
+ </menu>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/conversation_callable_secure.xml b/app/src/main/res/menu/conversation_callable_secure.xml
+index 283d106947ef2439ba88153029eefa4565b3099e..f374de049b4f71e209945673ae4b001ffa8fb3f0 100644
+--- a/app/src/main/res/menu/conversation_callable_secure.xml
++++ b/app/src/main/res/menu/conversation_callable_secure.xml
+@@ -5,13 +5,13 @@
+     <item android:title="@string/conversation_callable_secure__menu_video"
+           android:id="@+id/menu_video_secure"
+           android:icon="@drawable/ic_video_call_24"
+-          app:iconTint="@color/signal_icon_tint_primary"
++          app:iconTint="?attr/signal_icon_tint_primary"
+           app:showAsAction="always" />
+ 
+     <item android:title="@string/conversation_callable_secure__menu_call"
+           android:id="@+id/menu_call_secure"
+           android:icon="@drawable/ic_phone_right_24"
+-          app:iconTint="@color/signal_icon_tint_primary"
++          app:iconTint="?attr/signal_icon_tint_primary"
+           app:showAsAction="always" />
+ 
+ </menu>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/conversation_first_render.xml b/app/src/main/res/menu/conversation_first_render.xml
+index b09cb02f3173279a17cc353d54e8cab1333bc47c..9813d969a763228aa470a0fd30ccb586e46bd43f 100644
+--- a/app/src/main/res/menu/conversation_first_render.xml
++++ b/app/src/main/res/menu/conversation_first_render.xml
+@@ -5,13 +5,13 @@
+     <item android:title="@string/conversation_callable_secure__menu_video"
+           android:id="@+id/menu_video_secure"
+           android:icon="@drawable/ic_video_call_24"
+-          app:iconTint="@color/signal_icon_tint_primary"
++          app:iconTint="?attr/signal_icon_tint_primary"
+           app:showAsAction="always" />
+ 
+     <item android:title="@string/conversation_callable_secure__menu_call"
+           android:id="@+id/menu_call_secure"
+           android:icon="@drawable/ic_phone_right_24"
+-          app:iconTint="@color/signal_icon_tint_primary"
++          app:iconTint="?attr/signal_icon_tint_primary"
+           app:showAsAction="always" />
+ 
+     <item
+diff --git a/app/src/main/res/menu/enter_phone_number.xml b/app/src/main/res/menu/enter_phone_number.xml
+index 748cb2f697110b025b98a8dfeb326c263e569c9c..040f6d466ae87043c1cccc9d8dbb15aa3ce035c0 100644
+--- a/app/src/main/res/menu/enter_phone_number.xml
++++ b/app/src/main/res/menu/enter_phone_number.xml
+@@ -2,6 +2,6 @@
+ <menu xmlns:android="http://schemas.android.com/apk/res/android">
+   <item
+       android:id="@+id/phone_menu_use_proxy"
+-      android:title="@string/preferences_use_proxy"/>
++      android:title="@string/RegistrationActivity_network_settings"/>
+ 
+ </menu>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/internal_settings.xml b/app/src/main/res/menu/internal_settings.xml
+index aad385402f2dc751d88956b9ad95723bf5c53c9f..d6b9a63bd802f48af1c284b979d778bf403c4081 100644
+--- a/app/src/main/res/menu/internal_settings.xml
++++ b/app/src/main/res/menu/internal_settings.xml
+@@ -7,7 +7,7 @@
+       android:icon="@drawable/symbol_search_24"
+       android:title="@string/CameraContacts__menu_search"
+       app:actionViewClass="org.thoughtcrime.securesms.components.SearchView"
+-      app:iconTint="@color/signal_colorOnSurface"
++      app:iconTint="?attr/colorOnSurface"
+       app:showAsAction="collapseActionView|always" />
+ 
+ </menu>
+diff --git a/app/src/main/res/menu/passphrase_prompt.xml b/app/src/main/res/menu/passphrase_prompt.xml
+index abd321d48da34b082c7601ade733f419099f8116..a3ee2a9b9a674973a88eda058bfcd39ae88ce68b 100644
+--- a/app/src/main/res/menu/passphrase_prompt.xml
++++ b/app/src/main/res/menu/passphrase_prompt.xml
+@@ -4,4 +4,7 @@
+     <item android:title="@string/preferences__submit_debug_log"
+           android:id="@+id/menu_submit_debug_logs"
+           android:icon="@android:drawable/ic_menu_upload" />
++
++    <item android:title="@string/PinRestoreEntryFragment_contact_support"
++          android:id="@+id/menu_contact_support" />
+ </menu>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/payments_home_fragment_menu.xml b/app/src/main/res/menu/payments_home_fragment_menu.xml
+deleted file mode 100644
+index 8dcda6e93952db4572ceb5124e715157bcdc6523..0000000000000000000000000000000000000000
+--- a/app/src/main/res/menu/payments_home_fragment_menu.xml
++++ /dev/null
+@@ -1,18 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-    <item android:id="@+id/payments_home_fragment_menu_transfer_to_exchange"
+-        android:title="@string/PaymentsHomeFragment__transfer_to_exchange" />
+-
+-    <item android:id="@+id/payments_home_fragment_menu_set_currency"
+-        android:title="@string/PaymentsHomeFragment__currency_conversion" />
+-
+-    <item android:id="@+id/payments_home_fragment_menu_deactivate_wallet"
+-        android:title="@string/PaymentsHomeFragment__deactivate_payments" />
+-
+-    <item android:id="@+id/payments_home_fragment_menu_view_recovery_phrase"
+-        android:title="@string/PaymentsHomeFragment__recovery_phrase" />
+-
+-    <item android:id="@+id/payments_home_fragment_menu_help"
+-        android:title="@string/PaymentsHomeFragment__help" />
+-</menu>
+\ No newline at end of file
+diff --git a/app/src/main/res/menu/submit_debug_log_normal.xml b/app/src/main/res/menu/submit_debug_log_normal.xml
+index 08166352255badc69bb2c0dfcbf0b9b36c1c0772..5e0e27d8ac55f37968491096a19496d331ebf3fc 100644
+--- a/app/src/main/res/menu/submit_debug_log_normal.xml
++++ b/app/src/main/res/menu/submit_debug_log_normal.xml
+@@ -8,7 +8,7 @@
+       android:icon="@drawable/symbol_search_24"
+       android:title="@string/CameraContacts__menu_search"
+       android:visible="false"
+-      app:iconTint="@color/signal_colorOnSurface"
++      app:iconTint="?attr/colorOnSurface"
+       app:actionViewClass="org.thoughtcrime.securesms.components.SearchView"
+       app:showAsAction="collapseActionView|always" />
+ 
+diff --git a/app/src/main/res/menu/text_secure_normal.xml b/app/src/main/res/menu/text_secure_normal.xml
+index e0b6605bfd14e16e3d7e15fe5dec87280d57960d..527a73f3d6e727a3e3854a459890ab59f972bf95 100644
+--- a/app/src/main/res/menu/text_secure_normal.xml
++++ b/app/src/main/res/menu/text_secure_normal.xml
+@@ -1,18 +1,15 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
++    <item android:title="@string/text_secure_normal__menu_clear_passphrase"
++            android:id="@+id/menu_clear_passphrase" />
++
+     <item android:title="@string/text_secure_normal__menu_new_group"
+           android:id="@+id/menu_new_group" />
+ 
+-    <item android:title="@string/text_secure_normal__menu_clear_passphrase"
+-          android:id="@+id/menu_clear_passphrase" />
+-
+     <item android:title="@string/text_secure_normal__mark_all_as_read"
+           android:id="@+id/menu_mark_all_read" />
+ 
+-    <item android:title="@string/text_secure_normal__invite_friends"
+-          android:id="@+id/menu_invite" />
+-
+     <item android:title="@string/text_secure_normal__filter_unread_chats"
+           android:id="@+id/menu_filter_unread_chats" />
+ 
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+index dce6d279fff3dbb26fdd4879fed2c06d3df9db68..04091bd1024cbcf6b63c9298f8980450d81b99cf 100644
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+@@ -2,5 +2,5 @@
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+     <background android:drawable="@drawable/ic_launcher_background"/>
+     <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />
++    <monochrome android:drawable="@drawable/ic_launcher_monochrome"/>
+ </adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_bubbles.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_bubbles.xml
+deleted file mode 100644
+index 78eae4fa8e3b583a808899ec5dd0d383354d8b26..0000000000000000000000000000000000000000
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_bubbles.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_bubbles_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_alt_bubbles_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_alt_bubbles_monochrome" />
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_chat.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_chat.xml
+deleted file mode 100644
+index e7d0a4ab866ba3d56e3fdc22fe0fe0ffa2874c35..0000000000000000000000000000000000000000
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_chat.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_chat_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_alt_chat_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_alt_chat_monochrome" />
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_colorful.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_colorful.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..671497504a2b386fb775b067a4bfdce81d34ad70
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_colorful.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_colorful_background"/>
++    <foreground android:drawable="@drawable/ic_launcher_alt_colorful_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_gold.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_gold.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3a4485bab0006d6147f6bc30f56a4bb15175a20e
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_gold.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@mipmap/ic_launcher_alt_gold_background"/>
++    <foreground android:drawable="@mipmap/ic_launcher_alt_gold_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_gold_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_heart.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_heart.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9af0e28a4d9d822cb9714d4435eec65043bdceb1
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_heart.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_heart_background"/>
++    <foreground android:drawable="@drawable/ic_launcher_alt_heart_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_heart_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_light.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_light.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..ce750c35eda7f2c9928ab89211ca53fc93b346c0
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_light.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_light_background"/>
++    <foreground android:drawable="@drawable/ic_launcher_alt_light_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_light_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_moon.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_moon.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..339a92c5b35f69a8ab850e5c5821a08ebbb75501
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_moon.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_moon_background"/>
++    <foreground android:drawable="@mipmap/ic_launcher_alt_moon_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_moon_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_music.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_music.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a861f71d2a4b5c7fdcd365dd3271914eeb78eb98
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_music.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@mipmap/ic_launcher_alt_music_background"/>
++    <foreground android:drawable="@drawable/ic_launcher_alt_music_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_music_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_neon.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_neon.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..674b18510c9d2854e6d0c527d2f8059a40b0dd52
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_neon.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_neon_background"/>
++    <foreground android:drawable="@mipmap/ic_launcher_alt_neon_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_neon_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_news.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_news.xml
+deleted file mode 100644
+index d2798924c3d841e0eccc6f368874b56c675e9836..0000000000000000000000000000000000000000
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_news.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_news_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_alt_news_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_alt_news_monochrome" />
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_notes.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_notes.xml
+index a9b905988f363cacf2b6cfe36aa9e800610a1397..ef159112daa478cde8e01da383591b8767272c54 100644
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_notes.xml
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_notes.xml
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_notes_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_alt_notes_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_alt_notes_monochrome" />
++    <background android:drawable="@mipmap/ic_launcher_alt_notes_background"/>
++    <foreground android:drawable="@mipmap/ic_launcher_alt_notes_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_notes_monochrome"/>
+ </adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..0ce5402e89b9a7bd579035c525882560d8065438
+--- /dev/null
++++ b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
++    <background android:drawable="@drawable/ic_launcher_alt_signal_background"/>
++    <foreground android:drawable="@drawable/ic_launcher_alt_signal_foreground"/>
++    <monochrome android:drawable="@drawable/ic_launcher_alt_signal_monochrome"/>
++</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_color.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_color.xml
+deleted file mode 100644
+index df0e8dd73d5883d10a96566b8d544fb14e488ec8..0000000000000000000000000000000000000000
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_color.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_signal_color_background" />
+-    <foreground android:drawable="@drawable/ic_launcher_alt_signal_color_foreground" />
+-    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_dark.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_dark.xml
+deleted file mode 100644
+index 3752ec25e3c08ce9b4886e5f6bac4f1f75846cad..0000000000000000000000000000000000000000
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_alt_signal_dark.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_alt_signal_dark_background" />
+-    <foreground android:drawable="@drawable/ic_launcher_alt_signal_dark_foreground" />
+-    <monochrome android:drawable="@drawable/ic_launcher_monochrome" />
+-</adaptive-icon>
+\ No newline at end of file
+
+--------------false--
+
+

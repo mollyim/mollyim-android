@@ -94,8 +94,7 @@ object LinkDeviceRepository {
 
   private fun DeviceInfo.toDevice(): Device {
     val createdAt = this.getPlaintextCreatedAt()
-    val canRename = !SignalStore.unifiedpush.isMollySocketDevice(getId())
-    val defaultDevice = Device(getId(), getName(), createdAt, getLastSeen(), getRegistrationId(), canRename = canRename)
+    val defaultDevice = Device(getId(), getName(), createdAt, getLastSeen(), getRegistrationId())
     try {
       if (getName().isNullOrEmpty() || getName().length < 4) {
         Log.w(TAG, "Invalid DeviceInfo name.")
@@ -114,7 +113,7 @@ object LinkDeviceRepository {
         return defaultDevice
       }
 
-      return Device(getId(), String(plaintext), createdAt, getLastSeen(), getRegistrationId(), canRename = canRename)
+      return Device(getId(), String(plaintext), createdAt, getLastSeen(), getRegistrationId())
     } catch (e: Exception) {
       Log.w(TAG, "Failed while reading the protobuf.", e)
     }

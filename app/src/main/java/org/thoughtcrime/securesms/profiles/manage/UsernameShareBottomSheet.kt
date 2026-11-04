@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.Base64
 import org.signal.core.util.DimensionUnit
 import org.signal.core.util.Util
@@ -55,7 +55,7 @@ class UsernameShareBottomSheet : DSLSettingsBottomSheetFragment() {
           DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.ColorModifier(
-            ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant)
+            ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant)
           )
         )
       )
