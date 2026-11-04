@@ -1,0 +1,11 @@
+// Apply release metadata without modifying the source tree proved by release.py.
+gradle.beforeProject { project ->
+  if (project.path == ':app') {
+    project.plugins.withId('com.android.application') {
+      project.extensions.getByName('androidComponents').finalizeDsl { android ->
+        android.defaultConfig.versionCode = project.property('releaseVersionCode').toString().toInteger()
+        android.defaultConfig.versionName = project.property('releaseVersionName').toString()
+      }
+    }
+  }
+}

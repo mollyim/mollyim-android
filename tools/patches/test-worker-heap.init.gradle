@@ -1,0 +1,11 @@
+// Keep Android unit-test execution within the memory budget of the validation
+// runner. A single 2 GiB test JVM avoids MockK/Kotlin metadata OOMs at the
+// project's 512 MiB default while preventing parallel test forks.
+gradle.projectsEvaluated {
+    allprojects {
+        tasks.withType(Test).configureEach {
+            maxHeapSize = '2g'
+            maxParallelForks = 1
+        }
+    }
+}
