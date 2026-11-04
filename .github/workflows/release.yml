@@ -28,9 +28,16 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: "${{ env.TAG_REF }}"
+          fetch-depth: 0
 
       - name: Free up disk space in runner
         uses: ./.github/actions/disk-cleanup
+
+      - name: Reconstruct the Molly source
+        id: molly
+        uses: ./.github/actions/molly-source
+        with:
+          tag: ${{ env.TAG_REF }}
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -45,7 +52,7 @@ jobs:
 
       - name: Build Docker image
         run: docker compose build
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
 
       - name: Export CI environment variables
         run: |
@@ -58,7 +65,7 @@ jobs:
               echo "CI_$var=${!var}" >> $GITHUB_ENV
             fi
           done
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
         env:
           APP_TITLE: ${{ vars.CI_APP_TITLE }}
           APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
@@ -69,19 +76,19 @@ jobs:
       - name: Extract signing keys
         if: "env.HAVE_KEYSTORE == 'true'"
         run: printenv KEYSTORE | base64 -d > certs/keystore.jks
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
         env:
           KEYSTORE: ${{ secrets.SECRET_KEYSTORE }}
 
       - name: Build without signing
         if: "env.HAVE_KEYSTORE == 'false'"
         run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
 
       - name: Build and sign
         if: "env.HAVE_KEYSTORE == 'true'"
         run: docker compose run -v "$GRADLE_USER_HOME/caches:/.gradle-ro-cache:ro" assemble
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
         env:
           CI_KEYSTORE_PATH: certs/keystore.jks
           CI_KEYSTORE_ALIAS: ${{ secrets.SECRET_KEYSTORE_ALIAS }}
@@ -90,24 +97,24 @@ jobs:
       - name: Clean up keystore
         if: "always()"
         run: rm -f certs/keystore.jks
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
 
       - name: Log APK and AAB checksums
         run: find outputs \( -name "*.aab" -o -name "*.apk" \) -exec sha256sum '{}' +
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir }}/reproducible-builds
 
       - name: Upload APKs
         uses: actions/upload-artifact@v7
         with:
           name: apk
-          path: reproducible-builds/outputs/apk/*/release/*.apk
+          path: ${{ steps.molly.outputs.dir }}/reproducible-builds/outputs/apk/*/release/*.apk
           if-no-files-found: error
 
       - name: Upload Bundles
         uses: actions/upload-artifact@v7
         with:
           name: bundle
-          path: reproducible-builds/outputs/bundle/*Release/*.aab
+          path: ${{ steps.molly.outputs.dir }}/reproducible-builds/outputs/bundle/*Release/*.aab
           if-no-files-found: error
 
   prepare_release:

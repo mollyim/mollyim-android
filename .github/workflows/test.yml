@@ -21,9 +21,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Free up disk space in runner
         uses: ./.github/actions/disk-cleanup
+
+      - name: Reconstruct the Molly source
+        id: molly
+        uses: ./.github/actions/molly-source
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -36,9 +42,11 @@ jobs:
 
       - name: Copy Docker gradle.properties
         run: cp gradle.properties.docker "$GRADLE_USER_HOME/gradle.properties"
+        working-directory: ${{ steps.molly.outputs.dir }}
 
       - name: Build and run tests
         run: ./gradlew build
+        working-directory: ${{ steps.molly.outputs.dir }}
 
       - name: Archive reports for failed build
         if: "failure()"
@@ -46,6 +54,6 @@ jobs:
         with:
           name: reports-${{ github.run_id }}
           path: |
-            **/build/reports
-            **/build/test-results
+            ${{ steps.molly.outputs.dir }}/**/build/reports
+            ${{ steps.molly.outputs.dir }}/**/build/test-results
           if-no-files-found: ignore

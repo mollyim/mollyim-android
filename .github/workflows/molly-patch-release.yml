@@ -1,0 +1,219 @@
+name: Molly patch release
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: molly-patch-release-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  GIT_LFS_SKIP_SMUDGE: '1'
+  GIT_TERMINAL_PROMPT: '0'
+
+jobs:
+  scope:
+    name: Check scope and patch tools
+    runs-on: ubuntu-24.04
+    outputs:
+      port: ${{ steps.scope.outputs.port }}
+      stack_scope: ${{ steps.scope.outputs.stack_scope }}
+      base: ${{ steps.scope.outputs.base }}
+    steps:
+      - name: Check out immutable head
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          lfs: false
+      - name: Validate scope and tests
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name }}
+        run: |
+          # The base is the pull request's base commit, or the default branch for a manual run.
+          # The scope (molly, port or change) is detected from the base and head trees.
+          if [[ "$EVENT_NAME" == pull_request ]]; then
+            # The head comes from the fork, which may lack the newest base commit.
+            git fetch --no-tags "https://github.com/${BASE_REPO}.git" "$BASE_SHA"
+            base="$BASE_SHA"
+          else
+            git fetch --no-tags origin refs/heads/main:refs/remotes/origin/main
+            base=refs/remotes/origin/main
+          fi
+          git fetch --no-tags https://github.com/mollyim/mollyim-android.git \
+            0e202dda90785771ff8c87526eaaf30c655f54f3
+          if [[ -f molly-build.json ]] && python3 -c 'import json; raise SystemExit(json.load(open("molly-build.json")).get("port") is None)'; then
+            python3 tools/patches/prepare_port_report.py
+          fi
+          result=$(python3 tools/patches/scope.py --base "$base")
+          scope=$(python3 -c 'import json,sys; print(json.loads(sys.argv[1])["scope"])' "$result")
+          echo "stack_scope=$scope" >> "$GITHUB_OUTPUT"
+          echo "base=$(git rev-parse "$base^{commit}")" >> "$GITHUB_OUTPUT"
+          python3 -m unittest discover -s tools/patches -p 'test_*.py' -v
+          if [[ -f molly-build.json ]] && python3 -c 'import json; raise SystemExit(json.load(open("molly-build.json")).get("port") is None)'; then
+            python3 tools/patches/verify_source_bundles.py
+            if [[ -f tools/patches/port_report.py ]]; then python3 tools/patches/port_report.py --check; fi
+            echo 'port=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'port=false' >> "$GITHUB_OUTPUT"
+          fi
+
+  source-proof:
+    needs: scope
+    name: Prove source reconstruction and upstream provenance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out the exact PR head with full commit history
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          lfs: false
+
+      - name: Test patch tools without an Android SDK or network
+        run: python3 -m unittest discover -s tools/patches -p 'test_*.py' -v
+
+      - name: Test the optional native provenance and artifact checks
+        run: |
+          if [[ -d tools/native ]]; then
+            python3 -m unittest discover -s tools/native -p 'test_*.py' -v
+          fi
+
+      - name: Fetch the exact official Molly source oracle
+        env:
+          BASE: ${{ needs.scope.outputs.base }}
+          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name || github.repository }}
+        run: |
+          git fetch --no-tags https://github.com/mollyim/mollyim-android.git \
+            0e202dda90785771ff8c87526eaaf30c655f54f3
+          # The head comes from the fork, which may lack the newest base commit.
+          git cat-file -e "$BASE^{commit}" 2>/dev/null || git fetch --no-tags "https://github.com/${BASE_REPO}.git" "$BASE"
+
+      - name: Reconstruct the selected release and prove its complete tree
+        run: |
+          if [[ "${{ needs.scope.outputs.port }}" == true ]]; then
+            python3 tools/patches/prepare_port_report.py
+          fi
+          python3 tools/patches/release.py --repo . --config molly-build.json \
+            --worktree "$RUNNER_TEMP/molly-release" \
+            --report "$RUNNER_TEMP/reports/source.json" \
+            --scope "${{ needs.scope.outputs.stack_scope }}" --base "${{ needs.scope.outputs.base }}"
+
+      - name: Prove the upstream native cherry-pick when configured
+        run: |
+          python3 tools/patches/build.py native-prepare \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Upload source and native provenance evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: molly-source-proof-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/reports
+          if-no-files-found: warn
+
+  android:
+    name: Build the proved source and run its regression tests
+    needs: [scope, source-proof]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    steps:
+      - name: Check out the same immutable PR head
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+          lfs: false
+
+      - name: Fetch the pinned official Molly history
+        env:
+          BASE: ${{ needs.scope.outputs.base }}
+          BASE_REPO: ${{ github.event.pull_request.base.repo.full_name || github.repository }}
+        run: |
+          git fetch --no-tags https://github.com/mollyim/mollyim-android.git \
+            0e202dda90785771ff8c87526eaaf30c655f54f3
+          # The head comes from the fork, which may lack the newest base commit.
+          git cat-file -e "$BASE^{commit}" 2>/dev/null || git fetch --no-tags "https://github.com/${BASE_REPO}.git" "$BASE"
+
+      # Worktrees are machine-local. Reconstruct on this runner instead of
+      # trusting a tarball whose .git file points to a different runner.
+      - name: Materialize and verify the source on the build runner
+        run: |
+          if [[ "${{ needs.scope.outputs.port }}" == true ]]; then
+            python3 tools/patches/prepare_port_report.py
+          fi
+          python3 tools/patches/release.py --repo . --config molly-build.json \
+            --worktree "$RUNNER_TEMP/molly-release" \
+            --report "$RUNNER_TEMP/reports/source.json" \
+            --scope "${{ needs.scope.outputs.stack_scope }}" --base "${{ needs.scope.outputs.base }}"
+
+      - name: Prepare the optional native backport from its immutable sources
+        run: |
+          python3 tools/patches/build.py native-prepare \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      # The historical hotfix uses the original native API and all three Molly
+      # ABIs. A resource, native-test or build failure stops the job; it must not
+      # silently select the old published AAR or a partial architecture build.
+      - name: Test and build all required native ABIs when configured
+        run: |
+          python3 tools/patches/build.py native-build \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Integrate the verified native artifact without disabling verification
+        run: |
+          python3 tools/patches/build.py native-integrate \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle with a read-only cache
+        uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6
+        with:
+          cache-read-only: true
+
+      - name: Install the profile's pinned Android SDK components
+        run: |
+          python3 tools/patches/build.py sdk \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Assemble the Website debug APK with strict dependency verification
+        run: |
+          python3 tools/patches/build.py assemble \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Run the profile's regression test tasks
+        run: |
+          python3 tools/patches/build.py test \
+            --worktree "$RUNNER_TEMP/molly-release" --report-dir "$RUNNER_TEMP/reports"
+
+      - name: Upload proof, build logs, native artifacts, APKs and test results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: molly-android-${{ github.run_id }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/reports
+            ${{ runner.temp }}/molly-ringrtc-maven/im/molly/ringrtc-android
+            ${{ runner.temp }}/molly-release/**/build/reports
+            ${{ runner.temp }}/molly-release/**/build/test-results
+            ${{ runner.temp }}/molly-release/app/build/outputs/apk/prodWebsite/debug

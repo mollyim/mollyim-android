@@ -26,13 +26,23 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: "${{ env.TAG_REF }}"
+          fetch-depth: 0
 
       - name: Free up disk space in runner
         uses: ./.github/actions/disk-cleanup
 
+      # Releases tagged before Molly moved to patches hold the app at the root
+      # and have no molly-source action, so they build from the checkout.
+      - name: Reconstruct the Molly source
+        id: molly
+        if: hashFiles('molly-build.json') != ''
+        uses: ./.github/actions/molly-source
+        with:
+          tag: ${{ env.TAG_REF }}
+
       - name: Set up builder image
         run: docker compose build
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir || github.workspace }}/reproducible-builds
 
       - name: Export CI environment variables
         run: |
@@ -45,7 +55,7 @@ jobs:
               echo "CI_$var=${!var}" >> $GITHUB_ENV
             fi
           done
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir || github.workspace }}/reproducible-builds
         env:
           APP_TITLE: ${{ vars.CI_APP_TITLE }}
           APP_FILENAME: ${{ vars.CI_APP_FILENAME }}
@@ -55,18 +65,18 @@ jobs:
 
       - name: Build release
         run: docker compose run assemble
-        working-directory: reproducible-builds
+        working-directory: ${{ steps.molly.outputs.dir || github.workspace }}/reproducible-builds
 
       - uses: actions/upload-artifact@v7
         with:
           name: new
-          path: reproducible-builds/outputs/apk/*/release/*.apk
+          path: ${{ steps.molly.outputs.dir || github.workspace }}/reproducible-builds/outputs/apk/*/release/*.apk
           if-no-files-found: error
 
       - uses: actions/upload-artifact@v7
         with:
           name: apkdiff
-          path: reproducible-builds/apkdiff/apkdiff.py
+          path: ${{ steps.molly.outputs.dir || github.workspace }}/reproducible-builds/apkdiff/apkdiff.py
           if-no-files-found: error
 
   download:
