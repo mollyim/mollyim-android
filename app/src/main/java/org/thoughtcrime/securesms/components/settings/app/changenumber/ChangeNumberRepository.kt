@@ -128,7 +128,8 @@ class ChangeNumberRepository(
       pniRegistrationId = pniRegistrationId
     )
 
-    AppDependencies.resetNetwork(restartMessageObserver = true)
+    AppDependencies.resetNetwork()
+    AppDependencies.startNetwork()
 
     val pniProtocolStore = AppDependencies.protocolStore.pni()
     val pniMetadataStore = SignalStore.account.pniPreKeys
@@ -152,6 +153,8 @@ class ChangeNumberRepository(
 
     pniMetadataStore.isSignedPreKeyRegistered = true
     pniMetadataStore.lastResortKyberPreKeyId = pniLastResortKyberPreKeyId
+
+    SignalStore.misc.hasPniInitializedDevices = true
 
     AppDependencies.jobManager.add(RefreshAttributesJob())
 

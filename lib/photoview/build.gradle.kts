@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-  implementation(libs.androidx.appcompat)
+  implementation("androidx.appcompat:appcompat:1.4.1")
 }

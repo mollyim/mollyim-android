@@ -86,7 +86,7 @@ public final class PartProvider extends BaseContentProvider {
   public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode) throws FileNotFoundException {
     Log.i(TAG, "openFile() called!");
 
-    if (KeyCachingService.isLocked()) {
+    if (KeyCachingService.isLocked(getContext())) {
       Log.w(TAG, "masterSecret was null, abandoning.");
       return null;
     }

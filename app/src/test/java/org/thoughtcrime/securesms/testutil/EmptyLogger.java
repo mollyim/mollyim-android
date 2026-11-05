@@ -20,7 +20,4 @@ public class EmptyLogger extends Log.Logger {
 
   @Override
   public void flush() { }
-
-  @Override
-  public void clear() { }
 }

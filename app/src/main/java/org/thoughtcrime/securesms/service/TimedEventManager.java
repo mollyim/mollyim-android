@@ -3,6 +3,7 @@ package org.thoughtcrime.securesms.service;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -44,10 +45,6 @@ public abstract class TimedEventManager<E> {
   public void scheduleIfNecessary() {
     handler.removeCallbacksAndMessages(null);
 
-    if (KeyCachingService.isLocked()) {
-      return;
-    }
-
     handler.post(() -> {
       E event = getNextClosestEvent();
 
@@ -55,9 +52,7 @@ public abstract class TimedEventManager<E> {
         long delay = getDelayForEvent(event);
 
         handler.postDelayed(() -> {
-          if (!KeyCachingService.isLocked()) {
-            executeEvent(event);
-          }
+          executeEvent(event);
           scheduleIfNecessary();
         }, delay);
 
@@ -94,7 +89,7 @@ public abstract class TimedEventManager<E> {
   /**
    * Helper method to set an alarm.
    */
-  protected static void setAlarm(@NonNull Context context, long delay, @NonNull Class<? extends ExportedBroadcastReceiver> alarmClass) {
+  protected static void setAlarm(@NonNull Context context, long delay, @NonNull Class<? extends BroadcastReceiver> alarmClass) {
     Intent        intent        = new Intent(context, alarmClass);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
     AlarmManager  alarmManager  = ServiceUtil.getAlarmManager(context);
@@ -103,7 +98,7 @@ public abstract class TimedEventManager<E> {
     alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + delay, pendingIntent);
   }
 
-  protected static void trySetExactAlarm(@NonNull Context context, long timestamp, @NonNull Class<? extends ExportedBroadcastReceiver> alarmClass, @NonNull PendingIntent showIntent) {
+  protected static void trySetExactAlarm(@NonNull Context context, long timestamp, @NonNull Class<? extends BroadcastReceiver> alarmClass, @NonNull PendingIntent showIntent) {
     Intent        intent        = new Intent(context, alarmClass);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
     AlarmManager  alarmManager  = ServiceUtil.getAlarmManager(context);
@@ -130,7 +125,7 @@ public abstract class TimedEventManager<E> {
     alarmManager.set(AlarmManager.RTC_WAKEUP, timestamp, pendingIntent);
   }
 
-  protected static void cancelAlarm(@NonNull Context context, @NonNull Class<? extends ExportedBroadcastReceiver> alarmClass) {
+  protected static void cancelAlarm(@NonNull Context context, @NonNull Class<? extends BroadcastReceiver> alarmClass) {
     Intent        intent        = new Intent(context, alarmClass);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntentFlags.mutable());
 

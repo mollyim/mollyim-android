@@ -26,6 +26,8 @@ import java.util.Objects;
 
 public class StorageUtil {
 
+  private static final String PRODUCTION_PACKAGE_ID = "org.thoughtcrime.securesms";
+
   public static File getOrCreateBackupDirectory() throws NoExternalStorageException {
     File storage = Environment.getExternalStorageDirectory();
 
@@ -44,10 +46,48 @@ public class StorageUtil {
     return backups;
   }
 
-  public static File getBackupDirectory() throws NoExternalStorageException {
+  public static File getOrCreateBackupV2Directory() throws NoExternalStorageException {
     File storage = Environment.getExternalStorageDirectory();
-    File signal  = new File(storage, CoreUiDependencies.INSTANCE.getBackupBaseDirName());
-    File backups = new File(signal, "Backups");
+
+    if (!storage.canWrite()) {
+      throw new NoExternalStorageException();
+    }
+
+    File backups = getBackupV2Directory();
+
+    if (!backups.exists()) {
+      if (!backups.mkdirs()) {
+        throw new NoExternalStorageException("Unable to create backup directory...");
+      }
+    }
+
+    return backups;
+  }
+
+  public static File getBackupDirectory() throws NoExternalStorageException {
+    File   storage   = Environment.getExternalStorageDirectory();
+    File   signal    = new File(storage, "Signal");
+    File   backups   = new File(signal, "Backups");
+    String packageId = CoreUiDependencies.INSTANCE.getPackageId();
+
+    //noinspection ConstantConditions
+    if (packageId.startsWith(PRODUCTION_PACKAGE_ID + ".")) {
+      backups = new File(backups, packageId.substring(PRODUCTION_PACKAGE_ID.length() + 1));
+    }
+
+    return backups;
+  }
+
+  public static File getBackupV2Directory() throws NoExternalStorageException {
+    File   storage   = Environment.getExternalStorageDirectory();
+    File   backups   = new File(storage, "Signal");
+    String packageId = CoreUiDependencies.INSTANCE.getPackageId();
+
+    //noinspection ConstantConditions
+    if (packageId.startsWith(PRODUCTION_PACKAGE_ID + ".")) {
+      backups = new File(storage, packageId.substring(PRODUCTION_PACKAGE_ID.length() + 1));
+    }
+
     return backups;
   }
 

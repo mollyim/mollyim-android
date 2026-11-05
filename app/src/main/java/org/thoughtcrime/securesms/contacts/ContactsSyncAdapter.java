@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 
 import org.signal.contacts.SystemContactsRepository;
-import org.signal.core.util.SetUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.SignalDatabase;
@@ -17,9 +16,8 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.KeyCachingService;
+import org.signal.core.util.SetUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,12 +41,6 @@ public class ContactsSyncAdapter extends AbstractThreadedSyncAdapter {
     Log.i(TAG, "onPerformSync(" + authority +")");
 
     Context context = getContext();
-
-    if (KeyCachingService.isLocked()) {
-      Log.i(TAG, "Scheduling directory refresh job at next startup.");
-      TextSecurePreferences.removeDirectoryRefreshTime(context);
-      return;
-    }
 
     if (SignalStore.account().getE164() == null) {
       Log.i(TAG, "No local number set, skipping all sync operations.");

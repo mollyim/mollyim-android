@@ -2,8 +2,9 @@ package org.thoughtcrime.securesms.components.settings.models
 
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import org.signal.core.ui.util.ThemeUtil
+import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.PreferenceModel
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
@@ -19,7 +20,7 @@ object SplashImage {
     mappingAdapter.registerFactory(Model::class.java, LayoutFactory(::ViewHolder, R.layout.splash_image))
   }
 
-  class Model(@DrawableRes val splashImageResId: Int, val splashImageTintResId: Int = -1) : PreferenceModel<Model>() {
+  class Model(@DrawableRes val splashImageResId: Int, @ColorRes val splashImageTintResId: Int = -1) : PreferenceModel<Model>() {
     override fun areItemsTheSame(newItem: Model): Boolean {
       return newItem.splashImageResId == splashImageResId && newItem.splashImageTintResId == splashImageTintResId
     }
@@ -33,7 +34,7 @@ object SplashImage {
       splashImageView.setImageResource(model.splashImageResId)
 
       if (model.splashImageTintResId != -1) {
-        splashImageView.setColorFilter(ThemeUtil.getThemedColor(context, model.splashImageTintResId))
+        splashImageView.setColorFilter(ContextCompat.getColor(context, model.splashImageTintResId))
       } else {
         splashImageView.clearColorFilter()
       }

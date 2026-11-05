@@ -5,32 +5,32 @@
 
 package org.thoughtcrime.securesms.components.settings.app.updates
 
+import android.os.Build
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import im.molly.app.base.ApkInfo
 import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
-import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
-import org.thoughtcrime.securesms.util.DateUtils
+import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobs.ApkUpdateJob
+import org.thoughtcrime.securesms.keyvalue.SignalStore
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * Settings around app updates. Only shown for builds that manage their own app updates.
@@ -60,15 +60,12 @@ class AppUpdatesSettingsFragment : ComposeFragment() {
     }
 
     override fun onAutoUpdateChanged(enabled: Boolean) {
-      viewModel.setUpdateApkEnabled(enabled)
-    }
-
-    override fun onIncludeBetaChanged(enabled: Boolean) {
-      viewModel.setIncludeBetaEnabled(enabled)
+      SignalStore.apkUpdate.autoUpdate = enabled
+      viewModel.refresh()
     }
 
     override fun onCheckForUpdatesClick() {
-      viewModel.checkForUpdates()
+      AppDependencies.jobManager.add(ApkUpdateJob())
     }
   }
 }
@@ -76,7 +73,6 @@ class AppUpdatesSettingsFragment : ComposeFragment() {
 private interface AppUpdatesSettingsCallbacks {
   fun onNavigationClick() = Unit
   fun onAutoUpdateChanged(enabled: Boolean) = Unit
-  fun onIncludeBetaChanged(enabled: Boolean) = Unit
   fun onCheckForUpdatesClick() = Unit
 
   object Empty : AppUpdatesSettingsCallbacks
@@ -98,76 +94,37 @@ private fun AppUpdatesSettingsScreen(
         .padding(paddingValues)
         .then(rememberStatusBarColorNestedScrollModifier())
     ) {
-      if (!BuildConfig.MANAGE_MOLLY_UPDATES) {
+      if (Build.VERSION.SDK_INT >= 31) {
         item {
-          Rows.TextRow(
-            text = {
-              Text(
-                text = stringResource(R.string.HelpSettingsFragment_for_updates_please_check_your_app_store),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-              )
-            }
+          Rows.ToggleRow(
+            checked = state.autoUpdateEnabled,
+            text = "Automatic updates",
+            label = "Automatically download and install app updates",
+            onCheckChanged = callbacks::onAutoUpdateChanged
           )
         }
       }
 
       item {
         Rows.TextRow(
-          text = stringResource(R.string.HelpSettingsFragment__version),
-          label = ApkInfo.versionName,
+          text = "Check for updates",
+          label = "Last checked on: ${rememberLastSuccessfulUpdateString(state.lastCheckedTime)}",
+          onClick = callbacks::onCheckForUpdatesClick
         )
-      }
-
-      if (BuildConfig.MANAGE_MOLLY_UPDATES) {
-        item {
-          Rows.ToggleRow(
-            checked = state.autoUpdateEnabled,
-            text = stringResource(R.string.preferences__autoupdate_molly),
-            label = stringResource(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
-            onCheckChanged = callbacks::onAutoUpdateChanged
-          )
-        }
-
-        item {
-          Rows.ToggleRow(
-            checked = state.includeBetaEnabled,
-            text = stringResource(R.string.preferences__include_beta_updates),
-            label = stringResource(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
-            onCheckChanged = callbacks::onIncludeBetaChanged
-          )
-        }
-
-        item {
-          val relTime = rememberCheckTime(state.lastCheckedTime)
-          val label = stringResource(
-            R.string.AppUpdatesSettingsFragment__last_checked_s, relTime?.first ?: stringResource(R.string.preferences__never)
-          )
-          val contentDesc = relTime?.second?.let {
-            stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, it)
-          }
-          Rows.TextRow(
-            text = stringResource(R.string.EnableAppUpdatesMegaphone_check_for_updates),
-            label = label,
-            modifier = Modifier.semantics {
-              contentDescription = contentDesc ?: label
-            },
-            enabled = state.autoUpdateEnabled,
-            onClick = callbacks::onCheckForUpdatesClick
-          )
-        }
       }
     }
   }
 }
 
 @Composable
-private fun rememberCheckTime(timestamp: Long): Pair<String, String>? {
-  val context = LocalContext.current
-  return remember(timestamp) {
-    if (timestamp > 0) {
-      DateUtils.getExtendedRelativeTimeSpanString(context, Locale.getDefault(), timestamp)
-    } else null
+private fun rememberLastSuccessfulUpdateString(lastUpdateTime: Duration): String {
+  return remember(lastUpdateTime) {
+    if (lastUpdateTime > Duration.ZERO) {
+      val dateFormat = SimpleDateFormat("MMMM dd, yyyy 'at' h:mma", Locale.US)
+      dateFormat.format(Date(lastUpdateTime.inWholeMilliseconds))
+    } else {
+      "Never"
+    }
   }
 }
 
@@ -177,8 +134,7 @@ private fun AppUpdatesSettingsScreenPreview() {
   Previews.Preview {
     AppUpdatesSettingsScreen(
       state = AppUpdatesSettingsState(
-        lastCheckedTime = System.currentTimeMillis(),
-        includeBetaEnabled = true,
+        lastCheckedTime = System.currentTimeMillis().milliseconds,
         autoUpdateEnabled = true
       ),
       callbacks = AppUpdatesSettingsCallbacks.Empty

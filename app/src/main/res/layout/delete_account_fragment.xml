@@ -90,7 +90,7 @@
                 android:padding="16dp"
                 android:textAppearance="@style/Signal.Text.BodyLarge"
                 android:drawableEnd="@drawable/ic_chevron_16"
-                android:drawableTint="?attr/colorOnSurface"
+                android:drawableTint="@color/signal_colorOnSurface"
                 android:textAlignment="viewStart" />
 
         </FrameLayout>

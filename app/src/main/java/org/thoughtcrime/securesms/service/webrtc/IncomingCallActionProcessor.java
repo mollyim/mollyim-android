@@ -112,7 +112,6 @@ public class IncomingCallActionProcessor extends DeviceAwareActionProcessor {
                                                 callParticipant.getVideoSink(),
                                                 videoState.requireRouter(),
                                                 callSetupState.getIceServers(),
-                                                WebRtcUtil.getProxyInfo(),
                                                 hideIp,
                                                 NetworkUtil.getCallingDataMode(context),
                                                 AUDIO_LEVELS_INTERVAL,

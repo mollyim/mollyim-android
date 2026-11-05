@@ -1,0 +1,4621 @@
+From ab4140656555672437630ea774740c50bdd01868 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly module-pruning, part 14
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Removed demos, benchmark/spinner/quickstart flavors and screenshot-test infrastructure.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable landscape (night)_9dae7e43_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable landscape (night)_9dae7e43_0.png
+deleted file mode 100644
+index 8b6b518f0a999168448901e86c7c064ed085b18f..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable landscape (night)_9dae7e43_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:6df52102839dd5fff99d087b01b3f59e4bb7ecf4b7cfc97f28e33075b667ab26
+-size 253635
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable portrait (day)_bf09cc79_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable portrait (day)_bf09cc79_0.png
+deleted file mode 100644
+index 1af71d3e82ff181be9b4938c7bd00322323bbf21..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_foldable portrait (day)_bf09cc79_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:3af78bd0c9865d3788e824d9075b9d285dc5b721375688a06a5927d1561eff5e
+-size 265333
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (day)_38357cfa_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (day)_38357cfa_0.png
+deleted file mode 100644
+index be0452fe99a5ea1e5d2bfe1519d415f17d1b9926..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (day)_38357cfa_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:4e224fd2c468d206149d54cb7d42e156d9bc1ef43000e5b6f8c71a3e920c6ecb
+-size 52900
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (night)_2eebbf71_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (night)_2eebbf71_0.png
+deleted file mode 100644
+index 0bbfd400836c33254cc2caafe090ec07240ab469..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone landscape (night)_2eebbf71_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:00c24756136f9ec19f52114a3b3505588b3ace0f35df07272a9c16823ef4c1dd
+-size 53201
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone portrait (day)_1526b652_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone portrait (day)_1526b652_0.png
+deleted file mode 100644
+index 05e01daa652bc137f4473a4135f34d256f0c9fef..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_phone portrait (day)_1526b652_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:00ee05dceb245e7789fabe844e7d8b78a317edafe913ad7d599909f05565d7a1
+-size 104487
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_rtl_5cbb5cfd_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 671359ace48d48b45bd29d3993652dba66084570..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8bdcf51c97838c57ddede736892461939d7ad13d88b266eddd589a3b30388b3f
+-size 241919
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (day)_de1bb092_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (day)_de1bb092_0.png
+deleted file mode 100644
+index 670d6100b088b32191a4b649f2ac482fcbcce1ba..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (day)_de1bb092_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7d6ef9c041521feeb0cda423cbb612f2ecdffe29a4eb97a9310e5c76192f27e6
+-size 192932
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (night)_fe962c61_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (night)_fe962c61_0.png
+deleted file mode 100644
+index c3a43d6621805a78a35e74dbef5f5f7a0aa67f2a..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable landscape (night)_fe962c61_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:a6ba17b3a59fc897a23e55f3a76c4ae9613a6f547919f60c077ee8ea59f8d231
+-size 182338
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable portrait (day)_e269713d_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable portrait (day)_e269713d_0.png
+deleted file mode 100644
+index 4fdcc279abce8ec70caf3bb816ca5b0b916daeb5..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_small foldable portrait (day)_e269713d_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:c27372e794bcb63f49bf0e89cb495cf29c12d7024db7aeffde0db301f0951432
+-size 165171
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (day)_308754cb_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (day)_308754cb_0.png
+deleted file mode 100644
+index 3a168e047bd67d94dc51e761f041b6a4485ca4e4..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (day)_308754cb_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:9b333000ff39c5d726307d9be2691de4657032cbf4a9a5d946afa94ce3001c73
+-size 435557
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (night)_d25401fe_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (night)_d25401fe_0.png
+deleted file mode 100644
+index 4e8880f843b74f54157326c23873cbb581b0984d..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet landscape (night)_d25401fe_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:58ab68ce8d815d9f7aa094e0261075759083f67fcd4d40d8a38b519c9ac3ee78
+-size 395238
+diff --git a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet portrait (day)_ae17fb11_0.png b/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet portrait (day)_ae17fb11_0.png
+deleted file mode 100644
+index 6325fc6ea7eb8c016a30c56eae0be8f672ecbbab..0000000000000000000000000000000000000000
+--- a/feature/registration/src/screenshotTestDebug/reference/org/signal/registration/screens/welcome/WelcomeScreenScreenshotTests/WelcomeScreenPhonePreview_tablet portrait (day)_ae17fb11_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:34263308f2b19c65983e82c7d775478612529b9174a98c11a23ec3b3e3dbebb6
+-size 297926
+diff --git a/lib/spinner/build.gradle.kts b/lib/spinner/build.gradle.kts
+deleted file mode 100644
+index 53457d9a1c24f98bec7df74f91eeea3c740c0f21..0000000000000000000000000000000000000000
+--- a/lib/spinner/build.gradle.kts
++++ /dev/null
+@@ -1,18 +0,0 @@
+-plugins {
+-  id("signal-library")
+-}
+-
+-android {
+-  namespace = "org.signal.spinner"
+-}
+-
+-dependencies {
+-  implementation(project(":core:util"))
+-
+-  implementation(libs.jknack.handlebars)
+-  implementation(libs.nanohttpd.webserver)
+-  implementation(libs.nanohttpd.websocket)
+-  implementation(libs.androidx.sqlite)
+-
+-  testImplementation(testLibs.junit.junit)
+-}
+diff --git a/lib/spinner/src/main/AndroidManifest.xml b/lib/spinner/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 7277dc362ab3ecf567018237f72978ac2d92d2fb..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/spinner/src/main/assets/browse.hbs b/lib/spinner/src/main/assets/browse.hbs
+deleted file mode 100644
+index a88b9e5954b390a2927d2ff358ff362ca57b3d71..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/browse.hbs
++++ /dev/null
+@@ -1,81 +0,0 @@
+-<html>
+-  {{> partials/head title="Browse" }}
+-  <body>
+-
+-    {{> partials/prefix isBrowse=true}}
+-
+-    <!-- Table Selector -->
+-    <form action="browse" method="post">
+-      <select name="table">
+-        {{#each tableNames}}
+-          <option value="{{this}}" {{eq table this yes="selected" no=""}}>{{this}}</option>
+-        {{/each}}
+-      </select>
+-      <input type="hidden" name="db" value="{{database}}" />
+-      <input type="submit" value="browse" />
+-    </form>
+-
+-    <!-- Data -->
+-    {{#if table}}
+-      <h1>{{table}}</h1>
+-    {{else}}
+-      <h1>Data</h1>
+-    {{/if}}
+-
+-    {{#if queryResult}}
+-      <p>Viewing rows {{pagingData.startRow}}-{{pagingData.endRow}} of {{pagingData.rowCount}}.</p>
+-
+-      <!-- Paging Controls -->
+-      <form action="browse" method="post">
+-        <input type="hidden" name="table" value="{{table}}" />
+-        <input type="hidden" name="pageSize" value="{{pagingData.pageSize}}" />
+-        <input type="hidden" name="pageIndex" value="{{pagingData.pageIndex}}" />
+-
+-        <input type="submit" name="action" value="first" {{#if pagingData.firstPage}}disabled{{/if}} />
+-        <input type="submit" name="action" value="previous" {{#if pagingData.firstPage}}disabled{{/if}} />
+-        <input type="submit" name="action" value="next" {{#if pagingData.lastPage}}disabled{{/if}} />
+-        <input type="submit" name="action" value="last" {{#if pagingData.lastPage}}disabled{{/if}} />
+-      </form>
+-
+-      <!-- Data Rows -->
+-      <table>
+-        <tr>
+-          {{#each queryResult.columns}}
+-            <th>{{this}}</th>
+-          {{/each}}
+-        </tr>
+-        {{#each queryResult.rows}}
+-          <tr>
+-            {{#each this}}
+-              <td><pre>{{#if (eq this null)}}<em class="null">null</em>{{else}}{{{this}}}{{/if}}</pre></td>
+-            {{/each}}
+-          </tr>
+-        {{/each}}
+-      </table>
+-    {{else}}
+-      <div>Select a table from above and click 'browse'.</div>
+-    {{/if}}
+-
+-    <br />
+-
+-    <!-- Paging Controls -->
+-    <form action="browse" method="post">
+-      <input type="hidden" name="table" value="{{table}}" />
+-      <input type="hidden" name="pageSize" value="{{pagingData.pageSize}}" />
+-      <input type="hidden" name="pageIndex" value="{{pagingData.pageIndex}}" />
+-
+-      <input type="submit" name="action" value="first" {{#if pagingData.firstPage}}disabled{{/if}} />
+-      <input type="submit" name="action" value="previous" {{#if pagingData.firstPage}}disabled{{/if}} />
+-      <input type="submit" name="action" value="next" {{#if pagingData.lastPage}}disabled{{/if}} />
+-      <input type="submit" name="action" value="last" {{#if pagingData.lastPage}}disabled{{/if}} />
+-    </form>
+-
+-    {{> partials/suffix}}
+-
+-    {{> partials/tooltips}}
+-
+-    <script type="text/javascript">
+-      initializeTooltips();
+-    </script>
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/css/main.css b/lib/spinner/src/main/assets/css/main.css
+deleted file mode 100644
+index 9d83b21080c200b32c214636f06bb650272474ec..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/css/main.css
++++ /dev/null
+@@ -1,165 +0,0 @@
+-:root {
+-  --background-color: #fff;
+-  --table-header-background-color: #f0f0f0;
+-  --text-color: #000;
+-  --border-color: #000;
+-}
+-
+-@media (prefers-color-scheme: dark) {
+-  :root {
+-    --background-color: #333;
+-    --table-header-background-color: #444;
+-    --text-color: #fff;
+-    --border-color: #888;
+-  }
+-
+-  a {
+-    color: #aaf;
+-  }
+-}
+-
+-[data-theme="dark"] {
+-  --background-color: #333;
+-  --table-header-background-color: #444;
+-  --text-color: #fff;
+-  --border-color: #888;
+-
+-  a {
+-    color: #aaf;
+-  }
+-}
+-
+-html, body {
+-  font-family: 'Roboto Mono', monospace;
+-  font-variant-ligatures: none;
+-  font-size: 12px;
+-  width: 100%;
+-  background: var(--background-color);
+-  color: var(--text-color);
+-}
+-
+-body {
+-  margin: 0;
+-  padding: 8px;
+-}
+-
+-select, input, button {
+-  font-family: 'Roboto Mono', monospace;
+-  font-variant-ligatures: none;
+-  font-size: 1rem;
+-}
+-
+-table, th, td {
+-  border: 1px solid black;
+-  font-size: 1rem;
+-}
+-
+-th, td {
+-  padding: 8px;
+-}
+-
+-th {
+-  position: sticky;
+-  top: 0;
+-  background: var(--background-color);
+-}
+-
+-.handsontable th {
+-  color: var(--text-color);
+-  background: var(--table-header-background-color);
+-}
+-
+-.handsontable thead th.ht__highlight {
+-  color: var(--text-color);
+-  background: var(--table-header-background-color);
+-}
+-
+-.handsontable td {
+-  color: var(--text-color);
+-  background: var(--background-color);
+-}
+-
+-.query-input {
+-  width: calc(100% - 18px);
+-  border: 1px solid var(--border-color);
+-  border-radius: 4px;
+-  height: 200px;
+-  margin-bottom: 2px;
+-}
+-
+-li.active {
+-  font-weight: bold;
+-}
+-
+-ol.tabs {
+-  margin: 16px 0px 8px 0px;
+-  padding: 0px;
+-  font-size: 0px;
+-}
+-
+-.tabs li {
+-  list-style-type: none;
+-  display: inline-block;
+-  padding: 8px;
+-  border-bottom: 1px solid var(--border-color);
+-  font-size: 1rem;
+-}
+-
+-.tabs li.active {
+-  border: 1px solid var(--border-color);
+-  border-bottom: 0;
+-}
+-
+-.tabs a {
+-  text-decoration: none;
+-  color: var(--text-color);
+-}
+-
+-.collapse-header {
+-  cursor: pointer;
+-}
+-
+-.collapse-header:before {
+-  content: "⯈ ";
+-  font-size: 1rem;
+-}
+-
+-.collapse-header.active:before {
+-  content: "⯆ ";
+-  font-size: 1rem;
+-}
+-
+-h2.collapse-header, h2.collapse-header+div {
+-  margin-left: 16px;
+-}
+-
+-.hidden {
+-  display: none;
+-}
+-
+-table.device-info {
+-  margin-bottom: 16px;
+-}
+-
+-table.device-info, table.device-info tr, table.device-info td {
+-  border: 0;
+-  padding: 2px;
+-  font-size: 0.75rem;
+-  font-style: italic;
+-}
+-
+-.null {
+-  color: #666
+-}
+-
+-#grow-button {
+-  width: calc(100% - 18px);
+-  height: 0.75rem;
+-  margin-bottom: 8px;
+-}
+-
+-#theme-toggle {
+-  position: absolute;
+-  top: 8px;
+-  right: 8px;
+-}
+\ No newline at end of file
+diff --git a/lib/spinner/src/main/assets/css/tooltips.css b/lib/spinner/src/main/assets/css/tooltips.css
+deleted file mode 100644
+index 071c7b03e1a4d3a35641b30f517000920d6eaa07..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/css/tooltips.css
++++ /dev/null
+@@ -1,73 +0,0 @@
+-td {
+-  overflow: visible !important;
+-}
+-
+-td pre {
+-  overflow: visible !important;
+-}
+-
+-.popup {
+-  position: relative;
+-  cursor: help;
+-  text-decoration: underline dotted;
+-  display: inline-block;
+-}
+-
+-.popup .tooltip {
+-  visibility: hidden;
+-  background-color: #555;
+-  color: #fff;
+-  text-align: left;
+-  border-radius: 4px;
+-  padding: 8px 12px;
+-  position: absolute;
+-  z-index: 1000;
+-  bottom: 200%;
+-  left: 50%;
+-  transform: translateX(-50%);
+-  white-space: pre-wrap;
+-  max-width: 600px;
+-  min-width: 200px;
+-  opacity: 0;
+-  transition: opacity 0.3s;
+-  font-size: 12px;
+-  line-height: 1.5;
+-}
+-
+-.popup .tooltip.align-left {
+-  left: 0;
+-  transform: translateX(0);
+-}
+-
+-.popup .tooltip.align-right {
+-  left: auto;
+-  right: 0;
+-  transform: translateX(0);
+-}
+-
+-.popup .tooltip::after {
+-  content: "";
+-  position: absolute;
+-  top: 100%;
+-  left: 50%;
+-  margin-left: -5px;
+-  border-width: 5px;
+-  border-style: solid;
+-  border-color: #555 transparent transparent transparent;
+-}
+-
+-.popup .tooltip.align-left::after {
+-  left: 20px;
+-  margin-left: 0;
+-}
+-
+-.popup .tooltip.align-right::after {
+-  left: auto;
+-  right: 20px;
+-  margin-left: 0;
+-}
+-
+-.popup:hover .tooltip {
+-  visibility: visible;
+-  opacity: 1;
+-}
+diff --git a/lib/spinner/src/main/assets/error.hbs b/lib/spinner/src/main/assets/error.hbs
+deleted file mode 100644
+index 4045ca60801be0ec2e543475cdff18f3bc0f1641..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/error.hbs
++++ /dev/null
+@@ -1,8 +0,0 @@
+-<html>
+-  {{> partials/head title="Error :(" }}
+-  <body>
+-    Hit an exception while trying to serve the page :(
+-    <hr/>
+-    {{{this}}}
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/js/main.js b/lib/spinner/src/main/assets/js/main.js
+deleted file mode 100644
+index 2195ce7ae7ac4c75f09e582696d328a9bc3e40d4..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/js/main.js
++++ /dev/null
+@@ -1,33 +0,0 @@
+-function init() {
+-  document.querySelectorAll('.collapse-header').forEach(elem => {
+-    elem.onclick = () => {
+-      console.log('clicked');
+-      elem.classList.toggle('active');
+-      document.getElementById(elem.dataset.for).classList.toggle('hidden');
+-      document.dispatchEvent(new CustomEvent('header-toggle', {
+-        detail: document.getElementById(elem.dataset.for)
+-      }))
+-    }
+-  });
+-
+-  document.querySelector('#database-selector').onchange = (e) => {
+-    window.location.href = window.location.href.split('?')[0] + '?db=' + e.target.value;
+-  }
+-
+-  document.querySelector('#theme-toggle').onclick = function() {
+-    if (document.body.getAttribute('data-theme') === 'dark') {
+-      document.body.removeAttribute('data-theme');
+-      localStorage.removeItem('theme');
+-    } else {
+-      document.body.setAttribute('data-theme', 'dark');
+-      localStorage.setItem('theme', 'dark');
+-    }
+-  }
+-
+-  const savedTheme = localStorage.getItem('theme');
+-  if (savedTheme) {
+-    document.body.setAttribute('data-theme', savedTheme);
+-  }
+-}
+-
+-init();
+diff --git a/lib/spinner/src/main/assets/js/tooltips.js b/lib/spinner/src/main/assets/js/tooltips.js
+deleted file mode 100644
+index 3abe50f05deb1db7603bfeccb4ae65ad0fa33570..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/js/tooltips.js
++++ /dev/null
+@@ -1,324 +0,0 @@
+-function adjustTooltipPosition(tooltipSpan) {
+-  // Reset any previous alignment classes
+-  tooltipSpan.classList.remove('align-left', 'align-right');
+-
+-  // Get tooltip and viewport dimensions
+-  const tooltipRect = tooltipSpan.getBoundingClientRect();
+-  const viewportWidth = window.innerWidth;
+-
+-  // Check if tooltip overflows on the left
+-  if (tooltipRect.left < 0) {
+-    tooltipSpan.classList.add('align-left');
+-  }
+-  // Check if tooltip overflows on the right
+-  else if (tooltipRect.right > viewportWidth) {
+-    tooltipSpan.classList.add('align-right');
+-  }
+-}
+-
+-function initializeRecipientTooltips() {
+-  const popupElements = document.querySelectorAll('.popup[data-recipient-id]');
+-  const cache = {};
+-
+-  popupElements.forEach(element => {
+-    const recipientId = element.getAttribute('data-recipient-id');
+-    const tooltipSpan = element.querySelector('.tooltip');
+-
+-    if (!recipientId || !tooltipSpan) {
+-      return;
+-    }
+-
+-    let hasLoaded = false;
+-
+-    element.addEventListener('mouseenter', async function() {
+-      if (hasLoaded) {
+-        return;
+-      }
+-
+-      if (cache[recipientId]) {
+-        tooltipSpan.textContent = cache[recipientId];
+-        adjustTooltipPosition(tooltipSpan);
+-        hasLoaded = true;
+-        return;
+-      }
+-
+-      try {
+-        const response = await fetch(`/api?api=recipient&id=${recipientId}`);
+-        if (!response.ok) {
+-          tooltipSpan.textContent = `Error loading recipient`;
+-          hasLoaded = true;
+-          return;
+-        }
+-
+-        const data = await response.json();
+-
+-        const lines = [];
+-
+-        // Name (primary)
+-        let nameLine = data.isGroup ? `Group: ${data.name || recipientId}` : `Name: ${data.name || recipientId}`;
+-        if (data.nickname) {
+-          nameLine += ` (${data.nickname})`;
+-        }
+-        lines.push(nameLine);
+-
+-        // Group-specific information
+-        if (data.isGroup) {
+-          if (data.groupType) {
+-            lines.push(`Type: ${data.groupType}`);
+-          }
+-          if (data.groupId) {
+-            lines.push(`Group ID: ${data.groupId}`);
+-          }
+-          if (data.participantCount !== null && data.participantCount !== undefined) {
+-            const memberText = data.participantCount === 1 ? 'member' : 'members';
+-            lines.push(`Members: ${data.participantCount} ${memberText}`);
+-          }
+-          const groupStatus = data.isActiveGroup ? 'Active' : 'Inactive';
+-          lines.push(`Status: ${groupStatus}`);
+-        } else {
+-          // Individual-specific information
+-          // ACI
+-          if (data.aci) {
+-            lines.push(`ACI: ${data.aci}`);
+-          }
+-
+-          // PNI
+-          if (data.pni) {
+-            lines.push(`PNI: ${data.pni}`);
+-          }
+-
+-          // Username
+-          if (data.username) {
+-            lines.push(`Username: @${data.username}`);
+-          }
+-
+-          // Phone number
+-          if (data.e164) {
+-            lines.push(`Phone: ${data.e164}`);
+-          }
+-
+-          // About/Bio
+-          if (data.about) {
+-            const aboutText = data.aboutEmoji ? `${data.aboutEmoji} ${data.about}` : data.about;
+-            lines.push(`About: ${aboutText}`);
+-          }
+-
+-          // Note
+-          if (data.note) {
+-            lines.push(`Note: 📝 ${data.note}`);
+-          }
+-
+-          // Status indicators
+-          const statusParts = [];
+-          if (data.isBlocked) {
+-            statusParts.push('🚫 Blocked');
+-          }
+-          if (data.isSystemContact) {
+-            statusParts.push('📱 Contact');
+-          }
+-          if (statusParts.length > 0) {
+-            lines.push(`Status: ${statusParts.join(' | ')}`);
+-          }
+-        }
+-
+-        const displayText = lines.join('\n');
+-        tooltipSpan.textContent = displayText;
+-        adjustTooltipPosition(tooltipSpan);
+-        cache[recipientId] = displayText;
+-        hasLoaded = true;
+-      } catch (error) {
+-        console.error('Error fetching recipient data:', error);
+-        tooltipSpan.textContent = `Error: ${error.message}`;
+-        hasLoaded = true;
+-      }
+-    });
+-  });
+-}
+-
+-function initializeThreadTooltips() {
+-  const popupElements = document.querySelectorAll('.popup[data-thread-id]');
+-  const cache = {};
+-
+-  popupElements.forEach(element => {
+-    const threadId = element.getAttribute('data-thread-id');
+-    const tooltipSpan = element.querySelector('.tooltip');
+-
+-    if (!threadId || !tooltipSpan) {
+-      return;
+-    }
+-
+-    let hasLoaded = false;
+-
+-    element.addEventListener('mouseenter', async function() {
+-      if (hasLoaded) {
+-        return;
+-      }
+-
+-      if (cache[threadId]) {
+-        tooltipSpan.textContent = cache[threadId];
+-        adjustTooltipPosition(tooltipSpan);
+-        hasLoaded = true;
+-        return;
+-      }
+-
+-      try {
+-        const response = await fetch(`/api?api=thread&id=${threadId}`);
+-        if (!response.ok) {
+-          tooltipSpan.textContent = `Error loading thread`;
+-          hasLoaded = true;
+-          return;
+-        }
+-
+-        const data = await response.json();
+-
+-        const lines = [];
+-
+-        // Thread ID
+-        lines.push(`Thread ID: ${data.threadId}`);
+-
+-        // Recipient
+-        lines.push(`Recipient: ${data.recipientName} (ID: ${data.recipientId})`);
+-
+-        // Unread count
+-        if (data.unreadCount > 0) {
+-          lines.push(`Unread: ${data.unreadCount}`);
+-        }
+-
+-        // Unread self mentions
+-        if (data.unreadSelfMentionsCount > 0) {
+-          lines.push(`Unread Mentions: ${data.unreadSelfMentionsCount}`);
+-        }
+-
+-        // Snippet
+-        if (data.snippet) {
+-          const snippetPreview = data.snippet.length > 50
+-            ? data.snippet.substring(0, 50) + '...'
+-            : data.snippet;
+-          lines.push(`Snippet: ${snippetPreview}`);
+-        }
+-
+-        // Date
+-        if (data.date) {
+-          const date = new Date(data.date);
+-          lines.push(`Last Activity: ${date.toLocaleString()}`);
+-        }
+-
+-        // Status flags
+-        const statusParts = [];
+-        if (data.pinned) {
+-          statusParts.push('📌 Pinned');
+-        }
+-        if (data.archived) {
+-          statusParts.push('📦 Archived');
+-        }
+-        if (statusParts.length > 0) {
+-          lines.push(`Status: ${statusParts.join(' | ')}`);
+-        }
+-
+-        const displayText = lines.join('\n');
+-        tooltipSpan.textContent = displayText;
+-        adjustTooltipPosition(tooltipSpan);
+-        cache[threadId] = displayText;
+-        hasLoaded = true;
+-      } catch (error) {
+-        console.error('Error fetching thread data:', error);
+-        tooltipSpan.textContent = `Error: ${error.message}`;
+-        hasLoaded = true;
+-      }
+-    });
+-  });
+-}
+-
+-function initializeMessageTooltips() {
+-  const popupElements = document.querySelectorAll('.popup[data-message-id]');
+-  const cache = {};
+-
+-  popupElements.forEach(element => {
+-    const messageId = element.getAttribute('data-message-id');
+-    const tooltipSpan = element.querySelector('.tooltip');
+-
+-    if (!messageId || !tooltipSpan) {
+-      return;
+-    }
+-
+-    let hasLoaded = false;
+-
+-    element.addEventListener('mouseenter', async function() {
+-      if (hasLoaded) {
+-        return;
+-      }
+-
+-      if (cache[messageId]) {
+-        tooltipSpan.textContent = cache[messageId];
+-        adjustTooltipPosition(tooltipSpan);
+-        hasLoaded = true;
+-        return;
+-      }
+-
+-      try {
+-        const response = await fetch(`/api?api=message&id=${messageId}`);
+-        if (!response.ok) {
+-          tooltipSpan.textContent = `Error loading message`;
+-          hasLoaded = true;
+-          return;
+-        }
+-
+-        const data = await response.json();
+-
+-        const lines = [];
+-
+-        // Message ID
+-        lines.push(`Message ID: ${data.messageId}`);
+-
+-        // Type
+-        lines.push(`Type: ${data.type}`);
+-
+-        // From
+-        lines.push(`From: ${data.fromRecipientName} (ID: ${data.fromRecipientId})`);
+-
+-        // To
+-        if (data.toRecipientName) {
+-          lines.push(`To: ${data.toRecipientName} (ID: ${data.toRecipientId})`);
+-        }
+-
+-        // Thread ID
+-        lines.push(`Thread ID: ${data.threadId}`);
+-
+-        // Body
+-        if (data.body) {
+-          const bodyPreview = data.body.length > 50
+-            ? data.body.substring(0, 50) + '...'
+-            : data.body;
+-          lines.push(`Body: ${bodyPreview}`);
+-        }
+-
+-        // Dates
+-        if (data.dateSent) {
+-          const dateSent = new Date(data.dateSent);
+-          lines.push(`Sent: ${dateSent.toLocaleString()}`);
+-        }
+-
+-        if (data.dateReceived) {
+-          const dateReceived = new Date(data.dateReceived);
+-          lines.push(`Received: ${dateReceived.toLocaleString()}`);
+-        }
+-
+-        const displayText = lines.join('\n');
+-        tooltipSpan.textContent = displayText;
+-        adjustTooltipPosition(tooltipSpan);
+-        cache[messageId] = displayText;
+-        hasLoaded = true;
+-      } catch (error) {
+-        console.error('Error fetching message data:', error);
+-        tooltipSpan.textContent = `Error: ${error.message}`;
+-        hasLoaded = true;
+-      }
+-    });
+-  });
+-}
+-
+-function initializeTooltips() {
+-  initializeRecipientTooltips();
+-  initializeThreadTooltips();
+-  initializeMessageTooltips();
+-}
+diff --git a/lib/spinner/src/main/assets/live.hbs b/lib/spinner/src/main/assets/live.hbs
+deleted file mode 100644
+index 61c4772fb80176073cb04df0a764ca05b46730b9..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/live.hbs
++++ /dev/null
+@@ -1,761 +0,0 @@
+-<html>
+-  {{> partials/head title="Live Queries" }}
+-
+-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+-
+-  <style type="text/css">
+-    html, body {
+-      height: 100%;
+-      margin: 0;
+-    }
+-
+-    body {
+-      padding: 8px;
+-      box-sizing: border-box;
+-      display: flex;
+-      flex-direction: column;
+-      overflow: hidden;
+-    }
+-
+-    #toolbar {
+-      width: 100%;
+-      display: flex;
+-      flex-direction: row;
+-      flex-wrap: nowrap;
+-      align-items: center;
+-      gap: 8px;
+-      margin-bottom: 8px;
+-      flex: 0 0 auto;
+-    }
+-
+-    #toolbar label {
+-      font-family: 'JetBrains Mono', monospace;
+-      font-size: 12px;
+-      display: flex;
+-      align-items: center;
+-      gap: 4px;
+-    }
+-
+-    #zoom-slider {
+-      width: 200px;
+-    }
+-
+-    #span-stats {
+-      flex-grow: 1;
+-      text-align: right;
+-      font-family: 'JetBrains Mono', monospace;
+-      font-size: 12px;
+-      opacity: 0.7;
+-    }
+-
+-    #socket-status {
+-      width: 16px;
+-      height: 16px;
+-      border-radius: 16px;
+-      border: 1px solid black;
+-    }
+-
+-    #socket-status.connected    { background-color: #5ca72b; }
+-    #socket-status.connecting   { background-color: #d6cb37; }
+-    #socket-status.disconnected { background-color: #cc0000; }
+-
+-    #timeline-wrapper {
+-      position: relative;
+-      flex: 1 1 auto;
+-      min-height: 200px;
+-    }
+-
+-    #timeline-container {
+-      position: absolute;
+-      inset: 0;
+-      overflow-y: auto;
+-      overflow-x: hidden;
+-      border: 1px solid var(--border-color);
+-      border-radius: 5px;
+-      background-color: #1d1d1d;
+-    }
+-
+-    #timeline-content {
+-      position: relative;
+-      width: 100%;
+-    }
+-
+-    #timeline {
+-      position: sticky;
+-      top: 0;
+-      left: 0;
+-      display: block;
+-      width: 100%;
+-      cursor: crosshair;
+-    }
+-
+-    #tooltip {
+-      position: absolute;
+-      pointer-events: none;
+-      background-color: rgba(0, 0, 0, 0.92);
+-      color: #f0f0f0;
+-      padding: 6px 8px;
+-      border-radius: 4px;
+-      font-family: 'JetBrains Mono', monospace;
+-      font-size: 11px;
+-      max-width: 600px;
+-      white-space: pre-wrap;
+-      word-break: break-word;
+-      display: none;
+-      z-index: 6;
+-      border: 1px solid #444;
+-    }
+-
+-    #tooltip .tooltip-meta {
+-      color: #8a8a8a;
+-      margin-bottom: 4px;
+-    }
+-
+-    #tooltip .tooltip-query {
+-      color: #d6e6ff;
+-    }
+-
+-    #details-panel {
+-      position: absolute;
+-      top: 8px;
+-      right: 8px;
+-      width: 380px;
+-      max-width: calc(100% - 16px);
+-      max-height: calc(100% - 16px);
+-      overflow-y: auto;
+-      background-color: rgba(20, 20, 20, 0.96);
+-      color: #f0f0f0;
+-      border: 1px solid #555;
+-      border-radius: 4px;
+-      padding: 10px 12px 12px;
+-      font-family: 'JetBrains Mono', monospace;
+-      font-size: 11px;
+-      z-index: 8;
+-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+-      display: none;
+-    }
+-
+-    #details-panel.visible {
+-      display: block;
+-    }
+-
+-    #details-panel .details-header {
+-      display: flex;
+-      align-items: center;
+-      gap: 8px;
+-      margin-bottom: 6px;
+-    }
+-
+-    #details-panel .details-name {
+-      font-weight: bold;
+-      flex: 1;
+-      word-break: break-word;
+-      color: #ffffff;
+-    }
+-
+-    #details-panel .details-close {
+-      background: transparent;
+-      border: 1px solid #666;
+-      color: #ccc;
+-      cursor: pointer;
+-      width: 22px;
+-      height: 22px;
+-      padding: 0;
+-      border-radius: 3px;
+-      font-size: 14px;
+-      line-height: 18px;
+-      flex: 0 0 auto;
+-    }
+-
+-    #details-panel .details-close:hover {
+-      background: #333;
+-    }
+-
+-    #details-panel .details-row {
+-      display: flex;
+-      gap: 6px;
+-      margin-bottom: 2px;
+-      color: #d8d8d8;
+-    }
+-
+-    #details-panel .details-row .details-key {
+-      color: #8a8a8a;
+-      flex: 0 0 70px;
+-    }
+-
+-    #details-panel .details-row .details-value {
+-      flex: 1;
+-      word-break: break-word;
+-    }
+-
+-    #details-panel .details-query {
+-      margin-top: 8px;
+-      padding: 8px;
+-      background-color: #0f0f0f;
+-      border-radius: 3px;
+-      color: #d6e6ff;
+-      white-space: pre-wrap;
+-      word-break: break-word;
+-      max-height: 40vh;
+-      overflow-y: auto;
+-      border: 1px solid #2a2a2a;
+-    }
+-
+-    #cursor-time {
+-      position: absolute;
+-      top: 2px;
+-      pointer-events: none;
+-      background-color: rgba(0, 0, 0, 0.8);
+-      color: #ffe089;
+-      font-family: 'JetBrains Mono', monospace;
+-      font-size: 10px;
+-      padding: 1px 5px;
+-      border-radius: 3px;
+-      transform: translateX(-50%);
+-      display: none;
+-      z-index: 5;
+-      white-space: nowrap;
+-    }
+-  </style>
+-
+-  <body>
+-    {{> partials/prefix isLive=true}}
+-
+-    <div id="toolbar">
+-      <button id="follow-button">Follow</button>
+-      <button id="clear-button">Clear</button>
+-      <label>Window:
+-        <input type="range" id="zoom-slider" min="500" max="60000" step="500" value="30000">
+-        <span id="zoom-value">30s</span>
+-      </label>
+-      <div id="span-stats">0 spans</div>
+-      <div id="socket-status"></div>
+-    </div>
+-
+-    <div id="timeline-wrapper">
+-      <div id="timeline-container">
+-        <div id="timeline-content">
+-          <canvas id="timeline"></canvas>
+-        </div>
+-      </div>
+-      <div id="tooltip"></div>
+-      <div id="cursor-time"></div>
+-      <div id="details-panel">
+-        <div class="details-header">
+-          <div class="details-name" id="details-name"></div>
+-          <button class="details-close" id="details-close" title="Close">×</button>
+-        </div>
+-        <div id="details-rows"></div>
+-        <div class="details-query" id="details-query"></div>
+-      </div>
+-    </div>
+-
+-    {{> partials/suffix }}
+-
+-    <script>
+-      const MAX_SPANS = 20000
+-      const LANE_HEIGHT = 26
+-      const LANE_PADDING_TOP = 22
+-      const LANE_PADDING_BOTTOM = 8
+-      const TRACK_LABEL_WIDTH = 140
+-      const AXIS_HEIGHT = 18
+-
+-      const canvas = document.getElementById('timeline')
+-      const ctx = canvas.getContext('2d')
+-      const wrapper = document.getElementById('timeline-wrapper')
+-      const container = document.getElementById('timeline-container')
+-      const content = document.getElementById('timeline-content')
+-      const tooltip = document.getElementById('tooltip')
+-      const cursorTime = document.getElementById('cursor-time')
+-      const detailsPanel = document.getElementById('details-panel')
+-      const detailsName = document.getElementById('details-name')
+-      const detailsRows = document.getElementById('details-rows')
+-      const detailsQuery = document.getElementById('details-query')
+-      const detailsClose = document.getElementById('details-close')
+-      const followButton = document.getElementById('follow-button')
+-      const clearButton = document.getElementById('clear-button')
+-      const zoomSlider = document.getElementById('zoom-slider')
+-      const zoomValue = document.getElementById('zoom-value')
+-      const statusOrb = document.getElementById('socket-status')
+-      const spanStats = document.getElementById('span-stats')
+-
+-      const DB_LOCK_TRACK_ID = -8675309
+-
+-      const completedSpans = []
+-      const openSpansByTrack = new Map()
+-      const trackLanes = new Map()
+-      let nextLane = 0
+-
+-      function seedDefaultTracks() {
+-        trackLanes.set(DB_LOCK_TRACK_ID, { name: 'Database Lock', lane: 0 })
+-        nextLane = 1
+-      }
+-
+-      let windowMs = parseInt(zoomSlider.value, 10)
+-      let following = true
+-      let latestEventMs = 0
+-      let lastSyncWallMs = 0
+-      let viewEndMs = 0
+-      let dpr = window.devicePixelRatio || 1
+-
+-      let cursorX = null
+-      let cursorY = null
+-      let hitRects = []
+-
+-      function setStatus(name) { statusOrb.className = name }
+-
+-      function setFollowing(value) {
+-        if (following === value) return
+-        following = value
+-        followButton.textContent = following ? 'Following' : 'Follow'
+-        followButton.style.opacity = following ? '0.6' : '1'
+-      }
+-
+-      function trackForId(trackId, trackName) {
+-        let entry = trackLanes.get(trackId)
+-        if (!entry) {
+-          entry = { name: trackName, lane: nextLane++ }
+-          trackLanes.set(trackId, entry)
+-          updateContentHeight()
+-        } else if (trackName && !entry.name) {
+-          entry.name = trackName
+-        }
+-        return entry
+-      }
+-
+-      function colorForSpan(span) {
+-        if (span.name === 'LOCK') return '#c14a4a'
+-        const q = (span.query || '').trim().toUpperCase()
+-        if (q.startsWith('SELECT'))      return '#3a7bd5'
+-        if (q.startsWith('INSERT'))      return '#5ca72b'
+-        if (q.startsWith('UPDATE'))      return '#d6a437'
+-        if (q.startsWith('DELETE'))      return '#c14a4a'
+-        if (q.startsWith('REPLACE'))     return '#a06bd5'
+-        if (q.startsWith('BEGIN') || q.startsWith('COMMIT') || q.startsWith('ROLLBACK')) return '#666'
+-        if (q.startsWith('PRAGMA') || q.startsWith('CREATE') || q.startsWith('DROP') || q.startsWith('ALTER')) return '#888'
+-        return '#3a7bd5'
+-      }
+-
+-      function summaryForSpan(span) {
+-        if (span.name === 'LOCK') {
+-          return span.holder ? `LOCK held by ${span.holder}` : 'DB LOCK held'
+-        }
+-        return span.query || span.name
+-      }
+-
+-      function onWebSocketMessage(event) {
+-        const msg = JSON.parse(event.data)
+-
+-        if (msg.t > latestEventMs) {
+-          latestEventMs = msg.t
+-          lastSyncWallMs = Date.now()
+-        }
+-
+-        if (msg.type === 'start') {
+-          trackForId(msg.trackId, msg.trackName)
+-          let stack = openSpansByTrack.get(msg.trackId)
+-          if (!stack) { stack = []; openSpansByTrack.set(msg.trackId, stack) }
+-          stack.push({
+-            trackId: msg.trackId,
+-            name: msg.name,
+-            query: msg.query || null,
+-            table: msg.table || null,
+-            holder: msg.holder || null,
+-            startMs: msg.t
+-          })
+-        } else if (msg.type === 'end') {
+-          const stack = openSpansByTrack.get(msg.trackId)
+-          if (!stack || stack.length === 0) return
+-
+-          let span = null
+-          if (stack[stack.length - 1].name === msg.name) {
+-            span = stack.pop()
+-          } else {
+-            const idx = stack.findIndex(s => s.name === msg.name)
+-            if (idx >= 0) span = stack.splice(idx, 1)[0]
+-            else          span = stack.pop()
+-          }
+-          if (!span) return
+-
+-          span.endMs = msg.t
+-          completedSpans.push(span)
+-          if (completedSpans.length > MAX_SPANS) completedSpans.shift()
+-        }
+-      }
+-
+-      function initWebSocket() {
+-        setStatus('connecting')
+-        const ws = new WebSocket(`ws://${window.location.host}/live/websocket`)
+-        let keepAliveTimer = null
+-
+-        ws.onopen = () => {
+-          setStatus('connected')
+-          keepAliveTimer = setInterval(() => ws.send('keepalive'), 1000)
+-        }
+-
+-        ws.onclose = () => {
+-          setStatus('disconnected')
+-          if (keepAliveTimer) { clearInterval(keepAliveTimer); keepAliveTimer = null }
+-          setTimeout(initWebSocket, 1000)
+-        }
+-
+-        ws.onmessage = onWebSocketMessage
+-      }
+-
+-      function totalContentHeightPx() {
+-        return LANE_PADDING_TOP + trackLanes.size * LANE_HEIGHT + LANE_PADDING_BOTTOM
+-      }
+-
+-      function updateContentHeight() {
+-        const total = totalContentHeightPx()
+-        const visible = container.clientHeight
+-        content.style.height = Math.max(total, visible) + 'px'
+-      }
+-
+-      function resizeCanvas() {
+-        dpr = window.devicePixelRatio || 1
+-        const cw = container.clientWidth
+-        const ch = container.clientHeight
+-        canvas.width  = Math.floor(cw * dpr)
+-        canvas.height = Math.floor(ch * dpr)
+-        canvas.style.width  = cw + 'px'
+-        canvas.style.height = ch + 'px'
+-        updateContentHeight()
+-      }
+-
+-      function effectiveNowMs() {
+-        if (latestEventMs === 0) return 0
+-        return latestEventMs + (Date.now() - lastSyncWallMs)
+-      }
+-
+-      function pixelToTimeMs(x, plotX, msPerPx, viewStartMs) {
+-        return viewStartMs + (x - plotX) * msPerPx
+-      }
+-
+-      function render() {
+-        const cssW = canvas.width / dpr
+-        const cssH = canvas.height / dpr
+-        const scrollY = container.scrollTop
+-
+-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+-        ctx.fillStyle = '#1d1d1d'
+-        ctx.fillRect(0, 0, cssW, cssH)
+-
+-        if (following) viewEndMs = effectiveNowMs()
+-        const viewStartMs = viewEndMs - windowMs
+-        const plotX = TRACK_LABEL_WIDTH
+-        const plotW = Math.max(10, cssW - plotX)
+-        const msPerPx = windowMs / plotW
+-
+-        // Lane backgrounds (clipped below axis, scroll-aware)
+-        ctx.save()
+-        ctx.beginPath()
+-        ctx.rect(0, AXIS_HEIGHT, cssW, cssH - AXIS_HEIGHT)
+-        ctx.clip()
+-
+-        const sortedTracks = Array.from(trackLanes.entries()).sort((a, b) => a[1].lane - b[1].lane)
+-        for (const [trackId, info] of sortedTracks) {
+-          const y = LANE_PADDING_TOP + info.lane * LANE_HEIGHT - scrollY
+-          if (y + LANE_HEIGHT < AXIS_HEIGHT) continue
+-          if (y > cssH) break
+-          ctx.fillStyle = info.lane % 2 === 0 ? '#222222' : '#262626'
+-          ctx.fillRect(0, y, cssW, LANE_HEIGHT)
+-          ctx.fillStyle = '#cccccc'
+-          ctx.font = "11px 'JetBrains Mono', monospace"
+-          ctx.textBaseline = 'top'
+-          const label = info.name || ('track ' + trackId)
+-          ctx.fillText(truncateLabel(label, TRACK_LABEL_WIDTH - 8), 4, y + 7)
+-        }
+-
+-        // Spans
+-        hitRects = []
+-        const drawSpan = (span, end) => {
+-          const info = trackLanes.get(span.trackId)
+-          if (!info) return
+-          const startX = plotX + (span.startMs - viewStartMs) / msPerPx
+-          const endX   = plotX + (end       - viewStartMs) / msPerPx
+-          if (endX < plotX || startX > cssW) return
+-          const x = Math.max(plotX, startX)
+-          const right = Math.min(cssW, endX)
+-          const width = Math.max(1, right - x)
+-          const y = LANE_PADDING_TOP + info.lane * LANE_HEIGHT - scrollY + 2
+-          const rectH = LANE_HEIGHT - 4
+-          if (y + rectH < AXIS_HEIGHT || y > cssH) return
+-          ctx.fillStyle = colorForSpan(span)
+-          ctx.fillRect(x, y, width, rectH)
+-          if (width > 40) {
+-            ctx.fillStyle = '#ffffff'
+-            ctx.save()
+-            ctx.beginPath()
+-            ctx.rect(x, y, width, rectH)
+-            ctx.clip()
+-            ctx.fillText(truncateLabel(summaryForSpan(span), width - 6), x + 4, y + 4)
+-            ctx.restore()
+-          }
+-          hitRects.push({ x, y, width, height: rectH, span: { ...span, endMs: end } })
+-        }
+-
+-        for (const span of completedSpans) {
+-          if (span.endMs < viewStartMs || span.startMs > viewEndMs) continue
+-          drawSpan(span, span.endMs)
+-        }
+-
+-        const nowMs = Math.max(viewEndMs, effectiveNowMs())
+-        for (const stack of openSpansByTrack.values()) {
+-          for (const span of stack) {
+-            if (span.startMs > viewEndMs) continue
+-            drawSpan(span, nowMs)
+-          }
+-        }
+-
+-        ctx.restore()  // end lane clip
+-
+-        // Axis (drawn on top, ignores scrollY)
+-        ctx.fillStyle = '#1d1d1d'
+-        ctx.fillRect(0, 0, cssW, AXIS_HEIGHT)
+-        ctx.fillStyle = '#aaaaaa'
+-        ctx.font = "10px 'JetBrains Mono', monospace"
+-        ctx.textBaseline = 'top'
+-        ctx.fillRect(plotX, AXIS_HEIGHT - 1, plotW, 1)
+-        const tickStepMs = niceTickStep(windowMs / 8)
+-        const firstTick = Math.ceil(viewStartMs / tickStepMs) * tickStepMs
+-        for (let t = firstTick; t <= viewEndMs; t += tickStepMs) {
+-          const x = plotX + (t - viewStartMs) / msPerPx
+-          ctx.fillStyle = '#3a3a3a'
+-          ctx.fillRect(x, AXIS_HEIGHT, 1, cssH - AXIS_HEIGHT)
+-          ctx.fillStyle = '#888'
+-          ctx.fillText(formatTickLabel(t - viewEndMs), x + 2, 2)
+-        }
+-
+-        // Cursor crosshair
+-        if (cursorX != null && cursorX >= plotX && cursorX <= cssW) {
+-          ctx.fillStyle = 'rgba(255, 224, 137, 0.5)'
+-          ctx.fillRect(cursorX, AXIS_HEIGHT, 1, cssH - AXIS_HEIGHT)
+-
+-          const tCursor = pixelToTimeMs(cursorX, plotX, msPerPx, viewStartMs)
+-          const delta = tCursor - viewEndMs
+-          cursorTime.style.display = 'block'
+-          cursorTime.style.left = (cursorX) + 'px'
+-          cursorTime.textContent = formatTickLabel(delta)
+-        } else {
+-          cursorTime.style.display = 'none'
+-        }
+-
+-        spanStats.textContent = `${completedSpans.length} spans • ${trackLanes.size} tracks`
+-        requestAnimationFrame(render)
+-      }
+-
+-      function niceTickStep(rawMs) {
+-        const candidates = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 30000, 60000]
+-        for (const c of candidates) if (c >= rawMs) return c
+-        return 60000
+-      }
+-
+-      function formatTickLabel(deltaMs) {
+-        if (Math.round(deltaMs) === 0) return 'now'
+-        const sign = deltaMs < 0 ? '-' : '+'
+-        const abs = Math.abs(deltaMs)
+-        if (abs >= 1000) return `${sign}${(abs / 1000).toFixed(abs >= 10000 ? 0 : 1)}s`
+-        return `${sign}${Math.round(abs)}ms`
+-      }
+-
+-      function truncateLabel(text, maxPx) {
+-        const charsApprox = Math.max(0, Math.floor(maxPx / 6.5))
+-        if (text.length <= charsApprox) return text
+-        if (charsApprox < 3) return text.substring(0, charsApprox)
+-        return text.substring(0, charsApprox - 1) + '…'
+-      }
+-
+-      function hitTest(x, y) {
+-        for (let i = hitRects.length - 1; i >= 0; i--) {
+-          const r = hitRects[i]
+-          if (x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height) return r
+-        }
+-        return null
+-      }
+-
+-      function onCanvasMouseMove(ev) {
+-        const rect = canvas.getBoundingClientRect()
+-        const x = ev.clientX - rect.left
+-        const y = ev.clientY - rect.top
+-        cursorX = x
+-        cursorY = y
+-
+-        const hit = hitTest(x, y)
+-        if (!hit) {
+-          tooltip.style.display = 'none'
+-          return
+-        }
+-
+-        const span = hit.span
+-        const duration = (span.endMs - span.startMs).toFixed(0)
+-        const trackName = (trackLanes.get(span.trackId) || {}).name || ('track ' + span.trackId)
+-        tooltip.style.display = 'block'
+-        tooltip.innerHTML = ''
+-        const isLock = span.name === 'LOCK'
+-        const meta = document.createElement('div')
+-        meta.className = 'tooltip-meta'
+-        const metaParts = [trackName, span.name, `${duration}ms`]
+-        if (span.table) metaParts.push(span.table)
+-        if (isLock && span.holder) metaParts.push(`held by ${span.holder}`)
+-        meta.textContent = metaParts.join(' • ')
+-        tooltip.appendChild(meta)
+-        const body = document.createElement('div')
+-        body.className = 'tooltip-query'
+-        body.textContent = isLock
+-          ? (span.holder ? `Held by ${span.holder}` : '(no holder recorded)')
+-          : (span.query || '(no query)')
+-        tooltip.appendChild(body)
+-
+-        const tw = tooltip.offsetWidth
+-        const th = tooltip.offsetHeight
+-        const ww = wrapper.clientWidth
+-        const wh = wrapper.clientHeight
+-        let tx = x + 12
+-        let ty = y + 12
+-        if (tx + tw > ww) tx = x - tw - 12
+-        if (ty + th > wh) ty = y - th - 12
+-        tooltip.style.left = Math.max(0, tx) + 'px'
+-        tooltip.style.top  = Math.max(0, ty) + 'px'
+-      }
+-
+-      function onCanvasMouseLeave() {
+-        cursorX = null
+-        cursorY = null
+-        tooltip.style.display = 'none'
+-      }
+-
+-      function onCanvasClick(ev) {
+-        const rect = canvas.getBoundingClientRect()
+-        const x = ev.clientX - rect.left
+-        const y = ev.clientY - rect.top
+-
+-        const hit = hitTest(x, y)
+-        if (!hit) {
+-          hideDetails()
+-          return
+-        }
+-
+-        setFollowing(false)
+-        showDetails(hit.span)
+-      }
+-
+-      function showDetails(span) {
+-        const isLock = span.name === 'LOCK'
+-        const trackName = (trackLanes.get(span.trackId) || {}).name || ('track ' + span.trackId)
+-        const duration = (span.endMs - span.startMs).toFixed(0)
+-
+-        detailsName.textContent = isLock
+-          ? (span.holder ? `LOCK held by ${span.holder}` : 'DB LOCK held')
+-          : (span.query ? span.query.split('\n')[0].slice(0, 80) : span.name)
+-
+-        const rows = []
+-        rows.push(['Track',    trackName])
+-        rows.push(['Method',   span.name])
+-        rows.push(['Duration', `${duration} ms`])
+-        if (span.table)  rows.push(['Table',  span.table])
+-        if (span.holder) rows.push(['Holder', span.holder])
+-        rows.push(['Start',    `${span.startMs.toLocaleString()} ms`])
+-        rows.push(['End',      `${span.endMs.toLocaleString()} ms`])
+-
+-        detailsRows.innerHTML = ''
+-        for (const [k, v] of rows) {
+-          const row = document.createElement('div')
+-          row.className = 'details-row'
+-          const keyEl = document.createElement('div')
+-          keyEl.className = 'details-key'
+-          keyEl.textContent = k
+-          const valEl = document.createElement('div')
+-          valEl.className = 'details-value'
+-          valEl.textContent = v
+-          row.appendChild(keyEl)
+-          row.appendChild(valEl)
+-          detailsRows.appendChild(row)
+-        }
+-
+-        if (isLock) {
+-          detailsQuery.style.display = 'none'
+-        } else {
+-          detailsQuery.style.display = 'block'
+-          detailsQuery.textContent = span.query || '(no query)'
+-        }
+-
+-        detailsPanel.classList.add('visible')
+-      }
+-
+-      function hideDetails() {
+-        detailsPanel.classList.remove('visible')
+-      }
+-
+-      function onCanvasWheel(ev) {
+-        if (ev.ctrlKey || ev.metaKey) {
+-          ev.preventDefault()
+-          const factor = ev.deltaY > 0 ? 1.2 : 1 / 1.2
+-          windowMs = Math.max(500, Math.min(60000, Math.round(windowMs * factor)))
+-          zoomSlider.value = windowMs
+-          updateZoomLabel()
+-          return
+-        }
+-
+-        if (Math.abs(ev.deltaX) > Math.abs(ev.deltaY)) {
+-          ev.preventDefault()
+-          const cap = effectiveNowMs()
+-          const base = following ? cap : viewEndMs
+-          const proposed = base + ev.deltaX * (windowMs / 800)
+-          if (proposed >= cap) {
+-            viewEndMs = cap
+-            setFollowing(true)
+-          } else {
+-            viewEndMs = proposed
+-            setFollowing(false)
+-          }
+-        }
+-        // else: let native vertical scroll happen
+-      }
+-
+-      function updateZoomLabel() {
+-        if (windowMs >= 1000) {
+-          zoomValue.textContent = (windowMs / 1000).toFixed(windowMs >= 10000 ? 0 : 1) + 's'
+-        } else {
+-          zoomValue.textContent = windowMs + 'ms'
+-        }
+-      }
+-
+-      function main() {
+-        seedDefaultTracks()
+-        resizeCanvas()
+-        window.addEventListener('resize', resizeCanvas)
+-        canvas.addEventListener('mousemove', onCanvasMouseMove)
+-        canvas.addEventListener('mouseleave', onCanvasMouseLeave)
+-        canvas.addEventListener('click', onCanvasClick)
+-        canvas.addEventListener('wheel', onCanvasWheel, { passive: false })
+-        container.addEventListener('scroll', () => { /* render reads scrollTop each frame */ })
+-
+-        followButton.addEventListener('click', () => setFollowing(true))
+-        clearButton.addEventListener('click', () => {
+-          completedSpans.length = 0
+-          openSpansByTrack.clear()
+-          trackLanes.clear()
+-          seedDefaultTracks()
+-          hideDetails()
+-          updateContentHeight()
+-        })
+-        zoomSlider.addEventListener('input', () => {
+-          windowMs = parseInt(zoomSlider.value, 10)
+-          updateZoomLabel()
+-        })
+-        detailsClose.addEventListener('click', hideDetails)
+-        document.addEventListener('keydown', (ev) => {
+-          if (ev.key === 'Escape') hideDetails()
+-        })
+-
+-        setFollowing(true)
+-        updateZoomLabel()
+-        initWebSocket()
+-        requestAnimationFrame(render)
+-      }
+-
+-      main()
+-    </script>
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/logs.hbs b/lib/spinner/src/main/assets/logs.hbs
+deleted file mode 100644
+index d91ce4e88519499ef643c0e4494373e767b94ad1..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/logs.hbs
++++ /dev/null
+@@ -1,290 +0,0 @@
+-<html>
+-  {{> partials/head title="Home" }}
+-
+-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+-
+-  <style type="text/css">
+-    html, body {
+-      overflow: hidden;
+-    }
+-
+-    h1.collapse-header {
+-      font-size: 1.35rem;
+-    }
+-
+-    h2.collapse-header {
+-      font-size: 1.15rem;
+-    }
+-
+-    #log-container {
+-      width: calc(100% - 32px);
+-      height: calc(100% - 325px);
+-      overflow-y: scroll;
+-      overflow-x: auto;
+-      border: 1px solid black;
+-      resize: vertical;
+-      white-space: pre;
+-      font-family: 'JetBrains Mono', monospace;
+-      background-color: #2b2b2b;
+-      margin-top: 8px;
+-      border-radius: 5px;
+-      border: 1px solid black;
+-      padding: 8px;
+-    }
+-
+-    #logs {
+-      width: 100%;
+-    }
+-
+-    .log-verbose {
+-      color: #8a8a8a;
+-    }
+-
+-    .log-debug {
+-      color: #5ca72b;
+-    }
+-
+-    .log-info{
+-      color: #46bbb9;
+-    }
+-
+-    .log-warn{
+-      color: #d6cb37;
+-    }
+-
+-    .log-error{
+-      color: #ff6b68;
+-    }
+-
+-    #follow-button.enabled {
+-      opacity: 0.5;
+-    }
+-
+-    #toolbar {
+-      width: calc(100% - 14px);
+-      display: flex;
+-      flex-direction: row;
+-      flex-wrap: nowrap;
+-      justify-content: flex-start;
+-    }
+-
+-    #toolbar #filter-text {
+-      flex-grow: 1;
+-      margin-left: 8px;
+-    }
+-
+-    #socket-status {
+-      width: 16px;
+-      height: 16px;
+-      border-radius: 16px;
+-      margin: 3px 0 3px 3px;
+-      border: 1px solid black;
+-    }
+-
+-    #socket-status.connected {
+-      background-color: #5ca72b;
+-    }
+-
+-    #socket-status.connecting {
+-      background-color: #d6cb37;
+-    }
+-
+-    #socket-status.disconnected {
+-      background-color: #cc0000;
+-    }
+-
+-  </style>
+-
+-  <body>
+-    {{> partials/prefix isLogs=true}}
+-
+-    <div id="toolbar">
+-      <button onclick="onFollowClicked()" id="follow-button">Follow</button>
+-      <input type="text" id="filter-text" placeholder="Filter..." />
+-      <div id="socket-status"></div>
+-    </div>
+-
+-    <div id="log-container"></div>
+-
+-
+-    {{> partials/suffix }}
+-
+-    <script>
+-      const logs = []
+-      const logTable = document.getElementById('logs')
+-      const logContainer = document.getElementById('log-container')
+-      const followButton = document.getElementById('follow-button')
+-      const filterText = document.getElementById('filter-text')
+-      const statusOrb = document.getElementById('socket-status')
+-
+-      let followLogs = false 
+-      let programaticScroll = false
+-
+-      let filter = null
+-
+-      function main() {
+-        initWebSocket()
+-        setFollowState(true)
+-
+-        logContainer.innerHTML = ''
+-
+-        filterText.addEventListener('input', onFilterChanged)
+-
+-        logContainer.addEventListener('scroll', () => {
+-          if (programaticScroll) {
+-            programaticScroll = false
+-          } else {
+-            setFollowState(false)
+-          }
+-        })
+-      }
+-
+-      function onFollowClicked() {
+-        setFollowState(true)
+-        scrollToBottom()
+-      }
+-
+-      function onFilterChanged(event) {
+-        filter = event.target.value
+-
+-        logContainer.innerHTML = ''
+-
+-        logs
+-          .filter(it => logMatches(it, filter))
+-          .map(it => logToDiv(it))
+-          .forEach(it => logContainer.appendChild(it))
+-
+-          setFollowState(true)
+-          scrollToBottom()
+-      }
+-
+-      function initWebSocket() {
+-        const websocket = new WebSocket(`ws://${window.location.host}/logs/websocket`)
+-        let keepAliveTimer = null
+-        statusOrb.className = 'connecting'
+-
+-        websocket.onopen = () => {
+-          console.log("[open] Connection established");
+-          console.log("Sending to server");
+-
+-          statusOrb.className = 'connected'
+-
+-          keepAliveTimer = setInterval(() => websocket.send('keepalive'), 1000)
+-        }
+-
+-        websocket.onclose = () => {
+-          console.log('[close] Closed!')
+-          statusOrb.className = 'disconnected'
+-
+-          if (keepAliveTimer != null) {
+-            clearInterval(keepAliveTimer)
+-            keepAliveTimer = null
+-          }
+-
+-          setTimeout(() => initWebSocket(), 1000)
+-        }
+-
+-        websocket.onmessage = onWebSocketMessage
+-      }
+-
+-      function onWebSocketMessage(event) {
+-        const log = JSON.parse(event.data)
+-        logs.push(log)
+-        if (logs.length > 5_000) {
+-          logs.shift()
+-        }
+-
+-        if (filter == null || logMatches(log, filter)) {
+-          logContainer.appendChild(logToDiv(log))
+-        }
+-
+-        if (followLogs) {
+-          scrollToBottom()
+-        }
+-      }
+-
+-      function logToDiv(log) {
+-        const div = document.createElement('div')
+-
+-        const linePrefix = `[${log.thread}] ${log.time} ${log.tag} ${log.level} `
+-
+-        let stackTraceString = log.stackTrace
+-        if (stackTraceString != null) {
+-          stackTraceString = ' \n' + stackTraceString
+-        }
+-
+-        let textContent = `${linePrefix}${log.message || ''}${stackTraceString || ''}`
+-        textContent = indentOverflowLines(textContent, linePrefix.length)
+-        
+-        div.textContent = textContent
+-        div.classList.add(levelToClass(log.level))
+-
+-        return div
+-      }
+-
+-      function levelToClass(level) {
+-        switch (level) {
+-          case 'V': return 'log-verbose'
+-          case 'D': return 'log-debug'
+-          case 'I': return 'log-info'
+-          case 'W': return 'log-warn'
+-          case 'E': return 'log-error'
+-          default: return ''
+-        }
+-      }
+-
+-      function setFollowState(value) {
+-        if (followLogs === value) {
+-          return
+-        }
+-
+-        followLogs = value
+-
+-        if (followLogs) {
+-          followButton.classList.add('enabled')
+-          followButton.disabled = true
+-        } else {
+-          followButton.classList.remove('enabled')
+-          followButton.disabled = false
+-        }
+-      }
+-
+-      function scrollToBottom() {
+-        programaticScroll = true
+-        logContainer.scrollTop = logContainer.scrollHeight
+-      }
+-
+-      function indentOverflowLines(text, indent) {
+-        const lines = text.split('\n')
+-
+-        if (lines.length > 1) {
+-          const spaces = ' '.repeat(indent)
+-          const overflow = lines.slice(1)
+-          const indented = overflow.map(it => spaces + it).join('\n')
+-          return lines[0] + '\n' + indented
+-        } else {
+-          return text
+-        }
+-      }
+-
+-      function logMatches(log, filter) {
+-        if (log.tag != null && log.tag.indexOf(filter) >= 0) {
+-          return true
+-        }
+-
+-        if (log.message != null && log.message.indexOf(filter) >= 0) {
+-          return true
+- 
+-        }
+-
+-        if (log.stackTrace != null && log.stackTrace.indexOf(filter) >= 0) {
+-          return true
+-        }
+-
+-        return false
+-      }
+-
+-      main()
+-    </script>
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/overview.hbs b/lib/spinner/src/main/assets/overview.hbs
+deleted file mode 100644
+index 0f066a8c76b990ae60d9844d526c33167fc1720a..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/overview.hbs
++++ /dev/null
+@@ -1,107 +0,0 @@
+-<html>
+-  {{> partials/head title="Home" }}
+-
+-  <style type="text/css">
+-    h1.collapse-header {
+-      font-size: 1.35rem;
+-    }
+-    h2.collapse-header {
+-      font-size: 1.15rem;
+-    }
+-  </style>
+-
+-  <body>
+-
+-    {{> partials/prefix isOverview=true}}
+-
+-    <h1 class="collapse-header" data-for="table-creates">Tables</h1>
+-    <div id="table-creates" class="hidden">
+-      {{#if tables}}
+-        {{#each tables}}
+-          <h2 class="collapse-header" data-for="table-create-{{@index}}">{{name}}</h2>
+-          <div id="table-create-{{@index}}" class="hidden">{{{sql}}}</div>
+-        {{/each}}
+-      {{else}}
+-        None.
+-      {{/if}}
+-    </div>
+-
+-    <h1 class="collapse-header" data-for="index-creates">Indices</h1>
+-    <div id="index-creates" class="hidden">
+-      {{#if indices}}
+-        {{#each indices}}
+-          <h2 class="collapse-header active" data-for="index-create-{{@index}}">{{name}}</h2>
+-          <div id="index-create-{{@index}}">{{{sql}}}</div>
+-        {{/each}}
+-      {{else}}
+-        None.
+-      {{/if}}
+-    </div>
+-
+-    <h1 class="collapse-header" data-for="trigger-creates">Triggers</h1>
+-    <div id="trigger-creates" class="hidden">
+-      {{#if triggers}}
+-        {{#each triggers}}
+-          <h2 class="collapse-header active" data-for="trigger-create-{{@index}}">{{name}}</h2>
+-          <div id="trigger-create-{{@index}}">{{{sql}}}</div>
+-        {{/each}}
+-      {{else}}
+-        None.
+-      {{/if}}
+-    </div>
+-
+-
+-    <h1 class="collapse-header" data-for="foreign-key-creates">Foreign Keys</h1>
+-    <div id="foreign-key-creates" class="hidden">
+-      {{#if foreignKeys}}
+-        <table>
+-          <tr>
+-            <th>Column</th>
+-            <th>Depends On</th>
+-            <th>On Delete</th>
+-          </tr>
+-          {{#each foreignKeys}}
+-          <tr>
+-            <td>{{table}}.{{column}}</td>
+-            <td>{{dependsOnTable}}.{{dependsOnColumn}}</td>
+-            <td>{{onDelete}}</td>
+-          </tr>
+-          {{/each}}
+-        </table>
+-
+-        <h2>Without Labels</h2>
+-        <pre class="mermaid">
+-          flowchart LR
+-          {{#each foreignKeys}}
+-            id_{{table}}[{{table}}] --> id_{{dependsOnTable}}[{{dependsOnTable}}]
+-          {{/each}}
+-        </pre>
+-
+-        <h2>With Labels</h2>
+-        <pre class="mermaid">
+-          flowchart LR
+-            {{#each foreignKeys}}
+-              id_{{table}}[{{table}}] -- "{{column}} 🠖 {{dependsOnColumn}}" --> id_{{dependsOnTable}}[{{dependsOnTable}}]
+-            {{/each}}
+-        </pre>
+-
+-      {{else}}
+-        None.
+-      {{/if}}
+-    </div>
+-
+-
+-    <script type="module">
+-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.esm.min.mjs';
+-      mermaid.initialize({ startOnLoad: false });
+-
+-      document.addEventListener('header-toggle', (e) => {
+-        if (e.detail.id === 'foreign-key-creates') {
+-          mermaid.init('.mermaid')
+-        }
+-      })
+-    </script>
+-
+-  {{> partials/suffix }}
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/partials/head.hbs b/lib/spinner/src/main/assets/partials/head.hbs
+deleted file mode 100644
+index f6b5447fd6c89ff994606dd20f74ed0a90473a64..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/partials/head.hbs
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<head>
+-  <title>Spinner - {{ title }}</title>
+-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌀</text></svg>">
+-  <meta name="viewport" content="width=device-width, initial-scale=1">
+-
+-  <!-- Fonts -->
+-  <link rel="preconnect" href="https://fonts.googleapis.com">
+-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+-
+-  <link href="/css/main.css" rel="stylesheet">
+-  <style type="text/css">
+-  </style>
+-</head>
+diff --git a/lib/spinner/src/main/assets/partials/prefix.hbs b/lib/spinner/src/main/assets/partials/prefix.hbs
+deleted file mode 100644
+index d4446138e1108ae35faeaa25211bbe2ad55c9a73..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/partials/prefix.hbs
++++ /dev/null
+@@ -1,39 +0,0 @@
+-<h1>SPINNER - {{environment}}</h1>
+-
+-<table class="device-info">
+-  {{#each deviceInfo}}
+-    <tr>
+-      <td>{{@key}}</td>
+-      <td>{{this}}</td>
+-    </tr>
+-  {{/each}}
+-</table>
+-
+-<div>
+-  Download Trace: <a href="/trace">Link</a>
+-</div>
+-
+-<button id="theme-toggle">Toggle theme</button>
+-
+-<br />
+-
+-<div>
+-  Database:
+-  <select id="database-selector">
+-    {{#each databases}}
+-      <option value="{{this}}" {{eq database this yes="selected" no=""}}>{{this}}</option>
+-    {{/each}}
+-  </select>
+-</div>
+-
+-<ol class="tabs">
+-  <li {{#if isOverview}}class="active"{{/if}}><a href="/?db={{database}}">Overview</a></li>
+-  <li {{#if isBrowse}}class="active"{{/if}}><a href="/browse?db={{database}}">Browse</a></li>
+-  <li {{#if isQuery}}class="active"{{/if}}><a href="/query?db={{database}}">Query</a></li>
+-  <li {{#if isRecent}}class="active"{{/if}}><a href="/recent?db={{database}}">Recent</a></li>
+-  <li {{#if isLive}}class="active"{{/if}}><a href="/live?db={{database}}">Live Queries</a></li>
+-  <li {{#if isLogs}}class="active"{{/if}}><a href="/logs?db={{database}}">Logs</a></li>
+-  {{#each plugins}}
+-  <li {{#if (eq name activePlugin.name)}}class="active"{{/if}}><a href="{{path}}">{{name}}</a></li>
+-  {{/each}}
+-</ol>
+\ No newline at end of file
+diff --git a/lib/spinner/src/main/assets/partials/suffix.hbs b/lib/spinner/src/main/assets/partials/suffix.hbs
+deleted file mode 100644
+index 760014f74543bad11516a5b7b823a0f7b39c1e10..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/partials/suffix.hbs
++++ /dev/null
+@@ -1 +0,0 @@
+-<script src="/js/main.js" type="text/javascript"></script>
+\ No newline at end of file
+diff --git a/lib/spinner/src/main/assets/partials/tooltips.hbs b/lib/spinner/src/main/assets/partials/tooltips.hbs
+deleted file mode 100644
+index 2307a8aea718b7351a650f1cc03bbc9bfdd82b9a..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/partials/tooltips.hbs
++++ /dev/null
+@@ -1,2 +0,0 @@
+-<link rel="stylesheet" href="/css/tooltips.css">
+-<script src="/js/tooltips.js"></script>
+diff --git a/lib/spinner/src/main/assets/plugin.hbs b/lib/spinner/src/main/assets/plugin.hbs
+deleted file mode 100644
+index 91176e9b082baf2347c3c7a71f43823fbabd860d..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/plugin.hbs
++++ /dev/null
+@@ -1,34 +0,0 @@
+-<html>
+-  {{> partials/head title=activePlugin.name }}
+-
+-  <body>
+-    {{> partials/prefix}}
+-
+-    {{#if (eq "table" pluginResult.type)}}
+-      <h1>Data</h1>
+-      {{pluginResult.rowCount}} row(s). <br />
+-      <br />
+-      <table>
+-        <tr>
+-          {{#each pluginResult.columns}}
+-            <th>{{this}}</th>
+-          {{/each}}
+-        </tr>
+-        {{#each pluginResult.rows}}
+-          <tr>
+-            {{#each this}}
+-              <td><pre>{{{this}}}</pre></td>
+-            {{/each}}
+-          </tr>
+-        {{/each}}
+-      </table>
+-    {{/if}}
+-    {{#if (eq "string" pluginResult.type)}}
+-      <p>{{pluginResult.text}}</p>
+-    {{/if}}
+-    {{#if (eq "html" pluginResult.type)}}
+-      {{{pluginResult.html}}}
+-    {{/if}}
+-    {{> partials/suffix }}
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/query.hbs b/lib/spinner/src/main/assets/query.hbs
+deleted file mode 100644
+index e24d3c9fefa9ef75cab3bc1407214cdda7cf5017..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/query.hbs
++++ /dev/null
+@@ -1,176 +0,0 @@
+-<html>
+-  {{> partials/head title="Query" }}
+-  <body>
+-
+-    {{> partials/prefix isQuery=true}}
+-
+-    <!-- Query Input -->
+-    <form action="query" method="post" id="query-form">
+-      <div class="query-input">{{query}}</div>
+-      <button id="grow-button" onclick="onGrowClicked(event)">&nbsp;</button>
+-
+-      <input type="hidden" name="query" id="query" />
+-      <input type="hidden" name="db" value="{{database}}" />
+-      <input type="submit" name="action" value="run" />
+-      or
+-      <input type="submit" name="action" value="analyze" />
+-      or
+-      <button onclick="onFormatClicked(event)">format</button>
+-    </form>
+-
+-    <!-- Container for previous queries -->
+-    <h1 class="collapse-header" data-for="history-container">Query History</h1>
+-    <table id="history-container" class="hidden"></table>
+-
+-    <!-- Query Result -->
+-    <h1>Data</h1>
+-    {{#if queryResult}}
+-      {{queryResult.rowCount}} row(s). <br />
+-      {{queryResult.timeToFirstRow}} ms to read the first row. <br />
+-      {{queryResult.timeToReadRows}} ms to read the rest of the rows. <br />
+-      <br />
+-      <table>
+-        <tr>
+-          {{#each queryResult.columns}}
+-            <th>{{this}}</th>
+-          {{/each}}
+-        </tr>
+-        {{#each queryResult.rows}}
+-          <tr>
+-            {{#each this}}
+-              <td><pre>{{#if (eq this null)}}<em class="null">null</em>{{else}}{{{this}}}{{/if}}</pre></td>
+-            {{/each}}
+-          </tr>
+-        {{/each}}
+-      </table>
+-    {{else}}
+-      No data.
+-    {{/if}}
+-
+-    {{> partials/suffix}}
+-
+-    {{> partials/tooltips}}
+-
+-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql-formatter/4.0.2/sql-formatter.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.5/ace.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.5/mode-sql.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.5/theme-github.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.5/theme-github_dark.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+-    <script type="text/javascript">
+-      let editor;
+-
+-      function main() {
+-        //document.querySelector('.query-input').addEventListener('keypress', submitOnEnter);
+-        document.getElementById('query-form').addEventListener('submit', onQuerySubmitted, false);
+-        renderQueryHistory();
+-        initializeTooltips();
+-
+-        editor = ace.edit(document.querySelector('.query-input'), {
+-          mode: 'ace/mode/sql',
+-          theme: isDarkTheme() ? 'ace/theme/github_dark' : 'ace/theme/github',
+-          selectionStyle: 'text',
+-          showPrintMargin: false
+-        });
+-
+-        editor.setFontSize(13);
+-
+-        editor.commands.addCommand({
+-          name: "Run",
+-          bindKey: {win: "Ctrl-Return", mac: "Command-Return"},
+-          exec: triggerSubmit
+-        });
+-
+-        editor.commands.addCommand({
+-          name: "Run (Cody)",
+-          bindKey: {win: "Shift-Return", mac: "Shift-Return"},
+-          exec: triggerSubmit
+-        });
+-
+-        editor.commands.addCommand({
+-          name: "Format",
+-          bindKey: {win: "Ctrl-Shift-F", mac: "Command-Shift-F"},
+-          exec: formatSql
+-        });
+-      }
+-
+-      function onFormatClicked(e) {
+-        formatSql();
+-        e.preventDefault();
+-      }
+-
+-      function formatSql() {
+-        let formatted = sqlFormatter.format(editor.getValue()).replaceAll("! =", "!=").replaceAll("| |", "||");
+-        editor.setValue(formatted, formatted.length);
+-      }
+-
+-      function triggerSubmit() {
+-        onQuerySubmitted();
+-        document.getElementById('query-form').submit();
+-      }
+-
+-      function onGrowClicked(e) {
+-        let element = document.querySelector('.query-input');
+-        let currentHeight = parseInt(element.style.height) || 200;
+-        element.style.height = currentHeight + 100;
+-
+-        e.preventDefault();
+-      }
+-
+-      function onQuerySubmitted() {
+-        const query = editor.getValue();
+-
+-        document.getElementById('query').value = query;
+-
+-        let history = getQueryHistory();
+-
+-        if (history.length > 0 && history[0] === query) {
+-          console.log('Query already at the top of the history, not saving.');
+-          return;
+-        }
+-
+-        history.unshift(query);
+-        history = history.slice(0, 25);
+-
+-        localStorage.setItem('query-history', JSON.stringify(history));
+-      }
+-
+-      function renderQueryHistory() {
+-        const container = document.getElementById('history-container');
+-
+-        let history = getQueryHistory();
+-
+-        if (history.length > 0) {
+-          let i = 0;
+-          for (let item of history) {
+-            container.innerHTML += `
+-              <tr>
+-                <td><button onclick="onHistoryItemClicked(${i})">^</button></td>
+-                <td id="history-item-${i}">${item}</td>
+-              </tr>
+-            `;
+-            i++;
+-          }
+-        } else {
+-          container.innerHTML = '<em>None</em>';
+-        }
+-      }
+-
+-      function onHistoryItemClicked(i) {
+-        let item = document.getElementById(`history-item-${i}`).innerText;
+-        editor.setValue(item, item.length);
+-      }
+-
+-      function getQueryHistory() {
+-        const historyRaw = localStorage.getItem('query-history') || "[]";
+-        return JSON.parse(historyRaw);
+-      }
+-
+-      function isDarkTheme() {
+-        return document.body.getAttribute('data-theme') === 'dark'
+-      }
+-
+-      main();
+-
+-    </script>
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/assets/recent.hbs b/lib/spinner/src/main/assets/recent.hbs
+deleted file mode 100644
+index 02755a672a113a64d2636c6f7e9e4bfac969f234..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/assets/recent.hbs
++++ /dev/null
+@@ -1,50 +0,0 @@
+-<html>
+-  {{> partials/head title="Home" }}
+-
+-  <style type="text/css">
+-    h1.collapse-header {
+-      font-size: 1.35rem;
+-    }
+-    h2.collapse-header {
+-      font-size: 1.15rem;
+-    }
+-    table.recent {
+-      width: 100%;
+-    }
+-  </style>
+-
+-  <body>
+-    {{> partials/prefix isRecent=true}}
+-
+-    {{#if recentSql}}
+-      <table class="recent">
+-        {{#each recentSql}}
+-          <tr>
+-            <td>
+-              {{formattedTime}}
+-            </td>
+-            <td>
+-              <form action="query" method="post">
+-                <input type="hidden" name="db" value="{{database}}" />
+-                <input type="hidden" name="query" value="{{query}}" />
+-                <input type="submit" name="action" value="run" />
+-                <input type="submit" name="action" value="analyze" />
+-              </form>
+-            </td>
+-            <td>{{query}}</td>
+-          </tr>
+-        {{/each}}
+-      </table>
+-    {{else}}
+-      No recent queries.
+-    {{/if}}
+-
+-    {{> partials/suffix }}
+-
+-    <script>
+-      function onAnalyzeClicked(id) {
+-        document.getElementById
+-      }
+-    </script>
+-  </body>
+-</html>
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/AssetTemplateLoader.kt b/lib/spinner/src/main/java/org/signal/spinner/AssetTemplateLoader.kt
+deleted file mode 100644
+index d7131381dae724e88a005ac02efea1282e5a648b..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/AssetTemplateLoader.kt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-package org.signal.spinner
+-
+-import android.content.Context
+-import com.github.jknack.handlebars.io.StringTemplateSource
+-import com.github.jknack.handlebars.io.TemplateLoader
+-import com.github.jknack.handlebars.io.TemplateSource
+-import org.signal.core.util.StreamUtil
+-import java.nio.charset.Charset
+-
+-/**
+- * A loader read handlebars templates from the assets directory.
+- */
+-class AssetTemplateLoader(private val context: Context) : TemplateLoader {
+-
+-  override fun sourceAt(location: String): TemplateSource {
+-    val content: String = StreamUtil.readFullyAsString(context.assets.open("$location.hbs"))
+-    return StringTemplateSource(location, content)
+-  }
+-
+-  override fun resolve(location: String): String {
+-    return location
+-  }
+-
+-  override fun getPrefix(): String {
+-    return ""
+-  }
+-
+-  override fun getSuffix(): String {
+-    return ""
+-  }
+-
+-  override fun setPrefix(prefix: String) {
+-    throw NotImplementedError()
+-  }
+-
+-  override fun setSuffix(suffix: String) {
+-    throw NotImplementedError()
+-  }
+-
+-  override fun setCharset(charset: Charset?) {
+-    throw NotImplementedError()
+-  }
+-
+-  override fun getCharset(): Charset {
+-    return Charset.defaultCharset()
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/ColumnTransformer.kt b/lib/spinner/src/main/java/org/signal/spinner/ColumnTransformer.kt
+deleted file mode 100644
+index 072ac73b8b296ba102e4d66a5d6db0f7d6c81dad..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/ColumnTransformer.kt
++++ /dev/null
+@@ -1,18 +0,0 @@
+-package org.signal.spinner
+-
+-import android.database.Cursor
+-
+-/**
+- * An interface to transform on column value into another. Useful for making certain data fields (like bitmasks) more readable.
+- */
+-interface ColumnTransformer {
+-  /**
+-   * In certain circumstances (like some queries), the table name may not be guaranteed.
+-   */
+-  fun matches(tableName: String?, columnName: String): Boolean
+-
+-  /**
+-   * In certain circumstances (like some queries), the table name may not be guaranteed.
+-   */
+-  fun transform(tableName: String?, columnName: String, cursor: Cursor): String?
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/DatabaseUtil.kt b/lib/spinner/src/main/java/org/signal/spinner/DatabaseUtil.kt
+deleted file mode 100644
+index 14f374b843ca5679f636ec57495f766fc5ab56ab..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/DatabaseUtil.kt
++++ /dev/null
+@@ -1,37 +0,0 @@
+-package org.signal.spinner
+-
+-import android.database.Cursor
+-import androidx.sqlite.db.SupportSQLiteDatabase
+-
+-fun SupportSQLiteDatabase.getTableNames(): List<String> {
+-  val out = mutableListOf<String>()
+-  this.query("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name ASC").use { cursor ->
+-    while (cursor.moveToNext()) {
+-      out += cursor.getString(0)
+-    }
+-  }
+-
+-  return out
+-}
+-
+-fun SupportSQLiteDatabase.getTables(): Cursor {
+-  return this.query("SELECT * FROM sqlite_master WHERE type='table' ORDER BY name ASC")
+-}
+-
+-fun SupportSQLiteDatabase.getIndexes(): Cursor {
+-  return this.query("SELECT * FROM sqlite_master WHERE type='index' ORDER BY name ASC")
+-}
+-
+-fun SupportSQLiteDatabase.getTriggers(): Cursor {
+-  return this.query("SELECT * FROM sqlite_master WHERE type='trigger' ORDER BY name ASC")
+-}
+-
+-fun SupportSQLiteDatabase.getTableRowCount(table: String): Int {
+-  return this.query("SELECT COUNT(*) FROM $table").use {
+-    if (it.moveToFirst()) {
+-      it.getInt(0)
+-    } else {
+-      0
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/DefaultColumnTransformer.kt b/lib/spinner/src/main/java/org/signal/spinner/DefaultColumnTransformer.kt
+deleted file mode 100644
+index ed5c78ef0f5e006f797088a68cebeaf5e1e0701e..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/DefaultColumnTransformer.kt
++++ /dev/null
+@@ -1,19 +0,0 @@
+-package org.signal.spinner
+-
+-import android.database.Cursor
+-import org.signal.core.util.Base64
+-import org.signal.core.util.Hex
+-
+-object DefaultColumnTransformer : ColumnTransformer {
+-  override fun matches(tableName: String?, columnName: String): Boolean {
+-    return true
+-  }
+-
+-  override fun transform(tableName: String?, columnName: String, cursor: Cursor): String? {
+-    val index = cursor.getColumnIndex(columnName)
+-    return when (cursor.getType(index)) {
+-      Cursor.FIELD_TYPE_BLOB -> "Base64 with padding:<br>${Base64.encodeWithPadding(cursor.getBlob(index))}<br><br>Hex string:<br>${Hex.toStringCondensed(cursor.getBlob(index))}"
+-      else -> cursor.getString(index)
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/Plugin.kt b/lib/spinner/src/main/java/org/signal/spinner/Plugin.kt
+deleted file mode 100644
+index a4226d857b0caae5f2edb1cd9546a597d3bf8928..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/Plugin.kt
++++ /dev/null
+@@ -1,7 +0,0 @@
+-package org.signal.spinner
+-
+-interface Plugin {
+-  fun get(parameters: Map<String, List<String>>): PluginResult
+-  val name: String
+-  val path: String
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/PluginResult.kt b/lib/spinner/src/main/java/org/signal/spinner/PluginResult.kt
+deleted file mode 100644
+index 413d67c6c6044068b0880afb8beb3ebd9239386f..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/PluginResult.kt
++++ /dev/null
+@@ -1,83 +0,0 @@
+-package org.signal.spinner
+-
+-import fi.iki.elonen.NanoHTTPD.Response
+-import java.io.InputStream
+-
+-sealed class PluginResult(val type: String) {
+-  data class TableResult(
+-    val columns: List<String>,
+-    val rows: List<List<String>>,
+-    val rowCount: Int = rows.size
+-  ) : PluginResult("table")
+-
+-  data class StringResult(
+-    val text: String
+-  ) : PluginResult("string")
+-
+-  data class RawHtmlResult(
+-    val html: String
+-  ) : PluginResult("html")
+-
+-  data class RawFileResult(
+-    val length: Long,
+-    val data: InputStream,
+-    val mimeType: String
+-  ) : PluginResult("file")
+-
+-  data class JsonResult(
+-    val json: String
+-  ) : PluginResult("json")
+-
+-  class TsvResult(
+-    private val columns: List<String>,
+-    private val rows: Iterator<List<String?>>
+-  ) : PluginResult("tsv") {
+-    fun toInputStream(): InputStream = object : InputStream() {
+-      private var buffer: ByteArray = columns.joinToString("\t").toByteArray()
+-      private var pos: Int = 0
+-      private var done: Boolean = false
+-
+-      override fun read(): Int {
+-        if (!fill()) return -1
+-        return buffer[pos++].toInt() and 0xFF
+-      }
+-
+-      override fun read(b: ByteArray, off: Int, len: Int): Int {
+-        if (!fill()) return -1
+-        val toRead = minOf(buffer.size - pos, len)
+-        System.arraycopy(buffer, pos, b, off, toRead)
+-        pos += toRead
+-        return toRead
+-      }
+-
+-      override fun close() {
+-        (rows as? AutoCloseable)?.close()
+-      }
+-
+-      private fun fill(): Boolean {
+-        while (pos >= buffer.size) {
+-          if (done) return false
+-          if (rows.hasNext()) {
+-            buffer = ("\n" + rows.next().joinToString("\t") { it ?: "" }).toByteArray()
+-            pos = 0
+-          } else {
+-            done = true
+-            return false
+-          }
+-        }
+-        return true
+-      }
+-    }
+-  }
+-
+-  data class ErrorResult(
+-    val status: Response.Status = Response.Status.INTERNAL_ERROR,
+-    val message: String
+-  ) : PluginResult("error") {
+-    companion object {
+-      fun notFound(message: String): PluginResult.ErrorResult {
+-        return ErrorResult(status = Response.Status.NOT_FOUND, message = message)
+-      }
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/Spinner.kt b/lib/spinner/src/main/java/org/signal/spinner/Spinner.kt
+deleted file mode 100644
+index d28fc91e76f0d92d92899a508a64464ac9c14743..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/Spinner.kt
++++ /dev/null
+@@ -1,101 +0,0 @@
+-package org.signal.spinner
+-
+-import android.app.Application
+-import android.content.ContentValues
+-import android.database.sqlite.SQLiteQueryBuilder
+-import androidx.sqlite.db.SupportSQLiteDatabase
+-import org.signal.core.util.logging.Log
+-import java.io.IOException
+-
+-/**
+- * A class to help initialize Spinner, our database debugging interface.
+- */
+-object Spinner {
+-  internal const val KEY_PREFIX = "spinner"
+-  const val KEY_ENVIRONMENT = "$KEY_PREFIX:environment"
+-
+-  private val TAG: String = Log.tag(Spinner::class.java)
+-
+-  private lateinit var server: SpinnerServer
+-
+-  fun init(application: Application, deviceInfo: Map<String, () -> String>, databases: Map<String, DatabaseConfig>, plugins: Map<String, Plugin>) {
+-    try {
+-      server = SpinnerServer(application, deviceInfo, databases, plugins)
+-      server.start()
+-    } catch (e: IOException) {
+-      Log.w(TAG, "Spinner server hit IO exception!", e)
+-    }
+-  }
+-
+-  fun onSql(dbName: String, sql: String, args: Array<Any>?) {
+-    server.onSql(dbName, replaceQueryArgs(sql, args))
+-  }
+-
+-  fun onQuery(dbName: String, distinct: Boolean, table: String, projection: Array<String>?, selection: String?, args: Array<Any>?, groupBy: String?, having: String?, orderBy: String?, limit: String?) {
+-    val queryString = SQLiteQueryBuilder.buildQueryString(distinct, table, projection, selection, groupBy, having, orderBy, limit)
+-    server.onSql(dbName, replaceQueryArgs(queryString, args))
+-  }
+-
+-  fun onDelete(dbName: String, table: String, selection: String?, args: Array<Any>?) {
+-    var query = "DELETE FROM $table"
+-    if (selection != null) {
+-      query += " WHERE $selection"
+-      query = replaceQueryArgs(query, args)
+-    }
+-
+-    server.onSql(dbName, query)
+-  }
+-
+-  fun onUpdate(dbName: String, table: String, values: ContentValues, selection: String?, args: Array<Any>?) {
+-    val query = StringBuilder("UPDATE $table SET ")
+-
+-    for (key in values.keySet()) {
+-      query.append("$key = ${values.get(key)}, ")
+-    }
+-
+-    query.delete(query.length - 2, query.length)
+-
+-    if (selection != null) {
+-      query.append(" WHERE ").append(selection)
+-    }
+-
+-    var queryString = query.toString()
+-
+-    if (args != null) {
+-      queryString = replaceQueryArgs(queryString, args)
+-    }
+-
+-    server.onSql(dbName, queryString)
+-  }
+-
+-  internal fun log(item: SpinnerLogItem) {
+-    server.onLog(item)
+-  }
+-
+-  private fun replaceQueryArgs(query: String, args: Array<Any>?): String {
+-    if (args == null) {
+-      return query
+-    }
+-
+-    val builder = StringBuilder()
+-
+-    var i = 0
+-    var argIndex = 0
+-    while (i < query.length) {
+-      if (query[i] == '?' && argIndex < args.size) {
+-        builder.append("'").append(args[argIndex]).append("'")
+-        argIndex++
+-      } else {
+-        builder.append(query[i])
+-      }
+-      i++
+-    }
+-
+-    return builder.toString()
+-  }
+-
+-  data class DatabaseConfig(
+-    val db: () -> SupportSQLiteDatabase,
+-    val columnTransformers: List<ColumnTransformer> = emptyList()
+-  )
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogItem.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogItem.kt
+deleted file mode 100644
+index e6fa198dd9a08727946ce6b4a0ba159ef6e87ad9..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogItem.kt
++++ /dev/null
+@@ -1,55 +0,0 @@
+-/*
+- * Copyright 2023 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.spinner
+-
+-import android.util.Log
+-import org.json.JSONObject
+-import org.signal.core.util.ExceptionUtil
+-import java.text.SimpleDateFormat
+-import java.util.Date
+-import java.util.Locale
+-
+-internal data class SpinnerLogItem(
+-  val level: Int,
+-  val time: Long,
+-  val thread: String,
+-  val tag: String,
+-  val message: String?,
+-  val throwable: Throwable?
+-) {
+-  fun serialize(): String {
+-    val stackTrace: String? = throwable?.let { ExceptionUtil.convertThrowableToString(throwable) }
+-    val formattedTime = dateFormat.format(Date(time))
+-    val paddedTag: String = when {
+-      tag.length > 23 -> tag.substring(0, 23)
+-      tag.length < 23 -> tag.padEnd(23)
+-      else -> tag
+-    }
+-
+-    val levelString = when (level) {
+-      Log.VERBOSE -> "V"
+-      Log.DEBUG -> "D"
+-      Log.INFO -> "I"
+-      Log.WARN -> "W"
+-      Log.ERROR -> "E"
+-      else -> "?"
+-    }
+-
+-    val out = JSONObject()
+-    out.put("level", levelString)
+-    out.put("time", formattedTime)
+-    out.put("thread", thread)
+-    out.put("tag", paddedTag)
+-    message?.let { out.put("message", it) }
+-    stackTrace?.let { out.put("stackTrace", it) }
+-
+-    return out.toString(0)
+-  }
+-
+-  companion object {
+-    private val dateFormat = SimpleDateFormat("HH:mm:ss.SSS", Locale.US)
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogWebSocket.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogWebSocket.kt
+deleted file mode 100644
+index b8f5feb67b72bf2214ca055eba791c1661ef7be6..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogWebSocket.kt
++++ /dev/null
+@@ -1,96 +0,0 @@
+-/*
+- * Copyright 2023 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.spinner
+-
+-import android.annotation.SuppressLint
+-import android.util.Log
+-import fi.iki.elonen.NanoHTTPD
+-import fi.iki.elonen.NanoWSD
+-import fi.iki.elonen.NanoWSD.WebSocket
+-import java.io.IOException
+-import java.util.LinkedList
+-import java.util.Queue
+-import java.util.concurrent.locks.ReentrantLock
+-import kotlin.concurrent.withLock
+-
+-@SuppressLint("LogNotSignal")
+-internal class SpinnerLogWebSocket(handshakeRequest: NanoHTTPD.IHTTPSession) : WebSocket(handshakeRequest) {
+-
+-  companion object {
+-    private val TAG = "SpinnerLogWebSocket"
+-
+-    private const val MAX_LOGS = 5_000
+-
+-    private val logs: Queue<SpinnerLogItem> = LinkedList()
+-    private val openSockets: MutableList<SpinnerLogWebSocket> = mutableListOf()
+-
+-    private val lock = ReentrantLock()
+-    private val condition = lock.newCondition()
+-
+-    private val logThread: LogThread = LogThread().also { it.start() }
+-
+-    fun onLog(item: SpinnerLogItem) {
+-      lock.withLock {
+-        logs += item
+-        if (logs.size > MAX_LOGS) {
+-          logs.remove()
+-        }
+-        condition.signal()
+-      }
+-    }
+-  }
+-
+-  override fun onOpen() {
+-    Log.d(TAG, "onOpen()")
+-
+-    lock.withLock {
+-      openSockets += this
+-      condition.signal()
+-    }
+-  }
+-
+-  override fun onClose(code: NanoWSD.WebSocketFrame.CloseCode, reason: String?, initiatedByRemote: Boolean) {
+-    Log.d(TAG, "onClose()")
+-
+-    lock.withLock {
+-      openSockets -= this
+-    }
+-  }
+-
+-  override fun onMessage(message: NanoWSD.WebSocketFrame) {
+-    Log.d(TAG, "onMessage()")
+-  }
+-
+-  override fun onPong(pong: NanoWSD.WebSocketFrame) {
+-    Log.d(TAG, "onPong()")
+-  }
+-
+-  override fun onException(exception: IOException) {
+-    Log.d(TAG, "onException()", exception)
+-  }
+-
+-  private class LogThread : Thread("SpinnerLog") {
+-    override fun run() {
+-      while (true) {
+-        val (sockets, log) = lock.withLock {
+-          while (logs.isEmpty() || openSockets.isEmpty()) {
+-            condition.await()
+-          }
+-
+-          openSockets.toList() to logs.remove()
+-        }
+-
+-        sockets.forEach { socket ->
+-          try {
+-            socket.send(log.serialize())
+-          } catch (e: IOException) {
+-            Log.w(TAG, "Failed to send a log to the socket!", e)
+-          }
+-        }
+-      }
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogger.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogger.kt
+deleted file mode 100644
+index 6007961f63242c228428364b8af0f30bc7599cba..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerLogger.kt
++++ /dev/null
+@@ -1,98 +0,0 @@
+-/*
+- * Copyright 2023 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.spinner
+-
+-import android.os.Looper
+-import android.util.Log
+-import org.signal.core.util.logging.Log.Logger
+-
+-object SpinnerLogger : Logger() {
+-
+-  private val cachedThreadString: ThreadLocal<String> = ThreadLocal()
+-
+-  override fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+-    Spinner.log(
+-      SpinnerLogItem(
+-        level = Log.VERBOSE,
+-        time = System.currentTimeMillis(),
+-        thread = getThreadString(),
+-        tag = tag,
+-        message = message,
+-        throwable = t
+-      )
+-    )
+-  }
+-
+-  override fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+-    Spinner.log(
+-      SpinnerLogItem(
+-        level = Log.DEBUG,
+-        time = System.currentTimeMillis(),
+-        thread = getThreadString(),
+-        tag = tag,
+-        message = message,
+-        throwable = t
+-      )
+-    )
+-  }
+-
+-  override fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+-    Spinner.log(
+-      SpinnerLogItem(
+-        level = Log.INFO,
+-        time = System.currentTimeMillis(),
+-        thread = getThreadString(),
+-        tag = tag,
+-        message = message,
+-        throwable = t
+-      )
+-    )
+-  }
+-
+-  override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+-    Spinner.log(
+-      SpinnerLogItem(
+-        level = Log.WARN,
+-        time = System.currentTimeMillis(),
+-        thread = getThreadString(),
+-        tag = tag,
+-        message = message,
+-        throwable = t
+-      )
+-    )
+-  }
+-
+-  override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+-    Spinner.log(
+-      SpinnerLogItem(
+-        level = Log.ERROR,
+-        time = System.currentTimeMillis(),
+-        thread = getThreadString(),
+-        tag = tag,
+-        message = message,
+-        throwable = t
+-      )
+-    )
+-  }
+-
+-  override fun flush() = Unit
+-
+-  fun getThreadString(): String {
+-    var threadString = cachedThreadString.get()
+-
+-    if (cachedThreadString.get() == null) {
+-      threadString = if (Looper.myLooper() == Looper.getMainLooper()) {
+-        "main "
+-      } else {
+-        String.format("%-5s", Thread.currentThread().id)
+-      }
+-
+-      cachedThreadString.set(threadString)
+-    }
+-
+-    return threadString!!
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryEvent.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryEvent.kt
+deleted file mode 100644
+index 0fbc36a19ed059c3efba1a65c7e37c5e291e577d..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryEvent.kt
++++ /dev/null
+@@ -1,51 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.spinner
+-
+-import org.json.JSONObject
+-
+-internal sealed class SpinnerQueryEvent {
+-
+-  abstract fun serialize(): String
+-
+-  data class Start(
+-    val trackId: Long,
+-    val trackName: String,
+-    val name: String,
+-    val query: String?,
+-    val table: String?,
+-    val holder: String?,
+-    val timestampMs: Long
+-  ) : SpinnerQueryEvent() {
+-    override fun serialize(): String {
+-      val out = JSONObject()
+-      out.put("type", "start")
+-      out.put("trackId", trackId)
+-      out.put("trackName", trackName)
+-      out.put("name", name)
+-      query?.let { out.put("query", it) }
+-      table?.let { out.put("table", it) }
+-      holder?.let { out.put("holder", it) }
+-      out.put("t", timestampMs)
+-      return out.toString(0)
+-    }
+-  }
+-
+-  data class End(
+-    val trackId: Long,
+-    val name: String,
+-    val timestampMs: Long
+-  ) : SpinnerQueryEvent() {
+-    override fun serialize(): String {
+-      val out = JSONObject()
+-      out.put("type", "end")
+-      out.put("trackId", trackId)
+-      out.put("name", name)
+-      out.put("t", timestampMs)
+-      return out.toString(0)
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryWebSocket.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryWebSocket.kt
+deleted file mode 100644
+index 156a904aceb18d431063998552c7f9bf7a07124c..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerQueryWebSocket.kt
++++ /dev/null
+@@ -1,163 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.spinner
+-
+-import android.annotation.SuppressLint
+-import android.util.Log
+-import fi.iki.elonen.NanoHTTPD
+-import fi.iki.elonen.NanoWSD
+-import fi.iki.elonen.NanoWSD.WebSocket
+-import org.signal.core.util.tracing.Tracer
+-import java.io.IOException
+-import java.util.ArrayDeque
+-import java.util.concurrent.ConcurrentHashMap
+-import java.util.concurrent.locks.ReentrantLock
+-import kotlin.concurrent.withLock
+-
+-@SuppressLint("LogNotSignal")
+-internal class SpinnerQueryWebSocket(handshakeRequest: NanoHTTPD.IHTTPSession) : WebSocket(handshakeRequest) {
+-
+-  companion object {
+-    private const val TAG = "SpinnerQueryWebSocket"
+-
+-    private const val MAX_PENDING = 10_000
+-
+-    private val pending: ArrayDeque<SpinnerQueryEvent> = ArrayDeque()
+-    private val openSockets: MutableList<SpinnerQueryWebSocket> = mutableListOf()
+-
+-    private val lock = ReentrantLock()
+-    private val condition = lock.newCondition()
+-
+-    private val dispatchThread: DispatchThread = DispatchThread().also { it.start() }
+-
+-    /** Per-track stack of currently-forwarded frame names. Used to drop end events for frames we filtered out. */
+-    private val forwardedFrames: ConcurrentHashMap<Long, ArrayDeque<String>> = ConcurrentHashMap()
+-
+-    private val tracerListener = object : Tracer.EventListener {
+-      override fun onStart(name: String, trackId: Long, trackName: String, timestampNanos: Long, values: Map<String, String>?) {
+-        val query = values?.get("query")
+-        val isLockEvent = trackId == Tracer.TrackId.DB_LOCK
+-        if (query == null && !isLockEvent) {
+-          return
+-        }
+-
+-        val stack = forwardedFrames.getOrPut(trackId) { ArrayDeque() }
+-        synchronized(stack) {
+-          stack.addLast(name)
+-        }
+-
+-        enqueue(
+-          SpinnerQueryEvent.Start(
+-            trackId = trackId,
+-            trackName = trackName,
+-            name = name,
+-            query = query,
+-            table = values?.get("table"),
+-            holder = if (isLockEvent) values?.get("thread") else null,
+-            timestampMs = timestampNanos / 1_000_000L
+-          )
+-        )
+-      }
+-
+-      override fun onEnd(name: String, trackId: Long, timestampNanos: Long) {
+-        val stack = forwardedFrames[trackId] ?: return
+-        val matched = synchronized(stack) {
+-          if (stack.isNotEmpty() && stack.last() == name) {
+-            stack.removeLast()
+-            true
+-          } else {
+-            false
+-          }
+-        }
+-        if (!matched) {
+-          return
+-        }
+-
+-        enqueue(
+-          SpinnerQueryEvent.End(
+-            trackId = trackId,
+-            name = name,
+-            timestampMs = timestampNanos / 1_000_000L
+-          )
+-        )
+-      }
+-    }
+-
+-    private fun enqueue(event: SpinnerQueryEvent) {
+-      lock.withLock {
+-        if (openSockets.isEmpty()) {
+-          return
+-        }
+-        pending += event
+-        if (pending.size > MAX_PENDING) {
+-          pending.removeFirst()
+-        }
+-        condition.signal()
+-      }
+-    }
+-  }
+-
+-  override fun onOpen() {
+-    Log.d(TAG, "onOpen()")
+-
+-    val firstSocket = lock.withLock {
+-      openSockets += this
+-      condition.signal()
+-      openSockets.size == 1
+-    }
+-
+-    if (firstSocket) {
+-      Tracer.getInstance().addEventListener(tracerListener)
+-    }
+-  }
+-
+-  override fun onClose(code: NanoWSD.WebSocketFrame.CloseCode, reason: String?, initiatedByRemote: Boolean) {
+-    Log.d(TAG, "onClose()")
+-
+-    val lastSocket = lock.withLock {
+-      openSockets -= this
+-      openSockets.isEmpty()
+-    }
+-
+-    if (lastSocket) {
+-      Tracer.getInstance().removeEventListener(tracerListener)
+-      forwardedFrames.clear()
+-      lock.withLock {
+-        pending.clear()
+-      }
+-    }
+-  }
+-
+-  override fun onMessage(message: NanoWSD.WebSocketFrame) = Unit
+-
+-  override fun onPong(pong: NanoWSD.WebSocketFrame) = Unit
+-
+-  override fun onException(exception: IOException) {
+-    Log.d(TAG, "onException()", exception)
+-  }
+-
+-  private class DispatchThread : Thread("SpinnerQuery") {
+-    override fun run() {
+-      while (true) {
+-        val (sockets, event) = lock.withLock {
+-          while (pending.isEmpty() || openSockets.isEmpty()) {
+-            condition.await()
+-          }
+-          openSockets.toList() to pending.removeFirst()
+-        }
+-
+-        val payload = event.serialize()
+-        sockets.forEach { socket ->
+-          try {
+-            socket.send(payload)
+-          } catch (e: IOException) {
+-            Log.w(TAG, "Failed to send a query event!", e)
+-          }
+-        }
+-      }
+-    }
+-  }
+-}
+diff --git a/lib/spinner/src/main/java/org/signal/spinner/SpinnerServer.kt b/lib/spinner/src/main/java/org/signal/spinner/SpinnerServer.kt
+deleted file mode 100644
+index 1907062190f2f4b914c2576eb72693ea7d4425ac..0000000000000000000000000000000000000000
+--- a/lib/spinner/src/main/java/org/signal/spinner/SpinnerServer.kt
++++ /dev/null
+@@ -1,611 +0,0 @@
+-package org.signal.spinner
+-
+-import android.app.Application
+-import android.database.Cursor
+-import androidx.sqlite.db.SupportSQLiteDatabase
+-import com.github.jknack.handlebars.Handlebars
+-import com.github.jknack.handlebars.Template
+-import com.github.jknack.handlebars.helper.ConditionalHelpers
+-import fi.iki.elonen.NanoHTTPD
+-import fi.iki.elonen.NanoWSD
+-import org.signal.core.util.ExceptionUtil
+-import org.signal.core.util.ForeignKeyConstraint
+-import org.signal.core.util.getForeignKeys
+-import org.signal.core.util.logging.Log
+-import org.signal.core.util.tracing.Tracer
+-import org.signal.spinner.Spinner.DatabaseConfig
+-import java.io.ByteArrayInputStream
+-import java.security.NoSuchAlgorithmException
+-import java.text.SimpleDateFormat
+-import java.util.Date
+-import java.util.Locale
+-import java.util.Queue
+-import java.util.concurrent.ConcurrentLinkedQueue
+-import kotlin.math.ceil
+-import kotlin.math.max
+-import kotlin.math.min
+-
+-/**
+- * The workhorse of this lib. Handles all of our our web routing and response generation.
+- *
+- * In general, you add routes in [serve], and then build a response by creating a handlebars template (in the assets folder) and then passing in a data class
+- * to [renderTemplate].
+- */
+-internal class SpinnerServer(
+-  private val application: Application,
+-  deviceInfo: Map<String, () -> String>,
+-  private val databases: Map<String, DatabaseConfig>,
+-  private val plugins: Map<String, Plugin>
+-) : NanoWSD(5000) {
+-
+-  companion object {
+-    private val TAG = Log.tag(SpinnerServer::class.java)
+-  }
+-
+-  private val deviceInfo: Map<String, () -> String> = deviceInfo.filterKeys { !it.startsWith(Spinner.KEY_PREFIX) }
+-  private val environment: String = deviceInfo[Spinner.KEY_ENVIRONMENT]?.let { it() } ?: "UNKNOWN"
+-
+-  private val handlebars: Handlebars = Handlebars(AssetTemplateLoader(application)).apply {
+-    registerHelper("eq", ConditionalHelpers.eq)
+-    registerHelper("neq", ConditionalHelpers.neq)
+-  }
+-
+-  private val recentSql: MutableMap<String, Queue<QueryItem>> = mutableMapOf()
+-  private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS zzz", Locale.US)
+-
+-  override fun serve(session: IHTTPSession): Response {
+-    Log.v(TAG, "Request: ${session.method} ${session.uri} ${session.parameters}")
+-
+-    if (session.method == Method.POST) {
+-      // Needed to populate session.parameters
+-      session.parseBody(mutableMapOf())
+-    }
+-
+-    val dbParam: String = session.queryParam("db") ?: session.parameters["db"]?.toString() ?: databases.keys.first()
+-    val dbConfig: DatabaseConfig = databases[dbParam] ?: return internalError(IllegalArgumentException("Invalid db param!"))
+-
+-    try {
+-      return when {
+-        session.method == Method.GET && session.uri.startsWith("/css/") -> newFileResponse(session.uri.substring(1), "text/css")
+-        session.method == Method.GET && session.uri.startsWith("/js/") -> newFileResponse(session.uri.substring(1), "text/javascript")
+-        session.method == Method.GET && session.uri == "/" -> getIndex(dbParam, dbConfig.db())
+-        session.method == Method.GET && session.uri == "/browse" -> getBrowse(dbParam, dbConfig.db())
+-        session.method == Method.POST && session.uri == "/browse" -> postBrowse(dbParam, dbConfig, session)
+-        session.method == Method.GET && session.uri == "/query" -> getQuery(dbParam)
+-        session.method == Method.POST && session.uri == "/query" -> postQuery(dbParam, dbConfig, session)
+-        session.method == Method.GET && session.uri == "/recent" -> getRecent(dbParam)
+-        session.method == Method.GET && session.uri == "/trace" -> getTrace()
+-        session.method == Method.GET && session.uri == "/logs" -> getLogs(dbParam)
+-        session.method == Method.GET && session.uri == "/live" -> getLive(dbParam)
+-        isWebsocketRequested(session) && session.uri == "/logs/websocket" -> getWebSocketResponse(session)
+-        isWebsocketRequested(session) && session.uri == "/live/websocket" -> getWebSocketResponse(session)
+-        else -> {
+-          val plugin = plugins[session.uri]
+-          if (plugin != null && session.method == Method.GET) {
+-            getPlugin(dbParam, plugin, session.parameters)
+-          } else {
+-            newFixedLengthResponse(Response.Status.NOT_FOUND, MIME_HTML, "Not found")
+-          }
+-        }
+-      }
+-    } catch (t: Throwable) {
+-      Log.e(TAG, t)
+-      return internalError(t)
+-    }
+-  }
+-
+-  override fun openWebSocket(handshake: IHTTPSession): WebSocket {
+-    return when (handshake.uri) {
+-      "/live/websocket" -> SpinnerQueryWebSocket(handshake)
+-      else -> SpinnerLogWebSocket(handshake)
+-    }
+-  }
+-
+-  fun onSql(dbName: String, sql: String) {
+-    val commands: Queue<QueryItem> = recentSql[dbName] ?: ConcurrentLinkedQueue()
+-
+-    commands += QueryItem(System.currentTimeMillis(), sql)
+-    if (commands.size > 500) {
+-      commands.remove()
+-    }
+-
+-    recentSql[dbName] = commands
+-  }
+-
+-  fun onLog(item: SpinnerLogItem) {
+-    SpinnerLogWebSocket.onLog(item)
+-  }
+-
+-  private fun getIndex(dbName: String, db: SupportSQLiteDatabase): Response {
+-    return renderTemplate(
+-      "overview",
+-      OverviewPageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        tables = db.getTables().use { it.toTableInfo() },
+-        indices = db.getIndexes().use { it.toIndexInfo() },
+-        triggers = db.getTriggers().use { it.toTriggerInfo() },
+-        foreignKeys = db.getForeignKeys(),
+-        queryResult = db.getTables().use { it.toQueryResult() }
+-      )
+-    )
+-  }
+-
+-  private fun getBrowse(dbName: String, db: SupportSQLiteDatabase): Response {
+-    return renderTemplate(
+-      "browse",
+-      BrowsePageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        tableNames = db.getTableNames()
+-      )
+-    )
+-  }
+-
+-  private fun postBrowse(dbName: String, dbConfig: DatabaseConfig, session: IHTTPSession): Response {
+-    val table: String = session.parameters["table"]?.get(0).toString()
+-    val pageSize: Int = session.parameters["pageSize"]?.get(0)?.toInt() ?: 1000
+-    var pageIndex: Int = session.parameters["pageIndex"]?.get(0)?.toInt() ?: 0
+-    val action: String? = session.parameters["action"]?.get(0)
+-
+-    val rowCount = dbConfig.db().getTableRowCount(table)
+-    val pageCount = ceil(rowCount.toFloat() / pageSize.toFloat()).toInt()
+-
+-    when (action) {
+-      "first" -> pageIndex = 0
+-      "next" -> pageIndex = min(pageIndex + 1, pageCount - 1)
+-      "previous" -> pageIndex = max(pageIndex - 1, 0)
+-      "last" -> pageIndex = pageCount - 1
+-    }
+-
+-    val query = "select * from $table limit $pageSize offset ${pageSize * pageIndex}"
+-    val queryResult = dbConfig.db().query(query).use { it.toQueryResult(columnTransformers = dbConfig.columnTransformers, table = table) }
+-
+-    return renderTemplate(
+-      "browse",
+-      BrowsePageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        tableNames = dbConfig.db().getTableNames(),
+-        table = table,
+-        queryResult = queryResult,
+-        pagingData = PagingData(
+-          rowCount = rowCount,
+-          pageSize = pageSize,
+-          pageIndex = pageIndex,
+-          pageCount = pageCount,
+-          startRow = pageSize * pageIndex,
+-          endRow = min(pageSize * (pageIndex + 1), rowCount)
+-        )
+-      )
+-    )
+-  }
+-
+-  private fun getQuery(dbName: String): Response {
+-    return renderTemplate(
+-      "query",
+-      QueryPageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        query = ""
+-      )
+-    )
+-  }
+-
+-  private fun getRecent(dbName: String): Response {
+-    val queries: List<RecentQuery>? = recentSql[dbName]
+-      ?.map { it ->
+-        RecentQuery(
+-          formattedTime = dateFormat.format(Date(it.time)),
+-          query = it.query
+-        )
+-      }
+-
+-    return renderTemplate(
+-      "recent",
+-      RecentPageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        recentSql = queries?.reversed()
+-      )
+-    )
+-  }
+-
+-  private fun getTrace(): Response {
+-    return newChunkedResponse(
+-      Response.Status.OK,
+-      "application/octet-stream",
+-      ByteArrayInputStream(Tracer.getInstance().serialize())
+-    )
+-  }
+-
+-  private fun getLogs(dbName: String): Response {
+-    return renderTemplate(
+-      "logs",
+-      LogsPageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList()
+-      )
+-    )
+-  }
+-
+-  private fun getLive(dbName: String): Response {
+-    return renderTemplate(
+-      "live",
+-      LivePageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList()
+-      )
+-    )
+-  }
+-
+-  private fun getWebSocketResponse(session: IHTTPSession): Response {
+-    val headers = session.headers
+-    val webSocket = openWebSocket(session)
+-
+-    val handshakeResponse = webSocket.handshakeResponse
+-
+-    try {
+-      handshakeResponse.addHeader(HEADER_WEBSOCKET_ACCEPT, makeAcceptKey(headers[HEADER_WEBSOCKET_KEY]))
+-    } catch (e: NoSuchAlgorithmException) {
+-      return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, NanoHTTPD.MIME_PLAINTEXT, "The SHA-1 Algorithm required for websockets is not available on the server.")
+-    }
+-
+-    if (headers.containsKey(HEADER_WEBSOCKET_PROTOCOL)) {
+-      handshakeResponse.addHeader(HEADER_WEBSOCKET_PROTOCOL, headers[HEADER_WEBSOCKET_PROTOCOL]!!.split(",")[0])
+-    }
+-
+-    return webSocket.handshakeResponse
+-  }
+-
+-  private fun postQuery(dbName: String, dbConfig: DatabaseConfig, session: IHTTPSession): Response {
+-    val action: String = session.parameters["action"]?.get(0).toString()
+-    val rawQuery: String = session.parameters["query"]?.get(0).toString()
+-    val query = if (action == "analyze") "EXPLAIN QUERY PLAN $rawQuery" else rawQuery
+-    val startTimeNanos = System.nanoTime()
+-
+-    return renderTemplate(
+-      "query",
+-      QueryPageModel(
+-        environment = environment,
+-        deviceInfo = deviceInfo.resolve(),
+-        database = dbName,
+-        databases = databases.keys.toList(),
+-        plugins = plugins.values.toList(),
+-        query = rawQuery,
+-        queryResult = dbConfig.db().query(query).use { it.toQueryResult(queryStartTimeNanos = startTimeNanos, columnTransformers = dbConfig.columnTransformers) }
+-      )
+-    )
+-  }
+-
+-  private fun getPlugin(dbName: String, plugin: Plugin, parameters: Map<String, List<String>>): Response {
+-    when (val pluginResult = plugin.get(parameters)) {
+-      is PluginResult.JsonResult -> {
+-        return newFixedLengthResponse(Response.Status.OK, "application/json", pluginResult.json)
+-      }
+-      is PluginResult.TsvResult -> {
+-        return newChunkedResponse(Response.Status.OK, "text/tab-separated-values", pluginResult.toInputStream())
+-      }
+-      is PluginResult.RawFileResult -> {
+-        return newFixedLengthResponse(Response.Status.OK, pluginResult.mimeType, pluginResult.data, pluginResult.length)
+-      }
+-      is PluginResult.ErrorResult -> {
+-        return newFixedLengthResponse(pluginResult.status, "text/plain", pluginResult.message)
+-      }
+-      else -> {
+-        return renderTemplate(
+-          "plugin",
+-          PluginPageModel(
+-            environment = environment,
+-            deviceInfo = deviceInfo.resolve(),
+-            database = dbName,
+-            databases = databases.keys.toList(),
+-            plugins = plugins.values.toList(),
+-            activePlugin = plugin,
+-            pluginResult = pluginResult
+-          )
+-        )
+-      }
+-    }
+-  }
+-
+-  private fun internalError(throwable: Throwable): Response {
+-    val stackTrace = ExceptionUtil.convertThrowableToString(throwable)
+-      .split("\n")
+-      .map { it.trim() }
+-      .mapIndexed { index, s -> if (index == 0) s else "&nbsp;&nbsp;$s" }
+-      .joinToString("<br />")
+-
+-    return renderTemplate("error", stackTrace)
+-  }
+-
+-  private fun renderTemplate(assetName: String, model: Any): Response {
+-    val template: Template = handlebars.compile(assetName)
+-    val output: String = template.apply(model)
+-    return newFixedLengthResponse(output)
+-  }
+-
+-  private fun newFileResponse(assetPath: String, mimeType: String): Response {
+-    return newChunkedResponse(
+-      Response.Status.OK,
+-      mimeType,
+-      application.assets.open(assetPath)
+-    )
+-  }
+-
+-  private fun Cursor.toQueryResult(queryStartTimeNanos: Long = 0, columnTransformers: List<ColumnTransformer> = emptyList(), table: String? = null): QueryResult {
+-    val numColumns = this.columnCount
+-    val columns = mutableListOf<String>()
+-    val transformers = mutableListOf<ColumnTransformer>()
+-
+-    for (i in 0 until numColumns) {
+-      val columnName = getColumnName(i)
+-      val customTransformer: ColumnTransformer? = columnTransformers.find { it.matches(table, columnName) }
+-
+-      columns += if (customTransformer != null) {
+-        "$columnName *"
+-      } else {
+-        columnName
+-      }
+-
+-      transformers += customTransformer ?: DefaultColumnTransformer
+-    }
+-
+-    var timeOfFirstRowNanos = 0L
+-    val rows = mutableListOf<List<String?>>()
+-    while (moveToNext()) {
+-      if (timeOfFirstRowNanos == 0L) {
+-        timeOfFirstRowNanos = System.nanoTime()
+-      }
+-
+-      val row = mutableListOf<String?>()
+-      for (i in 0 until numColumns) {
+-        val columnName: String = getColumnName(i)
+-        try {
+-          row += transformers[i].transform(null, columnName, this)
+-        } catch (e: Exception) {
+-          Log.w(TAG, "Failed to transform", e)
+-          row += "*Failed to Transform*\n\n${DefaultColumnTransformer.transform(null, columnName, this)}"
+-        }
+-      }
+-
+-      rows += row
+-    }
+-
+-    if (timeOfFirstRowNanos == 0L) {
+-      timeOfFirstRowNanos = System.nanoTime()
+-    }
+-
+-    return QueryResult(
+-      columns = columns,
+-      rows = rows,
+-      timeToFirstRow = (max(timeOfFirstRowNanos - queryStartTimeNanos, 0) / 1_000_000.0f).roundForDisplay(3),
+-      timeToReadRows = (max(System.nanoTime() - timeOfFirstRowNanos, 0) / 1_000_000.0f).roundForDisplay(3)
+-    )
+-  }
+-
+-  fun Float.roundForDisplay(decimals: Int = 2): String {
+-    return "%.${decimals}f".format(this)
+-  }
+-
+-  private fun Cursor.toTableInfo(): List<TableInfo> {
+-    val tables = mutableListOf<TableInfo>()
+-
+-    while (moveToNext()) {
+-      val name = getString(getColumnIndexOrThrow("name"))
+-      tables += TableInfo(
+-        name = name ?: "null",
+-        sql = getString(getColumnIndexOrThrow("sql"))?.formatAsSqlCreationStatement(name) ?: "null"
+-      )
+-    }
+-
+-    return tables
+-  }
+-
+-  private fun Cursor.toIndexInfo(): List<IndexInfo> {
+-    val indices = mutableListOf<IndexInfo>()
+-
+-    while (moveToNext()) {
+-      indices += IndexInfo(
+-        name = getString(getColumnIndexOrThrow("name")) ?: "null",
+-        sql = getString(getColumnIndexOrThrow("sql")) ?: "null"
+-      )
+-    }
+-
+-    return indices
+-  }
+-
+-  private fun Cursor.toTriggerInfo(): List<TriggerInfo> {
+-    val indices = mutableListOf<TriggerInfo>()
+-
+-    while (moveToNext()) {
+-      indices += TriggerInfo(
+-        name = getString(getColumnIndexOrThrow("name")) ?: "null",
+-        sql = getString(getColumnIndexOrThrow("sql")) ?: "null"
+-      )
+-    }
+-
+-    return indices
+-  }
+-
+-  /** Takes a SQL table creation statement and formats it using HTML */
+-  private fun String.formatAsSqlCreationStatement(name: String): String {
+-    val fields = substring(indexOf("(") + 1, this.length - 1).split(",")
+-    val fieldStrings = fields.map { s -> "&nbsp;&nbsp;${s.trim()},<br>" }.toMutableList()
+-
+-    if (fieldStrings.isNotEmpty()) {
+-      fieldStrings[fieldStrings.lastIndex] = "&nbsp;&nbsp;${fields.last().trim()}<br>"
+-    }
+-
+-    return "CREATE TABLE $name (<br/>" +
+-      fieldStrings.joinToString("") +
+-      ")"
+-  }
+-
+-  private fun IHTTPSession.queryParam(name: String): String? {
+-    if (queryParameterString == null) {
+-      return null
+-    }
+-
+-    val params: Map<String, String> = queryParameterString
+-      .split("&")
+-      .mapNotNull { part ->
+-        val parts = part.split("=")
+-        if (parts.size == 2) {
+-          parts[0] to parts[1]
+-        } else {
+-          null
+-        }
+-      }
+-      .toMap()
+-
+-    return params[name]
+-  }
+-
+-  private fun Map<String, () -> String>.resolve(): Map<String, String> {
+-    return this.mapValues { entry -> entry.value() }.toMap()
+-  }
+-
+-  interface PrefixPageData {
+-    val environment: String
+-    val deviceInfo: Map<String, String>
+-    val database: String
+-    val databases: List<String>
+-    val plugins: List<Plugin>
+-  }
+-
+-  data class OverviewPageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>,
+-    val tables: List<TableInfo>,
+-    val indices: List<IndexInfo>,
+-    val triggers: List<TriggerInfo>,
+-    val foreignKeys: List<ForeignKeyConstraint>,
+-    val queryResult: QueryResult? = null
+-  ) : PrefixPageData
+-
+-  data class BrowsePageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>,
+-    val tableNames: List<String>,
+-    val table: String? = null,
+-    val queryResult: QueryResult? = null,
+-    val pagingData: PagingData? = null
+-  ) : PrefixPageData
+-
+-  data class QueryPageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>,
+-    val query: String = "",
+-    val queryResult: QueryResult? = null
+-  ) : PrefixPageData
+-
+-  data class RecentPageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>,
+-    val recentSql: List<RecentQuery>?
+-  ) : PrefixPageData
+-
+-  data class LogsPageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>
+-  ) : PrefixPageData
+-
+-  data class LivePageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>
+-  ) : PrefixPageData
+-
+-  data class PluginPageModel(
+-    override val environment: String,
+-    override val deviceInfo: Map<String, String>,
+-    override val database: String,
+-    override val databases: List<String>,
+-    override val plugins: List<Plugin>,
+-    val activePlugin: Plugin,
+-    val pluginResult: PluginResult
+-  ) : PrefixPageData
+-
+-  data class QueryResult(
+-    val columns: List<String>,
+-    val rows: List<List<String?>>,
+-    val rowCount: Int = rows.size,
+-    val timeToFirstRow: String,
+-    val timeToReadRows: String
+-  )
+-
+-  data class TableInfo(
+-    val name: String,
+-    val sql: String
+-  )
+-
+-  data class IndexInfo(
+-    val name: String,
+-    val sql: String
+-  )
+-
+-  data class TriggerInfo(
+-    val name: String,
+-    val sql: String
+-  )
+-
+-  data class PagingData(
+-    val rowCount: Int,
+-    val pageSize: Int,
+-    val pageIndex: Int,
+-    val pageCount: Int,
+-    val firstPage: Boolean = pageIndex == 0,
+-    val lastPage: Boolean = pageIndex == pageCount - 1,
+-    val startRow: Int,
+-    val endRow: Int
+-  )
+-
+-  data class QueryItem(
+-    val time: Long,
+-    val query: String
+-  )
+-
+-  data class RecentQuery(
+-    val formattedTime: String,
+-    val query: String
+-  )
+-}
+diff --git a/microbenchmark/.gitignore b/microbenchmark/.gitignore
+deleted file mode 100644
+index 42afabfd2abebf31384ca7797186a27a4b7dbee8..0000000000000000000000000000000000000000
+--- a/microbenchmark/.gitignore
++++ /dev/null
+@@ -1 +0,0 @@
+-/build
+\ No newline at end of file
+diff --git a/microbenchmark/benchmark-proguard-rules.pro b/microbenchmark/benchmark-proguard-rules.pro
+deleted file mode 100644
+index 1df370449aa1a78b8675a09787f77be5e6f79694..0000000000000000000000000000000000000000
+--- a/microbenchmark/benchmark-proguard-rules.pro
++++ /dev/null
+@@ -1,36 +0,0 @@
+-# Add project specific ProGuard rules here.
+-# You can control the set of applied configuration files using the
+-# proguardFiles setting in build.gradle.
+-#
+-# For more details, see
+-#   http://developer.android.com/guide/developing/tools/proguard.html
+-
+-# If your project uses WebView with JS, uncomment the following
+-# and specify the fully qualified class name to the JavaScript interface
+-# class:
+-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+-#   public *;
+-#}
+-
+-# Uncomment this to preserve the line number information for
+-# debugging stack traces.
+-#-keepattributes SourceFile,LineNumberTable
+-
+-# If you keep the line number information, uncomment this to
+-# hide the original source file name.
+-#-renamesourcefileattribute SourceFile
+-
+--dontobfuscate
+-
+--ignorewarnings
+-
+--keepattributes *Annotation*
+-
+--dontnote junit.framework.**
+--dontnote junit.runner.**
+-
+--dontwarn androidx.test.**
+--dontwarn org.junit.**
+--dontwarn com.squareup.javawriter.JavaWriter
+-
+--keepclasseswithmembers @org.junit.runner.RunWith public class *
+diff --git a/microbenchmark/build.gradle.kts b/microbenchmark/build.gradle.kts
+deleted file mode 100644
+index 16630360b6be375e82a94cd4b00f7d2e45b46413..0000000000000000000000000000000000000000
+--- a/microbenchmark/build.gradle.kts
++++ /dev/null
+@@ -1,65 +0,0 @@
+-@file:Suppress("UnstableApiUsage")
+-
+-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+-
+-
+-plugins {
+-  id("com.android.library")
+-  id("androidx.benchmark")
+-  id("ktlint")
+-}
+-
+-android {
+-  namespace = "org.signal.microbenchmark"
+-  compileSdkVersion(libs.versions.compileSdk.get())
+-
+-  compileOptions {
+-    isCoreLibraryDesugaringEnabled = true
+-    sourceCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
+-    targetCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
+-  }
+-
+-  defaultConfig {
+-    minSdk = libs.versions.minSdk.get().toInt()
+-
+-    testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
+-
+-    testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+-  }
+-
+-  testBuildType = "release"
+-  buildTypes {
+-    debug {
+-      // Since isDebuggable can't be modified by gradle for library modules,
+-      // it must be done in a manifest - see src/androidTest/AndroidManifest.xml
+-      isMinifyEnabled = true
+-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "benchmark-proguard-rules.pro")
+-    }
+-    release {
+-      isDefault = true
+-    }
+-  }
+-}
+-
+-kotlin {
+-  compilerOptions {
+-    jvmTarget = JvmTarget.fromTarget(libs.versions.kotlinJvmTarget.get())
+-  }
+-}
+-
+-dependencies {
+-  coreLibraryDesugaring(libs.android.tools.desugar)
+-  lintChecks(project(":lintchecks"))
+-
+-  implementation(project(":core:util"))
+-  implementation(project(":core:models-jvm"))
+-
+-  // Base dependencies
+-  androidTestImplementation(testLibs.junit.junit)
+-  androidTestImplementation(benchmarkLibs.androidx.test.ext.junit)
+-  androidTestImplementation(benchmarkLibs.androidx.benchmark.micro)
+-
+-  // Dependencies of modules being tested
+-  androidTestImplementation(project(":lib:libsignal-service"))
+-  androidTestImplementation(libs.libsignal.android)
+-}
+diff --git a/microbenchmark/src/androidTest/AndroidManifest.xml b/microbenchmark/src/androidTest/AndroidManifest.xml
+deleted file mode 100644
+index 405595ca6b9da86fae70958e18846b7573052218..0000000000000000000000000000000000000000
+--- a/microbenchmark/src/androidTest/AndroidManifest.xml
++++ /dev/null
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools">
+-
+-    <!--
+-      Important: disable debugging for accurate performance results
+-
+-      In a com.android.library project, this flag must be disabled from this
+-      manifest, as it is not possible to override this flag from Gradle.
+-    -->
+-    <application
+-        android:debuggable="false"
+-        tools:ignore="HardcodedDebugMode"
+-        tools:replace="android:debuggable" />
+-</manifest>
+\ No newline at end of file
+diff --git a/microbenchmark/src/androidTest/java/org/signal/microbenchmark/ProtocolBenchmarks.kt b/microbenchmark/src/androidTest/java/org/signal/microbenchmark/ProtocolBenchmarks.kt
+deleted file mode 100644
+index d22e4529bd260fb146d94fdae3d2de07cbe31db4..0000000000000000000000000000000000000000
+--- a/microbenchmark/src/androidTest/java/org/signal/microbenchmark/ProtocolBenchmarks.kt
++++ /dev/null
+@@ -1,124 +0,0 @@
+-package org.signal.microbenchmark
+-
+-import android.util.Log
+-import androidx.benchmark.junit4.BenchmarkRule
+-import androidx.benchmark.junit4.measureRepeated
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import org.junit.Before
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-import org.signal.libsignal.protocol.logging.SignalProtocolLogger
+-import org.signal.libsignal.protocol.logging.SignalProtocolLoggerProvider
+-import org.signal.util.SignalClient
+-import org.whispersystems.signalservice.api.push.DistributionId
+-import java.util.Optional
+-
+-/**
+- * Benchmarks for decrypting messages.
+- *
+- * Note that in order to isolate all costs to just the process of decryption itself,
+- * all operations are performed in in-memory stores.
+- */
+-@RunWith(AndroidJUnit4::class)
+-class ProtocolBenchmarks {
+-
+-  @get:Rule
+-  val benchmarkRule = BenchmarkRule()
+-
+-  @Before
+-  fun setup() {
+-    SignalProtocolLoggerProvider.setProvider { priority, tag, message ->
+-      when (priority) {
+-        SignalProtocolLogger.VERBOSE -> Log.v(tag, message)
+-        SignalProtocolLogger.DEBUG -> Log.d(tag, message)
+-        SignalProtocolLogger.INFO -> Log.i(tag, message)
+-        SignalProtocolLogger.WARN -> Log.w(tag, message)
+-        SignalProtocolLogger.ERROR -> Log.w(tag, message)
+-        SignalProtocolLogger.ASSERT -> Log.e(tag, message)
+-      }
+-    }
+-  }
+-
+-  @Test
+-  fun decrypt_unsealedSender() {
+-    val (alice, bob) = buildAndInitializeClients()
+-
+-    benchmarkRule.measureRepeated {
+-      val envelope = runWithTimingDisabled {
+-        alice.encryptUnsealedSender(bob)
+-      }
+-
+-      bob.decryptMessage(envelope)
+-
+-      // Respond so that the session ratchets
+-      runWithTimingDisabled {
+-        alice.decryptMessage(bob.encryptUnsealedSender(alice))
+-      }
+-    }
+-  }
+-
+-  @Test
+-  fun decrypt_sealedSender() {
+-    val (alice, bob) = buildAndInitializeClients()
+-
+-    benchmarkRule.measureRepeated {
+-      val envelope = runWithTimingDisabled {
+-        alice.encryptSealedSender(bob)
+-      }
+-
+-      bob.decryptMessage(envelope)
+-
+-      // Respond so that the session ratchets
+-      runWithTimingDisabled {
+-        alice.decryptMessage(bob.encryptSealedSender(alice))
+-      }
+-    }
+-  }
+-
+-  @Test
+-  fun multi_encrypt_sealedSender() {
+-    val recipientCount = 10
+-    val clients = buildAndInitializeClients(recipientCount)
+-    val alice = clients.first()
+-    val others = clients.filterNot { it == alice }
+-    val distributionId = DistributionId.create()
+-
+-    clients.forEach {
+-      it.initializedGroupSession(distributionId)
+-    }
+-
+-    benchmarkRule.measureRepeated {
+-      alice.multiEncryptSealedSender(distributionId, others, Optional.empty())
+-    }
+-  }
+-
+-  private fun buildAndInitializeClients(): Pair<SignalClient, SignalClient> {
+-    val clients = buildAndInitializeClients(2)
+-    return clients[0] to clients[1]
+-  }
+-
+-  private fun buildAndInitializeClients(recipientCount: Int): List<SignalClient> {
+-    val clients = ArrayList<SignalClient>(recipientCount)
+-    for (n in 1..recipientCount) {
+-      clients.add(SignalClient())
+-    }
+-
+-    clients.forEach { alice ->
+-      clients.filterNot { it == alice }.forEach { bob ->
+-        alice.initializeSession(bob)
+-        bob.initializeSession(alice)
+-
+-        alice.decryptMessage(bob.encryptUnsealedSender(alice))
+-
+-        bob.decryptMessage(alice.encryptUnsealedSender(bob))
+-
+-        alice.decryptMessage(bob.encryptSealedSender(alice))
+-
+-        bob.decryptMessage(alice.encryptSealedSender(bob))
+-      }
+-    }
+-
+-    return clients
+-  }
+-}
+diff --git a/microbenchmark/src/androidTest/java/org/signal/util/InMemorySignalServiceAccountDataStore.kt b/microbenchmark/src/androidTest/java/org/signal/util/InMemorySignalServiceAccountDataStore.kt
+deleted file mode 100644
+index c9a1de4f7c21942e2c3d7072d4ea631028733059..0000000000000000000000000000000000000000
+--- a/microbenchmark/src/androidTest/java/org/signal/util/InMemorySignalServiceAccountDataStore.kt
++++ /dev/null
+@@ -1,210 +0,0 @@
+-package org.signal.util
+-
+-import org.signal.libsignal.protocol.IdentityKey
+-import org.signal.libsignal.protocol.IdentityKeyPair
+-import org.signal.libsignal.protocol.SignalProtocolAddress
+-import org.signal.libsignal.protocol.ecc.ECPublicKey
+-import org.signal.libsignal.protocol.groups.state.SenderKeyRecord
+-import org.signal.libsignal.protocol.state.IdentityKeyStore
+-import org.signal.libsignal.protocol.state.IdentityKeyStore.IdentityChange
+-import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+-import org.signal.libsignal.protocol.state.PreKeyRecord
+-import org.signal.libsignal.protocol.state.SessionRecord
+-import org.signal.libsignal.protocol.state.SignedPreKeyRecord
+-import org.whispersystems.signalservice.api.SignalServiceAccountDataStore
+-import org.whispersystems.signalservice.api.push.DistributionId
+-import java.util.UUID
+-
+-/**
+- * An in-memory datastore specifically designed for tests.
+- */
+-class InMemorySignalServiceAccountDataStore : SignalServiceAccountDataStore {
+-
+-  private val identityKey: IdentityKeyPair = IdentityKeyPair.generate()
+-  private val identities: MutableMap<SignalProtocolAddress, IdentityKey> = mutableMapOf()
+-  private val oneTimeEcPreKeys: MutableMap<Int, PreKeyRecord> = mutableMapOf()
+-  private val signedPreKeys: MutableMap<Int, SignedPreKeyRecord> = mutableMapOf()
+-  private var sessions: MutableMap<SignalProtocolAddress, SessionRecord> = mutableMapOf()
+-  private val senderKeys: MutableMap<SenderKeyLocator, SenderKeyRecord> = mutableMapOf()
+-  private val kyberPreKeys: MutableMap<Int, KyberPreKeyRecord> = mutableMapOf()
+-
+-  override fun getIdentityKeyPair(): IdentityKeyPair {
+-    return identityKey
+-  }
+-
+-  override fun getLocalRegistrationId(): Int {
+-    return 1
+-  }
+-
+-  override fun saveIdentity(address: SignalProtocolAddress, identityKey: IdentityKey): IdentityChange {
+-    val previous = identities.put(address, identityKey)
+-    return if (previous == null || previous == identityKey) {
+-      IdentityChange.NEW_OR_UNCHANGED
+-    } else {
+-      IdentityChange.REPLACED_EXISTING
+-    }
+-  }
+-
+-  override fun isTrustedIdentity(address: SignalProtocolAddress?, identityKey: IdentityKey?, direction: IdentityKeyStore.Direction?): Boolean {
+-    return true
+-  }
+-
+-  override fun getIdentity(address: SignalProtocolAddress): IdentityKey? {
+-    return identities[address]
+-  }
+-
+-  override fun loadPreKey(preKeyId: Int): PreKeyRecord {
+-    return oneTimeEcPreKeys[preKeyId]!!
+-  }
+-
+-  override fun storePreKey(preKeyId: Int, record: PreKeyRecord) {
+-    oneTimeEcPreKeys[preKeyId] = record
+-  }
+-
+-  override fun containsPreKey(preKeyId: Int): Boolean {
+-    return oneTimeEcPreKeys.containsKey(preKeyId)
+-  }
+-
+-  override fun removePreKey(preKeyId: Int) {
+-    oneTimeEcPreKeys.remove(preKeyId)
+-  }
+-
+-  override fun loadSession(address: SignalProtocolAddress): SessionRecord {
+-    return sessions.getOrPut(address) { SessionRecord() }
+-  }
+-
+-  override fun loadExistingSessions(addresses: List<SignalProtocolAddress>): List<SessionRecord> {
+-    return addresses.map { sessions[it]!! }
+-  }
+-
+-  override fun getSubDeviceSessions(name: String): List<Int> {
+-    return sessions
+-      .filter { it.key.name == name && it.key.deviceId != 1 && it.value.isValid() }
+-      .map { it.key.deviceId }
+-  }
+-
+-  override fun storeSession(address: SignalProtocolAddress, record: SessionRecord) {
+-    sessions[address] = record
+-  }
+-
+-  override fun containsSession(address: SignalProtocolAddress): Boolean {
+-    return sessions[address]?.isValid() ?: false
+-  }
+-
+-  override fun deleteSession(address: SignalProtocolAddress) {
+-    sessions -= address
+-  }
+-
+-  override fun deleteAllSessions(name: String) {
+-    sessions = sessions.filter { it.key.name == name }.toMutableMap()
+-  }
+-
+-  override fun loadSignedPreKey(signedPreKeyId: Int): SignedPreKeyRecord {
+-    return signedPreKeys[signedPreKeyId]!!
+-  }
+-
+-  override fun loadSignedPreKeys(): List<SignedPreKeyRecord> {
+-    return signedPreKeys.values.toList()
+-  }
+-
+-  override fun storeSignedPreKey(signedPreKeyId: Int, record: SignedPreKeyRecord) {
+-    signedPreKeys[signedPreKeyId] = record
+-  }
+-
+-  override fun containsSignedPreKey(signedPreKeyId: Int): Boolean {
+-    return signedPreKeys.containsKey(signedPreKeyId)
+-  }
+-
+-  override fun removeSignedPreKey(signedPreKeyId: Int) {
+-    signedPreKeys -= signedPreKeyId
+-  }
+-
+-  override fun storeSenderKey(sender: SignalProtocolAddress, distributionId: UUID, record: SenderKeyRecord) {
+-    senderKeys[SenderKeyLocator(sender, distributionId)] = record
+-  }
+-
+-  override fun loadSenderKey(sender: SignalProtocolAddress, distributionId: UUID): SenderKeyRecord? {
+-    return senderKeys[SenderKeyLocator(sender, distributionId)]
+-  }
+-
+-  override fun loadKyberPreKey(kyberPreKeyId: Int): KyberPreKeyRecord {
+-    return kyberPreKeys[kyberPreKeyId]!!
+-  }
+-
+-  override fun loadKyberPreKeys(): List<KyberPreKeyRecord> {
+-    return kyberPreKeys.values.toList()
+-  }
+-
+-  override fun storeKyberPreKey(kyberPreKeyId: Int, record: KyberPreKeyRecord?) {
+-    kyberPreKeys[kyberPreKeyId] = record!!
+-  }
+-
+-  override fun containsKyberPreKey(kyberPreKeyId: Int): Boolean {
+-    return kyberPreKeys.containsKey(kyberPreKeyId)
+-  }
+-
+-  override fun markKyberPreKeyUsed(kyberPreKeyId: Int, signedPreKeyId: Int, baseKey: ECPublicKey) {
+-    kyberPreKeys.remove(kyberPreKeyId)
+-  }
+-
+-  override fun deleteAllStaleOneTimeEcPreKeys(threshold: Long, minCount: Int) {
+-    error("Not used")
+-  }
+-
+-  override fun markAllOneTimeEcPreKeysStaleIfNecessary(staleTime: Long) {
+-    error("Not used")
+-  }
+-
+-  override fun storeLastResortKyberPreKey(kyberPreKeyId: Int, kyberPreKeyRecord: KyberPreKeyRecord) {
+-    error("Not used")
+-  }
+-
+-  override fun removeKyberPreKey(kyberPreKeyId: Int) {
+-    error("Not used")
+-  }
+-
+-  override fun markAllOneTimeKyberPreKeysStaleIfNecessary(staleTime: Long) {
+-    error("Not used")
+-  }
+-
+-  override fun deleteAllStaleOneTimeKyberPreKeys(threshold: Long, minCount: Int) {
+-    error("Not used")
+-  }
+-
+-  override fun loadLastResortKyberPreKeys(): List<KyberPreKeyRecord> {
+-    error("Not used")
+-  }
+-
+-  override fun archiveSession(address: SignalProtocolAddress) {
+-    sessions[address]!!.archiveCurrentState()
+-  }
+-
+-  override fun getAllAddressesWithActiveSessions(addressNames: MutableList<String>): MutableMap<SignalProtocolAddress, SessionRecord> {
+-    return sessions
+-      .filter { it.key.name in addressNames }
+-      .filter { it.value.isValid() }
+-      .toMutableMap()
+-  }
+-
+-  override fun getSenderKeySharedWith(distributionId: DistributionId): Set<SignalProtocolAddress> {
+-    error("Not used")
+-  }
+-
+-  override fun markSenderKeySharedWith(distributionId: DistributionId, addresses: Collection<SignalProtocolAddress>) {
+-    // Called, but not needed
+-  }
+-
+-  override fun clearSenderKeySharedWith(addresses: Collection<SignalProtocolAddress>) {
+-    // Called, but not needed
+-  }
+-
+-  override fun isMultiDevice(): Boolean {
+-    return false
+-  }
+-
+-  private fun SessionRecord.isValid(): Boolean {
+-    return this.hasSenderChain(0.0)
+-  }
+-
+-  private data class SenderKeyLocator(val address: SignalProtocolAddress, val distributionId: UUID)
+-}
+diff --git a/microbenchmark/src/androidTest/java/org/signal/util/SignalClient.kt b/microbenchmark/src/androidTest/java/org/signal/util/SignalClient.kt
+deleted file mode 100644
+index 62f4cd2d44cfb90f32ccfaca96aa59f7cfb11475..0000000000000000000000000000000000000000
+--- a/microbenchmark/src/androidTest/java/org/signal/util/SignalClient.kt
++++ /dev/null
+@@ -1,221 +0,0 @@
+-package org.signal.util
+-
+-import okio.ByteString.Companion.toByteString
+-import org.signal.core.models.ServiceId
+-import org.signal.core.util.Base64
+-import org.signal.core.util.toByteArray
+-import org.signal.libsignal.metadata.certificate.CertificateValidator
+-import org.signal.libsignal.metadata.certificate.SenderCertificate
+-import org.signal.libsignal.metadata.certificate.ServerCertificate
+-import org.signal.libsignal.protocol.SessionBuilder
+-import org.signal.libsignal.protocol.SignalProtocolAddress
+-import org.signal.libsignal.protocol.ecc.ECKeyPair
+-import org.signal.libsignal.protocol.ecc.ECPublicKey
+-import org.signal.libsignal.protocol.groups.GroupSessionBuilder
+-import org.signal.libsignal.protocol.kem.KEMKeyPair
+-import org.signal.libsignal.protocol.kem.KEMKeyType
+-import org.signal.libsignal.protocol.message.SenderKeyDistributionMessage
+-import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+-import org.signal.libsignal.protocol.state.PreKeyBundle
+-import org.signal.libsignal.protocol.state.PreKeyRecord
+-import org.signal.libsignal.protocol.state.SignedPreKeyRecord
+-import org.whispersystems.signalservice.api.SignalServiceAccountDataStore
+-import org.whispersystems.signalservice.api.SignalSessionLock
+-import org.whispersystems.signalservice.api.crypto.ContentHint
+-import org.whispersystems.signalservice.api.crypto.EnvelopeContent
+-import org.whispersystems.signalservice.api.crypto.SealedSenderAccess
+-import org.whispersystems.signalservice.api.crypto.SignalGroupSessionBuilder
+-import org.whispersystems.signalservice.api.crypto.SignalServiceCipher
+-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess
+-import org.whispersystems.signalservice.api.push.DistributionId
+-import org.whispersystems.signalservice.api.push.SignalServiceAddress
+-import org.whispersystems.signalservice.internal.push.Content
+-import org.whispersystems.signalservice.internal.push.DataMessage
+-import org.whispersystems.signalservice.internal.push.Envelope
+-import org.whispersystems.signalservice.internal.push.OutgoingPushMessage
+-import org.whispersystems.signalservice.internal.util.Util
+-import java.util.Optional
+-import java.util.UUID
+-import java.util.concurrent.locks.ReentrantLock
+-import kotlin.random.Random
+-
+-/**
+- * An in-memory signal client that can encrypt and decrypt messages.
+- *
+- * Has a single prekey bundle that can be used to initialize a session with another client.
+- */
+-class SignalClient {
+-  companion object {
+-    private val trustRoot: ECKeyPair = ECKeyPair.generate()
+-  }
+-
+-  private val lock = TestSessionLock()
+-
+-  private val aci: ServiceId.ACI = ServiceId.ACI.from(UUID.randomUUID())
+-
+-  private val store: SignalServiceAccountDataStore = InMemorySignalServiceAccountDataStore()
+-
+-  private var prekeyIndex = 0
+-
+-  private val unidentifiedAccessKey: ByteArray = Util.getSecretBytes(32)
+-
+-  private val senderCertificate: SenderCertificate = createCertificateFor(
+-    trustRoot = trustRoot,
+-    uuid = aci.rawUuid,
+-    e164 = "+${Random.nextLong(1111111111L, 9999999999L)}",
+-    deviceId = 1,
+-    identityKey = store.identityKeyPair.publicKey.publicKey,
+-    expires = Long.MAX_VALUE
+-  )
+-
+-  private val cipher = SignalServiceCipher(SignalServiceAddress(aci), 1, store, lock, CertificateValidator(trustRoot.publicKey))
+-
+-  /**
+-   * Sets up sessions using the [to] client's [preKeyBundles]. Note that you can only initialize a client up to 1,000 times because that's how many prekeys we have.
+-   */
+-  fun initializeSession(to: SignalClient) {
+-    val address = SignalProtocolAddress(to.aci.toString(), 1)
+-    val localAddress = SignalProtocolAddress(aci.libSignalAci, 1)
+-    SessionBuilder(store, address, localAddress).process(to.createPreKeyBundle())
+-  }
+-
+-  fun initializedGroupSession(distributionId: DistributionId): SenderKeyDistributionMessage {
+-    val self = SignalProtocolAddress(aci.toString(), 1)
+-    return SignalGroupSessionBuilder(lock, GroupSessionBuilder(store)).create(self, distributionId.asUuid())
+-  }
+-
+-  fun encryptUnsealedSender(to: SignalClient): Envelope {
+-    val sentTimestamp = System.currentTimeMillis()
+-
+-    val content = Content(
+-      dataMessage = DataMessage(
+-        body = "Test Message",
+-        timestamp = sentTimestamp
+-      )
+-    )
+-
+-    val outgoingPushMessage: OutgoingPushMessage = cipher.encrypt(
+-      SignalProtocolAddress(to.aci.toString(), 1),
+-      SealedSenderAccess.NONE,
+-      EnvelopeContent.encrypted(content, ContentHint.RESENDABLE, Optional.empty())
+-    )
+-
+-    val encryptedContent: ByteArray = Base64.decode(outgoingPushMessage.content)
+-    val serviceGuid = UUID.randomUUID()
+-
+-    return Envelope(
+-      sourceServiceId = aci.toString(),
+-      sourceDeviceId = 1,
+-      destinationServiceId = to.aci.toString(),
+-      clientTimestamp = sentTimestamp,
+-      serverTimestamp = sentTimestamp,
+-      serverGuid = serviceGuid.toString(),
+-      type = Envelope.Type.fromValue(outgoingPushMessage.type),
+-      urgent = true,
+-      content = encryptedContent.toByteString(),
+-      sourceServiceIdBinary = aci.toByteString(),
+-      destinationServiceIdBinary = to.aci.toByteString(),
+-      serverGuidBinary = serviceGuid.toByteArray().toByteString()
+-    )
+-  }
+-
+-  fun encryptSealedSender(to: SignalClient): Envelope {
+-    val sentTimestamp = System.currentTimeMillis()
+-
+-    val content = Content(
+-      dataMessage = DataMessage(
+-        body = "Test Message",
+-        timestamp = sentTimestamp
+-      )
+-    )
+-
+-    val outgoingPushMessage: OutgoingPushMessage = cipher.encrypt(
+-      SignalProtocolAddress(to.aci.toString(), 1),
+-      SealedSenderAccess.forIndividual(UnidentifiedAccess(to.unidentifiedAccessKey, senderCertificate.serialized, false)),
+-      EnvelopeContent.encrypted(content, ContentHint.RESENDABLE, Optional.empty())
+-    )
+-
+-    val encryptedContent: ByteArray = Base64.decode(outgoingPushMessage.content)
+-    val serverGuid = UUID.randomUUID()
+-
+-    return Envelope(
+-      sourceServiceId = aci.toString(),
+-      sourceDeviceId = 1,
+-      destinationServiceId = to.aci.toString(),
+-      clientTimestamp = sentTimestamp,
+-      serverTimestamp = sentTimestamp,
+-      serverGuid = serverGuid.toString(),
+-      type = Envelope.Type.fromValue(outgoingPushMessage.type),
+-      urgent = true,
+-      content = encryptedContent.toByteString(),
+-      sourceServiceIdBinary = aci.toByteString(),
+-      destinationServiceIdBinary = to.aci.toByteString(),
+-      serverGuidBinary = serverGuid.toByteArray().toByteString()
+-    )
+-  }
+-
+-  fun multiEncryptSealedSender(distributionId: DistributionId, others: List<SignalClient>, groupId: Optional<ByteArray>): ByteArray {
+-    val sentTimestamp = System.currentTimeMillis()
+-
+-    val content = Content(
+-      dataMessage = DataMessage(
+-        body = "Test Message",
+-        timestamp = sentTimestamp
+-      )
+-    )
+-    val destinations = others.map { other ->
+-      SignalProtocolAddress(other.aci.toString(), 1)
+-    }
+-    val sessionMap = store.getAllAddressesWithActiveSessions(destinations.map { it.name })
+-
+-    return cipher.encryptForGroup(distributionId, destinations, sessionMap, senderCertificate, content.encode(), ContentHint.DEFAULT, groupId)
+-  }
+-
+-  fun decryptMessage(envelope: Envelope) {
+-    cipher.decrypt(envelope, System.currentTimeMillis())
+-  }
+-
+-  private fun createPreKeyBundle(): PreKeyBundle {
+-    val prekeyId = prekeyIndex++
+-    val preKeyRecord = PreKeyRecord(prekeyId, ECKeyPair.generate())
+-    val signedPreKeyPair = ECKeyPair.generate()
+-    val signedPreKeySignature = store.identityKeyPair.privateKey.calculateSignature(signedPreKeyPair.publicKey.serialize())
+-
+-    val kyberPair = KEMKeyPair.generate(KEMKeyType.KYBER_1024)
+-    val kyberPreKeyRecord = KyberPreKeyRecord(prekeyId, System.currentTimeMillis() - 10, kyberPair, store.identityKeyPair.privateKey.calculateSignature(kyberPair.publicKey.serialize()))
+-
+-    store.storePreKey(prekeyId, preKeyRecord)
+-    store.storeSignedPreKey(prekeyId, SignedPreKeyRecord(prekeyId, System.currentTimeMillis(), signedPreKeyPair, signedPreKeySignature))
+-
+-    store.storeKyberPreKey(prekeyId, kyberPreKeyRecord)
+-
+-    return PreKeyBundle(
+-      registrationId = prekeyId,
+-      deviceId = 1,
+-      preKeyId = prekeyId,
+-      preKeyPublic = preKeyRecord.keyPair.publicKey,
+-      signedPreKeyId = prekeyId,
+-      signedPreKeyPublic = signedPreKeyPair.publicKey,
+-      signedPreKeySignature = signedPreKeySignature,
+-      identityKey = store.identityKeyPair.publicKey,
+-      kyberPreKeyId = kyberPreKeyRecord.id,
+-      kyberPreKeyPublic = kyberPreKeyRecord.keyPair.publicKey,
+-      kyberPreKeySignature = kyberPreKeyRecord.signature
+-    )
+-  }
+-}
+-
+-private fun createCertificateFor(trustRoot: ECKeyPair, uuid: UUID, e164: String, deviceId: Int, identityKey: ECPublicKey, expires: Long): SenderCertificate {
+-  val serverKey: ECKeyPair = ECKeyPair.generate()
+-  val serverCertificate = ServerCertificate(trustRoot.privateKey, 1, serverKey.publicKey)
+-  return serverCertificate.issue(serverKey.privateKey, uuid.toString(), Optional.of(e164), deviceId, identityKey, expires)
+-}
+-
+-private class TestSessionLock : SignalSessionLock {
+-  val lock = ReentrantLock()
+-
+-  override fun acquire(): SignalSessionLock.Lock {
+-    lock.lock()
+-    return SignalSessionLock.Lock { lock.unlock() }
+-  }
+-}
+diff --git a/microbenchmark/src/main/AndroidManifest.xml b/microbenchmark/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 568741e54f2a17f32a61c7479492dee651c09c1a..0000000000000000000000000000000000000000
+--- a/microbenchmark/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,2 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest />
+\ No newline at end of file
+
+--------------false--
+
+

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
@@ -14,6 +16,7 @@ import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.SignalProtocolAddress
 import org.thoughtcrime.securesms.SignalInstrumentationApplicationContext
+import org.thoughtcrime.securesms.crypto.MasterSecretUtil
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.database.SignalDatabase
@@ -30,7 +33,6 @@ import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.testing.GroupTestingUtils.asMember
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import java.util.UUID
@@ -79,10 +81,11 @@ class SignalActivityRule(private val othersCount: Int = 4, private val createGro
   }
 
   private fun setupSelf(): Recipient {
-    ApplicationDependencies.getNetworkManager().isNetworkEnabled = true
-
-    SecurePreferenceManager.getSecurePreferences(application).edit().putBoolean("pref_prompted_push_registration", true).commit()
-    // MOLLY: Test runner SignalTestRunner initializes MasterSecret
+    PreferenceManager.getDefaultSharedPreferences(application).edit().putBoolean("pref_prompted_push_registration", true).commit()
+    val masterSecret = MasterSecretUtil.generateMasterSecret(application, MasterSecretUtil.UNENCRYPTED_PASSPHRASE)
+    MasterSecretUtil.generateAsymmetricMasterSecret(application, masterSecret)
+    val preferences: SharedPreferences = application.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0)
+    preferences.edit().putBoolean("passphrase_initialized", true).commit()
 
     SignalStore.account.generateAciIdentityKeyIfNecessary()
     SignalStore.account.generatePniIdentityKeyIfNecessary()

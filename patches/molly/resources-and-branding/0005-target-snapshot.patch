@@ -1,0 +1,2875 @@
+From 3827bd1cb12fe4f9fd66a8c59e1ae62d833a0897 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly resources-and-branding, part 5
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Shared localized resources, icons, artwork, layouts, XML policy and resource deletions.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/res/drawable/verificationcode_alert_96.xml b/app/src/main/res/drawable/verificationcode_alert_96.xml
+index 2abad8ad9baf12a74666bc3831dcbfda558625fa..daa76086aff8d13d83ed275e379bfd3da06ed8de 100644
+--- a/app/src/main/res/drawable/verificationcode_alert_96.xml
++++ b/app/src/main/res/drawable/verificationcode_alert_96.xml
+@@ -5,7 +5,7 @@
+     android:viewportHeight="96">
+     <path
+         android:fillColor="#FFC3C6FA"
+-        android:strokeColor="#FF3B45FD"
++        android:strokeColor="#FF6341FF"
+         android:strokeWidth="2.5"
+         android:pathData="M59 10.75c4.56 0 8.25 3.7 8.25 8.25v58c0 4.56-3.7 8.25-8.25 8.25H37c-4.56 0-8.25-3.7-8.25-8.25V19c0-4.56 3.7-8.25 8.25-8.25h22Z"/>
+     <path
+@@ -15,7 +15,7 @@
+         android:fillColor="#FFA9ADF8"
+         android:pathData="M62.36 12.86C64.53 14.05 66 16.36 66 19v58c0 3.87-3.13 7-7 7H37c-1.6 0-3.08-0.54-4.27-1.45 1.46-2.02 3.82-3.34 6.5-3.34h15c4.43 0 8-3.58 8-8V14.23c0-0.47 0.05-0.93 0.13-1.37Z"/>
+     <path
+-        android:fillColor="#FF3B45FD"
++        android:fillColor="#FF6341FF"
+         android:pathData="M43 16.5c0-0.83 0.67-1.5 1.5-1.5h7c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-7c-0.83 0-1.5-0.67-1.5-1.5z"/>
+     <path
+         android:fillColor="#FFC34922"
+diff --git a/app/src/main/res/drawable/webrtc_call_screen_circle_checked.xml b/app/src/main/res/drawable/webrtc_call_screen_circle_checked.xml
+index 1e7f8ffe78bcb6fd44a6656d0dd81fe6d8fb8bda..c75594705d83a2c121aa4249c633d990374d470a 100644
+--- a/app/src/main/res/drawable/webrtc_call_screen_circle_checked.xml
++++ b/app/src/main/res/drawable/webrtc_call_screen_circle_checked.xml
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="oval">
+-    <solid android:color="@color/signal_dark_colorSecondaryContainer" />
++    <solid android:color="?attr/colorSecondaryContainer" />
+ </shape>
+diff --git a/app/src/main/res/layout/account_locked_fragment.xml b/app/src/main/res/layout/account_locked_fragment.xml
+index d4d5578dd0531492aa8bd9910d34a9457a3d11a5..cfdf4273bbfe5b4a52b582afcd559568f69aad99 100644
+--- a/app/src/main/res/layout/account_locked_fragment.xml
++++ b/app/src/main/res/layout/account_locked_fragment.xml
+@@ -28,7 +28,7 @@
+         android:gravity="center_horizontal"
+         android:minHeight="66dp"
+         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/account_locked_title"
+diff --git a/app/src/main/res/layout/activity_change_number_lock.xml b/app/src/main/res/layout/activity_change_number_lock.xml
+index 1d838f8a58c3ded27fe6cfd65bab9f289ff8658a..1c319be0c7b07d0f287c7f233b93df013613384c 100644
+--- a/app/src/main/res/layout/activity_change_number_lock.xml
++++ b/app/src/main/res/layout/activity_change_number_lock.xml
+@@ -68,7 +68,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/transfer_top_padding"
+             android:indeterminate="true"
+-            app:indicatorColor="@color/signal_accent_primary"
++            app:indicatorColor="?attr/signal_accent_primary"
+             app:indicatorSize="48dp"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/activity_contact_share_edit.xml b/app/src/main/res/layout/activity_contact_share_edit.xml
+index 75806c180ae7f116843ae53b9f4253fcfc95c15e..6d92a4d250d02814cbbba2caaf218a09676b2aba 100644
+--- a/app/src/main/res/layout/activity_contact_share_edit.xml
++++ b/app/src/main/res/layout/activity_contact_share_edit.xml
+@@ -33,7 +33,7 @@
+         android:background="@drawable/circle_tintable"
+         android:contentDescription="@string/conversation_activity__send"
+         android:scaleType="centerInside"
+-        app:backgroundTint="@color/signal_colorPrimary"
++        app:backgroundTint="?attr/colorPrimary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:srcCompat="@drawable/ic_send_lock_24"
+diff --git a/app/src/main/res/layout/activity_map_bottom_sheet_view.xml b/app/src/main/res/layout/activity_map_bottom_sheet_view.xml
+index 7614b31f644703b20c42881a8aef49a5021b0c47..a16897e5897cf42e54ea00a095d925b6b1045e79 100755
+--- a/app/src/main/res/layout/activity_map_bottom_sheet_view.xml
++++ b/app/src/main/res/layout/activity_map_bottom_sheet_view.xml
+@@ -23,7 +23,7 @@
+         <FrameLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:background="@color/signal_colorBackground">
++            android:background="?attr/colorSurface">
+ 
+             <LinearLayout
+                 android:layout_width="match_parent"
+@@ -43,7 +43,7 @@
+                     android:ellipsize="end"
+                     android:fontFamily="sans-serif-medium"
+                     android:maxLines="1"
+-                    android:textColor="@color/signal_text_primary"
++                    android:textColor="?attr/signal_text_primary"
+                     tools:text="Short address" />
+ 
+                 <TextView
+@@ -55,7 +55,7 @@
+                     android:layout_marginEnd="70dp"
+                     android:ellipsize="end"
+                     android:maxLines="1"
+-                    android:textColor="@color/signal_text_secondary"
++                    android:textColor="?attr/signal_text_secondary"
+                     tools:text="Precise address" />
+             </LinearLayout>
+ 
+diff --git a/app/src/main/res/layout/activity_place_picker.xml b/app/src/main/res/layout/activity_place_picker.xml
+index e1ff0d29ce21db56b7bc28fcb0abd57e2b43c00d..77a7970c055b32e084d0ca461dac92d210e3a8e5 100644
+--- a/app/src/main/res/layout/activity_place_picker.xml
++++ b/app/src/main/res/layout/activity_place_picker.xml
+@@ -6,13 +6,14 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
++    android:background="?attr/colorSurface"
+     tools:context="org.thoughtcrime.securesms.maps.PlacePickerActivity">
+ 
+     <com.google.android.gms.maps.MapView
+         android:id="@+id/map_view"
+         android:layout_width="210dp"
+         android:layout_height="210dp"
+-        android:visibility="visible"
++        android:visibility="gone"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"/>
+ 
+@@ -26,8 +27,39 @@
+         app:layout_constraintHorizontal_bias="0.0"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_bias="0.0"
+-        app:backgroundColor="@color/signal_colorBackground"/>
++        app:layout_constraintVertical_bias="0.0" />
++
++    <LinearLayout
++        android:id="@+id/map_type_overlay"
++        android:layout_width="wrap_content"
++        android:layout_height="140dp"
++        android:adjustViewBounds="true"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintVertical_bias="0.0">
++
++        <Button
++            android:id="@+id/btnMapTypeNormal"
++            style="@style/Signal.Widget.Button.Large.Secondary"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/preferences__map_normal" />
++
++        <Button
++            android:id="@+id/btnMapTypeSatellite"
++            style="@style/Signal.Widget.Button.Large.Secondary"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/preferences__map_satellite" />
++
++        <Button
++            android:id="@+id/btnMapTypeTerrain"
++            style="@style/Signal.Widget.Button.Large.Secondary"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/preferences__map_terrain" />
++    </LinearLayout>
+ 
+     <ImageView
+         android:id="@+id/marker_shadow_image_view"
+diff --git a/app/src/main/res/layout/activity_restore.xml b/app/src/main/res/layout/activity_restore.xml
+index 4b4112779a45df49b661b895930a63ffdff11534..5738f059c86394ca8832432438a2306762a55efd 100644
+--- a/app/src/main/res/layout/activity_restore.xml
++++ b/app/src/main/res/layout/activity_restore.xml
+@@ -9,5 +9,5 @@
+     android:id="@+id/nav_host_fragment"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/signal_background_primary"
++    android:background="?attr/signal_background_primary"
+     android:transitionName="window_content" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/activity_shared_contact_details.xml b/app/src/main/res/layout/activity_shared_contact_details.xml
+index 3b941ca90156af4d23588ea049b73752fcf1fb52..b65556f0ef567da172704bab84928af6fd9416ea 100644
+--- a/app/src/main/res/layout/activity_shared_contact_details.xml
++++ b/app/src/main/res/layout/activity_shared_contact_details.xml
+@@ -104,7 +104,7 @@
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+-                                android:text="@string/SharedContactDetailsActivity_signal_message"
++                                android:text="@string/NewConversationActivity__message"
+                                 android:textColor="?attr/colorAccent"/>
+ 
+                         </LinearLayout>
+@@ -128,7 +128,7 @@
+                             <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+-                                android:text="@string/SharedContactDetailsActivity_signal_call"
++                                android:text="@string/NewConversationActivity__video_call"
+                                 android:textColor="?attr/colorAccent"/>
+ 
+                         </LinearLayout>
+diff --git a/app/src/main/res/layout/add_group_details_fragment.xml b/app/src/main/res/layout/add_group_details_fragment.xml
+index ddcae6b9af7c56526ddd71cf612f8fd09ed4babf..da125bcae505cd6d5c52af31d9ff56be5585755f 100644
+--- a/app/src/main/res/layout/add_group_details_fragment.xml
++++ b/app/src/main/res/layout/add_group_details_fragment.xml
+@@ -23,7 +23,7 @@
+         android:layout_marginStart="@dimen/dsl_settings_gutter"
+         android:layout_marginTop="16dp"
+         android:background="@drawable/tinted_circle"
+-        app:backgroundTint="@color/signal_colorSurfaceVariant"
++        app:backgroundTint="?attr/colorSurfaceVariant"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/toolbar" />
+ 
+@@ -59,7 +59,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:srcCompat="@drawable/ic_timer_disabled_24"
+-            app:tint="@color/signal_text_primary" />
++            app:tint="?attr/signal_text_primary" />
+ 
+         <TextView
+             android:layout_width="0dp"
+@@ -75,7 +75,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="@style/Signal.Text.BodyLarge"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             tools:text="1 week" />
+ 
+     </LinearLayout>
+@@ -86,7 +86,7 @@
+         android:layout_height="2dp"
+         android:layout_marginTop="16dp"
+         android:layout_marginBottom="16dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/colorSurfaceVariant"
+         app:layout_constraintBottom_toTopOf="@id/mms_warning"
+         app:layout_constraintTop_toBottomOf="@id/group_disappearing_messages_row" />
+ 
+@@ -114,7 +114,7 @@
+             android:paddingBottom="16dp"
+             android:text="@string/AddGroupDetailsFragment__youve_selected_a_contact_that_doesnt_support_signal_groups_mms_removal"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant" />
++            android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+     </LinearLayout>
+ 
+@@ -176,7 +176,7 @@
+         android:layout_marginEnd="@dimen/dsl_settings_gutter"
+         android:text="@string/AddGroupDetailsFragment__you_can_add_or_invite_friends_after_creating_this_group"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:visibility="gone"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/member_list_header" />
+diff --git a/app/src/main/res/layout/album_thumbnail_view.xml b/app/src/main/res/layout/album_thumbnail_view.xml
+index ddb821a31af98e8b3c146b5f59ce442d0facfee2..1bf7cdeabfa7181ecfdfc11a82149175e1c9cca0 100644
+--- a/app/src/main/res/layout/album_thumbnail_view.xml
++++ b/app/src/main/res/layout/album_thumbnail_view.xml
+@@ -16,7 +16,7 @@
+         android:id="@+id/album_cell_container"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:background="@color/signal_background_primary"/>
++        android:background="?attr/signal_background_primary"/>
+ 
+     <ViewStub
+         android:id="@+id/album_transfer_controls_stub"
+diff --git a/app/src/main/res/layout/all_signal_connections_row_item.xml b/app/src/main/res/layout/all_signal_connections_row_item.xml
+index dbb652ff9b38f3f5bc8b75873c6994f33b79198a..c9c21362dafe95d29c495b6441471a4f8378e962 100644
+--- a/app/src/main/res/layout/all_signal_connections_row_item.xml
++++ b/app/src/main/res/layout/all_signal_connections_row_item.xml
+@@ -41,7 +41,7 @@
+         style="@style/Signal.Text.BodyMedium"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="@+id/message"
+diff --git a/app/src/main/res/layout/application_migration_activity.xml b/app/src/main/res/layout/application_migration_activity.xml
+index a681bcaf564b126ed7361ab32b3e79ec321fbd8e..563ae79ea52c50f7fd7be00a13116a1267225ff0 100644
+--- a/app/src/main/res/layout/application_migration_activity.xml
++++ b/app/src/main/res/layout/application_migration_activity.xml
+@@ -17,7 +17,7 @@
+         android:text="@string/ApplicationMigrationActivity__signal_is_updating"
+         android:gravity="center"
+         android:textSize="22sp"
+-        android:textColor="@color/signal_colorOnBackground"
++        android:textColor="?attr/colorOnBackground"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent" />
+ 
+diff --git a/app/src/main/res/layout/attachment_keyboard.xml b/app/src/main/res/layout/attachment_keyboard.xml
+index 8fd1d230bf9edc59d2a3a9d2fd4cb50b157889bf..690d912c449f653321f1973a0bdf44f41326486c 100644
+--- a/app/src/main/res/layout/attachment_keyboard.xml
++++ b/app/src/main/res/layout/attachment_keyboard.xml
+@@ -10,7 +10,7 @@
+         android:id="@+id/attachment_keyboard_container"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         tools:layout_height="200dp">
+ 
+         <androidx.recyclerview.widget.RecyclerView
+@@ -75,8 +75,8 @@
+         <com.google.android.material.button.MaterialButton
+             android:id="@+id/attachment_keyboard_permission_button"
+             style="@style/Signal.Widget.Button.Large.Primary"
+-            app:backgroundTint="@color/signal_colorPrimaryContainer"
+-            android:textColor="@color/signal_colorOnPrimaryContainer"
++            app:backgroundTint="?attr/colorPrimaryContainer"
++            android:textColor="?attr/colorOnPrimaryContainer"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/AttachmentKeyboard_allow_access"
+diff --git a/app/src/main/res/layout/audio_output_adapter_radio_item.xml b/app/src/main/res/layout/audio_output_adapter_radio_item.xml
+index a50a8d9f1090cd955ba4947c1d85da090892d2dc..496f7833c2d7ccce70b776d1e179a3dc5ce357dd 100644
+--- a/app/src/main/res/layout/audio_output_adapter_radio_item.xml
++++ b/app/src/main/res/layout/audio_output_adapter_radio_item.xml
+@@ -14,9 +14,9 @@
+         android:drawablePadding="12dp"
+         android:paddingStart="16dp"
+         android:paddingEnd="16dp"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         android:textSize="16sp"
+-        app:drawableTint="@color/signal_text_primary"
++        app:drawableTint="?attr/signal_text_primary"
+         tools:drawableStart="@drawable/ic_photo_24"
+         tools:text="@string/WebRtcAudioOutputToggle__phone_earpiece" />
+ </FrameLayout>
+diff --git a/app/src/main/res/layout/audio_view.xml b/app/src/main/res/layout/audio_view.xml
+index 13fdbc380f7daf73bd7a6c7b89d327d480605fe7..85341d278d92141c45f4f6ba3edf3e47f0812381 100644
+--- a/app/src/main/res/layout/audio_view.xml
++++ b/app/src/main/res/layout/audio_view.xml
+@@ -32,7 +32,7 @@
+             android:layout_gravity="center_vertical"
+             android:fontFamily="sans-serif-light"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             android:textSize="@dimen/conversation_item_date_text_size"
+             android:visibility="gone"
+             tools:text="00:30"
+diff --git a/app/src/main/res/layout/avatar_picker_fragment.xml b/app/src/main/res/layout/avatar_picker_fragment.xml
+index 09f368e8ae2f0f4460b3ce41c8e7e6dfed8dacba..df557ef405cd39565eb6b2b18003e29eaabd5c89 100644
+--- a/app/src/main/res/layout/avatar_picker_fragment.xml
++++ b/app/src/main/res/layout/avatar_picker_fragment.xml
+@@ -86,7 +86,7 @@
+                 android:layout_marginTop="16.25dp"
+                 android:layout_marginBottom="16.25dp"
+                 android:alpha="0.16"
+-                android:background="@color/signal_colorOutline"
++                android:background="?attr/colorOutline"
+                 app:layout_constraintTop_toBottomOf="@id/avatar_picker_text" />
+ 
+             <androidx.recyclerview.widget.RecyclerView
+@@ -117,11 +117,12 @@
+                 android:layout_marginEnd="4dp"
+                 android:contentDescription="@string/AvatarPickerFragment__clear_avatar"
+                 android:visibility="gone"
+-                app:backgroundTint="@color/signal_background_primary"
++                app:backgroundTint="?attr/colorSecondaryContainer"
+                 app:fabSize="mini"
+                 app:layout_constraintEnd_toEndOf="@id/avatar_picker_item_image"
+                 app:layout_constraintTop_toTopOf="@id/avatar_picker_item_image"
+                 app:srcCompat="@drawable/ic_x_20"
++                app:tint="?attr/colorOnSecondaryContainer"
+                 tools:visibility="visible" />
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/backup_max_files_selector_view.xml b/app/src/main/res/layout/backup_max_files_selector_view.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..57c065a6377b68353fa9a5d926825656375e8b3b
+--- /dev/null
++++ b/app/src/main/res/layout/backup_max_files_selector_view.xml
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:orientation="horizontal"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:layout_gravity="center"
++    android:gravity="center">
++
++    <NumberPicker
++        android:id="@+id/picker"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:layout_marginEnd="8dp" />
++
++</LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/base_kbs_pin_fragment.xml b/app/src/main/res/layout/base_kbs_pin_fragment.xml
+index 0e03df8f4d2aa0f38cd969a2f815f3a55d133d3d..c8708c126fdd74c23b08bbd31e39f8ce482636d4 100644
+--- a/app/src/main/res/layout/base_kbs_pin_fragment.xml
++++ b/app/src/main/res/layout/base_kbs_pin_fragment.xml
+@@ -41,7 +41,7 @@
+             android:layout_marginTop="16dp"
+             android:layout_marginEnd="24dp"
+             android:minHeight="66dp"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/edit_kbs_pin_title"
+diff --git a/app/src/main/res/layout/base_settings_header_item.xml b/app/src/main/res/layout/base_settings_header_item.xml
+index 6a7103fa74b2d5c8a2bdb708997504edd6dc92c4..faca66d3fff00261afea0727937c825174dd3670 100644
+--- a/app/src/main/res/layout/base_settings_header_item.xml
++++ b/app/src/main/res/layout/base_settings_header_item.xml
+@@ -8,6 +8,6 @@
+     android:layout_marginStart="16dp"
+     android:layout_marginTop="8dp"
+     android:layout_marginBottom="8dp"
+-    android:textColor="@color/signal_text_secondary"
++    android:textColor="?attr/signal_text_secondary"
+     android:textStyle="bold"
+     tools:text="Recent payments" />
+diff --git a/app/src/main/res/layout/biometric_dialog_background.xml b/app/src/main/res/layout/biometric_dialog_background.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b9d674c6151c3ff271a7a8b653ee61bb733dfbd1
+--- /dev/null
++++ b/app/src/main/res/layout/biometric_dialog_background.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:id="@+id/biometric_dialog_background"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++    <ImageView
++        android:id="@+id/logo"
++        android:layout_width="132dp"
++        android:layout_height="132dp"
++        android:layout_centerHorizontal="true"
++        android:importantForAccessibility="no"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        app:layout_constraintVertical_bias="0.36"
++        app:srcCompat="@drawable/logo_round_filled" />
++
++</androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/blocked_users_adapter_item.xml b/app/src/main/res/layout/blocked_users_adapter_item.xml
+index af1fead1b4184b54bea9c4226ba55c7eeb348a69..0d2e825c9311a995bf497135b4e63d85a046e693 100644
+--- a/app/src/main/res/layout/blocked_users_adapter_item.xml
++++ b/app/src/main/res/layout/blocked_users_adapter_item.xml
+@@ -33,7 +33,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="@id/display_name"
+         app:layout_constraintTop_toBottomOf="@id/display_name"
+diff --git a/app/src/main/res/layout/blocked_users_fragment.xml b/app/src/main/res/layout/blocked_users_fragment.xml
+index 1e9cda0b365cd7695c40f72dd77c1ab0c5056962..229dcb76e7eea71efcc9a63cc5ca22cc06a589d6 100644
+--- a/app/src/main/res/layout/blocked_users_fragment.xml
++++ b/app/src/main/res/layout/blocked_users_fragment.xml
+@@ -29,7 +29,7 @@
+         android:paddingBottom="8dp"
+         android:text="@string/BlockedUsersActivity__blocked_users_will"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/add_blocked_user" />
+diff --git a/app/src/main/res/layout/bold_selection_tab_item.xml b/app/src/main/res/layout/bold_selection_tab_item.xml
+index 80bf617207b7d77209adc6511ba98d6d9c78ac64..30339d76bc4b93529caeab37bdbcec2bbe1f5dc4 100644
+--- a/app/src/main/res/layout/bold_selection_tab_item.xml
++++ b/app/src/main/res/layout/bold_selection_tab_item.xml
+@@ -13,7 +13,7 @@
+         android:gravity="center"
+         android:maxLines="1"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         tools:text="Media" />
+ 
+     <TextView
+@@ -25,7 +25,7 @@
+         android:gravity="center"
+         android:maxLines="1"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         tools:text="Media" />
+ 
+ </org.thoughtcrime.securesms.components.BoldSelectionTabItem>
+diff --git a/app/src/main/res/layout/boost_preference.xml b/app/src/main/res/layout/boost_preference.xml
+index 111dad7b1762e1f6980bea39080a49a33995a401..3e97ca87ac222b94e178383a820a19cf6bdd9285 100644
+--- a/app/src/main/res/layout/boost_preference.xml
++++ b/app/src/main/res/layout/boost_preference.xml
+@@ -15,7 +15,7 @@
+         android:layout_width="0dp"
+         android:layout_height="58sp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toStartOf="@id/boost_2"
+@@ -33,7 +33,7 @@
+         android:layout_marginStart="20dp"
+         android:layout_marginEnd="20dp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toStartOf="@id/boost_3"
+@@ -49,7 +49,7 @@
+         android:layout_width="0dp"
+         android:layout_height="58sp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toEndOf="parent"
+@@ -66,7 +66,7 @@
+         android:layout_height="58sp"
+         android:layout_marginTop="24dp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toStartOf="@id/boost_5"
+@@ -85,7 +85,7 @@
+         android:layout_marginTop="24dp"
+         android:layout_marginEnd="20dp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toStartOf="@id/boost_6"
+@@ -103,7 +103,7 @@
+         android:layout_marginTop="24dp"
+         android:gravity="center"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:backgroundTint="@color/signal_selectable_button_background_tint"
+         app:cornerRadius="12dp"
+         app:layout_constraintEnd_toEndOf="parent"
+@@ -124,8 +124,8 @@
+         android:imeOptions="actionDone"
+         android:inputType="numberDecimal"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_text_primary"
+-        android:textColorHint="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
++        android:textColorHint="?attr/signal_text_primary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/boost_4" />
+@@ -136,7 +136,7 @@
+         android:layout_height="wrap_content"
+         android:textAlignment="center"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorError"
++        android:textColor="?attr/colorError"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+diff --git a/app/src/main/res/layout/call_log_adapter_item.xml b/app/src/main/res/layout/call_log_adapter_item.xml
+index 7c227f40a49615d2ba77951da924b20b196ad8d9..846dfddfb70c98eb293d27c01b22679607fec2ee 100644
+--- a/app/src/main/res/layout/call_log_adapter_item.xml
++++ b/app/src/main/res/layout/call_log_adapter_item.xml
+@@ -77,7 +77,7 @@
+         android:maxLines="2"
+         android:textAlignment="viewStart"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="@+id/call_recipient_avatar"
+         app:layout_constraintEnd_toStartOf="@id/call_status_barrier"
+         app:layout_constraintHorizontal_bias="0"
+@@ -104,7 +104,7 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:visibility="visible" />
+ 
+     <com.google.android.material.button.MaterialButton
+@@ -112,13 +112,13 @@
+         style="@style/Signal.Widget.Button.Small.Primary"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:backgroundTint="@color/signal_colorPrimary"
+-        android:textColor="@color/signal_colorOnPrimary"
++        android:backgroundTint="?attr/colorPrimary"
++        android:textColor="?attr/colorOnPrimary"
+         android:visibility="gone"
+         app:icon="@drawable/symbol_video_fill_24"
+         app:iconPadding="4dp"
+         app:iconSize="20dp"
+-        app:iconTint="@color/signal_colorOnPrimary"
++        app:iconTint="?attr/colorOnPrimary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/call_log_create_call_link_item.xml b/app/src/main/res/layout/call_log_create_call_link_item.xml
+index 09a15ff023d34be50e9fa60c506fa403de26130e..c4e2be7a63520402afaec9389e34f2ac8cc53b7d 100644
+--- a/app/src/main/res/layout/call_log_create_call_link_item.xml
++++ b/app/src/main/res/layout/call_log_create_call_link_item.xml
+@@ -13,14 +13,14 @@
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_marginStart="12dp"
+-        android:background="@color/signal_colorSecondaryContainer"
++        android:background="?attr/colorSecondaryContainer"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/symbol_link_24"
+-        app:tint="@color/signal_colorOnPrimaryContainer" />
++        app:tint="?attr/colorOnPrimaryContainer" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+         android:id="@+id/call_link_title"
+@@ -52,7 +52,7 @@
+         android:text="@string/CreateCallLink__share_a_link_for"
+         android:textAlignment="viewStart"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="@+id/call_link_icon"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+diff --git a/app/src/main/res/layout/call_log_fragment.xml b/app/src/main/res/layout/call_log_fragment.xml
+index 1ee2d98d19dab1b8466175c48e80deb998ce2e47..e0dc62b4225fe792394d0948d15ba92f52d6f8d2 100644
+--- a/app/src/main/res/layout/call_log_fragment.xml
++++ b/app/src/main/res/layout/call_log_fragment.xml
+@@ -23,7 +23,7 @@
+                 android:id="@+id/pull_view"
+                 android:layout_width="match_parent"
+                 android:layout_height="130dp"
+-                android:background="@color/signal_colorBackground"
++                android:background="?attr/colorSurface"
+                 app:layout_scrollInterpolator="@android:anim/linear_interpolator" />
+ 
+         </com.google.android.material.appbar.CollapsingToolbarLayout>
+@@ -34,7 +34,7 @@
+         android:id="@+id/recycler"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:background="@color/signal_colorBackground"
++        android:background="?attr/colorSurface"
+         android:clipToPadding="false"
+         android:paddingBottom="80dp"
+         android:scrollbars="vertical"
+diff --git a/app/src/main/res/layout/callee_must_accept_message_request_dialog_fragment.xml b/app/src/main/res/layout/callee_must_accept_message_request_dialog_fragment.xml
+index c5a5b8e8a49630749a7c3f5c2568998120b5ec11..e13d43dce85242575783988a37958333da007a36 100644
+--- a/app/src/main/res/layout/callee_must_accept_message_request_dialog_fragment.xml
++++ b/app/src/main/res/layout/callee_must_accept_message_request_dialog_fragment.xml
+@@ -22,7 +22,7 @@
+         android:gravity="center"
+         android:paddingStart="20dp"
+         android:paddingEnd="20dp"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:textSize="16sp"
+         app:lineHeight="22sp"
+         tools:text="+1234567890 will get a message request from you. You can call once your message request is accepted." />
+diff --git a/app/src/main/res/layout/cds_permanent_error_bottom_sheet.xml b/app/src/main/res/layout/cds_permanent_error_bottom_sheet.xml
+index 146d1f9b15091e959937644834e1ef5b1bafb518..06ecc73bf73df38252e8af3e7b7ae0ca21a14626 100644
+--- a/app/src/main/res/layout/cds_permanent_error_bottom_sheet.xml
++++ b/app/src/main/res/layout/cds_permanent_error_bottom_sheet.xml
+@@ -45,7 +45,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="16dp"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:text="@string/CdsPermanentErrorBottomSheet_body" />
+ 
+         <com.google.android.material.button.MaterialButton
+diff --git a/app/src/main/res/layout/cds_temporary_error_bottom_sheet.xml b/app/src/main/res/layout/cds_temporary_error_bottom_sheet.xml
+index c1e4f86d21a038b5645626feb5b1ebbc83d4531c..d21d4f7c2f1081bc678216b6244160405789b363 100644
+--- a/app/src/main/res/layout/cds_temporary_error_bottom_sheet.xml
++++ b/app/src/main/res/layout/cds_temporary_error_bottom_sheet.xml
+@@ -45,7 +45,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="16dp"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             tools:text="@plurals/CdsTemporaryErrorBottomSheet_body1" />
+ 
+         <TextView
+@@ -53,7 +53,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="16dp"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:text="@string/CdsTemporaryErrorBottomSheet_body2" />
+ 
+         <com.google.android.material.button.MaterialButton
+diff --git a/app/src/main/res/layout/change_passphrase_activity.xml b/app/src/main/res/layout/change_passphrase_activity.xml
+deleted file mode 100644
+index e8f6349deacd32d40154c5ac8ea5470b0f7e5d70..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/change_passphrase_activity.xml
++++ /dev/null
+@@ -1,85 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-
+-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-            android:layout_width="fill_parent"
+-            android:layout_height="fill_parent"
+-            android:fillViewport="true">
+-
+-    <FrameLayout android:layout_width="fill_parent"
+-                 android:layout_height="wrap_content"
+-                 android:gravity="center">
+-        
+-        <LinearLayout android:paddingEnd="16dip"
+-                      android:paddingStart="16dip"
+-                      android:paddingTop="10dip"
+-                      android:layout_width="fill_parent"
+-                      android:layout_height="wrap_content"
+-                      android:layout_gravity="center"
+-                      android:visibility="visible"
+-                      android:orientation="vertical">
+-                
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <EditText android:id="@+id/old_passphrase"
+-                          android:layout_width="match_parent"
+-                          android:layout_height="wrap_content"
+-                          android:inputType="textPassword"
+-                          android:layout_marginBottom="10dip"
+-                          android:hint="@string/change_passphrase_activity__old_passphrase"
+-                          android:singleLine="true"/>
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <EditText android:id="@+id/new_passphrase"
+-                          android:layout_width="fill_parent"
+-                          android:layout_height="wrap_content"
+-                          android:inputType="textPassword"
+-                          android:hint="@string/change_passphrase_activity__new_passphrase"
+-                          android:singleLine="true"/>
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <com.google.android.material.textfield.TextInputLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-
+-                <EditText android:id="@+id/repeat_passphrase"
+-                          android:layout_width="fill_parent"
+-                          android:layout_height="wrap_content"
+-                          android:inputType="textPassword"
+-                          android:hint="@string/change_passphrase_activity__repeat_new_passphrase"
+-                          android:singleLine="true" />
+-
+-            </com.google.android.material.textfield.TextInputLayout>
+-
+-            <LinearLayout android:orientation="horizontal"
+-                          android:layout_width="fill_parent"
+-                          android:layout_height="wrap_content"
+-                          android:layout_marginTop="30dp">
+-
+-                <Button android:id="@+id/cancel_button"
+-                        android:text="@android:string/cancel"
+-                        android:layout_weight="1"
+-                        android:layout_width="0dp"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginEnd="7dp"
+-                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+-                
+-                <Button android:id="@+id/ok_button"
+-                        android:text="@android:string/ok"
+-                        android:layout_weight="1"
+-                        android:layout_width="0dp"
+-                        android:layout_height="wrap_content"
+-                        android:textAppearance="?android:attr/textAppearanceMedium"/>                
+-            </LinearLayout>                        
+-        </LinearLayout>
+-    </FrameLayout>
+-</ScrollView>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/change_passphrase_dialog_view.xml b/app/src/main/res/layout/change_passphrase_dialog_view.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f9fccef1b6ad69028fd2d5fe527f9a17ffc5bc7f
+--- /dev/null
++++ b/app/src/main/res/layout/change_passphrase_dialog_view.xml
+@@ -0,0 +1,96 @@
++<?xml version="1.0" encoding="utf-8"?>
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:importantForAutofill="noExcludeDescendants"
++    android:orientation="vertical"
++    android:padding="15dp"
++    android:paddingStart="25dp"
++    android:paddingEnd="25dp">
++
++    <LinearLayout
++        android:id="@+id/content_container"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:focusableInTouchMode="true"
++        android:orientation="vertical">
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/passphrase_layout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            app:errorEnabled="true"
++            app:passwordToggleEnabled="true">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/passphrase_input"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/change_passphrase_activity__old_passphrase"
++                android:imeOptions="actionNext"
++                android:inputType="textPassword" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/new_passphrase_layout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="8dp"
++            app:passwordToggleEnabled="true">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/new_passphrase_input"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/change_passphrase_activity__new_passphrase"
++                android:imeOptions="actionNext"
++                android:inputType="textPassword" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:id="@+id/repeat_passphrase_layout"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="15dp"
++            app:passwordToggleEnabled="true">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/repeat_passphrase_input"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:hint="@string/change_passphrase_activity__repeat_new_passphrase"
++                android:imeOptions="actionDone"
++                android:inputType="textPassword" />
++        </com.google.android.material.textfield.TextInputLayout>
++    </LinearLayout>
++
++    <LinearLayout
++        android:id="@+id/progress_container"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="5dp"
++        android:gravity="center_vertical"
++        android:orientation="horizontal"
++        android:visibility="gone"
++        tools:visibility="visible">
++
++        <ProgressBar
++            android:id="@+id/progress_bar"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginEnd="10dp"
++            android:indeterminate="true" />
++
++        <TextView
++            android:id="@+id/progress_text"
++            android:layout_width="0dp"
++            android:layout_height="wrap_content"
++            android:layout_weight="1"
++            android:padding="10dp"
++            android:text="@string/ChangePassphraseDialogFragment_generating_keys_this_may_take_a_while" />
++    </LinearLayout>
++
++</LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/chat_color_custom_adapter_item.xml b/app/src/main/res/layout/chat_color_custom_adapter_item.xml
+index ff7c1073f88f12b22166b78425a8c0ffc45ea865..c4f82805220afc3bb7c2eb75bad105ffe2912f0c 100644
+--- a/app/src/main/res/layout/chat_color_custom_adapter_item.xml
++++ b/app/src/main/res/layout/chat_color_custom_adapter_item.xml
+@@ -16,7 +16,7 @@
+         android:cropToPadding="true"
+         android:padding="16dp"
+         android:contentDescription="@string/ChatColorSelectionFragment__use_custom_colors"
+-        app:backgroundTint="@color/signal_background_secondary"
++        app:backgroundTint="?attr/signal_background_secondary"
+         app:srcCompat="@drawable/ic_plus_24"
+-        app:tint="@color/signal_icon_tint_primary" />
++        app:tint="?attr/signal_icon_tint_primary" />
+ </FrameLayout>
+diff --git a/app/src/main/res/layout/chat_color_selection_adapter_item.xml b/app/src/main/res/layout/chat_color_selection_adapter_item.xml
+index 002ee9c088b0038e9f218c8d11988a1e2bff648b..db896455febba782dcd74eaf5ba890ad91cfd251 100644
+--- a/app/src/main/res/layout/chat_color_selection_adapter_item.xml
++++ b/app/src/main/res/layout/chat_color_selection_adapter_item.xml
+@@ -16,7 +16,7 @@
+         android:cropToPadding="true"
+         android:padding="6dp"
+         android:src="@drawable/circle_tintable"
+-        tools:tint="@color/signal_accent_primary" />
++        tools:tint="?attr/signal_accent_primary" />
+ 
+     <TextView
+         android:id="@+id/auto"
+diff --git a/app/src/main/res/layout/chat_colors_fragment_context_menu.xml b/app/src/main/res/layout/chat_colors_fragment_context_menu.xml
+index 60b6f7c27d34d7f4d6e2650819f62d45de25bf65..bfa5019cb7f217fa516ebccd24a20bfbb36ffd12 100644
+--- a/app/src/main/res/layout/chat_colors_fragment_context_menu.xml
++++ b/app/src/main/res/layout/chat_colors_fragment_context_menu.xml
+@@ -16,7 +16,7 @@
+         android:minHeight="48dp"
+         android:text="@string/ChatColorSelectionFragment__edit"
+         app:drawableEndCompat="@drawable/symbol_edit_24"
+-        app:drawableTint="@color/signal_icon_tint_primary" />
++        app:drawableTint="?attr/signal_icon_tint_primary" />
+ 
+     <androidx.appcompat.widget.AppCompatTextView
+         android:id="@+id/context_menu_duplicate"
+@@ -26,7 +26,7 @@
+         android:minHeight="48dp"
+         android:text="@string/ChatColorSelectionFragment__duplicate"
+         app:drawableEndCompat="@drawable/symbol_copy_android_24"
+-        app:drawableTint="@color/signal_icon_tint_primary" />
++        app:drawableTint="?attr/signal_icon_tint_primary" />
+ 
+     <androidx.appcompat.widget.AppCompatTextView
+         android:id="@+id/context_menu_delete"
+@@ -36,5 +36,5 @@
+         android:minHeight="48dp"
+         android:text="@string/ChatColorSelectionFragment__delete"
+         app:drawableEndCompat="@drawable/symbol_trash_24"
+-        app:drawableTint="@color/signal_icon_tint_primary" />
++        app:drawableTint="?attr/signal_icon_tint_primary" />
+ </LinearLayout>
+diff --git a/app/src/main/res/layout/chat_colors_preview_view.xml b/app/src/main/res/layout/chat_colors_preview_view.xml
+index e5fe51b5f97c62290c8a00f10cf64d246a4db0f6..5f98d293718358af531d56f078f908ee4721be0a 100644
+--- a/app/src/main/res/layout/chat_colors_preview_view.xml
++++ b/app/src/main/res/layout/chat_colors_preview_view.xml
+@@ -64,7 +64,7 @@
+             android:paddingTop="7dp"
+             android:paddingEnd="12dp"
+             android:paddingBottom="7dp"
+-            tools:backgroundTint="@color/signal_background_primary">
++            tools:backgroundTint="?attr/signal_background_primary">
+ 
+             <TextView
+                 android:id="@+id/bubble_1_text"
+@@ -100,7 +100,7 @@
+             android:paddingTop="7dp"
+             android:paddingEnd="12dp"
+             android:paddingBottom="7dp"
+-            tools:backgroundTint="@color/signal_accent_primary">
++            tools:backgroundTint="?attr/signal_accent_primary">
+ 
+             <TextView
+                 android:id="@+id/bubble_2_text"
+@@ -146,7 +146,7 @@
+             android:paddingTop="7dp"
+             android:paddingEnd="12dp"
+             android:paddingBottom="7dp"
+-            tools:backgroundTint="@color/signal_background_primary">
++            tools:backgroundTint="?attr/signal_background_primary">
+ 
+             <TextView
+                 android:id="@+id/bubble_3_text"
+@@ -182,7 +182,7 @@
+             android:paddingEnd="12dp"
+             android:paddingBottom="7dp"
+             android:textColor="@color/core_white"
+-            tools:backgroundTint="@color/signal_accent_primary">
++            tools:backgroundTint="?attr/signal_accent_primary">
+ 
+             <TextView
+                 android:id="@+id/bubble_4_text"
+diff --git a/app/src/main/res/layout/chat_folder_item.xml b/app/src/main/res/layout/chat_folder_item.xml
+index 8ea0f551caf7a5aebe983443fdc0e5eed9d0da46..5a74faf4e5e5922c0e77647ec76bb62cfb6e3d8c 100644
+--- a/app/src/main/res/layout/chat_folder_item.xml
++++ b/app/src/main/res/layout/chat_folder_item.xml
+@@ -9,7 +9,7 @@
+     android:paddingHorizontal="16dp"
+     android:layout_marginVertical="8dp"
+     android:layout_marginEnd="16dp"
+-    android:backgroundTint="@color/signal_colorSurfaceVariant"
++    android:backgroundTint="?attr/colorSurfaceVariant"
+     android:background="@drawable/rounded_rectangle_surface_variant" >
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -31,7 +31,7 @@
+         android:gravity="center"
+         android:paddingHorizontal="4dp"
+         android:paddingVertical="2dp"
+-        android:textColor="@color/signal_colorBackground"
++        android:textColor="?attr/colorSurface"
+         tools:text="4" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/chat_wallpaper_crop_activity.xml b/app/src/main/res/layout/chat_wallpaper_crop_activity.xml
+index 312a6b4f3cb63d5a8f035607683258297f2dccce..f9ef56354c7ed890d7f4d4191a3de515fd796c58 100644
+--- a/app/src/main/res/layout/chat_wallpaper_crop_activity.xml
++++ b/app/src/main/res/layout/chat_wallpaper_crop_activity.xml
+@@ -24,7 +24,7 @@
+         android:id="@+id/image_editor"
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+-        app:imageEditorView_blackoutColor="@color/signal_colorBackground"
++        app:imageEditorView_blackoutColor="?attr/colorSurface"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -56,7 +56,7 @@
+         android:paddingBottom="4dp"
+         android:text="@string/DateUtils_today"
+         android:textAppearance="@style/TextAppearance.Signal.Subtitle"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/toolbar" />
+@@ -85,7 +85,7 @@
+             android:layout_height="wrap_content"
+             android:text="@string/WallpaperCropActivity__pinch_to_zoom_drag_to_adjust"
+             android:textAppearance="@style/Signal.Text.Body"
+-            android:textColor="@color/signal_text_primary" />
++            android:textColor="?attr/signal_text_primary" />
+ 
+         <TextView
+             android:layout_width="wrap_content"
+@@ -155,7 +155,7 @@
+         android:paddingEnd="6dp"
+         android:paddingBottom="6dp"
+         android:text="@string/WallpaperCropActivity__blur_photo"
+-        android:textColor="@color/signal_button_primary"
++        android:textColor="?attr/signal_button_primary"
+         app:layout_constraintBottom_toTopOf="@+id/preview_guideline"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/chat_wallpaper_fragment.xml b/app/src/main/res/layout/chat_wallpaper_fragment.xml
+index 30be2348334d6bdf8e6004ec5158a4faff6f259a..acc13965094bf749c7a3396951d364756d113001 100644
+--- a/app/src/main/res/layout/chat_wallpaper_fragment.xml
++++ b/app/src/main/res/layout/chat_wallpaper_fragment.xml
+@@ -22,7 +22,7 @@
+                 android:id="@+id/chat_wallpaper_preview_lightbox"
+                 android:layout_width="0dp"
+                 android:layout_height="0dp"
+-                android:background="@color/signal_background_tertiary"
++                android:background="@color/settings_chat_wallpaper_preview_background"
+                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_space"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+@@ -34,7 +34,7 @@
+                 android:layout_height="288dp"
+                 android:layout_marginTop="16dp"
+                 android:layout_marginBottom="16dp"
+-                android:background="@color/signal_background_primary"
++                android:background="?attr/signal_background_primary"
+                 android:contentDescription="@string/ChatWallpaperFragment__wallpaper_preview_description"
+                 android:scaleType="fitXY"
+                 app:layout_constraintEnd_toEndOf="parent"
+@@ -105,7 +105,7 @@
+                 android:maxLines="1"
+                 android:text="@string/ChatWallpaperFragment__contact_name"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 android:textSize="8sp"
+                 android:ellipsize="end"
+                 app:layout_constraintTop_toTopOf="@id/chat_wallpaper_preview_top_bar_portrait"
+@@ -123,7 +123,7 @@
+                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
+                 app:layout_constraintEnd_toStartOf="@id/chat_wallpaper_preview_top_bar_voice"
+                 app:srcCompat="@drawable/ic_video_call_24"
+-                app:tint="@color/signal_icon_tint_primary" />
++                app:tint="?attr/signal_icon_tint_primary" />
+ 
+             <androidx.appcompat.widget.AppCompatImageView
+                 android:id="@+id/chat_wallpaper_preview_top_bar_voice"
+@@ -134,7 +134,7 @@
+                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
+                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_top_bar"
+                 app:srcCompat="@drawable/ic_phone_right_24"
+-                app:tint="@color/signal_icon_tint_primary" />
++                app:tint="?attr/signal_icon_tint_primary" />
+ 
+             <View
+                 android:id="@+id/chat_wallpaper_preview_bottom_bar"
+@@ -170,7 +170,7 @@
+                 android:layout_marginEnd="8dp"
+                 android:background="@drawable/circle_tintable"
+                 android:padding="2dp"
+-                app:backgroundTint="@color/signal_accent_primary"
++                app:backgroundTint="?attr/signal_accent_primary"
+                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_bottom_bar"
+                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_bottom_bar"
+                 app:layout_constraintStart_toEndOf="@id/chat_wallpaper_preview_bottom_bar_input"
+@@ -230,7 +230,7 @@
+                 android:paddingEnd="16dp"
+                 android:text="@string/ChatWallpaperFragment__chat_color"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_preview_lightbox" />
+@@ -246,7 +246,7 @@
+                 android:paddingEnd="16dp"
+                 android:text="@string/ChatWallpaperFragment__reset_chat_colors"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_chat_color" />
+@@ -274,7 +274,7 @@
+                 android:paddingEnd="16dp"
+                 android:text="@string/ChatWallpaperFragment__set_wallpaper"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_divider" />
+@@ -290,7 +290,7 @@
+                 android:paddingEnd="16dp"
+                 android:text="@string/ChatWallpaperFragment__dark_mode_dims_wallpaper"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_wallpaper" />
+@@ -306,7 +306,7 @@
+                 android:paddingEnd="16dp"
+                 android:text="@string/ChatWallpaperFragment__reset_wallpapers"
+                 android:textAppearance="@style/Signal.Text.Body"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_dark_theme_dims_wallpaper" />
+diff --git a/app/src/main/res/layout/chat_wallpaper_preview_activity.xml b/app/src/main/res/layout/chat_wallpaper_preview_activity.xml
+index 7910af78adeb5ab1b882e5f0070bcc25ad61188c..62fd689b9faff1fdc888377880785f2e8ef4dbc0 100644
+--- a/app/src/main/res/layout/chat_wallpaper_preview_activity.xml
++++ b/app/src/main/res/layout/chat_wallpaper_preview_activity.xml
+@@ -28,7 +28,7 @@
+         android:id="@+id/toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@id/status_bar_guideline"
+         app:navigationIcon="@drawable/symbol_arrow_start_24"
+@@ -46,7 +46,7 @@
+         android:paddingBottom="4dp"
+         android:text="@string/DateUtils_today"
+         android:textAppearance="@style/TextAppearance.Signal.Subtitle"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/toolbar" />
+@@ -75,14 +75,14 @@
+             android:layout_height="wrap_content"
+             android:text="@string/ChatWallpaperPreviewActivity__swipe_to_preview_more_wallpapers"
+             android:textAppearance="@style/Signal.Text.Body"
+-            android:textColor="@color/signal_text_primary" />
++            android:textColor="?attr/signal_text_primary" />
+ 
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/DateUtils_just_now"
+             android:textAppearance="@style/Signal.Text.Caption"
+-            android:textColor="@color/signal_text_secondary" />
++            android:textColor="?attr/signal_text_secondary" />
+ 
+     </LinearLayout>
+ 
+@@ -129,7 +129,7 @@
+         android:id="@+id/preview_guideline"
+         android:layout_width="match_parent"
+         android:layout_height="60dp"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:orientation="horizontal"
+         app:layout_constraintBottom_toBottomOf="@id/navigation_bar_guideline" />
+ 
+diff --git a/app/src/main/res/layout/chat_wallpaper_selection_fragment.xml b/app/src/main/res/layout/chat_wallpaper_selection_fragment.xml
+index 7966c5c0be3d75a9aaaa82f2c0857b53cccf7420..947249a8380ffe4b4c8a9b8ec1bfb65eddcf1888 100644
+--- a/app/src/main/res/layout/chat_wallpaper_selection_fragment.xml
++++ b/app/src/main/res/layout/chat_wallpaper_selection_fragment.xml
+@@ -26,9 +26,9 @@
+             android:paddingEnd="@dimen/dsl_settings_gutter"
+             android:text="@string/ChatWallpaperSelectionFragment__choose_from_photos"
+             android:textAppearance="@style/Signal.Text.Body"
+-            android:textColor="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
+             app:drawableStartCompat="@drawable/ic_gallery_outline_24"
+-            app:drawableTint="@color/signal_icon_tint_primary"
++            app:drawableTint="?attr/signal_icon_tint_primary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
+diff --git a/app/src/main/res/layout/choose_initial_my_story_membership_fragment.xml b/app/src/main/res/layout/choose_initial_my_story_membership_fragment.xml
+index ce2b826e011102bd8d6b91f353b8a59d7ce9f673..65696dcacd4aad3a362d7a5ee49d1431c399a25c 100644
+--- a/app/src/main/res/layout/choose_initial_my_story_membership_fragment.xml
++++ b/app/src/main/res/layout/choose_initial_my_story_membership_fragment.xml
+@@ -18,7 +18,7 @@
+             android:layout_height="2dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="16dp"
+-            android:background="@color/signal_icon_tint_tab_unselected" />
++            android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+         <TextView
+             android:id="@+id/choose_initial_my_story_title"
+@@ -39,7 +39,7 @@
+             android:layout_marginTop="24dp"
+             android:gravity="center_horizontal"
+             android:text="@string/ChooseInitialMyStoryMembershipFragment__choose_who_can_see_posts_to_my_story_you_can_always_make_changes_in_settings"
+-            android:textColor="@color/signal_colorOnSurfaceVariant" />
++            android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+         <androidx.constraintlayout.widget.ConstraintLayout
+             android:id="@+id/choose_initial_my_story_all_signal_connnections_row"
+@@ -80,7 +80,7 @@
+                 style="@style/Signal.Text.BodyMedium"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 android:visibility="gone"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_all_signal_connnections_message"
+@@ -139,7 +139,7 @@
+                 style="@style/Signal.Text.BodyMedium"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 android:visibility="gone"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_all_signal_connnections_except_message"
+@@ -188,7 +188,7 @@
+                 style="@style/Signal.Text.BodyMedium"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 android:visibility="gone"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="@+id/choose_initial_my_story_only_share_with_message"
+diff --git a/app/src/main/res/layout/choose_navigation_bar_style_fragment.xml b/app/src/main/res/layout/choose_navigation_bar_style_fragment.xml
+index 98dd162517df4e92cecec3feb941cdb3f06165a4..72e5fb07730b017fc3179a5f14ae94b512a2927c 100644
+--- a/app/src/main/res/layout/choose_navigation_bar_style_fragment.xml
++++ b/app/src/main/res/layout/choose_navigation_bar_style_fragment.xml
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    app:cardBackgroundColor="@color/signal_colorSurface2"
++    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+     app:cardCornerRadius="28dp"
+     app:cardElevation="0dp">
+ 
+@@ -16,7 +16,7 @@
+             android:id="@+id/image"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:background="@color/signal_colorBackground"
++            android:background="?attr/colorSurface"
+             android:importantForAccessibility="no"
+             android:paddingHorizontal="@dimen/gutter"
+             android:paddingBottom="16dp"
+@@ -62,10 +62,10 @@
+                 android:layout_weight="1"
+                 android:text="@string/ChooseNavigationBarStyleFragment__normal"
+                 android:textAllCaps="false"
+-                android:textColor="@color/signal_colorOnSecondaryContainer"
++                android:textColor="?attr/colorOnSecondaryContainer"
+                 app:cornerRadius="12dp"
+                 app:iconGravity="textStart"
+-                app:iconTint="@color/signal_colorOnSecondaryContainer"
++                app:iconTint="?attr/colorOnSecondaryContainer"
+                 app:strokeWidth="1dp"
+                 tools:icon="@drawable/ic_check_20" />
+ 
+@@ -77,10 +77,10 @@
+                 android:layout_weight="1"
+                 android:text="@string/ChooseNavigationBarStyleFragment__compact"
+                 android:textAllCaps="false"
+-                android:textColor="@color/signal_colorOnSecondaryContainer"
++                android:textColor="?attr/colorOnSecondaryContainer"
+                 app:cornerRadius="12dp"
+                 app:iconGravity="textStart"
+-                app:iconTint="@color/signal_colorOnSecondaryContainer"
++                app:iconTint="?attr/colorOnSecondaryContainer"
+                 app:strokeWidth="1dp" />
+         </com.google.android.material.button.MaterialButtonToggleGroup>
+ 
+diff --git a/app/src/main/res/layout/choose_new_admin_activity.xml b/app/src/main/res/layout/choose_new_admin_activity.xml
+index 71b07ee2274f43d05058a5a486361432e61fc6d8..d8fa7c4647fe5cb94facc29766f9c4db0743c811 100644
+--- a/app/src/main/res/layout/choose_new_admin_activity.xml
++++ b/app/src/main/res/layout/choose_new_admin_activity.xml
+@@ -20,7 +20,7 @@
+             android:layout_height="?actionBarSize"
+             android:background="@android:color/transparent"
+             app:title="@string/ChooseNewAdminActivity_choose_new_admin"
+-            app:titleTextColor="@color/signal_text_primary" />
++            app:titleTextColor="?attr/signal_text_primary" />
+ 
+     </com.google.android.material.appbar.AppBarLayout>
+ 
+diff --git a/app/src/main/res/layout/client_deprecated_activity.xml b/app/src/main/res/layout/client_deprecated_activity.xml
+index 0411a8d85dcd8049c7cfad009ca8bccb7701a4bd..5d7fd2aa7ca1a5a8aac9c817f4a6ededb9aadf14 100644
+--- a/app/src/main/res/layout/client_deprecated_activity.xml
++++ b/app/src/main/res/layout/client_deprecated_activity.xml
+@@ -24,13 +24,14 @@
+     <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        app:srcCompat="@drawable/ic_signal_logo_large" />
++        app:srcCompat="@drawable/logo_round_filled" />
+ 
+     <TextView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="27dp"
+         android:text="@string/ClientDeprecatedActivity_update_signal"
++        android:textColor="?attr/colorOnBackground"
+         style="@style/Signal.Text.Headline"
+         android:textStyle="bold"
+         android:gravity="center" />
+@@ -40,6 +41,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginTop="12dp"
+         android:text="@string/ClientDeprecatedActivity_this_version_of_the_app_is_no_longer_supported"
++        android:textColor="?attr/colorOnBackground"
+         style="@style/Signal.Text.Body"
+         android:gravity="center" />
+ 
+@@ -59,7 +61,6 @@
+       android:layout_height="wrap_content"
+       android:text="@string/ClientDeprecatedActivity_dont_update"
+       style="@style/Signal.Widget.Button.Large.Secondary"
+-      android:textColor="@color/low_priority_button_text_color"
+       app:layout_constraintBottom_toBottomOf="parent"/>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/confirm_payment_line_item.xml b/app/src/main/res/layout/confirm_payment_line_item.xml
+index abf49706b602c4197be0b339580d350f557590c9..b84181a7fecebaa42e7ad2ff3db4157995e9f03e 100644
+--- a/app/src/main/res/layout/confirm_payment_line_item.xml
++++ b/app/src/main/res/layout/confirm_payment_line_item.xml
+@@ -27,7 +27,7 @@
+         android:layout_weight="1"
+         android:textAlignment="viewEnd"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         tools:text="200MOB" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/confirm_payment_status.xml b/app/src/main/res/layout/confirm_payment_status.xml
+index db7e0bd71adec60cddc77000ea809998f778f175..a566f32a5bb538dd14b04397e41d5aebb06b36d3 100644
+--- a/app/src/main/res/layout/confirm_payment_status.xml
++++ b/app/src/main/res/layout/confirm_payment_status.xml
+@@ -65,7 +65,7 @@
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         tools:text="Balance: 520 MOB" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/contact_filter_view.xml b/app/src/main/res/layout/contact_filter_view.xml
+index 23d5749be8d02faff1f81a27e6b9f5aafc33be09..800f6117e75c05a514708ccf35f75f4aee33b3f7 100644
+--- a/app/src/main/res/layout/contact_filter_view.xml
++++ b/app/src/main/res/layout/contact_filter_view.xml
+@@ -33,7 +33,6 @@
+                 android:inputType="textPersonName"
+                 android:lineSpacingExtra="6sp"
+                 android:textAppearance="@style/TextSecure.TitleTextStyle"
+-                android:textColorHint="@color/signal_colorOnSurfaceVariant"
+                 android:textCursorDrawable="@drawable/search_cursor" />
+ 
+             <org.thoughtcrime.securesms.components.AnimatingToggle
+@@ -51,7 +50,7 @@
+                     android:clickable="true"
+                     android:contentDescription="@string/contact_filter_toolbar__show_dial_pad_description"
+                     android:focusable="true"
+-                    android:tint="@color/signal_icon_tint_primary"
++                    android:tint="?attr/signal_icon_tint_primary"
+                     app:srcCompat="@drawable/ic_number_pad_conversation_filter_24" />
+ 
+                 <androidx.appcompat.widget.AppCompatImageView
+@@ -63,7 +62,7 @@
+                     android:clickable="true"
+                     android:contentDescription="@string/contact_filter_toolbar__show_keyboard_description"
+                     android:focusable="true"
+-                    android:tint="@color/signal_icon_tint_primary"
++                    android:tint="?attr/signal_icon_tint_primary"
+                     android:visibility="gone"
+                     app:srcCompat="@drawable/ic_keyboard_24" />
+ 
+diff --git a/app/src/main/res/layout/contact_photo_preview_activity.xml b/app/src/main/res/layout/contact_photo_preview_activity.xml
+index 752aac4be378576358b385d368bc971ac84f5959..8af1f644e4e5465d60af3dff0927b50da722c4c6 100644
+--- a/app/src/main/res/layout/contact_photo_preview_activity.xml
++++ b/app/src/main/res/layout/contact_photo_preview_activity.xml
+@@ -4,8 +4,7 @@
+     tools:viewBindingIgnore="true"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@color/core_grey_95">
++    android:layout_height="match_parent">
+ 
+     <com.github.chrisbanes.photoview.PhotoView
+         android:id="@+id/avatar"
+diff --git a/app/src/main/res/layout/contact_search_chat_type_item.xml b/app/src/main/res/layout/contact_search_chat_type_item.xml
+index 5a1b8d25be7895c1a1a34db2f2b18516cd8e8f5d..c4ed689475b0b32adbc5c290d47e83b781462e97 100644
+--- a/app/src/main/res/layout/contact_search_chat_type_item.xml
++++ b/app/src/main/res/layout/contact_search_chat_type_item.xml
+@@ -16,8 +16,8 @@
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:background="@drawable/color_indicator_circle"
+-        android:backgroundTint="@color/signal_colorSurfaceVariant"
+-        app:tint="@color/signal_colorOnSurface"
++        android:backgroundTint="?attr/colorSurfaceVariant"
++        app:tint="?attr/colorOnSurface"
+         android:scaleType="center"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -33,7 +33,7 @@
+         android:drawablePadding="4dp"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintEnd_toStartOf="@id/check_box"
+         app:layout_constraintStart_toEndOf="@id/image"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/contact_search_item.xml b/app/src/main/res/layout/contact_search_item.xml
+index a191b3da6f5e3a32fb6df9153856949fc091055c..c48edffb9680902c7c5e2fdbd1fa405d7143fbe5 100644
+--- a/app/src/main/res/layout/contact_search_item.xml
++++ b/app/src/main/res/layout/contact_search_item.xml
+@@ -59,14 +59,14 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintBottom_toTopOf="@id/number"
+         app:layout_constraintEnd_toStartOf="@id/button_barrier"
+         app:layout_constraintStart_toEndOf="@id/contact_photo_image"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintVertical_chainStyle="packed"
+         tools:drawableStart="@drawable/ic_bell_24"
+-        tools:drawableTint="@color/signal_icon_tint_secondary"
++        tools:drawableTint="?attr/signal_icon_tint_secondary"
+         tools:text="@sample/contacts.json/data/name" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -77,7 +77,7 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         android:textDirection="ltr"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -96,7 +96,7 @@
+         android:paddingStart="4dp"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="@id/name"
+         app:layout_constraintStart_toEndOf="@id/number"
+         app:layout_constraintTop_toTopOf="@id/number"
+@@ -123,7 +123,7 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:visibility="visible" />
+ 
+     <ImageView
+@@ -137,7 +137,7 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/start_video"
+         app:layout_constraintTop_toTopOf="parent"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:visibility="visible" />
+ 
+     <TextView
+diff --git a/app/src/main/res/layout/contact_search_section_header.xml b/app/src/main/res/layout/contact_search_section_header.xml
+index 642e9e202b88eb7f0d534c04b49012531e0a4295..96df809adb97b6b0080001503dd2b0f382096498 100644
+--- a/app/src/main/res/layout/contact_search_section_header.xml
++++ b/app/src/main/res/layout/contact_search_section_header.xml
+@@ -23,7 +23,7 @@
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/section_header_action"
+         style="@style/Signal.Widget.Button.Small.Secondary"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_vertical"
+diff --git a/app/src/main/res/layout/contact_search_story_item.xml b/app/src/main/res/layout/contact_search_story_item.xml
+index f27c8f14aefd926d14c35435074ba0f5f62203b6..86c86a407cf466c765a291f4e84c7f93c510db9f 100644
+--- a/app/src/main/res/layout/contact_search_story_item.xml
++++ b/app/src/main/res/layout/contact_search_story_item.xml
+@@ -74,14 +74,14 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintBottom_toTopOf="@id/number"
+         app:layout_constraintEnd_toStartOf="@id/check_box"
+         app:layout_constraintStart_toEndOf="@id/contact_photo_image"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintVertical_chainStyle="packed"
+         tools:drawableStart="@drawable/ic_bell_24"
+-        tools:drawableTint="@color/signal_icon_tint_secondary"
++        tools:drawableTint="?attr/signal_icon_tint_secondary"
+         tools:text="@sample/contacts.json/data/name" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -92,7 +92,7 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         android:textDirection="ltr"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+diff --git a/app/src/main/res/layout/contact_search_unknown_item.xml b/app/src/main/res/layout/contact_search_unknown_item.xml
+index 9feaa1f5c1097f8f5d90cc175d5f0d6d26fd08d6..06a305214cec1a11f7a4e1bef67f3c96421a1d93 100644
+--- a/app/src/main/res/layout/contact_search_unknown_item.xml
++++ b/app/src/main/res/layout/contact_search_unknown_item.xml
+@@ -23,7 +23,7 @@
+         android:layout_height="40dp"
+         android:layout_marginVertical="12dp"
+         android:layout_marginStart="@dimen/gutter"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         app:contentPadding="8dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -31,7 +31,7 @@
+         app:layout_constraintTop_toBottomOf="@id/contact_header"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/symbol_search_24"
+-        app:tint="@color/signal_colorOnSecondaryContainer"
++        app:tint="?attr/filled_tonal_icon_button_icon_color"
+         tools:ignore="UnusedAttribute" />
+ 
+     <androidx.appcompat.widget.AppCompatCheckBox
+@@ -58,7 +58,7 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintBottom_toTopOf="@id/number"
+         app:layout_constraintEnd_toStartOf="@id/check_box"
+         app:layout_constraintStart_toEndOf="@id/contact_photo_image"
+@@ -66,7 +66,7 @@
+         app:layout_constraintVertical_chainStyle="packed"
+         app:layout_goneMarginEnd="@dimen/gutter"
+         tools:drawableStart="@drawable/ic_bell_24"
+-        tools:drawableTint="@color/signal_icon_tint_secondary"
++        tools:drawableTint="?attr/signal_icon_tint_secondary"
+         tools:text="@sample/contacts.json/data/name" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -77,7 +77,7 @@
+         android:ellipsize="marquee"
+         android:singleLine="true"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         android:textDirection="ltr"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+diff --git a/app/src/main/res/layout/contact_selection_find_by_phone_number_item.xml b/app/src/main/res/layout/contact_selection_find_by_phone_number_item.xml
+index 1ec55382a946b6b4c46cf1d566438ba4bad0463d..0a7fe66318884599271e5ab471903822553dcea0 100644
+--- a/app/src/main/res/layout/contact_selection_find_by_phone_number_item.xml
++++ b/app/src/main/res/layout/contact_selection_find_by_phone_number_item.xml
+@@ -14,7 +14,7 @@
+         android:id="@+id/invite_image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         app:contentPadding="8dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -22,7 +22,7 @@
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/symbol_number_24"
+-        app:tint="@color/signal_colorOnSecondaryContainer" />
++        app:tint="?attr/filled_tonal_icon_button_icon_color" />
+ 
+     <TextView
+         android:id="@+id/invite_text"
+diff --git a/app/src/main/res/layout/contact_selection_find_by_username_item.xml b/app/src/main/res/layout/contact_selection_find_by_username_item.xml
+index 69e60f4e4f92bcdbd1fa2c1e3625b5c7c0b165a5..9b50c6ade78ce2ee0871c50db5597f466cd749b2 100644
+--- a/app/src/main/res/layout/contact_selection_find_by_username_item.xml
++++ b/app/src/main/res/layout/contact_selection_find_by_username_item.xml
+@@ -14,7 +14,7 @@
+         android:id="@+id/invite_image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         app:srcCompat="@drawable/symbol_at_24"
+         app:contentPadding="8dp"
+@@ -22,7 +22,7 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+-        app:tint="@color/signal_colorOnSecondaryContainer" />
++        app:tint="?attr/filled_tonal_icon_button_icon_color" />
+ 
+     <TextView
+         android:id="@+id/invite_text"
+diff --git a/app/src/main/res/layout/contact_selection_find_contacts_banner_item.xml b/app/src/main/res/layout/contact_selection_find_contacts_banner_item.xml
+index af3825ac33ed20506560355cdd695d4c0093bfa8..87d1222ffd28ddc6078548277990eee3242713d4 100644
+--- a/app/src/main/res/layout/contact_selection_find_contacts_banner_item.xml
++++ b/app/src/main/res/layout/contact_selection_find_contacts_banner_item.xml
+@@ -40,7 +40,7 @@
+         android:gravity="center"
+         android:text="@string/ContactSelectionListFragment__allow_access_to_your_contacts_encrypted"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.0"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/contact_selection_find_contacts_item.xml b/app/src/main/res/layout/contact_selection_find_contacts_item.xml
+index 2ddcf305d0924340fa6474e3ad305131b1ca8c45..348f16c4e056dc7a08fdc9108467431b04942e12 100644
+--- a/app/src/main/res/layout/contact_selection_find_contacts_item.xml
++++ b/app/src/main/res/layout/contact_selection_find_contacts_item.xml
+@@ -14,7 +14,7 @@
+         android:id="@+id/image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -22,7 +22,7 @@
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/symbol_person_circle_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/filled_tonal_icon_button_icon_color" />
+ 
+     <TextView
+         android:id="@+id/title"
+@@ -49,7 +49,7 @@
+         android:maxLines="2"
+         android:text="@string/contact_selection_activity__allow_access_to_contacts"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/image"
+diff --git a/app/src/main/res/layout/contact_selection_invite_action_item.xml b/app/src/main/res/layout/contact_selection_invite_action_item.xml
+index c5551da35398aaaa29c995e52dfebe20b11b28aa..cd0b5c00e16297dc66dd4bee9a9f6cf010fc9ed9 100644
+--- a/app/src/main/res/layout/contact_selection_invite_action_item.xml
++++ b/app/src/main/res/layout/contact_selection_invite_action_item.xml
+@@ -14,11 +14,11 @@
+         android:id="@+id/invite_image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+         android:src="@drawable/symbol_invite_24"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/filled_tonal_icon_button_icon_color"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/contact_selection_list_fragment.xml b/app/src/main/res/layout/contact_selection_list_fragment.xml
+index 03bff8762ad2d556d8ea84c6c7614efbd11f396f..891747bf2043984343b0231338a79c501ac4dca8 100644
+--- a/app/src/main/res/layout/contact_selection_list_fragment.xml
++++ b/app/src/main/res/layout/contact_selection_list_fragment.xml
+@@ -45,7 +45,7 @@
+         android:paddingEnd="@dimen/dsl_settings_gutter"
+         android:scrollbars="none"
+         android:visibility="gone"
+-        android:background="@color/signal_colorSurface"
++        android:background="?attr/colorSurfaceContainer"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+         app:layout_constraintTop_toTopOf="parent"
+         tools:listitem="@layout/contact_selection_list_chip"
+diff --git a/app/src/main/res/layout/contact_selection_new_group_item.xml b/app/src/main/res/layout/contact_selection_new_group_item.xml
+index 6bf2f25711fac3976448bf603eeaf26bdf3042fd..2c87976ddd325e94689d34a676d2c0888b4e3720 100644
+--- a/app/src/main/res/layout/contact_selection_new_group_item.xml
++++ b/app/src/main/res/layout/contact_selection_new_group_item.xml
+@@ -14,7 +14,7 @@
+         android:id="@+id/invite_image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         app:srcCompat="@drawable/symbol_group_24"
+         app:contentPadding="8dp"
+@@ -22,7 +22,7 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+-        app:tint="@color/signal_colorOnSecondaryContainer" />
++        app:tint="?attr/filled_tonal_icon_button_icon_color" />
+ 
+     <TextView
+         android:id="@+id/invite_text"
+diff --git a/app/src/main/res/layout/contact_selection_refresh_action_item.xml b/app/src/main/res/layout/contact_selection_refresh_action_item.xml
+index b110396c6e258320592428bca0949bd45e5e3365..25837ed798090a53912c274aced6927c90998874 100644
+--- a/app/src/main/res/layout/contact_selection_refresh_action_item.xml
++++ b/app/src/main/res/layout/contact_selection_refresh_action_item.xml
+@@ -14,7 +14,7 @@
+         android:id="@+id/image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/filled_tonal_icon_button_container_color"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -22,7 +22,7 @@
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/symbol_refresh_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/filled_tonal_icon_button_icon_color" />
+ 
+     <TextView
+         android:id="@+id/title"
+@@ -49,7 +49,7 @@
+         android:maxLines="2"
+         android:text="@string/contact_selection_activity__missing_someone"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/image"
+diff --git a/app/src/main/res/layout/contacts_expand_item.xml b/app/src/main/res/layout/contacts_expand_item.xml
+index f751c316f88937f47ec2e06ff4fed966f42fe78d..7fbac31318cf8e2ff7fcec23082135421b1da70a 100644
+--- a/app/src/main/res/layout/contacts_expand_item.xml
++++ b/app/src/main/res/layout/contacts_expand_item.xml
+@@ -12,7 +12,7 @@
+         android:id="@+id/image"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+-        android:background="@color/signal_button_secondary_ripple"
++        android:background="?attr/signal_button_secondary_ripple"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -20,7 +20,7 @@
+         app:layout_constraintTop_toTopOf="parent"
+         app:shapeAppearance="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/ic_chevron_down_20"
+-        app:tint="@color/signal_icon_tint_primary" />
++        app:tint="?attr/signal_icon_tint_primary" />
+ 
+     <TextView
+         android:layout_width="0dp"
+diff --git a/app/src/main/res/layout/conversation_activity_attachment_editor_stub.xml b/app/src/main/res/layout/conversation_activity_attachment_editor_stub.xml
+index ddb67e4a45ea3451af3c9dbcbc59802598783cd4..771bf87011c5407e010232701bb8f11080e6293e 100644
+--- a/app/src/main/res/layout/conversation_activity_attachment_editor_stub.xml
++++ b/app/src/main/res/layout/conversation_activity_attachment_editor_stub.xml
+@@ -43,8 +43,8 @@
+             android:paddingStart="12dp"
+             android:visibility="gone"
+             android:background="@drawable/rounded_rectangle_secondary_18"
+-            app:backgroundTintColor="@color/signal_colorSurface2"
+-            app:foregroundTintColor="@color/signal_colorOnSurfaceVariant"
++            app:backgroundTintColor="?attr/colorSurfaceContainer"
++            app:foregroundTintColor="?attr/colorOnSurfaceVariant"
+             app:progressAndPlayTint="@color/audio_play_pause_sent_background_tint"
+             app:waveformPlayedBarsColor="@color/audio_seek_bar_sent_played_color"
+             app:waveformThumbTint="@color/audio_seek_bar_sent_played_color"
+@@ -60,8 +60,8 @@
+             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
+             android:paddingBottom="8dp"
+             android:visibility="gone"
+-            app:doc_captionColor="@color/signal_text_secondary"
+-            app:doc_titleColor="@color/signal_text_primary" />
++            app:doc_captionColor="?attr/signal_text_secondary"
++            app:doc_titleColor="?attr/signal_text_primary" />
+ 
+     </org.thoughtcrime.securesms.components.RemovableEditableMediaView>
+ 
+diff --git a/app/src/main/res/layout/conversation_activity_logged_out_stub.xml b/app/src/main/res/layout/conversation_activity_logged_out_stub.xml
+index 33b10b3dd8becdf05e01f90268b2ec4a90a9aca9..c5bd00a1e25fca48391e89200c4c5b1f622d3323 100644
+--- a/app/src/main/res/layout/conversation_activity_logged_out_stub.xml
++++ b/app/src/main/res/layout/conversation_activity_logged_out_stub.xml
+@@ -13,7 +13,7 @@
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         tools:text="This device is no longer registered. Re-register to continue using Signal on this device." />
+ 
+     <com.google.android.material.button.MaterialButton
+diff --git a/app/src/main/res/layout/conversation_activity_scheduled_messages_stub.xml b/app/src/main/res/layout/conversation_activity_scheduled_messages_stub.xml
+index 1f079e9e149d72d966abfb45fd629edd05bd3548..00945926cb74bf5da98e448ac1b8bdd6ac7a17c8 100644
+--- a/app/src/main/res/layout/conversation_activity_scheduled_messages_stub.xml
++++ b/app/src/main/res/layout/conversation_activity_scheduled_messages_stub.xml
+@@ -4,7 +4,7 @@
+     android:layout_height="wrap_content"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:orientation="horizontal"
+-    android:background="@color/signal_colorSurface1">
++    android:background="?attr/colorSurfaceContainerLow">
+ 
+         <TextView
+             android:id="@+id/scheduled_messages_text"
+diff --git a/app/src/main/res/layout/conversation_activity_sms_export_stub.xml b/app/src/main/res/layout/conversation_activity_sms_export_stub.xml
+index 3880db994797b3c28c3a899349c51f1b4b54d336..bca4f22435f14f1fd97dc86e760d4ff82b8d5c92 100644
+--- a/app/src/main/res/layout/conversation_activity_sms_export_stub.xml
++++ b/app/src/main/res/layout/conversation_activity_sms_export_stub.xml
+@@ -13,7 +13,7 @@
+         android:layout_height="wrap_content"
+         android:gravity="center"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         tools:text="SMS is disabled, export sms now yes" />
+ 
+     <com.google.android.material.button.MaterialButton
+diff --git a/app/src/main/res/layout/conversation_cannot_send_announcement_group.xml b/app/src/main/res/layout/conversation_cannot_send_announcement_group.xml
+index 07c33033001206d9e0361d03a221bb4a14382f5a..55d3d8cff96211c52171de5de98170a0c862d563 100644
+--- a/app/src/main/res/layout/conversation_cannot_send_announcement_group.xml
++++ b/app/src/main/res/layout/conversation_cannot_send_announcement_group.xml
+@@ -9,4 +9,4 @@
+     android:padding="17dp"
+     style="@style/Signal.Text.Preview"
+     tools:text="Only admins can send messages."
+-    android:textColor="@color/signal_text_secondary" />
++    android:textColor="?attr/signal_text_secondary" />
+diff --git a/app/src/main/res/layout/conversation_group_terminated.xml b/app/src/main/res/layout/conversation_group_terminated.xml
+index bd4b450b4a9c340be2d008318de70a284e7d34c1..5182661a6769092109761c53c202d6192ed5701b 100644
+--- a/app/src/main/res/layout/conversation_group_terminated.xml
++++ b/app/src/main/res/layout/conversation_group_terminated.xml
+@@ -11,4 +11,4 @@
+     android:paddingEnd="16dp"
+     android:paddingBottom="8dp"
+     android:text="@string/ConversationActivity_you_cant_send_messages_because_group_ended"
+-    android:textColor="@color/signal_text_secondary" />
++    android:textColor="?attr/signal_text_secondary" />
+diff --git a/app/src/main/res/layout/conversation_incognito_mode.xml b/app/src/main/res/layout/conversation_incognito_mode.xml
+index 6d0093b338c73e32395dba6b84f8fcc67e98d532..8b614470ed606cf03493cdd6c8a17bbefffe2732 100644
+--- a/app/src/main/res/layout/conversation_incognito_mode.xml
++++ b/app/src/main/res/layout/conversation_incognito_mode.xml
+@@ -16,7 +16,7 @@
+         android:paddingEnd="16dp"
+         android:paddingBottom="8dp"
+         android:text="@string/DisabledInputView__incognito_mode"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:textSize="14sp" />
+ 
+ </FrameLayout>
+diff --git a/app/src/main/res/layout/conversation_input_panel.xml b/app/src/main/res/layout/conversation_input_panel.xml
+index e108b3f317b26c8cf89a948312c15f7127ff3158..108bcd99fce6e339b953c695dc2bc844a19ac9e7 100644
+--- a/app/src/main/res/layout/conversation_input_panel.xml
++++ b/app/src/main/res/layout/conversation_input_panel.xml
+@@ -5,7 +5,7 @@
+     android:id="@+id/bottom_panel"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/signal_background_primary"
++    android:background="?attr/signal_background_primary"
+     android:clipChildren="false"
+     android:clipToPadding="false">
+ 
+@@ -13,7 +13,7 @@
+         android:id="@+id/input_panel_sticker_suggestion"
+         android:layout_width="0dp"
+         android:layout_height="90dp"
+-        android:background="@color/signal_background_secondary"
++        android:background="?attr/signal_background_secondary"
+         android:orientation="horizontal"
+         android:visibility="gone"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+@@ -30,14 +30,14 @@
+         android:layout_marginEnd="12dp"
+         android:layout_marginBottom="2dp"
+         android:background="@drawable/circle_tintable"
+-        android:backgroundTint="@color/signal_colorOnSurfaceVariant"
++        android:backgroundTint="?attr/colorOnSurfaceVariant"
+         android:foreground="?attr/selectableItemBackgroundBorderless"
+         android:scaleType="center"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
+         app:layout_constraintStart_toStartOf="parent"
+         app:srcCompat="@drawable/symbol_x_24"
+-        app:tint="@color/signal_colorOnPrimary"
++        app:tint="?attr/colorOnPrimary"
+         tools:visibility="gone" />
+ 
+     <View
+@@ -64,10 +64,10 @@
+         android:drawablePadding="6dp"
+         android:text="@string/InputPanel_edit_message"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:visibility="gone"
+         app:drawableStartCompat="@drawable/symbol_edit_compact_16"
+-        app:drawableTint="@color/signal_colorOnSurface"
++        app:drawableTint="?attr/colorOnSurface"
+         app:layout_constraintEnd_toStartOf="@+id/edit_message_thumbnail"
+         app:layout_constraintStart_toStartOf="@id/compose_bubble"
+         app:layout_constraintTop_toTopOf="@id/compose_bubble"
+@@ -134,7 +134,7 @@
+         app:layout_constraintStart_toStartOf="@id/compose_bubble"
+         app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements"
+         app:layout_constraintVertical_bias="1.0"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <FrameLayout
+         android:id="@+id/embedded_text_editor_container"
+@@ -192,7 +192,7 @@
+             android:foreground="?selectableItemBackgroundBorderless"
+             android:scaleType="fitCenter"
+             app:srcCompat="@drawable/ic_camera_24"
+-            app:tint="@color/signal_colorOnSurfaceVariant" />
++            app:tint="?attr/colorOnSurfaceVariant" />
+ 
+         <org.thoughtcrime.securesms.components.MicrophoneRecorderView
+             android:id="@+id/recorder_view"
+@@ -230,7 +230,7 @@
+             android:contentDescription="@string/ConversationActivity_add_attachment"
+             android:scaleType="fitCenter"
+             app:srcCompat="@drawable/ic_plus_24"
+-            app:tint="@color/signal_colorOnSurface" />
++            app:tint="?attr/colorOnSurface" />
+ 
+     </org.thoughtcrime.securesms.components.HidingLinearLayout>
+ 
+diff --git a/app/src/main/res/layout/conversation_input_quote_view.xml b/app/src/main/res/layout/conversation_input_quote_view.xml
+index 0e7572d66d288b6db456c7327583c90cd7213728..9ad11824c27dbf981dc05b10f71458add7705839 100644
+--- a/app/src/main/res/layout/conversation_input_quote_view.xml
++++ b/app/src/main/res/layout/conversation_input_quote_view.xml
+@@ -8,6 +8,6 @@
+     android:saveEnabled="false"
+     android:visibility="gone"
+     app:message_type="preview"
+-    app:quote_colorPrimary="@color/signal_text_primary"
+-    app:quote_colorSecondary="@color/signal_text_primary"
++    app:quote_colorPrimary="?attr/signal_text_primary"
++    app:quote_colorSecondary="?attr/signal_text_primary"
+     tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/conversation_item_call_to_action.xml b/app/src/main/res/layout/conversation_item_call_to_action.xml
+index 8aa6498ca622ff337f6cd2405f510a07483716b5..0699cf036edfe8b30f12c7b3b496a3935f01ac43 100644
+--- a/app/src/main/res/layout/conversation_item_call_to_action.xml
++++ b/app/src/main/res/layout/conversation_item_call_to_action.xml
+@@ -6,5 +6,5 @@
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:backgroundTint="@color/release_notes_cta_background"
+-    android:textColor="@color/signal_colorOnSurface"
++    android:textColor="?attr/colorOnSurface"
+     tools:text="Click me" />
+diff --git a/app/src/main/res/layout/conversation_item_double_tap_edit_education_sheet.xml b/app/src/main/res/layout/conversation_item_double_tap_edit_education_sheet.xml
+index 5ee2d608be93a50db448db5d22c07120553c393b..fd1fd12959ca34a5bc62596ec56b3ee235f2e260 100644
+--- a/app/src/main/res/layout/conversation_item_double_tap_edit_education_sheet.xml
++++ b/app/src/main/res/layout/conversation_item_double_tap_edit_education_sheet.xml
+@@ -27,7 +27,7 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/handle"
+-        app:tint="@color/signal_icon_tint_primary"
++        app:tint="?attr/signal_icon_tint_primary"
+         app:srcCompat="@drawable/ic_tap_outline_24" />
+ 
+     <TextView
+@@ -51,7 +51,7 @@
+         android:gravity="center"
+         android:text="@string/DoubleTapEditEducationSheet__quickly_tap_twice"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorSecondary"
++        android:textColor="?attr/colorSecondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/title" />
+@@ -59,8 +59,8 @@
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/got_it"
+         style="@style/Signal.Widget.Button.Medium.Primary"
+-        android:backgroundTint="@color/signal_colorPrimaryContainer"
+-        android:textColor="@color/signal_colorOnPrimaryContainer"
++        android:backgroundTint="?attr/colorPrimaryContainer"
++        android:textColor="?attr/colorOnPrimaryContainer"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="36dp"
+diff --git a/app/src/main/res/layout/conversation_item_footer.xml b/app/src/main/res/layout/conversation_item_footer.xml
+index 26f33dfff7f26eae6ea4ec757775610ad5ff5c7c..ad188996157e54ef1a2b13c337647ff872c4869c 100644
+--- a/app/src/main/res/layout/conversation_item_footer.xml
++++ b/app/src/main/res/layout/conversation_item_footer.xml
+@@ -94,7 +94,7 @@
+         android:ellipsize="end"
+         android:linksClickable="false"
+         android:maxLines="1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/footer_expiration_timer"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/conversation_item_header.xml b/app/src/main/res/layout/conversation_item_header.xml
+index b7ebeee7013030ea042b842ae4bfda3487e4bdfc..2520e7796566d57d56eb21b4bb6aa4b78afd5af4 100644
+--- a/app/src/main/res/layout/conversation_item_header.xml
++++ b/app/src/main/res/layout/conversation_item_header.xml
+@@ -17,7 +17,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         style="@style/Signal.Text.Preview"
+-        android:textColor="@color/conversation_item_update_text_color"
++        android:textColor="?attr/conversation_item_update_text_color"
+         android:paddingStart="10dp"
+         android:paddingEnd="10dp"
+         android:paddingTop="4dp"
+diff --git a/app/src/main/res/layout/conversation_item_last_seen.xml b/app/src/main/res/layout/conversation_item_last_seen.xml
+index f26de09fa42020d81c1745d501fb466a57a30beb..b5dec567d248d564268d2e21ad3b3580354d7794 100644
+--- a/app/src/main/res/layout/conversation_item_last_seen.xml
++++ b/app/src/main/res/layout/conversation_item_last_seen.xml
+@@ -27,7 +27,7 @@
+         android:paddingBottom="4dp"
+         style="@style/Signal.Text.Caption"
+         android:fontFamily="sans-serif-medium"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         tools:text="3 unread messages" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_item_payment.xml b/app/src/main/res/layout/conversation_item_payment.xml
+deleted file mode 100644
+index 5d6dc73fa43ac20338d74de0b6c856f8cb12ead4..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/conversation_item_payment.xml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.conversation.ui.payment.PaymentMessageView xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent" />
+diff --git a/app/src/main/res/layout/conversation_item_received_document.xml b/app/src/main/res/layout/conversation_item_received_document.xml
+index f404f21b49453e739ebc6b7287b8de60e5fbeb7f..1b1a8f43da08584659783c7f4777ecdd05080101 100644
+--- a/app/src/main/res/layout/conversation_item_received_document.xml
++++ b/app/src/main/res/layout/conversation_item_received_document.xml
+@@ -7,7 +7,7 @@
+     android:layout_width="210dp"
+     android:layout_height="wrap_content"
+     android:visibility="gone"
+-    app:doc_captionColor="@color/signal_text_secondary"
++    app:doc_captionColor="?attr/signal_text_secondary"
+     app:doc_downloadButtonTint="@color/core_white"
+-    app:doc_titleColor="@color/signal_text_primary"
++    app:doc_titleColor="?attr/signal_text_primary"
+     tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/conversation_item_received_gift.xml b/app/src/main/res/layout/conversation_item_received_gift.xml
+deleted file mode 100644
+index 02ea43557d5204cbe67a77cd287b7a6300429cfa..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/conversation_item_received_gift.xml
++++ /dev/null
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.badges.gifts.GiftMessageView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    app:giftMessageView__buttonBackgroundTint="@color/recv_gift_button_tint"
+-    app:giftMessageView__buttonTextColor="@color/signal_text_primary"
+-    app:giftMessageView__textColor="@color/signal_text_primary" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_item_received_multimedia.xml b/app/src/main/res/layout/conversation_item_received_multimedia.xml
+index 5c218e15e407d22d4583cf7cce28d416e54c4b30..bef9440d76396fee3fc2cc6de326059152bd0185 100644
+--- a/app/src/main/res/layout/conversation_item_received_multimedia.xml
++++ b/app/src/main/res/layout/conversation_item_received_multimedia.xml
+@@ -30,7 +30,7 @@
+             android:layout_height="@dimen/conversation_item_reply_size"
+             android:layout_gravity="center"
+             android:padding="9dp"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             app:srcCompat="@drawable/symbol_reply_24" />
+ 
+     </FrameLayout>
+@@ -88,7 +88,7 @@
+         android:clipToPadding="false"
+         android:orientation="vertical"
+         tools:background="@drawable/message_bubble_background_received_alone"
+-        tools:backgroundTint="@color/signal_colorSurfaceVariant">
++        tools:backgroundTint="?attr/colorSurfaceVariant">
+ 
+         <FrameLayout
+             android:id="@+id/group_sender_holder"
+@@ -128,7 +128,7 @@
+                 android:layout_marginEnd="4sp"
+                 android:ellipsize="end"
+                 android:maxLines="1"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 tools:text="Reacted to your story" />
+ 
+         </LinearLayout>
+@@ -142,8 +142,8 @@
+             android:layout_marginEnd="6dp"
+             android:visibility="gone"
+             app:message_type="incoming"
+-            app:quote_colorPrimary="@color/conversation_item_quote_text_color"
+-            app:quote_colorSecondary="@color/conversation_item_quote_text_color"
++            app:quote_colorPrimary="?attr/conversation_item_quote_text_color"
++            app:quote_colorSecondary="?attr/conversation_item_quote_text_color"
+             tools:background="@color/transparent_black_05"
+             tools:visibility="visible" />
+ 
+@@ -204,18 +204,6 @@
+             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
+             android:layout="@layout/conversation_item_received_revealable" />
+ 
+-        <ViewStub
+-            android:id="@+id/gift_view_stub"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout="@layout/conversation_item_received_gift" />
+-
+-        <ViewStub
+-            android:id="@+id/payment_view_stub"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout="@layout/conversation_item_payment" />
+-
+         <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+             android:id="@+id/conversation_item_body"
+             style="@style/Signal.Text.Body"
+@@ -225,8 +213,8 @@
+             android:layout_marginTop="@dimen/message_bubble_top_padding"
+             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
+             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
+-            android:textColor="@color/signal_text_primary"
+-            android:textColorLink="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
++            android:textColorLink="?attr/signal_text_primary"
+             app:emoji_maxLength="1000"
+             app:emoji_renderSpoilers="true"
+             app:measureLastLine="true"
+@@ -288,10 +276,10 @@
+             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
+             android:paddingBottom="3dp"
+             android:visibility="gone"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="incoming"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
+ 
+@@ -316,10 +304,10 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+             android:layout_marginEnd="-12dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             app:srcCompat="@drawable/ic_replies_outline_20" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+@@ -328,10 +316,10 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+             android:layout_marginEnd="-12dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             android:visibility="gone"
+             app:srcCompat="@drawable/symbol_chat_arrow_24" />
+ 
+diff --git a/app/src/main/res/layout/conversation_item_received_revealable.xml b/app/src/main/res/layout/conversation_item_received_revealable.xml
+index 41f61285953eba6621f09aa2646529f5ee57e663..7d5ae27a28e5d0945014d8d788f117c16aee1552 100644
+--- a/app/src/main/res/layout/conversation_item_received_revealable.xml
++++ b/app/src/main/res/layout/conversation_item_received_revealable.xml
+@@ -8,7 +8,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:visibility="gone"
+-        app:revealable_textColor="@color/signal_text_primary"
++        app:revealable_textColor="?attr/signal_text_primary"
+         app:revealable_openedIconColor="@color/conversation_item_incoming_view_once_opened"
+         app:revealable_unopenedIconColor="@color/conversation_item_incoming_view_once_unopened"
+         app:revealable_circleColor="@color/conversation_item_incoming_view_once_circle"
+diff --git a/app/src/main/res/layout/conversation_item_received_shared_contact.xml b/app/src/main/res/layout/conversation_item_received_shared_contact.xml
+index 5411d9f8389883117c84d03c5d93bd0431473d7f..cee8fa757ed1ae18088653891de5cd21900301c7 100644
+--- a/app/src/main/res/layout/conversation_item_received_shared_contact.xml
++++ b/app/src/main/res/layout/conversation_item_received_shared_contact.xml
+@@ -7,7 +7,7 @@
+     android:id="@+id/shared_contact_view"
+     android:layout_width="@dimen/media_bubble_default_dimens"
+     android:layout_height="wrap_content"
+-    app:contact_titleColor="@color/signal_text_primary"
+-    app:contact_captionColor="@color/signal_text_secondary"
++    app:contact_titleColor="?attr/signal_text_primary"
++    app:contact_captionColor="?attr/signal_text_secondary"
+     app:contact_footerIconColor="@color/conversation_item_recv_icon_color"
+     app:contact_footerAlpha="0.7"/>
+diff --git a/app/src/main/res/layout/conversation_item_received_text_only.xml b/app/src/main/res/layout/conversation_item_received_text_only.xml
+index d68fb025b787ee6cea62f05eb95b4cf3f723d0c1..3bdf0c03bf7ffbc8c65c965b171f414db9765c33 100644
+--- a/app/src/main/res/layout/conversation_item_received_text_only.xml
++++ b/app/src/main/res/layout/conversation_item_received_text_only.xml
+@@ -30,7 +30,7 @@
+             android:layout_height="@dimen/conversation_item_reply_size"
+             android:layout_gravity="center"
+             android:padding="9dp"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             app:srcCompat="@drawable/symbol_reply_24" />
+ 
+     </FrameLayout>
+@@ -49,9 +49,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             android:visibility="gone"
+             app:srcCompat="@drawable/symbol_chat_arrow_24" />
+ 
+@@ -139,8 +139,8 @@
+             android:layout_marginTop="@dimen/message_bubble_top_padding"
+             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
+             android:layout_marginBottom="@dimen/message_bubble_collapsed_footer_padding"
+-            android:textColor="@color/signal_text_primary"
+-            android:textColorLink="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
++            android:textColorLink="?attr/signal_text_primary"
+             app:emoji_maxLength="1000"
+             app:emoji_renderSpoilers="true"
+             app:measureLastLine="true"
+@@ -159,10 +159,10 @@
+             android:alpha="0.7"
+             android:clipChildren="false"
+             android:clipToPadding="false"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="incoming"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+         <org.thoughtcrime.securesms.components.ConversationItemFooter
+             android:id="@+id/conversation_item_sticker_footer"
+@@ -178,10 +178,10 @@
+             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
+             android:paddingBottom="3dp"
+             android:visibility="gone"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="incoming"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
+ 
+diff --git a/app/src/main/res/layout/conversation_item_sent_gift.xml b/app/src/main/res/layout/conversation_item_sent_gift.xml
+deleted file mode 100644
+index b8c010727c31aee9bbe389054130bcc802568d61..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/conversation_item_sent_gift.xml
++++ /dev/null
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.badges.gifts.GiftMessageView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    app:giftMessageView__buttonBackgroundTint="@color/sent_gift_button_tint"
+-    app:giftMessageView__buttonTextColor="@color/signal_text_primary"
+-    app:giftMessageView__textColor="@color/conversation_item_sent_text_primary_color" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_item_sent_multimedia.xml b/app/src/main/res/layout/conversation_item_sent_multimedia.xml
+index 8de87e2b729aa12f599366f82b5380459fb921ba..f4c06296fb8bdf390f2937cc12e12868333a2bc1 100644
+--- a/app/src/main/res/layout/conversation_item_sent_multimedia.xml
++++ b/app/src/main/res/layout/conversation_item_sent_multimedia.xml
+@@ -29,7 +29,7 @@
+             android:layout_height="@dimen/conversation_item_reply_size"
+             android:layout_gravity="center"
+             android:padding="9dp"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             app:srcCompat="@drawable/symbol_reply_24" />
+ 
+     </FrameLayout>
+@@ -68,7 +68,7 @@
+                 android:layout_marginEnd="4sp"
+                 android:ellipsize="end"
+                 android:maxLines="1"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 tools:text="Reacted to your story" />
+ 
+         </LinearLayout>
+@@ -82,8 +82,8 @@
+             android:layout_marginEnd="6dp"
+             android:visibility="gone"
+             app:message_type="outgoing"
+-            app:quote_colorPrimary="@color/conversation_item_quote_text_color_sent"
+-            app:quote_colorSecondary="@color/conversation_item_quote_text_color_sent"
++            app:quote_colorPrimary="?attr/conversation_item_quote_text_color_sent"
++            app:quote_colorSecondary="?attr/conversation_item_quote_text_color_sent"
+             tools:background="@color/transparent_white_10"
+             tools:visibility="visible" />
+ 
+@@ -134,18 +134,6 @@
+             android:layout="@layout/conversation_item_sent_document" />
+ 
+         <ViewStub
+-            android:id="@+id/gift_view_stub"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout="@layout/conversation_item_sent_gift" />
+-
+-        <ViewStub
+-            android:id="@+id/payment_view_stub"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout="@layout/conversation_item_payment" />
+-
+-        <ViewStub
+             android:id="@+id/revealable_view_stub"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+@@ -200,10 +188,10 @@
+             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
+             android:clipChildren="false"
+             android:clipToPadding="false"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="outgoing"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+         <org.thoughtcrime.securesms.components.ConversationItemFooter
+             android:id="@+id/conversation_item_sticker_footer"
+@@ -218,10 +206,10 @@
+             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
+             android:paddingBottom="3dp"
+             android:visibility="gone"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="outgoing"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
+ 
+@@ -248,9 +236,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             app:srcCompat="@drawable/ic_replies_outline_20" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+@@ -259,9 +247,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             app:srcCompat="@drawable/symbol_calendar_24" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+@@ -270,9 +258,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             android:visibility="gone"
+             app:srcCompat="@drawable/symbol_chat_arrow_24" />
+ 
+diff --git a/app/src/main/res/layout/conversation_item_sent_text_only.xml b/app/src/main/res/layout/conversation_item_sent_text_only.xml
+index 2c95d35767ba60e04ec188b9925f2bc855b6784d..30f52efdde9b6169c4cc65bf9632907d25ad4e2c 100644
+--- a/app/src/main/res/layout/conversation_item_sent_text_only.xml
++++ b/app/src/main/res/layout/conversation_item_sent_text_only.xml
+@@ -28,7 +28,7 @@
+             android:layout_width="@dimen/conversation_item_reply_size"
+             android:layout_height="@dimen/conversation_item_reply_size"
+             android:padding="9dp"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             android:layout_gravity="center"
+             app:srcCompat="@drawable/symbol_reply_24" />
+ 
+@@ -93,10 +93,10 @@
+             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
+             android:paddingBottom="3dp"
+             android:visibility="gone"
+-            app:footer_icon_color="@color/signal_icon_tint_secondary"
++            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+             app:footer_mode="outgoing"
+-            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+-            app:footer_text_color="@color/signal_text_secondary" />
++            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
++            app:footer_text_color="?attr/signal_text_secondary" />
+ 
+     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
+ 
+@@ -122,9 +122,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             app:srcCompat="@drawable/symbol_calendar_24" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+@@ -133,9 +133,9 @@
+             android:layout_height="32dp"
+             android:layout_gravity="center_vertical"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurfaceVariant"
++            android:backgroundTint="?attr/colorSurfaceVariant"
+             android:padding="6dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             android:visibility="gone"
+             app:srcCompat="@drawable/symbol_chat_arrow_24" />
+ 
+diff --git a/app/src/main/res/layout/conversation_item_starred_source.xml b/app/src/main/res/layout/conversation_item_starred_source.xml
+index b366bf0b7b9ebb6806f75833389fe8d821dd3170..74c484e22c75fe4e2de71a504858c8ff1948b722 100644
+--- a/app/src/main/res/layout/conversation_item_starred_source.xml
++++ b/app/src/main/res/layout/conversation_item_starred_source.xml
+@@ -19,7 +19,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         tools:text="Alice › Book Club" />
+ 
+ </LinearLayout>
+diff --git a/app/src/main/res/layout/conversation_item_update.xml b/app/src/main/res/layout/conversation_item_update.xml
+index b1514298f5960074b199472a21faae7797170377..a589c7d7fd25d8fe8dfa59be6d8efc8aea30081e 100644
+--- a/app/src/main/res/layout/conversation_item_update.xml
++++ b/app/src/main/res/layout/conversation_item_update.xml
+@@ -27,10 +27,10 @@
+             android:textSize="13sp"
+             android:background="@drawable/rounded_rectangle_38"
+             android:paddingHorizontal="12dp"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:textAllCaps="false"
+             style="?android:attr/borderlessButtonStyle"
+-            android:backgroundTint="@color/signal_colorSurface1"
++            android:backgroundTint="?attr/colorSurfaceContainerLow"
+             tools:text="12 group updates" />
+ 
+         <LinearLayout
+@@ -49,7 +49,7 @@
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:includeFontPadding="false"
+-                android:textColor="@color/conversation_item_update_text_color"
++                android:textColor="?attr/conversation_item_update_text_color"
+                 tools:text="Gwen Stacy set the disappearing message timer to 1 hour" />
+ 
+             <com.google.android.material.button.MaterialButton
+diff --git a/app/src/main/res/layout/conversation_list_archive_toolbar.xml b/app/src/main/res/layout/conversation_list_archive_toolbar.xml
+index 6aa596021daee58e816ce47946bda92b64040a03..ad961a9fb4056cfcc38f716251044aa38387bedc 100644
+--- a/app/src/main/res/layout/conversation_list_archive_toolbar.xml
++++ b/app/src/main/res/layout/conversation_list_archive_toolbar.xml
+@@ -5,7 +5,7 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="@dimen/signal_m3_toolbar_height"
+-    android:background="@color/signal_colorBackground"
++    android:background="?attr/colorSurface"
+     android:minHeight="@dimen/signal_m3_toolbar_height"
+     android:theme="?attr/actionBarStyle"
+     android:visibility="gone"
+diff --git a/app/src/main/res/layout/conversation_list_filter_pull_view.xml b/app/src/main/res/layout/conversation_list_filter_pull_view.xml
+index 110c52b43792879c92d5ae173331bed31d6d65e7..c14a6fcd7a2683337d802455281b0efcede90c7d 100644
+--- a/app/src/main/res/layout/conversation_list_filter_pull_view.xml
++++ b/app/src/main/res/layout/conversation_list_filter_pull_view.xml
+@@ -18,10 +18,10 @@
+         android:enabled="false"
+         android:text="@string/ChatFilter__filtered_by_unread"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         android:visibility="invisible"
+         tools:visibility="visible"
+-        app:chipBackgroundColor="@color/signal_colorSecondaryContainer"
++        app:chipBackgroundColor="?attr/colorSecondaryContainer"
+         app:chipCornerRadius="8dp"
+         app:chipMinHeight="32dp"
+         app:chipStartPadding="8dp"
+@@ -31,7 +31,7 @@
+         app:textStartPadding="0dp"
+         app:textEndPadding="0dp"
+         app:closeIcon="@drawable/ic_x_20"
+-        app:closeIconTint="@color/signal_colorOnSurface"
++        app:closeIconTint="?attr/colorOnSurface"
+         app:closeIconEnabled="true"
+         app:closeIconSize="18dp"
+         app:ensureMinTouchTargetSize="false" />
+@@ -44,6 +44,6 @@
+         android:alpha="0"
+         android:text="@string/ChatFilter__pull_to_filter"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorSecondary" />
++        android:textColor="?attr/colorSecondary" />
+ 
+ </merge>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_list_fragment.xml b/app/src/main/res/layout/conversation_list_fragment.xml
+index d28f4830c8c476faa29f3e0f05dd339bd9bb85f0..33e6b541da76cacf7d1507d48644cee5fc9d57e4 100644
+--- a/app/src/main/res/layout/conversation_list_fragment.xml
++++ b/app/src/main/res/layout/conversation_list_fragment.xml
+@@ -68,7 +68,7 @@
+                     android:id="@+id/pull_view"
+                     android:layout_width="match_parent"
+                     android:layout_height="130dp"
+-                    android:background="@color/signal_colorBackground"
++                    android:background="?attr/colorSurface"
+                     app:layout_scrollInterpolator="@android:anim/linear_interpolator" />
+ 
+             </com.google.android.material.appbar.CollapsingToolbarLayout>
+@@ -79,7 +79,7 @@
+             android:id="@+id/list"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+-            android:background="@color/signal_colorBackground"
++            android:background="?attr/colorSurface"
+             android:clipToPadding="false"
+             android:paddingBottom="160dp"
+             android:scrollbars="vertical"
+@@ -95,7 +95,7 @@
+         android:layout_marginTop="16dp"
+         android:indeterminate="true"
+         android:visibility="gone"
+-        app:indicatorColor="@color/signal_colorPrimary"
++        app:indicatorColor="?attr/colorPrimary"
+         app:indicatorSize="40dp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/conversation_list_item_clear_filter.xml b/app/src/main/res/layout/conversation_list_item_clear_filter.xml
+index b69ef6346ea4c7489f2247168d945e6360e530b0..fb07e400f3753a215a3c25231ad8599ac86c3e5f 100644
+--- a/app/src/main/res/layout/conversation_list_item_clear_filter.xml
++++ b/app/src/main/res/layout/conversation_list_item_clear_filter.xml
+@@ -13,7 +13,7 @@
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:text="@string/ConversationListFragment__clear_filter"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+     <TextView
+         android:id="@+id/clear_filter_tip"
+@@ -24,7 +24,7 @@
+         android:paddingEnd="@dimen/dsl_settings_gutter"
+         android:text="@string/ChatFilter__tip_pull_down"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:visibility="gone" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_list_item_clear_filter_empty.xml b/app/src/main/res/layout/conversation_list_item_clear_filter_empty.xml
+index 4e82c10181171c0efd9a1c5b9661b15049b35ad6..817cb0dbb6c6f5ae99d6368274a6e456d4cb531d 100644
+--- a/app/src/main/res/layout/conversation_list_item_clear_filter_empty.xml
++++ b/app/src/main/res/layout/conversation_list_item_clear_filter_empty.xml
+@@ -11,7 +11,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="8dp"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/clear_filter"
+@@ -20,7 +20,7 @@
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:text="@string/ConversationListFragment__clear_filter"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+     <TextView
+         android:id="@+id/clear_filter_tip"
+@@ -31,6 +31,6 @@
+         android:paddingEnd="@dimen/dsl_settings_gutter"
+         android:text="@string/ChatFilter__tip_pull_down"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:visibility="gone" />
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/conversation_list_item_folder_empty.xml b/app/src/main/res/layout/conversation_list_item_folder_empty.xml
+index 672a73b953ac7b0f69ffca096887b58c0e585ffd..73a0f8d238662592b0b3203978877e41d6ac2cc7 100644
+--- a/app/src/main/res/layout/conversation_list_item_folder_empty.xml
++++ b/app/src/main/res/layout/conversation_list_item_folder_empty.xml
+@@ -11,7 +11,7 @@
+         android:layout_marginBottom="8dp"
+         android:text="@string/conversation_list_fragment__no_chats_to_display"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/folder_settings"
+@@ -20,6 +20,6 @@
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:text="@string/conversation_list_fragment__folder_settings"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+ </LinearLayout>
+diff --git a/app/src/main/res/layout/conversation_list_item_view.xml b/app/src/main/res/layout/conversation_list_item_view.xml
+index d017670cd702f2f1e8cfaa6884b965e1ca2d1ceb..18b5cd30c3678efb7a10ceb9f0ed3e5190f62bf7 100644
+--- a/app/src/main/res/layout/conversation_list_item_view.xml
++++ b/app/src/main/res/layout/conversation_list_item_view.xml
+@@ -38,9 +38,9 @@
+             android:layout_height="24dp"
+             android:background="@drawable/circle_tintable_padded_2"
+             android:visibility="gone"
+-            app:backgroundTint="@color/signal_colorOnPrimary"
++            app:backgroundTint="?attr/colorOnPrimary"
+             app:srcCompat="@drawable/ic_check_circle_solid_24"
+-            app:tint="@color/signal_colorPrimary"
++            app:tint="?attr/colorPrimary"
+             tools:visibility="visible" />
+ 
+     </FrameLayout>
+@@ -69,7 +69,7 @@
+         android:ellipsize="end"
+         android:maxLines="1"
+         android:textAlignment="viewStart"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/conversation_list_item_summary"
+         app:layout_constraintEnd_toStartOf="@id/conversation_list_item_date"
+         app:layout_constraintStart_toEndOf="@id/conversation_list_item_avatar"
+@@ -97,7 +97,7 @@
+         android:ellipsize="end"
+         android:lines="2"
+         android:maxLines="2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:emoji_renderSpoilers="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/conversation_list_item_status_container"
+@@ -113,7 +113,7 @@
+         android:visibility="gone"
+         app:layout_constraintStart_toStartOf="@id/conversation_list_item_summary"
+         app:layout_constraintTop_toTopOf="@id/conversation_list_item_summary"
+-        app:typingIndicator_tint="@color/signal_icon_tint_secondary"
++        app:typingIndicator_tint="?attr/signal_icon_tint_secondary"
+         tools:visibility="visible" />
+ 
+     <TextView
+@@ -123,7 +123,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginTop="2dp"
+         android:singleLine="true"
+-        android:textColor="@color/signal_icon_tint_secondary"
++        android:textColor="?attr/signal_icon_tint_secondary"
+         app:layout_constraintBottom_toBottomOf="@id/conversation_list_item_name"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="@id/conversation_list_item_name"
+@@ -145,7 +145,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical"
+-            app:iconColor="@color/signal_colorOnSurfaceVariant" />
++            app:iconColor="?attr/colorOnSurfaceVariant" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+             android:id="@+id/conversation_list_item_unread_mentions_indicator"
+@@ -159,7 +159,7 @@
+             android:padding="3dp"
+             android:visibility="gone"
+             app:srcCompat="@drawable/ic_at_12"
+-            app:tint="@color/signal_colorOnPrimary"
++            app:tint="?attr/colorOnPrimary"
+             tools:visibility="visible" />
+ 
+         <TextView
+@@ -175,7 +175,7 @@
+             android:paddingTop="2dp"
+             android:paddingEnd="6dp"
+             android:paddingBottom="2dp"
+-            android:textColor="@color/signal_colorBackground"
++            android:textColor="?attr/colorSurface"
+             tools:text="99+" />
+ 
+         <TextView
+@@ -190,7 +190,7 @@
+             android:paddingEnd="8dp"
+             android:paddingBottom="1dp"
+             android:text="@string/conversation_list_item_view__archived"
+-            android:textColor="@color/signal_colorSurface"
++            android:textColor="?attr/colorSurfaceContainer"
+             tools:visibility="gone" />
+ 
+     </LinearLayout>
+diff --git a/app/src/main/res/layout/conversation_list_search_toolbar.xml b/app/src/main/res/layout/conversation_list_search_toolbar.xml
+index 1471841fcba5ea3e75d1687d4f2262b0624afd05..c5b9576844a55f1ef6d832a5322485b60e77b206 100644
+--- a/app/src/main/res/layout/conversation_list_search_toolbar.xml
++++ b/app/src/main/res/layout/conversation_list_search_toolbar.xml
+@@ -6,6 +6,6 @@
+     android:id="@+id/search_toolbar"
+     android:layout_width="match_parent"
+     android:layout_height="@dimen/signal_m3_toolbar_height"
+-    android:background="@color/signal_colorBackground"
++    android:background="?attr/colorSurface"
+     android:visibility="invisible"
+     app:layout_constraintTop_toTopOf="parent" />
+diff --git a/app/src/main/res/layout/conversation_no_longer_a_member.xml b/app/src/main/res/layout/conversation_no_longer_a_member.xml
+index d6833db45d174b655424238b2efab24faaf3010a..8bf66d32bff106fcf84b8e84b1162b15bf1b3e1f 100644
+--- a/app/src/main/res/layout/conversation_no_longer_a_member.xml
++++ b/app/src/main/res/layout/conversation_no_longer_a_member.xml
+@@ -11,4 +11,4 @@
+     android:paddingEnd="16dp"
+     android:paddingBottom="8dp"
+     android:text="@string/ConversationActivity_you_cant_send_messages_to_this_group"
+-    android:textColor="@color/signal_text_secondary" />
++    android:textColor="?attr/signal_text_secondary" />
+diff --git a/app/src/main/res/layout/conversation_requesting_bottom_banner.xml b/app/src/main/res/layout/conversation_requesting_bottom_banner.xml
+index 69c2109a0c9ec881c2ad56e26ed0acac2dc89a4e..b7d4742d94d71859d55160c1b2c6c78b7b790feb 100644
+--- a/app/src/main/res/layout/conversation_requesting_bottom_banner.xml
++++ b/app/src/main/res/layout/conversation_requesting_bottom_banner.xml
+@@ -16,7 +16,7 @@
+         android:paddingEnd="16dp"
+         android:paddingBottom="8dp"
+         android:text="@string/ConversationActivity_your_request_to_join_has_been_sent_to_the_group_admin"
+-        android:textColor="@color/signal_text_secondary" />
++        android:textColor="?attr/signal_text_secondary" />
+ 
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/conversation_cancel_request"
+
+--------------false--
+
+

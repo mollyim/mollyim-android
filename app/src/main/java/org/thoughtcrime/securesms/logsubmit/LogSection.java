@@ -25,16 +25,4 @@ interface LogSection {
   default boolean hasContent() {
     return true;
   }
-
-  default @NonNull CharSequence getContentLocked(@NonNull Context context) {
-    return "<not available>";
-  }
-
-  static CharSequence resolveContent(@NonNull Context context, LogSection section, boolean appLocked) {
-    if (appLocked) {
-      return section.getContentLocked(context);
-    } else {
-      return section.getContent(context);
-    }
-  }
 }

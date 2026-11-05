@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.main
 
+import android.app.Activity
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -29,7 +30,7 @@ object EmptyMegaphoneActionController : MegaphoneActionController {
   override fun onMegaphoneNavigationRequested(intent: Intent) = Unit
   override fun onMegaphoneNavigationRequested(intent: Intent, requestCode: Int) = Unit
   override fun onMegaphoneToastRequested(string: String) = Unit
-  override fun getMegaphoneActivity() = error("Empty controller")
+  override fun getMegaphoneActivity(): Activity = error("Empty controller")
   override fun onMegaphoneSnooze(event: Megaphones.Event) = Unit
   override fun onMegaphoneCompleted(event: Megaphones.Event) = Unit
   override fun onMegaphoneDialogFragmentRequested(dialogFragment: DialogFragment) = Unit

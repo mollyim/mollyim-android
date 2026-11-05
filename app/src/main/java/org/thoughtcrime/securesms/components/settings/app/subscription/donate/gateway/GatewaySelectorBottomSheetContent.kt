@@ -40,6 +40,7 @@ import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.util.money.FiatMoney
+import org.signal.donations.DonateWithGooglePayButton
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.Badges
@@ -117,7 +118,17 @@ private fun Ready(state: GatewaySelectorState.Ready, onEvent: (GatewaySelectorBo
     when (it) {
       InAppPaymentData.PaymentMethodType.UNKNOWN -> error("Unsupported payment method.")
       InAppPaymentData.PaymentMethodType.GOOGLE_PAY -> {
-        // MOLLY: No-op
+        if (state.isGooglePayAvailable) {
+          DonateWithGooglePayButton(
+            onClick = { onGatewaySelected(GatewaySelectorBottomSheetEvent.GOOGLE_PAY_SELECTED) },
+            enabled = !isGatewaySelected,
+            modifier = Modifier
+              .testTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON)
+              .padding(top = 16.dp)
+              .fillMaxWidth()
+              .height(44.dp)
+          )
+        }
       }
 
       InAppPaymentData.PaymentMethodType.CARD -> {

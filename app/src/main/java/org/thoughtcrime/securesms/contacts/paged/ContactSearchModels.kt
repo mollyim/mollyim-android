@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -32,13 +33,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
 import org.signal.core.ui.compose.FastScrollCharacterProvider
-import org.signal.core.ui.compose.theme.colorAttribute
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.BreakIteratorCompat
 import org.signal.core.util.requireDrawable
 import org.thoughtcrime.securesms.R
@@ -167,7 +167,7 @@ object ContactSearchModels {
           if (letter != null) {
             Text(
               text = letter,
-              color = colorAttribute(R.attr.signal_text_primary),
+              color = colorResource(R.color.signal_text_primary),
               fontFamily = FontFamily.SansSerif,
               fontWeight = FontWeight.Medium,
               fontSize = 16.sp,
@@ -420,7 +420,7 @@ object ContactSearchModels {
         ActionItem(CoreUiR.drawable.symbol_settings_android_24, context.getString(R.string.ContactSearchItems__story_settings)) {
           callbacks.onOpenStorySettings(model.story)
         },
-        ActionItem(CoreUiR.drawable.symbol_trash_24, context.getString(R.string.ContactSearchItems__delete_story), com.google.android.material.R.attr.colorError) {
+        ActionItem(CoreUiR.drawable.symbol_trash_24, context.getString(R.string.ContactSearchItems__delete_story), CoreUiR.color.signal_colorError) {
           callbacks.onDeletePrivateStory(model.story, model.isSelected)
         }
       )
@@ -663,7 +663,7 @@ object ContactSearchModels {
     protected val adminLabel: TextView = itemView.findViewById(R.id.admin_label)
     private val startAudio: View = itemView.findViewById(R.id.start_audio)
     private val startVideo: View = itemView.findViewById(R.id.start_video)
-    private val searchStyleFactory = SearchUtil.StyleFactory { arrayOf(ForegroundColorSpan(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface)), SpanUtil.getBoldSpan()) }
+    private val searchStyleFactory = SearchUtil.StyleFactory { arrayOf(ForegroundColorSpan(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface)), SpanUtil.getBoldSpan()) }
 
     override fun bind(model: T) {
       if (isEnabled(model)) {
@@ -683,7 +683,7 @@ object ContactSearchModels {
       val suffix: CharSequence? = if (recipient.isSystemContact && !recipient.showVerified) {
         SpannableStringBuilder().apply {
           val drawable = context.requireDrawable(CoreUiR.drawable.symbol_person_circle_24).apply {
-            setTint(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface))
+            setTint(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface))
           }
           SpanUtil.appendCenteredImageSpan(this, drawable, 16, 16)
         }

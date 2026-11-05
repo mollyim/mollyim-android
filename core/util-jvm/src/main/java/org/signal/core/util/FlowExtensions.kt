@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.filterNot
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlin.time.Duration
 
@@ -34,13 +33,5 @@ fun <T> Flow<T>.throttleLatest(timeout: Duration, emitImmediately: (T) -> Boolea
         send(it)
         delay(timeout)
       }
-  }
-}
-
-fun <T, R> Flow<T>.zipWithPrevious(transform: suspend (T?, T) -> R): Flow<R> = flow {
-  var prev: T? = null
-  collect { cur ->
-    emit(transform(prev, cur))
-    prev = cur
   }
 }

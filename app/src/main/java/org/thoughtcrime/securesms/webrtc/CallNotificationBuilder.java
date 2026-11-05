@@ -238,8 +238,6 @@ public class CallNotificationBuilder {
     builder.withAction(launchCallScreenIntentState.action);
 
     if (launchCallScreenIntentState == LaunchCallScreenIntentState.CONTENT) {
-      // MOLLY: Set a non-empty action to clear any pending action held by the screen lock
-      builder.withAction(CallIntent.Action.NO_ACTION);
       builder.withIntentFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 

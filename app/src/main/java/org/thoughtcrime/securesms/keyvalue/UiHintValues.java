@@ -16,8 +16,11 @@ public class UiHintValues extends SignalStoreValues {
   private static final String NEVER_DISPLAY_PULL_TO_FILTER_TIP                  = "uihints.never_display_pull_to_filter_tip";
   private static final String HAS_SEEN_SCHEDULED_MESSAGES_INFO_ONCE             = "uihints.has_seen_scheduled_messages_info_once";
   private static final String HAS_SEEN_SAFETY_NUMBER_NUX                        = "uihints.has_seen_safety_number_nux";
-  private static final String DISMISSED_BATTERY_SAVER_PROMPT           = "uihints.declined_battery_saver_prompt";
-  private static final String LAST_BATTERY_SAVER_PROMPT                = "uihints.last_battery_saver_prompt";
+  private static final String DECLINED_NOTIFICATION_LOGS_PROMPT                 = "uihints.declined_notification_logs";
+  private static final String LAST_NOTIFICATION_LOGS_PROMPT_TIME                = "uihints.last_notification_logs_prompt";
+  private static final String DISMISSED_BATTERY_SAVER_PROMPT                    = "uihints.declined_battery_saver_prompt";
+  private static final String LAST_BATTERY_SAVER_PROMPT                         = "uihints.last_battery_saver_prompt";
+  private static final String LAST_CRASH_PROMPT                                 = "uihints.last_crash_prompt";
   private static final String HAS_COMPLETED_USERNAME_ONBOARDING                 = "uihints.has_completed_username_onboarding";
   private static final String HAS_SEEN_DOUBLE_TAP_EDIT_EDUCATION_SHEET          = "uihints.has_seen_double_tap_edit_education_sheet";
   private static final String DISMISSED_CONTACTS_PERMISSION_BANNER              = "uihints.dismissed_contacts_permission_banner";
@@ -111,6 +114,22 @@ public class UiHintValues extends SignalStoreValues {
     putBoolean(HAS_SEEN_SAFETY_NUMBER_NUX, true);
   }
 
+  public long getLastNotificationLogsPrompt() {
+    return getLong(LAST_NOTIFICATION_LOGS_PROMPT_TIME, 0);
+  }
+
+  public void setLastNotificationLogsPrompt(long timeMs) {
+    putLong(LAST_NOTIFICATION_LOGS_PROMPT_TIME, timeMs);
+  }
+
+  public void markDeclinedShareNotificationLogs() {
+    putBoolean(DECLINED_NOTIFICATION_LOGS_PROMPT, true);
+  }
+
+  public boolean hasDeclinedToShareNotificationLogs() {
+    return getBoolean(DECLINED_NOTIFICATION_LOGS_PROMPT, false);
+  }
+
   public void markDismissedBatterySaverPrompt() {
     putBoolean(DISMISSED_BATTERY_SAVER_PROMPT, true);
   }
@@ -125,6 +144,14 @@ public class UiHintValues extends SignalStoreValues {
 
   public void setLastBatterySaverPrompt(long time) {
     putLong(LAST_BATTERY_SAVER_PROMPT, time);
+  }
+
+  public void setLastCrashPrompt(long time) {
+    putLong(LAST_CRASH_PROMPT, time);
+  }
+
+  public long getLastCrashPrompt() {
+    return getLong(LAST_CRASH_PROMPT, 0);
   }
 
   public void setHasSeenDoubleTapEditEducationSheet(boolean seen) {

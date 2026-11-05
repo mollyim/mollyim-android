@@ -78,7 +78,6 @@ class LocationRetriever implements DefaultLifecycleObserver, LocationListener {
   @Override
   public void onStop(@NonNull LifecycleOwner owner) {
     Log.i(TAG, "Removing any possible location listeners.");
-    //noinspection MissingPermission
     locationManager.removeUpdates(this);
   }
 

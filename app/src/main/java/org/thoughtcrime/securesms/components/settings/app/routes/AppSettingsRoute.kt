@@ -37,6 +37,7 @@ sealed interface AppSettingsRoute : Parcelable {
     data class Username(val mode: UsernameEditMode = UsernameEditMode.NORMAL) : AccountRoute
   }
 
+  data object Payments : AppSettingsRoute
   data object Invite : AppSettingsRoute
   data object AppUpdates : AppSettingsRoute
 
@@ -74,8 +75,6 @@ sealed interface AppSettingsRoute : Parcelable {
   sealed interface NotificationsRoute : AppSettingsRoute {
     data object Notifications : NotificationsRoute
     data object NotificationProfiles : NotificationsRoute
-    data object UnifiedPushSettings : NotificationsRoute
-    data class PlayServicesProblem(val errorCode: Int) : NotificationsRoute
     data class EditProfile(val profileId: Long = -1L) : NotificationsRoute
     data class ProfileDetails(val profileId: Long) : NotificationsRoute
     data class AddAllowedMembers(val profileId: Long) : NotificationsRoute

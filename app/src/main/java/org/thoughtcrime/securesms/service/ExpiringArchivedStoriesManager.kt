@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.service
 
 import android.app.Application
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.WorkerThread
@@ -63,13 +64,13 @@ class ExpiringArchivedStoriesManager(
 
   data class Event(val delay: Long)
 
-  class ExpireArchivedStoriesAlarm : ExportedBroadcastReceiver() {
+  class ExpireArchivedStoriesAlarm : BroadcastReceiver() {
 
     companion object {
       private val TAG = Log.tag(ExpireArchivedStoriesAlarm::class.java)
     }
 
-    override fun onReceiveUnlock(context: Context?, intent: Intent?) {
+    override fun onReceive(context: Context?, intent: Intent?) {
       Log.d(TAG, "onReceive()")
       AppDependencies.expireArchivedStoriesManager.scheduleIfNecessary()
     }

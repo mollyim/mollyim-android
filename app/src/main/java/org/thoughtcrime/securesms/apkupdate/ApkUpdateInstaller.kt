@@ -6,8 +6,14 @@
 package org.thoughtcrime.securesms.apkupdate
 
 import android.app.DownloadManager
+import android.app.PendingIntent
 import android.content.Context
-import android.net.Uri
+import android.content.Intent
+import android.content.pm.PackageInstaller
+import android.os.Build
+import org.signal.core.util.AppForegroundObserver
+import org.signal.core.util.PendingIntentFlags
+import org.signal.core.util.StreamUtil
 import org.signal.core.util.getDownloadManager
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -16,6 +22,7 @@ import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.FileUtils
 import java.io.FileInputStream
 import java.io.IOException
+import java.io.InputStream
 import java.security.MessageDigest
 
 object ApkUpdateInstaller {
@@ -54,29 +61,87 @@ object ApkUpdateInstaller {
       return
     }
 
-    if (!isMatchingDigest(context, downloadId, digest)) {
-      Log.w(TAG, "DownloadId matches, but digest does not! Bad download or inconsistent state. Failing and clearing state.")
+    if (!userInitiated && !shouldAutoUpdate()) {
+      if (!isMatchingDigest(context, downloadId, digest)) {
+        Log.w(TAG, "DownloadId matches, but digest does not! Bad download or inconsistent state. Failing and clearing state.")
+        SignalStore.apkUpdate.clearDownloadAttributes()
+        ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
+        return
+      }
+
+      Log.w(TAG, "Not user-initiated and not eligible for auto-update. Prompting. (API=${Build.VERSION.SDK_INT}, Foreground=${AppForegroundObserver.isForegrounded()}, AutoUpdate=${SignalStore.apkUpdate.autoUpdate})")
+      ApkUpdateNotifications.showInstallPrompt(context, downloadId)
+      return
+    }
+
+    try {
+      context
+        .getDownloadManager()
+        .openDownloadedFile(downloadId)
+        .use { parcelFileDescriptor ->
+          val stream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+
+          if (!MessageDigest.isEqual(FileUtils.getFileDigest(stream), digest)) {
+            Log.w(TAG, "DownloadId matches, but digest does not! Bad download or inconsistent state. Failing and clearing state.")
+            SignalStore.apkUpdate.clearDownloadAttributes()
+            ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
+            return
+          }
+
+          stream.channel.position(0)
+          installApk(context, downloadId, stream, userInitiated)
+        }
+    } catch (e: IOException) {
+      Log.w(TAG, "Hit IOException when trying to install APK!", e)
       SignalStore.apkUpdate.clearDownloadAttributes()
       ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
-      return
+    } catch (e: SecurityException) {
+      Log.w(TAG, "Hit SecurityException when trying to install APK!", e)
+      SignalStore.apkUpdate.clearDownloadAttributes()
+      ApkUpdateNotifications.showInstallFailed(context, ApkUpdateNotifications.FailureReason.UNKNOWN)
     }
-
-    val apkUri = getDownloadedApkUri(context, downloadId)
-    if (apkUri == null) {
-      Log.w(TAG, "Could not get download APK URI!")
-      return
-    }
-
-    ApkUpdateNotifications.showInstallPrompt(context, apkUri)
   }
 
-  private fun getDownloadedApkUri(context: Context, downloadId: Long): Uri? {
-    return try {
-      context.getDownloadManager().getUriForDownloadedFile(downloadId)
-    } catch (e: IOException) {
-      Log.w(TAG, e)
-      null
+  @Throws(IOException::class, SecurityException::class)
+  private fun installApk(context: Context, downloadId: Long, apkInputStream: InputStream, userInitiated: Boolean) {
+    Log.d(TAG, "Beginning APK install...")
+    val packageInstaller: PackageInstaller = context.packageManager.packageInstaller
+
+    val sessionParams = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
+      // Reject the session if the APK's declared package name doesn't match ours.
+      setAppPackageName(context.packageName)
+      // At this point, we always want to set this if possible, since we've already prompted the user with our own notification when necessary.
+      // This lets us skip the system-generated notification.
+      if (Build.VERSION.SDK_INT >= 31) {
+        setRequireUserAction(PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED)
+      }
     }
+
+    val activeSessionCount = packageInstaller.mySessions.count { it.isActive }
+    Log.d(TAG, "Active session count: $activeSessionCount")
+
+    Log.d(TAG, "Creating install session...")
+    val sessionId: Int = packageInstaller.createSession(sessionParams)
+    val session: PackageInstaller.Session = packageInstaller.openSession(sessionId)
+
+    Log.d(TAG, "Writing APK data...")
+    session.use { activeSession ->
+      val sessionOutputStream = activeSession.openWrite(context.packageName, 0, -1)
+      StreamUtil.copy(apkInputStream, sessionOutputStream)
+    }
+
+    val installerPendingIntent = PendingIntent.getBroadcast(
+      context,
+      sessionId,
+      Intent(context, ApkUpdatePackageInstallerReceiver::class.java).apply {
+        putExtra(ApkUpdatePackageInstallerReceiver.EXTRA_USER_INITIATED, userInitiated)
+        putExtra(ApkUpdatePackageInstallerReceiver.EXTRA_DOWNLOAD_ID, downloadId)
+      },
+      PendingIntentFlags.mutable() or PendingIntentFlags.updateCurrent()
+    )
+
+    Log.d(TAG, "Committing session...")
+    session.commit(installerPendingIntent.intentSender)
   }
 
   private fun isDownloadSuccessful(context: Context, downloadId: Long): Boolean {
@@ -118,5 +183,15 @@ object ApkUpdateInstaller {
       Log.w(TAG, e)
       false
     }
+  }
+
+  private fun shouldAutoUpdate(): Boolean {
+    // Once we have designs for allowing users to opt-out of auto-updates, we can re-enable this
+    return false
+
+//    val webRtcViewModel = EventBus.getDefault().getStickyEvent(WebRtcViewModel::class.java)
+//    val isCallActive = webRtcViewModel != null && webRtcViewModel.state != WebRtcViewModel.State.IDLE
+//
+//    return Build.VERSION.SDK_INT >= 31 && SignalStore.apkUpdate.autoUpdate && !AppForegroundObserver.isForegrounded() && !isCallActive
   }
 }

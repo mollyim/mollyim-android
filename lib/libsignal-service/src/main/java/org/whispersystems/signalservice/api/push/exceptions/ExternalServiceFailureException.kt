@@ -9,9 +9,6 @@ import org.signal.network.exceptions.NonSuccessfulResponseCodeException
  * illegalArgument - some part of the request was not understood or accepted by the provider (e.g. the provider did not recognize the phone number as a valid number for the selected transport)
  */
 class ExternalServiceFailureException(val isPermanent: Boolean, val reason: String) : NonSuccessfulResponseCodeException(502) {
-  val rejected = reason == "providerRejected"
-  val unavailable = !rejected
-
   override fun toString(): String {
     return "ExternalServiceFailureException: External service failed to send SMS code ${if (isPermanent) "permanently" else "temporarily"} due to $reason"
   }

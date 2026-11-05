@@ -45,10 +45,4 @@ internal class CompoundLogger(private val loggers: List<Log.Logger>) : Log.Logge
       logger.flush()
     }
   }
-
-  override fun clear() {
-    for (logger in loggers) {
-      logger.clear()
-    }
-  }
 }

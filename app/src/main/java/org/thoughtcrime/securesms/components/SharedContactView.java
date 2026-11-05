@@ -201,7 +201,7 @@ public class SharedContactView extends LinearLayout implements RecipientForeverO
     }
 
     if (!pushUsers.isEmpty()) {
-      actionButtonView.setText(R.string.NewConversationActivity__message);
+      actionButtonView.setText(R.string.SharedContactView_message);
       actionButtonView.setOnClickListener(v -> {
         if (eventListener != null) {
           eventListener.onMessageClicked(pushUsers);

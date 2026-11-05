@@ -25,8 +25,6 @@ import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mms.PartAuthority;
-import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme;
-import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -60,19 +58,6 @@ public class ViewOnceMessageActivity extends PassphraseRequiredActivity implemen
     intent.putExtra(KEY_MESSAGE_ID, messageId);
     intent.putExtra(KEY_URI, uri);
     return intent;
-  }
-
-  private final DynamicTheme dynamicTheme = new DynamicMediaPreviewTheme();
-
-  @Override
-  protected void onPreCreate() {
-    super.onPreCreate();
-    dynamicTheme.onCreate(this);
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-    dynamicTheme.onResume(this);
   }
 
   @Override

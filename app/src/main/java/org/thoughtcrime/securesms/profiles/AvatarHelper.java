@@ -79,8 +79,7 @@ public class AvatarHelper {
             return new Avatar(getAvatar(context, RecipientId.from(file.getName())),
                               file.getName(),
                               ModernEncryptingPartOutputStream.getPlaintextLength(file.length()));
-          } catch (IOException | AssertionError e) {
-            // MOLLY: Address crash due to bad db migration leaving behind incorrect recipient IDs
+          } catch (IOException e) {
             return null;
           } finally {
             i++;

@@ -389,7 +389,36 @@ class IndividualSendJob private constructor(parameters: Parameters, private val 
   }
 
   private fun getPayment(message: OutgoingMessage): SignalServiceDataMessage.Payment? {
-    return null
+    if (message.isPaymentsNotification) {
+      val paymentUuid = parseOrThrow(message.body)
+      val payment = SignalDatabase.payments.getPayment(paymentUuid)
+
+      if (payment == null) {
+        Log.w(TAG, "Could not find payment, cannot send notification $paymentUuid")
+        return null
+      }
+
+      if (payment.receipt == null) {
+        Log.w(TAG, "Could not find payment receipt, cannot send notification $paymentUuid")
+        return null
+      }
+
+      return SignalServiceDataMessage.Payment(SignalServiceDataMessage.PaymentNotification(payment.receipt!!, payment.note), null)
+    } else {
+      var type: DataMessage.Payment.Activation.Type? = null
+
+      if (message.isRequestToActivatePayments) {
+        type = DataMessage.Payment.Activation.Type.REQUEST
+      } else if (message.isPaymentsActivated) {
+        type = DataMessage.Payment.Activation.Type.ACTIVATED
+      }
+
+      return if (type != null) {
+        SignalServiceDataMessage.Payment(null, PaymentActivation(type))
+      } else {
+        null
+      }
+    }
   }
 
   private class MetricEventListener(private val messageId: Long) : IndividualSendEvents {

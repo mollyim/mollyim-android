@@ -27,7 +27,7 @@
             android:padding="12dp"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/symbol_link_24"
-            app:tint="?attr/signal_icon_tint_secondary" />
+            app:tint="@color/signal_icon_tint_secondary" />
 
         <org.thoughtcrime.securesms.components.ThumbnailView
             android:id="@+id/image"
@@ -71,7 +71,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Signal.Body2"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             tools:text="https://example.com/some/long/article/path" />
 
         <TextView
@@ -81,7 +81,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.Signal.Body2"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             tools:text="11.06.19 at 5:25 AM" />
 
     </LinearLayout>

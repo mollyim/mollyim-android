@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -214,9 +215,9 @@ public final class ConversationUpdateItem extends FrameLayout
 
     int textColor;
     if (hasWallpaper) {
-      textColor = ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurfaceVariant);
+      textColor = ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurfaceVariant);
     } else {
-      textColor = ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_update_text_color);
+      textColor = ContextCompat.getColor(getContext(), R.color.conversation_item_update_text_color);
     }
 
     UpdateDescription         updateDescription = Objects.requireNonNull(messageRecord.getUpdateDisplayBody(getContext(), eventListener::onRecipientNameClicked));
@@ -491,7 +492,7 @@ public final class ConversationUpdateItem extends FrameLayout
 
     SpannableStringBuilder builder = new SpannableStringBuilder(displayBody);
 
-    int color = tint != 0 ? tint : ThemeUtil.getThemedColor(getContext(), R.attr.signal_icon_tint_secondary);
+    int color = tint != 0 ? tint : ContextCompat.getColor(getContext(), R.color.signal_icon_tint_secondary);
     if (latestFrame != 0) {
       Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), color);
       SpanUtil.appendCenteredImageSpan(builder, drawable, 12, 12);
@@ -696,6 +697,26 @@ public final class ConversationUpdateItem extends FrameLayout
       });
 
       actionButton.setText(R.string.ConversationActivity__invite_to_signal);
+    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled()) {
+      actionButton.setText(R.string.ConversationUpdateItem_activate_payments);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onActivatePaymentsClicked();
+        } else {
+          passthroughClickListener.onClick(v);
+        }
+      });
+    } else if (conversationMessage.getMessageRecord().isPaymentsActivated() && !conversationMessage.getMessageRecord().isOutgoing()) {
+      actionButton.setText(R.string.ConversationUpdateItem_send_payment);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getFromRecipient().getId());
+        } else {
+          passthroughClickListener.onClick(v);
+        }
+      });
     } else if (conversationMessage.getMessageRecord().isReportedSpam()) {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
       actionButton.setVisibility(VISIBLE);
@@ -815,8 +836,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
   private void presentActionButton(boolean hasWallpaper, boolean isBoostRequest) {
     if (isBoostRequest) {
-      actionButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), R.color.release_notes_cta_background)));
-      actionButton.setTextColor(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface)));
+      actionButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.release_notes_cta_background)));
+      actionButton.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurface)));
     } else if (hasWallpaper) {
       actionButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_background_wallpaper));
       actionButton.setTextColor(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_text_color_wallpaper));
@@ -833,11 +854,11 @@ public final class ConversationUpdateItem extends FrameLayout
       CollapsibleEvents.CollapsibleType collapsibleType = CollapsibleEvents.getCollapsibleType(messageRecord.getType(), messageRecord.getMessageExtras());
       if (collapsibleType != null) {
         SpannableStringBuilder text = new SpannableStringBuilder()
-                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, getCollapsibleSymbol(collapsibleType), com.google.android.material.R.attr.colorOnSurfaceVariant))
+                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, getCollapsibleSymbol(collapsibleType), org.signal.core.ui.R.color.signal_colorOnSurfaceVariant))
                                           .append(" ")
                                           .append(getCollapsibleString(collapsibleType))
                                           .append(" ")
-                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, collapsedState == CollapsedState.HEAD_EXPANDED ? SignalSymbols.Glyph.CHEVRON_UP : SignalSymbols.Glyph.CHEVRON_DOWN, com.google.android.material.R.attr.colorOnSurfaceVariant));
+                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, collapsedState == CollapsedState.HEAD_EXPANDED ? SignalSymbols.Glyph.CHEVRON_UP : SignalSymbols.Glyph.CHEVRON_DOWN, org.signal.core.ui.R.color.signal_colorOnSurfaceVariant));
         collapsedButton.setText(text);
         collapsedButton.setOnClickListener(v -> {
           if (eventListener != null) {
@@ -857,7 +878,7 @@ public final class ConversationUpdateItem extends FrameLayout
           collapsedButton.setBackgroundTintList(null);
         } else {
           collapsedButton.setBackgroundResource(R.drawable.rounded_rectangle_38);
-          collapsedButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorSurfaceContainerLow)));
+          collapsedButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), org.signal.core.ui.R.color.signal_colorSurface1));
         }
 
         collapsedButton.setVisibility(VISIBLE);

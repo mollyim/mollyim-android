@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.getParcelableArrayListExtraCompat
 import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.logging.Log
@@ -15,6 +15,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.FragmentWrapperActivity
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment.Companion.RESULT_SELECTION
+import org.signal.core.ui.R as CoreUiR
 
 open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectForwardFragment.Callback, SearchConfigurationProvider {
 
@@ -52,7 +53,7 @@ open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectFo
   }
 
   override fun getDialogBackgroundColor(): Int {
-    return ThemeUtil.getThemedColor(this, com.google.android.material.R.attr.colorSurface)
+    return ContextCompat.getColor(this, CoreUiR.color.signal_colorBackground)
   }
 
   class SelectionContract : ActivityResultContract<MultiselectForwardFragmentArgs, List<ContactSearchKey.RecipientSearchKey>>() {

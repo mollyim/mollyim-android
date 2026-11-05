@@ -13,7 +13,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireDrawable
 import org.signal.glide.decryptableuri.DecryptableUri
@@ -201,7 +200,7 @@ object StoriesLandingItem {
       if (model.data.secondaryStory != null) {
         val secondaryRecord = model.data.secondaryStory.messageRecord as MmsMessageRecord
         val secondaryThumb = secondaryRecord.slideDeck.thumbnailSlide?.uri
-        storyOutline.setBackgroundColor(ThemeUtil.getThemedColor(context, R.attr.signal_background_primary))
+        storyOutline.setBackgroundColor(ContextCompat.getColor(context, R.color.signal_background_primary))
 
         @Suppress("CascadeIf")
         if (secondaryRecord.storyType.isTextStory) {

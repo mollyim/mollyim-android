@@ -22,14 +22,13 @@ import org.thoughtcrime.securesms.jobs.MultiDeviceReadUpdateJob;
 import org.thoughtcrime.securesms.jobs.SendReadReceiptJob;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MarkReadReceiver extends ExportedBroadcastReceiver {
+public class MarkReadReceiver extends BroadcastReceiver {
 
   private static final String TAG                   = Log.tag(MarkReadReceiver.class);
   public static final  String CLEAR_ACTION          = "org.thoughtcrime.securesms.notifications.CLEAR";
@@ -38,7 +37,7 @@ public class MarkReadReceiver extends ExportedBroadcastReceiver {
 
   @SuppressLint("StaticFieldLeak")
   @Override
-  public void onReceiveUnlock(final Context context, Intent intent) {
+  public void onReceive(final Context context, Intent intent) {
     if (!CLEAR_ACTION.equals(intent.getAction()))
       return;
 

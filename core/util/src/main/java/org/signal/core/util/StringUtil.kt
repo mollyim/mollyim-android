@@ -98,24 +98,6 @@ object StringUtil {
     }
   }
 
-  @JvmStatic
-  fun trimEndPeriodInSingleSentence(text: CharSequence?): CharSequence? {
-    if (text == null || text.length < 2) {
-      return text
-    }
-    val len = text.length
-    for (i in 0..<len) {
-      if (text[i] == '.') {
-        if (i + 1 < len) {
-          // Multiple sentences
-          break
-        }
-        return text.subSequence(0, i)
-      }
-    }
-    return text
-  }
-
   /**
    * @return True if the string is empty, or if it contains nothing but whitespace characters.
    * Accounts for various unicode whitespace characters.

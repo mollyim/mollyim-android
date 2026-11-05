@@ -43,7 +43,6 @@ import org.thoughtcrime.securesms.mms.IncomingMessage
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
@@ -148,23 +147,22 @@ open class MessageContentProcessor(private val context: Context) {
     }
 
     @Throws(BadGroupIdException::class)
-    private fun shouldIgnore(content: Content, recipient: Recipient, threadRecipient: Recipient): Boolean {
-      // MOLLY: Call shouldBlockSender(recipient) instead of senderRecipient.isBlocked()
+    private fun shouldIgnore(content: Content, senderRecipient: Recipient, threadRecipient: Recipient): Boolean {
       if (content.dataMessage != null) {
-        return shouldIgnoreDataMessage(content.dataMessage!!, recipient, threadRecipient)
+        return shouldIgnoreDataMessage(content.dataMessage!!, senderRecipient, threadRecipient)
       } else if (content.editMessage != null) {
         val editDataMessage = content.editMessage!!.dataMessage
         return if (editDataMessage != null) {
-          shouldIgnoreDataMessage(editDataMessage, recipient, threadRecipient)
+          shouldIgnoreDataMessage(editDataMessage, senderRecipient, threadRecipient)
         } else {
-          shouldBlockSender(recipient)
+          senderRecipient.isBlocked
         }
       } else if (content.decryptionErrorMessage != null) {
-        return shouldBlockSender(recipient)
+        return senderRecipient.isBlocked
       } else if (content.callMessage != null) {
-        return shouldBlockSender(recipient)
+        return senderRecipient.isBlocked
       } else if (content.typingMessage != null) {
-        if (shouldBlockSender(recipient)) {
+        if (senderRecipient.isBlocked) {
           return true
         }
 
@@ -175,25 +173,25 @@ open class MessageContentProcessor(private val context: Context) {
             true
           } else {
             val groupRecord = SignalDatabase.groups.getGroup(groupId)
-            groupRecord.isPresent && groupRecord.get().isAnnouncementGroup && !groupRecord.get().admins.contains(recipient)
+            groupRecord.isPresent && groupRecord.get().isAnnouncementGroup && !groupRecord.get().admins.contains(senderRecipient)
           }
         }
       } else if (content.storyMessage != null) {
         return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
           true
         } else {
-          shouldBlockSender(recipient)
+          senderRecipient.isBlocked
         }
       }
       return false
     }
 
-    private fun shouldIgnoreDataMessage(message: DataMessage, recipient: Recipient, threadRecipient: Recipient): Boolean {
+    private fun shouldIgnoreDataMessage(message: DataMessage, senderRecipient: Recipient, threadRecipient: Recipient): Boolean {
       return if (threadRecipient.isGroup && threadRecipient.isBlocked) {
         true
       } else if (threadRecipient.isGroup) {
         if (threadRecipient.isUnknownGroup) {
-          return shouldBlockSender(recipient)
+          return senderRecipient.isBlocked
         }
 
         val isTextMessage = message.body != null
@@ -203,20 +201,11 @@ open class MessageContentProcessor(private val context: Context) {
         val isContentMessage = !isGv2Update && !isExpireMessage && (isTextMessage || isMediaMessage)
         val isGroupActive = threadRecipient.isActiveGroup
 
-        isContentMessage && !isGroupActive || shouldBlockSender(recipient) && !isGv2Update
+        isContentMessage && !isGroupActive || senderRecipient.isBlocked && !isGv2Update
       } else {
-        shouldBlockSender(recipient)
+        senderRecipient.isBlocked
       }
     }
-
-    private fun shouldBlockSender(senderRecipient: Recipient): Boolean =
-      senderRecipient.isBlocked || when {
-        senderRecipient.isSystemContact -> false
-        senderRecipient.isProfileSharing -> false
-        !TextSecurePreferences.isBlockUnknownEnabled(AppDependencies.application) -> false
-        RecipientUtil.isProfileSharedViaGroup(senderRecipient) -> false
-        else -> true
-      }
 
     @Throws(BadGroupIdException::class)
     private fun handlePendingRetry(pending: PendingRetryReceiptModel?, timestamp: Long, destination: Recipient): Long {

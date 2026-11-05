@@ -116,7 +116,7 @@ public class LongMessageFragment extends FullScreenDialogFragment {
         bubbleLayoutListener.onLayoutChange(bubble, 0, 0, 0, 0, 0, 0, 0, 0);
       } else {
         bubble = receivedBubble.get();
-        bubble.getBackground().setColorFilter(ThemeUtil.getThemedColor(requireContext(), R.attr.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
+        bubble.getBackground().setColorFilter(ContextCompat.getColor(requireContext(), R.color.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
       }
 
       EmojiTextView          text   = bubble.findViewById(R.id.longmessage_text);
@@ -125,7 +125,8 @@ public class LongMessageFragment extends FullScreenDialogFragment {
       SpannableString body = new SpannableString(getTrimmedBody(message.get().getFullBody()));
       V2ConversationItemUtils.linkifyUrlLinks(body,
                                               true,
-                                              url -> CommunicationActions.handlePotentialGroupLinkUrl(requireActivity(), url));
+                                              url -> CommunicationActions.handlePotentialGroupLinkUrl(requireActivity(), url) ||
+                                                     CommunicationActions.handlePotentialProxyLinkUrl(requireActivity(), url));
 
       bubble.setVisibility(View.VISIBLE);
       text.setTextSize(TypedValue.COMPLEX_UNIT_SP, SignalStore.settings().getMessageFontSize());

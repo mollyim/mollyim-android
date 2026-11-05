@@ -3,9 +3,14 @@
 package org.thoughtcrime.securesms.database.helpers.migration
 
 import android.app.Application
+import android.app.NotificationChannel
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.net.Uri
+import android.os.Build
+import android.os.SystemClock
+import android.preference.PreferenceManager
 import android.text.TextUtils
 import androidx.core.content.contentValuesOf
 import org.signal.core.models.ServiceId.ACI
@@ -24,14 +29,18 @@ import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsMapper
 import org.thoughtcrime.securesms.database.KeyValueDatabase
+import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.model.databaseprotos.ReactionList
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.util.FileUtils
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
+import org.thoughtcrime.securesms.util.SignalE164Util
 import org.whispersystems.signalservice.api.push.DistributionId
 import java.io.File
 import java.io.IOException
@@ -48,6 +57,43 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
 
   private val TAG: String = SignalDatabaseMigrations.TAG
 
+  private const val RECIPIENT_CALL_RINGTONE_VERSION = 2
+  const val MIGRATE_PREKEYS_VERSION = 3
+  private const val MIGRATE_SESSIONS_VERSION = 4
+  private const val NO_MORE_IMAGE_THUMBNAILS_VERSION = 5
+  private const val ATTACHMENT_DIMENSIONS = 6
+  private const val QUOTED_REPLIES = 7
+  private const val SHARED_CONTACTS = 8
+  private const val FULL_TEXT_SEARCH = 9
+  private const val BAD_IMPORT_CLEANUP = 10
+  private const val QUOTE_MISSING = 11
+  private const val NOTIFICATION_CHANNELS = 12
+  private const val SECRET_SENDER = 13
+  private const val ATTACHMENT_CAPTIONS = 14
+  private const val ATTACHMENT_CAPTIONS_FIX = 15
+  private const val PREVIEWS = 16
+  private const val CONVERSATION_SEARCH = 17
+  private const val SELF_ATTACHMENT_CLEANUP = 18
+  private const val RECIPIENT_FORCE_SMS_SELECTION = 19
+  private const val JOBMANAGER_STRIKES_BACK = 20
+  private const val STICKERS = 21
+  private const val REVEALABLE_MESSAGES = 22
+  private const val VIEW_ONCE_ONLY = 23
+  private const val RECIPIENT_IDS = 24
+  private const val RECIPIENT_SEARCH = 25
+  private const val RECIPIENT_CLEANUP = 26
+  private const val MMS_RECIPIENT_CLEANUP = 27
+  private const val ATTACHMENT_HASHING = 28
+  private const val NOTIFICATION_RECIPIENT_IDS = 29
+  private const val BLUR_HASH = 30
+  private const val MMS_RECIPIENT_CLEANUP_2 = 31
+  private const val ATTACHMENT_TRANSFORM_PROPERTIES = 32
+  private const val ATTACHMENT_CLEAR_HASHES = 33
+  private const val ATTACHMENT_CLEAR_HASHES_2 = 34
+  private const val UUIDS = 35
+  private const val USERNAMES = 36
+  private const val REACTIONS = 37
+  private const val STORAGE_SERVICE = 38
   private const val REACTIONS_UNREAD_INDEX = 39
   private const val RESUMABLE_DOWNLOADS = 40
   private const val KEY_VALUE_STORE = 41
@@ -161,8 +207,556 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
   private const val EXPIRING_PROFILE_CREDENTIALS = 149
 
   override fun migrate(context: Application, db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    if (oldVersion < RECIPIENT_CALL_RINGTONE_VERSION) {
+      db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN call_ringtone TEXT DEFAULT NULL")
+      db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN call_vibrate INTEGER DEFAULT " + RecipientTable.VibrateState.DEFAULT.id)
+    }
+
+    if (oldVersion < MIGRATE_PREKEYS_VERSION) {
+      db.execSQL("CREATE TABLE signed_prekeys (_id INTEGER PRIMARY KEY, key_id INTEGER UNIQUE, public_key TEXT NOT NULL, private_key TEXT NOT NULL, signature TEXT NOT NULL, timestamp INTEGER DEFAULT 0)")
+      db.execSQL("CREATE TABLE one_time_prekeys (_id INTEGER PRIMARY KEY, key_id INTEGER UNIQUE, public_key TEXT NOT NULL, private_key TEXT NOT NULL)")
+
+      PreKeysSyncJob.enqueue()
+    }
+
+    if (oldVersion < MIGRATE_SESSIONS_VERSION) {
+      db.execSQL("CREATE TABLE sessions (_id INTEGER PRIMARY KEY, address TEXT NOT NULL, device INTEGER NOT NULL, record BLOB NOT NULL, UNIQUE(address, device) ON CONFLICT REPLACE)")
+    }
+
+    if (oldVersion < NO_MORE_IMAGE_THUMBNAILS_VERSION) {
+      val update = ContentValues().apply {
+        put("thumbnail", null as String?)
+        put("aspect_ratio", null as String?)
+        put("thumbnail_random", null as String?)
+      }
+
+      db.query("part", arrayOf("_id", "ct", "thumbnail"), "thumbnail IS NOT NULL", null, null, null, null).use { cursor ->
+        while (cursor != null && cursor.moveToNext()) {
+          val id: Long = cursor.getLong(cursor.getColumnIndexOrThrow("_id"))
+          val contentType: String? = cursor.getString(cursor.getColumnIndexOrThrow("ct"))
+          if (contentType != null && !contentType.startsWith("video")) {
+            val thumbnailPath: String = cursor.getString(cursor.getColumnIndexOrThrow("thumbnail"))
+            val thumbnailFile = File(thumbnailPath)
+            thumbnailFile.delete()
+            db.update("part", update, "_id = ?", arrayOf(id.toString()))
+          }
+        }
+      }
+    }
+
+    if (oldVersion < ATTACHMENT_DIMENSIONS) {
+      db.execSQL("ALTER TABLE part ADD COLUMN width INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE part ADD COLUMN height INTEGER DEFAULT 0")
+    }
+
+    if (oldVersion < QUOTED_REPLIES) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN quote_id INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE mms ADD COLUMN quote_author TEXT")
+      db.execSQL("ALTER TABLE mms ADD COLUMN quote_body TEXT")
+      db.execSQL("ALTER TABLE mms ADD COLUMN quote_attachment INTEGER DEFAULT -1")
+      db.execSQL("ALTER TABLE part ADD COLUMN quote INTEGER DEFAULT 0")
+    }
+
+    if (oldVersion < SHARED_CONTACTS) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN shared_contacts TEXT")
+    }
+
+    if (oldVersion < FULL_TEXT_SEARCH) {
+      // language=text
+      db.execSQL("CREATE VIRTUAL TABLE sms_fts USING fts5(body, content=sms, content_rowid=_id)")
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_ai AFTER INSERT ON sms BEGIN
+          INSERT INTO sms_fts(rowid, body) VALUES (new._id, new.body);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_ad AFTER DELETE ON sms BEGIN
+          INSERT INTO sms_fts(sms_fts, rowid, body) VALUES('delete', old._id, old.body);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_au AFTER UPDATE ON sms BEGIN
+          INSERT INTO sms_fts(sms_fts, rowid, body) VALUES('delete', old._id, old.body);
+          INSERT INTO sms_fts(rowid, body) VALUES(new._id, new.body);
+        END;
+        """.trimIndent()
+      )
+      // language=text
+      db.execSQL("CREATE VIRTUAL TABLE mms_fts USING fts5(body, content=mms, content_rowid=_id)")
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_ai AFTER INSERT ON mms BEGIN
+          INSERT INTO mms_fts(rowid, body) VALUES (new._id, new.body);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_ad AFTER DELETE ON mms BEGIN
+          INSERT INTO mms_fts(mms_fts, rowid, body) VALUES('delete', old._id, old.body);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_au AFTER UPDATE ON mms BEGIN
+          INSERT INTO mms_fts(mms_fts, rowid, body) VALUES('delete', old._id, old.body);
+          INSERT INTO mms_fts(rowid, body) VALUES(new._id, new.body);
+        END;
+        """.trimIndent()
+      )
+
+      Log.i(TAG, "Beginning to build search index.")
+
+      val start = SystemClock.elapsedRealtime()
+      db.execSQL("INSERT INTO sms_fts (rowid, body) SELECT _id, body FROM sms")
+
+      val smsFinished = SystemClock.elapsedRealtime()
+
+      Log.i(TAG, "Indexing SMS completed in " + (smsFinished - start) + " ms")
+      db.execSQL("INSERT INTO mms_fts (rowid, body) SELECT _id, body FROM mms")
+
+      val mmsFinished = SystemClock.elapsedRealtime()
+
+      Log.i(TAG, "Indexing MMS completed in " + (mmsFinished - smsFinished) + " ms")
+      Log.i(TAG, "Indexing finished. Total time: " + (mmsFinished - start) + " ms")
+    }
+
+    if (oldVersion < BAD_IMPORT_CLEANUP) {
+      val trimmedCondition = " NOT IN (SELECT _id FROM mms)"
+      db.delete("group_receipts", "mms_id$trimmedCondition", null)
+
+      val columns = arrayOf("_id", "unique_id", "_data", "thumbnail")
+
+      db.query("part", columns, "mid$trimmedCondition", null, null, null, null).use { cursor ->
+        while (cursor != null && cursor.moveToNext()) {
+          db.delete("part", "_id = ? AND unique_id = ?", arrayOf(cursor.getLong(0).toString(), cursor.getLong(1).toString()))
+
+          val data: String = cursor.getString(2)
+          val thumbnail: String = cursor.getString(3)
+
+          if (!TextUtils.isEmpty(data)) {
+            File(data).delete()
+          }
+
+          if (!TextUtils.isEmpty(thumbnail)) {
+            File(thumbnail).delete()
+          }
+        }
+      }
+    }
+
+    // Note: This column only being checked due to upgrade issues as described in #8184
+    if (oldVersion < QUOTE_MISSING && !SqlUtil.columnExists(db, "mms", "quote_missing")) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN quote_missing INTEGER DEFAULT 0")
+    }
+
+    // Note: The column only being checked due to upgrade issues as described in #8184
+    if (oldVersion < NOTIFICATION_CHANNELS && !SqlUtil.columnExists(db, "recipient_preferences", "notification_channel")) {
+      db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN notification_channel TEXT DEFAULT NULL")
+      NotificationChannels.getInstance()
+
+      db.rawQuery("SELECT recipient_ids, system_display_name, signal_profile_name, notification, vibrate FROM recipient_preferences WHERE notification NOT NULL OR vibrate != 0", null).use { cursor ->
+        while (cursor != null && cursor.moveToNext()) {
+          val rawAddress: String = cursor.getString(cursor.getColumnIndexOrThrow("recipient_ids"))
+          val address: String = SignalE164Util.formatAsE164(rawAddress) ?: ""
+          val systemName: String = cursor.getString(cursor.getColumnIndexOrThrow("system_display_name"))
+          val profileName: String = cursor.getString(cursor.getColumnIndexOrThrow("signal_profile_name"))
+          val messageSound: String? = cursor.getString(cursor.getColumnIndexOrThrow("notification"))
+          val messageSoundUri: Uri? = if (messageSound != null) Uri.parse(messageSound) else null
+          val vibrateState: Int = cursor.getInt(cursor.getColumnIndexOrThrow("vibrate"))
+          var displayName: String? = NotificationChannels.getInstance().getChannelDisplayNameFor(systemName, profileName, null, address)
+          val vibrateEnabled: Boolean = if (vibrateState == 0) SignalStore.settings.isMessageVibrateEnabled else vibrateState == 1
+          if (GroupId.isEncodedGroup(address)) {
+            db.rawQuery("SELECT title FROM groups WHERE group_id = ?", arrayOf(address)).use { groupCursor ->
+              if (groupCursor != null && groupCursor.moveToFirst()) {
+                val title: String = groupCursor.getString(groupCursor.getColumnIndexOrThrow("title"))
+                if (!TextUtils.isEmpty(title)) {
+                  displayName = title
+                }
+              }
+            }
+          }
+          val channelId: String? = NotificationChannels.getInstance().createChannelFor("contact_" + address + "_" + System.currentTimeMillis(), (displayName)!!, messageSoundUri, vibrateEnabled, null)
+          val values = ContentValues(1).apply {
+            put("notification_channel", channelId)
+          }
+          db.update("recipient_preferences", values, "recipient_ids = ?", arrayOf(rawAddress))
+        }
+      }
+    }
+
+    if (oldVersion < SECRET_SENDER) {
+      db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN unidentified_access_mode INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE push ADD COLUMN server_timestamp INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE push ADD COLUMN server_guid TEXT DEFAULT NULL")
+      db.execSQL("ALTER TABLE group_receipts ADD COLUMN unidentified INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE mms ADD COLUMN unidentified INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE sms ADD COLUMN unidentified INTEGER DEFAULT 0")
+    }
+
+    if (oldVersion < ATTACHMENT_CAPTIONS) {
+      db.execSQL("ALTER TABLE part ADD COLUMN caption TEXT DEFAULT NULL")
+    }
+
+    // 4.30.8 included a migration, but not a correct CREATE_TABLE statement, so we need to add
+    // this column if it isn't present.
+    if (oldVersion < ATTACHMENT_CAPTIONS_FIX) {
+      if (!SqlUtil.columnExists(db, "part", "caption")) {
+        db.execSQL("ALTER TABLE part ADD COLUMN caption TEXT DEFAULT NULL")
+      }
+    }
+
+    if (oldVersion < PREVIEWS) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN previews TEXT")
+    }
+
+    if (oldVersion < CONVERSATION_SEARCH) {
+      db.execSQL("DROP TABLE sms_fts")
+      db.execSQL("DROP TABLE mms_fts")
+      db.execSQL("DROP TRIGGER sms_ai")
+      db.execSQL("DROP TRIGGER sms_au")
+      db.execSQL("DROP TRIGGER sms_ad")
+      db.execSQL("DROP TRIGGER mms_ai")
+      db.execSQL("DROP TRIGGER mms_au")
+      db.execSQL("DROP TRIGGER mms_ad")
+      // language=text
+      db.execSQL("CREATE VIRTUAL TABLE sms_fts USING fts5(body, thread_id UNINDEXED, content=sms, content_rowid=_id)")
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_ai AFTER INSERT ON sms BEGIN
+          INSERT INTO sms_fts(rowid, body, thread_id) VALUES (new._id, new.body, new.thread_id);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_ad AFTER DELETE ON sms BEGIN
+          INSERT INTO sms_fts(sms_fts, rowid, body, thread_id) VALUES('delete', old._id, old.body, old.thread_id);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER sms_au AFTER UPDATE ON sms BEGIN
+          INSERT INTO sms_fts(sms_fts, rowid, body, thread_id) VALUES('delete', old._id, old.body, old.thread_id);
+          INSERT INTO sms_fts(rowid, body, thread_id) VALUES(new._id, new.body, new.thread_id);
+        END;
+        """.trimIndent()
+      )
+      // language=text
+      db.execSQL("CREATE VIRTUAL TABLE mms_fts USING fts5(body, thread_id UNINDEXED, content=mms, content_rowid=_id)")
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_ai AFTER INSERT ON mms BEGIN
+          INSERT INTO mms_fts(rowid, body, thread_id) VALUES (new._id, new.body, new.thread_id);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_ad AFTER DELETE ON mms BEGIN
+          INSERT INTO mms_fts(mms_fts, rowid, body, thread_id) VALUES('delete', old._id, old.body, old.thread_id);
+        END;
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TRIGGER mms_au AFTER UPDATE ON mms BEGIN
+          INSERT INTO mms_fts(mms_fts, rowid, body, thread_id) VALUES('delete', old._id, old.body, old.thread_id);
+          INSERT INTO mms_fts(rowid, body, thread_id) VALUES(new._id, new.body, new.thread_id);
+        END;
+        """.trimIndent()
+      )
+
+      Log.i(TAG, "Beginning to build search index.")
+      val start = SystemClock.elapsedRealtime()
+      db.execSQL("INSERT INTO sms_fts (rowid, body, thread_id) SELECT _id, body, thread_id FROM sms")
+      val smsFinished = SystemClock.elapsedRealtime()
+
+      Log.i(TAG, "Indexing SMS completed in " + (smsFinished - start) + " ms")
+      db.execSQL("INSERT INTO mms_fts (rowid, body, thread_id) SELECT _id, body, thread_id FROM mms")
+      val mmsFinished = SystemClock.elapsedRealtime()
+      Log.i(TAG, "Indexing MMS completed in " + (mmsFinished - smsFinished) + " ms")
+
+      Log.i(TAG, "Indexing finished. Total time: " + (mmsFinished - start) + " ms")
+    }
+
+    if (oldVersion < SELF_ATTACHMENT_CLEANUP) {
+      val localNumber = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_number", null)
+      if (!TextUtils.isEmpty(localNumber)) {
+        db.rawQuery("SELECT _id FROM thread WHERE recipient_ids = ?", arrayOf(localNumber)).use { threadCursor ->
+          if (threadCursor != null && threadCursor.moveToFirst()) {
+            val threadId: Long = threadCursor.getLong(0)
+            val updateValues = ContentValues(1).apply {
+              put("pending_push", 0)
+            }
+            val count: Int = db.update("part", updateValues, "mid IN (SELECT _id FROM mms WHERE thread_id = ?)", arrayOf(threadId.toString()))
+            Log.i(TAG, "Updated $count self-sent attachments.")
+          }
+        }
+      }
+    }
+
+    if (oldVersion < RECIPIENT_FORCE_SMS_SELECTION) {
+      db.execSQL("ALTER TABLE recipient_preferences ADD COLUMN force_sms_selection INTEGER DEFAULT 0")
+    }
+
+    if (oldVersion < JOBMANAGER_STRIKES_BACK) {
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TABLE job_spec(
+          _id INTEGER PRIMARY KEY AUTOINCREMENT,
+          job_spec_id TEXT UNIQUE, 
+          factory_key TEXT, 
+          queue_key TEXT, 
+          create_time INTEGER,
+          next_run_attempt_time INTEGER,
+          run_attempt INTEGER,
+          max_attempts INTEGER,
+          max_backoff INTEGER,
+          max_instances INTEGER,
+          lifespan INTEGER,
+          serialized_data TEXT,
+          is_running INTEGER
+        )
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TABLE constraint_spec(
+          _id INTEGER PRIMARY KEY AUTOINCREMENT,
+          job_spec_id TEXT, 
+          factory_key TEXT,
+          UNIQUE(job_spec_id, factory_key)
+        )
+        """.trimIndent()
+      )
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TABLE dependency_spec(
+          _id INTEGER PRIMARY KEY AUTOINCREMENT,
+          job_spec_id TEXT, 
+          depends_on_job_spec_id TEXT,
+          UNIQUE(job_spec_id, depends_on_job_spec_id)
+        )
+        """.trimIndent()
+      )
+    }
+
+    if (oldVersion < STICKERS) {
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TABLE sticker (
+          _id INTEGER PRIMARY KEY AUTOINCREMENT,
+          pack_id TEXT NOT NULL, 
+          pack_key TEXT NOT NULL,
+          pack_title TEXT NOT NULL,
+          pack_author TEXT NOT NULL,
+          sticker_id INTEGER,
+          cover INTEGER,
+          emoji TEXT NOT NULL,
+          last_used INTEGER,
+          installed INTEGER,
+          file_path TEXT NOT NULL,
+          file_length INTEGER,
+          file_random BLOB,
+          UNIQUE(pack_id, sticker_id, cover) ON CONFLICT IGNORE
+        )
+        """.trimIndent()
+      )
+      db.execSQL("CREATE INDEX IF NOT EXISTS sticker_pack_id_index ON sticker (pack_id);")
+      db.execSQL("CREATE INDEX IF NOT EXISTS sticker_sticker_id_index ON sticker (sticker_id);")
+      db.execSQL("ALTER TABLE part ADD COLUMN sticker_pack_id TEXT")
+      db.execSQL("ALTER TABLE part ADD COLUMN sticker_pack_key TEXT")
+      db.execSQL("ALTER TABLE part ADD COLUMN sticker_id INTEGER DEFAULT -1")
+      db.execSQL("CREATE INDEX IF NOT EXISTS part_sticker_pack_id_index ON part (sticker_pack_id)")
+    }
+
+    if (oldVersion < REVEALABLE_MESSAGES) {
+      db.execSQL("ALTER TABLE mms ADD COLUMN reveal_duration INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE mms ADD COLUMN reveal_start_time INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE thread ADD COLUMN snippet_content_type TEXT DEFAULT NULL")
+      db.execSQL("ALTER TABLE thread ADD COLUMN snippet_extras TEXT DEFAULT NULL")
+    }
+
+    if (oldVersion < VIEW_ONCE_ONLY) {
+      db.execSQL("UPDATE mms SET reveal_duration = 1 WHERE reveal_duration > 0")
+      db.execSQL("UPDATE mms SET reveal_start_time = 0")
+    }
+
+    if (oldVersion < RECIPIENT_IDS) {
+      // RecipientIdMigrationHelper was removed -- migration from this old version is no longer supported
+    }
+
+    if (oldVersion < RECIPIENT_SEARCH) {
+      db.execSQL("ALTER TABLE recipient ADD COLUMN system_phone_type INTEGER DEFAULT -1")
+      val localNumber = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_number", null)
+      if (!TextUtils.isEmpty(localNumber)) {
+        db.query("recipient", null, "phone = ?", arrayOf(localNumber), null, null, null).use { cursor ->
+          if (cursor == null || !cursor.moveToFirst()) {
+            val values = ContentValues().apply {
+              put("phone", localNumber)
+              put("registered", 1)
+              put("profile_sharing", 1)
+            }
+            db.insert("recipient", null, values)
+          } else {
+            db.execSQL("UPDATE recipient SET registered = ?, profile_sharing = ? WHERE phone = ?", arrayOf("1", "1", localNumber))
+          }
+        }
+      }
+    }
+
+    if (oldVersion < RECIPIENT_CLEANUP) {
+      // RecipientIdCleanupHelper was removed -- migration from this old version is no longer supported
+    }
+
+    if (oldVersion < MMS_RECIPIENT_CLEANUP) {
+      val values = ContentValues(1)
+      values.put("address", "-1")
+      val count = db.update("mms", values, "address = ?", arrayOf("0"))
+      Log.i(TAG, "MMS recipient cleanup updated $count rows.")
+    }
+
+    if (oldVersion < ATTACHMENT_HASHING) {
+      db.execSQL("ALTER TABLE part ADD COLUMN data_hash TEXT DEFAULT NULL")
+      db.execSQL("CREATE INDEX IF NOT EXISTS part_data_hash_index ON part (data_hash)")
+    }
+
+    if (oldVersion < NOTIFICATION_RECIPIENT_IDS && Build.VERSION.SDK_INT >= 26) {
+      val notificationManager = ServiceUtil.getNotificationManager(context)
+      val channels = notificationManager.notificationChannels
+        .filter { c: NotificationChannel -> c.id.startsWith("contact_") }
+
+      Log.i(TAG, "Migrating " + channels.size + " channels to use RecipientId's.")
+
+      for (oldChannel: NotificationChannel in channels) {
+        notificationManager.deleteNotificationChannel(oldChannel.id)
+        val startIndex = "contact_".length
+        val endIndex = oldChannel.id.lastIndexOf("_")
+        val address = oldChannel.id.substring(startIndex, endIndex)
+        var recipientId: String?
+
+        db.query("recipient", arrayOf("_id"), "phone = ? OR email = ? OR group_id = ?", arrayOf(address, address, address), null, null, null).use { cursor ->
+          recipientId = if (cursor != null && cursor.moveToFirst()) {
+            cursor.getString(cursor.getColumnIndexOrThrow("_id"))
+          } else {
+            Log.w(TAG, "Couldn't find recipient for address: $address")
+            null
+          }
+        }
+
+        if (recipientId == null) {
+          continue
+        }
+
+        val newId = "contact_" + recipientId + "_" + System.currentTimeMillis()
+        val newChannel = NotificationChannel(newId, oldChannel.name, oldChannel.importance)
+        Log.i(TAG, "Updating channel ID from '" + oldChannel.id + "' to '" + newChannel.id + "'.")
+        newChannel.group = oldChannel.group
+        newChannel.setSound(oldChannel.sound, oldChannel.audioAttributes)
+        newChannel.setBypassDnd(oldChannel.canBypassDnd())
+        newChannel.enableVibration(oldChannel.shouldVibrate())
+        newChannel.vibrationPattern = oldChannel.vibrationPattern
+        newChannel.lockscreenVisibility = oldChannel.lockscreenVisibility
+        newChannel.setShowBadge(oldChannel.canShowBadge())
+        newChannel.lightColor = oldChannel.lightColor
+        newChannel.enableLights(oldChannel.shouldShowLights())
+        notificationManager.createNotificationChannel(newChannel)
+        val contentValues = ContentValues(1).apply {
+          put("notification_channel", newChannel.id)
+        }
+        db.update("recipient", contentValues, "_id = ?", arrayOf(recipientId))
+      }
+    }
+
+    if (oldVersion < BLUR_HASH) {
+      db.execSQL("ALTER TABLE part ADD COLUMN blur_hash TEXT DEFAULT NULL")
+    }
+
+    if (oldVersion < MMS_RECIPIENT_CLEANUP_2) {
+      val values = ContentValues(1).apply {
+        put("address", "-1")
+      }
+      val count = db.update("mms", values, "address = ? OR address IS NULL", arrayOf("0"))
+      Log.i(TAG, "MMS recipient cleanup 2 updated $count rows.")
+    }
+
+    if (oldVersion < ATTACHMENT_TRANSFORM_PROPERTIES) {
+      db.execSQL("ALTER TABLE part ADD COLUMN transform_properties TEXT DEFAULT NULL")
+    }
+
+    if (oldVersion < ATTACHMENT_CLEAR_HASHES) {
+      db.execSQL("UPDATE part SET data_hash = null")
+    }
+
+    if (oldVersion < ATTACHMENT_CLEAR_HASHES_2) {
+      db.execSQL("UPDATE part SET data_hash = null")
+    }
+
+    if (oldVersion < UUIDS) {
+      db.execSQL("ALTER TABLE recipient ADD COLUMN uuid_supported INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE push ADD COLUMN source_uuid TEXT DEFAULT NULL")
+    }
+
+    if (oldVersion < USERNAMES) {
+      db.execSQL("ALTER TABLE recipient ADD COLUMN username TEXT DEFAULT NULL")
+      db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS recipient_username_index ON recipient (username)")
+    }
+
+    if (oldVersion < REACTIONS) {
+      db.execSQL("ALTER TABLE sms ADD COLUMN reactions BLOB DEFAULT NULL")
+      db.execSQL("ALTER TABLE mms ADD COLUMN reactions BLOB DEFAULT NULL")
+      db.execSQL("ALTER TABLE sms ADD COLUMN reactions_unread INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE mms ADD COLUMN reactions_unread INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE sms ADD COLUMN reactions_last_seen INTEGER DEFAULT -1")
+      db.execSQL("ALTER TABLE mms ADD COLUMN reactions_last_seen INTEGER DEFAULT -1")
+    }
+
+    if (oldVersion < STORAGE_SERVICE) {
+      db.execSQL(
+        // language=sql
+        """
+        CREATE TABLE storage_key (
+          _id INTEGER PRIMARY KEY AUTOINCREMENT,
+          type INTEGER,
+          key TEXT UNIQUE
+        )
+        """.trimIndent()
+      )
+      db.execSQL("CREATE INDEX IF NOT EXISTS storage_key_type_index ON storage_key (type)")
+      db.execSQL("ALTER TABLE recipient ADD COLUMN system_info_pending INTEGER DEFAULT 0")
+      db.execSQL("ALTER TABLE recipient ADD COLUMN storage_service_key TEXT DEFAULT NULL")
+      db.execSQL("ALTER TABLE recipient ADD COLUMN dirty INTEGER DEFAULT 0")
+      db.execSQL("CREATE UNIQUE INDEX recipient_storage_service_key ON recipient (storage_service_key)")
+      db.execSQL("CREATE INDEX recipient_dirty_index ON recipient (dirty)")
+    }
+
     if (oldVersion < REACTIONS_UNREAD_INDEX) {
-      throw AssertionError("Unsupported Signal database: version is too old")
+      db.execSQL("CREATE INDEX IF NOT EXISTS sms_reactions_unread_index ON sms (reactions_unread);")
+      db.execSQL("CREATE INDEX IF NOT EXISTS mms_reactions_unread_index ON mms (reactions_unread);")
     }
 
     if (oldVersion < RESUMABLE_DOWNLOADS) {
@@ -216,9 +810,9 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
     }
 
     if (oldVersion < PROFILE_KEY_TO_DB) {
-      val localNumber = SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_number", null)
+      val localNumber = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_number", null)
       if (!TextUtils.isEmpty(localNumber)) {
-        val encodedProfileKey = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_key", null)
+        val encodedProfileKey = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_key", null)
         val profileKey = if (encodedProfileKey != null) Base64.decodeOrThrow(encodedProfileKey) else Util.getSecretBytes(32)
         val values = ContentValues(1).apply {
           put("profile_key", Base64.encodeWithPadding(profileKey))
@@ -277,9 +871,9 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
     }
 
     if (oldVersion < PROFILE_DATA_MIGRATION) {
-      val localNumber = SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_number", null)
+      val localNumber = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_number", null)
       if (localNumber != null) {
-        val encodedProfileName = SecurePreferenceManager.getSecurePreferences(context).getString("pref_profile_name", null)
+        val encodedProfileName = PreferenceManager.getDefaultSharedPreferences(context).getString("pref_profile_name", null)
         val profileName = ProfileName.fromSerialized(encodedProfileName)
         db.execSQL("UPDATE recipient SET signal_profile_name = ?, profile_family_name = ?, profile_joined_name = ? WHERE phone = ?", arrayOf(profileName.givenName, profileName.familyName, profileName.toString(), localNumber))
       }
@@ -2098,7 +2692,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
   private fun getLocalAci(context: Application): ACI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.aci", "account.1.aci"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.aci"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           ACI.parseOrNull(cursor.requireString("value"))
         } else {
@@ -2106,7 +2700,7 @@ object V149_LegacyMigrations : SignalDatabaseMigration {
         }
       }
     } else {
-      return ACI.parseOrNull(SecurePreferenceManager.getSecurePreferences(context).getString("pref_local_uuid", null))
+      return ACI.parseOrNull(PreferenceManager.getDefaultSharedPreferences(context).getString("pref_local_uuid", null))
     }
   }
 }

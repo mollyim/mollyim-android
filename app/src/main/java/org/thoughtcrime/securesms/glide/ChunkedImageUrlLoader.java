@@ -11,8 +11,8 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import org.thoughtcrime.securesms.giph.model.ChunkedImageUrl;
 import org.thoughtcrime.securesms.net.ContentProxySafetyInterceptor;
 import org.thoughtcrime.securesms.net.ContentProxySelector;
-import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
+import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 
 import java.io.InputStream;
 
@@ -42,13 +42,12 @@ public class ChunkedImageUrlLoader implements ModelLoader<ChunkedImageUrl, Input
 
     public Factory() {
       this.client  = new OkHttpClient.Builder()
-                                     .socketFactory(Networking.getSocketFactory())
                                      .proxySelector(new ContentProxySelector())
-                                     .dns(Networking.getDns())
                                      .cache(null)
                                      .addInterceptor(new StandardUserAgentInterceptor())
                                      .addNetworkInterceptor(new ContentProxySafetyInterceptor())
                                      .addNetworkInterceptor(new PaddedHeadersInterceptor())
+                                     .dns(SignalServiceNetworkAccess.DNS)
                                      .build();
     }
 

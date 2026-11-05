@@ -1,0 +1,834 @@
+From fb0060fbb114fe513188b502a46bcbaa6872a386 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly module-pruning, part 3
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Removed demos, benchmark/spinner/quickstart flavors and screenshot-test infrastructure.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/baseline-profile/src/main/java/org/signal/baselineprofile/BaselineProfileGenerator.kt b/baseline-profile/src/main/java/org/signal/baselineprofile/BaselineProfileGenerator.kt
+deleted file mode 100644
+index 41e73bca8540bbed9a37561ac1221253e1dd7952..0000000000000000000000000000000000000000
+--- a/baseline-profile/src/main/java/org/signal/baselineprofile/BaselineProfileGenerator.kt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-package org.signal.baselineprofile
+-
+-import androidx.benchmark.macro.junit4.BaselineProfileRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.filters.LargeTest
+-import androidx.test.platform.app.InstrumentationRegistry
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.Until
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * WARNING! THIS WILL WIPE YOUR SIGNAL INSTALL
+- *
+- * Test that generates a Baseline profile from a user journey. Our journey is:
+- *  - start the app
+- *  - open a conversation
+- */
+-@RunWith(AndroidJUnit4::class)
+-@LargeTest
+-class BaselineProfileGenerator {
+-
+-  @get:Rule
+-  val baselineProfileRule = BaselineProfileRule()
+-
+-  @Test
+-  fun startup() {
+-    var setup = false
+-    baselineProfileRule.collect(
+-      packageName = "org.thoughtcrime.securesms",
+-      includeInStartupProfile = true,
+-      profileBlock = {
+-        if (!setup) {
+-          BenchmarkSetup.setup("cold-start", device)
+-          setup = true
+-        }
+-
+-        pressHome()
+-        startActivityAndWait()
+-        device.findObject(By.textContains("Buddy")).click()
+-        device.wait(Until.hasObject(By.textContains("Signal message")), 10_000L)
+-        device.wait(Until.hasObject(By.textContains("Test")), 5_000L)
+-      }
+-    )
+-  }
+-}
+diff --git a/benchmark/.gitignore b/benchmark/.gitignore
+deleted file mode 100644
+index 42afabfd2abebf31384ca7797186a27a4b7dbee8..0000000000000000000000000000000000000000
+--- a/benchmark/.gitignore
++++ /dev/null
+@@ -1 +0,0 @@
+-/build
+\ No newline at end of file
+diff --git a/benchmark/build.gradle.kts b/benchmark/build.gradle.kts
+deleted file mode 100644
+index d97222d619bfeaa477383506d96e6cff502f8b6d..0000000000000000000000000000000000000000
+--- a/benchmark/build.gradle.kts
++++ /dev/null
+@@ -1,81 +0,0 @@
+-@file:Suppress("UnstableApiUsage")
+-
+-import com.android.build.api.dsl.ManagedVirtualDevice
+-import org.gradle.api.JavaVersion
+-import org.gradle.kotlin.dsl.extra
+-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+-
+-val benchmarkLibs = the<org.gradle.accessors.dm.LibrariesForBenchmarkLibs>()
+-
+-plugins {
+-    id("com.android.test")
+-}
+-
+-android {
+-    namespace = "org.signal.benchmark"
+-    compileSdkVersion(libs.versions.compileSdk.get())
+-
+-    compileOptions {
+-        sourceCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
+-        targetCompatibility = JavaVersion.toVersion(libs.versions.javaVersion.get())
+-    }
+-
+-    defaultConfig {
+-        minSdk = 23
+-        targetSdk = libs.versions.targetSdk.get().toInt()
+-
+-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+-
+-        missingDimensionStrategy("environment", "prod")
+-        missingDimensionStrategy("distribution", "play")
+-
+-        testInstrumentationRunnerArguments["androidx.benchmark.suppressErrors"] = "EMULATOR"
+-    }
+-
+-    buildTypes {
+-        create("benchmark") {
+-            isDebuggable = true
+-            signingConfig = getByName("debug").signingConfig
+-            matchingFallbacks += listOf("perf", "debug")
+-        }
+-    }
+-
+-    targetProjectPath = ":Signal-Android"
+-    experimentalProperties["android.experimental.self-instrumenting"] = true
+-
+-    testOptions {
+-        managedDevices {
+-            localDevices {
+-                create("api31") {
+-                    device = "Pixel 6"
+-                    testedAbi = "x86_64"
+-                    apiLevel = 31
+-                    systemImageSource = "aosp"
+-                    require64Bit = true
+-                }
+-            }
+-        }
+-    }
+-
+-}
+-
+-kotlin {
+-    compilerOptions {
+-        jvmTarget = JvmTarget.fromTarget(libs.versions.kotlinJvmTarget.get())
+-    }
+-}
+-
+-dependencies {
+-    implementation(benchmarkLibs.androidx.test.ext.junit)
+-    implementation(benchmarkLibs.espresso.core)
+-    implementation(benchmarkLibs.uiautomator)
+-    implementation(benchmarkLibs.androidx.benchmark.macro)
+-}
+-
+-androidComponents {
+-    beforeVariants(selector().all()) {
+-        if (it.buildType != "benchmark") {
+-            it.enable = false
+-        }
+-    }
+-}
+diff --git a/benchmark/src/main/AndroidManifest.xml b/benchmark/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 5e49a2e20359076cbb96c6aac3c2eff82240da80..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-    <queries>
+-        <package android:name="org.thoughtcrime.securesms.benchmark" />
+-    </queries>
+-</manifest>
+\ No newline at end of file
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkMetrics.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkMetrics.kt
+deleted file mode 100644
+index 70ce13f38dd811b65c6e0a01a7b68da10df6b1df..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkMetrics.kt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.benchmark
+-
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.TraceSectionMetric
+-import androidx.benchmark.macro.TraceSectionMetric.Mode
+-
+-@OptIn(ExperimentalMetricApi::class)
+-object BenchmarkMetrics {
+-
+-  val incomingMessageObserver: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("IncomingMessageObserver#decryptMessage", Mode.Average),
+-      TraceSectionMetric("IncomingMessageObserver#perMessageTransaction", Mode.Average),
+-      TraceSectionMetric("IncomingMessageObserver#processMessage", Mode.Average),
+-      TraceSectionMetric("IncomingMessageObserver#totalProcessing", Mode.Sum)
+-    )
+-
+-  val groupDataMessageProcessor: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("DataMessageProcessor#gv2PreProcessing", Mode.Average),
+-      TraceSectionMetric("DataMessageProcessor#messageInsert", Mode.Average),
+-      TraceSectionMetric("DataMessageProcessor#postProcess", Mode.Average)
+-    )
+-
+-  val individualDataMessageProcessor: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("DataMessageProcessor#messageInsert", Mode.Average),
+-      TraceSectionMetric("DataMessageProcessor#postProcess", Mode.Average)
+-    )
+-
+-  val messageDecryptor: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("MessageDecryptor#cipherDecrypt", Mode.Average),
+-    )
+-
+-  val messageContentProcessor: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("MessageContentProcessor#handleMessage", Mode.Average)
+-    )
+-
+-  val deliveryReceipt: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("ReceiptMessageProcessor#incrementDeliveryReceiptCounts", Mode.Average)
+-    )
+-
+-  val readReceipt: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("ReceiptMessageProcessor#incrementReadReceiptCounts", Mode.Average)
+-    )
+-
+-  val threadDeletion: List<TraceSectionMetric>
+-    get() = listOf(
+-      TraceSectionMetric("ThreadTable#deleteConversations", Mode.Sum),
+-      TraceSectionMetric("MessageTable#deleteMessagesInThread", Mode.Sum),
+-      TraceSectionMetric("deleteMessages", Mode.Sum)
+-    )
+-}
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkSetup.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkSetup.kt
+deleted file mode 100644
+index c77fd930634f8f20f02c988717cc98818452bfe9..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/BenchmarkSetup.kt
++++ /dev/null
+@@ -1,47 +0,0 @@
+-package org.thoughtcrime.benchmark
+-
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.UiDevice
+-import androidx.test.uiautomator.Until
+-
+-object BenchmarkSetup {
+-  private const val TARGET_PACKAGE = "org.thoughtcrime.securesms.benchmark"
+-  private const val RECEIVER = "org.signal.benchmark.BenchmarkCommandReceiver"
+-
+-  fun setup(type: String, device: UiDevice, timeout: Long = 25_000L, clearData: Boolean = true) {
+-    if (clearData) {
+-      device.executeShellCommand("pm clear $TARGET_PACKAGE")
+-    }
+-
+-    device.executeShellCommand("am start -W -n $TARGET_PACKAGE/org.signal.benchmark.BenchmarkSetupActivity --es setup-type $type")
+-    device.wait(Until.hasObject(By.textContains("done")), timeout)
+-  }
+-
+-  fun setupIndividualSend(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("individual-send")
+-  }
+-
+-  fun setupGroupSend(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("group-send")
+-  }
+-
+-  fun setupGroupDeliveryReceipt(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("group-delivery-receipt")
+-  }
+-
+-  fun setupGroupReadReceipt(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("group-read-receipt")
+-  }
+-
+-  fun releaseMessages(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("release-messages")
+-  }
+-
+-  fun deleteThread(device: UiDevice) {
+-    device.benchmarkCommandBroadcast("delete-thread")
+-  }
+-
+-  private fun UiDevice.benchmarkCommandBroadcast(command: String) {
+-    executeShellCommand("am broadcast -a org.signal.benchmark.action.COMMAND -e command $command -n $TARGET_PACKAGE/$RECEIVER")
+-  }
+-}
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/ConversationBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/ConversationBenchmarks.kt
+deleted file mode 100644
+index 5aad99be57143e892d68416904dbb4f5219e6fe3..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/ConversationBenchmarks.kt
++++ /dev/null
+@@ -1,56 +0,0 @@
+-package org.thoughtcrime.benchmark
+-
+-import android.Manifest
+-import android.os.Build
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.TraceSectionMetric
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.Until
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class ConversationBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @OptIn(ExperimentalMetricApi::class)
+-  @Test
+-  fun simpleConversationOpen() {
+-    var setup = false
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = listOf(
+-        TraceSectionMetric("6-ConversationOpen"),
+-        TraceSectionMetric("1-ConversationOpen-ViewModel-Init"),
+-        TraceSectionMetric("2-ConversationOpen-Metadata-Loaded"),
+-        TraceSectionMetric("3-ConversationOpen-Data-Loaded"),
+-        TraceSectionMetric("4-ConversationOpen-Data-Posted"),
+-        TraceSectionMetric("5-ConversationOpen-Render"),
+-      ),
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        if (!setup) {
+-          BenchmarkSetup.setup("conversation-open", device)
+-          setup = true
+-        }
+-        killProcess()
+-        if (Build.VERSION.SDK_INT >= 33) {
+-          device.executeShellCommand("pm grant $packageName ${Manifest.permission.POST_NOTIFICATIONS}")
+-        }
+-        startActivityAndWait()
+-        device.waitForIdle()
+-      }) {
+-      device.findObject(By.textContains("Buddy")).click()
+-      device.wait(Until.hasObject(By.textContains("Signal message")), 10_000L)
+-      device.wait(Until.hasObject(By.textContains("Test")), 5_000L)
+-    }
+-  }
+-}
+\ No newline at end of file
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/GroupMessageProcessingBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/GroupMessageProcessingBenchmarks.kt
+deleted file mode 100644
+index 0ce900a5aba536047f44935a173ffe752bafe4ad..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/GroupMessageProcessingBenchmarks.kt
++++ /dev/null
+@@ -1,129 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.benchmark
+-
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.MacrobenchmarkScope
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.UiDevice
+-import androidx.test.uiautomator.Until
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * Macrobenchmark benchmarks for message processing performance.
+- */
+-@OptIn(ExperimentalMetricApi::class)
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class GroupMessageProcessingBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @Test
+-  fun groupMessageReceiveOnConversationList() {
+-    runGroupMessageReceive(withConversationOpen = false)
+-  }
+-
+-  @Test
+-  fun groupMessageReceiveOnConversation() {
+-    runGroupMessageReceive(withConversationOpen = true)
+-  }
+-
+-  private fun runGroupMessageReceive(withConversationOpen: Boolean) {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.incomingMessageObserver + BenchmarkMetrics.messageDecryptor + BenchmarkMetrics.messageContentProcessor + BenchmarkMetrics.groupDataMessageProcessor,
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        setupGroup("group-message-send", BenchmarkSetup::setupGroupSend, withConversationOpen)
+-      }
+-    ) {
+-
+-      BenchmarkSetup.releaseMessages(device)
+-
+-      device.wait(Until.hasObject(By.textContains("505")),10_000L)
+-    }
+-  }
+-
+-  @Test
+-  fun groupDeliveryReceiptOnConversationList() {
+-    runGroupDeliveryReceipt(withConversationOpen = false)
+-  }
+-
+-  @Test
+-  fun groupDeliveryReceiptOnConversation() {
+-    runGroupDeliveryReceipt(withConversationOpen = true)
+-  }
+-
+-  private fun runGroupDeliveryReceipt(withConversationOpen: Boolean) {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.incomingMessageObserver + BenchmarkMetrics.messageDecryptor + BenchmarkMetrics.messageContentProcessor + BenchmarkMetrics.deliveryReceipt,
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        setupGroup("group-delivery-receipt", BenchmarkSetup::setupGroupDeliveryReceipt, withConversationOpen)
+-      }
+-    ) {
+-      BenchmarkSetup.releaseMessages(device)
+-
+-      Thread.sleep(10_000)
+-    }
+-  }
+-
+-  @Test
+-  fun groupReadReceiptOnConversationList() {
+-    runGroupReadReceipt(withConversationOpen = false)
+-  }
+-
+-  @Test
+-  fun groupReadReceiptOnConversation() {
+-    runGroupReadReceipt(withConversationOpen = true)
+-  }
+-
+-  private fun runGroupReadReceipt(withConversationOpen: Boolean) {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.incomingMessageObserver + BenchmarkMetrics.messageDecryptor  + BenchmarkMetrics.messageContentProcessor + BenchmarkMetrics.readReceipt,
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        setupGroup("group-read-receipt", BenchmarkSetup::setupGroupReadReceipt, withConversationOpen)
+-      }
+-    ) {
+-      BenchmarkSetup.releaseMessages(device)
+-
+-      Thread.sleep(10_000)
+-    }
+-  }
+-
+-  private fun MacrobenchmarkScope.setupGroup(
+-    setupType: String,
+-    prepareCommand: (UiDevice) -> Unit,
+-    withConversationOpen: Boolean
+-  ) {
+-    BenchmarkSetup.setup(setupType, device)
+-
+-    killProcess()
+-    startActivityAndWait()
+-    device.waitForIdle()
+-
+-    prepareCommand(device)
+-
+-    device.wait(Until.findObject(By.textContains("Title")), 5_000)
+-    if (withConversationOpen) {
+-      device.waitForIdle()
+-      device.findObject(By.textContains("Title")).click()
+-    }
+-  }
+-}
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/MessageProcessingBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/MessageProcessingBenchmarks.kt
+deleted file mode 100644
+index 9c4c3ec7fbd03827c9fc7c885a9c552d370bc1cb..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/MessageProcessingBenchmarks.kt
++++ /dev/null
+@@ -1,66 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.benchmark
+-
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.Until
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * Macrobenchmark benchmarks for message processing performance.
+- */
+-@OptIn(ExperimentalMetricApi::class)
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class MessageProcessingBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @Test
+-  fun individualMessageReceiveOnConversationList() {
+-    run(withConversationOpen = false)
+-  }
+-
+-  @Test
+-  fun individualMessageReceiveOnConversation() {
+-    run(withConversationOpen = true)
+-  }
+-
+-  private fun run(withConversationOpen: Boolean) {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.incomingMessageObserver + BenchmarkMetrics.messageContentProcessor + BenchmarkMetrics.individualDataMessageProcessor,
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        BenchmarkSetup.setup("message-send", device)
+-
+-        killProcess()
+-        startActivityAndWait()
+-        device.waitForIdle()
+-
+-        BenchmarkSetup.setupIndividualSend(device)
+-
+-        val uiObject = device.wait(Until.findObject(By.textContains("Buddy")), 5_000)
+-        if (withConversationOpen) {
+-          uiObject.click()
+-        }
+-      }
+-    ) {
+-
+-      BenchmarkSetup.releaseMessages(device)
+-
+-      device.wait(Until.hasObject(By.textContains("501")), 10_000L)
+-    }
+-  }
+-}
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/SearchBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/SearchBenchmarks.kt
+deleted file mode 100644
+index 8b64120930cd25bdedebadd484dd8fc52f821a78..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/SearchBenchmarks.kt
++++ /dev/null
+@@ -1,74 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.benchmark
+-
+-import android.Manifest
+-import android.os.Build
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.TraceSectionMetric
+-import androidx.benchmark.macro.TraceSectionMetric.Mode
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.Until
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * Macrobenchmark for searching from the conversation list.
+- *
+- * Seeds 50 conversations with 2,000 messages each (100,000 messages total), then performs the same
+- * operations the app runs when a user searches from the conversation list: opening the search
+- * toolbar, typing a query, and waiting for results. Measures the full-text search against the
+- * search table via the [SearchRepository] trace sections.
+- */
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class SearchBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @OptIn(ExperimentalMetricApi::class)
+-  @Test
+-  fun conversationListSearch() {
+-    var setup = false
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = listOf(
+-        TraceSectionMetric("ConversationListSearch-Messages", Mode.Sum),
+-        TraceSectionMetric("ConversationListSearch-Threads", Mode.Sum)
+-      ),
+-      iterations = 3,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        if (!setup) {
+-          BenchmarkSetup.setup("conversation-list-search", device, timeout = 600_000L)
+-          setup = true
+-        }
+-        killProcess()
+-        if (Build.VERSION.SDK_INT >= 33) {
+-          device.executeShellCommand("pm grant $packageName ${Manifest.permission.POST_NOTIFICATIONS}")
+-        }
+-        startActivityAndWait()
+-        device.waitForIdle()
+-      }
+-    ) {
+-      device.findObject(By.desc("Search")).click()
+-
+-      val searchField = device.wait(Until.findObject(By.clazz("android.widget.EditText")), 10_000L)
+-      searchField.text = SEARCH_QUERY
+-
+-      device.wait(Until.hasObject(By.textContains("Buddy")), 10_000L)
+-    }
+-  }
+-
+-  companion object {
+-    private const val SEARCH_QUERY = "lighthouse"
+-  }
+-}
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/StartupBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/StartupBenchmarks.kt
+deleted file mode 100644
+index a37c7156a98ea17c7f538f96708d3571cdd68c8c..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/StartupBenchmarks.kt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-package org.thoughtcrime.benchmark
+-
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.BaselineProfileMode
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.StartupMode
+-import androidx.benchmark.macro.StartupTimingMetric
+-import androidx.benchmark.macro.TraceSectionMetric
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * Macrobenchmark benchmarks for app startup performance.
+- */
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class StartupBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @Test
+-  fun coldStartNone() {
+-    measureStartup(3, CompilationMode.None())
+-  }
+-
+-  @Test
+-  fun coldStartBaselineProfile() {
+-    measureStartup(3, CompilationMode.Partial(BaselineProfileMode.Require))
+-  }
+-
+-  @OptIn(ExperimentalMetricApi::class)
+-  private fun measureStartup(iterations: Int, compilationMode: CompilationMode) {
+-    var setup = false
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = listOf(StartupTimingMetric(), TraceSectionMetric("ConversationListDataSource#load")),
+-      iterations = iterations,
+-      startupMode = StartupMode.COLD,
+-      compilationMode = compilationMode,
+-      setupBlock = {
+-        if (!setup) {
+-          BenchmarkSetup.setup("cold-start", device)
+-
+-          killProcess()
+-          dropKernelPageCache()
+-          setup = true
+-        }
+-      }
+-    ) {
+-      pressHome()
+-      startActivityAndWait()
+-    }
+-  }
+-}
+\ No newline at end of file
+diff --git a/benchmark/src/main/java/org/thoughtcrime/benchmark/ThreadDeletionBenchmarks.kt b/benchmark/src/main/java/org/thoughtcrime/benchmark/ThreadDeletionBenchmarks.kt
+deleted file mode 100644
+index 57532e1df11fc2e86044472275ee871fb3084b07..0000000000000000000000000000000000000000
+--- a/benchmark/src/main/java/org/thoughtcrime/benchmark/ThreadDeletionBenchmarks.kt
++++ /dev/null
+@@ -1,99 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.benchmark
+-
+-import androidx.annotation.RequiresApi
+-import androidx.benchmark.macro.CompilationMode
+-import androidx.benchmark.macro.ExperimentalMetricApi
+-import androidx.benchmark.macro.junit4.MacrobenchmarkRule
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-import androidx.test.uiautomator.By
+-import androidx.test.uiautomator.Until
+-import org.junit.Ignore
+-import org.junit.Rule
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-/**
+- * Macrobenchmark for measuring thread deletion performance.
+- *
+- * Inserts 20,000 messages into a conversation, then measures the time
+- * to delete the entire thread using per-batch transactions.
+- *
+- * Two variants:
+- * - [deleteThread20kMessages]: 1:1 conversation with attachments and reactions
+- * - [deleteGroupThread20kMessages]: Group conversation with attachments, reactions,
+- *   group receipts (5 members x 20k = 100k rows), and mentions
+- */
+-@OptIn(ExperimentalMetricApi::class)
+-@RunWith(AndroidJUnit4::class)
+-@RequiresApi(31)
+-class ThreadDeletionBenchmarks {
+-  @get:Rule
+-  val benchmarkRule = MacrobenchmarkRule()
+-
+-  @Test
+-  fun deleteThread20kMessages() {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.threadDeletion,
+-      iterations = 1,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        BenchmarkSetup.setup("thread-delete", device, timeout = 120_000L)
+-        killProcess()
+-        startActivityAndWait()
+-        device.waitForIdle()
+-        device.wait(Until.findObject(By.textContains("Buddy")), 10_000)
+-      }
+-    ) {
+-      BenchmarkSetup.deleteThread(device)
+-      device.wait(Until.gone(By.textContains("Buddy")), 300_000L)
+-    }
+-  }
+-
+-  @Test
+-  fun deleteGroupThread20kMessages() {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.threadDeletion,
+-      iterations = 1,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        BenchmarkSetup.setup("thread-delete-group", device, timeout = 180_000L)
+-        killProcess()
+-        startActivityAndWait()
+-        device.waitForIdle()
+-        device.wait(Until.findObject(By.textContains("Title")), 10_000)
+-      }
+-    ) {
+-      BenchmarkSetup.deleteThread(device)
+-      device.wait(Until.gone(By.textContains("Title")), 300_000L)
+-    }
+-  }
+-
+-  @Ignore("Needs locally provided backup file not available in CI yet")
+-  @Test
+-  fun deleteGroupThread20kMessagesWithBackupRestore() {
+-    benchmarkRule.measureRepeated(
+-      packageName = "org.thoughtcrime.securesms.benchmark",
+-      metrics = BenchmarkMetrics.threadDeletion,
+-      iterations = 1,
+-      compilationMode = CompilationMode.Partial(),
+-      setupBlock = {
+-        BenchmarkSetup.setup("backup-restore", device, timeout = 60_000L)
+-        killProcess()
+-
+-        startActivityAndWait()
+-        device.waitForIdle()
+-        device.wait(Until.findObject(By.textContains("CuQ75j")), 10_000)
+-      }
+-    ) {
+-      BenchmarkSetup.deleteThread(device)
+-      device.wait(Until.gone(By.textContains("CuQ75j")), 300_000L)
+-    }
+-  }
+-}
+
+--------------false--
+
+

@@ -172,6 +172,7 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.math.BigDecimal
 import java.time.ZonedDateTime
 import java.util.Currency
 import java.util.Locale
@@ -2063,8 +2064,7 @@ object BackupRepository {
       Log.d(TAG, "Accessing price via billing api.")
       AppDependencies.billingApi.queryProduct()?.price
     } else {
-      // MOLLY: Omit the PAID tier by returning null instead of a placeholder price
-      null
+      FiatMoney(BigDecimal.ZERO, SignalStore.inAppPayments.getRecurringDonationCurrency())
     }
 
     if (productPrice == null) {

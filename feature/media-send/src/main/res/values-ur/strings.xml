@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
   <!-- Dialog title shown when the user tries to leave the image editor with unsaved edits. -->
   <string name="MediaSendDialogs__discard_changes">تبدیلیاں رد کریں؟</string>
   <!-- Dialog body explaining that leaving the image editor will discard any edits made to the current photo. -->
@@ -47,23 +48,23 @@
   <!-- Dialog title asking users for microphone permission -->
   <string name="CameraXFragment_allow_access_microphone">اپنے مائیکروفون تک رسائی کی اجازت دیں</string>
   <!-- Text explaining why Signal needs camera access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">تصویریں اور ویڈیو بنانے کے لیے ، Molly کو کیمرہ تک رسائی کی ضرورت ہے</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera">تصویریں اور ویڈیو بنانے کے لیے ، Signal کو کیمرہ تک رسائی کی ضرورت ہے</string>
   <!-- Text explaining why Signal needs camera and microphone access in order to take photos and videos -->
-  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">تصاویر اور ویڈیو بنانے کے لیے، Molly کو کیمرے اور مائیکرو فون تک رسائی کی اجازت دیں۔</string>
+  <string name="CameraXFragment_to_capture_photos_and_video_allow_camera_microphone">تصاویر اور ویڈیو بنانے کے لیے، Signal کو کیمرے اور مائیکرو فون تک رسائی کی اجازت دیں۔</string>
   <!-- Text explaining why Signal needs microphone access to take videos -->
-  <string name="CameraXFragment_to_capture_videos_with_sound">آواز کے ساتھ ویڈیوز بنانے کے لیے، Molly کو اپنے مائیکرو فون تک رسائی کی اجازت دیں۔</string>
+  <string name="CameraXFragment_to_capture_videos_with_sound">آواز کے ساتھ ویڈیوز بنانے کے لیے، Signal کو اپنے مائیکرو فون تک رسائی کی اجازت دیں۔</string>
   <!-- Text explaining why Signal needs camera access to scan QR codes -->
-  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR کوڈ اسکین کرنے کے لیے، Molly کو کیمرے تک رسائی کی اجازت دیں۔</string>
+  <string name="CameraXFragment_to_scan_qr_code_allow_camera">QR کوڈ اسکین کرنے کے لیے، Signal کو کیمرے تک رسائی کی اجازت دیں۔</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when capturing photos -->
-  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Molly کو تصویر بنانے کے لیے کیمرے تک رسائی درکار ہے</string>
+  <string name="CameraXFragment_signal_needs_camera_access_capture_photos">Signal کو تصویر بنانے کے لیے کیمرے تک رسائی درکار ہے</string>
   <!-- Toast dialog explaining why Signal needs camera permissions when scanning QR codes -->
-  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Molly کو QR کوڈز اسکین کرنے کے لیے کیمرے تک رسائی درکار ہے</string>
+  <string name="CameraXFragment_signal_needs_camera_access_scan_qr_code">Signal کو QR کوڈز اسکین کرنے کے لیے کیمرے تک رسائی درکار ہے</string>
   <!-- Toast dialog explaining why Signal needs microphone permissions -->
-  <string name="CameraXFragment_signal_needs_microphone_access_video">Molly کو ویڈیو بنانے کے لیے مائیکروفون تک رسائی درکار ہے</string>
+  <string name="CameraXFragment_signal_needs_microphone_access_video">Signal کو ویڈیو بنانے کے لیے مائیکروفون تک رسائی درکار ہے</string>
   <!-- Dialog description that explains the steps needed to give camera permission -->
-  <string name="CameraXFragment_to_capture_photos">Molly میں تصاویر بنانے کے لیے:</string>
+  <string name="CameraXFragment_to_capture_photos">Signal میں تصاویر بنانے کے لیے:</string>
   <!-- Dialog description that explains the steps needed to give camera and microphone permission -->
-  <string name="CameraXFragment_to_capture_photos_videos">Molly میں تصاویر اور ویڈیوز بنانے کے لیے:</string>
+  <string name="CameraXFragment_to_capture_photos_videos">Signal میں تصاویر اور ویڈیوز بنانے کے لیے:</string>
   <!-- Dialog description that explains the steps needed to give microphone permission -->
   <string name="CameraXFragment_to_capture_videos">آواز کے ساتھ ویڈیوز بنانے کے لیے:</string>
   <!-- Dialog description that explains the steps needed to give Signal camera permissions -->
@@ -83,7 +84,7 @@
   <!-- Accessibility label for the send button in media selection -->
   <string name="CameraXFragment_send">بھیجیں</string>
   <!-- Displayed in a permissions dialog when the user has denied access to hardware for image and video capture. -->
-  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Molly کو ویڈیو ریکارڈ کرنے کے لیے مائکروفون کی اجازت کی ضرورت ہے، لیکن وہ تسلیم نہیں ہوں گے۔ برائے مہربانی ایپ کی ترتیبات میں جائیں، \"اجازت نامہ\" منتخب کریں، \"مائکروفون\" اور \"کیمرہ\" کو فعال کریں۔</string>
+  <string name="CameraXFragment_signal_needs_the_recording_permissions_to_capture_video">Signal کو ویڈیو ریکارڈ کرنے کے لیے مائکروفون کی اجازت کی ضرورت ہے، لیکن وہ تسلیم نہیں ہوں گے۔ برائے مہربانی ایپ کی ترتیبات میں جائیں، \"اجازت نامہ\" منتخب کریں، \"مائکروفون\" اور \"کیمرہ\" کو فعال کریں۔</string>
 
   <!-- Displayed when there is an error capturing video -->
   <string name="MediaSendViewModel__error_recording_video">ویڈیو ریکارڈنگ میں خرابی</string>

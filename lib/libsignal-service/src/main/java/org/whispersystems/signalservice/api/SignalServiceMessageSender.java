@@ -2850,7 +2850,7 @@ public class SignalServiceMessageSender {
       throws IOException, InvalidKeyException, UntrustedIdentityException, NoSessionException
   {
     List<OutgoingPushMessage> messages   = new LinkedList<>();
-    List<Integer>             subDevices = getSubDeviceSessions(recipient);
+    List<Integer>             subDevices = aciStore.getSubDeviceSessions(recipient.getIdentifier());
     Set<Integer>              deviceIds  = subDevices.stream()
                                                      .filter((id) -> aciStore.containsSession(new SignalProtocolAddress(recipient.getIdentifier(), id)))
                                                      .collect(Collectors.toSet());
@@ -2870,10 +2870,6 @@ public class SignalServiceMessageSender {
     }
 
     return new OutgoingPushMessageList(recipient.getIdentifier(), timestamp, messages, online, urgent);
-  }
-
-  public List<Integer> getSubDeviceSessions(SignalServiceAddress recipient) {
-    return aciStore.getSubDeviceSessions(recipient.getIdentifier());
   }
 
   // Visible for testing only

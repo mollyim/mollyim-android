@@ -49,7 +49,7 @@ class SignalContextMenu private constructor(
       setOnDismissListener { onDismiss.run() }
     }
 
-    elevation = 8f
+    elevation = 20f
 
     contextMenuList.setItems(items)
   }

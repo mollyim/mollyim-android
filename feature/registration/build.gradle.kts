@@ -4,6 +4,7 @@ plugins {
   id("com.squareup.wire")
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
+  alias(testLibs.plugins.compose.screenshot)
 }
 
 android {
@@ -22,6 +23,21 @@ android {
     unitTests {
       isIncludeAndroidResources = true
     }
+  }
+
+  experimentalProperties["android.experimental.enableScreenshotTest"] = true
+}
+
+screenshotTests {
+  // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
+  imageDifferenceThreshold = 0.0001f
+}
+
+// The screenshot validation task compares every reference image in a single forked JVM, which
+// exhausts the default heap once a module has many previews. Give it more room.
+tasks.withType<Test>().configureEach {
+  if (name.contains("ScreenshotTest")) {
+    maxHeapSize = "4g"
   }
 }
 
@@ -77,15 +93,12 @@ dependencies {
   implementation(libs.google.libphonenumber)
 
   // Phone number hint + SMS verification code retriever
-  // implementation(libs.google.play.services.auth) // MOLLY: TODO
-  implementation(libs.kotlinx.coroutines.play.services) {
-    exclude(group = "com.google.android.gms", module = "play-services-basement")
-    exclude(group = "com.google.android.gms", module = "play-services-tasks")
-  }
-  implementation(project(":core-gms:tasks"))
+  implementation(libs.google.play.services.auth)
+  implementation(libs.kotlinx.coroutines.play.services)
 
   // Credential Manager (password manager retrieval)
   implementation(libs.androidx.credentials)
+  implementation(libs.androidx.credentials.compat)
 
   // Testing
   testImplementation(testFixtures(project(":core:ui")))
@@ -98,4 +111,9 @@ dependencies {
   androidTestImplementation(testLibs.androidx.test.ext.junit)
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+  // Compose screenshot testing
+  screenshotTestImplementation(testLibs.compose.screenshot.validation.api)
+  screenshotTestImplementation(libs.androidx.compose.ui.tooling.core)
+  screenshotTestImplementation(libs.androidx.compose.ui.tooling.preview)
 }

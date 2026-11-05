@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 
 import org.signal.core.util.logging.Log;
@@ -15,6 +14,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.signal.mediasend.SentMediaQuality;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
+import org.thoughtcrime.securesms.util.Environment;
 import org.thoughtcrime.securesms.util.SingleLiveEvent;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.webrtc.CallDataMode;
@@ -70,9 +70,13 @@ public final class SettingsValues extends SignalStoreValues {
   private static final String KEEP_MUTED_CHATS_ARCHIVED               = "settings.keepMutedChatsArchived";
   private static final String USE_COMPACT_NAVIGATION_BAR              = "settings.useCompactNavigationBar";
   private static final String THREAD_TRIM_SYNC_TO_LINKED_DEVICES      = "settings.storage.syncThreadTrimDeletes";
+  private static final String PASSPHRASE_DISABLED                     = "settings.passphrase.disabled";
+  private static final String PASSPHRASE_TIMEOUT_ENABLED              = "settings.passphrase.timeout.enabled";
+  private static final String PASSPHRASE_TIMEOUT                      = "settings.passphrase.timeout";
+  private static final String SCREEN_LOCK_ENABLED                     = "settings.screen.lock.enabled";
+  private static final String SCREEN_LOCK_TIMEOUT                     = "settings.screen.lock.timeout";
   private static final String AUTOMATIC_VERIFICATION_ENABLED          = "settings.automatic.verification.enabled";
   private static final String FORCE_WEBSOCKET_MODE                    = "settings.force.websocket.mode.2";
-  private static final String MOLLY_NOTIFICATION_METHOD               = "molly.notificationMethod";
 
   public static final int BACKUP_DEFAULT_HOUR   = 2;
   public static final int BACKUP_DEFAULT_MINUTE = 0;
@@ -81,6 +85,20 @@ public final class SettingsValues extends SignalStoreValues {
 
   SettingsValues(@NonNull KeyValueStore store, Context context) {
     super(store);
+
+    if (!store.containsKey(SCREEN_LOCK_ENABLED) && !Environment.IS_INSTRUMENTATION) {
+      migrateFromSharedPrefsV1(context);
+    }
+  }
+
+  private void migrateFromSharedPrefsV1(@NonNull Context context) {
+    Log.i(TAG, "[V1] Migrating screen lock values from shared prefs.");
+
+    putBoolean(PASSPHRASE_DISABLED, TextSecurePreferences.getBooleanPreference(context, "pref_disable_passphrase", true));
+    putBoolean(PASSPHRASE_TIMEOUT_ENABLED, TextSecurePreferences.getBooleanPreference(context, "pref_timeout_passphrase", false));
+    putInteger(PASSPHRASE_TIMEOUT, TextSecurePreferences.getIntegerPreference(context, "pref_timeout_interval", 5 * 60));
+    putBoolean(SCREEN_LOCK_ENABLED, TextSecurePreferences.getBooleanPreference(context, "pref_android_screen_lock", false));
+    putLong(SCREEN_LOCK_TIMEOUT, TextSecurePreferences.getLongPreference(context, "pref_android_screen_lock_timeout", 0));
   }
 
   @Override
@@ -97,16 +115,6 @@ public final class SettingsValues extends SignalStoreValues {
     }
     if (!store.containsKey(SIGNAL_BACKUPS_SCHEDULE_HOUR)) {
       initSignalBackupsSchedule();
-    }
-    // MOLLY: These settings are saved in shared prefs too. Sync with the stored values.
-    if (getStore().containsKey(THEME)) {
-      setTheme(Theme.deserialize(getStore().getString(THEME, null)), isDynamicColorsEnabled());
-    }
-    if (getStore().containsKey(PREFER_SYSTEM_EMOJI)) {
-      setPreferSystemEmoji(getStore().getBoolean(PREFER_SYSTEM_EMOJI, false));
-    }
-    if (getStore().containsKey(LANGUAGE)) {
-      setLanguage(getStore().getString(LANGUAGE, null));
     }
   }
 
@@ -140,7 +148,12 @@ public final class SettingsValues extends SignalStoreValues {
                          SENT_MEDIA_QUALITY,
                          KEEP_MUTED_CHATS_ARCHIVED,
                          USE_COMPACT_NAVIGATION_BAR,
-                         THREAD_TRIM_SYNC_TO_LINKED_DEVICES);
+                         THREAD_TRIM_SYNC_TO_LINKED_DEVICES,
+                         PASSPHRASE_DISABLED,
+                         PASSPHRASE_TIMEOUT_ENABLED,
+                         PASSPHRASE_TIMEOUT,
+                         SCREEN_LOCK_ENABLED,
+                         SCREEN_LOCK_TIMEOUT);
   }
 
   public @NonNull LiveData<String> getOnConfigurationSettingChanged() {
@@ -225,21 +238,12 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public @NonNull Theme getTheme() {
-    return Theme.deserialize(TextSecurePreferences.getTheme(AppDependencies.getApplication()));
+    return Theme.deserialize(getString(THEME, TextSecurePreferences.getTheme(AppDependencies.getApplication())));
   }
 
-  public void setTheme(@NonNull Theme theme, boolean useDynamicColors) {
-    final Context context = AppDependencies.getApplication();
-    String serializedTheme = theme.serialize();
-    putString(THEME,serializedTheme);
-    // MOLLY: Store the value unencrypted to be able to read it back when app is locked
-    TextSecurePreferences.setTheme(context, serializedTheme);
-    TextSecurePreferences.setDynamicColorsEnabled(context, useDynamicColors);
+  public void setTheme(@NonNull Theme theme) {
+    putString(THEME, theme.serialize());
     onConfigurationSettingChanged.postValue(THEME);
-  }
-
-  public boolean isDynamicColorsEnabled() {
-    return TextSecurePreferences.isDynamicColorsEnabled(AppDependencies.getApplication());
   }
 
   public int getMessageFontSize() {
@@ -283,19 +287,16 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public void setLanguage(@NonNull String language) {
-    // MOLLY: Keep language setting in SharedPreferences
     TextSecurePreferences.setLanguage(AppDependencies.getApplication(), language);
     onConfigurationSettingChanged.postValue(LANGUAGE);
   }
 
   public boolean isPreferSystemEmoji() {
-    return TextSecurePreferences.isSystemEmojiPreferred(AppDependencies.getApplication());
+    return getBoolean(PREFER_SYSTEM_EMOJI, TextSecurePreferences.isSystemEmojiPreferred(AppDependencies.getApplication()));
   }
 
   public void setPreferSystemEmoji(boolean useSystemEmoji) {
     putBoolean(PREFER_SYSTEM_EMOJI, useSystemEmoji);
-    // MOLLY: Store the value unencrypted to be able to read it back when app is locked
-    TextSecurePreferences.setSystemEmojiPreferred(AppDependencies.getApplication(), useSystemEmoji);
   }
 
   public boolean isEnterKeySends() {
@@ -357,7 +358,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public boolean isSmsDeliveryReportsEnabled() {
-    return getBoolean(SMS_DELIVERY_REPORTS_ENABLED, false);
+    return getBoolean(SMS_DELIVERY_REPORTS_ENABLED, TextSecurePreferences.isSmsDeliveryReportsEnabled(AppDependencies.getApplication()));
   }
 
   public void setSmsDeliveryReportsEnabled(boolean smsDeliveryReportsEnabled) {
@@ -365,7 +366,7 @@ public final class SettingsValues extends SignalStoreValues {
   }
 
   public boolean isWifiCallingCompatibilityModeEnabled() {
-    return getBoolean(WIFI_CALLING_COMPATIBILITY_MODE_ENABLED, false);
+    return getBoolean(WIFI_CALLING_COMPATIBILITY_MODE_ENABLED, TextSecurePreferences.isWifiSmsEnabled(AppDependencies.getApplication()));
   }
 
   public void setWifiCallingCompatibilityModeEnabled(boolean wifiCallingCompatibilityModeEnabled) {
@@ -521,22 +522,44 @@ public final class SettingsValues extends SignalStoreValues {
     return getBoolean(USE_COMPACT_NAVIGATION_BAR, false);
   }
 
-  public NotificationDeliveryMethod getPreferredNotificationMethod() {
-    final NotificationDeliveryMethod method;
-    if (getStore().containsKey(MOLLY_NOTIFICATION_METHOD)) {
-      method = NotificationDeliveryMethod.deserialize(
-          getString(MOLLY_NOTIFICATION_METHOD, NotificationDeliveryMethod.FCM.serialize())
-      );
-    } else {
-      boolean fcmEnabled = SignalStore.account().isFcmEnabled();
-      method = fcmEnabled ? NotificationDeliveryMethod.FCM
-                          : NotificationDeliveryMethod.WEBSOCKET;
-    }
-    return method;
+  public void setPassphraseDisabled(boolean disabled) {
+    putBoolean(PASSPHRASE_DISABLED, disabled);
   }
 
-  public void setPreferredNotificationMethod(NotificationDeliveryMethod method) {
-    putString(MOLLY_NOTIFICATION_METHOD, method.serialize());
+  public boolean getPassphraseDisabled() {
+    return getBoolean(PASSPHRASE_DISABLED, true);
+  }
+
+  public void setPassphraseTimeoutEnabled(boolean enabled) {
+    putBoolean(PASSPHRASE_TIMEOUT_ENABLED, enabled);
+  }
+
+  public boolean getPassphraseTimeoutEnabled() {
+    return getBoolean(PASSPHRASE_TIMEOUT_ENABLED, false);
+  }
+
+  public void setPassphraseTimeout(int minutes) {
+    putLong(PASSPHRASE_TIMEOUT, minutes);
+  }
+
+  public int getPassphraseTimeout() {
+    return getInteger(PASSPHRASE_TIMEOUT, 0);
+  }
+
+  public void setScreenLockEnabled(boolean enabled) {
+    putBoolean(SCREEN_LOCK_ENABLED, enabled);
+  }
+
+  public boolean getScreenLockEnabled() {
+    return getBoolean(SCREEN_LOCK_ENABLED, false);
+  }
+
+  public void setScreenLockTimeout(long seconds) {
+    putLong(SCREEN_LOCK_TIMEOUT, seconds);
+  }
+
+  public long getScreenLockTimeout() {
+    return getLong(SCREEN_LOCK_TIMEOUT, 0);
   }
 
   public boolean getAutomaticVerificationEnabled() {
@@ -651,26 +674,6 @@ public final class SettingsValues extends SignalStoreValues {
         default:
           throw new IllegalArgumentException("Unrecognized value " + value);
       }
-    }
-  }
-
-  public enum NotificationDeliveryMethod {
-    FCM, WEBSOCKET, UNIFIEDPUSH;
-
-    public @NonNull String serialize() {
-      return name();
-    }
-
-    public static @NonNull NotificationDeliveryMethod deserialize(@NonNull String value) {
-      return NotificationDeliveryMethod.valueOf(value);
-    }
-
-    public @StringRes int getStringId() {
-      return switch (this) {
-        case FCM -> R.string.NotificationDeliveryMethod__fcm;
-        case WEBSOCKET -> R.string.NotificationDeliveryMethod__websocket;
-        case UNIFIEDPUSH -> R.string.NotificationDeliveryMethod__unifiedpush;
-      };
     }
   }
 }

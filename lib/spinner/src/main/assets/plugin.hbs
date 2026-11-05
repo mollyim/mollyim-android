@@ -1,0 +1,34 @@
+<html>
+  {{> partials/head title=activePlugin.name }}
+
+  <body>
+    {{> partials/prefix}}
+
+    {{#if (eq "table" pluginResult.type)}}
+      <h1>Data</h1>
+      {{pluginResult.rowCount}} row(s). <br />
+      <br />
+      <table>
+        <tr>
+          {{#each pluginResult.columns}}
+            <th>{{this}}</th>
+          {{/each}}
+        </tr>
+        {{#each pluginResult.rows}}
+          <tr>
+            {{#each this}}
+              <td><pre>{{{this}}}</pre></td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </table>
+    {{/if}}
+    {{#if (eq "string" pluginResult.type)}}
+      <p>{{pluginResult.text}}</p>
+    {{/if}}
+    {{#if (eq "html" pluginResult.type)}}
+      {{{pluginResult.html}}}
+    {{/if}}
+    {{> partials/suffix }}
+  </body>
+</html>

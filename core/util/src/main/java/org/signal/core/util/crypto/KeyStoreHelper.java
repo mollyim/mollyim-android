@@ -6,7 +6,6 @@
 package org.signal.core.util.crypto;
 
 
-import android.annotation.TargetApi;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
@@ -116,7 +115,7 @@ public final class KeyStoreHelper {
   }
 
   @RequiresApi(23)
-  private synchronized static SecretKey getOrCreateKeyStoreEntry() {
+  private static SecretKey getOrCreateKeyStoreEntry() {
     if (hasKeyStoreEntry()) return getKeyStoreEntry();
     else                    return createKeyStoreEntry();
   }
@@ -183,55 +182,6 @@ public final class KeyStoreHelper {
       ks.load(null);
 
       return ks.containsAlias(KEY_ALIAS) && ks.entryInstanceOf(KEY_ALIAS, KeyStore.SecretKeyEntry.class);
-    } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  @RequiresApi(23)
-  public static SecretKey createKeyStoreEntryHmac(String keyAlias, boolean useStrongBox) {
-    try {
-      KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_HMAC_SHA256, ANDROID_KEY_STORE);
-
-      KeyGenParameterSpec.Builder keySpecBuilder = new KeyGenParameterSpec.Builder(keyAlias, KeyProperties.PURPOSE_SIGN);
-      if (useStrongBox) {
-        enableStrongBox(keySpecBuilder);
-      }
-      KeyGenParameterSpec keyGenParameterSpec = keySpecBuilder.build();
-
-      keyGenerator.init(keyGenParameterSpec);
-
-      return keyGenerator.generateKey();
-    } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  @TargetApi(28)
-  static void enableStrongBox(final KeyGenParameterSpec.Builder builder) {
-    builder.setIsStrongBoxBacked(true);
-  }
-
-  @RequiresApi(23)
-  public static SecretKey getKeyStoreEntryHmac(String keyAlias) throws UnrecoverableEntryException {
-    try {
-      KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-      keyStore.load(null);
-
-      return ((KeyStore.SecretKeyEntry) keyStore.getEntry(keyAlias, null)).getSecretKey();
-    } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
-      throw new AssertionError(e);
-    }
-  }
-
-  @RequiresApi(23)
-  public static void deleteKeyStoreEntry(String keyAlias) {
-    try {
-      KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-      keyStore.load(null);
-      if (keyStore.containsAlias(keyAlias)) {
-        keyStore.deleteEntry(keyAlias);
-      }
     } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
       throw new AssertionError(e);
     }

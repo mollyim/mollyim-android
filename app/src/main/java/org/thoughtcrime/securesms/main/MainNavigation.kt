@@ -22,10 +22,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,7 +56,7 @@ import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
-import org.signal.core.ui.compose.theme.colorAttribute
+import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 
 private val LOTTIE_SIZE = 28.dp
@@ -108,7 +106,7 @@ fun MainNavigationBar(
   onDestinationSelected: (MainNavigationListLocation) -> Unit
 ) {
   NavigationBar(
-    containerColor = colorAttribute(R.attr.navbar_container_color),
+    containerColor = SignalTheme.colors.colorSurface2,
     contentColor = MaterialTheme.colorScheme.onSurface,
     modifier = Modifier.height(if (state.compact) 48.dp else 80.dp),
     windowInsets = WindowInsets(0, 0, 0, 0)
@@ -132,10 +130,6 @@ fun MainNavigationBar(
 
       val selected = state.currentListLocation == destination
       NavigationBarItem(
-        colors = NavigationBarItemDefaults.colors(
-          indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color),
-          selectedTextColor = MaterialTheme.colorScheme.onSurface,
-        ),
         selected = selected,
         icon = {
           NavigationDestinationIcon(
@@ -224,7 +218,7 @@ fun MainNavigationRail(
   onDestinationSelected: (MainNavigationListLocation) -> Unit
 ) {
   NavigationRail(
-    containerColor = colorAttribute(R.attr.navbar_container_color),
+    containerColor = SignalTheme.colors.colorSurface1
   ) {
     Spacer(modifier = Modifier.height(40.dp).weight(1f, fill = false))
 
@@ -255,9 +249,6 @@ fun MainNavigationRail(
 
       Box {
         NavigationRailItem(
-          colors = NavigationRailItemDefaults.colors(
-            indicatorColor = colorAttribute(R.attr.navbar_active_indicator_color)
-          ),
           modifier = Modifier.padding(bottom = if (MainNavigationListLocation.entries.lastIndex == idx) 0.dp else 16.dp),
           icon = {
             NavigationDestinationIcon(

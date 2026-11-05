@@ -385,6 +385,9 @@ private class StarredMessageClickListener(
   override fun onCallToAction(action: String) = Unit
   override fun onDonateClicked() = Unit
   override fun onRecipientNameClicked(target: RecipientId) = Unit
+  override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) = Unit
+  override fun onActivatePaymentsClicked() = Unit
+  override fun onSendPaymentClicked(recipientId: RecipientId) = Unit
   override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) = Unit
   override fun onShowSafetyTips(forGroup: Boolean) = Unit
   override fun onReportSpamLearnMoreClicked() = Unit
@@ -408,9 +411,11 @@ private class StarredMessageClickListener(
   override fun onInviteToSignalClicked() = Unit
   override fun onScheduledIndicatorClicked(view: View, conversationMessage: ConversationMessage) = Unit
   override fun onUrlClicked(url: String): Boolean = false
+  override fun onGiftBadgeRevealed(messageRecord: MessageRecord) = Unit
   override fun goToMediaPreview(parent: ConversationItem, sharedElement: View, args: MediaIntentFactory.MediaPreviewArgs) = Unit
   override fun onShowGroupDescriptionClicked(groupName: String, description: String, shouldLinkifyWebLinks: Boolean) = Unit
   override fun onJoinCallLink(callLinkRootKey: CallLinkRootKey) = Unit
+  override fun onPaymentTombstoneClicked() = Unit
   override fun onDisplayMediaNoLongerAvailableSheet() = Unit
   override fun onShowUnverifiedProfileSheet(forGroup: Boolean) = Unit
   override fun onUpdateSignalClicked() = Unit

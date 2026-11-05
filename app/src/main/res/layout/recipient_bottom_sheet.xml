@@ -34,6 +34,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/handle" />
 
+        <org.thoughtcrime.securesms.badges.BadgeImageView
+            android:id="@+id/rbs_badge"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="52dp"
+            android:contentDescription="@string/ImageView__badge"
+            app:badge_size="large"
+            app:layout_constraintStart_toStartOf="@id/rbs_recipient_avatar"
+            app:layout_constraintTop_toTopOf="@id/rbs_recipient_avatar" />
+
         <ProgressBar
             android:id="@+id/rbs_admin_action_busy"
             android:layout_width="0dp"
@@ -52,7 +63,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="?attr/colorOnSurfaceVariant"
+            android:indeterminateTint="@color/signal_colorOnSurfaceVariant"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/rbs_recipient_avatar"
             app:layout_constraintEnd_toEndOf="@id/rbs_recipient_avatar"
@@ -97,7 +108,7 @@
             android:layout_marginEnd="@dimen/dsl_settings_gutter"
             android:gravity="center_horizontal"
             android:textAppearance="@style/Signal.Text.HeadlineMedium"
-            android:textColor="?attr/signal_text_primary"
+            android:textColor="@color/signal_text_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +137,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/dsl_settings_gutter"
             android:gravity="center"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             app:layout_constraintTop_toBottomOf="@id/rbs_member_label"
             tools:text="🕷🕷🕷 Hangin' on the web 🕷🕷🕷" />
 
@@ -141,7 +152,7 @@
             android:text="@string/ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation"
             android:textAlignment="center"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="?attr/signal_text_primary"
+            android:textColor="@color/signal_text_primary"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -275,7 +286,7 @@
                 android:minHeight="56dp"
                 android:paddingStart="@dimen/dsl_settings_gutter"
                 android:paddingEnd="@dimen/dsl_settings_gutter"
-                android:text="@string/ConversationSettingsFragment__add_to_your_phones_contacts"
+                android:text="@string/RecipientBottomSheet_add_to_contacts"
                 android:textAppearance="@style/Signal.Text.BodyLarge"
                 android:visibility="gone"
                 app:drawableStartCompat="@drawable/symbol_plus_24"

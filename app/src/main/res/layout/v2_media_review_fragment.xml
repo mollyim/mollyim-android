@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:alpha="0"
-            android:background="?attr/colorSurface"
+            android:background="@color/signal_dark_colorSurface"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/timeline_placeholder"
@@ -45,7 +45,6 @@
             android:layout_marginEnd="16dp"
             android:alpha="0"
             android:background="@drawable/image_editor_hud_clear_all_background"
-            android:backgroundTint="?attr/conversation_compose_background"
             android:drawablePadding="4dp"
             android:maxLines="1"
             android:paddingStart="14dp"
@@ -54,10 +53,10 @@
             android:paddingBottom="8dp"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.Signal.Body2"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="@color/signal_dark_colorOnSurface"
             android:visibility="gone"
             app:drawableStartCompat="@drawable/symbol_arrow_right_24"
-            app:drawableTint="?attr/colorOnSurface"
+            app:drawableTint="@color/signal_dark_colorOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:alpha="1"
@@ -117,7 +116,7 @@
             android:paddingEnd="48dp"
             android:text="@string/MediaReviewFragment__add_a_message"
             android:textAppearance="@style/Signal.Text.Body"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/signal_colorOnSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/send"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +144,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/symbol_view_once_infinite_24"
-                app:tint="?attr/colorOnSurface" />
+                app:tint="@color/signal_colorOnSurface" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="40dp"
@@ -153,7 +152,7 @@
                 android:layout_gravity="center"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/symbol_view_once_24"
-                app:tint="?attr/colorOnSurface" />
+                app:tint="@color/signal_colorOnSurface" />
 
         </ViewSwitcher>
 
@@ -170,7 +169,7 @@
             app:layout_constraintBottom_toBottomOf="@id/add_a_message"
             app:layout_constraintStart_toStartOf="@id/add_a_message"
             app:layout_constraintTop_toTopOf="@id/add_a_message"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_colorOnSurface"
             tools:visibility="visible" />
 
         <org.signal.mediasend.edit.video.VideoThumbnailsRangeSelectorView
@@ -188,7 +187,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:thumbColor="@color/signal_light_colorOnPrimary"
             app:thumbColorEdited="#ff0"
-            app:thumbHintBackgroundColor="?attr/colorSurfaceVariant"
+            app:thumbHintBackgroundColor="@color/signal_dark_colorSurfaceVariant"
             app:thumbHintTextColor="@color/signal_light_colorOnPrimary"
             app:thumbHintTextSize="14sp"
             app:thumbTouchRadius="24dp"
@@ -202,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAppearance="@style/Signal.Text.BodySmall"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/signal_colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="@id/video_timeline"
             app:layout_constraintTop_toBottomOf="@id/video_timeline"
             tools:text="0:04 · 399 KB" />
@@ -230,7 +229,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_brush_pen_24"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_dark_colorOnSurface"
             tools:alpha="1"
             tools:visibility="visible" />
 
@@ -251,7 +250,7 @@
             app:layout_goneMarginStart="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_crop_rotate_24"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_dark_colorOnSurface"
             tools:alpha="1"
             tools:visibility="visible" />
 
@@ -272,7 +271,7 @@
             app:layout_goneMarginStart="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_quality_high_slash_24"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_dark_colorOnSurface"
             tools:alpha="1"
             tools:visibility="visible" />
 
@@ -292,7 +291,7 @@
             app:layout_goneMarginStart="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_save_android_24"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_dark_colorOnSurface"
             tools:visibility="visible" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -301,10 +300,10 @@
             android:layout_height="48dp"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginBottom="16dp"
             android:background="@color/signal_light_colorPrimary"
             android:contentDescription="@string/MediaReviewFragment__send_media_accessibility_label"
-            android:padding="5dp"
+            android:padding="4dp"
             android:scaleType="centerInside"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -314,7 +313,7 @@
             app:layout_goneMarginStart="10dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
             app:srcCompat="@drawable/symbol_send_fill_24"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_colorOnSurface"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

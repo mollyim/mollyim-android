@@ -7,5 +7,5 @@ android {
 }
 
 dependencies {
-  implementation(libs.androidx.recyclerview)
+  implementation("androidx.recyclerview:recyclerview:1.2.1")
 }

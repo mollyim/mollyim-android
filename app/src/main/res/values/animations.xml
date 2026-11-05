@@ -20,11 +20,6 @@
         <item name="android:windowExitAnimation">@anim/shrink_fade_out</item>
     </style>
 
-    <style name="BiometricDialogAnimation" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@null</item>
-        <item name="android:windowExitAnimation">@anim/fade_out</item>
-    </style>
-
     <style name="CallStateToastAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/fade_scale_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>

@@ -319,10 +319,10 @@ private fun TopAppBarContent(
 @Composable
 private fun TabButton(label: String, active: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
   val colors = if (active) {
-    ButtonDefaults.buttonColors()
+    ButtonDefaults.filledTonalButtonColors()
   } else {
     ButtonDefaults.buttonColors(
-      containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+      containerColor = SignalTheme.colors.colorSurface2,
       contentColor = MaterialTheme.colorScheme.onSurface
     )
   }

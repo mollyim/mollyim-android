@@ -121,19 +121,6 @@ public class RecipientUtil {
     return !resolved.isMmsGroup();
   }
 
-  public static Optional<Integer> getSubDeviceCount(@NonNull Context context, @NonNull Recipient recipient) {
-    if (!recipient.isRegistered() || recipient.isGroup() || recipient.isSelf()) {
-      return Optional.empty();
-    }
-    try {
-      List<Integer> subSessions = AppDependencies.getSignalServiceMessageSender()
-                                                 .getSubDeviceSessions(toSignalServiceAddress(context, recipient));
-      return Optional.of(subSessions.size());
-    } catch (IOException e) {
-      return Optional.empty();
-    }
-  }
-
   public static List<Recipient> getEligibleForSending(@NonNull List<Recipient> recipients) {
     return recipients.stream()
                      .filter(r -> r.getRegistered() != RegisteredState.NOT_REGISTERED)
@@ -426,7 +413,7 @@ public class RecipientUtil {
   }
 
   @WorkerThread
-  public static boolean isProfileSharedViaGroup(@NonNull Recipient recipient) {
+  private static boolean isProfileSharedViaGroup(@NonNull Recipient recipient) {
     return SignalDatabase.groups().getPushGroupsContainingMember(recipient.getId()).stream()
                          .anyMatch(group -> Recipient.resolved(group.getRecipientId()).isProfileSharing());
   }

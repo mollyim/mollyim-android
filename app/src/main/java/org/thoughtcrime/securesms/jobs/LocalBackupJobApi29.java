@@ -89,7 +89,7 @@ public final class LocalBackupJobApi29 extends BaseJob {
       notification = GenericForegroundService.startForegroundTask(context,
                                                                   context.getString(R.string.LocalBackupJob_creating_signal_backup),
                                                                   NotificationChannels.getInstance().BACKUPS,
-                                                                  R.drawable.ic_notification_backup);
+                                                                  R.drawable.ic_signal_backup);
     } catch (UnableToStartException e) {
       Log.w(TAG, "Unable to start foreground backup service, continuing without service");
     }
@@ -104,7 +104,7 @@ public final class LocalBackupJobApi29 extends BaseJob {
       String       backupPassword  = BackupPassphrase.get(context);
       DocumentFile backupDirectory = DocumentFile.fromTreeUri(context, backupDirectoryUri);
       String       timestamp       = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.US).format(new Date());
-      String       fileName        = String.format("%s-%s.backup", BackupUtil.getBackupFilenamePrefix(), timestamp);
+      String       fileName        = String.format("signal-%s.backup", timestamp);
 
       if (backupDirectory == null || !backupDirectory.canWrite()) {
         BackupFileIOError.ACCESS_ERROR.postNotification(context);

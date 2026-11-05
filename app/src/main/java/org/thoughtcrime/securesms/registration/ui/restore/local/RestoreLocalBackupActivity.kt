@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms.registration.ui.restore.local
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -66,7 +65,6 @@ import kotlin.math.max
  * Handles the synchronous restoration of the proto files from a V2 backup. Media is
  * handled by background tasks.
  */
-@SuppressLint("BaseActivitySubclass")
 class RestoreLocalBackupActivity : BaseActivity() {
   companion object {
     private const val KEY_FINISH = "finish"

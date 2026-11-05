@@ -37,7 +37,7 @@ public class RationaleDialog {
 
     for (int i = 0; i < drawables.length; i++) {
       Drawable drawable = Objects.requireNonNull(ContextCompat.getDrawable(context, drawables[i]));
-      DrawableCompat.setTint(drawable, ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnPrimaryContainer));
+      DrawableCompat.setTint(drawable, ContextCompat.getColor(context, R.color.signal_colorOnPrimaryContainer));
 
       ImageView imageView = new ImageView(context);
       imageView.setImageDrawable(drawable);

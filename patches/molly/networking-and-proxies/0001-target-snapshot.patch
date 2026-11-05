@@ -1,0 +1,4301 @@
+From e28568f64cf53bd9cf62814f3fe2e597938fa02e Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly networking-and-proxies, part 1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+SOCKS/Tor/Orbot, DNS and connectivity monitoring, proxy transport support and removals of replaced Signal proxy code.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/dependencies/NetworkProxyState.kt b/app/src/main/java/org/thoughtcrime/securesms/dependencies/NetworkProxyState.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..efc48918a82014485f1320f29a3c2f2deb666d6f
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/dependencies/NetworkProxyState.kt
+@@ -0,0 +1,27 @@
++/*
++ * Copyright 2026 Signal Messenger, LLC
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.thoughtcrime.securesms.dependencies
++
++import org.thoughtcrime.securesms.net.ProxyConfig
++import java.util.concurrent.atomic.AtomicReference
++
++/**
++ * Tracks the proxy configuration that has been applied to the [org.signal.libsignal.net.Network]
++ * instance so callers can detect changes and restart connections when needed.
++ */
++class NetworkProxyState {
++
++  private val current = AtomicReference<ProxyConfig>(ProxyConfig.Direct)
++
++  val currentConfig: ProxyConfig
++    get() = current.get()
++
++  /** Returns true if the proxy changed and connections should be restarted. */
++  fun update(proxyConfig: ProxyConfig): Boolean {
++    val prev = current.getAndUpdate { proxyConfig }
++    return prev != proxyConfig
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/events/NetworkAvailableEvent.java b/app/src/main/java/org/thoughtcrime/securesms/events/NetworkAvailableEvent.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..45d3120f8ac50b05d1abb09d237fa02f3f760232
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/events/NetworkAvailableEvent.java
+@@ -0,0 +1,4 @@
++package org.thoughtcrime.securesms.events;
++
++public class NetworkAvailableEvent {
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+index 59ddcbf7cd8ae4860bb1c96f735c02d610660c7b..0736adfbf10f16abe75186ccd2f4ba72bcee5fc4 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+@@ -9,7 +9,11 @@ import android.net.ConnectivityManager;
+ 
+ import androidx.annotation.NonNull;
+ 
++import org.greenrobot.eventbus.EventBus;
++import org.greenrobot.eventbus.Subscribe;
++import org.greenrobot.eventbus.ThreadMode;
+ import org.signal.core.util.logging.Log;
++import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
+ import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
+ 
+ public class NetworkConstraintObserver implements ConstraintObserver {
+@@ -27,12 +31,19 @@ public class NetworkConstraintObserver implements ConstraintObserver {
+     application.registerReceiver(new BroadcastReceiver() {
+       @Override
+       public void onReceive(Context context, Intent intent) {
+-        NetworkConstraint constraint = new NetworkConstraint.Factory(application).create();
+-
+-        if (constraint.isMet()) {
++        if (NetworkConstraint.isMet(application)) {
+           notifier.onConstraintMet(REASON);
+         }
+       }
+     }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
++
++    EventBus.getDefault().register(new Object() {
++      @Subscribe(threadMode = ThreadMode.MAIN)
++      public void onNetworkReadyEvent(@NonNull NetworkAvailableEvent event) {
++        if (NetworkConstraint.isMet(application)) {
++          notifier.onConstraintMet(REASON);
++        }
++      }
++    });
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
+index 1d60185f20586421d583d610a09eb84e58835a21..282ccbbf80b5439b90eb88e10f4719e9f9659828 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
+@@ -1,10 +1,6 @@
+ package org.thoughtcrime.securesms.keyvalue;
+ 
+ import androidx.annotation.NonNull;
+-import androidx.annotation.Nullable;
+-
+-import org.signal.core.util.Util;
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
+ 
+ import java.util.Arrays;
+ import java.util.List;
+@@ -28,60 +24,5 @@ public final class ProxyValues extends SignalStoreValues {
+     return Arrays.asList(KEY_PROXY_ENABLED, KEY_HOST, KEY_PORT);
+   }
+ 
+-  public void enableProxy(@NonNull SignalProxy proxy) {
+-    if (Util.isEmpty(proxy.getHost())) {
+-      throw new IllegalArgumentException("Empty host!");
+-    }
+-
+-    getStore().beginWrite()
+-              .putBoolean(KEY_PROXY_ENABLED, true)
+-              .putString(KEY_HOST, proxy.getHost())
+-              .putInteger(KEY_PORT, proxy.getPort())
+-              .apply();
+-  }
+-
+-  /**
+-   * Disables the proxy, but does not clear out the last-chosen host.
+-   */
+-  public void disableProxy() {
+-    putBoolean(KEY_PROXY_ENABLED, false);
+-  }
+-
+-  public boolean isProxyEnabled() {
+-    return getBoolean(KEY_PROXY_ENABLED, false);
+-  }
+-
+-  /**
+-   * Sets the proxy. This does not *enable* the proxy. This is because the user may want to set a
+-   * proxy and then enabled it and disable it at will.
+-   */
+-  public void setProxy(@Nullable SignalProxy proxy) {
+-    if (proxy != null) {
+-      getStore().beginWrite()
+-                .putString(KEY_HOST, proxy.getHost())
+-                .putInteger(KEY_PORT, proxy.getPort())
+-                .apply();
+-    } else {
+-      getStore().beginWrite()
+-                .remove(KEY_HOST)
+-                .remove(KEY_PORT)
+-                .apply();
+-    }
+-  }
+-
+-  public @Nullable SignalProxy getProxy() {
+-    String host = getString(KEY_HOST, null);
+-    int    port = getInteger(KEY_PORT, 0);
+-
+-    if (host != null) {
+-      return new SignalProxy(host, port);
+-    } else {
+-      return null;
+-    }
+-  }
+-
+-  public @Nullable String getProxyHost() {
+-    SignalProxy proxy = getProxy();
+-    return proxy !=  null ? proxy.getHost() : null;
+-  }
++  // MOLLY: Replaced by NetworkManager
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/messages/NetworkConnectionListener.kt b/app/src/main/java/org/thoughtcrime/securesms/messages/NetworkConnectionListener.kt
+deleted file mode 100644
+index baa3d95db4dbdadf98526698f43b918469d8e635..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/messages/NetworkConnectionListener.kt
++++ /dev/null
+@@ -1,159 +0,0 @@
+-/*
+- * Copyright 2023 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.messages
+-
+-import android.content.BroadcastReceiver
+-import android.content.Context
+-import android.content.Intent
+-import android.content.IntentFilter
+-import android.net.ConnectivityManager
+-import android.net.LinkProperties
+-import android.net.Network
+-import android.net.NetworkCapabilities
+-import android.net.NetworkRequest
+-import android.net.ProxyInfo
+-import android.os.Build
+-import org.signal.core.util.ServiceUtil
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
+-
+-/**
+- * Backcompat listener for determining when the network connection is lost.
+- * On API 28+, [onNetworkLost] is invoked when the system notifies the app that the network is lost.
+- * On earlier versions, [onNetworkLost] is invoked on any network change (gained, lost, losing, etc)
+- * Therefore, [onNetworkLost] is a higher-order function, which takes a function to determine conditionally if it should run.
+- * API 28+ only runs on lost networks, so it provides a conditional that's always true because that is guaranteed by the call site.
+- * Earlier versions use [NetworkConstraint.isMet] to query the current network state upon receiving the broadcast.
+- */
+-class NetworkConnectionListener(private val context: Context, private val onNetworkLost: (() -> Boolean) -> Unit, private val onProxySettingsChanged: ((ProxyInfo?) -> Unit)) {
+-  companion object {
+-    private val TAG = Log.tag(NetworkConnectionListener::class.java)
+-  }
+-
+-  private val connectivityManager = ServiceUtil.getConnectivityManager(context)
+-  private val lastNetworkCapabilities = mutableMapOf<Network, String>()
+-  private val lastValidatedNetworkCapabilities = mutableMapOf<Network, String>()
+-
+-  // onCapabilitiesChanged gets called every ~30 seconds or so in my testing, as the network estimator runs
+-  // and updates the bandwidth estimated capabilities. This is thus essential for preventing log spam.
+-  private fun logCapabilitiesIfChanged(
+-    network: Network,
+-    networkCapabilities: NetworkCapabilities,
+-    callbackType: String,
+-    lastLogs: MutableMap<Network, String>
+-  ): Boolean {
+-    val currentLog = buildString {
+-      append(callbackType)
+-      append(" onCapabilitiesChanged($network, ")
+-      append("hasInternet=${networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)}, ")
+-      append("validated=${networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)}, ")
+-      append("captivePortal=${networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_CAPTIVE_PORTAL)})")
+-    }
+-
+-    if (lastLogs[network] != currentLog) {
+-      Log.d(TAG, currentLog)
+-      lastLogs[network] = currentLog
+-      return true
+-    }
+-
+-    return false
+-  }
+-
+-  private val networkChangedCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
+-    override fun onUnavailable() {
+-      super.onUnavailable()
+-      Log.d(TAG, "ConnectivityManager.NetworkCallback onUnavailable()")
+-      onNetworkLost { true }
+-    }
+-
+-    override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
+-      super.onBlockedStatusChanged(network, blocked)
+-      Log.d(TAG, "ConnectivityManager.NetworkCallback onBlockedStatusChanged($network, $blocked)")
+-      onNetworkLost { blocked }
+-    }
+-
+-    override fun onAvailable(network: Network) {
+-      super.onAvailable(network)
+-      Log.d(TAG, "ConnectivityManager.NetworkCallback onAvailable($network)")
+-      onNetworkLost { false }
+-    }
+-
+-    override fun onLost(network: Network) {
+-      super.onLost(network)
+-      Log.d(TAG, "ConnectivityManager.NetworkCallback onLost($network)")
+-      onNetworkLost { true }
+-    }
+-
+-    override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
+-      super.onLinkPropertiesChanged(network, linkProperties)
+-      Log.d(TAG, "ConnectivityManager.NetworkCallback onLinkPropertiesChanged($network)")
+-      onProxySettingsChanged(linkProperties.httpProxy)
+-    }
+-
+-    override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+-      super.onCapabilitiesChanged(network, networkCapabilities)
+-      if (logCapabilitiesIfChanged(network, networkCapabilities, "ConnectivityManager.NetworkCallback", lastNetworkCapabilities)) {
+-        onNetworkLost { !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) }
+-      }
+-    }
+-  }
+-
+-  private val connectionReceiver = object : BroadcastReceiver() {
+-    override fun onReceive(context: Context, intent: Intent) {
+-      Log.d(TAG, "BroadcastReceiver onReceive().")
+-      onNetworkLost { !NetworkConstraint.isMet(context) }
+-    }
+-  }
+-
+-  private val logOnlyValidatedNetworkCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
+-    override fun onUnavailable() {
+-      Log.d(TAG, "ValidatedNetworkCallback onUnavailable()")
+-      super.onUnavailable()
+-    }
+-
+-    override fun onAvailable(network: Network) {
+-      super.onAvailable(network)
+-      Log.d(TAG, "ValidatedNetworkCallback onAvailable($network)")
+-    }
+-
+-    override fun onLost(network: Network) {
+-      super.onLost(network)
+-      Log.d(TAG, "ValidatedNetworkCallback onLost($network)")
+-    }
+-
+-    override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
+-      super.onBlockedStatusChanged(network, blocked)
+-      Log.d(TAG, "ValidatedNetworkCallback onBlockedStatusChanged($network, $blocked)")
+-    }
+-
+-    // This should not be strictly necessary, but seeing as what we're doing here is trying to get more
+-    // insight into cases where Android's ConnectivityManager is behaving unexpectedly, I tend towards
+-    // logging more rather than less.
+-    override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+-      super.onCapabilitiesChanged(network, networkCapabilities)
+-      logCapabilitiesIfChanged(network, networkCapabilities, "ValidatedNetworkCallback", lastValidatedNetworkCapabilities)
+-    }
+-  }
+-
+-  fun register() {
+-    if (Build.VERSION.SDK_INT >= 28) {
+-      connectivityManager.registerDefaultNetworkCallback(networkChangedCallback)
+-      val validatedNetworkRequest = NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED).build()
+-      connectivityManager.registerNetworkCallback(validatedNetworkRequest, logOnlyValidatedNetworkCallback)
+-    } else {
+-      context.registerReceiver(connectionReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+-    }
+-  }
+-
+-  fun unregister() {
+-    if (Build.VERSION.SDK_INT >= 28) {
+-      connectivityManager.unregisterNetworkCallback(networkChangedCallback)
+-      connectivityManager.unregisterNetworkCallback(logOnlyValidatedNetworkCallback)
+-    } else {
+-      context.unregisterReceiver(connectionReceiver)
+-    }
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/DeviceTransferBlockingInterceptor.java b/app/src/main/java/org/thoughtcrime/securesms/net/DeviceTransferBlockingInterceptor.java
+index 5b60d903dd5f05ded1c0fe554a3705ead0fd0bb7..2d2c29b8f449067135ed81e3ee1ba8b70837340f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/DeviceTransferBlockingInterceptor.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/DeviceTransferBlockingInterceptor.java
+@@ -2,7 +2,6 @@ package org.thoughtcrime.securesms.net;
+ 
+ import androidx.annotation.NonNull;
+ 
+-import org.signal.core.util.concurrent.SignalExecutors;
+ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
+@@ -55,11 +54,11 @@ public final class DeviceTransferBlockingInterceptor implements Interceptor {
+ 
+   public void blockNetwork() {
+     blockNetworking = true;
+-    AppDependencies.resetNetwork();
++    AppDependencies.resetNetwork(false);
+   }
+ 
+   public void unblockNetwork() {
+     blockNetworking = false;
+-    AppDependencies.resetNetwork();
++    AppDependencies.resetNetwork(true);
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/DohClient.java b/app/src/main/java/org/thoughtcrime/securesms/net/DohClient.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..9687d37e8a5605f83bd0d2709d083947d038eeee
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/DohClient.java
+@@ -0,0 +1,41 @@
++package org.thoughtcrime.securesms.net;
++
++import androidx.annotation.NonNull;
++
++import java.net.InetAddress;
++import java.net.ProxySelector;
++import java.net.UnknownHostException;
++import java.util.List;
++
++import javax.net.SocketFactory;
++
++import okhttp3.Dns;
++import okhttp3.HttpUrl;
++import okhttp3.OkHttpClient;
++import okhttp3.dnsoverhttps.DnsOverHttps;
++
++public class DohClient implements Dns {
++
++  private final DnsOverHttps client;
++
++  public DohClient(@NonNull String url, SocketFactory socketFactory, ProxySelector proxySelector) {
++    this.client = new DnsOverHttps.Builder()
++                                  .url(HttpUrl.get(url))
++                                  .client(buildHttpClient(socketFactory, proxySelector))
++                                  .includeIPv6(false)
++                                  .build();
++  }
++
++  @Override
++  public @NonNull List<InetAddress> lookup(@NonNull String hostname) throws UnknownHostException {
++    return client.lookup(hostname);
++  }
++
++  static private OkHttpClient buildHttpClient(SocketFactory socketFactory, ProxySelector proxySelector) {
++    return new OkHttpClient.Builder()
++                           .socketFactory(socketFactory)
++                           .proxySelector(proxySelector)
++                           .cache(null)
++                           .build();
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt b/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..2c6a662acaa5caacd7e9a191a27d3438a0ec05ec
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt
+@@ -0,0 +1,284 @@
++/*
++ * Copyright 2026 Signal Messenger, LLC
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.thoughtcrime.securesms.net
++
++import android.content.BroadcastReceiver
++import android.content.Context
++import android.content.Intent
++import android.content.IntentFilter
++import android.net.ConnectivityManager
++import android.net.LinkProperties
++import android.net.Network
++import android.net.NetworkCapabilities
++import android.net.NetworkRequest
++import android.net.Proxy
++import android.os.Build
++import androidx.core.content.ContextCompat
++import kotlinx.coroutines.CoroutineScope
++import kotlinx.coroutines.Job
++import kotlinx.coroutines.channels.awaitClose
++import kotlinx.coroutines.channels.trySendBlocking
++import kotlinx.coroutines.flow.Flow
++import kotlinx.coroutines.flow.callbackFlow
++import kotlinx.coroutines.flow.conflate
++import kotlinx.coroutines.flow.distinctUntilChanged
++import kotlinx.coroutines.flow.retryWhen
++import kotlinx.coroutines.launch
++import org.signal.core.util.ServiceUtil
++import org.signal.core.util.concurrent.SignalDispatchers
++import org.signal.core.util.logging.Log
++import org.signal.core.util.zipWithPrevious
++
++enum class ConnectivityState {
++  OFFLINE,
++  ONLINE,
++  ONLINE_VPN,
++  BLOCKED,
++  BLOCKED_VPN;
++
++  /** Returns true if network traffic expected to reach the Internet. */
++  val isOnline: Boolean
++    get() = this == ONLINE || this == ONLINE_VPN
++}
++
++/**
++ * Monitors internet connectivity and proxy settings changes.
++ *
++ * [onConnectivityUpdated] is invoked when the [ConnectivityState] changes.
++ * The current state is delivered immediately upon registration if the device already has network access.
++ *
++ * [onProxyChanged] is invoked either the default network has changed or any network's proxy has changed.
++ *
++ * Both callbacks are invoked on [SignalDispatchers.IO] but may run concurrently.
++ * Callers are responsible for thread safety.
++ */
++class InternetConnectivityMonitor(
++  private val context: Context,
++  private val onConnectivityUpdated: (ConnectivityState) -> Unit,
++  private val onProxyChanged: () -> Unit
++) {
++  companion object {
++    private val TAG = Log.tag(InternetConnectivityMonitor::class.java)
++  }
++
++  private val scope = CoroutineScope(SignalDispatchers.IO)
++  private var monitorJob: Job? = null
++
++  @Synchronized
++  fun register() {
++    if (monitorJob != null) return
++
++    monitorJob = scope.launch {
++      launch {
++        connectivityStateFlow()
++          .retryWhen { cause, _ ->
++            val retrying = cause is NetworkStateStaleException
++            Log.i(TAG, "Re-registering callback ($retrying): ${cause.message}")
++            retrying
++          }
++          .distinctUntilChanged()
++          .zipWithPrevious { prevState, state ->
++            val log = buildString {
++              append("Connectivity state changed: ")
++              prevState?.let { append("$it -> ") }
++              append(state)
++            }
++            Log.i(TAG, log)
++            state
++          }.collect { state ->
++            onConnectivityUpdated(state)
++          }
++      }
++      launch {
++        proxyChangesFlow()
++          .collect {
++            Log.i(TAG, "Default network or system proxy config changed")
++            onProxyChanged()
++          }
++      }
++    }
++  }
++
++  @Synchronized
++  fun unregister() {
++    monitorJob?.cancel()
++    monitorJob = null
++  }
++
++  private data class NetworkState(
++    val validated: Boolean,
++    val blocked: Boolean,
++    val onVpn: Boolean
++  ) {
++    val isReachable: Boolean get() = validated && !blocked
++
++    companion object {
++      val DOWN = NetworkState(validated = false, blocked = false, onVpn = false)
++    }
++  }
++
++  /**
++   * Aggregates the state of all available networks to determine true Internet reachability.
++   *
++   * Android's default network callback only reports the single "best" network. However, to correctly
++   * handle VPNs (especially VPNs with kill-switch) we must track all networks.
++   *
++   * Basically, this callback tracks the list of active networks with and without a VPN:
++   * - No VPN / No kill-switch: Internet is available when we have a non-blocked, validated
++   *   underlying network (e.g., WiFi or Cellular).
++   * - With a VPN kill-switch: The system blocks direct access to underlying networks.
++   *   Internet is only available if we have BOTH an underlying network AND a valid,
++   *   non-blocked VPN network. If either fails, Internet access is lost.
++   */
++  private class NetworkAggregationCallback(
++    private val onNetworkStateChanged: (NetworkState) -> Unit,
++    private val onVpnLoss: () -> Unit
++  ) : ConnectivityManager.NetworkCallback() {
++
++    private val networks = mutableMapOf<Network, NetworkState>()
++
++    override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
++      val validated = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
++      val vpn = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
++      Log.d(TAG, "onCapabilitiesChanged($network, validated=$validated, vpn=$vpn)")
++      val existing = networks[network]
++      if (existing == null) {
++        // For new networks, we initially assume blocked = false:
++        // On API 29+, the actual status will be set by an incoming onBlockedStatusChanged callback.
++        // Otherwise, onBlockedStatusChanged is unsupported and isReachable rely only on `validated`.
++        networks[network] = NetworkState(validated = validated, blocked = false, onVpn = vpn)
++
++        // API 26+ guarantees that onLinkPropertiesChanged is always called next for new networks,
++        // followed by onBlockedStatusChanged (on API 29+).
++        // We skip notifying here for newer APIs to avoid emitting a fast, incorrect ONLINE -> BLOCKED
++        // sequence if the network was already blocked.
++        if (Build.VERSION.SDK_INT < 26) {
++          notifyAggregatedState()
++        }
++      } else {
++        // For existing networks, this is a capability update, so we notify immediately.
++        // onBlockedStatusChanged isn't necessary called afterward.
++        networks[network] = existing.copy(validated = validated, onVpn = vpn)
++        notifyAggregatedState()
++      }
++    }
++
++    override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
++      // onBlockedStatusChanged will handle the notification on API 29+
++      if (Build.VERSION.SDK_INT < 29) {
++        notifyAggregatedState()
++      }
++    }
++
++    override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
++      Log.d(TAG, "onBlockedStatusChanged($network, blocked=$blocked)")
++      val existing = networks[network] ?: return
++      networks[network] = existing.copy(blocked = blocked)
++      notifyAggregatedState()
++    }
++
++    override fun onLost(network: Network) {
++      Log.d(TAG, "onLost($network)")
++      val lossState = networks.remove(network)
++      if (lossState?.onVpn == true) {
++        onVpnLoss()
++      } else {
++        notifyAggregatedState()
++      }
++    }
++
++    private fun notifyAggregatedState() {
++      onNetworkStateChanged(networks.bestNetworkState())
++    }
++
++    private fun Map<Network, NetworkState>.bestNetworkState(): NetworkState {
++      return if (isEmpty()) {
++        NetworkState.DOWN
++      } else {
++        // A VPN network is only considered validated if there's also an underlying
++        // non-VPN network.
++        val hasUnderlyingNet = values.any { !it.onVpn }
++        val eligibleStates = values.map { state ->
++          if (state.onVpn) {
++            state.copy(validated = state.validated && hasUnderlyingNet)
++          } else state
++        }
++        eligibleStates.maxBy { it.rank }
++      }
++    }
++
++    private val NetworkState.rank: Int
++      get() = when {
++        isReachable && onVpn -> 4
++        isReachable -> 3
++        blocked && onVpn -> 2
++        blocked -> 1
++        else -> 0
++      }
++  }
++
++  private fun connectivityStateFlow(): Flow<ConnectivityState> = callbackFlow {
++    val connectivityManager = ServiceUtil.getConnectivityManager(context)
++    val callback = NetworkAggregationCallback(
++      onNetworkStateChanged = {
++        val connectivityState = when {
++          it.isReachable && it.onVpn -> ConnectivityState.ONLINE_VPN
++          it.isReachable -> ConnectivityState.ONLINE
++          it.blocked && it.onVpn -> ConnectivityState.BLOCKED_VPN
++          it.blocked -> ConnectivityState.BLOCKED
++          else -> ConnectivityState.OFFLINE
++        }
++        // Should not block as we conflate the flow
++        trySendBlocking(connectivityState)
++      },
++      onVpnLoss = {
++        // VPN transport disconnected. For always-on VPNs with a kill switch,
++        // the underlying network may still appear "UP" but traffic is blocked.
++        // Restart the flow to re-evaluate connectivity.
++        close(NetworkStateStaleException("VPN loss"))
++      }
++    )
++
++    val request = NetworkRequest.Builder()
++      .removeCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN) // VPNs are excluded by default
++      .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
++      .build()
++
++    connectivityManager.registerNetworkCallback(request, callback)
++
++    awaitClose {
++      connectivityManager.unregisterNetworkCallback(callback)
++    }
++  }.conflate()
++
++  private fun proxyChangesFlow(): Flow<Unit> = callbackFlow {
++    // Rely on the system-wide PROXY_CHANGE_ACTION sticky broadcast rather than
++    // per-network LinkProperties in the NetworkCallback. This ensures we catch
++    // proxy changes that occur when the system switches the default active network
++    // even if the new network's properties haven't changed.
++    val changeReceiver = object : BroadcastReceiver() {
++      override fun onReceive(context: Context, intent: Intent) {
++        trySendBlocking(Unit)
++      }
++    }
++
++    ContextCompat.registerReceiver(
++      context,
++      changeReceiver,
++      IntentFilter(Proxy.PROXY_CHANGE_ACTION),
++      ContextCompat.RECEIVER_NOT_EXPORTED
++    )
++
++    awaitClose {
++      context.unregisterReceiver(changeReceiver)
++    }
++  }.conflate()
++
++  /**
++   * Thrown when the tracked network state is no longer reliable.
++   */
++  class NetworkStateStaleException(message: String) : Exception(message)
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a4ae49f6e1a80a8d2778fd61bdc12c4810caa7f
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkManager.java
+@@ -0,0 +1,195 @@
++package org.thoughtcrime.securesms.net;
++
++import android.app.Application;
++import android.content.Context;
++import android.content.Intent;
++import android.widget.Toast;
++
++import androidx.annotation.NonNull;
++import androidx.webkit.ProxyConfig;
++import androidx.webkit.ProxyController;
++import androidx.webkit.WebViewFeature;
++
++import org.greenrobot.eventbus.EventBus;
++import org.signal.core.util.AppForegroundObserver;
++import org.signal.core.util.concurrent.SignalExecutors;
++import org.signal.core.util.logging.Log;
++import org.thoughtcrime.securesms.R;
++import org.thoughtcrime.securesms.dependencies.AppDependencies;
++import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
++
++import java.util.Objects;
++
++import info.guardianproject.netcipher.proxy.OrbotHelper;
++
++public class NetworkManager {
++
++  private static final String TAG = Log.tag(NetworkManager.class);
++
++  private final Application application;
++  private final OrbotHelper orbotHelper;
++
++  private OrbotStatusCallback orbotStatusCallback;
++
++  private ProxyType proxyType;
++
++  private String proxySocksHost;
++  private int proxySocksPort;
++  private int proxyOrbotPort;
++
++  private SocksProxy existingProxy;
++
++  private NetworkManager(@NonNull Application application,
++                         @NonNull OrbotHelper orbotHelper) {
++    this.application    = application;
++    this.orbotHelper    = orbotHelper;
++    this.proxyType      = ProxyType.NONE;
++    this.proxySocksHost = SocksProxy.LOCAL_HOST;
++    this.proxySocksPort = SocksProxy.INVALID_PORT;
++    this.proxyOrbotPort = SocksProxy.INVALID_PORT;
++  }
++
++  @NonNull
++  public static NetworkManager create(@NonNull Context context) {
++    return new NetworkManager(AppDependencies.getApplication(), OrbotHelper.get(context));
++  }
++
++  public void setNetworkEnabled(boolean enabled) {
++    Networking.setEnabled(enabled);
++    if (enabled) {
++      onNetworkEnabled();
++    }
++  }
++
++  public boolean isProxyEnabled() {
++    return proxyType != ProxyType.NONE;
++  }
++
++  public boolean isOrbotAvailable() {
++    return orbotHelper.init();
++  }
++
++  public synchronized void setProxyChoice(ProxyType type) {
++    if (orbotStatusCallback != null) {
++      orbotHelper.removeStatusCallback(orbotStatusCallback);
++      orbotStatusCallback = null;
++    }
++
++    proxyOrbotPort = SocksProxy.INVALID_PORT;
++    proxyType = type;
++
++    if (type == ProxyType.ORBOT && isOrbotAvailable()) {
++      orbotStatusCallback = new OrbotStatusCallback();
++      orbotHelper.addStatusCallback(orbotStatusCallback);
++      orbotHelper.requestStart(application);
++    }
++  }
++
++  public void setProxySocksPort(int port) {
++    proxySocksPort = port;
++  }
++
++  public void setProxySocksHost(String host) {
++    proxySocksHost = host;
++  }
++
++  public String getDefaultProxySocksHost() {
++    return OrbotHelper.DEFAULT_PROXY_HOST;
++  }
++
++  public int getDefaultProxySocksPort() {
++    return OrbotHelper.DEFAULT_PROXY_SOCKS_PORT;
++  }
++
++  public boolean applyProxyConfig() {
++    SocksProxy newProxy;
++
++    if (proxyType == ProxyType.SOCKS5) {
++      newProxy = new SocksProxy(proxySocksHost, proxySocksPort);
++    } else if (proxyType == ProxyType.ORBOT) {
++      newProxy = new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, proxyOrbotPort);
++    } else {
++      newProxy = null;
++    }
++
++    return configureProxy(newProxy);
++  }
++
++  private synchronized boolean configureProxy(SocksProxy newProxy) {
++    if (!hasProxyChanged(existingProxy, newProxy)) {
++      return false;
++    }
++
++    Networking.setSocksProxy(newProxy);
++    existingProxy = newProxy;
++
++    if (WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
++      SignalExecutors.UNBOUNDED.execute(() -> {
++        if (newProxy != null) {
++          String newProxyUrl = newProxy.getUrl();
++          if (newProxyUrl == null) {
++            newProxyUrl = "socks://proxy.invalid";
++          }
++          final ProxyConfig proxyConfig = new ProxyConfig.Builder()
++                                                         .addProxyRule(newProxyUrl)
++                                                         .build();
++          ProxyController.getInstance().setProxyOverride(proxyConfig, Runnable::run, this::onProxyOverrideComplete);
++        } else {
++          ProxyController.getInstance().clearProxyOverride(Runnable::run, this::onProxyOverrideComplete);
++        }
++      });
++    }
++
++    return true;
++  }
++
++  private void onProxyOverrideComplete() {
++    Log.d(TAG, "onProxyOverrideComplete");
++  }
++
++  static private boolean hasProxyChanged(SocksProxy existingProxy, SocksProxy newProxy) {
++    return !Objects.equals(existingProxy, newProxy);
++  }
++
++  final class OrbotStatusCallback extends OrbotHelper.SimpleStatusCallback {
++
++    @Override
++    public void onEnabled(Intent statusIntent) {
++      Log.i(TAG, "[OrbotHelper] onEnabled");
++      int socksPort = getSocksPort(statusIntent);
++      synchronized (orbotHelper) {
++        if (proxyOrbotPort != socksPort) {
++          if (proxyType == ProxyType.ORBOT) {
++            if (configureProxy(new SocksProxy(OrbotHelper.DEFAULT_PROXY_HOST, socksPort))) {
++              AppDependencies.resetNetwork(true);
++            }
++          }
++          proxyOrbotPort = socksPort;
++          if (AppForegroundObserver.isForegrounded()) {
++            Toast.makeText(application, R.string.ProxyManager_successfully_started_orbot, Toast.LENGTH_SHORT).show();
++          }
++        }
++      }
++      orbotHelper.removeStatusCallback(this);
++    }
++
++    @Override
++    public void onStatusTimeout() {
++      Log.i(TAG, "[OrbotHelper] onStatusTimeout");
++      if (isOrbotAvailable()) {
++        orbotHelper.requestStart(application);
++      } else {
++        orbotHelper.removeStatusCallback(this);
++      }
++    }
++
++    private int getSocksPort(Intent status) {
++      return status.getIntExtra(OrbotHelper.EXTRA_PROXY_PORT_SOCKS,
++                                OrbotHelper.DEFAULT_PROXY_SOCKS_PORT);
++    }
++  }
++
++  static private void onNetworkEnabled() {
++    EventBus.getDefault().post(new NetworkAvailableEvent());
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..94e0beee957f0af59c563781979015b087059257
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt
+@@ -0,0 +1,108 @@
++/*
++ * Copyright 2026 Signal Messenger, LLC
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.thoughtcrime.securesms.net
++
++import androidx.annotation.WorkerThread
++import org.signal.core.util.logging.Log
++import org.signal.core.util.net.resolveSystemProxy
++import org.signal.libsignal.net.Network
++import org.thoughtcrime.securesms.BuildConfig
++import java.io.IOException
++import java.net.InetSocketAddress
++import java.net.Proxy
++
++private const val TAG = "NetworkProxy"
++
++sealed interface ProxyConfig {
++  data object Direct : ProxyConfig
++
++  data class ProxyAddress(
++    val source: ProxySource,
++    val scheme: ProxyScheme,
++    val host: String,
++    val port: Int
++  ) : ProxyConfig
++}
++
++/** Supported proxy schemes by [Network]. */
++enum class ProxyScheme(val value: String) {
++  SOCKS_LOCAL_DNS("socks5"),
++  SOCKS_REMOTE_DNS("socks5h"),
++  HTTP("http")
++}
++
++enum class ProxySource {
++  USER, SYSTEM
++}
++
++fun Proxy.toProxyConfig(source: ProxySource): ProxyConfig? {
++  val sa = address() as? InetSocketAddress ?: return null
++  val scheme = when (type()) {
++    Proxy.Type.HTTP -> ProxyScheme.HTTP
++    Proxy.Type.SOCKS -> when (source) {
++      ProxySource.USER -> ProxyScheme.SOCKS_REMOTE_DNS
++      ProxySource.SYSTEM -> ProxyScheme.SOCKS_LOCAL_DNS
++    }
++    Proxy.Type.DIRECT -> return ProxyConfig.Direct
++  }
++  return ProxyConfig.ProxyAddress(source, scheme, sa.hostString, sa.port)
++}
++
++/**
++ * Resolves the appropriate proxy configuration or system defaults.
++ * Falls back to direct connection if no valid proxy is found.
++ *
++ * @return The resolved proxy configuration
++ */
++@WorkerThread
++fun resolveProxyConfig(): ProxyConfig {
++  val userProxy = Networking.proxy
++  if (userProxy == Proxy.NO_PROXY) {
++    val systemProxy = resolveSystemProxy(targetUrl = BuildConfig.SIGNAL_URL)
++    return systemProxy?.toProxyConfig(ProxySource.SYSTEM)
++      ?: ProxyConfig.Direct
++  }
++  return userProxy.toProxyConfig(ProxySource.USER)!!
++}
++
++/**
++ * Configures the [Network] instance with the given proxy settings.
++ *
++ * TLS Proxies: configuration errors mark the proxy as invalid, causing future connections to
++ * fail until the proxy setting is changed. These are explicitly configured by the user in the app
++ * and must be respected.
++ *
++ * System Proxies: the Android system settings screen explicitly calls out that apps are allowed
++ * to ignore the proxy setting, so if configuration fails, we fall back to direct connection
++ * rather than breaking connectivity.
++ */
++fun Network.configureProxy(config: ProxyConfig) {
++  when (config) {
++    ProxyConfig.Direct -> {
++      Log.i(TAG, "No proxy configured.")
++      clearProxy()
++    }
++
++    is ProxyConfig.ProxyAddress -> {
++      try {
++        setProxy(config.scheme.value, config.host, config.port, null, null)
++        Log.i(TAG, "Proxy configured: ${config.scheme}:${config.port}")
++      } catch (e: IOException) {
++        when (config.source) {
++          ProxySource.USER -> {
++            Log.e(TAG, "Invalid ${config.scheme} proxy config! Failing connections until changed.", e)
++            setInvalidProxy()
++          }
++
++          ProxySource.SYSTEM -> {
++            Log.w(TAG, "Failed to configure ${config.scheme} proxy, falling back to direct connection.", e)
++            clearProxy()
++          }
++        }
++      }
++    }
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/Networking.kt b/app/src/main/java/org/thoughtcrime/securesms/net/Networking.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..6bce95c2f3637839910047e0073ce874ec3cb338
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/Networking.kt
+@@ -0,0 +1,95 @@
++package org.thoughtcrime.securesms.net
++
++import okhttp3.Dns
++import java.io.IOException
++import java.net.InetAddress
++import java.net.InetSocketAddress
++import java.net.Proxy
++import java.net.ProxySelector
++import java.net.SocketAddress
++import java.net.URI
++import javax.net.SocketFactory
++
++object Networking {
++
++  @JvmStatic
++  var isEnabled: Boolean = false
++
++  @JvmStatic
++  val socketFactory: SocketFactory = ProxySocketFactory {
++    ensureNetworkEnabled()
++    proxy.also { validateProxyAddress(it) }
++  }
++
++  @JvmStatic
++  var socksProxy: SocksProxy? = null
++
++  /**
++   * A SOCKS [Proxy] instance pointing to the "discard" service on localhost (port 9),
++   * effectively a black hole for outgoing network traffic.
++   */
++  @JvmStatic
++  val DUMMY_PROXY = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("localhost", 9))
++
++  /**
++   * Retrieves the current proxy configuration.
++   *
++   * It checks if a proxy is configured and attempts to create a [Proxy] instance
++   * using the specified socket address. If the address is invalid or unavailable,
++   * it defaults to [DUMMY_PROXY] to prevent IP leaks.
++   *
++   * If no proxy is configured, it returns [Proxy.NO_PROXY] to indicate direct
++   * connection without a proxy.
++   */
++  @JvmStatic
++  val proxy: Proxy
++    get() {
++      val currentSocksProxy = socksProxy ?: return Proxy.NO_PROXY
++      return currentSocksProxy.makeProxy() ?: DUMMY_PROXY
++    }
++
++  @JvmStatic
++  val proxySelectorForSocks = object : ProxySelector() {
++    private val systemDefault = getDefault()
++
++    override fun select(uri: URI?): List<Proxy> {
++      return if (socksProxy != null) {
++        // Do not chain to system proxy if SOCKS proxy is selected
++        listOf(Proxy.NO_PROXY)
++      } else {
++        systemDefault.select(uri)
++      }
++    }
++
++    override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) =
++      systemDefault.connectFailed(uri, sa, ioe)
++  }
++
++  @JvmStatic
++  val dns: Dns = DnsProxyAware()
++
++  private fun ensureNetworkEnabled() {
++    if (!isEnabled) throw IOException("Network is disabled")
++  }
++
++  private fun validateProxyAddress(proxy: Proxy) {
++    if (proxy == DUMMY_PROXY) throw IOException("Proxy socket address not available yet")
++  }
++
++  private class DnsProxyAware : Dns {
++    private val cloudflare: Dns = DohClient("https://1.1.1.1/dns-query", socketFactory, proxySelectorForSocks)
++    private val quad9: Dns = DohClient("https://9.9.9.9/dns-query", socketFactory, proxySelectorForSocks)
++
++    private val systemDnsResolver: Dns = SequentialDns(Dns.SYSTEM, cloudflare, quad9)
++    private val dohDnsResolver: Dns = SequentialDns(cloudflare, quad9)
++
++    override fun lookup(hostname: String): List<InetAddress> {
++      ensureNetworkEnabled()
++      return if (socksProxy == null) {
++        systemDnsResolver.lookup(hostname)
++      } else {
++        dohDnsResolver.lookup(hostname)
++      }
++    }
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/ProxyProvider.java b/app/src/main/java/org/thoughtcrime/securesms/net/ProxyProvider.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c3e25e675dc42ebbf0021242617cd2abdcfe0378
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/ProxyProvider.java
+@@ -0,0 +1,8 @@
++package org.thoughtcrime.securesms.net;
++
++import java.io.IOException;
++import java.net.Proxy;
++
++public interface ProxyProvider {
++  Proxy getProxy() throws IOException;
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/ProxySocketFactory.java b/app/src/main/java/org/thoughtcrime/securesms/net/ProxySocketFactory.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..b6b3f1992e2665adfca55028d734b27592fe461d
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/ProxySocketFactory.java
+@@ -0,0 +1,44 @@
++package org.thoughtcrime.securesms.net;
++
++import androidx.annotation.NonNull;
++
++import java.io.IOException;
++import java.net.InetAddress;
++import java.net.Socket;
++import java.net.UnknownHostException;
++
++import javax.net.SocketFactory;
++
++public class ProxySocketFactory extends SocketFactory {
++
++  final @NonNull ProxyProvider proxyProvider;
++
++  public ProxySocketFactory(@NonNull ProxyProvider proxyProvider) {
++    this.proxyProvider = proxyProvider;
++  }
++
++  @Override
++  public Socket createSocket() throws IOException {
++    return new Socket(proxyProvider.getProxy());
++  }
++
++  @Override
++  public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
++    throw new UnsupportedOperationException();
++  }
++
++  @Override
++  public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException, UnknownHostException {
++    throw new UnsupportedOperationException();
++  }
++
++  @Override
++  public Socket createSocket(InetAddress host, int port) throws IOException {
++    throw new UnsupportedOperationException();
++  }
++
++  @Override
++  public Socket createSocket(InetAddress address, int port, InetAddress localAddress, int localPort) throws IOException {
++    throw new UnsupportedOperationException();
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/ProxyType.java b/app/src/main/java/org/thoughtcrime/securesms/net/ProxyType.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..49b0dfa50b6402846b0420ab307e8c457be8a5f7
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/ProxyType.java
+@@ -0,0 +1,39 @@
++package org.thoughtcrime.securesms.net;
++
++import androidx.annotation.Nullable;
++import androidx.annotation.StringRes;
++
++import org.thoughtcrime.securesms.R;
++
++public enum ProxyType {
++  NONE  ("none",  R.string.arrays__none),
++  ORBOT ("orbot", R.string.arrays__tor_via_orbot),
++  SOCKS5("socks5", R.string.arrays__socks5);
++
++  private final String code;
++
++  private final int stringResource;
++
++  ProxyType(String code, @StringRes int stringResource) {
++    this.code           = code;
++    this.stringResource = stringResource;
++  }
++
++  public String getCode() {
++    return code;
++  }
++
++  public @StringRes int getStringResource() {
++    return stringResource;
++  }
++
++  public static ProxyType fromCode(@Nullable String code) {
++    for (ProxyType type : ProxyType.values()) {
++      if (type.code.equals(code)) {
++        return type;
++      }
++    }
++
++    return NONE;
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/SequentialDns.java b/app/src/main/java/org/thoughtcrime/securesms/net/SequentialDns.java
+index 9a8ae334a1d4d7c673c62937b515a353dfbc677c..e83b0a8a82d36f34421d044fd282585f82885fe3 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/SequentialDns.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/SequentialDns.java
+@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
+ 
+ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.dependencies.AppDependencies;
++import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
++import org.thoughtcrime.securesms.util.Environment;
+ import org.thoughtcrime.securesms.util.NetworkUtil;
+ 
+ import java.net.InetAddress;
+ import java.net.UnknownHostException;
+ import java.util.Arrays;
++import java.util.LinkedList;
+ import java.util.List;
+ import java.util.Locale;
+ 
+@@ -21,7 +24,7 @@ public class SequentialDns implements Dns {
+ 
+   private static final String TAG = Log.tag(SequentialDns.class);
+ 
+-  private List<Dns> dnsList;
++  private final List<Dns> dnsList;
+ 
+   public SequentialDns(Dns... dns) {
+     this.dnsList = Arrays.asList(dns);
+@@ -29,9 +32,20 @@ public class SequentialDns implements Dns {
+ 
+   @Override
+   public @NonNull List<InetAddress> lookup(@NonNull String hostname) throws UnknownHostException {
++    boolean isServiceHost = SignalServiceNetworkAccess.HOSTNAMES.contains(hostname);
++
+     for (Dns dns : dnsList) {
+       try {
+-        List<InetAddress> addresses = dns.lookup(hostname);
++        LinkedList<InetAddress> addresses = new LinkedList<>(dns.lookup(hostname));
++        // MOLLY: Filter out invalid addresses for Signal service hosts, except in the Dev environment
++        if (isServiceHost && !Environment.IS_DEV) {
++          if (addresses.removeIf(InetAddress::isAnyLocalAddress)) {
++            Log.w(TAG, "Ignore invalid address 0.0.0.0 while resolving hostname " + hostname);
++          }
++          if (addresses.removeIf(InetAddress::isLoopbackAddress)) {
++            Log.w(TAG, "Ignore loopback address while resolving hostname " + hostname);
++          }
++        }
+         if (addresses.size() > 0) {
+           return addresses;
+         } else {
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/SocksProxy.java b/app/src/main/java/org/thoughtcrime/securesms/net/SocksProxy.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1abdd469a058d7cbca11fc999dafa68f347cb58b
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/SocksProxy.java
+@@ -0,0 +1,97 @@
++package org.thoughtcrime.securesms.net;
++
++import androidx.annotation.Nullable;
++
++import java.net.InetSocketAddress;
++import java.net.MalformedURLException;
++import java.net.Proxy;
++import java.net.URI;
++import java.net.URISyntaxException;
++import java.util.Objects;
++
++public class SocksProxy {
++
++  public static final int LOCAL_PORT   = -1;
++  public static final int INVALID_PORT = -2;
++
++  public static final String LOCAL_HOST = "localhost";
++
++  private final String host;
++
++  private final int port;
++
++  public SocksProxy() {
++    this(LOCAL_HOST, INVALID_PORT);
++  }
++
++  public SocksProxy(String host, int port) {
++    this.host = host;
++    this.port = port;
++  }
++
++  public String getHost() {
++    return host;
++  }
++
++  public int getPort() {
++    return port;
++  }
++
++  @Nullable
++  public String getUrl() {
++    String url = null;
++    try {
++      url = new URI("socks", null, host, port, null, null, null).toString();
++    } catch (URISyntaxException ignored) {}
++    return url;
++  }
++
++  @Nullable
++  public InetSocketAddress getSocketAddress() {
++    InetSocketAddress address = null;
++    try {
++      address = InetSocketAddress.createUnresolved(host, port);
++    } catch (IllegalArgumentException ignored) {}
++    return address;
++  }
++
++  public static boolean isValidHost(String host) {
++    if (host == null || host.isEmpty()) {
++      return false;
++    }
++    try {
++      new URI("socks", host, null, null);
++    } catch (URISyntaxException e) {
++      return false;
++    }
++    return true;
++  }
++
++  public static boolean isValidPort(int port) {
++    return !(port < 0 || port > 0xFFFF);
++  }
++
++  /**
++   * Creates a SOCKS proxy with the configured socket address.
++   *
++   * @return A SOCKS proxy instance, or null if the address is invalid.
++   */
++  @Nullable
++  public Proxy makeProxy() {
++    InetSocketAddress address = getSocketAddress();
++    return address != null ? new Proxy(Proxy.Type.SOCKS, address) : null;
++  }
++
++  @Override
++  public boolean equals(Object o) {
++    if (this == o) return true;
++    if (o == null || getClass() != o.getClass()) return false;
++    SocksProxy socksProxy = (SocksProxy) o;
++    return Objects.equals(host, socksProxy.host) && port == socksProxy.port;
++  }
++
++  @Override
++  public int hashCode() {
++    return Objects.hash(host, port);
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/StandardUserAgentInterceptor.java b/app/src/main/java/org/thoughtcrime/securesms/net/StandardUserAgentInterceptor.java
+index d4484e2ba2545b779d58bb3bfd38854967844ef8..41d5de62619bcb05bbe1f4e3b22592571097ba16 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/StandardUserAgentInterceptor.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/StandardUserAgentInterceptor.java
+@@ -2,14 +2,14 @@ package org.thoughtcrime.securesms.net;
+ 
+ import android.os.Build;
+ 
+-import org.thoughtcrime.securesms.BuildConfig;
++import im.molly.app.base.ApkInfo;
+ 
+ /**
+  * The user agent that should be used by default -- includes app name, version, etc.
+  */
+ public class StandardUserAgentInterceptor extends UserAgentInterceptor {
+ 
+-  public static final String USER_AGENT = "Signal-Android/" + BuildConfig.VERSION_NAME + " Android/" + Build.VERSION.SDK_INT;
++  public static final String USER_AGENT = "Signal-Android/" + ApkInfo.signalCanonicalVersionName + " Android/" + Build.VERSION.SDK_INT;
+ 
+   public StandardUserAgentInterceptor() {
+     super(USER_AGENT);
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyActivity.kt
+deleted file mode 100644
+index dfeb2d5d41cc1a5f1bc52c3fa004af0963adf8be..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyActivity.kt
++++ /dev/null
+@@ -1,49 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.preferences
+-
+-import android.content.Context
+-import android.content.Intent
+-import android.os.Bundle
+-import androidx.navigation.fragment.NavHostFragment
+-import org.thoughtcrime.securesms.BaseActivity
+-import org.thoughtcrime.securesms.R
+-import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+-import org.thoughtcrime.securesms.util.DynamicTheme
+-
+-/**
+- * Standalone host for [EditProxyFragment], usable during registration before the user is registered.
+- * Unlike [org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity], this does not extend
+- * PassphraseRequiredActivity, so it won't reroute an unregistered user back into the registration flow.
+- */
+-class EditProxyActivity : BaseActivity() {
+-
+-  private val dynamicTheme: DynamicTheme = DynamicNoActionBarTheme()
+-
+-  override fun onCreate(savedInstanceState: Bundle?) {
+-    dynamicTheme.onCreate(this)
+-
+-    super.onCreate(savedInstanceState)
+-    setContentView(R.layout.dsl_settings_activity)
+-
+-    if (savedInstanceState == null) {
+-      val fragment = NavHostFragment.create(R.navigation.edit_proxy)
+-      supportFragmentManager.beginTransaction()
+-        .replace(R.id.nav_host_fragment, fragment)
+-        .commitNow()
+-    }
+-  }
+-
+-  override fun onResume() {
+-    super.onResume()
+-    dynamicTheme.onResume(this)
+-  }
+-
+-  companion object {
+-    @JvmStatic
+-    fun intent(context: Context): Intent = Intent(context, EditProxyActivity::class.java)
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyFragment.java b/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyFragment.java
+deleted file mode 100644
+index 36c8d2675272180e48fad02021918a542eecff89..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyFragment.java
++++ /dev/null
+@@ -1,237 +0,0 @@
+-package org.thoughtcrime.securesms.preferences;
+-
+-import android.os.Bundle;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-import android.view.WindowManager;
+-import android.widget.EditText;
+-import android.widget.TextView;
+-
+-import androidx.annotation.NonNull;
+-import androidx.annotation.Nullable;
+-import androidx.appcompat.widget.SwitchCompat;
+-import androidx.appcompat.widget.Toolbar;
+-import androidx.core.app.ShareCompat;
+-import androidx.fragment.app.Fragment;
+-import androidx.lifecycle.ViewModelProvider;
+-import androidx.navigation.Navigation;
+-
+-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+-
+-import org.thoughtcrime.securesms.R;
+-import org.thoughtcrime.securesms.contactshare.SimpleTextWatcher;
+-import org.thoughtcrime.securesms.keyvalue.SignalStore;
+-import org.thoughtcrime.securesms.util.CommunicationActions;
+-import org.signal.core.util.concurrent.LifecycleDisposable;
+-import org.thoughtcrime.securesms.util.SignalProxyUtil;
+-import org.signal.core.util.Util;
+-import org.thoughtcrime.securesms.util.ViewUtil;
+-import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
+-import org.thoughtcrime.securesms.util.views.LearnMoreTextView;
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
+-
+-import java.util.Optional;
+-
+-public class EditProxyFragment extends Fragment {
+-
+-  private SwitchCompat                   proxySwitch;
+-  private EditText                       proxyText;
+-  private TextView                       proxyTitle;
+-  private TextView                       proxyStatus;
+-  private View                           shareButton;
+-  private CircularProgressMaterialButton saveButton;
+-  private EditProxyViewModel             viewModel;
+-  private LifecycleDisposable            lifecycleDisposable;
+-
+-  public static EditProxyFragment newInstance() {
+-    return new EditProxyFragment();
+-  }
+-
+-  @Override
+-  public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+-    return inflater.inflate(R.layout.edit_proxy_fragment, container, false);
+-  }
+-
+-  @Override
+-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+-    Toolbar toolbar = view.findViewById(R.id.toolbar);
+-    toolbar.setNavigationOnClickListener(v -> {
+-      if (!Navigation.findNavController(v).popBackStack()) {
+-        requireActivity().finish();
+-      }
+-    });
+-
+-    this.proxySwitch = view.findViewById(R.id.edit_proxy_switch);
+-    this.proxyTitle  = view.findViewById(R.id.edit_proxy_address_title);
+-    this.proxyText   = view.findViewById(R.id.edit_proxy_host);
+-    this.proxyStatus = view.findViewById(R.id.edit_proxy_status);
+-    this.saveButton  = view.findViewById(R.id.edit_proxy_save);
+-    this.shareButton = view.findViewById(R.id.edit_proxy_share);
+-
+-    lifecycleDisposable = new LifecycleDisposable();
+-    lifecycleDisposable.bindTo(getViewLifecycleOwner());
+-
+-    proxyText.addTextChangedListener(new SimpleTextWatcher() {
+-      @Override
+-      public void onTextChanged(String text) {
+-        onProxyTextChanged(text);
+-      }
+-    });
+-
+-    this.proxyText.setText(Optional.ofNullable(SignalStore.proxy().getProxy()).map(SignalProxy::getHost).orElse(""));
+-    this.proxySwitch.setChecked(SignalStore.proxy().isProxyEnabled());
+-
+-    initViewModel();
+-
+-    saveButton.setOnClickListener(v -> onSaveClicked());
+-    shareButton.setOnClickListener(v -> onShareClicked());
+-    proxySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> viewModel.onToggleProxy(isChecked, proxyText.getText().toString()));
+-
+-    LearnMoreTextView description = view.findViewById(R.id.edit_proxy_switch_title_description);
+-    description.setLearnMoreVisible(true);
+-    description.setOnLinkClickListener(v -> CommunicationActions.openBrowserLink(requireContext(), "https://support.signal.org/hc/articles/360056052052"));
+-
+-    requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+-  }
+-
+-  @Override
+-  public void onResume() {
+-    super.onResume();
+-
+-    SignalProxyUtil.startListeningToWebsocket();
+-  }
+-
+-  private void initViewModel() {
+-    viewModel = new ViewModelProvider(this).get(EditProxyViewModel.class);
+-
+-    lifecycleDisposable.addAll(
+-        viewModel.getUiState().subscribe(this::presentUiState),
+-        viewModel.getProxyState().subscribe(this::presentProxyState),
+-        viewModel.getEvents().subscribe(this::presentEvent),
+-        viewModel.getSaveState().subscribe(this::presentSaveState)
+-    );
+-  }
+-
+-  private void presentUiState(@NonNull EditProxyViewModel.UiState uiState) {
+-    switch (uiState) {
+-      case ALL_ENABLED:
+-        proxyText.setEnabled(true);
+-        proxyText.setAlpha(1);
+-        saveButton.setEnabled(true);
+-        saveButton.setAlpha(1);
+-        proxyTitle.setAlpha(1);
+-        onProxyTextChanged(proxyText.getText().toString());
+-        break;
+-      case ALL_DISABLED:
+-        proxyText.setEnabled(false);
+-        proxyText.setAlpha(0.5f);
+-        saveButton.setEnabled(false);
+-        saveButton.setAlpha(0.5f);
+-        shareButton.setEnabled(false);
+-        shareButton.setAlpha(0.5f);
+-        proxyTitle.setAlpha(0.5f);
+-        proxyStatus.setVisibility(View.INVISIBLE);
+-        break;
+-    }
+-  }
+-
+-  private void presentProxyState(@NonNull WebSocketConnectionState proxyState) {
+-    if (SignalStore.proxy().getProxy() != null) {
+-      switch (proxyState) {
+-        case DISCONNECTED:
+-        case DISCONNECTING:
+-        case CONNECTING:
+-          proxyStatus.setText(R.string.preferences_connecting_to_proxy);
+-          proxyStatus.setTextColor(getResources().getColor(R.color.signal_text_secondary));
+-          break;
+-        case CONNECTED:
+-          proxyStatus.setText(R.string.preferences_connected_to_proxy);
+-          proxyStatus.setTextColor(getResources().getColor(R.color.signal_accent_green));
+-          break;
+-        case AUTHENTICATION_FAILED:
+-        case REMOTE_DEPRECATED:
+-        case FAILED:
+-          proxyStatus.setText(R.string.preferences_connection_failed);
+-          proxyStatus.setTextColor(getResources().getColor(R.color.signal_alert_primary));
+-          break;
+-      }
+-    } else {
+-      proxyStatus.setText("");
+-    }
+-  }
+-
+-  private void presentEvent(@NonNull EditProxyViewModel.Event event) {
+-    switch (event) {
+-      case PROXY_SUCCESS:
+-        proxyStatus.setVisibility(View.VISIBLE);
+-        proxyText.setText(Optional.ofNullable(SignalStore.proxy().getProxy()).map(SignalProxy::getHost).orElse(""));
+-        new MaterialAlertDialogBuilder(requireContext())
+-           .setTitle(R.string.preferences_success)
+-           .setMessage(R.string.preferences_you_are_connected_to_the_proxy)
+-           .setPositiveButton(android.R.string.ok, (d, i) -> {
+-             requireActivity().onBackPressed();
+-             d.dismiss();
+-           })
+-           .show();
+-        break;
+-      case PROXY_FAILURE:
+-        proxyStatus.setVisibility(View.INVISIBLE);
+-        proxyText.setText(Optional.ofNullable(SignalStore.proxy().getProxy()).map(SignalProxy::getHost).orElse(""));
+-        ViewUtil.focusAndMoveCursorToEndAndOpenKeyboard(proxyText);
+-        new MaterialAlertDialogBuilder(requireContext())
+-           .setTitle(R.string.preferences_failed_to_connect)
+-           .setMessage(R.string.preferences_couldnt_connect_to_the_proxy)
+-           .setPositiveButton(android.R.string.ok, (d, i) -> d.dismiss())
+-           .show();
+-        break;
+-    }
+-  }
+-
+-  private void presentSaveState(@NonNull EditProxyViewModel.SaveState state) {
+-    switch (state) {
+-      case IDLE:
+-        saveButton.cancelSpinning();
+-        break;
+-      case IN_PROGRESS:
+-        saveButton.setSpinning();
+-        break;
+-    }
+-  }
+-
+-  private void onSaveClicked() {
+-    String text = proxyText.getText().toString();
+-    if (Util.isEmpty(text)) {
+-      proxySwitch.setChecked(false);
+-    } else {
+-      viewModel.onSaveClicked(text);
+-    }
+-  }
+-
+-  private void onShareClicked() {
+-    String link = SignalProxyUtil.generateProxyUrl(proxyText.getText().toString());
+-    ShareCompat.IntentBuilder.from(requireActivity())
+-                             .setText(link)
+-                             .setType("text/plain")
+-                             .startChooser();
+-  }
+-
+-  private void onProxyTextChanged(@NonNull String text) {
+-    if (Util.isEmpty(text)) {
+-      shareButton.setEnabled(false);
+-      shareButton.setAlpha(0.5f);
+-      proxyStatus.setVisibility(View.INVISIBLE);
+-    } else {
+-      shareButton.setEnabled(true);
+-      shareButton.setAlpha(1);
+-
+-      String trueHost = SignalProxyUtil.convertUserEnteredAddressToHost(proxyText.getText().toString());
+-      if (SignalStore.proxy().isProxyEnabled() && trueHost.equals(SignalStore.proxy().getProxyHost())) {
+-        proxyStatus.setVisibility(View.VISIBLE);
+-      } else {
+-        proxyStatus.setVisibility(View.INVISIBLE);
+-      }
+-    }
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyViewModel.java b/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyViewModel.java
+deleted file mode 100644
+index 7613bc5e9d5de9cc9c90c6b50e2b461e9769c81a..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/preferences/EditProxyViewModel.java
++++ /dev/null
+@@ -1,110 +0,0 @@
+-package org.thoughtcrime.securesms.preferences;
+-
+-import androidx.annotation.NonNull;
+-import androidx.lifecycle.ViewModel;
+-
+-import org.signal.core.util.concurrent.SignalExecutors;
+-import org.thoughtcrime.securesms.dependencies.AppDependencies;
+-import org.thoughtcrime.securesms.keyvalue.SignalStore;
+-import org.thoughtcrime.securesms.util.SignalProxyUtil;
+-import org.signal.core.util.Util;
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
+-
+-import java.util.concurrent.TimeUnit;
+-
+-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+-import io.reactivex.rxjava3.core.BackpressureStrategy;
+-import io.reactivex.rxjava3.core.Flowable;
+-import io.reactivex.rxjava3.core.Observable;
+-import io.reactivex.rxjava3.subjects.BehaviorSubject;
+-import io.reactivex.rxjava3.subjects.PublishSubject;
+-
+-public class EditProxyViewModel extends ViewModel {
+-
+-  private final PublishSubject<Event>              events;
+-  private final BehaviorSubject<UiState>           uiState;
+-  private final BehaviorSubject<SaveState>         saveState;
+-  private final Flowable<WebSocketConnectionState> pipeState;
+-
+-  public EditProxyViewModel() {
+-    this.events    = PublishSubject.create();
+-    this.uiState   = BehaviorSubject.create();
+-    this.saveState = BehaviorSubject.createDefault(SaveState.IDLE);
+-    this.pipeState = SignalStore.account().getE164() == null ? Flowable.empty()
+-                                                             : AppDependencies.getWebSocketObserver()
+-                                                                              .toFlowable(BackpressureStrategy.LATEST);
+-
+-    if (SignalStore.proxy().isProxyEnabled()) {
+-      uiState.onNext(UiState.ALL_ENABLED);
+-    } else {
+-      uiState.onNext(UiState.ALL_DISABLED);
+-    }
+-  }
+-
+-  void onToggleProxy(boolean enabled, String text) {
+-    if (enabled) {
+-      SignalProxy currentProxy = SignalStore.proxy().getProxy();
+-
+-      if (currentProxy != null && !Util.isEmpty(currentProxy.getHost())) {
+-        SignalProxyUtil.enableProxy(currentProxy);
+-      }
+-      uiState.onNext(UiState.ALL_ENABLED);
+-    } else if (Util.isEmpty(text)) {
+-        SignalProxyUtil.disableAndClearProxy();
+-        uiState.onNext(UiState.ALL_DISABLED);
+-    } else {
+-        SignalProxyUtil.disableProxy();
+-        uiState.onNext(UiState.ALL_DISABLED);
+-    }
+-  }
+-
+-  public void onSaveClicked(@NonNull String host) {
+-    String trueHost = SignalProxyUtil.convertUserEnteredAddressToHost(host);
+-
+-    saveState.onNext(SaveState.IN_PROGRESS);
+-
+-    SignalExecutors.BOUNDED.execute(() -> {
+-      SignalProxyUtil.enableProxy(new SignalProxy(trueHost, 443));
+-
+-      boolean success = SignalProxyUtil.testWebsocketConnection(TimeUnit.SECONDS.toMillis(10));
+-
+-      if (success) {
+-        events.onNext(Event.PROXY_SUCCESS);
+-      } else {
+-        SignalProxyUtil.disableProxy();
+-        events.onNext(Event.PROXY_FAILURE);
+-      }
+-
+-      saveState.onNext(SaveState.IDLE);
+-    });
+-  }
+-
+-  @NonNull Observable<UiState> getUiState() {
+-    return uiState.observeOn(AndroidSchedulers.mainThread());
+-  }
+-
+-  public @NonNull Observable<Event> getEvents() {
+-    return events.observeOn(AndroidSchedulers.mainThread());
+-  }
+-
+-  @NonNull Flowable<WebSocketConnectionState> getProxyState() {
+-    return pipeState.observeOn(AndroidSchedulers.mainThread());
+-  }
+-
+-  public @NonNull Observable<SaveState> getSaveState() {
+-    return saveState.observeOn(AndroidSchedulers.mainThread());
+-  }
+-
+-  enum UiState {
+-    ALL_DISABLED, ALL_ENABLED
+-  }
+-
+-  public enum Event {
+-    PROXY_SUCCESS, PROXY_FAILURE
+-  }
+-
+-  public enum SaveState {
+-    IDLE, IN_PROGRESS
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/proxy/ProxyBottomSheetFragment.java b/app/src/main/java/org/thoughtcrime/securesms/proxy/ProxyBottomSheetFragment.java
+deleted file mode 100644
+index 7eb494a8c5024a0a67356d410a882ce8bd1b8945..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/proxy/ProxyBottomSheetFragment.java
++++ /dev/null
+@@ -1,132 +0,0 @@
+-package org.thoughtcrime.securesms.proxy;
+-
+-import android.os.Bundle;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-import android.widget.TextView;
+-import android.widget.Toast;
+-
+-import androidx.annotation.NonNull;
+-import androidx.annotation.Nullable;
+-import androidx.fragment.app.DialogFragment;
+-import androidx.fragment.app.FragmentManager;
+-import androidx.lifecycle.ViewModelProvider;
+-
+-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+-
+-import org.signal.core.util.logging.Log;
+-import org.thoughtcrime.securesms.R;
+-import org.thoughtcrime.securesms.preferences.EditProxyViewModel;
+-import org.signal.core.ui.BottomSheetUtil;
+-import org.signal.core.util.concurrent.LifecycleDisposable;
+-import org.signal.core.ui.util.ThemeUtil;
+-import org.thoughtcrime.securesms.util.WindowUtil;
+-import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
+-
+-/**
+- * A bottom sheet shown in response to a deep link. Allows a user to set a proxy.
+- */
+-public final class ProxyBottomSheetFragment extends BottomSheetDialogFragment {
+-
+-  private static final String TAG = Log.tag(ProxyBottomSheetFragment.class);
+-
+-  private static final String ARG_PROXY_LINK = "proxy_link";
+-
+-  private TextView                       proxyText;
+-  private View                           cancelButton;
+-  private CircularProgressMaterialButton useProxyButton;
+-  private EditProxyViewModel             viewModel;
+-  private LifecycleDisposable            lifecycleDisposable;
+-
+-  public static void showForProxy(@NonNull FragmentManager manager, @NonNull String proxyLink) {
+-    ProxyBottomSheetFragment fragment = new ProxyBottomSheetFragment();
+-
+-    Bundle args = new Bundle();
+-    args.putString(ARG_PROXY_LINK, proxyLink);
+-    fragment.setArguments(args);
+-
+-    fragment.show(manager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG);
+-  }
+-
+-  @Override
+-  public void onCreate(@Nullable Bundle savedInstanceState) {
+-    setStyle(DialogFragment.STYLE_NORMAL,
+-             ThemeUtil.isDarkTheme(requireContext()) ? R.style.Theme_Signal_RoundedBottomSheet
+-                                                     : R.style.Theme_Signal_RoundedBottomSheet_Light);
+-
+-    super.onCreate(savedInstanceState);
+-  }
+-
+-  @Override
+-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+-    return inflater.inflate(R.layout.proxy_bottom_sheet, container, false);
+-  }
+-
+-  @Override
+-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+-    this.proxyText      = view.findViewById(R.id.proxy_sheet_host);
+-    this.useProxyButton = view.findViewById(R.id.proxy_sheet_use_proxy);
+-    this.cancelButton   = view.findViewById(R.id.proxy_sheet_cancel);
+-
+-    lifecycleDisposable = new LifecycleDisposable();
+-    lifecycleDisposable.bindTo(getViewLifecycleOwner());
+-
+-    String host = getArguments().getString(ARG_PROXY_LINK);
+-    proxyText.setText(host);
+-
+-    initViewModel();
+-
+-    useProxyButton.setOnClickListener(v -> viewModel.onSaveClicked(host));
+-    cancelButton.setOnClickListener(v -> dismiss());
+-  }
+-
+-  @Override
+-  public void onResume() {
+-    super.onResume();
+-    WindowUtil.initializeScreenshotSecurity(requireContext(), requireDialog().getWindow());
+-  }
+-
+-  private void initViewModel() {
+-    this.viewModel = new ViewModelProvider(this).get(EditProxyViewModel.class);
+-
+-    lifecycleDisposable.addAll(
+-        viewModel.getSaveState().subscribe(this::presentSaveState),
+-        viewModel.getEvents().subscribe(this::presentEvents)
+-    );
+-  }
+-
+-  private void presentSaveState(@NonNull EditProxyViewModel.SaveState state) {
+-    switch (state) {
+-      case IDLE:
+-        useProxyButton.cancelSpinning();
+-        break;
+-      case IN_PROGRESS:
+-        useProxyButton.setSpinning();
+-        break;
+-    }
+-  }
+-
+-  private void presentEvents(@NonNull EditProxyViewModel.Event event) {
+-    if (isStateSaved()) {
+-      Log.w(TAG, "Got an event after state had been saved. Dropping. " + event.name());
+-      return;
+-    }
+-
+-    switch (event) {
+-      case PROXY_SUCCESS:
+-        Toast.makeText(requireContext(), R.string.ProxyBottomSheetFragment_successfully_connected_to_proxy, Toast.LENGTH_LONG).show();
+-        dismiss();
+-        break;
+-      case PROXY_FAILURE:
+-        new MaterialAlertDialogBuilder(requireContext())
+-                       .setTitle(R.string.preferences_failed_to_connect)
+-                       .setMessage(R.string.preferences_couldnt_connect_to_the_proxy)
+-                       .setPositiveButton(android.R.string.ok, (d, i) -> d.dismiss())
+-                       .show();
+-        dismiss();
+-        break;
+-    }
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/util/NetworkUtil.java b/app/src/main/java/org/thoughtcrime/securesms/util/NetworkUtil.java
+index 341cc39d92586a07b685577f643e22b7c8baa541..706ad01bcb0b10cf6bd07ca4da52fc3836cc23a2 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/util/NetworkUtil.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/util/NetworkUtil.java
+@@ -5,13 +5,13 @@ import android.net.ConnectivityManager;
+ import android.net.Network;
+ import android.net.NetworkCapabilities;
+ import android.net.NetworkInfo;
+-import android.os.Build;
+ import android.telephony.TelephonyManager;
+ 
+ import androidx.annotation.NonNull;
+ 
+ import org.signal.ringrtc.CallManager;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
++import org.thoughtcrime.securesms.net.Networking;
+ import org.webrtc.PeerConnection;
+ import org.signal.core.util.ServiceUtil;
+ 
+@@ -149,7 +149,8 @@ public final class NetworkUtil {
+     }
+   }
+ 
+-  private static NetworkInfo getNetworkInfo(@NonNull Context context) {
++  public static NetworkInfo getNetworkInfo(@NonNull Context context) {
++    if (!Networking.isEnabled()) return null;
+     return ServiceUtil.getConnectivityManager(context).getActiveNetworkInfo();
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt b/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
+index 389cde40393e7568b8cd2dd7a738fcb21d002dd9..2da5ef7de81281f0b7c9263f2c8f73252b9ba101 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
+@@ -1,75 +1,22 @@
+ package org.thoughtcrime.securesms.util
+ 
+ import androidx.annotation.WorkerThread
+-import io.reactivex.rxjava3.core.Single
+-import io.reactivex.rxjava3.functions.Function
+-import io.reactivex.rxjava3.functions.Predicate
+-import io.reactivex.rxjava3.schedulers.Schedulers
+-import org.conscrypt.ConscryptSignal
+ import org.signal.core.util.concurrent.SignalExecutors
+-import org.signal.core.util.logging.Log
+ import org.signal.core.util.logging.Log.tag
+ import org.signal.core.util.logging.Log.w
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.push.AccountManagerFactory
+ import org.whispersystems.signalservice.api.push.SignalServiceAddress
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy
+ import java.io.IOException
+ import java.util.concurrent.CountDownLatch
+ import java.util.concurrent.TimeUnit
+ import java.util.concurrent.atomic.AtomicBoolean
+-import java.util.regex.Pattern
+ 
+ object SignalProxyUtil {
+   private val TAG = tag(SignalProxyUtil::class.java)
+ 
+   private const val PROXY_LINK_HOST = "signal.tube"
+ 
+-  private val PROXY_LINK_PATTERN: Pattern = Pattern.compile("^(https|sgnl)://$PROXY_LINK_HOST/#([^:]+).*$")
+-  private val HOST_PATTERN: Pattern = Pattern.compile("^([^:]+).*$")
+-
+-  @JvmStatic
+-  fun startListeningToWebsocket() {
+-    if (SignalStore.proxy.isProxyEnabled && AppDependencies.authWebSocket.state.firstOrError().blockingGet().isFailure) {
+-      Log.w(TAG, "Proxy is in a failed state. Restarting.")
+-      AppDependencies.resetNetwork()
+-    }
+-
+-    SignalExecutors.UNBOUNDED.execute { AppDependencies.startNetwork() }
+-  }
+-
+-  /**
+-   * Handles all things related to enabling a proxy, including saving it and resetting the relevant
+-   * network connections.
+-   */
+-  @JvmStatic
+-  fun enableProxy(proxy: SignalProxy) {
+-    SignalStore.proxy.enableProxy(proxy)
+-    ConscryptSignal.setUseEngineSocketByDefault(true)
+-    AppDependencies.resetNetwork()
+-    startListeningToWebsocket()
+-  }
+-
+-  /**
+-   * Handles all things related to disabling a proxy, including saving the change and resetting the
+-   * relevant network connections.
+-   */
+-  @JvmStatic
+-  fun disableProxy() {
+-    SignalStore.proxy.disableProxy()
+-    ConscryptSignal.setUseEngineSocketByDefault(false)
+-    AppDependencies.resetNetwork()
+-    startListeningToWebsocket()
+-  }
+-
+-  @JvmStatic
+-  fun disableAndClearProxy() {
+-    disableProxy()
+-    SignalStore.proxy.proxy = null
+-  }
+-
+   /**
+    * A blocking call that will wait until the websocket either successfully connects, or fails.
+    * It is assumed that the app state is already configured how you would like it, e.g. you've
+@@ -80,78 +27,7 @@ object SignalProxyUtil {
+   @JvmStatic
+   @WorkerThread
+   fun testWebsocketConnection(timeout: Long): Boolean {
+-    startListeningToWebsocket()
+-
+-    if (SignalStore.account.e164 == null) {
+-      Log.i(TAG, "User is unregistered! Doing simple check.")
+-      return testWebsocketConnectionUnregistered(timeout)
+-    }
+-
+-    return AppDependencies.authWebSocket
+-      .state
+-      .subscribeOn(Schedulers.trampoline())
+-      .observeOn(Schedulers.trampoline())
+-      .timeout(timeout, TimeUnit.MILLISECONDS)
+-      .skipWhile(Predicate { state: WebSocketConnectionState -> state != WebSocketConnectionState.CONNECTED && !state.isFailure })
+-      .firstOrError()
+-      .flatMap<Boolean>(Function { state: WebSocketConnectionState? -> Single.just(state == WebSocketConnectionState.CONNECTED) })
+-      .onErrorReturn(Function { _: Throwable? -> false })
+-      .blockingGet()
+-  }
+-
+-  /**
+-   * If this is a valid proxy deep link, this will return the embedded host. If not, it will return
+-   * null.
+-   */
+-  @JvmStatic
+-  fun parseHostFromProxyDeepLink(proxyLink: String?): String? {
+-    if (proxyLink == null) {
+-      return null
+-    }
+-
+-    val matcher = PROXY_LINK_PATTERN.matcher(proxyLink)
+-
+-    return when {
+-      matcher.matches() -> matcher.group(2)
+-      else -> null
+-    }
+-  }
+-
+-  /**
+-   * Takes in an address that could be in various formats, and converts it to the format we should
+-   * be storing and connecting to.
+-   */
+-  @JvmStatic
+-  fun convertUserEnteredAddressToHost(host: String): String {
+-    val parsedHost = parseHostFromProxyDeepLink(host)
+-    if (parsedHost != null) {
+-      return parsedHost
+-    }
+-
+-    val matcher = HOST_PATTERN.matcher(host)
+-
+-    return when {
+-      matcher.matches() -> matcher.group(1) ?: ""
+-      else -> host
+-    }
+-  }
+-
+-  @JvmStatic
+-  fun generateProxyUrl(link: String): String {
+-    var host: String = link
+-    val parsed = parseHostFromProxyDeepLink(link)
+-
+-    if (parsed != null) {
+-      host = parsed
+-    }
+-
+-    val matcher = HOST_PATTERN.matcher(host)
+-
+-    if (matcher.matches()) {
+-      host = matcher.group(1)!!
+-    }
+-
+-    return "https://$PROXY_LINK_HOST/#$host"
++    return testWebsocketConnectionUnregistered(timeout)
+   }
+ 
+   private fun testWebsocketConnectionUnregistered(timeout: Long): Boolean {
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/messages/NetworkConnectionListenerTest.kt b/app/src/test/java/org/thoughtcrime/securesms/messages/NetworkConnectionListenerTest.kt
+deleted file mode 100644
+index b44838bd58bf189afed0c902f3827ba5571d06a4..0000000000000000000000000000000000000000
+--- a/app/src/test/java/org/thoughtcrime/securesms/messages/NetworkConnectionListenerTest.kt
++++ /dev/null
+@@ -1,59 +0,0 @@
+-package org.thoughtcrime.securesms.messages
+-
+-import android.app.Application
+-import android.net.ConnectivityManager
+-import android.net.Network
+-import android.net.NetworkCapabilities
+-import androidx.test.core.app.ApplicationProvider
+-import assertk.assertThat
+-import assertk.assertions.containsExactly
+-import io.mockk.mockk
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-import org.robolectric.RobolectricTestRunner
+-import org.robolectric.annotation.Config
+-import org.robolectric.util.ReflectionHelpers
+-
+-@RunWith(RobolectricTestRunner::class)
+-@Config(manifest = Config.NONE, application = Application::class, sdk = [31])
+-class NetworkConnectionListenerTest {
+-
+-  @Test
+-  fun `default network capability changes notify listener`() {
+-    val unavailableEvents = mutableListOf<Boolean>()
+-    val listener = NetworkConnectionListener(
+-      context = ApplicationProvider.getApplicationContext(),
+-      onNetworkLost = { isNetworkUnavailable -> unavailableEvents += isNetworkUnavailable() },
+-      onProxySettingsChanged = {}
+-    )
+-    val callback = ReflectionHelpers.getField<ConnectivityManager.NetworkCallback>(listener, "networkChangedCallback")
+-    val network = mockk<Network>()
+-
+-    callback.onCapabilitiesChanged(network, capabilities(hasInternet = true, validated = false))
+-    callback.onCapabilitiesChanged(network, capabilities(hasInternet = true, validated = false))
+-    callback.onCapabilitiesChanged(network, capabilities(hasInternet = true, validated = true))
+-    callback.onCapabilitiesChanged(network, capabilities(hasInternet = false, validated = false))
+-
+-    assertThat(unavailableEvents).containsExactly(false, false, true)
+-  }
+-
+-  private fun capabilities(hasInternet: Boolean, validated: Boolean): NetworkCapabilities {
+-    val capabilities = NetworkCapabilities()
+-
+-    if (hasInternet) {
+-      capabilities.addCapabilityReflectively(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+-    }
+-
+-    if (validated) {
+-      capabilities.addCapabilityReflectively(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+-    }
+-
+-    return capabilities
+-  }
+-
+-  private fun NetworkCapabilities.addCapabilityReflectively(capability: Int) {
+-    val method = NetworkCapabilities::class.java.getDeclaredMethod("addCapability", Int::class.javaPrimitiveType)
+-    method.isAccessible = true
+-    method.invoke(this, capability)
+-  }
+-}
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_convertUserEnteredAddressToHost.java b/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_convertUserEnteredAddressToHost.java
+deleted file mode 100644
+index e6caea92b0136ff462dec46dd1878db5d6bddb30..0000000000000000000000000000000000000000
+--- a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_convertUserEnteredAddressToHost.java
++++ /dev/null
+@@ -1,41 +0,0 @@
+-package org.thoughtcrime.securesms.util;
+-
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-import org.junit.runners.Parameterized;
+-
+-import java.util.Arrays;
+-import java.util.Collection;
+-
+-import static org.junit.Assert.assertEquals;
+-
+-@RunWith(Parameterized.class)
+-public class SignalProxyUtilText_convertUserEnteredAddressToHost {
+-
+-  private final String input;
+-  private final String output;
+-
+-  @Parameterized.Parameters
+-  public static Collection<Object[]> data() {
+-    return Arrays.asList(new Object[][]{
+-        { "https://signal.tube/#proxy.parker.org",     "proxy.parker.org" },
+-        { "https://signal.tube/#proxy.parker.org:443", "proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org",      "proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org:443",  "proxy.parker.org" },
+-        { "proxy.parker.org",                          "proxy.parker.org" },
+-        { "proxy.parker.org:443",                      "proxy.parker.org" },
+-        { "x",                                         "x" },
+-        { "",                                          "" }
+-    });
+-  }
+-
+-  public SignalProxyUtilText_convertUserEnteredAddressToHost(String input, String output) {
+-    this.input  = input;
+-    this.output = output;
+-  }
+-
+-  @Test
+-  public void parse() {
+-    assertEquals(output, SignalProxyUtil.convertUserEnteredAddressToHost(input));
+-  }
+-}
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_generateProxyUrl.java b/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_generateProxyUrl.java
+deleted file mode 100644
+index 07fe132a74fbe883c2e82f0a259590b45e3edf42..0000000000000000000000000000000000000000
+--- a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_generateProxyUrl.java
++++ /dev/null
+@@ -1,41 +0,0 @@
+-package org.thoughtcrime.securesms.util;
+-
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-import org.junit.runners.Parameterized;
+-
+-import java.util.Arrays;
+-import java.util.Collection;
+-
+-import static org.junit.Assert.assertEquals;
+-
+-@RunWith(Parameterized.class)
+-public class SignalProxyUtilText_generateProxyUrl {
+-
+-  private final String input;
+-  private final String output;
+-
+-  @Parameterized.Parameters
+-  public static Collection<Object[]> data() {
+-    return Arrays.asList(new Object[][]{
+-        { "https://signal.tube/#proxy.parker.org",     "https://signal.tube/#proxy.parker.org" },
+-        { "https://signal.tube/#proxy.parker.org:443", "https://signal.tube/#proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org",      "https://signal.tube/#proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org:443",  "https://signal.tube/#proxy.parker.org" },
+-        { "proxy.parker.org",                          "https://signal.tube/#proxy.parker.org" },
+-        { "proxy.parker.org:443",                      "https://signal.tube/#proxy.parker.org" },
+-        { "x",                                         "https://signal.tube/#x" },
+-        { "",                                          "https://signal.tube/#" }
+-    });
+-  }
+-
+-  public SignalProxyUtilText_generateProxyUrl(String input, String output) {
+-    this.input  = input;
+-    this.output = output;
+-  }
+-
+-  @Test
+-  public void parse() {
+-    assertEquals(output, SignalProxyUtil.generateProxyUrl(input));
+-  }
+-}
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_parseHostFromProxyDeepLink.java b/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_parseHostFromProxyDeepLink.java
+deleted file mode 100644
+index 644e01f48583ec8c6e1bb3333d205275a873834b..0000000000000000000000000000000000000000
+--- a/app/src/test/java/org/thoughtcrime/securesms/util/SignalProxyUtilText_parseHostFromProxyDeepLink.java
++++ /dev/null
+@@ -1,45 +0,0 @@
+-package org.thoughtcrime.securesms.util;
+-
+-import org.junit.Test;
+-import org.junit.runner.RunWith;
+-import org.junit.runners.Parameterized;
+-
+-import java.util.Arrays;
+-import java.util.Collection;
+-
+-import static org.junit.Assert.assertEquals;
+-
+-@RunWith(Parameterized.class)
+-public class SignalProxyUtilText_parseHostFromProxyDeepLink {
+-
+-  private final String input;
+-  private final String output;
+-
+-  @Parameterized.Parameters
+-  public static Collection<Object[]> data() {
+-    return Arrays.asList(new Object[][]{
+-        { "https://signal.tube/#proxy.parker.org",     "proxy.parker.org" },
+-        { "https://signal.tube/#proxy.parker.org:443", "proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org",      "proxy.parker.org" },
+-        { "sgnl://signal.tube/#proxy.parker.org:443",  "proxy.parker.org" },
+-        { "https://signal.tube/",                       null },
+-        { "https://signal.tube/#",                      null },
+-        { "sgnl://signal.tube/",                        null },
+-        { "sgnl://signal.tube/#",                       null },
+-        { "http://signal.tube/#proxy.parker.org",       null },
+-        { "signal.tube/#proxy.parker.org",              null },
+-        { "",                                           null },
+-        { null,                                         null }
+-    });
+-  }
+-
+-  public SignalProxyUtilText_parseHostFromProxyDeepLink(String input, String output) {
+-    this.input  = input;
+-    this.output = output;
+-  }
+-
+-  @Test
+-  public void parse() {
+-    assertEquals(output, SignalProxyUtil.parseHostFromProxyDeepLink(input));
+-  }
+-}
+diff --git a/core/util/src/main/java/org/signal/core/util/net/SystemProxy.kt b/core/util/src/main/java/org/signal/core/util/net/SystemProxy.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..19dab31761af345181574dd3b39abbcf32f6c64a
+--- /dev/null
++++ b/core/util/src/main/java/org/signal/core/util/net/SystemProxy.kt
+@@ -0,0 +1,25 @@
++/*
++ * Copyright 2026 Signal Messenger, LLC
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.signal.core.util.net
++
++import androidx.annotation.WorkerThread
++import java.net.Proxy
++import java.net.ProxySelector
++import java.net.URI
++
++/**
++ * Resolves the system-configured [Proxy] for the given URL using [ProxySelector].
++ *
++ * @return null if no proxy is configured.
++ */
++@WorkerThread
++fun resolveSystemProxy(
++  targetUrl: String,
++  proxySelector: ProxySelector? = ProxySelector.getDefault()
++): Proxy? {
++  val proxyList = proxySelector?.select(URI.create(targetUrl))
++  return proxyList?.firstOrNull()
++}
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/util/TlsProxySocketFactory.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/util/TlsProxySocketFactory.kt
+deleted file mode 100644
+index d51d4ca90162a4ff4de874ae2aef6c25702ade8e..0000000000000000000000000000000000000000
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/util/TlsProxySocketFactory.kt
++++ /dev/null
+@@ -1,282 +0,0 @@
+-package org.whispersystems.signalservice.api.util
+-
+-import okhttp3.Dns
+-import java.io.IOException
+-import java.io.InputStream
+-import java.io.OutputStream
+-import java.net.InetAddress
+-import java.net.Socket
+-import java.net.SocketAddress
+-import java.net.SocketException
+-import java.net.UnknownHostException
+-import java.nio.channels.SocketChannel
+-import java.security.KeyManagementException
+-import java.security.NoSuchAlgorithmException
+-import java.util.Optional
+-import javax.net.SocketFactory
+-import javax.net.ssl.SSLContext
+-import javax.net.ssl.SSLSocket
+-import javax.net.ssl.SSLSocketFactory
+-
+-class TlsProxySocketFactory(
+-  private val proxyHost: String?,
+-  private val proxyPort: Int,
+-  private val dns: Optional<Dns>
+-) : SocketFactory() {
+-
+-  private val system: SSLSocketFactory = try {
+-    val context = SSLContext.getInstance("TLS")
+-    context.init(null, null, null)
+-
+-    context.socketFactory
+-  } catch (e: NoSuchAlgorithmException) {
+-    throw AssertionError(e)
+-  } catch (e: KeyManagementException) {
+-    throw AssertionError(e)
+-  }
+-
+-  @Throws(IOException::class, UnknownHostException::class)
+-  override fun createSocket(host: String, port: Int): Socket {
+-    if (dns.isPresent) {
+-      val resolved = dns.get().lookup(host)
+-
+-      if (resolved.isNotEmpty()) {
+-        return createSocket(resolved[0], port)
+-      }
+-    }
+-
+-    return ProxySocket(system.createSocket(proxyHost, proxyPort).enableHostnameVerification())
+-  }
+-
+-  @Throws(IOException::class, UnknownHostException::class)
+-  override fun createSocket(host: String, port: Int, localHost: InetAddress, localPort: Int): Socket {
+-    if (dns.isPresent) {
+-      val resolved = dns.get().lookup(host)
+-
+-      if (resolved.isNotEmpty()) {
+-        return createSocket(resolved[0], port, localHost, localPort)
+-      }
+-    }
+-
+-    return ProxySocket(system.createSocket(proxyHost, proxyPort, localHost, localPort).enableHostnameVerification())
+-  }
+-
+-  @Throws(IOException::class)
+-  override fun createSocket(host: InetAddress, port: Int): Socket {
+-    return ProxySocket(system.createSocket(proxyHost, proxyPort).enableHostnameVerification())
+-  }
+-
+-  @Throws(IOException::class)
+-  override fun createSocket(address: InetAddress, port: Int, localAddress: InetAddress, localPort: Int): Socket {
+-    return ProxySocket(system.createSocket(proxyHost, proxyPort, localAddress, localPort).enableHostnameVerification())
+-  }
+-
+-  @Throws(IOException::class)
+-  override fun createSocket(): Socket {
+-    val socket = system.createSocket(proxyHost, proxyPort).enableHostnameVerification()
+-    socket.startHandshake()
+-
+-    return ProxySocket(socket)
+-  }
+-
+-  private fun Socket.enableHostnameVerification(): SSLSocket {
+-    val sslSocket = this as SSLSocket
+-    sslSocket.sslParameters = sslSocket.sslParameters.apply {
+-      endpointIdentificationAlgorithm = "HTTPS"
+-    }
+-    return sslSocket
+-  }
+-
+-  private class ProxySocket(private val delegate: Socket) : Socket() {
+-    @Throws(IOException::class)
+-    override fun connect(endpoint: SocketAddress) {
+-      // Already connected
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun connect(endpoint: SocketAddress, timeout: Int) {
+-      // Already connected
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun bind(bindpoint: SocketAddress) {
+-      delegate.bind(bindpoint)
+-    }
+-
+-    override fun getInetAddress(): InetAddress {
+-      return delegate.inetAddress
+-    }
+-
+-    override fun getLocalAddress(): InetAddress {
+-      return delegate.localAddress
+-    }
+-
+-    override fun getPort(): Int {
+-      return delegate.port
+-    }
+-
+-    override fun getLocalPort(): Int {
+-      return delegate.localPort
+-    }
+-
+-    override fun getRemoteSocketAddress(): SocketAddress {
+-      return delegate.remoteSocketAddress
+-    }
+-
+-    override fun getLocalSocketAddress(): SocketAddress {
+-      return delegate.localSocketAddress
+-    }
+-
+-    override fun getChannel(): SocketChannel {
+-      return delegate.channel
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun getInputStream(): InputStream {
+-      return delegate.getInputStream()
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun getOutputStream(): OutputStream {
+-      return delegate.getOutputStream()
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setTcpNoDelay(on: Boolean) {
+-      delegate.tcpNoDelay = on
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getTcpNoDelay(): Boolean {
+-      return delegate.tcpNoDelay
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setSoLinger(on: Boolean, linger: Int) {
+-      delegate.setSoLinger(on, linger)
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getSoLinger(): Int {
+-      return delegate.soLinger
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun sendUrgentData(data: Int) {
+-      delegate.sendUrgentData(data)
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setOOBInline(on: Boolean) {
+-      delegate.oobInline = on
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getOOBInline(): Boolean {
+-      return delegate.oobInline
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setSoTimeout(timeout: Int) {
+-      delegate.soTimeout = timeout
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getSoTimeout(): Int {
+-      return delegate.soTimeout
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setSendBufferSize(size: Int) {
+-      delegate.sendBufferSize = size
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getSendBufferSize(): Int {
+-      return delegate.sendBufferSize
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setReceiveBufferSize(size: Int) {
+-      delegate.receiveBufferSize = size
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getReceiveBufferSize(): Int {
+-      return delegate.receiveBufferSize
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setKeepAlive(on: Boolean) {
+-      delegate.keepAlive = on
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getKeepAlive(): Boolean {
+-      return delegate.keepAlive
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setTrafficClass(tc: Int) {
+-      delegate.trafficClass = tc
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getTrafficClass(): Int {
+-      return delegate.trafficClass
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun setReuseAddress(on: Boolean) {
+-      delegate.reuseAddress = on
+-    }
+-
+-    @Throws(SocketException::class)
+-    override fun getReuseAddress(): Boolean {
+-      return delegate.reuseAddress
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun close() {
+-      delegate.close()
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun shutdownInput() {
+-      delegate.shutdownInput()
+-    }
+-
+-    @Throws(IOException::class)
+-    override fun shutdownOutput() {
+-      delegate.shutdownOutput()
+-    }
+-
+-    override fun toString(): String {
+-      return delegate.toString()
+-    }
+-
+-    override fun isConnected(): Boolean {
+-      return delegate.isConnected
+-    }
+-
+-    override fun isBound(): Boolean {
+-      return delegate.isBound
+-    }
+-
+-    override fun isClosed(): Boolean {
+-      return delegate.isClosed
+-    }
+-
+-    override fun isInputShutdown(): Boolean {
+-      return delegate.isInputShutdown
+-    }
+-
+-    override fun isOutputShutdown(): Boolean {
+-      return delegate.isOutputShutdown
+-    }
+-
+-    override fun setPerformancePreferences(connectionTime: Int, latency: Int, bandwidth: Int) {
+-      delegate.setPerformancePreferences(connectionTime, latency, bandwidth)
+-    }
+-  }
+-}
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/HttpProxy.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/HttpProxy.kt
+deleted file mode 100644
+index da28349ad5cac967a9bc1d8dc5338a496b12e094..0000000000000000000000000000000000000000
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/HttpProxy.kt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package org.whispersystems.signalservice.internal.configuration
+-
+-/**
+- * HTTP Proxy configuration from Android OS configuration.
+- */
+-class HttpProxy(val host: String, val port: Int)
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalProxy.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalProxy.java
+deleted file mode 100644
+index d855689b0eab854f408f0447d2027b699d0a622a..0000000000000000000000000000000000000000
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalProxy.java
++++ /dev/null
+@@ -1,19 +0,0 @@
+-package org.whispersystems.signalservice.internal.configuration;
+-
+-public class SignalProxy {
+-  private final String host;
+-  private final int    port;
+-
+-  public SignalProxy(String host, int port) {
+-    this.host = host;
+-    this.port = port;
+-  }
+-
+-  public String getHost() {
+-    return host;
+-  }
+-
+-  public int getPort() {
+-    return port;
+-  }
+-}
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/LibSignalNetworkExtensions.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/LibSignalNetworkExtensions.kt
+index 743a6d8cae09daeb7ec9fc39f420c3532f9abfdc..7c381c47c695a5ed3224e494207f3ad34ecd2b2c 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/LibSignalNetworkExtensions.kt
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/LibSignalNetworkExtensions.kt
+@@ -6,11 +6,8 @@
+ 
+ package org.whispersystems.signalservice.internal.websocket
+ 
+-import org.signal.core.util.logging.Log
+-import org.signal.core.util.orNull
+ import org.signal.libsignal.net.Network
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+-import java.io.IOException
+ 
+ private const val TAG = "LibSignalNetworkExtensions"
+ 
+@@ -18,29 +15,5 @@ private const val TAG = "LibSignalNetworkExtensions"
+  * Helper method to apply settings from the SignalServiceConfiguration.
+  */
+ fun Network.applyConfiguration(config: SignalServiceConfiguration) {
+-  val signalProxy = config.signalProxy.orNull()
+-  val systemHttpProxy = config.systemHttpProxy.orNull()
+-
+-  when {
+-    (signalProxy != null) -> {
+-      try {
+-        this.setProxy(signalProxy.host, signalProxy.port)
+-      } catch (e: IOException) {
+-        Log.e(TAG, "Invalid proxy configuration set! Failing connections until changed.")
+-        this.setInvalidProxy()
+-      }
+-    }
+-    (systemHttpProxy != null) -> {
+-      try {
+-        this.setProxy("http", systemHttpProxy.host, systemHttpProxy.port, "", "")
+-      } catch (e: IOException) {
+-        // The Android settings screen where this is set explicitly calls out that apps are allowed to
+-        //  ignore the HTTP Proxy setting, so if using the specified proxy would cause us to break, let's
+-        //  try just ignoring it and seeing if that still lets us connect.
+-        Log.w(TAG, "Failed to set system HTTP proxy, ignoring and continuing...")
+-      }
+-    }
+-  }
+-
+   this.setCensorshipCircumventionEnabled(config.censored)
+ }
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
+index 5ab3aada65754033a9202846927c4eb2e6060af9..efde5e3e6c2b89d1d79fdda5ce65ff18953dcec9 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
+@@ -11,16 +11,15 @@ import org.whispersystems.signalservice.api.push.TrustStore;
+ import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
+ import org.whispersystems.signalservice.api.util.CredentialsProvider;
+ import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
+-import org.whispersystems.signalservice.api.util.TlsProxySocketFactory;
+ import org.whispersystems.signalservice.api.websocket.HealthMonitor;
+ import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl;
+ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
+ import org.whispersystems.signalservice.internal.util.Util;
+ 
+ import java.io.IOException;
++import java.net.ProxySelector;
+ import java.net.SocketException;
+ import java.security.KeyManagementException;
+ import java.security.NoSuchAlgorithmException;
+@@ -36,6 +35,7 @@ import java.util.Set;
+ import java.util.concurrent.TimeUnit;
+ import java.util.concurrent.TimeoutException;
+ 
++import javax.net.SocketFactory;
+ import javax.net.ssl.SSLContext;
+ import javax.net.ssl.SSLSocketFactory;
+ import javax.net.ssl.TrustManager;
+@@ -74,8 +74,9 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
+   private final String                                    signalAgent;
+   private final HealthMonitor                             healthMonitor;
+   private final List<Interceptor>                         interceptors;
+-  private final Optional<Dns>                             dns;
+-  private final Optional<SignalProxy>                     signalProxy;
++  private final Dns                                       dns;
++  private final SocketFactory                             socketFactory;
++  private final ProxySelector                             proxySelector;
+   private final BehaviorSubject<WebSocketConnectionState> webSocketState;
+   private final boolean                                   allowStories;
+   private final SignalServiceUrl[]                        serviceUrls;
+@@ -107,7 +108,8 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
+     this.signalAgent         = signalAgent;
+     this.interceptors        = serviceConfiguration.getNetworkInterceptors();
+     this.dns                 = serviceConfiguration.getDns();
+-    this.signalProxy         = serviceConfiguration.getSignalProxy();
++    this.socketFactory       = serviceConfiguration.getSocketFactory();
++    this.proxySelector       = serviceConfiguration.getProxySelector();
+     this.healthMonitor       = healthMonitor;
+     this.webSocketState      = BehaviorSubject.createDefault(WebSocketConnectionState.DISCONNECTED);
+     this.allowStories        = allowStories;
+@@ -137,23 +139,21 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
+       SignalServiceUrl               serviceUrl     = connectionInfo.getFirst();
+       String                         wsUri          = connectionInfo.getSecond();
+ 
+-      Pair<SSLSocketFactory, X509TrustManager> socketFactory = createTlsSocketFactory(trustStore);
++      Pair<SSLSocketFactory, X509TrustManager> sslSocketFactory = createTlsSocketFactory(trustStore);
+ 
+-      OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder().sslSocketFactory(new Tls12SocketFactory(socketFactory.getFirst()),
+-                                                                                       socketFactory.getSecond())
++      OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder().socketFactory(socketFactory)
++                                                                     .proxySelector(proxySelector)
++                                                                     .dns(dns)
++                                                                     .sslSocketFactory(new Tls12SocketFactory(sslSocketFactory.getFirst()),
++                                                                                       sslSocketFactory.getSecond())
+                                                                      .connectionSpecs(serviceUrl.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+                                                                      .readTimeout(KEEPALIVE_FREQUENCY_SECONDS + 10, TimeUnit.SECONDS)
+-                                                                     .dns(dns.orElse(Dns.SYSTEM))
+                                                                      .connectTimeout(KEEPALIVE_FREQUENCY_SECONDS + 10, TimeUnit.SECONDS);
+ 
+       for (Interceptor interceptor : interceptors) {
+         clientBuilder.addInterceptor(interceptor);
+       }
+ 
+-      if (signalProxy.isPresent()) {
+-        clientBuilder.socketFactory(new TlsProxySocketFactory(signalProxy.get().getHost(), signalProxy.get().getPort(), dns));
+-      }
+-
+       OkHttpClient okHttpClient = clientBuilder.build();
+ 
+       Request.Builder requestBuilder = new Request.Builder().url(wsUri);
+diff --git a/lib/netcipher/src/main/AndroidManifest.xml b/lib/netcipher/src/main/AndroidManifest.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6662137b0eb9f76e169207f50b8d13352ac24e70
+--- /dev/null
++++ b/lib/netcipher/src/main/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
++
++    <queries>
++        <package android:name="org.torproject.android" />
++    </queries>
++</manifest>
+diff --git a/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/OrbotHelper.java b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/OrbotHelper.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..6a768d42236d2df5b93d07dc84549346c5376ee5
+--- /dev/null
++++ b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/OrbotHelper.java
+@@ -0,0 +1,606 @@
++/*
++ * Copyright 2014-2016 Hans-Christoph Steiner
++ * Copyright 2012-2016 Nathan Freitas
++ * Portions Copyright (c) 2016 CommonsWare, LLC
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package info.guardianproject.netcipher.proxy;
++
++import android.app.Activity;
++import android.content.BroadcastReceiver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.content.pm.PackageManager;
++import android.content.pm.ResolveInfo;
++import android.net.Uri;
++import android.os.Handler;
++import android.os.Looper;
++import android.text.TextUtils;
++
++import androidx.annotation.Nullable;
++import androidx.core.content.ContextCompat;
++
++import org.signal.core.util.logging.Log;
++
++import java.net.MalformedURLException;
++import java.net.URL;
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.List;
++import java.util.Set;
++import java.util.WeakHashMap;
++
++/**
++ * Utility class to simplify setting up a proxy connection
++ * to Orbot.
++ * <p>
++ * If you are using classes in the info.guardianproject.netcipher.client
++ * package, call OrbotHelper.get(this).init(); from onCreate()
++ * of a custom Application subclass, or from some other guaranteed
++ * entry point to your app. At that point, the
++ * info.guardianproject.netcipher.client classes will be ready
++ * for use.
++ */
++public class OrbotHelper implements ProxyHelper {
++
++    private static final String TAG = Log.tag(OrbotHelper.class);
++
++    private final static int REQUEST_CODE_STATUS = 100;
++
++    public final static String ORBOT_PACKAGE_NAME = "org.torproject.android";
++    public final static String ORBOT_MARKET_URI = "market://details?id=" + ORBOT_PACKAGE_NAME;
++
++    public final static String ORBOT_INSTALL_URL = "https://www.torproject.org/docs/android.html";
++
++    public final static String DEFAULT_PROXY_HOST = "localhost";//"127.0.0.1";
++    public final static int DEFAULT_PROXY_HTTP_PORT = 8118;
++    public final static int DEFAULT_PROXY_SOCKS_PORT = 9050;
++
++    /**
++     * A request to Orbot to transparently start Tor services
++     */
++    public final static String ACTION_START = "org.torproject.android.intent.action.START";
++
++    /**
++     * {@link Intent} send by Orbot with {@code ON/OFF/STARTING/STOPPING} status
++     * included as an {@link #EXTRA_STATUS} {@code String}.  Your app should
++     * always receive {@code ACTION_STATUS Intent}s since any other app could
++     * start Orbot.  Also, user-triggered starts and stops will also cause
++     * {@code ACTION_STATUS Intent}s to be broadcast.
++     */
++    public final static String ACTION_STATUS = "org.torproject.android.intent.action.STATUS";
++
++    /**
++     * {@code String} that contains a status constant: {@link #STATUS_ON},
++     * {@link #STATUS_OFF}, {@link #STATUS_STARTING}, or
++     * {@link #STATUS_STOPPING}
++     */
++    public final static String EXTRA_STATUS = "org.torproject.android.intent.extra.STATUS";
++    /**
++     * A {@link String} {@code packageName} for Orbot to direct its status reply
++     * to, used in {@link #ACTION_START} {@link Intent}s sent to Orbot
++     */
++    public final static String EXTRA_PACKAGE_NAME = "org.torproject.android.intent.extra.PACKAGE_NAME";
++
++    public final static String EXTRA_PROXY_PORT_HTTP = "org.torproject.android.intent.extra.HTTP_PROXY_PORT";
++    public final static String EXTRA_PROXY_PORT_SOCKS = "org.torproject.android.intent.extra.SOCKS_PROXY_PORT";
++
++
++    /**
++     * All tor-related services and daemons are stopped
++     */
++    public final static String STATUS_OFF = "OFF";
++    /**
++     * All tor-related services and daemons have completed starting
++     */
++    public final static String STATUS_ON = "ON";
++    public final static String STATUS_STARTING = "STARTING";
++    public final static String STATUS_STOPPING = "STOPPING";
++    /**
++     * The user has disabled the ability for background starts triggered by
++     * apps. Fallback to the old Intent that brings up Orbot.
++     */
++    public final static String STATUS_STARTS_DISABLED = "STARTS_DISABLED";
++
++    public final static String ACTION_START_TOR = "org.torproject.android.START_TOR";
++    public final static String ACTION_REQUEST_HS = "org.torproject.android.REQUEST_HS_PORT";
++    public final static int START_TOR_RESULT = 0x9234;
++    public final static int HS_REQUEST_CODE = 9999;
++
++
++/*
++    private OrbotHelper() {
++        // only static utility methods, do not instantiate
++    }
++*/
++
++    /**
++     * Test whether a {@link URL} is a Tor Hidden Service host name, also known
++     * as an ".onion address".
++     *
++     * @return whether the host name is a Tor .onion address
++     */
++    public static boolean isOnionAddress(URL url) {
++        return url.getHost().endsWith(".onion");
++    }
++
++    /**
++     * Test whether a URL {@link String} is a Tor Hidden Service host name, also known
++     * as an ".onion address".
++     *
++     * @return whether the host name is a Tor .onion address
++     */
++    public static boolean isOnionAddress(String urlString) {
++        try {
++            return isOnionAddress(new URL(urlString));
++        } catch (MalformedURLException e) {
++            return false;
++        }
++    }
++
++    /**
++     * Test whether a {@link Uri} is a Tor Hidden Service host name, also known
++     * as an ".onion address".
++     *
++     * @return whether the host name is a Tor .onion address
++     */
++    public static boolean isOnionAddress(Uri uri) {
++        return uri.getHost().endsWith(".onion");
++    }
++
++    public static boolean isOrbotInstalled(Context context) {
++        return isAppInstalled(context, ORBOT_PACKAGE_NAME);
++    }
++
++    private static boolean isAppInstalled(Context context, String uri) {
++        try {
++            PackageManager pm = context.getPackageManager();
++            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
++            return true;
++        } catch (PackageManager.NameNotFoundException e) {
++            return false;
++        }
++    }
++
++    public static void requestHiddenServiceOnPort(Activity activity, int port) {
++        Intent intent = new Intent(ACTION_REQUEST_HS);
++        intent.setPackage(ORBOT_PACKAGE_NAME);
++        intent.putExtra("hs_port", port);
++
++        activity.startActivityForResult(intent, HS_REQUEST_CODE);
++    }
++
++    /**
++     * First, checks whether Orbot is installed. If Orbot is installed, then a
++     * broadcast {@link Intent} is sent to request Orbot to start
++     * transparently in the background. When Orbot receives this {@code
++     * Intent}, it will immediately reply to the app that called this method
++     * with an {@link #ACTION_STATUS} {@code Intent} that is broadcast to the
++     * {@code packageName} of the provided {@link Context} (i.e.  {@link
++     * Context#getPackageName()}.
++     * <p>
++     * That reply {@link #ACTION_STATUS} {@code Intent} could say that the user
++     * has disabled background starts with the status
++     * {@link #STATUS_STARTS_DISABLED}. That means that Orbot ignored this
++     * request.
++     *
++     * @param context the app {@link Context} will receive the reply
++     * @return whether the start request was sent to Orbot
++     */
++    public static boolean requestStartTor(Context context) {
++        if (OrbotHelper.isOrbotInstalled(context)) {
++            Log.i(TAG, "requestStartTor " + context.getPackageName());
++            Intent intent = getOrbotStartIntent(context);
++            context.sendBroadcast(intent);
++            return true;
++        }
++        return false;
++    }
++
++    /**
++     * Gets an {@link Intent} for starting Orbot.  Orbot will reply with the
++     * current status to the {@code packageName} of the app in the provided
++     * {@link Context} (i.e.  {@link Context#getPackageName()}.
++     */
++    public static Intent getOrbotStartIntent(Context context) {
++        Intent intent = new Intent(ACTION_START);
++        intent.setPackage(ORBOT_PACKAGE_NAME);
++        intent.putExtra(EXTRA_PACKAGE_NAME, context.getPackageName());
++        return intent;
++    }
++
++    /**
++     * Gets a barebones {@link Intent} for starting Orbot.  This is deprecated
++     * in favor of {@link #getOrbotStartIntent(Context)}.
++     */
++    @Deprecated
++    public static Intent getOrbotStartIntent() {
++        Intent intent = new Intent(ACTION_START);
++        intent.setPackage(ORBOT_PACKAGE_NAME);
++        return intent;
++    }
++
++    public static Intent getShowOrbotStartIntent() {
++        Intent intent = new Intent(ACTION_START_TOR);
++        intent.setPackage(ORBOT_PACKAGE_NAME);
++        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
++        return intent;
++    }
++
++    public static Intent getOrbotInstallIntent(Context context) {
++        final Intent intent = new Intent(Intent.ACTION_VIEW);
++        intent.setData(Uri.parse(ORBOT_MARKET_URI));
++
++        PackageManager pm = context.getPackageManager();
++        List<ResolveInfo> resInfos = pm.queryIntentActivities(intent, 0);
++
++        String foundPackageName = null;
++        for (ResolveInfo r : resInfos) {
++            Log.i(TAG, "market: " + r.activityInfo.packageName);
++            if (TextUtils.equals(r.activityInfo.packageName, FDROID_PACKAGE_NAME)
++                    || TextUtils.equals(r.activityInfo.packageName, PLAY_PACKAGE_NAME)) {
++                foundPackageName = r.activityInfo.packageName;
++                break;
++            }
++        }
++
++        if (foundPackageName == null) {
++            intent.setData(Uri.parse(ORBOT_INSTALL_URL));
++        } else {
++            intent.setPackage(foundPackageName);
++        }
++        return intent;
++    }
++
++    @Override
++    public boolean isInstalled(Context context) {
++        return isOrbotInstalled(context);
++    }
++
++    @Override
++    public boolean requestStart(Context context) {
++        return requestStartTor(context);
++    }
++
++    @Override
++    public Intent getInstallIntent(Context context) {
++        return getOrbotInstallIntent(context);
++    }
++
++    @Override
++    public Intent getStartIntent(Context context) {
++        return getOrbotStartIntent();
++    }
++
++    @Override
++    public String getName() {
++        return "Orbot";
++    }
++
++    /* MLM additions */
++
++    private final Context context;
++    private final Handler handler;
++    private boolean isInstalled = false;
++    @Nullable
++    private Intent lastStatusIntent = null;
++    private final Set<StatusCallback> statusCallbacks =
++            Collections.newSetFromMap(new WeakHashMap<>());
++    private final Set<InstallCallback> installCallbacks =
++            Collections.newSetFromMap(new WeakHashMap<>());
++    private long statusTimeoutMs = 30000L;
++    private long installTimeoutMs = 60000L;
++    private boolean validateOrbot = true;
++
++    abstract public static class SimpleStatusCallback
++            implements StatusCallback {
++        @Override
++        public void onEnabled(Intent statusIntent) {
++            // no-op; extend and override if needed
++        }
++
++        @Override
++        public void onStarting() {
++            // no-op; extend and override if needed
++        }
++
++        @Override
++        public void onStopping() {
++            // no-op; extend and override if needed
++        }
++
++        @Override
++        public void onDisabled() {
++            // no-op; extend and override if needed
++        }
++
++        @Override
++        public void onNotYetInstalled() {
++            // no-op; extend and override if needed
++        }
++    }
++
++    /**
++     * Callback interface used for reporting the results of an
++     * attempt to install Orbot
++     */
++    public interface InstallCallback {
++        void onInstalled();
++
++        void onInstallTimeout();
++    }
++
++    private static volatile OrbotHelper instance;
++
++    /**
++     * Retrieves the singleton, initializing if if needed
++     *
++     * @param context any Context will do, as we will hold onto
++     *                the Application
++     * @return the singleton
++     */
++    synchronized public static OrbotHelper get(Context context) {
++        if (instance == null) {
++            instance = new OrbotHelper(context);
++        }
++
++        return (instance);
++    }
++
++    /**
++     * Standard constructor
++     *
++     * @param context any Context will do; OrbotInitializer will hold
++     *                onto the Application context
++     */
++    private OrbotHelper(Context context) {
++        this.context = context.getApplicationContext();
++        this.handler = new Handler(Looper.getMainLooper());
++    }
++
++    /**
++     * Adds a StatusCallback to be called when we find out that
++     * Orbot is ready. If Orbot is ready for use, your callback
++     * will be called with onEnabled() immediately, before this
++     * method returns.
++     *
++     * @param cb a callback
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper addStatusCallback(StatusCallback cb) {
++        statusCallbacks.add(cb);
++
++        if (lastStatusIntent != null) {
++            String status =
++                    lastStatusIntent.getStringExtra(OrbotHelper.EXTRA_STATUS);
++
++            if (status.equals(OrbotHelper.STATUS_ON)) {
++                cb.onEnabled(lastStatusIntent);
++            }
++        }
++
++        return (this);
++    }
++
++    /**
++     * Removes an existing registered StatusCallback.
++     *
++     * @param cb the callback to remove
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper removeStatusCallback(StatusCallback cb) {
++        statusCallbacks.remove(cb);
++
++        return (this);
++    }
++
++
++    /**
++     * Adds an InstallCallback to be called when we find out that
++     * Orbot is installed
++     *
++     * @param cb a callback
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper addInstallCallback(InstallCallback cb) {
++        installCallbacks.add(cb);
++
++        return (this);
++    }
++
++    /**
++     * Removes an existing registered InstallCallback.
++     *
++     * @param cb the callback to remove
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper removeInstallCallback(InstallCallback cb) {
++        installCallbacks.remove(cb);
++
++        return (this);
++    }
++
++    /**
++     * Sets how long of a delay, in milliseconds, after trying
++     * to get a status from Orbot before we give up.
++     * Defaults to 30000ms = 30 seconds = 0.000347222 days
++     *
++     * @param timeoutMs delay period in milliseconds
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper statusTimeout(long timeoutMs) {
++        statusTimeoutMs = timeoutMs;
++
++        return (this);
++    }
++
++    /**
++     * Sets how long of a delay, in milliseconds, after trying
++     * to install Orbot do we assume that it's not happening.
++     * Defaults to 60000ms = 60 seconds = 1 minute = 1.90259e-6 years
++     *
++     * @param timeoutMs delay period in milliseconds
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper installTimeout(long timeoutMs) {
++        installTimeoutMs = timeoutMs;
++
++        return (this);
++    }
++
++    /**
++     * By default, NetCipher ensures that the Orbot on the
++     * device is one of the official builds. Call this method
++     * to skip that validation. Mostly, this is for developers
++     * who have their own custom Orbot builds (e.g., for
++     * dedicated hardware).
++     *
++     * @return the singleton, for chaining
++     */
++    public OrbotHelper skipOrbotValidation() {
++        validateOrbot = false;
++
++        return (this);
++    }
++
++    /**
++     * @return true if Orbot is installed (the last time we checked),
++     * false otherwise
++     */
++    public boolean isInstalled() {
++        return (isInstalled);
++    }
++
++    /**
++     * Initializes the connection to Orbot, revalidating that it is installed
++     * and requesting fresh status broadcasts.  This is best run in your app's
++     * {@link android.app.Application} subclass, in its
++     * {@link android.app.Application#onCreate()} method.
++     *
++     * @return true if initialization is proceeding, false if Orbot is not installed,
++     * or version of Orbot with a unofficial signing key is present.
++     */
++    public boolean init() {
++        Intent orbot = OrbotHelper.getOrbotStartIntent(context);
++
++        if (validateOrbot) {
++            ArrayList<String> hashes = new ArrayList<String>();
++
++            // Tor Project signing key
++            hashes.add("A4:54:B8:7A:18:47:A8:9E:D7:F5:E7:0F:BA:6B:BA:96:F3:EF:29:C2:6E:09:81:20:4F:E3:47:BF:23:1D:FD:5B");
++            // f-droid.org signing key
++            hashes.add("A7:02:07:92:4F:61:FF:09:37:1D:54:84:14:5C:4B:EE:77:2C:55:C1:9E:EE:23:2F:57:70:E1:82:71:F7:CB:AE");
++
++            orbot =
++                    SignatureUtils.validateBroadcastIntent(context, orbot,
++                            hashes, false);
++        }
++
++        if (orbot != null) {
++            isInstalled = true;
++            handler.postDelayed(onStatusTimeout, statusTimeoutMs);
++            ContextCompat.registerReceiver(context, orbotStatusReceiver,
++                                           new IntentFilter(OrbotHelper.ACTION_STATUS),
++                                           ContextCompat.RECEIVER_EXPORTED);
++            context.sendBroadcast(orbot);
++        } else {
++            isInstalled = false;
++
++            for (StatusCallback cb : statusCallbacks) {
++                cb.onNotYetInstalled();
++            }
++        }
++
++        return (isInstalled);
++    }
++
++    private BroadcastReceiver orbotStatusReceiver = new BroadcastReceiver() {
++        @Override
++        public void onReceive(Context context, Intent intent) {
++            if (TextUtils.equals(intent.getAction(),
++                    OrbotHelper.ACTION_STATUS)) {
++                String status = intent.getStringExtra(OrbotHelper.EXTRA_STATUS);
++
++                if (status.equals(OrbotHelper.STATUS_ON)) {
++                    lastStatusIntent = intent;
++                    handler.removeCallbacks(onStatusTimeout);
++
++                    for (StatusCallback cb : statusCallbacks) {
++                        cb.onEnabled(intent);
++                    }
++                } else if (status.equals(OrbotHelper.STATUS_OFF)) {
++                    for (StatusCallback cb : statusCallbacks) {
++                        cb.onDisabled();
++                    }
++                } else if (status.equals(OrbotHelper.STATUS_STARTING)) {
++                    for (StatusCallback cb : statusCallbacks) {
++                        cb.onStarting();
++                    }
++                } else if (status.equals(OrbotHelper.STATUS_STOPPING)) {
++                    for (StatusCallback cb : statusCallbacks) {
++                        cb.onStopping();
++                    }
++                }
++            }
++        }
++    };
++
++    private final Runnable onStatusTimeout = new Runnable() {
++        @Override
++        public void run() {
++            try {
++                context.unregisterReceiver(orbotStatusReceiver);
++            } catch (IllegalArgumentException ignored) {}
++
++            for (StatusCallback cb : statusCallbacks) {
++                cb.onStatusTimeout();
++            }
++        }
++    };
++
++    private final BroadcastReceiver orbotInstallReceiver = new BroadcastReceiver() {
++        @Override
++        public void onReceive(Context context, Intent intent) {
++            if (TextUtils.equals(intent.getAction(),
++                    Intent.ACTION_PACKAGE_ADDED)) {
++                String pkgName = intent.getData().getEncodedSchemeSpecificPart();
++
++                if (OrbotHelper.ORBOT_PACKAGE_NAME.equals(pkgName)) {
++                    isInstalled = true;
++                    handler.removeCallbacks(onInstallTimeout);
++                    context.unregisterReceiver(orbotInstallReceiver);
++
++                    for (InstallCallback cb : installCallbacks) {
++                        cb.onInstalled();
++                    }
++
++                    init();
++                }
++            }
++        }
++    };
++
++    private final Runnable onInstallTimeout = new Runnable() {
++        @Override
++        public void run() {
++            context.unregisterReceiver(orbotInstallReceiver);
++
++            for (InstallCallback cb : installCallbacks) {
++                cb.onInstallTimeout();
++            }
++        }
++    };
++}
+diff --git a/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/ProxyHelper.java b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/ProxyHelper.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..c78ede3092e74ee2c812ae8bab3dd9ffc91f55fb
+--- /dev/null
++++ b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/ProxyHelper.java
+@@ -0,0 +1,77 @@
++/*
++ * Copyright 2012-2016 Nathan Freitas
++
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++package info.guardianproject.netcipher.proxy;
++
++import android.content.Context;
++import android.content.Intent;
++
++public interface ProxyHelper {
++
++    public boolean isInstalled(Context context);
++
++    public boolean requestStart(Context context);
++
++    public Intent getInstallIntent(Context context);
++
++    public Intent getStartIntent(Context context);
++
++    public String getName();
++
++    public final static String FDROID_PACKAGE_NAME = "org.fdroid.fdroid";
++    public final static String PLAY_PACKAGE_NAME = "com.android.vending";
++
++    /**
++     * A request to Orbot to transparently start Tor services
++     */
++    public final static String ACTION_START = "android.intent.action.PROXY_START";
++    /**
++     * {@link Intent} send by Orbot with {@code ON/OFF/STARTING/STOPPING} status
++     */
++    public final static String ACTION_STATUS = "android.intent.action.PROXY_STATUS";
++    /**
++     * {@code String} that contains a status constant: {@link #STATUS_ON},
++     * {@link #STATUS_OFF}, {@link #STATUS_STARTING}, or
++     * {@link #STATUS_STOPPING}
++     */
++    public final static String EXTRA_STATUS = "android.intent.extra.PROXY_STATUS";
++
++    public final static String EXTRA_PROXY_PORT_HTTP = "android.intent.extra.PROXY_PORT_HTTP";
++    public final static String EXTRA_PROXY_PORT_SOCKS = "android.intent.extra.PROXY_PORT_SOCKS";
++
++    /**
++     * A {@link String} {@code packageName} for Orbot to direct its status reply
++     * to, used in {@link #ACTION_START} {@link Intent}s sent to Orbot
++     */
++    public final static String EXTRA_PACKAGE_NAME = "android.intent.extra.PROXY_PACKAGE_NAME";
++
++    /**
++     * All tor-related services and daemons are stopped
++     */
++    public final static String STATUS_OFF = "OFF";
++    /**
++     * All tor-related services and daemons have completed starting
++     */
++    public final static String STATUS_ON = "ON";
++    public final static String STATUS_STARTING = "STARTING";
++    public final static String STATUS_STOPPING = "STOPPING";
++    /**
++     * The user has disabled the ability for background starts triggered by
++     * apps. Fallback to the old Intent that brings up Orbot.
++     */
++    public final static String STATUS_STARTS_DISABLED = "STARTS_DISABLED";
++}
++
+diff --git a/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/SignatureUtils.java b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/SignatureUtils.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..1975697d4a121d66daf50644668e38d653edeb9b
+--- /dev/null
++++ b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/SignatureUtils.java
+@@ -0,0 +1,487 @@
++/*
++ * Copyright (c) 2014 CommonsWare, LLC
++ * <p>
++ * Licensed under the Apache License, Version 2.0 (the "License"); you may
++ * not use this file except in compliance with the License. You may obtain
++ * a copy of the License at
++ * http://www.apache.org/licenses/LICENSE-2.0
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package info.guardianproject.netcipher.proxy;
++
++import android.annotation.SuppressLint;
++import android.content.ComponentName;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.PackageInfo;
++import android.content.pm.PackageManager;
++import android.content.pm.PackageManager.NameNotFoundException;
++import android.content.pm.ResolveInfo;
++import android.content.pm.Signature;
++
++import androidx.annotation.Nullable;
++
++import org.signal.core.util.logging.Log;
++
++import java.security.MessageDigest;
++import java.security.NoSuchAlgorithmException;
++import java.util.ArrayList;
++import java.util.List;
++
++public class SignatureUtils {
++
++    private static final String TAG = Log.tag(SignatureUtils.class);
++
++    private SignatureUtils() {
++        // this is a utility class with only static methods
++    }
++
++    public static List<String> getOwnSignatureHash(Context context)
++            throws
++            NameNotFoundException {
++        return (getSignatureHash(context, context.getPackageName()));
++    }
++
++    @SuppressLint("PackageManagerGetSignatures")
++    public static List<String> getSignatureHash(Context context, String packageName)
++            throws
++            NameNotFoundException {
++        MessageDigest md = getMessageDigestOrThrow();
++        PackageInfo packageInfo =
++                context.getPackageManager()
++                        .getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
++
++        List<String> hashSet = new ArrayList<>();
++        for (Signature sig : packageInfo.signatures) {
++            hashSet.add(toHexStringWithColons(md.digest(sig.toByteArray())));
++        }
++        return (hashSet);
++    }
++
++    private static MessageDigest getMessageDigestOrThrow() {
++        try {
++            return MessageDigest.getInstance("SHA-256");
++        } catch (NoSuchAlgorithmException e) {
++            throw new AssertionError(e);
++        }
++    }
++
++    // based on https://stackoverflow.com/a/2197650/115145
++
++    public static String toHexStringWithColons(byte[] bytes) {
++        char[] hexArray =
++                {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
++                        'C', 'D', 'E', 'F'};
++        char[] hexChars = new char[(bytes.length * 3) - 1];
++        int v;
++
++        for (int j = 0; j < bytes.length; j++) {
++            v = bytes[j] & 0xFF;
++            hexChars[j * 3] = hexArray[v / 16];
++            hexChars[j * 3 + 1] = hexArray[v % 16];
++
++            if (j < bytes.length - 1) {
++                hexChars[j * 3 + 2] = ':';
++            }
++        }
++
++        return new String(hexChars);
++    }
++
++    /**
++     * Confirms that the broadcast receiver for a given Intent
++     * has the desired signature hash.
++     * <p>
++     * If you know the package name of the receiver, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has the proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some receiver whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * receiver was found that matches the Intent. If failIfHack
++     * is false, this means that no receiver was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching receiver
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching receiver, so the "broadcast" will only go to this
++     * one component.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to broadcast
++     * @param sigHash    the signature hash of the app that you expect
++     *                   to handle this broadcast
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching receiver is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching receiver with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target receiver added to the Intent
++     */
++    @Nullable
++    public static Intent validateBroadcastIntent(Context context,
++                                                 Intent toValidate,
++                                                 String sigHash,
++                                                 boolean failIfHack) {
++        ArrayList<String> sigHashes = new ArrayList<String>();
++
++        sigHashes.add(sigHash);
++
++        return (validateBroadcastIntent(context, toValidate, sigHashes,
++                failIfHack));
++    }
++
++    /**
++     * Confirms that the broadcast receiver for a given Intent
++     * has a desired signature hash.
++     * <p>
++     * If you know the package name of the receiver, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has a proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some receiver whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * receiver was found that matches the Intent. If failIfHack
++     * is false, this means that no receiver was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching receiver
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching receiver, so the "broadcast" will only go to this
++     * one component.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to broadcast
++     * @param sigHashes  the possible signature hashes of the app
++     *                   that you expect to handle this broadcast
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching receiver is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching receiver with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target receiver added to the Intent
++     */
++    @Nullable
++    public static Intent validateBroadcastIntent(Context context,
++                                                 Intent toValidate,
++                                                 List<String> sigHashes,
++                                                 boolean failIfHack) {
++        PackageManager pm = context.getPackageManager();
++        Intent result = null;
++        List<ResolveInfo> receivers =
++                pm.queryBroadcastReceivers(toValidate, 0);
++
++        if (receivers != null) {
++            for (ResolveInfo info : receivers) {
++                try {
++                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
++                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
++                        ComponentName cn =
++                                new ComponentName(info.activityInfo.packageName,
++                                        info.activityInfo.name);
++
++                        result = new Intent(toValidate).setComponent(cn);
++                        break;
++                    } else if (failIfHack) {
++                        throw new SecurityException(
++                                "Package has signature hash mismatch: " +
++                                        info.activityInfo.packageName);
++                    }
++                } catch (NameNotFoundException e) {
++                    Log.w(TAG,
++                            "Exception when computing signature hash", e);
++                }
++            }
++        }
++
++        return (result);
++    }
++
++    /**
++     * Confirms that the activity for a given Intent has the
++     * desired signature hash.
++     * <p>
++     * If you know the package name of the activity, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has the proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some activity whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * activity was found that matches the Intent. If failIfHack
++     * is false, this means that no activity was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching activity
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching activity, so a call to startActivity() for this
++     * Intent is guaranteed to go to this specific activity.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to use with
++     *                   startActivity()
++     * @param sigHash    the signature hash of the app that you expect
++     *                   to handle this activity
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching activity is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching activity with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target activity added to the Intent
++     */
++    @Nullable
++    public static Intent validateActivityIntent(Context context,
++                                                Intent toValidate,
++                                                String sigHash,
++                                                boolean failIfHack) {
++        ArrayList<String> sigHashes = new ArrayList<String>();
++
++        sigHashes.add(sigHash);
++
++        return (validateActivityIntent(context, toValidate, sigHashes,
++                failIfHack));
++    }
++
++    /**
++     * Confirms that the activity for a given Intent has the
++     * desired signature hash.
++     * <p>
++     * If you know the package name of the activity, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has the proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some activity whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * activity was found that matches the Intent. If failIfHack
++     * is false, this means that no activity was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching activity
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching activity, so a call to startActivity() for this
++     * Intent is guaranteed to go to this specific activity.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to use with
++     *                   startActivity()
++     * @param sigHashes  the signature hashes of the app that you expect
++     *                   to handle this activity
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching activity is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching activity with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target activity added to the Intent
++     */
++    @Nullable
++    public static Intent validateActivityIntent(Context context,
++                                                Intent toValidate,
++                                                List<String> sigHashes,
++                                                boolean failIfHack) {
++        PackageManager pm = context.getPackageManager();
++        Intent result = null;
++        List<ResolveInfo> activities =
++                pm.queryIntentActivities(toValidate, 0);
++
++        if (activities != null) {
++            for (ResolveInfo info : activities) {
++                try {
++                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
++                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
++                        ComponentName cn =
++                                new ComponentName(info.activityInfo.packageName,
++                                        info.activityInfo.name);
++
++                        result = new Intent(toValidate).setComponent(cn);
++                        break;
++                    } else if (failIfHack) {
++                        throw new SecurityException(
++                                "Package has signature hash mismatch: " +
++                                        info.activityInfo.packageName);
++                    }
++                } catch (NameNotFoundException e) {
++                    Log.w(TAG,
++                            "Exception when computing signature hash", e);
++                }
++            }
++        }
++
++        return (result);
++    }
++
++    /**
++     * Confirms that the service for a given Intent has the
++     * desired signature hash.
++     * <p>
++     * If you know the package name of the service, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has the proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some service whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * service was found that matches the Intent. If failIfHack
++     * is false, this means that no service was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching service
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching service, so a call to startService() or
++     * bindService() for this Intent is guaranteed to go to this
++     * specific service.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to use with
++     *                   startService() or bindService()
++     * @param sigHash    the signature hash of the app that you expect
++     *                   to handle this service
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching service is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching service with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target service added to the Intent
++     */
++    @Nullable
++    public static Intent validateServiceIntent(Context context,
++                                               Intent toValidate,
++                                               String sigHash,
++                                               boolean failIfHack) {
++        ArrayList<String> sigHashes = new ArrayList<String>();
++
++        sigHashes.add(sigHash);
++
++        return (validateServiceIntent(context, toValidate, sigHashes,
++                failIfHack));
++    }
++
++    /**
++     * Confirms that the service for a given Intent has the
++     * desired signature hash.
++     * <p>
++     * If you know the package name of the service, call
++     * setPackage() on the Intent before passing into this method.
++     * That will validate whether the package is installed and whether
++     * it has the proper signature hash. You can distinguish between
++     * these cases by passing true for the failIfHack parameter.
++     * <p>
++     * In general, there are three possible outcomes of calling
++     * this method:
++     * <p>
++     * 1. You get a SecurityException, because failIfHack is true,
++     * and we found some service whose app does not match the
++     * desired hash. The user may have installed a repackaged
++     * version of this app that is signed by the wrong key.
++     * <p>
++     * 2. You get null. If failIfHack is true, this means that no
++     * service was found that matches the Intent. If failIfHack
++     * is false, this means that no service was found that matches
++     * the Intent and has a valid matching signature.
++     * <p>
++     * 3. You get an Intent. This means we found a matching service
++     * that has a matching signature. The Intent will be a copy of
++     * the passed-in Intent, with the component name set to the
++     * matching service, so a call to startService() or
++     * bindService() for this Intent is guaranteed to go to this
++     * specific service.
++     *
++     * @param context    any Context will do; the value is not retained
++     * @param toValidate the Intent that you intend to use with
++     *                   startService() or bindService()
++     * @param sigHashes  the signature hash of the app that you expect
++     *                   to handle this service
++     * @param failIfHack true if you want a SecurityException if
++     *                   a matching service is found but it has
++     *                   the wrong signature hash, false otherwise
++     * @return null if there is no matching service with the correct
++     * hash, or a copy of the toValidate parameter with the full component
++     * name of the target service added to the Intent
++     */
++    @Nullable
++    public static Intent validateServiceIntent(Context context,
++                                               Intent toValidate,
++                                               List<String> sigHashes,
++                                               boolean failIfHack) {
++        PackageManager pm = context.getPackageManager();
++        Intent result = null;
++        List<ResolveInfo> services =
++                pm.queryIntentServices(toValidate, 0);
++
++        if (services != null) {
++            for (ResolveInfo info : services) {
++                try {
++                    List<String> hashSet = getSignatureHash(context, info.activityInfo.packageName);
++                    if (hashSet.size() == 1 && sigHashes.contains(hashSet.get(0))) {
++                        ComponentName cn =
++                                new ComponentName(info.serviceInfo.packageName,
++                                        info.serviceInfo.name);
++
++                        result = new Intent(toValidate).setComponent(cn);
++                        break;
++                    } else if (failIfHack) {
++                        throw new SecurityException(
++                                "Package has signature hash mismatch: " +
++                                        info.activityInfo.packageName);
++                    }
++                } catch (NameNotFoundException e) {
++                    Log.w(TAG, e);
++                }
++            }
++        }
++
++        return result;
++    }
++}
+diff --git a/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/StatusCallback.java b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/StatusCallback.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..0616a498eeecc888a5c85d79fee62ea11e8b70e6
+--- /dev/null
++++ b/lib/netcipher/src/main/java/info/guardianproject/netcipher/proxy/StatusCallback.java
+@@ -0,0 +1,64 @@
++/*
++ * Copyright (c) 2016 CommonsWare, LLC
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ * http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package info.guardianproject.netcipher.proxy;
++
++import android.content.Intent;
++
++/**
++ * Callback interface used for reporting Orbot status
++ */
++public interface StatusCallback {
++    /**
++     * Called when Orbot is operational
++     *
++     * @param statusIntent an Intent containing information about
++     *                     Orbot, including proxy ports
++     */
++    void onEnabled(Intent statusIntent);
++
++    /**
++     * Called when Orbot reports that it is starting up
++     */
++    void onStarting();
++
++    /**
++     * Called when Orbot reports that it is shutting down
++     */
++    void onStopping();
++
++    /**
++     * Called when Orbot reports that it is no longer running
++     */
++    void onDisabled();
++
++    /**
++     * Called if our attempt to get a status from Orbot failed
++     * after a defined period of time. See statusTimeout() on
++     * OrbotInitializer.
++     */
++    void onStatusTimeout();
++
++    /**
++     * Called if Orbot is not yet installed. Usually, you handle
++     * this by checking the return value from init() on OrbotInitializer
++     * or calling isInstalled() on OrbotInitializer. However, if
++     * you have need for it, if a callback is registered before
++     * an init() call determines that Orbot is not installed, your
++     * callback will be called with onNotYetInstalled().
++     */
++    void onNotYetInstalled();
++}
+diff --git a/lib/network/src/main/java/org/signal/network/api/CallingApi.kt b/lib/network/src/main/java/org/signal/network/api/CallingApi.kt
+index 8661bd2d6b58108076953d439ac4a3fd8dbc750d..73b68f2ba89a25cf0fcada5c9a911bba131c8e4d 100644
+--- a/lib/network/src/main/java/org/signal/network/api/CallingApi.kt
++++ b/lib/network/src/main/java/org/signal/network/api/CallingApi.kt
+@@ -11,8 +11,6 @@ import org.signal.network.NetworkResult
+ import org.signal.network.websocket.WebSocketRequestMessage
+ import org.signal.network.websocket.get
+ import org.signal.network.websocket.post
+-import org.signal.network.websocket.putCustom
+-import org.signal.storageservice.protos.calls.quality.SubmitCallQualitySurveyRequest
+ import org.whispersystems.signalservice.api.fromWebSocketRequest
+ import org.whispersystems.signalservice.api.messages.calls.CallingResponse
+ import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo
+@@ -32,24 +30,6 @@ class CallingApi(
+ ) {
+ 
+   /**
+-   * Submit call quality information (with the user's permission) to the server on an unauthenticated channel.
+-   *
+-   * PUT /v1/call_quality_survey
+-   * - 204: The survey response was submitted successfully
+-   * - 422: The survey response could not be parsed
+-   * - 429: Too many attempts, try after Retry-After seconds.
+-   */
+-  fun submitCallQualitySurvey(request: SubmitCallQualitySurveyRequest): NetworkResult<Unit> {
+-    val webSocketRequestMessage = WebSocketRequestMessage.putCustom(
+-      path = "/v1/call_quality_survey",
+-      body = request.encode(),
+-      headers = mapOf("Content-Type" to "application/octet-stream")
+-    )
+-
+-    return NetworkResult.fromWebSocketRequest(unAuth, webSocketRequestMessage)
+-  }
+-
+-  /**
+    * Get 1:1 relay addresses in IpV4, Ipv6, and URL formats.
+    *
+    * GET /v2/calling/relays
+diff --git a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+index 67c6d58e4a765160395560fe9200dc2aad969812..5f014e6fcece49586509617300a29cecfc76c0da 100644
+--- a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
++++ b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+@@ -35,19 +35,19 @@ import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.Pro
+ import org.whispersystems.signalservice.api.push.SignalServiceAddress
+ import org.whispersystems.signalservice.api.util.CredentialsProvider
+ import org.whispersystems.signalservice.api.util.Tls12SocketFactory
+-import org.whispersystems.signalservice.api.util.TlsProxySocketFactory
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+ import org.whispersystems.signalservice.internal.configuration.SignalUrl
+ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
+ import java.io.IOException
+ import java.io.OutputStream
++import java.net.ProxySelector
+ import java.security.KeyManagementException
+ import java.security.NoSuchAlgorithmException
+ import java.security.SecureRandom
+ import java.util.Optional
+ import java.util.Random
+ import java.util.concurrent.TimeUnit
++import javax.net.SocketFactory
+ import javax.net.ssl.SSLContext
+ import javax.net.ssl.X509TrustManager
+ import kotlin.coroutines.resume
+@@ -87,13 +87,14 @@ class SignalRestClient @JvmOverloads constructor(
+     private fun createConnectionHolders(
+       urls: Array<out SignalUrl>,
+       interceptors: List<Interceptor>,
+-      dns: Optional<Dns>,
+-      proxy: Optional<SignalProxy>,
++      dns: Dns,
++      socketFactory: SocketFactory,
++      proxySelector: ProxySelector,
+       clientOverride: OkHttpClient?
+     ): Array<ConnectionHolder> {
+       return urls.map { url ->
+         ConnectionHolder(
+-          client = clientOverride ?: buildClient(url, interceptors, dns, proxy),
++          client = clientOverride ?: buildClient(url, interceptors, dns, socketFactory, proxySelector),
+           url = url.url,
+           hostHeader = url.hostHeader
+         )
+@@ -103,23 +104,22 @@ class SignalRestClient @JvmOverloads constructor(
+     private fun buildClient(
+       url: SignalUrl,
+       interceptors: List<Interceptor>,
+-      dns: Optional<Dns>,
+-      proxy: Optional<SignalProxy>
++      dns: Dns,
++      socketFactory: SocketFactory,
++      proxySelector: ProxySelector,
+     ): OkHttpClient {
+       try {
+         val trustManagers = BlacklistingTrustManager.createFor(url.trustStore)
+         val sslContext = SSLContext.getInstance("TLS").apply { init(null, trustManagers, null) }
+ 
+         val builder = OkHttpClient.Builder()
++          .socketFactory(socketFactory)
++          .proxySelector(proxySelector)
+           .sslSocketFactory(Tls12SocketFactory(sslContext.socketFactory), trustManagers[0] as X509TrustManager)
+           .connectionSpecs(url.connectionSpecs.orElse(listOf(ConnectionSpec.RESTRICTED_TLS))!!)
+-          .dns(dns.orElse(Dns.SYSTEM)!!)
++          .dns(dns)
+           .connectionPool(ConnectionPool(5, 45, TimeUnit.SECONDS))
+ 
+-        if (proxy.isPresent) {
+-          builder.socketFactory(TlsProxySocketFactory(proxy.get().host, proxy.get().port, dns))
+-        }
+-
+         for (interceptor in interceptors) {
+           builder.addInterceptor(interceptor)
+         }
+@@ -137,7 +137,8 @@ class SignalRestClient @JvmOverloads constructor(
+     configuration.signalServiceUrls,
+     configuration.networkInterceptors,
+     configuration.dns,
+-    configuration.signalProxy,
++    socketFactory = configuration.socketFactory,
++    proxySelector = configuration.proxySelector,
+     clientOverride
+   )
+ 
+@@ -147,7 +148,8 @@ class SignalRestClient @JvmOverloads constructor(
+         urls = urls,
+         interceptors = configuration.networkInterceptors,
+         dns = configuration.dns,
+-        proxy = configuration.signalProxy,
++        socketFactory = configuration.socketFactory,
++        proxySelector = configuration.proxySelector,
+         clientOverride = clientOverride
+       )
+     }
+@@ -156,7 +158,8 @@ class SignalRestClient @JvmOverloads constructor(
+     configuration.signalStorageUrls,
+     configuration.networkInterceptors,
+     configuration.dns,
+-    configuration.signalProxy,
++    socketFactory = configuration.socketFactory,
++    proxySelector = configuration.proxySelector,
+     clientOverride
+   )
+ 
+diff --git a/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt b/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
+index 008e16416f71a4d9f160f460e1f897ec2baf137e..d9667612c24a17e99bef310cc05e7a798c162c73 100644
+--- a/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
++++ b/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
+@@ -10,6 +10,7 @@ import assertk.assertions.isEqualTo
+ import assertk.assertions.isInstanceOf
+ import assertk.assertions.isSameInstanceAs
+ import kotlinx.coroutines.runBlocking
++import okhttp3.Dns
+ import okhttp3.Interceptor
+ import okhttp3.MediaType.Companion.toMediaType
+ import okhttp3.OkHttpClient
+@@ -31,8 +32,10 @@ import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
+ import org.whispersystems.signalservice.internal.configuration.SignalSvr2Url
+ import java.io.ByteArrayInputStream
+ import java.io.IOException
++import java.net.ProxySelector
+ import java.util.Optional
+ import java.util.Random
++import javax.net.SocketFactory
+ 
+ class SignalRestClientTest {
+ 
+@@ -174,9 +177,9 @@ class SignalRestClientTest {
+       signalCdsiUrls = emptyArray<SignalCdsiUrl>(),
+       signalSvr2Urls = emptyArray<SignalSvr2Url>(),
+       networkInterceptors = emptyList(),
+-      dns = Optional.empty(),
+-      signalProxy = Optional.empty(),
+-      systemHttpProxy = Optional.empty(),
++      dns = Dns.SYSTEM,
++      socketFactory = SocketFactory.getDefault(),
++      proxySelector = ProxySelector.getDefault(),
+       zkGroupServerPublicParams = ByteArray(0),
+       genericServerPublicParams = ByteArray(0),
+       backupServerPublicParams = ByteArray(0),
+
+--------------false--
+
+

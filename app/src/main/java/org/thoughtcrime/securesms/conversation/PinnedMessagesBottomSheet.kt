@@ -282,6 +282,21 @@ class PinnedMessagesBottomSheet : FixedRoundedCornerBottomSheetDialogFragment() 
       getAdapterListener().onRecipientNameClicked(target)
     }
 
+    override fun onViewGiftBadgeClicked(messageRecord: MessageRecord) {
+      dismiss()
+      getAdapterListener().onViewGiftBadgeClicked(messageRecord)
+    }
+
+    override fun onActivatePaymentsClicked() {
+      dismiss()
+      getAdapterListener().onActivatePaymentsClicked()
+    }
+
+    override fun onSendPaymentClicked(recipientId: RecipientId) {
+      dismiss()
+      getAdapterListener().onSendPaymentClicked(recipientId)
+    }
+
     override fun onEditedIndicatorClicked(conversationMessage: ConversationMessage) {
       dismiss()
       getAdapterListener().onEditedIndicatorClicked(conversationMessage)

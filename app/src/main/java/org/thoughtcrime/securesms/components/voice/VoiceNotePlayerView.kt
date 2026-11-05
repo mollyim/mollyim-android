@@ -9,6 +9,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doOnTextChanged
@@ -17,11 +18,11 @@ import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.SimpleColorFilter
 import com.airbnb.lottie.model.KeyPath
 import com.airbnb.lottie.value.LottieValueCallback
-import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.PlaybackSpeedToggleTextView
 import org.thoughtcrime.securesms.recipients.RecipientId
 import java.util.concurrent.TimeUnit
+import org.signal.core.ui.R as CoreUiR
 
 private const val ANIMATE_DURATION: Long = 150L
 private const val TO_PAUSE = 1
@@ -109,12 +110,12 @@ class VoiceNotePlayerView @JvmOverloads constructor(
       playPauseToggleView.addValueCallback(
         KeyPath("**"),
         LottieProperty.COLOR_FILTER,
-        LottieValueCallback(SimpleColorFilter(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface)))
+        LottieValueCallback(SimpleColorFilter(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface)))
       )
     }
 
     if (background != null) {
-      background.colorFilter = SimpleColorFilter(ThemeUtil.getThemedColor(context, R.attr.voice_note_player_view_background))
+      background.colorFilter = SimpleColorFilter(ContextCompat.getColor(context, R.color.voice_note_player_view_background))
     }
 
     contentDescription = context.getString(R.string.VoiceNotePlayerView__navigate_to_voice_message)

@@ -1,0 +1,3436 @@
+From d926ee38e7fec6453bf914a940815203685fe419 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly resources-and-branding, part 7
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Shared localized resources, icons, artwork, layouts, XML policy and resource deletions.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/res/layout/message_details_fragment.xml b/app/src/main/res/layout/message_details_fragment.xml
+index f008ab2ec761fc76df1ce0c9cafb7971fd909685..dddd6f7f446736d7f68af6661f5806847d418a16 100644
+--- a/app/src/main/res/layout/message_details_fragment.xml
++++ b/app/src/main/res/layout/message_details_fragment.xml
+@@ -5,7 +5,7 @@
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/signal_background_primary">
++    android:background="?attr/signal_background_primary">
+ 
+     <FrameLayout
+         android:id="@+id/video_container"
+diff --git a/app/src/main/res/layout/message_details_header.xml b/app/src/main/res/layout/message_details_header.xml
+index 7f64e3b1a855377e4a4bbdbd4012f19a2ab9c397..1812610861a7f9e9a45d1314abaa5498bbb11704 100644
+--- a/app/src/main/res/layout/message_details_header.xml
++++ b/app/src/main/res/layout/message_details_header.xml
+@@ -70,7 +70,7 @@
+                 android:text="@string/message_recipients_list_item__resend"
+                 android:visibility="gone"
+                 app:icon="@drawable/symbol_refresh_24"
+-                app:iconTint="@color/signal_colorOnPrimaryContainer"
++                app:iconTint="?attr/colorOnPrimaryContainer"
+                 tools:visibility="visible" />
+ 
+         </LinearLayout>
+@@ -89,7 +89,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"
+                 tools:text="@string/message_details_header_sent" />
+@@ -101,7 +101,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_sent_time"
+                 tools:text="@string/message_details_header_received" />
+@@ -112,7 +112,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_received_time"
+                 tools:text="@string/message_details_header_disappears" />
+@@ -123,7 +123,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/message_details_header_expires_in"
+                 tools:text="@string/message_details_header_via" />
+diff --git a/app/src/main/res/layout/message_details_recipient.xml b/app/src/main/res/layout/message_details_recipient.xml
+index 1badae713a59a68f0f40bf4a2b33ab84e1f0f778..a285ad4558ad1e08beb3d81e6f53293cbef0cab3 100644
+--- a/app/src/main/res/layout/message_details_recipient.xml
++++ b/app/src/main/res/layout/message_details_recipient.xml
+@@ -52,7 +52,7 @@
+             android:layout_marginEnd="4dp"
+             android:ellipsize="marquee"
+             android:singleLine="true"
+-            android:textColor="@color/signal_colorOnSurface"
++            android:textColor="?attr/colorOnSurface"
+             app:layout_constraintBottom_toTopOf="@+id/message_details_recipient_error_description"
+             app:layout_constraintEnd_toStartOf="@+id/message_details_recipient_ud_indicator"
+             app:layout_constraintStart_toEndOf="@+id/message_details_recipient_avatar"
+@@ -76,7 +76,7 @@
+             style="@style/Signal.Text.BodyMedium"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/message_details_recipient_conflict_button"
+@@ -90,10 +90,10 @@
+             android:layout_height="wrap_content"
+             android:drawableStart="@drawable/symbol_error_circle_fill_16"
+             android:text="@string/message_recipients_list_item__view"
+-            android:textColor="@color/signal_colorOnPrimary"
++            android:textColor="?attr/colorOnPrimary"
+             android:visibility="gone"
+-            app:backgroundTint="@color/signal_colorError"
+-            app:drawableTint="@color/signal_colorOnPrimary"
++            app:backgroundTint="?attr/colorError"
++            app:drawableTint="?attr/colorOnPrimary"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toStartOf="@+id/message_details_recipient_timestamp"
+             app:layout_constraintStart_toEndOf="@+id/message_details_recipient_ud_indicator"
+@@ -106,7 +106,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginStart="4dp"
+             android:layout_marginEnd="9dp"
+-            android:tint="@color/signal_colorOnSurfaceVariant"
++            android:tint="?attr/colorOnSurfaceVariant"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toStartOf="@+id/message_details_recipient_conflict_button"
+             app:layout_constraintStart_toEndOf="@+id/message_details_recipient_name"
+diff --git a/app/src/main/res/layout/message_details_view_edit_history.xml b/app/src/main/res/layout/message_details_view_edit_history.xml
+index 059f940e000bf3208199209a3386928a8c44054d..1f2d736df42cb9adc7f507b2970662b3c114c25d 100644
+--- a/app/src/main/res/layout/message_details_view_edit_history.xml
++++ b/app/src/main/res/layout/message_details_view_edit_history.xml
+@@ -16,7 +16,7 @@
+         android:minHeight="56dp"
+         android:paddingHorizontal="24dp"
+         android:text="@string/MessageDetails__view_edit_history"
+-        app:drawableTint="@color/signal_colorOnSurface"
++        app:drawableTint="?attr/colorOnSurface"
+         app:drawableStartCompat="@drawable/symbol_edit_24" />
+ 
+     <include
+diff --git a/app/src/main/res/layout/message_edit_history_bottom_sheet.xml b/app/src/main/res/layout/message_edit_history_bottom_sheet.xml
+index c53ee917b3467aba234d06fcf6def2e1a53aefb9..0ea328f14ce20bfb47138c6c034bc641123d292a 100644
+--- a/app/src/main/res/layout/message_edit_history_bottom_sheet.xml
++++ b/app/src/main/res/layout/message_edit_history_bottom_sheet.xml
+@@ -11,7 +11,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected" />
++        android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+     <FrameLayout
+         android:layout_width="match_parent"
+diff --git a/app/src/main/res/layout/message_quotes_bottom_sheet.xml b/app/src/main/res/layout/message_quotes_bottom_sheet.xml
+index d9deb7dc34e3fbeff77a7d6daaed1ae7cfbeac3a..9d1c035332103483e1bf93119c7890afd9f9ccb3 100644
+--- a/app/src/main/res/layout/message_quotes_bottom_sheet.xml
++++ b/app/src/main/res/layout/message_quotes_bottom_sheet.xml
+@@ -14,7 +14,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected"
++        android:background="?attr/signal_icon_tint_tab_unselected"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"/>
+diff --git a/app/src/main/res/layout/microphone_recorder_view.xml b/app/src/main/res/layout/microphone_recorder_view.xml
+index a4111c140864934d8f447f36141d2a48c8f5b64d..7a8f8e04546bba7aedd6b05f928d93b71c0bcd1d 100644
+--- a/app/src/main/res/layout/microphone_recorder_view.xml
++++ b/app/src/main/res/layout/microphone_recorder_view.xml
+@@ -15,7 +15,7 @@
+         android:contentDescription="@string/conversation_activity__quick_attachment_drawer_record_and_send_audio_description"
+         android:scaleType="fitCenter"
+         app:srcCompat="@drawable/ic_mic_24"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <LinearLayout
+         android:id="@+id/lock_drop_target"
+@@ -36,7 +36,7 @@
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="10dp"
+             android:contentDescription="@string/conversation_activity__quick_attachment_drawer_lock_record_description"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             app:srcCompat="@drawable/ic_lock" />
+ 
+         <androidx.appcompat.widget.AppCompatImageView
+@@ -45,7 +45,7 @@
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="6dp"
+             android:contentDescription="@string/conversation_activity__quick_attachment_drawer_lock_record_description"
+-            android:tint="@color/signal_icon_tint_secondary"
++            android:tint="?attr/signal_icon_tint_secondary"
+             app:srcCompat="@drawable/ic_chevron_up" />
+     </LinearLayout>
+ 
+diff --git a/app/src/main/res/layout/multiselect_bottom_sheet.xml b/app/src/main/res/layout/multiselect_bottom_sheet.xml
+index 2edb94ef83edce53212600eb18d97aa9be6bc8f2..f8b5d7ab85a6275bd4888889a4411d6daeda26ae 100644
+--- a/app/src/main/res/layout/multiselect_bottom_sheet.xml
++++ b/app/src/main/res/layout/multiselect_bottom_sheet.xml
+@@ -12,7 +12,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected" />
++        android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+     <TextView
+         android:id="@+id/title"
+diff --git a/app/src/main/res/layout/mute_dialog_item.xml b/app/src/main/res/layout/mute_dialog_item.xml
+index 7466592de63af162bfdc4c7fe4b83631dcde65cf..e086b3b6c19b6bc5d7602d7ec111f9d5944c07b6 100644
+--- a/app/src/main/res/layout/mute_dialog_item.xml
++++ b/app/src/main/res/layout/mute_dialog_item.xml
+@@ -15,7 +15,7 @@
+         android:layout_width="24dp"
+         android:layout_height="24dp"
+         android:importantForAccessibility="no"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:src="@drawable/ic_daytime_24" />
+ 
+     <TextView
+diff --git a/app/src/main/res/layout/my_support_preference.xml b/app/src/main/res/layout/my_support_preference.xml
+index 84e4678ac356458c0e67af3021b370313b4f58e2..40d34ef71f3002da1f59991f9f91818e0eeec172 100644
+--- a/app/src/main/res/layout/my_support_preference.xml
++++ b/app/src/main/res/layout/my_support_preference.xml
+@@ -29,7 +29,7 @@
+             android:layout_height="24dp"
+             android:indeterminate="true"
+             android:visibility="gone"
+-            app:indicatorColor="@color/signal_colorOnSurfaceVariant"
++            app:indicatorColor="?attr/colorOnSurfaceVariant"
+             app:indicatorSize="24dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+@@ -57,7 +57,7 @@
+             android:layout_marginEnd="22dp"
+             android:layout_marginBottom="11dp"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toStartOf="@id/my_support_progress"
+             app:layout_constraintStart_toEndOf="@id/my_support_badge"
+diff --git a/app/src/main/res/layout/network_preference_fragment.xml b/app/src/main/res/layout/network_preference_fragment.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..0725381e41ebfd62710770cfe1466465ecb1bc00
+--- /dev/null
++++ b/app/src/main/res/layout/network_preference_fragment.xml
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    tools:viewBindingIgnore="true"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fillViewport="true">
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
++
++        <androidx.appcompat.widget.Toolbar
++            android:id="@+id/toolbar"
++            android:layout_width="match_parent"
++            android:layout_height="?attr/actionBarSize"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            app:navigationIcon="@drawable/symbol_arrow_start_24"
++            app:title="@string/preferences__network" />
++
++        <FrameLayout
++            android:id="@+id/preferences_content"
++            android:layout_width="match_parent"
++            android:layout_height="0dp"
++            app:layout_constraintTop_toBottomOf="@id/toolbar" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</ScrollView>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/new_notification_profile_pref.xml b/app/src/main/res/layout/new_notification_profile_pref.xml
+index 6813693c0f23c4677b57fc36a301ab05a083eb0a..bcf69715769c0c78de07af333123b16b618e216d 100644
+--- a/app/src/main/res/layout/new_notification_profile_pref.xml
++++ b/app/src/main/res/layout/new_notification_profile_pref.xml
+@@ -12,7 +12,7 @@
+     android:text="@string/NotificationProfileSelection__new_profile"
+     android:textAlignment="viewStart"
+     android:textAppearance="@style/Signal.Text.BodyLarge"
+-    android:textColor="@color/signal_colorOnSurface"
++    android:textColor="?attr/colorOnSurface"
+     app:cornerRadius="18dp"
+     app:icon="@drawable/new_notification_profile_pref_icon"
+     app:iconGravity="start"
+diff --git a/app/src/main/res/layout/new_story_item.xml b/app/src/main/res/layout/new_story_item.xml
+index cc53f40c56df51bcb273328d950552f70848a986..070b99f3d539675830fd5b7f1c236d5e83386b22 100644
+--- a/app/src/main/res/layout/new_story_item.xml
++++ b/app/src/main/res/layout/new_story_item.xml
+@@ -11,11 +11,11 @@
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_gravity="center_vertical"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/colorSurfaceVariant"
+         android:scaleType="centerInside"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/ic_plus_20"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <TextView
+         android:layout_width="0dp"
+diff --git a/app/src/main/res/layout/notification_profile_preference_item.xml b/app/src/main/res/layout/notification_profile_preference_item.xml
+index 10907d6b36c6f7b36a177f150a64c684c7de87a4..412a9d6e87c64dea1ea2d282577a9617ab5eacc9 100644
+--- a/app/src/main/res/layout/notification_profile_preference_item.xml
++++ b/app/src/main/res/layout/notification_profile_preference_item.xml
+@@ -18,7 +18,7 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        tools:backgroundTint="@color/signal_colorPrimary"
++        tools:backgroundTint="?attr/colorPrimary"
+         tools:srcCompat="@drawable/ic_advanced_24" />
+ 
+     <TextView
+diff --git a/app/src/main/res/layout/numeric_keyboard_view.xml b/app/src/main/res/layout/numeric_keyboard_view.xml
+index ddbd3a553691be662ad33c252b77ee47c8e5a7e9..58865ab43167f05203aabb328c7739dbe1f1d46c 100644
+--- a/app/src/main/res/layout/numeric_keyboard_view.xml
++++ b/app/src/main/res/layout/numeric_keyboard_view.xml
+@@ -15,7 +15,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__1"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_4"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_2"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -29,7 +29,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__2"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_4"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_3"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_1"
+@@ -43,7 +43,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__3"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_4"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_2"
+@@ -57,7 +57,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__4"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_7"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_5"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -71,7 +71,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__5"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_7"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_6"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_4"
+@@ -85,7 +85,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__6"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_7"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_5"
+@@ -99,7 +99,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__7"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_0"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_8"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -113,7 +113,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__8"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_0"
+         app:layout_constraintEnd_toStartOf="@id/numeric_keyboard_9"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_7"
+@@ -127,7 +127,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__9"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/numeric_keyboard_0"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/numeric_keyboard_8"
+@@ -141,7 +141,7 @@
+         android:gravity="center"
+         android:text="@string/NumericKeyboardView__0"
+         android:textAppearance="@style/Signal.Text.TitleLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="@id/numeric_keyboard_8"
+         app:layout_constraintStart_toStartOf="@id/numeric_keyboard_8"
+@@ -159,6 +159,6 @@
+         app:layout_constraintStart_toStartOf="@id/numeric_keyboard_9"
+         app:layout_constraintTop_toBottomOf="@id/numeric_keyboard_9"
+         app:srcCompat="@drawable/ic_backspace_24"
+-        app:tint="@color/signal_colorOnSurface" />
++        app:tint="?attr/colorOnSurface" />
+ 
+ </merge>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/payment_details_fragment.xml b/app/src/main/res/layout/payment_details_fragment.xml
+index e3427aa37d3eb3cd54c23d8e694b9a538a245d61..2bb0196ac4c449dfb1322d3b8f2b69dcb4b4fc92 100644
+--- a/app/src/main/res/layout/payment_details_fragment.xml
++++ b/app/src/main/res/layout/payment_details_fragment.xml
+@@ -59,7 +59,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginTop="12dp"
+                 android:layout_marginEnd="16dp"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constrainedWidth="true"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+@@ -101,7 +101,7 @@
+                 android:paddingEnd="16dp"
+                 android:paddingBottom="8dp"
+                 android:textAlignment="center"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constrainedWidth="true"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+@@ -113,7 +113,7 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:layout_marginTop="32dp"
+-                android:background="@color/signal_background_secondary"
++                android:background="?attr/signal_background_secondary"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_note" />
+ 
+             <TextView
+@@ -126,7 +126,7 @@
+                 android:layout_marginEnd="16dp"
+                 android:text="@string/PaymentsDetailsFragment__block_number"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 android:visibility="gone"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+@@ -141,7 +141,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginEnd="16dp"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 android:visibility="gone"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+@@ -158,7 +158,7 @@
+                 android:layout_marginTop="32dp"
+                 android:layout_marginEnd="16dp"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_block"
+@@ -170,7 +170,7 @@
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="16dp"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_to_header"
+                 tools:money="MOB:150000000000000" />
+@@ -185,7 +185,7 @@
+                 android:layout_marginEnd="16dp"
+                 android:text="@string/PaymentsDetailsFragment__network_fee"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_to_amount" />
+@@ -197,7 +197,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="16dp"
+                 android:layout_marginEnd="16dp"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_fee_header"
+                 tools:money="MOB:12000000000" />
+@@ -210,7 +210,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginTop="24dp"
+                 android:text="@string/PaymentsDetailsFragment__status"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_fee_amount" />
+ 
+@@ -222,7 +222,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginEnd="16dp"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_status_header"
+@@ -236,7 +236,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginTop="32dp"
+                 android:text="@string/PaymentsDetailsFragment__sent_by"
+-                android:textColor="@color/signal_text_primary"
++                android:textColor="?attr/signal_text_primary"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_status" />
+ 
+@@ -248,7 +248,7 @@
+                 android:layout_marginStart="16dp"
+                 android:layout_marginEnd="16dp"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_by_header"
+@@ -265,7 +265,7 @@
+                 android:lineSpacingExtra="5sp"
+                 android:text="@string/PaymentsDetailsFragment__information"
+                 android:textAlignment="viewStart"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/payments_details_sent_by" />
+diff --git a/app/src/main/res/layout/payment_pill_strip.xml b/app/src/main/res/layout/payment_pill_strip.xml
+index 099fd7ebd3261736a0dbb633b3e9aea186c148b2..cc652dd4f6654c500bfb3977f7b9944035c257df 100644
+--- a/app/src/main/res/layout/payment_pill_strip.xml
++++ b/app/src/main/res/layout/payment_pill_strip.xml
+@@ -30,9 +30,9 @@
+             android:drawablePadding="8dp"
+             android:text="@string/PaymentsHomeFragment__add_funds"
+             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:drawableStartCompat="@drawable/ic_add_money_20"
+-            app:drawableTint="@color/signal_accent_primary" />
++            app:drawableTint="?attr/signal_accent_primary" />
+     </FrameLayout>
+ 
+     <FrameLayout
+@@ -78,9 +78,9 @@
+             android:maxWidth="132dp"
+             android:text="@string/PaymentsHomeFragment__send"
+             android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:drawableStartCompat="@drawable/ic_send_money_20"
+-            app:drawableTint="@color/signal_accent_primary" />
++            app:drawableTint="?attr/signal_accent_primary" />
+ 
+     </FrameLayout>
+ 
+diff --git a/app/src/main/res/layout/payments_add_money_fragment.xml b/app/src/main/res/layout/payments_add_money_fragment.xml
+index d339ee175d0b2746307f37ab2140221d5e9cf693..45839716e6afd476d90b8efe17de8ae6fc222b69 100644
+--- a/app/src/main/res/layout/payments_add_money_fragment.xml
++++ b/app/src/main/res/layout/payments_add_money_fragment.xml
+@@ -52,7 +52,7 @@
+                 android:layout_height="wrap_content"
+                 android:text="@string/PaymentsAddMoneyFragment__your_wallet_address"
+                 android:textAppearance="@style/TextAppearance.Signal.Body2.Bold"
+-                android:textColor="@color/signal_text_primary" />
++                android:textColor="?attr/signal_text_primary" />
+ 
+             <TextView
+                 android:id="@+id/payments_add_money_abbreviated_wallet_address"
+@@ -60,7 +60,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:textAppearance="@style/TextAppearance.Signal.Mono"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 tools:text="2sZNt8dF...AxD345i2" />
+ 
+             <com.google.android.material.button.MaterialButton
+@@ -84,7 +84,7 @@
+             android:text="@string/PaymentsAddMoneyFragment__to_add_funds"
+             android:textAlignment="center"
+             android:textAppearance="@style/TextAppearance.Signal.Body2"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.5"
+             app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/payments_home_fragment.xml b/app/src/main/res/layout/payments_home_fragment.xml
+deleted file mode 100644
+index 72a6c1b60362c64546eed7bc96a1f006ee7b5dde..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_fragment.xml
++++ /dev/null
+@@ -1,60 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:orientation="vertical"
+-    tools:viewBindingIgnore="true">
+-
+-    <androidx.appcompat.widget.Toolbar
+-        android:id="@+id/payments_home_fragment_toolbar"
+-        android:layout_width="match_parent"
+-        android:layout_height="@dimen/signal_m3_toolbar_height"
+-        android:minHeight="@dimen/signal_m3_toolbar_height"
+-        android:theme="?actionBarStyle"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:navigationIcon="@drawable/symbol_arrow_start_24"
+-        app:title="@string/preferences__payments"
+-        app:titleTextAppearance="@style/Signal.Text.TitleLarge" />
+-
+-
+-    <ViewStub
+-        android:id="@+id/banner_compose_view"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:inflatedId="@+id/banner_compose_view"
+-        android:layout="@layout/conversation_list_banner_view"
+-        app:layout_constraintTop_toBottomOf="@id/payments_home_fragment_toolbar" />
+-
+-    <androidx.constraintlayout.widget.Barrier
+-        android:id="@+id/banner_barrier"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        app:barrierDirection="bottom"
+-        app:constraint_referenced_ids="banner_compose_view" />
+-
+-    <include
+-        layout="@layout/payments_home_fragment_header"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/banner_barrier" />
+-
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:id="@+id/payments_home_fragment_recycler"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:scrollIndicators="top|bottom"
+-        android:scrollbars="vertical"
+-        android:paddingBottom="16dp"
+-        android:clipToPadding="false"
+-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/payments_home_fragment_header" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/payments_home_fragment_header.xml b/app/src/main/res/layout/payments_home_fragment_header.xml
+deleted file mode 100644
+index 80dcc60de821f6127bd1503a534c784343829106..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_fragment_header.xml
++++ /dev/null
+@@ -1,76 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    tools:viewBindingIgnore="true"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/payments_home_fragment_header"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:padding="16dp">
+-
+-    <org.thoughtcrime.securesms.payments.MoneyView
+-        android:id="@+id/payments_home_fragment_header_balance"
+-        android:layout_width="match_parent"
+-        android:layout_height="48sp"
+-        android:gravity="center"
+-        app:autoSizeMaxTextSize="48sp"
+-        app:autoSizeMinTextSize="14sp"
+-        app:autoSizeTextType="uniform"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        tools:money="MOB:7500000000000" />
+-
+-    <androidx.appcompat.widget.AppCompatImageView
+-        android:id="@+id/payments_home_fragment_header_refresh"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:background="?attr/selectableItemBackgroundBorderless"
+-        android:padding="12dp"
+-        app:layout_constraintBottom_toBottomOf="@+id/payments_home_fragment_header_exchange"
+-        app:layout_constraintEnd_toStartOf="@+id/payments_home_fragment_header_exchange"
+-        app:layout_constraintHorizontal_chainStyle="packed"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="@+id/payments_home_fragment_header_exchange"
+-        app:srcCompat="@drawable/ic_refresh_20"
+-        app:tint="@color/signal_icon_tint_primary" />
+-
+-    <com.airbnb.lottie.LottieAnimationView
+-        android:id="@+id/payments_home_fragment_header_refresh_animation"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:background="?attr/selectableItemBackgroundBorderless"
+-        android:visibility="gone"
+-        app:layout_constraintBottom_toBottomOf="@+id/payments_home_fragment_header_refresh"
+-        app:layout_constraintEnd_toEndOf="@+id/payments_home_fragment_header_refresh"
+-        app:layout_constraintStart_toStartOf="@+id/payments_home_fragment_header_refresh"
+-        app:layout_constraintTop_toTopOf="@+id/payments_home_fragment_header_refresh"
+-        app:lottie_loop="true"
+-        app:lottie_rawRes="@raw/lottie_currency_spinner"
+-        app:tint="@color/signal_icon_tint_primary" />
+-
+-    <androidx.appcompat.widget.AppCompatTextView
+-        android:id="@+id/payments_home_fragment_header_exchange"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:paddingTop="16dp"
+-        android:paddingBottom="16dp"
+-        android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_icon_tint_primary"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toEndOf="@+id/payments_home_fragment_header_refresh"
+-        app:layout_constraintTop_toBottomOf="@+id/payments_home_fragment_header_balance"
+-        tools:text="$55 USD at 11:00am" />
+-
+-    <org.thoughtcrime.securesms.components.PaymentPillStrip
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/payments_home_fragment_header_exchange">
+-
+-        <include layout="@layout/payment_pill_strip" />
+-
+-    </org.thoughtcrime.securesms.components.PaymentPillStrip>
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/payments_home_in_progress.xml b/app/src/main/res/layout/payments_home_in_progress.xml
+deleted file mode 100644
+index a81784c643d9dac02e6e22843fc88bdc95428055..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_in_progress.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    android:layout_width="match_parent"
+-    android:layout_height="160dp">
+-
+-    <ProgressBar
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center"
+-        android:indeterminate="true" />
+-
+-</FrameLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/payments_home_introducing_payments_item.xml b/app/src/main/res/layout/payments_home_introducing_payments_item.xml
+deleted file mode 100644
+index 30899052a1d07d6c7be75f04dd447ad19843c6b7..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_introducing_payments_item.xml
++++ /dev/null
+@@ -1,101 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:layout_marginStart="16dp"
+-    android:layout_marginEnd="16dp"
+-    android:background="@drawable/rounded_outline"
+-    android:paddingStart="48dp"
+-    android:paddingTop="24dp"
+-    android:paddingEnd="48dp"
+-    android:paddingBottom="24dp">
+-
+-    <TextView
+-        android:id="@+id/payment_preferences_splash_title"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:gravity="center_horizontal"
+-        android:text="@string/PaymentsHomeFragment_introducing_payments"
+-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <androidx.appcompat.widget.AppCompatImageView
+-        android:id="@+id/payment_preferences_splash_intro"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="8dp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/payment_preferences_splash_title"
+-        app:srcCompat="@drawable/ic_activate_payments" />
+-
+-    <org.thoughtcrime.securesms.util.views.LearnMoreTextView
+-        android:id="@+id/payment_preferences_splash_text_1"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="16dp"
+-        android:gravity="center_horizontal"
+-        android:lineSpacingExtra="8sp"
+-        android:minHeight="100dp"
+-        android:text="@string/PaymentsHomeFragment__use_signal_to_send_and_receive"
+-        android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/payment_preferences_splash_intro" />
+-
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/payment_preferences_splash_activate"
+-        style="@style/Signal.Widget.Button.Large.Tonal"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="16dp"
+-        android:text="@string/PaymentsHomeFragment__activate_payments"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/payment_preferences_splash_text_1"
+-        app:layout_constraintVertical_bias="1" />
+-
+-    <androidx.constraintlayout.widget.Group
+-        android:id="@+id/payment_preferences_splash_activating_group"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        app:constraint_referenced_ids="payment_preferences_splash_activating,payment_preferences_splash_activating_progress" />
+-
+-    <ProgressBar
+-        android:id="@+id/payment_preferences_splash_activating_progress"
+-        style="?android:attr/progressBarStyleSmall"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginEnd="8dp"
+-        app:layout_constraintBottom_toBottomOf="@+id/payment_preferences_splash_activating"
+-        app:layout_constraintEnd_toStartOf="@+id/payment_preferences_splash_activating"
+-        app:layout_constraintTop_toTopOf="@+id/payment_preferences_splash_activating" />
+-
+-    <TextView
+-        android:id="@+id/payment_preferences_splash_activating"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="@string/PaymentsHomeFragment__activating_payments"
+-        app:layout_constraintBottom_toBottomOf="@+id/payment_preferences_splash_activate"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="@+id/payment_preferences_splash_activate" />
+-
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/payment_preferences_splash_restore"
+-        style="@style/Signal.Widget.Button.Large.Secondary"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="8dp"
+-        android:text="@string/PaymentsHomeFragment__restore_payments_account"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/payment_preferences_splash_activate" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/payments_home_no_recent_activity_item.xml b/app/src/main/res/layout/payments_home_no_recent_activity_item.xml
+deleted file mode 100644
+index a817aa844789580a0f2e523d208f1962a03b08fe..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_no_recent_activity_item.xml
++++ /dev/null
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    android:layout_width="match_parent"
+-    android:layout_height="160dp"
+-    android:gravity="center"
+-    android:text="@string/PaymentsHomeFragment__no_recent_activity_yet"
+-    android:textColor="@color/signal_text_secondary"
+-    android:textSize="16sp" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/payments_home_payment_item.xml b/app/src/main/res/layout/payments_home_payment_item.xml
+deleted file mode 100644
+index de5a9a1ba5d8b2ada372ccb0b69c05f4016ae3b2..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_payment_item.xml
++++ /dev/null
+@@ -1,102 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    tools:viewBindingIgnore="true"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:background="?selectableItemBackground"
+-    android:paddingStart="16dp"
+-    android:paddingTop="8dp"
+-    android:paddingEnd="16dp"
+-    android:paddingBottom="8dp">
+-
+-    <org.thoughtcrime.securesms.components.AvatarImageView
+-        android:id="@+id/recipient_view_avatar"
+-        android:layout_width="40dp"
+-        android:layout_height="40dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        tools:src="@tools:sample/avatars" />
+-
+-    <org.thoughtcrime.securesms.badges.BadgeImageView
+-        android:id="@+id/recipient_view_badge"
+-        android:layout_width="24dp"
+-        android:layout_height="24dp"
+-        android:layout_marginStart="20dp"
+-        android:layout_marginTop="22dp"
+-        android:contentDescription="@string/ImageView__badge"
+-        app:badge_size="medium"
+-        app:layout_constraintStart_toStartOf="@id/recipient_view_avatar"
+-        app:layout_constraintTop_toTopOf="@id/recipient_view_avatar"
+-        tools:visibility="visible" />
+-
+-    <FrameLayout
+-        android:id="@+id/payments_home_payment_item_avatar_progress_overlay"
+-        android:layout_width="0dp"
+-        android:layout_height="0dp"
+-        android:background="@drawable/circle_inverse_transparent_60"
+-        app:layout_constraintBottom_toBottomOf="@+id/recipient_view_avatar"
+-        app:layout_constraintEnd_toEndOf="@+id/recipient_view_avatar"
+-        app:layout_constraintStart_toStartOf="@+id/recipient_view_avatar"
+-        app:layout_constraintTop_toTopOf="@+id/recipient_view_avatar">
+-
+-        <ProgressBar
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:indeterminateTint="@color/signal_background_primary" />
+-
+-    </FrameLayout>
+-
+-    <View
+-        android:id="@+id/unread_indicator"
+-        android:layout_width="17dp"
+-        android:layout_height="17dp"
+-        android:layout_marginStart="27dp"
+-        android:layout_marginBottom="27dp"
+-        android:background="@drawable/unread_count_background"
+-        app:layout_constraintBottom_toBottomOf="@id/recipient_view_avatar"
+-        app:layout_constraintStart_toStartOf="@id/recipient_view_avatar"
+-        tools:text="1" />
+-
+-    <TextView
+-        android:id="@+id/recipient_view_name"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="16dp"
+-        android:textColor="@color/signal_text_primary"
+-        app:layout_constraintBottom_toTopOf="@id/payments_home_payment_item_date"
+-        app:layout_constraintEnd_toStartOf="@id/payments_home_payment_item_amount"
+-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+-        app:layout_constraintStart_toEndOf="@id/recipient_view_avatar"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_chainStyle="packed"
+-        tools:text="Mike Hernandez" />
+-
+-    <TextView
+-        android:id="@+id/payments_home_payment_item_date"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:textColor="@color/signal_text_secondary"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toStartOf="@id/payments_home_payment_item_amount"
+-        app:layout_constraintHorizontal_bias="0"
+-        app:layout_constraintStart_toStartOf="@id/recipient_view_name"
+-        app:layout_constraintTop_toBottomOf="@id/recipient_view_name"
+-        app:layout_constraintVertical_chainStyle="packed"
+-        tools:text="Sent 2/2/20" />
+-
+-    <TextView
+-        android:id="@+id/payments_home_payment_item_amount"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:textColor="@color/signal_text_primary"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+-        app:layout_constraintStart_toEndOf="@id/recipient_view_name"
+-        app:layout_constraintTop_toTopOf="parent"
+-        tools:text="-54.787 MOB" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/payments_home_see_all_item.xml b/app/src/main/res/layout/payments_home_see_all_item.xml
+deleted file mode 100644
+index 32ff24de62c350c0b422597262db25b00935159b..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/payments_home_see_all_item.xml
++++ /dev/null
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    android:id="@+id/payments_home_see_all_item_button"
+-    android:layout_width="match_parent"
+-    android:layout_height="56dp"
+-    android:background="?selectableItemBackground"
+-    android:gravity="center_vertical"
+-    android:paddingStart="16dp"
+-    android:paddingEnd="16dp"
+-    android:text="@string/PaymentsHomeFragment__see_all"
+-    android:textAppearance="@style/Signal.Text.Body" />
+diff --git a/app/src/main/res/layout/payments_security_setup_fragment.xml b/app/src/main/res/layout/payments_security_setup_fragment.xml
+index 99de59b20a6969197117ebeffb1cbb82e2752cd7..faf3d06f2bceb7b8e716245903a33091bc700f24 100644
+--- a/app/src/main/res/layout/payments_security_setup_fragment.xml
++++ b/app/src/main/res/layout/payments_security_setup_fragment.xml
+@@ -65,7 +65,7 @@
+                 android:lineSpacingExtra="6sp"
+                 android:text="@string/PaymentsSecuritySetupFragment__help_prevent"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_text_secondary"
++                android:textColor="?attr/signal_text_secondary"
+                 app:layout_constraintBottom_toTopOf="@id/payments_security_setup_enable_lock"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/payments_transfer_fragment.xml b/app/src/main/res/layout/payments_transfer_fragment.xml
+index 88ddff46b2ce84daaff13d76f49890a02a82203a..bf4a54e6de7ee845db54bd2f6beadf2cf7275a77 100644
+--- a/app/src/main/res/layout/payments_transfer_fragment.xml
++++ b/app/src/main/res/layout/payments_transfer_fragment.xml
+@@ -28,7 +28,7 @@
+         android:imeOptions="flagNoAccessoryAction"
+         android:inputType="textMultiLine|textVisiblePassword"
+         android:paddingEnd="32dp"
+-        android:textColorHint="@color/signal_text_secondary"
++        android:textColorHint="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -46,7 +46,7 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/payments_transfer_toolbar"
+         app:srcCompat="@drawable/symbol_qrcode_24"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:ignore="RtlSymmetry" />
+ 
+     <TextView
+@@ -57,7 +57,7 @@
+         android:layout_marginEnd="16dp"
+         android:text="@string/PaymentsTransferFragment__you_can_transfer"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/pending_participant_view.xml b/app/src/main/res/layout/pending_participant_view.xml
+index 6564f5730d4817223bede11db31094020474c39e..3200341ca118241cd069584f0b3671f24fc096ef 100644
+--- a/app/src/main/res/layout/pending_participant_view.xml
++++ b/app/src/main/res/layout/pending_participant_view.xml
+@@ -8,7 +8,7 @@
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:minHeight="72dp"
+-    app:cardBackgroundColor="@color/signal_colorSurface1"
++    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+     app:cardCornerRadius="18dp"
+     app:cardElevation="0dp"
+     tools:layout_marginHorizontal="24dp"
+@@ -35,7 +35,7 @@
+             android:layout_height="wrap_content"
+             android:layout_marginStart="8dp"
+             android:textAppearance="@style/Signal.Text.TitleSmall"
+-            android:textColor="@color/signal_colorOnSurface"
++            android:textColor="?attr/colorOnSurface"
+             app:layout_constraintBottom_toTopOf="@id/pending_participants_status"
+             app:layout_constraintStart_toEndOf="@id/pending_participants_avatar"
+             app:layout_constraintTop_toTopOf="@id/pending_participants_avatar"
+@@ -49,7 +49,7 @@
+             android:layout_marginStart="8dp"
+             android:text="@string/PendingParticipantsView__would_like_to_join"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintBottom_toBottomOf="@id/pending_participants_avatar"
+             app:layout_constraintStart_toEndOf="@id/pending_participants_avatar"
+             app:layout_constraintTop_toBottomOf="@id/pending_participants_name" />
+@@ -96,7 +96,7 @@
+             android:id="@+id/pending_participants_requests_backdrop"
+             android:layout_width="0dp"
+             android:layout_height="0dp"
+-            android:background="@color/signal_colorSurface5"
++            android:background="?attr/colorSurfaceContainerHighest"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -109,8 +109,8 @@
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:layout_marginBottom="8dp"
+-            android:textColor="@color/signal_colorOnSecondaryContainer"
+-            app:backgroundTint="@color/signal_colorSecondaryContainer"
++            android:textColor="?attr/colorOnSecondaryContainer"
++            app:backgroundTint="?attr/colorSecondaryContainer"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/pin_restore_entry_fragment.xml b/app/src/main/res/layout/pin_restore_entry_fragment.xml
+index 9c71e90bee07c05c3038ec20cbd630063c5588af..a914d2c6b4aa2994837b0c46dfe9a5b76aa2ed22 100644
+--- a/app/src/main/res/layout/pin_restore_entry_fragment.xml
++++ b/app/src/main/res/layout/pin_restore_entry_fragment.xml
+@@ -35,7 +35,7 @@
+             android:minHeight="66dp"
+             android:text="@string/RegistrationLockFragment__enter_the_pin_you_created"
+             android:textAppearance="@style/Signal.Text.BodyLarge"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/pin_restore_pin_title" />
+@@ -125,7 +125,7 @@
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/PinRestoreEntryFragment_skip"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/pinned_messages_bottom_sheet.xml b/app/src/main/res/layout/pinned_messages_bottom_sheet.xml
+index 1894d72a816dcdad2009871ad45fb2c8888061cf..879e3585119af6aa628138cd7aa8ae0700f8bc21 100644
+--- a/app/src/main/res/layout/pinned_messages_bottom_sheet.xml
++++ b/app/src/main/res/layout/pinned_messages_bottom_sheet.xml
+@@ -14,7 +14,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected"
++        android:background="?attr/signal_icon_tint_tab_unselected"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"/>
+@@ -54,7 +54,7 @@
+         android:id="@+id/unpin_all_container"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:background="@color/signal_colorSurface"
++        android:background="?attr/colorSurfaceContainer"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent">
+diff --git a/app/src/main/res/layout/preference_divider.xml b/app/src/main/res/layout/preference_divider.xml
+index 844269f53c2e5cb7420ffc7c0d7bc155a9629708..906efd1617c32ee9010023b959a63c513bd5449d 100644
+--- a/app/src/main/res/layout/preference_divider.xml
++++ b/app/src/main/res/layout/preference_divider.xml
+@@ -2,5 +2,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     tools:viewBindingIgnore="true"
+     android:layout_width="match_parent"
+-    android:layout_height="10dp"
++    android:layout_height="2dp"
++    android:layout_marginTop="14dp"
++    android:layout_marginBottom="6dp"
+     android:background="@drawable/preference_divider" />
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/preference_right_summary_widget.xml b/app/src/main/res/layout/preference_right_summary_widget.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..0d629c6c80add012863bfa354070d4fb4592376d
+--- /dev/null
++++ b/app/src/main/res/layout/preference_right_summary_widget.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++              android:orientation="vertical"
++              android:layout_width="match_parent"
++              android:layout_height="match_parent">
++
++    <TextView android:id="@+id/right_summary"
++              android:layout_width="wrap_content"
++              android:layout_height="wrap_content"
++              android:layout_gravity="end|center_vertical"
++              android:gravity="end|center_vertical"
++              android:maxWidth="180dp"
++              android:ellipsize="end"
++              android:singleLine="true"
++              android:textSize="16sp"
++              android:textColor="@color/text_color_accent_enabled_selector" />
++
++</FrameLayout>
+diff --git a/app/src/main/res/layout/preference_storage_category.xml b/app/src/main/res/layout/preference_storage_category.xml
+index 0ee71e9b8fa370fd6866c0ba1a7aa8ebbf7c0594..739fa1c74491d2e93ae5ed04ee0ad5661e0d855f 100644
+--- a/app/src/main/res/layout/preference_storage_category.xml
++++ b/app/src/main/res/layout/preference_storage_category.xml
+@@ -82,7 +82,7 @@
+ 
+     <com.google.android.material.button.MaterialButton
+         android:id="@+id/free_up_space"
+-        style="@style/Signal.Widget.Button.Large.Tonal"
++        style="@style/Signal.Widget.Button.Medium.Tonal"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="16dp"
+diff --git a/app/src/main/res/layout/progress_card.xml b/app/src/main/res/layout/progress_card.xml
+index e384dd0bce40a46c3dfde1cd6ebfac7d070e5e52..129cf8cd9da19621c63f56f77a0f83188c125c21 100644
+--- a/app/src/main/res/layout/progress_card.xml
++++ b/app/src/main/res/layout/progress_card.xml
+@@ -17,7 +17,7 @@
+             android:layout_height="wrap_content"
+             android:background="@color/transparent"
+             android:indeterminate="true"
+-            app:indicatorColor="@color/signal_colorPrimary"
++            app:indicatorColor="?attr/colorPrimary"
+             app:layout_constraintBottom_toTopOf="@id/progress_card_text"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/progress_card_dialog.xml b/app/src/main/res/layout/progress_card_dialog.xml
+index 7d4b3d87e8e6de446cf5811d109c0b5f5e67d92a..764bba9b8ad674f25f78931906f71a15e706041c 100644
+--- a/app/src/main/res/layout/progress_card_dialog.xml
++++ b/app/src/main/res/layout/progress_card_dialog.xml
+@@ -8,7 +8,7 @@
+         android:id="@+id/progress_card"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+-        android:backgroundTint="@color/signal_colorSurface1"
++        android:backgroundTint="?attr/colorSurfaceContainerLow"
+         app:cardCornerRadius="18dp" />
+ 
+ </FrameLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/prompt_battery_saver_bottom_sheet.xml b/app/src/main/res/layout/prompt_battery_saver_bottom_sheet.xml
+index c6209798a52df84262314e779fa192c467d257a5..9f8a69e4b740825c46e1a2726c45a83f3e4bc7ee 100644
+--- a/app/src/main/res/layout/prompt_battery_saver_bottom_sheet.xml
++++ b/app/src/main/res/layout/prompt_battery_saver_bottom_sheet.xml
+@@ -16,7 +16,7 @@
+             android:layout_height="2dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="16dp"
+-            android:background="@color/signal_icon_tint_tab_unselected" />
++            android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+         <ImageView
+             android:layout_width="wrap_content"
+diff --git a/app/src/main/res/layout/prompt_logs_bottom_sheet.xml b/app/src/main/res/layout/prompt_logs_bottom_sheet.xml
+index b674f229d8d1f29bff3e9118acf9626cbb84924b..e156252767622c6cc20370a669330c11927ee94b 100644
+--- a/app/src/main/res/layout/prompt_logs_bottom_sheet.xml
++++ b/app/src/main/res/layout/prompt_logs_bottom_sheet.xml
+@@ -16,7 +16,7 @@
+             android:layout_height="2dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="16dp"
+-            android:background="@color/signal_icon_tint_tab_unselected" />
++            android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+         <ImageView
+             android:layout_width="wrap_content"
+diff --git a/app/src/main/res/layout/prompt_passphrase_activity.xml b/app/src/main/res/layout/prompt_passphrase_activity.xml
+index 2f1e5df46a29873b2ca7c30c4ceacabe2fe569d3..2eab7e37c907b5c034f82d1cf3f1359739b06fae 100644
+--- a/app/src/main/res/layout/prompt_passphrase_activity.xml
++++ b/app/src/main/res/layout/prompt_passphrase_activity.xml
+@@ -1,146 +1,73 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ 
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-                xmlns:tools="http://schemas.android.com/tools"
+-                tools:viewBindingIgnore="true"
+-                xmlns:app="http://schemas.android.com/apk/res-auto"
+-                android:id="@+id/prompt_layout"
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent"
+-                android:background="@color/signal_colorSurface"
+-                android:orientation="vertical"
+-                android:fitsSystemWindows="true">
+-
+-    <androidx.appcompat.widget.Toolbar
+-            android:id="@+id/toolbar"
+-            android:layout_width="match_parent"
+-            android:layout_height="?attr/actionBarSize"
+-            app:layout_constraintTop_toTopOf="parent"
+-            android:theme="@style/TextSecure.LightActionBar.DarkText"
+-            android:layout_marginTop="20dp" />
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    tools:viewBindingIgnore="true"
++    android:id="@+id/password_auth_container"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:layout_margin="8dp"
++    android:orientation="vertical">
++
++    <TextView
++        android:id="@+id/header_text"
++        style="@style/Signal.Text.Headline"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginTop="32dp"
++        android:layout_marginBottom="36dp"
++        android:gravity="center_horizontal"
++        android:text="@string/prompt_passphrase_activity__molly_is_locked"
++        android:textStyle="bold" />
++
++    <com.google.android.material.textfield.TextInputLayout
++        android:id="@+id/passphrase_layout"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="32dp"
++        android:layout_marginEnd="32dp"
++        android:layout_marginBottom="16dp"
++        app:errorEnabled="false"
++        app:hintEnabled="false"
++        app:passwordToggleEnabled="true">
+ 
+-    <LinearLayout
+-            android:id="@+id/unlock_container"
++        <com.google.android.material.textfield.TextInputEditText
++            android:id="@+id/passphrase_input"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintEnd_toEndOf="parent"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            android:paddingBottom="36dp"
+-            android:orientation="vertical"
+-            android:gravity="center">
+-
+-        <com.airbnb.lottie.LottieAnimationView
+-            android:id="@+id/unlock_view"
+-            android:layout_width="72dp"
+-            android:layout_height="72dp"
+-            android:layout_marginBottom="4dp"
+-            app:lottie_rawRes="@raw/lottie_unlock" />
+-
+-        <TextView
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:text="@string/prompt_passphrase_activity__unlock_signal"
+-            style="@style/Signal.Text.HeadlineMedium" />
+-
+-        <RelativeLayout android:id="@+id/password_auth_container"
+-                        android:layout_width="match_parent"
+-                        android:layout_height="wrap_content"
+-                        android:layout_marginTop="60dp"
+-                        tools:visibility="gone">
++            android:imeOptions="actionGo"
++            android:inputType="textPassword"
++            android:textAppearance="?android:attr/textAppearanceMedium" />
+ 
+-            <EditText android:id="@+id/passphrase_edit"
+-                      android:layout_width="match_parent"
+-                      android:layout_height="45sp"
+-                      android:inputType="textPassword"
+-                      android:layout_marginStart="50dp"
+-                      android:layout_marginEnd="50dp"
+-                      android:singleLine="true"
+-                      android:paddingStart="10dp"
+-                      android:paddingEnd="40dp"/>
++    </com.google.android.material.textfield.TextInputLayout>
+ 
+-            <org.thoughtcrime.securesms.components.AnimatingToggle
+-                    android:id="@+id/button_toggle"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_alignRight="@+id/passphrase_edit"
+-                    android:layout_centerVertical="true"
+-                    android:layout_gravity="center"
+-                    android:gravity="center">
++    <FrameLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content">
+ 
+-                <ImageButton android:id="@+id/passphrase_visibility"
+-                             android:src="@drawable/ic_visibility_24dp"
+-                             android:background="@drawable/touch_highlight_background"
+-                             android:layout_width="wrap_content"
+-                             android:layout_height="wrap_content"
+-                             android:paddingStart="8dp"
+-                             android:paddingEnd="8dp"
+-                             android:paddingTop="3dp"
+-                             android:paddingBottom="3dp"
+-                             android:layout_centerVertical="true" />
+-
+-                <ImageButton android:id="@+id/passphrase_visibility_off"
+-                             android:src="@drawable/ic_visibility_off_24dp"
+-                             android:background="@drawable/touch_highlight_background"
+-                             android:layout_width="wrap_content"
+-                             android:layout_height="wrap_content"
+-                             android:paddingStart="8dp"
+-                             android:paddingEnd="8dp"
+-                             android:paddingTop="3dp"
+-                             android:paddingBottom="3dp"
+-                             android:layout_centerVertical="true" />
+-
+-            </org.thoughtcrime.securesms.components.AnimatingToggle>
+-
+-            <ImageButton android:id="@+id/ok_button"
+-                         android:src="@drawable/symbol_arrow_right_24"
+-                         android:contentDescription="@string/PassphrasePromptActivity_ok_button_content_description"
+-                         android:background="@null"
+-                         android:text="@string/prompt_passphrase_activity__unlock"
+-                         android:layout_width="wrap_content"
+-                         android:layout_height="wrap_content"
+-                         android:layout_alignParentEnd="true"
+-                         android:layout_centerVertical="true"
+-                         android:textAppearance="?android:attr/textAppearanceMedium"
+-                         android:paddingStart="5dp"
+-                         android:paddingTop="5dp"
+-                         android:paddingEnd="10dp"
+-                         android:paddingBottom="5dp"
+-                         app:tint="@color/signal_icon_tint_primary"/>
+-        </RelativeLayout>
+-
+-    </LinearLayout>
++        <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
++            android:id="@+id/ok_button"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="32dp"
++            android:layout_marginEnd="32dp"
++            android:layout_marginBottom="16dp"
++            app:materialThemeOverlay="@style/ThemeOverlay.Signal.CircularProgressIndicator.Primary.Fixed"
++            app:circularProgressMaterialButton__label="@string/prompt_passphrase_activity__unlock"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintStart_toStartOf="parent" />
+ 
+-    <org.thoughtcrime.securesms.util.views.LearnMoreTextView
+-        android:id="@+id/learn_more_text"
+-        style="@style/Signal.Text.BodyMedium"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        app:layout_constraintTop_toBottomOf="@id/unlock_container"
+-        app:layout_constraintVertical_chainStyle="packed"
+-        app:layout_constraintVertical_bias=".65"
+-        app:layout_constraintBottom_toTopOf="@id/lock_screen_button"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        android:layout_marginBottom="32dp"
+-        android:paddingHorizontal="72dp"
+-        android:text="@string/prompt_passphrase_activity__use_your_android_device"
+-        android:textAlignment="center"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
+-        android:visibility="gone" />
++        <androidx.appcompat.widget.AppCompatImageView
++            android:id="@+id/success"
++            android:layout_width="48dp"
++            android:layout_height="48dp"
++            android:layout_gravity="center_horizontal"
++            android:tint="?attr/colorPrimary"
++            android:visibility="gone"
++            app:srcCompat="@drawable/ic_check_outline_22" />
+ 
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/lock_screen_button"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        style="@style/Signal.Widget.Button.Medium.Tonal"
+-        android:text="@string/prompt_passphrase_activity__unlock"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/learn_more_text"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        android:layout_marginBottom="16dp"
+-        tools:visibility="visible"/>
++    </FrameLayout>
+ 
+-</androidx.constraintlayout.widget.ConstraintLayout>
++</LinearLayout>
+diff --git a/app/src/main/res/layout/proxy_bottom_sheet.xml b/app/src/main/res/layout/proxy_bottom_sheet.xml
+deleted file mode 100644
+index deabf0f78926a108ba7afb1e810aeaad3bab62d4..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/proxy_bottom_sheet.xml
++++ /dev/null
+@@ -1,105 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    tools:viewBindingIgnore="true"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:padding="16dp"
+-    android:clipChildren="false"
+-    android:clipToPadding="false"
+-    tools:theme="@style/Theme.Signal.RoundedBottomSheet.Light">
+-
+-    <ImageView
+-        android:id="@+id/proxy_sheet_avatar"
+-        android:layout_width="96dp"
+-        android:layout_height="96dp"
+-        android:layout_gravity="center_horizontal"
+-        android:layout_marginTop="16dp"
+-        app:srcCompat="@drawable/proxy_avatar_96"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.5"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <TextView
+-        android:id="@+id/proxy_sheet_title"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="5dp"
+-        style="@style/TextAppearance.Signal.Body1"
+-        android:fontFamily="sans-serif-medium"
+-        android:text="@string/ProxyBottomSheetFragment_proxy_server"
+-        android:gravity="center"
+-        app:layout_constraintTop_toBottomOf="@id/proxy_sheet_avatar"/>
+-
+-    <LinearLayout
+-        android:id="@+id/proxy_sheet_details_container"
+-        android:layout_width="match_parent"
+-        android:layout_height="0dp"
+-        android:layout_marginTop="28dp"
+-        android:orientation="vertical"
+-        android:paddingTop="12dp"
+-        android:paddingBottom="12dp"
+-        android:paddingStart="18dp"
+-        android:paddingEnd="18dp"
+-        android:background="@drawable/wallpaper_bubble_background_12"
+-        android:backgroundTint="@color/signal_background_tertiary"
+-        app:layout_constraintTop_toBottomOf="@id/proxy_sheet_title">
+-
+-        <TextView
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Signal.Text.Caption"
+-            android:text="@string/ProxyBottomSheetFragment_proxy_address" />
+-
+-        <TextView
+-            android:id="@+id/proxy_sheet_host"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            style="@style/Signal.Text.Preview"
+-            tools:text="https://signal.tube/proxy.parker.org" />
+-
+-    </LinearLayout>
+-
+-    <TextView
+-        android:id="@+id/proxy_sheet_description"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="24dp"
+-        style="@style/Signal.Text.Preview"
+-        android:text="@string/ProxyBottomSheetFragment_do_you_want_to_use_this_proxy_address"
+-        android:textColor="@color/signal_text_secondary"
+-        app:layout_constraintTop_toBottomOf="@id/proxy_sheet_details_container"/>
+-
+-    <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
+-        android:id="@+id/proxy_sheet_use_proxy"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="7dp"
+-        android:layout_marginBottom="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="@string/ProxyBottomSheetFragment_use_proxy"
+-        app:layout_constraintTop_toBottomOf="@id/proxy_sheet_description"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toEndOf="@id/proxy_sheet_cancel"
+-        app:layout_constraintVertical_bias="0"
+-        app:circularProgressMaterialButton__label="@string/ProxyBottomSheetFragment_use_proxy" />
+-
+-    <org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton
+-        android:id="@+id/proxy_sheet_cancel"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:layout_marginEnd="8dp"
+-        android:layout_marginBottom="16dp"
+-        android:layout_marginTop="20dp"
+-        android:text="@android:string/cancel"
+-        app:layout_constraintTop_toBottomOf="@id/proxy_sheet_description"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toStartOf="@id/proxy_sheet_use_proxy"
+-        app:layout_constraintVertical_bias="0"
+-        app:circularProgressMaterialButton__label="@android:string/cancel" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/react_with_any_emoji_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/react_with_any_emoji_bottom_sheet_dialog_fragment.xml
+index d43adc8549610a977d91c80473eb39ebae09171b..d28664e69c8e458cc4a9020f63be98f2ee150bdc 100644
+--- a/app/src/main/res/layout/react_with_any_emoji_bottom_sheet_dialog_fragment.xml
++++ b/app/src/main/res/layout/react_with_any_emoji_bottom_sheet_dialog_fragment.xml
+@@ -24,9 +24,9 @@
+         android:layout_gravity="center"
+         android:paddingTop="12dp"
+         android:paddingBottom="8dp"
+-        app:search_bar_tint="@color/react_with_any_search_background"
++        app:search_bar_tint="?attr/react_with_any_search_background"
+         app:search_hint="@string/KeyboardPagerFragment_search_emoji"
+-        app:search_icon_tint="@color/react_with_any_search_hint"
++        app:search_icon_tint="?attr/react_with_any_search_hint"
+         app:show_always="true" />
+ 
+     <FrameLayout
+diff --git a/app/src/main/res/layout/react_with_any_emoji_tabs.xml b/app/src/main/res/layout/react_with_any_emoji_tabs.xml
+index 72e6322435901cb344f9c7ffd3ba76999fbda3be..7da63c55e9a140b505e20066083ed649b6a316ef 100644
+--- a/app/src/main/res/layout/react_with_any_emoji_tabs.xml
++++ b/app/src/main/res/layout/react_with_any_emoji_tabs.xml
+@@ -19,7 +19,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="?actionBarSize"
+         android:layout_gravity="bottom"
+-        android:background="@color/react_with_any_background"
++        android:background="?attr/react_with_any_background"
+         android:clickable="true"
+         android:focusable="true"
+         android:gravity="center_vertical"
+@@ -33,7 +33,7 @@
+             android:layout_marginStart="12dp"
+             android:layout_marginEnd="12dp"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/react_with_any_customize_background"
++            android:backgroundTint="?attr/react_with_any_customize_background"
+             android:clipChildren="false"
+             android:elevation="1dp"
+             android:visibility="gone"
+@@ -51,7 +51,7 @@
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:srcCompat="@drawable/ic_settings_24"
+-                app:tint="@color/signal_icon_tint_tab_unselected"
++                app:tint="?attr/signal_icon_tint_tab_unselected"
+                 tools:ignore="UnusedAttribute" />
+ 
+         </FrameLayout>
+diff --git a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment.xml
+index 90537a7345cc85f673f06768d9bdd401a90e9797..1f91663ca2bc04acdd90f2778f08dce680c7d439 100644
+--- a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment.xml
++++ b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment.xml
+@@ -23,7 +23,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="48dp"
+         android:layout_marginTop="14dp"
+-        android:background="@color/signal_colorSurface1"
++        android:background="?attr/colorSurfaceContainerLow"
+         android:paddingHorizontal="8dp"
+         app:layout_constraintTop_toTopOf="parent"
+         app:tabIndicator="@null"
+diff --git a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_emoji_item.xml b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_emoji_item.xml
+index 62e05ee0a2c829cdf2a28fb7d3240efb68cbc867..ae75954159653446b13ea062993433a83cfebba0 100644
+--- a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_emoji_item.xml
++++ b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_emoji_item.xml
+@@ -30,7 +30,7 @@
+         android:gravity="center"
+         android:includeFontPadding="true"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         tools:ignore="SpUsage"
+         tools:text="24" />
+ </LinearLayout>
+diff --git a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_recipient_item.xml b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_recipient_item.xml
+index f624ae21f438377f21dec45dd9fe59c6bbb5f139..4528213578cdc0b8bc9b570df07977ac69a98931 100644
+--- a/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_recipient_item.xml
++++ b/app/src/main/res/layout/reactions_bottom_sheet_dialog_fragment_recipient_item.xml
+@@ -45,7 +45,7 @@
+             android:gravity="center_vertical"
+             android:maxLines="2"
+             android:textAppearance="@style/TextAppearance.Signal.Body1.Bold"
+-            android:textColor="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
+             tools:text="@tools:sample/full_names" />
+ 
+         <org.thoughtcrime.securesms.components.FromTextView
+@@ -57,7 +57,7 @@
+             android:maxLines="1"
+             android:text="@string/ReactionsBottomSheetDialogFragment_tap_to_remove"
+             android:textAppearance="@style/TextAppearance.Signal.Caption"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             android:visibility="gone"
+             tools:text="Tap to remove"
+             tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/reactions_pill.xml b/app/src/main/res/layout/reactions_pill.xml
+index a547eb506145092dcf66564ea578ca63800f4968..384c965b96dc0ecf01621da7be65ec3b365dd35a 100644
+--- a/app/src/main/res/layout/reactions_pill.xml
++++ b/app/src/main/res/layout/reactions_pill.xml
+@@ -30,7 +30,7 @@
+       android:paddingBottom="5dp"
+       android:textSize="12dp"
+       android:fontFamily="sans-serif-medium"
+-      android:textColor="@color/reactions_pill_text_color"
++      android:textColor="?attr/reactions_pill_text_color"
+       tools:text="23"
+       tools:ignore="SpUsage" />
+ 
+diff --git a/app/src/main/res/layout/recaptcha_required_bottom_sheet.xml b/app/src/main/res/layout/recaptcha_required_bottom_sheet.xml
+index 45b8b94e04223ceb4cf0a31d5c9abae275c8898a..e5a526a2e2eb807517101071d82e58a9c7a82c7e 100644
+--- a/app/src/main/res/layout/recaptcha_required_bottom_sheet.xml
++++ b/app/src/main/res/layout/recaptcha_required_bottom_sheet.xml
+@@ -16,7 +16,7 @@
+         android:layout_marginEnd="20dp"
+         android:text="@string/RecaptchaRequiredBottomSheetFragment_verify_to_continue_messaging"
+         android:textAppearance="@style/TextAppearance.Signal.Title2.Bold"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -31,7 +31,7 @@
+         android:layout_marginEnd="20dp"
+         android:text="@string/RecaptchaRequiredBottomSheetFragment_to_help_prevent_spam_on_signal"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -46,7 +46,7 @@
+         android:layout_marginEnd="20dp"
+         android:text="@string/RecaptchaRequiredBottomSheetFragment_after_verifying_you_can_continue_messaging"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/recipient_bottom_sheet.xml b/app/src/main/res/layout/recipient_bottom_sheet.xml
+index d18fe9ff855ae25665131f71cab9c246c6d6a887..ad9a7736d5abe7f9acd6b8c2a99459205082292f 100644
+--- a/app/src/main/res/layout/recipient_bottom_sheet.xml
++++ b/app/src/main/res/layout/recipient_bottom_sheet.xml
+@@ -34,17 +34,6 @@
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/handle" />
+ 
+-        <org.thoughtcrime.securesms.badges.BadgeImageView
+-            android:id="@+id/rbs_badge"
+-            android:layout_width="36dp"
+-            android:layout_height="36dp"
+-            android:layout_marginStart="44dp"
+-            android:layout_marginTop="52dp"
+-            android:contentDescription="@string/ImageView__badge"
+-            app:badge_size="large"
+-            app:layout_constraintStart_toStartOf="@id/rbs_recipient_avatar"
+-            app:layout_constraintTop_toTopOf="@id/rbs_recipient_avatar" />
+-
+         <ProgressBar
+             android:id="@+id/rbs_admin_action_busy"
+             android:layout_width="0dp"
+@@ -63,7 +52,7 @@
+             android:layout_height="48dp"
+             android:layout_gravity="center"
+             android:indeterminate="true"
+-            android:indeterminateTint="@color/signal_colorOnSurfaceVariant"
++            android:indeterminateTint="?attr/colorOnSurfaceVariant"
+             android:visibility="gone"
+             app:layout_constraintBottom_toBottomOf="@id/rbs_recipient_avatar"
+             app:layout_constraintEnd_toEndOf="@id/rbs_recipient_avatar"
+@@ -108,7 +97,7 @@
+             android:layout_marginEnd="@dimen/dsl_settings_gutter"
+             android:gravity="center_horizontal"
+             android:textAppearance="@style/Signal.Text.HeadlineMedium"
+-            android:textColor="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.5"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -137,7 +126,7 @@
+             android:layout_marginTop="8dp"
+             android:layout_marginEnd="@dimen/dsl_settings_gutter"
+             android:gravity="center"
+-            android:textColor="@color/signal_text_secondary"
++            android:textColor="?attr/signal_text_secondary"
+             app:layout_constraintTop_toBottomOf="@id/rbs_member_label"
+             tools:text="🕷🕷🕷 Hangin' on the web 🕷🕷🕷" />
+ 
+@@ -152,7 +141,7 @@
+             android:text="@string/ConversationFragment__you_can_add_notes_for_yourself_in_this_conversation"
+             android:textAlignment="center"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_text_primary"
++            android:textColor="?attr/signal_text_primary"
+             android:visibility="gone"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.5"
+@@ -286,7 +275,7 @@
+                 android:minHeight="56dp"
+                 android:paddingStart="@dimen/dsl_settings_gutter"
+                 android:paddingEnd="@dimen/dsl_settings_gutter"
+-                android:text="@string/RecipientBottomSheet_add_to_contacts"
++                android:text="@string/ConversationSettingsFragment__add_to_your_phones_contacts"
+                 android:textAppearance="@style/Signal.Text.BodyLarge"
+                 android:visibility="gone"
+                 app:drawableStartCompat="@drawable/symbol_plus_24"
+diff --git a/app/src/main/res/layout/reenable_backups_dialog_fragment.xml b/app/src/main/res/layout/reenable_backups_dialog_fragment.xml
+index 97a5d484845956e914f54d123541fa5c79de49ab..30e113532bc0098432298b30f21fd1fb4e108776 100644
+--- a/app/src/main/res/layout/reenable_backups_dialog_fragment.xml
++++ b/app/src/main/res/layout/reenable_backups_dialog_fragment.xml
+@@ -32,7 +32,7 @@
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+         android:background="@drawable/circle_tintable"
+-        android:backgroundTint="@color/signal_colorSurface3"
++        android:backgroundTint="?attr/colorSurfaceContainerHigh"
+         app:layout_constraintBottom_toBottomOf="@+id/bullet_1"
+         app:layout_constraintEnd_toEndOf="@+id/bullet_1"
+         app:layout_constraintStart_toStartOf="@+id/bullet_1"
+@@ -50,7 +50,7 @@
+         android:padding="4dp"
+         android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_1"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:textStyle="bold"
+         app:layout_constraintDimensionRatio="1:1"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -69,7 +69,7 @@
+         android:text="@string/BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below"
+         android:textAlignment="viewStart"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@+id/bullet_1"
+         app:layout_constraintTop_toBottomOf="@id/headline" />
+@@ -86,7 +86,7 @@
+         android:layout_width="0dp"
+         android:layout_height="0dp"
+         android:background="@drawable/circle_tintable"
+-        android:backgroundTint="@color/signal_colorSurface3"
++        android:backgroundTint="?attr/colorSurfaceContainerHigh"
+         app:layout_constraintBottom_toBottomOf="@+id/bullet_2"
+         app:layout_constraintEnd_toEndOf="@+id/bullet_2"
+         app:layout_constraintStart_toStartOf="@+id/bullet_2"
+@@ -104,7 +104,7 @@
+         android:padding="4dp"
+         android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_2"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         android:textStyle="bold"
+         app:layout_constraintDimensionRatio="1:1"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -123,7 +123,7 @@
+         android:text="@string/BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders"
+         android:textAlignment="viewStart"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@+id/bullet_2"
+         app:layout_constraintTop_toBottomOf="@id/bullet_1_barrier" />
+diff --git a/app/src/main/res/layout/reenable_scheduled_messages_dialog_fragment.xml b/app/src/main/res/layout/reenable_scheduled_messages_dialog_fragment.xml
+index dbdb0e7b56fbc6ba75995c9fb291f71531d2976e..7fb85361aaf65cb65680061ee7858caa0804f46f 100644
+--- a/app/src/main/res/layout/reenable_scheduled_messages_dialog_fragment.xml
++++ b/app/src/main/res/layout/reenable_scheduled_messages_dialog_fragment.xml
+@@ -37,7 +37,7 @@
+             android:layout_width="0dp"
+             android:layout_height="0dp"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurface3"
++            android:backgroundTint="?attr/colorSurfaceContainerHigh"
+             app:layout_constraintBottom_toBottomOf="@+id/bullet_1"
+             app:layout_constraintEnd_toEndOf="@+id/bullet_1"
+             app:layout_constraintStart_toStartOf="@+id/bullet_1"
+@@ -55,7 +55,7 @@
+             android:padding="4dp"
+             android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_1"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:textStyle="bold"
+             app:layout_constraintDimensionRatio="1:1"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -74,7 +74,7 @@
+             android:text="@string/BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below"
+             android:textAlignment="viewStart"
+             android:textAppearance="@style/Signal.Text.BodyLarge"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/bullet_1"
+             app:layout_constraintTop_toBottomOf="@id/headline" />
+@@ -91,7 +91,7 @@
+             android:layout_width="0dp"
+             android:layout_height="0dp"
+             android:background="@drawable/circle_tintable"
+-            android:backgroundTint="@color/signal_colorSurface3"
++            android:backgroundTint="?attr/colorSurfaceContainerHigh"
+             app:layout_constraintBottom_toBottomOf="@+id/bullet_2"
+             app:layout_constraintEnd_toEndOf="@+id/bullet_2"
+             app:layout_constraintStart_toStartOf="@+id/bullet_2"
+@@ -109,7 +109,7 @@
+             android:padding="4dp"
+             android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_2"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:textStyle="bold"
+             app:layout_constraintDimensionRatio="1:1"
+             app:layout_constraintStart_toStartOf="parent"
+@@ -128,7 +128,7 @@
+             android:text="@string/BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders"
+             android:textAlignment="viewStart"
+             android:textAppearance="@style/Signal.Text.BodyLarge"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toEndOf="@+id/bullet_2"
+             app:layout_constraintTop_toBottomOf="@id/bullet_1_barrier" />
+diff --git a/app/src/main/res/layout/reminder_action_button.xml b/app/src/main/res/layout/reminder_action_button.xml
+index 7b05d4b2acdc895f90744be543ad488d78367ae2..eebc388fdd1f264fedf5e9a8c3331fdf485dd010 100644
+--- a/app/src/main/res/layout/reminder_action_button.xml
++++ b/app/src/main/res/layout/reminder_action_button.xml
+@@ -6,7 +6,7 @@
+     android:layout_width="wrap_content"
+     android:layout_height="match_parent"
+     android:textAllCaps="false"
+-    android:textColor="@color/signal_colorPrimary"
++    android:textColor="?attr/colorPrimary"
+     android:textSize="14sp"
+     android:paddingStart="12dp"
+     android:paddingEnd="12dp"
+diff --git a/app/src/main/res/layout/review_banner_view.xml b/app/src/main/res/layout/review_banner_view.xml
+index 5406e84c4fadae80c777ba55543aabdaf537d915..b774f9f3d8d8390b1fe106bbdb62b54b7579cee9 100644
+--- a/app/src/main/res/layout/review_banner_view.xml
++++ b/app/src/main/res/layout/review_banner_view.xml
+@@ -12,10 +12,10 @@
+         android:layout_gravity="center"
+         android:layout_marginHorizontal="12dp"
+         android:layout_marginVertical="11dp"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:minHeight="66dp"
+         app:cardCornerRadius="12dp"
+-        app:cardBackgroundColor="@color/signal_colorSurface"
++        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+         app:cardElevation="0dp"
+         app:strokeColor="@color/signal_colorOutline_38"
+         app:strokeWidth="1dp">
+@@ -110,8 +110,8 @@
+                 android:paddingHorizontal="16dp"
+                 android:paddingVertical="6dp"
+                 android:text="@string/ReviewBannerView__view"
+-                android:textColor="@color/signal_colorOnSecondaryContainer"
+-                app:backgroundTint="@color/signal_colorSurface2"
++                android:textColor="?attr/colorOnSecondaryContainer"
++                app:backgroundTint="?attr/colorSurfaceContainer"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toStartOf="@id/banner_close"
+                 app:layout_constraintStart_toEndOf="@id/banner_message"
+diff --git a/app/src/main/res/layout/review_card.xml b/app/src/main/res/layout/review_card.xml
+index 4011f69dd63327cc4e4d34dd6ee30c332819f75b..d14cee9f3073da93a71dbc0d9af57dfec84e2e6f 100644
+--- a/app/src/main/res/layout/review_card.xml
++++ b/app/src/main/res/layout/review_card.xml
+@@ -55,7 +55,7 @@
+         android:layout_marginTop="12dp"
+         android:layout_marginEnd="16dp"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toTopOf="@id/card_subtext_line2"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/card_subtext_icon1"
+@@ -71,7 +71,7 @@
+         android:importantForAccessibility="no"
+         app:layout_constraintStart_toEndOf="@id/card_avatar"
+         app:layout_constraintTop_toTopOf="@id/card_subtext_line1"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:srcCompat="@drawable/symbol_person_compact_16" />
+ 
+     <TextView
+@@ -82,7 +82,7 @@
+         android:layout_marginTop="12dp"
+         android:layout_marginEnd="16dp"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toTopOf="@+id/card_subtext_line3"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/card_subtext_icon2"
+@@ -98,7 +98,7 @@
+         android:importantForAccessibility="no"
+         app:layout_constraintStart_toEndOf="@id/card_avatar"
+         app:layout_constraintTop_toTopOf="@id/card_subtext_line2"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:srcCompat="@drawable/symbol_group_compact_16" />
+ 
+     <TextView
+@@ -109,7 +109,7 @@
+         android:layout_marginTop="12dp"
+         android:layout_marginEnd="16dp"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toTopOf="@+id/card_subtext_line4"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/card_subtext_icon3"
+@@ -125,7 +125,7 @@
+         android:importantForAccessibility="no"
+         app:layout_constraintStart_toEndOf="@id/card_avatar"
+         app:layout_constraintTop_toTopOf="@id/card_subtext_line3"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:srcCompat="@drawable/symbol_group_24" />
+ 
+     <TextView
+@@ -136,7 +136,7 @@
+         android:layout_marginTop="12dp"
+         android:layout_marginEnd="16dp"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toTopOf="@+id/card_action_button_barrier"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/card_subtext_icon4"
+@@ -152,7 +152,7 @@
+         android:importantForAccessibility="no"
+         app:layout_constraintStart_toEndOf="@id/card_avatar"
+         app:layout_constraintTop_toTopOf="@id/card_subtext_line4"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:srcCompat="@drawable/symbol_group_24" />
+ 
+     <androidx.constraintlayout.widget.Barrier
+diff --git a/app/src/main/res/layout/safety_number_bottom_sheet.xml b/app/src/main/res/layout/safety_number_bottom_sheet.xml
+index 3c91890397f352d7757658655cb6c47a6b83c050..fac052f496294b732d0adc7d2df90ced344e4276 100644
+--- a/app/src/main/res/layout/safety_number_bottom_sheet.xml
++++ b/app/src/main/res/layout/safety_number_bottom_sheet.xml
+@@ -52,7 +52,7 @@
+         android:layout_marginStart="16dp"
+         android:layout_marginBottom="16dp"
+         android:text="@string/SafetyNumberBottomSheetFragment__review_connections"
+-        android:textColor="@color/signal_colorPrimary"
++        android:textColor="?attr/colorPrimary"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/safety_number_bucket_row_item.xml b/app/src/main/res/layout/safety_number_bucket_row_item.xml
+index 6d5a09d472af3859461fe35f0c86e7f5764bdb18..2b57e9ba10a4c530afd5423480a41cf169ddd3c2 100644
+--- a/app/src/main/res/layout/safety_number_bucket_row_item.xml
++++ b/app/src/main/res/layout/safety_number_bucket_row_item.xml
+@@ -39,6 +39,6 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_more_vert_24"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/safety_number_change_dialog.xml b/app/src/main/res/layout/safety_number_change_dialog.xml
+index 13ab98b46f80d890be86ee12655679d50ffa56bf..12b65efe0f7e3621930b16aebc80aa06e0a653ee 100644
+--- a/app/src/main/res/layout/safety_number_change_dialog.xml
++++ b/app/src/main/res/layout/safety_number_change_dialog.xml
+@@ -7,7 +7,7 @@
+     android:orientation="vertical"
+     android:paddingStart="24dp"
+     android:paddingEnd="24dp"
+-    tools:background="@color/signal_background_dialog">
++    tools:background="?attr/signal_background_dialog">
+ 
+     <TextView
+         android:layout_width="match_parent"
+diff --git a/app/src/main/res/layout/safety_number_change_recipient.xml b/app/src/main/res/layout/safety_number_change_recipient.xml
+index 394bee8097b45d23f89c289e38a354908baf93da..34b02341258b532c49ed449d1f19a35bed1240b9 100644
+--- a/app/src/main/res/layout/safety_number_change_recipient.xml
++++ b/app/src/main/res/layout/safety_number_change_recipient.xml
+@@ -7,7 +7,7 @@
+     android:layout_height="wrap_content"
+     android:paddingTop="8dp"
+     android:paddingBottom="8dp"
+-    tools:background="@color/signal_background_dialog">
++    tools:background="?attr/signal_background_dialog">
+ 
+     <org.thoughtcrime.securesms.components.AvatarImageView
+         android:id="@+id/safety_number_change_recipient_avatar"
+@@ -29,7 +29,7 @@
+         android:layout_marginEnd="8dp"
+         android:ellipsize="end"
+         android:maxLines="2"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toTopOf="@+id/safety_number_change_recipient_subtitle"
+         app:layout_constraintEnd_toStartOf="@+id/safety_number_change_recipient_view"
+@@ -43,7 +43,7 @@
+         android:layout_height="wrap_content"
+         android:ellipsize="end"
+         android:maxLines="2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="@+id/safety_number_change_recipient_name"
+diff --git a/app/src/main/res/layout/safety_number_qr_view.xml b/app/src/main/res/layout/safety_number_qr_view.xml
+index 479b93a3b918091a2306fb2e4bf6dee425b4c391..5c6d6726ad3b96df385ff54e1e2eb939b8b3d78d 100644
+--- a/app/src/main/res/layout/safety_number_qr_view.xml
++++ b/app/src/main/res/layout/safety_number_qr_view.xml
+@@ -82,7 +82,7 @@
+                 android:layout_gravity="bottom|center_horizontal"
+                 android:gravity="center_horizontal"
+                 android:text="@string/verify_display_fragment__tap_to_scan"
+-                android:textColor="@color/qr_card_text_color" />
++                android:textColor="?attr/qr_card_text_color" />
+ 
+             <TextView
+                 style="@style/Signal.Text.BodyMedium"
+@@ -91,7 +91,7 @@
+                 android:layout_gravity="bottom|center_horizontal"
+                 android:gravity="center_horizontal"
+                 android:text="@string/verify_display_fragment__successful_match"
+-                android:textColor="@color/qr_card_text_color" />
++                android:textColor="?attr/qr_card_text_color" />
+ 
+         </TextSwitcher>
+ 
+diff --git a/app/src/main/res/layout/safety_number_recipient_row_item.xml b/app/src/main/res/layout/safety_number_recipient_row_item.xml
+index 9384488870ffefb6e5970e6917bccf51d53ab806..d679313097557fb6d149ec1aa2af02e758746a2f 100644
+--- a/app/src/main/res/layout/safety_number_recipient_row_item.xml
++++ b/app/src/main/res/layout/safety_number_recipient_row_item.xml
+@@ -30,7 +30,7 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_more_vert_24"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+         android:id="@+id/safety_number_recipient_name"
+@@ -40,7 +40,7 @@
+         android:ellipsize="end"
+         android:lines="1"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/safety_number_recipient_identifier"
+         app:layout_constraintEnd_toStartOf="@id/safety_number_recipient_menu"
+         app:layout_constraintStart_toEndOf="@id/safety_number_recipient_avatar"
+@@ -56,7 +56,7 @@
+         android:ellipsize="end"
+         android:lines="1"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/safety_number_recipient_menu"
+         app:layout_constraintStart_toEndOf="@id/safety_number_recipient_avatar"
+diff --git a/app/src/main/res/layout/schedule_message_ftux_bottom_sheet.xml b/app/src/main/res/layout/schedule_message_ftux_bottom_sheet.xml
+index 1309462ad1e88a4e46a97be7ff2c85f730c90e7a..e1a3aed3f42530529438267a36c15ff9523c4e8d 100644
+--- a/app/src/main/res/layout/schedule_message_ftux_bottom_sheet.xml
++++ b/app/src/main/res/layout/schedule_message_ftux_bottom_sheet.xml
+@@ -16,7 +16,7 @@
+             android:layout_height="2dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="16dp"
+-            android:background="@color/signal_icon_tint_tab_unselected" />
++            android:background="?attr/signal_icon_tint_tab_unselected" />
+ 
+         <ImageView
+             android:layout_width="wrap_content"
+@@ -76,14 +76,14 @@
+                     android:layout_marginStart="32dp"
+                     android:layout_marginTop="24dp"
+                     android:background="@drawable/circle_tintable"
+-                    android:backgroundTint="@color/signal_colorSurface3"
++                    android:backgroundTint="?attr/colorSurfaceContainerHigh"
+                     android:gravity="center"
+                     android:minWidth="28dp"
+                     android:minHeight="28dp"
+                     android:padding="4dp"
+                     android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_1"
+                     android:textAppearance="@style/Signal.Text.BodyMedium"
+-                    android:textColor="@color/signal_colorOnSurfaceVariant"
++                    android:textColor="?attr/colorOnSurfaceVariant"
+                     android:textStyle="bold"
+                     app:layout_constraintDimensionRatio="1:1"
+                     app:layout_constraintStart_toStartOf="parent"
+@@ -103,7 +103,7 @@
+                     android:text="@string/BackupSchedulePermissionMegaphone__tap_the_go_to_settings_button_below"
+                     android:textAlignment="viewStart"
+                     android:textAppearance="@style/Signal.Text.BodyLarge"
+-                    android:textColor="@color/signal_colorOnSurfaceVariant"
++                    android:textColor="?attr/colorOnSurfaceVariant"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toEndOf="@+id/bullet_1"
+                     app:layout_constraintTop_toBottomOf="@id/headline"
+@@ -122,14 +122,14 @@
+                     android:layout_marginStart="32dp"
+                     android:layout_marginTop="24dp"
+                     android:background="@drawable/circle_tintable"
+-                    android:backgroundTint="@color/signal_colorSurface3"
++                    android:backgroundTint="?attr/colorSurfaceContainerHigh"
+                     android:gravity="center"
+                     android:minWidth="28dp"
+                     android:minHeight="28dp"
+                     android:padding="4dp"
+                     android:text="@string/ChooseANewDefaultSmsAppFragment__bullet_2"
+                     android:textAppearance="@style/Signal.Text.BodyMedium"
+-                    android:textColor="@color/signal_colorOnSurfaceVariant"
++                    android:textColor="?attr/colorOnSurfaceVariant"
+                     android:textStyle="bold"
+                     app:layout_constraintDimensionRatio="1:1"
+                     app:layout_constraintStart_toStartOf="parent"
+@@ -150,7 +150,7 @@
+                     android:text="@string/BackupSchedulePermissionMegaphone__turn_on_allow_settings_alarms_and_reminders"
+                     android:textAlignment="viewStart"
+                     android:textAppearance="@style/Signal.Text.BodyLarge"
+-                    android:textColor="@color/signal_colorOnSurfaceVariant"
++                    android:textColor="?attr/colorOnSurfaceVariant"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toEndOf="@+id/bullet_2"
+                     app:layout_constraintTop_toBottomOf="@id/bullet_1_barrier"
+diff --git a/app/src/main/res/layout/schedule_message_time_picker_bottom_sheet.xml b/app/src/main/res/layout/schedule_message_time_picker_bottom_sheet.xml
+index 1bdcc811c7de675d8f276a30ae018b6a78ae2d5e..8b151fb391e4527a8dfc013df8cf0d07e3e43c35 100644
+--- a/app/src/main/res/layout/schedule_message_time_picker_bottom_sheet.xml
++++ b/app/src/main/res/layout/schedule_message_time_picker_bottom_sheet.xml
+@@ -11,7 +11,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected"
++        android:background="?attr/signal_icon_tint_tab_unselected"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+diff --git a/app/src/main/res/layout/scheduled_messages_bottom_sheet.xml b/app/src/main/res/layout/scheduled_messages_bottom_sheet.xml
+index b2d880712516b901e09069e50e1fc75c8f47f6bd..d345f6faab50ba47cfa9e7509c5f36414750d683 100644
+--- a/app/src/main/res/layout/scheduled_messages_bottom_sheet.xml
++++ b/app/src/main/res/layout/scheduled_messages_bottom_sheet.xml
+@@ -14,7 +14,7 @@
+         android:layout_height="2dp"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+-        android:background="@color/signal_icon_tint_tab_unselected"
++        android:background="?attr/signal_icon_tint_tab_unselected"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"/>
+diff --git a/app/src/main/res/layout/select_featured_badge_fragment.xml b/app/src/main/res/layout/select_featured_badge_fragment.xml
+deleted file mode 100644
+index 306fe4eca72a4ebf7c30d9677e7d9fcaf4074e1a..0000000000000000000000000000000000000000
+--- a/app/src/main/res/layout/select_featured_badge_fragment.xml
++++ /dev/null
+@@ -1,58 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    tools:viewBindingIgnore="true"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent">
+-
+-    <include layout="@layout/dsl_settings_toolbar" />
+-
+-    <include
+-        android:id="@+id/preview"
+-        layout="@layout/featured_badge_preview_preference"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+-
+-    <View
+-        android:id="@+id/scroll_shadow"
+-        android:layout_width="match_parent"
+-        android:layout_height="5dp"
+-        android:alpha="0"
+-        android:background="@drawable/toolbar_shadow"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="@id/recycler" />
+-
+-    <androidx.recyclerview.widget.RecyclerView
+-        android:id="@+id/recycler"
+-        android:layout_width="0dp"
+-        android:layout_height="0dp"
+-        android:layout_marginTop="16dp"
+-        android:clipChildren="false"
+-        android:clipToPadding="false"
+-        android:orientation="vertical"
+-        android:paddingBottom="56dp"
+-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/preview" />
+-
+-    <com.google.android.material.button.MaterialButton
+-        android:id="@+id/save"
+-        style="@style/Signal.Widget.Button.Large.Primary"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginEnd="16dp"
+-        android:layout_marginBottom="16dp"
+-        android:minHeight="48dp"
+-        android:text="@string/save"
+-        app:cornerRadius="68dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/signal_bottom_action_bar_item.xml b/app/src/main/res/layout/signal_bottom_action_bar_item.xml
+index 0332157926fbe5e2a39426b038326fd5d048c922..681ce2df6c92fd4165df59da6b9b39acb60b95de 100644
+--- a/app/src/main/res/layout/signal_bottom_action_bar_item.xml
++++ b/app/src/main/res/layout/signal_bottom_action_bar_item.xml
+@@ -19,7 +19,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="4dp"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:src="@drawable/symbol_archive_24"/>
+ 
+     <TextView
+diff --git a/app/src/main/res/layout/signal_progress_dialog.xml b/app/src/main/res/layout/signal_progress_dialog.xml
+index 0b64b6ea69e8c05c193da3dce1c86eb68479e815..0d649ebfe6cc0f14f2604a97d79534b74c77f5c9 100644
+--- a/app/src/main/res/layout/signal_progress_dialog.xml
++++ b/app/src/main/res/layout/signal_progress_dialog.xml
+@@ -18,8 +18,8 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+-        app:indicatorColor="@color/signal_colorPrimary"
+-        app:trackColor="@color/signal_colorPrimaryContainer" />
++        app:indicatorColor="?attr/colorPrimary"
++        app:trackColor="?attr/colorPrimaryContainer" />
+ 
+     <TextView
+         android:id="@+id/progress_dialog_title"
+diff --git a/app/src/main/res/layout/single_select_item.xml b/app/src/main/res/layout/single_select_item.xml
+index d2da74be4f68acb9485a9b452429b006450bacde..b83530e89ff4ba5e5fd0240e087b3da67a54c202 100644
+--- a/app/src/main/res/layout/single_select_item.xml
++++ b/app/src/main/res/layout/single_select_item.xml
+@@ -31,7 +31,7 @@
+         android:layout_height="wrap_content"
+         android:gravity="center_vertical"
+         android:textAppearance="?android:attr/textAppearanceListItem"
+-        android:textColor="@color/signal_text_primary"
++        android:textColor="?attr/signal_text_primary"
+         app:layout_constraintBottom_toTopOf="@id/single_select_item_summary"
+         app:layout_constraintStart_toEndOf="@id/single_select_item_radio"
+         app:layout_constraintTop_toTopOf="parent"
+@@ -41,7 +41,7 @@
+         android:id="@+id/single_select_item_summary"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="@id/single_select_item_text"
+         app:layout_constraintTop_toBottomOf="@id/single_select_item_text"
+diff --git a/app/src/main/res/layout/sticker_grid_header.xml b/app/src/main/res/layout/sticker_grid_header.xml
+index fec54076cbe5acd2308d883ab720be12b61a8488..47adf3e8d8720e967a9b7798686a42d988e2665b 100644
+--- a/app/src/main/res/layout/sticker_grid_header.xml
++++ b/app/src/main/res/layout/sticker_grid_header.xml
+@@ -10,5 +10,5 @@
+     android:minHeight="36dp"
+     android:singleLine="true"
+     android:textAppearance="@style/Signal.Text.LabelLarge"
+-    android:textColor="@color/signal_colorOnSurfaceVariant"
++    android:textColor="?attr/colorOnSurfaceVariant"
+     tools:text="@string/ReactWithAnyEmojiBottomSheetDialogFragment__activities" />
+diff --git a/app/src/main/res/layout/sticker_preview_activity.xml b/app/src/main/res/layout/sticker_preview_activity.xml
+index 7570a0da8081dd9c992a091fe96845c8c46dd3e1..7b88f9c39c200e68bb0b22b6f087988a2773429b 100644
+--- a/app/src/main/res/layout/sticker_preview_activity.xml
++++ b/app/src/main/res/layout/sticker_preview_activity.xml
+@@ -10,7 +10,7 @@
+         android:id="@+id/sticker_install_toolbar"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:elevation="4dp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/sticker_search_dialog_fragment.xml b/app/src/main/res/layout/sticker_search_dialog_fragment.xml
+index 1cf86ce1af7d70fb944fd53a3db8fa0a6b9e11f9..aecab0ef9a2d6d0b174d6e6afa607e9b9a0e65a7 100644
+--- a/app/src/main/res/layout/sticker_search_dialog_fragment.xml
++++ b/app/src/main/res/layout/sticker_search_dialog_fragment.xml
+@@ -5,7 +5,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/signal_background_primary">
++    android:background="?attr/signal_background_primary">
+ 
+     <FrameLayout
+         android:id="@+id/sticker_search_text_frame"
+@@ -21,9 +21,9 @@
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+-            app:search_bar_tint="@color/signal_background_secondary"
++            app:search_bar_tint="?attr/signal_background_secondary"
+             app:search_hint="@string/StickerSearchDialogFragment_search_stickers"
+-            app:search_icon_tint="@color/signal_icon_tint_secondary"
++            app:search_icon_tint="?attr/signal_icon_tint_secondary"
+             app:show_always="true" />
+     </FrameLayout>
+ 
+@@ -49,7 +49,7 @@
+         android:layout_height="wrap_content"
+         android:text="@string/StickerSearchDialogFragment_no_results_found"
+         android:textAppearance="@style/TextAppearance.Signal.Body1"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+diff --git a/app/src/main/res/layout/stories_choose_group_bottom_bar.xml b/app/src/main/res/layout/stories_choose_group_bottom_bar.xml
+index d0fb6cf77318b6821c60d7d87680e6f374649c0a..079806422f20dca0a9e3b614e5337753d1a5f825 100644
+--- a/app/src/main/res/layout/stories_choose_group_bottom_bar.xml
++++ b/app/src/main/res/layout/stories_choose_group_bottom_bar.xml
+@@ -21,7 +21,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:translationY="68sp"
+-        android:background="@color/signal_colorSurface1">
++        android:background="?attr/colorSurfaceContainerLow">
+ 
+         <androidx.recyclerview.widget.RecyclerView
+             android:id="@+id/selected_list"
+@@ -47,12 +47,12 @@
+             android:contentDescription="@string/ShareActivity__share"
+             android:background="@drawable/circle_tintable"
+             android:padding="6dp"
+-            app:backgroundTint="@color/signal_colorPrimary"
++            app:backgroundTint="?attr/colorPrimary"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:srcCompat="@drawable/ic_check_24"
+-            app:tint="@color/signal_colorOnPrimary"
++            app:tint="?attr/colorOnPrimary"
+             tools:alpha="1" />
+ 
+     </androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/stories_choose_group_bottom_sheet.xml b/app/src/main/res/layout/stories_choose_group_bottom_sheet.xml
+index 69ee9060fe5cd89e870993a4ae885e6450cc5071..0fab4056c126a4a2b1e2c4ba4b34a504874ad889 100644
+--- a/app/src/main/res/layout/stories_choose_group_bottom_sheet.xml
++++ b/app/src/main/res/layout/stories_choose_group_bottom_sheet.xml
+@@ -37,8 +37,8 @@
+         android:minHeight="44dp"
+         android:paddingHorizontal="16dp"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
+-        app:backgroundTint="@color/signal_colorSurface5" />
++        android:textColor="?attr/colorOnSurfaceVariant"
++        app:backgroundTint="?attr/colorSurfaceContainerHighest" />
+ 
+     <org.thoughtcrime.securesms.contacts.paged.ContactSearchView
+         android:id="@+id/contact_recycler"
+diff --git a/app/src/main/res/layout/stories_create_story_name_field_item.xml b/app/src/main/res/layout/stories_create_story_name_field_item.xml
+index 2876e7065b285298b9a0b5794b4e5a7257135450..8b6f4ac91dadcbe0d4c2224a32f05089d79f6020 100644
+--- a/app/src/main/res/layout/stories_create_story_name_field_item.xml
++++ b/app/src/main/res/layout/stories_create_story_name_field_item.xml
+@@ -36,6 +36,6 @@
+         android:layout_marginBottom="20dp"
+         android:text="@string/CreateStoryWithViewersFragment__only_you_can"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant" />
++        android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_create_with_recipients_fragment.xml b/app/src/main/res/layout/stories_create_with_recipients_fragment.xml
+index 570766ccae130a04032a8ceacdddb73bbcff59b8..0259a29b6f1821d232ac66af8c5cc5f0f6f7b6d9 100644
+--- a/app/src/main/res/layout/stories_create_with_recipients_fragment.xml
++++ b/app/src/main/res/layout/stories_create_with_recipients_fragment.xml
+@@ -31,7 +31,7 @@
+             android:id="@+id/app_bar_layout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:background="@color/signal_colorBackground"
++            android:background="?attr/colorSurface"
+             app:elevation="0dp">
+ 
+             <com.google.android.material.appbar.CollapsingToolbarLayout
+@@ -68,8 +68,8 @@
+             android:layout_marginEnd="16dp"
+             android:layout_marginBottom="16dp"
+             android:text="@string/CreateStoryWithViewersFragment__create"
+-            android:textColor="@color/signal_colorOnPrimaryContainer"
+-            app:backgroundTint="@color/signal_colorPrimaryContainer"
++            android:textColor="?attr/colorOnPrimaryContainer"
++            app:backgroundTint="?attr/colorPrimaryContainer"
+             app:cornerRadius="80dp"
+             app:elevation="4dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+diff --git a/app/src/main/res/layout/stories_group_replies_fragment.xml b/app/src/main/res/layout/stories_group_replies_fragment.xml
+index 1a476f73509dca85e147e0efb3defc69ad52a7e4..384c1f4ac1c170b0ee6642bfcd5f5d394a19e352 100644
+--- a/app/src/main/res/layout/stories_group_replies_fragment.xml
++++ b/app/src/main/res/layout/stories_group_replies_fragment.xml
+@@ -61,7 +61,7 @@
+             android:minHeight="48dp"
+             android:text="@string/StoryGroupReplyFragment__you_cant_reply"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             android:visibility="gone" />
+ 
+         <org.thoughtcrime.securesms.stories.viewer.reply.composer.StoryReplyComposer
+diff --git a/app/src/main/res/layout/stories_group_text_reply_item.xml b/app/src/main/res/layout/stories_group_text_reply_item.xml
+index 97d1e8f6e481233ebc1bfb33105312564906b2e0..ffb7e26868a97c0583c23aa16e97c957d6ac98a7 100644
+--- a/app/src/main/res/layout/stories_group_text_reply_item.xml
++++ b/app/src/main/res/layout/stories_group_text_reply_item.xml
+@@ -112,7 +112,7 @@
+         app:layout_constraintHorizontal_bias="1"
+         app:layout_constraintStart_toEndOf="@id/body"
+         tools:text="15m"
+-        tools:textColor="@color/signal_text_secondary"
++        tools:textColor="?attr/signal_text_secondary"
+         tools:visibility="visible" />
+ 
+     <TextView
+@@ -131,7 +131,7 @@
+         app:layout_constraintHorizontal_bias="1"
+         app:layout_constraintStart_toStartOf="@+id/bubble"
+         tools:text="Not sent, tap for details"
+-        tools:textColor="@color/signal_text_secondary" />
++        tools:textColor="?attr/signal_text_secondary" />
+ 
+     <org.thoughtcrime.securesms.components.DeliveryStatusView
+         android:id="@+id/delivery_status"
+diff --git a/app/src/main/res/layout/stories_landing_fragment.xml b/app/src/main/res/layout/stories_landing_fragment.xml
+index 251877318720e6f6ffe56c16c7b1f743770f62b4..338a944d9566a8ccbf7670dc6cf4f8ef5b49940d 100644
+--- a/app/src/main/res/layout/stories_landing_fragment.xml
++++ b/app/src/main/res/layout/stories_landing_fragment.xml
+@@ -20,7 +20,7 @@
+         android:id="@+id/recycler"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+-        android:background="@color/signal_colorBackground"
++        android:background="?attr/colorSurface"
+         android:clipChildren="false"
+         android:clipToPadding="false"
+         app:layout_constraintBottom_toBottomOf="parent"
+@@ -37,7 +37,7 @@
+         android:gravity="center"
+         android:text="@string/StoriesLandingFragment__no_recent_updates_to_show_right_now"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOutline"
++        android:textColor="?attr/colorOutline"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+diff --git a/app/src/main/res/layout/stories_landing_item.xml b/app/src/main/res/layout/stories_landing_item.xml
+index 9aeec2df17b2b477eb23da685c7ae76670e576ef..06c9cb1ffb1d8321b7da988227ced42a1ae5192d 100644
+--- a/app/src/main/res/layout/stories_landing_item.xml
++++ b/app/src/main/res/layout/stories_landing_item.xml
+@@ -39,7 +39,7 @@
+         android:visibility="gone"
+         app:layout_constraintStart_toStartOf="@id/avatar"
+         app:layout_constraintTop_toTopOf="@id/avatar"
+-        app:tint="@color/signal_colorBackground"
++        app:tint="?attr/colorSurface"
+         app:srcCompat="@drawable/symbol_plus_compact_16" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -49,7 +49,7 @@
+         android:layout_marginStart="@dimen/stories_landing_item_text_horizontal_margin"
+         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/date"
+         app:layout_constraintEnd_toStartOf="@id/story"
+         app:layout_constraintStart_toEndOf="@id/avatar"
+@@ -68,7 +68,7 @@
+         app:layout_constraintStart_toEndOf="@id/avatar"
+         app:layout_constraintTop_toTopOf="@id/date"
+         app:srcCompat="@drawable/ic_error_outline_24"
+-        app:tint="@color/signal_colorError"
++        app:tint="?attr/colorError"
+         tools:visibility="visible" />
+ 
+     <TextView
+@@ -78,7 +78,7 @@
+         android:layout_marginStart="7dp"
+         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toTopOf="@id/icon"
+         app:layout_constraintEnd_toStartOf="@id/story"
+         app:layout_constraintStart_toEndOf="@id/error_indicator"
+@@ -97,7 +97,7 @@
+         app:layout_constraintStart_toEndOf="@id/avatar"
+         app:layout_constraintTop_toBottomOf="@id/date"
+         app:srcCompat="@drawable/ic_messages_solid_20"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <com.google.android.material.imageview.ShapeableImageView
+         android:id="@+id/story_multi"
+@@ -129,7 +129,7 @@
+         android:id="@+id/story"
+         android:layout_width="@dimen/stories_landing_item_thumb_width"
+         android:layout_height="@dimen/stories_landing_item_thumb_height"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:transitionName="story"
+         app:layout_constraintBottom_toBottomOf="@+id/story_outline"
+         app:layout_constraintEnd_toEndOf="@+id/story_outline"
+@@ -142,7 +142,7 @@
+         android:id="@+id/story_blur"
+         android:layout_width="@dimen/stories_landing_item_thumb_width"
+         android:layout_height="@dimen/stories_landing_item_thumb_height"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:transitionName="story"
+         app:layout_constraintBottom_toBottomOf="@+id/story_outline"
+         app:layout_constraintEnd_toEndOf="@+id/story_outline"
+diff --git a/app/src/main/res/layout/stories_landing_item_my_stories.xml b/app/src/main/res/layout/stories_landing_item_my_stories.xml
+index 8a3bf57acf207eeba9a40d4d8b75ebc7a3fd38fa..ea6a6be5b2c2fe97c09d6928d9a87729234d8d43 100644
+--- a/app/src/main/res/layout/stories_landing_item_my_stories.xml
++++ b/app/src/main/res/layout/stories_landing_item_my_stories.xml
+@@ -27,7 +27,7 @@
+         android:background="@drawable/stories_my_story_add_background"
+         app:layout_constraintStart_toStartOf="@id/avatar"
+         app:layout_constraintTop_toTopOf="@id/avatar"
+-        app:tint="@color/signal_colorBackground"
++        app:tint="?attr/colorSurface"
+         app:srcCompat="@drawable/symbol_plus_compact_16" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+@@ -38,7 +38,7 @@
+         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
+         android:text="@string/StoriesLandingFragment__my_stories"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toTopOf="@id/date"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/avatar"
+@@ -53,7 +53,7 @@
+         android:layout_marginEnd="@dimen/stories_landing_item_text_horizontal_margin"
+         android:text="@string/StoriesLandingFragment__tap_to_add"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toEndOf="@id/avatar"
+diff --git a/app/src/main/res/layout/stories_my_stories_fragment.xml b/app/src/main/res/layout/stories_my_stories_fragment.xml
+index b2c3ba73367da2db4dd3e0cb3401502e4c11cfd6..fe76c323cb9b052234a986b73a6084bb678b9980 100644
+--- a/app/src/main/res/layout/stories_my_stories_fragment.xml
++++ b/app/src/main/res/layout/stories_my_stories_fragment.xml
+@@ -16,7 +16,7 @@
+         android:gravity="center"
+         android:text="@string/MyStoriesFragment__updates_to_your_story_will_show_up_here"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOutline"
++        android:textColor="?attr/colorOutline"
+         android:visibility="gone"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+diff --git a/app/src/main/res/layout/stories_my_stories_item.xml b/app/src/main/res/layout/stories_my_stories_item.xml
+index 784f9d9bec6fb4136989d1bff3e3d09706742ad5..915a6173674479fc71af189ac921b3032312faa5 100644
+--- a/app/src/main/res/layout/stories_my_stories_item.xml
++++ b/app/src/main/res/layout/stories_my_stories_item.xml
+@@ -15,7 +15,7 @@
+         android:id="@+id/story"
+         android:layout_width="@dimen/stories_landing_item_thumb_width"
+         android:layout_height="@dimen/stories_landing_item_thumb_height"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:transitionName="story"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -27,7 +27,7 @@
+         android:id="@+id/story_blur"
+         android:layout_width="@dimen/stories_landing_item_thumb_width"
+         android:layout_height="@dimen/stories_landing_item_thumb_height"
+-        android:background="@color/signal_background_primary"
++        android:background="?attr/signal_background_primary"
+         android:transitionName="story"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -64,7 +64,7 @@
+         app:layout_constraintStart_toEndOf="@id/story"
+         app:layout_constraintTop_toTopOf="@+id/view_count"
+         app:srcCompat="@drawable/ic_error_outline_24"
+-        app:tint="@color/signal_colorError"
++        app:tint="?attr/colorError"
+         tools:visibility="visible" />
+ 
+     <TextView
+@@ -73,7 +73,7 @@
+         android:layout_height="wrap_content"
+         android:ellipsize="end"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constrainedWidth="true"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@+id/download_touch"
+@@ -109,12 +109,12 @@
+         android:layout_marginEnd="24dp"
+         android:background="@drawable/circle_tintable"
+         android:scaleType="centerInside"
+-        app:backgroundTint="@color/signal_colorSecondaryContainer"
++        app:backgroundTint="?attr/colorSecondaryContainer"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@id/more"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/symbol_save_android_24"
+-        app:tint="@color/signal_colorOnSecondaryContainer" />
++        app:tint="?attr/colorOnSecondaryContainer" />
+ 
+     <androidx.appcompat.widget.AppCompatImageView
+         android:id="@+id/more"
+@@ -122,11 +122,11 @@
+         android:layout_height="32dp"
+         android:background="@drawable/circle_tintable"
+         android:scaleType="centerInside"
+-        app:backgroundTint="@color/signal_colorSecondaryContainer"
++        app:backgroundTint="?attr/colorSecondaryContainer"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/symbol_more_vertical_24"
+-        app:tint="@color/signal_colorOnSecondaryContainer" />
++        app:tint="?attr/colorOnSecondaryContainer" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_private_story_add_viewer_item.xml b/app/src/main/res/layout/stories_private_story_add_viewer_item.xml
+index 3d886bacae308b61d71a11d34d20a175cabf6b18..cd11e1bf35ed69172de5d7746aba1a311cf6c300 100644
+--- a/app/src/main/res/layout/stories_private_story_add_viewer_item.xml
++++ b/app/src/main/res/layout/stories_private_story_add_viewer_item.xml
+@@ -18,9 +18,9 @@
+         android:background="@drawable/circle_tintable"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+-        app:backgroundTint="@color/signal_colorSurfaceVariant"
++        app:backgroundTint="?attr/colorSurfaceVariant"
+         app:srcCompat="@drawable/ic_add_members_20"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <TextView
+         android:id="@+id/label"
+@@ -31,6 +31,6 @@
+         android:layout_weight="1"
+         android:text="@string/PrivateStorySettingsFragment__add_viewer"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurface" />
++        android:textColor="?attr/colorOnSurface" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_private_story_item.xml b/app/src/main/res/layout/stories_private_story_item.xml
+index d4dd64ca30d966b6f4d44add32c2b39acfe74c79..9711213df8b8833e5ea1293777129a494244e89e 100644
+--- a/app/src/main/res/layout/stories_private_story_item.xml
++++ b/app/src/main/res/layout/stories_private_story_item.xml
+@@ -18,9 +18,9 @@
+         android:background="@drawable/circle_tintable"
+         android:importantForAccessibility="no"
+         android:scaleType="centerInside"
+-        app:backgroundTint="@color/signal_colorSurfaceVariant"
++        app:backgroundTint="?attr/colorSurfaceVariant"
+         app:srcCompat="@drawable/ic_lock_24"
+-        app:tint="@color/signal_colorOnSurfaceVariant" />
++        app:tint="?attr/colorOnSurfaceVariant" />
+ 
+     <org.thoughtcrime.securesms.components.emoji.EmojiTextView
+         android:id="@+id/label"
+@@ -30,7 +30,7 @@
+         android:layout_marginStart="16dp"
+         android:layout_weight="1"
+         android:textAppearance="@style/Signal.Text.BodyLarge"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         tools:text="@string/StorySettingsFragment__new_private_story" />
+ 
+ </LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_reply_to_story_composer_content.xml b/app/src/main/res/layout/stories_reply_to_story_composer_content.xml
+index bb9e536acfbbee8ff93daf91bf3b5a34cdfdde0c..4d1d7ff1e1cf56073d16f3f1b4def1aabb36f692 100644
+--- a/app/src/main/res/layout/stories_reply_to_story_composer_content.xml
++++ b/app/src/main/res/layout/stories_reply_to_story_composer_content.xml
+@@ -5,7 +5,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="@color/signal_colorSurface"
++    android:background="?attr/colorSurfaceContainer"
+     android:paddingTop="10dp">
+ 
+     <androidx.constraintlayout.widget.ConstraintLayout
+@@ -66,7 +66,7 @@
+             android:background="?selectableItemBackgroundBorderless"
+             app:force_outline="true"
+             android:layout_gravity="bottom"
+-            app:tint="@color/signal_colorOnSurface"
++            app:tint="?attr/colorOnSurface"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintStart_toStartOf="parent" />
+ 
+diff --git a/app/src/main/res/layout/stories_story_view_item.xml b/app/src/main/res/layout/stories_story_view_item.xml
+index 0819051f980ca271b9a69163f4ea5612b5c00990..cef2adf6925ea9c7522d7ebc63d0dc6669feab99 100644
+--- a/app/src/main/res/layout/stories_story_view_item.xml
++++ b/app/src/main/res/layout/stories_story_view_item.xml
+@@ -40,7 +40,7 @@
+         android:ellipsize="end"
+         android:maxLines="1"
+         android:textAppearance="@style/TextAppearance.Signal.Body2"
+-        android:textColor="@color/signal_text_secondary"
++        android:textColor="?attr/signal_text_secondary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/stories_text_post_creation_fragment.xml b/app/src/main/res/layout/stories_text_post_creation_fragment.xml
+index 92067cb5597732f951bdc9bf74997876a120d1a1..57ff4233e0e8637fc8bbe4af578798a1ce8412d3 100644
+--- a/app/src/main/res/layout/stories_text_post_creation_fragment.xml
++++ b/app/src/main/res/layout/stories_text_post_creation_fragment.xml
+@@ -77,14 +77,14 @@
+         android:layout_width="48dp"
+         android:layout_height="48dp"
+         android:layout_marginEnd="10dp"
+-        android:background="@color/signal_colorOnSecondaryContainer"
++        android:background="?attr/colorOnSecondaryContainer"
+         android:padding="4dp"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/ic_arrow_end_24"
+-        app:tint="@color/signal_colorSecondaryContainer" />
++        app:tint="?attr/colorSecondaryContainer" />
+ 
+     <com.google.android.material.card.MaterialCardView
+         android:id="@+id/send_in_progress_indicator"
+@@ -103,7 +103,7 @@
+             android:layout_height="wrap_content"
+             android:layout_margin="24dp"
+             android:indeterminate="true"
+-            app:indicatorColor="@color/signal_colorPrimary" />
++            app:indicatorColor="?attr/colorPrimary" />
+     </com.google.android.material.card.MaterialCardView>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_text_post_link_entry_content.xml b/app/src/main/res/layout/stories_text_post_link_entry_content.xml
+index b92e9fdd1fe7a519c2e13abc5c66d1034b30c422..21a625accba24f1e6ea99cc6b76359415e85f4b3 100644
+--- a/app/src/main/res/layout/stories_text_post_link_entry_content.xml
++++ b/app/src/main/res/layout/stories_text_post_link_entry_content.xml
+@@ -72,7 +72,7 @@
+         android:layout_width="48dp"
+         android:layout_height="48dp"
+         android:layout_marginEnd="12dp"
+-        android:background="@color/signal_colorOnSecondaryContainer"
++        android:background="?attr/colorOnSecondaryContainer"
+         android:padding="4dp"
+         android:scaleType="centerInside"
+         app:layout_constraintBottom_toBottomOf="@id/input"
+@@ -80,6 +80,6 @@
+         app:layout_constraintTop_toTopOf="@id/input"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/ic_check_24"
+-        app:tint="@color/signal_colorSecondaryContainer" />
++        app:tint="?attr/colorSecondaryContainer" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/stories_text_post_link_preview.xml b/app/src/main/res/layout/stories_text_post_link_preview.xml
+index 86fc4c3eecaa8799d8a9701865796b33f617c9da..0d31f9b70764f9e7e81632ac1033ae756bf47ff8 100644
+--- a/app/src/main/res/layout/stories_text_post_link_preview.xml
++++ b/app/src/main/res/layout/stories_text_post_link_preview.xml
+@@ -4,7 +4,7 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    tools:background="@color/signal_dark_colorBackground"
++    tools:background="?attr/colorBackground"
+     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+ 
+     <org.thoughtcrime.securesms.components.ClippedCardView
+diff --git a/app/src/main/res/layout/stories_text_post_text_entry_content.xml b/app/src/main/res/layout/stories_text_post_text_entry_content.xml
+index 35f82d16c4c084eb2f9b537a61b114fb0cc80f15..71334cd98d1f00cbba00d791777b4fdab4e739dd 100644
+--- a/app/src/main/res/layout/stories_text_post_text_entry_content.xml
++++ b/app/src/main/res/layout/stories_text_post_text_entry_content.xml
+@@ -70,7 +70,7 @@
+         android:layout_width="48dp"
+         android:layout_height="48dp"
+         android:layout_marginEnd="16dp"
+-        android:background="@color/signal_colorOnSecondaryContainer"
++        android:background="?attr/colorOnSecondaryContainer"
+         android:contentDescription="@string/TextStoryPostTextEntryFragment__done_adding_text"
+         android:padding="4dp"
+         android:scaleType="centerInside"
+@@ -79,7 +79,7 @@
+         app:layout_constraintTop_toTopOf="@id/color_bar"
+         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
+         app:srcCompat="@drawable/ic_check_24"
+-        app:tint="@color/signal_colorSecondaryContainer" />
++        app:tint="?attr/colorSecondaryContainer" />
+ 
+     <org.thoughtcrime.securesms.mediasend.v2.text.TextFontButton
+         android:id="@+id/font_button"
+diff --git a/app/src/main/res/layout/stories_viewer_fragment_page.xml b/app/src/main/res/layout/stories_viewer_fragment_page.xml
+index df867b3ae7d66a34b61d333388b9870113f23297..658dc043428642bc134ecad34e60e33f0cb39891 100644
+--- a/app/src/main/res/layout/stories_viewer_fragment_page.xml
++++ b/app/src/main/res/layout/stories_viewer_fragment_page.xml
+@@ -89,10 +89,10 @@
+         android:background="?selectableItemBackground"
+         android:gravity="center"
+         android:textAppearance="@style/Signal.Text.Body"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:iconGravity="textStart"
+         app:iconSize="20dp"
+-        app:iconTint="@color/signal_colorOnSurface"
++        app:iconTint="?attr/colorOnSurface"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -105,7 +105,7 @@
+         android:id="@+id/sending_bar"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+-        android:background="@color/signal_colorSurface"
++        android:background="?attr/colorSurfaceContainer"
+         android:visibility="gone"
+         app:layout_constraintBottom_toBottomOf="@id/views_and_replies_bar"
+         app:layout_constraintTop_toTopOf="@id/views_and_replies_bar">
+@@ -118,7 +118,7 @@
+             android:drawablePadding="10dp"
+             android:text="@string/StoriesLandingItem__sending"
+             android:textAppearance="@style/Signal.Text.Body"
+-            app:drawableTint="@color/signal_colorOnSurface" />
++            app:drawableTint="?attr/colorOnSurface" />
+ 
+     </FrameLayout>
+ 
+@@ -220,7 +220,7 @@
+             android:text="@string/StoryViewerPageFragment__add"
+             android:textAllCaps="false"
+             android:textAppearance="@style/Signal.Text.BodyMedium"
+-            android:textColor="@color/signal_dark_colorOnSurface"
++            android:textColor="?attr/colorOnSurface"
+             android:visibility="gone"
+             app:backgroundTint="@color/signal_colorSurfaceVariant_64"
+             app:backgroundTintMode="src_in"
+@@ -229,7 +229,7 @@
+             app:iconGravity="textStart"
+             app:iconPadding="8dp"
+             app:iconSize="16dp"
+-            app:iconTint="@color/signal_dark_colorOnSurface"
++            app:iconTint="?attr/colorOnSurface"
+             tools:visibility="visible" />
+     </FrameLayout>
+ 
+diff --git a/app/src/main/res/layout/stories_views_and_replies_fragment.xml b/app/src/main/res/layout/stories_views_and_replies_fragment.xml
+index ad76b54fb2df1d9e49abd9a97d4f02ef66604e52..c83ab4dd3e1c5072f928dd28098d0be9ff05dc1d 100644
+--- a/app/src/main/res/layout/stories_views_and_replies_fragment.xml
++++ b/app/src/main/res/layout/stories_views_and_replies_fragment.xml
+@@ -21,12 +21,12 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="18dp"
+-        app:tabIndicatorColor="@color/signal_colorOnSurface"
++        app:tabIndicatorColor="?attr/colorOnSurface"
+         app:tabIndicatorFullWidth="false"
+         app:tabMode="fixed"
+-        app:tabSelectedTextColor="@color/signal_colorOnSurface"
++        app:tabSelectedTextColor="?attr/colorOnSurface"
+         app:tabTextAppearance="@style/TextAppearance.Signal.Body2"
+-        app:tabTextColor="@color/signal_colorOnSurfaceVariant" />
++        app:tabTextColor="?attr/colorOnSurfaceVariant" />
+ 
+     <androidx.viewpager2.widget.ViewPager2
+         android:id="@+id/pager"
+diff --git a/app/src/main/res/layout/stories_views_fragment.xml b/app/src/main/res/layout/stories_views_fragment.xml
+index 600cb2bce0b34db5ff5f2a3ea1651a59bc49caee..f94347e058c1ed362fb25c1fb21eec7b7de56557 100644
+--- a/app/src/main/res/layout/stories_views_fragment.xml
++++ b/app/src/main/res/layout/stories_views_fragment.xml
+@@ -51,7 +51,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/StoryViewsFragment__go_to_settings"
+-        android:textColor="@color/signal_colorOnSurface"
++        android:textColor="?attr/colorOnSurface"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/story_info_header.xml b/app/src/main/res/layout/story_info_header.xml
+index f43a5ee5cf0bbe7c314608a0aa5d20a765eee415..65ae838353e1748afc7de62aba2eaab9be82c99c 100644
+--- a/app/src/main/res/layout/story_info_header.xml
++++ b/app/src/main/res/layout/story_info_header.xml
+@@ -15,7 +15,7 @@
+         android:layout_height="wrap_content"
+         android:text="@string/StoryInfoHeader__sent"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+ 
+@@ -25,7 +25,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginStart="4dp"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="@id/story_info_view_sent_heading"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+@@ -39,7 +39,7 @@
+         android:layout_height="wrap_content"
+         android:text="@string/StoryInfoHeader__received"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/story_info_view_sent_heading" />
+ 
+@@ -49,7 +49,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginStart="4dp"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="@id/story_info_view_received_heading"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+@@ -63,7 +63,7 @@
+         android:layout_height="wrap_content"
+         android:text="@string/StoryInfoHeader__file_size"
+         android:textAppearance="@style/Signal.Text.LabelLarge"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/story_info_view_received_heading" />
+ 
+@@ -73,7 +73,7 @@
+         android:layout_height="wrap_content"
+         android:layout_marginStart="4dp"
+         android:textAppearance="@style/Signal.Text.BodySmall"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="@id/story_info_view_file_size_heading"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0"
+diff --git a/app/src/main/res/layout/story_info_recipient_row.xml b/app/src/main/res/layout/story_info_recipient_row.xml
+index d227f654166089abbd6bf80cf1c493ec83cefc42..fcfddfc4cf6134a5553660756218e8fb04673c59 100644
+--- a/app/src/main/res/layout/story_info_recipient_row.xml
++++ b/app/src/main/res/layout/story_info_recipient_row.xml
+@@ -36,7 +36,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textAppearance="@style/Signal.Text.BodyMedium"
+-        android:textColor="@color/signal_colorOnSurfaceVariant"
++        android:textColor="?attr/colorOnSurfaceVariant"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+diff --git a/app/src/main/res/layout/submit_debug_log_activity.xml b/app/src/main/res/layout/submit_debug_log_activity.xml
+index 497a8761c226be05911d9b9a38fcd6e77103ffac..78be5983fab6783aa3e034b3471c490f0c839a38 100644
+--- a/app/src/main/res/layout/submit_debug_log_activity.xml
++++ b/app/src/main/res/layout/submit_debug_log_activity.xml
+@@ -77,7 +77,7 @@
+       android:id="@+id/debug_log_search_nav"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+-      android:background="@color/signal_background_secondary"
++      android:background="?attr/signal_background_secondary"
+       android:visibility="gone"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+@@ -105,7 +105,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           android:text="@string/SubmitDebugLogActivity_verbose"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="parent"
+@@ -119,7 +119,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           android:text="@string/SubmitDebugLogActivity_debug"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/debug_log_verbose"
+@@ -134,7 +134,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/debug_log_debug"
+           app:layout_constraintTop_toTopOf="parent" />
+@@ -148,7 +148,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/info"
+           app:layout_constraintTop_toTopOf="parent" />
+@@ -162,7 +162,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/debug_log_warning"
+           app:layout_constraintTop_toTopOf="parent" />
+@@ -176,7 +176,7 @@
+           android:textAllCaps="true"
+           android:padding="8dp"
+           android:background="@drawable/tintable_pill_bg"
+-          android:backgroundTint="@color/signal_background_secondary"
++          android:backgroundTint="?attr/signal_background_secondary"
+           android:textAlignment="center"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toStartOf="@id/debug_log_error"
+@@ -192,7 +192,7 @@
+         android:layout_marginBottom="8dp"
+         android:padding="8dp"
+         android:src="@drawable/symbol_filter_24"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/debug_log_levels" />
+ 
+@@ -205,7 +205,7 @@
+         android:layout_marginBottom="8dp"
+         android:padding="8dp"
+         android:src="@drawable/symbol_match_case_24"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         app:layout_constraintStart_toEndOf="@id/debug_log_filter"
+         app:layout_constraintTop_toBottomOf="@id/debug_log_levels"
+         app:layout_constraintBottom_toBottomOf="parent" />
+diff --git a/app/src/main/res/layout/subscribe_learn_more_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/subscribe_learn_more_bottom_sheet_dialog_fragment.xml
+index b1dffd2c927cad26aa4ed05f75ed36555df94058..709c674ccf66dd24055fc811d569776507000c49 100644
+--- a/app/src/main/res/layout/subscribe_learn_more_bottom_sheet_dialog_fragment.xml
++++ b/app/src/main/res/layout/subscribe_learn_more_bottom_sheet_dialog_fragment.xml
+@@ -62,7 +62,7 @@
+                 android:gravity="center_vertical"
+                 android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__donate_and_get_badge"
+                 android:textAppearance="@style/Signal.Text.BodyLarge"
+-                app:drawableTint="@color/signal_colorOnSurface"
++                app:drawableTint="?attr/colorOnSurface"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_headline" />
+@@ -79,7 +79,7 @@
+                 android:gravity="center_vertical"
+                 android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__your_privacy_is_our_mission"
+                 android:textAppearance="@style/Signal.Text.BodyLarge"
+-                app:drawableTint="@color/signal_colorOnSurface"
++                app:drawableTint="?attr/colorOnSurface"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_donate_badge" />
+@@ -97,7 +97,7 @@
+                 android:paddingBottom="36dp"
+                 android:text="@string/SubscribeLearnMoreBottomSheetDialogFragment__signal_is_a_501c3"
+                 android:textAppearance="@style/Signal.Text.BodyLarge"
+-                app:drawableTint="@color/signal_colorOnSurface"
++                app:drawableTint="?attr/colorOnSurface"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/subscribe_bottom_sheet_privacy_mission" />
+diff --git a/app/src/main/res/layout/subscription_currency_selection.xml b/app/src/main/res/layout/subscription_currency_selection.xml
+index 754275f60007ad4d19240d0f4d5272e39fefe458..8f6dff00fde22e45ca7a63007be639fb62574860 100644
+--- a/app/src/main/res/layout/subscription_currency_selection.xml
++++ b/app/src/main/res/layout/subscription_currency_selection.xml
+@@ -21,7 +21,7 @@
+         android:textAppearance="@style/Signal.Text.LabelMedium"
+         android:textColor="@color/currency_selector_text_color"
+         app:drawableEndCompat="@drawable/ic_chevron_16"
+-        app:drawableTint="@color/signal_colorOutline"
++        app:drawableTint="?attr/colorOutline"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+diff --git a/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml b/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
+index 3655218acd321257a562f9a3c595a497ab2d1945..617d567cee3b83f1175124d6597fecffc09171a0 100644
+--- a/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
++++ b/app/src/main/res/layout/thanks_for_your_support_bottom_sheet_dialog_fragment.xml
+@@ -50,7 +50,7 @@
+                 android:layout_marginEnd="@dimen/dsl_settings_gutter"
+                 android:gravity="center"
+                 android:textAppearance="@style/Signal.Text.BodyLarge"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_heading"
+@@ -126,7 +126,7 @@
+                 android:layout_marginEnd="40dp"
+                 android:text="@string/ThanksForYourSupportBottomSheetFragment__when_you_have_more"
+                 android:textAppearance="@style/Signal.Text.BodyMedium"
+-                android:textColor="@color/signal_colorOnSurfaceVariant"
++                android:textColor="?attr/colorOnSurfaceVariant"
+                 android:visibility="gone"
+                 app:layout_constraintTop_toBottomOf="@id/thanks_bottom_sheet_control_outline"
+                 tools:visibility="visible" />
+diff --git a/app/src/main/res/layout/thumbnail_view.xml b/app/src/main/res/layout/thumbnail_view.xml
+index 24ba59fd5aa657a7c26cbc15f8345cf5edf6aed3..3e849b27baf2bc18ff938e93c72917ca4b624773 100644
+--- a/app/src/main/res/layout/thumbnail_view.xml
++++ b/app/src/main/res/layout/thumbnail_view.xml
+@@ -49,7 +49,7 @@
+         android:longClickable="false"
+         android:visibility="gone"
+         app:srcCompat="@drawable/ic_error_outline_24"
+-        app:tint="@color/signal_colorOnSurface"
++        app:tint="?attr/colorOnSurface"
+         tools:visibility="visible" />
+ 
+     <FrameLayout
+diff --git a/app/src/main/res/layout/time_duration_picker_dialog.xml b/app/src/main/res/layout/time_duration_picker_dialog.xml
+index c5ec9d321ba8d52fc36ac0c40446f3968d047308..093a880e0c0c6dc0e3171f0c262091329bad2749 100644
+--- a/app/src/main/res/layout/time_duration_picker_dialog.xml
++++ b/app/src/main/res/layout/time_duration_picker_dialog.xml
+@@ -11,7 +11,7 @@
+         android:id="@+id/duration_layout"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+-        android:background="@color/signal_colorSurfaceVariant"
++        android:background="?attr/colorSurfaceVariant"
+         android:gravity="center_horizontal"
+         android:orientation="horizontal"
+         android:paddingVertical="8dp"
+@@ -25,7 +25,7 @@
+             android:layout_height="wrap_content"
+             android:gravity="center_horizontal"
+             android:textAppearance="@style/Signal.Text.HeadlineLarge"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             tools:text="01" />
+ 
+         <TextView
+@@ -34,7 +34,7 @@
+             android:gravity="center_horizontal"
+             android:text="@string/TimeDurationPickerDialog_single_letter_hour_abbreviation"
+             android:textAppearance="@style/Signal.Text.BodySmall"
+-            android:textColor="@color/signal_colorOnSurfaceVariant" />
++            android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+         <TextView
+             android:id="@+id/duration_minute"
+@@ -43,7 +43,7 @@
+             android:layout_marginStart="16dp"
+             android:gravity="center_horizontal"
+             android:textAppearance="@style/Signal.Text.HeadlineLarge"
+-            android:textColor="@color/signal_colorOnSurfaceVariant"
++            android:textColor="?attr/colorOnSurfaceVariant"
+             tools:text="01" />
+ 
+         <TextView
+@@ -52,28 +52,34 @@
+             android:gravity="center_horizontal"
+             android:text="@string/TimeDurationPickerDialog_single_letter_minute_abbreviation"
+             android:textAppearance="@style/Signal.Text.BodySmall"
+-            android:textColor="@color/signal_colorOnSurfaceVariant" />
++            android:textColor="?attr/colorOnSurfaceVariant" />
+ 
+-    </LinearLayout>
++        <TextView
++            android:id="@+id/duration_second"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginStart="16dp"
++            android:gravity="center_horizontal"
++            android:textAppearance="@style/Signal.Text.HeadlineLarge"
++            android:textColor="?attr/colorOnSurfaceVariant"
++            tools:text="01" />
+ 
+-    <TextView
+-        android:id="@+id/duration_header"
+-        android:layout_width="0dp"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="12dp"
+-        android:paddingHorizontal="16dp"
+-        android:text="@string/TimeDurationPickerDialog_minimum_duration_warning"
+-        android:textColor="@color/signal_colorOnSurface"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/duration_layout" />
++        <TextView
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:gravity="center_horizontal"
++            android:text="@string/TimeDurationPickerDialog_single_letter_second_abbreviation"
++            android:textAppearance="@style/Signal.Text.BodySmall"
++            android:textColor="?attr/colorOnSurfaceVariant" />
++
++    </LinearLayout>
+ 
+     <ScrollView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@+id/duration_header">
++        app:layout_constraintTop_toBottomOf="@+id/duration_layout">
+ 
+         <org.thoughtcrime.securesms.components.NumericKeyboardView
+             android:id="@+id/duration_keyboard"
+diff --git a/app/src/main/res/layout/tooltip.xml b/app/src/main/res/layout/tooltip.xml
+index f68bcbc505ae8c3bf57068e1760bf9644b60c019..e8806652138ae9ce320d5c407d48d8dee8d20995 100644
+--- a/app/src/main/res/layout/tooltip.xml
++++ b/app/src/main/res/layout/tooltip.xml
+@@ -19,7 +19,7 @@
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_tooltip_arrow_left"
+-        app:tint="@color/signal_colorPrimaryContainer"
++        app:tint="?attr/colorPrimaryContainer"
+         tools:visibility="visible" />
+ 
+     <ImageView
+@@ -32,7 +32,7 @@
+         app:layout_constraintStart_toStartOf="@id/tooltip_bubble"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_tooltip_arrow_up_left"
+-        app:tint="@color/signal_colorPrimaryContainer"
++        app:tint="?attr/colorPrimaryContainer"
+         tools:visibility="visible" />
+ 
+     <LinearLayout
+@@ -52,7 +52,7 @@
+         app:layout_constraintWidth_max="320dp"
+         app:layout_goneMarginEnd="8dp"
+         app:layout_goneMarginStart="8dp"
+-        tools:backgroundTint="@color/signal_colorPrimaryContainer">
++        tools:backgroundTint="?attr/colorPrimaryContainer">
+ 
+         <ImageView
+             android:id="@+id/tooltip_icon"
+@@ -60,7 +60,7 @@
+             android:layout_height="20dp"
+             android:layout_marginEnd="2dp"
+             android:visibility="gone"
+-            app:tint="@color/signal_colorPrimaryContainer"
++            app:tint="?attr/colorPrimaryContainer"
+             tools:src="@drawable/symbol_person_24"
+             tools:visibility="visible" />
+ 
+@@ -83,7 +83,7 @@
+         app:layout_constraintStart_toStartOf="@id/tooltip_bubble"
+         app:layout_constraintTop_toBottomOf="@id/tooltip_bubble"
+         app:srcCompat="@drawable/ic_tooltip_arrow_down"
+-        app:tint="@color/signal_colorPrimaryContainer"
++        app:tint="?attr/colorPrimaryContainer"
+         tools:visibility="visible" />
+ 
+     <ImageView
+@@ -96,7 +96,7 @@
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_tooltip_arrow_right"
+-        app:tint="@color/signal_colorPrimaryContainer"
++        app:tint="?attr/colorPrimaryContainer"
+         tools:visibility="visible" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/app/src/main/res/layout/unverified_banner_view.xml b/app/src/main/res/layout/unverified_banner_view.xml
+index a4a892ed018552bc817fc5be0f20afc65ceb0992..c29493fb6949eed4d9b08cc6c3ada91bd9181694 100644
+--- a/app/src/main/res/layout/unverified_banner_view.xml
++++ b/app/src/main/res/layout/unverified_banner_view.xml
+@@ -18,12 +18,12 @@
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_warning_40"
+-               app:tint="@color/signal_icon_tint_primary"/>
++               app:tint="?attr/signal_icon_tint_primary"/>
+ 
+     <TextView android:id="@+id/unverified_text"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+-              android:textColor="@color/signal_text_primary"
++              android:textColor="?attr/signal_text_primary"
+               android:textSize="16sp"
+               android:layout_weight="1"
+               android:layout_margin="16dp"
+@@ -39,7 +39,7 @@
+             android:nextFocusLeft="@+id/container"
+             android:nextFocusRight="@+id/container"
+             android:src="@drawable/ic_x_24"
+-            app:tint="@color/signal_icon_tint_primary"
++            app:tint="?attr/signal_icon_tint_primary"
+             android:contentDescription="@string/InviteActivity_cancel"/>
+ 
+ </LinearLayout>
+
+--------------false--
+
+

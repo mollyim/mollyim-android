@@ -35,19 +35,19 @@ import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.Pro
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.util.CredentialsProvider
 import org.whispersystems.signalservice.api.util.Tls12SocketFactory
+import org.whispersystems.signalservice.api.util.TlsProxySocketFactory
+import org.whispersystems.signalservice.internal.configuration.SignalProxy
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.configuration.SignalUrl
 import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
 import java.io.IOException
 import java.io.OutputStream
-import java.net.ProxySelector
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.util.Optional
 import java.util.Random
 import java.util.concurrent.TimeUnit
-import javax.net.SocketFactory
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509TrustManager
 import kotlin.coroutines.resume
@@ -87,14 +87,13 @@ class SignalRestClient @JvmOverloads constructor(
     private fun createConnectionHolders(
       urls: Array<out SignalUrl>,
       interceptors: List<Interceptor>,
-      dns: Dns,
-      socketFactory: SocketFactory,
-      proxySelector: ProxySelector,
+      dns: Optional<Dns>,
+      proxy: Optional<SignalProxy>,
       clientOverride: OkHttpClient?
     ): Array<ConnectionHolder> {
       return urls.map { url ->
         ConnectionHolder(
-          client = clientOverride ?: buildClient(url, interceptors, dns, socketFactory, proxySelector),
+          client = clientOverride ?: buildClient(url, interceptors, dns, proxy),
           url = url.url,
           hostHeader = url.hostHeader
         )
@@ -104,21 +103,22 @@ class SignalRestClient @JvmOverloads constructor(
     private fun buildClient(
       url: SignalUrl,
       interceptors: List<Interceptor>,
-      dns: Dns,
-      socketFactory: SocketFactory,
-      proxySelector: ProxySelector,
+      dns: Optional<Dns>,
+      proxy: Optional<SignalProxy>
     ): OkHttpClient {
       try {
         val trustManagers = BlacklistingTrustManager.createFor(url.trustStore)
         val sslContext = SSLContext.getInstance("TLS").apply { init(null, trustManagers, null) }
 
         val builder = OkHttpClient.Builder()
-          .socketFactory(socketFactory)
-          .proxySelector(proxySelector)
           .sslSocketFactory(Tls12SocketFactory(sslContext.socketFactory), trustManagers[0] as X509TrustManager)
           .connectionSpecs(url.connectionSpecs.orElse(listOf(ConnectionSpec.RESTRICTED_TLS))!!)
-          .dns(dns)
+          .dns(dns.orElse(Dns.SYSTEM)!!)
           .connectionPool(ConnectionPool(5, 45, TimeUnit.SECONDS))
+
+        if (proxy.isPresent) {
+          builder.socketFactory(TlsProxySocketFactory(proxy.get().host, proxy.get().port, dns))
+        }
 
         for (interceptor in interceptors) {
           builder.addInterceptor(interceptor)
@@ -137,8 +137,7 @@ class SignalRestClient @JvmOverloads constructor(
     configuration.signalServiceUrls,
     configuration.networkInterceptors,
     configuration.dns,
-    socketFactory = configuration.socketFactory,
-    proxySelector = configuration.proxySelector,
+    configuration.signalProxy,
     clientOverride
   )
 
@@ -148,8 +147,7 @@ class SignalRestClient @JvmOverloads constructor(
         urls = urls,
         interceptors = configuration.networkInterceptors,
         dns = configuration.dns,
-        socketFactory = configuration.socketFactory,
-        proxySelector = configuration.proxySelector,
+        proxy = configuration.signalProxy,
         clientOverride = clientOverride
       )
     }
@@ -158,8 +156,7 @@ class SignalRestClient @JvmOverloads constructor(
     configuration.signalStorageUrls,
     configuration.networkInterceptors,
     configuration.dns,
-    socketFactory = configuration.socketFactory,
-    proxySelector = configuration.proxySelector,
+    configuration.signalProxy,
     clientOverride
   )
 

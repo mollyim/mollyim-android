@@ -31,9 +31,6 @@ public final class SystemOutLogger extends Log.Logger {
   @Override
   public void flush() { }
 
-  @Override
-  public void clear() { }
-
   private void printlnFormatted(char level, String tag, String message, Throwable t) {
     System.out.println(format(level, tag, message, t));
   }

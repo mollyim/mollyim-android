@@ -1,0 +1,3439 @@
+From 93e299ae6a53c768f5f0c7c736a6c8a2398d4c36 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly module-pruning, part 1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Removed demos, benchmark/spinner/quickstart flavors and screenshot-test infrastructure.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/benchmark/java/org/thoughtcrime/securesms/BenchmarkApplicationContext.kt b/app/src/benchmark/java/org/thoughtcrime/securesms/BenchmarkApplicationContext.kt
+deleted file mode 100644
+index ab13a232035b93f3b0544f3d6568b9321d18b553..0000000000000000000000000000000000000000
+--- a/app/src/benchmark/java/org/thoughtcrime/securesms/BenchmarkApplicationContext.kt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import android.app.Application
+-import org.signal.benchmark.setup.NoOpJob
+-import org.signal.core.util.UptimeSleepTimer
+-import org.signal.libsignal.net.Network
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.dependencies.ApplicationDependencyProvider
+-import org.thoughtcrime.securesms.jobmanager.JobManager
+-import org.thoughtcrime.securesms.jobs.JobManagerFactories
+-import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
+-import org.whispersystems.signalservice.api.websocket.SignalWebSocket
+-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+-import org.whispersystems.signalservice.internal.websocket.BenchmarkWebSocketConnection
+-import java.util.function.Supplier
+-import kotlin.time.Duration.Companion.seconds
+-
+-class BenchmarkApplicationContext : ApplicationContext() {
+-
+-  override fun initializeAppDependencies() {
+-    AppDependencies.init(this, BenchmarkDependencyProvider(this, ApplicationDependencyProvider(this)))
+-
+-    DeviceTransferBlockingInterceptor.getInstance().blockNetwork()
+-  }
+-
+-  override fun onForeground() = Unit
+-
+-  class BenchmarkDependencyProvider(val application: Application, private val default: ApplicationDependencyProvider) : AppDependencies.Provider by default {
+-    override fun provideAuthWebSocket(
+-      signalServiceConfigurationSupplier: Supplier<SignalServiceConfiguration>,
+-      libSignalNetworkSupplier: Supplier<Network>
+-    ): SignalWebSocket.AuthenticatedWebSocket {
+-      return SignalWebSocket.AuthenticatedWebSocket(
+-        connectionFactory = { BenchmarkWebSocketConnection.createAuthInstance() },
+-        canConnect = { true },
+-        sleepTimer = UptimeSleepTimer(),
+-        disconnectTimeoutMs = 15.seconds.inWholeMilliseconds
+-      )
+-    }
+-
+-    override fun provideUnauthWebSocket(
+-      signalServiceConfigurationSupplier: Supplier<SignalServiceConfiguration>,
+-      libSignalNetworkSupplier: Supplier<Network>
+-    ): SignalWebSocket.UnauthenticatedWebSocket {
+-      return SignalWebSocket.UnauthenticatedWebSocket(
+-        connectionFactory = { BenchmarkWebSocketConnection.createUnauthInstance() },
+-        canConnect = { true },
+-        sleepTimer = UptimeSleepTimer(),
+-        disconnectTimeoutMs = 15.seconds.inWholeMilliseconds
+-      )
+-    }
+-
+-    override fun provideJobManager(configurationBuilder: JobManager.Configuration.Builder): JobManager {
+-      val config = configurationBuilder
+-        .setJobFactories(NoOpJob.replaceFactories(JobManagerFactories.getJobFactories(application)))
+-        .build()
+-      return JobManager(application, config)
+-    }
+-  }
+-}
+diff --git a/app/src/benchmarkShared/AndroidManifest.xml b/app/src/benchmarkShared/AndroidManifest.xml
+deleted file mode 100644
+index e60aa43db1b1a218baf4da012896b68c6ab7c8e0..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/AndroidManifest.xml
++++ /dev/null
+@@ -1,28 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools">
+-
+-    <application
+-        android:name="${applicationClass}"
+-        tools:replace="name">
+-        <profileable android:shell="true" />
+-
+-        <activity
+-            android:name="org.signal.benchmark.BenchmarkSetupActivity"
+-            android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"
+-            android:exported="true"
+-            android:launchMode="singleTask"
+-            android:theme="@style/Theme.Signal.DayNight.NoActionBar"
+-            android:windowSoftInputMode="stateHidden" />
+-
+-        <receiver
+-            android:name="org.signal.benchmark.BenchmarkCommandReceiver"
+-            android:exported="true">
+-            <intent-filter>
+-                <action android:name="org.signal.benchmark.action.COMMAND" />
+-            </intent-filter>
+-        </receiver>
+-
+-    </application>
+-
+-</manifest>
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkCommandReceiver.kt b/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkCommandReceiver.kt
+deleted file mode 100644
+index 61be90fbc15c8a1fdff3c2ec3e19ed39ddc645d7..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkCommandReceiver.kt
++++ /dev/null
+@@ -1,219 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.benchmark
+-
+-import android.content.BroadcastReceiver
+-import android.content.Context
+-import android.content.Intent
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.launch
+-import kotlinx.coroutines.runBlocking
+-import org.signal.benchmark.setup.Generator
+-import org.signal.benchmark.setup.Harness
+-import org.signal.benchmark.setup.OtherClient
+-import org.signal.core.util.ThreadUtil
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.TestDbUtils
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.groups.GroupId
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.whispersystems.signalservice.internal.push.Envelope
+-import org.whispersystems.signalservice.internal.websocket.BenchmarkWebSocketConnection
+-import org.signal.network.websocket.WebSocketRequestMessage
+-import kotlin.random.Random
+-
+-/**
+- * A BroadcastReceiver that accepts commands sent from the benchmark app to perform
+- * background operations on the client.
+- */
+-class BenchmarkCommandReceiver : BroadcastReceiver() {
+-
+-  companion object {
+-    private val TAG = Log.tag(BenchmarkCommandReceiver::class)
+-
+-    const val ACTION_COMMAND = "org.signal.benchmark.action.COMMAND"
+-    const val EXTRA_COMMAND = "command"
+-  }
+-
+-  override fun onReceive(context: Context, intent: Intent) {
+-    if (intent.action != ACTION_COMMAND) {
+-      Log.w(TAG, "Ignoring unknown action: ${intent.action}")
+-      return
+-    }
+-
+-    val command = intent.getStringExtra(EXTRA_COMMAND)
+-    Log.i(TAG, "Received command: $command")
+-
+-    when (command) {
+-      "individual-send" -> handlePrepareIndividualSend()
+-      "group-send" -> handlePrepareGroupSend()
+-      "group-delivery-receipt" -> handlePrepareGroupReceipts { client, timestamps -> client.generateInboundDeliveryReceipts(timestamps) }
+-      "group-read-receipt" -> handlePrepareGroupReceipts { client, timestamps -> client.generateInboundReadReceipts(timestamps) }
+-      "release-messages" -> {
+-        BenchmarkWebSocketConnection.startWholeBatchTrace()
+-        BenchmarkWebSocketConnection.releaseMessages()
+-      }
+-      "delete-thread" -> {
+-        val pendingResult = goAsync()
+-        Thread {
+-          handleDeleteThread()
+-          pendingResult.finish()
+-        }.start()
+-      }
+-      else -> Log.w(TAG, "Unknown command: $command")
+-    }
+-  }
+-
+-  private fun handlePrepareIndividualSend() {
+-    val client = Harness.otherClients[0]
+-
+-    // Send message from Bob to Self
+-    val encryptedEnvelope = client.encrypt(Generator.encryptedTextMessage(System.currentTimeMillis()))
+-
+-    runBlocking {
+-      launch(Dispatchers.IO) {
+-        Log.i(TAG, "Sending initial message from Bob to establish session.")
+-        BenchmarkWebSocketConnection.addPendingMessages(listOf(encryptedEnvelope.toWebSocketPayload()))
+-        BenchmarkWebSocketConnection.releaseMessages()
+-
+-        // Sleep briefly to let the message be processed.
+-        ThreadUtil.sleep(1000)
+-      }
+-    }
+-
+-    // Complete the session handshake so both sides have a proper double-ratchet session
+-    Log.i(TAG, "Completing session handshake with reply.")
+-    client.completeSession()
+-
+-    // Have Bob generate N messages that will be received by Alice
+-    val messageCount = 500
+-    val envelopes = client.generateInboundEnvelopes(messageCount)
+-
+-    val messages = envelopes.map { e -> e.toWebSocketPayload() }
+-
+-    BenchmarkWebSocketConnection.addPendingMessages(messages)
+-    BenchmarkWebSocketConnection.addQueueEmptyMessage()
+-  }
+-
+-  private fun handlePrepareGroupSend() {
+-    val clients = Harness.otherClients.take(5)
+-
+-    // Send message from others to Self in the group
+-    val encryptedEnvelopes = clients.map { it.encrypt(Generator.encryptedTextMessage(System.currentTimeMillis(), groupMasterKey = Harness.groupMasterKey)) }
+-
+-    runBlocking {
+-      launch(Dispatchers.IO) {
+-        Log.i(TAG, "Sending initial group messages from clients to establish sessions.")
+-        BenchmarkWebSocketConnection.addPendingMessages(encryptedEnvelopes.map { it.toWebSocketPayload() })
+-        BenchmarkWebSocketConnection.releaseMessages()
+-
+-        // Sleep briefly to let the messages be processed.
+-        ThreadUtil.sleep(1000)
+-      }
+-    }
+-
+-    // Complete session handshakes so both sides have proper double-ratchet sessions
+-    Log.i(TAG, "Completing session handshakes with Alice replies.")
+-    clients.forEach { it.completeSession() }
+-
+-    // Have clients generate N group messages that will be received by Alice
+-    val allClientMessages = clients.map { client ->
+-      val messageCount = 100
+-      val envelopes = client.generateInboundGroupEnvelopes(messageCount, Harness.groupMasterKey)
+-      envelopes.map { e -> e.toWebSocketPayload() }
+-    }
+-
+-    BenchmarkWebSocketConnection.addPendingMessages(interleave(allClientMessages))
+-    BenchmarkWebSocketConnection.addQueueEmptyMessage()
+-  }
+-
+-  private fun handlePrepareGroupReceipts(generateReceipts: (OtherClient, List<Long>) -> List<Envelope>) {
+-    val clients = Harness.otherClients.take(5)
+-
+-    establishGroupSessions(clients)
+-
+-    val timestamps = getOutgoingGroupMessageTimestamps()
+-    Log.i(TAG, "Found ${timestamps.size} outgoing message timestamps for receipts")
+-
+-    val allClientEnvelopes = clients.map { client ->
+-      generateReceipts(client, timestamps).map { it.toWebSocketPayload() }
+-    }
+-
+-    BenchmarkWebSocketConnection.addPendingMessages(interleave(allClientEnvelopes))
+-    BenchmarkWebSocketConnection.addQueueEmptyMessage()
+-  }
+-
+-  private fun establishGroupSessions(clients: List<OtherClient>) {
+-    val encryptedEnvelopes = clients.map { it.encrypt(Generator.encryptedTextMessage(System.currentTimeMillis(), groupMasterKey = Harness.groupMasterKey)) }
+-
+-    runBlocking {
+-      launch(Dispatchers.IO) {
+-        Log.i(TAG, "Sending initial group messages from clients to establish sessions.")
+-        BenchmarkWebSocketConnection.addPendingMessages(encryptedEnvelopes.map { it.toWebSocketPayload() })
+-        BenchmarkWebSocketConnection.releaseMessages()
+-        ThreadUtil.sleep(1000)
+-      }
+-    }
+-
+-    Log.i(TAG, "Completing session handshakes with Alice replies.")
+-    clients.forEach { it.completeSession() }
+-  }
+-
+-  private fun handleDeleteThread() {
+-    val threadId = SignalDatabase.rawDatabase.rawQuery("SELECT thread_id, COUNT(*) AS msg_count FROM message GROUP BY thread_id ORDER BY msg_count DESC LIMIT 1").use { cursor ->
+-      if (cursor.moveToFirst()) {
+-        val id = cursor.getLong(0)
+-        val count = cursor.getLong(1)
+-        Log.i(TAG, "Found largest thread $id with $count messages")
+-        id
+-      } else {
+-        Log.w(TAG, "No threads found for deletion benchmark")
+-        return
+-      }
+-    }
+-    val recipientName = SignalDatabase.threads.getRecipientForThreadId(threadId)
+-      ?.getDisplayName(AppDependencies.application) ?: "unknown"
+-    Log.i(TAG, "Deleting thread $threadId (recipient: $recipientName)")
+-    SignalDatabase.threads.deleteConversation(threadId, syncThreadDelete = false)
+-    Log.i(TAG, "Thread $threadId deleted (recipient: $recipientName)")
+-  }
+-
+-  private fun getOutgoingGroupMessageTimestamps(): List<Long> {
+-    val groupId = GroupId.v2(Harness.groupMasterKey)
+-    val groupRecipient = Recipient.externalGroupExact(groupId)
+-    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(groupRecipient)
+-    val selfId = Recipient.self().id.toLong()
+-    return TestDbUtils.getOutgoingMessageTimestamps(threadId, selfId)
+-  }
+-
+-  /**
+-   * Interleaves lists so that items from different lists alternate:
+-   * [[a1, a2], [b1, b2], [c1, c2]] -> [a1, b1, c1, a2, b2, c2]
+-   */
+-  private fun <T> interleave(lists: List<List<T>>): List<T> {
+-    val result = mutableListOf<T>()
+-    val maxSize = lists.maxOf { it.size }
+-    for (i in 0 until maxSize) {
+-      for (list in lists) {
+-        if (i < list.size) {
+-          result += list[i]
+-        }
+-      }
+-    }
+-    return result
+-  }
+-
+-  private fun Envelope.toWebSocketPayload(): WebSocketRequestMessage {
+-    return WebSocketRequestMessage(
+-      verb = "PUT",
+-      path = "/api/v1/message",
+-      id = Random.nextLong(),
+-      headers = listOf("X-Signal-Timestamp: ${this.serverTimestamp}"),
+-      body = this.encodeByteString()
+-    )
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkSetupActivity.kt b/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkSetupActivity.kt
+deleted file mode 100644
+index b46f8d021f19dc962200d51a4f5e1a1b4032bb26..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/BenchmarkSetupActivity.kt
++++ /dev/null
+@@ -1,275 +0,0 @@
+-package org.signal.benchmark
+-
+-import android.os.Bundle
+-import androidx.activity.compose.setContent
+-import androidx.compose.material3.CircularProgressIndicator
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.getValue
+-import androidx.compose.runtime.mutableStateOf
+-import androidx.compose.runtime.setValue
+-import androidx.lifecycle.lifecycleScope
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.launch
+-import org.signal.benchmark.setup.Harness
+-import org.signal.benchmark.setup.TestMessages
+-import org.signal.benchmark.setup.TestUsers
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.BaseActivity
+-import org.thoughtcrime.securesms.backup.v2.BackupRepository
+-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.TestDbUtils
+-import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.keyvalue.Skipped
+-import org.thoughtcrime.securesms.mms.OutgoingMessage
+-import org.thoughtcrime.securesms.profiles.ProfileName
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+-import org.thoughtcrime.securesms.util.TextSecurePreferences
+-
+-class BenchmarkSetupActivity : BaseActivity() {
+-
+-  companion object {
+-    private val TAG = Log.tag(BenchmarkSetupActivity::class)
+-
+-    const val SEARCH_KEYWORD = "lighthouse"
+-
+-    private val SEARCH_VOCABULARY = listOf(
+-      "hello", "world", "signal", "android", "kotlin", "database", "benchmark", "conversation",
+-      "morning", "evening", "weekend", "project", "meeting", "dinner", "coffee", "garden",
+-      "mountain", "river", "forest", "harbor", "market", "library", "concert", "holiday"
+-    )
+-  }
+-
+-  override fun onCreate(savedInstanceState: Bundle?) {
+-    super.onCreate(savedInstanceState)
+-
+-    var setupComplete by mutableStateOf(false)
+-
+-    setContent {
+-      if (setupComplete) {
+-        Text("done")
+-      } else {
+-        CircularProgressIndicator()
+-      }
+-    }
+-
+-    lifecycleScope.launch(Dispatchers.IO) {
+-      when (intent.extras!!.getString("setup-type")) {
+-        "cold-start" -> setupColdStart()
+-        "conversation-open" -> setupConversationOpen()
+-        "conversation-list-search" -> setupConversationListSearch()
+-        "message-send" -> setupMessageSend()
+-        "group-message-send" -> setupGroupMessageSend()
+-        "group-delivery-receipt" -> setupGroupReceipt(includeMsl = true)
+-        "group-read-receipt" -> setupGroupReceipt(enableReadReceipts = true)
+-        "thread-delete" -> setupThreadDelete()
+-        "thread-delete-group" -> setupThreadDeleteGroup()
+-        "backup-restore" -> setupBackupRestore()
+-      }
+-      setupComplete = true
+-    }
+-  }
+-
+-  private fun setupColdStart() {
+-    TestUsers.setupSelf()
+-    TestUsers.setupTestRecipients(50).forEach {
+-      val recipient: Recipient = Recipient.resolved(it)
+-
+-      TestMessages.insertIncomingTextMessage(other = recipient, body = "Cool text message?!?!")
+-      TestMessages.insertIncomingImageMessage(other = recipient, attachmentCount = 1)
+-      TestMessages.insertIncomingImageMessage(other = recipient, attachmentCount = 2, body = "Album")
+-      TestMessages.insertIncomingImageMessage(other = recipient, body = "Test", attachmentCount = 1, failed = true)
+-      TestMessages.insertIncomingTextMessage(other = recipient, body = "Signal message")
+-      TestMessages.insertIncomingTextMessage(other = recipient, body = "Test")
+-
+-      SignalDatabase.messages.setAllMessagesRead()
+-
+-      SignalDatabase.threads.update(SignalDatabase.threads.getOrCreateThreadIdFor(recipient = recipient), true)
+-    }
+-  }
+-
+-  private fun setupConversationOpen() {
+-    TestUsers.setupSelf()
+-    TestUsers.setupTestRecipient().let {
+-      val recipient: Recipient = Recipient.resolved(it)
+-      val messagesToAdd = 1000
+-      val generator: TestMessages.TimestampGenerator = TestMessages.TimestampGenerator(System.currentTimeMillis() - (messagesToAdd * 2000L) - 60_000L)
+-
+-      for (i in 0 until messagesToAdd) {
+-        TestMessages.insertIncomingTextMessage(other = recipient, body = "Test message $i", timestamp = generator.nextTimestamp())
+-        TestMessages.insertOutgoingTextMessage(other = recipient, body = "Test message $i", timestamp = generator.nextTimestamp())
+-      }
+-
+-      SignalDatabase.threads.update(SignalDatabase.threads.getOrCreateThreadIdFor(recipient = recipient), true)
+-    }
+-  }
+-
+-  private fun setupConversationListSearch() {
+-    TestUsers.setupSelf()
+-
+-    val recipientCount = 50
+-    val messagesPerRecipient = 2000
+-    val totalMessages = recipientCount * messagesPerRecipient
+-    val generator = TestMessages.TimestampGenerator(System.currentTimeMillis() - (totalMessages * 2000L) - 60_000L)
+-
+-    TestUsers.setupTestRecipients(recipientCount).forEachIndexed { recipientIndex, recipientId ->
+-      val recipient: Recipient = Recipient.resolved(recipientId)
+-
+-      for (i in 0 until messagesPerRecipient) {
+-        val body = searchableMessageBody(recipientIndex, i)
+-        if (i % 2 == 0) {
+-          TestMessages.insertIncomingTextMessage(other = recipient, body = body, timestamp = generator.nextTimestamp())
+-        } else {
+-          TestMessages.insertOutgoingTextMessage(other = recipient, body = body, timestamp = generator.nextTimestamp())
+-        }
+-      }
+-
+-      SignalDatabase.messages.setAllMessagesRead()
+-      SignalDatabase.threads.update(SignalDatabase.threads.getOrCreateThreadIdFor(recipient = recipient), true)
+-    }
+-  }
+-
+-  private fun searchableMessageBody(recipientIndex: Int, messageIndex: Int): String {
+-    val words = SEARCH_VOCABULARY
+-    val w1 = words[(recipientIndex + messageIndex) % words.size]
+-    val w2 = words[(recipientIndex * 7 + messageIndex * 3) % words.size]
+-    val w3 = words[(recipientIndex * 13 + messageIndex * 5) % words.size]
+-    return "$w1 $w2 $SEARCH_KEYWORD $w3 message $messageIndex"
+-  }
+-
+-  private fun setupMessageSend() {
+-    TestUsers.setupSelf()
+-    TestUsers.setupTestClients(1)
+-  }
+-
+-  private fun setupGroupMessageSend() {
+-    TestUsers.setupSelf()
+-    TestUsers.setupGroup()
+-  }
+-
+-  private fun setupThreadDelete() {
+-    TestUsers.setupSelf()
+-    val recipientIds = TestUsers.setupTestRecipients(2)
+-    val recipient = Recipient.resolved(recipientIds[0])
+-    val reactionAuthor = recipientIds[1]
+-    val messagesToAdd = 20_000
+-    val generator = TestMessages.TimestampGenerator(System.currentTimeMillis() - (messagesToAdd * 2000L) - 60_000L)
+-
+-    for (i in 0 until messagesToAdd) {
+-      val timestamp = generator.nextTimestamp()
+-      when {
+-        i % 20 == 0 -> TestMessages.insertIncomingVoiceMessage(other = recipient, timestamp = timestamp)
+-        i % 4 == 0 -> TestMessages.insertIncomingImageMessage(other = recipient, attachmentCount = 1, timestamp = timestamp)
+-        else -> TestMessages.insertIncomingTextMessage(other = recipient, body = "Message $i", timestamp = timestamp)
+-      }
+-    }
+-
+-    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(recipient = recipient)
+-    TestDbUtils.insertReactionsForThread(threadId, reactionAuthor, moduloFilter = 5)
+-
+-    SignalDatabase.threads.update(threadId, true)
+-  }
+-
+-  private fun setupThreadDeleteGroup() {
+-    TestUsers.setupSelf()
+-    val groupId = TestUsers.setupGroup()
+-    val groupRecipient = Recipient.externalGroupExact(groupId)
+-    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(groupRecipient)
+-
+-    val selfId = Recipient.self().id
+-    val memberRecipientIds = SignalDatabase.groups.getGroup(groupId).get().members.filter { it != selfId }
+-
+-    val messagesToAdd = 20_000
+-    val generator = TestMessages.TimestampGenerator(System.currentTimeMillis() - (messagesToAdd * 2000L) - 60_000L)
+-
+-    for (i in 0 until messagesToAdd) {
+-      val timestamp = generator.nextTimestamp()
+-      when {
+-        i % 4 == 0 -> TestMessages.insertOutgoingImageMessage(other = groupRecipient, attachmentCount = 1, timestamp = timestamp)
+-        else -> {
+-          val message = OutgoingMessage(
+-            recipient = groupRecipient,
+-            body = "Message $i",
+-            timestamp = timestamp,
+-            isSecure = true
+-          )
+-          val insert = SignalDatabase.messages.insertMessageOutbox(message, threadId, false, null)
+-          SignalDatabase.messages.markAsSent(insert.messageId, true)
+-        }
+-      }
+-    }
+-
+-    TestDbUtils.insertGroupReceiptsForThread(threadId, memberRecipientIds)
+-    TestDbUtils.insertReactionsForThread(threadId, memberRecipientIds[0], moduloFilter = 5)
+-    TestDbUtils.insertMentionsForThread(threadId, memberRecipientIds[0], moduloFilter = 10)
+-
+-    SignalDatabase.threads.update(threadId, true)
+-  }
+-
+-  private fun setupBackupRestore() {
+-    TestUsers.setupSelf()
+-
+-    val profileKey = ProfileKeyUtil.getSelfProfileKey()
+-    val selfData = BackupRepository.SelfData(
+-      aci = Harness.SELF_ACI,
+-      pni = SignalStore.account.requirePni(),
+-      e164 = Harness.SELF_E164,
+-      profileKey = profileKey
+-    )
+-
+-    val backupBytes = assets.open("backups/backup.binproto").use { it.readBytes() }
+-    Log.i(TAG, "Read ${backupBytes.size} bytes from backup asset")
+-
+-    val result = BackupRepository.importPlaintextTest(
+-      length = backupBytes.size.toLong(),
+-      inputStreamFactory = { backupBytes.inputStream() },
+-      selfData = selfData
+-    )
+-
+-    Log.i(TAG, "Backup import result: $result")
+-
+-    SignalStore.svr.optOut()
+-    SignalStore.registration.restoreDecisionState = RestoreDecisionState.Skipped
+-    SignalDatabase.recipients.setProfileKey(Recipient.self().id, profileKey)
+-    SignalDatabase.recipients.setProfileName(Recipient.self().id, ProfileName.fromParts("Tester", "McTesterson"))
+-    RegistrationUtil.maybeMarkRegistrationComplete()
+-  }
+-
+-  private fun setupGroupReceipt(includeMsl: Boolean = false, enableReadReceipts: Boolean = false) {
+-    TestUsers.setupSelf()
+-    val groupId = TestUsers.setupGroup()
+-
+-    val groupRecipient = Recipient.externalGroupExact(groupId)
+-    val threadId = SignalDatabase.threads.getOrCreateThreadIdFor(groupRecipient)
+-
+-    val messageIds = mutableListOf<Long>()
+-    val timestamps = mutableListOf<Long>()
+-    val baseTimestamp = 2_000_000L
+-
+-    for (i in 0 until 100) {
+-      val timestamp = baseTimestamp + i
+-      val message = OutgoingMessage(
+-        recipient = groupRecipient,
+-        body = "Outgoing message $i",
+-        timestamp = timestamp,
+-        isSecure = true
+-      )
+-      val insert = SignalDatabase.messages.insertMessageOutbox(message, threadId, false, null)
+-      SignalDatabase.messages.markAsSent(insert.messageId, true)
+-      messageIds += insert.messageId
+-      timestamps += timestamp
+-    }
+-
+-    if (includeMsl) {
+-      val selfId = Recipient.self().id
+-      val memberRecipientIds = SignalDatabase.groups.getGroup(groupId).get().members.filter { it != selfId }
+-      TestDbUtils.insertMessageSendLogEntries(messageIds, timestamps, memberRecipientIds)
+-    }
+-
+-    if (enableReadReceipts) {
+-      TextSecurePreferences.setReadReceiptsEnabled(this, true)
+-    }
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/Generator.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/Generator.kt
+deleted file mode 100644
+index 75ad7ab7be7a226285835109726408b5714f9447..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/Generator.kt
++++ /dev/null
+@@ -1,85 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.benchmark.setup
+-
+-import okio.ByteString.Companion.toByteString
+-import org.signal.core.models.ServiceId
+-import org.signal.core.util.Base64
+-import org.signal.core.util.toByteArray
+-import org.signal.libsignal.zkgroup.groups.GroupMasterKey
+-import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.buildWith
+-import org.whispersystems.signalservice.api.crypto.ContentHint
+-import org.whispersystems.signalservice.api.crypto.EnvelopeContent
+-import org.whispersystems.signalservice.internal.push.Content
+-import org.whispersystems.signalservice.internal.push.DataMessage
+-import org.whispersystems.signalservice.internal.push.Envelope
+-import org.whispersystems.signalservice.internal.push.GroupContextV2
+-import org.whispersystems.signalservice.internal.push.OutgoingPushMessage
+-import org.whispersystems.signalservice.internal.push.ReceiptMessage
+-import java.util.Optional
+-import java.util.UUID
+-
+-object Generator {
+-
+-  fun encryptedTextMessage(
+-    now: Long,
+-    message: String = "Test message",
+-    groupMasterKey: GroupMasterKey? = null
+-  ): EnvelopeContent {
+-    val content = Content.Builder().apply {
+-      dataMessage(
+-        DataMessage.Builder().buildWith {
+-          body = message
+-          timestamp = now
+-          if (groupMasterKey != null) {
+-            groupV2 = GroupContextV2.Builder().buildWith {
+-              masterKey = groupMasterKey.serialize().toByteString()
+-              revision = 1
+-            }
+-          }
+-        }
+-      )
+-    }
+-    return EnvelopeContent.encrypted(content.build(), ContentHint.RESENDABLE, Optional.empty())
+-  }
+-
+-  fun encryptedDeliveryReceipt(now: Long, timestamps: List<Long>): EnvelopeContent {
+-    return encryptedReceipt(ReceiptMessage.Type.DELIVERY, timestamps)
+-  }
+-
+-  fun encryptedReadReceipt(now: Long, timestamps: List<Long>): EnvelopeContent {
+-    return encryptedReceipt(ReceiptMessage.Type.READ, timestamps)
+-  }
+-
+-  private fun encryptedReceipt(type: ReceiptMessage.Type, timestamps: List<Long>): EnvelopeContent {
+-    val content = Content.Builder().apply {
+-      receiptMessage(
+-        ReceiptMessage.Builder().buildWith {
+-          this.type = type
+-          timestamp = timestamps
+-        }
+-      )
+-    }
+-    return EnvelopeContent.encrypted(content.build(), ContentHint.IMPLICIT, Optional.empty())
+-  }
+-
+-  fun OutgoingPushMessage.toEnvelope(timestamp: Long, destination: ServiceId): Envelope {
+-    val serverGuid = UUID.randomUUID()
+-    return Envelope.Builder()
+-      .type(Envelope.Type.fromValue(this.type))
+-      .sourceDeviceId(1)
+-      .clientTimestamp(timestamp)
+-      .serverTimestamp(timestamp + 1)
+-      .destinationServiceId(destination.toString())
+-      .destinationServiceIdBinary(destination.toByteString())
+-      .serverGuid(serverGuid.toString())
+-      .serverGuidBinary(serverGuid.toByteArray().toByteString())
+-      .content(Base64.decode(this.content).toByteString())
+-      .urgent(true)
+-      .story(false)
+-      .build()
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/Harness.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/Harness.kt
+deleted file mode 100644
+index e91967a69ace0e1e2063ddc05da7c41ab3915fb5..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/Harness.kt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.benchmark.setup
+-
+-import org.signal.core.models.ServiceId.ACI
+-import org.signal.core.util.Base64
+-import org.signal.core.util.Hex
+-import org.signal.core.util.UuidUtil
+-import org.signal.libsignal.metadata.certificate.SenderCertificate
+-import org.signal.libsignal.metadata.certificate.ServerCertificate
+-import org.signal.libsignal.protocol.IdentityKeyPair
+-import org.signal.libsignal.protocol.ecc.ECKeyPair
+-import org.signal.libsignal.protocol.ecc.ECPrivateKey
+-import org.signal.libsignal.protocol.ecc.ECPublicKey
+-import org.signal.libsignal.zkgroup.groups.GroupMasterKey
+-import org.signal.libsignal.zkgroup.profiles.ProfileKey
+-import java.util.Optional
+-import java.util.UUID
+-import kotlin.random.Random
+-import kotlin.time.Duration
+-
+-object Harness {
+-  const val SELF_E164 = "+15555559999"
+-  val SELF_ACI = ACI.from(UuidUtil.parseOrThrow("d81b9a54-0ec9-43aa-a73f-7e99280ad53e"))
+-
+-  private val OTHERS_IDENTITY_KEY = IdentityKeyPair(Base64.decode("CiEFbAw403SCGPB+tjqfk+jrH7r9ma1P2hcujqydHRYVzzISIGiWYdWYBBdBzDdF06wgEm+HKcc6ETuWB7Jnvk7Wjw1u"))
+-  private val OTHERS_PROFILE_KEY = ProfileKey(Base64.decode("aJJ/A7GBCSnU9HJ1DdMWcKMMeXQKRUguTlAbtlfo/ik"))
+-
+-  val groupMasterKey = GroupMasterKey(Hex.fromStringCondensed("0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"))
+-
+-  val trustRoot = ECKeyPair(
+-    ECPublicKey(Base64.decode("BVT/2gHqbrG1xzuIypLIOjFgMtihrMld1/5TGADL6Dhv")),
+-    ECPrivateKey(Base64.decode("2B1zU7JQdPol/XWiom4pQXrSrHFeO8jzZ1u7wfrtY3o"))
+-  )
+-
+-  val otherClients: List<OtherClient> by lazy {
+-    val random = Random(4242)
+-    buildList {
+-      (0 until 1000).forEach { i ->
+-        val aci = ACI.from(UUID(random.nextLong(), random.nextLong()))
+-        val e164 = "+1555555%04d".format(i)
+-        val identityKey = OTHERS_IDENTITY_KEY
+-        val profileKey = OTHERS_PROFILE_KEY
+-
+-        add(OtherClient(aci, e164, identityKey, profileKey))
+-      }
+-    }
+-  }
+-
+-  fun createCertificateFor(uuid: UUID, e164: String?, deviceId: Int, identityKey: ECPublicKey, expires: Duration): SenderCertificate {
+-    val serverKey: ECKeyPair = ECKeyPair.generate()
+-    val serverCertificate = ServerCertificate(trustRoot.privateKey, 1, serverKey.publicKey)
+-    return serverCertificate.issue(serverKey.privateKey, uuid.toString(), Optional.ofNullable(e164), deviceId, identityKey, expires.inWholeMilliseconds)
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/NoOpJob.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/NoOpJob.kt
+deleted file mode 100644
+index 707dbe11ffacc829e3a6a020eeb4e1e006dfdd4c..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/NoOpJob.kt
++++ /dev/null
+@@ -1,84 +0,0 @@
+-package org.signal.benchmark.setup
+-
+-import org.thoughtcrime.securesms.jobmanager.Job
+-import org.thoughtcrime.securesms.jobs.AccountConsistencyWorkerJob
+-import org.thoughtcrime.securesms.jobs.ArchiveBackupIdReservationJob
+-import org.thoughtcrime.securesms.jobs.AvatarGroupsV2DownloadJob
+-import org.thoughtcrime.securesms.jobs.CreateReleaseChannelJob
+-import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
+-import org.thoughtcrime.securesms.jobs.DownloadLatestEmojiDataJob
+-import org.thoughtcrime.securesms.jobs.EmojiSearchIndexDownloadJob
+-import org.thoughtcrime.securesms.jobs.FontDownloaderJob
+-import org.thoughtcrime.securesms.jobs.GroupRingCleanupJob
+-import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob
+-import org.thoughtcrime.securesms.jobs.LinkedDeviceInactiveCheckJob
+-import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob
+-import org.thoughtcrime.securesms.jobs.PostRegistrationBackupRedemptionJob
+-import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+-import org.thoughtcrime.securesms.jobs.ProfileUploadJob
+-import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
+-import org.thoughtcrime.securesms.jobs.RefreshSvrCredentialsJob
+-import org.thoughtcrime.securesms.jobs.RequestGroupV2InfoJob
+-import org.thoughtcrime.securesms.jobs.ResetSvrGuessCountJob
+-import org.thoughtcrime.securesms.jobs.RestoreOptimizedMediaJob
+-import org.thoughtcrime.securesms.jobs.RetrieveProfileAvatarJob
+-import org.thoughtcrime.securesms.jobs.RetrieveProfileJob
+-import org.thoughtcrime.securesms.jobs.RetrieveRemoteAnnouncementsJob
+-import org.thoughtcrime.securesms.jobs.RotateCertificateJob
+-import org.thoughtcrime.securesms.jobs.StickerPackDownloadJob
+-import org.thoughtcrime.securesms.jobs.StorageSyncJob
+-import org.thoughtcrime.securesms.jobs.StoryOnboardingDownloadJob
+-
+-/**
+- * A [Job] that does nothing and always succeeds. Test setups substitute this for jobs whose
+- * real implementations would hit the network at startup (and so would either generate noise
+- * against the [DeviceTransferBlockingInterceptor][org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor]
+- * or fail against unstubbed mocks). Use [replaceFactories] to apply the swap.
+- */
+-class NoOpJob(parameters: Parameters) : Job(parameters) {
+-  override fun serialize(): ByteArray? = null
+-  override fun getFactoryKey(): String = KEY
+-  override fun run(): Result = Result.success()
+-  override fun onFailure() = Unit
+-
+-  class Factory : Job.Factory<NoOpJob> {
+-    override fun create(parameters: Parameters, serializedData: ByteArray?): NoOpJob = NoOpJob(parameters)
+-  }
+-
+-  companion object {
+-    const val KEY = "NoOpJob"
+-
+-    private val STARTUP_NETWORK_JOB_KEYS: Set<String> = setOf(
+-      AccountConsistencyWorkerJob.KEY,
+-      ArchiveBackupIdReservationJob.KEY,
+-      AvatarGroupsV2DownloadJob.KEY,
+-      CreateReleaseChannelJob.KEY,
+-      DirectoryRefreshJob.KEY,
+-      DownloadLatestEmojiDataJob.KEY,
+-      EmojiSearchIndexDownloadJob.KEY,
+-      FontDownloaderJob.KEY,
+-      GroupRingCleanupJob.KEY,
+-      GroupV2UpdateSelfProfileKeyJob.KEY,
+-      LinkedDeviceInactiveCheckJob.KEY,
+-      MultiDeviceProfileKeyUpdateJob.KEY,
+-      PostRegistrationBackupRedemptionJob.KEY,
+-      PreKeysSyncJob.KEY,
+-      ProfileUploadJob.KEY,
+-      RefreshAttributesJob.KEY,
+-      RefreshSvrCredentialsJob.KEY,
+-      RequestGroupV2InfoJob.KEY,
+-      ResetSvrGuessCountJob.KEY,
+-      RestoreOptimizedMediaJob.KEY,
+-      RetrieveProfileAvatarJob.KEY,
+-      RetrieveProfileJob.KEY,
+-      RetrieveRemoteAnnouncementsJob.KEY,
+-      RotateCertificateJob.KEY,
+-      StickerPackDownloadJob.KEY,
+-      StorageSyncJob.KEY,
+-      StoryOnboardingDownloadJob.KEY
+-    )
+-
+-    fun replaceFactories(factories: Map<String, Job.Factory<*>>): Map<String, Job.Factory<*>> =
+-      factories.mapValues { if (it.key in STARTUP_NETWORK_JOB_KEYS) Factory() else it.value }
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/OtherClient.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/OtherClient.kt
+deleted file mode 100644
+index f5bdff0176c46eff289fd0a55a4b0a2292da29d3..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/OtherClient.kt
++++ /dev/null
+@@ -1,246 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.signal.benchmark.setup
+-
+-import org.signal.benchmark.setup.Generator.toEnvelope
+-import org.signal.core.models.ServiceId
+-import org.signal.libsignal.protocol.IdentityKey
+-import org.signal.libsignal.protocol.IdentityKeyPair
+-import org.signal.libsignal.protocol.SessionBuilder
+-import org.signal.libsignal.protocol.SignalProtocolAddress
+-import org.signal.libsignal.protocol.ecc.ECPublicKey
+-import org.signal.libsignal.protocol.groups.state.SenderKeyRecord
+-import org.signal.libsignal.protocol.state.IdentityKeyStore
+-import org.signal.libsignal.protocol.state.IdentityKeyStore.IdentityChange
+-import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+-import org.signal.libsignal.protocol.state.PreKeyBundle
+-import org.signal.libsignal.protocol.state.PreKeyRecord
+-import org.signal.libsignal.protocol.state.SessionRecord
+-import org.signal.libsignal.protocol.state.SignedPreKeyRecord
+-import org.signal.libsignal.protocol.util.KeyHelper
+-import org.signal.libsignal.zkgroup.groups.GroupMasterKey
+-import org.signal.libsignal.zkgroup.profiles.ProfileKey
+-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
+-import org.thoughtcrime.securesms.crypto.ReentrantSessionLock
+-import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.recipients.RecipientId
+-import org.whispersystems.signalservice.api.SignalServiceAccountDataStore
+-import org.whispersystems.signalservice.api.SignalSessionLock
+-import org.whispersystems.signalservice.api.crypto.EnvelopeContent
+-import org.whispersystems.signalservice.api.crypto.SealedSenderAccess
+-import org.whispersystems.signalservice.api.crypto.SignalServiceCipher
+-import org.whispersystems.signalservice.api.crypto.SignalSessionBuilder
+-import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess
+-import org.whispersystems.signalservice.api.push.DistributionId
+-import org.whispersystems.signalservice.api.push.SignalServiceAddress
+-import org.whispersystems.signalservice.internal.push.Envelope
+-import java.util.UUID
+-import java.util.concurrent.locks.ReentrantLock
+-import kotlin.time.Duration.Companion.days
+-import kotlin.time.Duration.Companion.milliseconds
+-
+-/**
+- * This is a "fake" client that can start a session with the running app's user, referred to as Alice in this
+- * code.
+- */
+-class OtherClient(val serviceId: ServiceId, val e164: String, val identityKeyPair: IdentityKeyPair, val profileKey: ProfileKey) {
+-
+-  private val serviceAddress = SignalServiceAddress(serviceId, e164)
+-  private val registrationId = KeyHelper.generateRegistrationId(false)
+-  private val aciStore = BobSignalServiceAccountDataStore(registrationId, identityKeyPair)
+-  private val senderCertificate = Harness.createCertificateFor(serviceId.rawUuid, e164, 1, identityKeyPair.publicKey.publicKey, System.currentTimeMillis().milliseconds + 30.days)
+-  private val sessionLock = object : SignalSessionLock {
+-    private val lock = ReentrantLock()
+-
+-    override fun acquire(): SignalSessionLock.Lock {
+-      lock.lock()
+-      return SignalSessionLock.Lock { lock.unlock() }
+-    }
+-  }
+-
+-  /** Inspired by SignalServiceMessageSender#getEncryptedMessage */
+-  fun encrypt(envelopeContent: EnvelopeContent): Envelope {
+-    return encrypt(envelopeContent, envelopeContent.content.get().dataMessage!!.timestamp!!)
+-  }
+-
+-  fun encrypt(envelopeContent: EnvelopeContent, timestamp: Long): Envelope {
+-    val cipher = SignalServiceCipher(serviceAddress, 1, aciStore, sessionLock, null)
+-
+-    if (!aciStore.containsSession(getAliceProtocolAddress())) {
+-      val sessionBuilder = SignalSessionBuilder(sessionLock, SessionBuilder(aciStore, getAliceProtocolAddress(), SignalProtocolAddress(serviceAddress.identifier, 1)))
+-      sessionBuilder.process(getAlicePreKeyBundle())
+-    }
+-
+-    return cipher.encrypt(getAliceProtocolAddress(), getAliceUnidentifiedAccess(), envelopeContent)
+-      .toEnvelope(timestamp, getAliceServiceId())
+-  }
+-
+-  fun decrypt(envelope: Envelope, serverDeliveredTimestamp: Long) {
+-    val cipher = SignalServiceCipher(serviceAddress, 1, aciStore, sessionLock, SealedSenderAccessUtil.getCertificateValidator())
+-    cipher.decrypt(envelope, serverDeliveredTimestamp)
+-  }
+-
+-  /**
+-   * Completes the Signal session handshake by having Alice (the app) encrypt a reply
+-   * to this client, then decrypting it. This establishes a proper double-ratchet session
+-   * on both sides.
+-   *
+-   * Must be called after this client's initial PreKeyMessage has been processed by Alice.
+-   */
+-  fun completeSession() {
+-    val aliceAddress = SignalServiceAddress(Harness.SELF_ACI, Harness.SELF_E164)
+-    val aliceCipher = SignalServiceCipher(aliceAddress, 1, AppDependencies.protocolStore.aci(), ReentrantSessionLock.INSTANCE, null)
+-
+-    val bobProtocolAddress = SignalProtocolAddress(serviceId.toString(), 1)
+-    val now = System.currentTimeMillis()
+-    val content = Generator.encryptedTextMessage(now)
+-
+-    val recipientId = RecipientId.from(SignalServiceAddress(serviceId, e164))
+-    val sealedSenderAccess = SealedSenderAccessUtil.getSealedSenderAccessFor(Recipient.resolved(recipientId))
+-
+-    val outgoing = aliceCipher.encrypt(bobProtocolAddress, sealedSenderAccess, content)
+-    val envelope = outgoing.toEnvelope(now, serviceId)
+-
+-    decrypt(envelope, now)
+-  }
+-
+-  fun generateInboundEnvelopes(count: Int): List<Envelope> {
+-    val envelopes = ArrayList<Envelope>(count)
+-    var now = System.currentTimeMillis()
+-    for (i in 0 until count) {
+-      envelopes += encrypt(Generator.encryptedTextMessage(now))
+-      now += 3
+-    }
+-
+-    return envelopes
+-  }
+-
+-  fun generateInboundDeliveryReceipts(messageTimestamps: List<Long>): List<Envelope> {
+-    return generateInboundReceipts(messageTimestamps, Generator::encryptedDeliveryReceipt)
+-  }
+-
+-  fun generateInboundReadReceipts(messageTimestamps: List<Long>): List<Envelope> {
+-    return generateInboundReceipts(messageTimestamps, Generator::encryptedReadReceipt)
+-  }
+-
+-  private fun generateInboundReceipts(messageTimestamps: List<Long>, receiptFactory: (Long, List<Long>) -> EnvelopeContent): List<Envelope> {
+-    val envelopes = ArrayList<Envelope>(messageTimestamps.size)
+-    var now = System.currentTimeMillis()
+-    for (messageTimestamp in messageTimestamps) {
+-      envelopes += encrypt(receiptFactory(now, listOf(messageTimestamp)), now)
+-      now += 3
+-    }
+-    return envelopes
+-  }
+-
+-  fun generateInboundGroupEnvelopes(count: Int, groupMasterKey: GroupMasterKey): List<Envelope> {
+-    val envelopes = ArrayList<Envelope>(count)
+-    var now = System.currentTimeMillis()
+-    for (i in 0 until count) {
+-      envelopes += encrypt(Generator.encryptedTextMessage(now, groupMasterKey = groupMasterKey))
+-      now += 3
+-    }
+-
+-    return envelopes
+-  }
+-
+-  private fun getAliceServiceId(): ServiceId {
+-    return SignalStore.account.requireAci()
+-  }
+-
+-  private fun getAlicePreKeyBundle(): PreKeyBundle {
+-    val aliceSignedPreKeyRecord = SignalDatabase.signedPreKeys.getAll(getAliceServiceId()).first()
+-
+-    val aliceSignedKyberPreKeyRecord = SignalDatabase.kyberPreKeys.getAllLastResort(getAliceServiceId()).first().record
+-
+-    return PreKeyBundle(
+-      registrationId = SignalStore.account.registrationId,
+-      deviceId = 1,
+-      preKeyId = PreKeyBundle.NULL_PRE_KEY_ID,
+-      preKeyPublic = null,
+-      signedPreKeyId = aliceSignedPreKeyRecord.id,
+-      signedPreKeyPublic = aliceSignedPreKeyRecord.keyPair.publicKey,
+-      signedPreKeySignature = aliceSignedPreKeyRecord.signature,
+-      identityKey = getAlicePublicKey(),
+-      kyberPreKeyId = aliceSignedKyberPreKeyRecord.id,
+-      kyberPreKeyPublic = aliceSignedKyberPreKeyRecord.keyPair.publicKey,
+-      kyberPreKeySignature = aliceSignedKyberPreKeyRecord.signature
+-    )
+-  }
+-
+-  private fun getAliceProtocolAddress(): SignalProtocolAddress {
+-    return SignalProtocolAddress(SignalStore.account.requireAci().toString(), 1)
+-  }
+-
+-  private fun getAlicePublicKey(): IdentityKey {
+-    return SignalStore.account.aciIdentityKey.publicKey
+-  }
+-
+-  private fun getAliceProfileKey(): ProfileKey {
+-    return ProfileKeyUtil.getSelfProfileKey()
+-  }
+-
+-  private fun getAliceUnidentifiedAccess(): SealedSenderAccess? {
+-    val theirProfileKey = getAliceProfileKey()
+-    val themUnidentifiedAccessKey = UnidentifiedAccess(UnidentifiedAccess.deriveAccessKeyFrom(theirProfileKey), senderCertificate.serialized, false)
+-
+-    return SealedSenderAccess.forIndividual(themUnidentifiedAccessKey)
+-  }
+-
+-  private class BobSignalServiceAccountDataStore(private val registrationId: Int, private val identityKeyPair: IdentityKeyPair) : SignalServiceAccountDataStore {
+-    private var aliceSessionRecord: SessionRecord? = null
+-
+-    override fun getIdentityKeyPair(): IdentityKeyPair = identityKeyPair
+-
+-    override fun getLocalRegistrationId(): Int = registrationId
+-    override fun isTrustedIdentity(address: SignalProtocolAddress?, identityKey: IdentityKey?, direction: IdentityKeyStore.Direction?): Boolean = true
+-    override fun loadSession(address: SignalProtocolAddress?): SessionRecord = aliceSessionRecord ?: SessionRecord()
+-    override fun saveIdentity(address: SignalProtocolAddress?, identityKey: IdentityKey?): IdentityChange = IdentityChange.NEW_OR_UNCHANGED
+-    override fun storeSession(address: SignalProtocolAddress?, record: SessionRecord?) {
+-      aliceSessionRecord = record
+-    }
+-    override fun getSubDeviceSessions(name: String?): List<Int> = emptyList()
+-    override fun containsSession(address: SignalProtocolAddress?): Boolean = aliceSessionRecord != null
+-    override fun getIdentity(address: SignalProtocolAddress?): IdentityKey = SignalStore.account.aciIdentityKey.publicKey
+-    override fun loadPreKey(preKeyId: Int): PreKeyRecord = throw UnsupportedOperationException()
+-    override fun storePreKey(preKeyId: Int, record: PreKeyRecord?) = throw UnsupportedOperationException()
+-    override fun containsPreKey(preKeyId: Int): Boolean = throw UnsupportedOperationException()
+-    override fun removePreKey(preKeyId: Int) = throw UnsupportedOperationException()
+-    override fun loadExistingSessions(addresses: MutableList<SignalProtocolAddress>?): MutableList<SessionRecord> = throw UnsupportedOperationException()
+-    override fun deleteSession(address: SignalProtocolAddress?) = throw UnsupportedOperationException()
+-    override fun deleteAllSessions(name: String?) = throw UnsupportedOperationException()
+-    override fun loadSignedPreKey(signedPreKeyId: Int): SignedPreKeyRecord = throw UnsupportedOperationException()
+-    override fun loadSignedPreKeys(): MutableList<SignedPreKeyRecord> = throw UnsupportedOperationException()
+-    override fun storeSignedPreKey(signedPreKeyId: Int, record: SignedPreKeyRecord?) = throw UnsupportedOperationException()
+-    override fun containsSignedPreKey(signedPreKeyId: Int): Boolean = throw UnsupportedOperationException()
+-    override fun removeSignedPreKey(signedPreKeyId: Int) = throw UnsupportedOperationException()
+-    override fun loadKyberPreKey(kyberPreKeyId: Int): KyberPreKeyRecord = throw UnsupportedOperationException()
+-    override fun loadKyberPreKeys(): MutableList<KyberPreKeyRecord> = throw UnsupportedOperationException()
+-    override fun storeKyberPreKey(kyberPreKeyId: Int, record: KyberPreKeyRecord?) = throw UnsupportedOperationException()
+-    override fun containsKyberPreKey(kyberPreKeyId: Int): Boolean = throw UnsupportedOperationException()
+-    override fun markKyberPreKeyUsed(kyberPreKeyId: Int, signedPreKeyId: Int, baseKey: ECPublicKey) = throw UnsupportedOperationException()
+-    override fun deleteAllStaleOneTimeEcPreKeys(threshold: Long, minCount: Int) = throw UnsupportedOperationException()
+-    override fun markAllOneTimeEcPreKeysStaleIfNecessary(staleTime: Long) = throw UnsupportedOperationException()
+-    override fun storeSenderKey(sender: SignalProtocolAddress?, distributionId: UUID?, record: SenderKeyRecord?) = throw UnsupportedOperationException()
+-    override fun loadSenderKey(sender: SignalProtocolAddress?, distributionId: UUID?): SenderKeyRecord = throw UnsupportedOperationException()
+-    override fun archiveSession(address: SignalProtocolAddress?) = throw UnsupportedOperationException()
+-    override fun getAllAddressesWithActiveSessions(addressNames: MutableList<String>?): MutableMap<SignalProtocolAddress, SessionRecord> = throw UnsupportedOperationException()
+-    override fun getSenderKeySharedWith(distributionId: DistributionId?): MutableSet<SignalProtocolAddress> = throw UnsupportedOperationException()
+-    override fun markSenderKeySharedWith(distributionId: DistributionId?, addresses: MutableCollection<SignalProtocolAddress>?) = throw UnsupportedOperationException()
+-    override fun clearSenderKeySharedWith(addresses: MutableCollection<SignalProtocolAddress>?) = throw UnsupportedOperationException()
+-    override fun storeLastResortKyberPreKey(kyberPreKeyId: Int, kyberPreKeyRecord: KyberPreKeyRecord) = throw UnsupportedOperationException()
+-    override fun removeKyberPreKey(kyberPreKeyId: Int) = throw UnsupportedOperationException()
+-    override fun markAllOneTimeKyberPreKeysStaleIfNecessary(staleTime: Long) = throw UnsupportedOperationException()
+-    override fun deleteAllStaleOneTimeKyberPreKeys(threshold: Long, minCount: Int) = throw UnsupportedOperationException()
+-    override fun loadLastResortKyberPreKeys(): List<KyberPreKeyRecord> = throw UnsupportedOperationException()
+-    override fun isMultiDevice(): Boolean = throw UnsupportedOperationException()
+-    override fun setMultiDevice(isMultiDevice: Boolean) = throw UnsupportedOperationException()
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestMessages.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestMessages.kt
+deleted file mode 100644
+index 8d26c612505579be88dfd1999eefc6245df68ecf..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestMessages.kt
++++ /dev/null
+@@ -1,201 +0,0 @@
+-package org.signal.benchmark.setup
+-
+-import org.thoughtcrime.securesms.attachments.Cdn
+-import org.thoughtcrime.securesms.attachments.PointerAttachment
+-import org.thoughtcrime.securesms.database.AttachmentTable
+-import org.thoughtcrime.securesms.database.MessageType
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.TestDbUtils
+-import org.thoughtcrime.securesms.mms.IncomingMessage
+-import org.thoughtcrime.securesms.mms.OutgoingMessage
+-import org.thoughtcrime.securesms.mms.QuoteModel
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
+-import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentPointer
+-import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
+-import java.util.Collections
+-import java.util.Optional
+-
+-object TestMessages {
+-  fun insertOutgoingTextMessage(other: Recipient, body: String, timestamp: Long = System.currentTimeMillis()) {
+-    insertOutgoingMessage(
+-      recipient = other,
+-      message = OutgoingMessage(
+-        recipient = other,
+-        body = body,
+-        timestamp = timestamp,
+-        isSecure = true
+-      ),
+-      timestamp = timestamp
+-    )
+-  }
+-
+-  fun insertOutgoingImageMessage(other: Recipient, body: String? = null, attachmentCount: Int, timestamp: Long = System.currentTimeMillis()): Long {
+-    val attachments: List<SignalServiceAttachmentPointer> = (0 until attachmentCount).map {
+-      imageAttachment()
+-    }
+-    val message = OutgoingMessage(
+-      recipient = other,
+-      body = body,
+-      attachments = PointerAttachment.forPointers(Optional.of(attachments)),
+-      timestamp = timestamp,
+-      isSecure = true
+-    )
+-    return insertOutgoingMediaMessage(recipient = other, message = message, timestamp = timestamp)
+-  }
+-
+-  private fun insertOutgoingMediaMessage(recipient: Recipient, message: OutgoingMessage, timestamp: Long): Long {
+-    val insert = insertOutgoingMessage(recipient, message = message, timestamp = timestamp)
+-    setMessageMediaTransfered(insert)
+-
+-    return insert
+-  }
+-
+-  private fun insertOutgoingMessage(recipient: Recipient, message: OutgoingMessage, timestamp: Long? = null): Long {
+-    val insert = SignalDatabase.messages.insertMessageOutbox(
+-      message,
+-      SignalDatabase.threads.getOrCreateThreadIdFor(recipient),
+-      false,
+-      null
+-    )
+-    if (timestamp != null) {
+-      TestDbUtils.setMessageReceived(insert.messageId, timestamp)
+-    }
+-    SignalDatabase.messages.markAsSent(insert.messageId, true)
+-
+-    return insert.messageId
+-  }
+-  fun insertIncomingTextMessage(other: Recipient, body: String, timestamp: Long? = null) {
+-    val message = IncomingMessage(
+-      type = MessageType.NORMAL,
+-      from = other.id,
+-      body = body,
+-      sentTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      serverTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      receivedTimeMillis = timestamp ?: System.currentTimeMillis()
+-    )
+-
+-    SignalDatabase.messages.insertMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(other)).get().messageId
+-  }
+-  fun insertIncomingQuoteTextMessage(other: Recipient, body: String, quote: QuoteModel, timestamp: Long?) {
+-    val message = IncomingMessage(
+-      type = MessageType.NORMAL,
+-      from = other.id,
+-      body = body,
+-      sentTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      serverTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      receivedTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      quote = quote
+-    )
+-    insertIncomingMessage(other, message = message)
+-  }
+-  fun insertIncomingImageMessage(other: Recipient, body: String? = null, attachmentCount: Int, timestamp: Long? = null, failed: Boolean = false): Long {
+-    val attachments: List<SignalServiceAttachmentPointer> = (0 until attachmentCount).map {
+-      imageAttachment()
+-    }
+-    val message = IncomingMessage(
+-      type = MessageType.NORMAL,
+-      from = other.id,
+-      body = body,
+-      sentTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      serverTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      receivedTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      attachments = PointerAttachment.forPointers(Optional.of(attachments))
+-    )
+-    return insertIncomingMessage(recipient = other, message = message, failed = failed)
+-  }
+-
+-  fun insertIncomingVoiceMessage(other: Recipient, timestamp: Long? = null): Long {
+-    val message = IncomingMessage(
+-      type = MessageType.NORMAL,
+-      from = other.id,
+-      sentTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      serverTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      receivedTimeMillis = timestamp ?: System.currentTimeMillis(),
+-      attachments = PointerAttachment.forPointers(Optional.of(Collections.singletonList(voiceAttachment()) as List<SignalServiceAttachment>))
+-    )
+-    return insertIncomingMessage(recipient = other, message = message, failed = false)
+-  }
+-
+-  private fun insertIncomingMessage(recipient: Recipient, message: IncomingMessage, failed: Boolean = false): Long {
+-    val id = insertIncomingMessage(recipient = recipient, message = message)
+-    if (failed) {
+-      setMessageMediaFailed(id)
+-    } else {
+-      setMessageMediaTransfered(id)
+-    }
+-
+-    return id
+-  }
+-
+-  private fun insertIncomingMessage(recipient: Recipient, message: IncomingMessage): Long {
+-    return SignalDatabase.messages.insertMessageInbox(message, SignalDatabase.threads.getOrCreateThreadIdFor(recipient)).get().messageId
+-  }
+-
+-  private fun setMessageMediaFailed(messageId: Long) {
+-    SignalDatabase.attachments.getAttachmentsForMessage(messageId).forEachIndexed { index, attachment ->
+-      SignalDatabase.attachments.setTransferProgressPermanentFailure(attachment.attachmentId, messageId)
+-    }
+-  }
+-
+-  private fun setMessageMediaTransfered(messageId: Long) {
+-    SignalDatabase.attachments.getAttachmentsForMessage(messageId).forEachIndexed { _, attachment ->
+-      SignalDatabase.attachments.setTransferState(messageId, attachment.attachmentId, AttachmentTable.TRANSFER_PROGRESS_DONE)
+-    }
+-  }
+-  private fun imageAttachment(): SignalServiceAttachmentPointer {
+-    return SignalServiceAttachmentPointer(
+-      Cdn.S3.cdnNumber,
+-      SignalServiceAttachmentRemoteId.from("", Cdn.S3.cdnNumber),
+-      "image/webp",
+-      null,
+-      Optional.empty(),
+-      Optional.empty(),
+-      1024,
+-      1024,
+-      Optional.empty(),
+-      Optional.empty(),
+-      0,
+-      Optional.of("/not-there.jpg"),
+-      false,
+-      false,
+-      false,
+-      Optional.empty(),
+-      Optional.empty(),
+-      System.currentTimeMillis(),
+-      null
+-    )
+-  }
+-
+-  private fun voiceAttachment(): SignalServiceAttachmentPointer {
+-    return SignalServiceAttachmentPointer(
+-      Cdn.S3.cdnNumber,
+-      SignalServiceAttachmentRemoteId.from("", Cdn.S3.cdnNumber),
+-      "audio/aac",
+-      null,
+-      Optional.empty(),
+-      Optional.empty(),
+-      1024,
+-      1024,
+-      Optional.empty(),
+-      Optional.empty(),
+-      0,
+-      Optional.of("/not-there.aac"),
+-      true,
+-      false,
+-      false,
+-      Optional.empty(),
+-      Optional.empty(),
+-      System.currentTimeMillis(),
+-      null
+-    )
+-  }
+-
+-  class TimestampGenerator(private var start: Long = System.currentTimeMillis()) {
+-    fun nextTimestamp(): Long {
+-      start += 500L
+-
+-      return start
+-    }
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestUsers.kt b/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestUsers.kt
+deleted file mode 100644
+index 5d4c3f073130dac4faa2a62e926c5aa1fe4cf443..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/signal/benchmark/setup/TestUsers.kt
++++ /dev/null
+@@ -1,228 +0,0 @@
+-package org.signal.benchmark.setup
+-
+-import android.app.Application
+-import android.content.SharedPreferences
+-import android.preference.PreferenceManager
+-import kotlinx.coroutines.runBlocking
+-import okio.ByteString
+-import org.signal.core.models.ServiceId.ACI
+-import org.signal.core.util.Util
+-import org.signal.libsignal.protocol.IdentityKeyPair
+-import org.signal.libsignal.protocol.SignalProtocolAddress
+-import org.signal.storageservice.storage.protos.groups.AccessControl
+-import org.signal.storageservice.storage.protos.groups.Member
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedMember
+-import org.signal.storageservice.storage.protos.groups.local.DecryptedTimer
+-import org.signal.storageservice.storage.protos.groups.local.EnabledState
+-import org.thoughtcrime.securesms.crypto.MasterSecretUtil
+-import org.thoughtcrime.securesms.crypto.PreKeyUtil
+-import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.groups.GroupId
+-import org.thoughtcrime.securesms.keyvalue.CertificateType
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.keyvalue.Skipped
+-import org.thoughtcrime.securesms.net.DeviceTransferBlockingInterceptor
+-import org.thoughtcrime.securesms.profiles.ProfileName
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.recipients.RecipientId
+-import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
+-import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
+-import org.thoughtcrime.securesms.registration.data.RegistrationData
+-import org.thoughtcrime.securesms.registration.data.RegistrationRepository
+-import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+-import org.thoughtcrime.securesms.util.TextSecurePreferences
+-import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
+-import org.whispersystems.signalservice.api.push.SignalServiceAddress
+-import java.util.UUID
+-import kotlin.time.Duration.Companion.days
+-import kotlin.time.Duration.Companion.milliseconds
+-
+-object TestUsers {
+-
+-  private var generatedOthers: Int = 1
+-
+-  fun setupSelf(): Recipient {
+-    val application: Application = AppDependencies.application
+-    DeviceTransferBlockingInterceptor.getInstance().blockNetwork()
+-
+-    PreferenceManager.getDefaultSharedPreferences(application).edit().putBoolean("pref_prompted_push_registration", true).commit()
+-    val masterSecret = MasterSecretUtil.generateMasterSecret(application, MasterSecretUtil.UNENCRYPTED_PASSPHRASE)
+-    MasterSecretUtil.generateAsymmetricMasterSecret(application, masterSecret)
+-    val preferences: SharedPreferences = application.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0)
+-    preferences.edit().putBoolean("passphrase_initialized", true).commit()
+-
+-    SignalStore.account.generateAciIdentityKeyIfNecessary()
+-    SignalStore.account.generatePniIdentityKeyIfNecessary()
+-
+-    runBlocking {
+-      val registrationData = RegistrationData(
+-        code = "123123",
+-        e164 = Harness.SELF_E164,
+-        password = Util.getSecret(18),
+-        registrationId = RegistrationRepository.getRegistrationId(),
+-        profileKey = RegistrationRepository.getProfileKey(Harness.SELF_E164),
+-        fcmToken = null,
+-        pniRegistrationId = RegistrationRepository.getPniRegistrationId(),
+-        recoveryPassword = "asdfasdfasdfasdf"
+-      )
+-      val remoteResult = AccountRegistrationResult(
+-        uuid = Harness.SELF_ACI.toString(),
+-        pni = UUID.randomUUID().toString(),
+-        storageCapable = false,
+-        number = Harness.SELF_E164,
+-        masterKey = null,
+-        pin = null,
+-        aciPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(SignalStore.account.aciIdentityKey, SignalStore.account.aciPreKeys),
+-        pniPreKeyCollection = RegistrationRepository.generateSignedAndLastResortPreKeys(SignalStore.account.aciIdentityKey, SignalStore.account.pniPreKeys),
+-        reRegistration = false
+-      )
+-      val localRegistrationData = LocalRegistrationMetadataUtil.createLocalRegistrationMetadata(SignalStore.account.aciIdentityKey, SignalStore.account.pniIdentityKey, registrationData, remoteResult, false)
+-      RegistrationRepository.registerAccountLocally(application, localRegistrationData)
+-    }
+-
+-    SignalStore.svr.optOut()
+-    SignalStore.registration.restoreDecisionState = RestoreDecisionState.Skipped
+-    RegistrationUtil.maybeMarkRegistrationComplete()
+-    SignalDatabase.recipients.setProfileName(Recipient.self().id, ProfileName.fromParts("Tester", "McTesterson"))
+-    TextSecurePreferences.setPromptedOptimizeDoze(application, true)
+-    TextSecurePreferences.setRatingEnabled(application, false)
+-
+-    PreKeyUtil.generateAndStoreSignedPreKey(AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys)
+-    PreKeyUtil.generateAndStoreOneTimeEcPreKeys(AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys)
+-    PreKeyUtil.generateAndStoreOneTimeKyberPreKeys(AppDependencies.protocolStore.aci(), SignalStore.account.aciPreKeys)
+-
+-    val aliceSenderCertificate = Harness.createCertificateFor(
+-      uuid = Harness.SELF_ACI.rawUuid,
+-      e164 = Harness.SELF_E164,
+-      deviceId = 1,
+-      identityKey = SignalStore.account.aciIdentityKey.publicKey.publicKey,
+-      expires = System.currentTimeMillis().milliseconds + 30.days
+-    )
+-
+-    val aliceSenderCertificate2 = Harness.createCertificateFor(
+-      uuid = Harness.SELF_ACI.rawUuid,
+-      e164 = null,
+-      deviceId = 1,
+-      identityKey = SignalStore.account.aciIdentityKey.publicKey.publicKey,
+-      expires = System.currentTimeMillis().milliseconds + 30.days
+-    )
+-
+-    SignalStore.certificate.setUnidentifiedAccessCertificate(CertificateType.ACI_AND_E164, aliceSenderCertificate.serialized)
+-    SignalStore.certificate.setUnidentifiedAccessCertificate(CertificateType.ACI_ONLY, aliceSenderCertificate2.serialized)
+-
+-    return Recipient.self()
+-  }
+-
+-  fun setupTestRecipient(): RecipientId {
+-    return setupTestRecipients(1).first()
+-  }
+-
+-  fun setupTestRecipients(othersCount: Int): List<RecipientId> {
+-    val others = mutableListOf<RecipientId>()
+-    synchronized(this) {
+-      if (generatedOthers + othersCount !in 0 until 1000) {
+-        throw IllegalArgumentException("$othersCount must be between 0 and 1000")
+-      }
+-
+-      for (i in generatedOthers until generatedOthers + othersCount) {
+-        val aci = ACI.from(UUID.randomUUID())
+-        val recipientId = RecipientId.from(SignalServiceAddress(aci, "+15555551%03d".format(i)))
+-        SignalDatabase.recipients.setProfileName(recipientId, ProfileName.fromParts("Buddy", "#$i"))
+-        SignalDatabase.recipients.setProfileKeyIfAbsent(recipientId, ProfileKeyUtil.createNew())
+-        SignalDatabase.recipients.setCapabilities(recipientId, SignalServiceProfile.Capabilities(true, true, true))
+-        SignalDatabase.recipients.setProfileSharing(recipientId, true)
+-        SignalDatabase.recipients.markRegistered(recipientId, aci)
+-        val otherIdentity = IdentityKeyPair.generate()
+-        AppDependencies.protocolStore.aci().saveIdentity(SignalProtocolAddress(aci.toString(), 1), otherIdentity.publicKey)
+-
+-        others += recipientId
+-      }
+-
+-      generatedOthers += othersCount
+-    }
+-
+-    return others
+-  }
+-
+-  fun setupTestClients(othersCount: Int): List<RecipientId> {
+-    val others = mutableListOf<RecipientId>()
+-    synchronized(this) {
+-      for (i in 0 until othersCount) {
+-        val otherClient = Harness.otherClients[i]
+-
+-        val recipientId = RecipientId.from(SignalServiceAddress(otherClient.serviceId, otherClient.e164))
+-        SignalDatabase.recipients.setProfileName(recipientId, ProfileName.fromParts("Buddy", "#$i"))
+-        SignalDatabase.recipients.setProfileKeyIfAbsent(recipientId, otherClient.profileKey)
+-        SignalDatabase.recipients.setCapabilities(recipientId, SignalServiceProfile.Capabilities(true, true, true))
+-        SignalDatabase.recipients.setProfileSharing(recipientId, true)
+-        SignalDatabase.recipients.markRegistered(recipientId, otherClient.serviceId)
+-        AppDependencies.protocolStore.aci().saveIdentity(SignalProtocolAddress(otherClient.serviceId.toString(), 1), otherClient.identityKeyPair.publicKey)
+-
+-        others += recipientId
+-      }
+-
+-      generatedOthers += othersCount
+-    }
+-
+-    return others
+-  }
+-
+-  fun setupGroup(withLabels: Boolean = false): GroupId.V2 {
+-    val members = setupTestClients(5)
+-    val self = Recipient.self()
+-
+-    val labels = listOf("Admin", "Mod", "VIP", "Helper", "Member")
+-    val fullMembers = buildList {
+-      add(member(aci = self.requireAci()))
+-      addAll(
+-        members.mapIndexed { index, id ->
+-          if (withLabels) {
+-            member(aci = Recipient.resolved(id).requireAci(), labelString = labels[index % labels.size])
+-          } else {
+-            member(aci = Recipient.resolved(id).requireAci())
+-          }
+-        }
+-      )
+-    }
+-
+-    val group = DecryptedGroup(
+-      title = "Title",
+-      avatar = "",
+-      disappearingMessagesTimer = DecryptedTimer(),
+-      accessControl = AccessControl(),
+-      revision = 1,
+-      members = fullMembers,
+-      pendingMembers = emptyList(),
+-      requestingMembers = emptyList(),
+-      inviteLinkPassword = ByteString.EMPTY,
+-      description = "Description",
+-      isAnnouncementGroup = EnabledState.DISABLED,
+-      bannedMembers = emptyList(),
+-      isPlaceholderGroup = false
+-    )
+-
+-    val groupId = SignalDatabase.groups.create(
+-      groupMasterKey = Harness.groupMasterKey,
+-      groupState = group,
+-      groupSendEndorsements = null
+-    )
+-
+-    SignalDatabase.recipients.setProfileSharing(Recipient.externalGroupExact(groupId!!).id, true)
+-
+-    return groupId
+-  }
+-
+-  private fun member(aci: ACI, role: Member.Role = Member.Role.DEFAULT, joinedAt: Int = 0, labelEmoji: String = "", labelString: String = ""): DecryptedMember {
+-    return DecryptedMember(
+-      role = role,
+-      aciBytes = aci.toByteString(),
+-      joinedAtRevision = joinedAt,
+-      labelEmoji = labelEmoji,
+-      labelString = labelString
+-    )
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/thoughtcrime/securesms/database/TestDbUtils.kt b/app/src/benchmarkShared/java/org/thoughtcrime/securesms/database/TestDbUtils.kt
+deleted file mode 100644
+index 6f001fe2ff357f7f0d78c38b21e1a5f14cd91845..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/thoughtcrime/securesms/database/TestDbUtils.kt
++++ /dev/null
+@@ -1,126 +0,0 @@
+-package org.thoughtcrime.securesms.database
+-
+-import android.content.ContentValues
+-import org.signal.core.util.SqlUtil.buildArgs
+-import org.thoughtcrime.securesms.recipients.RecipientId
+-import org.whispersystems.signalservice.internal.push.Content
+-
+-object TestDbUtils {
+-
+-  fun setMessageReceived(messageId: Long, timestamp: Long) {
+-    val database: SQLiteDatabase = SignalDatabase.messages.databaseHelper.signalWritableDatabase
+-    val contentValues = ContentValues()
+-    contentValues.put(MessageTable.DATE_RECEIVED, timestamp)
+-    val rowsUpdated = database.update(MessageTable.TABLE_NAME, contentValues, DatabaseTable.ID_WHERE, buildArgs(messageId))
+-  }
+-
+-  /**
+-   * Bulk-inserts a reaction on every Nth message (by _id modulo) in the given thread.
+-   */
+-  fun insertReactionsForThread(threadId: Long, authorId: RecipientId, moduloFilter: Int) {
+-    val db = SignalDatabase.messages.databaseHelper.signalWritableDatabase
+-    db.execSQL(
+-      """
+-      INSERT INTO reaction (message_id, author_id, emoji, date_sent, date_received)
+-      SELECT ${MessageTable.ID}, ?, '👍', ${MessageTable.DATE_SENT}, ${MessageTable.DATE_RECEIVED}
+-      FROM ${MessageTable.TABLE_NAME}
+-      WHERE ${MessageTable.THREAD_ID} = ? AND ${MessageTable.ID} % ? = 0
+-      """.trimIndent(),
+-      arrayOf(authorId.toLong().toString(), threadId.toString(), moduloFilter.toString())
+-    )
+-  }
+-
+-  /**
+-   * Bulk-inserts group receipt rows for every message in the given thread, one row per member.
+-   */
+-  fun insertGroupReceiptsForThread(threadId: Long, memberRecipientIds: List<RecipientId>) {
+-    val db = SignalDatabase.messages.databaseHelper.signalWritableDatabase
+-    db.beginTransaction()
+-    try {
+-      for (recipientId in memberRecipientIds) {
+-        db.execSQL(
+-          """
+-          INSERT INTO group_receipts (mms_id, address, status, timestamp)
+-          SELECT ${MessageTable.ID}, ?, 2, ${MessageTable.DATE_SENT}
+-          FROM ${MessageTable.TABLE_NAME}
+-          WHERE ${MessageTable.THREAD_ID} = ?
+-          """.trimIndent(),
+-          arrayOf(recipientId.toLong().toString(), threadId.toString())
+-        )
+-      }
+-      db.setTransactionSuccessful()
+-    } finally {
+-      db.endTransaction()
+-    }
+-  }
+-
+-  /**
+-   * Bulk-inserts a mention on every Nth message (by _id modulo) in the given thread.
+-   */
+-  fun insertMentionsForThread(threadId: Long, mentionedRecipientId: RecipientId, moduloFilter: Int) {
+-    val db = SignalDatabase.messages.databaseHelper.signalWritableDatabase
+-    db.execSQL(
+-      """
+-      INSERT INTO mention (thread_id, message_id, recipient_id, range_start, range_length)
+-      SELECT ${MessageTable.THREAD_ID}, ${MessageTable.ID}, ?, 0, 5
+-      FROM ${MessageTable.TABLE_NAME}
+-      WHERE ${MessageTable.THREAD_ID} = ? AND ${MessageTable.ID} % ? = 0
+-      """.trimIndent(),
+-      arrayOf(mentionedRecipientId.toLong().toString(), threadId.toString(), moduloFilter.toString())
+-    )
+-  }
+-
+-  fun getOutgoingMessageTimestamps(threadId: Long, selfRecipientId: Long): List<Long> {
+-    val timestamps = mutableListOf<Long>()
+-    SignalDatabase.messages.databaseHelper.signalReadableDatabase.query(
+-      MessageTable.TABLE_NAME,
+-      arrayOf(MessageTable.DATE_SENT),
+-      "${MessageTable.THREAD_ID} = ? AND ${MessageTable.FROM_RECIPIENT_ID} = ?",
+-      arrayOf(threadId.toString(), selfRecipientId.toString()),
+-      null,
+-      null,
+-      "${MessageTable.DATE_SENT} ASC"
+-    ).use { cursor ->
+-      while (cursor.moveToNext()) {
+-        timestamps += cursor.getLong(0)
+-      }
+-    }
+-    return timestamps
+-  }
+-
+-  fun insertMessageSendLogEntries(messageIds: List<Long>, timestamps: List<Long>, recipientIds: List<RecipientId>) {
+-    val db = SignalDatabase.messages.databaseHelper.signalWritableDatabase
+-    val dummyContent = Content.Builder().build().encode()
+-
+-    db.beginTransaction()
+-    try {
+-      for (i in messageIds.indices) {
+-        val payloadValues = ContentValues().apply {
+-          put("date_sent", timestamps[i])
+-          put("content", dummyContent)
+-          put("content_hint", 0)
+-          put("urgent", 1)
+-        }
+-        val payloadId = db.insert("msl_payload", null, payloadValues)
+-
+-        val messageValues = ContentValues().apply {
+-          put("payload_id", payloadId)
+-          put("message_id", messageIds[i])
+-        }
+-        db.insert("msl_message", null, messageValues)
+-
+-        for (recipientId in recipientIds) {
+-          val recipientValues = ContentValues().apply {
+-            put("payload_id", payloadId)
+-            put("recipient_id", recipientId.toLong())
+-            put("device", 1)
+-          }
+-          db.insert("msl_recipient", null, recipientValues)
+-        }
+-      }
+-      db.setTransactionSuccessful()
+-    } finally {
+-      db.endTransaction()
+-    }
+-  }
+-}
+diff --git a/app/src/benchmarkShared/java/org/whispersystems/signalservice/internal/websocket/BenchmarkWebSocketConnection.kt b/app/src/benchmarkShared/java/org/whispersystems/signalservice/internal/websocket/BenchmarkWebSocketConnection.kt
+deleted file mode 100644
+index 0b894e274b6a334ebdf80e3aaea5d620db8bdc0b..0000000000000000000000000000000000000000
+--- a/app/src/benchmarkShared/java/org/whispersystems/signalservice/internal/websocket/BenchmarkWebSocketConnection.kt
++++ /dev/null
+@@ -1,187 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.whispersystems.signalservice.internal.websocket
+-
+-import io.reactivex.rxjava3.core.Observable
+-import io.reactivex.rxjava3.core.Single
+-import io.reactivex.rxjava3.subjects.BehaviorSubject
+-import org.signal.network.websocket.WebSocketRequestMessage
+-import org.signal.network.websocket.WebSocketResponseMessage
+-import org.signal.network.websocket.WebsocketResponse
+-import org.signal.core.util.JsonUtils
+-import org.thoughtcrime.securesms.util.SignalTrace
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+-import org.whispersystems.signalservice.internal.push.SendMessageResponse
+-import java.net.SocketException
+-import java.util.LinkedList
+-import java.util.Optional
+-import java.util.concurrent.Semaphore
+-import java.util.concurrent.TimeUnit
+-import java.util.concurrent.TimeoutException
+-
+-/**
+- * A [WebSocketConnection] that provides a way to add "incoming" WebSocket payloads
+- * and have client code pull them off the "wire" as they would a normal socket.
+- *
+- * Add messages with [addPendingMessages] and then can release them to the requestor via
+- * [releaseMessages].
+- */
+-class BenchmarkWebSocketConnection : WebSocketConnection {
+-
+-  companion object {
+-    private val authInstances = mutableListOf<BenchmarkWebSocketConnection>()
+-    private val unauthInstances = mutableListOf<BenchmarkWebSocketConnection>()
+-
+-    @Synchronized
+-    fun createAuthInstance(): WebSocketConnection {
+-      val authInstance = BenchmarkWebSocketConnection()
+-      authInstances += authInstance
+-      return authInstance
+-    }
+-
+-    @Synchronized
+-    fun createUnauthInstance(): WebSocketConnection {
+-      val unauthInstance = BenchmarkWebSocketConnection()
+-      unauthInstances += unauthInstance
+-      return unauthInstance
+-    }
+-
+-    @Synchronized
+-    fun startWholeBatchTrace() {
+-      authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).forEach { it.startWholeBatchTrace = true }
+-    }
+-
+-    @Synchronized
+-    fun releaseMessages() {
+-      authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).forEach { it.releaseMessages() }
+-    }
+-
+-    @Synchronized
+-    fun addPendingMessages(messages: List<WebSocketRequestMessage>) {
+-      authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).forEach { it.addPendingMessages(messages) }
+-    }
+-
+-    @Synchronized
+-    fun addQueueEmptyMessage() {
+-      authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).forEach { it.addQueueEmptyMessage() }
+-    }
+-
+-    fun awaitAllMessagesConsumed(timeoutMs: Long): Boolean {
+-      val deadline = System.currentTimeMillis() + timeoutMs
+-      while (System.currentTimeMillis() < deadline) {
+-        val activeInstances = synchronized(this) { authInstances.filterNot(BenchmarkWebSocketConnection::isShutdown).toList() }
+-        if (activeInstances.isNotEmpty() && activeInstances.all { it.incomingRequests.isEmpty() && it.incomingSemaphore.availablePermits() == 0 }) {
+-          return true
+-        }
+-        Thread.sleep(25)
+-      }
+-      return false
+-    }
+-  }
+-
+-  override val name: String = "bench-${System.identityHashCode(this)}"
+-
+-  private val state = BehaviorSubject.create<WebSocketConnectionState>()
+-
+-  private val incomingRequests = LinkedList<WebSocketRequestMessage>()
+-  private val incomingSemaphore = Semaphore(0)
+-
+-  var startWholeBatchTrace = false
+-
+-  @Volatile
+-  var isShutdown = false
+-    private set
+-
+-  override fun connect(): Observable<WebSocketConnectionState> {
+-    state.onNext(WebSocketConnectionState.CONNECTED)
+-    return state
+-  }
+-
+-  override fun isDead(): Boolean {
+-    return false
+-  }
+-
+-  override fun disconnect() {
+-    state.onNext(WebSocketConnectionState.DISCONNECTED)
+-
+-    // Signal shutdown
+-    isShutdown = true
+-
+-    val queuedThreads = incomingSemaphore.queueLength
+-    if (queuedThreads > 0) {
+-      incomingSemaphore.release(queuedThreads)
+-    }
+-  }
+-
+-  override fun readRequest(timeoutMillis: Long): WebSocketRequestMessage {
+-    if (incomingSemaphore.tryAcquire(1, 10, TimeUnit.SECONDS)) {
+-      // Check if we were woken up due to shutdown
+-      if (isShutdown) {
+-        throw SocketException("WebSocket connection closed")
+-      }
+-      return getNextRequest()
+-    }
+-
+-    throw TimeoutException("Timeout exceeded")
+-  }
+-
+-  override fun readRequestIfAvailable(): Optional<WebSocketRequestMessage> {
+-    return if (incomingSemaphore.tryAcquire()) {
+-      Optional.of(getNextRequest())
+-    } else {
+-      Optional.empty()
+-    }
+-  }
+-
+-  private fun getNextRequest(): WebSocketRequestMessage {
+-    if (startWholeBatchTrace) {
+-      startWholeBatchTrace = false
+-      SignalTrace.beginSection("IncomingMessageObserver#totalProcessing")
+-    }
+-
+-    return incomingRequests.removeFirst()
+-  }
+-
+-  override fun sendResponse(response: WebSocketResponseMessage) = Unit
+-
+-  fun addPendingMessages(messages: List<WebSocketRequestMessage>) {
+-    incomingRequests.addAll(messages)
+-  }
+-
+-  fun releaseMessages() {
+-    incomingSemaphore.release(incomingRequests.size)
+-  }
+-
+-  override fun sendRequest(
+-    request: WebSocketRequestMessage,
+-    timeoutSeconds: Long
+-  ): Single<WebsocketResponse> {
+-    if (request.verb != null && request.path != null) {
+-      if (request.verb == "PUT" && request.path!!.startsWith("/v1/messages/")) {
+-        return Single.just(WebsocketResponse(200, SendMessageResponse().toJson(), emptyList<String>(), true))
+-      }
+-    }
+-
+-    return Single.error(okio.IOException("fake timeout"))
+-  }
+-
+-  override fun sendKeepAlive() = Unit
+-
+-  fun addQueueEmptyMessage() {
+-    addPendingMessages(
+-      listOf(
+-        WebSocketRequestMessage(
+-          verb = "PUT",
+-          path = "/api/v1/queue/empty"
+-        )
+-      )
+-    )
+-  }
+-}
+-
+-private fun Any.toJson(): String {
+-  return JsonUtils.toJson(this)
+-}
+diff --git a/app/src/canary/AndroidManifest.xml b/app/src/canary/AndroidManifest.xml
+deleted file mode 100644
+index c48ea2556501363c3a85ecec8c213c61c325875a..0000000000000000000000000000000000000000
+--- a/app/src/canary/AndroidManifest.xml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-          xmlns:tools="http://schemas.android.com/tools">
+-
+-    <application
+-        android:name=".CanaryApplicationContext"
+-        tools:replace="android:name" />
+-
+-</manifest>
+diff --git a/app/src/canary/java/org/thoughtcrime/securesms/CanaryApplicationContext.kt b/app/src/canary/java/org/thoughtcrime/securesms/CanaryApplicationContext.kt
+deleted file mode 100644
+index c8c8b963c4b0a414d864cedaf2a891951d121217..0000000000000000000000000000000000000000
+--- a/app/src/canary/java/org/thoughtcrime/securesms/CanaryApplicationContext.kt
++++ /dev/null
+@@ -1,65 +0,0 @@
+-package org.thoughtcrime.securesms
+-
+-import android.os.StrictMode
+-import android.os.StrictMode.ThreadPolicy
+-import leakcanary.LeakCanary
+-import shark.AndroidReferenceMatchers
+-
+-class CanaryApplicationContext : ApplicationContext() {
+-  override fun onCreate() {
+-    super.onCreate()
+-
+-    StrictMode.setThreadPolicy(
+-      ThreadPolicy.Builder()
+-        .detectDiskReads()
+-        .detectDiskWrites()
+-        .detectNetwork()
+-        .penaltyLog()
+-        .build()
+-    )
+-
+-    try {
+-      Class.forName("dalvik.system.CloseGuard")
+-        .getMethod("setEnabled", Boolean::class.javaPrimitiveType)
+-        .invoke(null, true)
+-    } catch (e: ReflectiveOperationException) {
+-      throw RuntimeException(e)
+-    }
+-
+-    LeakCanary.config = LeakCanary.config.copy(
+-      referenceMatchers = AndroidReferenceMatchers.appDefaults +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "android.service.media.MediaBrowserService\$ServiceBinder",
+-          fieldName = "this\$0"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "androidx.media.MediaBrowserServiceCompat\$MediaBrowserServiceImplApi26\$MediaBrowserServiceApi26",
+-          fieldName = "mBase"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "android.support.v4.media.MediaBrowserCompat",
+-          fieldName = "mImpl"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "android.support.v4.media.session.MediaControllerCompat",
+-          fieldName = "mToken"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "android.support.v4.media.session.MediaControllerCompat",
+-          fieldName = "mImpl"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "org.thoughtcrime.securesms.components.voice.VoiceNotePlaybackService",
+-          fieldName = "mApplication"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "org.thoughtcrime.securesms.service.GenericForegroundService\$LocalBinder",
+-          fieldName = "this\$0"
+-        ) +
+-        AndroidReferenceMatchers.ignoredInstanceField(
+-          className = "org.thoughtcrime.securesms.contacts.ContactsSyncAdapter",
+-          fieldName = "mContext"
+-        )
+-    )
+-  }
+-}
+diff --git a/app/src/nightly/res/drawable/nightly_background.webp b/app/src/nightly/res/drawable/nightly_background.webp
+deleted file mode 100644
+index f70f07ee4a391813bc847547d51c2f3f2a065d0a..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 14864
+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
+
+diff --git a/app/src/nightly/res/mipmap-anydpi-v26/ic_launcher.xml b/app/src/nightly/res/mipmap-anydpi-v26/ic_launcher.xml
+deleted file mode 100644
+index ac17504c24edfe03fabc6c10d04b87ccf1b671bf..0000000000000000000000000000000000000000
+--- a/app/src/nightly/res/mipmap-anydpi-v26/ic_launcher.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/nightly_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_monochrome"/>
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/nightlyStaging/AndroidManifest.xml b/app/src/nightlyStaging/AndroidManifest.xml
+deleted file mode 100644
+index 93821ec6c5c2c6f0d15674e988dcf295503d2acd..0000000000000000000000000000000000000000
+--- a/app/src/nightlyStaging/AndroidManifest.xml
++++ /dev/null
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-          xmlns:tools="http://schemas.android.com/tools">
+-
+-    <application
+-        android:usesCleartextTraffic="true"
+-        tools:replace="android:usesCleartextTraffic"
+-        tools:ignore="UnusedAttribute" />
+-
+-</manifest>
+diff --git a/app/src/nightlyStaging/res/drawable/nightly_staging_background.webp b/app/src/nightlyStaging/res/drawable/nightly_staging_background.webp
+deleted file mode 100644
+index b90128566461fabbf3cc3f5ead7ce2955fefcea1..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 10632
+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
+ZiMmg8?|(%lINAC85zmXnU)KQu{|ERA`9%N#
+
+diff --git a/app/src/nightlyStaging/res/mipmap-anydpi-v26/ic_launcher.xml b/app/src/nightlyStaging/res/mipmap-anydpi-v26/ic_launcher.xml
+deleted file mode 100644
+index 256aae7062b3873484ec93b5759e0a61c00eadae..0000000000000000000000000000000000000000
+--- a/app/src/nightlyStaging/res/mipmap-anydpi-v26/ic_launcher.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/nightly_staging_background"/>
+-    <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+-    <monochrome android:drawable="@drawable/ic_launcher_monochrome"/>
+-</adaptive-icon>
+\ No newline at end of file
+diff --git a/app/src/nightlyStaging/res/values/strings.xml b/app/src/nightlyStaging/res/values/strings.xml
+deleted file mode 100644
+index 35da7c29821b54e3be4d7dd2399fae0b0573a39e..0000000000000000000000000000000000000000
+--- a/app/src/nightlyStaging/res/values/strings.xml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-<?xml version='1.0' encoding='UTF-8'?>
+-<resources>
+-  <string name="app_name">Signal (Staging)</string>
+-</resources>
+diff --git a/app/src/perf/AndroidManifest.xml b/app/src/perf/AndroidManifest.xml
+deleted file mode 100644
+index 536ff000a09141b6b797d0c7db2541f361af1889..0000000000000000000000000000000000000000
+--- a/app/src/perf/AndroidManifest.xml
++++ /dev/null
+@@ -1,7 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-    <application>
+-        <profileable android:shell="true" />
+-    </application>
+-</manifest>
+\ No newline at end of file
+diff --git a/app/src/quickstart/AndroidManifest.xml b/app/src/quickstart/AndroidManifest.xml
+deleted file mode 100644
+index c94ccab70b7fe56b936bed26abaa7c3a473aa3b8..0000000000000000000000000000000000000000
+--- a/app/src/quickstart/AndroidManifest.xml
++++ /dev/null
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-          xmlns:tools="http://schemas.android.com/tools">
+-
+-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+-    <uses-permission
+-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+-        tools:ignore="ScopedStorage" />
+-
+-    <application
+-        android:name=".QuickstartApplicationContext"
+-        tools:replace="android:name"
+-        android:requestLegacyExternalStorage="true">
+-
+-        <activity android:name=".QuickstartRestoreActivity" />
+-    </application>
+-</manifest>
+diff --git a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartApplicationContext.kt b/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartApplicationContext.kt
+deleted file mode 100644
+index 3036191e44100fae8c398db9bd9d7546ca6b997b..0000000000000000000000000000000000000000
+--- a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartApplicationContext.kt
++++ /dev/null
+@@ -1,52 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import android.app.Activity
+-import android.app.Application.ActivityLifecycleCallbacks
+-import android.content.Intent
+-import android.os.Bundle
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-
+-/**
+- * Application subclass for the quickstart build variant.
+- * On first launch, if the account is not yet registered, it triggers
+- * [QuickstartInitializer] to import pre-baked credentials from assets.
+- */
+-class QuickstartApplicationContext : ApplicationContext() {
+-
+-  companion object {
+-    private val TAG = Log.tag(QuickstartApplicationContext::class.java)
+-  }
+-
+-  override fun onCreate() {
+-    super.onCreate()
+-    if (!SignalStore.account.isRegistered) {
+-      Log.i(TAG, "Account not registered, attempting quickstart initialization...")
+-      QuickstartInitializer.initialize(this)
+-
+-      if (QuickstartInitializer.pendingBackupDir != null) {
+-        Log.i(TAG, "Pending backup detected, will redirect to restore activity")
+-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+-          override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+-            if (activity is QuickstartRestoreActivity) return
+-            unregisterActivityLifecycleCallbacks(this)
+-            activity.startActivity(Intent(activity, QuickstartRestoreActivity::class.java))
+-            activity.finish()
+-          }
+-
+-          override fun onActivityStarted(activity: Activity) = Unit
+-          override fun onActivityResumed(activity: Activity) = Unit
+-          override fun onActivityPaused(activity: Activity) = Unit
+-          override fun onActivityStopped(activity: Activity) = Unit
+-          override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
+-          override fun onActivityDestroyed(activity: Activity) = Unit
+-        })
+-      }
+-    }
+-  }
+-}
+diff --git a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartInitializer.kt b/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartInitializer.kt
+deleted file mode 100644
+index 682f30d11cfe9a7c8c57ed7bfa8dfbca46ad3b92..0000000000000000000000000000000000000000
+--- a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartInitializer.kt
++++ /dev/null
+@@ -1,177 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import android.content.Context
+-import android.os.Environment
+-import android.preference.PreferenceManager
+-import android.util.Base64
+-import kotlinx.coroutines.runBlocking
+-import kotlinx.serialization.json.Json
+-import org.signal.core.models.AccountEntropyPool
+-import org.signal.core.util.logging.Log
+-import org.signal.libsignal.protocol.IdentityKeyPair
+-import org.signal.libsignal.protocol.state.KyberPreKeyRecord
+-import org.signal.libsignal.protocol.state.SignedPreKeyRecord
+-import org.signal.libsignal.zkgroup.profiles.ProfileKey
+-import org.thoughtcrime.securesms.crypto.MasterSecretUtil
+-import org.thoughtcrime.securesms.database.SignalDatabase
+-import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.keyvalue.Skipped
+-import org.thoughtcrime.securesms.profiles.ProfileName
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.registration.data.AccountRegistrationResult
+-import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil
+-import org.thoughtcrime.securesms.registration.data.QuickstartCredentials
+-import org.thoughtcrime.securesms.registration.data.RegistrationData
+-import org.thoughtcrime.securesms.registration.data.RegistrationRepository
+-import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+-import org.whispersystems.signalservice.api.account.PreKeyCollection
+-import java.io.File
+-
+-/**
+- * Reads pre-baked registration credentials from assets and performs
+- * local registration, bypassing the normal registration flow.
+- *
+- * Follows the same pattern as [org.signal.benchmark.setup.TestUsers.setupSelf].
+- */
+-object QuickstartInitializer {
+-
+-  private val TAG = Log.tag(QuickstartInitializer::class.java)
+-
+-  var pendingBackupDir: File? = null
+-
+-  fun initialize(context: Context) {
+-    val credentialJson = findCredentialJson(context)
+-    if (credentialJson == null) {
+-      Log.w(TAG, "No quickstart credentials found on disk or in assets. Falling through to normal registration.")
+-      return
+-    }
+-
+-    val credentials = Json.decodeFromString<QuickstartCredentials>(credentialJson)
+-    Log.i(TAG, "Loaded quickstart credentials for ${credentials.e164}")
+-
+-    // Restore AEP before any derived keys are accessed
+-    if (credentials.accountEntropyPool != null) {
+-      SignalStore.account.restoreAccountEntropyPool(AccountEntropyPool(credentials.accountEntropyPool))
+-      Log.i(TAG, "Restored account entropy pool from quickstart credentials")
+-    }
+-
+-    // Master secret setup
+-    PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("pref_prompted_push_registration", true).commit()
+-    val masterSecret = MasterSecretUtil.generateMasterSecret(context, MasterSecretUtil.UNENCRYPTED_PASSPHRASE)
+-    MasterSecretUtil.generateAsymmetricMasterSecret(context, masterSecret)
+-    context.getSharedPreferences(MasterSecretUtil.PREFERENCES_NAME, 0).edit().putBoolean("passphrase_initialized", true).commit()
+-
+-    // Set registration IDs from credentials
+-    SignalStore.account.registrationId = credentials.registrationId
+-    SignalStore.account.pniRegistrationId = credentials.pniRegistrationId
+-
+-    // Decode pre-baked keys
+-    val aciIdentityKeyPair = IdentityKeyPair(Base64.decode(credentials.aciIdentityKeyPair, Base64.DEFAULT))
+-    val pniIdentityKeyPair = IdentityKeyPair(Base64.decode(credentials.pniIdentityKeyPair, Base64.DEFAULT))
+-    val aciSignedPreKey = SignedPreKeyRecord(Base64.decode(credentials.aciSignedPreKey, Base64.DEFAULT))
+-    val aciLastResortKyberPreKey = KyberPreKeyRecord(Base64.decode(credentials.aciLastResortKyberPreKey, Base64.DEFAULT))
+-    val pniSignedPreKey = SignedPreKeyRecord(Base64.decode(credentials.pniSignedPreKey, Base64.DEFAULT))
+-    val pniLastResortKyberPreKey = KyberPreKeyRecord(Base64.decode(credentials.pniLastResortKyberPreKey, Base64.DEFAULT))
+-    val profileKey = ProfileKey(Base64.decode(credentials.profileKey, Base64.DEFAULT))
+-
+-    val registrationData = RegistrationData(
+-      code = "000000",
+-      e164 = credentials.e164,
+-      password = credentials.servicePassword,
+-      registrationId = credentials.registrationId,
+-      profileKey = profileKey,
+-      fcmToken = null,
+-      pniRegistrationId = credentials.pniRegistrationId,
+-      recoveryPassword = null
+-    )
+-
+-    val remoteResult = AccountRegistrationResult(
+-      uuid = credentials.aci,
+-      pni = credentials.pni,
+-      storageCapable = false,
+-      number = credentials.e164,
+-      masterKey = null,
+-      pin = null,
+-      aciPreKeyCollection = PreKeyCollection(aciIdentityKeyPair.publicKey, aciSignedPreKey, aciLastResortKyberPreKey),
+-      pniPreKeyCollection = PreKeyCollection(pniIdentityKeyPair.publicKey, pniSignedPreKey, pniLastResortKyberPreKey),
+-      reRegistration = false
+-    )
+-
+-    // Create metadata and register locally
+-    val localRegistrationData = LocalRegistrationMetadataUtil.createLocalRegistrationMetadata(
+-      aciIdentityKeyPair,
+-      pniIdentityKeyPair,
+-      registrationData,
+-      remoteResult,
+-      false
+-    )
+-
+-    runBlocking {
+-      RegistrationRepository.registerAccountLocally(context, localRegistrationData)
+-    }
+-
+-    // Enable FCM so the app fetches a token through its normal startup flow
+-    // rather than keeping a websocket open.
+-    SignalStore.account.fcmEnabled = true
+-
+-    // Finalize registration state
+-    SignalStore.svr.optOut()
+-    SignalStore.registration.restoreDecisionState = RestoreDecisionState.Skipped
+-    SignalDatabase.recipients.setProfileName(Recipient.self().id, ProfileName.fromParts(credentials.profileGivenName, credentials.profileFamilyName))
+-    RegistrationUtil.maybeMarkRegistrationComplete()
+-
+-    // Check for a local backup to restore
+-    val backupsDir = File(DISK_CREDENTIALS_DIR, "SignalBackups")
+-    if (backupsDir.exists() && backupsDir.isDirectory) {
+-      val hasSnapshot = backupsDir.listFiles()?.any { it.isDirectory && it.name.startsWith("signal-backup") } == true
+-      if (hasSnapshot) {
+-        Log.i(TAG, "Found local backup directory at ${backupsDir.absolutePath}, will restore after launch")
+-        pendingBackupDir = DISK_CREDENTIALS_DIR
+-      }
+-    }
+-
+-    Log.i(TAG, "Quickstart initialization complete for ${credentials.e164}")
+-  }
+-
+-  private val DISK_CREDENTIALS_DIR = File(Environment.getExternalStorageDirectory(), "signal-quickstart")
+-
+-  private val diskCredentialFileName: String
+-    get() = if (org.thoughtcrime.securesms.util.Environment.IS_STAGING) "staging_credentials.json" else "prod_credentials.json"
+-
+-  private fun findCredentialJson(context: Context): String? {
+-    return findCredentialJsonOnDisk() ?: findCredentialJsonInAssets(context)
+-  }
+-
+-  private fun findCredentialJsonOnDisk(): String? {
+-    val file = File(DISK_CREDENTIALS_DIR, diskCredentialFileName)
+-    return try {
+-      if (file.exists()) {
+-        Log.i(TAG, "Found quickstart credentials on disk at ${file.absolutePath}")
+-        file.readText()
+-      } else {
+-        Log.d(TAG, "No quickstart credentials found on disk at ${file.absolutePath}")
+-        null
+-      }
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Error reading quickstart credentials from disk", e)
+-      null
+-    }
+-  }
+-
+-  private fun findCredentialJsonInAssets(context: Context): String? {
+-    return try {
+-      val files = context.assets.list("quickstart") ?: return null
+-      val jsonFile = files.firstOrNull { it.endsWith(".json") } ?: return null
+-      context.assets.open("quickstart/$jsonFile").bufferedReader().readText()
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Error reading quickstart credentials from assets", e)
+-      null
+-    }
+-  }
+-}
+diff --git a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartRestoreActivity.kt b/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartRestoreActivity.kt
+deleted file mode 100644
+index 92328e53148e795f6fb523f893accf05276c5a86..0000000000000000000000000000000000000000
+--- a/app/src/quickstart/java/org/thoughtcrime/securesms/QuickstartRestoreActivity.kt
++++ /dev/null
+@@ -1,206 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms
+-
+-import android.content.Intent
+-import android.net.Uri
+-import android.os.Build
+-import android.os.Bundle
+-import android.os.Environment
+-import android.provider.Settings
+-import android.widget.Toast
+-import androidx.activity.compose.setContent
+-import androidx.activity.result.contract.ActivityResultContracts
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.material3.CircularProgressIndicator
+-import androidx.compose.material3.Surface
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.getValue
+-import androidx.compose.runtime.mutableStateOf
+-import androidx.compose.runtime.setValue
+-import androidx.compose.ui.Alignment
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.unit.dp
+-import androidx.lifecycle.lifecycleScope
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.launch
+-import kotlinx.coroutines.withContext
+-import org.greenrobot.eventbus.Subscribe
+-import org.greenrobot.eventbus.ThreadMode
+-import org.signal.core.ui.compose.theme.SignalTheme
+-import org.signal.core.util.logging.Log
+-import org.signal.libsignal.zkgroup.profiles.ProfileKey
+-import org.thoughtcrime.securesms.backup.v2.BackupRepository
+-import org.thoughtcrime.securesms.backup.v2.ImportResult
+-import org.thoughtcrime.securesms.backup.v2.RestoreV2Event
+-import org.thoughtcrime.securesms.backup.v2.local.ArchiveFileSystem
+-import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
+-import org.thoughtcrime.securesms.jobs.RestoreLocalAttachmentJob
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
+-import java.io.File
+-import java.io.FileInputStream
+-
+-/**
+- * Shows a spinner while importing a local backup for the quickstart build variant.
+- *
+- * Bypasses [org.thoughtcrime.securesms.backup.v2.local.LocalArchiver] and
+- * [org.thoughtcrime.securesms.backup.v2.local.SnapshotFileSystem] to avoid
+- * DocumentFile findFile issues. Instead, finds backup files using raw [File] I/O
+- * and calls [BackupRepository.importLocal] directly.
+- *
+- * Requires MANAGE_EXTERNAL_STORAGE on Android 11+ to read from /sdcard/.
+- * Will prompt the user to grant the permission if not already granted.
+- */
+-class QuickstartRestoreActivity : BaseActivity() {
+-
+-  companion object {
+-    private val TAG = Log.tag(QuickstartRestoreActivity::class.java)
+-
+-    /**
+-     * Finds a file in [dir] by trying the base name first, then common SAF-appended
+-     * extensions (.bin for application/octet-stream).
+-     */
+-    private fun findBackupFile(dir: File, baseName: String): File? {
+-      val candidates = listOf(baseName, "$baseName.bin")
+-      return candidates
+-        .map { File(dir, it) }
+-        .firstOrNull { it.exists() }
+-    }
+-  }
+-
+-  private var restoreStatus by mutableStateOf("Restoring data...")
+-
+-  private val eventBusSubscriber = EventBusSubscriber()
+-
+-  private val manageStorageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+-    if (hasStorageAccess()) {
+-      startRestore()
+-    } else {
+-      Log.w(TAG, "MANAGE_EXTERNAL_STORAGE not granted after returning from Settings")
+-      restoreStatus = "Storage permission required. Please grant 'All files access' and relaunch."
+-    }
+-  }
+-
+-  override fun onCreate(savedInstanceState: Bundle?) {
+-    super.onCreate(savedInstanceState)
+-
+-    setContent {
+-      SignalTheme {
+-        Surface {
+-          RegistrationScreen(
+-            title = "Quickstart Restore",
+-            subtitle = null,
+-            bottomContent = { }
+-          ) {
+-            Text(
+-              text = restoreStatus,
+-              modifier = Modifier
+-                .align(Alignment.CenterHorizontally)
+-                .padding(bottom = 16.dp)
+-            )
+-
+-            CircularProgressIndicator(
+-              modifier = Modifier.align(Alignment.CenterHorizontally)
+-            )
+-          }
+-        }
+-      }
+-    }
+-
+-    org.greenrobot.eventbus.EventBus.getDefault().registerForLifecycle(subscriber = eventBusSubscriber, lifecycleOwner = this)
+-
+-    if (hasStorageAccess()) {
+-      startRestore()
+-    } else {
+-      Log.i(TAG, "MANAGE_EXTERNAL_STORAGE not granted, requesting...")
+-      restoreStatus = "Requesting storage permission..."
+-      val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:$packageName"))
+-      manageStorageLauncher.launch(intent)
+-    }
+-  }
+-
+-  private fun hasStorageAccess(): Boolean {
+-    return Build.VERSION.SDK_INT < 30 || Environment.isExternalStorageManager()
+-  }
+-
+-  private fun startRestore() {
+-    lifecycleScope.launch(Dispatchers.IO) {
+-      try {
+-        val self = Recipient.self()
+-        val selfData = BackupRepository.SelfData(self.aci.get(), self.pni.get(), self.e164.get(), ProfileKey(self.profileKey))
+-
+-        val backupDir = QuickstartInitializer.pendingBackupDir!!
+-
+-        // Find snapshot directory using raw File API
+-        val signalBackupsDir = File(backupDir, "SignalBackups")
+-        val snapshotDir = signalBackupsDir.listFiles()
+-          ?.filter { it.isDirectory && it.name.startsWith("signal-backup") }
+-          ?.sortedByDescending { it.name }
+-          ?.firstOrNull()
+-          ?: error("No snapshot directory found in ${signalBackupsDir.absolutePath}")
+-
+-        Log.i(TAG, "Snapshot directory: ${snapshotDir.absolutePath}")
+-        Log.i(TAG, "Snapshot contents: ${snapshotDir.listFiles()?.joinToString { "${it.name} (${if (it.isDirectory) "dir" else "${it.length()}b"})" }}")
+-
+-        // Find the main backup file (may be "main" or "main.bin" depending on how the backup was created)
+-        val mainFile = findBackupFile(snapshotDir, "main")
+-          ?: error("No 'main' file found in snapshot directory ${snapshotDir.absolutePath}")
+-
+-        Log.i(TAG, "Using main file: ${mainFile.name} (${mainFile.length()} bytes)")
+-
+-        // Import directly via BackupRepository, bypassing SnapshotFileSystem/LocalArchiver
+-        // to avoid DocumentFile.findFile name-matching issues
+-        val backupKey = SignalStore.backup.messageBackupKey
+-        val backupId = backupKey.deriveBackupId(selfData.aci)
+-
+-        val importResult = BackupRepository.importLocal(
+-          mainStreamFactory = { FileInputStream(mainFile) },
+-          mainStreamLength = mainFile.length(),
+-          selfData = selfData,
+-          backupId = backupId,
+-          messageBackupKey = backupKey
+-        )
+-
+-        Log.i(TAG, "Import result: $importResult")
+-
+-        if (importResult is ImportResult.Failure) {
+-          error("BackupRepository.importLocal returned Failure")
+-        }
+-
+-        withContext(Dispatchers.Main) { restoreStatus = "Restoring attachments..." }
+-
+-        val mediaNameToFileInfo = ArchiveFileSystem.fromFile(this@QuickstartRestoreActivity, signalBackupsDir).filesFileSystem.allFiles()
+-        RestoreLocalAttachmentJob.enqueueRestoreLocalAttachmentsJobs(mediaNameToFileInfo)
+-
+-        QuickstartInitializer.pendingBackupDir = null
+-
+-        withContext(Dispatchers.Main) {
+-          Toast.makeText(this@QuickstartRestoreActivity, "Backup restored!", Toast.LENGTH_SHORT).show()
+-          startActivity(MainActivity.clearTop(this@QuickstartRestoreActivity))
+-          finishAffinity()
+-        }
+-      } catch (e: Exception) {
+-        Log.w(TAG, "Error during quickstart restore", e)
+-        QuickstartInitializer.pendingBackupDir = null
+-
+-        withContext(Dispatchers.Main) {
+-          Toast.makeText(this@QuickstartRestoreActivity, "Backup restore failed: ${e.message}", Toast.LENGTH_LONG).show()
+-          startActivity(MainActivity.clearTop(this@QuickstartRestoreActivity))
+-          finishAffinity()
+-        }
+-      }
+-    }
+-  }
+-
+-  private inner class EventBusSubscriber {
+-    @Subscribe(threadMode = ThreadMode.MAIN)
+-    fun onEvent(restoreEvent: RestoreV2Event) {
+-      restoreStatus = "${restoreEvent.type}: ${restoreEvent.count} / ${restoreEvent.estimatedTotalCount}"
+-    }
+-  }
+-}
+diff --git a/app/src/screenshotTest/kotlin/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests.kt b/app/src/screenshotTest/kotlin/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests.kt
+deleted file mode 100644
+index b718370f7419154f47da0ff45764face2edee4fd..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTest/kotlin/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests.kt
++++ /dev/null
+@@ -1,183 +0,0 @@
+-/*
+- * Copyright 2026 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.components.settings.app.subscription.donate
+-
+-import androidx.compose.runtime.Composable
+-import com.android.tools.screenshot.PreviewTest
+-import org.signal.core.ui.compose.DayNightPreviews
+-import org.signal.core.ui.compose.Previews
+-import org.signal.core.ui.compose.RtlPreview
+-import org.signal.donations.InAppPaymentType
+-import org.thoughtcrime.securesms.components.settings.app.subscription.DonationPendingBottomSheetContentPreview
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewayOrderStrategy
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewaySelectorBottomSheetContent
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.GatewaySelectorState
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.gateway.rememberGatewaySelectorBottomSheetContentPreviewState
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.details.BankTransferDetailsContent
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.details.BankTransferDetailsState
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.details.IBANValidator
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.ideal.IdealTransferDetailsContentPreview
+-import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.mandate.BankTransferScreenPreview
+-import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData.PaymentMethodType
+-
+-class DonationCheckoutScreenshotTests {
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun GatewaySelectorLoading() {
+-    GatewaySelectorPreview(GatewaySelectorState.Loading)
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun GatewaySelectorNorthAmerica() {
+-    GatewaySelectorPreview(
+-      state = rememberGatewaySelectorBottomSheetContentPreviewState(
+-        type = InAppPaymentType.ONE_TIME_DONATION,
+-        gatewayOrderStrategy = GatewayOrderStrategy.forTesting(
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.CARD,
+-          PaymentMethodType.SEPA_DEBIT,
+-          PaymentMethodType.IDEAL
+-        ),
+-        availableGateways = setOf(
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.CARD
+-        )
+-      )
+-    )
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun GatewaySelectorSepa() {
+-    GatewaySelectorPreview(
+-      state = rememberGatewaySelectorBottomSheetContentPreviewState(
+-        type = InAppPaymentType.RECURRING_DONATION,
+-        gatewayOrderStrategy = GatewayOrderStrategy.forTesting(
+-          PaymentMethodType.CARD,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.SEPA_DEBIT,
+-          PaymentMethodType.IDEAL
+-        ),
+-        availableGateways = setOf(
+-          PaymentMethodType.CARD,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.SEPA_DEBIT
+-        )
+-      )
+-    )
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun GatewaySelectorNetherlands() {
+-    GatewaySelectorPreview(
+-      state = rememberGatewaySelectorBottomSheetContentPreviewState(
+-        type = InAppPaymentType.RECURRING_DONATION,
+-        gatewayOrderStrategy = GatewayOrderStrategy.forTesting(
+-          PaymentMethodType.IDEAL,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.CARD,
+-          PaymentMethodType.SEPA_DEBIT
+-        ),
+-        availableGateways = setOf(
+-          PaymentMethodType.IDEAL,
+-          PaymentMethodType.PAYPAL,
+-          PaymentMethodType.GOOGLE_PAY,
+-          PaymentMethodType.CARD,
+-          PaymentMethodType.SEPA_DEBIT
+-        )
+-      )
+-    )
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun BankTransferMandate() {
+-    BankTransferScreenPreview()
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun BankTransferDetails() {
+-    BankTransferDetailsPreview(displayFindAccountInfoSheet = false)
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun FindAccountInfoSheet() {
+-    BankTransferDetailsPreview(displayFindAccountInfoSheet = true)
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun IdealTransferDetails() {
+-    IdealTransferDetailsContentPreview()
+-  }
+-
+-  @PreviewTest
+-  @DayNightPreviews
+-  @RtlPreview
+-  @Composable
+-  fun DonationPending() {
+-    DonationPendingBottomSheetContentPreview()
+-  }
+-
+-  @Composable
+-  private fun GatewaySelectorPreview(state: GatewaySelectorState) {
+-    Previews.BottomSheetContentPreview {
+-      GatewaySelectorBottomSheetContent(
+-        state = state,
+-        onEvent = {}
+-      )
+-    }
+-  }
+-
+-  @Composable
+-  private fun BankTransferDetailsPreview(displayFindAccountInfoSheet: Boolean) {
+-    Previews.Preview {
+-      BankTransferDetailsContent(
+-        state = BankTransferDetailsState(
+-          name = "Miles Morales",
+-          iban = "DE89370400440532013000",
+-          email = "miles@example.com",
+-          ibanValidity = IBANValidator.Validity.COMPLETELY_VALID,
+-          displayFindAccountInfoSheet = displayFindAccountInfoSheet
+-        ),
+-        onNavigationClick = {},
+-        onNameChanged = {},
+-        onIBANChanged = {},
+-        onEmailChanged = {},
+-        setDisplayFindAccountInfoSheet = {},
+-        onLearnMoreClick = {},
+-        onDonateClick = {},
+-        onFocusChanged = { _, _ -> },
+-        donateLabel = "Donate $5/month"
+-      )
+-    }
+-  }
+-}
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 3693d7b9eec88a6d421c3dc2a9f754671dc3658b..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:96a49e54c27356b3482745b05b3e6404a7d73a9a85712cd968481c8b19a2d175
+-size 72107
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_night mode_c0572229_0.png
+deleted file mode 100644
+index d5878b932d795591cbf89d2f7a4d27f56b169290..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:04bffc67ac91a255abcad902fce4e1e8de7cf622ddf693fd04bb2ac5af9fc402
+-size 72375
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index b9850a328cf8a9af0560b5c609a2f27d842836af..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferDetails_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:dfb69be644bb2645f7db62e3726ac452486d52d6e7578277f810834149b64864
+-size 88613
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_day mode_7e480c1c_0.png
+deleted file mode 100644
+index d93f531b27fc7e0173e0b85f32e3b94e2ed7687a..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8c66a6d57921ca4c1054baedeebea61ca9622b40b9f1d5f6404bdc03305a05a6
+-size 107734
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_night mode_c0572229_0.png
+deleted file mode 100644
+index fb8d5736d53d2d96c6a1ea50529252561d587497..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7b9bce0595797abf1361a00417021edfdeb3a9012c9e40906bac58b618f7ff31
+-size 107813
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 247c3b610f414322359ef7bbed5795c2c2e6dd0a..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/BankTransferMandate_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:f4b2ad3d2221f8e36cf9a32ecb364c0ec810de703295bfba7ff4829b74faba8b
+-size 111151
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 95d621c37cc1330a2f4be1f48a9fbf1e0722457a..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:c1ec8d96bed15d20bd32805698e1ff41dc75a3162d6a11a9e2954eeb9f5c7cf3
+-size 60836
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_night mode_c0572229_0.png
+deleted file mode 100644
+index 10d932e93b7ce74811bf2f45f61f5212d835b687..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8491d725c44aecb12ad6770e39f1a4afd93b70133fc1a320713fb7e02c93045d
+-size 60457
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 561fef16d5c8e892664e7f7a5cec6f726bc59e3b..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/DonationPending_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:7a17b69d889983ac072267f0354eb686b4d5babd6301581c2272f22b953c26ab
+-size 61139
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 44dedf00905d994b36a754bb3824594f59084d91..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:76943bd195dbe8ca632c5cae2872b6d167a206ccb051d5ca05975d72e47b0226
+-size 15540
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_night mode_c0572229_0.png
+deleted file mode 100644
+index 44dedf00905d994b36a754bb3824594f59084d91..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:76943bd195dbe8ca632c5cae2872b6d167a206ccb051d5ca05975d72e47b0226
+-size 15540
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 44dedf00905d994b36a754bb3824594f59084d91..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/FindAccountInfoSheet_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:76943bd195dbe8ca632c5cae2872b6d167a206ccb051d5ca05975d72e47b0226
+-size 15540
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 19534503a50c90f42affdc957aa5a81cfe84e209..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:03ea5da63d7eededc61a8d604cb7b0956a43939958a97e1a6b89a489ba1be6d1
+-size 2524
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_night mode_c0572229_0.png
+deleted file mode 100644
+index a008c41e75ba839cbd79dcb6e43e3b152cb238a9..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8b2f3484e97401fd5c364e58bf3a5510952c7247c6c3d37148bc16fabc31ab56
+-size 2535
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 19534503a50c90f42affdc957aa5a81cfe84e209..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorLoading_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:03ea5da63d7eededc61a8d604cb7b0956a43939958a97e1a6b89a489ba1be6d1
+-size 2524
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_day mode_7e480c1c_0.png
+deleted file mode 100644
+index 5d6cb24548bdbe5340ad98f30dca423d8947ca33..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:ec385f2c44dbda9cbd15aa780a2b8ccf0e2326bbf02a91bd9a1ba58aeb70535b
+-size 69121
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_night mode_c0572229_0.png
+deleted file mode 100644
+index f0f127194defeb631e78f1a2196470ed93ee745f..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:9da7ad52bef4230260703f53107c351d37618f7e6cd4860143cdd39b407ab99b
+-size 70040
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index 9812f3300284e30dfbc79f1b3c204097eb1c6747..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNetherlands_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:c0989d8287c981716e27478b74c3ed852c6545ef137ef3ae2e1cf341216d47bf
+-size 75823
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_day mode_7e480c1c_0.png
+deleted file mode 100644
+index f791d168551b9ab1921a6f12ffeb0231c4b0b4d2..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:60915c38049cf7edf7998ad194979e2bc067ded39f9d0e02f5b3e548d8b8bb10
+-size 52789
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_night mode_c0572229_0.png
+deleted file mode 100644
+index badd162c1d859290d2a101bc0eaa3bf45f656222..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:8b127ead387114a036843977bd0d9f84e4dbf0ea3566c7296d5c806f1f0435e1
+-size 53031
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index e1660b5ed3befefa74307700e6b1668c7dbee480..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorNorthAmerica_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:07a81ddfd846a6776c79068c6be0a8df99ccf799349cf620d903afa9f38fbf85
+-size 57197
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_day mode_7e480c1c_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_day mode_7e480c1c_0.png
+deleted file mode 100644
+index b921503a765ec0fd7e3f07b282b5d7b7fe2009c2..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_day mode_7e480c1c_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:39604a071e5b6840374cf3ad954899ddd2a2a7a66da6b28ae66e2582b400abb1
+-size 59255
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_night mode_c0572229_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_night mode_c0572229_0.png
+deleted file mode 100644
+index d550cf44373d022634a3785bcb6c870d869ed498..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_night mode_c0572229_0.png	
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:f5883959319b32391180e738e29c1306fe77696418622850d47804dd466a188b
+-size 59758
+diff --git a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_rtl_5cbb5cfd_0.png b/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_rtl_5cbb5cfd_0.png
+deleted file mode 100644
+index a1836393afe9716aeb72c95808069f14ff7fb15a..0000000000000000000000000000000000000000
+--- a/app/src/screenshotTestPlayProdDebug/reference/org/thoughtcrime/securesms/components/settings/app/subscription/donate/DonationCheckoutScreenshotTests/GatewaySelectorSepa_rtl_5cbb5cfd_0.png
++++ /dev/null
+@@ -1,3 +0,0 @@
+-version https://git-lfs.github.com/spec/v1
+-oid sha256:e76319631a4d616219f1684c52725f50a32b703859687532bb7941c575573ff9
+-size 65977
+
+--------------false--
+
+

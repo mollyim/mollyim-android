@@ -8,12 +8,12 @@ import android.util.DisplayMetrics
 import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import im.molly.app.base.ApkInfo
 import org.signal.core.ui.getWindowSizeClass
 import org.signal.core.util.BidiUtil
 import org.signal.core.util.DiskUtil
 import org.signal.core.util.FontUtil.canRenderEmojiAtFontSize
 import org.signal.core.util.ServiceUtil
+import org.signal.core.util.Util
 import org.signal.core.util.bytes
 import org.signal.core.util.getAnimationScale
 import org.signal.core.util.roundedString
@@ -35,19 +35,13 @@ import org.thoughtcrime.securesms.util.VersionTracker.getDaysSinceFirstInstalled
 import java.util.Locale
 import kotlin.time.Duration.Companion.milliseconds
 
-private const val LOCKED = "Locked"
-
 class LogSectionSystemInfo : LogSection {
 
   override fun getTitle(): String {
     return "SYSINFO"
   }
 
-  override fun getContent(context: Context) = getContent(context, locked = false)
-
-  override fun getContentLocked(context: Context) = getContent(context, locked = true)
-
-  fun getContent(context: Context, locked: Boolean): CharSequence {
+  override fun getContent(context: Context): CharSequence {
     return """
       Time              : ${System.currentTimeMillis()}
       Manufacturer      : ${Build.MANUFACTURER}
@@ -66,32 +60,32 @@ class LogSectionSystemInfo : LogSection {
       MemInfo           : ${getMemoryInfo(context)}
       Disk Space        : ${getDiskSpaceInfo(context)}
       OS Host           : ${Build.HOST}
-      RecipientId       : ${if (locked) LOCKED else if (SignalStore.registration.isRegistrationComplete) self().id else "N/A"}
-      ACI               : ${if (locked) LOCKED else getCensoredAci()}
-      Device ID         : ${if (locked) LOCKED else SignalStore.account.deviceId}
-      Censored          : ${if (locked) LOCKED else AppDependencies.signalServiceNetworkAccess.isCensored()}
+      RecipientId       : ${if (SignalStore.registration.isRegistrationComplete) self().id else "N/A"}
+      ACI               : ${getCensoredAci()}
+      Device ID         : ${SignalStore.account.deviceId}
+      Censored          : ${AppDependencies.signalServiceNetworkAccess.isCensored()}
       Network Status    : ${NetworkUtil.getNetworkStatus(context)}
       Play Services     : ${getPlayServicesString(context)}
-      UnifiedPush       : ${if (locked) LOCKED else SignalStore.unifiedpush.enabled}
+      FCM               : ${SignalStore.account.fcmEnabled}
       Locale            : ${Locale.getDefault()}
-      Linked Devices    : ${if (locked) LOCKED else SignalStore.account.isMultiDevice}
+      Linked Devices    : ${SignalStore.account.isMultiDevice}
       First Version     : ${TextSecurePreferences.getFirstInstallVersion(context)}
       Days Installed    : ${getDaysSinceFirstInstalled(context)}
-      Last Registration : ${if (locked) LOCKED else getTimeRegistered()}
-      Build Variant     : ${BuildConfig.FLAVOR}
+      Last Registration : ${getTimeRegistered()}
+      Build Variant     : ${BuildConfig.BUILD_DISTRIBUTION_TYPE}${BuildConfig.BUILD_ENVIRONMENT_TYPE}${BuildConfig.BUILD_VARIANT_TYPE}
       Emoji Version     : ${getEmojiVersionString(context)}
       RenderBigEmoji    : ${canRenderEmojiAtFontSize(1024f)}
       DontKeepActivities: ${getDontKeepActivities(context)}
-      Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
-      Telecom           : ${if (locked) LOCKED else telecomSupported}
+      Server Time Offset: ${SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
+      Telecom           : $telecomSupported
       User-Agent        : ${StandardUserAgentInterceptor.USER_AGENT}
-      SlowNotifications : ${if (locked) LOCKED else isHavingDelayedNotifications()}
+      SlowNotifications : ${isHavingDelayedNotifications()}
       Battery Level     : ${DeviceProperties.getBatteryLevel(context)}% (charging: ${DeviceProperties.isCharging(context)})
       IgnoringBatteryOpt: ${PowerManagerCompat.isIgnoringBatteryOptimizations(context)}
       BkgRestricted     : ${if (Build.VERSION.SDK_INT >= 28) DeviceProperties.isBackgroundRestricted(context) else "N/A"}
       Data Saver        : ${DeviceProperties.getDataSaverState(context)}
-      APNG Animation    : ${if (locked) LOCKED else DeviceProperties.shouldAllowApngStickerAnimation(context)}
-      Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
+      APNG Animation    : ${DeviceProperties.shouldAllowApngStickerAnimation(context)}
+      ApkManifestUrl    : ${BuildConfig.APK_UPDATE_MANIFEST_URL?.takeIf { BuildConfig.MANAGES_APP_UPDATES } ?: "N/A"}
       App               : ${getAppInfo(context)}
       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})
       FullScreenIntents : ${NotificationManagerCompat.from(context).canUseFullScreenIntent()}
@@ -103,9 +97,9 @@ class LogSectionSystemInfo : LogSection {
       val packageManager = context.packageManager
       val appLabel = packageManager.getApplicationLabel(packageManager.getApplicationInfo(context.packageName, 0))
       val versionName = packageManager.getPackageInfo(context.packageName, 0).versionName
-      val manifestApkVersion = ApkInfo.versionCode
+      val manifestApkVersion = Util.getManifestApkVersion(context)
 
-      "$appLabel $versionName (${ApkInfo.signalCanonicalVersionCode}, $manifestApkVersion) (${BuildConfig.GIT_HASH})"
+      "$appLabel $versionName (${BuildConfig.CANONICAL_VERSION_CODE}, $manifestApkVersion) (${BuildConfig.GIT_HASH})"
     } catch (_: PackageManager.NameNotFoundException) {
       "Unknown"
     }

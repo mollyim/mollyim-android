@@ -2200,7 +2200,7 @@ open class MessageTable(context: Context?, databaseHelper: SignalDatabase) : Dat
         if (!it.isMms) {
           null
         } else if (it.isPaymentNotification) {
-          null
+          SignalDatabase.payments.updateMessageWithPayment(it) as MmsMessageRecord
         } else {
           it.withAttachments() as MmsMessageRecord
         }

@@ -31,8 +31,8 @@ import org.thoughtcrime.securesms.database.PendingRetryReceiptCache
 import org.thoughtcrime.securesms.jobmanager.JobManager
 import org.thoughtcrime.securesms.megaphone.MegaphoneRepository
 import org.thoughtcrime.securesms.messages.IncomingMessageObserver
-import org.thoughtcrime.securesms.net.NetworkManager
 import org.thoughtcrime.securesms.notifications.MessageNotifier
+import org.thoughtcrime.securesms.payments.Payments
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager
@@ -45,6 +45,7 @@ import org.thoughtcrime.securesms.service.PinnedMessageManager
 import org.thoughtcrime.securesms.service.ScheduledMessageManager
 import org.thoughtcrime.securesms.service.TrimThreadsByDateManager
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
+import org.thoughtcrime.securesms.shakereport.ShakeToReport
 import org.thoughtcrime.securesms.util.EarlyMessageCache
 import org.thoughtcrime.securesms.util.FrameRateTracker
 import org.thoughtcrime.securesms.video.exo.GiphyMp4Cache
@@ -178,6 +179,14 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
+  override fun providePayments(paymentsApi: PaymentsApi): Payments {
+    return mockk(relaxed = true)
+  }
+
+  override fun provideShakeToReport(): ShakeToReport {
+    return mockk(relaxed = true)
+  }
+
   override fun provideSignalCallManager(): SignalCallManager {
     return mockk(relaxed = true)
   }
@@ -234,15 +243,11 @@ class MockApplicationDependencyProvider : AppDependencies.Provider {
     return mockk(relaxed = true)
   }
 
-  override fun provideNetworkManager(): NetworkManager {
-    return mockk(relaxed = true)
-  }
-
   override fun providePinnedMessageManager(): PinnedMessageManager {
     return mockk(relaxed = true)
   }
 
-  override fun provideLibsignalNetwork(config: SignalServiceConfiguration, proxyState: NetworkProxyState): Network {
+  override fun provideLibsignalNetwork(config: SignalServiceConfiguration): Network {
     return mockk(relaxed = true)
   }
 

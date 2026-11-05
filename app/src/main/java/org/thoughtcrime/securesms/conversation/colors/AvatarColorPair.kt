@@ -2,9 +2,9 @@ package org.thoughtcrime.securesms.conversation.colors
 
 import android.content.Context
 import androidx.annotation.ColorInt
-import org.signal.core.ui.util.ThemeUtil
-import com.google.android.material.R as MaterialR
+import androidx.core.content.ContextCompat
 import org.thoughtcrime.securesms.avatar.Avatars
+import org.signal.core.ui.R as CoreUiR
 
 class AvatarColorPair private constructor(
   @ColorInt val foregroundColor: Int,
@@ -15,12 +15,12 @@ class AvatarColorPair private constructor(
     fun create(context: Context, avatarColor: AvatarColor): AvatarColorPair {
       return when (avatarColor) {
         AvatarColor.UNKNOWN -> AvatarColorPair(
-          foregroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurface),
-          backgroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceVariant)
+          foregroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface),
+          backgroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorSurfaceVariant)
         )
         AvatarColor.ON_SURFACE_VARIANT -> AvatarColorPair(
-          foregroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant),
-          backgroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceVariant)
+          foregroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant),
+          backgroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorSurfaceVariant)
         )
         else -> AvatarColorPair(
           foregroundColor = Avatars.getForegroundColor(avatarColor).colorInt,

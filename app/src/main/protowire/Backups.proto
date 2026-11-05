@@ -28,7 +28,6 @@ message SharedPreference {
     optional string key              = 2;
     optional string value            = 3;
     optional bool   booleanValue     = 4;
-    optional uint32 integerValue     = 41;
     repeated string stringSetValue   = 5;
     optional bool   isStringSetValue = 6;
 }

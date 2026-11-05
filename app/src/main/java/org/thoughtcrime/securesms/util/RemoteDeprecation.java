@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.signal.core.util.Util;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.BuildConfig;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -15,8 +16,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import org.signal.core.util.JsonUtils;
 import org.signal.core.util.SemanticVersion;
-
-import im.molly.app.base.ApkInfo;
 
 public final class RemoteDeprecation {
 
@@ -29,7 +28,7 @@ public final class RemoteDeprecation {
    *         there's no pending expiration.
    */
   public static long getTimeUntilDeprecation(long currentTime) {
-    return getTimeUntilDeprecation(RemoteConfig.clientExpiration(), currentTime, ApkInfo.signalCanonicalVersionName);
+    return getTimeUntilDeprecation(RemoteConfig.clientExpiration(), currentTime, BuildConfig.VERSION_NAME);
   }
 
   /**

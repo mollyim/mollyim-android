@@ -12,12 +12,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.text.buildSpannedString
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.models.media.Media
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.Result
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.concurrent.addTo
@@ -183,7 +183,7 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
   override fun getContainer(): ViewGroup = findViewById(R.id.fragment_container_wrapper)
 
-  override fun getDialogBackgroundColor(): Int = ThemeUtil.getThemedColor(this, R.attr.signal_background_primary)
+  override fun getDialogBackgroundColor(): Int = ContextCompat.getColor(this, R.color.signal_background_primary)
 
   private fun getUnresolvedShareData(): Result<UnresolvedShareData, IntentError> {
     val isInternalShare = Build.VERSION.SDK_INT >= 34 && getLaunchedFromUid() == Process.myUid()

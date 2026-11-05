@@ -42,8 +42,4 @@ object SensitiveLog : Log.Logger() {
   override fun flush() {
     this.logger.flush()
   }
-
-  override fun clear() {
-    this.logger.clear()
-  }
 }

@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.profiles.edit;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import org.thoughtcrime.securesms.util.DynamicTheme;
 /**
  * Shows editing screen for your profile during registration. Also handles group name editing.
  */
-@SuppressLint("BaseActivitySubclass")
 public class CreateProfileActivity extends BaseActivity implements CreateProfileFragment.Controller {
 
   public static final String NEXT_INTENT            = "next_intent";

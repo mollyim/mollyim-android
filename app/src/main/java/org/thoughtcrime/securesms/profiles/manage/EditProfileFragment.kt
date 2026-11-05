@@ -32,6 +32,7 @@ import org.thoughtcrime.securesms.avatar.Avatars.getForegroundColor
 import org.thoughtcrime.securesms.avatar.Avatars.getTextSizeForLength
 import org.thoughtcrime.securesms.avatar.picker.AvatarPickerFragment
 import org.thoughtcrime.securesms.badges.models.Badge
+import org.thoughtcrime.securesms.badges.self.none.BecomeASustainerFragment.Companion.show
 import org.thoughtcrime.securesms.components.emoji.EmojiUtil
 import org.thoughtcrime.securesms.databinding.EditProfileFragmentBinding
 import org.thoughtcrime.securesms.keyvalue.AccountValues
@@ -146,7 +147,15 @@ class EditProfileFragment : LoggingFragment() {
       }
     }
 
-    binding.manageProfileBadgesContainer.visibility = View.GONE
+    binding.manageProfileBadgesContainer.setOnClickListener { v: View ->
+      if (!viewModel.isRegisteredAndUpToDate) {
+        onClickWhenUnregisteredOrDeprecated()
+      } else if (Recipient.self().badges.isEmpty()) {
+        show(parentFragmentManager)
+      } else {
+        findNavController(v).safeNavigate(EditProfileFragmentDirections.actionManageProfileFragmentToBadgeManageFragment())
+      }
+    }
 
     binding.manageProfileAvatar.setOnClickListener {
       if (!viewModel.isRegisteredAndUpToDate) {

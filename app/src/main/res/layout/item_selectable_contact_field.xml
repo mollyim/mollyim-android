@@ -55,7 +55,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/signal_colorOnSurfaceVariant"
             tools:text="Mobile" />
 
     </LinearLayout>

@@ -3,9 +3,9 @@ package org.thoughtcrime.securesms.components.settings.conversation.preferences
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.requireDrawable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
@@ -106,7 +106,7 @@ object RecipientPreference {
         if (recipient.isSystemContact) {
           SpannableStringBuilder(recipient.getDisplayName(context)).apply {
             val drawable = context.requireDrawable(CoreUiR.drawable.symbol_person_circle_24).apply {
-              setTint(ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface))
+              setTint(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface))
             }
             SpanUtil.appendCenteredImageSpan(this, drawable, 16, 16)
           }

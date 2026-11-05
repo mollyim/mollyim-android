@@ -74,7 +74,7 @@ class InternalDonorErrorConfigurationViewModel : ViewModel() {
     val saveState = Completable.fromAction {
       InAppPaymentSubscriberRecord.Type.DONATION.lock.withLock {
         when {
-          snapshot.selectedBadge?.isGift() == true -> {}
+          snapshot.selectedBadge?.isGift() == true -> handleGiftExpiration(snapshot)
           snapshot.selectedBadge?.isBoost() == true -> handleBoostExpiration(snapshot)
           snapshot.selectedBadge?.isSubscription() == true -> handleSubscriptionExpiration(snapshot)
           else -> handleSubscriptionPaymentFailure(snapshot)
@@ -89,6 +89,7 @@ class InternalDonorErrorConfigurationViewModel : ViewModel() {
     return Completable.fromAction {
       InAppPaymentSubscriberRecord.Type.DONATION.lock.withLock {
         SignalStore.inAppPayments.setExpiredBadge(null)
+        SignalStore.inAppPayments.setExpiredGiftBadge(null)
         SignalStore.inAppPayments.unexpectedSubscriptionCancelationReason = null
         SignalStore.inAppPayments.unexpectedSubscriptionCancelationTimestamp = 0L
         SignalStore.inAppPayments.setUnexpectedSubscriptionCancelationChargeFailure(null)
@@ -106,6 +107,10 @@ class InternalDonorErrorConfigurationViewModel : ViewModel() {
 
   private fun handleBoostExpiration(state: InternalDonorErrorConfigurationState) {
     SignalStore.inAppPayments.setExpiredBadge(state.selectedBadge)
+  }
+
+  private fun handleGiftExpiration(state: InternalDonorErrorConfigurationState) {
+    SignalStore.inAppPayments.setExpiredGiftBadge(state.selectedBadge)
   }
 
   private fun handleSubscriptionExpiration(state: InternalDonorErrorConfigurationState) {

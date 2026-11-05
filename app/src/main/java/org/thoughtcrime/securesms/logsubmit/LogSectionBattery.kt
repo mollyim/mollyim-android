@@ -71,6 +71,4 @@ class LogSectionBattery : LogSection {
     }
     return String.format(Locale.US, "%.1f%%", 100.0 * part / whole)
   }
-
-  override fun getContentLocked(context: Context): CharSequence = getContent(context)
 }

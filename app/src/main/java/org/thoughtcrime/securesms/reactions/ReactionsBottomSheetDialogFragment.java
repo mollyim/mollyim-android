@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -19,7 +20,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiImageView;
 import org.thoughtcrime.securesms.database.model.MessageId;
@@ -86,7 +86,7 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
     Dialog dialog = super.onCreateDialog(savedInstanceState);
 
     FullscreenHelper.showSystemUI(dialog.getWindow());
-    WindowUtil.setNavigationBarColor(requireContext(), dialog.getWindow(), ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLow));
+    WindowUtil.setNavigationBarColor(requireContext(), dialog.getWindow(), ContextCompat.getColor(requireContext(), org.signal.core.ui.R.color.signal_colorSurface1));
 
     return dialog;
   }

@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           token: ${{ secrets.PUBLISH_PAT || secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v5
@@ -22,11 +23,16 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: Reconstruct the Molly source
+        id: molly
+        uses: ./.github/actions/molly-source
+
       - name: Extract version from source
         id: extract_version
         run: |
           ver=$(./gradlew -q :app:printVersion | jq -r .android.versionName)
           echo "version=v$ver" >> $GITHUB_OUTPUT
+        working-directory: ${{ steps.molly.outputs.dir }}
 
       - name: Tag current commit and push
         run: |

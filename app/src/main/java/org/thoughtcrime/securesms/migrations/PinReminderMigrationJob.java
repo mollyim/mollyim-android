@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 
 import org.thoughtcrime.securesms.jobmanager.Job;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
-import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,8 +32,6 @@ public class PinReminderMigrationJob extends MigrationJob {
 
   @Override
   void performMigration() {
-    boolean value = SecurePreferenceManager.getSecurePreferences(context).getBoolean("pref_signal_enable_pinv2_reminders", true);
-    SignalStore.pin().setPinRemindersEnabled(value);
     SignalStore.pin().setNextReminderIntervalToAtMost(TimeUnit.DAYS.toMillis(3));
   }
 

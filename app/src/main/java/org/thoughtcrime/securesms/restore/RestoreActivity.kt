@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms.restore
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -43,7 +42,6 @@ import org.thoughtcrime.securesms.util.navigation.safeNavigate
 /**
  * Activity to hold the restore from backup flow.
  */
-@SuppressLint("BaseActivitySubclass")
 class RestoreActivity : BaseActivity() {
 
   private val dynamicTheme = DynamicNoActionBarTheme()

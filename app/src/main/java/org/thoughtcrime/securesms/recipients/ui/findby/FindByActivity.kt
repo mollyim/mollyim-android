@@ -101,12 +101,9 @@ class FindByActivity : PassphraseRequiredActivity() {
     FindByViewModel(FindByMode.valueOf(intent.getStringExtra(MODE)!!))
   }
 
-  override fun onPreCreate() {
-    super.onPreCreate()
-    theme.onCreate(this)
-  }
-
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+    theme.onCreate(this)
+
     val qrScanLauncher: ActivityResultLauncher<Unit> = registerForActivityResult(UsernameQrScannerActivity.Contract()) { recipientId ->
       if (recipientId != null) {
         setResult(RESULT_OK, Intent().putExtra(RECIPIENT_ID, recipientId))
@@ -400,6 +397,7 @@ private fun Content(
           Text(
             text = stringResource(id = R.string.FindByActivity__qr_scan_button),
             style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurface
           )
         }
       }

@@ -60,12 +60,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.compose.AndroidFragment
 import androidx.fragment.compose.rememberFragmentState
 import androidx.lifecycle.Lifecycle
@@ -80,17 +81,17 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import im.molly.unifiedpush.UnifiedPushDistributor
 import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.theme.SignalTheme
-import org.signal.core.ui.compose.theme.colorAttribute
 import org.signal.core.ui.navigation.TransitionSpecs
 import org.signal.core.ui.permissions.Permissions
 import org.signal.core.ui.rememberIsSplitPane
@@ -100,6 +101,7 @@ import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.getParcelableCompat
 import org.signal.core.util.getSerializableCompat
 import org.signal.core.util.logging.Log
+import org.signal.donations.StripeApi
 import org.signal.mediasend.MediaSendActivityContract
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgressState
@@ -110,12 +112,19 @@ import org.thoughtcrime.securesms.calls.callsNavEntries
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.calls.log.CallLogFragment
 import org.thoughtcrime.securesms.calls.new.NewCallActivity
+import org.thoughtcrime.securesms.calls.quality.CallQuality
+import org.thoughtcrime.securesms.calls.quality.CallQualityBottomSheetFragment
 import org.thoughtcrime.securesms.chats.ConversationTransitionState
 import org.thoughtcrime.securesms.chats.chatsNavEntries
+import org.thoughtcrime.securesms.components.DebugLogsPromptDialogFragment
 import org.thoughtcrime.securesms.components.PromptBatterySaverDialogFragment
+import org.thoughtcrime.securesms.components.compose.ConnectivityWarningBottomSheet
 import org.thoughtcrime.securesms.components.compose.DeviceSpecificNotificationBottomSheet
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity.Companion.manageSubscriptions
 import org.thoughtcrime.securesms.components.settings.app.notifications.manual.NotificationProfileSelectionFragment
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayRepository
 import org.thoughtcrime.securesms.components.snackbars.LocalSnackbarStateConsumerRegistry
 import org.thoughtcrime.securesms.components.snackbars.SnackbarHostKey
 import org.thoughtcrime.securesms.components.snackbars.SnackbarState
@@ -131,7 +140,7 @@ import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
 import org.thoughtcrime.securesms.conversationlist.RelinkDevicesReminderBottomSheetFragment
 import org.thoughtcrime.securesms.conversationlist.RestoreCompleteBottomSheetDialog
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
-import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.conversationlist.model.UnreadPaymentsLiveData
 import org.thoughtcrime.securesms.devicetransfer.olddevice.OldDeviceExitActivity
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -187,6 +196,7 @@ import org.thoughtcrime.securesms.window.NavigationType
 import org.thoughtcrime.securesms.window.rememberThreePaneScaffoldNavigatorDelegate
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import kotlin.time.Duration.Companion.minutes
+import org.signal.core.ui.R as CoreUiR
 
 class MainActivity :
   PassphraseRequiredActivity(),
@@ -195,7 +205,8 @@ class MainActivity :
   Material3OnScrollHelperBinder,
   ConversationListFragment.Callback,
   MainNavigationRouter,
-  CallLogFragment.Callback {
+  CallLogFragment.Callback,
+  GooglePayComponent {
 
   companion object {
     private val TAG = Log.tag(MainActivity::class)
@@ -258,6 +269,9 @@ class MainActivity :
   private val megaphoneActionController = MainMegaphoneActionController()
   private val mainNavigationCallback = MainNavigationCallback()
 
+  override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
+  override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
+
   private lateinit var mediaSendLauncher: ActivityResultLauncher<MediaSendActivityContract.Args>
 
   override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -284,6 +298,10 @@ class MainActivity :
         mainNavigationViewModel.getNextMegaphone()
       }
     })
+
+    UnreadPaymentsLiveData().observe(this) { unread ->
+      toolbarViewModel.setHasUnreadPayments(unread.isPresent)
+    }
 
     lifecycleScope.launch {
       launch {
@@ -350,6 +368,22 @@ class MainActivity :
               SignalStore.account.verificationCodeRequestedAtMs = 0L
             }
         }
+      }
+    }
+
+    supportFragmentManager.setFragmentResultListener(
+      CallQualityBottomSheetFragment.REQUEST_KEY,
+      this
+    ) { _, bundle ->
+      if (bundle.getBoolean(CallQualityBottomSheetFragment.REQUEST_KEY, false)) {
+        mainNavigationViewModel.snackbarRegistry.emit(
+          SnackbarState(
+            message = getString(R.string.CallQualitySheet__thanks_for_your_feedback),
+            duration = Snackbars.Duration.SHORT,
+            hostKey = MainSnackbarHostKey.Chat,
+            fallbackKey = MainSnackbarHostKey.MainChrome
+          )
+        )
       }
     }
 
@@ -545,7 +579,7 @@ class MainActivity :
               Column(
                 modifier = Modifier
                   .clip(contentLayoutData.navigationBarShape)
-                  .background(color = colorAttribute(R.attr.navbar_container_color))
+                  .background(color = SignalTheme.colors.colorSurface2)
               ) {
                 MainNavigationBar(
                   state = mainNavigationState,
@@ -758,8 +792,9 @@ class MainActivity :
           SignalTheme.colors.colorSurface1
         }
 
+        val context = LocalContext.current
         val isDarkTheme = isSystemInDarkTheme()
-        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else 0
+        val navBarColor = if (isSplitPane) backgroundColor.toArgb() else ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface2)
         LaunchedEffect(isDarkTheme, navBarColor) {
           if (Build.VERSION.SDK_INT >= 26) {
             enableEdgeToEdge(
@@ -866,11 +901,15 @@ class MainActivity :
 
     vitalsViewModel.checkSlowNotificationHeuristics()
     mainNavigationViewModel.refreshNavigationBarState()
+
+    CallQuality.consumeQualityRequest()?.let {
+      CallQualityBottomSheetFragment.create(it).show(supportFragmentManager, BottomSheetUtil.STANDARD_BOTTOM_SHEET_FRAGMENT_TAG)
+    }
   }
 
   override fun onStop() {
     super.onStop()
-    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings.theme, SignalStore.settings.isDynamicColorsEnabled)
+    SplashScreenUtil.setSplashScreenThemeIfNecessary(this, SignalStore.settings.theme)
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, deviceId: Int) {
@@ -946,7 +985,7 @@ class MainActivity :
   }
 
   override fun updateProxyStatus(state: WebSocketConnectionState) {
-    if (AppDependencies.networkManager.isProxyEnabled) {
+    if (SignalStore.proxy.isProxyEnabled) {
       val proxyState: MainToolbarState.ProxyState = when (state) {
         WebSocketConnectionState.CONNECTING, WebSocketConnectionState.DISCONNECTING, WebSocketConnectionState.DISCONNECTED -> MainToolbarState.ProxyState.CONNECTING
         WebSocketConnectionState.CONNECTED -> MainToolbarState.ProxyState.CONNECTED
@@ -971,8 +1010,10 @@ class MainActivity :
   private fun handleDeepLinkIntent(intent: Intent) {
     handleConversationIntent(intent)
     handleGroupLinkInIntent(intent)
+    handleProxyInIntent(intent)
     handleSignalMeIntent(intent)
     handleCallLinkInIntent(intent)
+    handleDonateReturnIntent(intent)
     handleQuickRestoreIntent(intent)
   }
 
@@ -980,9 +1021,12 @@ class MainActivity :
   private fun presentVitalsState(state: VitalsViewModel.State) {
     when (state) {
       VitalsViewModel.State.NONE -> Unit
-      VitalsViewModel.State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG -> UnifiedPushDistributor.showSelectDistributorDialog(this)
       VitalsViewModel.State.PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG -> DeviceSpecificNotificationBottomSheet.show(supportFragmentManager)
       VitalsViewModel.State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG -> PromptBatterySaverDialogFragment.show(supportFragmentManager)
+      VitalsViewModel.State.PROMPT_DEBUGLOGS_FOR_NOTIFICATIONS -> DebugLogsPromptDialogFragment.show(this, DebugLogsPromptDialogFragment.Purpose.NOTIFICATIONS)
+      VitalsViewModel.State.PROMPT_DEBUGLOGS_FOR_CRASH -> DebugLogsPromptDialogFragment.show(this, DebugLogsPromptDialogFragment.Purpose.CRASH)
+      VitalsViewModel.State.PROMPT_CONNECTIVITY_WARNING -> ConnectivityWarningBottomSheet.show(supportFragmentManager)
+      VitalsViewModel.State.PROMPT_DEBUGLOGS_FOR_CONNECTIVITY_WARNING -> DebugLogsPromptDialogFragment.show(this, DebugLogsPromptDialogFragment.Purpose.CONNECTIVITY_WARNING)
     }
   }
 
@@ -1024,6 +1068,12 @@ class MainActivity :
     }
   }
 
+  private fun handleProxyInIntent(intent: Intent) {
+    intent.data?.let { data ->
+      CommunicationActions.handlePotentialProxyLinkUrl(this, data.toString())
+    }
+  }
+
   private fun handleSignalMeIntent(intent: Intent) {
     intent.data?.let { data ->
       CommunicationActions.handlePotentialSignalMeUrl(this, data.toString())
@@ -1034,6 +1084,14 @@ class MainActivity :
     intent.data?.let { data ->
       CommunicationActions.handlePotentialCallLinkUrl(this, data.toString()) {
         show(findViewById(android.R.id.content))
+      }
+    }
+  }
+
+  private fun handleDonateReturnIntent(intent: Intent) {
+    intent.data?.let { data ->
+      if (data.toString().startsWith(StripeApi.RETURN_URL_IDEAL)) {
+        startActivity(manageSubscriptions(this))
       }
     }
   }
@@ -1122,6 +1180,10 @@ class MainActivity :
 
     override fun onMarkReadClick() {
       toolbarViewModel.markAllMessagesRead()
+    }
+
+    override fun onInviteFriendsClick() {
+      openSettings.launch(AppSettingsActivity.invite(this@MainActivity))
     }
 
     override fun onFilterUnreadChatsClick() {
@@ -1240,13 +1302,12 @@ class MainActivity :
       mainNavigationViewModel.snackbarRegistry.emit(
         SnackbarState(
           message = string,
-          duration = Snackbars.Duration.LONG,
           hostKey = MainSnackbarHostKey.MainChrome
         )
       )
     }
 
-    override fun getMegaphoneActivity(): FragmentActivity {
+    override fun getMegaphoneActivity(): Activity {
       return this@MainActivity
     }
 

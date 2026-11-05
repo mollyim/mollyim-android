@@ -4,6 +4,9 @@ import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
+import org.thoughtcrime.securesms.crypto.ReentrantSessionLock;
+import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.util.RemoteConfig;
 
 import java.io.Closeable;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +23,16 @@ public final class GroupsV2ProcessingLock {
 
   @WorkerThread
   public static Closeable acquireGroupProcessingLock() throws GroupChangeBusyException {
+    if (RemoteConfig.internalUser()) {
+      if (!lock.isHeldByCurrentThread()) {
+        if (SignalDatabase.inTransaction()) {
+          throw new AssertionError("Tried to acquire the group lock inside of a database transaction!");
+        }
+        if (ReentrantSessionLock.INSTANCE.isHeldByCurrentThread()) {
+          throw new AssertionError("Tried to acquire the group lock inside of the ReentrantSessionLock!!");
+        }
+      }
+    }
     return acquireGroupProcessingLock(5000);
   }
 

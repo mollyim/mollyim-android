@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.keyvalue
 
 import android.annotation.SuppressLint
 import android.content.Context
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
+import androidx.preference.PreferenceManager
 
 /**
  * There are some values that you can't, for whatever reason, store in the normal encrypted [KeyValueStore].
@@ -18,7 +18,7 @@ class PlainTextSharedPrefsDataStore(private val context: Context) {
     const val SMS_MIGRATION_ID_OFFSET = "sms_migration_id_offset"
   }
 
-  private val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
+  private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
 
   /**
    * Stores the ID offset that was determined during the big migration that moved all SMS messages into the MMS table.

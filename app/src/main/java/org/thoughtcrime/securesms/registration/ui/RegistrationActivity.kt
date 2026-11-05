@@ -9,12 +9,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.ActivityNavigator
 import org.signal.registration.RegistrationRoute
+import org.thoughtcrime.securesms.BaseActivity
 import org.thoughtcrime.securesms.MainActivity
-import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import org.thoughtcrime.securesms.util.Environment
@@ -22,18 +25,21 @@ import org.thoughtcrime.securesms.util.Environment
 /**
  * Activity to hold the entire registration process.
  */
-class RegistrationActivity : PassphraseRequiredActivity() {
+class RegistrationActivity : BaseActivity() {
 
   private val dynamicTheme = DynamicNoActionBarTheme()
   val sharedViewModel: RegistrationViewModel by viewModels()
 
-  override fun onPreCreate() {
-    super.onPreCreate()
-    dynamicTheme.onCreate(this)
+  private var smsRetrieverReceiver: SmsRetrieverReceiver? = null
+
+  init {
+    lifecycle.addObserver(SmsRetrieverObserver())
   }
 
-  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    super.onCreate(savedInstanceState, ready)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    dynamicTheme.onCreate(this)
+
+    super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_registration_navigation_v3)
 
     sharedViewModel.isReregister = intent.getBooleanExtra(RE_REGISTRATION_EXTRA, false)
@@ -59,6 +65,18 @@ class RegistrationActivity : PassphraseRequiredActivity() {
     startActivity(MainActivity.clearTop(this))
     finish()
     ActivityNavigator.applyPopAnimationsToPendingTransition(this)
+  }
+
+  private inner class SmsRetrieverObserver : DefaultLifecycleObserver {
+    override fun onCreate(owner: LifecycleOwner) {
+      smsRetrieverReceiver = SmsRetrieverReceiver(application)
+      smsRetrieverReceiver?.registerReceiver()
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+      smsRetrieverReceiver?.unregisterReceiver()
+      smsRetrieverReceiver = null
+    }
   }
 
   companion object {
