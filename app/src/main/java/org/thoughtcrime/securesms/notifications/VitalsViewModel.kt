@@ -7,15 +7,21 @@ package org.thoughtcrime.securesms.notifications
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import im.molly.unifiedpush.UnifiedPushDistributor
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import org.thoughtcrime.securesms.crash.CrashConfig
+import org.thoughtcrime.securesms.database.LogDatabase
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig.ShowCondition
+import org.thoughtcrime.securesms.util.ConnectivityWarning
+import org.thoughtcrime.securesms.util.NetworkUtil
+import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.days
 
 /**
  * View model for checking for various app vitals, like slow notifications and crashes.
@@ -30,7 +36,7 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
     vitalsState = checkSubject
       .subscribeOn(Schedulers.io())
       .observeOn(Schedulers.io())
-      .throttleFirst(5, TimeUnit.MINUTES)
+      .throttleFirst(1, TimeUnit.MINUTES)
       .switchMapSingle {
         checkHeuristics()
       }
@@ -44,10 +50,6 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
 
   private fun checkHeuristics(): Single<State> {
     return Single.fromCallable {
-      if (SignalStore.unifiedpush.enabled && !UnifiedPushDistributor.checkIfActive()) {
-        return@fromCallable State.PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG
-      }
-
       val deviceSpecificCondition = SlowNotificationHeuristics.getDeviceSpecificShowCondition()
 
       val shouldShowDeviceSpecificDialog = SlowNotificationHeuristics.shouldShowDeviceSpecificDialog()
@@ -69,14 +71,42 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
         return@fromCallable State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG
       }
 
+      if (havingDelayedNotifications && SlowNotificationHeuristics.shouldPromptUserForDelayedNotificationLogs()) {
+        return@fromCallable State.PROMPT_DEBUGLOGS_FOR_NOTIFICATIONS
+      }
+
+      val timeSinceLastConnection = System.currentTimeMillis() - SignalStore.misc.lastWebSocketConnectTime
+      val timeSinceLastConnectionWarning = System.currentTimeMillis() - SignalStore.misc.lastConnectivityWarningTime
+      val connectedToWebSocket = AppDependencies.webSocketObserver.value == WebSocketConnectionState.CONNECTED
+      val isRegistered = SignalStore.account.isRegistered && !SignalStore.account.isUnauthorizedReceived
+
+      if (ConnectivityWarning.isEnabled && timeSinceLastConnection > ConnectivityWarning.threshold && timeSinceLastConnectionWarning > 14.days.inWholeMilliseconds && NetworkUtil.isConnected(context) && isRegistered && !connectedToWebSocket) {
+        return@fromCallable if (ConnectivityWarning.isDebugPromptEnabled) {
+          State.PROMPT_DEBUGLOGS_FOR_CONNECTIVITY_WARNING
+        } else {
+          State.PROMPT_CONNECTIVITY_WARNING
+        }
+      }
+
+      if (LogDatabase.getInstance(context).crashes.anyMatch(patterns = CrashConfig.patterns, promptThreshold = System.currentTimeMillis() - 14.days.inWholeMilliseconds)) {
+        val timeSinceLastPrompt = System.currentTimeMillis() - SignalStore.uiHints.lastCrashPrompt
+
+        if (timeSinceLastPrompt > 1.days.inWholeMilliseconds) {
+          return@fromCallable State.PROMPT_DEBUGLOGS_FOR_CRASH
+        }
+      }
+
       return@fromCallable State.NONE
     }.subscribeOn(Schedulers.io())
   }
 
   enum class State {
     NONE,
-    PROMPT_UNIFIEDPUSH_SELECT_DISTRIBUTOR_DIALOG,
     PROMPT_SPECIFIC_BATTERY_SAVER_DIALOG,
     PROMPT_GENERAL_BATTERY_SAVER_DIALOG,
+    PROMPT_DEBUGLOGS_FOR_NOTIFICATIONS,
+    PROMPT_DEBUGLOGS_FOR_CRASH,
+    PROMPT_CONNECTIVITY_WARNING,
+    PROMPT_DEBUGLOGS_FOR_CONNECTIVITY_WARNING
   }
 }

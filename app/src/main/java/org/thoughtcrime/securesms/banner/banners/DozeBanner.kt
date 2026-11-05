@@ -23,15 +23,13 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.banner.Banner
 import org.thoughtcrime.securesms.banner.ui.compose.Action
 import org.thoughtcrime.securesms.banner.ui.compose.DefaultBanner
-import org.thoughtcrime.securesms.banner.ui.compose.Importance
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.util.PowerManagerCompat
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class DozeBanner(private val context: Context) : Banner<Unit>() {
 
   override val enabled: Boolean
-    get() = !SignalStore.account.fcmEnabled && !TextSecurePreferences.hasPromptedOptimizeDoze(context) && !ServiceUtil.getPowerManager(context).isIgnoringBatteryOptimizations(context.packageName)
+    get() = !SignalStore.account.fcmEnabled && !SignalStore.uiHints.hasPromptedOptimizeDoze() && !ServiceUtil.getPowerManager(context).isIgnoringBatteryOptimizations(context.packageName)
 
   override val dataFlow: Flow<Unit>
     get() = flowOf(Unit)
@@ -63,7 +61,7 @@ class DozeBanner(private val context: Context) : Banner<Unit>() {
   }
 
   private fun markAsPrompted() {
-    TextSecurePreferences.setPromptedOptimizeDoze(context, true)
+    SignalStore.uiHints.setHasPromptedOptimizeDoze(true)
     enabledState.value = false
   }
 }
@@ -71,12 +69,11 @@ class DozeBanner(private val context: Context) : Banner<Unit>() {
 @Composable
 private fun Banner(contentPadding: PaddingValues, onDismissListener: () -> Unit = {}, onOkListener: () -> Unit = {}) {
   DefaultBanner(
-    title = null,
-    body = stringResource(id = R.string.DozeReminder_allow_molly_to_deliver_timely_notifications),
-    importance = Importance.ERROR,
+    title = stringResource(id = R.string.DozeReminder_optimize_for_missing_play_services),
+    body = stringResource(id = R.string.DozeReminder_this_device_does_not_support_play_services_tap_to_disable_system_battery),
     onDismissListener = onDismissListener,
     actions = listOf(
-      Action(R.string.DozeReminder_disable_battery_restrictions) {
+      Action(android.R.string.ok) {
         onOkListener()
       }
     ),

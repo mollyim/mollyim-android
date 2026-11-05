@@ -17,16 +17,20 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import io.mockk.unmockkObject
 import org.hamcrest.Matchers.allOf
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.signal.core.util.deleteAll
+import org.signal.core.database.deleteAll
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.testing.DisableAnimationsRule
 import org.thoughtcrime.securesms.testing.GooglePayTestRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.RxTestSchedulerRule
@@ -51,12 +55,20 @@ class CheckoutFlowActivityTest__OneTimeDonations {
   @get:Rule
   val composeRule = createEmptyComposeRule()
 
+  @get:Rule
+  val animationsRule = DisableAnimationsRule()
+
   private val intent = CheckoutFlowActivity.createIntent(InstrumentationRegistry.getInstrumentation().targetContext, InAppPaymentType.ONE_TIME_DONATION)
 
   @Before
   fun setUp() {
     SignalDatabase.inAppPayments.writableDatabase.deleteAll(InAppPaymentTable.TABLE_NAME)
     startJobLoopForTests()
+  }
+
+  @After
+  fun tearDown() {
+    unmockkObject(DonationPermits)
   }
 
   @Test

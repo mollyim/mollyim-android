@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import org.signal.core.models.ServiceId
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.orNull
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -37,7 +37,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurface)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurface)
     }
   }
 
@@ -46,7 +46,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
     }
   }
 
@@ -55,7 +55,7 @@ interface Colorizer {
     return if (hasWallpaper) {
       ContextCompat.getColor(context, CoreUiR.color.signal_colorNeutralVariantInverse)
     } else {
-      ThemeUtil.getThemedColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant)
+      ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
     }
   }
 

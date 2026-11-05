@@ -44,7 +44,19 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">เลือกประเทศ</string>
     <string name="RegistrationActivity_phone_number_description">หมายเลขโทรศัพท์</string>
+    <!-- Label the phone number field takes on when what has been typed reads as an account ID rather than a number -->
+    <string name="RegistrationActivity_account_id">ไอดีบัญชี</string>
+    <!-- Error shown beneath the phone number field when the entered number is not valid -->
+    <string name="RegistrationActivity_not_a_valid_phone_number">หมายเลขโทรศัพท์ไม่ถูกต้อง</string>
+    <!-- Dialog title shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_invalid_phone_number">หมายเลขโทรศัพท์ไม่ถูกต้อง</string>
+    <!-- Dialog body shown when the entered phone number is rejected as invalid -->
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">หมายเลขที่คุณใส่ไม่ถูกต้อง โปรดตรวจสอบรหัสประเทศและหมายเลขโทรศัพท์แล้วลองอีกครั้ง</string>
     <string name="RegistrationActivity_next">ต่อไป</string>
+    <!-- Button on the phone number screen that starts registering with a purchased Signal Login instead of a phone number -->
+    <string name="RegistrationActivity_register_without_number">ลงทะเบียนโดยไม่ใช้หมายเลขโทรศัพท์</string>
+    <!-- Button on the phone number screen, shown when the user already said they have an account to restore, that goes straight to entering their existing Signal Login -->
+    <string name="RegistrationActivity_use_account_id">ใช้ไอดีบัญชี</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">โปรดตรวจสอบว่าหมายเลขโทรศัพท์ด้านล่างนี้ถูกต้องหรือไม่</string>
     <!-- Dialog body to confirm phone number -->
@@ -81,8 +93,8 @@
     <string name="VerificationCodeScreen__resend_code">ส่งรหัสอีกครั้ง</string>
     <!-- Button text for call me action -->
     <string name="VerificationCodeScreen__call_me_instead">โทรหาฉันแทน</string>
-    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
-    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for resend SMS when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__resend_code_available_in">ส่งรหัสอีกครั้งใน (%1$02d:%2$02d)</string>
     <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
     <string name="VerificationCodeScreen__call_me_available_in">โทรหาฉัน (%1$02d:%2$02d)</string>
     <!-- Toast shown when the user enters an incorrect verification code -->
@@ -99,6 +111,10 @@
     <string name="VerificationCodeScreen__unable_to_send_sms">เราไม่สามารถส่ง SMS ไปยังหมายเลขโทรศัพท์ของคุณได้ โปรดรอประมาณ 2-3 ชั่วโมงแล้วลองใหม่อีกครั้ง</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">ไม่สามารถส่งรหัสผ่านทางวิธีที่คุณเลือก โปรดลองวิธีอื่น</string>
+    <!-- Dialog shown when the provider rejected placing a verification phone call to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_call_provider_rejected">เราไม่สามารถโทรแจ้งรหัสยืนยันกับคุณได้ โปรดลองอีกครั้งหรือเปลี่ยนเป็นการขอรหัสผ่านทาง SMS แทน</string>
+    <!-- Dialog shown when the provider rejected sending a verification SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_sms_provider_rejected">เราไม่สามารถส่งรหัสยืนยันผ่านทาง SMS ให้คุณได้ โปรดลองอีกครั้งหรือเปลี่ยนเป็นการขอรหัสผ่านทางการโทรแทน</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">ลงทะเบียนไม่สำเร็จ โปรดลองอีกครั้ง</string>
     <!-- Button text for having trouble with verification -->
@@ -114,7 +130,9 @@
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
     <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">ติดต่อฝ่ายสนับสนุน</string>
     <!-- Email subject used when contacting support from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <string name="VerificationCodeScreen__contact_support_email_subject">การลงทะเบียน Signal - รหัสตรวจยืนยันสำหรับ Android</string>
+    <!-- Text placed in the body of the support email composed from the verification code screen. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_filter" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
   <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
@@ -145,12 +163,6 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">ดำเนินการต่อโดยไม่ถ่ายโอน</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_description">ข้อความและไฟล์สื่อจะไม่ได้รับการถ่ายโอน</string>
-    <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">จากโฟลเดอร์ข้อมูลสำรอง</string>
-    <!-- Title for the backup file option card (V1 legacy format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">จากไฟล์ข้อมูลสำรอง</string>
-    <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">เลือกข้อมูลสำรองที่คุณเคยบันทึกไว้</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">จากโทรศัพท์เครื่องเก่า</string>
     <!-- Subtitle for the device transfer option card -->
@@ -195,8 +207,8 @@
     <string name="LocalBackupRestoreScreen__enter_backup_passphrase">ใส่วลีรหัสผ่านสำหรับข้อมูลสำรอง</string>
     <!-- Description for V1 passphrase entry screen -->
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">วลีรหัสผ่านของข้อมูลสำรองคือรหัส 30 หลักที่คุณต้องใช้ในการกู้คืนบัญชีและข้อมูล</string>
-    <!-- Label for the recovery key text field -->
-    <string name="LocalBackupRestoreScreen__recovery_key">กุญแจกู้คืน</string>
+    <!-- Label for the backup passphrase text field -->
+    <string name="LocalBackupRestoreScreen__passphrase">วลีรหัสผ่าน</string>
     <!-- Error text when passphrase is too long -->
     <string name="LocalBackupRestoreScreen__too_long">ยาวเกินกำหนด (%1$d/%2$d)</string>
     <!-- Link for users who don\'t have their passphrase -->
@@ -212,22 +224,44 @@
     <string name="EnterAepScreen__recovery_key">กุญแจกู้คืน</string>
     <!-- Link for users who don\'t have their recovery key -->
     <string name="EnterAepScreen__no_recovery_key">แตะที่นี่หากไม่มีกุญแจกู้คืน</string>
-    <!-- Error text when key is too long -->
-    <string name="EnterAepScreen__too_long">ยาวเกินกำหนด (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">กุญแจกู้คืนใช้งานไม่ได้</string>
     <!-- Error text when key is correct format but does not match account -->
     <string name="EnterAepScreen__incorrect_recovery_key">กุญแจกู้คืนไม่ถูกต้อง</string>
     <!-- Button that prompts the device password manager to fill in the recovery key -->
     <string name="EnterAepScreen__fill_from_password_manager">ใส่ข้อมูลจากตัวจัดการรหัสผ่าน</string>
+    <!-- Title of the dialog warning that the backup being restored was created with a different account -->
+    <string name="EnterAepScreen__restore_to_new_account">กู้คืนมายังบัญชีใหม่ใช่หรือไม่</string>
+    <!-- Body of the dialog warning the user that the backup was created with a different account and they will lose group memberships -->
+    <string name="EnterAepScreen__restore_to_new_account_body">ข้อมูลสำรองที่คุณกำลังจะกู้คืนถูกสร้างขึ้นด้วยบัญชี Signal อีกบัญชี คุณสามารถกู้คืนข้อมูลสำรองนี้มายังบัญชีใหม่ได้ แต่คุณจะเสียสถานะการเป็นสมาชิกในกลุ่มที่ถูกกู้คืนมา</string>
+    <!-- Confirm button label for the restore to new account dialog -->
+    <string name="EnterAepScreen__restore">กู้คืน</string>
+    <!-- Title of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found">ไม่พบข้อมูลสำรอง</string>
+    <!-- Body of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found_body">กุญแจกู้คืนที่คุณใส่ถูกต้อง แต่ระบบไม่พบข้อมูลสำรอง Signal ของบัญชีนี้ โปรดกลับไปเลือกวิธีกู้คืนวิธีอื่นหรือดำเนินการต่อโดยไม่กู้คืน</string>
+    <!-- Title of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_title">กุญแจกู้คืนไม่ถูกต้อง</string>
+    <!-- Body of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_body">โปรดตรวจสอบให้แน่ใจว่าคุณกำลังลงทะเบียนโดยใช้หมายเลขโทรศัพท์และกุญแจกู้คืน 64 ตัวเดียวกันกับที่บันทึกไว้ในตอนที่เปิดใช้งานการสำรองข้อมูลของ Signal หากไม่มีกุญแจนี้ คุณจะไม่สามารถกู้คืนข้อมูลสำรองได้</string>
+    <!-- Button in the incorrect recovery key dialog that dismisses it so the user can re-enter their key -->
+    <string name="EnterAepScreen__try_again">ลองอีกครั้ง</string>
+    <!-- Button in the incorrect recovery key dialog that offers to verify the phone number over SMS instead -->
+    <string name="EnterAepScreen__try_another_way">ลองวิธีอื่น</string>
+    <!-- Button in the incorrect recovery key dialog that opens a support article about recovery keys -->
+    <string name="EnterAepScreen__recovery_key_help">ความช่วยเหลือเกี่ยวกับกุญแจกู้คืน</string>
+    <!-- Title of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code">ยืนยันด้วยรหัส SMS ใช่หรือไม่</string>
+    <!-- Body of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code_body">คุณสามารถลงทะเบียนใช้งานบัญชีได้ด้วยการยืนยันผ่านรหัส SMS ที่ส่งโดย Signal เมื่อใส่รหัสแล้ว คุณจะสามารถลองกู้คืนข้อมูลสำรองอีกครั้งด้วยกุญแจกู้คืนของคุณ</string>
+    <!-- Confirm button in the verify with SMS code dialog that requests an SMS verification code -->
+    <string name="EnterAepScreen__send_code">ส่งรหัส</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">กำลังเตรียมการกู้คืน…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">กำลังกู้คืนข้อมูลสำรอง</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">โปรดรอสักครู่ ระบบกำลังกู้คืนข้อความและข้อมูลของคุณ</string>
-    <!-- Description shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
     <string name="LocalBackupRestoreScreen__continue_button">ทำต่อ</string>
     <!-- Title shown when restore fails -->
@@ -236,6 +270,12 @@
     <string name="LocalBackupRestoreScreen__restore_failed_description">เกิดข้อผิดพลาดขณะกู้คืนข้อมูลสำรอง โปรดลองอีกครั้ง</string>
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">ลองอีกครั้ง</string>
+    <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">วลีรหัสผ่านไม่ถูกต้อง</string>
+    <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_recovery_key">กุญแจกู้คืนไม่ถูกต้อง</string>
+    <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">รหัสที่คุณใส่ไม่ตรงกับรหัสผ่านสำหรับข้อมูลสำรองนี้ โปรดตรวจสอบรหัสผ่านแล้วลองอีกครั้ง</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">เชื่อมโยงบัญชีของคุณ</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -284,8 +324,10 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">เกิดข้อผิดพลาดขณะกู้คืนข้อมูลสำรอง ระบบไม่สามารถกู้ข้อมูลสำรองของคุณได้ โปรดติดต่อฝ่ายสนับสนุน</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">ติดต่อฝ่ายสนับสนุน</string>
-    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. -->
+    <string name="RemoteRestoreScreen__contact_support_email_subject">การกู้คืนข้อมูลสำรองของ Signal Android พบข้อผิดพลาดที่ไม่สามารถแก้ไขได้ (Permanent Failure)</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about an unrecoverable backup. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">กำลังดาวน์โหลดข้อมูลสำรอง…</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -352,6 +394,10 @@
     <string name="PinCreationScreen__reenter_pin">ใส่รหัส PIN อีกครั้ง</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
     <string name="PinCreationScreen__pins_dont_match">รหัส PIN ไม่ตรงกัน ลองอีกครั้ง</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that is too easy to guess, such as one made of sequential or repeated digits. -->
+    <string name="PinCreationScreen__choose_a_stronger_pin">เลือกรหัส PIN ที่ยากกว่านี้</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that matches the code used to verify their phone number. -->
+    <string name="PinCreationScreen__reentered_verification_code">รหัสที่คุณใส่เป็นรหัสที่ถูกใช้แล้วในขั้นตอนตรวจยืนยันหมายเลขโทรศัพท์ โปรดกำหนด Signal PIN ใหม่</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
     <string name="PinCreationScreen__learn_more_about_pins">เรียนรู้เพิ่มเติมเกี่ยวกับรหัส PIN</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
@@ -363,11 +409,11 @@
     <!-- Labels the button that cancels disabling the Signal PIN. -->
     <string name="PinCreationScreen__cancel">ยกเลิก</string>
     <!-- Dialog message shown when the PIN could not be created because of a problem reaching the service. -->
-    <string name="PinCreationScreen__service_error">There was an issue connecting to the service.</string>
+    <string name="PinCreationScreen__service_error">พบปัญหาในการเชื่อมต่อกับบริการ</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error. -->
     <string name="PinCreationScreen__network_error">พบความผิดพลาดของเครือข่าย</string>
     <!-- Dialog message shown when the PIN could not be created because of a network error, and the user may retry after a delay. Placeholder is the wait duration. -->
-    <string name="PinCreationScreen__network_error_try_again_in_s">Encountered a network error. You can try again in %1$s.</string>
+    <string name="PinCreationScreen__network_error_try_again_in_s">พบความผิดพลาดของเครือข่าย โปรดลองอีกครั้งใน %1$s</string>
 
     <!-- PIN entry screen title when registration lock is active. -->
     <string name="PinEntryScreen__registration_lock">กุญแจลงทะเบียน</string>
@@ -375,6 +421,8 @@
     <string name="PinEntryScreen__enter_your_pin">ใส่รหัส PIN ของคุณ</string>
     <!-- Describes the PIN that needs to be entered. -->
     <string name="PinEntryScreen__enter_the_pin_you_created">ใส่ PIN ที่คุณสร้างไว้ตอนที่ติดตั้ง Signal ครั้งแรก</string>
+    <!-- Error shown when the user enters the code used to verify their phone number instead of their PIN, and it was not their actual PIN. -->
+    <string name="PinEntryScreen__reentered_verification_code">รหัสที่คุณใส่เป็นรหัสที่ถูกใช้แล้วในขั้นตอนตรวจยืนยันหมายเลขโทรศัพท์ โปรดใส่ Signal PIN ที่คุณเคยกำหนดไว้สำหรับบัญชีของคุณ</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
         <item quantity="other">รหัส PIN ไม่ถูกต้อง ลองได้อีก %1$d ครั้ง</item>
@@ -399,8 +447,10 @@
     <string name="PinEntryScreen__no_data_could_be_found">ไม่พบข้อมูลที่จะใช้กู้คืนบัญชีของคุณ โปรดสร้าง PIN ใหม่</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">ติดต่อฝ่ายสนับสนุน</string>
-    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. -->
+    <string name="PinEntryScreen__contact_support_email_subject">การลงทะเบียน Signal - ต้องการความช่วยเหลือเกี่ยวกับ PIN สำหรับ Android</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about PIN entry. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_filter" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">อนุญาตการแจ้งเตือน</string>
@@ -421,6 +471,8 @@
     <string name="MessageSyncScreen__preparing">กำลังเตรียมการ…</string>
     <!-- Progress label shown under the sync progress bar while messages are being imported and the rest of the account is restored, after the download finishes -->
     <string name="MessageSyncScreen__finishing">ใกล้เสร็จสิ้น…</string>
+    <!-- Progress label shown while messages are being imported/restored from the downloaded backup -->
+    <string name="MessageSyncScreen__restoring">กำลังกู้คืน…</string>
     <!-- Informational notice in the sync screen footer, indicating the sync is end-to-end encrypted. Precedes a separate "Learn more" link. -->
     <string name="MessageSyncScreen__messages_and_chat_info_are_protected_by_e2ee">ปกป้องข้อความและข้อมูลการแชทด้วยการเข้ารหัสตั้งแต่ต้นทางถึงปลายทาง รวมถึงในขั้นตอนการซิงค์</string>
     <!-- Inline link in the sync screen footer that opens documentation about end-to-end encryption during sync -->
@@ -428,13 +480,13 @@
     <!-- Button label that cancels the in-progress message sync -->
     <string name="MessageSyncScreen__cancel">ยกเลิก</string>
     <!-- Title of the dialog shown when restoring messages from the other device fails -->
-    <string name="MessageSyncScreen__couldnt_restore_messages">Couldn\'t restore messages</string>
+    <string name="MessageSyncScreen__couldnt_restore_messages">ไม่สามารถกู้คืนข้อความ</string>
     <!-- Body of the dialog shown when restoring messages fails, offering to retry or continue without message history -->
-    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">Your messages couldn\'t be transferred from your other device. You can try again, or continue without your message history.</string>
+    <string name="MessageSyncScreen__your_messages_couldnt_be_transferred">ไม่สามารถถ่ายโอนข้อความของคุณมาจากอุปกรณ์อีกเครื่อง คุณสามารถลองอีกครั้ง หรือดำเนินการต่อโดยไม่ถ่ายโอนประวัติการส่งข้อความ</string>
     <!-- Button that retries the failed message restore -->
     <string name="MessageSyncScreen__try_again">ลองอีกครั้ง</string>
     <!-- Button that finishes linking without restoring message history after a failed restore -->
-    <string name="MessageSyncScreen__continue_without_messages">Continue without messages</string>
+    <string name="MessageSyncScreen__continue_without_messages">ดำเนินการต่อโดยไม่ถ่ายโอนข้อความ</string>
 
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">สแกนคิวอาร์โค้ดนี้เพื่อเชื่อมโยงบัญชีของคุณ</string>
@@ -465,11 +517,11 @@
     <!-- Error dialog message shown when linking this device fails -->
     <string name="LinkAccountScreen__error_linking_device">เกิดข้อผิดพลาดขณะเชื่อมโยงอุปกรณ์เครื่องนี้</string>
     <!-- Title of the confirmation dialog shown when the scanned QR code belongs to a different account than the one this device is currently linked to -->
-    <string name="LinkAccountScreen__delete_app_data_question">Delete app data?</string>
+    <string name="LinkAccountScreen__delete_app_data_question">ลบข้อมูลแอปใช่หรือไม่</string>
     <!-- Body of the confirmation dialog warning that continuing will erase all local data before relinking to a different account -->
-    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">You\'re attempting to link a different Signal account. If you continue, all Signal data currently on this device will be deleted.</string>
+    <string name="LinkAccountScreen__you_are_attempting_to_link_a_different_account">คุณกำลังพยายามเชื่อมโยงบัญชี Signal ที่ไม่ใช่บัญชีเดิม หากดำเนินการต่อ ข้อมูลทั้งหมดของ Signal บนอุปกรณ์เครื่องนี้จะถูกลบ</string>
     <!-- Destructive confirmation button that deletes all local data and restarts the app so it can be linked to a different account -->
-    <string name="LinkAccountScreen__delete_and_restart">Delete &amp; restart</string>
+    <string name="LinkAccountScreen__delete_and_restart">ลบและรีสตาร์ท</string>
     <!-- Content description for the button that closes the maximized QR code overlay -->
     <string name="LinkAccountScreen__close_qr_code">ปิดคิวอาร์โค้ด</string>
 
@@ -520,43 +572,250 @@
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">ถ่ายโอนบัญชีของคุณมายังอุปกรณ์เครื่องนี้แล้ว</string>
     <string name="DeviceTransferComplete__continue_registration">ทำต่อ</string>
 
-    <!-- Create profile screen -->
-    <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">สร้างโปรไฟล์ของคุณ</string>
-    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">ผู้ติดต่อ กลุ่ม และคนที่คุณส่งข้อความหาจะเห็นโปรไฟล์และความเปลี่ยนแปลงที่เกิดขึ้นกับโปรไฟล์ของคุณ</string>
-    <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">ชื่อ (ต้องมี)</string>
-    <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">ชื่อสกุล (ไม่จำเป็น)</string>
-    <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">ดำเนินการต่อ</string>
-    <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">สร้างอวตาร</string>
-
-    <!-- Phone number discoverability picker -->
-    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">ใครบ้างที่สามารถค้นหาฉันด้วยหมายเลขโทรศัพท์ได้</string>
-    <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">ผู้ใช้ที่มีหมายเลขโทรศัพท์ของคุณจะเห็นว่าคุณใช้งาน Signal และจะสามารถเริ่มแชทกับคุณได้</string>
-    <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">จะไม่มีใครเห็นว่าคุณใช้งาน Signal เว้นแต่ว่าคุณจะส่งข้อความหาหรือเคยแชทกับผู้ใช้คนนั้น</string>
-    <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">ทุกคน</string>
-    <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">คนที่คุณไม่รู้จัก</string>
-    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">ต้องการดำเนินการต่อหรือไม่</string>
-    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">การตั้งค่า \"คนที่สามารถใช้หมายเลขโทรศัพท์ค้นหาฉันได้\" เป็น \"ไม่อนุญาตให้ใครค้นหา\" จะทำให้ผู้ใช้คนอื่นค้นหาคุณได้ยากขึ้นบน Signal</string>
-    <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">ยกเลิก</string>
-    <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">บันทึก</string>
-    <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">กลับ</string>
     <!-- Error message shown when the captcha fails to load. -->
     <string name="CaptchaScreen__failed_to_load_captcha">โหลด CAPTCHA ไม่สำเร็จ</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">ยกเลิก</string>
+
+    <!-- Shared registration strings -->
+    <!-- Content description for the back arrow in a registration screen header. -->
+    <string name="RegistrationScreen__back">กลับ</string>
+
+    <!-- Signal Login purchase screen -->
+    <!-- Title of the screen where the user buys a Signal Login to register without a phone number. -->
+    <string name="SignalLoginPaymentScreen__signal_login">Signal Login</string>
+    <!-- Description of what a Signal Login is. Followed by a "learn more" link. -->
+    <string name="SignalLoginPaymentScreen__register_without_a_phone_number">Signal Login ให้คุณลงทะเบียนได้โดยไม่ต้องใช้หมายเลขโทรศัพท์ ซื้อ Signal Login เพื่อรับไอดีบัญชีสำหรับเริ่มต้นใช้งาน</string>
+    <!-- Link at the end of the description that opens a support article about Signal Login. -->
+    <string name="SignalLoginPaymentScreen__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Subtitle of the purchase option, clarifying the price is not a subscription. -->
+    <string name="SignalLoginPaymentScreen__one_time_purchase">ชำระเงินแบบครั้งเดียว</string>
+    <!-- Selling point of the purchase option: no phone number is required. -->
+    <string name="SignalLoginPaymentScreen__no_phone_number_needed">ไม่จำเป็นต้องใช้หมายเลขโทรศัพท์</string>
+    <!-- Selling point of the purchase option: a username is used to reach the user. -->
+    <string name="SignalLoginPaymentScreen__username_for_messaging_and_calls">ใช้ชื่อผู้ใช้ในการส่งข้อความและโทร</string>
+    <!-- Selling point of the purchase option: the purchase supports Signal. -->
+    <string name="SignalLoginPaymentScreen__signal_is_a_non_profit">Signal เป็นแอปที่ไม่แสวงผลกำไร การซื้อล็อกอินครั้งนี้เป็นแรงสนับสนุนที่ช่วยเหลือภารกิจของเรา</string>
+    <!-- Title of the option for users who already bought a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__i_have_a_signal_login">ฉันมี Signal Login แล้ว</string>
+    <!-- Subtitle of the existing-login option. -->
+    <string name="SignalLoginPaymentScreen__use_your_existing_account_key">ใช้ข้อมูลลงชื่อเข้าใช้ที่คุณมีอยู่แล้ว</string>
+    <!-- Selling point of the existing-login option: the account can be restored. -->
+    <string name="SignalLoginPaymentScreen__login_and_restore_your_account">ลงชื่อเข้าใช้และกู้คืนบัญชีของคุณ</string>
+    <!-- Selling point of the existing-login option, thanking the user for their previous purchase. -->
+    <string name="SignalLoginPaymentScreen__thanks_for_supporting_signal">ขอบคุณที่ร่วมสนับสนุน Signal</string>
+    <!-- Action button that starts the purchase. Placeholder is the localized price, e.g. "$1.99". -->
+    <string name="SignalLoginPaymentScreen__pay_s">ชำระ %1$s</string>
+    <!-- Action button that starts the purchase, shown while the price is still loading. -->
+    <string name="SignalLoginPaymentScreen__pay">จ่าย</string>
+    <!-- Action button shown when the user indicated they already have a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__continue">ทำต่อ</string>
+    <!-- Error shown when the purchase does not go through. -->
+    <string name="SignalLoginPaymentScreen__your_purchase_could_not_be_completed">การชำระเงินของคุณไม่เสร็จสมบูรณ์ และคุณยังไม่ได้ถูกเรียกเก็บเงิน</string>
+    <!-- Shown in place of the price when Google Play cannot offer the purchase. -->
+    <string name="SignalLoginPaymentScreen__unavailable">ไม่มีให้บริการ</string>
+    <!-- Label for the button that retries loading the purchase price after it failed to load. -->
+    <string name="SignalLoginPaymentScreen__retry">ลองใหม่</string>
+    <!-- Shown in place of the price when the user already paid for a Signal Login but it was never redeemed. -->
+    <string name="SignalLoginPaymentScreen__already_paid">ชำระแล้ว</string>
+    <!-- Error shown when Signal Login cannot be purchased on this device, for example because the Google Play Store is unavailable. -->
+    <string name="SignalLoginPaymentScreen__signal_login_cant_be_purchased">ไม่สามารถซื้อ Signal Login บนอุปกรณ์เครื่องนี้ได้ในขณะนี้ โปรดลองอีกครั้งในภายหลัง</string>
+    <!-- Message shown when the user\'s payment has gone through but has not finished processing yet. -->
+    <string name="SignalLoginPaymentScreen__your_payment_is_still_processing">การชำระเงินของคุณยังอยู่ระหว่างดำเนินการ เมื่อชำระเงินสำเร็จ โปรดกลับมาที่หน้านี้แล้วแตะดำเนินการต่อ โดยคุณจะไม่ถูกเรียกเก็บเงินอีก</string>
+    <!-- Label for the internal-testing text field where a receipt credential can be pasted to skip payment. Not shown to real users. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__paste_a_receipt_credential" translatable="false">Paste a receipt credential (testing)</string> -->
+    <!-- Error shown when a manually-pasted receipt credential can\'t be parsed or is rejected. Internal testing only. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__this_receipt_credential_is_invalid" translatable="false">This receipt credential is invalid.</string> -->
+    <!-- Title of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__update_google_play_services">อัปเดตบริการ Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_update_google_play_services">โปรดอัปเดตบริการ Google Play บนอุปกรณ์เครื่องนี้เพื่อซื้อ Signal Login</string>
+    <!-- Button that updates Google Play services. -->
+    <string name="SignalLoginPaymentScreen__update">อัปเดต</string>
+    <!-- Title of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_missing">ไม่พบบริการ Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_google_play_services_needs_to_be_installed">จำเป็นต้องติดตั้งบริการ Google Play เพื่อซื้อ Signal Login</string>
+    <!-- Button that installs Google Play services. -->
+    <string name="SignalLoginPaymentScreen__install_play_services">ติดตั้ง Google Play</string>
+    <!-- Title of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_are_updating">บริการ Google Play กำลังอัปเดต</string>
+    <!-- Body of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_wait_for_google_play_services">โปรดรอให้บริการ Google Play อัปเดตจนเสร็จสิ้นเพื่อซื้อ Signal Login</string>
+    <!-- Title of the dialog shown when Google Play cannot be used to take a payment. -->
+    <string name="SignalLoginPaymentScreen__google_play_is_required">จำเป็นต้องใช้ Google Play</string>
+    <!-- Body of the dialog shown when Google Play services is installed but turned off. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_enable_google_play_services">โปรดเปิดใช้งานบริการ Google Play บนอุปกรณ์เครื่องนี้แล้วลงชื่อเข้าใช้ Google Play Store เพื่อซื้อ Signal Login</string>
+    <!-- Body of the dialog shown when the device cannot run Google Play services at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_on_this_device">ไม่สามารถซื้อ Signal Login ได้เนื่องจากอุปกรณ์เครื่องนี้ไม่รองรับบริการ Google Play โปรดติดต่อบริษัทผู้ผลิตโทรศัพท์เพื่อขอคำแนะนำหรือความช่วยเหลือ</string>
+    <!-- Body of the dialog shown when Google Play services works but nobody is signed into the Play Store. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_sign_into_the_google_play_store">โปรดลงชื่อเข้าใช้ Google Play Store เพื่อซื้อ Signal Login</string>
+    <!-- Body of the dialog shown when this version of Signal cannot make Google Play purchases at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_in_this_version">Signal เวอร์ชันนี้ไม่รองรับการซื้อ Signal Login โปรดติดตั้ง Signal จาก Google Play Store เพื่อซื้อ</string>
+    <!-- Button that opens the Google Play store so the user can sign into it. -->
+    <string name="SignalLoginPaymentScreen__open_play_store">เปิด Play Store</string>
+
+    <!-- Signal Login details screen -->
+    <!-- Title of the screen that shows the user their newly purchased Signal Login. -->
+    <string name="SignalLoginInfoScreen__your_signal_login">Signal Login ของคุณ</string>
+    <!-- Description warning the user that a lost Signal Login cannot be recovered. -->
+    <string name="SignalLoginInfoScreen__thanks_for_your_purchase">ขอบคุณสำหรับการชำระเงิน คุณสามารถใช้ Signal Login เพื่อลงทะเบียนใช้งานและกู้คืนบัญชี โดยคุณจะไม่สามารถกู้คืนบัญชีได้หากลืมกุญแจนี้</string>
+    <!-- Action button that stores the Signal Login in the device password manager. -->
+    <string name="SignalLoginInfoScreen__save_to_password_manager">บันทึกไปยังตัวจัดการรหัสผ่าน</string>
+    <!-- Toast shown when the user taps the disabled save to password manager button and the device has no password manager. -->
+    <string name="SignalLoginInfoScreen__no_password_manager_available">คุณยังไม่ได้ตั้งค่าตัวจัดการรหัสผ่าน</string>
+    <!-- Body of the dialog asking the user to confirm saving their Signal Login credentials to the device password manager. -->
+    <string name="SignalLoginInfoScreen__only_store_your_credentials">โปรดเก็บรหัสของคุณไว้กับตัวจัดการรหัสผ่านที่คุณมั่นใจว่าปลอดภัยเท่านั้น โดย Signal จะไม่แนะนำตัวจัดการรหัสผ่านที่เหมาะกับคุณตัวใดตัวหนึ่งเป็นพิเศษ</string>
+    <!-- Action button for users who would rather write the Signal Login down themselves. -->
+    <string name="SignalLoginInfoScreen__save_manually">บันทึกด้วยตัวเอง</string>
+    <!-- Error shown when the Signal Login could not be stored in the password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_saved">ไม่สามารถบันทึก Signal Login ของคุณได้ โปรดบันทึกรหัสด้วยตัวเอง</string>
+    <!-- Title of the dialog shown when the Signal Login could not be found in the password manager after saving it. -->
+    <string name="SignalLoginInfoScreen__error_confirming_login_info">เกิดข้อผิดพลาดในการยืนยันข้อมูลลงชื่อเข้าใช้</string>
+    <!-- Description telling the user that the Signal Login we saved could not be read back out of their password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_confirmed">ไม่สามารถยืนยัน Signal Login ของคุณได้ โปรดตรวจสอบว่าคุณบันทึกข้อมูลไว้ในตัวจัดการรหัสผ่านแล้ว หรือบันทึกด้วยตัวเอง</string>
+
+    <!-- Sheet that double-checks the user\'s Signal Login really made it into their password manager -->
+    <!-- Title of the sheet asking the user to confirm their Signal Login was saved to their password manager. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_your_login_info_is_saved">ยืนยันว่าคุณบันทึกข้อมูลลงชื่อเข้าใช้เรียบร้อยแล้ว</string>
+    <!-- Description telling the user they are about to be asked to fill in the Signal Login they just saved. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_that_your_login_info_was_saved">ยืนยันว่า Signal Login ของคุณได้รับการบันทึกไว้เรียบร้อยแล้ว ระบบจะให้คุณใส่รหัสผ่านที่บันทึกไว้ในขั้นตอนต่อไป</string>
+    <!-- Action button that starts checking the password manager for the Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_login_info">ยืนยันข้อมูลลงชื่อเข้าใช้</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__see_login_info_again">ดูข้อมูลลงชื่อเข้าใช้อีกครั้ง</string>
+
+    <!-- Save Signal Login screen -->
+    <!-- Title of the screen that spells out the Signal Login so the user can record it themselves. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_your_signal_login">บันทึก Signal Login ของคุณ</string>
+    <!-- Description telling the user to keep their Signal Login somewhere safe and private. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__store_your_signal_login_somewhere_safe">โปรดเก็บ Signal Login ของคุณไว้ในที่ปลอดภัย รวมถึงไม่บอกข้อมูลลงชื่อเข้าใช้ของคุณกับใคร</string>
+    <!-- Action button that saves the Signal Login to a PDF file. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_as_pdf">บันทึกเป็น PDF</string>
+    <!-- Action button for users who are done recording their Signal Login. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__continue">ทำต่อ</string>
+
+    <!-- Sheet that double-checks the user really saved their Signal Login -->
+    <!-- Title of the sheet asking the user to confirm they saved their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__confirm_your_login_info_is_saved">ยืนยันว่าคุณบันทึกข้อมูลลงชื่อเข้าใช้เรียบร้อยแล้ว</string>
+    <!-- Description warning the user that they are about to be asked for their Signal Login and that it cannot be recovered. -->
+    <string name="ConfirmLoginSavedBottomSheet__you_will_be_prompted_to_sign_in">ระบบจะให้คุณลงชื่อเข้าใช้ด้วย Signal Login ในขั้นตอนต่อไป โปรดตรวจสอบว่าคุณบันทึกหรือคัดลอกข้อมูลทั้งหมดนี้ไว้แล้ว เนื่องจาก Signal จะไม่สามารถช่วยกู้คืนบัญชีให้คุณได้</string>
+    <!-- Action button confirming the Signal Login is saved. -->
+    <string name="ConfirmLoginSavedBottomSheet__continue">ทำต่อ</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__show_login_info_again">แสดงข้อมูลลงชื่อเข้าใช้อีกครั้ง</string>
+
+    <!-- Errors shown beneath an account ID text field, wherever one is offered -->
+    <!-- Error shown when the entered account ID contains characters that can\'t appear in one. -->
+    <string name="AccountIdField__invalid_account_id">ไอดีบัญชีใช้งานไม่ได้</string>
+
+    <!-- Signal Login credential entry screen -->
+    <!-- Title of the screen where a user with an existing Signal Login types it in to log back in. -->
+    <string name="SignalLoginCredentialEntryScreen__signal_login">Signal Login</string>
+    <!-- Description telling the user what to enter to log in. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_account_id_followed_by_your_recovery_key">ใส่ไอดีบัญชีและกุญแจกู้คืนของคุณเพื่อกู้คืนบัญชี</string>
+    <!-- Label of the text field the account ID is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__account_id">ไอดีบัญชี</string>
+    <!-- Label of the text field the recovery key is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__recovery_key">กุญแจกู้คืน</string>
+    <!-- Description of the button that spells out the typed recovery key instead of masking it. -->
+    <string name="SignalLoginCredentialEntryScreen__show_recovery_key">แสดงกุญแจกู้คืน</string>
+    <!-- Description of the button that masks the typed recovery key. -->
+    <string name="SignalLoginCredentialEntryScreen__hide_recovery_key">ซ่อนกุญแจกู้คืน</string>
+    <!-- Button that opens a support article for users who can\'t find their Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__need_help">หากต้องการความช่วยเหลือ</string>
+    <!-- Action button that submits the entered Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__next">ดำเนินการต่อ</string>
+    <!-- Error shown when the service rejects the entered login, which means one of the two halves is wrong. -->
+    <string name="SignalLoginCredentialEntryScreen__incorrect_account_id_or_recovery_key">ไอดีบัญชีหรือกุญแจกู้คืนไม่ถูกต้อง</string>
+    <!-- Description shown instead when the user is typing back the Signal Login they were just given, to check they recorded it correctly. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_signal_login_to_confirm_it_was_recorded_correctly">ใส่ Signal Login ของคุณเพื่อยืนยันว่าข้อมูลได้รับการบันทึกไว้เรียบร้อยแล้ว</string>
+    <!-- Button that takes the user back to their Signal Login if they can\'t remember what they recorded. -->
+    <string name="SignalLoginCredentialEntryScreen__show_login_info_again">แสดงข้อมูลลงชื่อเข้าใช้อีกครั้ง</string>
+    <!-- Error shown when what the user typed back doesn\'t match the Signal Login they were given. -->
+    <string name="SignalLoginCredentialEntryScreen__that_doesnt_match_the_signal_login_you_were_shown">ข้อมูลไม่ตรงกับ Signal Login ที่คุณได้รับ</string>
+
+    <!-- Add username screen -->
+    <!-- Title of the screen offering the user an optional username. -->
+    <string name="AddUsernameScreen__add_an_optional_username">เพิ่มชื่อผู้ใช้ (ไม่บังคับ)</string>
+    <!-- Description explaining what a username is used for. -->
+    <string name="AddUsernameScreen__people_can_message_you_by_username">ผู้ติดต่อจะสามารถส่งข้อความหาคุณผ่านชื่อผู้ใช้โดยไม่จำเป็นต้องมีหมายเลขโทรศัพท์</string>
+    <!-- Prompt shown above the username field. -->
+    <string name="AddUsernameScreen__choose_your_username">เลือกชื่อผู้ใช้ของคุณ</string>
+    <!-- Label/hint for the username field. -->
+    <string name="AddUsernameScreen__username">ชื่อผู้ใช้</string>
+    <!-- Helper text below the username field. Followed by a "learn more" link. -->
+    <string name="AddUsernameScreen__usernames_are_always_paired_with_a_set_of_numbers">ชื่อผู้ใช้จะต้องมีชุดตัวเลขร่วมด้วยเสมอ</string>
+    <!-- Link in the helper text that opens a support article about usernames. -->
+    <string name="AddUsernameScreen__learn_more">เรียนรู้เพิ่มเติม</string>
+    <!-- Button that skips choosing a username. -->
+    <string name="AddUsernameScreen__skip">ข้าม</string>
+    <!-- Button that submits the chosen username. -->
+    <string name="AddUsernameScreen__next">ดำเนินการต่อ</string>
+    <!-- Validation error shown when the entered username is too short. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_least_3_characters">ชื่อผู้ใช้ต้องมีอักขระอย่างน้อย 3 ตัว</string>
+    <!-- Validation error shown when the entered username is too long. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_most_32_characters">ชื่อผู้ใช้มีอักขระได้สูงสุด 32 ตัว</string>
+    <!-- Validation error shown when the entered username contains disallowed characters. -->
+    <string name="AddUsernameScreen__usernames_can_only_contain">ชื่อผู้ใช้จะมีได้เฉพาะตัวอักษร ตัวเลข และเครื่องหมายอันเดอร์สกอร์</string>
+    <!-- Validation error shown when the entered username starts with a digit. -->
+    <string name="AddUsernameScreen__usernames_cannot_begin_with_a_number">ชื่อผู้ใช้ต้องไม่ขึ้นต้นด้วยตัวเลข</string>
+    <!-- Error shown when the chosen username cannot be reserved. -->
+    <string name="AddUsernameScreen__this_username_is_not_available">ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ โปรดลองตั้งชื่อใหม่</string>
+    <!-- Error shown when the user\'s temporary hold on a username expired before they submitted it. -->
+    <string name="AddUsernameScreen__your_username_reservation_expired">ชื่อผู้ใช้ที่คุณเคยตั้งไว้หมดอายุแล้ว โปรดลองอีกครั้ง</string>
+    <!-- Error shown when the username formed by the entered name and the user\'s chosen number is already taken. -->
+    <string name="AddUsernameScreen__this_username_is_not_available_try_another_number">ไม่สามารถใช้ชื่อผู้ใช้นี้ได้ ลองกรอกตัวเลขอื่น</string>
+    <!-- Validation error shown when the number the user entered after their username has too few digits. -->
+    <string name="AddUsernameScreen__enter_a_minimum_of_d_digits">ชื่อผู้ใช้ไม่ถูกต้อง ต้องกรอกตัวเลขอย่างน้อย %1$d หลัก</string>
+    <!-- Validation error shown when the number the user entered after their username has too many digits. -->
+    <string name="AddUsernameScreen__enter_a_maximum_of_d_digits">ชื่อผู้ใช้ไม่ถูกต้อง ต้องกรอกตัวเลขไม่เกิน %1$d หลัก</string>
+    <!-- Validation error shown when the number the user entered after their username is 00. -->
+    <string name="AddUsernameScreen__this_number_cant_be_00">ไม่สามารถใช้ตัวเลข 00 ได้ โปรดกรอกตัวเลข 1–9</string>
+    <!-- Validation error shown when the number the user entered after their username has a leading zero. -->
+    <string name="AddUsernameScreen__this_number_cant_start_with_0">ตัวเลขที่เกิน 2 หลักไม่สามารถขึ้นต้นด้วยเลข 0 ได้</string>
+    <!-- Title of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__are_you_sure">ต้องการดำเนินการต่อหรือไม่</string>
+    <!-- Body of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__without_a_username_people_wont_be_able_to_find_you">หากคุณไม่มีชื่อผู้ใช้ ผู้ติดต่อจะไม่สามารถค้นหาคุณบน Signal ได้</string>
+    <!-- Button in the skip-username confirmation dialog that returns to the screen without skipping. -->
+    <string name="AddUsernameScreen__cancel">ยกเลิก</string>
+    <!-- Button in the skip-username confirmation dialog that skips choosing a username. -->
+    <string name="AddUsernameScreen__continue">ทำต่อ</string>
+
+    <!-- ContactSupportDialog -->
+    <!-- Title of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__submit_debug_log">คุณต้องการส่งบันทึกดีบักหรือไม่</string>
+    <!-- Body of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__your_debug_logs">บันทึกดีบักของคุณจะช่วยให้เราแก้ไขปัญหาของคุณได้เร็วขึ้น คุณจะส่งบันทึกของคุณหรือไม่ก็ได้</string>
+    <!-- Button that contacts support with a debug log attached -->
+    <string name="ContactSupportDialog__submit_with_debug_log">ส่งพร้อมกับบันทึกดีบัก</string>
+    <!-- Button that contacts support without attaching a debug log -->
+    <string name="ContactSupportDialog__submit_without_debug_log">ส่งโดยไม่มีบันทึกดีบัก</string>
+
+    <!-- TotpEntryScreen -->
+    <!-- Title of the two-factor authentication code entry screen -->
+    <string name="TotpEntryScreen__two_factor_authentication">การยืนยันตัวตนแบบสองขั้นตอน</string>
+    <!-- Subtitle explaining where to find the code -->
+    <string name="TotpEntryScreen__to_continue_enter_the_code">ใส่รหัส 6 หลักจากแอปยืนยันตัวตนของคุณเพื่อดำเนินการต่อ</string>
+    <!-- Button text to cancel entering a code -->
+    <string name="TotpEntryScreen__cancel">ยกเลิก</string>
+
+    <!-- TwoFactorSelectionScreen -->
+    <!-- Title of the two-factor authentication method selection screen -->
+    <string name="TwoFactorSelectionScreen__two_factor_authentication">การยืนยันตัวตนแบบสองขั้นตอน</string>
+    <!-- Subtitle telling the user to pick one of the methods listed below -->
+    <string name="TwoFactorSelectionScreen__choose_a_method_below">เลือกวิธีตรวจยืนยันบัญชีของคุณจากด้านล่างนี้</string>
+    <!-- Title of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__passkey">พาสคีย์ (Passkey)</string>
+    <!-- Description of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__tap_to_use_your_device_biometrics">แตะเพื่อใช้ข้อมูลไบโอเมตริกของอุปกรณ์คุณหรือพาสคีย์แบบ FIDO2</string>
+    <!-- Title of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__authenticator_app">แอปยืนยันตัวตน (Authenticator App)</string>
+    <!-- Description of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__enter_a_one_time_code">ใส่รหัสแบบใช้ครั้งเดียวที่สร้างโดยแอปยืนยันตัวตนของคุณ</string>
+    <!-- Button text to cancel two-factor authentication -->
+    <string name="TwoFactorSelectionScreen__cancel">ยกเลิก</string>
+    <!-- Dialog message shown when a passkey verification attempt fails for a reason the user can\'t act on -->
+    <string name="TwoFactorSelectionScreen__something_went_wrong_with_your_passkey">เกิดข้อผิดพลาดเกี่ยวกับพาสคีย์ของคุณ โปรดลองอีกครั้งหรือเลือกวิธีอื่น</string>
 </resources>

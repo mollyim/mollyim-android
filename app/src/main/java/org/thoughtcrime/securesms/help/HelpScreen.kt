@@ -70,10 +70,11 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Snackbars
 import org.signal.core.ui.compose.horizontalGutters
+import org.signal.emoji.EmojiImage
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.emoji.EmojiImage
 import org.thoughtcrime.securesms.util.CommunicationActions
 import org.thoughtcrime.securesms.util.SupportEmailUtil
+import org.signal.appsettings.R as AppSettingsR
 
 @Composable
 fun HelpScreenContent(
@@ -127,7 +128,7 @@ fun HelpScreenContent(
 
   Scaffolds.Settings(
     snackbarHost = { Snackbars.Host(snackbarHostState = snackbarHostState) },
-    title = stringResource(R.string.preferences__help),
+    title = stringResource(AppSettingsR.string.preferences__help),
     onNavigationClick = { onEvent(HelpScreenEvents.NavigationClick) },
     navigationIcon = SignalIcons.ArrowStart.imageVector
   ) { paddingValues ->
@@ -360,7 +361,7 @@ private fun EmojiButton(
   val isDark = isSystemInDarkTheme()
 
   val backgroundColor = if (isSelected) {
-    if (isDark) Color(0xFF8F77FF) else Color(0xFF7152FF)
+    if (isDark) Color(0xFF6191f3) else Color(0xFF2C6BED)
   } else {
     if (isDark) Color(0xFF3b3b3b) else Color(0xFFE9E9E9)
   }

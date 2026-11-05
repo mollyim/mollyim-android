@@ -36,10 +36,10 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.util.ExpirationUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason
 import org.thoughtcrime.securesms.groups.ui.GroupErrors
-import org.thoughtcrime.securesms.util.ExpirationUtil
 import org.thoughtcrime.securesms.util.livedata.ProcessState
 import org.thoughtcrime.securesms.util.livedata.distinctUntilChanged
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
@@ -67,7 +67,9 @@ class ExpireTimerSettingsFragment : ComposeFragment() {
           if (state.isGroupCreate) {
             requireActivity().setResult(Activity.RESULT_OK, Intent().putExtra(FOR_RESULT_VALUE, saveState.result))
           }
-          requireActivity().onNavigateUp()
+          if (!NavHostFragment.findNavController(this).popBackStack()) {
+            requireActivity().onNavigateUp()
+          }
         }
 
         is ProcessState.Failure -> {

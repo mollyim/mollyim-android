@@ -5,7 +5,12 @@
 
 package org.signal.registration.screens.restoreselection
 
+import org.signal.registration.RegistrationFlowState
+
 sealed class ArchiveRestoreSelectionScreenEvents {
+  /** The parent registration flow state changed and needs to be merged into this screen's state. */
+  data class ParentStateChanged(val parentState: RegistrationFlowState) : ArchiveRestoreSelectionScreenEvents()
+
   data class RestoreOptionSelected(val option: ArchiveRestoreOption) : ArchiveRestoreSelectionScreenEvents()
 
   data object ConfirmSkip : ArchiveRestoreSelectionScreenEvents()

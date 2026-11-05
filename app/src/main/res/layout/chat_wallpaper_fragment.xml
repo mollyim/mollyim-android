@@ -10,6 +10,7 @@
     <include layout="@layout/dsl_settings_toolbar" />
 
     <ScrollView
+        android:id="@+id/chat_wallpaper_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -22,7 +23,7 @@
                 android:id="@+id/chat_wallpaper_preview_lightbox"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/settings_chat_wallpaper_preview_background"
+                android:background="@color/signal_background_tertiary"
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_space"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +35,7 @@
                 android:layout_height="288dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="?attr/signal_background_primary"
+                android:background="@color/signal_background_primary"
                 android:contentDescription="@string/ChatWallpaperFragment__wallpaper_preview_description"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +106,7 @@
                 android:maxLines="1"
                 android:text="@string/ChatWallpaperFragment__contact_name"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 android:textSize="8sp"
                 android:ellipsize="end"
                 app:layout_constraintTop_toTopOf="@id/chat_wallpaper_preview_top_bar_portrait"
@@ -123,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
                 app:layout_constraintEnd_toStartOf="@id/chat_wallpaper_preview_top_bar_voice"
                 app:srcCompat="@drawable/ic_video_call_24"
-                app:tint="?attr/signal_icon_tint_primary" />
+                app:tint="@color/signal_icon_tint_primary" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/chat_wallpaper_preview_top_bar_voice"
@@ -134,7 +135,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_top_bar"
                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_top_bar"
                 app:srcCompat="@drawable/ic_phone_right_24"
-                app:tint="?attr/signal_icon_tint_primary" />
+                app:tint="@color/signal_icon_tint_primary" />
 
             <View
                 android:id="@+id/chat_wallpaper_preview_bottom_bar"
@@ -170,7 +171,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/circle_tintable"
                 android:padding="2dp"
-                app:backgroundTint="?attr/signal_accent_primary"
+                app:backgroundTint="@color/signal_accent_primary"
                 app:layout_constraintBottom_toBottomOf="@id/chat_wallpaper_preview_bottom_bar"
                 app:layout_constraintEnd_toEndOf="@id/chat_wallpaper_preview_bottom_bar"
                 app:layout_constraintStart_toEndOf="@id/chat_wallpaper_preview_bottom_bar_input"
@@ -230,7 +231,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__chat_color"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_preview_lightbox" />
@@ -246,7 +247,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__reset_chat_colors"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_chat_color" />
@@ -274,7 +275,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__set_wallpaper"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_divider" />
@@ -290,7 +291,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__dark_mode_dims_wallpaper"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_set_wallpaper" />
@@ -306,7 +307,7 @@
                 android:paddingEnd="16dp"
                 android:text="@string/ChatWallpaperFragment__reset_wallpapers"
                 android:textAppearance="@style/Signal.Text.Body"
-                android:textColor="?attr/signal_text_primary"
+                android:textColor="@color/signal_text_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chat_wallpaper_dark_theme_dims_wallpaper" />

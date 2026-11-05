@@ -1,0 +1,135 @@
+--- a/app/src/main/res/layout/review_banner_view.xml
++++ b/app/src/main/res/layout/review_banner_view.xml
+@@ -1,27 +1,121 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/review_banner" android:layout_width="match_parent" android:layout_height="wrap_content">
++<org.thoughtcrime.securesms.profiles.spoofing.ReviewBannerView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/review_banner"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content">
+ 
+-    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center" android:layout_marginHorizontal="12dp" android:layout_marginVertical="11dp" android:background="?attr/signal_background_primary" android:minHeight="66dp" app:cardCornerRadius="24dp" app:cardBackgroundColor="?attr/colorSurfaceContainer" app:cardElevation="0dp">
++    <com.google.android.material.card.MaterialCardView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:layout_gravity="center"
++        android:layout_marginHorizontal="12dp"
++        android:layout_marginVertical="11dp"
++        android:background="?attr/signal_background_primary"
++        android:minHeight="66dp"
++        app:cardCornerRadius="24dp"
++        app:cardBackgroundColor="?attr/colorSurfaceContainer"
++        app:cardElevation="0dp">
+ 
+-        <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center_vertical">
++        <androidx.constraintlayout.widget.ConstraintLayout
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:layout_gravity="center_vertical">
+ 
+-            <FrameLayout android:id="@+id/banner_icon_frame" android:layout_width="40dp" android:layout_height="40dp" android:layout_marginHorizontal="15dp" android:layout_marginStart="16dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent">
++            <FrameLayout
++                android:id="@+id/banner_icon_frame"
++                android:layout_width="40dp"
++                android:layout_height="40dp"
++                android:layout_marginHorizontal="15dp"
++                android:layout_marginStart="16dp"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintStart_toStartOf="parent"
++                app:layout_constraintTop_toTopOf="parent">
+ 
+-                <ImageView android:id="@+id/banner_icon" android:layout_width="40dp" android:layout_height="40dp" android:importantForAccessibility="no" android:scaleType="centerInside"/>
++                <ImageView
++                    android:id="@+id/banner_icon"
++                    android:layout_width="40dp"
++                    android:layout_height="40dp"
++                    android:importantForAccessibility="no"
++                    android:scaleType="centerInside" />
+ 
+-                <org.thoughtcrime.securesms.components.AvatarImageView android:id="@+id/banner_top_left_avatar" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="top|start" android:layout_marginStart="2dp" android:layout_marginTop="2dp" android:visibility="gone" tools:visibility="visible"/>
++                <org.thoughtcrime.securesms.components.AvatarImageView
++                    android:id="@+id/banner_top_left_avatar"
++                    android:layout_width="24dp"
++                    android:layout_height="24dp"
++                    android:layout_gravity="top|start"
++                    android:layout_marginStart="2dp"
++                    android:layout_marginTop="2dp"
++                    android:visibility="gone"
++                    tools:visibility="visible" />
+ 
+-                <androidx.appcompat.widget.AppCompatImageView android:id="@+id/banner_avatar_stroke" android:layout_width="29dp" android:layout_height="29dp" android:layout_marginStart="11.5dp" android:layout_marginTop="11.5dp" android:background="@drawable/circle_tintable" android:visibility="gone" app:backgroundTint="?android:windowBackground" tools:backgroundTint="@color/red_500" tools:visibility="visible"/>
++                <androidx.appcompat.widget.AppCompatImageView
++                    android:id="@+id/banner_avatar_stroke"
++                    android:layout_width="29dp"
++                    android:layout_height="29dp"
++                    android:layout_marginStart="11.5dp"
++                    android:layout_marginTop="11.5dp"
++                    android:background="@drawable/circle_tintable"
++                    android:visibility="gone"
++                    app:backgroundTint="?android:windowBackground"
++                    tools:backgroundTint="@color/red_500"
++                    tools:visibility="visible" />
+ 
+-                <org.thoughtcrime.securesms.components.AvatarImageView android:id="@+id/banner_bottom_right_avatar" android:layout_width="24dp" android:layout_height="24dp" android:layout_gravity="end|bottom" android:layout_marginEnd="2dp" android:layout_marginBottom="2dp" android:visibility="gone" tools:visibility="visible"/>
++                <org.thoughtcrime.securesms.components.AvatarImageView
++                    android:id="@+id/banner_bottom_right_avatar"
++                    android:layout_width="24dp"
++                    android:layout_height="24dp"
++                    android:layout_gravity="end|bottom"
++                    android:layout_marginEnd="2dp"
++                    android:layout_marginBottom="2dp"
++                    android:visibility="gone"
++                    tools:visibility="visible" />
+ 
+             </FrameLayout>
+ 
+-            <TextView android:id="@+id/banner_message" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_marginVertical="16dp" android:text="@string/ReviewBannerView__name_conflict_found" android:textColor="?attr/colorOnSurface" android:textAppearance="@style/Signal.Text.BodyMedium" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/banner_tap_to_review" app:layout_constraintStart_toEndOf="@id/banner_icon_frame" app:layout_constraintTop_toTopOf="parent"/>
++            <TextView
++                android:id="@+id/banner_message"
++                android:layout_width="0dp"
++                android:layout_height="wrap_content"
++                android:layout_marginStart="16dp"
++                android:layout_marginVertical="16dp"
++                android:text="@string/ReviewBannerView__name_conflict_found"
++                android:textColor="?attr/colorOnSurface"
++                android:textAppearance="@style/Signal.Text.BodyMedium"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toStartOf="@id/banner_tap_to_review"
++                app:layout_constraintStart_toEndOf="@id/banner_icon_frame"
++                app:layout_constraintTop_toTopOf="parent" />
+ 
+-            <ImageView android:id="@+id/banner_close" android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@string/CloseButton__content_description" android:scaleType="centerInside" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp" app:tint="?attr/colorOnSurface" app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/symbol_x_24"/>
++            <ImageView
++                android:id="@+id/banner_close"
++                android:layout_width="24dp"
++                android:layout_height="24dp"
++                android:contentDescription="@string/CloseButton__content_description"
++                android:scaleType="centerInside"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toEndOf="parent"
++                android:layout_marginEnd="16dp"
++                app:tint="?attr/colorOnSurface"
++                app:layout_constraintTop_toTopOf="parent"
++                app:srcCompat="@drawable/symbol_x_24" />
+ 
+-            <com.google.android.material.button.MaterialButton android:id="@+id/banner_tap_to_review" style="@style/Signal.Widget.Button.Medium.Primary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="8dp" android:minWidth="0dp" android:text="@string/ReviewBannerView__view" android:textColor="?attr/colorOnSurface" app:backgroundTint="?attr/colorSurfaceContainerHighest" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/banner_close" app:layout_constraintStart_toEndOf="@id/banner_message" app:layout_constraintTop_toTopOf="parent" app:strokeWidth="0dp"/>
++            <com.google.android.material.button.MaterialButton
++                android:id="@+id/banner_tap_to_review"
++                style="@style/Signal.Widget.Button.Medium.Primary"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:layout_marginHorizontal="8dp"
++                android:minWidth="0dp"
++                android:text="@string/ReviewBannerView__view"
++                android:textColor="?attr/colorOnSurface"
++                app:backgroundTint="?attr/colorSurfaceContainerHighest"
++                app:layout_constraintBottom_toBottomOf="parent"
++                app:layout_constraintEnd_toStartOf="@id/banner_close"
++                app:layout_constraintStart_toEndOf="@id/banner_message"
++                app:layout_constraintTop_toTopOf="parent"
++                app:strokeWidth="0dp" />
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </com.google.android.material.card.MaterialCardView>

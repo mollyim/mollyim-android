@@ -13,20 +13,21 @@ import androidx.documentfile.provider.DocumentFile;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
-import org.greenrobot.eventbus.EventBus;
+import org.signal.core.database.SqlUtil;
 import org.signal.core.util.CursorUtil;
 import org.signal.core.util.SetUtil;
-import org.signal.core.util.SqlUtil;
 import org.signal.core.util.Stopwatch;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.signal.core.models.database.AttachmentId;
 import org.thoughtcrime.securesms.backup.proto.KeyValue;
-import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.backup.proto.SqlStatement;
 import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.ClassicDecryptingPartInputStream;
 import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.database.AttachmentTable;
 import org.thoughtcrime.securesms.database.BackupMediaSnapshotTable;
+import org.thoughtcrime.securesms.database.CallTable;
 import org.thoughtcrime.securesms.database.EmojiSearchTable;
 import org.thoughtcrime.securesms.database.GroupReceiptTable;
 import org.thoughtcrime.securesms.database.KeyValueDatabase;
@@ -45,14 +46,14 @@ import org.thoughtcrime.securesms.database.SenderKeyTable;
 import org.thoughtcrime.securesms.database.SenderKeySharedTable;
 import org.thoughtcrime.securesms.database.SessionTable;
 import org.thoughtcrime.securesms.database.SignedPreKeyTable;
-import org.thoughtcrime.securesms.database.StickerTable;
+import org.thoughtcrime.securesms.database.StickerTables;
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,6 +62,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -77,10 +79,13 @@ public class FullBackupExporter extends FullBackupBase {
 
   private static final String TAG = Log.tag(FullBackupExporter.class);
 
+  private static final int OUTPUT_BUFFER_SIZE = 64 * 1024;
+
   private static final long DATABASE_VERSION_RECORD_COUNT    = 1L;
   private static final long TABLE_RECORD_COUNT_MULTIPLIER    = 3L;
   private static final long IDENTITY_KEY_BACKUP_RECORD_COUNT = 2L;
   private static final long FINAL_MESSAGE_COUNT              = 1L;
+  private static final long EXPIRATION_BACKUP_THRESHOLD      = TimeUnit.DAYS.toMillis(1);
 
   /**
    * Tables in list will still have their *schema* exported (so the tables will be created),
@@ -112,7 +117,7 @@ public class FullBackupExporter extends FullBackupBase {
                             @NonNull BackupCancellationSignal cancellationSignal)
       throws IOException
   {
-    try (OutputStream outputStream = new FileOutputStream(output)) {
+    try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(output), OUTPUT_BUFFER_SIZE)) {
       return internalExport(context, attachmentSecret, input, outputStream, passphrase, true, cancellationSignal);
     }
   }
@@ -126,7 +131,7 @@ public class FullBackupExporter extends FullBackupBase {
                             @NonNull BackupCancellationSignal cancellationSignal)
       throws IOException
   {
-    try (OutputStream outputStream = Objects.requireNonNull(context.getContentResolver().openOutputStream(output.getUri()))) {
+    try (OutputStream outputStream = new BufferedOutputStream(Objects.requireNonNull(context.getContentResolver().openOutputStream(output.getUri())), OUTPUT_BUFFER_SIZE)) {
       return internalExport(context, attachmentSecret, input, outputStream, passphrase, true, cancellationSignal);
     }
   }
@@ -184,21 +189,15 @@ public class FullBackupExporter extends FullBackupBase {
           count = exportTable(table, input, outputStream, cursor -> isForNonExpiringPollMessage(input, cursor.getLong(cursor.getColumnIndexOrThrow(PollTables.PollOptionTable.POLL_ID))), null, count, estimatedCount, cancellationSignal);
         } else if (table.equals(PollTables.PollVoteTable.TABLE_NAME)) {
           count = exportTable(table, input, outputStream, cursor -> isForNonExpiringPollMessage(input, cursor.getLong(cursor.getColumnIndexOrThrow(PollTables.PollVoteTable.POLL_ID))), null, count, estimatedCount, cancellationSignal);
-        } else if (table.equals(StickerTable.TABLE_NAME)) {
+        } else if (table.equals(CallTable.TABLE_NAME)) {
+          count = exportTable(table, input, outputStream, cursor -> isForNonExpiringCall(input, cursor), null, count, estimatedCount, cancellationSignal);
+        } else if (table.equals(StickerTables.Sticker.TABLE_NAME)) {
           count = exportTable(table, input, outputStream, cursor -> true, (cursor, innerCount) -> exportSticker(attachmentSecret, cursor, outputStream, innerCount, estimatedCount), count, estimatedCount, cancellationSignal);
         } else if (!TABLE_CONTENT_BLOCKLIST.contains(table)) {
           count = exportTable(table, input, outputStream, null, null, count, estimatedCount, cancellationSignal);
         }
         stopwatch.split("table::" + table);
       }
-
-      for (SharedPreference preference : TextSecurePreferences.getPreferencesToSaveToBackup(context)) {
-        throwIfCanceled(cancellationSignal);
-        EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.PROGRESS, ++count, estimatedCount));
-        outputStream.write(preference);
-      }
-
-      stopwatch.split("prefs");
 
       count = exportKeyValues(outputStream, SignalStore.getKeysToIncludeInBackup(), count, estimatedCount, cancellationSignal);
 
@@ -236,7 +235,7 @@ public class FullBackupExporter extends FullBackupBase {
         count += getCount(input, BackupCountQueries.getGroupReceiptCount());
       } else if (table.equals(AttachmentTable.TABLE_NAME)) {
         count += getCount(input, BackupCountQueries.getAttachmentCount());
-      } else if (table.equals(StickerTable.TABLE_NAME)) {
+      } else if (table.equals(StickerTables.Sticker.TABLE_NAME)) {
         count += getCount(input, "SELECT COUNT(*) FROM " + table);
       } else if (!TABLE_CONTENT_BLOCKLIST.contains(table)) {
         count += getCount(input, "SELECT COUNT(*) FROM " + table);
@@ -244,8 +243,6 @@ public class FullBackupExporter extends FullBackupBase {
     }
 
     count += IDENTITY_KEY_BACKUP_RECORD_COUNT;
-
-    count += TextSecurePreferences.getPreferencesToSaveToBackupCount(context);
 
     KeyValueDataSet dataSet = KeyValueDatabase.getInstance(AppDependencies.getApplication())
                                               .getDataSet();
@@ -495,11 +492,11 @@ public class FullBackupExporter extends FullBackupBase {
                                    long estimatedCount)
       throws IOException
   {
-    long rowId = cursor.getLong(cursor.getColumnIndexOrThrow(StickerTable.ID));
-    long size  = cursor.getLong(cursor.getColumnIndexOrThrow(StickerTable.FILE_LENGTH));
+    long rowId = cursor.getLong(cursor.getColumnIndexOrThrow(StickerTables.Sticker.ID));
+    long size  = cursor.getLong(cursor.getColumnIndexOrThrow(StickerTables.Sticker.FILE_LENGTH));
 
-    String data   = cursor.getString(cursor.getColumnIndexOrThrow(StickerTable.FILE_PATH));
-    byte[] random = cursor.getBlob(cursor.getColumnIndexOrThrow(StickerTable.FILE_RANDOM));
+    String data   = cursor.getString(cursor.getColumnIndexOrThrow(StickerTables.Sticker.FILE_PATH));
+    byte[] random = cursor.getBlob(cursor.getColumnIndexOrThrow(StickerTables.Sticker.FILE_RANDOM));
 
     if (!TextUtils.isEmpty(data) && size > 0) {
       EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.PROGRESS, ++count, estimatedCount));
@@ -535,7 +532,11 @@ public class FullBackupExporter extends FullBackupBase {
   }
 
   private static InputStream openAttachmentStream(@NonNull AttachmentSecret attachmentSecret, @Nullable byte[] random, @NonNull String data) throws IOException {
-    return ModernDecryptingPartInputStream.createFor(attachmentSecret, random, new File(data), 0);
+    if (random != null && random.length == 32) {
+      return ModernDecryptingPartInputStream.createFor(attachmentSecret, random, new File(data), 0);
+    } else {
+      return ClassicDecryptingPartInputStream.createFor(attachmentSecret, new File(data));
+    }
   }
 
   private static int exportKeyValues(@NonNull BackupFrameOutputStream outputStream,
@@ -591,9 +592,44 @@ public class FullBackupExporter extends FullBackupBase {
   }
 
   private static boolean isNonExpiringMessage(@NonNull SQLiteDatabase db, @NonNull Cursor cursor) {
-    // MOLLY: Exclude any message whose expire timer has started regardless of remaining time
-    return CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN) <= 0 ||
-           CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED) <= 0;
+    return isNonExpiringMessage(db,
+                                CursorUtil.requireLong(cursor, MessageTable.ID),
+                                CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED),
+                                CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN),
+                                CursorUtil.requireLong(cursor, MessageTable.LATEST_REVISION_ID));
+  }
+
+  /**
+   * Corrupt data can contain a cycle in {@link MessageTable#LATEST_REVISION_ID}, so the walk tracks visited ids.
+   */
+  private static boolean isNonExpiringMessage(@NonNull SQLiteDatabase db, long id, long expireStarted, long expiresIn, long latestRevisionId) {
+    String[] columns = new String[] { MessageTable.ID, MessageTable.EXPIRE_STARTED, MessageTable.EXPIRES_IN, MessageTable.LATEST_REVISION_ID };
+    String   where   = MessageTable.ID + " = ?";
+
+    Set<Long> visited = new HashSet<>();
+
+    while (latestRevisionId > 0 && latestRevisionId != id) {
+      if (!visited.add(id)) {
+        Log.w(TAG, "Detected a cycle in the message revision chain! Stopping the walk at " + id);
+        break;
+      }
+
+      try (Cursor cursor = db.query(MessageTable.TABLE_NAME, columns, where, SqlUtil.buildArgs(latestRevisionId), null, null, null)) {
+        if (cursor == null || !cursor.moveToFirst()) {
+          return false;
+        }
+
+        id               = CursorUtil.requireLong(cursor, MessageTable.ID);
+        expireStarted    = CursorUtil.requireLong(cursor, MessageTable.EXPIRE_STARTED);
+        expiresIn        = CursorUtil.requireLong(cursor, MessageTable.EXPIRES_IN);
+        latestRevisionId = CursorUtil.requireLong(cursor, MessageTable.LATEST_REVISION_ID);
+      }
+    }
+
+    long expiresAt     = expireStarted + expiresIn;
+    long timeRemaining = expiresAt - System.currentTimeMillis();
+
+    return !(expireStarted > 0 && timeRemaining <= EXPIRATION_BACKUP_THRESHOLD);
   }
 
   private static boolean isForNonExpiringMessage(@NonNull SQLiteDatabase db, long messageId) {
@@ -608,6 +644,11 @@ public class FullBackupExporter extends FullBackupBase {
     }
 
     return false;
+  }
+
+  private static boolean isForNonExpiringCall(@NonNull SQLiteDatabase db, @NonNull Cursor cursor) {
+    int messageIdColumn = cursor.getColumnIndexOrThrow(CallTable.MESSAGE_ID);
+    return cursor.isNull(messageIdColumn) || isForNonExpiringMessage(db, cursor.getLong(messageIdColumn));
   }
 
   private static boolean isForNonExpiringPollMessage(@NonNull SQLiteDatabase db, long pollId) {

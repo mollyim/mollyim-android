@@ -18,17 +18,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.fragment.app.FragmentManager
 import kotlinx.collections.immutable.persistentHashMapOf
 import kotlinx.coroutines.flow.filter
 import org.signal.core.ui.compose.LocalFragmentManager
-import org.thoughtcrime.securesms.util.ViewUtil
+import org.signal.core.ui.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProvider
 
 /**
@@ -159,7 +157,7 @@ class ContactSearchView : AbstractComposeView {
         longClickCallbacks = currentLongClickCallbacks ?: rememberDefaultContactSearchItemLongClickCallbacks(),
         storyContextMenuCallbacks = currentStoryContextMenuCallbacks ?: rememberDefaultContactSearchItemStoryContextMenuCallbacks(vm),
         callButtonClickCallbacks = currentCallButtonClickCallbacks ?: rememberDefaultContactSearchItemCallButtonClickCallbacks(),
-        modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection()).fillMaxSize()
+        modifier = Modifier.fillMaxSize()
       )
     }
   }

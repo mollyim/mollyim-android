@@ -1,0 +1,21 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupImporter.java b/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupImporter.java
+index 2c0a6cab56..a39d6c9d8a 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupImporter.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/backup/FullBackupImporter.java
+@@ -367,15 +367,8 @@ public class FullBackupImporter extends FullBackupBase {
+       preferences.edit().putBoolean(preference.key, preference.booleanValue).commit();
+     } else if (preference.isStringSetValue == Boolean.TRUE) {
+       preferences.edit().putStringSet(preference.key, new HashSet<>(preference.stringSetValue)).commit();
+-    } else if (preference.longValue != null) {
+-      preferences.edit().putLong(preference.key, preference.longValue).commit();
+     } else if (preference.integerValue != null) {
+-      if (TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT.equals(preference.key)) {
+-        // Older Molly backups represented this long preference as a uint32.
+-        preferences.edit().putLong(preference.key, Integer.toUnsignedLong(preference.integerValue)).commit();
+-      } else {
+-        preferences.edit().putInt(preference.key, preference.integerValue).commit();
+-      }
++      preferences.edit().putInt(preference.key, preference.integerValue).commit();
+     }
+   }
+ 

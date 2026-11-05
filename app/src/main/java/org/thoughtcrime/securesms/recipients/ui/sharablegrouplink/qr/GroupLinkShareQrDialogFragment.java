@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.recipients.ui.sharablegrouplink.qr;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -19,12 +20,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.signal.core.ui.BottomSheetUtil;
+import org.signal.core.ui.WindowExtensionsKt;
+import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.qr.QrView;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.qr.QrCodeUtil;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -54,7 +58,18 @@ public class GroupLinkShareQrDialogFragment extends DialogFragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setStyle(STYLE_NO_FRAME, R.style.Signal_DayNight_Dialog_FullScreen);
+    setStyle(STYLE_NO_FRAME, ThemeUtil.isDarkTheme(requireActivity()) ? R.style.TextSecure_DarkTheme
+                                                                      : R.style.TextSecure_LightTheme);
+  }
+
+  @Override
+  public @NonNull LayoutInflater onGetLayoutInflater(@Nullable Bundle savedInstanceState) {
+    LayoutInflater inflater = super.onGetLayoutInflater(savedInstanceState);
+    Dialog         dialog   = getDialog();
+    if (dialog != null && dialog.getWindow() != null) {
+      WindowExtensionsKt.enableEdgeToEdge(dialog.getWindow());
+    }
+    return inflater;
   }
 
   @Override
@@ -67,6 +82,7 @@ public class GroupLinkShareQrDialogFragment extends DialogFragment {
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    SystemWindowInsetsSetter.attach(view, getViewLifecycleOwner());
     initializeViewModel();
     initializeViews(view);
   }

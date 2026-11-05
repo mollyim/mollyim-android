@@ -1,0 +1,316 @@
+From 6720859aeea74f6f6bd46fb6fdb592d1b568bd1d Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port appearance to Signal 8.33.2, part 1
+
+Resolve dynamic colors, themes and moved UI APIs while retaining Molly appearance behavior.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 6 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperCropActivity.java b/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperCropActivity.java
+index 5f0fc8d4a698ba95974f39db66028de5b0dd59b4..77a57a9f455b0542f761c178feb61f46f6ba592a 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperCropActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperCropActivity.java
+@@ -23,26 +23,23 @@ import androidx.core.content.ContextCompat;
+ import androidx.lifecycle.ViewModelProvider;
+ import androidx.window.layout.WindowMetricsCalculator;
+ 
+-<<<<<<< MOLLY
+-import org.signal.core.ui.util.ThemeUtil;
+-=======
+ import org.signal.core.models.recipients.RecipientId;
+ import org.signal.core.ui.WindowBreakpoint;
+->>>>>>> SIGNAL
++import org.signal.core.ui.util.ThemeUtil;
++import org.signal.core.ui.util.ViewUtil;
+ import org.signal.core.util.logging.Log;
+ import org.signal.imageeditor.core.ImageEditorView;
+ import org.signal.imageeditor.core.model.EditorElement;
+ import org.signal.imageeditor.core.model.EditorModel;
+ import org.signal.imageeditor.core.renderers.FaceBlurRenderer;
++import org.signal.imageeditor.core.renderers.UriGlideRenderer;
+ import org.thoughtcrime.securesms.PassphraseRequiredActivity;
+ import org.thoughtcrime.securesms.R;
+ import org.thoughtcrime.securesms.components.ProgressCard;
+ import org.thoughtcrime.securesms.conversation.colors.ColorizerView;
+-import org.signal.imageeditor.core.renderers.UriGlideRenderer;
+ import org.thoughtcrime.securesms.util.AsynchronousCallback;
+ import org.thoughtcrime.securesms.util.DynamicTheme;
+ import org.thoughtcrime.securesms.util.Projection;
+-import org.signal.core.ui.util.ViewUtil;
+ import org.thoughtcrime.securesms.wallpaper.ChatWallpaper;
+ import org.thoughtcrime.securesms.wallpaper.ChatWallpaperPreviewActivity;
+ 
+@@ -50,13 +47,9 @@ import java.util.Collections;
+ import java.util.Locale;
+ import java.util.Objects;
+ 
+-<<<<<<< MOLLY
+-public final class WallpaperCropActivity extends PassphraseRequiredActivity {
+-=======
+ import static org.signal.core.ui.WindowSizeClassExtensionsKt.getWindowBreakpoint;
+ 
+-public final class WallpaperCropActivity extends BaseActivity {
+->>>>>>> SIGNAL
++public final class WallpaperCropActivity extends PassphraseRequiredActivity {
+ 
+   private static final String TAG = Log.tag(WallpaperCropActivity.class);
+ 
+@@ -86,24 +79,19 @@ public final class WallpaperCropActivity extends BaseActivity {
+   }
+ 
+   @Override
+-<<<<<<< MOLLY
+   protected void onPreCreate() {
+     super.onPreCreate();
+-=======
+-  protected void onCreate(Bundle savedInstanceState) {
+-    super.onCreate(savedInstanceState);
+-
+-    if (!(getWindowBreakpoint(getResources()) instanceof WindowBreakpoint.Small)) {
+-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+-    }
+-
+->>>>>>> SIGNAL
+     dynamicTheme.onCreate(this);
+   }
+ 
+   @Override
+   protected void onCreate(Bundle savedInstanceState, boolean ready) {
+     super.onCreate(savedInstanceState, ready);
++
++    if (!(getWindowBreakpoint(getResources()) instanceof WindowBreakpoint.Small)) {
++      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
++    }
++
+     setContentView(R.layout.chat_wallpaper_crop_activity);
+ 
+     RecipientId recipientId = getIntent().getParcelableExtra(EXTRA_RECIPIENT_ID);
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperImageSelectionActivity.java b/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperImageSelectionActivity.java
+index 1b32db603424e00934c549fd305a6376c173e945..45d005dbd55fd0f74aa11994e25b442672a91a2f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperImageSelectionActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/wallpaper/crop/WallpaperImageSelectionActivity.java
+@@ -10,16 +10,12 @@ import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.appcompat.app.AppCompatDelegate;
+ 
++import org.signal.core.models.media.Media;
+ import org.signal.core.models.recipients.RecipientId;
+ import org.thoughtcrime.securesms.R;
+-import org.signal.core.models.media.Media;
+ import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
+-<<<<<<< MOLLY
+-import org.thoughtcrime.securesms.recipients.RecipientId;
+ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+ import org.thoughtcrime.securesms.util.DynamicTheme;
+-=======
+->>>>>>> SIGNAL
+ 
+ public final class WallpaperImageSelectionActivity extends AppCompatActivity
+         implements MediaGalleryFragment.Callbacks
+diff --git a/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt b/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
+index 3e7b83a4653b7ceaaad4ecaefb759cdd42646900..35f12286077fbb1236d12c4ff42f4fed7934bef9 100644
+--- a/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
++++ b/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
+@@ -157,14 +157,10 @@ object Rows {
+     values: Array<String>,
+     selectedValue: String,
+     onSelected: (String) -> Unit,
+-<<<<<<< MOLLY
+-    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
+-    enabled: Boolean = true
+-=======
+     modifier: Modifier = Modifier,
+     enabled: Boolean = true,
+-    requireConfirmation: Boolean = false
+->>>>>>> SIGNAL
++    requireConfirmation: Boolean = false,
++    trailingIcon: (@Composable RowScope.() -> Unit)? = null
+   ) {
+     RadioListRow(
+       text = { selectedIndex ->
+@@ -184,14 +180,10 @@ object Rows {
+       values = values,
+       selectedValue = selectedValue,
+       onSelected = onSelected,
+-<<<<<<< MOLLY
+-      trailingIcon = trailingIcon,
+-      enabled = enabled
+-=======
+       modifier = modifier,
+       enabled = enabled,
+-      requireConfirmation = requireConfirmation
+->>>>>>> SIGNAL
++      requireConfirmation = requireConfirmation,
++      trailingIcon = trailingIcon
+     )
+   }
+ 
+@@ -207,14 +199,10 @@ object Rows {
+     values: Array<String>,
+     selectedValue: String,
+     onSelected: (String) -> Unit,
+-<<<<<<< MOLLY
+-    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
+-    enabled: Boolean = true
+-=======
+     modifier: Modifier = Modifier,
+     enabled: Boolean = true,
+-    requireConfirmation: Boolean = false
+->>>>>>> SIGNAL
++    requireConfirmation: Boolean = false,
++    trailingIcon: (@Composable RowScope.() -> Unit)? = null
+   ) {
+     val selectedIndex = values.indexOf(selectedValue)
+     var displayDialog by remember { mutableStateOf(false) }
+diff --git a/core/ui/src/main/java/org/signal/core/ui/compose/theme/SignalTheme.kt b/core/ui/src/main/java/org/signal/core/ui/compose/theme/SignalTheme.kt
+index 007d0882239a5b64a5992890d5f3ab6b8dbd5ba1..0f69d2e3a7989a866021f5ccb5c51ea9467fe02b 100644
+--- a/core/ui/src/main/java/org/signal/core/ui/compose/theme/SignalTheme.kt
++++ b/core/ui/src/main/java/org/signal/core/ui/compose/theme/SignalTheme.kt
+@@ -132,20 +132,12 @@ private val lightExtendedColors = ExtendedColors(
+   neutralFill = Color(0x1A000000),
+   colorOnCustom = Color(0xFFFFFFFF),
+   colorOnCustomVariant = Color(0xB3FFFFFF),
+-<<<<<<< MOLLY
+   colorSurface1 = Color(0xFFF3F0FF),
+   colorSurface2 = Color(0xFFEEEAFF),
+   colorSurface3 = Color(0xFFEAE5FF),
+   colorSurface4 = Color(0xFFE5DFFF),
+   colorSurface5 = Color(0xFFDED6FF),
+-=======
+-  colorSurface1 = Color(0xFFF2F5F9),
+-  colorSurface2 = Color(0xFFEDF0F6),
+-  colorSurface3 = Color(0xFFE8ECF4),
+-  colorSurface4 = Color(0xFFE6EAF3),
+-  colorSurface5 = Color(0xFFE3E7F1),
+   colorSurfaceVariantFill = Color(0xCCFFFFFF),
+->>>>>>> SIGNAL
+   colorTransparent1 = Color(0x14FFFFFF),
+   colorTransparent2 = Color(0x29FFFFFF),
+   colorTransparent3 = Color(0x8FFFFFFF),
+@@ -170,22 +162,13 @@ private val darkExtendedColors = ExtendedColors(
+   neutralSurface = Color(0x14FFFFFF),
+   neutralFill = Color(0x33FFFFFF),
+   colorOnCustom = Color(0xFFFFFFFF),
+-<<<<<<< MOLLY
+-  colorOnCustomVariant = Color(0xB3FFFFFF),
++  colorOnCustomVariant = Color(0x18FFFFFF),
+   colorSurface1 = Color(0xFF181137),
+   colorSurface2 = Color(0xFF1E1645),
+   colorSurface3 = Color(0xFF231A4E),
+   colorSurface4 = Color(0xFF281E57),
+   colorSurface5 = Color(0xFF33276A),
+-=======
+-  colorOnCustomVariant = Color(0x18FFFFFF),
+-  colorSurface1 = Color(0xFF23242A),
+-  colorSurface2 = Color(0xFF272A31),
+-  colorSurface3 = Color(0xFF2C2F37),
+-  colorSurface4 = Color(0xFF2E3039),
+-  colorSurface5 = Color(0xFF31343E),
+   colorSurfaceVariantFill = Color(0x33FFFFFF),
+->>>>>>> SIGNAL
+   colorTransparent1 = Color(0x0AFFFFFF),
+   colorTransparent2 = Color(0x1FFFFFFF),
+   colorTransparent3 = Color(0x29FFFFFF),
+@@ -288,7 +271,6 @@ fun SignalTheme(
+   }
+ }
+ 
+-<<<<<<< MOLLY
+ @Composable
+ private fun systemAlignedLightColorScheme() = lightColorScheme(
+   primary = colorResource(R.color.dynamic_primary_light),
+@@ -374,7 +356,7 @@ private fun isThemeUsingDynamicColors(context: Context): Boolean {
+ 
+ private fun extendedColors(colorScheme: ColorScheme, isDarkMode: Boolean, isDynamic: Boolean): ExtendedColors {
+   return when {
+-    isDynamic -> lightExtendedColors.copy(
++    isDynamic -> (if (isDarkMode) darkExtendedColors else lightExtendedColors).copy(
+       colorSurface1 = colorScheme.surfaceContainerLow,
+       colorSurface2 = colorScheme.surfaceContainer,
+       colorSurface3 = colorScheme.surfaceContainerHigh,
+@@ -408,7 +390,9 @@ fun colorAttribute(@AttrRes id: Int): Color {
+     colorResource(typedValue.resourceId)
+   } else {
+     Color.Unspecified
+-=======
++  }
++}
++
+ /**
+  * Applies the light color scheme to [content] regardless of the ambient theme, leaving typography and shapes untouched.
+  */
+@@ -419,7 +403,6 @@ fun ForceLightColors(content: @Composable () -> Unit) {
+       colorScheme = lightColorScheme,
+       content = content
+     )
+->>>>>>> SIGNAL
+   }
+ }
+ 
+diff --git a/core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt b/core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt
+index 39f22ba6fc6d4ba63041f51ecf0a53069d2d2e31..40a8e26b26e96230b3b0f920425ff243822c505a 100644
+--- a/core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt
++++ b/core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt
+@@ -14,12 +14,8 @@ import android.text.TextPaint
+ import android.text.style.AbsoluteSizeSpan
+ import android.text.style.ForegroundColorSpan
+ import android.text.style.MetricAffectingSpan
+-<<<<<<< MOLLY:app/src/main/java/org/thoughtcrime/securesms/fonts/SignalSymbols.kt
+-import androidx.annotation.ColorInt
+-=======
+ import android.view.View
+-import androidx.annotation.ColorRes
+->>>>>>> SIGNAL:core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt
++import androidx.annotation.ColorInt
+ import androidx.compose.runtime.Composable
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.platform.LocalContext
+@@ -230,13 +226,8 @@ object SignalSymbols {
+     val text = SpannableStringBuilder(glyph.unicode.toString())
+     text.setSpan(span, 0, text.length, 0)
+ 
+-<<<<<<< MOLLY:app/src/main/java/org/thoughtcrime/securesms/fonts/SignalSymbols.kt
+     return if (color != null) {
+-      SpanUtil.color(color, text)
+-=======
+-    return if (colorRes != -1) {
+-      colorSpan(ContextCompat.getColor(context, colorRes), text)
+->>>>>>> SIGNAL:core/ui/src/main/java/org/signal/core/ui/fonts/SignalSymbols.kt
++      colorSpan(color, text)
+     } else {
+       text
+     }
+diff --git a/core/ui/src/main/java/org/signal/core/ui/util/SpanUtil.java b/core/ui/src/main/java/org/signal/core/ui/util/SpanUtil.java
+index 46a4c16c4e7c7d6a997fc1f08ffaa79fdca01913..67315b5802764eecfcb3d1cb4ffe4fd9549abaf6 100644
+--- a/core/ui/src/main/java/org/signal/core/ui/util/SpanUtil.java
++++ b/core/ui/src/main/java/org/signal/core/ui/util/SpanUtil.java
+@@ -35,11 +35,7 @@ import androidx.annotation.NonNull;
+ import androidx.annotation.StringRes;
+ import androidx.annotation.StyleRes;
+ 
+-<<<<<<< MOLLY:app/src/main/java/org/thoughtcrime/securesms/util/SpanUtil.java
+-import org.signal.core.ui.util.ThemeUtil;
+-=======
+ import org.signal.core.ui.R;
+->>>>>>> SIGNAL:core/ui/src/main/java/org/signal/core/ui/util/SpanUtil.java
+ import org.signal.core.util.DimensionUnit;
+ 
+ public final class SpanUtil {

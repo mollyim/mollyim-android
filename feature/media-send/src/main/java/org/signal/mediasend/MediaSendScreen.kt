@@ -10,23 +10,28 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigationevent.NavigationEventDispatcherOwner
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import org.signal.core.ui.compose.Dialogs
+import org.signal.core.ui.compose.LocalDisplayNameProvider
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.imageeditor.core.Renderer
+import org.signal.mediasend.screens.edit.MediaEditScreenDialogs
 
 @Composable
 fun MediaSendScreen(
-  contractArgs: MediaSendActivityContract.Args,
+  contractArgs: MediaSendFlowActivityContract.Args,
   modifier: Modifier = Modifier,
   textStoryEditorSlot: @Composable () -> Unit = {},
-  sendSlot: @Composable (MediaSendState) -> Unit = {},
-  onExternalHudCommand: (HudCommand) -> Unit = {}
+  sendSlot: @Composable (MediaSendFlowState) -> Unit = {},
+  stickerSelectSlot: @Composable (onStickerSelected: (Renderer?) -> Unit) -> Unit = {},
+  onExternalHudCommand: (MediaSendFlowHudCommand) -> Unit = {}
 ) {
-  val viewModel = viewModel<MediaSendViewModel>(factory = MediaSendViewModel.Factory(args = contractArgs))
+  val viewModel = viewModel<MediaSendFlowViewModel>(factory = MediaSendFlowViewModel.Factory(args = contractArgs))
 
   LaunchedEffect(viewModel) {
     viewModel.hudCommands.collect { command ->
@@ -57,15 +62,32 @@ fun MediaSendScreen(
             onDismissRequest = onDismissRequest
           )
         }
+        viewModel.reRegistrationOutdatedDeviceDialog.Content { _, onDismissRequest, _, _, _ ->
+          Dialogs.SimpleMessageDialog(
+            title = stringResource(R.string.ReRegistrationScannedDialog__transfer_failed_title),
+            message = stringResource(R.string.ReRegistrationScannedDialog__the_device_you_are_transferring_to_is_out_of_date),
+            dismiss = stringResource(android.R.string.ok),
+            onDismiss = onDismissRequest
+          )
+        }
 
-        MediaSendNavDisplay(
-          stateFlow = viewModel.state,
-          snackbarEvents = viewModel.snackbarEvents,
-          backStack = viewModel.backStack,
-          eventHandler = viewModel,
+        viewModel.addToGroupStoryDialog.Content { recipientId, onDismissRequest, onConfirm, _, onDeny ->
+          val groupName: String by LocalDisplayNameProvider.current(recipientId.id)
+
+          MediaEditScreenDialogs.AddToGroupStoryConfirmationDialog(
+            groupName = groupName,
+            onAddToStory = onConfirm,
+            onDeny = onDeny,
+            onDismissRequest = onDismissRequest
+          )
+        }
+
+        MediaSendNavigation(
+          viewModel = viewModel,
           modifier = modifier,
           textStoryEditorSlot = textStoryEditorSlot,
-          sendSlot = sendSlot
+          sendSlot = sendSlot,
+          stickerSelectSlot = stickerSelectSlot
         )
       }
     }

@@ -24,6 +24,7 @@ import androidx.annotation.WorkerThread;
 
 import java.util.stream.Collectors;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
@@ -33,11 +34,9 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.ConversationUtil;
 import org.signal.core.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.RemoteConfig;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,16 +71,17 @@ public class NotificationChannels {
   public final String FAILURES                         = "failures";
   public final String APP_UPDATES                      = "app_updates";
   public final String BACKUPS                          = "backups_v2";
-  public static final String LOCKED_STATUS             = "locked_status_v2";
+  public final String LOCKED_STATUS                    = "locked_status_v2";
   public final String OTHER                            = "other_v3";
   public final String VOICE_NOTES                      = "voice_notes";
   public final String JOIN_EVENTS                      = "join_events";
-  public static final String BACKGROUND                = "background_connection";
+  public final String BACKGROUND                       = "background_connection";
   public final String CALL_STATUS                      = "call_status";
   public final String APP_ALERTS                       = "app_alerts";
-  public static final String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
+  public final String ADDITIONAL_MESSAGE_NOTIFICATIONS = "additional_message_notifications";
   public final String NEW_LINKED_DEVICE                = "new_linked_device";
   public final String INTERNAL_ISSUES                  = "internal_issues";
+  public final String UNREAD_REMINDERS                 = "unread_reminders";
 
   private static volatile NotificationChannels instance;
 
@@ -112,10 +112,10 @@ public class NotificationChannels {
 
     NotificationManager notificationManager = ServiceUtil.getNotificationManager(context);
 
-    int oldVersion = TextSecurePreferences.getNotificationChannelVersion(context);
+    int oldVersion = SignalStore.misc().getNotificationChannelVersion();
     if (oldVersion != VERSION) {
       onUpgrade(notificationManager, oldVersion, VERSION);
-      TextSecurePreferences.setNotificationChannelVersion(context, VERSION);
+      SignalStore.misc().setNotificationChannelVersion(VERSION);
     }
 
     onCreate(notificationManager);
@@ -213,7 +213,7 @@ public class NotificationChannels {
    * @return The channel ID for the default messages channel.
    */
   public synchronized @NonNull String getMessagesChannel() {
-    return getMessagesChannelId(TextSecurePreferences.getNotificationMessagesChannelVersion(context));
+    return getMessagesChannelId(SignalStore.misc().getNotificationMessagesChannelVersion());
   }
 
   /**
@@ -271,17 +271,20 @@ public class NotificationChannels {
    * a channel made for that recipient.
    */
   public synchronized void deleteChannelFor(@NonNull Recipient recipient) {
-    if (!supported()) {
+    deleteChannel(recipient.getNotificationChannel());
+  }
+
+  /**
+   * Deletes the channel with the provided id. Safe to call with a null id or an id that has no
+   * matching channel.
+   */
+  public synchronized void deleteChannel(@Nullable String channelId) {
+    if (!supported() || channelId == null) {
       return;
     }
 
-    NotificationManager notificationManager = ServiceUtil.getNotificationManager(context);
-    String              channel             = recipient.getNotificationChannel();
-
-    if (channel != null) {
-      Log.i(TAG, "Deleting channel");
-      notificationManager.deleteNotificationChannel(channel);
-    }
+    Log.i(TAG, "Deleting channel");
+    ServiceUtil.getNotificationManager(context).deleteNotificationChannel(channelId);
   }
 
   /**
@@ -638,6 +641,7 @@ public class NotificationChannels {
     NotificationChannel appAlerts                      = new NotificationChannel(APP_ALERTS, context.getString(R.string.NotificationChannel_critical_app_alerts), NotificationManager.IMPORTANCE_HIGH);
     NotificationChannel additionalMessageNotifications = new NotificationChannel(ADDITIONAL_MESSAGE_NOTIFICATIONS, context.getString(R.string.NotificationChannel_additional_message_notifications), NotificationManager.IMPORTANCE_HIGH);
     NotificationChannel newLinkedDevice                = new NotificationChannel(NEW_LINKED_DEVICE, context.getString(R.string.NotificationChannel_new_linked_device), NotificationManager.IMPORTANCE_HIGH);
+    NotificationChannel unreadReminders                = new NotificationChannel(UNREAD_REMINDERS, context.getString(R.string.NotificationChannel_unread_reminders), NotificationManager.IMPORTANCE_DEFAULT);
 
     messages.setGroup(CATEGORY_MESSAGES);
     setVibrationEnabled(messages, SignalStore.settings().isMessageVibrateEnabled());
@@ -655,9 +659,9 @@ public class NotificationChannels {
     callStatus.setShowBadge(false);
     appAlerts.setShowBadge(false);
 
-    notificationManager.createNotificationChannels(Arrays.asList(messages, calls, failures, backups, lockedStatus, other, voiceNotes, joinEvents, background, callStatus, appAlerts, additionalMessageNotifications, newLinkedDevice));
+    notificationManager.createNotificationChannels(Arrays.asList(messages, calls, failures, backups, lockedStatus, other, voiceNotes, joinEvents, background, callStatus, appAlerts, additionalMessageNotifications, newLinkedDevice, unreadReminders));
 
-    if (BuildConfig.MANAGE_MOLLY_UPDATES) {
+    if (BuildConfig.MANAGES_APP_UPDATES) {
       NotificationChannel appUpdates = new NotificationChannel(APP_UPDATES, context.getString(R.string.NotificationChannel_app_updates), NotificationManager.IMPORTANCE_DEFAULT);
       notificationManager.createNotificationChannel(appUpdates);
     } else {
@@ -704,7 +708,7 @@ public class NotificationChannels {
 
     if (oldVersion < Version.AUDIO_ATTRIBUTE_CHANGE) {
       Context context                       = AppDependencies.getApplication();
-      int     existingMessageChannelVersion = TextSecurePreferences.getNotificationMessagesChannelVersion(context);
+      int     existingMessageChannelVersion = SignalStore.misc().getNotificationMessagesChannelVersion();
       int     newMessageChannelVersion      = existingMessageChannelVersion + 1;
       String  existingChannelId             = "messages_" + existingMessageChannelVersion;
       String  newChannelId                  = "messages_" + newMessageChannelVersion;
@@ -729,7 +733,7 @@ public class NotificationChannels {
 
         notificationManager.createNotificationChannel(newChannel);
 
-        TextSecurePreferences.setNotificationMessagesChannelVersion(context, newMessageChannelVersion);
+        SignalStore.misc().setNotificationMessagesChannelVersion(newMessageChannelVersion);
       }
     }
   }
@@ -798,12 +802,12 @@ public class NotificationChannels {
   @TargetApi(26)
   private void updateMessageChannel(@NonNull ChannelUpdater updater) {
     NotificationManager notificationManager = ServiceUtil.getNotificationManager(context);
-    int existingVersion                     = TextSecurePreferences.getNotificationMessagesChannelVersion(context);
+    int existingVersion                     = SignalStore.misc().getNotificationMessagesChannelVersion();
     int newVersion                          = existingVersion + 1;
 
     Log.i(TAG, "Updating message channel from version " + existingVersion + " to " + newVersion);
     if (updateExistingChannel(notificationManager, getMessagesChannelId(existingVersion), getMessagesChannelId(newVersion), updater)) {
-      TextSecurePreferences.setNotificationMessagesChannelVersion(context, newVersion);
+      SignalStore.misc().setNotificationMessagesChannelVersion(newVersion);
     } else {
       onCreate(notificationManager);
     }

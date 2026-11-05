@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.logsubmit;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -21,6 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -33,14 +36,11 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.ConversationSearchBottomBar;
 import org.thoughtcrime.securesms.components.ProgressCard;
 import org.thoughtcrime.securesms.components.SearchView;
-import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.LongClickCopySpan;
 import org.thoughtcrime.securesms.util.LongClickMovementMethod;
-import org.thoughtcrime.securesms.util.SupportEmailUtil;
 import org.signal.core.ui.util.ThemeUtil;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
 
 import java.util.ArrayList;
@@ -50,7 +50,6 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-@SuppressLint("BaseActivitySubclass")
 public class SubmitDebugLogActivity extends BaseActivity {
 
   private static final int CODE_SAVE = 24601;
@@ -75,7 +74,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
   private TextView    searchPosition;
   private ImageButton searchUpButton;
   private ImageButton searchDownButton;
-
+  
   private TextView uncaughtButton;
   private TextView verboseButton;
   private TextView debugButton;
@@ -92,8 +91,8 @@ public class SubmitDebugLogActivity extends BaseActivity {
   private boolean isWarning;
   private boolean isError;
 
-  private final DynamicTheme        dynamicTheme = new DynamicTheme();
-  private final CompositeDisposable disposables  = new CompositeDisposable();
+  private final DynamicTheme dynamicTheme = new DynamicTheme();
+  private final CompositeDisposable disposables = new CompositeDisposable();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +100,14 @@ public class SubmitDebugLogActivity extends BaseActivity {
     dynamicTheme.onCreate(this);
     setContentView(R.layout.submit_debug_log_activity);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setTitle(R.string.HelpSettingsFragment__debug_log);
+    getSupportActionBar().setTitle(org.signal.appsettings.R.string.HelpSettingsFragment__debug_log);
+
+    // Insets are re-dispatched by appcompat's ActionBarOverlayLayout with the action bar height folded into the top inset.
+    ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
+      Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+      v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+      return WindowInsetsCompat.CONSUMED;
+    });
 
     this.viewModel = new ViewModelProvider(this, new SubmitDebugLogViewModel.Factory()).get(SubmitDebugLogViewModel.class);
 
@@ -113,11 +119,6 @@ public class SubmitDebugLogActivity extends BaseActivity {
   protected void onResume() {
     super.onResume();
     dynamicTheme.onResume(this);
-  }
-
-  @Override
-  public boolean useScreenLock() {
-    return false;
   }
 
   @Override
@@ -250,6 +251,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
       isUncaught = !isUncaught;
       onFilterLevel(v, isUncaught);
     });
+    
 
     if (viewModel.getMode().getValue() != null) {
       presentMode(viewModel.getMode().getValue());
@@ -259,15 +261,15 @@ public class SubmitDebugLogActivity extends BaseActivity {
   }
 
   private void onFilterLevel(View view, boolean isChecked) {
-    view.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(this, (isChecked) ? R.color.transparent_black_25 : R.attr.signal_background_secondary)));
+    view.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, (isChecked) ? R.color.transparent_black_25 : R.color.signal_background_secondary)));
 
     List<String> selectedLevels = new ArrayList<>();
 
-    if (isVerbose) selectedLevels.add("\" V \"");
-    if (isDebug) selectedLevels.add("\" D \"");
-    if (isInfo) selectedLevels.add("\" I \"");
-    if (isWarning) selectedLevels.add("\" W \"");
-    if (isError) selectedLevels.add("\" E \"");
+    if (isVerbose)  selectedLevels.add("\" V \"");
+    if (isDebug)    selectedLevels.add("\" D \"");
+    if (isInfo)     selectedLevels.add("\" I \"");
+    if (isWarning)  selectedLevels.add("\" W \"");
+    if (isError)    selectedLevels.add("\" E \"");
     if (isUncaught) selectedLevels.add("\" SignalUncaughtException:\"");
 
     DebugLogsViewer.onFilterLevel(logWebView, "[" + String.join(",", selectedLevels) + "]");
@@ -282,14 +284,12 @@ public class SubmitDebugLogActivity extends BaseActivity {
     isError    = false;
     isUncaught = false;
 
-    int backgroundColor = ThemeUtil.getThemedColor(this, R.attr.signal_text_secondary);
-
-    verboseButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-    debugButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-    infoButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-    warningButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-    errorButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
-    uncaughtButton.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
+    verboseButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
+    debugButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
+    infoButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
+    warningButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
+    errorButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
+    uncaughtButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.signal_background_secondary)));
 
     DebugLogsViewer.onFilterLevel(logWebView, "[]");
   }
@@ -299,34 +299,18 @@ public class SubmitDebugLogActivity extends BaseActivity {
     super.onOptionsItemSelected(item);
 
     if (item.getItemId() == android.R.id.home) {
-      onBackPressed();
+      finish();
       return true;
     } else if (item.getItemId() == R.id.menu_save) {
-      onSaveClicked();
+      Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+      intent.addCategory(Intent.CATEGORY_OPENABLE);
+      intent.setType("application/zip");
+      intent.putExtra(Intent.EXTRA_TITLE, "signal-log-" + System.currentTimeMillis() + ".zip");
+
+      startActivityForResult(intent, CODE_SAVE);
     }
 
     return false;
-  }
-
-  private void onSaveClicked() {
-    Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-    intent.addCategory(Intent.CATEGORY_OPENABLE);
-    intent.setType("application/zip");
-    intent.putExtra(Intent.EXTRA_TITLE, BackupUtil.getBackupFilenamePrefix() + "-log-" + System.currentTimeMillis() + ".zip");
-
-    startActivityForResult(intent, CODE_SAVE);
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (!viewModel.onBackPressed()) {
-      super.onBackPressed();
-      final Intent nextIntent = getIntent().getParcelableExtra("next_intent");
-      if (nextIntent != null) {
-        startActivity(nextIntent);
-      }
-      finish();
-    }
   }
 
   @Override
@@ -360,12 +344,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
       submitButton.setText(R.string.SubmitDebugLogActivity_close);
       submitButton.setOnClickListener(v -> ActivityCompat.finishAfterTransition(this));
     } else {
-      if (KeyCachingService.isLocked()) {
-        submitButton.setText(R.string.SubmitDebugLogActivity_save);
-        submitButton.setOnClickListener(v -> onSaveClicked());
-      } else {
-        submitButton.setOnClickListener(v -> onSubmitClicked());
-      }
+      submitButton.setOnClickListener(v -> onSubmitClicked());
     }
 
     scrollToTopButton.setOnClickListener(v -> DebugLogsViewer.scrollToTop(logWebView));
@@ -391,13 +370,13 @@ public class SubmitDebugLogActivity extends BaseActivity {
 
   private void subscribeToLogLines() {
     Disposable disposable = viewModel.getLogLinesObservable()
-                                     .observeOn(Schedulers.io())
-                                     .subscribe(this::appendLines, throwable -> {
-                                       // Handle error
-                                       ThreadUtil.runOnMain(() -> {
-                                         this.progressCard.setVisibility(View.GONE);
-                                       });
-                                     });
+        .observeOn(Schedulers.io())
+        .subscribe(this::appendLines, throwable -> {
+          // Handle error
+          ThreadUtil.runOnMain(() -> {
+            this.progressCard.setVisibility(View.GONE);
+          });
+        });
     disposables.add(disposable);
   }
 
@@ -472,7 +451,7 @@ public class SubmitDebugLogActivity extends BaseActivity {
           ShareCompat.IntentBuilder.from(this)
                                    .setText(url)
                                    .setType("text/plain")
-                                   .addEmailTo(SupportEmailUtil.getSupportEmailAddress(this))
+                                   .setEmailTo(new String[] { "support@signal.org" })
                                    .startChooser();
         });
 

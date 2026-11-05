@@ -1,0 +1,27 @@
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
+@@ -125,22 +125,8 @@
+                                          @Nullable String fcmToken)
+       throws IOException, InvalidKeyException
+   {
+-    DeviceAttributes deviceAttributes = new DeviceAttributes(attributes.getFetchesMessages(),
+-                                                             attributes.getRegistrationId(),
+-                                                             attributes.getPniRegistrationId(),
+-                                                             attributes.getName(),
+-                                                             attributes.getCapabilities());
+-    RegisterAsSecondaryDeviceResponse response = NetworkResultUtil.successOrThrow(
+-        getRegistrationApi().registerAsSecondaryDevice(provisioningCode,
+-                                                      deviceAttributes,
+-                                                      aciPreKeys,
+-                                                      pniPreKeys,
+-                                                      attributes.getFetchesMessages() ? null : fcmToken));
+-    try {
+-      return Integer.parseInt(response.getDeviceId());
+-    } catch (NumberFormatException e) {
+-      throw new IOException("Invalid linked device ID in registration response", e);
+-    }
++    int deviceId = pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
++    return deviceId;
+   }
+ 
+   public void checkNetworkConnection() throws IOException {

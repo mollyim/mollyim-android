@@ -36,7 +36,7 @@ sealed class MessageSendType(
   @Parcelize
   object SignalMessageSendType : MessageSendType(
     titleRes = R.string.ConversationActivity_send_message_content_description,
-    composeHintRes = R.string.NewConversationActivity__message,
+    composeHintRes = R.string.conversation_activity__type_message_push,
     buttonDrawableRes = R.drawable.ic_send_lock_24,
     transportType = TransportType.SIGNAL,
     maxBodyByteSize = 2048

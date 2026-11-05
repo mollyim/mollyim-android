@@ -30,20 +30,23 @@ import android.widget.Toast;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.ui.permissions.Permissions;
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.ui.view.Stub;
+import org.signal.core.util.ExpiringProfileCredentialUtil;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.bitmaps.BitmapUtil;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.concurrent.ListenableFuture.Listener;
 import org.signal.core.util.concurrent.SettableFuture;
+import org.signal.core.util.concurrent.SimpleTask;
 import org.signal.core.util.logging.Log;
 import org.signal.core.util.permissions.PermissionCompat;
 import org.signal.mediasend.MediaConstraints;
@@ -55,20 +58,23 @@ import org.thoughtcrime.securesms.components.ThumbnailView;
 import org.thoughtcrime.securesms.components.location.SignalMapView;
 import org.thoughtcrime.securesms.components.location.SignalPlace;
 import org.thoughtcrime.securesms.conversation.MessageSendType;
-import org.thoughtcrime.securesms.database.MediaTable;
 import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.giph.ui.GiphyActivity;
 import org.thoughtcrime.securesms.maps.PlacePickerActivity;
-import org.thoughtcrime.securesms.mediapreview.MediaIntentFactory;
-import org.thoughtcrime.securesms.mediapreview.MediaPreviewCache;
-import org.thoughtcrime.securesms.mediapreview.MediaPreviewV2Fragment;
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity;
+import org.thoughtcrime.securesms.mediasend.MediaSendLauncher;
+import org.thoughtcrime.securesms.payments.CanNotSendPaymentDialog;
+import org.thoughtcrime.securesms.payments.PaymentsAddressException;
+import org.thoughtcrime.securesms.payments.create.CreatePaymentFragmentArgs;
+import org.thoughtcrime.securesms.payments.preferences.PaymentsActivity;
+import org.thoughtcrime.securesms.payments.preferences.RecipientHasNotEnabledPaymentsDialog;
+import org.thoughtcrime.securesms.payments.preferences.model.PayeeParcelable;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.thoughtcrime.securesms.util.ProfileUtil;
+import org.thoughtcrime.securesms.util.RemoteConfig;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener;
 
 import java.io.IOException;
@@ -115,8 +121,7 @@ public class AttachmentManager {
       this.removableMediaView = root.findViewById(R.id.removable_media_view);
 
       removableMediaView.setRemoveClickListener(new RemoveButtonListener());
-      thumbnail.setOnClickListener(new ThumbnailClickListener());
-      documentView.getBackground().setColorFilter(ThemeUtil.getThemedColor(context, R.attr.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
+      documentView.getBackground().setColorFilter(ContextCompat.getColor(context, R.color.signal_background_secondary), PorterDuff.Mode.MULTIPLY);
     }
 
   }
@@ -255,7 +260,7 @@ public class AttachmentManager {
                .request(PermissionCompat.forImagesAndVideos())
                .ifNecessary()
                .withPermanentDenialDialog(fragment.getString(R.string.AttachmentManager_signal_requires_the_external_storage_permission_in_order_to_attach_photos_videos_or_audio))
-               .onAllGranted(() -> fragment.startActivityForResult(MediaSelectionActivity.gallery(fragment.requireContext(), messageSendType, Collections.emptyList(), recipient.getId(), body, hasQuote), requestCode))
+               .onAllGranted(() -> fragment.startActivityForResult(MediaSendLauncher.gallery(fragment.requireContext(), Collections.emptyList(), recipient.getId(), body, hasQuote), requestCode))
                .execute();
   }
 
@@ -291,6 +296,35 @@ public class AttachmentManager {
     intent.putExtra(GiphyActivity.EXTRA_TRANSPORT, sendType);
     intent.putExtra(GiphyActivity.EXTRA_TEXT, textTrimmed);
     fragment.startActivityForResult(intent, requestCode);
+  }
+
+  public static void selectPayment(@NonNull Fragment fragment, @NonNull Recipient recipient) {
+    if (!ExpiringProfileCredentialUtil.isValid(recipient.getExpiringProfileKeyCredential())) {
+      CanNotSendPaymentDialog.show(fragment.requireContext());
+      return;
+    }
+
+    SimpleTask.run(fragment.getViewLifecycleOwner().getLifecycle(),
+                   () -> {
+                     try {
+                       return ProfileUtil.getAddressForRecipient(recipient);
+                     } catch (IOException | PaymentsAddressException e) {
+                       Log.w(TAG, "Could not get address for recipient: ", e);
+                       return null;
+                     }
+                   },
+                   (address) -> {
+                     if (address != null) {
+                       Intent intent = new Intent(fragment.requireContext(), PaymentsActivity.class);
+                       intent.putExtra(PaymentsActivity.EXTRA_PAYMENTS_STARTING_ACTION, R.id.action_directly_to_createPayment);
+                       intent.putExtra(PaymentsActivity.EXTRA_STARTING_ARGUMENTS, new CreatePaymentFragmentArgs.Builder(new PayeeParcelable(recipient.getId())).setFinishOnConfirm(true).build().toBundle());
+                       fragment.startActivity(intent);
+                     } else if (RemoteConfig.paymentsRequestActivateFlow()) {
+                       showRequestToActivatePayments(fragment.requireContext(), recipient);
+                     } else {
+                       RecipientHasNotEnabledPaymentsDialog.show(fragment.requireContext());
+                     }
+                   });
   }
 
   public static void showRequestToActivatePayments(@NonNull Context context, @NonNull Recipient recipient) {
@@ -336,43 +370,6 @@ public class AttachmentManager {
     } catch (ActivityNotFoundException anfe) {
       Log.w(TAG, "couldn't complete ACTION_GET_CONTENT intent, no activity found. falling back.");
       Toast.makeText(fragment.requireContext(), R.string.AttachmentManager_cant_open_media_selection, Toast.LENGTH_LONG).show();
-    }
-  }
-
-  private void previewImageDraft(final @NonNull Slide slide) {
-    if (MediaPreviewV2Fragment.isContentTypeSupported(slide.getContentType()) && slide.getUri() != null) {
-      MediaIntentFactory.MediaPreviewArgs args = new MediaIntentFactory.MediaPreviewArgs(
-          MediaIntentFactory.NOT_IN_A_THREAD,
-          MediaIntentFactory.UNKNOWN_TIMESTAMP,
-          MediaIntentFactory.NOT_IN_A_THREAD,
-          RecipientId.UNKNOWN,
-          RecipientId.UNKNOWN,
-          true,
-          slide.getUri(),
-          slide.getUri(),
-          slide.getContentType(),
-          slide.asAttachment().size,
-          slide.getCaption().orElse(null),
-          null,
-          false,
-          false,
-          false,
-          false,
-          MediaTable.Sorting.Newest,
-          slide.isVideoGif(),
-          new MediaIntentFactory.SharedElementArgs(),
-          false);
-      context.startActivity(MediaIntentFactory.create(context, args));
-    }
-  }
-
-  private class ThumbnailClickListener implements View.OnClickListener {
-    @Override
-    public void onClick(View v) {
-      if (slide.isPresent()) {
-        MediaPreviewCache.INSTANCE.setDrawable(((ThumbnailView) v).getImageDrawable());
-        previewImageDraft(slide.get());
-      }
     }
   }
 

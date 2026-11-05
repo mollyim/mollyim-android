@@ -43,7 +43,9 @@ class ChangeNumberConfirmFragment : LoggingFragment(R.layout.fragment_change_num
 
     val changeNumber: View = view.findViewById(R.id.change_number_confirm_change_number)
     changeNumber.setOnClickListener {
-      navigateToVerify()
+      viewModel.registerSmsListenerWithCompletionListener(requireContext()) {
+        navigateToVerify(it)
+      }
     }
   }
 

@@ -6,8 +6,8 @@
 package org.thoughtcrime.securesms.database.helpers.migration
 
 import android.app.Application
+import org.signal.core.database.SqlUtil
 import org.signal.core.models.ServiceId
-import org.signal.core.util.SqlUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.database.KeyValueDatabase
@@ -46,7 +46,7 @@ object V210_FixPniPossibleColumns : SignalDatabaseMigration {
   private fun getLocalPni(context: Application): ServiceId.PNI? {
     if (KeyValueDatabase.exists(context)) {
       val keyValueDatabase = KeyValueDatabase.getInstance(context).readableDatabase
-      keyValueDatabase.query("key_value", arrayOf("value"), "key IN (?, ?)", SqlUtil.buildArgs("account.pni", "account.1.pni"), null, null, null).use { cursor ->
+      keyValueDatabase.query("key_value", arrayOf("value"), "key = ?", SqlUtil.buildArgs("account.pni"), null, null, null).use { cursor ->
         return if (cursor.moveToFirst()) {
           ServiceId.PNI.parseOrNull(cursor.requireString("value"))
         } else {

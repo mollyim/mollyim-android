@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+index 5241fec920..7767f81326 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+@@ -107,6 +107,7 @@ import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
+ import org.thoughtcrime.securesms.logging.PersistentLogger;
+ import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
+ import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver;
++import org.thoughtcrime.securesms.messages.IncomingMessageObserver;
+ import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
+ import org.thoughtcrime.securesms.mms.SignalGlideModule;
+ import org.thoughtcrime.securesms.net.NetworkManager;

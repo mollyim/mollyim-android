@@ -27,9 +27,7 @@ import org.signal.core.util.Base64;
 import org.signal.core.util.Util;
 
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -67,7 +65,7 @@ public class AsymmetricMasterCipher {
     ECKeyPair    ourKeyPair         = ECKeyPair.generate();
     byte[]       secret             = ourKeyPair.getPrivateKey().calculateAgreement(theirPublic);
     MasterCipher masterCipher       = getMasterCipherForSecret(secret);
-    byte[]       encryptedBodyBytes = masterCipher.encrypt(body);
+    byte[]       encryptedBodyBytes = masterCipher.encryptBytes(body);
 
     PublicKey    ourPublicKey       = new PublicKey(31337, ourKeyPair.getPublicKey());
     byte[]       publicKeyBytes     = ourPublicKey.serialize();
@@ -84,8 +82,8 @@ public class AsymmetricMasterCipher {
       byte[]       secret        = ourPrivateKey.calculateAgreement(theirPublicKey.getKey());
       MasterCipher masterCipher  = getMasterCipherForSecret(secret);
 
-      return masterCipher.decrypt(parts[1]);
-    } catch (InvalidKeyException | GeneralSecurityException e) {
+      return masterCipher.decryptBytes(parts[1]);
+    } catch (InvalidKeyException e) {
       throw new InvalidMessageException(e);
     }
   }
@@ -100,23 +98,27 @@ public class AsymmetricMasterCipher {
   }
 
   private MasterCipher getMasterCipherForSecret(byte[] secretBytes) {
-    byte[] cipherKey = deriveCipherKey(secretBytes);
-    byte[] macKey    = deriveMacKey(secretBytes);
-
+    SecretKeySpec cipherKey   = deriveCipherKey(secretBytes);
+    SecretKeySpec macKey      = deriveMacKey(secretBytes);
     MasterSecret masterSecret = new MasterSecret(cipherKey, macKey);
-
-    Arrays.fill(cipherKey, (byte) 0);
-    Arrays.fill(macKey, (byte) 0);
 
     return new MasterCipher(masterSecret);
   }
 
-  private byte[] deriveMacKey(byte[] secretBytes) {
-    return getDigestedBytes(secretBytes, 1);
+  private SecretKeySpec deriveMacKey(byte[] secretBytes) {
+    byte[] digestedBytes = getDigestedBytes(secretBytes, 1);
+    byte[] macKeyBytes   = new byte[20];
+
+    System.arraycopy(digestedBytes, 0, macKeyBytes, 0, macKeyBytes.length);
+    return new SecretKeySpec(macKeyBytes, "HmacSHA1");
   }
 
-  private byte[] deriveCipherKey(byte[] secretBytes) {
-    return getDigestedBytes(secretBytes, 0);
+  private SecretKeySpec deriveCipherKey(byte[] secretBytes) {
+    byte[] digestedBytes  = getDigestedBytes(secretBytes, 0);
+    byte[] cipherKeyBytes = new byte[16];
+
+    System.arraycopy(digestedBytes, 0, cipherKeyBytes, 0, cipherKeyBytes.length);
+    return new SecretKeySpec(cipherKeyBytes, "AES");
   }
 
   private byte[] getDigestedBytes(byte[] secretBytes, int iteration) {

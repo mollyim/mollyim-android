@@ -45,9 +45,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.doOnPreDraw
 import org.signal.core.ui.compose.DropdownMenus
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.fonts.SignalSymbols
+import org.signal.core.ui.fonts.SignalSymbols.getSpannedString
 import org.signal.glide.compose.GlideImage
 import org.signal.glide.decryptableuri.DecryptableUri
 import org.thoughtcrime.securesms.R
@@ -55,8 +56,6 @@ import org.thoughtcrime.securesms.components.emoji.EmojiTextView
 import org.thoughtcrime.securesms.contactshare.ContactUtil
 import org.thoughtcrime.securesms.conversation.ConversationMessage
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
-import org.thoughtcrime.securesms.fonts.SignalSymbols
-import org.thoughtcrime.securesms.fonts.SignalSymbols.getSpannedString
 import org.thoughtcrime.securesms.mms.AudioSlide
 import org.thoughtcrime.securesms.mms.DocumentSlide
 import org.thoughtcrime.securesms.mms.ImageSlide
@@ -182,9 +181,6 @@ fun PinnedMessagesBanner(
               view.text = displayBody
               view.ellipsize = TextUtils.TruncateAt.END
               view.maxLines = 1
-              view.doOnPreDraw {
-                (it as EmojiTextView).ellipsizeEmojiTextForMaxLines()
-              }
             }
           }
         }
@@ -271,6 +267,8 @@ fun getMessageMetadata(conversationMessage: ConversationMessage): Triple<SignalS
     Triple(SignalSymbols.Glyph.POLL, SpannableString(stringResource(R.string.Poll__poll_question, message.body)), false)
   } else if (message.hasSharedContact()) {
     Triple(SignalSymbols.Glyph.PERSON_CIRCLE, SpannableString(ContactUtil.getDisplayName(message.sharedContacts.first())), false)
+  } else if (message.isPaymentNotification && message.payment != null) {
+    Triple(SignalSymbols.Glyph.CREDIT_CARD, SpannableString(message.payment!!.amount.toString(FormatterOptions.defaults())), false)
   } else if (slide?.isVideoGif == true) {
     Triple(SignalSymbols.Glyph.GIF_RECTANGLE, SpannableString(stringResource(R.string.PinnedMessage__gif)), false)
   } else if (slide is ImageSlide && message.body.isEmpty()) {

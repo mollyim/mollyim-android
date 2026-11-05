@@ -27,6 +27,7 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.avatar.fallback.FallbackAvatar;
 import org.thoughtcrime.securesms.avatar.fallback.FallbackAvatarDrawable;
@@ -34,10 +35,8 @@ import org.thoughtcrime.securesms.components.emoji.EmojiTextView;
 import org.thoughtcrime.securesms.contacts.avatars.ContactPhoto;
 import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme;
-import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.FullscreenHelper;
+import org.thoughtcrime.securesms.util.WindowUtil;
 
 /**
  * Activity for displaying avatars full screen.
@@ -66,19 +65,6 @@ public final class AvatarPreviewActivity extends PassphraseRequiredActivity {
     return ActivityOptionsCompat.makeSceneTransitionAnimation(activity, from, "avatar").toBundle();
   }
 
-  private final DynamicTheme dynamicTheme = new DynamicMediaPreviewTheme();
-
-  @Override
-  protected void onPreCreate() {
-    super.onPreCreate();
-    dynamicTheme.onCreate(this);
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-    dynamicTheme.onResume(this);
-  }
-
   @Override
   protected void attachBaseContext(@NonNull Context newBase) {
     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -89,7 +75,11 @@ public final class AvatarPreviewActivity extends PassphraseRequiredActivity {
   protected void onCreate(Bundle savedInstanceState, boolean ready) {
     super.onCreate(savedInstanceState, ready);
 
+    setTheme(R.style.TextSecure_MediaPreview);
     setContentView(R.layout.contact_photo_preview_activity);
+
+    WindowUtil.clearLightStatusBar(getWindow());
+    WindowUtil.clearLightNavigationBar(getWindow());
 
     postponeEnterTransition();
     TransitionInflater inflater = TransitionInflater.from(this);

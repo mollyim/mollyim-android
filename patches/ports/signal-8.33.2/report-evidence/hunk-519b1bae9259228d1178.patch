@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+index 5241fec920..eec60b5393 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/ApplicationContext.java
+@@ -141,6 +141,7 @@ import org.thoughtcrime.securesms.util.FileUtils;
+ import org.thoughtcrime.securesms.util.SignalLocalMetrics;
+ import org.thoughtcrime.securesms.util.SignalUncaughtExceptionHandler;
+ import org.thoughtcrime.securesms.util.SqlCipherLogTarget;
++import org.thoughtcrime.securesms.util.SupportEmailUtil;
+ import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
+ import org.whispersystems.signalservice.api.websocket.SignalWebSocket;

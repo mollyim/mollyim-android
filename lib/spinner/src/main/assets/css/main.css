@@ -1,0 +1,165 @@
+:root {
+  --background-color: #fff;
+  --table-header-background-color: #f0f0f0;
+  --text-color: #000;
+  --border-color: #000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #333;
+    --table-header-background-color: #444;
+    --text-color: #fff;
+    --border-color: #888;
+  }
+
+  a {
+    color: #aaf;
+  }
+}
+
+[data-theme="dark"] {
+  --background-color: #333;
+  --table-header-background-color: #444;
+  --text-color: #fff;
+  --border-color: #888;
+
+  a {
+    color: #aaf;
+  }
+}
+
+html, body {
+  font-family: 'Roboto Mono', monospace;
+  font-variant-ligatures: none;
+  font-size: 12px;
+  width: 100%;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+body {
+  margin: 0;
+  padding: 8px;
+}
+
+select, input, button {
+  font-family: 'Roboto Mono', monospace;
+  font-variant-ligatures: none;
+  font-size: 1rem;
+}
+
+table, th, td {
+  border: 1px solid black;
+  font-size: 1rem;
+}
+
+th, td {
+  padding: 8px;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: var(--background-color);
+}
+
+.handsontable th {
+  color: var(--text-color);
+  background: var(--table-header-background-color);
+}
+
+.handsontable thead th.ht__highlight {
+  color: var(--text-color);
+  background: var(--table-header-background-color);
+}
+
+.handsontable td {
+  color: var(--text-color);
+  background: var(--background-color);
+}
+
+.query-input {
+  width: calc(100% - 18px);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  height: 200px;
+  margin-bottom: 2px;
+}
+
+li.active {
+  font-weight: bold;
+}
+
+ol.tabs {
+  margin: 16px 0px 8px 0px;
+  padding: 0px;
+  font-size: 0px;
+}
+
+.tabs li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1rem;
+}
+
+.tabs li.active {
+  border: 1px solid var(--border-color);
+  border-bottom: 0;
+}
+
+.tabs a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.collapse-header {
+  cursor: pointer;
+}
+
+.collapse-header:before {
+  content: "⯈ ";
+  font-size: 1rem;
+}
+
+.collapse-header.active:before {
+  content: "⯆ ";
+  font-size: 1rem;
+}
+
+h2.collapse-header, h2.collapse-header+div {
+  margin-left: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+table.device-info {
+  margin-bottom: 16px;
+}
+
+table.device-info, table.device-info tr, table.device-info td {
+  border: 0;
+  padding: 2px;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.null {
+  color: #666
+}
+
+#grow-button {
+  width: calc(100% - 18px);
+  height: 0.75rem;
+  margin-bottom: 8px;
+}
+
+#theme-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}

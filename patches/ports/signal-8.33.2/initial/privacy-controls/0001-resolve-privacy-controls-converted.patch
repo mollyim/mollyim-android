@@ -1,0 +1,438 @@
+From ad13133448d3c63da8b62975043271903cc3622d Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port privacy-controls to Signal 8.33.2, part 1
+
+Retain Molly privacy policies for calls, unknown contacts and logging in the updated upstream code.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 5 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/calls/log/CallLogAdapter.kt b/app/src/main/java/org/thoughtcrime/securesms/calls/log/CallLogAdapter.kt
+index 56a6aac7f44d0ae7e6af8090b206f8463324fca0..093bc63eb6b66cd341e9dd4b6062c5502ff385a3 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/calls/log/CallLogAdapter.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/calls/log/CallLogAdapter.kt
+@@ -7,12 +7,9 @@ import androidx.annotation.DrawableRes
+ import androidx.annotation.StringRes
+ import androidx.core.widget.TextViewCompat
+ import com.bumptech.glide.Glide
+-<<<<<<< MOLLY
++import org.signal.core.models.recipients.RecipientId
+ import org.signal.core.ui.util.ThemeUtil
+ import com.google.android.material.R as MaterialR
+-=======
+-import org.signal.core.models.recipients.RecipientId
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.database.CallTable
+ import org.thoughtcrime.securesms.database.MessageTypes
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsFragment.kt
+index ed2f4d2666df1d0d1ca3a8df1a6c9670686f09eb..93b2eff918600d6cfa53d7f5c7ec3d1ea8d62571 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsFragment.kt
+@@ -11,31 +11,15 @@ import android.widget.Toast
+ import androidx.activity.result.contract.ActivityResultContracts
+ import androidx.annotation.RequiresApi
+ import androidx.biometric.BiometricManager
+-<<<<<<< MOLLY
+ import androidx.lifecycle.ViewModelProvider
+ import androidx.navigation.Navigation
+ import androidx.navigation.fragment.NavHostFragment
+-import org.signal.core.ui.util.ThemeUtil
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
+-import org.thoughtcrime.securesms.PassphraseActivity
+-=======
+-import androidx.biometric.BiometricPrompt
+-import androidx.core.content.ContextCompat
+-import androidx.lifecycle.ViewModelProvider
+-import androidx.navigation.Navigation
+-import androidx.navigation.fragment.NavHostFragment
+-import androidx.navigation.fragment.navArgs
+-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+-import com.google.android.material.snackbar.Snackbar
+-import org.signal.core.ui.biometrics.BiometricDeviceAuthentication
+-import org.signal.core.ui.biometrics.BiometricDeviceLockContract
+ import org.signal.core.ui.util.ExpirationUtil
+ import org.signal.core.ui.util.SpanUtil
+-import org.signal.core.util.ServiceUtil
+ import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.PassphraseChangeActivity
+->>>>>>> SIGNAL
++import org.signal.core.ui.util.ThemeUtil
++import org.thoughtcrime.securesms.ChangePassphraseDialogFragment
++import org.thoughtcrime.securesms.PassphraseActivity
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.ScreenLockController
+ import org.thoughtcrime.securesms.biometric.BiometricDialogFragment
+@@ -51,14 +35,9 @@ import org.thoughtcrime.securesms.components.settings.configure
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.preferences.widgets.PassphraseLockTriggerPreference
+ import org.thoughtcrime.securesms.util.CommunicationActions
+-<<<<<<< MOLLY
+ import org.thoughtcrime.securesms.util.ConversationUtil
+-import org.thoughtcrime.securesms.util.ExpirationUtil
+ import org.thoughtcrime.securesms.util.SecurePreferenceManager
+-import org.thoughtcrime.securesms.util.SpanUtil
+ import org.thoughtcrime.securesms.util.WindowUtil
+-=======
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
+ import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+ import org.thoughtcrime.securesms.util.navigation.safeNavigate
+@@ -84,27 +63,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+       )
+   }
+ 
+-<<<<<<< MOLLY
+-=======
+-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+-    super.onViewCreated(view, savedInstanceState)
+-    biometricDeviceLockLauncher = registerForActivityResult(BiometricDeviceLockContract()) { result: Int ->
+-      if (result == BiometricDeviceAuthentication.AUTHENTICATED) {
+-        viewModel.togglePaymentLock(false)
+-      }
+-    }
+-    val promptInfo = BiometricDeviceAuthentication.createPromptInfoBuilder()
+-      .setTitle(requireContext().getString(R.string.BiometricDeviceAuthentication__signal))
+-      .setConfirmationRequired(false)
+-      .build()
+-    biometricAuth = BiometricDeviceAuthentication(
+-      BiometricManager.from(requireActivity()),
+-      BiometricPrompt(requireActivity(), BiometricAuthenticationListener()),
+-      promptInfo
+-    )
+-  }
+-
+->>>>>>> SIGNAL
+   override fun onResume() {
+     super.onResume()
+     viewModel.refreshBlockedCount()
+@@ -113,12 +71,9 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+   override fun bindAdapter(adapter: MappingAdapter) {
+     adapter.registerFactory(ValueClickPreference::class.java, LayoutFactory(::ValueClickPreferenceViewHolder, R.layout.value_click_preference_item))
+ 
+-<<<<<<< MOLLY
+     val sharedPreferences = SecurePreferenceManager.getSecurePreferences(requireContext())
+-=======
+->>>>>>> SIGNAL
+     val repository = PrivacySettingsRepository()
+-    val factory = PrivacySettingsViewModel.Factory(repository)
++    val factory = PrivacySettingsViewModel.Factory(sharedPreferences, repository)
+     viewModel = ViewModelProvider(this, factory)[PrivacySettingsViewModel::class.java]
+ 
+     viewModel.state.observe(viewLifecycleOwner) { state ->
+@@ -128,18 +83,19 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+ 
+   private fun getConfiguration(state: PrivacySettingsState): DSLConfiguration {
+     return configure {
+-<<<<<<< MOLLY
+ 
+       sectionHeaderPref(R.string.PrivacySettingsFragment__messaging)
+ 
+-      clickPref(
+-        title = DSLSettingsText.from(R.string.preferences_app_protection__phone_number),
+-        summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
+-        onClick = {
+-          Navigation.findNavController(requireView())
+-            .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
+-        }
+-      )
++      if (state.hasPhoneNumber) {
++        clickPref(
++          title = DSLSettingsText.from(AppSettingsR.string.preferences_app_protection__phone_number),
++          summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
++          onClick = {
++            Navigation.findNavController(requireView())
++              .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
++          }
++        )
++      }
+ 
+       switchPref(
+         title = DSLSettingsText.from(R.string.preferences__read_receipts),
+@@ -162,20 +118,6 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+       )
+ 
+       dividerPref()
+-=======
+-      if (state.hasPhoneNumber) {
+-        clickPref(
+-          title = DSLSettingsText.from(AppSettingsR.string.preferences_app_protection__phone_number),
+-          summary = DSLSettingsText.from(R.string.preferences_app_protection__choose_who_can_see),
+-          onClick = {
+-            Navigation.findNavController(requireView())
+-              .safeNavigate(R.id.action_privacySettingsFragment_to_phoneNumberPrivacySettingsFragment)
+-          }
+-        )
+-
+-        dividerPref()
+-      }
+->>>>>>> SIGNAL
+ 
+       sectionHeaderPref(DSLSettingsText.from(R.string.PrivacySettingsFragment_data_at_rest))
+ 
+@@ -283,103 +225,14 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+ 
+       sectionHeaderPref(R.string.PrivacySettingsFragment__app_security)
+ 
+-<<<<<<< MOLLY
+       switchPref(
+-        title = DSLSettingsText.from(R.string.preferences_app_protection__screen_lock),
++        title = DSLSettingsText.from(AppSettingsR.string.preferences_app_protection__screen_lock),
+         summary = DSLSettingsText.from(R.string.PrivacySettingsFragment__lock_molly_access_with_fingerprint_or_face_recognition),
+         isChecked = state.biometricScreenLock,
+         onClick = {
+           onBiometricScreenLockClicked(!state.biometricScreenLock)
+         }
+       )
+-=======
+-      if (state.isObsoletePasswordEnabled) {
+-        switchPref(
+-          title = DSLSettingsText.from(R.string.preferences__enable_passphrase),
+-          summary = DSLSettingsText.from(R.string.preferences__lock_signal_and_message_notifications_with_a_passphrase),
+-          isChecked = true,
+-          onClick = {
+-            MaterialAlertDialogBuilder(requireContext()).apply {
+-              setTitle(R.string.ApplicationPreferencesActivity_disable_passphrase)
+-              setMessage(R.string.ApplicationPreferencesActivity_this_will_permanently_unlock_signal_and_message_notifications)
+-              setIcon(R.drawable.symbol_error_triangle_fill_24)
+-              setPositiveButton(R.string.ApplicationPreferencesActivity_disable) { _, _ ->
+-                MasterSecretUtil.changeMasterSecretPassphrase(
+-                  activity,
+-                  KeyCachingService.getMasterSecret(context),
+-                  MasterSecretUtil.UNENCRYPTED_PASSPHRASE
+-                )
+-                SignalStore.settings.passphraseDisabled = true
+-                val intent = Intent(activity, KeyCachingService::class.java)
+-                intent.action = KeyCachingService.DISABLE_ACTION
+-                requireActivity().startService(intent)
+-                viewModel.refresh()
+-              }
+-              setNegativeButton(android.R.string.cancel, null)
+-              show()
+-            }
+-          }
+-        )
+-
+-        clickPref(
+-          title = DSLSettingsText.from(R.string.preferences__change_passphrase),
+-          summary = DSLSettingsText.from(R.string.preferences__change_your_passphrase),
+-          onClick = {
+-            if (MasterSecretUtil.isPassphraseInitialized(activity)) {
+-              startActivity(Intent(activity, PassphraseChangeActivity::class.java))
+-            } else {
+-              Toast.makeText(
+-                activity,
+-                R.string.ApplicationPreferenceActivity_you_havent_set_a_passphrase_yet,
+-                Toast.LENGTH_LONG
+-              ).show()
+-            }
+-          }
+-        )
+-
+-        switchPref(
+-          title = DSLSettingsText.from(R.string.preferences__inactivity_timeout_passphrase),
+-          summary = DSLSettingsText.from(R.string.preferences__auto_lock_signal_after_a_specified_time_interval_of_inactivity),
+-          isChecked = state.isObsoletePasswordTimeoutEnabled,
+-          onClick = {
+-            viewModel.setObsoletePasswordTimeoutEnabled(!state.isObsoletePasswordTimeoutEnabled)
+-          }
+-        )
+-
+-        clickPref(
+-          title = DSLSettingsText.from(R.string.preferences__inactivity_timeout_interval),
+-          onClick = {
+-            childFragmentManager.clearFragmentResult(TimeDurationPickerDialog.RESULT_DURATION)
+-            childFragmentManager.clearFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION)
+-            childFragmentManager.setFragmentResultListener(TimeDurationPickerDialog.RESULT_DURATION, this@PrivacySettingsFragment) { _, bundle ->
+-              val timeout = bundle.getLong(TimeDurationPickerDialog.RESULT_KEY_DURATION_MILLISECONDS).milliseconds.inWholeMinutes.toInt()
+-              viewModel.setObsoletePasswordTimeout(max(timeout, 1))
+-            }
+-            TimeDurationPickerDialog.create(state.screenLockActivityTimeout.seconds).show(childFragmentManager, null)
+-          }
+-        )
+-      } else {
+-        val isKeyguardSecure = ServiceUtil.getKeyguardManager(requireContext()).isKeyguardSecure
+-
+-        clickPref(
+-          title = DSLSettingsText.from(AppSettingsR.string.preferences_app_protection__screen_lock),
+-          summary = DSLSettingsText.from(getScreenLockInactivityTimeoutSummary(isKeyguardSecure && state.screenLock, state.screenLockActivityTimeout)),
+-          onClick = {
+-            Navigation.findNavController(requireView()).safeNavigate(R.id.action_privacySettingsFragment_to_screenLockSettingsFragment)
+-          },
+-          isEnabled = isKeyguardSecure,
+-          onDisabledClicked = {
+-            Snackbar
+-              .make(
+-                requireView(),
+-                resources.getString(R.string.preferences_app_protection__to_use_screen_lock),
+-                Snackbar.LENGTH_LONG
+-              )
+-              .show()
+-          }
+-        )
+-      }
+->>>>>>> SIGNAL
+ 
+       switchPref(
+         title = DSLSettingsText.from(R.string.preferences__screen_security),
+@@ -388,16 +241,7 @@ class PrivacySettingsFragment : DSLSettingsFragment(R.string.preferences__privac
+         isEnabled = !ScreenLockController.alwaysSetSecureFlagOnResume,
+         onClick = {
+           viewModel.setScreenSecurityEnabled(!state.screenSecurity)
+-<<<<<<< MOLLY
+           WindowUtil.initializeScreenshotSecurity(requireContext(), requireActivity().window)
+-=======
+-
+-          if (SignalStore.settings.isScreenSecurityEnabled) {
+-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+-          } else {
+-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+-          }
+->>>>>>> SIGNAL
+         }
+       )
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsViewModel.kt
+index a245231a66252d0082141e093440849e7474dcf1..343eafdbe6aae15270c7718981d7e5881c148888 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/PrivacySettingsViewModel.kt
+@@ -1,6 +1,5 @@
+ package org.thoughtcrime.securesms.components.settings.app.privacy
+ 
+-<<<<<<< MOLLY
+ import android.app.Application
+ import android.content.SharedPreferences
+ import androidx.lifecycle.LiveData
+@@ -8,15 +7,12 @@ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.ViewModelProvider
+ import org.thoughtcrime.securesms.ScreenLockController
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+-=======
+-import androidx.lifecycle.LiveData
+-import androidx.lifecycle.ViewModel
+-import androidx.lifecycle.ViewModelProvider
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ import org.thoughtcrime.securesms.util.livedata.Store
+ 
+ class PrivacySettingsViewModel(
++  private val sharedPreferences: SharedPreferences,
+   private val repository: PrivacySettingsRepository
+ ) : ViewModel() {
+ 
+@@ -90,28 +86,15 @@ class PrivacySettingsViewModel(
+     return PrivacySettingsState(
+       hasPhoneNumber = !SignalStore.account.isPhoneNumberless,
+       blockedCount = 0,
+-<<<<<<< MOLLY
+       blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(application),
+-      readReceipts = TextSecurePreferences.isReadReceiptsEnabled(application),
+-      typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(application),
++      readReceipts = SignalStore.settings.isReadReceiptsEnabled,
++      typingIndicators = SignalStore.settings.isTypingIndicatorsEnabled,
+       passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(application),
+       passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(application).triggers,
+       passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(application),
+       biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
+-      screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
+-      incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
+-=======
+-      readReceipts = SignalStore.settings.isReadReceiptsEnabled,
+-      typingIndicators = SignalStore.settings.isTypingIndicatorsEnabled,
+-      screenLock = SignalStore.settings.screenLockEnabled,
+-      screenLockActivityTimeout = SignalStore.settings.screenLockTimeout,
+       screenSecurity = SignalStore.settings.isScreenSecurityEnabled,
+       incognitoKeyboard = SignalStore.settings.isIncognitoKeyboardEnabled,
+-      paymentLock = SignalStore.payments.paymentLock,
+-      isObsoletePasswordEnabled = !SignalStore.settings.passphraseDisabled,
+-      isObsoletePasswordTimeoutEnabled = SignalStore.settings.passphraseTimeoutEnabled,
+-      obsoletePasswordTimeout = SignalStore.settings.passphraseTimeout,
+->>>>>>> SIGNAL
+       universalExpireTimer = SignalStore.settings.universalExpireTimer
+     )
+   }
+@@ -121,10 +104,11 @@ class PrivacySettingsViewModel(
+   }
+ 
+   class Factory(
++    private val sharedPreferences: SharedPreferences,
+     private val repository: PrivacySettingsRepository
+   ) : ViewModelProvider.Factory {
+     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+-      return requireNotNull(modelClass.cast(PrivacySettingsViewModel(repository)))
++      return requireNotNull(modelClass.cast(PrivacySettingsViewModel(sharedPreferences, repository)))
+     }
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsFragment.kt
+index 8dbf419535c9e4070460cdd0eea571f91e0fe415..4ce521664e690f1f4adb5c0760a1f582346e2232 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsFragment.kt
+@@ -44,12 +44,7 @@ import org.signal.core.ui.compose.Texts
+ import org.signal.core.ui.viewModel
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.util.CommunicationActions
+-<<<<<<< MOLLY
+-import org.thoughtcrime.securesms.util.SecurePreferenceManager
+-import org.thoughtcrime.securesms.util.viewModel
+-=======
+ import org.signal.core.ui.R as CoreUiR
+->>>>>>> SIGNAL
+ 
+ /**
+  * Displays advanced privacy controls such as call relaying and
+@@ -58,17 +53,7 @@ import org.signal.core.ui.R as CoreUiR
+ class AdvancedPrivacySettingsFragment : ComposeFragment() {
+ 
+   private val viewModel: AdvancedPrivacySettingsViewModel by viewModel {
+-<<<<<<< MOLLY
+-    val repository = AdvancedPrivacySettingsRepository(requireContext())
+-    val preferences = SecurePreferenceManager.getSecurePreferences(requireContext())
+-
+-    AdvancedPrivacySettingsViewModel(
+-      preferences,
+-      repository
+-    )
+-=======
+     AdvancedPrivacySettingsViewModel(AdvancedPrivacySettingsRepository())
+->>>>>>> SIGNAL
+   }
+ 
+   private var networkReceiver: NetworkReceiver? = null
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsViewModel.kt
+index a6fbb5d02171f960df10719a047f18667061d0ff..3fb4168fc8623bd11861769706450de3bafad9af 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/privacy/advanced/AdvancedPrivacySettingsViewModel.kt
+@@ -94,12 +94,8 @@ class AdvancedPrivacySettingsViewModel(
+ 
+     return AdvancedPrivacySettingsState(
+       isPushEnabled = SignalStore.account.isRegistered,
+-<<<<<<< MOLLY
+-      alwaysRelayCalls = TextSecurePreferences.isTurnOnly(AppDependencies.application),
+-      proxyEnabled = AppDependencies.networkManager.isProxyEnabled,
+-=======
+       alwaysRelayCalls = SignalStore.settings.isTurnOnly,
+->>>>>>> SIGNAL
++      proxyEnabled = AppDependencies.networkManager.isProxyEnabled,
+       censorshipCircumventionState = censorshipCircumventionState,
+       censorshipCircumventionEnabled = getCensorshipCircumventionEnabled(censorshipCircumventionState),
+       showSealedSenderStatusIcon = SignalStore.settings.isShowUnidentifiedDeliveryIndicatorsEnabled,

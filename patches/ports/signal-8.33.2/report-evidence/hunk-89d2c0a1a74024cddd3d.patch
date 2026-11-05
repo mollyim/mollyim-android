@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/AccountValues.kt b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/AccountValues.kt
+index b77b897f05..91942f270f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/AccountValues.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/AccountValues.kt
+@@ -25,6 +25,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.RegisteredConstraint
+ import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+ import org.thoughtcrime.securesms.notifications.UnregisteredNotifier
+ import org.thoughtcrime.securesms.recipients.Recipient
++import org.thoughtcrime.securesms.util.SecurePreferenceManager
+ import org.whispersystems.signalservice.api.push.ServiceIds
+ import org.whispersystems.signalservice.api.push.SignalServiceAddress
+ import org.whispersystems.signalservice.api.push.UsernameLinkComponents

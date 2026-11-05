@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.RequestManager;
 
@@ -27,8 +28,9 @@ import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository;
 import org.thoughtcrime.securesms.mms.ImageSlide;
 import org.thoughtcrime.securesms.mms.SlidesClickedListener;
+import org.thoughtcrime.securesms.stickers.StickerUrl;
 import org.signal.core.util.Util;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -207,6 +209,78 @@ public class LinkPreviewView extends FrameLayout {
     } else {
       thumbnail.setVisibility(GONE);
     }
+
+    boolean thumbnailVisible     = (showThumbnail && linkPreview.getThumbnail().isPresent()) || callLinkRootKey != null;
+    boolean stackBesideThumbnail = thumbnailVisible && StickerUrl.isValidShareLink(linkPreview.getUrl());
+    alignTitleWithThumbnail(thumbnailVisible, stackBesideThumbnail);
+    alignDetailsWithThumbnail(stackBesideThumbnail);
+  }
+
+  private void alignTitleWithThumbnail(boolean thumbnailVisible, boolean stackBesideThumbnail) {
+    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) title.getLayoutParams();
+    if (stackBesideThumbnail) {
+      params.topToTop           = R.id.linkpreview_thumbnail;
+      params.bottomToBottom     = ConstraintLayout.LayoutParams.UNSET;
+      params.bottomToTop        = R.id.linkpreview_description;
+      params.startToEnd         = R.id.linkpreview_thumbnail;
+      params.startToStart       = ConstraintLayout.LayoutParams.UNSET;
+      params.verticalChainStyle = ConstraintLayout.LayoutParams.CHAIN_PACKED;
+      params.setMarginStart(ViewUtil.dpToPx(8));
+    } else if (thumbnailVisible) {
+      params.topToTop       = R.id.linkpreview_thumbnail;
+      params.bottomToBottom = R.id.linkpreview_thumbnail;
+      params.bottomToTop    = ConstraintLayout.LayoutParams.UNSET;
+      params.startToEnd     = R.id.linkpreview_thumbnail;
+      params.startToStart   = ConstraintLayout.LayoutParams.UNSET;
+      params.setMarginStart(ViewUtil.dpToPx(8));
+    } else {
+      params.topToTop       = ConstraintLayout.LayoutParams.PARENT_ID;
+      params.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
+      params.bottomToTop    = ConstraintLayout.LayoutParams.UNSET;
+      params.startToEnd     = ConstraintLayout.LayoutParams.UNSET;
+      params.startToStart   = ConstraintLayout.LayoutParams.PARENT_ID;
+      params.setMarginStart(0);
+    }
+    title.setLayoutParams(params);
+    title.setMaxLines(stackBesideThumbnail ? 1 : 2);
+  }
+
+  private void alignDetailsWithThumbnail(boolean stackBesideThumbnail) {
+    ConstraintLayout.LayoutParams descriptionParams = (ConstraintLayout.LayoutParams) description.getLayoutParams();
+    ConstraintLayout.LayoutParams siteParams        = (ConstraintLayout.LayoutParams) site.getLayoutParams();
+
+    if (stackBesideThumbnail) {
+      descriptionParams.topToBottom  = R.id.linkpreview_title;
+      descriptionParams.bottomToTop  = R.id.linkpreview_site;
+      descriptionParams.startToEnd   = R.id.linkpreview_thumbnail;
+      descriptionParams.startToStart = ConstraintLayout.LayoutParams.UNSET;
+      descriptionParams.topMargin    = 0;
+      descriptionParams.setMarginStart(ViewUtil.dpToPx(8));
+
+      siteParams.topToBottom    = R.id.linkpreview_description;
+      siteParams.bottomToBottom = R.id.linkpreview_thumbnail;
+      siteParams.startToEnd     = R.id.linkpreview_thumbnail;
+      siteParams.startToStart   = ConstraintLayout.LayoutParams.UNSET;
+      siteParams.setMarginStart(ViewUtil.dpToPx(8));
+    } else {
+      descriptionParams.topToBottom  = R.id.linkpreview_header_barrier;
+      descriptionParams.bottomToTop  = ConstraintLayout.LayoutParams.UNSET;
+      descriptionParams.startToEnd   = ConstraintLayout.LayoutParams.UNSET;
+      descriptionParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+      descriptionParams.topMargin    = ViewUtil.dpToPx(8);
+      descriptionParams.setMarginStart(0);
+
+      siteParams.topToBottom    = R.id.linkpreview_description;
+      siteParams.bottomToBottom = ConstraintLayout.LayoutParams.UNSET;
+      siteParams.startToEnd     = ConstraintLayout.LayoutParams.UNSET;
+      siteParams.startToStart   = ConstraintLayout.LayoutParams.PARENT_ID;
+      siteParams.setMarginStart(0);
+    }
+
+    description.setLayoutParams(descriptionParams);
+    description.setMaxLines(stackBesideThumbnail ? 1 : 15);
+    site.setLayoutParams(siteParams);
+    site.setMaxLines(stackBesideThumbnail ? 1 : 2);
   }
 
   public void setCorners(int topStart, int topEnd) {

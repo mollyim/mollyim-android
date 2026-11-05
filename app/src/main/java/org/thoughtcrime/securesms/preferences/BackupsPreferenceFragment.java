@@ -11,7 +11,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,17 +24,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.ui.permissions.Permissions;
 import org.signal.core.ui.util.StorageUtil;
 import org.signal.core.util.NoExternalStorageException;
 import org.signal.core.util.ThreadUtil;
+import org.signal.core.util.eventbus.EventBus;
+import org.signal.core.util.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupDialog;
@@ -47,14 +44,12 @@ import org.thoughtcrime.securesms.preferences.widgets.UpgradeLocalBackupCard;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.Environment;
-import org.thoughtcrime.securesms.util.JavaTimeExtensionsKt;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.LocalTimeExtensionsKt;
 
 import java.text.NumberFormat;
 import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 import kotlin.Pair;
 import kotlin.Unit;
@@ -74,10 +69,6 @@ public class BackupsPreferenceFragment extends Fragment {
   private TextView    info;
   private TextView    summary;
   private TextView    folderName;
-  private View        schedule;
-  private TextView    scheduleSummary;
-  private View        maxFiles;
-  private TextView    maxFilesSummary;
   private ProgressBar progress;
   private TextView    progressSummary;
   private ComposeView upgradeCard;
@@ -85,6 +76,7 @@ public class BackupsPreferenceFragment extends Fragment {
   private final NumberFormat formatter = NumberFormat.getInstance();
 
   private BackupsPreferenceViewModel viewModel;
+  private EventBus.Subscription      backupEventSubscription;
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,25 +97,19 @@ public class BackupsPreferenceFragment extends Fragment {
     info            = view.findViewById(R.id.fragment_backup_info);
     summary         = view.findViewById(R.id.fragment_backup_create_summary);
     folderName      = view.findViewById(R.id.fragment_backup_folder_name);
-    schedule        = view.findViewById(R.id.fragment_backup_schedule);
-    scheduleSummary = view.findViewById(R.id.fragment_backup_schedule_summary);
-    maxFiles        = view.findViewById(R.id.fragment_backup_max_files);
-    maxFilesSummary = view.findViewById(R.id.fragment_backup_max_files_summary);
     progress        = view.findViewById(R.id.fragment_backup_progress);
     progressSummary = view.findViewById(R.id.fragment_backup_progress_summary);
     upgradeCard     = view.findViewById(R.id.upgrade_to_improved_backups_card);
 
     toggle.setOnClickListener(unused -> onToggleClicked());
     create.setOnClickListener(unused -> onCreateClicked());
-    schedule.setOnClickListener(unused -> onScheduleClicked());
-    maxFiles.setOnClickListener(unused -> onMaxFilesClicked());
     verify.setOnClickListener(unused -> BackupDialog.showVerifyBackupPassphraseDialog(requireContext()));
     timer.setOnClickListener(unused -> pickTime());
 
     formatter.setMinimumFractionDigits(1);
     formatter.setMaximumFractionDigits(1);
 
-    EventBus.getDefault().register(this);
+    backupEventSubscription = EventBus.getDefault().subscribe(BackupEvent.class, ThreadMode.MAIN, this::onBackupEvent);
 
     viewModel = new ViewModelProvider(this).get(BackupsPreferenceViewModel.class);
     viewModel.getBackupsEnabled().observe(getViewLifecycleOwner(), enabled -> {
@@ -144,15 +130,13 @@ public class BackupsPreferenceFragment extends Fragment {
     viewModel.refreshBackupStatus();
     setBackupSummary();
     setInfo();
-    setScheduleSummary();
-    setMaxFilesSummary();
     setUpdateState();
   }
 
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    EventBus.getDefault().unregister(this);
+    backupEventSubscription.unsubscribe();
   }
 
   @Override
@@ -177,8 +161,7 @@ public class BackupsPreferenceFragment extends Fragment {
     }
   }
 
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  public void onEvent(BackupEvent event) {
+  private void onBackupEvent(BackupEvent event) {
     if (event.getType() == BackupEvent.Type.PROGRESS || event.getType() == BackupEvent.Type.PROGRESS_VERIFYING) {
       create.setEnabled(false);
       summary.setText(getString(event.getType() == BackupEvent.Type.PROGRESS ? R.string.BackupsPreferenceFragment__in_progress
@@ -242,23 +225,6 @@ public class BackupsPreferenceFragment extends Fragment {
     info.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
-  private void setScheduleSummary() {
-    final long interval = TextSecurePreferences.getBackupInternal(requireContext());
-
-    if (interval == TimeUnit.DAYS.toMillis(1)) {
-      scheduleSummary.setText(R.string.arrays__daily);
-    } else if (interval == TimeUnit.DAYS.toMillis(7)) {
-      scheduleSummary.setText(R.string.arrays__weekly);
-    } else {
-      Log.e(TAG, "Unknown schedule interval: " + interval);
-      scheduleSummary.setText("");
-    }
-  }
-
-  private void setMaxFilesSummary() {
-    maxFilesSummary.setText(String.valueOf(TextSecurePreferences.getBackupMaxFiles(requireContext())));
-  }
-
   private void setUpdateState() {
     if (SignalStore.settings().isBackupEnabled() && Environment.Backups.isNewFormatSupportedForLocalBackup()) {
       UpgradeLocalBackupCard.bind(upgradeCard, () -> {
@@ -317,43 +283,6 @@ public class BackupsPreferenceFragment extends Fragment {
     }
   }
 
-  private void onScheduleClicked() {
-    new MaterialAlertDialogBuilder(requireContext())
-        .setTitle(R.string.BackupsPreferenceFragment__change_schedule)
-        .setItems(R.array.backup_intervals, (dialog, which) -> {
-          if (which == 1) {
-            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(7));
-          } else {
-            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(1));
-          }
-
-          LocalBackupListener.setNextBackupTimeToIntervalFromNow(requireContext());
-          LocalBackupListener.schedule(requireContext());
-          setScheduleSummary();
-        })
-        .create()
-        .show();
-  }
-
-  private void onMaxFilesClicked() {
-    final View view = getLayoutInflater().inflate(R.layout.backup_max_files_selector_view, null);
-    final NumberPicker picker = view.findViewById(R.id.picker);
-    picker.setMinValue(1);
-    picker.setMaxValue(10);
-    picker.setValue(TextSecurePreferences.getBackupMaxFiles(requireContext()));
-    picker.setWrapSelectorWheel(false);
-    new MaterialAlertDialogBuilder(requireContext())
-        .setTitle(R.string.BackupsPreferenceFragment__number_of_backups_to_retain)
-        .setView(view)
-        .setNegativeButton(android.R.string.cancel, null)
-        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-          TextSecurePreferences.setBackupMaxFiles(requireContext(), picker.getValue());
-          setMaxFilesSummary();
-        })
-        .create()
-        .show();
-  }
-
   @RequiresApi(29)
   private void onCreateClickedApi29() {
     Log.i(TAG, "Queueing backup...");
@@ -373,7 +302,7 @@ public class BackupsPreferenceFragment extends Fragment {
       int minute = timePickerFragment.getMinute();
       SignalStore.settings().setBackupSchedule(hour, minute);
       updateTimeLabel();
-      TextSecurePreferences.setNextBackupTime(requireContext(), 0);
+      SignalStore.settings().setLocalBackupNextTime(0);
       LocalBackupListener.schedule(requireContext());
     });
     timePickerFragment.show(getChildFragmentManager(), "TIME_PICKER");
@@ -395,21 +324,20 @@ public class BackupsPreferenceFragment extends Fragment {
     final int backupHour   = SignalStore.settings().getBackupHour();
     final int backupMinute = SignalStore.settings().getBackupMinute();
     LocalTime time         = LocalTime.of(backupHour, backupMinute);
-    timeLabel.setText(JavaTimeExtensionsKt.formatHours(time, requireContext()));
+    timeLabel.setText(LocalTimeExtensionsKt.formatHours(time, requireContext()));
   }
 
   private void updateToggle() {
+    boolean userUnregistered          = SignalStore.account().isUnauthorizedReceived() || !SignalStore.account().isRegistered();
     boolean clientDeprecated          = SignalStore.misc().isClientDeprecated();
     boolean legacyLocalBackupsEnabled = SignalStore.settings().isBackupEnabled() && BackupUtil.canUserAccessBackupDirectory(AppDependencies.getApplication());
 
-    toggle.setEnabled(legacyLocalBackupsEnabled || !clientDeprecated);
+    toggle.setEnabled(legacyLocalBackupsEnabled || (!userUnregistered && !clientDeprecated));
   }
 
   private void setBackupsEnabled() {
     toggle.setText(R.string.BackupsPreferenceFragment__turn_off);
     create.setVisibility(View.VISIBLE);
-    schedule.setVisibility(View.VISIBLE);
-    maxFiles.setVisibility(View.VISIBLE);
     verify.setVisibility(View.VISIBLE);
     timer.setVisibility(View.VISIBLE);
     updateToggle();
@@ -421,8 +349,6 @@ public class BackupsPreferenceFragment extends Fragment {
     toggle.setText(R.string.BackupsPreferenceFragment__turn_on);
     create.setVisibility(View.GONE);
     folder.setVisibility(View.GONE);
-    schedule.setVisibility(View.GONE);
-    maxFiles.setVisibility(View.GONE);
     verify.setVisibility(View.GONE);
     timer.setVisibility(View.GONE);
     updateToggle();

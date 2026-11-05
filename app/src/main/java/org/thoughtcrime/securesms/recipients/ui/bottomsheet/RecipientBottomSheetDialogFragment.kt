@@ -24,6 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.BottomSheetUtil
 import org.signal.core.ui.FixedRoundedCornerBottomSheetDialogFragment
 import org.signal.core.util.logging.Log
@@ -31,10 +32,13 @@ import org.signal.core.util.requireDrawable
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.view.AvatarView
+import org.thoughtcrime.securesms.badges.BadgeImageView
+import org.thoughtcrime.securesms.badges.view.ViewBadgeBottomSheetDialogFragment
 import org.thoughtcrime.securesms.calls.YouAreAlreadyInACallSnackbar
 import org.thoughtcrime.securesms.components.SignalProgressDialog
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.ButtonStripPreference
+import org.thoughtcrime.securesms.contacts.SystemContactUris
 import org.thoughtcrime.securesms.conversation.v2.data.AvatarDownloadStateCache
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelEducationSheet
@@ -42,7 +46,6 @@ import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelPillView
 import org.thoughtcrime.securesms.nicknames.NicknameActivity
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientExporter
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.recipients.ui.about.AboutSheet
 import org.thoughtcrime.securesms.util.WindowUtil
@@ -126,6 +129,7 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
     val noteToSelfDescription: View = view.findViewById(R.id.rbs_note_to_self_description)
     val buttonStrip: View = view.findViewById(R.id.button_strip)
     val interactionsContainer: View = view.findViewById(R.id.interactions_container)
+    val badgeImageView: BadgeImageView = view.findViewById(R.id.rbs_badge)
     val tapToView: View = view.findViewById(R.id.rbs_tap_to_view)
     val progressBar: ProgressBar = view.findViewById(R.id.rbs_progress_bar)
 
@@ -188,6 +192,10 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
       interactionsContainer.visible = !recipient.isSelf
       if (AvatarDownloadStateCache.getDownloadState(recipient) != AvatarDownloadStateCache.DownloadState.IN_PROGRESS) {
         avatar.displayChatAvatar(recipient)
+      }
+
+      if (!recipient.isSelf) {
+        badgeImageView.setBadgeFromRecipient(recipient)
       }
 
       if (recipient.isSelf) {
@@ -292,7 +300,9 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
       if (recipient.isSystemContact && !recipient.isGroup && !recipient.isSelf) {
         contactDetailsButton.visible = true
         contactDetailsButton.setOnClickListener {
-          openSystemContactSheet(Intent(Intent.ACTION_VIEW, recipient.contactUri))
+          viewLifecycleOwner.lifecycleScope.launch {
+            openSystemContactSheet(Intent(Intent.ACTION_VIEW, SystemContactUris.resolve(requireContext(), recipient)))
+          }
         }
       } else {
         contactDetailsButton.visible = false
@@ -331,6 +341,11 @@ class RecipientBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFr
     avatar.setOnClickListener {
       dismiss()
       viewModel.onAvatarClicked(requireActivity())
+    }
+
+    badgeImageView.setOnClickListener {
+      dismiss()
+      ViewBadgeBottomSheetDialogFragment.show(getParentFragmentManager(), recipientId, null)
     }
 
     blockButton.setOnClickListener {

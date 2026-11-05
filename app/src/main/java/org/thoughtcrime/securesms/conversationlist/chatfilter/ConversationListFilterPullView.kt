@@ -11,11 +11,10 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import androidx.core.animation.doOnEnd
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnNextLayout
-import com.google.android.material.R as MaterialR
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener
@@ -27,6 +26,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Encapsulates the push / pull latch for enabling and disabling
@@ -80,8 +80,8 @@ class ConversationListFilterPullView @JvmOverloads constructor(
   private var helpTextStartFraction = 0.35f
   private var previousDragProgress: Float? = null
 
-  private val pillDefaultBackgroundTint = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSecondaryContainer)
-  private val pillWillCloseBackgroundTint = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceContainerLow)
+  private val pillDefaultBackgroundTint = ContextCompat.getColor(context, CoreUiR.color.signal_colorSecondaryContainer)
+  private val pillWillCloseBackgroundTint = ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface1)
 
   fun setPillText(@StringRes textId: Int) {
     binding.filterText.setText(textId)

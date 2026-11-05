@@ -22,9 +22,7 @@
 
     <issue id="CanvasSize" severity="error" />
     <issue id="HardcodedText" severity="error" />
-    <issue id="VectorRaster" severity="error">
-        <ignore path="*/donate_with_googlepay_button_content.xml" /> <!-- Externally provided by Google -->
-    </issue>
+    <issue id="VectorRaster" severity="ignore" />
     <issue id="ButtonOrder" severity="error" />
     <issue id="ExtraTranslation" severity="warning" />
     <issue id="UnspecifiedImmutableFlag" severity="error" />
@@ -49,7 +47,4 @@
 
     <!-- Disables check for digital asset linking in manifest. It's not needed, since we are not using CredentialManager for passkey support. -->
     <issue id="CredManMissingDal" severity="ignore" />
-
-    <!-- MOLLY -->
-    <issue id="ThreadConstraint" severity="warning" />
 </lint>

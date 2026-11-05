@@ -6,21 +6,31 @@
 package org.thoughtcrime.securesms.database
 
 import android.app.Application
+import assertk.assertThat
+import assertk.assertions.isEmpty
+import assertk.assertions.isNotEmpty
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.update
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.CursorUtil
 import org.thoughtcrime.securesms.profiles.ProfileName
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientCreator
+import org.thoughtcrime.securesms.releasechannel.ReleaseChannel
+import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.testutil.RecipientTestRule
 import java.util.UUID
 
@@ -99,7 +109,7 @@ class RecipientTableTest {
   @Test
   fun givenABlockedRecipient_whenIQueryAllContacts_thenIDoNotExpectBlockedToBeReturned() {
     SignalDatabase.recipients.setProfileName(target, ProfileName.fromParts("Blocked", "Person"))
-    SignalDatabase.recipients.setBlocked(target, true)
+    SignalDatabase.recipients.setBlocked(target, true, 0)
 
     val results = SignalDatabase.recipients.queryAllContacts("Blocked", RecipientTable.IncludeSelfMode.Exclude)!!
 
@@ -109,7 +119,7 @@ class RecipientTableTest {
   @Test
   fun givenABlockedRecipient_whenIGetSignalContacts_thenIDoNotExpectBlockedToBeReturned() {
     SignalDatabase.recipients.setProfileName(target, ProfileName.fromParts("Blocked", "Person"))
-    SignalDatabase.recipients.setBlocked(target, true)
+    SignalDatabase.recipients.setBlocked(target, true, 0)
 
     val results: MutableList<RecipientId> = SignalDatabase.recipients.getSignalContacts(RecipientTable.IncludeSelfMode.Exclude).use {
       val ids = mutableListOf<RecipientId>()
@@ -127,7 +137,7 @@ class RecipientTableTest {
   @Test
   fun givenABlockedRecipient_whenIQuerySignalContacts_thenIDoNotExpectBlockedToBeReturned() {
     SignalDatabase.recipients.setProfileName(target, ProfileName.fromParts("Blocked", "Person"))
-    SignalDatabase.recipients.setBlocked(target, true)
+    SignalDatabase.recipients.setBlocked(target, true, 0)
 
     val results = SignalDatabase.recipients.querySignalContacts(RecipientTable.ContactSearchQuery("Blocked", RecipientTable.IncludeSelfMode.Exclude))!!
 
@@ -137,7 +147,7 @@ class RecipientTableTest {
   @Test
   fun givenABlockedRecipient_whenIGetNonGroupContacts_thenIDoNotExpectBlockedToBeReturned() {
     SignalDatabase.recipients.setProfileName(target, ProfileName.fromParts("Blocked", "Person"))
-    SignalDatabase.recipients.setBlocked(target, true)
+    SignalDatabase.recipients.setBlocked(target, true, 0)
 
     val results: MutableList<RecipientId> = SignalDatabase.recipients.getNonGroupContacts(RecipientTable.IncludeSelfMode.Exclude)?.use {
       val ids = mutableListOf<RecipientId>()
@@ -203,6 +213,239 @@ class RecipientTableTest {
       originalStorageId!!.contentEquals(updatedStorageId!!)
     )
   }
+
+  /**
+   * Guards [RecipientTable.clearGroupRecipient]: every recipient column must be either blanked by [RecipientTable.buildClearedGroupRecipientValues]
+   * or explicitly listed here as intentionally preserved. Adding a column without categorizing it fails this test so we don't silently leak it.
+   */
+  @Test
+  fun buildClearedGroupRecipientValues_accountsForEveryColumn() {
+    val keptColumns = setOf(
+      RecipientTable.ID,
+      RecipientTable.GROUP_ID,
+      RecipientTable.TYPE,
+      RecipientTable.BLOCKED,
+      RecipientTable.BLOCKED_AT,
+      RecipientTable.STORAGE_SERVICE_ID
+    )
+
+    val clearedColumns = SignalDatabase.recipients.buildClearedGroupRecipientValues().keySet()
+    val allColumns = SqlUtil.getAllColumns(SignalDatabase.recipients.writableDatabase, RecipientTable.TABLE_NAME)
+    val uncategorized = allColumns - clearedColumns - keptColumns
+
+    assertThat(allColumns).isNotEmpty()
+    assertThat(uncategorized).isEmpty()
+  }
+
+  @Test
+  fun givenAContactWithNoUsername_whenAProfileUpdateOnlyChangesFieldsAbsentFromTheContactRecord_thenIExpectNoStorageIdRotation() {
+    SignalDatabase.recipients.setStorageIdIfNotSet(target)
+    val originalStorageId: ByteArray? = SignalDatabase.recipients.getRecord(target).storageId
+    assertNotNull("Precondition: contact should have a storage id", originalStorageId)
+    assertNull("Precondition: contact should have no username", SignalDatabase.recipients.getUsername(target))
+
+    // WHEN a profile fetch reports a new sealed sender mode, which the contact record does not carry
+    SignalDatabase.recipients.applyProfileUpdate(
+      target,
+      RecipientTable.ProfileUpdate(
+        sealedSenderAccessMode = RecipientTable.SealedSenderAccessMode.ENABLED,
+        clearUsername = true
+      )
+    )
+
+    assertEquals(RecipientTable.SealedSenderAccessMode.ENABLED, SignalDatabase.recipients.getRecord(target).sealedSenderAccessMode)
+    assertTrue(
+      "Storage id must not rotate for fields absent from the contact record, otherwise we republish identical content under a fresh id",
+      originalStorageId!!.contentEquals(SignalDatabase.recipients.getRecord(target).storageId)
+    )
+  }
+
+  @Test
+  fun givenAContactWithAUsername_whenAProfileUpdateClearsIt_thenIExpectAStorageIdRotation() {
+    SignalDatabase.recipients.setUsername(target, "target.01")
+    SignalDatabase.recipients.setStorageIdIfNotSet(target)
+
+    val originalStorageId: ByteArray? = SignalDatabase.recipients.getRecord(target).storageId
+    assertNotNull("Precondition: contact should have a storage id", originalStorageId)
+
+    SignalDatabase.recipients.applyProfileUpdate(
+      target,
+      RecipientTable.ProfileUpdate(
+        sealedSenderAccessMode = RecipientTable.SealedSenderAccessMode.ENABLED,
+        clearUsername = true
+      )
+    )
+
+    assertNull(SignalDatabase.recipients.getUsername(target))
+    assertFalse(
+      "Storage id should rotate when the username is actually cleared",
+      originalStorageId!!.contentEquals(SignalDatabase.recipients.getRecord(target).storageId)
+    )
+  }
+
+  @Test
+  fun givenASyncedContact_whenAProfileUpdateChangesTheProfileName_thenIExpectAStorageIdRotation() {
+    SignalDatabase.recipients.setStorageIdIfNotSet(target)
+    val originalStorageId: ByteArray? = SignalDatabase.recipients.getRecord(target).storageId
+    assertNotNull("Precondition: contact should have a storage id", originalStorageId)
+
+    // WHEN a profile fetch reports a new profile name, which the contact record does carry
+    SignalDatabase.recipients.applyProfileUpdate(
+      target,
+      RecipientTable.ProfileUpdate(profileName = ProfileName.fromParts("Renamed", "Person"))
+    )
+
+    assertFalse(
+      "Storage id should rotate when the profile name changes",
+      originalStorageId!!.contentEquals(SignalDatabase.recipients.getRecord(target).storageId)
+    )
+  }
+
+  @Test
+  fun givenAContactWithNoSharedName_whenAProfileUpdateOnlyChangesFieldsAbsentFromTheContactRecord_thenIExpectNoStorageIdRotation() {
+    SignalDatabase.recipients.setStorageIdIfNotSet(target)
+    val originalStorageId: ByteArray? = SignalDatabase.recipients.getRecord(target).storageId
+    assertNotNull("Precondition: contact should have a storage id", originalStorageId)
+    assertTrue("Precondition: contact should have no shared name", SignalDatabase.recipients.getRecord(target).sharedName.isEmpty)
+
+    SignalDatabase.recipients.applyProfileUpdate(
+      target,
+      RecipientTable.ProfileUpdate(
+        sealedSenderAccessMode = RecipientTable.SealedSenderAccessMode.ENABLED,
+        clearSharedName = true
+      )
+    )
+
+    assertTrue(
+      "Storage id must not rotate for a shared name that was never set, otherwise we republish identical content under a fresh id",
+      originalStorageId!!.contentEquals(SignalDatabase.recipients.getRecord(target).storageId)
+    )
+  }
+
+  @Test
+  fun givenAContactWithASharedName_whenAProfileUpdateClearsIt_thenIExpectAStorageIdRotation() {
+    val cardStarted = recipients.createRecipient(ProfileName.EMPTY)
+    SignalDatabase.recipients.setSharedName(cardStarted, ProfileName.fromParts("Shared", "Name"))
+    SignalDatabase.recipients.setStorageIdIfNotSet(cardStarted)
+
+    val originalStorageId: ByteArray? = SignalDatabase.recipients.getRecord(cardStarted).storageId
+    assertNotNull("Precondition: contact should have a storage id", originalStorageId)
+    assertFalse("Precondition: contact should have a shared name", SignalDatabase.recipients.getRecord(cardStarted).sharedName.isEmpty)
+
+    SignalDatabase.recipients.applyProfileUpdate(
+      cardStarted,
+      RecipientTable.ProfileUpdate(
+        sealedSenderAccessMode = RecipientTable.SealedSenderAccessMode.ENABLED,
+        clearSharedName = true
+      )
+    )
+
+    assertTrue("Shared name should be cleared", SignalDatabase.recipients.getRecord(cardStarted).sharedName.isEmpty)
+    assertFalse(
+      "Storage id should rotate when the shared name is actually cleared",
+      originalStorageId!!.contentEquals(SignalDatabase.recipients.getRecord(cardStarted).storageId)
+    )
+  }
+
+  @Test
+  fun givenARecipientWithASharedNameAndAnE164_whenICheckForAnOutrankingName_thenIExpectFalse() {
+    val cardStarted = SignalDatabase.recipients.getOrInsertFromE164("+15551234567")
+    SignalDatabase.recipients.setSharedName(cardStarted, ProfileName.fromParts("Shared", "Name"))
+    assertFalse("Precondition: shared name should be set", recipientFor(cardStarted).sharedName.isEmpty)
+
+    assertFalse(
+      "An e164 must not outrank a shared name, otherwise a card-started chat regresses to showing a phone number",
+      recipientFor(cardStarted).hasDisplayNameOutrankingSharedName()
+    )
+  }
+
+  @Test
+  fun givenARecipientWithASharedNameAndANickname_whenICheckForAnOutrankingName_thenIExpectTrue() {
+    val cardStarted = recipients.createRecipient(ProfileName.EMPTY)
+    SignalDatabase.recipients.setSharedName(cardStarted, ProfileName.fromParts("Shared", "Name"))
+    assertFalse("Precondition: shared name should be set", recipientFor(cardStarted).sharedName.isEmpty)
+
+    SignalDatabase.recipients.setNicknameAndNote(cardStarted, ProfileName.fromParts("Nick", "Name"), "")
+
+    assertTrue(
+      "A nickname outranks a shared name, so the shared name is dead weight and should be retired",
+      recipientFor(cardStarted).hasDisplayNameOutrankingSharedName()
+    )
+  }
+
+  @Test
+  fun givenARecipientWithASharedNameAndOnlyASystemGivenName_whenICheckForAnOutrankingName_thenIExpectTrue() {
+    val cardStarted = recipients.createRecipient(ProfileName.EMPTY)
+    SignalDatabase.recipients.setSharedName(cardStarted, ProfileName.fromParts("Shared", "Name"))
+    assertFalse("Precondition: shared name should be set", recipientFor(cardStarted).sharedName.isEmpty)
+
+    // Written directly because ContactArchiveImporter populates the given name and leaves the joined name null.
+    SignalDatabase.recipients.writableDatabase
+      .update(RecipientTable.TABLE_NAME)
+      .values(RecipientTable.SYSTEM_GIVEN_NAME to "Sys")
+      .where("${RecipientTable.ID} = ?", cardStarted)
+      .run()
+
+    assertTrue(
+      "A system given name outranks a shared name even with no joined name, matching what setSharedName refuses to write over",
+      recipientFor(cardStarted).hasDisplayNameOutrankingSharedName()
+    )
+  }
+
+  @Test
+  fun givenNoProfileSharingOrSystemContacts_whenICheckForExistingContacts_thenIExpectFalse() {
+    val first = recipients.createRecipient("First Person", profileSharing = false)
+    val second = recipients.createRecipient("Second Person", profileSharing = false)
+
+    assertFalse(SignalDatabase.recipients.hasAnyProfileSharingOrSystemContact(listOf(first, second)))
+  }
+
+  @Test
+  fun givenOneProfileSharingRecipient_whenICheckForExistingContacts_thenIExpectTrue() {
+    val first = recipients.createRecipient("First Person", profileSharing = false)
+    val second = recipients.createRecipient("Second Person", profileSharing = true)
+
+    assertTrue(SignalDatabase.recipients.hasAnyProfileSharingOrSystemContact(listOf(first, second)))
+  }
+
+  @Test
+  fun givenOneSystemContact_whenICheckForExistingContacts_thenIExpectTrue() {
+    val first = recipients.createRecipient("First Person", profileSharing = false)
+    val second = recipients.createRecipient("Second Person", profileSharing = false)
+
+    SignalDatabase.recipients.writableDatabase
+      .update(RecipientTable.TABLE_NAME)
+      .values(RecipientTable.SYSTEM_CONTACT_URI to "content://com.android.contacts/contacts/lookup/test")
+      .where("${RecipientTable.ID} = ?", second)
+      .run()
+
+    assertTrue(SignalDatabase.recipients.hasAnyProfileSharingOrSystemContact(listOf(first, second)))
+  }
+
+  @Test
+  fun givenOnlySelfHasProfileSharing_whenICheckForExistingContacts_thenIExpectFalse() {
+    val other = recipients.createRecipient("Other Person", profileSharing = false)
+
+    assertFalse(
+      "Self always has profile sharing enabled and must not count as an existing contact",
+      SignalDatabase.recipients.hasAnyProfileSharingOrSystemContact(listOf(recipients.self, other))
+    )
+  }
+
+  @Test
+  fun givenADesktopReleaseNotesRecipientWithAStorageId_whenIGetContactStorageSyncIds_thenIExpectItToBeExcluded() {
+    val contact = SignalDatabase.recipients.getOrInsertFromServiceId(ACI_A)
+    val releaseNotes = SignalDatabase.recipients.getOrInsertFromServiceId(ReleaseChannel.DESKTOP_RELEASE_NOTES_ACI)
+    SignalDatabase.recipients.updateStorageId(contact, StorageSyncHelper.generateKey())
+    SignalDatabase.recipients.updateStorageId(releaseNotes, StorageSyncHelper.generateKey())
+
+    val storageIds = SignalDatabase.recipients.getContactStorageSyncIdsMap()
+
+    assertTrue(contact in storageIds)
+    assertFalse(releaseNotes in storageIds)
+  }
+
+  private fun recipientFor(id: RecipientId) = RecipientCreator.forRecord(SignalDatabase.recipients.getRecord(id))
 
   companion object {
     val ACI_A = ACI.from(UUID.fromString("aaaa0000-5a76-47fa-a98a-7e72c948a82e"))

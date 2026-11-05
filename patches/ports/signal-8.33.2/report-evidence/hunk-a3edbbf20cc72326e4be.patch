@@ -1,0 +1,20 @@
+diff --git a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+index a4d1ff5c28..756ca87d7c 100644
+--- a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
++++ b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+@@ -172,14 +172,7 @@ class SignalRestClient @JvmOverloads constructor(
+   private val directCdnClientsMap: Map<Int, Array<ConnectionHolder>> by lazy {
+     if (uncensoredConfiguration !== configuration) {
+       uncensoredConfiguration.signalCdnUrlMap.mapValues { (_, urls) ->
+-        createConnectionHolders(
+-          urls = urls,
+-          interceptors = uncensoredConfiguration.networkInterceptors,
+-          dns = uncensoredConfiguration.dns,
+-          socketFactory = uncensoredConfiguration.socketFactory,
+-          proxySelector = uncensoredConfiguration.proxySelector,
+-          clientOverride = clientOverride
+-        )
++        createConnectionHolders(urls, uncensoredConfiguration.networkInterceptors, uncensoredConfiguration.dns, uncensoredConfiguration.signalProxy, clientOverride)
+       }
+     } else {
+       cdnClientsMap

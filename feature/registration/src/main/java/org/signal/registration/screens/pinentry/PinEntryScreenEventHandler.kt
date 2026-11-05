@@ -10,6 +10,10 @@ object PinEntryScreenEventHandler {
   fun applyEvent(state: PinEntryState, event: PinEntryScreenEvents): PinEntryState {
     return when (event) {
       PinEntryScreenEvents.ToggleKeyboard -> state.copy(isAlphanumericKeyboard = !state.isAlphanumericKeyboard)
+      PinEntryScreenEvents.NetworkErrorDialogDismissed -> state.copy(dialogs = state.dialogs.copy(networkError = false))
+      PinEntryScreenEvents.RateLimitedDialogDismissed -> state.copy(dialogs = state.dialogs.copy(rateLimitedRetryAfter = null))
+      PinEntryScreenEvents.UnknownErrorDialogDismissed -> state.copy(dialogs = state.dialogs.copy(unknownError = false))
+      PinEntryScreenEvents.DismissContactSupport -> state.copy(showContactSupportDialog = false)
       else -> throw UnsupportedOperationException("This even is not handled generically!")
     }
   }

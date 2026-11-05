@@ -8,7 +8,6 @@ package org.whispersystems.signalservice.api.crypto
 import org.signal.core.util.Base64
 import org.signal.libsignal.metadata.certificate.SenderCertificate
 import org.signal.libsignal.zkgroup.groupsend.GroupSendFullToken
-import org.whispersystems.signalservice.api.groupsv2.GroupSendEndorsements
 
 /**
  * Provides single interface for the various ways to send via sealed sender.
@@ -31,7 +30,7 @@ sealed class SealedSenderAccess {
    * access key if available.
    */
   class IndividualGroupSendTokenFirst(
-    private val groupSendToken: GroupSendFullToken,
+    val groupSendToken: GroupSendFullToken,
     override val senderCertificate: SenderCertificate,
     val unidentifiedAccess: UnidentifiedAccess? = null
   ) : SealedSenderAccess() {
@@ -71,35 +70,6 @@ sealed class SealedSenderAccess {
         null
       }
     }
-  }
-
-  /**
-   * For sending to a "group" of recipients using group send endorsements/tokens.
-   */
-  class GroupGroupSendToken(
-    private val groupSendEndorsements: GroupSendEndorsements
-  ) : SealedSenderAccess() {
-
-    override val headerName: String = "Group-Send-Token"
-    override val headerValue: String by lazy { Base64.encodeWithPadding(groupSendEndorsements.serialize()) }
-
-    override val senderCertificate: SenderCertificate
-      get() = groupSendEndorsements.sealedSenderCertificate
-
-    override fun switchToFallback(): SealedSenderAccess? {
-      return null
-    }
-  }
-
-  class StorySendNoop(override val senderCertificate: SenderCertificate) : SealedSenderAccess() {
-    override val headerName: String = ""
-    override val headerValue: String = ""
-
-    override fun switchToFallback(): SealedSenderAccess? {
-      return null
-    }
-
-    override fun applyHeader(): Boolean = false
   }
 
   /**
@@ -155,15 +125,6 @@ sealed class SealedSenderAccess {
             null
           }
         }
-    }
-
-    @JvmStatic
-    fun forGroupSend(senderCertificate: SenderCertificate?, groupSendEndorsements: GroupSendEndorsements?, forStory: Boolean): SealedSenderAccess {
-      if (forStory) {
-        return StorySendNoop(senderCertificate!!)
-      }
-
-      return GroupGroupSendToken(groupSendEndorsements!!)
     }
 
     @JvmStatic

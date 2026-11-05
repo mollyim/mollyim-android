@@ -1,0 +1,57 @@
+From d8c05bbddb9dbe12f544558fe41efd64c78814b5 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port maps to Signal 8.33.2, part 1
+
+Retain the Molly map implementation and compatibility layer in the upgraded tree.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 1 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/com/google/android/gms/maps/GoogleMap.java b/app/src/main/java/com/google/android/gms/maps/GoogleMap.java
+index 7d284fa2467197ac07aae0f248bafc500fb76d9f..1599949319b81db2a051af186b8e89503e780d03 100644
+--- a/app/src/main/java/com/google/android/gms/maps/GoogleMap.java
++++ b/app/src/main/java/com/google/android/gms/maps/GoogleMap.java
+@@ -90,6 +90,15 @@ public class GoogleMap {
+ 
+   public void setMapType (int type) { }
+ 
++  /** Keeps the camera target and map controls inside the unobscured viewport. */
++  public void setPadding(int left, int top, int right, int bottom) {
++    mapView.setPadding(left, top, right, bottom);
++    mapView.setMapCenterOffset((left - right) / 2, (top - bottom) / 2);
++    mapView.getZoomController().getDisplay().setAdditionalPixelMargins(left, top, right, bottom);
++    mapView.requestLayout();
++    mapView.invalidate();
++  }
++
+   public boolean setMapStyle(MapStyleOptions loadRawResourceStyle) {
+     return false;
+   }
+@@ -108,7 +117,9 @@ public class GoogleMap {
+   }
+ 
+   private void updateCameraPosition() {
+-    IGeoPoint geoPoint = mapView.getMapCenter();
++    IGeoPoint geoPoint = mapView.getProjection().fromPixels(
++        mapView.getWidth() / 2 + mapView.getMapCenterOffsetX(),
++        mapView.getHeight() / 2 + mapView.getMapCenterOffsetY(), null, false);
+     LatLng    center   = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+     cameraPosition = new CameraPosition(center, (float) mapView.getZoomLevelDouble());
+   }

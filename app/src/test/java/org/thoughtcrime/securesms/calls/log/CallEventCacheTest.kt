@@ -3,6 +3,8 @@ package org.thoughtcrime.securesms.calls.log
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
+import assertk.assertions.isNotNull
+import assertk.assertions.isNull
 import assertk.assertions.size
 import io.mockk.every
 import io.mockk.mockk
@@ -11,15 +13,27 @@ import io.mockk.mockkStatic
 import io.mockk.spyk
 import org.junit.Before
 import org.junit.Test
+import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.recipients.RecipientId
+import org.signal.core.util.Base64
 import org.thoughtcrime.securesms.database.CallTable.Direction
 import org.thoughtcrime.securesms.database.CallTable.Event
 import org.thoughtcrime.securesms.database.CallTable.Type
+import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.service.webrtc.CallLinkPeekInfo
 import org.thoughtcrime.securesms.service.webrtc.SignalCallManager
+import java.util.UUID
 import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 
 class CallEventCacheTest {
+
+  companion object {
+    private val SELF_UUID: UUID = UUID.fromString("00000000-0000-4000-8000-000000000001")
+    private val OTHER_UUID: UUID = UUID.fromString("00000000-0000-4000-8000-000000000002")
+  }
 
   @Before
   fun setUp() {
@@ -151,6 +165,42 @@ class CallEventCacheTest {
   }
 
   @Test
+  fun `Given two entries in descending timestamp order outside of time threshold, when I clusterCallEvents, then I expect two entries`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 1,
+        timestamp = 1.days.inWholeMilliseconds
+      ),
+      createCacheRecord(
+        callId = 2,
+        timestamp = 0
+      )
+    )
+
+    val filterState = CallEventCache.FilterState()
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).size().isEqualTo(2)
+  }
+
+  @Test
+  fun `Given two entries in descending timestamp order within time threshold, when I clusterCallEvents, then I expect one entry`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 1,
+        timestamp = 1.hours.inWholeMilliseconds
+      ),
+      createCacheRecord(
+        callId = 2,
+        timestamp = 0
+      )
+    )
+
+    val filterState = CallEventCache.FilterState()
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).size().isEqualTo(1)
+  }
+
+  @Test
   fun `Given two entries with a mismatch between them, when I clusterCallEvents, then I expect three entries`() {
     val testData = listOf(
       createCacheRecord(
@@ -173,7 +223,7 @@ class CallEventCacheTest {
   }
 
   @Test
-  fun `Given two call link entries in a row, when I clusterCallEvents, then I expect two entries`() {
+  fun `Given two call link entries on different links, when I clusterCallEvents, then I expect two entries`() {
     val testData = listOf(
       createCacheRecord(
         callId = 1,
@@ -190,6 +240,186 @@ class CallEventCacheTest {
     val filterState = CallEventCache.FilterState()
     val result = CallEventCache.clusterCallEvents(testData, filterState)
     assertThat(result).size().isEqualTo(2)
+  }
+
+  @Test
+  fun `Given two calls on the same call link, when I clusterCallEvents, then I expect two entries`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 2,
+        peer = 1,
+        type = Type.AD_HOC_CALL.code
+      ),
+      createCacheRecord(
+        callId = 1,
+        peer = 1,
+        type = Type.AD_HOC_CALL.code
+      )
+    )
+
+    val filterState = CallEventCache.FilterState()
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).size().isEqualTo(2)
+  }
+
+  @Test
+  fun `Given multiple calls on the same call link, when I clusterCallEvents, then only the newest row keeps peek info`() {
+    every { AppDependencies.signalCallManager.peekInfoSnapshot } returns mapOf(
+      RecipientId.from(1) to CallLinkPeekInfo(callId = null, isActive = true, isJoined = false)
+    )
+
+    val testData = listOf(
+      createCacheRecord(
+        callId = 3,
+        peer = 1,
+        type = Type.AD_HOC_CALL.code
+      ),
+      createCacheRecord(
+        callId = 2,
+        peer = 1,
+        type = Type.AD_HOC_CALL.code
+      ),
+      createCacheRecord(
+        callId = 1,
+        peer = 1,
+        type = Type.AD_HOC_CALL.code
+      )
+    )
+
+    val filterState = CallEventCache.FilterState()
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+
+    assertThat(result).size().isEqualTo(3)
+    assertThat(result[0].callLinkPeekInfo).isNotNull()
+    assertThat(result[1].callLinkPeekInfo).isNull()
+    assertThat(result[2].callLinkPeekInfo).isNull()
+  }
+
+  @Test
+  fun `Given an unjoined call link, when I filter by missed, then I expect nothing`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 1,
+        type = Type.AD_HOC_CALL.code,
+        event = Event.GENERIC_GROUP_CALL.code
+      )
+    )
+
+    val filterState = CallEventCache.FilterState(filter = CallLogFilter.MISSED)
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).isEmpty()
+  }
+
+  @Test
+  fun `Given an unjoined group call, when I filter by missed, then I expect one entry`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 1,
+        type = Type.GROUP_CALL.code,
+        event = Event.GENERIC_GROUP_CALL.code
+      )
+    )
+
+    val filterState = CallEventCache.FilterState(filter = CallLogFilter.MISSED)
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).size().isEqualTo(1)
+  }
+
+  @Test
+  fun `Given a missed call link ring, when I filter by missed, then I expect one entry`() {
+    val testData = listOf(
+      createCacheRecord(
+        callId = 1,
+        type = Type.AD_HOC_CALL.code,
+        event = Event.MISSED.code
+      )
+    )
+
+    val filterState = CallEventCache.FilterState(filter = CallLogFilter.MISSED)
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+    assertThat(result).size().isEqualTo(1)
+  }
+
+  @Test
+  fun `Given multiple calls in the same group, when I clusterCallEvents, then only the newest row is active`() {
+    givenPeersAreGroups()
+
+    val activeBody = createGroupCallUpdateBody(inCallUuids = listOf(OTHER_UUID.toString()))
+
+    val testData = listOf(
+      createCacheRecord(
+        callId = 2,
+        type = Type.GROUP_CALL.code,
+        timestamp = 1.days.inWholeMilliseconds,
+        body = activeBody
+      ),
+      createCacheRecord(
+        callId = 1,
+        type = Type.GROUP_CALL.code,
+        timestamp = 0,
+        body = activeBody
+      )
+    )
+
+    val filterState = CallEventCache.FilterState()
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+
+    assertThat(result).size().isEqualTo(2)
+    assertThat(result[0].groupCallState).isEqualTo(CallLogRow.GroupCallState.ACTIVE)
+    assertThat(result[1].groupCallState).isEqualTo(CallLogRow.GroupCallState.NONE)
+  }
+
+  @Test
+  fun `Given an active group call and an older missed call with stale participants, when I filter by missed, then the older row is not active`() {
+    givenPeersAreGroups()
+
+    val activeBody = createGroupCallUpdateBody(inCallUuids = listOf(OTHER_UUID.toString()))
+
+    val testData = listOf(
+      createCacheRecord(
+        callId = 2,
+        type = Type.GROUP_CALL.code,
+        event = Event.GENERIC_GROUP_CALL.code,
+        timestamp = 1.days.inWholeMilliseconds,
+        isGroupCallActive = true,
+        body = activeBody
+      ),
+      createCacheRecord(
+        callId = 1,
+        type = Type.GROUP_CALL.code,
+        event = Event.GENERIC_GROUP_CALL.code,
+        timestamp = 0,
+        body = activeBody
+      )
+    )
+
+    val filterState = CallEventCache.FilterState(filter = CallLogFilter.MISSED)
+    val result = CallEventCache.clusterCallEvents(testData, filterState)
+
+    assertThat(result).size().isEqualTo(1)
+    assertThat(result[0].record.callId).isEqualTo(1)
+    assertThat(result[0].groupCallState).isEqualTo(CallLogRow.GroupCallState.NONE)
+  }
+
+  private fun givenPeersAreGroups() {
+    every { Recipient.resolved(any()) } answers {
+      spyk(Recipient(id = firstArg(), isResolving = false)).also {
+        every { it.isGroup } returns true
+      }
+    }
+
+    every { Recipient.self() } returns spyk(Recipient(id = RecipientId.from(2), isResolving = false)).also {
+      every { it.requireAci() } returns ACI.from(SELF_UUID)
+    }
+  }
+
+  private fun createGroupCallUpdateBody(inCallUuids: List<String>): String {
+    return Base64.encodeWithPadding(
+      GroupCallUpdateDetails(
+        eraId = "era",
+        inCallUuids = inCallUuids
+      ).encode()
+    )
   }
 
   private fun createCacheRecord(

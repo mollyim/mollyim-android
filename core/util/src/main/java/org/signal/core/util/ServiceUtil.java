@@ -3,7 +3,6 @@ package org.signal.core.util;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
-import android.app.AppOpsManager;
 import android.app.DownloadManager;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
@@ -111,10 +110,6 @@ public class ServiceUtil {
 
   public static BluetoothManager getBluetoothManager(@NonNull Context context) {
     return ContextCompat.getSystemService(context, BluetoothManager.class);
-  }
-
-  public static AppOpsManager getAppOpsManager(@NonNull Context context) {
-    return ContextCompat.getSystemService(context, AppOpsManager.class);
   }
 
   public static DownloadManager getDownloadManager(@NonNull Context context) {

@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-fa/strings.xml b/core/util/src/main/res/values-fa/strings.xml
+index 03d1a0d07bea063ca6f288a9281c08a94ff060c4..5a7175812c740ccbc9711db765068a247d9a769a 100644
+--- a/core/util/src/main/res/values-fa/strings.xml
++++ b/core/util/src/main/res/values-fa/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">دعوت به سیگنال</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

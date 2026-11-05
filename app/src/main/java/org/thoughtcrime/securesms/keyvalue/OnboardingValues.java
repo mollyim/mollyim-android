@@ -9,9 +9,11 @@ import java.util.List;
 
 public final class OnboardingValues extends SignalStoreValues {
 
-  private static final String SHOW_STORIES        = "onboarding.stories_molly";
-  private static final String SHOW_APPEARANCE     = "onboarding.appearance";
-  private static final String SHOW_ADD_PHOTO      = "onboarding.add_photo";
+  private static final String SHOW_NEW_GROUP       = "onboarding.new_group";
+  private static final String SHOW_INVITE_FRIENDS  = "onboarding.invite_friends";
+  private static final String SHOW_APPEARANCE      = "onboarding.appearance";
+  private static final String SHOW_ADD_PHOTO       = "onboarding.add_photo";
+  private static final String SHOW_SET_UP_USERNAME = "onboarding.set_up_username";
 
   OnboardingValues(@NonNull KeyValueStore store) {
     super(store);
@@ -19,9 +21,11 @@ public final class OnboardingValues extends SignalStoreValues {
 
   @Override
   void onFirstEverAppLaunch() {
-    putBoolean(SHOW_STORIES, true);
+    putBoolean(SHOW_NEW_GROUP, true);
+    putBoolean(SHOW_INVITE_FRIENDS, true);
     putBoolean(SHOW_APPEARANCE, true);
     putBoolean(SHOW_ADD_PHOTO, true);
+    putBoolean(SHOW_SET_UP_USERNAME, true);
   }
 
   @Override
@@ -30,23 +34,35 @@ public final class OnboardingValues extends SignalStoreValues {
   }
 
   public void clearAll() {
-    setShowStories(false);
+    setShowNewGroup(false);
+    setShowInviteFriends(false);
     setShowAppearance(false);
     setShowAddPhoto(false);
+    setShowSetUpUsername(false);
   }
 
   public boolean hasOnboarding(@NonNull Context context) {
-    return shouldShowStories()       ||
-           shouldShowAppearance()    ||
-           shouldShowAddPhoto();
+    return shouldShowNewGroup()       ||
+           shouldShowInviteFriends()  ||
+           shouldShowAppearance()     ||
+           shouldShowAddPhoto()       ||
+           shouldShowSetUpUsername();
   }
 
-  public void setShowStories(boolean value) {
-    putBoolean(SHOW_STORIES, value);
+  public void setShowNewGroup(boolean value) {
+    putBoolean(SHOW_NEW_GROUP, value);
   }
 
-  public boolean shouldShowStories(){
-    return getBoolean(SHOW_STORIES, false);
+  public boolean shouldShowNewGroup() {
+    return getBoolean(SHOW_NEW_GROUP, false);
+  }
+
+  public void setShowInviteFriends(boolean value) {
+    putBoolean(SHOW_INVITE_FRIENDS, value);
+  }
+
+  public boolean shouldShowInviteFriends() {
+    return getBoolean(SHOW_INVITE_FRIENDS, false);
   }
 
   public void setShowAppearance(boolean value) {
@@ -63,5 +79,13 @@ public final class OnboardingValues extends SignalStoreValues {
 
   public boolean shouldShowAddPhoto() {
     return getBoolean(SHOW_ADD_PHOTO, false);
+  }
+
+  public void setShowSetUpUsername(boolean value) {
+    putBoolean(SHOW_SET_UP_USERNAME, value);
+  }
+
+  public boolean shouldShowSetUpUsername() {
+    return getBoolean(SHOW_SET_UP_USERNAME, false);
   }
 }

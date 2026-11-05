@@ -85,7 +85,6 @@ import org.thoughtcrime.securesms.registration.ui.restore.StorageServiceRestore
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.dualsim.MccMncProducer
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.messages.multidevice.RequestMessage
@@ -100,6 +99,7 @@ import java.net.ProtocolException
 import java.nio.charset.StandardCharsets
 import kotlin.jvm.optionals.getOrNull
 import kotlin.math.max
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -372,8 +372,22 @@ class RegistrationViewModel : ViewModel() {
   }
 
   private suspend fun requestSmsCodeInternal(context: Context, sessionId: String, e164: String) {
+    var smsListenerReady = false
+    Log.d(TAG, "Initializing SMS listener.")
+    if (store.value.smsListenerTimeout < System.currentTimeMillis()) {
+      smsListenerReady = store.value.isFcmSupported && RegistrationRepository.registerSmsListener(context)
+
+      if (smsListenerReady) {
+        val smsRetrieverTimeout = System.currentTimeMillis() + 5.minutes.inWholeMilliseconds
+        Log.d(TAG, "Successfully started verification code SMS retriever, which will last until $smsRetrieverTimeout.")
+        store.update { it.copy(smsListenerTimeout = smsRetrieverTimeout) }
+      } else {
+        Log.d(TAG, "Could not start verification code SMS retriever.")
+      }
+    }
+
     Log.d(TAG, "Requesting SMS code…")
-    val transportMode = RegistrationRepository.E164VerificationMode.SMS_WITHOUT_LISTENER
+    val transportMode = if (smsListenerReady) RegistrationRepository.E164VerificationMode.SMS_WITH_LISTENER else RegistrationRepository.E164VerificationMode.SMS_WITHOUT_LISTENER
     val codeRequestResponse = RegistrationRepository.requestSmsCode(
       context = context,
       sessionId = sessionId,
@@ -1150,7 +1164,7 @@ class RegistrationViewModel : ViewModel() {
         )
 
         if (message.readReceipts != null) {
-          TextSecurePreferences.setReadReceiptsEnabled(context, message.readReceipts!!)
+          SignalStore.settings.isReadReceiptsEnabled = message.readReceipts!!
         }
 
         RegistrationRepository.registerAccountLocally(context, data)

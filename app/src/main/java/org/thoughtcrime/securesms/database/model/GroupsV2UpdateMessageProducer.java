@@ -9,23 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 
-import org.signal.core.models.ServiceId;
-import org.signal.core.ui.util.ThemeUtil;
-import org.signal.core.util.BidiUtil;
-import org.signal.core.util.UuidUtil;
-import org.signal.storageservice.storage.protos.groups.AccessControl;
-import org.signal.storageservice.storage.protos.groups.Member;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedApproveMember;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedGroupChange;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedMember;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedModifyMemberRole;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMember;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMemberRemoval;
-import org.signal.storageservice.storage.protos.groups.local.DecryptedRequestingMember;
-import org.signal.storageservice.storage.protos.groups.local.EnabledState;
-import org.thoughtcrime.securesms.R;
 import org.signal.archive.proto.GenericGroupUpdate;
 import org.signal.archive.proto.GroupAdminStatusUpdate;
 import org.signal.archive.proto.GroupAnnouncementOnlyChangeUpdate;
@@ -64,12 +49,28 @@ import org.signal.archive.proto.GroupV2MigrationSelfInvitedUpdate;
 import org.signal.archive.proto.GroupV2MigrationUpdate;
 import org.signal.archive.proto.SelfInvitedOtherUserToGroupUpdate;
 import org.signal.archive.proto.SelfInvitedToGroupUpdate;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
+import org.signal.core.models.ServiceId;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.ui.fonts.SignalSymbols.Glyph;
+import org.signal.core.util.BidiUtil;
+import org.signal.core.util.UuidUtil;
+import org.signal.storageservice.storage.protos.groups.AccessControl;
+import org.signal.storageservice.storage.protos.groups.Member;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedApproveMember;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedGroupChange;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedMember;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedModifyMemberRole;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMember;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedPendingMemberRemoval;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedRequestingMember;
+import org.signal.storageservice.storage.protos.groups.local.EnabledState;
+import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.groups.GV2AccessLevelUtil;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.ExpirationUtil;
-import org.thoughtcrime.securesms.util.SpanUtil;
+import org.thoughtcrime.securesms.recipients.RecipientIds;
+import org.signal.core.ui.util.ExpirationUtil;
+import org.signal.core.ui.util.SpanUtil;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
 import org.whispersystems.signalservice.api.push.ServiceIds;
 
@@ -1566,7 +1567,7 @@ final class GroupsV2UpdateMessageProducer {
                                               Glyph glyph)
   {
     ServiceId   serviceId   = ServiceId.parseOrUnknown(serviceId1Bytes);
-    RecipientId recipientId = RecipientId.from(serviceId);
+    RecipientId recipientId = RecipientIds.from(serviceId);
 
     return UpdateDescription.mentioning(
         Collections.singletonList(serviceId),
@@ -1587,8 +1588,8 @@ final class GroupsV2UpdateMessageProducer {
     ServiceId serviceId1 = ServiceId.parseOrUnknown(serviceId1Bytes);
     ServiceId serviceId2 = ServiceId.parseOrUnknown(serviceId2Bytes);
 
-    RecipientId recipientId1 = RecipientId.from(serviceId1);
-    RecipientId recipientId2 = RecipientId.from(serviceId2);
+    RecipientId recipientId1 = RecipientIds.from(serviceId1);
+    RecipientId recipientId2 = RecipientIds.from(serviceId2);
 
     return UpdateDescription.mentioning(
         Arrays.asList(serviceId1, serviceId2),
@@ -1608,7 +1609,7 @@ final class GroupsV2UpdateMessageProducer {
                                               Glyph glyph)
   {
     ServiceId   serviceId   = ServiceId.parseOrUnknown(serviceId1Bytes);
-    RecipientId recipientId = RecipientId.from(serviceId);
+    RecipientId recipientId = RecipientIds.from(serviceId);
 
     return UpdateDescription.mentioning(
         Collections.singletonList(serviceId),
@@ -1629,7 +1630,7 @@ final class GroupsV2UpdateMessageProducer {
                                               Glyph glyph)
   {
     ServiceId   serviceId   = ServiceId.parseOrUnknown(serviceId1Bytes);
-    RecipientId recipientId = RecipientId.from(serviceId);
+    RecipientId recipientId = RecipientIds.from(serviceId);
 
     return UpdateDescription.mentioning(
         Collections.singletonList(serviceId),
@@ -1684,7 +1685,7 @@ final class GroupsV2UpdateMessageProducer {
         String beforeChunk = template.substring(startIndex, nearestPosition);
 
         builder.append(beforeChunk);
-        builder.append(SpanUtil.clickable(Recipient.resolved(recipientId).getDisplayName(context), ThemeUtil.getThemedColor(context, R.attr.conversation_item_update_text_color), v -> {
+        builder.append(SpanUtil.clickable(Recipient.resolved(recipientId).getDisplayName(context), ContextCompat.getColor(context, R.color.conversation_item_update_text_color), v -> {
           if (!recipientId.isUnknown() && clickHandler != null) {
             clickHandler.accept(recipientId);
           }

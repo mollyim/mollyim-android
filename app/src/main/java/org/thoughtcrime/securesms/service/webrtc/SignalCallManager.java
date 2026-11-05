@@ -8,15 +8,17 @@ import android.os.Build;
 import android.os.ResultReceiver;
 
 import androidx.annotation.AnyThread;
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.greenrobot.eventbus.EventBus;
 import org.signal.core.models.ServiceId.ACI;
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.KeyedSerialMonoLifoExecutor;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.NoSessionException;
 import org.signal.libsignal.zkgroup.GenericServerPublicParams;
@@ -38,8 +40,10 @@ import org.signal.ringrtc.NetworkRoute;
 import org.signal.ringrtc.PeekInfo;
 import org.signal.ringrtc.Remote;
 import org.signal.storageservice.storage.protos.groups.ExternalGroupCredential;
+import org.thoughtcrime.securesms.calls.quality.CallQuality;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
+import org.thoughtcrime.securesms.crypto.storage.SignalServiceAccountDataStoreImpl;
 import org.thoughtcrime.securesms.database.CallLinkTable;
 import org.thoughtcrime.securesms.database.CallTable;
 import org.thoughtcrime.securesms.database.GroupTable;
@@ -61,7 +65,7 @@ import org.thoughtcrime.securesms.net.SignalNetwork;
 import org.thoughtcrime.securesms.notifications.v2.ConversationId;
 import org.thoughtcrime.securesms.ratelimit.ProofRequiredExceptionHandler;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.recipients.RecipientIds;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.ringrtc.CameraEventListener;
 import org.thoughtcrime.securesms.ringrtc.CameraState;
@@ -71,7 +75,6 @@ import org.thoughtcrime.securesms.service.webrtc.links.SignalCallLinkManager;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcEphemeralState;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.util.RecipientAccessList;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.rx.RxStore;
 import org.thoughtcrime.securesms.webrtc.CallNotificationBuilder;
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
@@ -142,6 +145,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
   private WebRtcServiceState            serviceState;
   private RxStore<WebRtcEphemeralState> ephemeralStateStore;
   private boolean                       needsToSetSelfUuid = true;
+  private RelaunchListener              pipRelaunchListener;
 
   private RxStore<Map<RecipientId, CallLinkPeekInfo>> linkPeekInfoStore;
 
@@ -379,8 +383,16 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     process((s, p) -> p.handleAudioDeviceChangeFailed(s));
   }
 
+  public void onAudioReadyForAccept() {
+    process((s, p) -> p.handleAudioReadyForAccept(s));
+  }
+
   public void onBluetoothPermissionDenied() {
     process((s, p) -> p.handleBluetoothPermissionDenied(s));
+  }
+
+  public void onMicrophoneSilencedChanged(boolean silenced) {
+    process((s, p) -> p.handleMicrophoneSilencedChanged(s, silenced));
   }
 
   public void selectAudioDevice(@NonNull SignalAudioManager.ChosenAudioDeviceIdentifier desiredDevice) {
@@ -487,7 +499,12 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
     keyedExecutor.execute(id.toString(), () -> {
       try {
-        Recipient               group      = Recipient.resolved(id);
+        Recipient group = Recipient.resolved(id);
+        if (!group.getGroupId().isPresent()) {
+          Log.w(TAG, "Recipient " + id + " is no longer a group. Skipping peek.");
+          return;
+        }
+
         GroupId.V2              groupId    = group.requireGroupId().requireV2();
         ExternalGroupCredential credential = GroupManager.getExternalGroupCredential(context, groupId);
 
@@ -561,8 +578,13 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     });
   }
 
+  /**
+   * Attempts to launch the call screen. On newer OS versions we can only do this when we're already in the
+   * foreground, otherwise the background activity start is blocked and we have to rely on the full screen
+   * intent attached to the CallStyle notification.
+   */
   public boolean startCallCardActivityIfPossible() {
-    if (Build.VERSION.SDK_INT >= CallNotificationBuilder.API_LEVEL_CALL_STYLE) {
+    if (Build.VERSION.SDK_INT >= CallNotificationBuilder.API_LEVEL_CALL_STYLE && !AppForegroundObserver.isForegrounded()) {
       return false;
     }
 
@@ -643,6 +665,8 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
         CameraState cameraState          = s.getLocalDeviceState().getCameraState();
         boolean     isLocalVideoEnabled  = cameraState.isEnabled() && cameraState.getCameraCount() > 0;
+
+        CallQuality.handleOneToOneCallSummary(summary, hasRemoteVideoContent || isLocalVideoEnabled);
       }
 
       switch (reason) {
@@ -879,7 +903,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     SignalServiceCallMessage callMessage   = SignalServiceCallMessage.forOpaque(opaqueMessage, null);
 
     SignalExecutors.BOUNDED_IO.execute(() -> {
-      Recipient recipient = Recipient.resolved(RecipientId.from(ACI.from(aciUuid)));
+      Recipient recipient = Recipient.resolved(RecipientIds.from(ACI.from(aciUuid)));
       if (recipient.isBlocked()) {
         return;
       }
@@ -977,7 +1001,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
         headerPairs = Collections.emptyList();
       }
 
-      NetworkResult<CallingResponse> result = SignalNetwork.calling()
+      NetworkResult<CallingResponse> result = SignalNetwork.callingApi()
                                                            .makeCallingRequest(requestId, url, httpMethod.name(), headerPairs, body);
 
       CallingResponse response = ((NetworkResult.Success<CallingResponse>) result).getResult();
@@ -1066,6 +1090,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   @Override
   public void onEnded(@NonNull GroupCall groupCall, @NonNull CallManager.CallEndReason reason, @NonNull CallSummary summary) {
+    CallQuality.handleGroupCallSummary(summary, groupCall.getKind());
     process((s, p) -> p.handleGroupCallEnded(s, groupCall.hashCode(), reason));
   }
 
@@ -1153,7 +1178,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
           return;
         }
 
-        List<TurnServerInfo> turnServerInfos = NetworkResultUtil.toBasicLegacy(SignalNetwork.calling().getTurnServerInfo());
+        List<TurnServerInfo> turnServerInfos = NetworkResultUtil.toBasicLegacy(SignalNetwork.callingApi().getTurnServerInfo());
 
         // Find *any* provided ttl values as long as they are valid.
         long minTtl = turnServerInfos.stream()
@@ -1178,7 +1203,7 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     process((s, p) -> {
       RemotePeer activePeer = s.getCallInfoState().getActivePeer();
       if (activePeer != null && activePeer.getCallId().equals(remotePeer.getCallId())) {
-        return p.handleTurnServerUpdate(s, servers, TextSecurePreferences.isTurnOnly(context));
+        return p.handleTurnServerUpdate(s, servers, SignalStore.settings().isTurnOnly());
       }
 
       Log.w(TAG, "Ignoring received turn servers for incorrect call id. requesting_call_id: " + remotePeer.getCallId() + " current_call_id: " + (activePeer != null ? activePeer.getCallId() : "null"));
@@ -1338,7 +1363,11 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
 
   private void archiveSessions(@NonNull RecipientId recipientId) {
     AppDependencies.getProtocolStore().aci().sessions().archiveSessions(recipientId);
-    AppDependencies.getProtocolStore().pni().sessions().archiveSessions(recipientId);
+
+    SignalServiceAccountDataStoreImpl pniStore = AppDependencies.getProtocolStore().pniOrNull();
+    if (pniStore != null) {
+      pniStore.sessions().archiveSessions(recipientId);
+    }
   }
 
   public void sendAcceptedCallEventSyncMessage(@NonNull RemotePeer remotePeer, boolean isOutgoing, boolean isVideoCall) {
@@ -1399,8 +1428,30 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
     callManager.addAsset(assetGroup, content);
   }
 
+  /**
+   * Schedules the call activity to be relaunched in PiP the next time the app is foregrounded. Only relevant if the call activity did not survive being
+   * backgrounded, e.g. the user dismissed the PiP window or another app's PiP evicted it. If it did survive, {@link #cancelPipRelaunch()} should be called
+   * to cancel this.
+   */
+  @MainThread
   public void relaunchPipOnForeground() {
-    AppForegroundObserver.addListener(new RelaunchListener(AppForegroundObserver.isForegrounded()));
+    cancelPipRelaunch();
+
+    pipRelaunchListener = new RelaunchListener(AppForegroundObserver.isForegrounded());
+    AppForegroundObserver.addListener(pipRelaunchListener);
+  }
+
+  /**
+   * Cancels any pending PiP relaunch scheduled via {@link #relaunchPipOnForeground()}. Relaunching while the call activity is still alive delivers a
+   * launch-in-PiP intent to it, which pulls it out of PiP and into fullscreen, or forces a deliberately expanded call back into PiP. The former is both
+   * unprompted and, if it happens while the keyguard is going away, can leave the device wedged in a partially-locked state.
+   */
+  @MainThread
+  public void cancelPipRelaunch() {
+    if (pipRelaunchListener != null) {
+      AppForegroundObserver.removeListener(pipRelaunchListener);
+      pipRelaunchListener = null;
+    }
   }
 
   private void processSendMessageFailureWithChangeDetection(@NonNull RemotePeer remotePeer,
@@ -1448,6 +1499,9 @@ public final class SignalCallManager implements CallManager.Observer, GroupCall.
           });
         }
         AppForegroundObserver.removeListener(this);
+        if (pipRelaunchListener == this) {
+          pipRelaunchListener = null;
+        }
       }
     }
 

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -30,7 +31,11 @@ import com.bumptech.glide.RequestManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.common.collect.Sets;
 
+import org.signal.core.models.ServiceId;
+import org.signal.core.ui.fonts.SignalSymbols;
 import org.signal.core.util.DimensionUnit;
+import org.signal.core.util.DrawableUtil;
+import org.signal.core.util.Util;
 import org.signal.core.util.concurrent.ListenableFuture;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BindableConversationItem;
@@ -39,8 +44,8 @@ import org.thoughtcrime.securesms.conversation.colors.Colorizer;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectCollection;
 import org.thoughtcrime.securesms.conversation.mutiselect.MultiselectPart;
 import org.thoughtcrime.securesms.conversation.ui.error.EnableCallNotificationSettingsDialog;
-import org.thoughtcrime.securesms.database.CollapsibleEvents;
 import org.thoughtcrime.securesms.database.CollapsedState;
+import org.thoughtcrime.securesms.database.CollapsibleEvents;
 import org.thoughtcrime.securesms.database.model.GroupCallUpdateDetailsUtil;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord;
@@ -48,29 +53,21 @@ import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GroupCallUpdateDetails;
-import org.thoughtcrime.securesms.fonts.SignalSymbols;
 import org.thoughtcrime.securesms.groups.LiveGroup;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DateUtils;
-import org.signal.core.util.DrawableUtil;
-import org.thoughtcrime.securesms.util.ExpirationUtil;
+import org.signal.core.ui.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.IdentityUtil;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.ProjectionList;
-import org.thoughtcrime.securesms.util.SpanUtil;
-import org.signal.core.ui.util.ThemeUtil;
-import org.signal.core.util.Util;
-import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.SpanUtil;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
-
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.Disposable;
-import org.signal.core.models.ServiceId;
 
 import java.util.Collection;
 import java.util.Locale;
@@ -80,6 +77,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public final class ConversationUpdateItem extends FrameLayout
                                           implements BindableConversationItem
@@ -105,7 +105,8 @@ public final class ConversationUpdateItem extends FrameLayout
   private float                     lastYDownRelativeToThis;
   private int                       tint;
 
-  private final UpdateObserver updateObserver = new UpdateObserver();
+  private final LiveDataObserverManager<SpannableString> displayBodyObserver          = new LiveDataObserverManager<>(new DisplayBodyObserver());
+  private final LiveDataObserverManager<SpannableString> displayBodyWithTimerObserver = new LiveDataObserverManager<>(new UpdateObserver());
 
   private final PresentOnChange          presentOnChange = new PresentOnChange();
   private final RecipientObserverManager senderObserver  = new RecipientObserverManager(presentOnChange);
@@ -194,6 +195,8 @@ public final class ConversationUpdateItem extends FrameLayout
                     boolean hasWallpaper,
                     boolean isMessageRequestAccepted)
   {
+    boolean isNewMessage = this.messageRecord == null || this.messageRecord.getId() != conversationMessage.getMessageRecord().getId();
+
     this.conversationMessage      = conversationMessage;
     this.messageRecord            = conversationMessage.getMessageRecord();
     this.previousMessageRecord    = previousMessageRecord;
@@ -201,6 +204,11 @@ public final class ConversationUpdateItem extends FrameLayout
     this.conversationRecipient    = conversationRecipient;
     this.isMessageRequestAccepted = isMessageRequestAccepted;
     this.hasWallpaper             = hasWallpaper;
+
+    if (isNewMessage) {
+      displayBody = null;
+      displayBodyWithTimer.setValue(null);
+    }
 
     senderObserver.observe(lifecycleOwner, messageRecord.getFromRecipient());
 
@@ -214,17 +222,17 @@ public final class ConversationUpdateItem extends FrameLayout
 
     int textColor;
     if (hasWallpaper) {
-      textColor = ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurfaceVariant);
+      textColor = ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurfaceVariant);
     } else {
-      textColor = ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_update_text_color);
+      textColor = ContextCompat.getColor(getContext(), R.color.conversation_item_update_text_color);
     }
 
     UpdateDescription         updateDescription = Objects.requireNonNull(messageRecord.getUpdateDisplayBody(getContext(), eventListener::onRecipientNameClicked));
     LiveData<SpannableString> liveUpdateMessage = LiveUpdateMessage.fromMessageDescription(getContext(), updateDescription, textColor, true);
     LiveData<SpannableString> spannableMessage  = loading(liveUpdateMessage);
 
-    observeDisplayBody(lifecycleOwner, spannableMessage);
-    observeDisplayBodyWithTimer(lifecycleOwner);
+    displayBodyObserver.observe(lifecycleOwner, spannableMessage);
+    displayBodyWithTimerObserver.observe(lifecycleOwner, displayBodyWithTimer);
 
     this.tint = updateDescription.getTint(getContext());
 
@@ -263,38 +271,10 @@ public final class ConversationUpdateItem extends FrameLayout
 
   @Override
   public void unbind() {
-    this.displayBodyWithTimer.removeObserver(updateObserver);
+    displayBodyObserver.clear();
+    displayBodyWithTimerObserver.clear();
     handler.removeCallbacks(timerUpdateRunnable);
     activeCallDisposable.dispose();
-  }
-
-  @Override
-  public void showProjectionArea() {
-  }
-
-  @Override
-  public void hideProjectionArea() {
-    throw new UnsupportedOperationException("Call makes no sense for a conversation update item");
-  }
-
-  @Override
-  public int getAdapterPosition() {
-    throw new UnsupportedOperationException("Don't delegate to this method.");
-  }
-
-  @Override
-  public @NonNull Projection getGiphyMp4PlayableProjection(@NonNull ViewGroup recyclerView) {
-    throw new UnsupportedOperationException("ConversationUpdateItems cannot be projected into.");
-  }
-
-  @Override
-  public boolean canPlayContent() {
-    return false;
-  }
-
-  @Override
-  public boolean shouldProjectContent() {
-    return false;
   }
 
   @Override
@@ -337,6 +317,40 @@ public final class ConversationUpdateItem extends FrameLayout
 
     @NonNull Recipient getObservedRecipient() {
       return recipient.get();
+    }
+  }
+
+  private final class DisplayBodyObserver implements Observer<SpannableString> {
+    @Override
+    public void onChanged(SpannableString body) {
+      displayBody = body;
+      updateBodyWithTimer();
+    }
+  }
+
+  private static final class LiveDataObserverManager<T> {
+    private final Observer<? super T> observer;
+    private LiveData<T>               source;
+
+    LiveDataObserverManager(@NonNull Observer<? super T> observer) {
+      this.observer = observer;
+    }
+
+    void observe(@NonNull LifecycleOwner lifecycleOwner, @NonNull LiveData<T> source) {
+      if (this.source == source) {
+        return;
+      }
+
+      clear();
+      this.source = source;
+      this.source.observe(lifecycleOwner, observer);
+    }
+
+    void clear() {
+      if (source != null) {
+        source.removeObserver(observer);
+        source = null;
+      }
     }
   }
 
@@ -465,23 +479,10 @@ public final class ConversationUpdateItem extends FrameLayout
   }
 
   private int getCollapsedButtonBottom() {
-    Projection projection = Projection.relativeToViewRoot(collapsedButton, null);
-    int        bottom     = (int) projection.getY() + projection.getHeight();
+    Projection projection = Projection.relativeToParent(this, collapsedButton, null);
+    int        bottom     = (int) projection.getY() + projection.getHeight() + getTop();
     projection.release();
     return bottom;
-  }
-
-  private void observeDisplayBody(@NonNull LifecycleOwner lifecycleOwner, @Nullable LiveData<SpannableString> message) {
-    if (message != null) {
-      message.observe(lifecycleOwner, it -> {
-        displayBody = it;
-        updateBodyWithTimer();
-      });
-    }
-  }
-
-  private void observeDisplayBodyWithTimer(@NonNull LifecycleOwner lifecycleOwner) {
-    this.displayBodyWithTimer.observe(lifecycleOwner, updateObserver);
   }
 
   private void updateBodyWithTimer() {
@@ -491,7 +492,7 @@ public final class ConversationUpdateItem extends FrameLayout
 
     SpannableStringBuilder builder = new SpannableStringBuilder(displayBody);
 
-    int color = tint != 0 ? tint : ThemeUtil.getThemedColor(getContext(), R.attr.signal_icon_tint_secondary);
+    int color = tint != 0 ? tint : ContextCompat.getColor(getContext(), R.color.signal_icon_tint_secondary);
     if (latestFrame != 0) {
       Drawable drawable = DrawableUtil.tint(getContext().getDrawable(latestFrame), color);
       SpanUtil.appendCenteredImageSpan(builder, drawable, 12, 12);
@@ -696,6 +697,26 @@ public final class ConversationUpdateItem extends FrameLayout
       });
 
       actionButton.setText(R.string.ConversationActivity__invite_to_signal);
+    } else if (conversationMessage.getMessageRecord().isPaymentsRequestToActivate() && !conversationMessage.getMessageRecord().isOutgoing() && !SignalStore.payments().mobileCoinPaymentsEnabled() && SignalStore.account().isPrimaryDevice()) {
+      actionButton.setText(R.string.ConversationUpdateItem_activate_payments);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onActivatePaymentsClicked();
+        } else {
+          passthroughClickListener.onClick(v);
+        }
+      });
+    } else if (conversationMessage.getMessageRecord().isPaymentsActivated() && !conversationMessage.getMessageRecord().isOutgoing() && SignalStore.account().isPrimaryDevice()) {
+      actionButton.setText(R.string.ConversationUpdateItem_send_payment);
+      actionButton.setVisibility(VISIBLE);
+      actionButton.setOnClickListener(v -> {
+        if (batchSelected.isEmpty() && eventListener != null) {
+          eventListener.onSendPaymentClicked(conversationMessage.getMessageRecord().getFromRecipient().getId());
+        } else {
+          passthroughClickListener.onClick(v);
+        }
+      });
     } else if (conversationMessage.getMessageRecord().isReportedSpam()) {
       actionButton.setText(R.string.ConversationUpdateItem_learn_more);
       actionButton.setVisibility(VISIBLE);
@@ -815,8 +836,8 @@ public final class ConversationUpdateItem extends FrameLayout
 
   private void presentActionButton(boolean hasWallpaper, boolean isBoostRequest) {
     if (isBoostRequest) {
-      actionButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), R.color.release_notes_cta_background)));
-      actionButton.setTextColor(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface)));
+      actionButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.release_notes_cta_background)));
+      actionButton.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurface)));
     } else if (hasWallpaper) {
       actionButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_background_wallpaper));
       actionButton.setTextColor(AppCompatResources.getColorStateList(getContext(), R.color.conversation_update_item_button_text_color_wallpaper));
@@ -833,11 +854,11 @@ public final class ConversationUpdateItem extends FrameLayout
       CollapsibleEvents.CollapsibleType collapsibleType = CollapsibleEvents.getCollapsibleType(messageRecord.getType(), messageRecord.getMessageExtras());
       if (collapsibleType != null) {
         SpannableStringBuilder text = new SpannableStringBuilder()
-                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, getCollapsibleSymbol(collapsibleType), com.google.android.material.R.attr.colorOnSurfaceVariant))
+                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, getCollapsibleSymbol(collapsibleType), org.signal.core.ui.R.color.signal_colorOnSurfaceVariant))
                                           .append(" ")
                                           .append(getCollapsibleString(collapsibleType))
                                           .append(" ")
-                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, collapsedState == CollapsedState.HEAD_EXPANDED ? SignalSymbols.Glyph.CHEVRON_UP : SignalSymbols.Glyph.CHEVRON_DOWN, com.google.android.material.R.attr.colorOnSurfaceVariant));
+                                          .append(SignalSymbols.getSpannedString(getContext(), SignalSymbols.Weight.BOLD, collapsedState == CollapsedState.HEAD_EXPANDED ? SignalSymbols.Glyph.CHEVRON_UP : SignalSymbols.Glyph.CHEVRON_DOWN, org.signal.core.ui.R.color.signal_colorOnSurfaceVariant));
         collapsedButton.setText(text);
         collapsedButton.setOnClickListener(v -> {
           if (eventListener != null) {
@@ -857,7 +878,7 @@ public final class ConversationUpdateItem extends FrameLayout
           collapsedButton.setBackgroundTintList(null);
         } else {
           collapsedButton.setBackgroundResource(R.drawable.rounded_rectangle_38);
-          collapsedButton.setBackgroundTintList(ColorStateList.valueOf(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorSurfaceContainerLow)));
+          collapsedButton.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), org.signal.core.ui.R.color.signal_colorSurface1));
         }
 
         collapsedButton.setVisibility(VISIBLE);

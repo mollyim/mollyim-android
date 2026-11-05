@@ -12,20 +12,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import org.thoughtcrime.securesms.PassphraseRequiredActivity;
+import org.signal.core.models.recipients.RecipientId;
+import org.thoughtcrime.securesms.BaseActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.AvatarImageView;
-import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
 
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION;
 
-public class CalleeMustAcceptMessageRequestActivity extends PassphraseRequiredActivity {
+public class CalleeMustAcceptMessageRequestActivity extends BaseActivity {
 
   private static final long   TIMEOUT_MS         = TimeUnit.SECONDS.toMillis(10);
   private static final String RECIPIENT_ID_EXTRA = "extra.recipient.id";
@@ -46,9 +48,11 @@ public class CalleeMustAcceptMessageRequestActivity extends PassphraseRequiredAc
 
   @SuppressLint("SourceLockedOrientationActivity")
   @Override
-  public void onCreate(@Nullable Bundle savedInstanceState, boolean ready) {
-    super.onCreate(savedInstanceState, ready);
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.callee_must_accept_message_request_dialog_fragment);
+
+    SystemWindowInsetsSetter.attach(findViewById(R.id.callee_must_accept_root), this, WindowInsetsCompat.Type.systemBars());
 
     boolean callingFixedToPortrait = getResources().getConfiguration().densityDpi < 480;
     if (callingFixedToPortrait) {
@@ -74,14 +78,8 @@ public class CalleeMustAcceptMessageRequestActivity extends PassphraseRequiredAc
   @Override
   public void onResume() {
     super.onResume();
-  }
 
-  @Override
-  protected void onPostResume(boolean screenLocked) {
-    super.onPostResume(screenLocked);
-    if (!screenLocked) {
-      handler.postDelayed(finisher, TIMEOUT_MS);
-    }
+    handler.postDelayed(finisher, TIMEOUT_MS);
   }
 
   @Override

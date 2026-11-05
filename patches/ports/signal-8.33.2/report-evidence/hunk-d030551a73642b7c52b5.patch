@@ -1,0 +1,12 @@
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+index be4becdd68..224f7cf888 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+@@ -6,6 +6,7 @@
+ 
+ package org.whispersystems.signalservice.internal.push;
+ 
++import com.fasterxml.jackson.annotation.JsonProperty;
+ import com.fasterxml.jackson.core.JsonProcessingException;
+ import com.squareup.wire.Message;
+ 

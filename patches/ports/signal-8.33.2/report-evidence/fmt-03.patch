@@ -1,0 +1,241 @@
+--- a/app/src/main/res/layout/conversation_input_panel.xml
++++ b/app/src/main/res/layout/conversation_input_panel.xml
+@@ -1,40 +1,208 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.components.InputPanel xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/bottom_panel" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?attr/signal_background_primary" android:clipChildren="false" android:clipToPadding="false">
+-
+-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/input_panel_sticker_suggestion" android:layout_width="0dp" android:layout_height="90dp" android:background="?attr/signal_background_secondary" android:orientation="horizontal" android:visibility="gone" app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" tools:visibility="visible"/>
+-
+-    <androidx.appcompat.widget.AppCompatImageButton android:id="@+id/input_panel_exit_edit_mode" android:layout_width="40dp" android:layout_height="40dp" android:layout_marginStart="14dp" android:layout_marginEnd="12dp" android:layout_marginBottom="2dp" android:background="@drawable/circle_tintable" android:backgroundTint="?attr/colorOnSurfaceVariant" android:foreground="?attr/selectableItemBackgroundBorderless" android:scaleType="center" android:visibility="gone" app:layout_constraintBottom_toBottomOf="@id/compose_bubble" app:layout_constraintStart_toStartOf="parent" app:srcCompat="@drawable/symbol_x_24" app:tint="?attr/colorOnPrimary" tools:visibility="gone"/>
+-
+-    <View android:id="@id/compose_bubble" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginStart="12dp" android:layout_marginTop="8dp" android:layout_marginEnd="12dp" android:layout_marginBottom="8dp" android:background="@drawable/compose_background" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/button_toggle" app:layout_constraintStart_toEndOf="@id/input_panel_exit_edit_mode" app:layout_constraintTop_toBottomOf="@id/input_panel_sticker_suggestion"/>
+-
+-    <androidx.appcompat.widget.AppCompatTextView android:id="@+id/edit_message_title" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_marginTop="12dp" android:layout_marginEnd="8dp" android:drawablePadding="6dp" android:text="@string/InputPanel_edit_message" android:textAppearance="@style/Signal.Text.LabelLarge" android:textColor="?attr/colorOnSurface" android:visibility="gone" app:drawableStartCompat="@drawable/symbol_edit_compact_16" app:drawableTint="?attr/colorOnSurface" app:layout_constraintEnd_toStartOf="@+id/edit_message_thumbnail" app:layout_constraintStart_toStartOf="@id/compose_bubble" app:layout_constraintTop_toTopOf="@id/compose_bubble" tools:visibility="visible"/>
+-
+-    <com.google.android.material.imageview.ShapeableImageView android:id="@+id/edit_message_thumbnail" android:layout_width="20dp" android:layout_height="20dp" android:layout_marginEnd="16dp" android:visibility="gone" app:layout_constraintBottom_toBottomOf="@id/edit_message_title" app:layout_constraintEnd_toEndOf="@id/compose_bubble" app:layout_constraintStart_toEndOf="@id/edit_message_title" app:layout_constraintTop_toTopOf="@id/edit_message_title" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.EditMessageMediaThumbnail" tools:src="@tools:sample/avatars" tools:visibility="visible"/>
+-
+-    <ViewStub android:id="@+id/quote_view" android:inflatedId="@+id/quote_view" android:layout="@layout/conversation_input_quote_view" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="6dp" android:layout_marginTop="6dp" android:saveEnabled="false" app:layout_constraintEnd_toEndOf="@+id/compose_bubble" app:layout_constraintStart_toStartOf="@+id/compose_bubble" app:layout_constraintTop_toBottomOf="@+id/edit_message_title"/>
+-
+-    <ViewStub android:id="@+id/link_preview" android:inflatedId="@+id/link_preview" android:layout="@layout/conversation_input_link_preview_view" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginHorizontal="6dp" android:layout_marginTop="6dp" android:saveEnabled="false" app:layout_constraintEnd_toEndOf="@+id/compose_bubble" app:layout_constraintStart_toStartOf="@+id/compose_bubble" app:layout_constraintTop_toBottomOf="@+id/quote_view"/>
+-
+-    <androidx.constraintlayout.widget.Barrier android:id="@+id/compose_bubble_top_elements" android:layout_width="match_parent" android:layout_height="0dp" app:barrierDirection="bottom" app:constraint_referenced_ids="edit_message_title,edit_message_thumbnail,quote_view,link_preview"/>
+-
+-    <org.thoughtcrime.securesms.components.emoji.EmojiToggle android:id="@+id/emoji_toggle" android:layout_width="wrap_content" android:layout_height="@dimen/conversation_compose_height" android:layout_gravity="bottom" android:background="@null" android:contentDescription="@string/conversation_activity__emoji_toggle_description" android:foreground="?attr/selectableItemBackgroundBorderless" android:paddingStart="12dp" android:paddingEnd="12dp" app:layout_constraintBottom_toBottomOf="@id/compose_bubble" app:layout_constraintStart_toStartOf="@id/compose_bubble" app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements" app:layout_constraintVertical_bias="1.0" app:tint="?attr/colorOnSurfaceVariant"/>
+-
+-    <FrameLayout android:id="@+id/embedded_text_editor_container" android:layout_width="0dp" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="@id/compose_bubble" app:layout_constraintEnd_toStartOf="@id/attachment_barrier" app:layout_constraintStart_toEndOf="@id/emoji_toggle" android:visibility="visible" app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements">
+-
+-        <org.thoughtcrime.securesms.components.ComposeText android:id="@+id/embedded_text_editor" style="@style/ComposeEditText" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_gravity="center_vertical" android:minHeight="@dimen/conversation_compose_height" android:nextFocusRight="@+id/send_button" android:nextFocusForward="@+id/send_button" android:paddingVertical="8dp" tools:hint="Send TextSecure message">
++<org.thoughtcrime.securesms.components.InputPanel xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/bottom_panel"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:background="?attr/signal_background_primary"
++    android:clipChildren="false"
++    android:clipToPadding="false">
++
++    <androidx.recyclerview.widget.RecyclerView
++        android:id="@+id/input_panel_sticker_suggestion"
++        android:layout_width="0dp"
++        android:layout_height="90dp"
++        android:background="?attr/signal_background_secondary"
++        android:orientation="horizontal"
++        android:visibility="gone"
++        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        tools:visibility="visible" />
++
++    <androidx.appcompat.widget.AppCompatImageButton
++        android:id="@+id/input_panel_exit_edit_mode"
++        android:layout_width="40dp"
++        android:layout_height="40dp"
++        android:layout_marginStart="14dp"
++        android:layout_marginEnd="12dp"
++        android:layout_marginBottom="2dp"
++        android:background="@drawable/circle_tintable"
++        android:backgroundTint="?attr/colorOnSurfaceVariant"
++        android:foreground="?attr/selectableItemBackgroundBorderless"
++        android:scaleType="center"
++        android:visibility="gone"
++        app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
++        app:layout_constraintStart_toStartOf="parent"
++        app:srcCompat="@drawable/symbol_x_24"
++        app:tint="?attr/colorOnPrimary"
++        tools:visibility="gone" />
++
++    <View
++        android:id="@id/compose_bubble"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        android:layout_marginStart="12dp"
++        android:layout_marginTop="8dp"
++        android:layout_marginEnd="12dp"
++        android:layout_marginBottom="8dp"
++        android:background="@drawable/compose_background"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toStartOf="@+id/button_toggle"
++        app:layout_constraintStart_toEndOf="@id/input_panel_exit_edit_mode"
++        app:layout_constraintTop_toBottomOf="@id/input_panel_sticker_suggestion" />
++
++    <androidx.appcompat.widget.AppCompatTextView
++        android:id="@+id/edit_message_title"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginStart="16dp"
++        android:layout_marginTop="12dp"
++        android:layout_marginEnd="8dp"
++        android:drawablePadding="6dp"
++        android:text="@string/InputPanel_edit_message"
++        android:textAppearance="@style/Signal.Text.LabelLarge"
++        android:textColor="?attr/colorOnSurface"
++        android:visibility="gone"
++        app:drawableStartCompat="@drawable/symbol_edit_compact_16"
++        app:drawableTint="?attr/colorOnSurface"
++        app:layout_constraintEnd_toStartOf="@+id/edit_message_thumbnail"
++        app:layout_constraintStart_toStartOf="@id/compose_bubble"
++        app:layout_constraintTop_toTopOf="@id/compose_bubble"
++        tools:visibility="visible" />
++
++    <com.google.android.material.imageview.ShapeableImageView
++        android:id="@+id/edit_message_thumbnail"
++        android:layout_width="20dp"
++        android:layout_height="20dp"
++        android:layout_marginEnd="16dp"
++        android:visibility="gone"
++        app:layout_constraintBottom_toBottomOf="@id/edit_message_title"
++        app:layout_constraintEnd_toEndOf="@id/compose_bubble"
++        app:layout_constraintStart_toEndOf="@id/edit_message_title"
++        app:layout_constraintTop_toTopOf="@id/edit_message_title"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.EditMessageMediaThumbnail"
++        tools:src="@tools:sample/avatars"
++        tools:visibility="visible" />
++
++    <ViewStub
++        android:id="@+id/quote_view"
++        android:inflatedId="@+id/quote_view"
++        android:layout="@layout/conversation_input_quote_view"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="6dp"
++        android:layout_marginTop="6dp"
++        android:saveEnabled="false"
++        app:layout_constraintEnd_toEndOf="@+id/compose_bubble"
++        app:layout_constraintStart_toStartOf="@+id/compose_bubble"
++        app:layout_constraintTop_toBottomOf="@+id/edit_message_title" />
++
++    <ViewStub
++        android:id="@+id/link_preview"
++        android:inflatedId="@+id/link_preview"
++        android:layout="@layout/conversation_input_link_preview_view"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        android:layout_marginHorizontal="6dp"
++        android:layout_marginTop="6dp"
++        android:saveEnabled="false"
++        app:layout_constraintEnd_toEndOf="@+id/compose_bubble"
++        app:layout_constraintStart_toStartOf="@+id/compose_bubble"
++        app:layout_constraintTop_toBottomOf="@+id/quote_view" />
++
++    <androidx.constraintlayout.widget.Barrier
++        android:id="@+id/compose_bubble_top_elements"
++        android:layout_width="match_parent"
++        android:layout_height="0dp"
++        app:barrierDirection="bottom"
++        app:constraint_referenced_ids="edit_message_title,edit_message_thumbnail,quote_view,link_preview" />
++
++    <org.thoughtcrime.securesms.components.emoji.EmojiToggle
++        android:id="@+id/emoji_toggle"
++        android:layout_width="wrap_content"
++        android:layout_height="@dimen/conversation_compose_height"
++        android:layout_gravity="bottom"
++        android:background="@null"
++        android:contentDescription="@string/conversation_activity__emoji_toggle_description"
++        android:foreground="?attr/selectableItemBackgroundBorderless"
++        android:paddingStart="12dp"
++        android:paddingEnd="12dp"
++        app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
++        app:layout_constraintStart_toStartOf="@id/compose_bubble"
++        app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements"
++        app:layout_constraintVertical_bias="1.0"
++        app:tint="?attr/colorOnSurfaceVariant" />
++
++    <FrameLayout
++        android:id="@+id/embedded_text_editor_container"
++        android:layout_width="0dp"
++        android:layout_height="wrap_content"
++        app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
++        app:layout_constraintEnd_toStartOf="@id/attachment_barrier"
++        app:layout_constraintStart_toEndOf="@id/emoji_toggle"
++        android:visibility="visible"
++        app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements">
++
++        <org.thoughtcrime.securesms.components.ComposeText
++            android:id="@+id/embedded_text_editor"
++            style="@style/ComposeEditText"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent"
++            android:layout_gravity="center_vertical"
++            android:minHeight="@dimen/conversation_compose_height"
++            android:nextFocusRight="@+id/send_button"
++            android:nextFocusForward="@+id/send_button"
++            android:paddingVertical="8dp"
++            tools:hint="Send TextSecure message">
+ 
+             <requestFocus/>
+         </org.thoughtcrime.securesms.components.ComposeText>
+ 
+     </FrameLayout>
+ 
+-    <androidx.constraintlayout.widget.Barrier android:id="@+id/attachment_barrier" android:layout_width="wrap_content" android:layout_height="wrap_content" app:barrierDirection="start" app:constraint_referenced_ids="quick_attachment_toggle,inline_attachment_container"/>
+-
+-    <org.thoughtcrime.securesms.components.HidingLinearLayout android:id="@+id/quick_attachment_toggle" android:layout_width="wrap_content" android:layout_height="0dp" android:layout_gravity="right|end" android:clipChildren="false" android:clipToPadding="false" app:layout_constraintBottom_toBottomOf="@id/compose_bubble" app:layout_constraintEnd_toEndOf="@id/compose_bubble" app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements">
+-
+-        <ImageButton android:id="@+id/quick_camera_toggle" android:layout_width="24dp" android:layout_height="match_parent" android:layout_gravity="center_vertical" android:layout_marginEnd="16dp" android:background="@null" android:contentDescription="@string/conversation_activity__quick_attachment_drawer_toggle_camera_description" android:foreground="?selectableItemBackgroundBorderless" android:scaleType="fitCenter" app:srcCompat="@drawable/symbol_camera_24" app:tint="?attr/colorOnSurfaceVariant"/>
+-
+-        <org.thoughtcrime.securesms.components.MicrophoneRecorderView android:id="@+id/recorder_view" android:layout_width="24dp" android:layout_height="match_parent" android:layout_gravity="center_vertical" android:layout_marginEnd="12dp" android:clipChildren="false" android:clipToPadding="false" tools:visibility="gone">
++    <androidx.constraintlayout.widget.Barrier
++        android:id="@+id/attachment_barrier"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        app:barrierDirection="start"
++        app:constraint_referenced_ids="quick_attachment_toggle,inline_attachment_container" />
++
++    <org.thoughtcrime.securesms.components.HidingLinearLayout
++        android:id="@+id/quick_attachment_toggle"
++        android:layout_width="wrap_content"
++        android:layout_height="0dp"
++        android:layout_gravity="right|end"
++        android:clipChildren="false"
++        android:clipToPadding="false"
++        app:layout_constraintBottom_toBottomOf="@id/compose_bubble"
++        app:layout_constraintEnd_toEndOf="@id/compose_bubble"
++        app:layout_constraintTop_toBottomOf="@id/compose_bubble_top_elements">
++
++        <ImageButton
++            android:id="@+id/quick_camera_toggle"
++            android:layout_width="24dp"
++            android:layout_height="match_parent"
++            android:layout_gravity="center_vertical"
++            android:layout_marginEnd="16dp"
++            android:background="@null"
++            android:contentDescription="@string/conversation_activity__quick_attachment_drawer_toggle_camera_description"
++            android:foreground="?selectableItemBackgroundBorderless"
++            android:scaleType="fitCenter"
++            app:srcCompat="@drawable/symbol_camera_24"
++            app:tint="?attr/colorOnSurfaceVariant" />
++
++        <org.thoughtcrime.securesms.components.MicrophoneRecorderView
++            android:id="@+id/recorder_view"
++            android:layout_width="24dp"
++            android:layout_height="match_parent"
++            android:layout_gravity="center_vertical"
++            android:layout_marginEnd="12dp"
++            android:clipChildren="false"
++            android:clipToPadding="false"
++            tools:visibility="gone">
+ 
+             <include layout="@layout/microphone_recorder_view"/>
+ 

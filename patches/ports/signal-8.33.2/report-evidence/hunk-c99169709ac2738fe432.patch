@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+index 67a515ff99..a259dc0711 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+ import androidx.fragment.app.DialogFragment
+ import androidx.fragment.app.FragmentActivity
++import androidx.fragment.compose.AndroidFragment
+ import androidx.lifecycle.Lifecycle
+ import androidx.lifecycle.LifecycleOwner
+ import androidx.lifecycle.compose.collectAsStateWithLifecycle

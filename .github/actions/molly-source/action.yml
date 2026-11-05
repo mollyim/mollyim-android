@@ -1,0 +1,56 @@
+name: Molly source
+description: >-
+  Reconstruct and verify the Molly source tree from the Signal base and
+  patches/molly, then expose it as a standalone Git repository.
+inputs:
+  base:
+    description: "Optional base commit for the pipeline's repository-file check."
+    required: false
+    default: ""
+  tag:
+    description: "Optional tag to create on the reconstructed HEAD, for builds that read the version from `git describe`."
+    required: false
+    default: ""
+outputs:
+  dir:
+    description: "Directory holding the verified Molly source."
+    value: ${{ steps.reconstruct.outputs.dir }}
+runs:
+  using: composite
+  steps:
+    - name: Reconstruct and verify the Molly source
+      id: reconstruct
+      shell: bash
+      env:
+        BASE: ${{ inputs.base }}
+        TAG: ${{ inputs.tag }}
+        GIT_LFS_SKIP_SMUDGE: "1"
+      run: |
+        set -euo pipefail
+        # Tags created before Molly moved to patches still hold the app at the root.
+        if [ ! -f molly-build.json ]; then
+          echo "::warning::No molly-build.json; using the checkout as the Molly source"
+          echo "dir=$GITHUB_WORKSPACE" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        verified="$RUNNER_TEMP/molly-verified"
+        source="$RUNNER_TEMP/molly-source"
+        git fetch --no-tags https://github.com/mollyim/mollyim-android.git \
+          "$(jq -r .molly.target molly-build.json)"
+        python3 tools/patches/release.py --repo . --config molly-build.json \
+          --worktree "$verified" --report "$RUNNER_TEMP/molly-source-proof.json" \
+          ${BASE:+--base "$BASE"}
+        # A worktree's .git file points back into this checkout, which Docker
+        # builds cannot follow. Clone only the reconstructed commit into a standalone
+        # repository: the build reads HEAD and an exact tag, never history, and a full
+        # copy of the object store would exhaust the runner's disk. The checkout's tags
+        # name Molly's own commits, so none are copied.
+        git clone --quiet --no-local --depth 1 --no-tags "file://$verified" "$source"
+        test "$(git -C "$source" rev-parse 'HEAD^{tree}')" = \
+             "$(git -C "$verified" rev-parse 'HEAD^{tree}')"
+        test -z "$(git -C "$source" status --porcelain --ignored)"
+        # The reconstruction commits have fixed dates, so the commit hash baked into the APK is deterministic.
+        # app/build.gradle.kts reads the version name from `git describe --tags --exact-match`.
+        if [ -n "$TAG" ]; then git -C "$source" tag -- "$TAG"; fi
+        git worktree remove --force "$verified"
+        echo "dir=$source" >> "$GITHUB_OUTPUT"

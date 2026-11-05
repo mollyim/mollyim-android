@@ -55,6 +55,15 @@ class RegistrationPermissionsTest {
   }
 
   @Test
+  @Config(sdk = [25])
+  fun `API 25 does not request read phone numbers`() {
+    val permissions = RegistrationPermissions.getRequiredPermissions(isModernBackupDirectorySelectionRequired = true)
+
+    assertThat(permissions.contains(Manifest.permission.READ_PHONE_STATE)).isTrue()
+    assertThat(permissions.contains(Manifest.permission.READ_PHONE_NUMBERS)).isFalse()
+  }
+
+  @Test
   @Config(sdk = [34])
   fun `hasAllRequiredPermissions is false when nothing is granted`() {
     val context = ApplicationProvider.getApplicationContext<Application>()

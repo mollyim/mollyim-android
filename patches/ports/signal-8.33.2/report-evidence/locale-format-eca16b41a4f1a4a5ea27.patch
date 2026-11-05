@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-sw/strings.xml b/core/util/src/main/res/values-sw/strings.xml
+index 3c6b48debc49d1f35e1108d52d6b4404b5abf7ff..2c18f71a69c6c9c984b896fd452a06fe5b3fc851 100644
+--- a/core/util/src/main/res/values-sw/strings.xml
++++ b/core/util/src/main/res/values-sw/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Mwalike kwenye Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

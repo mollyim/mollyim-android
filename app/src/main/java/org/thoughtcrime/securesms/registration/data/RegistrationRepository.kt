@@ -9,21 +9,23 @@ import android.app.backup.BackupManager
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
-import androidx.core.app.NotificationManagerCompat
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
+import kotlinx.coroutines.withTimeoutOrNull
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
 import org.signal.core.models.ServiceId
 import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.models.backup.MediaRootBackupKey
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
 import org.signal.core.util.crypto.DeviceNameCipher
+import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.util.KeyHelper
@@ -49,14 +51,12 @@ import org.thoughtcrime.securesms.jobs.RotateCertificateJob
 import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.pin.Svr3Migration
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.pin.SvrWrongPinException
 import org.thoughtcrime.securesms.profiles.AvatarHelper
 import org.thoughtcrime.securesms.push.AccountManagerFactory
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciIdentityKeyPair
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getAciPreKeyCollection
 import org.thoughtcrime.securesms.registration.data.LocalRegistrationMetadataUtil.getPniIdentityKeyPair
@@ -71,7 +71,6 @@ import org.thoughtcrime.securesms.registration.fcm.PushChallengeRequest
 import org.thoughtcrime.securesms.registration.viewmodel.SvrAuthCredentialSet
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.SvrNoDataException
 import org.whispersystems.signalservice.api.account.AccountAttributes
 import org.whispersystems.signalservice.api.account.DeviceAttributes
@@ -210,6 +209,7 @@ object RegistrationRepository {
     recipientTable.markRegisteredOrThrow(selfId, aci)
     recipientTable.linkIdsForSelf(aci, pni, data.e164)
     recipientTable.setProfileKey(selfId, ProfileKey(data.profileKey.toByteArray()))
+    SignalStore.account.notSyncedRotatedSelfProfileKey = null
 
     AppDependencies.recipientCache.clearSelf()
 
@@ -233,14 +233,14 @@ object RegistrationRepository {
 
     SignalStore.account.setServicePassword(data.servicePassword)
     SignalStore.account.setRegistered(registered = true, isAciChanged = isAciChanged)
-    TextSecurePreferences.setPromptedPushRegistration(context, true)
-    TextSecurePreferences.setUnauthorizedReceived(context, false)
-    NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID)
+    SignalStore.registration.hasPromptedPushRegistration = true
+    SignalStore.account.isUnauthorizedReceived = false
 
     val masterKey = if (data.masterKey != null) MasterKey(data.masterKey.toByteArray()) else null
     SvrRepository.onRegistrationComplete(masterKey, data.pin, hasPin, data.reglockEnabled, SignalStore.account.restoredAccountEntropyPool)
 
-    AppDependencies.resetNetwork(restartMessageObserver = true)
+    AppDependencies.resetNetwork()
+    AppDependencies.startNetwork()
     PreKeysSyncJob.enqueue()
 
     recipientTable.clearSelfKeyTransparencyData()
@@ -417,7 +417,7 @@ object RegistrationRepository {
     Log.v(TAG, "registerAccount()")
     val api: RegistrationApi = AccountManagerFactory.getInstance().createUnauthenticated(context, registrationData.e164, SignalServiceAddress.DEFAULT_DEVICE_ID, registrationData.password).registrationApi
 
-    val universalUnidentifiedAccess: Boolean = TextSecurePreferences.isUniversalUnidentifiedAccess(context)
+    val universalUnidentifiedAccess: Boolean = SignalStore.settings.isUniversalUnidentifiedAccess
     val unidentifiedAccessKey: ByteArray = UnidentifiedAccess.deriveAccessKeyFrom(registrationData.profileKey)
 
     val masterKey: MasterKey?
@@ -459,10 +459,10 @@ object RegistrationRepository {
     val result: NetworkResult<AccountRegistrationResult> = api.registerAccount(sessionId, registrationData.recoveryPassword, accountAttributes, aciPreKeyCollection, pniPreKeyCollection, registrationData.fcmToken, true)
       .map { accountRegistrationResponse: VerifyAccountResponse ->
         AccountRegistrationResult(
-          uuid = accountRegistrationResponse.uuid,
-          pni = accountRegistrationResponse.pni,
+          uuid = accountRegistrationResponse.uuid!!,
+          pni = accountRegistrationResponse.pni!!,
           storageCapable = accountRegistrationResponse.storageCapable,
-          number = accountRegistrationResponse.number,
+          number = accountRegistrationResponse.number!!,
           masterKey = masterKey,
           pin = pin,
           aciPreKeyCollection = aciPreKeyCollection,
@@ -557,8 +557,7 @@ object RegistrationRepository {
   private suspend fun createSessionAndBlockForPushChallenge(accountManager: RegistrationApi, fcmToken: String, mcc: String?, mnc: String?): NetworkResult<RegistrationSessionMetadataResponse> = withContext(Dispatchers.IO) {
     // TODO [regv2]: do not use event bus nor latch
     val subscriber = PushTokenChallengeSubscriber()
-    val eventBus = EventBus.getDefault()
-    eventBus.register(subscriber)
+    val subscription = EventBus.default.subscribe<PushChallengeRequest.PushChallengeEvent>(handler = subscriber::onChallengeEvent)
 
     try {
       Log.d(TAG, "Requesting a registration session with FCM token…")
@@ -568,7 +567,6 @@ object RegistrationRepository {
       }
 
       val receivedPush = subscriber.latch.await(PUSH_REQUEST_TIMEOUT, TimeUnit.MILLISECONDS)
-      eventBus.unregister(subscriber)
 
       if (receivedPush) {
         val challenge = subscriber.challenge
@@ -586,6 +584,8 @@ object RegistrationRepository {
     } catch (ex: Exception) {
       Log.w(TAG, "Exception caught, but the earlier try block should have caught it?", ex)
       return@withContext NetworkResult.ApplicationError<RegistrationSessionMetadataResponse>(ex)
+    } finally {
+      subscription.unsubscribe()
     }
   }
 
@@ -650,6 +650,33 @@ object RegistrationRepository {
       .toList()
   }
 
+  /**
+   * Starts an SMS listener to auto-enter a verification code.
+   *
+   * The listener [lives for 5 minutes](https://developers.google.com/android/reference/com/google/android/gms/auth/api/phone/SmsRetrieverApi).
+   *
+   * @return whether or not the Play Services SMS Listener was successfully registered.
+   */
+  suspend fun registerSmsListener(context: Context): Boolean {
+    Log.d(TAG, "Attempting to start verification code SMS retriever.")
+    val started = withTimeoutOrNull(5.seconds.inWholeMilliseconds) {
+      try {
+        SmsRetriever.getClient(context).startSmsRetriever().await()
+        Log.d(TAG, "Successfully started verification code SMS retriever.")
+        return@withTimeoutOrNull true
+      } catch (ex: Exception) {
+        Log.w(TAG, "Could not start verification code SMS retriever due to exception.", ex)
+        return@withTimeoutOrNull false
+      }
+    }
+
+    if (started == null) {
+      Log.w(TAG, "Could not start verification code SMS retriever due to timeout.")
+    }
+
+    return started == true
+  }
+
   @VisibleForTesting
   fun generateSignedAndLastResortPreKeys(identity: IdentityKeyPair, metadataStore: PreKeyMetadataStore): PreKeyCollection {
     val signedPreKey = PreKeyUtil.generateSignedPreKey(metadataStore.nextSignedPreKeyId, identity.privateKey)
@@ -673,7 +700,7 @@ object RegistrationRepository {
     while (timeRemaining > 0 && coroutineContext.isActive) {
       Log.d(TAG, "[waitForLinkAndSyncBackupDetails] Willing to wait for $timeRemaining ms...")
 
-      when (val result = SignalNetwork.linkDevice.waitForPrimaryDevice(timeout = 60.seconds)) {
+      when (val result = SignalNetwork.linkDeviceApi.waitForPrimaryDevice(timeout = 60.seconds)) {
         is NetworkResult.Success -> {
           // The primary has responded: either with an archive location, or an error telling us not to expect one.
           Log.i(TAG, "[waitForLinkAndSyncBackupDetails] Primary responded (hasArchive=${result.result.hasArchive}, error=${result.result.error})")
@@ -693,10 +720,9 @@ object RegistrationRepository {
               return null
             }
             429 -> {
-              Log.w(TAG, "[waitForLinkAndSyncBackupDetails] Hit a rate-limit. Will try to wait again after delay: ${result.retryAfter()}.")
-              result.retryAfter()?.let { retryAfter ->
-                delay(retryAfter)
-              }
+              val retryAfter = result.retryAfter() ?: 5.seconds
+              Log.w(TAG, "[waitForLinkAndSyncBackupDetails] Hit a rate-limit. Will try to wait again after delay: $retryAfter.")
+              delay(retryAfter)
             }
             else -> {
               Log.w(TAG, "[waitForLinkAndSyncBackupDetails] Hit an unknown status code of ${result.code}. Will try to wait again.")
@@ -727,7 +753,6 @@ object RegistrationRepository {
     var challenge: String? = null
     val latch = CountDownLatch(1)
 
-    @Subscribe
     fun onChallengeEvent(pushChallengeEvent: PushChallengeRequest.PushChallengeEvent) {
       Log.d(TAG, "Push challenge received!")
       challenge = pushChallengeEvent.challenge

@@ -294,7 +294,7 @@
 
         <argument
             android:name="badge"
-            app:argType="org.thoughtcrime.securesms.badges.models.Badge"
+            app:argType="org.signal.core.models.badges.Badge"
             app:nullable="false" />
 
     </dialog>
@@ -308,6 +308,71 @@
     <!-- endregion -->
 
     <!-- region GiftFlow -->
+
+    <fragment
+        android:id="@+id/giftFlowStartFragment"
+        android:name="org.thoughtcrime.securesms.badges.gifts.flow.GiftFlowStartFragment"
+        android:label="GiftFlowStartFragment">
+        <action
+            android:id="@+id/action_giftFlowStartFragment_to_setCurrencyFragment"
+            app:destination="@id/setCurrencyFragment">
+            <argument
+                android:name="inAppPaymentType"
+                app:argType="org.signal.donations.InAppPaymentType" />
+
+            <argument
+                android:name="supportedCurrencyCodes"
+                app:argType="string[]" />
+        </action>
+        <action
+            android:id="@+id/action_giftFlowStartFragment_to_giftFlowRecipientSelectionFragment"
+            app:destination="@id/giftFlowRecipientSelectionFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/giftFlowRecipientSelectionFragment"
+        android:name="org.thoughtcrime.securesms.badges.gifts.flow.GiftFlowRecipientSelectionFragment"
+        android:label="GiftFlowRecipientSelectionFragment">
+        <action
+            android:id="@+id/action_giftFlowRecipientSelectionFragment_to_giftFlowConfirmationFragment"
+            app:destination="@id/giftFlowConfirmationFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/giftFlowConfirmationFragment"
+        android:name="org.thoughtcrime.securesms.badges.gifts.flow.GiftFlowConfirmationFragment"
+        android:label="GiftFlowConfirmationFragment" >
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_gatewaySelectorBottomSheet"
+            app:destination="@id/gatewaySelectorBottomSheet" />
+
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_creditCardFragment"
+            app:destination="@id/creditCardFragment" />
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_stripePaymentInProgressFragment"
+            app:destination="@id/stripePaymentInProgressFragment" />
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_paypalPaymentInProgressFragment"
+            app:destination="@id/paypalPaymentInProgressFragment" />
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_bankTransferMandateFragment"
+            app:destination="@id/bankTransferMandateFragment" />
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_donationPendingBottomSheet"
+            app:destination="@id/donationPendingBottomSheet" />
+        <action
+            android:id="@+id/action_giftFlowConfirmationFragment_to_idealTransferDetailsFragment"
+            app:destination="@id/idealTransferDetailsFragment" />
+    </fragment>
 
     <!-- endregion -->
 </navigation>

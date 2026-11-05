@@ -1,0 +1,72 @@
+--- a/app/src/main/res/layout/stories_text_post_creation_fragment.xml
++++ b/app/src/main/res/layout/stories_text_post_creation_fragment.xml
+@@ -1,17 +1,63 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/scene" android:layout_width="match_parent" android:layout_height="match_parent">
++<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:id="@+id/scene"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent">
+ 
+-    <com.google.android.material.card.MaterialCardView android:id="@+id/story_text_post_card" android:layout_width="0dp" android:layout_height="0dp" app:cardCornerRadius="18dp" app:cardElevation="0dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="9:16" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
++    <com.google.android.material.card.MaterialCardView
++        android:id="@+id/story_text_post_card"
++        android:layout_width="0dp"
++        android:layout_height="0dp"
++        app:cardCornerRadius="18dp"
++        app:cardElevation="0dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintDimensionRatio="9:16"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent">
+ 
+-        <org.thoughtcrime.securesms.stories.StoryTextPostView android:id="@+id/story_text_post" android:layout_width="match_parent" android:layout_height="match_parent"/>
++        <org.thoughtcrime.securesms.stories.StoryTextPostView
++            android:id="@+id/story_text_post"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent" />
+ 
+     </com.google.android.material.card.MaterialCardView>
+ 
+-    <com.google.android.material.imageview.ShapeableImageView android:id="@+id/send" android:layout_width="48dp" android:layout_height="48dp" android:layout_marginEnd="@dimen/gutter" android:layout_marginBottom="16dp" android:background="?attr/colorOnSecondaryContainer" android:padding="4dp" android:scaleType="centerInside" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle" app:srcCompat="@drawable/ic_arrow_end_24" app:tint="?attr/colorSecondaryContainer"/>
++    <com.google.android.material.imageview.ShapeableImageView
++        android:id="@+id/send"
++        android:layout_width="48dp"
++        android:layout_height="48dp"
++        android:layout_marginEnd="@dimen/gutter"
++        android:layout_marginBottom="16dp"
++        android:background="?attr/colorOnSecondaryContainer"
++        android:padding="4dp"
++        android:scaleType="centerInside"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Signal.Circle"
++        app:srcCompat="@drawable/ic_arrow_end_24"
++        app:tint="?attr/colorSecondaryContainer" />
+ 
+-    <com.google.android.material.card.MaterialCardView android:id="@+id/send_in_progress_indicator" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="gone" app:cardBackgroundColor="?attr/colorSurface" app:cardCornerRadius="18dp" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" tools:visibility="visible">
++    <com.google.android.material.card.MaterialCardView
++        android:id="@+id/send_in_progress_indicator"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:visibility="gone"
++        app:cardBackgroundColor="?attr/colorSurface"
++        app:cardCornerRadius="18dp"
++        app:layout_constraintBottom_toBottomOf="parent"
++        app:layout_constraintEnd_toEndOf="parent"
++        app:layout_constraintStart_toStartOf="parent"
++        app:layout_constraintTop_toTopOf="parent"
++        tools:visibility="visible">
+ 
+-        <com.google.android.material.progressindicator.CircularProgressIndicator android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="24dp" android:indeterminate="true" app:indicatorColor="?attr/colorPrimary"/>
++        <com.google.android.material.progressindicator.CircularProgressIndicator
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_margin="24dp"
++            android:indeterminate="true"
++            app:indicatorColor="?attr/colorPrimary" />
+     </com.google.android.material.card.MaterialCardView>
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>

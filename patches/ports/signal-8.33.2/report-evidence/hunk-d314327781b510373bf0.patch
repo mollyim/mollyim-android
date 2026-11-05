@@ -1,0 +1,14 @@
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobmanager/impl/NetworkConstraintObserver.java
+@@ -9,8 +9,9 @@
+ 
+ import androidx.annotation.NonNull;
+ 
+-import org.signal.core.util.eventbus.EventBus;
+-import org.signal.core.util.eventbus.ThreadMode;
++import org.greenrobot.eventbus.EventBus;
++import org.greenrobot.eventbus.Subscribe;
++import org.greenrobot.eventbus.ThreadMode;
+ import org.signal.core.util.logging.Log;
+ import org.thoughtcrime.securesms.events.NetworkAvailableEvent;
+ import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;

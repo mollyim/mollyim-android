@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.enableSavedStateHandles
 import androidx.lifecycle.lifecycleScope
+import io.reactivex.rxjava3.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.Subject
 import kotlinx.coroutines.launch
 import org.signal.core.util.ConfigurationUtil
 import org.signal.core.util.Debouncer
@@ -17,13 +19,17 @@ import org.signal.core.util.logging.Log.tag
 import org.thoughtcrime.securesms.MainActivity
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayRepository
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsNavHostFragment
+import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsNavHostFragment.Companion.setConversationSettingsAnimations
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaController
 import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.jobs.ConversationShortcutUpdateJob
-import org.thoughtcrime.securesms.main.MainNavigationChatDetailRouter
-import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
+import org.thoughtcrime.securesms.main.MainDetailRoute
+import org.thoughtcrime.securesms.main.MainNavigationEventSink
+import org.thoughtcrime.securesms.main.MainNavigationEvents
 import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
 import java.util.concurrent.TimeUnit
@@ -31,7 +37,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Wrapper activity for ConversationFragment.
  */
-open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, MainNavigationChatDetailRouter {
+open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaControllerOwner, GooglePayComponent, MainNavigationEventSink {
 
   companion object {
     private val TAG = tag(ConversationActivity::class.java)
@@ -43,8 +49,10 @@ open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaCo
 
   override val voiceNoteMediaController = VoiceNoteMediaController(this, true)
 
+  override val googlePayRepository: GooglePayRepository by lazy { GooglePayRepository(this) }
+  override val googlePayResultPublisher: Subject<GooglePayComponent.GooglePayResult> = PublishSubject.create()
+
   private val motionEventRelay: MotionEventRelay by viewModels()
-  private val shareDataTimestampViewModel: ShareDataTimestampViewModel by viewModels()
 
   override fun onPreCreate() {
     theme.onCreate(this)
@@ -72,7 +80,6 @@ open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaCo
     transitionDebouncer.publish { supportStartPostponedEnterTransition() }
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
 
-    shareDataTimestampViewModel.setTimestampFromActivityCreation(savedInstanceState, intent)
     setContentView(R.layout.fragment_container)
 
     if (savedInstanceState == null) {
@@ -106,6 +113,12 @@ open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaCo
     startActivity(intent)
   }
 
+  @Suppress("DEPRECATION")
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    googlePayResultPublisher.onNext(GooglePayComponent.GooglePayResult(requestCode, resultCode, data))
+  }
+
   override fun onConfigurationChanged(newConfiguration: Configuration) {
     super.onConfigurationChanged(newConfiguration)
     if (ConfigurationUtil.isUiModeChanged(resources.configuration, newConfiguration)) {
@@ -129,26 +142,47 @@ open class ConversationActivity : PassphraseRequiredActivity(), VoiceNoteMediaCo
       .commitNowAllowingStateLoss()
   }
 
-  override fun exitDetailLocation() {
+  /**
+   * Only the events a conversation displayed on its own can answer. The rest belong to the main window,
+   * which is where the same screens send them when it is the one hosting them.
+   */
+  override fun onEvent(event: MainNavigationEvents) {
+    when (event) {
+      MainNavigationEvents.ExitDetail -> exitDetail()
+      is MainNavigationEvents.GoToDetail -> {
+        val route = event.route
+        if (route is MainDetailRoute.Chats) {
+          goToChatDetail(route)
+        } else {
+          Log.w(TAG, "Cannot display $route outside of the main window. Ignoring it.")
+        }
+      }
+
+      else -> Log.w(TAG, "Unsupported outside of the main window: $event. Ignoring it.")
+    }
+  }
+
+  private fun exitDetail() {
     if (!supportFragmentManager.popBackStackImmediate()) {
       finish()
     }
   }
 
-  override fun goToChatDetail(location: MainNavigationDetailLocation.Chats) {
+  private fun goToChatDetail(location: MainDetailRoute.Chats) {
     when (location) {
-      is MainNavigationDetailLocation.Chats.ConversationSettings -> {
+      is MainDetailRoute.Chats.ConversationSettings -> {
         lifecycleScope.launch {
           val args = ConversationSettingsNavHostFragment.createArgs(location.recipientId)
           supportFragmentManager
             .beginTransaction()
+            .setConversationSettingsAnimations()
             .replace(R.id.fragment_container, ConversationSettingsNavHostFragment::class.java, args)
             .addToBackStack(null)
             .commit()
         }
       }
 
-      is MainNavigationDetailLocation.Chats.MessageDetails -> {
+      is MainDetailRoute.Chats.MessageDetails -> {
         MessageDetailsFragment.create(location.messageId, location.recipientId)
           .show(supportFragmentManager, MESSAGE_DETAILS_FRAGMENT_TAG)
       }

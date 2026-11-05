@@ -14,7 +14,7 @@
         android:layout_height="2dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:background="?attr/signal_icon_tint_tab_unselected"
+        android:background="@color/signal_icon_tint_tab_unselected"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -29,15 +29,6 @@
         android:layout_marginVertical="16dp"
         android:text="@string/PinnedMessage__pinned_messages"
         android:textAppearance="@style/Signal.Text.TitleMedium" />
-
-    <FrameLayout
-        android:id="@+id/video_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/pinned_list"
-        app:layout_constraintEnd_toEndOf="@id/pinned_list"
-        app:layout_constraintStart_toStartOf="@id/pinned_list"
-        app:layout_constraintTop_toTopOf="@id/pinned_list" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pinned_list"
@@ -54,7 +45,7 @@
         android:id="@+id/unpin_all_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurfaceContainer"
+        android:background="@color/signal_colorSurface"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">

@@ -10,7 +10,7 @@ final class SignalPinReminderSchedule implements MegaphoneSchedule {
       return false;
     }
 
-    if (!SignalStore.svr().hasPin() || SignalStore.account().isLinkedDevice()) {
+    if (!SignalStore.svr().hasPin()) {
       return false;
     }
 
@@ -31,7 +31,7 @@ final class SignalPinReminderSchedule implements MegaphoneSchedule {
     }
 
     long lastReminderTime = SignalStore.pin().getLastReminderTime();
-    long interval         = SignalStore.pin().getCurrentInterval();
+    long interval         = SignalStore.pin().getNextReminderInterval();
 
     return currentTime - lastReminderTime >= interval;
   }

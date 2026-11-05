@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.profiles.edit.pnp
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -9,7 +10,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
-import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.databinding.WhoCanFindMeByPhoneNumberFragmentBinding
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
+import org.signal.appsettings.R as AppSettingsR
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -61,13 +62,13 @@ class WhoCanFindMeByPhoneNumberFragment : DSLSettingsFragment(
   private fun getConfiguration(state: WhoCanFindMeByPhoneNumberState): DSLConfiguration {
     return configure {
       radioPref(
-        title = DSLSettingsText.from(R.string.PhoneNumberPrivacy_everyone),
+        title = DSLSettingsText.from(AppSettingsR.string.PhoneNumberPrivacy_everyone),
         isChecked = state == WhoCanFindMeByPhoneNumberState.EVERYONE,
         onClick = { viewModel.onEveryoneCanFindMeByPhoneNumberSelected() }
       )
 
       radioPref(
-        title = DSLSettingsText.from(R.string.PhoneNumberPrivacy_nobody),
+        title = DSLSettingsText.from(AppSettingsR.string.PhoneNumberPrivacy_nobody),
         isChecked = state == WhoCanFindMeByPhoneNumberState.NOBODY,
         onClick = this@WhoCanFindMeByPhoneNumberFragment::onNobodyCanFindMeByNumberClicked
       )
@@ -79,7 +80,7 @@ class WhoCanFindMeByPhoneNumberFragment : DSLSettingsFragment(
             WhoCanFindMeByPhoneNumberState.NOBODY -> R.string.WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able
           },
           DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant))
         )
       )
     }
@@ -87,9 +88,9 @@ class WhoCanFindMeByPhoneNumberFragment : DSLSettingsFragment(
 
   private fun onNobodyCanFindMeByNumberClicked() {
     MaterialAlertDialogBuilder(requireContext())
-      .setTitle(R.string.PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title)
-      .setMessage(getString(R.string.PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message))
-      .setNegativeButton(getString(R.string.PhoneNumberPrivacySettingsFragment__cancel), null)
+      .setTitle(AppSettingsR.string.PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title)
+      .setMessage(getString(AppSettingsR.string.PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message))
+      .setNegativeButton(getString(AppSettingsR.string.PhoneNumberPrivacySettingsFragment__cancel), null)
       .setPositiveButton(android.R.string.ok) { _, _ -> viewModel.onNobodyCanFindMeByPhoneNumberSelected() }
       .show()
   }

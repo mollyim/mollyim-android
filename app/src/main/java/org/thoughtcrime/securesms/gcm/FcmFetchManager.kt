@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.jobs.MessageFetchJob
 import org.thoughtcrime.securesms.messages.WebSocketDrainer
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.NotificationIds
+import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.concurrent.SerialMonoLifoExecutor
 import kotlin.time.Duration.Companion.minutes
@@ -57,7 +58,7 @@ object FcmFetchManager {
     }
 
   @Volatile
-  private var last = 0L
+  private var activeCount = 0
 
   @Volatile
   private var highPriority = false
@@ -79,12 +80,9 @@ object FcmFetchManager {
     }
   }
 
-  @JvmStatic
-  fun postMayHaveMessagesNotification(context: Context) {
-    val notificationManager = NotificationManagerCompat.from(context)
-
-    if (notificationManager.getNotificationChannel(NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS) == null) {
-      Log.e(TAG, "Notification channel for MAY_HAVE_MESSAGES_NOTIFICATION does not exist.")
+  private fun postMayHaveMessagesNotification(context: Context) {
+    if (RemoteConfig.fcmMayHaveMessagesNotificationKillSwitch) {
+      Log.w(TAG, "May have messages notification kill switch")
       return
     }
 
@@ -93,9 +91,10 @@ object FcmFetchManager {
       return
     }
 
-    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.ADDITIONAL_MESSAGE_NOTIFICATIONS)
+    Log.w(TAG, "Notifying the user that they may have new messages.")
+
+    val mayHaveMessagesNotification: Notification = NotificationCompat.Builder(context, NotificationChannels.getInstance().ADDITIONAL_MESSAGE_NOTIFICATIONS)
       .setSmallIcon(R.drawable.ic_notification)
-      .setColor(ContextCompat.getColor(context, R.color.core_ultramarine))
       .setContentTitle(context.getString(R.string.FcmFetchManager__you_may_have_messages))
       .setCategory(NotificationCompat.CATEGORY_MESSAGE)
       .setContentIntent(PendingIntent.getActivity(context, 0, MainActivity.clearTop(context), mutable()))
@@ -103,7 +102,7 @@ object FcmFetchManager {
       .setOnlyAlertOnce(true)
       .build()
 
-    notificationManager
+    NotificationManagerCompat.from(context)
       .notify(NotificationIds.MAY_HAVE_MESSAGES_NOTIFICATION_ID, mayHaveMessagesNotification)
   }
 
@@ -112,7 +111,7 @@ object FcmFetchManager {
     NotificationManagerCompat.from(context).cancel(NotificationIds.MAY_HAVE_MESSAGES_NOTIFICATION_ID)
   }
 
-  private fun fetch(context: Context, now: Long) {
+  private fun fetch(context: Context) {
     val hasHighPriorityContext = highPriority
 
     val metricId = SignalLocalMetrics.PushWebsocketFetch.startFetch()
@@ -128,8 +127,9 @@ object FcmFetchManager {
     }
 
     synchronized(this) {
+      activeCount--
 
-      if (last <= now) {
+      if (activeCount <= 0) {
         Log.i(TAG, "No more active. Stopping.")
         context.stopService(Intent(context, FcmFetchBackgroundService::class.java))
         FcmFetchForegroundService.stopServiceIfNecessary(context)
@@ -150,9 +150,13 @@ object FcmFetchManager {
       if (highPriority) {
         this.highPriority = true
       }
-      last = System.nanoTime()
-      Log.i(TAG, "Updating last event to $last")
-      EXECUTOR.enqueue { fetch(context, last) }
+      val performedReplace = EXECUTOR.enqueue { fetch(context) }
+      if (performedReplace) {
+        Log.i(TAG, "Already have one running and one enqueued. Ignoring.")
+      } else {
+        activeCount++
+        Log.i(TAG, "Incrementing active count to $activeCount")
+      }
     }
   }
 

@@ -21,19 +21,21 @@ import android.widget.SeekBar
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.Util
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.colors.ChatColors
 import org.thoughtcrime.securesms.conversation.colors.ui.ChatColorPreviewView
 import org.thoughtcrime.securesms.conversation.colors.ui.ChatColorSelectionViewModel
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.ViewUtil
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter
 import org.thoughtcrime.securesms.util.customizeOnDraw
 
 private const val MAX_SEEK_DIVISIONS = 1023
@@ -68,6 +70,9 @@ class CustomChatColorCreatorPageFragment :
     val gradientTool: CustomChatColorGradientToolView = view.findViewById(R.id.gradient_tool)
     val save: View = view.findViewById(R.id.save)
     val scrollView: ScrollView = view.findViewById(R.id.scroll_view)
+
+    scrollView.clipToPadding = false
+    SystemWindowInsetsSetter.attach(scrollView, viewLifecycleOwner, WindowInsetsCompat.Type.navigationBars())
 
     if (page == SINGLE_PAGE) {
       gradientTool.visibility = View.GONE
@@ -333,7 +338,7 @@ class CustomChatColorCreatorPageFragment :
   private class ThumbDrawable(context: Context) : Drawable() {
 
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-      color = ThemeUtil.getThemedColor(context, R.attr.signal_background_primary)
+      color = ContextCompat.getColor(context, R.color.signal_background_primary)
     }
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

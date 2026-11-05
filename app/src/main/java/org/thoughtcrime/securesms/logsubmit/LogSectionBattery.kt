@@ -7,9 +7,9 @@ import android.os.Build
 import android.os.PowerManager
 import android.os.Process
 import android.os.SystemClock
+import org.signal.core.util.DeviceProperties
 import org.signal.core.util.bytes
 import org.thoughtcrime.securesms.util.BucketInfo
-import org.thoughtcrime.securesms.util.DeviceProperties
 import org.thoughtcrime.securesms.util.WakeLockUtil
 import java.util.Locale
 import kotlin.time.Duration.Companion.milliseconds
@@ -71,6 +71,4 @@ class LogSectionBattery : LogSection {
     }
     return String.format(Locale.US, "%.1f%%", 100.0 * part / whole)
   }
-
-  override fun getContentLocked(context: Context): CharSequence = getContent(context)
 }

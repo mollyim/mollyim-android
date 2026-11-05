@@ -1,6 +1,8 @@
 package org.thoughtcrime.securesms.components;
 
+import android.Manifest;
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
@@ -23,7 +25,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieProperty;
 import com.airbnb.lottie.model.KeyPath;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.ui.view.Stub;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.R;
@@ -34,12 +35,15 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.signal.core.ui.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
+import org.thoughtcrime.securesms.util.dualsim.SubscriptionInfoCompat;
+import org.thoughtcrime.securesms.util.dualsim.SubscriptionManagerCompat;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -109,16 +113,16 @@ public class ConversationItemFooter extends ConstraintLayout {
       int     mode       = typedArray.getInt(R.styleable.ConversationItemFooter_footer_mode, 0);
       boolean isOutgoing = mode == 0;
       if (isOutgoing) {
-        playbackSpeedToggleTextView.setTextColor(getResources().getColor(R.color.core_white));
+        playbackSpeedToggleTextView.setTextColor(getResources().getColor(org.signal.core.ui.R.color.core_white));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_white_20));
       } else {
-        playbackSpeedToggleTextView.setTextColor(ThemeUtil.getThemedColor(getContext(), R.attr.signal_text_secondary));
+        playbackSpeedToggleTextView.setTextColor(getResources().getColor(R.color.signal_text_secondary));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_black_08));
       }
 
-      setTextColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_text_color, getResources().getColor(R.color.core_white)));
-      setIconColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_icon_color, getResources().getColor(R.color.core_white)));
-      setRevealDotColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_reveal_dot_color, getResources().getColor(R.color.core_white)));
+      setTextColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_text_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
+      setIconColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_icon_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
+      setRevealDotColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_reveal_dot_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
       typedArray.recycle();
     }
 
@@ -142,7 +146,7 @@ public class ConversationItemFooter extends ConstraintLayout {
   public void setMessageRecord(@NonNull MessageRecord messageRecord, @NonNull Locale locale, @NonNull ConversationItemDisplayMode displayMode) {
     presentDate(messageRecord, locale, displayMode);
     presentSimInfo(messageRecord);
-    presentTimer(messageRecord, timerView);
+    presentTimer(messageRecord);
     presentInsecureIndicator(messageRecord);
     presentDeliveryStatus(messageRecord);
     presentAudioDuration(messageRecord);
@@ -223,6 +227,13 @@ public class ConversationItemFooter extends ConstraintLayout {
 
   public View getDateView() {
     return dateView;
+  }
+
+  /**
+   * Measured width, widened to include the space the delivery status will need once the message is delivered or read.
+   */
+  public int getReservedWidth() {
+    return getMeasuredWidth() + deliveryStatusView.getReservedWidth() - deliveryStatusView.getMeasuredWidth();
   }
 
   private void notifyTouchDelegateChanged(@NonNull Rect rect, @NonNull View touchDelegate) {
@@ -343,38 +354,56 @@ public class ConversationItemFooter extends ConstraintLayout {
   }
 
   private void presentSimInfo(@NonNull MessageRecord messageRecord) {
-    simView.setVisibility(View.GONE);
+    SubscriptionManagerCompat subscriptionManager = new SubscriptionManagerCompat(getContext());
+
+    if (messageRecord.isPush() || messageRecord.getSubscriptionId() == -1 || !Permissions.hasAll(getContext(), Manifest.permission.READ_PHONE_STATE) || !subscriptionManager.isMultiSim()) {
+      simView.setVisibility(View.GONE);
+    } else {
+      Optional<SubscriptionInfoCompat> subscriptionInfo = subscriptionManager.getActiveSubscriptionInfo(messageRecord.getSubscriptionId());
+
+      if (subscriptionInfo.isPresent() && messageRecord.isOutgoing()) {
+        simView.setText(getContext().getString(R.string.ConversationItem_from_s, subscriptionInfo.get().getDisplayName()));
+        simView.setVisibility(View.VISIBLE);
+      } else if (subscriptionInfo.isPresent()) {
+        simView.setText(getContext().getString(R.string.ConversationItem_to_s, subscriptionInfo.get().getDisplayName()));
+        simView.setVisibility(View.VISIBLE);
+      } else {
+        simView.setVisibility(View.GONE);
+      }
+    }
   }
 
-  static public void presentTimer(@NonNull final MessageRecord messageRecord, @NonNull ExpirationTimerView timerView) {
+  @SuppressLint("StaticFieldLeak")
+  private void presentTimer(@NonNull final MessageRecord messageRecord) {
     if (messageRecord.getExpiresIn() > 0 && !messageRecord.isPending()) {
-      timerView.setVisibility(View.VISIBLE);
-      timerView.setPercentComplete(0);
+      this.timerView.setVisibility(View.VISIBLE);
+      this.timerView.setPercentComplete(0);
 
       if (messageRecord.getExpireStarted() > 0) {
-        timerView.setExpirationTime(messageRecord.getExpireStarted(),
-                                    messageRecord.getExpiresIn());
-        timerView.startAnimation();
+        this.timerView.setExpirationTime(messageRecord.getExpireStarted(),
+                                         messageRecord.getExpiresIn());
+        this.timerView.startAnimation();
 
-        if (timerView.isExpired()) {
+        if (messageRecord.getExpireStarted() + messageRecord.getExpiresIn() <= System.currentTimeMillis()) {
           AppDependencies.getExpiringMessageManager().checkSchedule();
         }
       } else if (!messageRecord.isOutgoing() && !messageRecord.isMediaPending()) {
         SignalExecutors.BOUNDED.execute(() -> {
           long    id  = messageRecord.getId();
+          boolean mms = messageRecord.isMms();
           long    now = System.currentTimeMillis();
 
           SignalDatabase.messages().markExpireStarted(id, now);
-          AppDependencies.getExpiringMessageManager().scheduleDeletion(id, true, now, messageRecord.getExpiresIn());
+          AppDependencies.getExpiringMessageManager().scheduleDeletion(id, mms, now, messageRecord.getExpiresIn());
         });
       }
     } else {
-      timerView.setVisibility(View.GONE);
+      this.timerView.setVisibility(View.GONE);
     }
   }
 
   private void presentInsecureIndicator(@NonNull MessageRecord messageRecord) {
-    insecureIndicatorView.setVisibility(messageRecord.isSecure() || messageRecord.isPending() ? View.GONE : View.VISIBLE);
+    insecureIndicatorView.setVisibility(messageRecord.isSecure() ? View.GONE : View.VISIBLE);
   }
 
   private void presentDeliveryStatus(@NonNull MessageRecord messageRecord) {

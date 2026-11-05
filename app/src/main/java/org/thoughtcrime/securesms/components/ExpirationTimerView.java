@@ -60,10 +60,6 @@ public class ExpirationTimerView extends androidx.appcompat.widget.AppCompatImag
     setImageResource(frames[frame]);
   }
 
-  public boolean isExpired() {
-    return startedAt + expiresIn <= System.currentTimeMillis();
-  }
-
   public void startAnimation() {
     synchronized (this) {
       visible = true;

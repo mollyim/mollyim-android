@@ -223,10 +223,11 @@ public final class IncomingGroupCallActionProcessor extends DeviceAwareActionPro
     byte[]    groupId      = currentState.getCallInfoState().getCallRecipient().requireGroupId().getDecodedId();
     GroupCall groupCall    = webRtcInteractor.getCallManager().createGroupCall(groupId,
                                                                                SignalStore.internal().getGroupCallingServer(),
-                                                                               WebRtcUtil.getProxyInfo(),
                                                                                new byte[0],
-                                                                               AUDIO_LEVELS_INTERVAL,dredDuration,
+                                                                               AUDIO_LEVELS_INTERVAL,
+                                                                               dredDuration,
                                                                                RingRtcDynamicConfiguration.getAudioConfig(),
+                                                                               RingRtcDynamicConfiguration.getSvcConfig(),
                                                                                webRtcInteractor.getGroupCallObserver());
 
     if (groupCall == null) {
@@ -323,6 +324,13 @@ public final class IncomingGroupCallActionProcessor extends DeviceAwareActionPro
 
     currentState = WebRtcVideoUtil.deinitializeVideo(currentState);
     EglBaseWrapper.releaseEglBase(RemotePeer.GROUP_CALL_ID.longValue());
+
+    currentState = currentState.builder()
+                               .changeCallInfoState()
+                               .callState(WebRtcViewModel.State.CALL_DISCONNECTED)
+                               .build();
+
+    webRtcInteractor.postStateUpdate(currentState);
 
     return currentState.builder()
                        .actionProcessor(new IdleActionProcessor(webRtcInteractor))

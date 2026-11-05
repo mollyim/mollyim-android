@@ -11,13 +11,13 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.annotation.Px
-import com.google.android.material.R as MaterialR
+import androidx.core.content.ContextCompat
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.dp
 import kotlin.math.max
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Renders the filter-circle at any given position
@@ -77,10 +77,10 @@ class FilterCircleView @JvmOverloads constructor(
   }
 
   private val circleRadius = 38.dp / 2f
-  private val circleBackgroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceContainerLow)
-  private val strokeColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSecondary)
-  private val circleActiveBackgroundColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorSecondaryContainer)
-  private val strokeActiveColor = ThemeUtil.getThemedColor(context, MaterialR.attr.colorPrimary)
+  private val circleBackgroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorSurface1)
+  private val strokeColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorSecondary)
+  private val circleActiveBackgroundColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorSecondaryContainer)
+  private val strokeActiveColor = ContextCompat.getColor(context, CoreUiR.color.signal_colorPrimary)
 
   private var circleColorAnimator: ValueAnimator? = null
   private var strokeColorAnimator: ValueAnimator? = null

@@ -30,7 +30,7 @@ fun EmptyDetailScreen() {
       .fillMaxSize()
   ) {
     Icon(
-      imageVector = ImageVector.vectorResource(id = R.drawable.logo_round_filled),
+      imageVector = ImageVector.vectorResource(id = R.drawable.ic_signal_logo_large),
       contentDescription = null,
       tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.32f),
       modifier = Modifier

@@ -3,6 +3,7 @@ syntax = "proto3";
 package signal;
 
 import "ResumableUploads.proto";
+import "CallQualitySurvey.proto";
 
 option java_package        = "org.thoughtcrime.securesms.jobs.protos";
 option java_multiple_files = true;
@@ -164,6 +165,8 @@ message BackupMessagesJobData {
   string dataFile = 2;
   ResumableUpload uploadSpec = 3;
   string resumableUri = 4;
+  bytes pendingNextBackupSecretData = 5;
+  uint64 pendingMessageCutoffTime = 6;
 }
 
 message NewLinkedDeviceNotificationJobData {
@@ -267,6 +270,11 @@ message UnpinJobData {
   uint32 initialRecipientCount = 3;
 }
 
+message CallQualitySurveySubmissionJobData {
+  org.signal.storageservice.protos.calls.quality.SubmitCallQualitySurveyRequest request = 1;
+  bool includeDebugLogs = 2;
+}
+
 message CheckKeyTransparencyJobData{
   bool showFailure = 1;
 }
@@ -283,4 +291,13 @@ message IndividualSendJobV2Data {
 
 message MultiDeviceAttachmentBackfillRequestJobData {
   uint64 messageId = 1;
+}
+
+message BackupTierDowngradeCheckJobData {
+  optional uint64 remoteBackupTier = 1;
+}
+
+message UnreadReminderJobData {
+  uint64 threadId = 1;
+  uint64 lastReminderTime = 2;
 }

@@ -16,6 +16,7 @@ import net.zetetic.database.sqlcipher.SQLiteTransactionListener;
 
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.logging.Log;
+import org.signal.core.util.tracing.Tracer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
   private static final String NAME_LOCK  = "LOCK";
 
   private final net.zetetic.database.sqlcipher.SQLiteDatabase wrapped;
+  private final Tracer                                        tracer;
 
   private static final ThreadLocal<Long>          TRANSACTION_HOLD_START_NS = new ThreadLocal<>();
   private static final ThreadLocal<Set<Runnable>> PENDING_POST_SUCCESSFUL_TRANSACTION_TASKS;
@@ -63,16 +65,21 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
 
   public SQLiteDatabase(net.zetetic.database.sqlcipher.SQLiteDatabase wrapped) {
     this.wrapped = wrapped;
+    this.tracer  = Tracer.getInstance();
   }
 
   private void traceLockStart() {
+    tracer.start(NAME_LOCK, Tracer.TrackId.DB_LOCK, KEY_THREAD, Thread.currentThread().getName());
   }
 
   private void traceLockEnd() {
+    tracer.end(NAME_LOCK, Tracer.TrackId.DB_LOCK);
   }
 
   private void trace(String methodName, Runnable runnable) {
+    tracer.start(methodName);
     runnable.run();
+    tracer.end(methodName);
   }
 
   private void traceSql(String methodName, String query, boolean locked, Runnable returnable) {
@@ -80,11 +87,13 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       traceLockStart();
     }
 
+    tracer.start(methodName, KEY_QUERY, query);
     long startNs = locked ? System.nanoTime() : 0L;
     returnable.run();
     if (locked) {
       warnIfSlowDirectWrite(methodName, null, query, startNs);
     }
+    tracer.end(methodName);
 
     if (locked) {
       traceLockEnd();
@@ -108,6 +117,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
       params.put(KEY_TABLE, table);
     }
 
+    tracer.start(methodName, params);
     long startNs = System.nanoTime();
     E result = returnable.run();
     if (result instanceof Cursor) {
@@ -119,6 +129,7 @@ public class SQLiteDatabase implements SupportSQLiteDatabase {
     } else {
       warnIfSlowQuery(methodName, table, query, startNs);
     }
+    tracer.end(methodName);
 
     if (locked) {
       traceLockEnd();

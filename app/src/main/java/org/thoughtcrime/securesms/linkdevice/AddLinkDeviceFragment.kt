@@ -37,6 +37,8 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.permissions.Permissions
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.VibrateUtil
+import org.thoughtcrime.securesms.util.navigation.safeNavigate
+import org.signal.core.ui.R as CoreUiR
 import org.signal.mediasend.R as MediaSendR
 
 /**
@@ -60,6 +62,15 @@ class AddLinkDeviceFragment : ComposeFragment() {
     val navController: NavController by remember { mutableStateOf(findNavController()) }
     val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
 
+    if (!state.seenQrEducationSheet) {
+      navController.safeNavigate(R.id.action_addLinkDeviceFragment_to_linkDeviceIntroBottomSheet)
+      viewModel.markQrEducationSheetSeen()
+    }
+
+    if (state.qrCodeState != LinkDeviceSettingsState.QrCodeState.NONE && navController.currentDestination?.id == R.id.linkDeviceIntroBottomSheet) {
+      navController.popBackStack()
+    }
+
     LaunchedEffect(cameraViewModel) {
       cameraViewModel.qrCodeDetected.collect { data ->
         if (VibrateUtil.isHapticFeedbackEnabled(requireContext())) {
@@ -75,14 +86,8 @@ class AddLinkDeviceFragment : ComposeFragment() {
       cameraEmitter = cameraViewModel::onEvent,
       navController = navController,
       hasPermissions = cameraPermissionState.status.isGranted,
-      linkWithoutQrCode = state.linkWithoutQrCode,
       onRequestPermissions = { askPermissions() },
       onSwitchCamera = { cameraViewModel.onEvent(CameraScreenEvents.SwitchCamera(context)) },
-      onLinkNewDeviceWithUrl = { url ->
-        navController.popBackStack()
-        viewModel.onQrCodeScanned(url)
-        viewModel.addDevice(shouldSync = false)
-      },
       onQrCodeApproved = {
         navController.popBackStack()
         viewModel.addDevice(shouldSync = false)
@@ -117,8 +122,6 @@ private fun MainScreen(
   cameraEmitter: (CameraScreenEvents) -> Unit = {},
   navController: NavController? = null,
   hasPermissions: Boolean = false,
-  linkWithoutQrCode: Boolean = false,
-  onLinkNewDeviceWithUrl: (String) -> Unit = {},
   onRequestPermissions: () -> Unit = {},
   onSwitchCamera: () -> Unit = {},
   onQrCodeApproved: () -> Unit = {},
@@ -127,43 +130,30 @@ private fun MainScreen(
   onLinkDeviceFailure: () -> Unit = {}
 ) {
   Scaffolds.Settings(
-    title = if (linkWithoutQrCode) stringResource(id = R.string.DeviceAddFragment__link_without_scanning) else "",
+    title = "",
     onNavigationClick = { navController?.popBackStack() },
     navigationIcon = ImageVector.vectorResource(id = R.drawable.ic_x),
-    navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close),
+    navigationContentDescription = stringResource(id = CoreUiR.string.CloseButton__content_description),
     actions = {
-      if (!linkWithoutQrCode) {
-        IconButton(onClick = onSwitchCamera) {
-          Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
-        }
+      IconButton(onClick = onSwitchCamera) {
+        Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
       }
     }
   ) { contentPadding: PaddingValues ->
-    if (!linkWithoutQrCode) {
-      LinkDeviceQrScanScreen(
-        hasPermission = hasPermissions,
-        onRequestPermissions = onRequestPermissions,
-        cameraState = cameraState,
+    LinkDeviceQrScanScreen(
+      hasPermission = hasPermissions,
+      onRequestPermissions = onRequestPermissions,
+      cameraState = cameraState,
       cameraEmitter = cameraEmitter,
-        qrCodeState = state.qrCodeState,
-
-        onQrCodeAccepted = onQrCodeApproved,
-        onQrCodeDismissed = onQrCodeDismissed,
-        linkDeviceResult = state.linkDeviceResult,
-        onLinkDeviceSuccess = onLinkDeviceSuccess,
-        onLinkDeviceFailure = onLinkDeviceFailure,
-        navController = navController,
-        modifier = Modifier.padding(contentPadding)
-      )
-    } else {
-      LinkDeviceManualEntryScreen(
-        onLinkNewDeviceWithUrl = onLinkNewDeviceWithUrl,
-        linkDeviceResult = state.linkDeviceResult,
-        onLinkDeviceSuccess = onLinkDeviceSuccess,
-        onLinkDeviceFailure = onLinkDeviceFailure,
-        modifier = Modifier.padding(contentPadding)
-      )
-    }
+      qrCodeState = state.qrCodeState,
+      onQrCodeAccepted = onQrCodeApproved,
+      onQrCodeDismissed = onQrCodeDismissed,
+      linkDeviceResult = state.linkDeviceResult,
+      onLinkDeviceSuccess = onLinkDeviceSuccess,
+      onLinkDeviceFailure = onLinkDeviceFailure,
+      navController = navController,
+      modifier = Modifier.padding(contentPadding)
+    )
   }
 }
 

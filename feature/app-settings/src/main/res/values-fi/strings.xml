@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <!-- RegistrationLockV2Dialog -->
+    <string name="RegistrationLockV2Dialog_turn_on_registration_lock">Otetaanko rekisteröintiesto käyttöön?</string>
+    <string name="RegistrationLockV2Dialog_turn_off_registration_lock">Poistetaanko rekisteröintiesto käytöstä?</string>
+    <string name="RegistrationLockV2Dialog_if_you_forget_your_signal_pin_when_registering_again">Jos et muista Signal-tunnuslukua, kun rekisteröit Signalin uudelleen, tili lukitaan 7 päiväksi.</string>
+    <string name="RegistrationLockV2Dialog_turn_on">Ota käyttöön</string>
+    <string name="RegistrationLockV2Dialog_turn_off">Poista käytöstä</string>
+    <string name="preferences__advanced_pin_settings">Tunnusluvun lisäasetukset</string>
+    <string name="preferences__delete_account">Poista tili</string>
+    <!-- Button label to prompt the user to switch between an alphanumeric and numeric-only keyboards -->
+    <string name="RegistrationLockFragment__switch_keyboard">Vaihda näppäimistöä</string>
+    <string name="preferences_chats__transfer_account">Siirrä tili</string>
+    <string name="preferences_chats__transfer_account_to_a_new_android_device">Siirrä tili uuteen Android-laitteeseen</string>
+    <string name="preferences_app_protection__signal_pin">Signal-tunnusluku</string>
+    <string name="preferences_app_protection__create_a_pin">Luo tunnusluku</string>
+    <string name="preferences_app_protection__change_your_pin">Vaihda tunnusluku</string>
+    <string name="preferences_app_protection__pin_reminders">Tunnuslukumuistutukset</string>
+    <string name="preferences_app_protection__turn_off">Poista käytöstä</string>
+    <string name="preferences_app_protection__confirm_pin">Vahvista tunnusluku</string>
+    <string name="preferences_app_protection__confirm_your_signal_pin">Vahvista Signal-tunnuslukusi</string>
+    <string name="preferences_app_protection__make_sure_you_memorize_or_securely_store_your_pin">Opettele tunnusluku ulkoa tai tallenna se turvallisesti, sillä sitä ei voi palauttaa. Jos tunnusluku unohtuu ja Signal rekisteröidään uudelleen, tietoja voi kadota.</string>
+    <string name="preferences_app_protection__incorrect_pin_try_again">Väärä PIN-koodi. Yritä uudelleen.</string>
+    <string name="preferences_app_protection__registration_lock">Rekisteröintiesto</string>
+    <!-- Option in settings that will take use to re-register if they are no longer registered -->
+    <string name="preferences_account_reregister">Rekisteröi tili uudelleen</string>
+    <!-- Option in settings that will take user to our website or playstore to update their expired build -->
+    <string name="preferences_account_update_signal">Päivitä Signal</string>
+    <!-- Option in settings shown when user is no longer registered or expired client that will WIPE ALL THEIR DATA -->
+    <string name="preferences_account_delete_all_data">Poista kaikki tiedot</string>
+    <!-- Title for confirmation dialog confirming user wants to delete all their data -->
+    <string name="preferences_account_delete_all_data_confirmation_title">Poistetaanko kaikki tiedot?</string>
+    <!-- Message in confirmation dialog to delete all data explaining how it works, and that the app will be closed after deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_message">Tämä nollaa sovelluksen ja poistaa kaikki viestit. Sovellus sulkeutuu, kun prosessi on valmis.</string>
+    <!-- Confirmation action to proceed with application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_proceed">Jatka</string>
+    <!-- Confirmation action to cancel application data deletion -->
+    <string name="preferences_account_delete_all_data_confirmation_cancel">Peruuta</string>
+
+    <!-- AccountSettingsFragment -->
+    <string name="AccountSettingsFragment__account">Tili</string>
+    <string name="AccountSettingsFragment__youll_be_asked_less_frequently">Kysymme harvemmin ajan kuluessa</string>
+    <string name="AccountSettingsFragment__require_your_signal_pin">Vaadi Signal-tunnuslukua aina, kun tällä puhelinnumerolla rekisteröidytään Signaliin.</string>
+    <string name="AccountSettingsFragment__change_phone_number">Vaihda puhelinnumero</string>
+    <!-- Account setting that allows user to request and export their signal account data -->
+    <string name="AccountSettingsFragment__request_account_data">Tilitietosi</string>
+    <!-- Section header for the Signal Login section of account settings -->
+    <string name="AccountSettingsFragment__signal_login">Signal Login -kirjautuminen</string>
+    <!-- Title of the card that opens the user\'s Signal Login account and recovery keys -->
+    <string name="AccountSettingsFragment__account_and_recovery">Tili ja palautus</string>
+    <!-- Description of what a Signal Login is, shown below the Signal Login card -->
+    <string name="AccountSettingsFragment__your_signal_login_is_used_to_recover">Voit palauttaa tilisi Signal Login -kirjautumisen avulla. Säilytä avaimia turvallisesti salasananhallintaohjelmassa, johon luotat.</string>
+    <!-- Section header for the two-factor authentication section of account settings -->
+    <string name="AccountSettingsFragment__two_factor_authentication">Kaksivaiheinen autentikointi</string>
+    <!-- Row that opens the menu of second factors the user can add -->
+    <string name="AccountSettingsFragment__set_up">Määritä</string>
+    <!-- Menu option that starts setting up an authenticator app -->
+    <string name="AccountSettingsFragment__authenticator_app">Autentikointisovellus</string>
+    <!-- Description of the authenticator app menu option -->
+    <string name="AccountSettingsFragment__one_time_verification_codes">Kertakäyttöiset vahvistuskoodit</string>
+    <!-- Name of a passkey in the list of second factors on the account -->
+    <string name="AccountSettingsFragment__passkey">Todentamisavain</string>
+    <!-- Description of the passkey menu option -->
+    <string name="AccountSettingsFragment__use_your_fingerprint_face_or_screen_lock">Käytä sormenjälkeä, kasvotunnistusta tai puhelimen näytön lukitusta</string>
+    <!-- Default name given to a passkey before the user chooses one -->
+    <string name="AccountSettingsRepository__passkey">Todentamisavain</string>
+    <!-- Name given to a second factor added by a newer version of Signal that this one doesn\'t recognize -->
+    <string name="AccountSettingsFragment__two_factor_method">Kaksivaiheinen autentikointimenetelmä</string>
+    <!-- Subtitle of a second factor saying what kind it is and when it was added. First placeholder is the kind, second is a date or time. -->
+    <string name="AccountSettingsFragment__s_added_s">%1$s · lisätty %2$s</string>
+    <!-- Name shown for a second factor whose details couldn\'t be read -->
+    <string name="AccountSettingsFragment__unknown">Tuntematon</string>
+    <!-- Content description of the button that opens a second factor\'s options -->
+    <string name="AccountSettingsFragment__open_two_factor_options">Avaa kaksivaiheisen autentikoinnin asetukset</string>
+    <!-- Menu option that renames a second factor -->
+    <string name="AccountSettingsFragment__rename">Nimeä uudelleen</string>
+    <!-- Menu option that removes a second factor -->
+    <string name="AccountSettingsFragment__remove">Poista</string>
+    <!-- Title of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__remove_authenticator_app">Poistetaanko autentikointisovellus?</string>
+    <!-- Body of the dialog confirming removal of an authenticator app -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_app">Et voi käyttää sovellusta kertakäyttöisten vahvistuskoodien luomiseen kirjautuessasi.</string>
+    <!-- Title of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__remove_passkey">Poistetaanko pääsyavain?</string>
+    <!-- Body of the dialog confirming removal of a passkey -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_passkey">Et voi enää käyttää pääsyavainta kirjautumiseen.</string>
+    <!-- Title of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__remove_two_factor_method">Poistetaanko kaksivaiheinen autentikointimenetelmä?</string>
+    <!-- Body of the dialog confirming removal of a second factor this version of Signal doesn\'t recognize -->
+    <string name="AccountSettingsFragment__you_wont_be_able_to_use_this_method">Et voi enää käyttää autentikointimenetelmää kirjautumiseen.</string>
+    <!-- Toast shown after a second factor has been removed from the account -->
+    <string name="AccountSettingsFragment__two_factor_method_removed">Kaksivaiheinen autentikointimenetelmä poistettu</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a second factor -->
+    <string name="AccountSettingsFragment__couldnt_remove_two_factor_method">Kaksivaiheisen autentikointimenetelmän poistaminen epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Toast shown after a passkey has been removed from the account -->
+    <string name="AccountSettingsFragment__passkey_removed">Pääsyavain poistettu</string>
+    <!-- Toast shown when we couldn\'t reach the service to remove a passkey -->
+    <string name="AccountSettingsFragment__couldnt_remove_passkey">Pääsyavaimen poistaminen epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Toast shown when the device has no passkey provider set up to create a passkey with -->
+    <string name="AccountSettingsFragment__no_passkey_provider">Määritä salasananhallintaohjelma, joka tukee pääsyavainta tällä laitteella. Yritä sitten uudelleen.</string>
+    <!-- Toast shown when creating a passkey didn\'t work -->
+    <string name="AccountSettingsFragment__couldnt_create_passkey">Pääsyavaimen luominen epäonnistui. Yritä uudelleen.</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__unlock_to_add_two_factor_method">Avaa lukitus lisätäksesi kaksivaiheisen kirjautumisen</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be added -->
+    <string name="AccountSettingsFragment__to_add_this_method_confirm_its_you">Voit lisätä kirjautumistavan varmistamalla ensin henkilöllisyytesi</string>
+    <!-- Title of the device screen lock prompt shown before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__unlock_to_remove_two_factor_method">Avaa lukitus poistaaksesi kaksivaiheisen kirjautumisen</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before a two-factor authentication method can be removed -->
+    <string name="AccountSettingsFragment__to_remove_this_method_confirm_its_you">Voit poistaa kirjautumistavan, kun varmistat että kyseessä olet sinä</string>
+    <!-- Title of the device screen lock prompt shown before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__unlock_to_view_signal_login">Näytä Signal Login -kirjautuminen avaamalla lukitus</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the Signal Login details can be viewed -->
+    <string name="AccountSettingsFragment__to_view_your_signal_login_confirm_its_you">Voit katsoa Signal Login -kirjautumisen tiedot, kun varmistat että kyseessä olet sinä</string>
+    <!-- Title of the device screen lock prompt shown before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__unlock_to_confirm_its_you">Vahvista henkilöllisyytesi avaamalla lukitus</string>
+    <!-- Title of the sheet explaining that the device screen lock is needed before the delete account flow can be opened -->
+    <string name="AccountSettingsFragment__to_delete_your_account_confirm_its_you">Tilin poistamiseksi vahvista ensin henkilöllisyytesi</string>
+    <!-- Toast shown when the device screen lock wasn\'t confirmed, so nothing happened -->
+    <string name="AccountSettingsFragment__authentication_required">Edellyttää tunnistautumista</string>
+    <!-- Title of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__cant_add_authenticator_app">Autentikointisovellusta ei voitu lisätä</string>
+    <!-- Body of the dialog shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d">Voit lisätä enintään %1$d autentikointisovellusta. Poista ensin joku aiemmista.</string>
+    <!-- Body of the dialog shown when the account has room for another authenticator app but already has as many two-factor methods of all kinds as it\'s allowed -->
+    <string name="AccountSettingsFragment__you_cant_add_more_than_d_two_factor_methods">Voit lisätä enintään %1$d autentikointimenetelmää. Poista ensin joku aiemmista.</string>
+    <!-- Shown in place of the list when we couldn\'t work out which second factors are on the account -->
+    <string name="AccountSettingsFragment__couldnt_load_your_two_factor_methods">Kaksivaiheisten autentikointikointimenetelmien lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Toast shown after an authenticator app has been removed -->
+    <string name="AccountSettingsFragment__authenticator_app_removed">Autentikointisovellus poistettu</string>
+    <!-- Toast shown when an authenticator app couldn\'t be removed -->
+    <string name="AccountSettingsFragment__couldnt_remove_authenticator_app">Autentikointisovelluksen poistaminen epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Description of two-factor authentication, shown below the two-factor authentication list -->
+    <string name="AccountSettingsFragment__use_a_second_form_of_authentication">Käytä toista autentikointikeinoa suojaamaan tiliäsi, kun käytät Signal Login -kirjautumista uudella laitteella.</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="AccountSettingsFragment__learn_more">Lue lisää</string>
+
+    <!-- ExportAccountDataFragment -->
+  <!-- Removed by excludeNonTranslatables <string name="export_account_data_url" translatable="false">https://support.signal.org/hc/articles/5538911756954</string> -->
+    <!-- Part of requesting account data flow, this is the section title for requesting that account data -->
+    <string name="ExportAccountDataFragment__your_account_data">Tilitietosi</string>
+    <!-- Explanation of account data the user can request. %1$s is replaced with Learn more with a link -->
+    <string name="ExportAccountDataFragment__export_explanation">Vie raportti Signal-tilin tiedoista. Raportti ei sisällä viestejä tai mediasisältöä. %1$s</string>
+    <!-- Learn more link to more information about requesting account data -->
+    <string name="ExportAccountDataFragment__learn_more">Lue lisää</string>
+    <!-- Button action to export the report data to another app (e.g. email) -->
+    <string name="ExportAccountDataFragment__export_report">Vie raportti</string>
+
+    <!-- Radio option to export the data as a text file .txt -->
+    <string name="ExportAccountDataFragment__export_as_txt">Vie TXT-muodossa</string>
+    <!-- Label for the text file option -->
+    <string name="ExportAccountDataFragment__export_as_txt_label">Helppolukuinen tekstitiedosto</string>
+    <!-- Radio option to export the data as a json (java script object notation) file .json -->
+    <string name="ExportAccountDataFragment__export_as_json">Vie JSON-muodossa</string>
+    <!-- Label for the json file option, the account data in a machine readable file format -->
+    <string name="ExportAccountDataFragment__export_as_json_label">Koneluettava tiedosto</string>
+
+    <!-- Action to cancel (in a dialog) -->
+    <string name="ExportAccountDataFragment__cancel_action">Peruuta</string>
+
+    <!-- Acknowledgement for download failure -->
+    <string name="ExportAccountDataFragment__ok_action">OK</string>
+    <!-- Title of dialog shown when report fails to generate -->
+    <string name="ExportAccountDataFragment__report_generation_failed">Raporttia ei voitu luoda</string>
+    <!-- Message of dialog shown when report fails to generate asking user to check network connection -->
+    <string name="ExportAccountDataFragment__check_network">Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <!-- Title for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation">Viedäänkö tiedot?</string>
+    <!-- Message for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_confirmation_message">Jaa Signal-tilin tiedot vain niille henkilöille ja sovelluksille, joihin luotat.</string>
+    <!-- Action to export in for export confirmation dialog -->
+    <string name="ExportAccountDataFragment__export_report_action">Vie</string>
+
+    <!-- Shown in a dialog with a spinner while the report is downloading -->
+    <string name="ExportAccountDataFragment__download_progress">Luodaan raporttia…</string>
+    <!-- Explanation that the report is only generated on export and is not saved on the device -->
+    <string name="ExportAccountDataFragment__report_not_stored_disclaimer">Raportti luodaan vain viennin yhteydessä, eikä Signal tallenna sitä laitteelle.</string>
+
+    <!-- TotpSetupScreen -->
+    <!-- Title of the screen that walks the user through setting up an authenticator app -->
+    <string name="TotpSetupScreen__set_up_your_authenticator_app">Määritä autentikointisovellus</string>
+    <!-- Instructions shown at the top of the authenticator app setup screen -->
+    <string name="TotpSetupScreen__follow_these_steps">Seuraa näitä ohjeita autentikointisovelluksen määrittämiseksi:</string>
+    <!-- Clickable text that takes the user to a support article -->
+    <string name="TotpSetupScreen__learn_more">Lue lisää</string>
+    <!-- Header of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_1">Vaihe 1</string>
+    <!-- Body of the first step of authenticator app setup -->
+    <string name="TotpSetupScreen__install_a_trusted_authenticator_app">Asenna laitteelle luotettu autentikointisovellus.</string>
+    <!-- Header of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_2">Vaihe 2</string>
+    <!-- Body of the second step of authenticator app setup -->
+    <string name="TotpSetupScreen__open_your_authenticator_app">Avaa autentikointisovellus ja lisää se Signal-tilliisi napauttamalla alla olevaa painiketta.</string>
+    <!-- Button that opens the user\'s authenticator app -->
+    <string name="TotpSetupScreen__open">Avaa</string>
+    <!-- Text above the setup key explaining that it can be entered by hand instead -->
+    <string name="TotpSetupScreen__or_you_can_copy_this_key">Voit myös kopioida avaimen ja määrittää sovelluksen käsin.</string>
+    <!-- Button that copies the setup key to the clipboard -->
+    <string name="TotpSetupScreen__copy">Kopioi</string>
+    <!-- Toast shown after the setup key has been copied to the clipboard -->
+    <string name="TotpSetupScreen__copied_to_clipboard">Kopioitu leikepöydälle</string>
+    <!-- Toast shown when there is no app installed that can handle the authenticator setup link -->
+    <string name="TotpSetupScreen__no_authenticator_app_found">Autentikointisovellusta ei löytynyt</string>
+    <!-- Dialog message shown when the account already has as many authenticator apps as it\'s allowed -->
+    <string name="TotpSetupScreen__you_cant_add_more_than_d">Voit lisätä enintään %1$d autentikointisovellusta. Poista ensin joku aiemmista.</string>
+    <!-- Dialog message shown when we couldn\'t reach the service to start setting up an authenticator app -->
+    <string name="TotpSetupScreen__couldnt_reach_signal">Signaliin ei saatu yhteyttä. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Header of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__step_3">Vaihe 3</string>
+    <!-- Body of the third step of authenticator app setup -->
+    <string name="TotpSetupScreen__copy_the_code_thats_generated">Kopioi sovelluksen luoma koodi ja palaa tänne jatkaaksesi.</string>
+    <!-- Button that advances from the setup instructions to entering a code -->
+    <string name="TotpSetupScreen__continue">Jatka</string>
+
+    <!-- PasskeySetupScreen -->
+    <!-- Title of the screen that explains passkeys before the user sets one up -->
+    <string name="PasskeySetupScreen__passkeys">Todentamisavaimet</string>
+    <!-- Explanation of what passkeys are, shown above a "Learn more" link -->
+    <string name="PasskeySetupScreen__with_passkeys_you_can_easily_add">Todentamisavaimen avulla voit helposti lisätä tilillesi toisen autentikointitavan. Todentamisavain voi käyttää laitteen biometrista tunnistamista tai yhteensopivaa FIDO2-turva-avainta.</string>
+    <!-- Link that opens a support article about passkeys -->
+    <string name="PasskeySetupScreen__learn_more">Lue lisää</string>
+    <!-- Bullet point explaining that the user can name their passkey -->
+    <string name="PasskeySetupScreen__give_your_passkey_a_friendly_name">Anna todentamisavaimelle nimi, jonka tunnistat</string>
+    <!-- Bullet point explaining where the passkey is stored -->
+    <string name="PasskeySetupScreen__use_your_devices_biometrics">Käytä laitteen biometrista tunnistamista tai yhteensopivaa FIDO2-turva-avainta todentamisavaimen tallentamiseksi</string>
+    <!-- Bullet point explaining that passkeys can be managed later -->
+    <string name="PasskeySetupScreen__add_or_remove_passkeys_at_any_time">Voit lisätä tai poistaa todentamisavaimet milloin tahansa.</string>
+    <!-- Button that starts creating a passkey -->
+    <string name="PasskeySetupScreen__set_up_a_passkey">Määritä todentamisavain</string>
+    <!-- Title of the dialog shown when the account already has as many two-factor methods as it\'s allowed -->
+    <string name="PasskeySetupScreen__cant_add_passkey">Salausavaimen lisääminen epäonnistui</string>
+    <!-- Body of the dialog shown when the account already has as many two-factor methods as it\'s allowed. %1$d is the limit. -->
+    <string name="PasskeySetupScreen__you_cant_add_more_than_d_two_factor_methods">Voit lisätä enintään %1$d autentikointimenetelmää. Poista ensin joku aiemmista.</string>
+
+    <!-- TotpCodeEntryScreen -->
+    <!-- Title of the screen where the user enters the code from their authenticator app -->
+    <string name="TotpCodeEntryScreen__enter_your_code">Anna koodi</string>
+    <!-- Instructions shown above the code entry field -->
+    <string name="TotpCodeEntryScreen__enter_the_6_digit_code">Anna autentikointisovelluksen antama kuusinumeroinen koodi.</string>
+    <!-- Button that submits the entered code -->
+    <string name="TotpCodeEntryScreen__next">Seuraava</string>
+    <!-- Error shown under the code field when the code the user entered was rejected -->
+    <string name="TotpCodeEntryScreen__incorrect_code">Väärä koodi. Anna autentikointisovelluksen antama koodi.</string>
+    <!-- Error shown under the code field when we couldn\'t reach the service to check the code -->
+    <string name="TotpCodeEntryScreen__couldnt_reach_signal">Signaliin ei saatu yhteyttä. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <!-- Default name given to an authenticator app the moment it\'s set up, before the user chooses their own name for it -->
+    <string name="TotpRepository__authenticator">Autentikointisovellus</string>
+
+    <!-- TwoFactorNameEntryScreen -->
+    <!-- Title of the screen where the user names a second factor -->
+    <string name="TwoFactorNameEntryScreen__choose_a_name">Valitse nimi</string>
+    <!-- Instructions shown above the name field when renaming an authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name">Valitse ainutlaatuinen nimi tälle autentikointisovellukselle.</string>
+    <!-- Instructions shown above the name field when naming a newly configured authenticator app -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_to_help_you_identify_it">Valitse ainutlaatuinen nimi tälle autentikointisovellukselle, jotta tunnistat sen myöhemmin.</string>
+    <!-- Instructions shown above the name field when renaming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method">Valitse ainutlaatuinen nimi tälle kaksivaiheiselle autentikointimenetelmälle.</string>
+    <!-- Instructions shown above the name field when naming a second factor this version of Signal doesn\'t recognize -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_method_to_help_you_identify_it">Valitse kaksivaiheiselle autentikointimenetelmälle ainutlaatuinen nimi, jotta tunnistat sen myöhemmin.</string>
+    <!-- Instructions shown above the name field when renaming a passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey">Valitse pääsyavaimelle ainutlaatuinen nimi.</string>
+    <!-- Instructions shown above the name field when naming a newly created passkey -->
+    <string name="TwoFactorNameEntryScreen__choose_a_unique_name_for_this_passkey_to_help_you_identify_it">Valitse pääsyavaimelle ainutlaatuinen nimi, jotta tunnistat sen myöhemmin.</string>
+    <!-- Label of the name field -->
+    <string name="TwoFactorNameEntryScreen__name">Nimi</string>
+    <!-- Button that submits the entered name -->
+    <string name="TwoFactorNameEntryScreen__next">Seuraava</string>
+    <!-- Toast shown after an authenticator app has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_set_up">Autentikointisovellus määritetty</string>
+    <!-- Toast shown after an authenticator app has been renamed -->
+    <string name="TwoFactorNameEntryScreen__authenticator_app_renamed">Autentikointisovellus nimetty uudelleen</string>
+    <!-- Toast shown after a passkey has been successfully set up -->
+    <string name="TwoFactorNameEntryScreen__passkey_set_up">Pääsyavain määritelty</string>
+    <!-- Toast shown after a passkey has been renamed -->
+    <string name="TwoFactorNameEntryScreen__passkey_renamed">Pääsyavain nimetty uudelleen</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been set up -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_set_up">Kaksivaiheinen autentikointimenetelmä määritelty</string>
+    <!-- Toast shown after a second factor this version of Signal doesn\'t recognize has been renamed -->
+    <string name="TwoFactorNameEntryScreen__two_factor_method_renamed">Kaksivaiheinen autentikointimenetelmä nimetty uudelleen</string>
+    <!-- Toast shown when we couldn\'t reach the service to save the name -->
+    <string name="TwoFactorNameEntryScreen__couldnt_save_name">Nimen tallentaminen epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <!-- DeleteAccountScreen -->
+    <!-- DeleteAccountFragment -->
+    <string name="DeleteAccountFragment__deleting_your_account_will">Tilin poistamisesta seuraa:</string>
+    <string name="DeleteAccountFragment__enter_your_phone_number">Syötä puhelinnumero</string>
+    <string name="DeleteAccountFragment__delete_account">Poista tili</string>
+    <string name="DeleteAccountFragment__delete_your_account_info_and_profile_photo">Tilin tiedot ja profiilikuva poistetaan</string>
+    <string name="DeleteAccountFragment__delete_all_your_messages">Kaikki viestit poistetaan</string>
+    <string name="DeleteAccountFragment__delete_s_in_your_payments_account">%1$s maksutililtäsi poistetaan</string>
+    <string name="DeleteAccountFragment__no_country_code">Maatunnusta ei ole määritetty</string>
+    <string name="DeleteAccountFragment__no_number">Numeroa ei ole määritetty</string>
+    <string name="DeleteAccountFragment__the_phone_number">Syöttämäsi puhelinnumero ei vastaa tilisi puhelinnumeroa.</string>
+    <string name="DeleteAccountFragment__are_you_sure">Haluatko varmasti poistaa tilin?</string>
+    <string name="DeleteAccountFragment__this_will_delete_your_signal_account">Signal-tili poistetaan ja sovellusasetukset nollataan. Sovellus sulkeutuu prosessin päätteeksi.</string>
+    <string name="DeleteAccountFragment__failed_to_delete_local_data">Paikallisten tietojen poistaminen epäonnistui. Voit poistaa ne manuaalisesti järjestelmän sovellusasetuksien kautta.</string>
+    <string name="DeleteAccountFragment__launch_app_settings">Avaa sovelluksen asetukset</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process is leaving all groups -->
+    <string name="DeleteAccountFragment__leaving_groups">Erotaan ryhmistä…</string>
+    <!-- Title of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_account">Poistetaan tiliä…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is canceling their subscription -->
+    <string name="DeleteAccountFragment__canceling_your_subscription">Perutaan tilausta…</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process is leaving groups -->
+    <string name="DeleteAccountFragment__depending_on_the_number_of_groups">Tämä saattaa kestää muutamia minuutteja riippuen siitä, miten monen ryhmän jäsen olet.</string>
+    <!-- Message of progress dialog shown when a user deletes their account and the process has left all groups -->
+    <string name="DeleteAccountFragment__deleting_all_user_data_and_resetting">Poistetaan käyttäjätietoja ja palautetaan sovelluksen oletuksia</string>
+    <!-- Title of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__account_not_deleted">Tiliä ei poistettu</string>
+    <!-- Message of error dialog shown when a network error occurs during account deletion -->
+    <string name="DeleteAccountFragment__there_was_a_problem">Poiston aikana ilmeni ongelma. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <!-- Body text above the bullet list on the delete account screen, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__deleting_your_account_with_username_s_will">Käyttäjänimeen %1$s liittyvän tilin poistamisesta seuraa:</string>
+    <!-- Bullet point on the delete account screen, shown in place of the plain one when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__delete_your_account_info_and_profile_photo_including_your_username_s">Tilisi tiedot, profiilikuva ja käyttäjänimi %1$s poistetaan</string>
+    <!-- Bullet point on the delete account screen warning the user that the deletion is permanent -->
+    <string name="DeleteAccountScreen__this_action_can_not_be_undone">Toimintoa ei voi perua</string>
+    <!-- Message of the deletion confirmation dialog, shown when the account has a username. Placeholder is the username. -->
+    <string name="DeleteAccountScreen__this_will_delete_your_signal_account_with_username_s">Signal-tili käyttäjänimellä %1$s poistetaan ja sovellusasetukset palautetaan oletusasetuksiin. Sovellus sulkeutuu prosessin päätteeksi.</string>
+    <!-- Label of the checkbox the user has to tick in the confirmation dialog before they can delete their account -->
+    <string name="DeleteAccountScreen__yes_delete_my_account">Kyllä, poista tili</string>
+
+    <!-- InviteScreen -->
+    <!-- Title of the screen where the user invites friends to join Signal -->
+    <string name="InviteScreen__invite_friends">Kutsu muita</string>
+    <!-- Share button on invite screen to open the system share sheet -->
+    <string name="InviteScreen__share">Jaa</string>
+
+    <!-- Shared with the registration screens -->
+    <string name="RegistrationActivity_select_your_country">Valitse maa</string>
+    <string name="RegistrationActivity_phone_number_description">Puhelinnumero</string>
+
+    <!-- ChatsSettingsFragment -->
+    <!-- Text describing the number of folders you have -->
+    <plurals name="ChatsSettingsFragment__d_folder">
+        <item quantity="one">%1$d kansio</item>
+        <item quantity="other">%1$d kansiota</item>
+    </plurals>
+    <!-- Option within settings to add a new chat folder if you have never created a folder before -->
+    <string name="ChatsSettingsFragment__add_chat_folder">Lisää keskustelukansio</string>
+    <!-- Option within settings to add or edit chat folders that is shown when you have already created folders -->
+    <string name="ChatsSettingsFragment__add_edit_chat_folder">Lisää tai muokkaa kansioita</string>
+    <!-- Snackbar shown when biometric authentication fails before a chat export -->
+    <string name="ChatsSettingsFragment__authentication_failed">Tunnistautuminen epäonnistui</string>
+    <!-- Heading within chats settings for chat folders -->
+    <string name="ChatsSettingsFragment__chat_folders">Keskustelukansiot</string>
+    <!-- Row title for the option to export chat history as a plaintext archive -->
+    <string name="ChatsSettingsFragment__export_chat_history">Vie keskusteluhistoria</string>
+    <!-- Row description for the plaintext chat export option -->
+    <string name="ChatsSettingsFragment__export_chat_history_label">Vie koneellisesti luettava JSON-kopio kaikista keskusteluistasi. Kadonneita viestejä ei viedä.</string>
+    <string name="ChatsSettingsFragment__keyboard">Näppäimistö</string>
+    <string name="ChatsSettingsFragment__send_with_enter">Lähetä enter-painikkeella</string>
+    <!-- Title of the toggle row in chat settings that controls whether stickers and GIFs play automatically -->
+    <string name="ChatsSettingsFragment__autoplay_stickers_and_gifs">Toista tarrat ja GIF-tiedostot automaattisesti</string>
+    <!-- Description beneath the autoplay stickers and GIFs toggle row in chat settings -->
+    <string name="ChatsSettingsFragment__when_turned_on_stickers_and_gifs_will_play_automatically">Kun asetus on päällä, tarrat ja GIF-tiedostot toistetaan automaattisesti</string>
+    <!-- Biometrics prompt title shown before allowing the user to export chat history -->
+    <string name="ChatsSettingsFragment__unlock_to_export_chat_history">Avaa lukitus viedäksesi keskusteluhistorian</string>
+    <string name="preferences__display_contact_photos_from_your_address_book_if_available">Käytä ensisijaisesti osoitekirjan valokuvia, mikäli saatavilla</string>
+    <string name="preferences__generate_link_previews">Luo esikatselukuvia linkeistä</string>
+    <!-- Preference menu item description for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__muted_chats_that_are_archived_will_remain_archived">Arkistoidut mykistetyt keskustelut pysyvät arkistoituina, kun uusi viesti saapuu.</string>
+    <!-- Preference menu item title for a toggle switch for preserving the archived state of muted chats. -->
+    <string name="preferences__pref_keep_muted_chats_archived">Pidä mykistetyt keskustelut arkistoituina</string>
+    <string name="preferences__pref_use_address_book_photos">Käytä ensisijaisesti osoitekirjan valokuvia</string>
+    <string name="preferences__retrieve_link_previews_from_websites_for_messages">Näytä lähettämiesi linkkien esikatselu verkkosivustoilta.</string>
+    <string name="preferences_advanced__use_system_emoji">Käytä järjestelmän hymiöitä</string>
+    <string name="preferences_chats__chats">Keskustelut</string>
+
+    <!-- ChatExportDialogs -->
+    <!-- Bold warning prefix in the export complete dialog body -->
+    <string name="ChatExportDialogs__be_careful">OLE VAROVAINEN</string>
+    <!-- Bold warning prefix in the export confirmation dialog body -->
+    <string name="ChatExportDialogs__be_careful_warning">OLE VAROVAINEN!</string>
+    <!-- Progress dialog message shown while canceling an in-progress chat export -->
+    <string name="ChatExportDialogs__canceling_export">Peruutetaan vientiä…</string>
+    <!-- Body of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_body">Valitse laitteesi tallennustilasta kansio, johon keskusteluhistoriasi tallennetaan.</string>
+    <!-- Title of the dialog prompting the user to pick a destination folder for the export -->
+    <string name="ChatExportDialogs__choose_a_folder_title">Valitse kansio</string>
+    <!-- Button that opens the system folder picker -->
+    <string name="ChatExportDialogs__choose_folder_button">Valitse kansio</string>
+    <!-- Body of the export complete dialog, displayed after the bold "BE CAREFUL" prefix -->
+    <string name="ChatExportDialogs__complete_body">tallentaessasi keskusteluhistoriasi tiedostoa. Älä jaa sitä kenellekään. Muut laitteesi sovellukset voivat käyttää sitä laitteesi käyttöoikeuksista riippuen.</string>
+    <!-- Title of the dialog shown when a chat export finishes successfully -->
+    <string name="ChatExportDialogs__complete_title">Keskusteluiden vienti onnistui</string>
+    <!-- Title of the dialog asking the user to confirm they want to export chat history -->
+    <string name="ChatExportDialogs__export_chat_history_title">Viedäänkö keskusteluhistoria?</string>
+    <!-- Body of the export confirmation dialog, displayed after the bold "BE CAREFUL!" prefix -->
+    <string name="ChatExportDialogs__export_confirm_body">ÄLÄ jaa tätä tiedostoa kenellekään. Keskusteluhistoriasi tallennetaan laitteellesi, ja muut sovellukset voivat käyttää sitä laitteesi käyttöoikeuksista riippuen. Vienti median kera johtaa suurempaan tiedostokokoon.</string>
+    <!-- Button in the export confirmation dialog to export messages and media -->
+    <string name="ChatExportDialogs__export_with_media">Vie median kera</string>
+    <!-- Button in the export confirmation dialog to export messages only -->
+    <string name="ChatExportDialogs__export_without_media">Vie ilman mediaa</string>
+
+    <!-- BackupCreationProgressRow -->
+    <!-- Progress text shown while media is being exported to local storage. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__exporting_media_d">Viedään mediaa: %1$d %%</string>
+    <!-- Progress text shown while the backup is being finalized (e.g. cleaning up old files) -->
+    <string name="BackupCreationProgressRow__finalizing">Viimeistellään…</string>
+    <!-- Progress text shown while the backup is being prepared (e.g. exporting accounts, recipients, etc.) -->
+    <string name="BackupCreationProgressRow__preparing_backup">Valmistellaan varmuuskopiointia…</string>
+    <!-- Progress text shown while the backup database is being processed -->
+    <string name="BackupCreationProgressRow__processing_backup">Käsitellään varmuuskopiota…</string>
+    <!-- Progress text shown while messages are being processed, with no count available yet -->
+    <string name="BackupCreationProgressRow__processing_messages">Käsitellään viestejä…</string>
+    <!-- Progress text shown while messages are being processed. %1$s is the formatted current count (e.g. "1,000"), %2$s is the formatted total count (e.g. "100,000"), %3$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__processing_messages_s_of_s_d">Käsitellään viestejä: %1$s / %2$s (%3$d %%)</string>
+    <!-- Progress text shown while media is being uploaded to the server. %1$d is the percent complete (e.g. 42). -->
+    <string name="BackupCreationProgressRow__uploading_media_d">Lähetetään mediaa: %1$d %%</string>
+
+    <!-- AppUpdatesSettingsScreen -->
+    <!-- Title of the app updates settings screen -->
+    <string name="preferences_app_updates__title">Sovellusten päivitykset</string>
+
+    <!-- AppearanceSettingsScreen -->
+    <string name="preferences__appearance">Ulkoasu</string>
+    <string name="preferences__language">Kieli</string>
+    <string name="preferences__theme">Teema</string>
+    <string name="preferences__system_default">Järjestelmän oletus</string>
+    <string name="preferences__light_theme">Vaalea</string>
+    <string name="preferences__dark_theme">Tumma</string>
+    <string name="preferences__chat_color_and_wallpaper">Keskustelun väri ja taustakuva</string>
+    <!-- Clickable settings text allowing the user to change the icon visible on their phone\'s home screen. -->
+    <string name="preferences__app_icon">Sovelluskuvake</string>
+    <string name="preferences_chats__message_text_size">Viestien tekstin koko</string>
+    <string name="arrays__small">Pieni</string>
+    <string name="arrays__normal">Normaali</string>
+    <string name="arrays__large">Suuri</string>
+    <string name="arrays__extra_large">Erittäin suuri</string>
+    <!-- Preference title for changing navigation (bottom) bar size -->
+    <string name="preferences_navigation_bar_size">Navigointipalkin koko</string>
+    <!-- Preference summary for normal navigation bar size -->
+    <string name="preferences_normal">Normaali</string>
+    <!-- Preference summary for compact navigation bar size -->
+    <string name="preferences_compact">Kompakti</string>
+    <!-- Dialog message body explaining that we have to restart the app in order to apply the user\'s new language setting.  -->
+    <string name="preferences_language_change_confirmation_message">Sovellus käynnistyy uudelleen uuden kieliasetuksen käyttöön ottamiseksi.</string>
+    <!-- Phone number heading displayed as a screen title -->
+    <string name="preferences_app_protection__phone_number">Puhelinnumero</string>
+    <!-- Section title above two radio buttons for enabling and disabling phone number display -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_see_my_number_heading">Kuka voi nähdä numeroni</string>
+    <!-- Subtext below radio buttons when who can see my number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_on_description">Numerosi näkyy ihmisille ja ryhmille, joille lähetät viestejä.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to everybody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_on_description">Numerosi ei näy kenellekään, joka ei ole tallentanut sitä puhelimensa yhteystietoihin.</string>
+    <!-- Subtext below radio buttons when who can see my number is set to nobody and who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_sharing_off_discovery_off_description">Numerosi ei näy kenellekään.</string>
+    <!-- Section title above two radio buttons for enabling and disabling whether users can find me by my phone number  -->
+    <string name="PhoneNumberPrivacySettingsFragment_who_can_find_me_by_number_heading">Kuka voi löytää minut puhelinnumerolla</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to everyone -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_on_description">Kuka tahansa, jolla on numerosi, näkee, että olet Signalissa, ja voi aloittaa keskustelun kanssasi.</string>
+    <!-- Subtext below radio buttons when who can find me by number is set to nobody -->
+    <string name="PhoneNumberPrivacySettingsFragment_discovery_off_description">Kukaan ei näe, että olet Signalissa, ellet lähetä jollekulle viestiä tai juttele jonkun kanssa.</string>
+    <!-- Snackbar text when pressing invalid radio item -->
+    <string name="PhoneNumberPrivacySettingsFragment__to_change_this_setting">"Jos haluat muuttaa asetusta, määritä Kuka näkee numeroni -asetukseksi Ei kukaan."</string>
+    <!-- Dialog title shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Oletko varma?</string>
+    <!-- Dialog warning message shown when selecting "Nobody" in phone number privacy settings for who can find me by number -->
+    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Jos määrität asetuksen ”Kuka voi löytää minut puhelinnumerolla” tilaan ”Ei kukaan”, sinua on vaikea löytää Signalissa.</string>
+    <!-- Dialog button text for canceling change action -->
+    <string name="PhoneNumberPrivacySettingsFragment__cancel">Peruuta</string>
+    <string name="PhoneNumberPrivacy_everyone">Kaikki</string>
+    <string name="PhoneNumberPrivacy_nobody">Ei kukaan</string>
+    <string name="arrays__images">Kuvat</string>
+    <string name="arrays__audio">Äänitallenteet</string>
+    <string name="arrays__video">Videot</string>
+    <string name="arrays__documents">Dokumentit</string>
+    <string name="preferences__data_and_storage">Data ja tallennustila</string>
+    <string name="preferences_chats__when_using_mobile_data">Mobiiliverkossa</string>
+    <string name="preferences_chats__when_using_wifi">Wi-Fi-verkossa</string>
+    <string name="preferences_chats__when_roaming">Roaming-tilassa</string>
+    <string name="preferences_chats__media_auto_download">Liitetiedostojen automaattinen lataus</string>
+    <string name="preferences_data_and_storage__manage_storage">Tallennustilan hallinta</string>
+    <string name="preferences_data_and_storage__use_less_data_for_calls">Vähennä puhelujen datankäyttöä</string>
+    <string name="preferences_data_and_storage__never">ei koskaan</string>
+    <string name="preferences_data_and_storage__wifi_and_mobile_data">WiFi ja mobiilidata</string>
+    <string name="preferences_data_and_storage__mobile_data_only">Vain mobiilidata</string>
+    <string name="preference_data_and_storage__using_less_data_may_improve_calls_on_bad_networks">Saattaa parantaa puhelun laatua heikolla verkkoyhteydellä.</string>
+    <string name="preferences_proxy">Välityspalvelin</string>
+    <string name="preferences_use_proxy">Käytä välityspalvelinta</string>
+    <!-- DataAndStorageSettingsFragment -->
+    <string name="DataAndStorageSettingsFragment__media_quality">Median laatu</string>
+    <!-- Label shown on the manage storage row while total storage usage is still being computed -->
+    <string name="DataAndStorageSettingsFragment__calculating">Lasketaan…</string>
+    <!-- Category title for the quality of the media to be sent -->
+    <string name="DataAndStorageSettingsFragment__sent_media_quality">Lähetettävän median laatu</string>
+    <string name="DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data">Korkealaatuisen median lähetys kuluttaa enemmän dataa.</string>
+    <!-- Disclaimer shown under the media auto-download settings. Placeholder is a formatted size like "100 KB". -->
+    <string name="DataAndStorageSettingsFragment__voice_messages_and_stickers_under_size_are_always_auto_downloaded">Puheviestit ja tarrat (alle %1$s) ladataan aina automaattisesti.</string>
+    <string name="DataAndStorageSettingsFragment__calls">Puhelut</string>
+    <!-- Title of a toggle that keeps Signal connected in the background via a persistent foreground service instead of using FCM push messages -->
+    <string name="DataAndStorageSettingsFragment__stay_connected_in_background">Pidä yhteys päällä taustalla</string>
+    <!-- Body of a confirmation dialog shown when a user tries to enable the "Stay connected in background" setting -->
+    <string name="DataAndStorageSettingsFragment__staying_connected_while_in_the_background_will_likely_result_in_increased_battery_usage">Yhteyden pitäminen päällä taustalla lisää todennäköisesti laitteen akun käyttöä. Asetus ei ole tarpeen useimmissa laitteissa. Kytke se päälle vain, jos ilmoitusten kanssa on ollut ongelmia.</string>
+    <!-- Button label that enables the "Stay connected in background" setting from a confirmation dialog -->
+    <string name="DataAndStorageSettingsFragment__enable">Laita päälle</string>
+  <!-- Setting option that can be selected to default media to be sent as high quality by default -->
+  <string name="SentMediaQuality__high">Korkea</string>
+  <!-- Setting option that can be selected to default media to be sent as standard quality by default -->
+  <string name="SentMediaQuality__standard">Vakio</string>
+    <string name="preferences_app_protection__screen_lock">Näytön lukitus</string>
+    <!-- Text shown with toggle that when switched on will enable screen lock -->
+    <string name="ScreenLockSettingsFragment__use_screen_lock">Käytä näytön lukitusta</string>
+    <!-- Description of what screen locking will do and how notification content will not be shown when screen is locked -->
+    <string name="ScreenLockSettingsFragment__your_android_device">Android-laitteesi lukitusasetukset vaaditaan Signalin lukituksen avaamiseen, kun poistut sovelluksesta tai vaihdat sovellusten välillä. Kun laite on lukittu, viestien sisältö ei näy ilmoitusten esikatselussa.</string>
+    <!-- Title text explaining when users should start the screen lock -->
+    <string name="ScreenLockSettingsFragment__start_screen_lock">Käynnistä näytön lukitus</string>
+    <!-- Option text explaining that screen lock should start after 1 minute of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_1_min">1 minuutin kuluttua</string>
+    <!-- Option text explaining that screen lock should start after 5 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_5_min">5 minuutin kuluttua</string>
+    <!-- Option text explaining that screen lock should start after 30 minutes of inactivity -->
+    <string name="ScreenLockSettingsFragment__after_30_min">30 minuutin kuluttua</string>
+    <!-- Option text explaining that screen lock should start at a custom time set by the user -->
+    <string name="ScreenLockSettingsFragment__custom_time">Muu aika</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn on screen lock -->
+    <string name="ScreenLockSettingsFragment__use_signal_screen_lock">Käytä Signalin näytön lukitusta</string>
+    <!-- Title on biometrics prompt explaining that biometrics are needed to turn off screen lock -->
+    <string name="ScreenLockSettingsFragment__turn_off_signal_lock">Poista Signalin näytön lukitus</string>
+
+    <!-- HelpSettingsFragment -->
+    <string name="preferences__help">Tuki</string>
+    <string name="HelpSettingsFragment__support_center">Tukikeskus</string>
+    <string name="HelpSettingsFragment__contact_us">Ota yhteyttä</string>
+    <string name="HelpSettingsFragment__version">Versio</string>
+    <!-- Displayed when copying help screen text to the clipboard -->
+    <string name="HelpSettingsFragment__copied_to_clipboard">Kopioitu leikepöydälle</string>
+    <string name="HelpSettingsFragment__debug_log">Virheenkorjausloki</string>
+    <!--    Header for the screen that displays the licenses of the open-source software dependencies of the Signal app-->
+    <string name="HelpSettingsFragment__licenses">Lisenssit</string>
+    <string name="HelpSettingsFragment__terms_amp_privacy_policy">Käyttöehdot ja yksityisyydensuoja</string>
+    <string name="HelpFragment__copyright_signal_messenger">Copyright Signal Messenger</string>
+    <string name="HelpFragment__licenced_under_the_agplv3">Käyttöoikeus: GNU AGPLv3 -lisenssi</string>
+    <!-- Non-English translations should use "Signal is a nonprofit." instead, dropping the 501c3 reference. -->
+    <string name="HelpSettingsFragment__signal_is_a_501c3">Signal on voittoa tavoittelematon organisaatio.</string>
+
+    <!-- AppIconTutorialScreen -->
+    <!-- Visible warning label for the limitations of changing the app icon. -->
+    <string name="preferences__app_icon_warning">Sovelluskuvakkeet ja nimet näkyvät aloitusnäytössä ja sovellusvalikossa.</string>
+    <!-- Visible warning label explaining that changing the app icon and name does not affect notifications. -->
+    <string name="preferences__app_icon_notification_warning">Ilmoituksissa näytetään aina Signalin oletuskuvake ja nimi.</string>
+    <!--Text description of a graphic illustrating the limitations of the app icon change. -->
+    <string name="preferences__graphic_illustrating_where_the_replacement_app_icon_will_be_visible">Kuva, joka havainnollistaa, missä korvaava sovelluskuvake näkyy.</string>
+
+    <!-- AppIconSelectionScreen -->
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a weather/climate application. -->
+    <string name="app_icon_label_weather">Sää</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a note-taking application.-->
+    <string name="app_icon_label_notes">Muistiinpanot</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in a news/journalism application. -->
+    <string name="app_icon_label_news">Uutiset</string>
+    <!-- Alternate label for the Signal Application in the device\'s home screen launcher, as in waves of the ocean. -->
+    <string name="app_icon_label_waves">Aallot</string>
+    <!-- Approval for changing the app icon. -->
+    <string name="preferences__app_icon_dialog_ok">OK</string>
+    <!-- Cancelling the operation of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_cancel">Peruuta</string>
+    <!-- Title for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_title">Vaihda sovelluskuvakkeeksi ja nimeksi \"%1$s\"</string>
+    <!-- Description for the confirmation dialog of changing the app icon. -->
+    <string name="preferences__app_icon_dialog_description">Signal on suljettava sovelluskuvakkeen ja nimen vaihtamiseksi. Ilmoituksissa näytetään aina Signalin oletuskuvake ja nimi.</string>
+    <!-- Visible warning label for the limitations of changing the app icon with learn more call to action. -->
+    <string name="preferences__app_icon_warning_learn_more">Valitse sovelluskuvake ja nimi, jotka näkyvät puhelimesi aloitusnäytössä ja sovellusvalikossa. Ilmoituksissa näytetään aina Signalin oletuskuvake ja nimi. Lue lisää</string>
+    <!--Call to action to get more information about the limitations of the change app icon functionality. -->
+    <string name="preferences__app_icon_learn_more">Lue lisää</string>
+
+    <!-- QrCodeBadge -->
+    <!-- Content of a text field that is shown when the user has not yet set a username link -->
+    <string name="UsernameLinkSettings_link_not_set_label">Linkkiä ei ole asetettu</string>
+
+    <!-- UsernameLinkQrColorPickerScreen -->
+    <!-- App bar title for the username QR code color picker screen -->
+    <string name="UsernameLinkSettings_color_picker_app_bar_title">Väri</string>
+    <!-- Button label for a button that indicates that the user is done changing the current setting -->
+    <string name="UsernameLinkSettings_done_button_label">Valmis</string>
+
+    <!-- NotificationProfileCreatedScreen -->
+    <!-- Title for final screen shown after completing a profile creation -->
+    <string name="NotificationProfileCreated__profile_created">Profiili on luotu</string>
+    <!-- Call to action button to press to close the created screen and move to the profile details screen -->
+    <string name="NotificationProfileCreated__done">Valmis</string>
+    <!-- Descriptor text shown to indicate how to manually turn a profile on/off -->
+    <string name="NotificationProfileCreated__you_can_turn_your_profile_on_or_off_manually_via_the_menu_on_the_chat_list">Voit kytkeä profiilin käyttöön tai pois käytöstä keskustelulistan valikosta käsin.</string>
+    <!-- Descriptor text shown to indicate you can add a schedule later since you did not add one during create flow -->
+    <string name="NotificationProfileCreated__add_a_schedule_in_settings_to_automate_your_profile">Lisää ajoitus asetuksista automatisoidaksesi profiilin käytön.</string>
+    <!-- Descriptor text shown to indicate your profile will follow the schedule set during create flow -->
+    <string name="NotificationProfileCreated__your_profile_will_turn_on_and_off_automatically_according_to_your_schedule">Profiili kytketään käyttöön ja pois käytöstä automaattisesti määrittämäsi ajoituksen mukaisesti.</string>
+</resources>

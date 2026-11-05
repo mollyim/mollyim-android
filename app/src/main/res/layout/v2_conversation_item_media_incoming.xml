@@ -19,7 +19,7 @@
         android:layout_width="@dimen/conversation_item_reply_size"
         android:layout_height="@dimen/conversation_item_reply_size"
         android:alpha="0"
-        android:tint="?attr/signal_icon_tint_secondary"
+        android:tint="@color/signal_icon_tint_secondary"
         app:contentPadding="9dp"
         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
         app:layout_constraintStart_toStartOf="@id/conversation_item_body_wrapper"
@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Signal.Text.BodyMedium"
-            android:textColor="?attr/signal_text_secondary"
+            android:textColor="@color/signal_text_secondary"
             tools:text="Alice › Book Club" />
 
     </LinearLayout>
@@ -88,6 +88,7 @@
         android:id="@+id/conversation_item_body_wrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="48dp"
         android:orientation="vertical"
@@ -228,7 +229,7 @@
         android:linksClickable="false"
         android:maxLines="1"
         android:paddingBottom="@dimen/message_bubble_bottom_padding"
-        android:textColor="?attr/signal_text_secondary"
+        android:textColor="@color/signal_text_secondary"
         app:layout_constraintBottom_toBottomOf="@id/conversation_item_body_wrapper"
         app:layout_constraintEnd_toStartOf="@id/conversation_item_expiration_timer"
         app:layout_goneMarginEnd="@dimen/message_bubble_horizontal_padding"

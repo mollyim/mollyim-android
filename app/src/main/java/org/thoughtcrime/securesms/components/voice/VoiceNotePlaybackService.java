@@ -23,6 +23,7 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.media3.session.MediaSession;
 import androidx.media3.session.MediaSessionService;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.logging.Log;
 import org.signal.core.models.database.AttachmentId;
@@ -35,9 +36,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceViewedUpdateJob;
 import org.thoughtcrime.securesms.jobs.SendViewedReceiptJob;
 import org.thoughtcrime.securesms.mms.PartUriParser;
-import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.service.KeyCachingService;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -96,6 +94,8 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
   @Override
   public void onDestroy() {
+    AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
+
     final VoiceNotePlayer voiceNotePlayer = player;
     if (voiceNotePlayer != null) {
       voiceNotePlayer.release();
@@ -103,7 +103,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
 
     MediaSession session = mediaSession;
     if (session != null) {
-      AppDependencies.getDatabaseObserver().unregisterObserver(attachmentDeletionObserver);
       session.release();
       mediaSession = null;
     }
@@ -269,10 +268,6 @@ public class VoiceNotePlaybackService extends MediaSessionService {
    * @return the built MediaSession, or null if the session cannot be built.
    */
   private @Nullable MediaSession buildMediaSession(boolean isRetry) {
-    if (KeyCachingService.isLocked()) {
-      Log.i(TAG, "Refuse to create media session when app is locked.");
-      return null;
-    }
     try {
       return new MediaSession.Builder(this, player).setCallback(voiceNotePlayerCallback).setId(SESSION_ID).build();
     } catch (IllegalStateException | IllegalArgumentException e) {

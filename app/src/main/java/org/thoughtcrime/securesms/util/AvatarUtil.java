@@ -128,12 +128,17 @@ public final class AvatarUtil {
    */
   @WorkerThread
   public static @NonNull IconCompat getIconCompatForShortcut(@NonNull Context context, @NonNull Recipient recipient) {
-    int size = AdaptiveBitmapMetrics.getInnerWidth();
     if (recipient.isSelf()) {
-      Drawable noteToSelfDrawable = getNoteToSelfDrawable(context, recipient.getAvatarColor(), size);
-      return IconCompat.createWithBitmap(DrawableUtil.toBitmap(noteToSelfDrawable, size, size));
+      return getIconCompatForNoteToSelf(context, recipient);
     }
-    return IconCompat.createWithBitmap(getBitmapForNotification(context, recipient, size));
+    return IconCompat.createWithBitmap(getBitmapForNotification(context, recipient, AdaptiveBitmapMetrics.getInnerWidth()));
+  }
+
+  @WorkerThread
+  public static @NonNull IconCompat getIconCompatForNoteToSelf(@NonNull Context context, @NonNull Recipient recipient) {
+    int      size               = AdaptiveBitmapMetrics.getInnerWidth();
+    Drawable noteToSelfDrawable = getNoteToSelfDrawable(context, recipient.getAvatarColor(), size);
+    return IconCompat.createWithBitmap(DrawableUtil.toBitmap(noteToSelfDrawable, size, size));
   }
 
   @WorkerThread
@@ -239,27 +244,13 @@ public final class AvatarUtil {
     }
 
     @Override
-    public void onDestroy() {
-      Log.d(TAG, "AvatarTarget: onDestroy");
-      super.onDestroy();
-    }
-
-    @Override
-    public void onLoadStarted(@Nullable Drawable placeholder) {
-      Log.d(TAG, "AvatarTarget: onLoadStarted");
-      super.onLoadStarted(placeholder);
-    }
-
-    @Override
     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-      Log.d(TAG, "AvatarTarget: onResourceReady");
       bitmap.set(resource);
       countDownLatch.countDown();
     }
 
     @Override
     public void onLoadFailed(@Nullable Drawable errorDrawable) {
-      Log.d(TAG, "AvatarTarget: onLoadFailed");
       if (errorDrawable == null) {
         throw new AssertionError("Expected an error drawable.");
       }
@@ -271,7 +262,6 @@ public final class AvatarUtil {
 
     @Override
     public void onLoadCleared(@Nullable Drawable placeholder) {
-      Log.d(TAG, "AvatarTarget: onLoadCleared");
       bitmap.set(null);
       countDownLatch.countDown();
     }

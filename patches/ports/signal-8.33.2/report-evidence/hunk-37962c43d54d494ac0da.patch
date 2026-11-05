@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..1326a52352 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -2155,7 +2155,7 @@
+     <string name="RatingManager_later">Later</string>
+ 
+     <!-- ReactionsBottomSheetDialogFragment -->
+-    <string name="ReactionsBottomSheetDialogFragment_all">All · %1$d</string>
++    <string name="ReactionsBottomSheetDialogFragment_all">All &#183; %1$d</string>
+     <string name="ReactionsBottomSheetDialogFragment_tap_to_remove">Tap to remove</string>
+ 
+     <!-- ReactionsConversationView -->

@@ -5,14 +5,15 @@
 
 package org.signal.registration.screens.countrycode
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.ui.navigation.ResultEventBus
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
@@ -28,7 +29,7 @@ class CountryCodePickerViewModel(
   private val resultBus: ResultEventBus,
   private val resultKey: String,
   initialCountry: Country? = null
-) : ViewModel() {
+) : EventDrivenViewModel<CountryCodePickerScreenEvents>(TAG, shouldLogEvents = true) {
 
   companion object {
     private val TAG = Log.tag(CountryCodePickerViewModel::class)
@@ -38,11 +39,14 @@ class CountryCodePickerViewModel(
   val state: StateFlow<CountryCodeState> = _state.asStateFlow()
 
   init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+
     loadCountries(initialCountry)
   }
 
-  fun onEvent(event: CountryCodePickerScreenEvents) {
-    Log.d(TAG, "[Event] $event")
+  override suspend fun processEvent(event: CountryCodePickerScreenEvents) {
     when (event) {
       is CountryCodePickerScreenEvents.Search -> applySearchEvent(event.query)
       is CountryCodePickerScreenEvents.CountrySelected -> {
@@ -94,18 +98,6 @@ class CountryCodePickerViewModel(
           startingIndex = startingIndex
         )
       }
-    }
-  }
-
-  class Factory(
-    private val repository: CountryCodePickerRepository,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    private val resultBus: ResultEventBus,
-    private val resultKey: String,
-    private val initialCountry: Country? = null
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return CountryCodePickerViewModel(repository, parentEventEmitter, resultBus, resultKey, initialCountry) as T
     }
   }
 }

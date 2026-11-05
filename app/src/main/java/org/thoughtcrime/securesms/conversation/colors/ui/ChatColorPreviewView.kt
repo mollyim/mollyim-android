@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.DeliveryStatusView
@@ -21,7 +22,6 @@ import org.thoughtcrime.securesms.conversation.colors.ColorizerV2
 import org.thoughtcrime.securesms.conversation.colors.ColorizerView
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.Projection
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import java.util.Locale
 
@@ -143,12 +143,12 @@ class ChatColorPreviewView @JvmOverloads constructor(
     val backgroundColor = if (chatWallpaper != null) {
       R.color.conversation_item_recv_bubble_color_wallpaper
     } else {
-      R.attr.signal_background_secondary
+      R.color.signal_background_secondary
     }
 
     listOf(recv1, recv2).forEach {
       it.bubble.background.colorFilter = PorterDuffColorFilter(
-        ThemeUtil.getThemedColor(context, backgroundColor),
+        ContextCompat.getColor(context, backgroundColor),
         PorterDuff.Mode.SRC_IN
       )
     }

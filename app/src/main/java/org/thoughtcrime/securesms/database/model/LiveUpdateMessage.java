@@ -13,17 +13,18 @@ import androidx.lifecycle.Transformations;
 
 import java.util.stream.Collectors;
 
-import org.thoughtcrime.securesms.fonts.SignalSymbols;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Weight;
-import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.SpanUtil;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.ui.fonts.SignalSymbols;
 import org.signal.core.ui.util.ThemeUtil;
+import org.signal.core.util.BidiUtil;
+import org.thoughtcrime.securesms.recipients.Recipient;
+import org.thoughtcrime.securesms.recipients.RecipientIds;
+import org.signal.core.ui.util.SpanUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public final class LiveUpdateMessage {
 
@@ -42,7 +43,7 @@ public final class LiveUpdateMessage {
     }
 
     List<LiveData<Recipient>> allMentionedRecipients = updateDescription.getMentioned().stream()
-                                                                        .map(uuid -> Recipient.live(RecipientId.from(uuid)).getLiveDataResolved()).collect(Collectors.toList());
+                                                                        .map(uuid -> Recipient.live(RecipientIds.from(uuid)).getLiveDataResolved()).collect(Collectors.toList());
 
     LiveData<?> mentionedRecipientChangeStream = allMentionedRecipients.isEmpty() ? LiveDataUtil.just(new Object())
                                                                                   : LiveDataUtil.merge(allMentionedRecipients);
@@ -61,27 +62,27 @@ public final class LiveUpdateMessage {
   }
 
   private static @NonNull SpannableString toSpannable(@NonNull Context context, @NonNull UpdateDescription updateDescription, @NonNull Spannable string, @ColorInt int defaultTint, boolean adjustPosition) {
-    Glyph glyph = updateDescription.getGlyph();
-    int   tint  = getMessageThemedColor(context, updateDescription, defaultTint);
+    boolean             isDarkTheme = ThemeUtil.isDarkTheme(context);
+    SignalSymbols.Glyph glyph       = updateDescription.getGlyph();
+    int                 tint        = isDarkTheme ? updateDescription.getDarkTint() : updateDescription.getLightTint();
+
+    if (tint == 0) {
+      tint = defaultTint;
+    }
 
     if (glyph == null) {
       return new SpannableString(string);
     } else {
       SpannableStringBuilder builder   = new SpannableStringBuilder();
-      CharSequence           glyphChar = SignalSymbols.getSpannedString(context, Weight.REGULAR, glyph, -1);
+      CharSequence           glyphChar = SignalSymbols.getSpannedString(context, SignalSymbols.Weight.REGULAR, glyph, -1);
 
+      builder.append(BidiUtil.BidiCodepoint.LRI);
       builder.append(glyphChar);
+      builder.append(BidiUtil.BidiCodepoint.PDI);
       builder.append(" ");
       builder.append(string);
 
       return new SpannableString(SpanUtil.color(tint, builder));
     }
-  }
-
-  public static int getMessageThemedColor(@NonNull Context context, @NonNull UpdateDescription updateDescription, @ColorInt int defaultTint) {
-    boolean  isDarkTheme = ThemeUtil.isDarkTheme(context);
-    int      tint        = isDarkTheme ? updateDescription.getDarkTint() : updateDescription.getLightTint();
-
-    return tint == 0 ? defaultTint : tint;
   }
 }

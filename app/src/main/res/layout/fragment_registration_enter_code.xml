@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".registration.ui.entercode.EnterCodeFragment">
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scroll_view"
@@ -29,7 +28,7 @@
                 android:hyphenationFrequency="normal"
                 android:maxWidth="150dp"
                 android:text="@string/RegistrationActivity_wrong_number"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/signal_colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +73,7 @@
                 android:hyphenationFrequency="normal"
                 android:maxWidth="150dp"
                 android:maxLines="2"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/code"
@@ -92,7 +91,7 @@
                 android:hyphenationFrequency="normal"
                 android:maxWidth="150dp"
                 android:maxLines="2"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/call_me_count_down"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -109,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/RegistrationActivity_support_bottom_sheet_title"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="@color/signal_colorPrimary"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

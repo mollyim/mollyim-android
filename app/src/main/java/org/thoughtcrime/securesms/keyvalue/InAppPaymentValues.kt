@@ -5,13 +5,13 @@ import androidx.annotation.WorkerThread
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.Subject
+import org.signal.core.models.badges.Badge
 import org.signal.core.util.logging.Log
 import org.signal.donations.PaymentSourceType
 import org.signal.donations.StripeApi
 import org.signal.network.util.JsonUtil
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
 import org.thoughtcrime.securesms.badges.Badges
-import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository
 import org.thoughtcrime.securesms.components.settings.app.subscription.InAppPaymentsRepository.toPaymentMethodType
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.stripe.Stripe3DSData
@@ -259,21 +259,19 @@ class InAppPaymentValues internal constructor(store: KeyValueStore) : SignalStor
     return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
   }
 
-  // MOLLY: TODO
-  // fun setExpiredGiftBadge(badge: Badge?) {
-  //   if (badge != null) {
-  //     putBlob(EXPIRED_GIFT_BADGE, Badges.toDatabaseBadge(badge).encode())
-  //   } else {
-  //     remove(EXPIRED_GIFT_BADGE)
-  //   }
-  // }
+  fun setExpiredGiftBadge(badge: Badge?) {
+    if (badge != null) {
+      putBlob(EXPIRED_GIFT_BADGE, Badges.toDatabaseBadge(badge).encode())
+    } else {
+      remove(EXPIRED_GIFT_BADGE)
+    }
+  }
 
-  // MOLLY: TODO
-  // fun getExpiredGiftBadge(): Badge? {
-  //   val badgeBytes = getBlob(EXPIRED_GIFT_BADGE, null) ?: return null
-  //
-  //   return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
-  // }
+  fun getExpiredGiftBadge(): Badge? {
+    val badgeBytes = getBlob(EXPIRED_GIFT_BADGE, null) ?: return null
+
+    return Badges.fromDatabaseBadge(BadgeList.Badge.ADAPTER.decode(badgeBytes))
+  }
 
   fun getLastKeepAliveLaunchTime(): Long {
     return getLong(KEY_LAST_KEEP_ALIVE_LAUNCH, 0L)

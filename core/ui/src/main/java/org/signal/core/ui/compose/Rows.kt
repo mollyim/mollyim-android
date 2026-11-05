@@ -146,6 +146,10 @@ object Rows {
     }
   }
 
+  /**
+   * @param requireConfirmation Whether the dialog's choice only takes effect once the user confirms it, rather than as
+   *                            soon as they tap it.
+   */
   @Composable
   fun RadioListRow(
     text: String,
@@ -153,8 +157,9 @@ object Rows {
     values: Array<String>,
     selectedValue: String,
     onSelected: (String) -> Unit,
-    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
-    enabled: Boolean = true
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    requireConfirmation: Boolean = false
   ) {
     RadioListRow(
       text = { selectedIndex ->
@@ -174,11 +179,16 @@ object Rows {
       values = values,
       selectedValue = selectedValue,
       onSelected = onSelected,
-      trailingIcon = trailingIcon,
-      enabled = enabled
+      modifier = modifier,
+      enabled = enabled,
+      requireConfirmation = requireConfirmation
     )
   }
 
+  /**
+   * @param requireConfirmation Whether the dialog's choice only takes effect once the user confirms it, rather than as
+   *                            soon as they tap it.
+   */
   @Composable
   fun RadioListRow(
     text: @Composable RowScope.(Int) -> Unit,
@@ -187,33 +197,46 @@ object Rows {
     values: Array<String>,
     selectedValue: String,
     onSelected: (String) -> Unit,
-    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
-    enabled: Boolean = true
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    requireConfirmation: Boolean = false
   ) {
     val selectedIndex = values.indexOf(selectedValue)
     var displayDialog by remember { mutableStateOf(false) }
 
     TextRow(
       text = { text(selectedIndex) },
-      trailingIcon = trailingIcon,
       enabled = enabled,
       onClick = {
         displayDialog = true
       },
-      modifier = Modifier.alpha(if (enabled) 1f else DISABLED_ALPHA)
+      modifier = modifier.alpha(if (enabled) 1f else DISABLED_ALPHA)
     )
 
     if (displayDialog) {
-      Dialogs.RadioListDialog(
-        onDismissRequest = { displayDialog = false },
-        labels = labels,
-        values = values,
-        selectedIndex = selectedIndex,
-        title = dialogTitle,
-        onSelected = {
-          onSelected(values[it])
-        }
-      )
+      if (requireConfirmation) {
+        Dialogs.RadioListConfirmationDialog(
+          onDismissRequest = { displayDialog = false },
+          labels = labels,
+          values = values,
+          selectedIndex = selectedIndex,
+          title = dialogTitle,
+          onConfirm = {
+            onSelected(values[it])
+          }
+        )
+      } else {
+        Dialogs.RadioListDialog(
+          onDismissRequest = { displayDialog = false },
+          labels = labels,
+          values = values,
+          selectedIndex = selectedIndex,
+          title = dialogTitle,
+          onSelected = {
+            onSelected(values[it])
+          }
+        )
+      }
     }
   }
 
@@ -224,11 +247,13 @@ object Rows {
     values: Array<String>,
     selection: Array<String>,
     noSelectionLabel: String,
+    modifier: Modifier = Modifier,
     onSelectionChanged: (Array<String>) -> Unit
   ) {
     var displayDialog by remember { mutableStateOf(false) }
 
     TextRow(
+      modifier = modifier,
       text = text,
       label = if (selection.isNotEmpty()) {
         selection.joinToString(", ") {
@@ -370,6 +395,9 @@ object Rows {
 
   /**
    * Text row that positions [text] and optional [label] in a [TextAndLabel] to the side of an optional [icon].
+   *
+   * Passing [onDisabledClick] keeps the row tappable while `enabled` is false, which rows use to explain why they're
+   * unavailable rather than ignoring the tap.
    */
   @Composable
   fun TextRow(
@@ -381,6 +409,7 @@ object Rows {
     foregroundTint: Color = MaterialTheme.colorScheme.onSurface,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    onDisabledClick: (() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     TextRow(
@@ -392,6 +421,7 @@ object Rows {
       foregroundTint = foregroundTint,
       onClick = onClick,
       onLongClick = onLongClick,
+      onDisabledClick = onDisabledClick,
       enabled = enabled
     )
   }
@@ -409,6 +439,7 @@ object Rows {
     foregroundTint: Color = MaterialTheme.colorScheme.onSurface,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    onDisabledClick: (() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     TextRow(
@@ -426,7 +457,7 @@ object Rows {
             painter = icon,
             contentDescription = null,
             tint = foregroundTint,
-            modifier = iconModifier
+            modifier = iconModifier.alpha(if (enabled) 1f else DISABLED_ALPHA)
           )
         }
       } else {
@@ -435,6 +466,7 @@ object Rows {
       modifier = modifier,
       onClick = onClick,
       onLongClick = onLongClick,
+      onDisabledClick = onDisabledClick,
       enabled = enabled
     )
   }
@@ -453,6 +485,7 @@ object Rows {
     iconTint: Color = foregroundTint,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    onDisabledClick: (() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     TextRow(
@@ -470,7 +503,7 @@ object Rows {
             imageVector = icon,
             contentDescription = null,
             tint = iconTint,
-            modifier = iconModifier
+            modifier = iconModifier.alpha(if (enabled) 1f else DISABLED_ALPHA)
           )
         }
       } else {
@@ -479,6 +512,7 @@ object Rows {
       modifier = modifier,
       onClick = onClick,
       onLongClick = onLongClick,
+      onDisabledClick = onDisabledClick,
       enabled = enabled
     )
   }
@@ -492,39 +526,36 @@ object Rows {
     text: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     icon: (@Composable RowScope.() -> Unit)? = null,
-    trailingIcon: (@Composable RowScope.() -> Unit)? = null,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null,
+    onDisabledClick: (() -> Unit)? = null,
     enabled: Boolean = true
   ) {
     val haptics = LocalHapticFeedback.current
+    val clickAction = if (enabled) onClick else onDisabledClick
+    val longClickAction = if (enabled) onLongClick else null
+
     Row(
       modifier = modifier
         .fillMaxWidth()
         .combinedClickable(
-          enabled = enabled && (onClick != null || onLongClick != null),
-          onClick = onClick ?: {},
+          enabled = clickAction != null || longClickAction != null,
+          onClick = clickAction ?: {},
           onLongClick = {
-            if (onLongClick != null) {
+            if (longClickAction != null) {
               haptics.performHapticFeedback(HapticFeedbackType.LongPress)
-              onLongClick()
+              longClickAction()
             }
           }
         )
         .padding(defaultPadding()),
       verticalAlignment = CenterVertically
     ) {
-      Row(modifier = Modifier.weight(1f)) {
-        if (icon != null) {
-          icon()
-          Spacer(modifier = Modifier.width(24.dp))
-        }
-        text()
+      if (icon != null) {
+        icon()
+        Spacer(modifier = Modifier.width(24.dp))
       }
-      // MOLLY: Trailing icon aligned to the end
-      if (trailingIcon != null) {
-        trailingIcon()
-      }
+      text()
     }
   }
 
@@ -659,11 +690,28 @@ private fun ToggleLoadingRowPreview() {
 @Composable
 private fun TextRowPreview() {
   Previews.Preview {
-    Rows.TextRow(
-      text = "TextRow",
-      icon = painterResource(id = android.R.drawable.ic_menu_camera),
-      onClick = {}
-    )
+    Column {
+      Rows.TextRow(
+        text = "TextRow",
+        icon = painterResource(id = android.R.drawable.ic_menu_camera),
+        onClick = {}
+      )
+
+      Rows.TextRow(
+        text = "TextRow, disabled",
+        icon = painterResource(id = android.R.drawable.ic_menu_camera),
+        enabled = false,
+        onClick = {}
+      )
+
+      // Renders as unavailable but still reports the tap, so it can explain why.
+      Rows.TextRow(
+        text = "TextRow, disabled with onDisabledClick",
+        icon = painterResource(id = android.R.drawable.ic_menu_camera),
+        enabled = false,
+        onDisabledClick = {}
+      )
+    }
   }
 }
 
@@ -696,9 +744,6 @@ private fun RadioListRowPreview() {
       labels = arrayOf("A", "B", "C"),
       values = arrayOf("a", "b", "c"),
       selectedValue = selectedValue,
-      trailingIcon = {
-        Icon(painterResource(android.R.drawable.ic_dialog_alert), contentDescription = null)
-      },
       onSelected = {
         selectedValue = it
       }

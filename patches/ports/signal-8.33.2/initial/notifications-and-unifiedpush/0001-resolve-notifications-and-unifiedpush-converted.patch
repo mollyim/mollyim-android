@@ -1,0 +1,354 @@
+From 73ebd5e1c4dd903be777b0aeae1060428cd229bc Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port notifications-and-unifiedpush to Signal 8.33.2, part 1
+
+Retain MollySocket, UnifiedPush and push-selection behavior while resolving notification and delivery API changes.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 8 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
+index 7f2d3e57e04b5cddf003b191a8a5efb89b4a58aa..9ed577d80f5366a2322f8fb1910fe594cf265e68 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsFragment.kt
+@@ -19,10 +19,7 @@ import androidx.compose.foundation.layout.size
+ import androidx.compose.foundation.lazy.LazyColumn
+ import androidx.compose.foundation.lazy.rememberLazyListState
+ import androidx.compose.foundation.shape.CircleShape
+-<<<<<<< MOLLY
+ import androidx.compose.material3.Icon
+-=======
+->>>>>>> SIGNAL
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
+@@ -47,14 +44,11 @@ import androidx.lifecycle.lifecycleScope
+ import androidx.lifecycle.repeatOnLifecycle
+ import androidx.lifecycle.withStateAtLeast
+ import androidx.navigation.fragment.findNavController
+-<<<<<<< MOLLY
+ import androidx.navigation.fragment.navArgs
+ import com.google.android.gms.common.ConnectionResult
+ import com.google.android.material.dialog.MaterialAlertDialogBuilder
+ import im.molly.unifiedpush.UnifiedPushDefaultDistributorLinkActivity
+ import im.molly.unifiedpush.components.settings.app.notifications.MollySocketQrScannerActivity
+-=======
+->>>>>>> SIGNAL
+ import kotlinx.coroutines.launch
+ import org.greenrobot.eventbus.EventBus
+ import org.greenrobot.eventbus.Subscribe
+@@ -83,20 +77,13 @@ import org.thoughtcrime.securesms.notifications.NotificationChannels
+ import org.thoughtcrime.securesms.notifications.TurnOnNotificationsBottomSheet
+ import org.thoughtcrime.securesms.util.CommunicationActions
+ import org.thoughtcrime.securesms.util.RingtoneUtil
+-import org.thoughtcrime.securesms.util.SecurePreferenceManager
+ import org.thoughtcrime.securesms.util.navigation.safeNavigate
+ import org.signal.core.ui.R as CoreUiR
+ 
+ class NotificationsSettingsFragment : ComposeFragment() {
+ 
+   private val viewModel: NotificationsSettingsViewModel by viewModel {
+-<<<<<<< MOLLY
+-    val sharedPreferences = SecurePreferenceManager.getSecurePreferences(requireContext())
+-
+-    NotificationsSettingsViewModel.Factory(sharedPreferences).create(NotificationsSettingsViewModel::class.java)
+-=======
+     NotificationsSettingsViewModel.Factory().create(NotificationsSettingsViewModel::class.java)
+->>>>>>> SIGNAL
+   }
+ 
+   private val appSettingsRouter: AppSettingsRouter by viewModel {
+@@ -120,13 +107,12 @@ class NotificationsSettingsFragment : ComposeFragment() {
+               findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_notificationProfilesFragment)
+             }
+ 
+-<<<<<<< MOLLY
+             AppSettingsRoute.NotificationsRoute.UnifiedPushSettings -> {
+               findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_unifiedPushFragment)
+-=======
++            }
++
+             AppSettingsRoute.NotificationsRoute.MutedNotifications -> {
+               findNavController().safeNavigate(R.id.action_notificationsSettingsFragment_to_mutedNotificationsFragment)
+->>>>>>> SIGNAL
+             }
+ 
+             else -> error("Unexpected route: ${it.javaClass.name}")
+@@ -348,7 +334,6 @@ open class DefaultNotificationsSettingsCallbacks(
+     viewModel.setNotifyWhenContactJoinsSignal(enabled)
+   }
+ 
+-<<<<<<< MOLLY
+   override fun setNotifyNewActivityWhileLocked(enabled: Boolean, isSupported: Boolean) {
+     if (enabled && !isSupported) {
+       MaterialAlertDialogBuilder(activity)
+@@ -373,8 +358,8 @@ open class DefaultNotificationsSettingsCallbacks(
+             .setPositiveButton(R.string.AddLinkDeviceFragment__scan_qr_code) { _, _ ->
+               qrScanLauncher.launch()
+             }
+-            .setNegativeButton(R.string.RegistrationActivity_cancel, null)
+-            .setNeutralButton(R.string.LearnMoreTextView_learn_more) { _, _ ->
++            .setNegativeButton(android.R.string.cancel, null)
++            .setNeutralButton(CoreUiR.string.LearnMoreTextView_learn_more) { _, _ ->
+               CommunicationActions.openBrowserLink(activity, activity.getString(R.string.mollysocket_setup_url))
+             }
+             .show()
+@@ -411,7 +396,8 @@ open class DefaultNotificationsSettingsCallbacks(
+       .show()
+ 
+     viewModel.setPlayServicesErrorCode(null)
+-=======
++  }
++
+   override fun onMutedClicked() {
+     appSettingsRouter.navigateTo(AppSettingsRoute.NotificationsRoute.MutedNotifications)
+   }
+@@ -426,7 +412,6 @@ open class DefaultNotificationsSettingsCallbacks(
+ 
+   override fun onReset() {
+     viewModel.resetSettings()
+->>>>>>> SIGNAL
+   }
+ }
+ 
+@@ -451,17 +436,14 @@ interface NotificationsSettingsCallbacks {
+   fun setCallVibrateEnabled(enabled: Boolean) = Unit
+   fun onNavigationProfilesClick() = Unit
+   fun setNotifyWhenContactJoinsSignal(enabled: Boolean) = Unit
+-<<<<<<< MOLLY
+   fun setNotifyNewActivityWhileLocked(enabled: Boolean, isSupported: Boolean) = Unit
+   fun onNotificationMethodChanged(fromToMethods: Pair<NotificationDeliveryMethod, NotificationDeliveryMethod>) = Unit
+   fun onNavigationUnifiedPushSettings() = Unit
+   fun onPlayServicesError(errorCode: Int) = Unit
+-=======
+   fun onMutedClicked() = Unit
+   fun setReactionNotificationEnabled(enabled: Boolean) = Unit
+   fun setUnreadReminderEnabled(enabled: Boolean) = Unit
+   fun onReset() = Unit
+->>>>>>> SIGNAL
+ 
+   object Empty : NotificationsSettingsCallbacks
+ }
+@@ -756,7 +738,6 @@ fun NotificationsSettingsScreen(
+       }
+ 
+       item {
+-<<<<<<< MOLLY
+         Texts.SectionHeader(stringResource(R.string.NotificationsSettingsFragment__notify_when))
+       }
+ 
+@@ -772,16 +753,10 @@ fun NotificationsSettingsScreen(
+       }
+ 
+       item {
+-        Rows.ToggleRow(
+-          text = stringResource(R.string.NotificationsSettingsFragment__contact_joins_signal),
+-          checked = state.notifyWhenContactJoinsSignal,
+-          onCheckChanged = callbacks::setNotifyWhenContactJoinsSignal
+-=======
+         Rows.TextRow(
+           text = stringResource(R.string.NotificationsSettingsFragment__reset),
+           label = stringResource(R.string.NotificationsSettingsFragment__reset_notifications),
+           onClick = { showDialog = true }
+->>>>>>> SIGNAL
+         )
+       }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsViewModel.kt
+index bbea538134f18e3d0007ed9779bfe3d8449ffe53..44b16b58635c876e6a8bb2572bb051360b766804 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/notifications/NotificationsSettingsViewModel.kt
+@@ -14,15 +14,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
+ import kotlinx.coroutines.flow.StateFlow
+ import kotlinx.coroutines.flow.update
+ import kotlinx.coroutines.launch
+-<<<<<<< MOLLY
+-import org.thoughtcrime.securesms.ApplicationContext
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
+-=======
+ import org.signal.core.util.concurrent.SignalDispatchers
+ import org.signal.core.util.logging.Log
+ import org.thoughtcrime.securesms.database.SignalDatabase
+->>>>>>> SIGNAL
++import org.thoughtcrime.securesms.ApplicationContext
++import org.thoughtcrime.securesms.dependencies.AppDependencies
++import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
+ import org.thoughtcrime.securesms.notifications.NotificationChannels
+@@ -31,6 +28,7 @@ import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPrefere
+ import org.thoughtcrime.securesms.recipients.Recipient
+ import org.thoughtcrime.securesms.recipients.RecipientForeverObserver
+ import org.thoughtcrime.securesms.storage.StorageSyncHelper
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ 
+ class NotificationsSettingsViewModel : ViewModel(), RecipientForeverObserver {
+ 
+@@ -141,7 +139,6 @@ class NotificationsSettingsViewModel : ViewModel(), RecipientForeverObserver {
+     refresh()
+   }
+ 
+-<<<<<<< MOLLY
+   fun setNotifyWhileLocked(enabled: Boolean) {
+     TextSecurePreferences.setPassphraseLockNotificationsEnabled(AppDependencies.application, enabled)
+     refresh()
+@@ -165,7 +162,8 @@ class NotificationsSettingsViewModel : ViewModel(), RecipientForeverObserver {
+ 
+   fun setPlayServicesErrorCode(errorCode: Int?) {
+     store.update { it.copy(playServicesErrorCode = errorCode) }
+-=======
++  }
++
+   fun setReactionNotificationEnabled(enabled: Boolean) {
+     SignalStore.settings.reactionNotifications = enabled
+     markSelfNeedsSync()
+@@ -206,7 +204,6 @@ class NotificationsSettingsViewModel : ViewModel(), RecipientForeverObserver {
+       SignalDatabase.recipients.markNeedsSync(Recipient.self().id)
+       StorageSyncHelper.scheduleSyncForDataChange()
+     }
+->>>>>>> SIGNAL
+   }
+ 
+   /**
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/MarkReadReceiver.java b/app/src/main/java/org/thoughtcrime/securesms/notifications/MarkReadReceiver.java
+index cea02107ffa0ef5fa6566aae0d7325f86f1cd29d..dba103c2a751aa479f18c439b047583fa5a6e829 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/MarkReadReceiver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/MarkReadReceiver.java
+@@ -22,11 +22,7 @@ import org.thoughtcrime.securesms.jobs.CallLogEventSendJob;
+ import org.thoughtcrime.securesms.jobs.MultiDeviceReadUpdateJob;
+ import org.thoughtcrime.securesms.jobs.SendReadReceiptJob;
+ import org.thoughtcrime.securesms.notifications.v2.ConversationId;
+-<<<<<<< MOLLY
+-import org.thoughtcrime.securesms.recipients.RecipientId;
+ import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
+-=======
+->>>>>>> SIGNAL
+ 
+ import java.util.ArrayList;
+ import java.util.LinkedList;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/NotificationIds.kt b/app/src/main/java/org/thoughtcrime/securesms/notifications/NotificationIds.kt
+index 044051ad88322ece0f2e2e19939225b7ac887d83..29ae73d77c6222ded0d4bbab848a9ffdea03809e 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/NotificationIds.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/NotificationIds.kt
+@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.notifications
+ import org.thoughtcrime.securesms.notifications.v2.ConversationId
+ 
+ /**
+- * Single-use ids count up by 10 and stay below the first ranged id.
++ * New single-use ids count up by 10 and stay below the first ranged id. Molly-specific ids retain their existing values.
+  *
+  * Ranged ids are a base plus a database id, built by the `getNotificationIdFor*` functions. For example, thread ranges are offset by
+  * thread id, story ranges by the parent story's message id.
+@@ -36,6 +36,10 @@ object NotificationIds {
+   const val USER_NOTIFICATION_MIGRATION: Int = 190
+   const val DONOR_BADGE_FAILURE: Int = 200
+ 
++  const val FCM_FAILURE: Int = 12
++  const val PENDING_MESSAGES: Int = 1111
++  const val MANUAL_BACKUP_NOT_CREATED: Int = 120502
++
+   const val THREAD: Int = 10000000
+   const val MESSAGE_DELIVERY_FAILURE: Int = 20000000
+   const val UNREAD_REMINDER: Int = 30000000
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/RemoteReplyReceiver.java b/app/src/main/java/org/thoughtcrime/securesms/notifications/RemoteReplyReceiver.java
+index 6f9fffc0afbac525e0c6f9386257c8da28be35e8..855e7b09b644851ccfa01324ab347b78d08d7765 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/RemoteReplyReceiver.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/RemoteReplyReceiver.java
+@@ -36,11 +36,7 @@ import org.thoughtcrime.securesms.mms.SlideDeck;
+ import org.thoughtcrime.securesms.notifications.v2.ConversationId;
+ import org.thoughtcrime.securesms.notifications.v2.DefaultMessageNotifier;
+ import org.thoughtcrime.securesms.recipients.Recipient;
+-<<<<<<< MOLLY
+-import org.thoughtcrime.securesms.recipients.RecipientId;
+ import org.thoughtcrime.securesms.service.ExportedBroadcastReceiver;
+-=======
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.sms.MessageSender;
+ import org.thoughtcrime.securesms.util.MessageUtil;
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/VitalsViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/notifications/VitalsViewModel.kt
+index b435e7318367d5c4038c075c09318fa0e80a6f65..88596bcf4647c3b4e6fdfb14ba69a6ed15f3169c 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/VitalsViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/VitalsViewModel.kt
+@@ -15,12 +15,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
+ import io.reactivex.rxjava3.subjects.BehaviorSubject
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig.ShowCondition
+-<<<<<<< MOLLY
+-=======
+-import org.thoughtcrime.securesms.util.ConnectivityWarning
+-import org.thoughtcrime.securesms.util.NetworkUtil
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+->>>>>>> SIGNAL
+ import java.util.concurrent.TimeUnit
+ 
+ /**
+@@ -75,34 +69,6 @@ class VitalsViewModel(private val context: Application) : AndroidViewModel(conte
+         return@fromCallable State.PROMPT_GENERAL_BATTERY_SAVER_DIALOG
+       }
+ 
+-<<<<<<< MOLLY
+-=======
+-      if (havingDelayedNotifications && SlowNotificationHeuristics.shouldPromptUserForDelayedNotificationLogs()) {
+-        return@fromCallable State.PROMPT_DEBUGLOGS_FOR_NOTIFICATIONS
+-      }
+-
+-      val timeSinceLastConnection = System.currentTimeMillis() - SignalStore.misc.lastWebSocketConnectTime
+-      val timeSinceLastConnectionWarning = System.currentTimeMillis() - SignalStore.misc.lastConnectivityWarningTime
+-      val connectedToWebSocket = AppDependencies.webSocketObserver.value == WebSocketConnectionState.CONNECTED
+-      val isRegistered = SignalStore.account.isRegistered && !SignalStore.account.isUnauthorizedReceived
+-
+-      if (ConnectivityWarning.isEnabled && timeSinceLastConnection > ConnectivityWarning.threshold && timeSinceLastConnectionWarning > 14.days.inWholeMilliseconds && NetworkUtil.isConnected(context) && isRegistered && !connectedToWebSocket) {
+-        return@fromCallable if (ConnectivityWarning.isDebugPromptEnabled) {
+-          State.PROMPT_DEBUGLOGS_FOR_CONNECTIVITY_WARNING
+-        } else {
+-          State.PROMPT_CONNECTIVITY_WARNING
+-        }
+-      }
+-
+-      if (LogDatabase.getInstance(context).crashes.anyMatch(patterns = CrashConfig.patterns, promptThreshold = System.currentTimeMillis() - 14.days.inWholeMilliseconds)) {
+-        val timeSinceLastPrompt = System.currentTimeMillis() - SignalStore.uiHints.lastCrashPrompt
+-
+-        if (timeSinceLastPrompt > 1.days.inWholeMilliseconds) {
+-          return@fromCallable State.PROMPT_DEBUGLOGS_FOR_CRASH
+-        }
+-      }
+-
+->>>>>>> SIGNAL
+       return@fromCallable State.NONE
+     }.subscribeOn(Schedulers.io())
+   }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/notifications/v2/NotificationItem.kt b/app/src/main/java/org/thoughtcrime/securesms/notifications/v2/NotificationItem.kt
+index adddc3900fbd45ff85c6216a9a6ced51194eb9ac..3154f752b12db0c01c7a5248bf8f0b8f47be7083 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/notifications/v2/NotificationItem.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/notifications/v2/NotificationItem.kt
+@@ -14,11 +14,7 @@ import org.signal.core.util.Util
+ import org.signal.core.util.logging.Log
+ import org.signal.emoji.EmojiStrings
+ import org.thoughtcrime.securesms.R
+-<<<<<<< MOLLY
+ import org.thoughtcrime.securesms.ScreenLockController
+-import org.thoughtcrime.securesms.components.emoji.EmojiStrings
+-=======
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.contactshare.Contact
+ import org.thoughtcrime.securesms.contactshare.ContactUtil
+ import org.thoughtcrime.securesms.database.MentionUtil

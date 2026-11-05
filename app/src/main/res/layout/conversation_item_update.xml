@@ -27,10 +27,10 @@
             android:textSize="13sp"
             android:background="@drawable/rounded_rectangle_38"
             android:paddingHorizontal="12dp"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="@color/signal_colorOnSurfaceVariant"
             android:textAllCaps="false"
             style="?android:attr/borderlessButtonStyle"
-            android:backgroundTint="?attr/colorSurfaceContainerLow"
+            android:backgroundTint="@color/signal_colorSurface1"
             tools:text="12 group updates" />
 
         <LinearLayout
@@ -49,7 +49,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="?attr/conversation_item_update_text_color"
+                android:textColor="@color/conversation_item_update_text_color"
+                android:textDirection="locale"
                 tools:text="Gwen Stacy set the disappearing message timer to 1 hour" />
 
             <com.google.android.material.button.MaterialButton

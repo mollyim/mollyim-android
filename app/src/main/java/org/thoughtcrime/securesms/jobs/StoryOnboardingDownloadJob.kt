@@ -12,6 +12,7 @@ import org.thoughtcrime.securesms.database.model.StoryType
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.releasechannel.ReleaseChannel
@@ -67,11 +68,6 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
   override fun onFailure() = Unit
 
   override fun onRun() {
-    if (!SignalStore.account.isRegistered) {
-      Log.i(TAG, "Not registered, skipping.")
-      return
-    }
-
     if (SignalStore.story.hasDownloadedOnboardingStory) {
       Log.i(TAG, "Already downloaded onboarding story. Exiting.")
       return
@@ -173,8 +169,8 @@ class StoryOnboardingDownloadJob private constructor(parameters: Parameters) : B
 
     val potentialOnboardingUrlLanguages = mutableListOf<String>()
 
-    if (SignalStore.settings.language != "zz") {
-      potentialOnboardingUrlLanguages += SignalStore.settings.language
+    if (PlainTextKeyValueStore.language != "zz") {
+      potentialOnboardingUrlLanguages += PlainTextKeyValueStore.language
     }
 
     for (index in 0 until localeList.size()) {

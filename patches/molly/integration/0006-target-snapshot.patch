@@ -1,0 +1,625 @@
+From a39ab6acb63d4a49cc30ae81dfe3443b626d7979 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly integration, part 6
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Shared application/core/library integration, mixed-purpose files and remaining exact target delta.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/lib/blurhash/src/main/AndroidManifest.xml b/lib/blurhash/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 3752c114f7936d985e17124b596a2c364c86febd..0000000000000000000000000000000000000000
+--- a/lib/blurhash/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+diff --git a/lib/contacts/src/main/AndroidManifest.xml b/lib/contacts/src/main/AndroidManifest.xml
+index 039401e2ff7e74f9b4d431d54427a76468a5d23f..3e51e03e36c54e80d62efc989d54df14067bd769 100644
+--- a/lib/contacts/src/main/AndroidManifest.xml
++++ b/lib/contacts/src/main/AndroidManifest.xml
+@@ -2,7 +2,6 @@
+ <manifest
+     xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+diff --git a/lib/debuglogs-viewer/src/main/AndroidManifest.xml b/lib/debuglogs-viewer/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 7277dc362ab3ecf567018237f72978ac2d92d2fb..0000000000000000000000000000000000000000
+--- a/lib/debuglogs-viewer/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/glide/src/main/AndroidManifest.xml b/lib/glide/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 8072ee00dbf16d9161b7464ef3d2194a7d659bcc..0000000000000000000000000000000000000000
+--- a/lib/glide/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,2 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest />
+diff --git a/lib/glide/src/main/java/org/signal/glide/SignalGlideDependencies.kt b/lib/glide/src/main/java/org/signal/glide/SignalGlideDependencies.kt
+index ebc4b85356588d466617ee49db2f93480ed0fc50..1d6375c6b2e849d5cdfe7903adb2df4dc7bdb12a 100644
+--- a/lib/glide/src/main/java/org/signal/glide/SignalGlideDependencies.kt
++++ b/lib/glide/src/main/java/org/signal/glide/SignalGlideDependencies.kt
+@@ -18,7 +18,7 @@ object SignalGlideDependencies {
+ 
+   @Synchronized
+   fun init(application: Application, provider: Provider) {
+-    if (this::_application.isInitialized || this::_provider.isInitialized) {
++    if (this::_provider.isInitialized) {
+       return
+     }
+ 
+diff --git a/lib/image-editor/src/main/AndroidManifest.xml b/lib/image-editor/src/main/AndroidManifest.xml
+deleted file mode 100644
+index a5918e68abcdde7f61ccae4f0ad4885b764573fd..0000000000000000000000000000000000000000
+--- a/lib/image-editor/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
+index 1d8a61d28c527c8aecb11686229c8b4e647391d7..16a01f9f3ebc8b085bb930ea01f1d51c4ff521a5 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceAccountManager.java
+@@ -7,7 +7,10 @@
+ package org.whispersystems.signalservice.api;
+ 
+ import org.signal.libsignal.net.Network;
++import org.signal.libsignal.protocol.InvalidKeyException;
+ import org.whispersystems.signalservice.api.account.AccountApi;
++import org.whispersystems.signalservice.api.account.AccountAttributes;
++import org.whispersystems.signalservice.api.account.PreKeyCollection;
+ import org.whispersystems.signalservice.api.groupsv2.ClientZkOperations;
+ import org.whispersystems.signalservice.api.groupsv2.GroupsV2Api;
+ import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations;
+@@ -108,6 +111,22 @@ public class SignalServiceAccountManager {
+     pushServiceSocket.requestPushChallenge(sessionId, gcmRegistrationId);
+   }
+ 
++  /**
++   * Finishes a registration as a new device. Called by the new device.<br>
++   * This method blocks until the already verified device has verified this device.
++   * @param provisioningCode The provisioning code from the getNewDeviceRegistration method
++   * @return The deviceId given by the server.
++   */
++  public int finishNewDeviceRegistration(String provisioningCode,
++                                         AccountAttributes attributes,
++                                         PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
++                                         @Nullable String fcmToken)
++      throws IOException, InvalidKeyException
++  {
++    int deviceId = pushServiceSocket.finishNewDeviceRegistration(provisioningCode, attributes, aciPreKeys, pniPreKeys, fcmToken);
++    return deviceId;
++  }
++
+   public void checkNetworkConnection() throws IOException {
+     this.pushServiceSocket.pingStorageService();
+   }
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceMessageSender.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceMessageSender.java
+index e4b9a178828128e6279bc82ec7d7972c8fbd72f2..83bb2dc7adccfd78e78e2672c79cf81c7304317f 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceMessageSender.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalServiceMessageSender.java
+@@ -2850,7 +2850,7 @@ public class SignalServiceMessageSender {
+       throws IOException, InvalidKeyException, UntrustedIdentityException, NoSessionException
+   {
+     List<OutgoingPushMessage> messages   = new LinkedList<>();
+-    List<Integer>             subDevices = aciStore.getSubDeviceSessions(recipient.getIdentifier());
++    List<Integer>             subDevices = getSubDeviceSessions(recipient);
+     Set<Integer>              deviceIds  = subDevices.stream()
+                                                      .filter((id) -> aciStore.containsSession(new SignalProtocolAddress(recipient.getIdentifier(), id)))
+                                                      .collect(Collectors.toSet());
+@@ -2872,6 +2872,10 @@ public class SignalServiceMessageSender {
+     return new OutgoingPushMessageList(recipient.getIdentifier(), timestamp, messages, online, urgent);
+   }
+ 
++  public List<Integer> getSubDeviceSessions(SignalServiceAddress recipient) {
++    return aciStore.getSubDeviceSessions(recipient.getIdentifier());
++  }
++
+   // Visible for testing only
+   public OutgoingPushMessage getEncryptedMessage(SignalServiceAddress         recipient,
+                                                  @Nullable SealedSenderAccess sealedSenderAccess,
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalUrlExtensions.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalUrlExtensions.kt
+index a6e32c4c11e0868ec57f8b4d885fa6f9a07a0139..6071347467b958aa0dab41c1160c3434789ebbf7 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalUrlExtensions.kt
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/SignalUrlExtensions.kt
+@@ -9,7 +9,6 @@ import okhttp3.ConnectionSpec
+ import okhttp3.OkHttpClient
+ import org.whispersystems.signalservice.api.push.TrustStore
+ import org.whispersystems.signalservice.api.util.Tls12SocketFactory
+-import org.whispersystems.signalservice.api.util.TlsProxySocketFactory
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+ import org.whispersystems.signalservice.internal.configuration.SignalUrl
+ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
+@@ -35,6 +34,9 @@ fun <T : SignalUrl> T.buildOkHttpClient(configuration: SignalServiceConfiguratio
+   val (socketFactory, trustManager) = createTlsSocketFactory(this.trustStore)
+ 
+   val builder = OkHttpClient.Builder()
++    .socketFactory(configuration.socketFactory)
++    .proxySelector(configuration.proxySelector)
++    .dns(configuration.dns)
+     .sslSocketFactory(socketFactory, trustManager)
+     .connectionSpecs(this.connectionSpecs.orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+     .retryOnConnectionFailure(false)
+@@ -45,11 +47,6 @@ fun <T : SignalUrl> T.buildOkHttpClient(configuration: SignalServiceConfiguratio
+     builder.addInterceptor(interceptor)
+   }
+ 
+-  if (configuration.signalProxy.isPresent) {
+-    val proxy = configuration.signalProxy.get()
+-    builder.socketFactory(TlsProxySocketFactory(proxy.host, proxy.port, configuration.dns))
+-  }
+-
+   return builder.build()
+ }
+ 
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/push/exceptions/ExternalServiceFailureException.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/push/exceptions/ExternalServiceFailureException.kt
+index ccf629212eb24e6c975891f3c3bbffd97c4f3561..ebe43904b5d9fcaf7f01fb37e3914ff527a1e313 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/push/exceptions/ExternalServiceFailureException.kt
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/api/push/exceptions/ExternalServiceFailureException.kt
+@@ -9,6 +9,9 @@ import org.signal.network.exceptions.NonSuccessfulResponseCodeException
+  * illegalArgument - some part of the request was not understood or accepted by the provider (e.g. the provider did not recognize the phone number as a valid number for the selected transport)
+  */
+ class ExternalServiceFailureException(val isPermanent: Boolean, val reason: String) : NonSuccessfulResponseCodeException(502) {
++  val rejected = reason == "providerRejected"
++  val unavailable = !rejected
++
+   override fun toString(): String {
+     return "ExternalServiceFailureException: External service failed to send SMS code ${if (isPermanent) "permanently" else "temporarily"} due to $reason"
+   }
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalServiceConfiguration.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalServiceConfiguration.kt
+index 3c4c70607e2d8a9f1b2e266fbf0c483862b7cca9..4dc66546d01d5dc89260c515721a19ef126715a9 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalServiceConfiguration.kt
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/configuration/SignalServiceConfiguration.kt
+@@ -2,7 +2,9 @@ package org.whispersystems.signalservice.internal.configuration
+ 
+ import okhttp3.Dns
+ import okhttp3.Interceptor
++import java.net.ProxySelector
+ import java.util.Optional
++import javax.net.SocketFactory
+ 
+ /**
+  * Defines all network configuration needed to connect to the Signal service.
+@@ -15,9 +17,9 @@ data class SignalServiceConfiguration(
+   val signalCdsiUrls: Array<SignalCdsiUrl>,
+   val signalSvr2Urls: Array<SignalSvr2Url>,
+   val networkInterceptors: List<Interceptor>,
+-  val dns: Optional<Dns>,
+-  val signalProxy: Optional<SignalProxy>,
+-  val systemHttpProxy: Optional<HttpProxy>,
++  val socketFactory: SocketFactory,
++  val proxySelector: ProxySelector,
++  val dns: Dns,
+   val zkGroupServerPublicParams: ByteArray,
+   val genericServerPublicParams: ByteArray,
+   val backupServerPublicParams: ByteArray,
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+index d14dcb7ba1b69f57233545b42fbbbcf18ec8ca91..1daa76c8d9f51743e01209d91f19fe1564b7e378 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/PushServiceSocket.java
+@@ -70,9 +70,7 @@ import org.whispersystems.signalservice.api.registration.RestoreMethodBody;
+ import org.whispersystems.signalservice.api.svr.Svr3Credentials;
+ import org.whispersystems.signalservice.api.util.CredentialsProvider;
+ import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
+-import org.whispersystems.signalservice.api.util.TlsProxySocketFactory;
+ import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl;
+-import org.whispersystems.signalservice.internal.configuration.SignalProxy;
+ import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
+ import org.whispersystems.signalservice.internal.configuration.SignalUrl;
+ import org.whispersystems.signalservice.internal.crypto.AttachmentDigest;
+@@ -82,6 +80,7 @@ import org.whispersystems.signalservice.internal.push.exceptions.GroupNotFoundEx
+ import org.whispersystems.signalservice.internal.push.exceptions.GroupPatchNotAcceptedException;
+ import org.whispersystems.signalservice.internal.push.exceptions.GroupTerminatedException;
+ import org.whispersystems.signalservice.internal.push.exceptions.MismatchedDevicesException;
++import org.whispersystems.signalservice.internal.push.exceptions.MissingCapabilitiesException;
+ import org.whispersystems.signalservice.internal.push.exceptions.NotInGroupException;
+ import org.whispersystems.signalservice.internal.push.exceptions.StaleDevicesException;
+ import org.whispersystems.signalservice.internal.push.http.CancelationSignal;
+@@ -105,6 +104,7 @@ import java.io.IOException;
+ import java.io.InputStream;
+ import java.io.OutputStream;
+ import java.io.UnsupportedEncodingException;
++import java.net.ProxySelector;
+ import java.net.URLEncoder;
+ import java.nio.charset.StandardCharsets;
+ import java.security.KeyManagementException;
+@@ -127,6 +127,7 @@ import java.util.function.Function;
+ 
+ import javax.annotation.Nonnull;
+ import javax.annotation.Nullable;
++import javax.net.SocketFactory;
+ import javax.net.ssl.SSLContext;
+ import javax.net.ssl.TrustManager;
+ import javax.net.ssl.X509TrustManager;
+@@ -185,6 +186,8 @@ public class PushServiceSocket {
+ 
+   private static final String ARCHIVE_MEDIA_DOWNLOAD_PATH = "backups/%s/%s";
+ 
++  private static final String DEVICE_LINK_PATH = "/v1/devices/link";
++
+   private static final Map<String, String> NO_HEADERS                         = Collections.emptyMap();
+   private static final ResponseCodeHandler NO_HANDLER                         = new EmptyResponseCodeHandler();
+   private static final ResponseCodeHandler UNOPINIONATED_HANDLER              = new UnopinionatedResponseCodeHandler();
+@@ -216,9 +219,9 @@ public class PushServiceSocket {
+     this.credentialsProvider       = credentialsProvider;
+     this.signalAgent               = signalAgent;
+     this.automaticNetworkRetry     = automaticNetworkRetry;
+-    this.serviceClients            = createServiceConnectionHolders(configuration.getSignalServiceUrls(), configuration.getNetworkInterceptors(), configuration.getDns(), configuration.getSignalProxy());
+-    this.cdnClientsMap             = createCdnClientsMap(configuration.getSignalCdnUrlMap(), configuration.getNetworkInterceptors(), configuration.getDns(), configuration.getSignalProxy());
+-    this.storageClients            = createConnectionHolders(configuration.getSignalStorageUrls(), configuration.getNetworkInterceptors(), configuration.getDns(), configuration.getSignalProxy());
++    this.serviceClients            = createServiceConnectionHolders(configuration.getSignalServiceUrls(), configuration.getNetworkInterceptors(), configuration.getSocketFactory(), configuration.getProxySelector(), configuration.getDns());
++    this.cdnClientsMap             = createCdnClientsMap(configuration.getSignalCdnUrlMap(), configuration.getNetworkInterceptors(), configuration.getSocketFactory(), configuration.getProxySelector(), configuration.getDns());
++    this.storageClients            = createConnectionHolders(configuration.getSignalStorageUrls(), configuration.getNetworkInterceptors(), configuration.getSocketFactory(), configuration.getProxySelector(), configuration.getDns());
+     this.random                    = new SecureRandom();
+   }
+ 
+@@ -336,6 +339,47 @@ public class PushServiceSocket {
+     return JsonUtil.fromJson(response, VerifyAccountResponse.class);
+   }
+ 
++  public int finishNewDeviceRegistration(String provisioningCode,
++                                         AccountAttributes attributes,
++                                         PreKeyCollection aciPreKeys, PreKeyCollection pniPreKeys,
++                                         @Nullable String fcmToken)
++      throws IOException, InvalidKeyException
++  {
++    GcmRegistrationId gcmRegistrationId;
++    if (attributes.getFetchesMessages()) {
++      gcmRegistrationId = null;
++    } else {
++      gcmRegistrationId = new GcmRegistrationId(fcmToken, true);
++    }
++
++    final SignedPreKeyEntity aciSignedPreKey = new SignedPreKeyEntity(Objects.requireNonNull(aciPreKeys.getSignedPreKey()).getId(),
++                                                                      aciPreKeys.getSignedPreKey().getKeyPair().getPublicKey(),
++                                                                      aciPreKeys.getSignedPreKey().getSignature());
++    final SignedPreKeyEntity pniSignedPreKey = new SignedPreKeyEntity(Objects.requireNonNull(pniPreKeys.getSignedPreKey()).getId(),
++                                                                      pniPreKeys.getSignedPreKey().getKeyPair().getPublicKey(),
++                                                                      pniPreKeys.getSignedPreKey().getSignature());
++    final KyberPreKeyEntity aciLastResortKyberPreKey = new KyberPreKeyEntity(Objects.requireNonNull(aciPreKeys.getLastResortKyberPreKey()).getId(),
++                                                                             aciPreKeys.getLastResortKyberPreKey().getKeyPair().getPublicKey(),
++                                                                             aciPreKeys.getLastResortKyberPreKey().getSignature());
++    final KyberPreKeyEntity pniLastResortKyberPreKey = new KyberPreKeyEntity(Objects.requireNonNull(pniPreKeys.getLastResortKyberPreKey()).getId(),
++                                                                             pniPreKeys.getLastResortKyberPreKey().getKeyPair().getPublicKey(),
++                                                                             pniPreKeys.getLastResortKyberPreKey().getSignature());
++
++    LinkDeviceRequest linkDeviceRequest = new LinkDeviceRequest(
++        provisioningCode, attributes,
++        aciSignedPreKey, pniSignedPreKey, aciLastResortKyberPreKey, pniLastResortKyberPreKey,
++        gcmRegistrationId
++    );
++    String   json         = JsonUtil.toJson(linkDeviceRequest);
++    String   responseText = makeServiceRequest(DEVICE_LINK_PATH, "PUT", json, NO_HEADERS, NEW_DEVICE_PUT_RESPONSE_HANDLER, SealedSenderAccess.NONE);
++    DeviceId response     = JsonUtil.fromJson(responseText, DeviceId.class);
++    return response.getDeviceId();
++  }
++
++  private static final ResponseCodeHandler NEW_DEVICE_PUT_RESPONSE_HANDLER = (responseCode, body, getHeader) -> {
++    if (responseCode == 409) throw new MissingCapabilitiesException();
++  };
++
+   /**
+    * V2 API: Creates a verification session and returns the raw Response for manual handling.
+    * Caller is responsible for closing the response.
+@@ -1608,14 +1652,15 @@ public class PushServiceSocket {
+ 
+   private ServiceConnectionHolder[] createServiceConnectionHolders(SignalUrl[] urls,
+                                                                    List<Interceptor> interceptors,
+-                                                                   Optional<Dns> dns,
+-                                                                   Optional<SignalProxy> proxy)
++                                                                   SocketFactory socketFactory,
++                                                                   ProxySelector proxySelector,
++                                                                   Dns dns)
+   {
+     List<ServiceConnectionHolder> serviceConnectionHolders = new LinkedList<>();
+ 
+     for (SignalUrl url : urls) {
+-      serviceConnectionHolders.add(new ServiceConnectionHolder(createConnectionClient(url, interceptors, dns, proxy),
+-                                                               createConnectionClient(url, interceptors, dns, proxy),
++      serviceConnectionHolders.add(new ServiceConnectionHolder(createConnectionClient(url, interceptors, socketFactory, proxySelector, dns),
++                                                               createConnectionClient(url, interceptors, socketFactory, proxySelector, dns),
+                                                                url.getUrl(), url.getHostHeader()));
+     }
+ 
+@@ -1624,13 +1669,14 @@ public class PushServiceSocket {
+ 
+   private static Map<Integer, ConnectionHolder[]> createCdnClientsMap(final Map<Integer, SignalCdnUrl[]> signalCdnUrlMap,
+                                                                       final List<Interceptor> interceptors,
+-                                                                      final Optional<Dns> dns,
+-                                                                      final Optional<SignalProxy> proxy) {
++                                                                      final SocketFactory socketFactory,
++                                                                      final ProxySelector proxySelector,
++                                                                      final Dns dns) {
+     validateConfiguration(signalCdnUrlMap);
+     final Map<Integer, ConnectionHolder[]> result = new HashMap<>();
+     for (Map.Entry<Integer, SignalCdnUrl[]> entry : signalCdnUrlMap.entrySet()) {
+       result.put(entry.getKey(),
+-                 createConnectionHolders(entry.getValue(), interceptors, dns, proxy));
++                 createConnectionHolders(entry.getValue(), interceptors, socketFactory, proxySelector, dns));
+     }
+     return Collections.unmodifiableMap(result);
+   }
+@@ -1641,17 +1687,17 @@ public class PushServiceSocket {
+     }
+   }
+ 
+-  private static ConnectionHolder[] createConnectionHolders(SignalUrl[] urls, List<Interceptor> interceptors, Optional<Dns> dns, Optional<SignalProxy> proxy) {
++  private static ConnectionHolder[] createConnectionHolders(SignalUrl[] urls, List<Interceptor> interceptors, SocketFactory socketFactory, ProxySelector proxySelector, Dns dns) {
+     List<ConnectionHolder> connectionHolders = new LinkedList<>();
+ 
+     for (SignalUrl url : urls) {
+-      connectionHolders.add(new ConnectionHolder(createConnectionClient(url, interceptors, dns, proxy), url.getUrl(), url.getHostHeader()));
++      connectionHolders.add(new ConnectionHolder(createConnectionClient(url, interceptors, socketFactory, proxySelector, dns), url.getUrl(), url.getHostHeader()));
+     }
+ 
+     return connectionHolders.toArray(new ConnectionHolder[0]);
+   }
+ 
+-  private static OkHttpClient createConnectionClient(SignalUrl url, List<Interceptor> interceptors, Optional<Dns> dns, Optional<SignalProxy> proxy) {
++  private static OkHttpClient createConnectionClient(SignalUrl url, List<Interceptor> interceptors, SocketFactory socketFactory, ProxySelector proxySelector, Dns dns) {
+     try {
+       TrustManager[] trustManagers = BlacklistingTrustManager.createFor(url.getTrustStore());
+ 
+@@ -1659,13 +1705,11 @@ public class PushServiceSocket {
+       context.init(null, trustManagers, null);
+ 
+       OkHttpClient.Builder builder = new OkHttpClient.Builder()
++                                                     .socketFactory(socketFactory)
++                                                     .proxySelector(proxySelector)
+                                                      .sslSocketFactory(new Tls12SocketFactory(context.getSocketFactory()), (X509TrustManager)trustManagers[0])
+                                                      .connectionSpecs(url.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+-                                                     .dns(dns.orElse(Dns.SYSTEM));
+-
+-      if (proxy.isPresent()) {
+-        builder.socketFactory(new TlsProxySocketFactory(proxy.get().getHost(), proxy.get().getPort(), dns));
+-      }
++                                                     .dns(dns);
+ 
+       builder.sslSocketFactory(new Tls12SocketFactory(context.getSocketFactory()), (X509TrustManager)trustManagers[0])
+              .connectionSpecs(url.getConnectionSpecs().orElse(Util.immutableList(ConnectionSpec.RESTRICTED_TLS)))
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/util/StaticCredentialsProvider.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/util/StaticCredentialsProvider.java
+index 47b6314db16b67d0ed350b42ccab2fc51e3064e1..b2c214339b57eed600ac95e1aad8ae530e3e27bb 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/util/StaticCredentialsProvider.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/util/StaticCredentialsProvider.java
+@@ -12,11 +12,11 @@ import org.whispersystems.signalservice.api.util.CredentialsProvider;
+ 
+ public class StaticCredentialsProvider implements CredentialsProvider {
+ 
+-  private final ACI    aci;
+-  private final PNI    pni;
+-  private final String e164;
+-  private final int    deviceId;
+-  private final String password;
++  private ACI    aci;
++  private PNI    pni;
++  private String e164;
++  private int    deviceId;
++  private String password;
+ 
+   public StaticCredentialsProvider(ACI aci, PNI pni, String e164, int deviceId, String password) {
+     this.aci      = aci;
+@@ -50,4 +50,24 @@ public class StaticCredentialsProvider implements CredentialsProvider {
+   public String getPassword() {
+     return password;
+   }
++
++  public void setAci(ACI aci) {
++    this.aci = aci;
++  }
++
++  public void setPni(PNI pni) {
++    this.pni = pni;
++  }
++
++  public void setE164(String e164) {
++    this.e164 = e164;
++  }
++
++  public void setDeviceId(int deviceId) {
++    this.deviceId = deviceId;
++  }
++
++  public void setPassword(String password) {
++    this.password = password;
++  }
+ }
+diff --git a/lib/libsignal-service/src/main/protowire/CallQualitySurvey.proto b/lib/libsignal-service/src/main/protowire/CallQualitySurvey.proto
+deleted file mode 100644
+index 7158b1d3ee761c19156361cb715ae948ab104fe3..0000000000000000000000000000000000000000
+--- a/lib/libsignal-service/src/main/protowire/CallQualitySurvey.proto
++++ /dev/null
+@@ -1,100 +0,0 @@
+-// Copyright 2025 Signal Messenger, LLC
+-// SPDX-License-Identifier: AGPL-3.0-only
+-
+-syntax = "proto3";
+-
+-option java_multiple_files = true;
+-
+-package org.signal.storageservice.protos.calls.quality;
+-
+-message SubmitCallQualitySurveyRequest {
+-  // Indicates whether the caller was generally satisfied with the quality of
+-  // the call
+-  bool user_satisfied = 1;
+-
+-  // A list of call quality issues selected by the caller
+-  repeated string call_quality_issues = 2;
+-
+-  // A free-form description of any additional issues as written by the caller
+-  optional string additional_issues_description = 3;
+-
+-  // A URL for a set of debug logs associated with the call if the caller chose
+-  // to submit debug logs
+-  optional string debug_log_url = 4;
+-
+-  // The time at which the call started in microseconds since the epoch (see
+-  // https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#timestamp_type)
+-  int64 start_timestamp = 5;
+-
+-  // The time at which the call ended in microseconds since the epoch (see
+-  // https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#timestamp_type)
+-  int64 end_timestamp = 6;
+-
+-  // The type of call; note that direct voice calls can become video calls and
+-  // vice versa, and this field indicates which mode was selected at call
+-  // initiation time. At the time of writing, expected call types are
+-  // "direct_voice", "direct_video", "group", and "call_link".
+-  string call_type = 7;
+-
+-  // Indicates whether the call completed without error or if it terminated
+-  // abnormally
+-  bool success = 8;
+-
+-  // A client-defined, but human-readable reason for call termination
+-  string call_end_reason = 9;
+-
+-  // The median round-trip time, measured in milliseconds, for STUN/ICE packets
+-  // (i.e. connection maintenance and establishment)
+-  optional float connection_rtt_median = 10;
+-
+-  // The median round-trip time, measured in milliseconds, for RTP/RTCP packets
+-  // for audio streams
+-  optional float audio_rtt_median = 11;
+-
+-  // The median round-trip time, measured in milliseconds, for RTP/RTCP packets
+-  // for video streams
+-  optional float video_rtt_median = 12;
+-
+-  // The median jitter for audio streams, measured in milliseconds, for the
+-  // duration of the call as measured by the client submitting the survey
+-  optional float audio_recv_jitter_median = 13;
+-
+-  // The median jitter for video streams, measured in milliseconds, for the
+-  // duration of the call as measured by the client submitting the survey
+-  optional float video_recv_jitter_median = 14;
+-
+-  // The median jitter for audio streams, measured in milliseconds, for the
+-  // duration of the call as measured by the remote endpoint in the call (either
+-  // the peer of the client submitting the survey in a direct call or the SFU in
+-  // a group call)
+-  optional float audio_send_jitter_median = 15;
+-
+-  // The median jitter for video streams, measured in milliseconds, for the
+-  // duration of the call as measured by the remote endpoint in the call (either
+-  // the peer of the client submitting the survey in a direct call or the SFU in
+-  // a group call)
+-  optional float video_send_jitter_median = 16;
+-
+-  // The fraction of audio packets lost over the duration of the call as
+-  // measured by the client submitting the survey
+-  optional float audio_recv_packet_loss_fraction = 17;
+-
+-  // The fraction of video packets lost over the duration of the call as
+-  // measured by the client submitting the survey
+-  optional float video_recv_packet_loss_fraction = 18;
+-
+-  // The fraction of audio packets lost over the duration of the call as
+-  // measured by the remote endpoint in the call (either the peer of the client
+-  // submitting the survey in a direct call or the SFU in a group call)
+-  optional float audio_send_packet_loss_fraction = 19;
+-
+-  // The fraction of video packets lost over the duration of the call as
+-  // measured by the remote endpoint in the call (either the peer of the client
+-  // submitting the survey in a direct call or the SFU in a group call)
+-  optional float video_send_packet_loss_fraction = 20;
+-
+-  // Machine-generated telemetry from the call; this is a serialized protobuf
+-  // entity generated (and, critically, explained to the user!) by the calling
+-  // library
+-  optional bytes call_telemetry = 21;
+-}
+diff --git a/lib/paging/src/main/AndroidManifest.xml b/lib/paging/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 7277dc362ab3ecf567018237f72978ac2d92d2fb..0000000000000000000000000000000000000000
+--- a/lib/paging/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/photoview/src/main/AndroidManifest.xml b/lib/photoview/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 7277dc362ab3ecf567018237f72978ac2d92d2fb..0000000000000000000000000000000000000000
+--- a/lib/photoview/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/qr/src/main/java/org/signal/qr/kitkat/ScanListener.java b/lib/qr/src/main/java/org/signal/qr/kitkat/ScanListener.java
+index e902827cfc317ae3b1e0d536d70b6d3bf1cf4b7a..d23fa596e7ca0e982cd0745a13beb8d6bcbd6173 100644
+--- a/lib/qr/src/main/java/org/signal/qr/kitkat/ScanListener.java
++++ b/lib/qr/src/main/java/org/signal/qr/kitkat/ScanListener.java
+@@ -4,4 +4,5 @@ import androidx.annotation.NonNull;
+ 
+ public interface ScanListener {
+   void onQrDataFound(@NonNull String data);
++  default void onNoScan() {}
+ }
+diff --git a/lib/sticky-header-grid/src/main/AndroidManifest.xml b/lib/sticky-header-grid/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 7277dc362ab3ecf567018237f72978ac2d92d2fb..0000000000000000000000000000000000000000
+--- a/lib/sticky-header-grid/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest
+-    xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-</manifest>
+\ No newline at end of file
+diff --git a/lib/video/src/main/AndroidManifest.xml b/lib/video/src/main/AndroidManifest.xml
+deleted file mode 100644
+index 8072ee00dbf16d9161b7464ef3d2194a7d659bcc..0000000000000000000000000000000000000000
+--- a/lib/video/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,2 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest />
+
+--------------false--
+
+

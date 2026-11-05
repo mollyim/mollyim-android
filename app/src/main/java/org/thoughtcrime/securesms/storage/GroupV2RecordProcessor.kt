@@ -53,6 +53,7 @@ class GroupV2RecordProcessor(private val recipientTable: RecipientTable, private
     val merged = SignalGroupV2Record.newBuilder(remote.serializedUnknowns).apply {
       masterKey = remote.proto.masterKey
       blocked = remote.proto.blocked
+      blockedAtTimestamp = remote.proto.blockedAtTimestamp
       whitelisted = remote.proto.whitelisted
       archived = remote.proto.archived
       markedUnread = remote.proto.markedUnread
@@ -62,6 +63,10 @@ class GroupV2RecordProcessor(private val recipientTable: RecipientTable, private
       storySendMode = remote.proto.storySendMode
       avatarColor = if (SignalStore.account.isPrimaryDevice) local.proto.avatarColor else remote.proto.avatarColor
       verifiedNameHash = if (remote.proto.verifiedNameHash.isNotEmpty()) remote.proto.verifiedNameHash else local.proto.verifiedNameHash
+      notifyForCallsIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForCallsIfMuted, local.proto.notifyForCallsIfMuted)
+      notifyForMentionsIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForMentionsIfMuted, local.proto.notifyForMentionsIfMuted)
+      notifyForRepliesIfMuted = StorageSyncHelper.getOptionalBool(remote.proto.notifyForRepliesIfMuted, local.proto.notifyForRepliesIfMuted)
+      showUnreadReminders = StorageSyncHelper.getOptionalBool(remote.proto.showUnreadReminders, local.proto.showUnreadReminders)
     }.build().toSignalGroupV2Record(StorageId.forGroupV2(keyGenerator.generate()))
 
     val matchesRemote = doParamsMatch(remote, merged)

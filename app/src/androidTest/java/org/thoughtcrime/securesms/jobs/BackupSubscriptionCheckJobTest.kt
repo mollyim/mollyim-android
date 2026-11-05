@@ -6,6 +6,9 @@
 package org.thoughtcrime.securesms.jobs
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import assertk.assertThat
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
@@ -29,6 +32,7 @@ import org.signal.core.util.money.FiatMoney
 import org.signal.donations.InAppPaymentType
 import org.signal.network.NetworkResult
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException
+import org.signal.network.service.ArchiveError
 import org.thoughtcrime.securesms.backup.DeletionState
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -91,23 +95,9 @@ class BackupSubscriptionCheckJobTest {
     every { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) } returns Unit
 
     mockkObject(BackupRepository)
-    every { BackupRepository.getBackupTier() } answers {
-      val tier = SignalStore.backup.backupTier
-      if (tier != null) {
-        NetworkResult.Success(tier)
-      } else {
-        NetworkResult.StatusCodeError(NonSuccessfulResponseCodeException(404))
-      }
-    }
+    every { BackupRepository.getBackupTier() } answers { currentTierResult() }
 
-    every { BackupRepository.getBackupTierWithoutDowngrade() } answers {
-      val tier = SignalStore.backup.backupTier
-      if (tier != null) {
-        NetworkResult.Success(tier)
-      } else {
-        NetworkResult.StatusCodeError(NonSuccessfulResponseCodeException(404))
-      }
-    }
+    every { BackupRepository.getBackupTierWithoutDowngrade() } answers { currentTierResult() }
 
     every { BackupRepository.resetInitializedStateAndAuthCredentials() } returns Unit
 
@@ -120,8 +110,6 @@ class BackupSubscriptionCheckJobTest {
         number = "+1234567890"
       )
     )
-
-    every { AppDependencies.donationsApi.putSubscription(any()) } returns NetworkResult.Success(Unit)
 
     insertSubscriber()
   }
@@ -367,8 +355,128 @@ class BackupSubscriptionCheckJobTest {
     verify {
       RecurringInAppPaymentRepository.ensureSubscriberIdSync(
         eq(InAppPaymentSubscriberRecord.Type.BACKUP),
-        eq(true),
+        eq(false),
         eq(IAPSubscriptionId.GooglePlayBillingPurchaseToken(purchaseToken = "test_token"))
+      )
+    }
+  }
+
+  @Test
+  fun givenUnacknowledgedPurchaseAndAppleSubscriber_whenIRun_thenIExpectTokenRedemption() {
+    mockUnacknowledgedPurchase()
+    insertAppleSubscriber()
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isFalse()
+    verify {
+      RecurringInAppPaymentRepository.ensureSubscriberIdSync(
+        eq(InAppPaymentSubscriberRecord.Type.BACKUP),
+        eq(true),
+        eq(IAPSubscriptionId.GooglePlayBillingPurchaseToken(purchaseToken = IAP_TOKEN))
+      )
+    }
+  }
+
+  @Test
+  fun givenRotationThrows_whenIRun_thenIExpectSuccessAndStateMismatchDetected() {
+    mockUnacknowledgedPurchase()
+    insertAppleSubscriber()
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+    every { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) } throws IllegalArgumentException("Rotation failed.")
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isTrue()
+  }
+
+  @Test
+  fun givenDeferredPurchaseAndAppleSubscriber_whenIRun_thenIExpectNoRedemption() {
+    mockDeferredPurchase()
+    insertAppleSubscriber()
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isTrue()
+    verify(exactly = 0) { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) }
+  }
+
+  @Test
+  fun givenUnacknowledgedRedeemedPurchaseMatchingSubscriber_whenIRun_thenIExpectSuccessAndNoMismatch() {
+    mockUnacknowledgedPurchase()
+    insertRedeemedInAppPayment(insertSubscriber())
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+
+    SignalStore.backup.backupTier = MessageBackupTier.PAID
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isFalse()
+    verify(exactly = 0) { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) }
+  }
+
+  @Test
+  fun givenUnacknowledgedUnredeemedPurchaseMatchingSubscriber_whenIRun_thenIExpectStateMismatchDetected() {
+    mockUnacknowledgedPurchase()
+    insertSubscriber()
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+
+    SignalStore.backup.backupTier = MessageBackupTier.PAID
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isTrue()
+    verify(exactly = 0) { RecurringInAppPaymentRepository.ensureSubscriberIdSync(any(), any(), any()) }
+  }
+
+  @Test
+  fun givenUnacknowledgedRedeemedPurchaseMatchingSubscriberWithoutEntitlement_whenIRun_thenIExpectRedemption() {
+    mockUnacknowledgedPurchase()
+    insertRedeemedInAppPayment(insertSubscriber())
+
+    every { RecurringInAppPaymentRepository.getActiveSubscriptionSync(InAppPaymentSubscriberRecord.Type.BACKUP) } returns NetworkResult.Success(
+      createActiveSubscription(isActive = true)
+    )
+
+    SignalStore.backup.backupTier = MessageBackupTier.FREE
+
+    val job = BackupSubscriptionCheckJob.create()
+    val result = job.run()
+
+    assertThat(result.isSuccess).isTrue()
+    assertThat(SignalStore.backup.subscriptionStateMismatchDetected).isFalse()
+    verify {
+      RecurringInAppPaymentRepository.ensureSubscriberIdSync(
+        eq(InAppPaymentSubscriberRecord.Type.BACKUP),
+        eq(false),
+        eq(IAPSubscriptionId.GooglePlayBillingPurchaseToken(purchaseToken = IAP_TOKEN))
       )
     }
   }
@@ -466,7 +574,7 @@ class BackupSubscriptionCheckJobTest {
 
     // Set up mismatched state: local tier is PAID but ZK tier is FREE
     SignalStore.backup.backupTier = MessageBackupTier.PAID
-    every { BackupRepository.getBackupTierWithoutDowngrade() } returns NetworkResult.Success(MessageBackupTier.FREE)
+    every { BackupRepository.getBackupTierWithoutDowngrade() } returns MessageBackupTier.FREE.right()
     every { BackupRepository.resetInitializedStateAndAuthCredentials() } returns Unit
 
     val job = BackupSubscriptionCheckJob.create()
@@ -487,7 +595,7 @@ class BackupSubscriptionCheckJobTest {
 
     // Set up synced state: both local and ZK tiers are PAID
     SignalStore.backup.backupTier = MessageBackupTier.PAID
-    every { BackupRepository.getBackupTierWithoutDowngrade() } returns NetworkResult.Success(MessageBackupTier.PAID)
+    every { BackupRepository.getBackupTierWithoutDowngrade() } returns MessageBackupTier.PAID.right()
 
     val job = BackupSubscriptionCheckJob.create()
     val result = job.run()
@@ -506,7 +614,7 @@ class BackupSubscriptionCheckJobTest {
 
     SignalStore.backup.backupTier = MessageBackupTier.PAID
     // ZK credential fetch fails, should trigger refresh
-    every { BackupRepository.getBackupTierWithoutDowngrade() } returns NetworkResult.StatusCodeError(NonSuccessfulResponseCodeException(500))
+    every { BackupRepository.getBackupTierWithoutDowngrade() } returns ArchiveError.NetworkError(IOException("Server error: 500")).left()
     every { BackupRepository.resetInitializedStateAndAuthCredentials() } returns Unit
 
     val job = BackupSubscriptionCheckJob.create()
@@ -607,11 +715,40 @@ class BackupSubscriptionCheckJobTest {
     )
   }
 
-  private fun insertSubscriber(token: String = IAP_TOKEN) {
+  private fun insertSubscriber(token: String = IAP_TOKEN): SubscriberId {
+    val subscriberId = SubscriberId.generate()
+
     SignalDatabase.inAppPaymentSubscribers.insertOrReplace(
       InAppPaymentSubscriberRecord(
         type = InAppPaymentSubscriberRecord.Type.BACKUP,
         iapSubscriptionId = IAPSubscriptionId.GooglePlayBillingPurchaseToken(token),
+        requiresCancel = false,
+        paymentMethodType = InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING,
+        currency = null,
+        subscriberId = subscriberId
+      )
+    )
+
+    return subscriberId
+  }
+
+  private fun insertRedeemedInAppPayment(subscriberId: SubscriberId) {
+    SignalDatabase.inAppPayments.insert(
+      type = InAppPaymentType.RECURRING_BACKUP,
+      state = InAppPaymentTable.State.END,
+      subscriberId = subscriberId,
+      endOfPeriod = null,
+      inAppPaymentData = InAppPaymentData(
+        redemption = InAppPaymentData.RedemptionState(stage = InAppPaymentData.RedemptionState.Stage.REDEEMED)
+      )
+    )
+  }
+
+  private fun insertAppleSubscriber() {
+    SignalDatabase.inAppPaymentSubscribers.insertOrReplace(
+      InAppPaymentSubscriberRecord(
+        type = InAppPaymentSubscriberRecord.Type.BACKUP,
+        iapSubscriptionId = IAPSubscriptionId.AppleIAPOriginalTransactionId(1000L),
         requiresCancel = false,
         paymentMethodType = InAppPaymentData.PaymentMethodType.GOOGLE_PLAY_BILLING,
         currency = null,
@@ -658,6 +795,26 @@ class BackupSubscriptionCheckJobTest {
     )
   }
 
+  private fun mockUnacknowledgedPurchase() {
+    coEvery { AppDependencies.billingApi.queryPurchases() } returns BillingPurchaseResult.Success(
+      purchaseState = BillingPurchaseState.PURCHASED,
+      purchaseToken = IAP_TOKEN,
+      isAcknowledged = false,
+      purchaseTime = System.currentTimeMillis(),
+      isAutoRenewing = true
+    )
+  }
+
+  private fun mockDeferredPurchase() {
+    coEvery { AppDependencies.billingApi.queryPurchases() } returns BillingPurchaseResult.Success(
+      purchaseState = BillingPurchaseState.PENDING,
+      purchaseToken = IAP_TOKEN,
+      isAcknowledged = false,
+      purchaseTime = System.currentTimeMillis(),
+      isAutoRenewing = true
+    )
+  }
+
   private fun mockInactivePurchase() {
     coEvery { AppDependencies.billingApi.queryPurchases() } returns BillingPurchaseResult.None
   }
@@ -670,5 +827,9 @@ class BackupSubscriptionCheckJobTest {
       purchaseTime = System.currentTimeMillis(),
       isAutoRenewing = false // Not auto-renewing means canceled
     )
+  }
+
+  private fun currentTierResult(): Either<ArchiveError.CredentialError, MessageBackupTier> {
+    return SignalStore.backup.backupTier?.right() ?: ArchiveError.CredentialError.NotFound(NonSuccessfulResponseCodeException(404)).left()
   }
 }

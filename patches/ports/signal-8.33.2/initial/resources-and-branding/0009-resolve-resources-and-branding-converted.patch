@@ -1,0 +1,92 @@
+From 3677d0500d0c04d5e2de695e98239a5e96d92191 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 9
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 13 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-ta/strings2.xml b/app/src/main/res/values-ta/strings2.xml
+index abbfd54104b490fd8e11860499e31e243110824c..1ac6f569e5ed0dc562e266745b4e3185fb8b486d 100644
+--- a/app/src/main/res/values-ta/strings2.xml
++++ b/app/src/main/res/values-ta/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="preferences_appearance__dynamic_colors">மாறும் வண்ணங்கள்</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">பயன்பாட்டின் கருப்பொருளுக்கு கணினி வண்ணங்களைப் பயன்படுத்தவும்</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">இந்தச் சாதனத்தில் Google Play சேவைகளின் நிறுவப்பட்ட பதிப்பு காலாவதியானது.</string>
++    <string name="NotificationsSettingsFragment__notify_when">எப்போது அறிவிக்கவும்…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play சேவைகள் புதுப்பித்தல் அல்லது தற்காலிகமாக கிடைக்கவில்லை. தயவு செய்து மீண்டும் முயற்சிக்கவும்.</string>
+ </resources>
+diff --git a/app/src/main/res/values-te/strings2.xml b/app/src/main/res/values-te/strings2.xml
+index ed0f2f42b44db285a67fbea5d685869c98685b43..f40fad3b3b76dab4700b14141c246246063efb07 100644
+--- a/app/src/main/res/values-te/strings2.xml
++++ b/app/src/main/res/values-te/strings2.xml
+@@ -7,4 +7,6 @@
+     <string name="app_icon_label_music">సంగీతం</string>
+     <string name="arrays__none">ఏదీ లేదు</string>
+     <string name="preferences_network__proxy">ప్రాక్సీ</string>
++    <string name="NotificationsSettingsFragment__notify_when">ఎప్పుడు తెలియజేయండి…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">గూగల్ ేవలను నవీకరించుటకు లేదా తాత్కాలికంగా అందుబాటులో చేస్తున్నారు. మళ్ళి ప్రయత్నించండి.</string>
+ </resources>
+diff --git a/app/src/main/res/values-th/strings2.xml b/app/src/main/res/values-th/strings2.xml
+index 6a5ccf60561db7a8c62b5f83400e80fac10b17a7..fe49d4004dd6bfe5a2aa29467c9a2b4d092d07c4 100644
+--- a/app/src/main/res/values-th/strings2.xml
++++ b/app/src/main/res/values-th/strings2.xml
+@@ -4,4 +4,6 @@
+     <string name="AppProtectionPreferenceFragment_instant">ทันที</string>
+     <string name="BlockUnblockDialog_block_and_delete">ปิดกั้นและลบ</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly ได้ถูกล็อก</string>
++    <string name="NotificationsSettingsFragment__notify_when">แจ้งเตือนเมื่อ…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services กำลังปรับรุ่นหรือใช้ไม่ได้ชั่วคราว โปรดลองอีกครั้ง</string>
+ </resources>
+diff --git a/app/src/main/res/values-tl/strings2.xml b/app/src/main/res/values-tl/strings2.xml
+index fd3926a5b8e8e7fa8b9ff5930323c3dd7022c0b0..73bcbfcdc990370b11cdcad50396f12c16de9a2d 100644
+--- a/app/src/main/res/values-tl/strings2.xml
++++ b/app/src/main/res/values-tl/strings2.xml
+@@ -2,4 +2,6 @@
+ <resources>
+     <string name="BlockUnblockDialog_block_and_delete">I-block at Burahin</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Naka-lock ang Molly</string>
++    <string name="NotificationsSettingsFragment__notify_when">Mag-notify kapag…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Ang Google Play Services ay nag-u-update o kaya\'y pansamantalang hindi available. Pakisubukang muli.</string>
+ </resources>
+diff --git a/app/src/main/res/values-tr/strings2.xml b/app/src/main/res/values-tr/strings2.xml
+index 822e9892e297ca07193241d97a3013427370420c..094b23cbebfec092dbfa14dc383293417b30ce71 100644
+--- a/app/src/main/res/values-tr/strings2.xml
++++ b/app/src/main/res/values-tr/strings2.xml
+@@ -143,4 +143,6 @@
+     <string name="UnifiedPushSettingsFragment__status_summary_pending">Beklemede</string>
+     <string name="UnifiedPushSettingsFragment__status_summary_air_gapped_pending">MollySocket sunucusundan doğrulanma bekleniyor</string>
+     <string name="IncomingMessageObserver_websocket_service">WebSocket Servisi</string>
++    <string name="NotificationsSettingsFragment__notify_when">Şu durumlarda bildir…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Hizmetleri güncelleniyor veya geçiçi olarak kullanılamaz durumda. Lütfen tekrar deneyiniz.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ug/strings2.xml b/app/src/main/res/values-ug/strings2.xml
+index d089d19772bd6ac213f13528c2d7256e4cc511ea..0ef1594c942da3d9f00c0d1ecddd93670bd3466a 100644
+--- a/app/src/main/res/values-ug/strings2.xml
++++ b/app/src/main/res/values-ug/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="preferences_appearance__dynamic_colors">ھەرىكەتچان رەڭ</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">ئەپ ئۆرنىكى سىستېما رەڭگىنى ئىشلىتىدۇ</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">بۇ ئۈسكۈنىگە ئورنىتىلغان Google Play مۇلازىمىتىنىڭ ۋاقتى ئۆتكەن.</string>
++    <string name="NotificationsSettingsFragment__notify_when">ئۇقتۇرۇش ۋاقتى…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play مۇلازىمەتلىرى يېڭىلىنىۋاتىدۇ ياكى ئۇلارنى ۋاقىتلىق ئىشلەتكىلى بولمايدۇ. سەل تۇرۇپ قايتا سىناڭ.</string>
+ </resources>

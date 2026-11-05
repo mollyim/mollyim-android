@@ -1,0 +1,404 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "c2f3a562216a23dd39e932010c90f7bf9b4e9396",
+  "after_tree": "a0dc7adbaf6b046d13440929f24956ab668c0ca4",
+  "files": [
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/components/settings/app/subscription/donate/BecomeASustainerUpsellTest.kt",
+      "mode": "100644",
+      "blob": "bdfcf695f8f3fe858cdd5c3f9f2e80e54bc716f8"
+    },
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/components/settings/app/subscription/donate/CheckoutFlowActivityTest__OneTimeDonations.kt",
+      "mode": "100644",
+      "blob": "2cb6d9deab9d32691fc05ed90a48162bae616e84"
+    },
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/components/settings/app/subscription/donate/CheckoutFlowActivityTest__RecurringDonations.kt",
+      "mode": "100644",
+      "blob": "ee48a906dc4a1d4b753d322331c1a60410c66dd5"
+    },
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/components/settings/app/subscription/donate/CheckoutFlowActivityTest__Redemption.kt",
+      "mode": "100644",
+      "blob": "54de57fb1fbd8e7b02b623c1c52074d390ae99e6"
+    },
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/database/LogDatabaseTest.kt",
+      "mode": "100644",
+      "blob": "eb7260c8f3c6c0795a60ccafa786c00d6d58016f"
+    },
+    {
+      "path": "app/src/androidTest/java/org/thoughtcrime/securesms/testing/GooglePayTestRule.kt",
+      "mode": "100644",
+      "blob": "7002f7aea86990cb835f853e809802fa47465f47"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/BadgeRepository.kt",
+      "mode": "100644",
+      "blob": "92216a25a09e8bec5580d7aef0c24cebc479ba37"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/ExpiredGiftSheet.kt",
+      "mode": "100644",
+      "blob": "a29130e435a70af112d7c5cd4459af751591e0c6"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/ExpiredGiftSheetConfiguration.kt",
+      "mode": "100644",
+      "blob": "932683f01f8714e16c1fc80557475f8fa25aff33"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/GiftMessageView.kt",
+      "mode": "100644",
+      "blob": "d1e923b82772cab0c49d0d5d37031d08f922a827"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/OpenableGiftItemDecoration.kt",
+      "mode": "100644",
+      "blob": "dc369d064d790b4665730965543451f44fc219b5"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowConfirmationFragment.kt",
+      "mode": "100644",
+      "blob": "d43daee8904770f2c392fcdf68ecab69a0d136bb"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowRecipientSelectionFragment.kt",
+      "mode": "100644",
+      "blob": "dbebf9f7db70bc8879de3ff75ca1ea0e4d7e133b"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowRepository.kt",
+      "mode": "100644",
+      "blob": "1270af3fdd9bfb551da1a5fdd8e92d7f223fec7b"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowStartFragment.kt",
+      "mode": "100644",
+      "blob": "49114f87499d1e72f87c8f87c7e26c710b80c673"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowState.kt",
+      "mode": "100644",
+      "blob": "57267d576b7340a6f4b231fec4412a88302a25b8"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftFlowViewModel.kt",
+      "mode": "100644",
+      "blob": "a3b4a355aa59865bd62ce5e9cee9c2e9b0ad41f3"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/flow/GiftRowItem.kt",
+      "mode": "100644",
+      "blob": "20e0653b8f134d4065a697d254c9942841c3156a"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/thanks/GiftThanksSheet.kt",
+      "mode": "100644",
+      "blob": "8122149b7f5f741bd43efb5e01e22e2a67488e65"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/ViewGiftRepository.kt",
+      "mode": "100644",
+      "blob": "8e192fe247c0e0f936c1b2402699babd067a9c5c"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/received/ViewReceivedGiftBottomSheet.kt",
+      "mode": "100644",
+      "blob": "2d1b47a748c95a9246d51483088fd41a7f4987be"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/received/ViewReceivedGiftState.kt",
+      "mode": "100644",
+      "blob": "4095fca33ccf2a5a6062c652dcb6dfd06beff6ad"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/received/ViewReceivedGiftViewModel.kt",
+      "mode": "100644",
+      "blob": "0c1a13362f5d97db82e5fe2356ef26b6a4313385"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/sent/ViewSentGiftBottomSheet.kt",
+      "mode": "100644",
+      "blob": "47c944c7f7aab548d3de33296afa81f44ba52b16"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/sent/ViewSentGiftState.kt",
+      "mode": "100644",
+      "blob": "df55c2ac7ad101254192db3e61d44c168307c577"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/gifts/viewgift/sent/ViewSentGiftViewModel.kt",
+      "mode": "100644",
+      "blob": "8f8d31a5e61540164faafb85af40d8c85c5c4143"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/models/ExpiredBadge.kt",
+      "mode": "100644",
+      "blob": "3872149233b413c35bdceb69da49d1dc3ff6a5b0"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/models/LargeBadge.kt",
+      "mode": "100644",
+      "blob": "6542335c9eff3882ab45aa5a6a12d437423dadde"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/expired/ExpiredOneTimeBadgeBottomSheetDialogFragment.kt",
+      "mode": "100644",
+      "blob": "d04606159c553d79fdbeebb8c015467ab71cec59"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/featured/SelectFeaturedBadgeActions.kt",
+      "mode": "100644",
+      "blob": "57ad6e27073f7ac09c84ea0083e42460be664b5f"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/featured/SelectFeaturedBadgeEvents.kt",
+      "mode": "100644",
+      "blob": "899bec1da5f98bdcc44dfe1b2c9a1cb325769781"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/featured/SelectFeaturedBadgeFragment.kt",
+      "mode": "100644",
+      "blob": "296dcff764901a8e2f97a97a3ceef15db3b3cff9"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/featured/SelectFeaturedBadgeState.kt",
+      "mode": "100644",
+      "blob": "8deacd5edacf75404ab5b8e0e162af6331a07954"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/featured/SelectFeaturedBadgeViewModel.kt",
+      "mode": "100644",
+      "blob": "dd95c3ab99296472d02f1449f49b80d617fd35f4"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/none/BecomeASustainerState.kt",
+      "mode": "100644",
+      "blob": "7080f65a163a5435322fa7d199283eaef7a240ce"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/overview/BadgesOverviewFragment.kt",
+      "mode": "100644",
+      "blob": "5c07cabc1034a82cdd142a840c78fea085445852"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/overview/BadgesOverviewState.kt",
+      "mode": "100644",
+      "blob": "26e95bd4c1a42057b3a16b815f3ddd6855f27e95"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/self/overview/BadgesOverviewViewModel.kt",
+      "mode": "100644",
+      "blob": "1711afceeacc450869cef63d4051f12dcd6f5040"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/view/ViewBadgeBottomSheetDialogFragment.kt",
+      "mode": "100644",
+      "blob": "8f0341b4d5b8e2f81b83d2145281246e7da9a740"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/view/ViewBadgeState.kt",
+      "mode": "100644",
+      "blob": "7cc23c8ed4c0ca7dd99c902ea0a089ccab19aae3"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/badges/view/ViewBadgeViewModel.kt",
+      "mode": "100644",
+      "blob": "e0a4fbb68154c99ea6677f526c17a79441d62fe2"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/calls/quality/CallQualityBottomSheetFragment.kt",
+      "mode": "100644",
+      "blob": "8a3b0423658692a177901b33021157803c8b99f8"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/calls/quality/CallQualityScreens.kt",
+      "mode": "100644",
+      "blob": "eaa3bc4ce3667f916a82f49237eb7a149d32fc8f"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/DebugLogsPromptDialogFragment.kt",
+      "mode": "100644",
+      "blob": "471e1e5226ba5bffeb2df69fa7309eb79a77584a"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/RatingManager.java",
+      "mode": "100644",
+      "blob": "ab4e9c39d2df3e5daf6d3bea52ce3ce8eeee5573"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/account/AccountSettingsState.kt",
+      "mode": "100644",
+      "blob": "1353f056452bc83c316d45e4aae2f83ccd7c117b"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/appearance/AppearanceSettingsState.kt",
+      "mode": "100644",
+      "blob": "d65ba284d3bf6d4089cd3957ad0c8596e8c23d63"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/data/DataAndStorageSettingsState.kt",
+      "mode": "100644",
+      "blob": "b902b7d755cf1fe17d2e9a68050c2938021123c5"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/help/HelpSettingsState.kt",
+      "mode": "100644",
+      "blob": "d57a5f8b425a5c64427747b6fd3012c5e562d507"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/app/help/HelpSettingsViewModel.kt",
+      "mode": "100644",
+      "blob": "a2f755f9255363f6dec1098f80d35cc138cb802b"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/conversation/ConversationSettingsState.kt",
+      "mode": "100644",
+      "blob": "5696f78909a7b58f2a59ff48e3cd5548e36c8925"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/conversation/preferences/BioTextPreference.kt",
+      "mode": "100644",
+      "blob": "5bfc7f77ab464c9bafc4264768bb9231fa926c0c"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/components/settings/conversation/preferences/LegacyGroupPreference.kt",
+      "mode": "100644",
+      "blob": "8b05715bae672643e1037f2ddda5f382250042b5"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/compose/StatusBarColorAnimator.kt",
+      "mode": "100644",
+      "blob": "13766b0afcfe430e6abc4e145046e4507684cadd"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/compose/StatusBarColorNestedScrollConnection.kt",
+      "mode": "100644",
+      "blob": "97db293d30ea4fbcaae10448eb1b5f64356b1697"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/contactshare/ContactShareEditActivity.java",
+      "mode": "100644",
+      "blob": "d5a0e8886c67d137ac044c54e00280548063889c"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/contactshare/SharedContactDetailsActivity.java",
+      "mode": "100644",
+      "blob": "d4190c99dc8e5fb3d7a7d2e44a16a766623e14d5"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/conversation/ConversationReactionOverlay.java",
+      "mode": "100644",
+      "blob": "dfe0326d6cf16f28930a3bee25b746a90677f891"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/delete/DeleteAccountFragment.java",
+      "mode": "100644",
+      "blob": "c0284f42c42fa987a3551db04f8bfd86bb3f1789"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/delete/DeleteAccountViewModel.java",
+      "mode": "100644",
+      "blob": "535fe29c31ca7ac7286a3a5d5742ef9c8b477938"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/devicetransfer/newdevice/NewDeviceTransferSetupFragment.java",
+      "mode": "100644",
+      "blob": "276a513780e762bb0ac80f14198b3a66f79821d1"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/groups/GroupsV2ProcessingLock.java",
+      "mode": "100644",
+      "blob": "06c16f131dd702ccfac2b94f4d21d3dff8347dd2"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/keyvalue/PlainTextSharedPrefsDataStore.kt",
+      "mode": "100644",
+      "blob": "e2840c23da0eeab5194a59a7d04cb6aef2ae2dae"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/keyvalue/SettingsValues.java",
+      "mode": "100644",
+      "blob": "7d0c4cf75eeb46689c3f5b05eda2bfa5f8e8b9ad"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/logsubmit/LogSectionBadges.java",
+      "mode": "100644",
+      "blob": "c2392f2315d95eed8d9486faf2055ab77e8fdef4"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/MediaSelectionActivity.kt",
+      "mode": "100644",
+      "blob": "f8faecd278de647952a397c207c52a1aa3f36148"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/review/MediaReviewFragment.kt",
+      "mode": "100644",
+      "blob": "f875c31a95dad0d9fd4fde9b2367845f7ce65cae"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/migrations/LegacyMigrationJob.java",
+      "mode": "100644",
+      "blob": "2e18fea846e363922d743389cd5e0570d680938d"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/migrations/StickerLaunchMigrationJob.java",
+      "mode": "100644",
+      "blob": "e23c43f2d77407fa1d67e46d9e9083c83296b5e2"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/migrations/UuidMigrationJob.java",
+      "mode": "100644",
+      "blob": "f5d46b7222da4d0cb740cdcd8eb98c7893c71f56"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/scribbles/ImageEditorStickerSelectActivity.java",
+      "mode": "100644",
+      "blob": "407f0f30cd3f681d2291e481c342e4dddf178377"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReport.java",
+      "mode": "100644",
+      "blob": "44af7a23e2a39047788f96ba6a3291a8bb0abc92"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportAction.kt",
+      "mode": "100644",
+      "blob": "769a7e14904355eb051e96670c1a3bf2ef58d612"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportDialog.kt",
+      "mode": "100644",
+      "blob": "89c9fce292a1f8414a44add57083fafdfa7c1f2e"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportDialogFragment.kt",
+      "mode": "100644",
+      "blob": "97db3f527c1b7c5d84695c1942a8669db1fb0945"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportEvent.kt",
+      "mode": "100644",
+      "blob": "71a7057f5f24c7ec7296b684459d99a11f21bc15"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportRepository.kt",
+      "mode": "100644",
+      "blob": "acc02eb908da73eb5a83965025a77b86f4111270"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportState.kt",
+      "mode": "100644",
+      "blob": "9f4aaf0c787953e5a17d3173e332e2af169ca82d"
+    },
+    {
+      "path": "app/src/main/java/org/thoughtcrime/securesms/shakereport/ShakeToReportViewModel.kt",
+      "mode": "100644",
+      "blob": "1e54338bd65903edd25b94ae07f158655e675d73"
+    }
+  ]
+}

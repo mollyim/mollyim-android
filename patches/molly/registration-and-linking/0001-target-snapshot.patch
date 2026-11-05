@@ -1,0 +1,1807 @@
+From 0354881a089485bd4bfef434761260ab8f3fc4a9 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly registration-and-linking, part 1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Registration policies, Android linked-device support, provisioning and removal of superseded registration flows.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/AddLinkDeviceFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/AddLinkDeviceFragment.kt
+index cabdbda95c93cfbb1b7c8a4ea06cc9e719fc8a09..1b2d7f6b751bb646cc28e314ce28ee17f3bc94f6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/AddLinkDeviceFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/AddLinkDeviceFragment.kt
+@@ -37,7 +37,6 @@ import org.signal.core.ui.compose.Scaffolds
+ import org.signal.core.ui.permissions.Permissions
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.util.VibrateUtil
+-import org.thoughtcrime.securesms.util.navigation.safeNavigate
+ import org.signal.mediasend.R as MediaSendR
+ 
+ /**
+@@ -61,15 +60,6 @@ class AddLinkDeviceFragment : ComposeFragment() {
+     val navController: NavController by remember { mutableStateOf(findNavController()) }
+     val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
+ 
+-    if (!state.seenQrEducationSheet) {
+-      navController.safeNavigate(R.id.action_addLinkDeviceFragment_to_linkDeviceIntroBottomSheet)
+-      viewModel.markQrEducationSheetSeen()
+-    }
+-
+-    if (state.qrCodeState != LinkDeviceSettingsState.QrCodeState.NONE && navController.currentDestination?.id == R.id.linkDeviceIntroBottomSheet) {
+-      navController.popBackStack()
+-    }
+-
+     LaunchedEffect(cameraViewModel) {
+       cameraViewModel.qrCodeDetected.collect { data ->
+         if (VibrateUtil.isHapticFeedbackEnabled(requireContext())) {
+@@ -85,8 +75,14 @@ class AddLinkDeviceFragment : ComposeFragment() {
+       cameraEmitter = cameraViewModel::onEvent,
+       navController = navController,
+       hasPermissions = cameraPermissionState.status.isGranted,
++      linkWithoutQrCode = state.linkWithoutQrCode,
+       onRequestPermissions = { askPermissions() },
+       onSwitchCamera = { cameraViewModel.onEvent(CameraScreenEvents.SwitchCamera(context)) },
++      onLinkNewDeviceWithUrl = { url ->
++        navController.popBackStack()
++        viewModel.onQrCodeScanned(url)
++        viewModel.addDevice(shouldSync = false)
++      },
+       onQrCodeApproved = {
+         navController.popBackStack()
+         viewModel.addDevice(shouldSync = false)
+@@ -121,6 +117,8 @@ private fun MainScreen(
+   cameraEmitter: (CameraScreenEvents) -> Unit = {},
+   navController: NavController? = null,
+   hasPermissions: Boolean = false,
++  linkWithoutQrCode: Boolean = false,
++  onLinkNewDeviceWithUrl: (String) -> Unit = {},
+   onRequestPermissions: () -> Unit = {},
+   onSwitchCamera: () -> Unit = {},
+   onQrCodeApproved: () -> Unit = {},
+@@ -129,30 +127,43 @@ private fun MainScreen(
+   onLinkDeviceFailure: () -> Unit = {}
+ ) {
+   Scaffolds.Settings(
+-    title = "",
++    title = if (linkWithoutQrCode) stringResource(id = R.string.DeviceAddFragment__link_without_scanning) else "",
+     onNavigationClick = { navController?.popBackStack() },
+     navigationIcon = ImageVector.vectorResource(id = R.drawable.ic_x),
+     navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close),
+     actions = {
+-      IconButton(onClick = onSwitchCamera) {
+-        Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
++      if (!linkWithoutQrCode) {
++        IconButton(onClick = onSwitchCamera) {
++          Icon(painterResource(id = R.drawable.symbol_switch_24), contentDescription = null)
++        }
+       }
+     }
+   ) { contentPadding: PaddingValues ->
+-    LinkDeviceQrScanScreen(
+-      hasPermission = hasPermissions,
+-      onRequestPermissions = onRequestPermissions,
+-      cameraState = cameraState,
++    if (!linkWithoutQrCode) {
++      LinkDeviceQrScanScreen(
++        hasPermission = hasPermissions,
++        onRequestPermissions = onRequestPermissions,
++        cameraState = cameraState,
+       cameraEmitter = cameraEmitter,
+-      qrCodeState = state.qrCodeState,
+-      onQrCodeAccepted = onQrCodeApproved,
+-      onQrCodeDismissed = onQrCodeDismissed,
+-      linkDeviceResult = state.linkDeviceResult,
+-      onLinkDeviceSuccess = onLinkDeviceSuccess,
+-      onLinkDeviceFailure = onLinkDeviceFailure,
+-      navController = navController,
+-      modifier = Modifier.padding(contentPadding)
+-    )
++        qrCodeState = state.qrCodeState,
++
++        onQrCodeAccepted = onQrCodeApproved,
++        onQrCodeDismissed = onQrCodeDismissed,
++        linkDeviceResult = state.linkDeviceResult,
++        onLinkDeviceSuccess = onLinkDeviceSuccess,
++        onLinkDeviceFailure = onLinkDeviceFailure,
++        navController = navController,
++        modifier = Modifier.padding(contentPadding)
++      )
++    } else {
++      LinkDeviceManualEntryScreen(
++        onLinkNewDeviceWithUrl = onLinkNewDeviceWithUrl,
++        linkDeviceResult = state.linkDeviceResult,
++        onLinkDeviceSuccess = onLinkDeviceSuccess,
++        onLinkDeviceFailure = onLinkDeviceFailure,
++        modifier = Modifier.padding(contentPadding)
++      )
++    }
+   }
+ }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/Device.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/Device.kt
+index 6f548e4c86cabd76097b5bdc14f88c33a44dfa92..5ca60c3a2669d78cb1e5b1f7dbb789906634e39b 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/Device.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/Device.kt
+@@ -3,4 +3,4 @@ package org.thoughtcrime.securesms.linkdevice
+ /**
+  * Class that represents a linked device
+  */
+-data class Device(val id: Int, val name: String?, val createdMillis: Long?, val lastSeenMillis: Long, val registrationId: Int)
++data class Device(val id: Int, val name: String?, val createdMillis: Long?, val lastSeenMillis: Long, val registrationId: Int, val canRename: Boolean = true)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceFragment.kt
+index 3be12fcf060ade1179abe1babe669420a7215cf5..16dc0fc979e26ad690d5a20b54b0467979ef7090 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceFragment.kt
+@@ -101,7 +101,7 @@ class LinkDeviceFragment : ComposeFragment() {
+ 
+     biometricDeviceLockLauncher = registerForActivityResult(BiometricDeviceLockContract()) { result: Int ->
+       if (result == BiometricDeviceAuthentication.AUTHENTICATED) {
+-        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
++        findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+       }
+     }
+ 
+@@ -233,11 +233,11 @@ class LinkDeviceFragment : ComposeFragment() {
+       DevicePinAuthEducationSheet.show(getString(R.string.LinkDeviceFragment__before_linking), parentFragmentManager)
+       parentFragmentManager.setFragmentResultListener(DevicePinAuthEducationSheet.REQUEST_KEY, viewLifecycleOwner) { _, _ ->
+         if (!biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }) {
+-          this.safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
++          this.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+         }
+       }
+     } else if (!biometricAuth.authenticate(requireContext(), true) { biometricDeviceLockLauncher.launch(getString(R.string.LinkDeviceFragment__unlock_to_link)) }) {
+-      this.safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
++      this.safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+     }
+   }
+ 
+@@ -259,7 +259,7 @@ class LinkDeviceFragment : ComposeFragment() {
+ 
+     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+       Log.i(TAG, "Authentication succeeded")
+-      findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_addLinkDeviceFragment)
++      findNavController().safeNavigate(R.id.action_linkDeviceFragment_to_linkDeviceIntroBottomSheet)
+     }
+ 
+     override fun onAuthenticationFailed() {
+@@ -398,7 +398,7 @@ fun DeviceListScreen(
+       tint = Color.Unspecified
+     )
+     Text(
+-      text = stringResource(id = R.string.LinkDeviceFragment__use_signal_on_desktop_ipad),
++      text = stringResource(id = R.string.LinkDeviceFragment__use_molly_on_another_devices),
+       textAlign = TextAlign.Center,
+       modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 4.dp)
+     )
+@@ -413,6 +413,7 @@ fun DeviceListScreen(
+ 
+     Buttons.LargeTonal(
+       onClick = onLinkNewDeviceClicked,
++      enabled = state.canLinkDevices,
+       modifier = Modifier
+         .defaultMinSize(300.dp)
+         .padding(bottom = 8.dp)
+@@ -450,7 +451,7 @@ fun DeviceListScreen(
+         )
+       } else {
+         state.devices.forEach { device ->
+-          DeviceRow(device, state.isInternalUser, onDeviceSelectedForRemoval, onEditDevice)
++          DeviceRow(device, state.isInternalUser, onDeviceSelectedForRemoval, onEditDevice, canLinkDevices = state.canLinkDevices)
+         }
+       }
+     }
+@@ -494,7 +495,7 @@ fun DeviceListScreen(
+ }
+ 
+ @Composable
+-fun DeviceRow(device: Device, isInternalUser: Boolean, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit) {
++fun DeviceRow(device: Device, isInternalUser: Boolean, setDeviceToRemove: (Device) -> Unit, onEditDevice: (Device) -> Unit, canLinkDevices: Boolean) {
+   val titleString = if (device.name.isNullOrEmpty()) stringResource(R.string.DeviceListItem_unnamed_device) else device.name
+   val linkedDate = device.createdMillis?.let { DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, LocalLocale.current.platformLocale, device.createdMillis) }
+   val lastActive = DateUtils.getDayPrecisionTimeSpanString(LocalContext.current, LocalLocale.current.platformLocale, device.lastSeenMillis)
+@@ -562,6 +563,7 @@ fun DeviceRow(device: Device, isInternalUser: Boolean, setDeviceToRemove: (Devic
+               )
+             }
+           },
++          enabled = canLinkDevices,
+           onClick = {
+             setDeviceToRemove(device)
+             controller.hide()
+@@ -586,6 +588,7 @@ fun DeviceRow(device: Device, isInternalUser: Boolean, setDeviceToRemove: (Devic
+               )
+             }
+           },
++          enabled = device.canRename && canLinkDevices,
+           onClick = {
+             onEditDevice(device)
+             controller.hide()
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceIntroBottomSheet.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceIntroBottomSheet.kt
+index 44c8298cfc632e520796a72c6228073a94ce746d..2c376e0ab71d211992910c33c11a74927efed5ea 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceIntroBottomSheet.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceIntroBottomSheet.kt
+@@ -10,11 +10,16 @@ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
+ import androidx.compose.runtime.getValue
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.style.TextAlign
+ import androidx.compose.ui.unit.dp
++import androidx.fragment.app.activityViewModels
++import androidx.navigation.NavController
++import androidx.navigation.fragment.findNavController
+ import com.airbnb.lottie.compose.LottieAnimation
+ import com.airbnb.lottie.compose.LottieCompositionSpec
+ import com.airbnb.lottie.compose.LottieConstants
+@@ -25,22 +30,32 @@ import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
+ import org.signal.core.ui.compose.DayNightPreviews
+ import org.signal.core.ui.compose.Previews
+ import org.thoughtcrime.securesms.R
++import org.thoughtcrime.securesms.util.navigation.safeNavigate
+ 
+ /**
+  * Bottom sheet dialog displayed when users click 'Link a device'
+  */
+ class LinkDeviceIntroBottomSheet : ComposeBottomSheetDialogFragment() {
+ 
++  private val viewModel: LinkDeviceViewModel by activityViewModels()
++
+   override val peekHeightPercentage: Float = 0.8f
+ 
+   @Composable
+   override fun SheetContent() {
+-    EducationSheet(this::dismissAllowingStateLoss)
++    val navController: NavController by remember { mutableStateOf(findNavController()) }
++
++    EducationSheet(
++      onClick = { shouldScanQrCode ->
++        viewModel.requestLinkWithoutQrCode(!shouldScanQrCode)
++        navController.safeNavigate(R.id.action_linkDeviceIntroBottomSheet_to_addLinkDeviceFragment)
++      }
++    )
+   }
+ }
+ 
+ @Composable
+-fun EducationSheet(onClick: () -> Unit) {
++fun EducationSheet(onClick: (Boolean) -> Unit) {
+   val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.linking_device))
+ 
+   return Column(
+@@ -54,7 +69,7 @@ fun EducationSheet(onClick: () -> Unit) {
+       LottieAnimation(composition, iterations = LottieConstants.IterateForever, modifier = Modifier.matchParentSize())
+     }
+     Text(
+-      text = stringResource(R.string.AddLinkDeviceFragment__scan_qr_code),
++      text = stringResource(R.string.LinkDeviceFragment__link_a_new_device),
+       style = MaterialTheme.typography.titleLarge,
+       modifier = Modifier.padding(bottom = 12.dp)
+     )
+@@ -65,10 +80,16 @@ fun EducationSheet(onClick: () -> Unit) {
+       modifier = Modifier.padding(bottom = 12.dp)
+     )
+     Buttons.LargeTonal(
+-      onClick = onClick,
++      onClick = { onClick(true) },
++      modifier = Modifier.defaultMinSize(minWidth = 220.dp)
++    ) {
++      Text(stringResource(id = R.string.AddLinkDeviceFragment__scan_qr_code))
++    }
++    Buttons.Small(
++      onClick = { onClick(false) },
+       modifier = Modifier.defaultMinSize(minWidth = 220.dp)
+     ) {
+-      Text(stringResource(id = R.string.AddLinkDeviceFragment__okay))
++      Text(stringResource(id = R.string.DeviceAddFragment__link_without_scanning))
+     }
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
+index a42f7e5b995e5caec559c35754626f92e193f455..254bb968de055f8aa38bdec0300f55dfba779966 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceLearnMoreBottomSheetFragment.kt
+@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
+ import androidx.compose.ui.res.painterResource
+ import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.unit.dp
++import org.signal.core.ui.R as CoreUiR
+ import org.signal.core.ui.compose.BottomSheets
+ import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
+ import org.signal.core.ui.compose.DayNightPreviews
+@@ -35,10 +36,6 @@ class LinkDeviceLearnMoreBottomSheetFragment : ComposeBottomSheetDialogFragment(
+ 
+   override val peekHeightPercentage: Float = 0.8f
+ 
+-  companion object {
+-    const val SIGNAL_DOWNLOAD_URL = "https://signal.org/download"
+-  }
+-
+   @Composable
+   override fun SheetContent() {
+     LearnMoreSheet()
+@@ -48,9 +45,10 @@ class LinkDeviceLearnMoreBottomSheetFragment : ComposeBottomSheetDialogFragment(
+ @Composable
+ fun LearnMoreSheet() {
+   val context = LocalContext.current
+-  val downloadUrl = stringResource(id = R.string.LinkDeviceFragment__signal_download_url)
+-  val fullString = stringResource(id = R.string.LinkDeviceFragment__on_other_device_visit_signal, downloadUrl)
+-  val spanned = SpanUtil.urlSubsequence(fullString, downloadUrl, LinkDeviceLearnMoreBottomSheetFragment.SIGNAL_DOWNLOAD_URL)
++  val downloadUrl = stringResource(R.string.install_url)
++  val linkText = downloadUrl.removePrefix("https://")
++  val fullString = stringResource(id = R.string.LinkDeviceFragment__for_android_devices_visit_s_to_install_molly, linkText)
++  val spanned = SpanUtil.urlSubsequence(fullString, linkText, downloadUrl)
+ 
+   return Column(
+     horizontalAlignment = Alignment.CenterHorizontally,
+@@ -68,16 +66,20 @@ fun LearnMoreSheet() {
+     )
+     Text(
+       style = MaterialTheme.typography.titleLarge,
+-      text = stringResource(R.string.LinkDeviceFragment__signal_on_desktop_ipad),
++      text = stringResource(R.string.LinkDeviceFragment__molly_on_another_device),
+       modifier = Modifier.padding(horizontal = 32.dp, vertical = 8.dp)
+     )
+     LinkedDeviceInformationRow(
+       SignalIcons.Lock.painter,
+-      stringResource(R.string.LinkDeviceFragment__all_messaging_is_private)
++      stringResource(R.string.LinkDeviceFragment__messaging_is_private_on_all_linked_devices)
+     )
+     LinkedDeviceInformationRow(
+       painterResource(R.drawable.ic_replies_outline_20),
+-      stringResource(R.string.LinkDeviceFragment__signal_messages_are_synchronized)
++      stringResource(R.string.LinkDeviceFragment__once_linked_new_messages_sync_across_devices)
++    )
++    LinkedDeviceInformationRow(
++      painterResource(CoreUiR.drawable.symbol_devices_24),
++      stringResource(R.string.LinkDeviceFragment__molly_supports_linking_to_other_android_devices)
+     )
+     Row(modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp, start = 40.dp, end = 32.dp)) {
+       Icon(
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceManualEntryScreen.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceManualEntryScreen.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..6d6c9230bacd102dfa5811c49caeb396d3457e47
+--- /dev/null
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceManualEntryScreen.kt
+@@ -0,0 +1,155 @@
++package org.thoughtcrime.securesms.linkdevice
++
++import android.content.Context
++import android.net.Uri
++import android.widget.Toast
++import androidx.compose.foundation.layout.Column
++import androidx.compose.foundation.layout.Row
++import androidx.compose.foundation.layout.defaultMinSize
++import androidx.compose.foundation.layout.fillMaxHeight
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.lazy.LazyColumn
++import androidx.compose.foundation.text.KeyboardOptions
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.material3.TextField
++import androidx.compose.runtime.Composable
++import androidx.compose.runtime.LaunchedEffect
++import androidx.compose.runtime.getValue
++import androidx.compose.runtime.mutableStateOf
++import androidx.compose.runtime.remember
++import androidx.compose.runtime.setValue
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.platform.LocalContext
++import androidx.compose.ui.res.stringResource
++import androidx.compose.ui.text.font.FontFamily
++import androidx.compose.ui.text.input.ImeAction
++import androidx.compose.ui.text.input.KeyboardType
++import androidx.compose.ui.unit.dp
++import androidx.compose.ui.unit.sp
++import org.signal.core.ui.compose.Buttons
++import org.signal.core.ui.compose.DayNightPreviews
++import org.signal.core.ui.compose.Previews
++import org.thoughtcrime.securesms.R
++import org.thoughtcrime.securesms.linkdevice.LinkDeviceRepository.LinkDeviceResult
++
++@Composable
++fun LinkDeviceManualEntryScreen(
++  onLinkNewDeviceWithUrl: (String) -> Unit,
++  linkDeviceResult: LinkDeviceResult,
++  onLinkDeviceSuccess: () -> Unit,
++  onLinkDeviceFailure: () -> Unit,
++  modifier: Modifier = Modifier
++) {
++  val context = LocalContext.current
++
++  LaunchedEffect(linkDeviceResult) {
++    when (linkDeviceResult) {
++      is LinkDeviceResult.Success -> onLinkDeviceSuccess()
++      is LinkDeviceResult.NoDevice -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_no_device, onLinkDeviceFailure)
++      is LinkDeviceResult.NetworkError -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_network_error, onLinkDeviceFailure)
++      is LinkDeviceResult.KeyError -> makeToast(context, R.string.DeviceProvisioningActivity_content_progress_key_error, onLinkDeviceFailure)
++      is LinkDeviceResult.LimitExceeded -> makeToast(context, R.string.DeviceProvisioningActivity_sorry_you_have_too_many_devices_linked_already, onLinkDeviceFailure)
++      is LinkDeviceResult.BadCode -> makeToast(context, R.string.DeviceActivity_sorry_this_is_not_a_valid_device_link_qr_code, onLinkDeviceFailure)
++      is LinkDeviceResult.None -> Unit
++    }
++  }
++
++  var qrLink by remember { mutableStateOf("") }
++  var isValid by remember { mutableStateOf(false) }
++
++  Column(
++    horizontalAlignment = Alignment.CenterHorizontally,
++    modifier = modifier
++      .fillMaxWidth()
++      .fillMaxHeight()
++  ) {
++    LazyColumn(
++      modifier = Modifier
++        .weight(1f)
++        .padding(horizontal = 24.dp)
++    ) {
++      item {
++        Text(
++          text = stringResource(id = R.string.enter_device_link_dialog__if_your_phone_cant_scan_the_qr_code_you_can_manually_enter_the_link_encoded_in_the_qr_code),
++          style = MaterialTheme.typography.bodyMedium.copy(
++            color = MaterialTheme.colorScheme.onSurfaceVariant
++          ),
++          modifier = Modifier.padding(vertical = 12.dp)
++        )
++      }
++
++      item {
++        val textFieldStyle = MaterialTheme.typography.bodyLarge.copy(
++          fontFamily = FontFamily.Monospace,
++          fontSize = 12.sp
++        )
++        TextField(
++          value = qrLink,
++          onValueChange = {
++            isValid = LinkDeviceRepository.isValidQr(Uri.parse(it))
++            qrLink = it
++          },
++          isError = !isValid,
++          placeholder = {
++            Text(
++              text = stringResource(id = R.string.enter_device_link_dialog__url),
++              style = textFieldStyle
++            )
++          },
++          keyboardOptions = KeyboardOptions.Default.copy(
++            keyboardType = KeyboardType.Uri,
++            imeAction = ImeAction.Done
++          ),
++          textStyle = textFieldStyle,
++          modifier = Modifier
++            .fillMaxWidth()
++            .padding(vertical = 12.dp)
++            .defaultMinSize(minHeight = 40.dp)
++        )
++      }
++
++      item {
++        Text(
++          text = stringResource(id = R.string.AddLinkDeviceFragment__this_device_will_see_your_groups_contacts),
++          style = MaterialTheme.typography.bodyMedium.copy(
++            color = MaterialTheme.colorScheme.onSurfaceVariant
++          ),
++          modifier = Modifier.padding(vertical = 12.dp)
++        )
++      }
++    }
++
++    Row {
++      Buttons.LargeTonal(
++        enabled = isValid,
++        onClick = { onLinkNewDeviceWithUrl(qrLink) },
++        modifier = Modifier
++          .defaultMinSize(minWidth = 220.dp)
++          .padding(vertical = 16.dp)
++      ) {
++        Text(text = stringResource(id = R.string.device_list_fragment__link_new_device))
++      }
++    }
++  }
++}
++
++private fun makeToast(context: Context, messageId: Int, onLinkDeviceFailure: () -> Unit) {
++  Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
++  onLinkDeviceFailure()
++}
++
++@DayNightPreviews
++@Composable
++private fun LinkDeviceManualEntryScreenPreview() {
++  Previews.Preview {
++    LinkDeviceManualEntryScreen(
++      onLinkNewDeviceWithUrl = {},
++      linkDeviceResult = LinkDeviceResult.None,
++      onLinkDeviceSuccess = {},
++      onLinkDeviceFailure = {},
++    )
++  }
++}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceRepository.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceRepository.kt
+index 0c8c931e648b77e8de8563d3f1acd9f106a0af3e..5446cd35546a3f45a45d46af97004b620c79251d 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceRepository.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceRepository.kt
+@@ -94,7 +94,8 @@ object LinkDeviceRepository {
+ 
+   private fun DeviceInfo.toDevice(): Device {
+     val createdAt = this.getPlaintextCreatedAt()
+-    val defaultDevice = Device(getId(), getName(), createdAt, getLastSeen(), getRegistrationId())
++    val canRename = !SignalStore.unifiedpush.isMollySocketDevice(getId())
++    val defaultDevice = Device(getId(), getName(), createdAt, getLastSeen(), getRegistrationId(), canRename = canRename)
+     try {
+       if (getName().isNullOrEmpty() || getName().length < 4) {
+         Log.w(TAG, "Invalid DeviceInfo name.")
+@@ -113,7 +114,7 @@ object LinkDeviceRepository {
+         return defaultDevice
+       }
+ 
+-      return Device(getId(), String(plaintext), createdAt, getLastSeen(), getRegistrationId())
++      return Device(getId(), String(plaintext), createdAt, getLastSeen(), getRegistrationId(), canRename = canRename)
+     } catch (e: Exception) {
+       Log.w(TAG, "Failed while reading the protobuf.", e)
+     }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceSettingsState.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceSettingsState.kt
+index 989b8dde2d1fea713f30888bf4e3553df362a6a4..d8adad37318a01db4337ab7a857b1008ed7d5ec6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceSettingsState.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceSettingsState.kt
+@@ -16,6 +16,8 @@ data class LinkDeviceSettingsState(
+   val qrCodeState: QrCodeState = QrCodeState.NONE,
+   val linkUri: Uri? = null,
+   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
++  val linkWithoutQrCode: Boolean = false,
++  val canLinkDevices: Boolean = !SignalStore.account.isLinkedDevice,
+   val seenQrEducationSheet: Boolean = SignalStore.uiHints.hasSeenLinkDeviceQrEducationSheet() || SignalStore.account.isMultiDevice,
+   val bottomSheetVisible: Boolean = false,
+   val deviceToEdit: Device? = null,
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceViewModel.kt
+index 13f7cce342dd67a60cfa3ee0a1751fe55debb4c5..993a904590334abc888c3c3479dc23585d1346f6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/linkdevice/LinkDeviceViewModel.kt
+@@ -152,12 +152,9 @@ class LinkDeviceViewModel : ViewModel() {
+     pollJob?.cancel()
+   }
+ 
+-  fun markQrEducationSheetSeen() {
+-    SignalStore.uiHints.markHasSeenLinkDeviceQrEducationSheet()
++  fun requestLinkWithoutQrCode(value: Boolean) {
+     _state.update {
+-      it.copy(
+-        seenQrEducationSheet = true
+-      )
++      it.copy(linkWithoutQrCode = value)
+     }
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentialExporter.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentialExporter.kt
+deleted file mode 100644
+index 19d1e23588522c6afdde4e3b72340defe9e39a9d..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentialExporter.kt
++++ /dev/null
+@@ -1,72 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.registration.data
+-
+-import android.content.Context
+-import android.util.Base64
+-import kotlinx.serialization.encodeToString
+-import kotlinx.serialization.json.Json
+-import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+-import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.recipients.Recipient
+-import java.io.File
+-
+-/**
+- * Exports current account registration credentials to a JSON file
+- * that can be used with quickstart builds.
+- */
+-object QuickstartCredentialExporter {
+-
+-  private val TAG = Log.tag(QuickstartCredentialExporter::class.java)
+-
+-  private val json = Json { prettyPrint = true }
+-
+-  fun export(context: Context): File {
+-    val aci = SignalStore.account.requireAci()
+-    val pni = SignalStore.account.requirePni()
+-    val e164 = SignalStore.account.requireE164()
+-    val servicePassword = SignalStore.account.servicePassword ?: error("No service password")
+-
+-    val aciIdentityKeyPair = SignalStore.account.aciIdentityKey
+-    val pniIdentityKeyPair = SignalStore.account.pniIdentityKey
+-
+-    val aciSignedPreKey = AppDependencies.protocolStore.aci().loadSignedPreKey(SignalStore.account.aciPreKeys.activeSignedPreKeyId)
+-    val aciLastResortKyberPreKey = AppDependencies.protocolStore.aci().loadKyberPreKey(SignalStore.account.aciPreKeys.lastResortKyberPreKeyId)
+-    val pniSignedPreKey = AppDependencies.protocolStore.pni().loadSignedPreKey(SignalStore.account.pniPreKeys.activeSignedPreKeyId)
+-    val pniLastResortKyberPreKey = AppDependencies.protocolStore.pni().loadKyberPreKey(SignalStore.account.pniPreKeys.lastResortKyberPreKeyId)
+-
+-    val self = Recipient.self()
+-    val profileKey = self.profileKey ?: error("No profile key")
+-    val profileName = self.profileName
+-
+-    val credentials = QuickstartCredentials(
+-      aci = aci.toString(),
+-      pni = pni.toString(),
+-      e164 = e164,
+-      servicePassword = servicePassword,
+-      aciIdentityKeyPair = Base64.encodeToString(aciIdentityKeyPair.serialize(), Base64.NO_WRAP),
+-      pniIdentityKeyPair = Base64.encodeToString(pniIdentityKeyPair.serialize(), Base64.NO_WRAP),
+-      aciSignedPreKey = Base64.encodeToString(aciSignedPreKey.serialize(), Base64.NO_WRAP),
+-      aciLastResortKyberPreKey = Base64.encodeToString(aciLastResortKyberPreKey.serialize(), Base64.NO_WRAP),
+-      pniSignedPreKey = Base64.encodeToString(pniSignedPreKey.serialize(), Base64.NO_WRAP),
+-      pniLastResortKyberPreKey = Base64.encodeToString(pniLastResortKyberPreKey.serialize(), Base64.NO_WRAP),
+-      profileKey = Base64.encodeToString(profileKey, Base64.NO_WRAP),
+-      registrationId = SignalStore.account.registrationId,
+-      pniRegistrationId = SignalStore.account.pniRegistrationId,
+-      profileGivenName = profileName.givenName,
+-      profileFamilyName = profileName.familyName,
+-      accountEntropyPool = SignalStore.account.accountEntropyPool.value
+-    )
+-
+-    val outputDir = context.getExternalFilesDir(null) ?: error("No external files directory")
+-    val outputFile = File(outputDir, "quickstart-credentials.json")
+-    outputFile.writeText(json.encodeToString(credentials))
+-
+-    Log.i(TAG, "Exported quickstart credentials to ${outputFile.absolutePath}")
+-    return outputFile
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentials.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentials.kt
+deleted file mode 100644
+index bc7dfd358d2e13b1742964990636f5b4e042d589..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/data/QuickstartCredentials.kt
++++ /dev/null
+@@ -1,33 +0,0 @@
+-/*
+- * Copyright 2025 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.registration.data
+-
+-import kotlinx.serialization.Serializable
+-
+-/**
+- * JSON-serializable bundle of registration credentials for quickstart builds.
+- * All byte arrays are base64-encoded strings.
+- */
+-@Serializable
+-data class QuickstartCredentials(
+-  val version: Int = 1,
+-  val aci: String,
+-  val pni: String,
+-  val e164: String,
+-  val servicePassword: String,
+-  val aciIdentityKeyPair: String,
+-  val pniIdentityKeyPair: String,
+-  val aciSignedPreKey: String,
+-  val aciLastResortKyberPreKey: String,
+-  val pniSignedPreKey: String,
+-  val pniLastResortKyberPreKey: String,
+-  val profileKey: String,
+-  val registrationId: Int,
+-  val pniRegistrationId: Int,
+-  val profileGivenName: String,
+-  val profileFamilyName: String,
+-  val accountEntropyPool: String? = null
+-)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt
+index 38bc8cac57a3698554e9c20b27e36fe651751231..cf96376ce9f77a769900810edbb4f8f369954211 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/data/RegistrationRepository.kt
+@@ -10,13 +10,10 @@ import android.content.Context
+ import androidx.annotation.VisibleForTesting
+ import androidx.annotation.WorkerThread
+ import androidx.core.app.NotificationManagerCompat
+-import com.google.android.gms.auth.api.phone.SmsRetriever
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.delay
+ import kotlinx.coroutines.isActive
+-import kotlinx.coroutines.tasks.await
+ import kotlinx.coroutines.withContext
+-import kotlinx.coroutines.withTimeoutOrNull
+ import org.greenrobot.eventbus.EventBus
+ import org.greenrobot.eventbus.Subscribe
+ import org.signal.core.models.AccountEntropyPool
+@@ -243,8 +240,7 @@ object RegistrationRepository {
+     val masterKey = if (data.masterKey != null) MasterKey(data.masterKey.toByteArray()) else null
+     SvrRepository.onRegistrationComplete(masterKey, data.pin, hasPin, data.reglockEnabled, SignalStore.account.restoredAccountEntropyPool)
+ 
+-    AppDependencies.resetNetwork()
+-    AppDependencies.startNetwork()
++    AppDependencies.resetNetwork(restartMessageObserver = true)
+     PreKeysSyncJob.enqueue()
+ 
+     recipientTable.clearSelfKeyTransparencyData()
+@@ -654,33 +650,6 @@ object RegistrationRepository {
+       .toList()
+   }
+ 
+-  /**
+-   * Starts an SMS listener to auto-enter a verification code.
+-   *
+-   * The listener [lives for 5 minutes](https://developers.google.com/android/reference/com/google/android/gms/auth/api/phone/SmsRetrieverApi).
+-   *
+-   * @return whether or not the Play Services SMS Listener was successfully registered.
+-   */
+-  suspend fun registerSmsListener(context: Context): Boolean {
+-    Log.d(TAG, "Attempting to start verification code SMS retriever.")
+-    val started = withTimeoutOrNull(5.seconds.inWholeMilliseconds) {
+-      try {
+-        SmsRetriever.getClient(context).startSmsRetriever().await()
+-        Log.d(TAG, "Successfully started verification code SMS retriever.")
+-        return@withTimeoutOrNull true
+-      } catch (ex: Exception) {
+-        Log.w(TAG, "Could not start verification code SMS retriever due to exception.", ex)
+-        return@withTimeoutOrNull false
+-      }
+-    }
+-
+-    if (started == null) {
+-      Log.w(TAG, "Could not start verification code SMS retriever due to timeout.")
+-    }
+-
+-    return started == true
+-  }
+-
+   @VisibleForTesting
+   fun generateSignedAndLastResortPreKeys(identity: IdentityKeyPair, metadataStore: PreKeyMetadataStore): PreKeyCollection {
+     val signedPreKey = PreKeyUtil.generateSignedPreKey(metadataStore.nextSignedPreKeyId, identity.privateKey)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/olddevice/QuickTransferOldDeviceActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/olddevice/QuickTransferOldDeviceActivity.kt
+index 677bc925a4ebe2f5a76235aebba9d966714098aa..0f5a0238f2e16318194f6f88df20e5470d5bb54f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/olddevice/QuickTransferOldDeviceActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/olddevice/QuickTransferOldDeviceActivity.kt
+@@ -65,9 +65,13 @@ class QuickTransferOldDeviceActivity : PassphraseRequiredActivity() {
+   private lateinit var biometricAuth: BiometricDeviceAuthentication
+   private lateinit var biometricDeviceLockLauncher: ActivityResultLauncher<String>
+ 
++  override fun onPreCreate() {
++    super.onPreCreate()
++    theme.onCreate(this)
++  }
++
+   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
+     super.onCreate(savedInstanceState, ready)
+-    theme.onCreate(this)
+ 
+     if (!SignalStore.account.isRegistered) {
+       finish()
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/sms/SmsRetrieverReceiver.java b/app/src/main/java/org/thoughtcrime/securesms/registration/sms/SmsRetrieverReceiver.java
+deleted file mode 100644
+index 372d7ed2ca97df3365d11e4ba518f373c12bb806..0000000000000000000000000000000000000000
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/sms/SmsRetrieverReceiver.java
++++ /dev/null
+@@ -1,77 +0,0 @@
+-/*
+- * Copyright 2024 Signal Messenger, LLC
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package org.thoughtcrime.securesms.registration.sms;
+-
+-import android.app.Application;
+-import android.content.BroadcastReceiver;
+-import android.content.Context;
+-import android.content.Intent;
+-import android.content.IntentFilter;
+-import android.os.Bundle;
+-
+-import androidx.annotation.NonNull;
+-import androidx.core.content.ContextCompat;
+-
+-import com.google.android.gms.auth.api.phone.SmsRetriever;
+-import com.google.android.gms.common.api.CommonStatusCodes;
+-import com.google.android.gms.common.api.Status;
+-
+-import org.greenrobot.eventbus.EventBus;
+-import org.signal.core.util.logging.Log;
+-import org.thoughtcrime.securesms.service.VerificationCodeParser;
+-
+-import java.util.Optional;
+-
+-/**
+- * Listen for SMS verification codes sent during registration or change number.
+- */
+-public class SmsRetrieverReceiver extends BroadcastReceiver {
+-
+-  private static final String TAG = Log.tag(SmsRetrieverReceiver.class);
+-
+-  private final Context context;
+-
+-  public SmsRetrieverReceiver(@NonNull Application context) {
+-    this.context = context;
+-  }
+-
+-  public void registerReceiver() {
+-    Log.d(TAG, "Registering SMS retriever receiver");
+-    ContextCompat.registerReceiver(context, this, new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION), SmsRetriever.SEND_PERMISSION, null, ContextCompat.RECEIVER_EXPORTED);
+-  }
+-
+-  public void unregisterReceiver() {
+-    Log.d(TAG, "Unregistering SMS retriever receiver");
+-    context.unregisterReceiver(this);
+-  }
+-
+-  @Override
+-  public void onReceive(Context context, Intent intent) {
+-    Log.i(TAG, "SmsRetrieverReceiver received a broadcast...");
+-
+-    if (SmsRetriever.SMS_RETRIEVED_ACTION.equals(intent.getAction())) {
+-      Bundle extras = intent.getExtras();
+-      Status status = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
+-
+-      switch (status.getStatusCode()) {
+-        case CommonStatusCodes.SUCCESS:
+-          Optional<String> code = VerificationCodeParser.parse((String) extras.get(SmsRetriever.EXTRA_SMS_MESSAGE));
+-          if (code.isPresent()) {
+-            Log.i(TAG, "Received verification code.");
+-            EventBus.getDefault().post(new ReceivedSmsEvent(code.get()));
+-          } else {
+-            Log.w(TAG, "Could not parse verification code.");
+-          }
+-          break;
+-        case CommonStatusCodes.TIMEOUT:
+-          Log.w(TAG, "Hit a timeout waiting for the SMS to arrive.");
+-          break;
+-      }
+-    } else {
+-      Log.w(TAG, "SmsRetrieverReceiver received the wrong action?");
+-    }
+-  }
+-}
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationActivity.kt
+index ac88d85b7ad719bc948a8feddedd68402428d124..c62027e964ec86decd8d89beb90bb8afd6721a71 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationActivity.kt
+@@ -9,15 +9,12 @@ import android.content.Context
+ import android.content.Intent
+ import android.os.Bundle
+ import androidx.activity.viewModels
+-import androidx.lifecycle.DefaultLifecycleObserver
+-import androidx.lifecycle.LifecycleOwner
+ import androidx.navigation.ActivityNavigator
+ import org.signal.registration.RegistrationRoute
+-import org.thoughtcrime.securesms.BaseActivity
+ import org.thoughtcrime.securesms.MainActivity
++import org.thoughtcrime.securesms.PassphraseRequiredActivity
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+-import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
+ import org.thoughtcrime.securesms.registration.util.RegistrationUtil
+ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+ import org.thoughtcrime.securesms.util.Environment
+@@ -25,21 +22,18 @@ import org.thoughtcrime.securesms.util.Environment
+ /**
+  * Activity to hold the entire registration process.
+  */
+-class RegistrationActivity : BaseActivity() {
++class RegistrationActivity : PassphraseRequiredActivity() {
+ 
+   private val dynamicTheme = DynamicNoActionBarTheme()
+   val sharedViewModel: RegistrationViewModel by viewModels()
+ 
+-  private var smsRetrieverReceiver: SmsRetrieverReceiver? = null
+-
+-  init {
+-    lifecycle.addObserver(SmsRetrieverObserver())
+-  }
+-
+-  override fun onCreate(savedInstanceState: Bundle?) {
++  override fun onPreCreate() {
++    super.onPreCreate()
+     dynamicTheme.onCreate(this)
++  }
+ 
+-    super.onCreate(savedInstanceState)
++  override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
++    super.onCreate(savedInstanceState, ready)
+     setContentView(R.layout.activity_registration_navigation_v3)
+ 
+     sharedViewModel.isReregister = intent.getBooleanExtra(RE_REGISTRATION_EXTRA, false)
+@@ -67,18 +61,6 @@ class RegistrationActivity : BaseActivity() {
+     ActivityNavigator.applyPopAnimationsToPendingTransition(this)
+   }
+ 
+-  private inner class SmsRetrieverObserver : DefaultLifecycleObserver {
+-    override fun onCreate(owner: LifecycleOwner) {
+-      smsRetrieverReceiver = SmsRetrieverReceiver(application)
+-      smsRetrieverReceiver?.registerReceiver()
+-    }
+-
+-    override fun onDestroy(owner: LifecycleOwner) {
+-      smsRetrieverReceiver?.unregisterReceiver()
+-      smsRetrieverReceiver = null
+-    }
+-  }
+-
+   companion object {
+     const val RE_REGISTRATION_EXTRA: String = "re_registration"
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationState.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationState.kt
+index c9d79cb20083d9782649d78e8e61fdcfd1bd3210..b51700875250cf94bb35192a9c68441843eacbb2 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationState.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationState.kt
+@@ -28,6 +28,8 @@ data class RegistrationState(
+   val enteredCode: String = "",
+   val phoneNumber: Phonenumber.PhoneNumber? = fetchExistingE164FromValues(),
+   val nationalNumber: String = "",
++  val linkDeviceName: String? = null,
++  val deviceLinkUrl: String? = null,
+   val inProgress: Boolean = false,
+   val isReRegister: Boolean = false,
+   val recoveryPassword: String? = null,
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationViewModel.kt
+index b98c00f032ed10b45498e86190d1d978e14b44e0..a4ec3ebe924489bd1d7a0104c40edee7d2ac43b9 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/RegistrationViewModel.kt
+@@ -100,7 +100,6 @@ import java.net.ProtocolException
+ import java.nio.charset.StandardCharsets
+ import kotlin.jvm.optionals.getOrNull
+ import kotlin.math.max
+-import kotlin.time.Duration.Companion.minutes
+ import kotlin.time.Duration.Companion.seconds
+ 
+ /**
+@@ -373,22 +372,8 @@ class RegistrationViewModel : ViewModel() {
+   }
+ 
+   private suspend fun requestSmsCodeInternal(context: Context, sessionId: String, e164: String) {
+-    var smsListenerReady = false
+-    Log.d(TAG, "Initializing SMS listener.")
+-    if (store.value.smsListenerTimeout < System.currentTimeMillis()) {
+-      smsListenerReady = store.value.isFcmSupported && RegistrationRepository.registerSmsListener(context)
+-
+-      if (smsListenerReady) {
+-        val smsRetrieverTimeout = System.currentTimeMillis() + 5.minutes.inWholeMilliseconds
+-        Log.d(TAG, "Successfully started verification code SMS retriever, which will last until $smsRetrieverTimeout.")
+-        store.update { it.copy(smsListenerTimeout = smsRetrieverTimeout) }
+-      } else {
+-        Log.d(TAG, "Could not start verification code SMS retriever.")
+-      }
+-    }
+-
+     Log.d(TAG, "Requesting SMS code…")
+-    val transportMode = if (smsListenerReady) RegistrationRepository.E164VerificationMode.SMS_WITH_LISTENER else RegistrationRepository.E164VerificationMode.SMS_WITHOUT_LISTENER
++    val transportMode = RegistrationRepository.E164VerificationMode.SMS_WITHOUT_LISTENER
+     val codeRequestResponse = RegistrationRepository.requestSmsCode(
+       context = context,
+       sessionId = sessionId,
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/permissions/GrantPermissionsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/permissions/GrantPermissionsFragment.kt
+index 8afd38cbe9c6b850ce800be6ef851a55e1e6123e..0974394ad24f227f958d1faee013cbd12dae5c9f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/permissions/GrantPermissionsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/permissions/GrantPermissionsFragment.kt
+@@ -5,6 +5,7 @@
+ 
+ package org.thoughtcrime.securesms.registration.ui.permissions
+ 
++import android.content.Intent
+ import android.content.pm.PackageManager
+ import android.os.Build
+ import androidx.activity.result.contract.ActivityResultContracts
+@@ -22,6 +23,7 @@ import org.thoughtcrime.securesms.registration.fragments.WelcomePermissions
+ import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
+ import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
+ import org.thoughtcrime.securesms.registration.ui.welcome.WelcomeUserSelection
++import org.thoughtcrime.securesms.service.KeyCachingService
+ import org.thoughtcrime.securesms.util.BackupUtil
+ 
+ /**
+@@ -75,6 +77,11 @@ class GrantPermissionsFragment : ComposeFragment() {
+     }
+     sharedViewModel.maybePrefillE164(requireContext())
+     sharedViewModel.setRegistrationCheckpoint(RegistrationCheckpoint.PERMISSIONS_GRANTED)
++    // MOLLY: Repost LOCKED_STATUS notification; run even if POST_NOTIFICATION is denied
++    val intent = Intent(requireContext(), KeyCachingService::class.java).apply {
++      action = KeyCachingService.LOCALE_CHANGE_EVENT
++    }
++    requireContext().startService(intent)
+     proceedToNextScreen()
+   }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberFragment.kt
+index 8134f70afc7bf495f8cc358d3678dea0f063bc50..de6e5996bca8a9cb528c82845f26699f3c615395 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberFragment.kt
+@@ -30,7 +30,7 @@ import androidx.navigation.fragment.NavHostFragment
+ import androidx.navigation.fragment.findNavController
+ import androidx.navigation.fragment.navArgs
+ import com.google.android.gms.common.ConnectionResult
+-import com.google.android.gms.common.GoogleApiAvailability
++import com.google.android.gms.common.GooglePlayServicesUtil
+ import com.google.android.material.dialog.MaterialAlertDialogBuilder
+ import com.google.android.material.textfield.TextInputEditText
+ import com.google.i18n.phonenumbers.AsYouTypeFormatter
+@@ -38,7 +38,6 @@ import com.google.i18n.phonenumbers.NumberParseException
+ import com.google.i18n.phonenumbers.PhoneNumberUtil
+ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber
+ import org.signal.core.ui.logging.LoggingFragment
+-import org.signal.core.util.PlayServicesUtil
+ import org.signal.core.util.ThreadUtil
+ import org.signal.core.util.getParcelableCompat
+ import org.signal.core.util.isNotNullOrBlank
+@@ -68,6 +67,7 @@ import org.thoughtcrime.securesms.util.Dialogs
+ import org.thoughtcrime.securesms.util.SignalE164Util
+ import org.thoughtcrime.securesms.util.SpanUtil
+ import org.thoughtcrime.securesms.util.SupportEmailUtil
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ import org.thoughtcrime.securesms.util.ViewUtil
+ import org.thoughtcrime.securesms.util.livedata.LiveDataObserverCallback
+ import org.thoughtcrime.securesms.util.navigation.safeNavigate
+@@ -346,14 +346,6 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
+         }
+       }
+ 
+-      EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING -> {
+-        handlePromptForNoPlayServices()
+-      }
+-
+-      EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE -> {
+-        GoogleApiAvailability.getInstance().getErrorDialog(requireActivity(), ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED, 0)?.show()
+-      }
+-
+       EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT -> {
+         MaterialAlertDialogBuilder(requireContext()).apply {
+           setTitle(R.string.RegistrationActivity_play_services_error)
+@@ -557,6 +549,7 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
+   }
+ 
+   private fun onRegistrationButtonClicked() {
++    enableNetwork()
+     when (enterPhoneNumberMode) {
+       EnterPhoneNumberMode.NORMAL,
+       EnterPhoneNumberMode.RESTART_AFTER_COLLECTION -> startNormalRegistration()
+@@ -566,6 +559,11 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
+     }
+   }
+ 
++  private fun enableNetwork() {
++    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
++    AppDependencies.networkManager.setNetworkEnabled(true)
++  }
++
+   private fun startNormalRegistration() {
+     ViewUtil.hideKeyboard(requireContext(), phoneNumberInputLayout)
+     sharedViewModel.setInProgress(true)
+@@ -605,34 +603,12 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
+   }
+ 
+   private fun validateFcmStatus(context: Context): Boolean {
+-    val fcmStatus = PlayServicesUtil.getPlayServicesStatus(context)
++    val fcmStatus = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
+     Log.d(TAG, "Got $fcmStatus for Play Services status.")
+-    when (fcmStatus) {
+-      PlayServicesUtil.PlayServicesStatus.SUCCESS -> {
+-        return true
+-      }
+-
+-      PlayServicesUtil.PlayServicesStatus.MISSING -> {
+-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
+-        return false
+-      }
+-
+-      PlayServicesUtil.PlayServicesStatus.NEEDS_UPDATE -> {
+-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_NEEDS_UPDATE)
+-        return false
+-      }
+-
+-      PlayServicesUtil.PlayServicesStatus.TRANSIENT_ERROR -> {
+-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
+-        return false
+-      }
+-
+-      null -> {
+-        Log.w(TAG, "Null result received from PlayServicesUtil, marking Play Services as missing.")
+-        fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_MISSING)
+-        return false
+-      }
++    if (fcmStatus == ConnectionResult.SERVICE_UPDATING) {
++      fragmentViewModel.setError(EnterPhoneNumberState.Error.PLAY_SERVICES_TRANSIENT)
+     }
++    return fcmStatus == ConnectionResult.SUCCESS
+   }
+ 
+   private fun handleConfirmNumberDialogCanceled() {
+@@ -661,37 +637,13 @@ class EnterPhoneNumberFragment : LoggingFragment(R.layout.fragment_registration_
+       setMessage(message)
+       setPositiveButton(android.R.string.ok) { _, _ ->
+         Log.d(TAG, "User confirmed number.")
+-        if (missingFcmConsentRequired) {
+-          handlePromptForNoPlayServices()
+-        } else {
+-          sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
+-        }
++        sharedViewModel.onUserConfirmedPhoneNumber(requireContext())
+       }
+       setNegativeButton(R.string.RegistrationActivity_edit_number) { _, _ -> handleConfirmNumberDialogCanceled() }
+       setOnCancelListener { _ -> handleConfirmNumberDialogCanceled() }
+     }.show()
+   }
+ 
+-  private fun handlePromptForNoPlayServices() {
+-    val context = activity
+-
+-    if (context != null) {
+-      Log.d(TAG, "Device does not have Play Services, showing consent dialog.")
+-      MaterialAlertDialogBuilder(context).apply {
+-        setTitle(R.string.RegistrationActivity_missing_google_play_services)
+-        setMessage(R.string.RegistrationActivity_this_device_is_missing_google_play_services)
+-        setPositiveButton(R.string.RegistrationActivity_i_understand) { _, _ ->
+-          Log.d(TAG, "User confirmed number.")
+-          sharedViewModel.onUserConfirmedPhoneNumber(AppDependencies.application)
+-        }
+-        setNegativeButton(android.R.string.cancel, null)
+-        setOnCancelListener { fragmentViewModel.clearError() }
+-        setOnDismissListener { fragmentViewModel.clearError() }
+-        show()
+-      }
+-    }
+-  }
+-
+   private fun moveToEnterPinScreen() {
+     findNavController().safeNavigate(EnterPhoneNumberFragmentDirections.actionReRegisterWithPinFragment())
+     sharedViewModel.setInProgress(false)
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberState.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberState.kt
+index 275295f473fca939497ecc88666fe8260aed26ac..4af3c46ab5d8c672ffe38a7bd1ce673ed9a47dd3 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberState.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/phonenumber/EnterPhoneNumberState.kt
+@@ -20,6 +20,6 @@ data class EnterPhoneNumberState(
+   val country: Country? = null
+ ) {
+   enum class Error {
+-    NONE, INVALID_PHONE_NUMBER, PLAY_SERVICES_MISSING, PLAY_SERVICES_NEEDS_UPDATE, PLAY_SERVICES_TRANSIENT
++    NONE, INVALID_PHONE_NUMBER, PLAY_SERVICES_TRANSIENT
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RemoteRestoreActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RemoteRestoreActivity.kt
+index d4bd0475ca0fefddefce2303ce3b1f0a7cd9615a..5f0c81f8c9979f215ea5c9f497ae120172d086fc 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RemoteRestoreActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RemoteRestoreActivity.kt
+@@ -5,6 +5,7 @@
+ 
+ package org.thoughtcrime.securesms.registration.ui.restore
+ 
++import android.annotation.SuppressLint
+ import android.content.Context
+ import android.content.Intent
+ import android.os.Bundle
+@@ -93,6 +94,7 @@ import kotlin.time.Duration
+ /**
+  * Restore backup from remote source.
+  */
++@SuppressLint("BaseActivitySubclass")
+ class RemoteRestoreActivity : BaseActivity() {
+   companion object {
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RestoreViaQrFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RestoreViaQrFragment.kt
+index 051a002c825b3ef71381f041a6eb73ce7b01a6f7..0c7d1f3d37cc8683fef51e7134e1136eedf328ff 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RestoreViaQrFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/RestoreViaQrFragment.kt
+@@ -39,7 +39,6 @@ import androidx.compose.runtime.remember
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.clip
+-import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.painter.Painter
+ import androidx.compose.ui.res.stringResource
+ import androidx.compose.ui.text.style.TextAlign
+@@ -71,6 +70,7 @@ import org.signal.registration.proto.RegistrationProvisionMessage
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCode
+ import org.thoughtcrime.securesms.components.settings.app.usernamelinks.QrCodeData
++import org.thoughtcrime.securesms.components.settings.app.usernamelinks.UsernameQrCodeColorScheme
+ import org.thoughtcrime.securesms.registration.data.network.RegisterAccountResult
+ import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
+ import org.thoughtcrime.securesms.registration.ui.shared.RegistrationScreen
+@@ -221,7 +221,7 @@ private fun RestoreViaQrScreen(
+           .widthIn(160.dp, 320.dp)
+           .aspectRatio(1f)
+           .clip(RoundedCornerShape(24.dp))
+-          .background(SignalTheme.colors.colorSurface5)
++          .background(UsernameQrCodeColorScheme.Blue.borderColor)
+           .padding(40.dp)
+       ) {
+         SignalTheme(isDarkMode = false) {
+@@ -247,7 +247,7 @@ private fun RestoreViaQrScreen(
+                 is RestoreViaQrViewModel.QrState.Loaded -> {
+                   QrCode(
+                     data = qrState.qrData,
+-                    foregroundColor = Color(0xFF2449C0),
++                    foregroundColor = UsernameQrCodeColorScheme.Blue.foregroundColor,
+                     modifier = Modifier
+                       .fillMaxWidth()
+                       .fillMaxHeight()
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/local/RestoreLocalBackupActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/local/RestoreLocalBackupActivity.kt
+index 8075ec46e47f9918e26e1d71114d42403d9a177f..3147fb8e46a48b333a4fb04a6edf8a58b138dda4 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/local/RestoreLocalBackupActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/restore/local/RestoreLocalBackupActivity.kt
+@@ -5,6 +5,7 @@
+ 
+ package org.thoughtcrime.securesms.registration.ui.restore.local
+ 
++import android.annotation.SuppressLint
+ import android.content.Context
+ import android.content.Intent
+ import android.os.Bundle
+@@ -65,6 +66,7 @@ import kotlin.math.max
+  * Handles the synchronous restoration of the proto files from a V2 backup. Media is
+  * handled by background tasks.
+  */
++@SuppressLint("BaseActivitySubclass")
+ class RestoreLocalBackupActivity : BaseActivity() {
+   companion object {
+     private const val KEY_FINISH = "finish"
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/welcome/WelcomeFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/welcome/WelcomeFragment.kt
+index 28eaf7d7150004e129b9936645713beba0881dc5..09cec68de5305ec1072d67c53c188ae279aeb407 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/ui/welcome/WelcomeFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/ui/welcome/WelcomeFragment.kt
+@@ -7,18 +7,23 @@ package org.thoughtcrime.securesms.registration.ui.welcome
+ 
+ import android.content.pm.PackageManager
+ import android.os.Bundle
++import android.view.Menu
++import android.view.MenuInflater
++import android.view.MenuItem
+ import android.view.View
++import androidx.appcompat.app.AppCompatActivity
+ import androidx.core.content.ContextCompat
++import androidx.core.view.MenuProvider
+ import androidx.fragment.app.activityViewModels
++import androidx.navigation.fragment.NavHostFragment
+ import androidx.navigation.fragment.findNavController
+-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+ import org.signal.core.ui.logging.LoggingFragment
+ import org.signal.core.util.getSerializableCompat
+ import org.signal.core.util.logging.Log
+-import org.thoughtcrime.securesms.BuildConfig
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.components.ViewBinderDelegate
+ import org.thoughtcrime.securesms.databinding.FragmentRegistrationWelcomeV3Binding
++import org.thoughtcrime.securesms.dependencies.AppDependencies
+ import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate.setDebugLogSubmitMultiTapView
+ import org.thoughtcrime.securesms.registration.fragments.WelcomePermissions
+ import org.thoughtcrime.securesms.registration.ui.RegistrationCheckpoint
+@@ -27,6 +32,7 @@ import org.thoughtcrime.securesms.registration.ui.permissions.GrantPermissionsFr
+ import org.thoughtcrime.securesms.registration.ui.phonenumber.EnterPhoneNumberMode
+ import org.thoughtcrime.securesms.util.BackupUtil
+ import org.thoughtcrime.securesms.util.CommunicationActions
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ import org.thoughtcrime.securesms.util.navigation.safeNavigate
+ import org.thoughtcrime.securesms.util.visible
+ 
+@@ -53,16 +59,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
+     binding.welcomeTransferOrRestore.setOnClickListener { onRestoreOrTransferClicked() }
+     binding.welcomeTransferOrRestore.visible = !sharedViewModel.isReregister
+ 
+-    if (BuildConfig.LINK_DEVICE_UX_ENABLED) {
+-      binding.image.setOnLongClickListener {
+-        MaterialAlertDialogBuilder(requireContext())
+-          .setMessage("Link device?")
+-          .setPositiveButton("Link", { _, _ -> onLinkDeviceClicked() })
+-          .setNegativeButton(android.R.string.cancel, null)
+-          .show()
+-        true
+-      }
+-    }
++    binding.link.setOnClickListener { onLinkDeviceClicked() }
+ 
+     childFragmentManager.setFragmentResultListener(RestoreWelcomeBottomSheet.REQUEST_KEY, viewLifecycleOwner) { requestKey, bundle ->
+       if (requestKey == RestoreWelcomeBottomSheet.REQUEST_KEY) {
+@@ -85,6 +82,14 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
+         }
+       }
+     }
++
++    with(requireActivity() as AppCompatActivity) {
++      setSupportActionBar(binding.toolbar)
++      supportActionBar?.apply {
++        setDisplayShowTitleEnabled(false)
++      }
++      addMenuProvider(UseProxyMenuProvider(), viewLifecycleOwner)
++    }
+   }
+ 
+   private fun onLinkDeviceClicked() {
+@@ -96,9 +101,15 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
+   }
+ 
+   private fun navigateToLinkDevice() {
++    enableNetwork()
+     findNavController().safeNavigate(WelcomeFragmentDirections.goToLinkViaQr())
+   }
+ 
++  private fun enableNetwork() {
++    TextSecurePreferences.setHasSeenNetworkConfig(requireContext(), true)
++    AppDependencies.networkManager.setNetworkEnabled(true)
++  }
++
+   override fun onResume() {
+     super.onResume()
+     sharedViewModel.resetRestoreDecision()
+@@ -141,6 +152,7 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
+       WelcomeUserSelection.LINK,
+       WelcomeUserSelection.CONTINUE -> throw IllegalArgumentException()
+       WelcomeUserSelection.RESTORE_WITH_OLD_PHONE -> {
++        enableNetwork()
+         sharedViewModel.intendToRestore(hasOldDevice = true, fromRemote = true)
+         findNavController().safeNavigate(WelcomeFragmentDirections.goToRestoreViaQr())
+       }
+@@ -155,4 +167,17 @@ class WelcomeFragment : LoggingFragment(R.layout.fragment_registration_welcome_v
+     val isUserSelectionRequired = BackupUtil.isUserSelectionRequired(requireContext())
+     return WelcomePermissions.getWelcomePermissions(isUserSelectionRequired).all { ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED }
+   }
++
++  private inner class UseProxyMenuProvider : MenuProvider {
++    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
++      menuInflater.inflate(R.menu.enter_phone_number, menu)
++    }
++
++    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = if (menuItem.itemId == R.id.phone_menu_use_proxy) {
++      NavHostFragment.findNavController(this@WelcomeFragment).safeNavigate(WelcomeFragmentDirections.actionEditProxy())
++      true
++    } else {
++      false
++    }
++  }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationNetworkController.kt b/app/src/main/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationNetworkController.kt
+index ad28193f725de824e13ba85631d63ae0750d6ab5..b5567181dff01109537721a45dbb346944eba4eb 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationNetworkController.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/registration/v2/AppRegistrationNetworkController.kt
+@@ -773,7 +773,7 @@ class AppRegistrationNetworkController(
+     val notificationData = org.signal.devicetransfer.DeviceToDeviceTransferService.TransferNotificationData(
+       org.thoughtcrime.securesms.notifications.NotificationIds.DEVICE_TRANSFER,
+       org.thoughtcrime.securesms.notifications.NotificationChannels.getInstance().BACKUPS,
+-      org.thoughtcrime.securesms.R.drawable.ic_signal_backup
++      org.thoughtcrime.securesms.R.drawable.ic_notification_backup
+     )
+     org.signal.devicetransfer.DeviceToDeviceTransferService.startServer(
+       context,
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/registration/util/RegistrationUtilTest.kt b/app/src/test/java/org/thoughtcrime/securesms/registration/util/RegistrationUtilTest.kt
+index 13e2b833c3dd9dd50b5087f7b4d378958bc1d4e1..dd282c780d89411ecd3dea172bfb514e02bf11a5 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/registration/util/RegistrationUtilTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/registration/util/RegistrationUtilTest.kt
+@@ -90,6 +90,7 @@ class RegistrationUtilTest {
+   fun maybeMarkRegistrationComplete_missingData() {
+     every { signalStore.registration.isRegistrationComplete } returns false
+     every { signalStore.account.isRegistered } returns false
++    every { signalStore.account.isLinkedDevice } returns false
+ 
+     RegistrationUtil.maybeMarkRegistrationComplete()
+ 
+diff --git a/feature/registration/src/main/java/org/signal/registration/RegistrationRepository.kt b/feature/registration/src/main/java/org/signal/registration/RegistrationRepository.kt
+index c80581f845d9bf3dd05a3d4cb90a449396c45ea3..7bc0c98b5b9d404adefc02f2315f92f3e6f69338 100644
+--- a/feature/registration/src/main/java/org/signal/registration/RegistrationRepository.kt
++++ b/feature/registration/src/main/java/org/signal/registration/RegistrationRepository.kt
+@@ -8,7 +8,6 @@ package org.signal.registration
+ import android.app.backup.BackupManager
+ import android.content.Context
+ import android.net.Uri
+-import com.google.android.gms.auth.api.phone.SmsRetriever
+ import com.google.i18n.phonenumbers.PhoneNumberUtil
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.flow.Flow
+@@ -106,23 +105,7 @@ class RegistrationRepository(val context: Context, val networkController: Networ
+    * @return whether the Play Services SMS retriever was successfully started.
+    */
+   suspend fun registerSmsListener(): Boolean {
+-    Log.d(TAG, "Attempting to start verification code SMS retriever.")
+-    val started = withTimeoutOrNull(5.seconds.inWholeMilliseconds) {
+-      try {
+-        SmsRetriever.getClient(context).startSmsRetriever().await()
+-        Log.d(TAG, "Successfully started verification code SMS retriever.")
+-        true
+-      } catch (ex: Exception) {
+-        Log.w(TAG, "Could not start verification code SMS retriever due to exception.", ex)
+-        false
+-      }
+-    }
+-
+-    if (started == null) {
+-      Log.w(TAG, "Could not start verification code SMS retriever due to timeout.")
+-    }
+-
+-    return started == true
++    return false  // MOLLY: TODO
+   }
+ 
+   fun getCaptchaUrl(): String = networkController.getCaptchaUrl()
+diff --git a/feature/registration/src/main/java/org/signal/registration/screens/linkaccount/LinkAccountScreen.kt b/feature/registration/src/main/java/org/signal/registration/screens/linkaccount/LinkAccountScreen.kt
+index 8c09763f44ec5673f307b9abdb0d85b80a87edba..8ab7cd3158c125b6c604b9e9fe27febc4857ef30 100644
+--- a/feature/registration/src/main/java/org/signal/registration/screens/linkaccount/LinkAccountScreen.kt
++++ b/feature/registration/src/main/java/org/signal/registration/screens/linkaccount/LinkAccountScreen.kt
+@@ -496,13 +496,13 @@ private fun QrCodeFailed(
+     Icon(
+       imageVector = SignalIcons.ErrorCircle.imageVector,
+       contentDescription = null,
+-      tint = colorResource(org.signal.core.ui.R.color.signal_light_colorError),
++      tint = MaterialTheme.colorScheme.error,
+       modifier = Modifier.size(48.dp)
+     )
+     Text(
+       text = stringResource(R.string.LinkAccountScreen__failed_to_generate_code),
+       style = MaterialTheme.typography.bodyMedium,
+-      color = colorResource(org.signal.core.ui.R.color.signal_light_colorError)
++      color = MaterialTheme.colorScheme.error,
+     )
+     Buttons.Small(onClick = { onEvent(LinkAccountScreenEvent.RetryQrCode) }) {
+       Text(text = stringResource(R.string.LinkAccountScreen__retry))
+diff --git a/feature/registration/src/main/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryScreen.kt b/feature/registration/src/main/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryScreen.kt
+index 85bae65a03a140983f55afda341eee81b17c85d1..277c37c75cc87538d1dab29155f5b020cd52e69d 100644
+--- a/feature/registration/src/main/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryScreen.kt
++++ b/feature/registration/src/main/java/org/signal/registration/screens/phonenumber/PhoneNumberEntryScreen.kt
+@@ -65,8 +65,6 @@ import androidx.compose.ui.text.input.TextFieldValue
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
+ import androidx.core.content.ContextCompat
+-import com.google.android.gms.auth.api.identity.GetPhoneNumberHintIntentRequest
+-import com.google.android.gms.auth.api.identity.Identity
+ import com.google.i18n.phonenumbers.PhoneNumberUtil
+ import org.signal.core.ui.compose.AllDevicePreviews
+ import org.signal.core.ui.compose.Buttons
+@@ -130,18 +128,18 @@ fun PhoneNumberScreen(
+     }
+   }
+ 
+-  val phoneNumberHintLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+-    val phoneNumber = try {
+-      Identity.getSignInClient(context).getPhoneNumberFromIntent(result.data)
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Failed to retrieve phone number from hint.", e)
+-      null
+-    }
+-
+-    if (phoneNumber != null) {
+-      onEvent(PhoneNumberEntryScreenEvents.FullPhoneNumberEntered(phoneNumber, autoConfirm = true))
+-    }
+-  }
++  // val phoneNumberHintLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
++  //   val phoneNumber = try {
++  //     Identity.getSignInClient(context).getPhoneNumberFromIntent(result.data)
++  //   } catch (e: Exception) {
++  //     Log.w(TAG, "Failed to retrieve phone number from hint.", e)
++  //     null
++  //   }
++  //
++  //   if (phoneNumber != null) {
++  //     onEvent(PhoneNumberEntryScreenEvents.FullPhoneNumberEntered(phoneNumber, autoConfirm = true))
++  //   }
++  // }
+ 
+   LaunchedEffect(state.initialized) {
+     if (!state.initialized || hasRequestedPhoneNumberHint || state.nationalNumber.isNotEmpty() || state.preExistingRegistrationData != null) {
+@@ -149,25 +147,26 @@ fun PhoneNumberScreen(
+     }
+     hasRequestedPhoneNumberHint = true
+ 
+-    try {
+-      Identity.getSignInClient(context)
+-        .getPhoneNumberHintIntent(GetPhoneNumberHintIntentRequest.builder().build())
+-        .addOnSuccessListener { pendingIntent ->
+-          try {
+-            phoneNumberHintLauncher.launch(IntentSenderRequest.Builder(pendingIntent).build())
+-          } catch (e: Exception) {
+-            Log.w(TAG, "Failed to launch phone number hint intent.", e)
+-            prefillFromDeviceNumberIfAllowed()
+-          }
+-        }
+-        .addOnFailureListener { e ->
+-          Log.w(TAG, "Phone number hint unavailable. Falling back to device number.", e)
+-          prefillFromDeviceNumberIfAllowed()
+-        }
+-    } catch (e: Exception) {
+-      Log.w(TAG, "Unable to request phone number hint. Falling back to device number.", e)
+-      prefillFromDeviceNumberIfAllowed()
+-    }
++    // try {
++    //   Identity.getSignInClient(context)
++    //     .getPhoneNumberHintIntent(GetPhoneNumberHintIntentRequest.builder().build())
++    //     .addOnSuccessListener { pendingIntent ->
++    //       try {
++    //         phoneNumberHintLauncher.launch(IntentSenderRequest.Builder(pendingIntent).build())
++    //       } catch (e: Exception) {
++    //         Log.w(TAG, "Failed to launch phone number hint intent.", e)
++    //         prefillFromDeviceNumberIfAllowed()
++    //       }
++    //     }
++    //     .addOnFailureListener { e ->
++    //       Log.w(TAG, "Phone number hint unavailable. Falling back to device number.", e)
++    //       prefillFromDeviceNumberIfAllowed()
++    //     }
++    // } catch (e: Exception) {
++    //   Log.w(TAG, "Unable to request phone number hint. Falling back to device number.", e)
++    //   prefillFromDeviceNumberIfAllowed()
++    // }
++    prefillFromDeviceNumberIfAllowed()
+   }
+ 
+   if (state.showDialog) {
+diff --git a/feature/registration/src/main/java/org/signal/registration/screens/verificationcode/VerificationCodeViewModel.kt b/feature/registration/src/main/java/org/signal/registration/screens/verificationcode/VerificationCodeViewModel.kt
+index 704f3c6fc304b2425ba7a52f45cfcc37b07c1add..1bdadc0e79f3968810df1e09b400e77e7389a3ac 100644
+--- a/feature/registration/src/main/java/org/signal/registration/screens/verificationcode/VerificationCodeViewModel.kt
++++ b/feature/registration/src/main/java/org/signal/registration/screens/verificationcode/VerificationCodeViewModel.kt
+@@ -14,9 +14,6 @@ import androidx.core.content.ContextCompat
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.ViewModelProvider
+ import androidx.lifecycle.viewModelScope
+-import com.google.android.gms.auth.api.phone.SmsRetriever
+-import com.google.android.gms.common.api.CommonStatusCodes
+-import com.google.android.gms.common.api.Status
+ import kotlinx.coroutines.channels.awaitClose
+ import kotlinx.coroutines.flow.Flow
+ import kotlinx.coroutines.flow.MutableStateFlow
+@@ -62,39 +59,6 @@ class VerificationCodeViewModel(
+      * restart the flow. Checked whenever the screen is foregrounded.
+      */
+     private val IN_PROGRESS_DATA_TIMEOUT = 15.minutes
+-
+-    /**
+-     * Cold [Flow] of verification codes automatically retrieved from incoming SMS messages via the Play Services SMS
+-     * retriever. Registers a [BroadcastReceiver] for [SmsRetriever.SMS_RETRIEVED_ACTION] while collected, and
+-     * unregisters it when collection stops.
+-     */
+-    fun smsCodeFlow(context: Context): Flow<String> = callbackFlow {
+-      val receiver = object : BroadcastReceiver() {
+-        override fun onReceive(context: Context, intent: Intent) {
+-          if (intent.action != SmsRetriever.SMS_RETRIEVED_ACTION) {
+-            return
+-          }
+-
+-          val status = intent.extras?.get(SmsRetriever.EXTRA_STATUS) as? Status
+-          when (status?.statusCode) {
+-            CommonStatusCodes.SUCCESS -> {
+-              val code = VerificationCodeParser.parse(intent.extras?.getString(SmsRetriever.EXTRA_SMS_MESSAGE))
+-              if (code != null) {
+-                Log.i(TAG, "Received verification code via SMS retriever.")
+-                trySend(code)
+-              } else {
+-                Log.w(TAG, "Could not parse verification code from retrieved SMS.")
+-              }
+-            }
+-            CommonStatusCodes.TIMEOUT -> Log.w(TAG, "Timed out waiting for the verification SMS to arrive.")
+-            else -> Log.w(TAG, "SMS retriever broadcast had an unexpected status code: ${status?.statusCode}")
+-          }
+-        }
+-      }
+-
+-      ContextCompat.registerReceiver(context, receiver, IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION), SmsRetriever.SEND_PERMISSION, null, ContextCompat.RECEIVER_EXPORTED)
+-      awaitClose { context.unregisterReceiver(receiver) }
+-    }
+   }
+ 
+   private val _localState = MutableStateFlow(VerificationCodeState())
+@@ -519,7 +483,7 @@ class VerificationCodeViewModel(
+       repository: RegistrationRepository,
+       parentState: StateFlow<RegistrationFlowState>,
+       parentEventEmitter: (RegistrationFlowEvent) -> Unit
+-    ) : this(repository, parentState, parentEventEmitter, smsCodeFlow(context))
++    ) : this(repository, parentState, parentEventEmitter, emptyFlow())
+ 
+     override fun <T : ViewModel> create(modelClass: Class<T>): T {
+       return VerificationCodeViewModel(repository, parentState, parentEventEmitter, smsCodeEvents) as T
+diff --git a/feature/registration/src/main/java/org/signal/registration/util/RegistrationCredentialManager.kt b/feature/registration/src/main/java/org/signal/registration/util/RegistrationCredentialManager.kt
+index 94924f44bbedaa548c11a68140c1674a62a2ec33..ae30605a17d17ff3fec5b677f23a715dfd910d98 100644
+--- a/feature/registration/src/main/java/org/signal/registration/util/RegistrationCredentialManager.kt
++++ b/feature/registration/src/main/java/org/signal/registration/util/RegistrationCredentialManager.kt
+@@ -6,7 +6,6 @@
+ package org.signal.registration.util
+ 
+ import android.content.Context
+-import android.os.Build
+ import android.view.autofill.AutofillManager
+ import androidx.annotation.UiContext
+ import androidx.core.content.getSystemService
+@@ -15,7 +14,6 @@ import androidx.credentials.GetCredentialRequest
+ import androidx.credentials.GetPasswordOption
+ import androidx.credentials.PasswordCredential
+ import androidx.credentials.exceptions.GetCredentialException
+-import org.signal.core.util.PlayServicesUtil
+ import org.signal.core.util.logging.Log
+ 
+ /**
+@@ -32,11 +30,7 @@ object RegistrationCredentialManager {
+    * Credential Manager Play Services backend, so they are supported only when Play Services is.
+    */
+   fun isSupported(context: Context): Boolean {
+-    return if (Build.VERSION.SDK_INT >= 26) {
+-      context.getSystemService<AutofillManager>()?.isEnabled == true
+-    } else {
+-      PlayServicesUtil.getPlayServicesStatus(context) == PlayServicesUtil.PlayServicesStatus.SUCCESS
+-    }
++    return context.getSystemService<AutofillManager>()?.isEnabled == true
+   }
+ 
+   /**
+diff --git a/feature/registration/src/main/java/org/signal/registration/util/SensitiveLog.kt b/feature/registration/src/main/java/org/signal/registration/util/SensitiveLog.kt
+index c537b368d0fa0334d48de566d2fdb7ce5bfb5f0b..b6224d59dca59a02eecab87279825ac6956bf677 100644
+--- a/feature/registration/src/main/java/org/signal/registration/util/SensitiveLog.kt
++++ b/feature/registration/src/main/java/org/signal/registration/util/SensitiveLog.kt
+@@ -42,4 +42,8 @@ object SensitiveLog : Log.Logger() {
+   override fun flush() {
+     this.logger.flush()
+   }
++
++  override fun clear() {
++    this.logger.clear()
++  }
+ }
+diff --git a/feature/registration/src/test/java/org/signal/registration/RegistrationPermissionsTest.kt b/feature/registration/src/test/java/org/signal/registration/RegistrationPermissionsTest.kt
+index 6fb6d2553afec28bbbf325d08e7fb7436e629953..35a00944e686e27680d24a8c069703c8224b9583 100644
+--- a/feature/registration/src/test/java/org/signal/registration/RegistrationPermissionsTest.kt
++++ b/feature/registration/src/test/java/org/signal/registration/RegistrationPermissionsTest.kt
+@@ -55,15 +55,6 @@ class RegistrationPermissionsTest {
+   }
+ 
+   @Test
+-  @Config(sdk = [25])
+-  fun `API 25 does not request read phone numbers`() {
+-    val permissions = RegistrationPermissions.getRequiredPermissions(isModernBackupDirectorySelectionRequired = true)
+-
+-    assertThat(permissions.contains(Manifest.permission.READ_PHONE_STATE)).isTrue()
+-    assertThat(permissions.contains(Manifest.permission.READ_PHONE_NUMBERS)).isFalse()
+-  }
+-
+-  @Test
+   @Config(sdk = [34])
+   fun `hasAllRequiredPermissions is false when nothing is granted`() {
+     val context = ApplicationProvider.getApplicationContext<Application>()
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/crypto/PrimaryProvisioningCipher.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/crypto/PrimaryProvisioningCipher.java
+index e0c9e7d760b6cff6de54edbf3529202ef52a4e49..cc865f445bdb6844c1ecd0ed64529d7f49847147 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/crypto/PrimaryProvisioningCipher.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/crypto/PrimaryProvisioningCipher.java
+@@ -6,6 +6,7 @@
+ 
+ package org.whispersystems.signalservice.internal.crypto;
+ 
++import org.signal.libsignal.protocol.IdentityKeyPair;
+ import org.signal.libsignal.protocol.InvalidKeyException;
+ import org.signal.libsignal.protocol.ecc.ECKeyPair;
+ import org.signal.libsignal.protocol.ecc.ECPrivateKey;
+@@ -17,6 +18,9 @@ import org.whispersystems.signalservice.internal.push.ProvisionEnvelope;
+ import org.whispersystems.signalservice.internal.push.ProvisionMessage;
+ import org.whispersystems.signalservice.internal.util.Util;
+ 
++import java.io.IOException;
++import java.security.GeneralSecurityException;
++import java.security.MessageDigest;
+ import java.security.NoSuchAlgorithmException;
+ 
+ import javax.crypto.BadPaddingException;
+@@ -24,6 +28,7 @@ import javax.crypto.Cipher;
+ import javax.crypto.IllegalBlockSizeException;
+ import javax.crypto.Mac;
+ import javax.crypto.NoSuchPaddingException;
++import javax.crypto.spec.IvParameterSpec;
+ import javax.crypto.spec.SecretKeySpec;
+ 
+ import okio.ByteString;
+@@ -95,4 +100,41 @@ public class PrimaryProvisioningCipher {
+       throw new AssertionError(e);
+     }
+   }
++
++  public ProvisionMessage decrypt(IdentityKeyPair tempIdentity, byte[] bytes) throws InvalidKeyException, IOException {
++    ProvisionEnvelope envelope      = ProvisionEnvelope.ADAPTER.decode(bytes);
++    ECPublicKey       publicKey     = new ECPublicKey(envelope.publicKey.toByteArray());
++    byte[]            sharedSecret  = tempIdentity.getPrivateKey().calculateAgreement(publicKey);
++    byte[]            derivedSecret = HKDF.deriveSecrets(sharedSecret, PROVISIONING_MESSAGE.getBytes(), 64);
++    byte[][]          parts         = Util.split(derivedSecret, 32, 32);
++    ByteString        joined        = envelope.body;
++    if (joined.getByte(0) != 0x01) {
++      throw new RuntimeException("Bad version number on provision message!");
++    }
++    byte[] iv              = joined.substring(1, 16 + 1).toByteArray();
++    byte[] ciphertext      = joined.substring(16 + 1, joined.size() - 32).toByteArray();
++    byte[] ivAndCiphertext = joined.substring(0, joined.size() - 32).toByteArray();
++    byte[] mac             = joined.substring(joined.size() - 32).toByteArray();
++
++    verifyMac(parts[1], ivAndCiphertext, mac);
++
++    return ProvisionMessage.ADAPTER.decode(decrypt(parts[0], iv, ciphertext));
++  }
++
++  private void verifyMac(byte[] key, byte[] message, byte[] theirMac) {
++    byte[] ourMac = getMac(key, message);
++    if (!MessageDigest.isEqual(ourMac, theirMac)) {
++      throw new RuntimeException("Invalid MAC on provision message!");
++    }
++  }
++
++  private byte[] decrypt(byte[] key, byte[] iv, byte[] ciphertext) {
++    try {
++      Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
++      cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(iv));
++      return cipher.doFinal(ciphertext);
++    } catch (GeneralSecurityException e) {
++      throw new AssertionError(e);
++    }
++  }
+ }
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/DeviceId.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/DeviceId.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..8fc2562528cca748728744d836e6acfdb5b070d9
+--- /dev/null
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/DeviceId.java
+@@ -0,0 +1,14 @@
++package org.whispersystems.signalservice.internal.push;
++
++import com.fasterxml.jackson.annotation.JsonProperty;
++
++public class DeviceId {
++
++  @JsonProperty
++  private int deviceId;
++
++  public int getDeviceId() {
++    return deviceId;
++  }
++
++}
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/LinkDeviceRequest.kt b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/LinkDeviceRequest.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..cd55c82f8637de614670e3e6778a7814bc65f351
+--- /dev/null
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/LinkDeviceRequest.kt
+@@ -0,0 +1,17 @@
++package org.whispersystems.signalservice.internal.push
++
++import com.fasterxml.jackson.annotation.JsonInclude
++import com.fasterxml.jackson.annotation.JsonProperty
++import org.whispersystems.signalservice.api.account.AccountAttributes
++import org.whispersystems.signalservice.api.push.SignedPreKeyEntity
++
++@JsonInclude(JsonInclude.Include.NON_NULL)
++data class LinkDeviceRequest(
++  @JsonProperty("verificationCode") val verificationCode: String,
++  @JsonProperty("accountAttributes") val accountAttributes: AccountAttributes,
++  @JsonProperty("aciSignedPreKey") val aciSignedPreKey: SignedPreKeyEntity,
++  @JsonProperty("pniSignedPreKey") val pniSignedPreKey: SignedPreKeyEntity,
++  @JsonProperty("aciPqLastResortPreKey") val aciPqLastResortPreKey: KyberPreKeyEntity,
++  @JsonProperty("pniPqLastResortPreKey") val pniPqLastResortPreKey: KyberPreKeyEntity,
++  @JsonProperty("gcmToken") val gcmToken: GcmRegistrationId?
++)
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/exceptions/MissingCapabilitiesException.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/exceptions/MissingCapabilitiesException.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..7704633412cdccca8a401a6964697dec1b1be198
+--- /dev/null
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/push/exceptions/MissingCapabilitiesException.java
+@@ -0,0 +1,9 @@
++package org.whispersystems.signalservice.internal.push.exceptions;
++
++import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
++
++public class MissingCapabilitiesException extends NonSuccessfulResponseCodeException {
++  public MissingCapabilitiesException() {
++    super(409);
++  }
++}
+
+--------------false--
+
+

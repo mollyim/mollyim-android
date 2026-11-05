@@ -12,7 +12,12 @@ import org.thoughtcrime.securesms.recipients.Recipient
 /**
  * Hold all state for notifications for all conversations.
  */
-data class NotificationState(val conversations: List<NotificationConversation>, val muteFilteredMessages: List<FilteredMessage>, val profileFilteredMessages: List<FilteredMessage>) {
+data class NotificationState(
+  val conversations: List<NotificationConversation>,
+  val muteFilteredMessages: List<FilteredMessage>,
+  val profileFilteredMessages: List<FilteredMessage>,
+  val reactionsDisabledFilteredMessages: List<FilteredMessage>
+) {
 
   val threadCount: Int = conversations.size
   val isEmpty: Boolean = conversations.isEmpty()
@@ -49,23 +54,10 @@ data class NotificationState(val conversations: List<NotificationConversation>, 
   }
 
   fun getDeleteIntent(context: Context): PendingIntent? {
-    val ids = LongArray(messageCount)
-    val mms = BooleanArray(ids.size)
-    val threads: MutableList<ConversationId> = mutableListOf()
-
-    conversations.forEach { conversation ->
-      threads += conversation.thread
-      conversation.notificationItems.forEachIndexed { index, notificationItem ->
-        ids[index] = notificationItem.id
-        mms[index] = notificationItem.isMms
-      }
-    }
-
     val intent = Intent(context, DeleteNotificationReceiver::class.java)
       .setAction(DeleteNotificationReceiver.DELETE_NOTIFICATION_ACTION)
-      .putExtra(DeleteNotificationReceiver.EXTRA_IDS, ids)
-      .putExtra(DeleteNotificationReceiver.EXTRA_MMS, mms)
-      .putParcelableArrayListExtra(DeleteNotificationReceiver.EXTRA_THREADS, ArrayList(threads))
+      .putExtra(DeleteNotificationReceiver.EXTRA_MAX_MESSAGE_ID, notificationItems.maxOfOrNull { it.id } ?: 0L)
+      .putParcelableArrayListExtra(DeleteNotificationReceiver.EXTRA_THREADS, ArrayList(conversations.map { it.thread }))
       .makeUniqueToPreventMerging()
 
     return NotificationPendingIntentHelper.getBroadcast(context, 0, intent, PendingIntentFlags.updateCurrent())
@@ -89,6 +81,6 @@ data class NotificationState(val conversations: List<NotificationConversation>, 
   data class FilteredMessage(val id: Long, val isMms: Boolean)
 
   companion object {
-    val EMPTY = NotificationState(emptyList(), emptyList(), emptyList())
+    val EMPTY = NotificationState(emptyList(), emptyList(), emptyList(), emptyList())
   }
 }

@@ -12,18 +12,19 @@ android {
 dependencies {
   api(project(":core:util-jvm"))
 
-  implementation(libs.androidx.sqlite)
   implementation(libs.androidx.documentfile)
+  implementation(libs.google.jsr305)
   implementation(libs.androidx.lifecycle.process)
   implementation(libs.androidx.exifinterface)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.jackson.core)
   implementation(libs.jackson.module.kotlin)
   implementation(libs.google.libphonenumber)
-  testImplementation(libs.androidx.sqlite.framework)
+  implementation(libs.google.play.services.base)
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.assertk)
+  testImplementation(testLibs.mockk)
   testImplementation(testLibs.robolectric.robolectric)
 }
 

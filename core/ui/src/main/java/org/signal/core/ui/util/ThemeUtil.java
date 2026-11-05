@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.core.content.ContextCompat;
 
 import org.signal.core.ui.R;
 
@@ -51,29 +50,14 @@ public class ThemeUtil {
     return false;
   }
 
-  // MOLLY: Resolves a color reference (R.color or R.attr) to its final color value
-  public static @ColorInt int getThemedColor(@NonNull Context context, int colorRef) {
-    return getThemedColor(context, colorRef, context.getTheme());
-  }
-
-  public static @ColorInt int getThemedColor(@NonNull Context context, int colorRef, @NonNull Resources.Theme theme) {
+  public static @ColorInt int getThemedColor(@NonNull Context context, @AttrRes int attr) {
     TypedValue typedValue = new TypedValue();
+    Resources.Theme theme = context.getTheme();
 
-    int resId = colorRef;
-
-    if (theme.resolveAttribute(resId, typedValue, true)) {
-      if (typedValue.resourceId != 0) {
-        resId = typedValue.resourceId;
-      } else {
-        return typedValue.data;
-      }
+    if (theme.resolveAttribute(attr, typedValue, true)) {
+      return typedValue.data;
     }
-
-    try {
-      return ContextCompat.getColor(context, resId);
-    } catch (Resources.NotFoundException e) {
-      return Color.RED;
-    }
+    return Color.RED;
   }
 
   public static @Nullable Drawable getThemedDrawable(@NonNull Context context, @AttrRes int attr) {

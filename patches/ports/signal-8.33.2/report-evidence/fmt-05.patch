@@ -1,0 +1,23 @@
+--- a/app/src/main/res/layout/conversation_item_received_shared_contact.xml
++++ b/app/src/main/res/layout/conversation_item_received_shared_contact.xml
+@@ -1,2 +1,19 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<org.thoughtcrime.securesms.components.SharedContactView xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" tools:viewBindingIgnore="true" android:id="@+id/shared_contact_view" android:layout_width="@dimen/shared_contact_bubble_min_width" android:layout_height="wrap_content" android:paddingTop="6dp" android:paddingBottom="2dp" app:contact_titleColor="?attr/colorOnSurface" app:contact_captionColor="?attr/signal_text_secondary" app:contact_chevronColor="?attr/colorOutline" app:contact_footerIconColor="@color/conversation_item_recv_icon_color" app:contact_footerAlpha="0.7" app:contact_actionTextColor="?attr/colorOnSurface" app:contact_actionBackgroundColor="@color/signal_colorSurfaceVariantFill" tools:background="?attr/colorPrimary"/>
++<org.thoughtcrime.securesms.components.SharedContactView
++    xmlns:tools="http://schemas.android.com/tools"
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    tools:viewBindingIgnore="true"
++    android:id="@+id/shared_contact_view"
++    android:layout_width="@dimen/shared_contact_bubble_min_width"
++    android:layout_height="wrap_content"
++    android:paddingTop="6dp"
++    android:paddingBottom="2dp"
++    app:contact_titleColor="?attr/colorOnSurface"
++    app:contact_captionColor="?attr/signal_text_secondary"
++    app:contact_chevronColor="?attr/colorOutline"
++    app:contact_footerIconColor="@color/conversation_item_recv_icon_color"
++    app:contact_footerAlpha="0.7"
++    app:contact_actionTextColor="?attr/colorOnSurface"
++    app:contact_actionBackgroundColor="@color/signal_colorSurfaceVariantFill"
++    tools:background="?attr/colorPrimary"/>

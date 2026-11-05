@@ -7,10 +7,10 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.ViewUtil
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.util.ViewUtil
 
 /**
  * ItemDecoration which paints a letter header at the appropriate location above a LetterHeaderItem.
@@ -25,7 +25,7 @@ class LetterHeaderDecoration(private val context: Context, private val hideDecor
   private var dividerHeight = -1
 
   private val textPaint = Paint().apply {
-    color = ThemeUtil.getThemedColor(context, R.attr.signal_text_primary)
+    color = ContextCompat.getColor(context, R.color.signal_text_primary)
     isAntiAlias = true
     style = Paint.Style.FILL
     typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)

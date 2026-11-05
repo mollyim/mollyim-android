@@ -1,12 +1,13 @@
 package org.thoughtcrime.securesms.components;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 
 public class AlertView extends AppCompatImageView {
@@ -36,13 +37,13 @@ public class AlertView extends AppCompatImageView {
 
   public void setFailed() {
     setVisibility(View.VISIBLE);
-    setColorFilter(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorError));
+    setColorFilter(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorError));
     setContentDescription(getContext().getString(R.string.conversation_item_sent__send_failed_indicator_description));
   }
 
   public void setRateLimited() {
     setVisibility(View.VISIBLE);
-    setColorFilter(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurfaceVariant));
+    setColorFilter(ContextCompat.getColor(getContext(), org.signal.core.ui.R.color.signal_colorOnSurfaceVariant));
     setContentDescription(getContext().getString(R.string.conversation_item_sent__pending_approval_description));
   }
 }

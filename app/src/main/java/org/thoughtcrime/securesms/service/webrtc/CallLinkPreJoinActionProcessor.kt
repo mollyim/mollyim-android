@@ -75,7 +75,6 @@ class CallLinkPreJoinActionProcessor(
 
       webRtcInteractor.callManager.createCallLinkCall(
         SignalStore.internal.groupCallingServer,
-        WebRtcUtil.getProxyInfo(),
         serverPublicParams.endorsementPublicKey,
         callLinkAuthCredentialPresentation.serialize(),
         callLinkRootKey,
@@ -84,6 +83,7 @@ class CallLinkPreJoinActionProcessor(
         AUDIO_LEVELS_INTERVAL,
         dredDuration,
         RingRtcDynamicConfiguration.getAudioConfig(),
+        RingRtcDynamicConfiguration.getSvcConfig(),
         webRtcInteractor.groupCallObserver
       )
     } catch (e: InvalidInputException) {

@@ -56,16 +56,16 @@ class BuildExpirationConfirmationJob private constructor(params: Parameters) : J
       return Result.success()
     }
 
-    return when (val result: NetworkResult<RemoteConfigResult> = SignalNetwork.remoteConfig.getRemoteConfig()) {
+    return when (val result: NetworkResult<RemoteConfigResult> = SignalNetwork.remoteConfigApi.getRemoteConfig()) {
       is NetworkResult.Success -> {
         val serverTimeMs = result.result.serverEpochTimeMilliseconds
         SignalStore.misc.setLastKnownServerTime(serverTimeMs, System.currentTimeMillis())
 
         if (Util.getTimeUntilBuildExpiry(serverTimeMs) <= 0) {
-          Log.w(TAG, "Build confirmed expired! Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP_OR_ZERO}, Time since expiry: ${serverTimeMs - BuildConfig.BUILD_TIMESTAMP_OR_ZERO}", true)
+          Log.w(TAG, "Build confirmed expired! Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP}, Time since expiry: ${serverTimeMs - BuildConfig.BUILD_TIMESTAMP}", true)
           SignalStore.misc.isClientDeprecated = true
         } else {
-          Log.w(TAG, "Build not actually expired! Likely bad local clock. Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP_OR_ZERO}")
+          Log.w(TAG, "Build not actually expired! Likely bad local clock. Server time: $serverTimeMs, Local time: ${System.currentTimeMillis()}, Build time: ${BuildConfig.BUILD_TIMESTAMP}")
         }
         Result.success()
       }

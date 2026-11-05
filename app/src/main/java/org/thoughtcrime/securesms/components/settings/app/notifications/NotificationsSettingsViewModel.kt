@@ -1,34 +1,39 @@
 package org.thoughtcrime.securesms.components.settings.app.notifications
 
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import im.molly.unifiedpush.UnifiedPushDistributor
-import im.molly.unifiedpush.components.settings.app.notifications.updateMollySocket
-import im.molly.unifiedpush.model.MollySocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.thoughtcrime.securesms.ApplicationContext
-import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
+import org.signal.core.util.concurrent.SignalDispatchers
+import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.DeviceSpecificNotificationConfig
 import org.thoughtcrime.securesms.notifications.NotificationChannels
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference
-import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.recipients.Recipient
+import org.thoughtcrime.securesms.recipients.RecipientForeverObserver
+import org.thoughtcrime.securesms.storage.StorageSyncHelper
 
-class NotificationsSettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
+class NotificationsSettingsViewModel : ViewModel(), RecipientForeverObserver {
+
+  companion object {
+    private val TAG = Log.tag(NotificationsSettingsViewModel::class)
+  }
 
   private val store = MutableStateFlow(getState())
 
   val state: StateFlow<NotificationsSettingsState> = store
+
+  private val self = Recipient.self().live()
 
   init {
     if (NotificationChannels.supported()) {
@@ -41,6 +46,16 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     viewModelScope.launch(Dispatchers.Default) {
       store.update { getState(calculateSlowNotifications = true) }
     }
+
+    self.observeForever(this)
+  }
+
+  override fun onRecipientChanged(recipient: Recipient) {
+    refresh()
+  }
+
+  override fun onCleared() {
+    self.removeForeverObserver(this)
   }
 
   fun refresh() {
@@ -92,7 +107,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
   }
 
   fun setMessageNotificationPriority(priority: Int) {
-    sharedPreferences.edit().putString(TextSecurePreferences.NOTIFICATION_PRIORITY_PREF, priority.toString()).apply()
+    SignalStore.settings.messageNotificationPriority = priority
     refresh()
   }
 
@@ -113,32 +128,50 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
 
   fun setNotifyWhenContactJoinsSignal(enabled: Boolean) {
     SignalStore.settings.isNotifyWhenContactJoinsSignal = enabled
+    markSelfNeedsSync()
     refresh()
   }
 
-  fun setNotifyWhileLocked(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockNotificationsEnabled(AppDependencies.application, enabled)
+  fun setReactionNotificationEnabled(enabled: Boolean) {
+    SignalStore.settings.reactionNotifications = enabled
+    markSelfNeedsSync()
     refresh()
   }
 
-  fun setPreferredNotificationMethod(method: NotificationDeliveryMethod) {
-    SignalStore.settings.preferredNotificationMethod = method
-    TextSecurePreferences.setPromptedOptimizeDoze(AppDependencies.application, false)
-    ApplicationContext.getInstance(AppDependencies.application).updatePushNotificationServices()
-    AppDependencies.resetNetwork(true)
+  fun setUnreadReminderEnabled(enabled: Boolean) {
+    SignalStore.settings.unreadReminderEnabled = enabled
+    markSelfNeedsSync()
     refresh()
   }
 
-  fun selectFirstDistributor() {
-    UnifiedPushDistributor.selectFirstDistributor()
+  fun resetSettings() {
+    Log.i(TAG, "Resetting all notifications.")
+    // Global
+    setMessageNotificationsSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+    SignalStore.settings.isMessageNotificationsInChatSoundsEnabled = true
+    SignalStore.settings.messageNotificationsPrivacy = NotificationPrivacyPreference("all")
+    SignalStore.settings.allowCallsWhileMuted = false
+    SignalStore.settings.allowMentionsWhileMuted = true
+    SignalStore.settings.allowRepliesWhileMuted = true
+    SignalStore.settings.reactionNotifications = true
+    SignalStore.settings.unreadReminderEnabled = true
+    SignalStore.settings.isNotifyWhenContactJoinsSignal = false
+    SignalStore.settings.messageNotificationsRepeatAlerts = 0
+
+    // Per-chat
+    viewModelScope.launch(SignalDispatchers.Default) {
+      SignalDatabase.recipients.resetAllChatNotificationSettings()
+    }
+
+    markSelfNeedsSync()
+    refresh()
   }
 
-  fun initializeMollySocket(mollySocket: MollySocket) {
-    SignalStore.unifiedpush.updateMollySocket(mollySocket)
-  }
-
-  fun setPlayServicesErrorCode(errorCode: Int?) {
-    store.update { it.copy(playServicesErrorCode = errorCode) }
+  private fun markSelfNeedsSync() {
+    viewModelScope.launch(SignalDispatchers.Default) {
+      SignalDatabase.recipients.markNeedsSync(Recipient.self().id)
+      StorageSyncHelper.scheduleSyncForDataChange()
+    }
   }
 
   /**
@@ -157,7 +190,7 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       inChatSoundsEnabled = SignalStore.settings.isMessageNotificationsInChatSoundsEnabled,
       repeatAlerts = SignalStore.settings.messageNotificationsRepeatAlerts,
       messagePrivacy = SignalStore.settings.messageNotificationsPrivacy.toString(),
-      priority = TextSecurePreferences.getNotificationPriority(AppDependencies.application),
+      priority = SignalStore.settings.messageNotificationPriority,
       troubleshootNotifications = if (calculateSlowNotifications) {
         (SlowNotificationHeuristics.isBatteryOptimizationsOn() && SlowNotificationHeuristics.isHavingDelayedNotifications()) ||
           SlowNotificationHeuristics.getDeviceSpecificShowCondition() == DeviceSpecificNotificationConfig.ShowCondition.ALWAYS
@@ -165,7 +198,12 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
         currentState.messageNotificationsState.troubleshootNotifications
       } else {
         false
-      }
+      },
+      reactionNotificationEnabled = SignalStore.settings.reactionNotifications,
+      unreadReminderEnabled = SignalStore.settings.unreadReminderEnabled,
+      allowCallsWhileMuted = SignalStore.settings.allowCallsWhileMuted,
+      allowMentionsWhileMuted = SignalStore.settings.allowMentionsWhileMuted,
+      allowRepliesWhileMuted = SignalStore.settings.allowRepliesWhileMuted
     ),
     callNotificationsState = CallNotificationsState(
       notificationsEnabled = SignalStore.settings.isCallNotificationsEnabled && canEnableNotifications(),
@@ -173,13 +211,6 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
       ringtone = SignalStore.settings.callRingtone,
       vibrateEnabled = SignalStore.settings.isCallVibrateEnabled
     ),
-    notifyWhileLocked = TextSecurePreferences.isPassphraseLockNotificationsEnabled(AppDependencies.application) && SignalStore.account.pushAvailable,
-    canEnableNotifyWhileLocked = SignalStore.account.pushAvailable,
-    isLinkedDevice = SignalStore.account.isLinkedDevice,
-    preferredNotificationMethod = SignalStore.settings.preferredNotificationMethod,
-    playServicesErrorCode = currentState?.playServicesErrorCode,
-    canReceiveFcm = SignalStore.account.canReceiveFcm,
-    canReceiveUnifiedPush = SignalStore.unifiedpush.isAvailableOrAirGapped,
     notifyWhenContactJoinsSignal = SignalStore.settings.isNotifyWhenContactJoinsSignal
   )
 
@@ -194,9 +225,9 @@ class NotificationsSettingsViewModel(private val sharedPreferences: SharedPrefer
     return !areNotificationsDisabledBySystem
   }
 
-  class Factory(private val sharedPreferences: SharedPreferences) : ViewModelProvider.Factory {
+  class Factory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return requireNotNull(modelClass.cast(NotificationsSettingsViewModel(sharedPreferences)))
+      return requireNotNull(modelClass.cast(NotificationsSettingsViewModel()))
     }
   }
 }

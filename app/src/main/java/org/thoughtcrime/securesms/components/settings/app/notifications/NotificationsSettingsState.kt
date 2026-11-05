@@ -1,18 +1,10 @@
 package org.thoughtcrime.securesms.components.settings.app.notifications
 
 import android.net.Uri
-import org.thoughtcrime.securesms.keyvalue.SettingsValues.NotificationDeliveryMethod
 
 data class NotificationsSettingsState(
   val messageNotificationsState: MessageNotificationsState,
   val callNotificationsState: CallNotificationsState,
-  val notifyWhileLocked: Boolean,
-  val canEnableNotifyWhileLocked: Boolean,
-  val isLinkedDevice: Boolean,
-  val preferredNotificationMethod: NotificationDeliveryMethod,
-  val playServicesErrorCode: Int?,
-  val canReceiveFcm: Boolean,
-  val canReceiveUnifiedPush: Boolean,
   val notifyWhenContactJoinsSignal: Boolean
 )
 
@@ -27,7 +19,12 @@ data class MessageNotificationsState(
   val repeatAlerts: Int,
   val messagePrivacy: String,
   val priority: Int,
-  val troubleshootNotifications: Boolean
+  val troubleshootNotifications: Boolean,
+  val reactionNotificationEnabled: Boolean,
+  val unreadReminderEnabled: Boolean,
+  val allowCallsWhileMuted: Boolean,
+  val allowMentionsWhileMuted: Boolean,
+  val allowRepliesWhileMuted: Boolean
 )
 
 data class CallNotificationsState(

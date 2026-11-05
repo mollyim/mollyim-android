@@ -13,17 +13,16 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.models.recipients.RecipientId
+import org.signal.core.util.toLocalDate
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.v2.data.ConversationMessageElement
 import org.thoughtcrime.securesms.database.MessageTypes
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel
 import org.thoughtcrime.securesms.util.drawAsTopItemDecoration
 import org.thoughtcrime.securesms.util.layoutIn
-import org.thoughtcrime.securesms.util.toLocalDate
 import java.util.Locale
 import kotlin.math.max
 import org.signal.core.ui.R as CoreUiR
@@ -293,13 +292,13 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
     fun updateForWallpaper() {
       if (isReleaseNotes) {
         date.setBackgroundResource(R.drawable.release_notes_date_header_background)
-        date.setTextColor(ThemeUtil.getThemedColor(itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant))
+        date.setTextColor(ContextCompat.getColor(itemView.context, CoreUiR.color.signal_colorOnSurfaceVariant))
       } else if (hasWallpaper) {
         date.setBackgroundResource(R.drawable.wallpaper_bubble_background_18)
         date.setTextColor(ContextCompat.getColor(itemView.context, CoreUiR.color.signal_colorNeutralInverse))
       } else {
         date.background = null
-        date.setTextColor(ThemeUtil.getThemedColor(itemView.context, com.google.android.material.R.attr.colorOnSurfaceVariant))
+        date.setTextColor(ContextCompat.getColor(itemView.context, CoreUiR.color.signal_colorOnSurfaceVariant))
       }
     }
   }
@@ -334,7 +333,7 @@ class ConversationItemDecorations(hasWallpaper: Boolean = false, private val sch
         unreadDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.transparent_black_80))
       } else {
         unreadText.background = null
-        unreadDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.core_grey_45))
+        unreadDivider.setBackgroundColor(ContextCompat.getColor(itemView.context, CoreUiR.color.core_grey_45))
       }
     }
   }

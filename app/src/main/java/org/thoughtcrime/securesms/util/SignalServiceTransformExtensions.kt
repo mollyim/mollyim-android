@@ -5,6 +5,7 @@
 package org.thoughtcrime.securesms.util
 
 import arrow.core.Either
+import arrow.core.raise.context.bind
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import arrow.core.raise.ensureNotNull
@@ -18,6 +19,7 @@ import org.signal.core.util.UuidUtil
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.zkgroup.InvalidInputException
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
+import org.signal.network.service.MessageService
 import org.thoughtcrime.securesms.attachments.Attachment
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
@@ -32,7 +34,9 @@ import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.mms.QuoteModel
 import org.thoughtcrime.securesms.polls.Poll
 import org.thoughtcrime.securesms.recipients.Recipient
+import org.whispersystems.signalservice.api.messages.SendMessageResult
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachmentRemoteId
+import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.internal.push.AttachmentPointer
 import org.whispersystems.signalservice.internal.push.BodyRange
 import org.whispersystems.signalservice.internal.push.CallMessage
@@ -175,7 +179,29 @@ private fun Attachment.toQuoteAttachmentProto(): Either<DataMessageError, DataMe
 }
 
 private fun OutgoingMessage.toPaymentProtoIfPresent(): Either<DataMessageError, DataMessage.Payment?> = either {
-  null
+  when {
+    isPaymentsNotification -> {
+      val paymentUuid = UuidUtil.parseOrThrow(body)
+      val payment = ensureNotNull(SignalDatabase.payments.getPayment(paymentUuid)) { DataMessageError.MissingPayment }
+      val receipt = ensureNotNull(payment.receipt) { DataMessageError.MissingPaymentReceipt }
+
+      DataMessage.Payment(
+        notification = DataMessage.Payment.Notification(
+          note = payment.note,
+          mobileCoin = DataMessage.Payment.Notification.MobileCoin(receipt = receipt.toByteString())
+        )
+      )
+    }
+    isRequestToActivatePayments -> {
+      DataMessage.Payment(activation = DataMessage.Payment.Activation(type = DataMessage.Payment.Activation.Type.REQUEST))
+    }
+    isPaymentsActivated -> {
+      DataMessage.Payment(activation = DataMessage.Payment.Activation(type = DataMessage.Payment.Activation.Type.ACTIVATED))
+    }
+    else -> {
+      null
+    }
+  }
 }
 
 private fun Recipient.selfProfileKeyForOutgoing(): ByteString? {
@@ -242,6 +268,10 @@ private fun Attachment.toAttachmentPointerProto(): Either<DataMessageError, Atta
   caption?.let { builder.caption(it) }
   blurHash?.let { builder.blurHash(it.hash) }
   uuid?.let { builder.clientUuid(UuidUtil.toByteString(it)) }
+  audioHash?.let { hash ->
+    hash.waveFormBytes?.let { builder.audioWaveform(it.toByteString()) }
+    hash.durationSeconds?.let { builder.audioDurationSeconds(it) }
+  }
 
   builder.build()
 }
@@ -363,7 +393,12 @@ private fun Contact.toProto(): Either<DataMessageError, DataMessage.Contact> = e
         ?.map { DataMessage.Contact.Avatar(avatar = it, isProfile = avatar.isProfile) }
         ?.bind()
     },
-    organization = organization
+    organization = organization,
+    aciBinary = ACI.parseOrNull(aci)?.takeIf { it.isValid }?.toByteString(),
+    nickname = nickname?.takeUnless { it.isEmpty }?.let {
+      DataMessage.Contact.SignalNickname(given = it.given, family = it.family)
+    },
+    note = note
   )
 }
 
@@ -422,6 +457,10 @@ private fun List<AttachmentPointer>.capIncrementalMacs(max: Int): List<Attachmen
   }
 }
 
+fun MessageService.SendSuccess.toSendMessageResult(serviceId: ServiceId): SendMessageResult {
+  return SendMessageResult.success(SignalServiceAddress(serviceId), devices, sentSealedSender, false, 0L, envelopeContent.content)
+}
+
 /**
  * Whether or not the content should generate a high-priority push notification for the receiver.
  */
@@ -456,7 +495,8 @@ private fun DataMessage.isUrgent(): Boolean {
     this.pollTerminate != null ||
     this.pinMessage != null ||
     this.delete != null ||
-    this.payment?.notification != null
+    this.payment?.notification != null ||
+    this.payment?.activation != null
 }
 
 private fun SyncMessage.isUrgent(): Boolean {

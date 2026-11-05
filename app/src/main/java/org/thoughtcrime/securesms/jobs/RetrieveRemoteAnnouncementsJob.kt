@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JsonJobData
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.recipients.Recipient
@@ -151,12 +152,12 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
     when {
       values.highestVersionNoteReceived == 0 -> {
         Log.i(TAG, "First check, saving code and skipping download")
-        values.highestVersionNoteReceived = BuildConfig.SIGNAL_CANONICAL_VERSION_CODE
+        values.highestVersionNoteReceived = BuildConfig.CANONICAL_VERSION_CODE
       }
       !force && MessageDigest.isEqual(manifestMd5, values.previousManifestMd5) -> {
         Log.i(TAG, "Manifest has not changed since last fetch.")
       }
-      else -> Unit // fetchManifest(manifestMd5)
+      else -> fetchManifest(manifestMd5)
     }
 
     values.previousManifestMd5 = manifestMd5
@@ -201,7 +202,7 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
       .filter {
         val minVersion = it.androidMinVersion?.toIntOrNull()
         if (minVersion != null) {
-          minVersion > values.highestVersionNoteReceived && minVersion <= BuildConfig.SIGNAL_CANONICAL_VERSION_CODE
+          minVersion > values.highestVersionNoteReceived && minVersion <= BuildConfig.CANONICAL_VERSION_CODE
         } else {
           false
         }
@@ -405,8 +406,8 @@ class RetrieveRemoteAnnouncementsJob private constructor(private val force: Bool
 
     val potentialNoteUrls = mutableListOf<String>()
 
-    if (SignalStore.settings.language != "zz") {
-      potentialNoteUrls += "$this/${SignalStore.settings.language}.json"
+    if (PlainTextKeyValueStore.language != "zz") {
+      potentialNoteUrls += "$this/${PlainTextKeyValueStore.language}.json"
     }
 
     for (index in 0 until localeList.size()) {

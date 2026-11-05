@@ -34,6 +34,10 @@ public class StorageId {
     return new StorageId(ManifestRecord.Identifier.Type.ACCOUNT.getValue(), Preconditions.checkNotNull(raw));
   }
 
+  public static StorageId forStickerPack(byte[] raw) {
+    return new StorageId(ManifestRecord.Identifier.Type.STICKER_PACK.getValue(), Preconditions.checkNotNull(raw));
+  }
+
   public static StorageId forCallLink(byte[] raw) {
     return new StorageId(ManifestRecord.Identifier.Type.CALL_LINK.getValue(), Preconditions.checkNotNull(raw));
   }
@@ -44,6 +48,14 @@ public class StorageId {
 
   public static StorageId forNotificationProfile(byte[] raw) {
     return new StorageId(ManifestRecord.Identifier.Type.NOTIFICATION_PROFILE.getValue(), Preconditions.checkNotNull(raw));
+  }
+
+  public static StorageId forHiddenStickerPack(byte[] raw) {
+    return new StorageId(ManifestRecord.Identifier.Type.HIDDEN_STICKER_PACK.getValue(), Preconditions.checkNotNull(raw));
+  }
+
+  public static StorageId forFavoriteSticker(byte[] raw) {
+    return new StorageId(ManifestRecord.Identifier.Type.FAVORITE_STICKER.getValue(), Preconditions.checkNotNull(raw));
   }
 
   public static StorageId forType(byte[] raw, int type) {
@@ -71,9 +83,13 @@ public class StorageId {
     return new StorageId(type, key);
   }
 
+  /**
+   * GROUPV1 is deliberately excluded. We no longer read or write gv1 records, so treating them as unknown lets us keep
+   * their ids in the manifest instead of deleting them.
+   */
   public static boolean isKnownType(int val) {
     for (ManifestRecord.Identifier.Type type : ManifestRecord.Identifier.Type.values()) {
-      if (type != ManifestRecord.Identifier.Type.UNKNOWN && type.getValue() == val) {
+      if (type != ManifestRecord.Identifier.Type.UNKNOWN && type != ManifestRecord.Identifier.Type.GROUPV1 && type.getValue() == val) {
         return true;
       }
     }

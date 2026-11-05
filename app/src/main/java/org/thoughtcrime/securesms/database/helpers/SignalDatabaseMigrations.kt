@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.database.helpers
 import android.app.Application
 import android.content.Context
 import android.database.sqlite.SQLiteException
-import org.signal.core.util.areForeignKeyConstraintsEnabled
+import org.signal.core.database.areForeignKeyConstraintsEnabled
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.helpers.migration.SignalDatabaseMigration
@@ -48,7 +48,7 @@ import org.thoughtcrime.securesms.database.helpers.migration.V186_ForeignKeyIndi
 import org.thoughtcrime.securesms.database.helpers.migration.V187_MoreForeignKeyIndexesMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V188_FixMessageRecipientsAndEditMessageMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V189_CreateCallLinkTableColumnsAndRebuildFKReference
-import org.thoughtcrime.securesms.database.helpers.migration.V190_UpdatePendingSelfDataMigration
+import org.thoughtcrime.securesms.database.helpers.migration.V190_UniqueMessageMigration
 import org.thoughtcrime.securesms.database.helpers.migration.V191_UniqueMessageMigrationV2
 import org.thoughtcrime.securesms.database.helpers.migration.V192_CallLinkTableNullableRootKeys
 import org.thoughtcrime.securesms.database.helpers.migration.V193_BackCallLinksWithRecipient
@@ -96,7 +96,6 @@ import org.thoughtcrime.securesms.database.helpers.migration.V235_AttachmentUuid
 import org.thoughtcrime.securesms.database.helpers.migration.V236_FixInAppSubscriberCurrencyIfAble
 import org.thoughtcrime.securesms.database.helpers.migration.V237_ResetGroupForceUpdateTimestamps
 import org.thoughtcrime.securesms.database.helpers.migration.V238_AddGroupSendEndorsementsColumns
-import org.thoughtcrime.securesms.database.helpers.migration.V238_FixAttachmentIdJsonSerialization
 import org.thoughtcrime.securesms.database.helpers.migration.V239_MessageFullTextSearchEmojiSupport
 import org.thoughtcrime.securesms.database.helpers.migration.V240_MessageFullTextSearchSecureDelete
 import org.thoughtcrime.securesms.database.helpers.migration.V241_ExpireTimerVersion
@@ -124,7 +123,6 @@ import org.thoughtcrime.securesms.database.helpers.migration.V265_FixFtsTriggers
 import org.thoughtcrime.securesms.database.helpers.migration.V266_UniqueThreadPinOrder
 import org.thoughtcrime.securesms.database.helpers.migration.V267_FixGroupInvitationDeclinedUpdate
 import org.thoughtcrime.securesms.database.helpers.migration.V268_FixInAppPaymentsErrorStateConsistency
-import org.thoughtcrime.securesms.database.helpers.migration.V268_RestorePaymentTable
 import org.thoughtcrime.securesms.database.helpers.migration.V269_BackupMediaSnapshotChanges
 import org.thoughtcrime.securesms.database.helpers.migration.V270_FixChatFolderColumnsForStorageSync
 import org.thoughtcrime.securesms.database.helpers.migration.V271_AddNotificationProfileIdColumn
@@ -176,6 +174,15 @@ import org.thoughtcrime.securesms.database.helpers.migration.V318_AddMessageNoti
 import org.thoughtcrime.securesms.database.helpers.migration.V319_AddAttachmentAndMessageIndexes
 import org.thoughtcrime.securesms.database.helpers.migration.V320_AddAttachmentThumbnailFileAndUuidIndexes
 import org.thoughtcrime.securesms.database.helpers.migration.V321_AddScheduledMessageIndex
+import org.thoughtcrime.securesms.database.helpers.migration.V322_NormalizeStickerTable
+import org.thoughtcrime.securesms.database.helpers.migration.V323_AddStickerPackStorageSync
+import org.thoughtcrime.securesms.database.helpers.migration.V324_MoveGroupV1StorageIdsToUnknownIds
+import org.thoughtcrime.securesms.database.helpers.migration.V325_AddBlockedAtToRecipientTable
+import org.thoughtcrime.securesms.database.helpers.migration.V326_AddUnreadReminderColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V327_AddLastUnreadReminderColumn
+import org.thoughtcrime.securesms.database.helpers.migration.V328_AddSharedNameToRecipientTable
+import org.thoughtcrime.securesms.database.helpers.migration.V329_AddStickerFavoriteColumns
+import org.thoughtcrime.securesms.database.helpers.migration.V330_AddHiddenPackColumns
 import org.thoughtcrime.securesms.database.SQLiteDatabase as SignalSqliteDatabase
 
 /**
@@ -185,7 +192,7 @@ object SignalDatabaseMigrations {
 
   val TAG: String = Log.tag(SignalDatabaseMigrations.javaClass)
 
-  private val signalMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
+  private val migrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
     149 to V149_LegacyMigrations,
     150 to V150_UrgentMslFlagMigration,
     151 to V151_MyStoryMigration,
@@ -227,6 +234,7 @@ object SignalDatabaseMigrations {
     187 to V187_MoreForeignKeyIndexesMigration,
     188 to V188_FixMessageRecipientsAndEditMessageMigration,
     189 to V189_CreateCallLinkTableColumnsAndRebuildFKReference,
+    190 to V190_UniqueMessageMigration,
     191 to V191_UniqueMessageMigrationV2,
     192 to V192_CallLinkTableNullableRootKeys,
     193 to V193_BackCallLinksWithRecipient,
@@ -356,42 +364,23 @@ object SignalDatabaseMigrations {
     318 to V318_AddMessageNotificationStateIndex,
     319 to V319_AddAttachmentAndMessageIndexes,
     320 to V320_AddAttachmentThumbnailFileAndUuidIndexes,
-    321 to V321_AddScheduledMessageIndex
+    321 to V321_AddScheduledMessageIndex,
+    322 to V322_NormalizeStickerTable,
+    323 to V323_AddStickerPackStorageSync,
+    324 to V324_MoveGroupV1StorageIdsToUnknownIds,
+    325 to V325_AddBlockedAtToRecipientTable,
+    326 to V326_AddUnreadReminderColumn,
+    327 to V327_AddLastUnreadReminderColumn,
+    328 to V328_AddSharedNameToRecipientTable,
+    329 to V329_AddStickerFavoriteColumns,
+    330 to V330_AddHiddenPackColumns
   )
 
-  const val DATABASE_VERSION = 321
-
-  // MOLLY: Optional additional migrations specific to Molly
-  private val extraMigrations: List<Pair<Int, SignalDatabaseMigration>> = listOf(
-    190 to V190_UpdatePendingSelfDataMigration,
-    238 to V238_FixAttachmentIdJsonSerialization,
-    268 to V268_RestorePaymentTable,
-  )
+  const val DATABASE_VERSION = 330
 
   @JvmStatic
   fun migrate(context: Application, db: SignalSqliteDatabase, oldVersion: Int, newVersion: Int) {
     val initialForeignKeyState = db.areForeignKeyConstraintsEnabled()
-
-    // Merge migrations by version, with `signalMigrations` first
-    val migrations = mutableMapOf<Int, MutableList<SignalDatabaseMigration>>()
-      .apply {
-        for ((v, migration) in signalMigrations) {
-          require(putIfAbsent(v, mutableListOf(migration)) == null) {
-            "Duplicated migration for version $v"
-          }
-        }
-        for ((v, migration) in extraMigrations) {
-          getOrPut(v) { mutableListOf() }.add(migration)
-        }
-      }
-      .toSortedMap()
-      .also { sortedMap ->
-        sortedMap.forEach { (v, migrationList) ->
-          check(migrationList.map { it.enableForeignKeys }.distinct().size == 1) {
-            "Inconsistent foreign key constraints for version $v"
-          }
-        }
-      }
 
     val eligibleMigrations = if (newVersion < 0) {
       migrations.filter { (version, _) -> version > oldVersion }
@@ -400,21 +389,17 @@ object SignalDatabaseMigrations {
     }
 
     for (migrationData in eligibleMigrations) {
-      val (version, migrationList) = migrationData
-      val enableForeignKeys = migrationList.first().enableForeignKeys
-      val migrationNames = migrationList.joinToString(", ") { it.javaClass.simpleName }
+      val (version, migration) = migrationData
 
-      Log.i(TAG, "Running migration for version $version: $migrationNames. Foreign keys: $enableForeignKeys")
+      Log.i(TAG, "Running migration for version $version: ${migration.javaClass.simpleName}. Foreign keys: ${migration.enableForeignKeys}")
       val startTime = System.currentTimeMillis()
 
       var ftsException: SQLiteException? = null
 
-      db.setForeignKeyConstraintsEnabled(enableForeignKeys)
+      db.setForeignKeyConstraintsEnabled(migration.enableForeignKeys)
       db.beginTransaction()
       try {
-        migrationList.forEach { migration ->
-          migration.migrate(context, db, oldVersion, newVersion)
-        }
+        migration.migrate(context, db, oldVersion, newVersion)
         db.version = version
         db.setTransactionSuccessful()
       } catch (e: SQLiteException) {

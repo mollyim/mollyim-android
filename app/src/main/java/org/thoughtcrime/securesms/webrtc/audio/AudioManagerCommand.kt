@@ -3,10 +3,10 @@ package org.thoughtcrime.securesms.webrtc.audio
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.ParcelUtil
 import org.signal.core.util.readParcelableCompat
 import org.signal.core.util.readSerializableCompat
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Commands that can be issued to [SignalAudioManager] to perform various tasks.
@@ -59,6 +59,13 @@ sealed class AudioManagerCommand : Parcelable {
     companion object {
       @JvmField
       val CREATOR: Parcelable.Creator<SilenceIncomingRinger> = ParcelCheat { SilenceIncomingRinger() }
+    }
+  }
+
+  class PrepareForAccept : AudioManagerCommand() {
+    companion object {
+      @JvmField
+      val CREATOR: Parcelable.Creator<PrepareForAccept> = ParcelCheat { PrepareForAccept() }
     }
   }
 

@@ -16,8 +16,10 @@
         app:titleTextAppearance="@style/TextAppearance.Signal.Body1.Bold" />
 
     <ScrollView
+        android:id="@+id/payments_security_setup_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +67,7 @@
                 android:lineSpacingExtra="6sp"
                 android:text="@string/PaymentsSecuritySetupFragment__help_prevent"
                 android:textAppearance="@style/Signal.Text.BodyMedium"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 app:layout_constraintBottom_toTopOf="@id/payments_security_setup_enable_lock"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

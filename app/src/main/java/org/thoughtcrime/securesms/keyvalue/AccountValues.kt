@@ -1,7 +1,9 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import android.annotation.SuppressLint
 import android.content.Context
-import im.molly.app.base.ApkInfo
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.ServiceId.ACI
@@ -16,14 +18,17 @@ import org.signal.libsignal.protocol.IdentityKey
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.ecc.ECPrivateKey
 import org.signal.libsignal.protocol.util.Medium
+import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.crypto.MasterCipher
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.crypto.storage.PreKeyMetadataStore
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.impl.RegisteredConstraint
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+import org.thoughtcrime.securesms.notifications.UnregisteredNotifier
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
+import org.thoughtcrime.securesms.service.KeyCachingService
 import org.whispersystems.signalservice.api.push.ServiceIds
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.push.UsernameLinkComponents
@@ -45,6 +50,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     private const val KEY_DEVICE_NAME = "account.device_name"
     private const val KEY_DEVICE_ID = "account.device_id"
     private const val KEY_PNI_REGISTRATION_ID = "account.pni_registration_id"
+    private const val KEY_AUTH_CREDENTIAL_SALT = "account.auth_credential_salt"
 
     private const val KEY_ACI_IDENTITY_PUBLIC_KEY = "account.aci_identity_public_key"
     private const val KEY_ACI_IDENTITY_PRIVATE_KEY = "account.aci_identity_private_key"
@@ -78,10 +84,12 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     private const val KEY_ACI = "account.aci"
     private const val KEY_PNI = "account.pni"
     private const val KEY_IS_REGISTERED = "account.is_registered"
+    private const val KEY_IS_UNAUTHORIZED_RECEIVED = "account.is_unauthorized_received"
     private const val KEY_ACCOUNT_REGISTERED_AT = "account.registered_at"
 
     private const val KEY_HAS_LINKED_DEVICES = "account.has_linked_devices"
     private const val KEY_HAS_INACTIVE_PRIMARY_DEVICE_ALERT = "account.has_inactive_primary_device_alert"
+    private const val KEY_NOT_SYNCED_ROTATED_SELF_PROFILE_KEY = "account.not_synced_rotated_self_profile_key"
 
     private const val KEY_VERIFICATION_CODE_REQUESTED_AT = "account.verification_code_requested_at"
 
@@ -94,14 +102,20 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   }
 
   init {
-    if (store.containsKey("account.1.pni")) {
-      migrateLegacyAccountKeys()
+    if (!store.containsKey(KEY_ACI)) {
+      migrateFromSharedPrefsV1(context)
     }
 
-    // MOLLY: At this point, the store format is aligned with upstream
+    if (!store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)) {
+      migrateFromSharedPrefsV2(context)
+    }
 
     if (!store.containsKey(KEY_HAS_LINKED_DEVICES)) {
       migrateFromSharedPrefsV3(context)
+    }
+
+    if (!store.containsKey(KEY_IS_UNAUTHORIZED_RECEIVED)) {
+      migrateFromSharedPrefsV4(context)
     }
 
     store.getString(KEY_PNI, null)?.let { pni ->
@@ -242,6 +256,33 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     putString(KEY_E164, e164)
   }
 
+  /**
+   * True if the local user is registered as the primary device of an account that has no phone number. Such accounts
+   * have no PNI at all, which is what distinguishes them.
+   */
+  val isPhoneNumberless: Boolean
+    get() = isRegistered && isPrimaryDevice && pni == null
+
+  /** Wipes all local knowledge of the user's E164 and PNI, including the PNI identity and pre-key metadata. */
+  fun clearE164AndPni() {
+    store
+      .beginWrite()
+      .remove(KEY_E164)
+      .remove(KEY_PNI)
+      .remove(KEY_PNI_IDENTITY_PUBLIC_KEY)
+      .remove(KEY_PNI_IDENTITY_PRIVATE_KEY)
+      .remove(KEY_PNI_REGISTRATION_ID)
+      .remove(KEY_PNI_SIGNED_PREKEY_REGISTERED)
+      .remove(KEY_PNI_NEXT_SIGNED_PREKEY_ID)
+      .remove(KEY_PNI_ACTIVE_SIGNED_PREKEY_ID)
+      .remove(KEY_PNI_LAST_SIGNED_PREKEY_ROTATION_TIME)
+      .remove(KEY_PNI_NEXT_ONE_TIME_PREKEY_ID)
+      .remove(KEY_PNI_NEXT_KYBER_PREKEY_ID)
+      .remove(KEY_PNI_LAST_RESORT_KYBER_PREKEY_ID)
+      .remove(KEY_PNI_LAST_RESORT_KYBER_PREKEY_ROTATION_TIME)
+      .commit()
+  }
+
   /** The password for communicating with the Signal service. */
   val servicePassword: String?
     get() = getString(KEY_SERVICE_PASSWORD, null)
@@ -249,6 +290,9 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   fun setServicePassword(servicePassword: String) {
     putString(KEY_SERVICE_PASSWORD, servicePassword)
   }
+
+  /** Salt used by the service to generate PNI auth credentials. Only present for an account registered without a phone number. */
+  var authCredentialSalt: ByteArray? by nullableBlobValue(KEY_AUTH_CREDENTIAL_SALT, null)
 
   /** A randomly-generated value that represents this registration instance. Helps the server know if you reinstalled. */
   var registrationId: Int by integerValue(KEY_REGISTRATION_ID, 0)
@@ -265,7 +309,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
       )
     }
 
-  /** The identity key pair for the PNI identity. */
+  /** The identity key pair for the PNI identity. Will throw if not present -- prefer [pniIdentityKeyOrNull] on paths that tolerate a phone-number-less account. */
   val pniIdentityKey: IdentityKeyPair
     get() {
       require(store.containsKey(KEY_PNI_IDENTITY_PUBLIC_KEY)) { "Not yet set!" }
@@ -274,6 +318,10 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
         ECPrivateKey(getBlob(KEY_PNI_IDENTITY_PRIVATE_KEY, null))
       )
     }
+
+  /** The identity key pair for the PNI identity, or null if the account has no PNI identity. */
+  val pniIdentityKeyOrNull: IdentityKeyPair?
+    get() = if (hasPniIdentityKey()) pniIdentityKey else null
 
   fun hasAciIdentityKey(): Boolean {
     return store.containsKey(KEY_ACI_IDENTITY_PUBLIC_KEY)
@@ -416,22 +464,11 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   @get:JvmName("isFcmEnabled")
   var fcmEnabled: Boolean by booleanValue(KEY_FCM_ENABLED, false)
 
-  val canReceiveFcm: Boolean
-    get() = fcmEnabled && fcmToken != null
-
-  @get:JvmName("isPushAvailable")
-  val pushAvailable: Boolean
-    get() = canReceiveFcm || SignalStore.unifiedpush.isAvailableOrAirGapped
-
-  fun invalidateFcmToken() {
-    putInteger(KEY_FCM_TOKEN_VERSION, 0)
-  }
-
   /** The FCM token, which allows the server to send us FCM messages. */
   var fcmToken: String?
     get() {
       val tokenVersion: Int = getInteger(KEY_FCM_TOKEN_VERSION, 0)
-      return if (tokenVersion == ApkInfo.signalCanonicalVersionCode) {
+      return if (tokenVersion == Util.getCanonicalVersionCode()) {
         getString(KEY_FCM_TOKEN, null)
       } else {
         null
@@ -440,8 +477,8 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
     set(value) {
       store.beginWrite()
         .putString(KEY_FCM_TOKEN, value)
-        .putInteger(KEY_FCM_TOKEN_VERSION, if (value == null) 0 else ApkInfo.signalCanonicalVersionCode)
-        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, if (value == null) 0 else System.currentTimeMillis())
+        .putInteger(KEY_FCM_TOKEN_VERSION, Util.getCanonicalVersionCode())
+        .putLong(KEY_FCM_TOKEN_LAST_SET_TIME, System.currentTimeMillis())
         .apply()
     }
 
@@ -468,6 +505,7 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
     if (previous && !registered) {
       clearLocalCredentials()
+      BackupRepository.haltBackupWritesForDeregistration()
     }
 
     if ((previous && !registered) || isAciChanged) {
@@ -482,6 +520,32 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
     RegisteredConstraint.Observer.notifyListeners()
   }
+
+  /**
+   * Whether the service has rejected our credentials on the authenticated websocket, i.e. we've been deregistered or unlinked remotely.
+   *
+   * This is distinct from [isRegistered], which tracks whether *we* believe this install completed registration. This flag is the service's verdict, and
+   * it is cleared automatically the next time we successfully authenticate. Note that setting it rotates the profile key, so it is not a free toggle.
+   */
+  var isUnauthorizedReceived: Boolean
+    get() = getBoolean(KEY_IS_UNAUTHORIZED_RECEIVED, false)
+    set(value) {
+      val previous = isUnauthorizedReceived
+
+      putBoolean(KEY_IS_UNAUTHORIZED_RECEIVED, value)
+
+      if (previous != value) {
+        Recipient.self().live().refresh()
+
+        if (value) {
+          UnregisteredNotifier.notify(AppDependencies.application)
+          rotateProfileKey()
+          BackupRepository.haltBackupWritesForDeregistration()
+        } else {
+          UnregisteredNotifier.cancel(AppDependencies.application)
+        }
+      }
+    }
 
   /**
    * Milliseconds since epoch when account was registered or a negative value if not known.
@@ -571,7 +635,14 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
 
   private fun clearLocalCredentials() {
     putString(KEY_SERVICE_PASSWORD, Util.getSecret(18))
+    rotateProfileKey()
+  }
 
+  /**
+   * Note that unlike [clearLocalCredentials] this leaves the service password alone, so we can still attempt to authenticate. Important for the
+   * [isUnauthorizedReceived] path, which needs to be able to recover on its own.
+   */
+  private fun rotateProfileKey() {
     val newProfileKey = ProfileKeyUtil.createNew()
     val self = Recipient.self()
 
@@ -585,64 +656,113 @@ class AccountValues internal constructor(store: KeyValueStore, context: Context)
   @get:JvmName("isMultiDevice")
   var isMultiDevice by booleanValue(KEY_HAS_LINKED_DEVICES, false)
 
+  /** Our own profile key that is still pending being written to storage service. */
+  var notSyncedRotatedSelfProfileKey: ByteArray? by nullableBlobValue(KEY_NOT_SYNCED_ROTATED_SELF_PROFILE_KEY, null)
+
   /** Server has indicated a verification code was requested for the account at this timestamp (ms since epoch) */
   private val verificationCodeRequestedAtMsValue = longValue(KEY_VERIFICATION_CODE_REQUESTED_AT, 0)
   var verificationCodeRequestedAtMs: Long by verificationCodeRequestedAtMsValue
   val verificationCodeRequestedAtMsFlow: Flow<Long> by lazy { verificationCodeRequestedAtMsValue.toFlow() }
 
-  // MOLLY: Keys were parametrized with the account number until 7.23.1
-  private fun migrateLegacyAccountKeys() {
-    Log.i(TAG, "Migrating legacy account values.")
-    store.beginWrite().apply {
-      listOf(
-        "account.service_password" to String,
-        "account.registration_id" to Int,
-        "account.fcm_enabled" to Boolean,
-        "account.fcm_token" to String,
-        "account.fcm_token_version" to Int,
-        "account.fcm_token_last_set_time" to Long,
-        "account.device_name" to String,
-        "account.device_id" to Int,
-        "account.pni_registration_id" to Int,
-        "account.aci_signed_prekey_registered" to Boolean,
-        "account.aci_next_signed_prekey_id" to Int,
-        "account.aci_active_signed_prekey_id" to Int,
-        "account.aci_last_signed_prekey_rotation_time" to Long,
-        "account.aci_next_one_time_prekey_id" to Int,
-        "account.pni_signed_prekey_registered" to Boolean,
-        "account.pni_next_signed_prekey_id" to Int,
-        "account.pni_active_signed_prekey_id" to Int,
-        "account.pni_last_signed_prekey_rotation_time" to Long,
-        "account.pni_next_one_time_prekey_id" to Int,
-        "account.e164" to String,
-        "account.aci" to String,
-        "account.pni" to String,
-        "account.is_registered" to Boolean,
-      ).associateWith { (key, _) ->
-        key.replace("account", "account.1")
-      }.forEach { (toKey, type), fromKey ->
-        if (store.containsKey(fromKey)) {
-          Log.i(TAG, "Migrating: $fromKey")
-          when (type) {
-            String -> putString(toKey, store.getString(fromKey, null))
-            Boolean -> putBoolean(toKey, store.getBoolean(fromKey, false))
-            Int -> putInteger(toKey, store.getInteger(fromKey, 0))
-            Long -> putLong(toKey, store.getLong(fromKey, 0))
-            else -> error("Not implemented")
-          }
-          remove(fromKey)
-        }
-      }
-      apply()
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateFromSharedPrefsV1(context: Context) {
+    Log.i(TAG, "[V1] Migrating account values from shared prefs.")
+
+    putString(KEY_ACI, LegacySharedPrefs.getStringOrNull(context, "pref_local_uuid"))
+    putString(KEY_E164, LegacySharedPrefs.getStringOrNull(context, "pref_local_number"))
+    putString(KEY_SERVICE_PASSWORD, LegacySharedPrefs.getStringOrNull(context, "pref_gcm_password"))
+    putBoolean(KEY_IS_REGISTERED, LegacySharedPrefs.getBoolean(context, "pref_gcm_registered", false))
+    putInteger(KEY_REGISTRATION_ID, LegacySharedPrefs.getInteger(context, "pref_local_registration_id", 0))
+    putBoolean(KEY_FCM_ENABLED, !LegacySharedPrefs.getBoolean(context, "pref_gcm_disabled", false))
+    putString(KEY_FCM_TOKEN, LegacySharedPrefs.getStringOrNull(context, "pref_gcm_registration_id"))
+    putInteger(KEY_FCM_TOKEN_VERSION, LegacySharedPrefs.getInteger(context, "pref_gcm_registration_id_version", 0))
+    putLong(KEY_FCM_TOKEN_LAST_SET_TIME, LegacySharedPrefs.getLong(context, "pref_gcm_registration_id_last_set_time", 0))
+  }
+
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  @SuppressLint("ApplySharedPref")
+  @Suppress("DEPRECATION")
+  private fun migrateFromSharedPrefsV2(context: Context) {
+    Log.i(TAG, "[V2] Migrating account values from shared prefs.")
+
+    val masterSecretPrefs: SharedPreferences = context.getSharedPreferences("SecureSMS-Preferences", 0)
+    val defaultPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    val storeWriter: KeyValueStore.Writer = store.beginWrite()
+
+    if (masterSecretPrefs.hasStringData("pref_identity_public_v3")) {
+      Log.i(TAG, "Migrating modern identity key.")
+
+      val identityPublic = Base64.decode(masterSecretPrefs.getString("pref_identity_public_v3", null)!!)
+      val identityPrivate = Base64.decode(masterSecretPrefs.getString("pref_identity_private_v3", null)!!)
+
+      storeWriter
+        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, identityPublic)
+        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, identityPrivate)
+    } else if (masterSecretPrefs.hasStringData("pref_identity_public_curve25519")) {
+      Log.i(TAG, "Migrating legacy identity key.")
+
+      val masterCipher = MasterCipher(KeyCachingService.getMasterSecret(context))
+      val identityPublic = Base64.decode(masterSecretPrefs.getString("pref_identity_public_curve25519", null)!!)
+      val identityPrivate = masterCipher.decryptKey(Base64.decode(masterSecretPrefs.getString("pref_identity_private_curve25519", null)!!)).serialize()
+
+      storeWriter
+        .putBlob(KEY_ACI_IDENTITY_PUBLIC_KEY, identityPublic)
+        .putBlob(KEY_ACI_IDENTITY_PRIVATE_KEY, identityPrivate)
+    } else {
+      Log.w(TAG, "No pre-existing identity key! No migration.")
     }
+
+    storeWriter
+      .putInteger(KEY_ACI_NEXT_SIGNED_PREKEY_ID, defaultPrefs.getInt("pref_next_signed_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))
+      .putInteger(KEY_ACI_ACTIVE_SIGNED_PREKEY_ID, defaultPrefs.getInt("pref_active_signed_pre_key_id", -1))
+      .putInteger(KEY_ACI_NEXT_ONE_TIME_PREKEY_ID, defaultPrefs.getInt("pref_next_pre_key_id", SecureRandom().nextInt(Medium.MAX_VALUE)))
+      .putBoolean(KEY_ACI_SIGNED_PREKEY_REGISTERED, defaultPrefs.getBoolean("pref_signed_prekey_registered", false))
+      .commit()
+
+    masterSecretPrefs
+      .edit()
+      .remove("pref_identity_public_v3")
+      .remove("pref_identity_private_v3")
+      .remove("pref_identity_public_curve25519")
+      .remove("pref_identity_private_curve25519")
+      .commit()
+
+    defaultPrefs
+      .edit()
+      .remove("pref_local_uuid")
+      .remove("pref_identity_public_v3")
+      .remove("pref_next_signed_pre_key_id")
+      .remove("pref_active_signed_pre_key_id")
+      .remove("pref_signed_prekey_failure_count")
+      .remove("pref_signed_prekey_registered")
+      .remove("pref_next_pre_key_id")
+      .remove("pref_gcm_password")
+      .remove("pref_gcm_registered")
+      .remove("pref_local_registration_id")
+      .remove("pref_gcm_disabled")
+      .remove("pref_gcm_registration_id")
+      .remove("pref_gcm_registration_id_version")
+      .remove("pref_gcm_registration_id_last_set_time")
+      .commit()
   }
 
   /** Do not alter. If you need to migrate more stuff, create a new method. */
   private fun migrateFromSharedPrefsV3(context: Context) {
     Log.i(TAG, "[V3] Migrating account values from shared prefs.")
 
-    val sharedPrefs = SecurePreferenceManager.getSecurePreferences(context)
-    putBoolean(KEY_HAS_LINKED_DEVICES, sharedPrefs.getBoolean("pref_multi_device", false))
+    putBoolean(KEY_HAS_LINKED_DEVICES, LegacySharedPrefs.getBoolean(context, "pref_multi_device", false))
+  }
+
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateFromSharedPrefsV4(context: Context) {
+    Log.i(TAG, "[V4] Migrating account values from shared prefs.")
+
+    putBoolean(KEY_IS_UNAUTHORIZED_RECEIVED, LegacySharedPrefs.getBoolean(context, "pref_unauthorized_received", false))
+  }
+
+  private fun SharedPreferences.hasStringData(key: String): Boolean {
+    return this.getString(key, null) != null
   }
 
   enum class UsernameSyncState(private val value: Long) {

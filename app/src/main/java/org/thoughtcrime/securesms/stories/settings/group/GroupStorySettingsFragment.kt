@@ -3,11 +3,10 @@ package org.thoughtcrime.securesms.stories.settings.group
 import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.R as MaterialR
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.core.util.dp
 import org.thoughtcrime.securesms.R
@@ -88,7 +87,7 @@ class GroupStorySettingsFragment : DSLSettingsFragment(menuId = R.menu.story_gro
         title = DSLSettingsText.from(
           getString(R.string.GroupStorySettingsFragment__members_of_the_group_s, state.name),
           DSLSettingsText.TextAppearanceModifier(CoreUiR.style.Signal_Text_BodyMedium),
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorOnSurfaceVariant))
         )
       )
 
@@ -97,7 +96,7 @@ class GroupStorySettingsFragment : DSLSettingsFragment(menuId = R.menu.story_gro
       clickPref(
         title = DSLSettingsText.from(
           R.string.GroupStorySettingsFragment__remove_group_story,
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(requireContext(), MaterialR.attr.colorError))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(requireContext(), CoreUiR.color.signal_colorError))
         ),
         onClick = {
           StoryDialogs.removeGroupStory(

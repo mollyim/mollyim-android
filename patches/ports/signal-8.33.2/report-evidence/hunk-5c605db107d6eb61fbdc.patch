@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/layout/audio_view.xml b/app/src/main/res/layout/audio_view.xml
+index 698b435c04..d9c57378e6 100644
+--- a/app/src/main/res/layout/audio_view.xml
++++ b/app/src/main/res/layout/audio_view.xml
+@@ -31,7 +31,7 @@
+             android:orientation="horizontal"
+             tools:background="#ff00ff">
+ 
+-            <include layout="@layout/audio_view_circle"/>
++            <include layout="@layout/audio_view_circle" />
+ 
+             <org.thoughtcrime.securesms.components.WaveFormSeekBarView
+                 android:id="@+id/seek"

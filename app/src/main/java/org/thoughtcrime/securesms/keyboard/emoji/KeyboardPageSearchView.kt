@@ -3,23 +3,21 @@ package org.thoughtcrime.securesms.keyboard.emoji
 import android.animation.Animator
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.core.view.ViewCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.doAfterTextChanged
-import org.signal.core.ui.util.ThemeUtil
-import com.google.android.material.R as MaterialR
+import org.signal.core.ui.util.ViewUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener
 import org.thoughtcrime.securesms.animation.ResizeAnimation
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import org.signal.core.ui.R as CoreUiR
 
@@ -90,13 +88,13 @@ class KeyboardPageSearchView @JvmOverloads constructor(
 
       input.hint = typedArray.getString(R.styleable.KeyboardPageSearchView_search_hint) ?: ""
 
-      val backgroundTint = typedArray.getColor(R.styleable.KeyboardPageSearchView_search_bar_tint, ThemeUtil.getThemedColor(context, MaterialR.attr.colorSurfaceContainerHighest))
+      val backgroundTint = typedArray.getColor(R.styleable.KeyboardPageSearchView_search_bar_tint, ContextCompat.getColor(context, R.color.signal_background_primary))
       val backgroundTintList = ColorStateList.valueOf(backgroundTint)
       input.background = ColorDrawable(backgroundTint)
       ViewCompat.setBackgroundTintList(findViewById(R.id.emoji_search_nav), backgroundTintList)
       ViewCompat.setBackgroundTintList(findViewById(R.id.emoji_search_clear), backgroundTintList)
 
-      val iconTint = typedArray.getColorStateList(R.styleable.KeyboardPageSearchView_search_icon_tint) ?: ColorStateList.valueOf(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
+      val iconTint = typedArray.getColorStateList(R.styleable.KeyboardPageSearchView_search_icon_tint) ?: ContextCompat.getColorStateList(context, R.color.signal_icon_tint_primary)
       ImageViewCompat.setImageTintList(navButton, iconTint)
       ImageViewCompat.setImageTintList(clearButton, iconTint)
       input.setHintTextColor(iconTint)

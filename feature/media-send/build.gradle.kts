@@ -1,8 +1,13 @@
 plugins {
   id("signal-library")
   id("kotlin-parcelize")
+  alias(libs.plugins.ktlint)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlinx.serialization)
+}
+
+ktlint {
+  version.set("1.5.0")
 }
 
 android {
@@ -19,13 +24,28 @@ android {
   }
 }
 
+screenshotTests {
+  // Fraction of differing pixels tolerated before a screenshot test fails (0.0001 = 0.01%).
+  imageDifferenceThreshold = 0.0001f
+}
+
+// The screenshot validation task compares every reference image in a single forked JVM, which
+// exhausts the default heap once a module has many previews. Give it more room.
+tasks.withType<Test>().configureEach {
+  if (name.contains("ScreenshotTest")) {
+    maxHeapSize = "4g"
+  }
+}
+
 dependencies {
   lintChecks(project(":lintchecks"))
+  ktlintRuleset(libs.ktlint.twitter.compose)
 
   // Project dependencies
   implementation(project(":core:ui"))
   implementation(project(":core:util"))
   implementation(project(":core:models"))
+  implementation(project(":core:models-jvm"))
   implementation(project(":lib:image-editor"))
   implementation(project(":lib:glide"))
   implementation(project(":lib:video"))
@@ -61,11 +81,14 @@ dependencies {
 
   // Media
   implementation(libs.androidx.media3.exoplayer)
+  implementation(libs.androidx.media3.ui)
 
   // CameraX
   implementation(libs.androidx.camera.core)
+  implementation(libs.androidx.camera.compose)
 
   // Testing
+  testImplementation(testFixtures(project(":core:ui")))
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.mockk)
   testImplementation(testLibs.assertk)

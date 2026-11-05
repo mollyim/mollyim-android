@@ -1,0 +1,13 @@
+diff --git a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+index 03a37a20bc..2404bc4683 100644
+--- a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
++++ b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+@@ -143,7 +152,7 @@ object MollySocketRepository {
+   }
+ 
+   private fun MollySocketDevice.isLinked(): Boolean? {
+-    return LinkDeviceRepository.loadDevices()?.any {
++    return runBlocking { LinkDeviceRepository.loadDevices() }?.any {
+       it.id == deviceId && it.name == DEVICE_NAME
+     }
+   }

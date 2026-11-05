@@ -21,11 +21,15 @@ import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
+import android.os.PersistableBundle;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -59,9 +63,12 @@ import java.util.concurrent.TimeUnit;
 public class Util {
   private static final String TAG = Log.tag(Util.class);
 
-  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(180);
+  private static final long BUILD_LIFESPAN = TimeUnit.DAYS.toMillis(90);
 
   public static final String COPY_LABEL = "text\u00AD";
+
+  /** How long a secret sits on the clipboard before it is cleared, when the caller doesn't specify. */
+  public static final int SENSITIVE_CLIPBOARD_TIMEOUT_SECONDS = 60;
 
   public static <T> List<T> asList(T... elements) {
     List<T> result = new LinkedList<>();
@@ -298,7 +305,29 @@ public class Util {
     return result;
   }
 
-  // MOLLY: getCanonicalVersionCode() and getManifestApkVersion() deprecated by ApkInfo
+  /**
+   * The app version.
+   * <p>
+   * This code should be used in all places that compare app versions rather than
+   * {@link #getManifestApkVersion(Context)}.
+   */
+  public static int getCanonicalVersionCode() {
+    return CoreUtilDependencies.INSTANCE.getBuildInfo().getCanonicalVersionCode();
+  }
+
+  /**
+   * The manifest APK version may not be the same as the canonical version code due to ABI split
+   * code adding a postfix after BuildConfig is generated.
+   * <p>
+   * However, in most cases you want to use {@link #getCanonicalVersionCode()}.
+   */
+  public static int getManifestApkVersion(Context context) {
+    try {
+      return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      throw new AssertionError(e);
+    }
+  }
 
   public static String getSecret(int size) {
     byte[] secret = getSecretBytes(size);
@@ -324,7 +353,7 @@ public class Util {
       return 0;
     }
 
-    long buildAge                   = currentTime - CoreUtilDependencies.INSTANCE.getBuildInfo().buildTimestampOrDefault(currentTime);
+    long buildAge                   = currentTime - CoreUtilDependencies.INSTANCE.getBuildInfo().getBuildTimestamp();
     long timeUntilBuildDeprecation  = BUILD_LIFESPAN - buildAge;
     long timeUntilRemoteDeprecation = CoreUtilDependencies.INSTANCE.getTimeUntilRemoteDeprecation(currentTime);
 
@@ -357,10 +386,6 @@ public class Util {
     ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
     return activityManager.isLowRamDevice() || activityManager.getLargeMemoryClass() <= 64;
-  }
-
-  public static long getSystemAvailableMemory(@NonNull Context context) {
-    return MemoryTracker.INSTANCE.getSystemNativeMemoryUsage(context).getSystemAvailableBytes();
   }
 
   public static int clamp(int value, int min, int max) {
@@ -417,15 +442,45 @@ public class Util {
     ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText(COPY_LABEL, text));
   }
 
-  public static void copyToClipboard(@NonNull Context context, @NonNull CharSequence text, int expiresInSeconds) {
+  /**
+   * Copies a secret to the clipboard, clearing it after {@link #SENSITIVE_CLIPBOARD_TIMEOUT_SECONDS}. See
+   * {@link #copyToClipboardSensitive(Context, CharSequence, int)}.
+   */
+  public static void copyToClipboardSensitive(@NonNull Context context, @NonNull CharSequence text) {
+    copyToClipboardSensitive(context, text, SENSITIVE_CLIPBOARD_TIMEOUT_SECONDS);
+  }
+
+  /**
+   * Copies a secret (backup passphrase, recovery phrase, key) to the clipboard.
+   *
+   * Flags the clip as sensitive, which stops the system clipboard UI on API 33+ from rendering a preview of the value and stops keyboards
+   * from offering it as a paste suggestion. It also schedules an alarm to clear the clipboard after {@code expiresInSeconds}.
+   */
+  public static void copyToClipboardSensitive(@NonNull Context context, @NonNull CharSequence text, int expiresInSeconds) {
     ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-    clipboardManager.setPrimaryClip(ClipData.newPlainText(getPackageLabel(context), text));
+    ClipData         clip             = ClipData.newPlainText(getPackageLabel(context), text);
+
+    markSensitive(clip);
+    clipboardManager.setPrimaryClip(clip);
 
     AlarmManager  alarmManager       = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     Intent        alarmIntent        = new Intent(context, ClearClipboardAlarmReceiver.class);
     PendingIntent pendingAlarmIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, PendingIntentFlags.mutable());
 
     alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(expiresInSeconds), pendingAlarmIntent);
+  }
+
+  /**
+   * Marks a clip as containing sensitive content. No-op below API 33. Does not prevent other apps from reading the clipboard on any API
+   * level, just affects how the system and keyboards display the clip.
+   */
+  private static void markSensitive(@NonNull ClipData clip) {
+    if (Build.VERSION.SDK_INT >= 33) {
+      PersistableBundle extras = new PersistableBundle();
+      extras.putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true);
+
+      clip.getDescription().setExtras(extras);
+    }
   }
 
   public static int parseInt(String integer, int defaultValue) {

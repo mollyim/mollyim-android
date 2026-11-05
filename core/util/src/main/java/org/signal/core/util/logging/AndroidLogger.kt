@@ -1,53 +1,60 @@
 package org.signal.core.util.logging
 
 import android.annotation.SuppressLint
-import androidx.annotation.WorkerThread
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 @SuppressLint("LogNotSignal")
 object AndroidLogger : Log.Logger() {
+
+  private val serialExecutor: Executor = Executors.newSingleThreadExecutor { Thread(it, "signal-logcat") }
+
   override fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    android.util.Log.v(tag, message, t)
-  }
-
-  override fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    android.util.Log.d(tag, message, t)
-  }
-
-  override fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    android.util.Log.i(tag, message, t)
-  }
-
-  override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    android.util.Log.w(tag, message, t)
-  }
-
-  override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
-    android.util.Log.e(tag, message, t)
-  }
-
-  override fun flush() = Unit
-
-  override fun clear() {
-    runCatching {
-      Runtime.getRuntime().exec("logcat -c")
+    serialExecutor.execute {
+      android.util.Log.v(tag, message.scrub(), t)
     }
   }
 
-  @JvmStatic
-  @get:WorkerThread
-  val logcatDump: CharSequence?
-    get() = runCatching {
-      val process = Runtime.getRuntime().exec("logcat -d")
-      val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
-      val log = StringBuilder()
-      val separator = System.lineSeparator()
-      do {
-        val line = bufferedReader.readLine() ?: break
-        log.append(line)
-        log.append(separator)
-      } while (true)
-      log
-    }.getOrNull()
+  override fun d(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+    serialExecutor.execute {
+      android.util.Log.d(tag, message.scrub(), t)
+    }
+  }
+
+  override fun i(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+    serialExecutor.execute {
+      android.util.Log.i(tag, message.scrub(), t)
+    }
+  }
+
+  override fun w(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+    serialExecutor.execute {
+      android.util.Log.w(tag, message.scrub(), t)
+    }
+  }
+
+  override fun e(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
+    serialExecutor.execute {
+      android.util.Log.e(tag, message.scrub(), t)
+    }
+  }
+
+  override fun flush() {
+    val latch = CountDownLatch(1)
+
+    serialExecutor.execute {
+      latch.countDown()
+    }
+
+    try {
+      latch.await()
+    } catch (e: InterruptedException) {
+      android.util.Log.w("AndroidLogger", "Interrupted while waiting for flush()", e)
+    }
+  }
+
+  private fun String?.scrub(): String? {
+    return this?.let { Scrubber.scrub(it).toString() }
+  }
 }

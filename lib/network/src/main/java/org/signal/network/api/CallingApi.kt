@@ -11,6 +11,8 @@ import org.signal.network.NetworkResult
 import org.signal.network.websocket.WebSocketRequestMessage
 import org.signal.network.websocket.get
 import org.signal.network.websocket.post
+import org.signal.network.websocket.putCustom
+import org.signal.storageservice.protos.calls.quality.SubmitCallQualitySurveyRequest
 import org.whispersystems.signalservice.api.fromWebSocketRequest
 import org.whispersystems.signalservice.api.messages.calls.CallingResponse
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo
@@ -30,6 +32,24 @@ class CallingApi(
 ) {
 
   /**
+   * Submit call quality information (with the user's permission) to the server on an unauthenticated channel.
+   *
+   * PUT /v1/call_quality_survey
+   * - 204: The survey response was submitted successfully
+   * - 422: The survey response could not be parsed
+   * - 429: Too many attempts, try after Retry-After seconds.
+   */
+  fun submitCallQualitySurvey(request: SubmitCallQualitySurveyRequest): NetworkResult<Unit> {
+    val webSocketRequestMessage = WebSocketRequestMessage.putCustom(
+      path = "/v1/call_quality_survey",
+      body = request.encode(),
+      headers = mapOf("Content-Type" to "application/octet-stream")
+    )
+
+    return NetworkResult.fromWebSocketRequest(unAuth, webSocketRequestMessage)
+  }
+
+  /**
    * Get 1:1 relay addresses in IpV4, Ipv6, and URL formats.
    *
    * GET /v2/calling/relays
@@ -47,14 +67,14 @@ class CallingApi(
   /**
    * Generate a call link credential.
    *
-   * POST /v1/call-link/create-auth
+   * POST /v1/call-link/create-auth?v101=true
    * - 200: Success
    * - 400: Invalid request
    * - 422: Invalid request format
    * - 429: Rate limited
    */
   fun createCallLinkCredential(request: CreateCallLinkCredentialRequest): NetworkResult<CreateCallLinkCredentialResponse> {
-    val request = WebSocketRequestMessage.post("/v1/call-link/create-auth", body = CreateCallLinkAuthRequest.create(request))
+    val request = WebSocketRequestMessage.post("/v1/call-link/create-auth?v101=true", body = CreateCallLinkAuthRequest.create(request))
     return NetworkResult.fromWebSocketRequest(auth, request, CreateCallLinkAuthResponse::class)
       .map { it.createCallLinkCredentialResponse }
   }

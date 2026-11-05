@@ -1,0 +1,88 @@
+/*
+ * Copyright 2026 Signal Messenger, LLC
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+
+package org.thoughtcrime.securesms.components.settings.app.account
+
+import kotlinx.coroutines.withContext
+import org.signal.core.models.MasterKey
+import org.signal.core.util.concurrent.SignalDispatchers
+import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.lock.v2.PinKeyboardType
+import org.thoughtcrime.securesms.pin.SvrRepository
+import org.thoughtcrime.securesms.util.RemoteConfig
+import org.whispersystems.signalservice.api.kbs.PinHashUtil
+import java.io.IOException
+
+/**
+ * All of the storage and network access behind [AccountSettingsViewModel].
+ */
+class AccountSettingsRepository(
+  private val masterKeyProvider: () -> MasterKey = { SignalStore.svr.masterKey }
+) {
+
+  companion object {
+    private val TAG = Log.tag(AccountSettingsRepository::class)
+  }
+
+  fun hasPin(): Boolean = SignalStore.svr.hasPin() && !SignalStore.svr.hasOptedOut()
+
+  fun hasRestoredAep(): Boolean = SignalStore.account.restoredAccountEntropyPool
+
+  fun arePinRemindersEnabled(): Boolean = SignalStore.pin.arePinRemindersEnabled() && SignalStore.svr.hasPin()
+
+  fun setPinRemindersEnabled(enabled: Boolean) = SignalStore.pin.setPinRemindersEnabled(enabled)
+
+  fun isRegistrationLockEnabled(): Boolean = SignalStore.svr.isRegistrationLockEnabled
+
+  fun isUserUnregistered(): Boolean = SignalStore.account.isUnauthorizedReceived
+
+  fun isClientDeprecated(): Boolean = SignalStore.misc.isClientDeprecated
+
+  fun getPinKeyboardType(): PinKeyboardType = SignalStore.pin.keyboardType
+
+  fun isPhoneNumberless(): Boolean = SignalStore.account.isPhoneNumberless
+
+  fun getMaxTotpApps(): Int = RemoteConfig.maxTotpApps
+
+  /**
+   * How many two-factor methods of every kind the account is allowed at once. Authenticator apps share this limit with
+   * passkeys, so it can be reached even when there's room left under [getMaxTotpApps].
+   */
+  fun getMaxTwoFactorMethods(): Int {
+    return RemoteConfig.maxTwoFactorMethods
+  }
+
+  fun verifyLocalPin(pin: String): Boolean {
+    val localPinHash = SignalStore.svr.localPinHash
+    if (localPinHash == null) {
+      Log.w(TAG, "No local PIN hash to verify against!")
+      return false
+    }
+
+    return PinHashUtil.verifyLocalPinHash(localPinHash, pin)
+  }
+
+  /**
+   * Turns registration lock on or off on the service, returning whether it worked.
+   */
+  suspend fun setRegistrationLockEnabled(enabled: Boolean): Boolean = withContext(SignalDispatchers.IO) {
+    try {
+      if (enabled) {
+        SvrRepository.enableRegistrationLockForUserWithPin()
+      } else {
+        SvrRepository.disableRegistrationLockForUserWithPin()
+      }
+      true
+    } catch (e: IOException) {
+      Log.w(TAG, "Failed to ${if (enabled) "enable" else "disable"} registration lock.", e)
+      false
+    }
+  }
+
+  fun masterKey(): MasterKey {
+    return masterKeyProvider()
+  }
+}

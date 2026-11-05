@@ -1,0 +1,14 @@
+diff --git a/app/src/main/res/layout/blocked_users_adapter_item.xml b/app/src/main/res/layout/blocked_users_adapter_item.xml
+index 33dfe3ffcc..99181b6936 100644
+--- a/app/src/main/res/layout/blocked_users_adapter_item.xml
++++ b/app/src/main/res/layout/blocked_users_adapter_item.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+     tools:viewBindingIgnore="true"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="?attr/listPreferredItemHeight"
+     android:background="?attr/selectableItemBackground">

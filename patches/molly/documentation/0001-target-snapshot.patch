@@ -1,0 +1,855 @@
+From 9033f58d7d2750bcb3a72f771c04d2b1d1b38b2d Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Thu, 30 Jul 2026 08:43:16 +0000
+Subject: [PATCH] Reconstruct Molly documentation, part 1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="------------false"
+
+This is a multi-part message in MIME format.
+--------------false
+Content-Type: text/plain; charset=UTF-8; format=fixed
+Content-Transfer-Encoding: 8bit
+
+
+Molly user/build/legal documentation and removal of superseded upstream documentation.
+
+Export the complete file deltas for this review batch from
+c47a74ba0961903eeaeda6d22347a990056c3e83 to 0e202dda90785771ff8c87526eaaf30c655f54f3.
+This reconstructed snapshot retains the target tree, including merge
+resolutions and retained backports. The group is a review partition,
+not an independently optional runtime feature.
+
+Source-Commit identifies the pinned source-tree snapshot, not the
+historical author of these changes. The mailbox identity records
+this mechanical reconstruction.
+
+Source-Commit: 0e202dda90785771ff8c87526eaaf30c655f54f3
+
+diff --git a/.github/PULL_REQUEST_TEMPLATE.md b/.github/PULL_REQUEST_TEMPLATE.md
+deleted file mode 100644
+index 82aa18646c5e8f4a0bf27ab72ee5be9bdbc18fbd..0000000000000000000000000000000000000000
+--- a/.github/PULL_REQUEST_TEMPLATE.md
++++ /dev/null
+@@ -1,23 +0,0 @@
+-<!-- You can remove this first section if you have contributed before -->
+-### First time contributor checklist
+-<!-- replace the empty checkboxes [ ] below with checked ones [x] accordingly -->
+-- [ ] I have read [how to contribute](https://github.com/signalapp/Signal-Android/blob/main/CONTRIBUTING.md) to this project
+-- [ ] I have signed the [Contributor License Agreement](https://signal.org/cla/)
+-
+-### Contributor checklist
+-<!-- replace the empty checkboxes [ ] below with checked ones [x] accordingly -->
+-- [ ] I am following the [Code Style Guidelines](https://github.com/signalapp/Signal-Android/wiki/Code-Style-Guidelines)
+-- [ ] I have tested my contribution on these devices:
+- * Device A, Android X.Y.Z
+- * Device B, Android Z.Y
+- * Virtual device W, Android Y.Y.Z
+-- [ ] My contribution is fully baked and ready to be merged as is
+-- [ ] I ensure that all the open issues my contribution fixes are mentioned in the commit message of my first commit using the `Fixes #1234` [syntax](https://help.github.com/articles/closing-issues-via-commit-messages/)
+-
+-----------
+-
+-### Description
+-<!--
+-Describe briefly what your pull request proposes to fix. Especially if you have more than one commit, it is helpful to give a summary of what your contribution as a whole is trying to solve.
+-Also, please describe shortly how you tested that your fix actually works.
+--->
+diff --git a/BUILDING.md b/BUILDING.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..13b8a6d2f7221e282a84ba6f0e990adbe8dc324b
+--- /dev/null
++++ b/BUILDING.md
+@@ -0,0 +1,133 @@
++# Building and Self-Signing Molly
++
++## Overview
++
++This guide provides detailed steps for building and self-signing the Molly app. It is intended for developers and experienced users familiar with compiling software and managing signing keys.
++
++⚠️ **Warning**: Mishandling signing keys can result in security vulnerabilities and compromise the app's integrity. Ensure you protect your keys and understand the implications of self-signing your app.
++
++## Security Considerations
++
++- **In-App Updater**: Self-signed apps cannot update automatically via the integrated updater because of differing signatures. You'll need to manually build and install app updates, or set up your own private F-Droid repository (beyond this guide's scope).
++
++- **Clean Environment**: Building the app requires a clean and secure environment. Using non-dedicated computers or the cloud is discouraged as it increases the risk of attackers injecting malicious code during the build process. Running Reproducible Builds on the same environment used to build the app only verifies the deterministic nature of the build process, but does not validate the integrity or security of the build.
++
++- **Offline Signing**: Offline APKs signing using the Android SDK is recommended. For better security, consider using a smartcard to store your signing key and perform the signature of the APKs.
++
++## Prerequisites
++
++### Install JDK
++
++Ensure the Java Development Kit (JDK) is installed for generating your signing key using `keytool`.
++
++### Generate Your Private Key
++
++Generate a signing private key using:
++
++```sh
++keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 4096 -validity 10000 -alias my-alias
++```
++
++## Building Using GitHub Actions
++
++You can build Molly using GitHub Actions, either with GitHub-hosted public runners or [self-hosted runners](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners).
++
++### Steps
++
++1. **Fork the Repository**: Fork the [Molly repository](https://github.com/mollyim/mollyim-android) in GitHub. You can keep your fork private if preferred, but public repositories get GitHub Actions for free, while private repositories have limited free storage and minutes. For details, refer to [GitHub's billing information](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions).
++
++2. **Configure Repository Variables**: Customize your build via `Settings > Secrets and Variables > Actions > Variables > Repository variables`. Check the table below for available options.
++
++3. **Run Workflow**: In Actions, select `Tag Commit for Release` and trigger `Run workflow`.
++
++4. **Monitor Build Progress**: The build typically takes around 45 minutes.
++
++5. **Download APKs**: Once the workflow finishes, go to Releases in your repository and download the APKs listed under "Assets".
++
++6. **Publish Release**: Optionally, publish the release draft to trigger the Reproducible Build workflow.
++
++7. **Sign the APKs**: Follow the instructions below on how to [sign the APKs](#signing-the-apks) before installation.
++
++8. **Install the APKs**: After signing, the APKs are ready for installation on Android.
++
++9. **Keep Your Fork Updated**: Periodically sync your repository and then proceed to step 3 again. Follow GitHub's documentation on [syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork). This step is essential to keep your app updated.
++
++## Building Using the CLI
++
++If you prefer building Molly locally on your computer, you can follow these steps, which are essentially the same procedure as in the [Reproducible Build guide](reproducible-builds/README.md). You have the option to customize the build by exporting environment variables or saving them in a `.env` file before running `docker compose`.
++
++### Steps
++
++```sh
++# Set the release version you want to build
++export VERSION=v7.8.1-2
++
++# Clone the source code repository
++git clone https://github.com/mollyim/mollyim-android.git
++
++# Navigate to the reproducible builds directory
++cd mollyim-android/reproducible-builds
++
++# Checkout the specific release tag
++git checkout $VERSION
++
++# Customize your build by exporting environment variables if needed
++export CI_APP_TITLE="Molly"
++export CI_PACKAGE_ID="im.molly.app"
++
++# Build the APK using Docker environment
++docker compose up --build
++
++# Optionally, save environment variables in a .env file for future builds
++echo "CI_APP_TITLE=Molly" >> .env
++echo "CI_PACKAGE_ID=im.molly.app" >> .env
++
++# Shut down the Docker environment after use
++docker compose down
++```
++
++The built APKs will be available in the `output/apk` directory. Make sure to [sign the APKs](#signing-the-apks) before installation.
++
++## Build Customization
++
++| Environment Variable  | Default Value | Description                                      |
++|-----------------------|---------------|--------------------------------------------------|
++| `CI_APP_TITLE`        | Molly         | App title as shown in the UI                     |
++| `CI_APP_FILENAME`     | Molly         | Base filename for APKs and backups               |
++| `CI_PACKAGE_ID`       | im.molly.app  | Application ID (change as needed)                |
++| `CI_BUILD_VARIANTS`   | prod          | Regex pattern for building different flavors (must match one of the build flavors) |
++| `CI_FORCE_INTERNAL_USER_FLAG` | false | Enable internal testing extensions               |
++
++## Build Flavors
++
++- `prodWebsiteRelease`: Production version of Molly
++- `prodStoreRelease`: Production version of Molly but without in-app updater
++- `stagingWebsiteRelease`: Testing version of Molly for Signal staging network
++
++## Signing the APKs
++
++### Offline Signing
++
++To sign the APKs offline, install the Android SDK and use the `apksigner` tool:
++
++```sh
++apksigner sign --ks my-release-key.jks --out Molly-$VERSION.apk Molly-unsigned-$VERSION.apk
++```
++
++### Automatic Signing via GitHub Actions
++
++Configure automatic signing if you trust GitHub to safeguard your private key.
++
++1. **Encode Keystore File**
++
++   ```sh
++   base64 my-release-key.jks
++   ```
++
++2. **Add Secrets to GitHub**
++
++   Go to your repository's `Settings > Secrets > Actions` and add the following secrets:
++   - `SECRET_KEYSTORE`: Paste the base64 encoded content of your keystore file.
++   - `SECRET_KEYSTORE_ALIAS`: Your key alias (e.g., `my-alias`).
++   - `SECRET_KEYSTORE_PASSWORD`: Your keystore password.
++
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+deleted file mode 100644
+index 14c045a7a073f97522c403820e60ec4488364dca..0000000000000000000000000000000000000000
+--- a/CONTRIBUTING.md
++++ /dev/null
+@@ -1,87 +0,0 @@
+-# Contributing to Signal Android
+-
+-Thank you for supporting Signal and looking for ways to help. Please note that some conventions here might be a bit different than what you are used to, even if you have contributed to other open source projects before. Reading this document will help you save time and work effectively with the developers and other contributors.
+-
+-
+-## Development Ideology
+-
+-Truths which we believe to be self-evident:
+-
+-1. **The answer is not more options.**  If you feel compelled to add a preference that's exposed to the user, it's very possible you've made a wrong turn somewhere.
+-1. **The user doesn't know what a key is.**  We need to minimize the points at which a user is exposed to this sort of terminology as extremely as possible.
+-1. **There are no power users.**  The idea that some users "understand" concepts better than others has proven to be, for the most part, false. If anything, "power users" are more dangerous than the rest, and we should avoid exposing dangerous functionality to them.
+-1. **If it's "like PGP," it's wrong.**  PGP is our guide for what not to do.
+-1. **It's an asynchronous world.**  Be wary of anything that is anti-asynchronous: ACKs, protocol confirmations, or any protocol-level "advisory" message.
+-1. **There is no such thing as time.**  Protocol ideas that require synchronized clocks are doomed to failure.
+-
+-
+-## Building
+-
+-1. Most things are pretty straightforward, and opening the project in Android Studio should get you most of the way there.
+-1. Depending on your configuration, you'll also likely need to install additional SDK Tool components, namely the versions of NDK and CMake we are currently using in our [Docker](https://github.com/signalapp/Signal-Android/blob/main/reproducible-builds/Dockerfile#L30) configuration.
+-
+-## Issues
+-
+-### Useful bug reports
+-1. Please search both open and closed issues to make sure your bug report is not a duplicate.
+-1. Read the [guide to submitting useful bug reports](https://github.com/signalapp/Signal-Android/wiki/Submitting-useful-bug-reports) before posting a bug.
+-
+-### The issue tracker is for bugs, not feature requests
+-The GitHub issue tracker is not used for feature requests, but new ideas can be submitted and discussed on the [community forum](https://community.signalusers.org/c/feature-requests). The purpose of this issue tracker is to track bugs in the Android client. Bug reports should only be submitted for existing functionality that does not work as intended. Comments that are relevant and concise will help the developers solve issues more quickly.
+-
+-### Send support questions to support
+-You can reach support by sending an email to support@signal.org or by visiting the [Signal Support Center](https://support.signal.org/) where you can also search for existing troubleshooting articles and find answers to frequently asked questions. Please do not post support questions on the GitHub issue tracker.
+-
+-### GitHub is not a generic discussion forum
+-Conversations about open bug reports belong here. However, all other discussions should take place on the [community forum](https://community.signalusers.org). You can use the community forum to discuss anything that is related to Signal or to hang out with your fellow users in the "Off Topic" category.
+-
+-### Don't bump issues
+-Every time someone comments on an issue, GitHub sends an email to [hundreds of people](https://github.com/signalapp/Signal-Android/watchers). Bumping issues with a "+1" (or asking for updates) generates a lot of unnecessary email notifications and does not help anyone solve the issue any faster. Please be respectful of everyone's time and only comment when you have new information to add.
+-
+-### Open issues
+-
+-#### If it's open, it's tracked
+-The developers read every issue, but high-priority bugs or features can take precedence over others. Signal is an open source project, and everyone is encouraged to play an active role in diagnosing and fixing open issues.
+-
+-### Closed issues
+-
+-#### "My issue was closed without giving a reason!"
+-Although we do our best, writing detailed explanations for every issue can be time consuming, and the topic also might have been covered previously in other related issues.
+-
+-
+-## Pull requests
+-
+-### Smaller is better
+-Big changes are significantly less likely to be accepted. Large features often require protocol modifications and necessitate a staged rollout process that is coordinated across millions of users on multiple platforms (Android, iOS, and Desktop).
+-
+-Try not to take on too much at once. As a first-time contributor, we recommend starting with small and simple PRs in order to become familiar with the codebase. Most of the work should go into discovering which three lines need to change rather than writing the code.
+-
+-### Sign the Contributor License Agreement (CLA)
+-You will need to [sign our CLA](https://signal.org/cla/) before your pull request can be merged.
+-
+-### Follow the Code Style Guidelines
+-Ensure that your code adheres to the [Code Style Guidelines](https://github.com/signalapp/Signal-Android/wiki/Code-Style-Guidelines) before submitting a pull request.
+-
+-You can run `./gradlew format` to automatically format your code. See `lefthook.yml` for instructions on how to run this as a git hook.
+-
+-### Submit finished and well-tested pull requests
+-Please do not submit pull requests that are still a work in progress. Pull requests should be thoroughly tested and ready to merge before they are submitted.
+-
+-### Merging can sometimes take a while
+-If your pull request follows all of the advice above but still has not been merged, this usually means that the developers haven't had time to review it yet. We understand that this might feel frustrating, and we apologize. The Signal team is still small, but [we are hiring](https://signal.org/workworkwork/).
+-
+-
+-## How can I contribute?
+-There are several other ways to get involved:
+-* Help new users learn about Signal.
+-  * Redirect support questions to support@signal.org and the [Signal Support Center](https://support.signal.org/).
+-  * Redirect non-bug discussions to the [community forum](https://community.signalusers.org).
+-* Improve documentation in the [wiki](https://github.com/signalapp/Signal-Android/wiki).
+-* Find and mark duplicate issues.
+-* Try to reproduce issues and help with troubleshooting.
+-* Discover solutions to open issues and post any relevant findings.
+-* Test other people's pull requests.
+-* [Donate to Signal.](https://signal.org/donate/)
+-* Share Signal with your friends and family.
+-
+-Signal is made for you. Thank you for your feedback and support.
+diff --git a/LEGAL.md b/LEGAL.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..1f6bbfb4ae09d845fff4de1d8f1259335badcdd7
+--- /dev/null
++++ b/LEGAL.md
+@@ -0,0 +1,56 @@
++# Legal Information
++
++## License
++
++Molly is free software licensed under the GNU Affero General Public License,
++version 3 only (`AGPL-3.0-only`).
++
++See `LICENSE` for the full license text and `NOTICE` for copyright and
++third-party notices.
++
++## Copyright
++
++Molly includes original work by Molly contributors as well as code derived from
++Signal Android and other third-party components.
++
++For completely new source files originally authored by Molly contributors, we
++commonly use headers such as:
++
++```text
++Copyright 2026 Molly Instant Messenger
++SPDX-License-Identifier: AGPL-3.0-only
++```
++
++Files derived from upstream or third-party code may preserve different
++copyright notices.
++
++Existing copyright, license, and attribution notices should be kept intact.
++
++## Cryptography and Export
++
++This distribution includes cryptographic software. Laws on the import,
++possession, use, export, and re-export of encryption software vary by country.
++
++Before using or distributing Molly, please check the laws and regulations that
++apply in your jurisdiction.
++
++## No Affiliation
++
++Molly is an independent project and is not affiliated with, endorsed by, or
++sponsored by Signal Messenger, LLC or the Signal Foundation.
++
++## Trademarks
++
++"Signal" and associated names, marks, and logos are the property of their
++respective owners, including Signal Messenger, LLC where applicable.
++
++Use of third-party names, marks, or logos in this repository is for
++identification, compatibility, or attribution purposes only and does not imply
++affiliation, sponsorship, or endorsement.
++
++## Warranty
++
++Molly is provided under the AGPL on an "as is" basis, without warranty of any
++kind, to the extent permitted by applicable law.
++
++See `LICENSE` for the full disclaimer and limitation of liability.
+diff --git a/README.md b/README.md
+index fba5a3b36a492bb479c915d81b4b3a0b297613b5..942122811c2a3b88657ea5c24697fb31ca7fd49d 100644
+--- a/README.md
++++ b/README.md
+@@ -1,70 +1,153 @@
+-# Signal Android
++# Molly
+ 
+-Signal is a simple, powerful, and secure messenger that uses your phone's data connection (WiFi/4G/5G) to communicate securely.
++[![Test](https://github.com/mollyim/mollyim-android/workflows/Test/badge.svg)](https://github.com/mollyim/mollyim-android/actions)
++[![Reproducible build](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml/badge.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml)
++[![Translation status](https://hosted.weblate.org/widgets/molly-instant-messenger/-/svg-badge.svg)](https://hosted.weblate.org/engage/molly-instant-messenger/?utm_source=widget)
++[![Financial contributors](https://opencollective.com/mollyim/tiers/badge.svg)](https://opencollective.com/mollyim#category-CONTRIBUTE)
++[![Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=flat-square)](https://cloudsmith.com)
+ 
+-Millions of people use Signal every day for free and instantaneous communication anywhere in the world. Send and receive high-fidelity messages, participate in HD voice/video calls, and explore a growing set of new features that help you stay connected. 
++Molly is a hardened version of [Signal](https://github.com/signalapp/Signal-Android) for Android, the fast simple yet secure messaging app by [Signal Foundation](https://signal.org).
+ 
+-Signal’s advanced privacy-preserving technology is always enabled, so you can focus on sharing the moments that matter with the people who matter to you.
++## Introduction
+ 
+-Currently available on the [Play Store](https://play.google.com/store/apps/details?id=org.thoughtcrime.securesms) and [signal.org](https://signal.org/android/apk/).
++Back in 2018, Signal allowed the user to set a passphrase to secure the local message database. But this option was removed with the introduction of file-based encryption on Android. Molly brings it back again with additional security features.
+ 
+-<a href='https://play.google.com/store/apps/details?id=org.thoughtcrime.securesms&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='80px'/></a>
++Molly connects to Signal's servers, so you can chat with your Signal contacts seamlessly. Before signing up, please remember to review the [Signal Terms & Privacy Policy](https://signal.org/legal/).
+ 
+-Also available on [iOS](https://github.com/signalapp/signal-ios) and [Desktop](https://github.com/signalapp/signal-desktop).
++We update Molly every two weeks to include the latest Signal features and fixes. The exceptions are security patches, which are applied as soon as they are available.
+ 
+-## Contributing Bug Reports
+-We use GitHub for bug tracking. Please search the existing issues for your bug and create a new one if the issue is not yet tracked!
++## Download
+ 
+-https://github.com/signalapp/Signal-Android/issues
++You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from the [Molly F-Droid Repo](https://molly.im/fdroid/):
+ 
+-## Joining the Beta
+-Want to live life on the bleeding edge and help out with testing?
++[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
++    alt="Get it on F-Droid"
++    height="80">](https://molly.im/fdroid/)
+ 
+-You can subscribe to Signal Android Beta releases here:
+-https://play.google.com/apps/testing/org.thoughtcrime.securesms
++There are two versions available: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
+ 
+-If you're interested in a life of peace and tranquility, stick with the standard releases.
++You can also get **Molly-FOSS** from [Accrescent](https://accrescent.app/):
+ 
+-## Contributing Translations
+-Interested in helping translate Signal? Contribute here:
++<a href="https://accrescent.app/app/im.molly.app">
++   <img alt="Get it on Accrescent"
++      src="https://accrescent.app/badges/get-it-on.png"
++      height="80">
++</a>
+ 
+-https://community.signalusers.org/c/translation-feedback/
++To [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK, use the following signing certificate fingerprints:
++```
++SHA-256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
++SHA-1: 49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
++```
+ 
+-## Contributing Code
++## Features
+ 
+-If you're new to the Signal codebase, we recommend going through our issues and picking out a simple bug to fix in order to get yourself familiar. Also please have a look at the [CONTRIBUTING.md](https://github.com/signalapp/Signal-Android/blob/main/CONTRIBUTING.md), that might answer some of your questions.
++Molly has unique features compared to Signal:
+ 
+-For larger changes and feature ideas, we ask that you propose it on the [unofficial Community Forum](https://community.signalusers.org) for a high-level discussion with the wider community before implementation.
++- **Data encryption at rest** - Protect your app database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
++- **Secure RAM wiper** - Securely shred sensitive data from device memory
++- **Automatic lock** - Lock the app automatically under user-defined conditions
++- **Multi-device support** - Link multiple devices to a single Signal account, including Android tablets
++- **UnifiedPush** - Receive push notifications without Google through the UnifiedPush protocol
++- **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
++- **Disappearing call history** - Clear call logs together with expiring messages
++- **Custom backup scheduling** - Set daily or weekly interval and the number of backups to retain
++- **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
++- **Debug logs are optional** - Android logging can be disabled
+ 
+-## Contributing Ideas
+-Have something you want to say about Signal projects or want to be part of the conversation? Get involved in the [community forum](https://community.signalusers.org).
++Additionally, you will find all the features of Signal, along with some minor tweaks and improvements.
+ 
+-Help
+-====
+-## Support
+-For troubleshooting and questions, please visit our support center!
++## Free and Open-Source
+ 
+-https://support.signal.org/
++Molly is open-source just like Signal. But Signal depends on proprietary Google software for some features.
+ 
+-## Documentation
+-Looking for documentation? Check out the wiki!
++To support a 100% free and auditable app, Molly comes in two versions: one with proprietary blobs like Signal, and one without. They are called Molly and Molly-FOSS, respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+ 
+-https://github.com/signalapp/Signal-Android/wiki
++### Feature Comparison
+ 
+-# Legal things
+-## Cryptography Notice
++Here's how some key features work in different versions of the app:
+ 
+-This distribution includes cryptographic software. The country in which you currently reside may have restrictions on the import, possession, use, and/or re-export to another country, of encryption software.
+-BEFORE using any encryption software, please check your country's laws, regulations and policies concerning the import, possession, or use, and re-export of encryption software, to see if this is permitted.
+-See <http://www.wassenaar.org/> for more information.
++| Feature                           | Molly-FOSS       | Molly                | Signal               |
++| --------------------------------- | ---------------- | -------------------- | -------------------- |
++| Push notifications <sup>(1)</sup> | ✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket |
++| Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        | ⚠ Google Maps        |
+ 
+-The U.S. Government Department of Commerce, Bureau of Industry and Security (BIS), has classified this software as Export Commodity Control Number (ECCN) 5D002.C.1, which includes information security software using or performing cryptographic functions with asymmetric algorithms.
+-The form and manner of this distribution makes it eligible for export under the License Exception ENC Technology Software Unrestricted (TSU) exception (see the BIS Export Administration Regulations, Section 740.13) for both object code and source code.
++<sup>(1)</sup> You might need to turn off system-level battery restrictions for the app to receive messages when the app isn't open.
+ 
+-## License
++### UnifiedPush
++
++[UnifiedPush](https://unifiedpush.org/) is an open standard for delivering push notifications, offering a privacy-friendly alternative to Google's proprietary FCM service. It allows users to choose their own notification distributor.
++
++> [!IMPORTANT]
++> To use UnifiedPush notifications, you need access to a [MollySocket](https://github.com/mollyim/mollysocket) server to link your Signal account to UnifiedPush. You can either run MollySocket on a server you control (strongly advised) or use a public instance.
++
++Currently, UnifiedPush is unavailable for linked devices.
++
++## Compatibility with Signal
++
++Molly and Signal apps can be installed on the same device. If you need a second number for messaging, you can register Molly with a different number while keeping Signal active. Any phone number capable of receiving SMS or calls can be used during registration.
++
++If you wish to use the same phone number for both Molly and Signal, you must register Molly as a linked device. Registering the same number independently on both apps will result in only the most recently registered app staying active, while the other will go offline.
++
++For Signal users looking to switch to Molly without changing the phone number, please refer to the [Migrating From Signal](https://github.com/mollyim/mollyim-android/wiki/Migrating-From-Signal) guide on the wiki.
++
++## Backups
+ 
+-Copyright 2013 Signal Messenger, LLC
++Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-us/articles/360007059752-Backup-and-Restore-Messages) can be restored in Molly, and the other way around, simply by choosing the backup folder and file. However, to import a backup from Signal, you must use a matching or newer version of Molly.
+ 
+-Licensed under the GNU AGPLv3: https://www.gnu.org/licenses/agpl-3.0.html
++## Feedback
++
++- [Submit bugs and feature requests](https://github.com/mollyim/mollyim-android/issues) on GitHub
++- Join us at [#mollyim:matrix.org](https://matrix.to/#/#mollyim:matrix.org) on Matrix (via space: [#mollyim-space:matrix.org](https://matrix.to/#/#mollyim-space:matrix.org))
++- For news, tips, and tricks, follow [@mollyim](https://fosstodon.org/@mollyim) on Mastodon
++
++## Reproducible Builds
++
++Molly supports reproducible builds, so that anyone can run the build process to reproduce the same APK as the original release.
++
++Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
++
++## Changelog
++
++See the [Changelog](https://github.com/mollyim/mollyim-android/wiki/Changelog) to view recent changes.
++
++## License
+ 
+-Google Play and the Google Play logo are trademarks of Google LLC.
++Licensed under the GNU Affero General Public License, version 3 only
++([`AGPL-3.0-only`](LICENSE)).
++
++See [LEGAL.md](LEGAL.md) for legal and copyright information.
++
++## Acknowledgements
++
++Molly is an independent project built on code published by Signal. We are
++deeply grateful to the Signal contributors for the work we build on.
++
++Thanks to the following organizations for supporting the **Molly** project.
++
++<div align="center">
++<table>
++<tr>
++  <td>
++    <a href="https://nlnet.nl/" target="_blank">
++      <img src="https://nlnet.nl/logo/banner.svg" alt="NLnet logo" height="56" />
++    </a>
++  </td>
++  <td>
++    <a href="https://bahnhof.cloud/en/" target="_blank">
++      <img src="https://upload.wikimedia.org/wikipedia/de/c/c0/Bahnhof_AB_logo.svg" alt="Bahnhof logo" height="56" />
++    </a>
++  </td>
++  <td>
++    <a href="https://cloudsmith.com/blog/cloudsmith-loves-opensource/" target="_blank">
++      <img src="https://raw.githubusercontent.com/opswithranjan/CloudsmithLogo/main/CloudsmithLogoCropped.jpeg" alt="Cloudsmith logo" height="32" />
++    </a>
++  </td>
++  <td>
++    <a href="https://www.jetbrains.com/community/opensource/" target="_blank">
++      <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg" alt="JetBrains logo" height="32" />
++    </a>
++  </td>
++</tr>
++</table>
++</div>
+diff --git a/reproducible-builds/README.md b/reproducible-builds/README.md
+index ef3aa6cbb4734a1e7aace9b40d2728ae26837033..0ab01cf6fd94700be84da234423330528f77e2fd 100644
+--- a/reproducible-builds/README.md
++++ b/reproducible-builds/README.md
+@@ -1,249 +1,50 @@
+ # Reproducible Builds
+ 
+-Signal has supported reproducible builds since Signal Android version 3.15.0, which was first released in March 2016. This process lets you verify that the version of the app that was downloaded from the Play Store matches the source code in our public repository.
++[![Reproducible build](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml/badge.svg)](https://github.com/mollyim/mollyim-android/actions/workflows/reprocheck.yml)
+ 
+-This is achieved by replicating the build environment as a Docker image. You'll need to build the Docker image, run an instance of that container, compile Signal inside the container, and finally compare the compiled app bundle to the APKs that are installed on your device.
++Follow these instructions to verify that this source code is exactly the same code that was used to compile the APK distributed on the website.
+ 
+-The command-line instructions in this guide are written for Linux, but you can adapt them to run on macOS and Windows with some small modifications.
++The [reproducible-builds.org](https://reproducible-builds.org/) project has more information about this general topic.
+ 
+-In the following sections, we will use Signal version `7.7.0` as the reference example. Simply replace all occurrences of `7.7.0` with the version number you are about to verify.
++## Prerequisites
+ 
+-## Overview of the process
+-Completing the reproducible build process verifies that the code in our public repository is exactly the same code that's running on your device.
++- Docker
++- Docker Compose
++- Python 3
+ 
+-Signal is built using [app bundles](https://developer.android.com/guide/app-bundle), which means that the Play Store builds a set of APKs that only include the resources that are needed for your specific device. This adds a couple of extra steps, but overall the process is still relatively straightforward:
++## Build and Verify
+ 
+-1. Check out the source code for the version of Signal you're running.
+-1. Build the source to generate an app bundle.
+-1. Use [bundletool](https://github.com/google/bundletool/releases) to generate the set of APKs that the Play Store should have installed on your device.
+-1. Pull the Signal APKs that are installed on your device.
+-1. Use our `apkdiff.py` script to compare the two sets of APKs to make sure they match.
++You can compile you own release of Molly inside a Docker container and compare the resulted APK to the APK that is officially distributed. To do so, execute the following:
+ 
+-> Note: If you're using the APK from our website instead, please read all of the instructions to understand the process, and then read [this section](#verifying-the-website-apk) that includes additional information and specific instructions for the website build.
++```shell
++# Set the release version you want to check
++export VERSION=v5.42.8-2
+ 
+-With that in mind, let's begin!
++# Clone the source code repository
++git clone https://github.com/mollyim/mollyim-android.git
+ 
++# Go to this directory
++cd mollyim-android/reproducible-builds
+ 
+-## Step-by-step instructions
++# Check out the release tag
++git checkout $VERSION
+ 
+-### 0. Prerequisites
+-Before you begin, ensure you have the following installed:
+-- `git`
+-- `docker`
+-- `python` (version 3.x)
+-- `uv`
+-- `adb` ([link](https://developer.android.com/tools/adb))
+-- `bundletool` ([link](https://github.com/google/bundletool/releases))
+-- `aapt2` (included with the Android SDK Build Tools, [link](https://developer.android.com/tools/aapt2))
++# The following steps might be different for the chosen version.
++# Before proceeding, you should open this tutorial (README.md file) and review the instructions.
+ 
+-You will also need to have Developer Options and USB Debugging enabled on your Android device. You can find instructions to do so [here](https://developer.android.com/studio/debug/dev-options). After the prerequisites are installed and the dev options are enabled, you can connect your Android device to your computer and run the `adb devices` command in your terminal. If everything has been set up correctly, your Android device will show up in the list.
++# Build the APK using the Docker environment
++docker compose up --build
+ 
+-### 1. Setting up directories
+-First, let's create a new directory for our reproducible builds. In your home directory (`~`), create a new directory called `reproducible-signal`:
++# Download the official APK
++wget https://github.com/mollyim/mollyim-android/releases/download/$VERSION/Molly-$VERSION.apk
+ 
+-```bash
+-mkdir ~/reproducible-signal
+-```
+-
+-Next, we'll create two directories inside the `reproducible-signal` directory where we'll store all of the APKs that we're going to compare:
+-
+-```bash
+-mkdir ~/reproducible-signal/apks-from-device
+-mkdir ~/reproducible-signal/apks-i-built
+-```
+-
+-Now we're ready to build our own copy of Signal.
+-
+-### 2. Building Signal
+-
+-First, find the version of Signal that is running on your device by going to `Settings > Help` in the Signal app. You should see a 'Version' field like `7.7.0`.
+-
+-Next, use `git` to clone that specific version. The tag consists of the version name prefixed with a `v` (e.g. `v7.7.0`):
+-
+-```bash
+-git clone --depth 1 --branch v7.7.0 https://github.com/signalapp/Signal-Android.git
+-```
+-
+-You can also download an archive of the source code for a specific tag [here](https://github.com/signalapp/Signal-Android/tags).
+-
+-Now we can switch to the `reproducible-builds` directory in the Signal repo we just cloned and build the Docker image that we'll use to build Signal in a reproducible manner. Building the Docker image might take a while depending on your network connection.
+-
+-> Note: Although the names may look similar at first, the `reproducible-builds` directory in the Signal git repository that is specified below is different than the `reproducible-signal` directory that we created in step 1 to store the APKs.
+-
+-```bash
+-# Move into the right directory
+-cd Signal-Android/reproducible-builds
+-
+-# Build the Docker image
+-docker build -t signal-android .
+-```
+-
+-Now we are ready to start building the Signal Android app bundle. The following commands will invoke the `bundlePlayProdRelease` Gradle task in a container that uses the Docker image we just built. Again, this may take a while depending on your network connection and CPU.
+-
+-```bash
+-# Move back to the root of the repository
+-cd ..
+-
+-# Build the app
+-docker run --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew bundlePlayProdRelease
+-```
+-
+-After that's done, you have your app bundle! It's located in `app/build/outputs/bundle/playProdRelease`. Let's copy it into the directory we set up in the first step:
+-
+-```bash
+-cp app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab ~/reproducible-signal/apks-i-built/bundle.aab
+-```
+-
+-Now let's switch from the git repo and use `bundletool` to generate the set of APKs that should be installed on your device.
+-
+-While your Android device is connected to your computer, run the following command to generate the APKs for that device:
+-
+-```bash
+-# Move to the directory where we copied the app bundle
+-cd ~/reproducible-signal/apks-i-built
+-
+-# Generate a set of APKs in an output directory
+-bundletool build-apks --bundle=bundle.aab --output-format=DIRECTORY --output=apks --connected-device
+-```
+-
+-Afterwards, your project directory should now look something like this:
+-
+-```
+-reproducible-signal
+-|_apks-from-device
+-|_apks-i-built
+-  |_bundle.aab
+-  |_apks
+-    |_toc.pb
+-    |_splits
+-      |_base-master.apk
+-      |_base-arm64-v8a.apk
+-      |_base-xxhdpi.apk
+-```
+-
+-> Note: The filenames in the example above that include `arm64-v8` and `xxhdpi` may be different depending on your device. This is because the APKs contain code that's specific to your device's CPU architecture and screen density, and the files are named accordingly.
+-
+-At this point, we recommend cleaning things up a bit and deleting the stuff you no longer need. The remaining instructions will assume you have a directory structure and file layout that looks like this:
+-
+-```
+-reproducible-signal
+-|_apks-from-device
+-|_apks-i-built
+-  |_base-master.apk
+-  |_base-arm64-v8a.apk
+-  |_base-xxhdpi.apk
+-```
+-
+-Now that we have fresh APKs that were built from Signal's source code, let's retrieve the APKs that are installed on your device and compare them!
+-
+-### 3. Pulling the APKs from your device
+-
+-Compared to the previous steps, this one is pretty easy. With your Android device connected to your computer, run the following commands to pull all of Signal's APKs and store them in the `apks-from-device` directory:
+-
+-```bash
+-# Move to the right directory
+-cd ~/reproducible-signal
++# Run the diff script to compare the APKs
++python apkdiff/apkdiff.py Molly-$VERSION.apk outputs/apk/prodWebsite/release/Molly-unsigned-$VERSION.apk
+ 
+-# Pull the APKs from the device
+-adb shell pm path org.thoughtcrime.securesms | sed 's/package://' | xargs -I{} adb pull {} apks-from-device/
++# Clean up the Docker environment
++docker compose down
+ ```
+ 
+-If everything went well, your directory structure should now look something like this:
+-
+-```
+-reproducible-signal
+-|_apks-from-device
+-  |_base.apk
+-  |_split_config.arm64-v8a.apk
+-  |_split_config.xxhdpi.apk
+-|_apks-i-built
+-  |_base-master.apk
+-  |_base-arm64-v8a.apk
+-  |_base-xxhdpi.apk
+-```
+-
+-(Once again, please note that the `arm64-v8a` and `xxhdpi` filenames may be different based on the device you are using.)
+-
+-You'll notice that the names of the APKs in each directory are very similar, but they aren't exactly the same. This is because `bundletool` and Android have slightly different naming conventions. However, it should still be clear which APKs will pair up with each other for comparison purposes.
+-
+-### 4. Checking if the APKs match
+-
+-Finally, it's time for the moment of truth! Let's compare the APKs that were pulled from your device with the APKs that were compiled from the Signal source code. The [`apkdiff.py`](./apkdiff/apkdiff.py) utility that is provided in the Signal repo makes this step easy.
+-
+-Using this script to check the APKs is helpful because APKs are compressed archives that can't easily be compared with a tool like `diff`. The script also knows how to skip files that are unrelated to any of the app's code or functionality (like signing information, or extra harmless metadata added by the Play Store).
+-
+-Let's first install all necessary dependencies using `uv`:
+-
+-```bash
+-cd ~/Signal-Android/reproducible-builds/apkdiff
+-uv sync
+-```
+-
+-The script expects two APK filenames as arguments. In order to verify all of the APKs, simply run the script for each pair of APKs as follows. Be sure to update the filenames for your specific device (e.g. replacing `arm64-v8a` or `xxhdpi` if necessary). We'll use `uv` to run the script to handle the python venv stuff for us:
+-
+-```bash
+-uv run apkdiff.py ~/reproducible-signal/apks-i-built/base-master.apk    ~/reproducible-signal/apks-from-device/base.apk
+-uv run apkdiff.py ~/reproducible-signal/apks-i-built/base-arm64-v8a.apk ~/reproducible-signal/apks-from-device/split_config.arm64-v8a.apk
+-uv run apkdiff.py ~/reproducible-signal/apks-i-built/base-xxhdpi.apk    ~/reproducible-signal/apks-from-device/split_config.xxhdpi.apk
+-```
+-
+-If each ends with `APKs match!`, you're good to go! You've successfully verified that your device is running exactly the same code that is in the Signal Android git repository.
+-
+-If you get `APKs don't match!`, it means something went wrong. Please see the [Troubleshooting section](#troubleshooting) for more information.
+-
+-## Verifying the website APK
+-
+-For people without access to the Play Store, we provide a version of our app via [our website](https://signal.org/android/apk/). Unlike our Play Store build, the website APK is a larger "universal" APK so that it's easy to install on a wide variety of devices.
+-
+-This actually ends up making things a bit easier because you will only have one pair of APKs to compare. The only other difference is the Gradle command to build the release has a different argument (`assembleWebsiteProdRelease` instead of `bundlePlayProdRelease`):
+-
+-```bash
+-# Make website build (output to app/build/outputs/apk/websiteProdRelease)
+-docker run --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew assembleWebsiteProdRelease
+-```
+-
+-Otherwise, all of the steps above will still apply, and you will only need to compare the APK you downloaded from the website (or pulled from your device) with the one you built above.
+-
+-## Troubleshooting
+-
+-If you're able to successfully build and retrieve all of the APKs yet some of them are failing to verify, please check the following:
+-
+-- Are you sure you're building the exact same version? Make sure you pulled the git tag that corresponds exactly with the version of Signal you have installed on your device.
+-- Are you comparing the right APKs? Multiple APKs are present with app bundles, so make sure you're comparing base-to-base, density-to-density, and ABI-to-ABI. The wrong filename in the wrong place will cause the `apkdiff.py` script to report a mismatch.
+-- Are you using the latest version of the Docker image? The Dockerfile can change on a version-by-version basis, and you should be re-building the image each time to make sure it hasn't changed.
+-
+-We have a daily automated task that tests the reproducible build process, but bugs are still possible. 
+-
+-If you're having trouble even after building and pulling all the APKs correctly and trying the troubleshooting steps above, please [open an issue](https://github.com/signalapp/Signal-Android/issues/new/choose).
+-
+-If you're having difficulty getting things to build at all, the [community forum](https://community.signalusers.org/c/development) is a great place to ask for advice or get help.
+-
+-## Extra credit: Code Transparency verification
+-
+-> **Important**: At the time of writing, the public version of `bundletool` does not support v3.1 signature schemes and will output an error when running the instructions below.
+-> We have opened a [pull request](https://github.com/google/bundletool/pull/368) to fix this, but until it is merged, you will need to build the tool from source.
+-> Feel free to comment on the accompanying [issue](https://github.com/google/bundletool/issues/369) to expedite the process ;)
+-
+-As part of the release of app bundles, Google also added a new [Code Transparency](https://developer.android.com/guide/app-bundle/code-transparency) mechanism. This is a process by which we can sign certain parts of the APK with a private key, allowing users to verify that the APK from the Play Store has not been modified after it was submitted by Signal.
+-
+-This is labeled as "extra credit" because it is, by definition, a weaker check than the above reproducible build verification process. For one, the Code Transparency signature does not cover the contents of the entire APK — media assets and other auxiliary files are excluded. Also, it only verifies that the code Signal submitted matches the code in the APK — it does _not_ verify that the code that was submitted matches the public git repository. In contrast, the reproducible build steps above cover all of these scenarios.
+-
+-That said, the code transparency check does verify many important things, and the steps are much easier! So without further ado, let's go.
+-
+-While your device is connected to your computer, run the following command to check the "code transparency" status for Signal Android:
+-
+-```bash
+-bundletool check-transparency \
+-  --mode=connected_device \
+-  --package-name="org.thoughtcrime.securesms"
+-```
+-
+-(For other ways of verifying the code transparency fingerprint, you can check out the [official guide](https://developer.android.com/guide/app-bundle/code-transparency#verify_apk) on the Android Developers site.)
+-
+-The command above will output the code transparency results, including a certificate fingerprint. You can verify that this matches the code transparency fingerprint:
+-
+-```
+-57 24 B1 15 23 8C 7B 03 E2 6A D9 01 34 FC 77 C5 7B 69 E7 ED DE 3B 70 C2 A7 8E C7 A5 58 3E FC 8E
+-```
++If you get `APKs match`, you have **successfully verified** that the official release matches with your own self-built version of Molly. Congratulations!
+ 
+-Thanks for using (and reproducibly building) Signal!
++If you get `APKs don't match`, please [report the issue](https://github.com/mollyim/mollyim-android/issues).
+diff --git a/wire-handler/README.md b/wire-handler/README.md
+deleted file mode 100644
+index ad0e006b4bac7a7c5dcb7347be5d8c6de95b891c..0000000000000000000000000000000000000000
+--- a/wire-handler/README.md
++++ /dev/null
+@@ -1,11 +0,0 @@
+-# Build
+-
+-`./gradlew build`
+-
+-# Move
+-
+-`mv lib/build/libs/wire-handler-1.0.0.jar .`
+-
+-# Update Signal project
+-
+-If version or name changed, update `build.gradle` with new wire-handler jar path in `buildScript/dependencies`
+
+--------------false--
+
+

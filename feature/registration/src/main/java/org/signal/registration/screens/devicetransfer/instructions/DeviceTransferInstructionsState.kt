@@ -5,8 +5,4 @@
 
 package org.signal.registration.screens.devicetransfer.instructions
 
-data class DeviceTransferInstructionsState(
-  val oneTimeEvent: OneTimeEvent? = null
-) {
-  sealed interface OneTimeEvent
-}
+class DeviceTransferInstructionsState

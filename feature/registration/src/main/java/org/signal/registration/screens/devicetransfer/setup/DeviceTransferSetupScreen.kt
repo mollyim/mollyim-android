@@ -82,25 +82,26 @@ internal fun DeviceTransferSetupScreen(
     onEvent(DeviceTransferSetupScreenEvents.BackClicked)
   }
 
-  LaunchedEffect(state.oneTimeEvent) {
-    val event = state.oneTimeEvent ?: return@LaunchedEffect
-    onEvent(DeviceTransferSetupScreenEvents.ConsumeOneTimeEvent)
-    when (event) {
-      DeviceTransferSetupState.OneTimeEvent.RequestLocationPermission -> {
+  LaunchedEffect(state.pendingActions) {
+    when {
+      state.pendingActions.requestLocationPermission -> {
         when (permissionState.status) {
           is PermissionStatus.Granted -> onEvent(DeviceTransferSetupScreenEvents.PermissionsGranted)
           is PermissionStatus.Denied -> permissionState.launchPermissionRequest()
         }
+        onEvent(DeviceTransferSetupScreenEvents.RequestLocationPermissionHandled)
       }
-      DeviceTransferSetupState.OneTimeEvent.OpenLocationSettings -> {
+      state.pendingActions.openLocationSettings -> {
         runCatching { context.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
           .onFailure { runCatching { context.startActivity(Intent(Settings.ACTION_SETTINGS)) } }
+        onEvent(DeviceTransferSetupScreenEvents.OpenLocationSettingsHandled)
       }
-      DeviceTransferSetupState.OneTimeEvent.OpenWifiSettings -> {
+      state.pendingActions.openWifiSettings -> {
         runCatching { context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
           .onFailure { runCatching { context.startActivity(Intent(Settings.ACTION_SETTINGS)) } }
+        onEvent(DeviceTransferSetupScreenEvents.OpenWifiSettingsHandled)
       }
-      DeviceTransferSetupState.OneTimeEvent.OpenAppSettings -> {
+      state.pendingActions.openAppSettings -> {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
           data = Uri.fromParts("package", context.packageName, null)
           addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -110,10 +111,7 @@ internal fun DeviceTransferSetupScreen(
         } catch (_: ActivityNotFoundException) {
           // nothing we can do
         }
-      }
-      DeviceTransferSetupState.OneTimeEvent.NavigateToProgress,
-      DeviceTransferSetupState.OneTimeEvent.NavigateAway -> {
-        // Navigation is handled by the ViewModel via parentEventEmitter.
+        onEvent(DeviceTransferSetupScreenEvents.OpenAppSettingsHandled)
       }
     }
   }

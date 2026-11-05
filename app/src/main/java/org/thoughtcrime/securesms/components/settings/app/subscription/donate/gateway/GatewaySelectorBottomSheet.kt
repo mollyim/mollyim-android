@@ -3,27 +3,29 @@ package org.thoughtcrime.securesms.components.settings.app.subscription.donate.g
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.R as MaterialR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.ComposeBottomSheetDialogFragment
-import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.viewModel
 import org.signal.core.util.dp
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.app.subscription.DonationSerializationHelper.toFiatMoney
+import org.thoughtcrime.securesms.components.settings.app.subscription.GooglePayComponent
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
-import org.thoughtcrime.securesms.util.viewModel
+import org.thoughtcrime.securesms.util.fragments.requireListener
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Entry point to capturing the necessary payment token to pay for a donation
@@ -34,7 +36,7 @@ class GatewaySelectorBottomSheet : ComposeBottomSheetDialogFragment() {
   override val peekHeightPercentage: Float = 1f
 
   private val viewModel: GatewaySelectorViewModel by viewModel {
-    GatewaySelectorViewModel(args)
+    GatewaySelectorViewModel(args, requireListener<GooglePayComponent>().googlePayRepository)
   }
 
   @Composable
@@ -110,7 +112,7 @@ class GatewaySelectorBottomSheet : ComposeBottomSheetDialogFragment() {
           context.getString(R.string.GatewaySelectorBottomSheet__get_a_s_badge, inAppPayment.data.badge!!.name),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant))
         )
       )
     }
@@ -129,7 +131,7 @@ class GatewaySelectorBottomSheet : ComposeBottomSheetDialogFragment() {
           context.resources.getQuantityString(R.plurals.GatewaySelectorBottomSheet__get_a_s_badge_for_d_days, 30, inAppPayment.data.badge!!.name, 30),
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant))
         )
       )
     }
@@ -148,7 +150,7 @@ class GatewaySelectorBottomSheet : ComposeBottomSheetDialogFragment() {
           R.string.GatewaySelectorBottomSheet__donate_for_a_friend,
           DSLSettingsText.CenterModifier,
           DSLSettingsText.BodyLargeModifier,
-          DSLSettingsText.ColorModifier(ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant))
+          DSLSettingsText.ColorModifier(ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant))
         )
       )
     }

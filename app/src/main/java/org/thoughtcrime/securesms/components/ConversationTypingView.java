@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.RequestManager;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.badges.BadgeImageView;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -74,9 +73,9 @@ public class ConversationTypingView extends ConstraintLayout {
       typistCount.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.conversation_item_recv_bubble_color_wallpaper), PorterDuff.Mode.SRC_IN);
       indicator.setDotTint(ContextCompat.getColor(getContext(), R.color.conversation_typing_indicator_foreground_tint_wallpaper));
     } else {
-      bubble.setBackgroundColor(ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_recv_bubble_color_normal));
-      typistCount.getBackground().setColorFilter(ThemeUtil.getThemedColor(getContext(), R.attr.conversation_item_recv_bubble_color_normal), PorterDuff.Mode.SRC_IN);
-      indicator.setDotTint(ThemeUtil.getThemedColor(getContext(), R.attr.conversation_typing_indicator_foreground_tint_normal));
+      bubble.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.conversation_item_recv_bubble_color_normal));
+      typistCount.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.conversation_item_recv_bubble_color_normal), PorterDuff.Mode.SRC_IN);
+      indicator.setDotTint(ContextCompat.getColor(getContext(), R.color.conversation_typing_indicator_foreground_tint_normal));
     }
 
     indicator.startAnimation();

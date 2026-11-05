@@ -1,0 +1,931 @@
+From cb6f88ea7546389e8b53db71b6c10964b5481608 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 12
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 100 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/feature/app-settings/src/main/res/values-et/strings2.xml b/feature/app-settings/src/main/res/values-et/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..13d12e816683ffb1ce971da0081bb5e4e6b0586a
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-et/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Kuu</string>
++    <string name="app_icon_label_music">Muusika</string>
++    <string name="preferences_appearance__navigation_bar">Navigeerimisriba</string>
++    <string name="preferences_appearance__dynamic_colors">Dünaamilised värvid</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Kasuta rakenduse teema jaoks süsteemi värve</string>
++<string name="preferences__enable_debug_log">Luba silumislogi</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im veebisait</string>
++<string name="preferences__never">Mitte kunagi</string>
++    <string name="preferences__autoupdate_molly">Molly automaatuuendus</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Kontrollige perioodiliselt uusi versioone ja paluge need installida</string>
++    <string name="preferences__include_beta_updates">Kaasa beetaversioonid</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beetaversioonid on mõeldud testimiseks ja võivad sisaldada vigu</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Värskenduste saamiseks kasutage oma rakenduste poodi. See versioon ei sisalda rakendusesisest värskendajat.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Kontrolli rakenduse uuendusi</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Viimati kontrollitud: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-eu/strings2.xml b/feature/app-settings/src/main/res/values-eu/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..5492f3b87b8db3d97228f8e62a4ea6ecc7fbf3da
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-eu/strings2.xml
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Arazketa-erregistroa gaitu</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im webgunea</string>
++<string name="preferences__never">Inoiz ez</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Aldian-aldian egiaztatu bertsio berririk dagoen eta instalatzeko eskatu</string>
++    <string name="preferences__autoupdate_molly">Eguneratu Molly automatikoki</string>
++    <string name="preferences__include_beta_updates">Beta eguneratzeak jaso</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta bertsioak probetarako dira eta akatsak izan ditzakete</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-fa/strings2.xml b/feature/app-settings/src/main/res/values-fa/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..534288188656e729fefad614da902a977fb168e1
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-fa/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">هرگز</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-fi/strings2.xml b/feature/app-settings/src/main/res/values-fi/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f5d51c80d04629f2501fb0940785fc5591e41e8f
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-fi/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigointipalkki</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Kuu</string>
++    <string name="app_icon_label_music">Musiikki</string>
++    <string name="preferences_appearance__dynamic_colors">Dynaamiset värit</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Käytä järjestelmän värejä sovelluksen teemassa</string>
++<string name="preferences__enable_debug_log">Ota virheenkorjausloki käyttöön</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im-verkkosivusto</string>
++<string name="preferences__never">Älä toista</string>
++    <string name="preferences__include_beta_updates">Sisällytä beta-päivitykset</string>
++    <string name="preferences__autoupdate_molly">Päivitä Molly automaattisesti</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Tarkista säännöllisesti uudet julkaisut ja pyydä asentamaan ne</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta-versiot on tarkoitettu testaustarkoituksiin, ja ne voivat sisältää virheitä</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Tarkista päivitykset</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Tarkista päivitysten saatavuutta sovelluskaupastasi. Tämä versio ei sisällä sovelluksen sisäistä päivitysohjelmaa.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Viimeksi tarkistettu: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-fr/strings2.xml b/feature/app-settings/src/main/res/values-fr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b2f9f710a854d1952104f76deeb4fe65b1740f2b
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-fr/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barre de navigation</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_music">Musique</string>
++    <string name="app_icon_label_moon">Lune</string>
++    <string name="preferences_appearance__dynamic_colors">Couleurs dynamiques</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Utiliser les couleurs système pour le thème de l\'application</string>
++<string name="preferences__enable_debug_log">Activer le journal de débogage</string>
++    <string name="HelpSettingsFragment__molly_im_website">Site web Molly.im</string>
++<string name="preferences__never">Jamais</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Vérifier régulièrement les nouvelles versions et proposer de les installer</string>
++    <string name="preferences__autoupdate_molly">Mettre à jour Molly automatiquement</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Les versions bêta sont destinées à des fins de test et peuvent contenir des erreurs</string>
++    <string name="preferences__include_beta_updates">Inclure les mises à jour bêta</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Rechercher des mises à jour</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Pour les mises à jour, veuillez consulter votre magasin d\'applications. Cette version n\'inclut pas les mises à jour depuis l\'application.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Dernière vérification : %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ga/strings2.xml b/feature/app-settings/src/main/res/values-ga/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..8e22f7af7dd7c9f7d1fd12bbcc6e16e90ba29da0
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ga/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra loingseoireachta</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Gealach</string>
++    <string name="app_icon_label_music">Ceol</string>
++    <string name="preferences_appearance__dynamic_colors">Dathanna Dinimiciúla</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Úsáid dathanna an chórais do théama an aip</string>
++<string name="preferences__enable_debug_log">Cumasaigh logáil dífhabhtaithe</string>
++    <string name="HelpSettingsFragment__molly_im_website">láithreán gréasáin Molly.im</string>
++<string name="preferences__never">Choíche</string>
++    <string name="preferences__include_beta_updates">Cuir nuashonruithe béite san áireamh</string>
++    <string name="preferences__autoupdate_molly">Molly a nuashonrú go huathoibríoch</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Seiceáil go tréimhsiúil le haghaidh eisiúintí nua agus iarr orthu iad a shuiteáil</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Tá leaganacha béite beartaithe chun críocha tástála agus d’fhéadfadh fabhtanna a bheith iontu</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Le haghaidh nuashonruithe, seiceáil le do thoil do siopa app. Níl nuashonróir in-app san áireamh sa leagan seo.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Seiceáil le haghaidh nuashonruithe</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Seiceáilte go deireanach: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-gl/strings2.xml b/feature/app-settings/src/main/res/values-gl/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3acf1f1e0537979377407993dbceac11d8e3de19
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-gl/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra de navegación</string>
++    <string name="app_icon_label_moon">Lúa</string>
++    <string name="app_icon_label_zen">Cen</string>
++    <string name="app_icon_label_music">Música</string>
++    <string name="preferences_appearance__dynamic_colors">Cores dinámicas</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar cores do sistema no decorado da app</string>
++<string name="preferences__enable_debug_log">Activar rexistro de depuración</string>
++    <string name="HelpSettingsFragment__molly_im_website">Web Molly.im</string>
++<string name="preferences__never">Nunca</string>
++    <string name="preferences__include_beta_updates">Incluir actualización beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">As versións Beta están orientadas ao desenvolvemento e poderían ter fallos</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Comprobar con regularidade se hai nova versión e pedir instalala</string>
++    <string name="preferences__autoupdate_molly">Actualización automática</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Buscar actualizacións</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Comproba na tenda de aplicacións se hai actualizacións. Esta versión non inclúe o actualizador propio.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Última comprobación: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-gu/strings2.xml b/feature/app-settings/src/main/res/values-gu/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6bb7102782a1f9096aac8979481f3a13d238452d
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-gu/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">ક્યારેય નહિ</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-hi/strings2.xml b/feature/app-settings/src/main/res/values-hi/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3d42faced8dc02408b5065c7945bdd15c9c37b17
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-hi/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">कभी नहीं</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-hr/strings2.xml b/feature/app-settings/src/main/res/values-hr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..097a56148a39a5180287644dec36afd696000b48
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-hr/strings2.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Traka navigacije</string>
++<string name="preferences__enable_debug_log">Omogući zapisnik ispravljanja grešaka</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im web-stranica</string>
++<string name="preferences__never">Nikada</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodično traži nova izdanja i zatraži njihovo istaliranje</string>
++    <string name="preferences__autoupdate_molly">Automatski aktualiziraj Molly</string>
++    <string name="preferences__include_beta_updates">Uključi beta verzije</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta verzije su namijenjene za testiranje i mogu sadržavati greške</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Traži nove verzije</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Traži nove verzije u tvojoj trgovini aplikacija. Ova verzija ne uključuje aktualiziranje unutar aplikacije.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Zadnja provjera: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-hu/strings2.xml b/feature/app-settings/src/main/res/values-hu/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bfd89a684872232108c55f686be6c914933f75c
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-hu/strings2.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigációs csík</string>
++<string name="preferences__enable_debug_log">Hibakeresési napló engedélyezése</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im weboldal</string>
++<string name="preferences__never">Soha</string>
++    <string name="preferences__autoupdate_molly">Molly auto frissítése</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Frissítések keresése</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Időközönként új verziók keresése és telepítése</string>
++    <string name="preferences__include_beta_updates">Beleértve a béta frissítéseket is</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">A béta verziók lényege a tesztelés, ezért tartalmazhatnak hibákat</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-in/strings2.xml b/feature/app-settings/src/main/res/values-in/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..8889dc95985e1a0a9723aa939f6464d3ac4f7677
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-in/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Bulan</string>
++    <string name="app_icon_label_music">Musik</string>
++    <string name="preferences_appearance__navigation_bar">Bilah navigasi</string>
++    <string name="preferences_appearance__dynamic_colors">Warna Dinamis</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Gunakan warna sistem untuk tema aplikasi</string>
++<string name="preferences__enable_debug_log">Aktifkan log debug</string>
++    <string name="HelpSettingsFragment__molly_im_website">Situs web Molly.im</string>
++<string name="preferences__never">Tidak pernah</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periksa rilis baru secara berkala dan minta untuk menginstalnya</string>
++    <string name="preferences__autoupdate_molly">Pembaruan otomatis Molly</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Versi beta dimaksudkan untuk tujuan pengujian dan mungkin mengandung bug</string>
++    <string name="preferences__include_beta_updates">Sertakan pembaruan beta</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Periksa pembaruan</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Untuk pembaruan, silakan periksa app store Anda. Versi ini tidak menyertakan pembaru dalam aplikasi.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Terakhir diperiksa: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-it/strings2.xml b/feature/app-settings/src/main/res/values-it/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..62e6869a773b5ad6470a8b436ecab24a6ee74f05
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-it/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra di navigazione</string>
++    <string name="app_icon_label_music">Musica</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Luna</string>
++    <string name="preferences_appearance__dynamic_colors">Colori dinamici</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Utilizza i colori del sistema per il tema dell\'app</string>
++<string name="preferences__enable_debug_log">Abilita il registro di debug</string>
++    <string name="HelpSettingsFragment__molly_im_website">Sito web Molly.im</string>
++<string name="preferences__never">Mai</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Controlla periodicamente la presenza di nuove versioni e chiedi di installarle</string>
++    <string name="preferences__autoupdate_molly">Aggiorna automaticamente Molly</string>
++    <string name="preferences__include_beta_updates">Includi gli aggiornamenti beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Le versioni beta sono destinate a scopi di test e possono contenere errori</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Controlla gli aggiornamenti</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Per aggiornare l\'app, controlla il tuo negozio di applicazioni. Questa versione non ha una funzione di aggiornamento integrata nell\'app.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Ultimo controllo: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-iw/strings2.xml b/feature/app-settings/src/main/res/values-iw/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..571606f322d77575d177ec4e941da75b847fc19c
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-iw/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">שורת ניווט</string>
++    <string name="app_icon_label_zen">זן</string>
++    <string name="app_icon_label_moon">ירח</string>
++    <string name="app_icon_label_music">מוזיקה</string>
++    <string name="preferences_appearance__dynamic_colors">צבעים דינמיים</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">השתמש בצבעי המערכת עבור האפליקציה</string>
++<string name="preferences__enable_debug_log">הפעלת יומן ניפוי שגיאות</string>
++    <string name="HelpSettingsFragment__molly_im_website">האתר של Molly.im</string>
++<string name="preferences__never">אף פעם</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">בדיקה שגרתית לאיתור מהדורות חדשות והצגת בקשה להתקין אותן</string>
++    <string name="preferences__autoupdate_molly">עדכון אוטומטי Molly</string>
++    <string name="preferences__include_beta_updates">כולל גרסאות לבדיקה</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">גרסאות לבדיקה מיועדות לניסוי ועשויות להציג תקלות</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">איתור עדכונים</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">לעדכונים נא לפנות לחנות היישומונים שלך. הגרסה הזאת לא מתעדכנת עצמאית.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">נבדק לאחרונה: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ja/strings2.xml b/feature/app-settings/src/main/res/values-ja/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..ecf84d697603abf15e7c8364cf444b93c977a6c0
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ja/strings2.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">ナビゲーションバー</string>
++<string name="preferences__enable_debug_log">デバッグログを有効にする</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im のウェブサイト</string>
++<string name="preferences__never">なし</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">定期的に新しいリリースをチェックし、インストールを要求</string>
++    <string name="preferences__autoupdate_molly">Molly を自動的に更新</string>
++    <string name="preferences__include_beta_updates">ベータ版の更新も含める</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">ベータ版はテスト用のため、バグがある可能性があります</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">アップデートを確認</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">アップデートはアプリストアをご確認ください。このバージョンには、アプリ内の更新機能が含まれていません。</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">最終更新日：%s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ka/strings2.xml b/feature/app-settings/src/main/res/values-ka/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..04a2ee03e01c5915bbd8f7c3f37f9e03f21d0e4b
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ka/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">არასდროს</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-kk/strings2.xml b/feature/app-settings/src/main/res/values-kk/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b2702863c7d15dc3f8d92b8ce78d1cd9b7d8ffef
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-kk/strings2.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_moon">Ай</string>
++    <string name="app_icon_label_music">Өлен</string>
++<string name="preferences__never">Ешқашан</string>
++    <string name="preferences__autoupdate_molly">Molly-ды авто-жаңарту</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-km/strings2.xml b/feature/app-settings/src/main/res/values-km/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6d2d41764d1ebbc30b75adb5e49cfd93b5c86795
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-km/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">បើកកំណត់ត្រាកំហុស</string>
++<string name="preferences__never">មិនដែល</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-kn/strings2.xml b/feature/app-settings/src/main/res/values-kn/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b491f16610a21ca33139f3ea5991a8b913ab6e1d
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-kn/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">ಎಂದಿಗೂ ಇಲ್ಲ</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ko/strings2.xml b/feature/app-settings/src/main/res/values-ko/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a4fabd1bddbdbb8363147912868d92b6630261e
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ko/strings2.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">내비게이션 바</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">앱 테마에 대한 시스템 색상을 사용하십시오</string>
++<string name="preferences__enable_debug_log">디버그 파일 활성화시키기</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im 웹사이트</string>
++<string name="preferences__never">없음</string>
++    <string name="preferences__include_beta_updates">베타 업데이트 포함하기</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">베타 버전은 테스트용이며 버그가 있을 수 있습니다</string>
++    <string name="preferences__autoupdate_molly">Molly 자동 업데이트</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">업데이트 확인하기</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">새로운 업데이트를 주기적으로 확인하고 설치를 요청합니다</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">업데이트를 위해, 앱 스토어를 확인해주세요. 이 버전은 인앱 업데이터를 포함하지 않습니다.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">마지막 확인: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ky/strings2.xml b/feature/app-settings/src/main/res/values-ky/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a37ca9ba672f99e7d3871451b90cc0ad1396ddec
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ky/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Кайталанбайт</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-lt/strings2.xml b/feature/app-settings/src/main/res/values-lt/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a63085a7c013042d30476ce8ea4954f1879afd0
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-lt/strings2.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigacijos juosta</string>
++<string name="preferences__enable_debug_log">Įjungti derinimo žurnalą</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im svetainė</string>
++<string name="preferences__never">Niekada</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Periodiškai tikrinti, ar nėra naujų versijų, ir prašyti jas įdiegti</string>
++    <string name="preferences__autoupdate_molly">Automatiškai atnaujinti Molly</string>
++    <string name="preferences__include_beta_updates">Įtraukti beta versijos atnaujinimus</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta versijos skirtos testavimo tikslams ir gali turėti klaidų</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Tikrinti ar yra atnaujinimų</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-lv/strings2.xml b/feature/app-settings/src/main/res/values-lv/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..567a2e8cfc03e3fc3cf803e4a6b9cf183db3b78e
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-lv/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigācijas josla</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Mēness</string>
++    <string name="app_icon_label_music">Mūzika</string>
++    <string name="preferences_appearance__dynamic_colors">Pielāgojošas krāsas</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Lietotnes izskatā izmantot sistēmas krāsas</string>
++<string name="preferences__enable_debug_log">Iespējot atkļūdošanas žurnālu</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im tīmekļvietne</string>
++<string name="preferences__never">Nekad</string>
++    <string name="preferences__include_beta_updates">Iekļaut beta atjauninājumus</string>
++    <string name="preferences__autoupdate_molly">Automātiski atjaunināt Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Laiku pa laikam pārbaudīt jaunu laidienu pieejamību un vaicāt uzstādīt tos</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta versijas ir paredzētas pārbaudīšanai, un tajās var būt kļūdas</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Pārbaudīt, vai ir atjauninājumi</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Lai saņemtu atjauninājumus, lūgums pārbaudīt lietotņu veikalu. Šajā versijā nav iekļauts lietotnes atjauninātājs.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Pēdējoreiz pārbaudīts: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-mk/strings2.xml b/feature/app-settings/src/main/res/values-mk/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..812663752b68c2554942930efd63d120ff79f014
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-mk/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Овозможете листа за отстранување грешки</string>
++<string name="preferences__never">Никогаш</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ml/strings2.xml b/feature/app-settings/src/main/res/values-ml/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..e5868c2aceffa6674739ec3349a63a268f602f79
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ml/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">ഒരിക്കലും വേണ്ട</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-mr/strings2.xml b/feature/app-settings/src/main/res/values-mr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3327daf76cbec11129412cb5b87f47cdb5db2862
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-mr/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">दुरुस्तीची नोंदवही सुरू</string>
++<string name="preferences__never">कधीही नाही</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ms/strings2.xml b/feature/app-settings/src/main/res/values-ms/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..1255874010fe96fd07a74103bba2cbe703cee013
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ms/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Tidak pernah</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-my/strings2.xml b/feature/app-settings/src/main/res/values-my/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c0472d7165f51408e9705dbae21b1d62ede1bbd
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-my/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Debug Log ကို လုပ်ဆောင်ပါ</string>
++<string name="preferences__never">ဘယ်တော့မှ</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-nb/strings2.xml b/feature/app-settings/src/main/res/values-nb/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..e99938922726ea3637ddc8e90896c7c3a0902c83
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-nb/strings2.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Skru på debug-logging</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly-im-nettsiden</string>
++<string name="preferences__never">Aldri</string>
++    <string name="preferences__autoupdate_molly">Installer nye versjoner av Molly automatisk</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Sjekk om det er nye utgivelser periodisk, og forespør installasjon</string>
++    <string name="preferences__include_beta_updates">Inkluder beta-oppgraderinger</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Betaversjoner tilbys i testøyemed, og kan inneholde feil</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Se etter nye versjoner</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-nl/strings2.xml b/feature/app-settings/src/main/res/values-nl/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..df68c66f1812de55bb586480e7fa563af196c4a9
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-nl/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigatiebalk</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Maan</string>
++    <string name="app_icon_label_music">Muziek</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Gebruik de systeemkleuren voor het thema in de app</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamische kleuren</string>
++<string name="preferences__enable_debug_log">Foutopsporingslog inschakelen</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im website</string>
++<string name="preferences__never">Nooit</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Check periodiek voor nieuwe versies en vraag of ze geinstalleerd moeten worden</string>
++    <string name="preferences__autoupdate_molly">Molly automatisch updaten</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta versies zijn bedoeld om te testen en kunnen fouten bevatten</string>
++    <string name="preferences__include_beta_updates">Inclusief beta updates</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Controleren op updates</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Raadpleeg uw appstore voor updates, deze versie heeft geen ingebouwde updater.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Laatste keer gecontroleerd: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-pa/strings2.xml b/feature/app-settings/src/main/res/values-pa/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6451eb07caed0e08d5d858610e80d4e5790bab2b
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-pa/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_moon">ਚੰਦ</string>
++    <string name="app_icon_label_music">ਸੰਗੀਤ</string>
++    <string name="preferences_appearance__navigation_bar">ਨੇਵੀਗੇਸ਼ਨ ਪੱਟੀ</string>
++    <string name="preferences_appearance__dynamic_colors">ਡਾਇਨੇਮਿਕ ਰੰਗ</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">ਐਪ ਦੇ ਥੀਮ ਲਈ ਸਿਸਟਮ ਰੰਗਾਂ ਨੂੰ ਵਰਤੋਂ</string>
++    <string name="app_icon_label_zen">ਜ਼ਿਨ</string>
++<string name="HelpSettingsFragment__molly_im_website">Molly.im ਵੈੱਬਸਾਈਟ</string>
++    <string name="preferences__enable_debug_log">ਡੀਬੱਗ ਲਾਗ ਸਮਰੱਥ ਕਰੋ</string>
++<string name="preferences__never">ਕਦੇ ਨਹੀਂ</string>
++    <string name="preferences__autoupdate_molly">Molly ਨੂੰ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">ਨਿਯਮਤ ਰੂਪ ਵਿੱਚ ਨਵੇਂ ਰੀਲਿਜ਼ ਲਈ ਜਾਂਚ ਕਰੋ ਅਤੇ ਉਹਨਾਂ ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਪੁੱਛੋ</string>
++    <string name="preferences__include_beta_updates">ਬੀਟੇ ਅੱਪਡੇਟਾਂ ਸਮੇਤ</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">ਬੀਟਾ ਵਰਜ਼ਨ ਟੈਸਟ ਕਰਨ ਲਈ ਬਣਾਏ ਜਾਂਦੇ ਹਨ ਅਤੇ ਬੱਗ ਹੋ ਸਕਦੇ ਹਨ</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">ਅੱਪਡੇਟ ਲਈ ਜਾਂਚਕ ਰੋ</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">ਅੱਪਡੇਟ ਲਈ, ਆਪਣੇ ਐਪ ਸਟੋਰ ਨੂੰ ਵੇਖੋ। ਇਹ ਵਰਜ਼ਨ ਵਿੱਚ ਇਨ-ਐਪ ਅੱਪਡੇਟਰ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">ਆਖਰੀ ਜਾਂਚ: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-pl/strings2.xml b/feature/app-settings/src/main/res/values-pl/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..47b09039c78246295a1f5ed20d5a89552637c811
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-pl/strings2.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Pasek nawigacji</string>
++    <string name="app_icon_label_moon">Księżyc</string>
++    <string name="app_icon_label_music">Muzyka</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamiczne Kolory</string>
++<string name="preferences__enable_debug_log">Włącz logi debugowania</string>
++    <string name="HelpSettingsFragment__molly_im_website">Strona Molly.im</string>
++<string name="preferences__never">Nigdy</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Sprawdzaj regularnie nowe wydania i pytaj o ich instalację</string>
++    <string name="preferences__autoupdate_molly">Automatycznie aktualizuj Molly</string>
++    <string name="preferences__include_beta_updates">Uwzględnij aktualizacje beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Wersje beta zostały stworzone do testowania i migą zawierać błędy</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Sprawdź aktualizacje</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Aktualizacje możesz znaleźć w aktualnie zainstalowanym sklepie z aplikacjami. Ta wersja nie zawiera wewnętrznego aktualizatora w aplikacji.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Ostatnio sprawdzano: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-pt-rBR/strings2.xml b/feature/app-settings/src/main/res/values-pt-rBR/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..aeacd8fd2e51f7a7b760392d85de4d49396f6658
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-pt-rBR/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Lua</string>
++    <string name="app_icon_label_music">Música</string>
++    <string name="preferences_appearance__navigation_bar">Barra de navegação</string>
++    <string name="preferences_appearance__dynamic_colors">Cores dinâmicas</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar as cores do sistema no tema do aplicativo</string>
++<string name="preferences__enable_debug_log">Ativar registro de depuração</string>
++    <string name="HelpSettingsFragment__molly_im_website">Site do Molly.im</string>
++<string name="preferences__never">Nunca</string>
++    <string name="preferences__autoupdate_molly">Atualizar o Molly automaticamente</string>
++    <string name="preferences__include_beta_updates">Incluir atualizações beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Versões beta são destinadas a testes e podem conter erros</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Verificar periodicamente novas versões e perguntar se deseja instalá-las</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Para atualizações, verifique a loja de aplicativos do seu dispositivo. Esta versão não inclui um atualizador interno.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Verificar atualizações</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Última verificação: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-pt/strings2.xml b/feature/app-settings/src/main/res/values-pt/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..7a3a1e6e26db512852eafc0a00cc9627208ef8ad
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-pt/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra de navegação</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Lua</string>
++    <string name="app_icon_label_music">Música</string>
++    <string name="preferences_appearance__dynamic_colors">Cores dinâmicas</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar as cores do sistema no tema da app</string>
++<string name="preferences__enable_debug_log">Ativar relatório de depuração</string>
++    <string name="HelpSettingsFragment__molly_im_website">Site do Molly.im</string>
++<string name="preferences__never">Nunca</string>
++    <string name="preferences__autoupdate_molly">Atualizar Molly automaticamente</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Verificar periodicamente se há novas versões e pedir para instalá-las</string>
++    <string name="preferences__include_beta_updates">Incluir atualizações beta</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">As versões beta destinam-se a testes e podem conter erros</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Verificar atualizações</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Para atualizações, verifique a loja de apps do seu dispositivo. Esta versão não inclui um atualizador interno.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Última verificação: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ro/strings2.xml b/feature/app-settings/src/main/res/values-ro/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..f2da8b267a138ea1d0c1b1c360582ef71d2e757c
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ro/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Bara de navigare</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Luna</string>
++    <string name="app_icon_label_music">Muzică</string>
++    <string name="preferences_appearance__dynamic_colors">Culori dinamice</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Folosește culorile sistemului pentru aspectul aplicației</string>
++<string name="preferences__enable_debug_log">Activează jurnalul de depanare</string>
++    <string name="HelpSettingsFragment__molly_im_website">Situl web Molly.im</string>
++<string name="preferences__never">Niciodată</string>
++    <string name="preferences__autoupdate_molly">Actualizează automat Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Verifică periodic dacă există versiuni noi și cere să le instalezi</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Versiunile beta sunt versiuni de test și pot conține erori</string>
++    <string name="preferences__include_beta_updates">Include versiuni beta</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Caută actualizări</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Pentru actualizări, verifică magazinul tău de aplicații. Această versiune nu include un actualizator în aplicație.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Ultima verificare: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ru/strings2.xml b/feature/app-settings/src/main/res/values-ru/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..191ce909727375a77498e62d329b714349ad7a8f
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ru/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Панель навигации</string>
++    <string name="app_icon_label_music">Музыка</string>
++    <string name="app_icon_label_zen">Дзен</string>
++    <string name="app_icon_label_moon">Луна</string>
++    <string name="preferences_appearance__dynamic_colors">Динамические цвета</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Используйте системные цвета для темы приложения</string>
++<string name="preferences__enable_debug_log">Включить журнал отладки</string>
++    <string name="HelpSettingsFragment__molly_im_website">Сайт Molly.im</string>
++<string name="preferences__never">Никогда</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодически проверять новые релизы и предлагать их установить</string>
++    <string name="preferences__autoupdate_molly">Автообновление Molly</string>
++    <string name="preferences__include_beta_updates">Включить бета-версии обновлений</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Бета-версии предназначены для тестирования и могут содержать ошибки</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Проверить наличие обновлений</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Для получения обновлений проверьте ваш магазин приложений. Эту версию приложения нельзя обновить без магазина.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Последняя проверка: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sk/strings2.xml b/feature/app-settings/src/main/res/values-sk/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3bf35e023e626f7f3ddce77b698851a80e13c19f
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sk/strings2.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_moon">Mesiac</string>
++    <string name="app_icon_label_music">Hudba</string>
++    <string name="preferences_appearance__navigation_bar">Navigačný panel</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamické farby</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Použiť systémové farby ako motív aplikácie</string>
++<string name="preferences__enable_debug_log">Povoliť ladiaci denník</string>
++<string name="preferences__never">Nikdy</string>
++    <string name="preferences__autoupdate_molly">Automaticky aktualizovať Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Pravidelne kontrolovať nové vydania a požiadať vás o ich inštaláciu</string>
++    <string name="preferences__include_beta_updates">Zahrnúť beta aktualizácie</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta verzie sú určené na testovacie účely a môžu obsahovať chyby</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sl/strings2.xml b/feature/app-settings/src/main/res/values-sl/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..8f57736b865f3d84c185726695b33385479b931e
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sl/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Omogoči beleženje za razhroščevanje</string>
++<string name="preferences__never">Nikoli</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sq/strings2.xml b/feature/app-settings/src/main/res/values-sq/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b1353d3daa8493ab074eb2aa866e1401cd31faac
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sq/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Aktivizoni regjistër diagnostikimesh</string>
++<string name="preferences__never">Kurrë</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sr/strings2.xml b/feature/app-settings/src/main/res/values-sr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..fa58559e33f5f3be94b144d3d4e8ab0b3f4c42e4
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sr/strings2.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Навигациона трака</string>
++<string name="preferences__enable_debug_log">Омогући логовање грешака</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im вебсајт</string>
++<string name="preferences__never">Никад</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Бета верзије су намењене за тестирање и могу садржати грешке</string>
++    <string name="preferences__autoupdate_molly">Аутоматско ажурирање Моли</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Периодично проверавајте нова издања и питајте да их инсталирате</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Провери ажурирања</string>
++    <string name="preferences__include_beta_updates">Укључи бета ажурирања</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">За новости, молимо вас да проверите вашу апликацију у продавници. Ова верзија не укључује ажурирање у апликацији.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Последњи пут проверено: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sv/strings2.xml b/feature/app-settings/src/main/res/values-sv/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..c195eb1900994f6aab4d46d98cb45beed80fdf0e
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sv/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigeringsfält</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Månfaser</string>
++    <string name="app_icon_label_music">Musik</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamiska färger</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Använd systemets temafärger även för denna app</string>
++<string name="preferences__enable_debug_log">Slå på felsökningslogg</string>
++    <string name="HelpSettingsFragment__molly_im_website">Vår hemsida: Molly.im</string>
++<string name="preferences__never">Aldrig</string>
++    <string name="preferences__autoupdate_molly">Uppdatera Molly automatiskt</string>
++    <string name="preferences__include_beta_updates">Inkludera betauppdateringar</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Betaversioner är till för testning och kan innehålla buggar</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Kolla regelbundet efter uppdateringar och fråga innan installation</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Den här versionen av Molly stödjer inte automatiska uppdateringar, kolla efter uppdateringar pp din app-platform.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Kontrollera uppdateringar</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Senast kontrollerat: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-sw/strings2.xml b/feature/app-settings/src/main/res/values-sw/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..191b298a88d13a1b850444f8813f50ad86644f63
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-sw/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Kamwe</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ta/strings2.xml b/feature/app-settings/src/main/res/values-ta/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..6c6fd04ca2cba5ea54dc334399a818da01b73978
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ta/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">வழிசெலுத்தல் பட்டி</string>
++    <string name="app_icon_label_zen">சென்</string>
++    <string name="app_icon_label_moon">சந்திரன்</string>
++    <string name="app_icon_label_music">இசை</string>
++    <string name="preferences_appearance__dynamic_colors">மாறும் வண்ணங்கள்</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">பயன்பாட்டின் கருப்பொருளுக்கு கணினி வண்ணங்களைப் பயன்படுத்தவும்</string>
++<string name="HelpSettingsFragment__molly_im_website">Molly.im வலைத்தளம்</string>
++    <string name="preferences__enable_debug_log">பிழைத்திருத்த பதிவை இயக்கவும்</string>
++<string name="preferences__never">ஒருபோதுமில்லை</string>
++    <string name="preferences__include_beta_updates">பீட்டா புதுப்பிப்புகளைச் சேர்க்கவும்</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">புதிய வெளியீடுகளை அவ்வப்போது சரிபார்த்து அவற்றை நிறுவச் சொல்லுங்கள்</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">கடைசியாக சரிபார்க்கப்பட்டது: %s</string>
++    <string name="preferences__autoupdate_molly">தானாக புதுப்பித்தல் மோலி</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">பீட்டா பதிப்புகள் சோதனை நோக்கங்களுக்காக வடிவமைக்கப்பட்டுள்ளன மற்றும் பிழைகள் இருக்கலாம்</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">புதுப்பிப்புகளுக்கு, உங்கள் ஆப் ச்டோரை சரிபார்க்கவும். இந்த பதிப்பில் பயன்பாட்டில் உள்ள புதுப்பிப்பாளர் இல்லை.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">புதுப்பிப்புகளை சரிபார்க்கவும்</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-te/strings2.xml b/feature/app-settings/src/main/res/values-te/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a022be8a3c96e5b98fb7b4d2b39d4d2affcca1b6
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-te/strings2.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="app_icon_label_moon">చంద్రుడు</string>
++    <string name="app_icon_label_music">సంగీతం</string>
++<string name="preferences__never">ఎప్పుడూ</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-th/strings2.xml b/feature/app-settings/src/main/res/values-th/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..3897bda1c80832ada47a15942f53afcf872eb936
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-th/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">เปิดใช้งานบันทึกดีบัก</string>
++<string name="preferences__never">ไม่เลย</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-tl/strings2.xml b/feature/app-settings/src/main/res/values-tl/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8fe7d57cfb8f46b7146f9dc57ddac80f30fb009
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-tl/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Hindi kailanman</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-tr/strings2.xml b/feature/app-settings/src/main/res/values-tr/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd6d8898fef1679a880be64812653dafad5cfdec
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-tr/strings2.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Gezinme çubuğu</string>
++    <string name="app_icon_label_moon">Ay</string>
++    <string name="app_icon_label_music">Müzik</string>
++    <string name="preferences_appearance__dynamic_colors">Dinamik Renkler</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Uygulamanın teması için sistem renklerini kullan</string>
++<string name="preferences__enable_debug_log">Hata ayıklama günlüğünü etkinleştir</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im web sitesi</string>
++<string name="preferences__never">Asla</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Düzenli aralıklarla yeni sürümleri denetle ve kurmayı iste</string>
++    <string name="preferences__autoupdate_molly">Molly\'i otomatik güncelle</string>
++    <string name="preferences__include_beta_updates">Beta güncellemelerini dahil et</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta sürümleri test amaçlıdır ve hatalar içerebilir</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Güncellemeleri denetle</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Güncellemeler için lütfen uygulama mağazanıza bakın. Bu sürüm uygulama içi güncelleyici içermez.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Son denetleme: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ug/strings2.xml b/feature/app-settings/src/main/res/values-ug/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a4e1efe49c2c00dc6bb6967e821bc04d9df4ce98
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ug/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">يولباشچى بالداق</string>
++    <string name="app_icon_label_zen">ئىستىقامەت</string>
++    <string name="app_icon_label_music">نەغمە</string>
++    <string name="app_icon_label_moon">ئاي</string>
++    <string name="preferences_appearance__dynamic_colors">ھەرىكەتچان رەڭ</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">ئەپ ئۆرنىكى سىستېما رەڭگىنى ئىشلىتىدۇ</string>
++<string name="preferences__enable_debug_log">سازلاش خاتىرىسىنى قوزغىتىدۇ</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im تور بېكىتى</string>
++<string name="preferences__never">ھەرگىز</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">سىناق نەشرى سىناش مەقسىتىدە ئىشلىتىلىدۇ، كەمتۈكلۈك بار بولۇشى مۇمكىن</string>
++    <string name="preferences__autoupdate_molly">Molly نى ئۆزلۈكىدىن يېڭىلايدۇ</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">يېڭى نەشرىنى قەرەللىك تەكشۈرۈپ يېڭىلاشنى سورايدۇ</string>
++    <string name="preferences__include_beta_updates">سىناق نەشرى يېڭىلىنىشىنى ئۆز ئىچىگە ئالىدۇ</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">يېڭىلاش ئۈچۈن ئەپ دۇكىنىڭىزنى تەكشۈرۈڭ. بۇ نەشرىدە ئەپ ئىچىدە يېڭىلىغۇچ يوق.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">يېڭىلاش تەكشۈر</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">ئاخىرقى قېتىم تەكشۈرۈلگەن ۋاقىت: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-uk/strings2.xml b/feature/app-settings/src/main/res/values-uk/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..70cd83ec7f63cb9ce3e978c81d8f11fd047e7410
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-uk/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Панель навігації</string>
++    <string name="app_icon_label_music">Музика</string>
++    <string name="app_icon_label_zen">Це було</string>
++    <string name="app_icon_label_moon">Місяць</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Використовуйте системні кольори для теми програми</string>
++    <string name="preferences_appearance__dynamic_colors">Динамічні кольори</string>
++<string name="preferences__enable_debug_log">Увімкнути ведення журналу налагодження</string>
++    <string name="HelpSettingsFragment__molly_im_website">Вебсторінка molly.im</string>
++<string name="preferences__never">Ніколи</string>
++    <string name="preferences__autoupdate_molly">Автоматично оновлювати Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Час від часу перевіряти наявність нових версій, і питати чи встановлювати</string>
++    <string name="preferences__include_beta_updates">Включати оновлення до бета-версій</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">бета-версії призначені для тестування, і можуть містити вади</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Для оновлення, будь ласка, перевірте ваш магазин застосунків. Ця версія застосунку не містить вбудованого оновлювача.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Перевіряти наявність оновлень</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Остання перевірка: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ur/strings2.xml b/feature/app-settings/src/main/res/values-ur/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..ee6fb603ab9943068274b9f661be2cb0ae11339d
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ur/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">کبھی نہیں</string>
++</resources>

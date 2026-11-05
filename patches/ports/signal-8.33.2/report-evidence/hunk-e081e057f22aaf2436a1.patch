@@ -1,0 +1,13 @@
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index 33fcf5e778..7bfd29371c 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -3085,7 +3085,7 @@
+     <!-- Body of a notification when someone votes in a poll. First placeholder is the poll emoji, second placeholder is the name of the voter and third is the poll question -->
+     <string name="MessageNotifier_s_voted_in_poll">%1$s %2$s voted in the poll \"%3$s\"</string>
+ 
+-    <string mollyify="true" name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Turn off contact joined Molly notifications? You can enable them again in Molly &gt; Settings &gt; Notifications.</string>
++    <string mollyify="true" name="TurnOffContactJoinedNotificationsActivity__turn_off_contact_joined_signal">Turn off contact joined Molly notifications? You can enable them again in Molly > Settings > Notifications.</string>
+ 
+     <!-- TurnOnNotificationsBottomSheet -->
+     <!-- Title for sheet explaining how to turn on app notifications -->

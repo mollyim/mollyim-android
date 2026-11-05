@@ -40,6 +40,7 @@ import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.util.money.FiatMoney
+import org.signal.donations.DonateWithGooglePayButton
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.Badges
@@ -92,12 +93,14 @@ private fun Loading() {
 
 @Composable
 private fun Ready(state: GatewaySelectorState.Ready, onEvent: (GatewaySelectorBottomSheetEvent) -> Unit) {
+  Spacer(modifier = Modifier.size(38.dp))
+
   BadgeImage112(
     badge = state.inAppPayment.data.badge!!.let { Badges.fromDatabaseBadge(it) },
-    modifier = Modifier.size(112.dp)
+    modifier = Modifier.size(80.dp)
   )
 
-  Spacer(modifier = Modifier.size(12.dp))
+  Spacer(modifier = Modifier.size(16.dp))
 
   TitleAndSubtitle(state.inAppPayment)
 
@@ -117,7 +120,17 @@ private fun Ready(state: GatewaySelectorState.Ready, onEvent: (GatewaySelectorBo
     when (it) {
       InAppPaymentData.PaymentMethodType.UNKNOWN -> error("Unsupported payment method.")
       InAppPaymentData.PaymentMethodType.GOOGLE_PAY -> {
-        // MOLLY: No-op
+        if (state.isGooglePayAvailable) {
+          DonateWithGooglePayButton(
+            onClick = { onGatewaySelected(GatewaySelectorBottomSheetEvent.GOOGLE_PAY_SELECTED) },
+            enabled = !isGatewaySelected,
+            modifier = Modifier
+              .testTag(GatewaySelectorTestTags.GOOGLE_PAY_BUTTON)
+              .padding(top = 16.dp)
+              .fillMaxWidth()
+              .height(44.dp)
+          )
+        }
       }
 
       InAppPaymentData.PaymentMethodType.CARD -> {

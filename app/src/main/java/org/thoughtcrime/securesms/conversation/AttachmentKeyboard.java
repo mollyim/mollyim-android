@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,6 @@ import org.thoughtcrime.securesms.animation.AnimationCompleteListener;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.signal.core.models.media.Media;
 import org.signal.core.ui.util.StorageUtil;
-import org.signal.core.ui.util.ThemeUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +38,8 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
       AttachmentKeyboardButton.FILE,
       AttachmentKeyboardButton.POLL,
       AttachmentKeyboardButton.CONTACT,
-      AttachmentKeyboardButton.LOCATION
+      AttachmentKeyboardButton.LOCATION,
+      AttachmentKeyboardButton.PAYMENT
   );
 
   private View                            container;
@@ -160,9 +161,9 @@ public class AttachmentKeyboard extends FrameLayout implements InputAwareLayout.
 
   public void setWallpaperEnabled(boolean wallpaperEnabled) {
     if (wallpaperEnabled) {
-      container.setBackgroundColor(ThemeUtil.getThemedColor(getContext(), R.color.wallpaper_compose_background));
+      container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.wallpaper_compose_background));
     } else {
-      container.setBackgroundColor(ThemeUtil.getThemedColor(getContext(), R.attr.signal_background_primary));
+      container.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.signal_background_primary));
     }
     buttonAdapter.setWallpaperEnabled(wallpaperEnabled);
   }

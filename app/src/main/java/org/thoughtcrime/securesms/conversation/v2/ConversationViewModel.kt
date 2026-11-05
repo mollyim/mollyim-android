@@ -44,6 +44,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.asFlow
 import org.signal.core.models.ServiceId
+import org.signal.core.models.database.StickerRecord
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
@@ -74,10 +76,10 @@ import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.database.model.ReactionRecord
-import org.thoughtcrime.securesms.database.model.StickerRecord
 import org.thoughtcrime.securesms.database.model.StoryViewState
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.groups.v2.GroupAddMembersResult
 import org.thoughtcrime.securesms.jobs.PollVoteJob
 import org.thoughtcrime.securesms.jobs.RetrieveProfileJob
 import org.thoughtcrime.securesms.keyboard.KeyboardUtil
@@ -92,12 +94,10 @@ import org.thoughtcrime.securesms.polls.Poll
 import org.thoughtcrime.securesms.polls.PollOption
 import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.sms.MessageSender
 import org.thoughtcrime.securesms.util.BubbleUtil
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.NetworkUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.rx.RxStore
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
@@ -153,7 +153,7 @@ class ConversationViewModel(
 
   val groupMemberServiceIds: Observable<List<ServiceId>> = recipientRepository
     .groupRecord
-    .filter { it.isPresent && it.get().isV2Group }
+    .filter { it.isPresent && it.get().hasV2GroupProperties }
     .map { it.get().requireV2GroupProperties().getMemberServiceIds() }
     .distinctUntilChanged()
     .observeOn(AndroidSchedulers.mainThread())
@@ -161,6 +161,8 @@ class ConversationViewModel(
   private val chatBounds: BehaviorSubject<Rect> = BehaviorSubject.create()
   private val chatColors: RxStore<ChatColorsDrawable.ChatColorsData> = RxStore(ChatColorsDrawable.ChatColorsData(null, null))
   val chatColorsSnapshot: ChatColorsDrawable.ChatColorsData get() = chatColors.state
+
+  val recipientId = recipientRepository.recipientId
 
   @Volatile
   var recipientSnapshot: Recipient? = null
@@ -301,6 +303,34 @@ class ConversationViewModel(
       )
     }
 
+    disposables += recipientRepository
+      .groupRecord
+      .filter { it.isPresent && it.get().isV2Group }
+      .map { it.get().requireV2GroupProperties().memberLabelsByAci() }
+      .distinctUntilChanged()
+      .skip(1)
+      .subscribeBy(onNext = {
+        pagingController.onDataInvalidated()
+      })
+
+    disposables += conversationThreadState.flatMapObservable { threadState ->
+      threadState.sharedContactMessages.hasAny.switchMap { hasAny ->
+        if (hasAny) {
+          Observable.combineLatest(
+            recipientRepository.groupRecord.filter { it.isPresent && it.get().hasV2GroupProperties }.map { it.get().requireV2GroupProperties().groupRevision },
+            recipientRepository.conversationRecipient.map { it.isProfileSharing }
+          ) { revision, isProfileSharing -> revision to isProfileSharing }
+            .distinctUntilChanged()
+            .skip(1)
+            .map { threadState }
+        } else {
+          Observable.empty()
+        }
+      }
+    }.subscribeBy(onNext = { threadState ->
+      threadState.sharedContactMessages.messageIds.forEach { threadState.items.controller.onDataItemChanged(ConversationElementKey.forMessage(it)) }
+    })
+
     _inputReadyState = Observable.combineLatest(
       recipientRepository.conversationRecipient,
       recipientRepository.groupRecord
@@ -310,7 +340,8 @@ class ConversationViewModel(
         messageRequestState = messageRequestRepository.getMessageRequestState(recipient, threadId),
         groupRecord = groupRecord.orNull(),
         isClientExpired = SignalStore.misc.isClientDeprecated,
-        isUnauthorized = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application),
+        isUnauthorized = SignalStore.account.isUnauthorizedReceived,
+        threadContainsSms = !recipient.isRegistered && !recipient.isPushGroup && !recipient.isSelf && messageRequestRepository.threadContainsSms(threadId)
       )
     }.doOnNext {
       hasMessageRequestStateSubject.onNext(it.messageRequestState)
@@ -364,6 +395,12 @@ class ConversationViewModel(
         ConversationMessage.ConversationMessageFactory.createWithUnresolvedData(AppDependencies.application, it, threadRecipient!!)
       }
     }
+  }
+
+  fun addSharedContactToGroup(contact: Contact, groupRecipient: Recipient): Single<GroupAddMembersResult> {
+    return repository
+      .addSharedContactToGroup(contact, groupRecipient)
+      .observeOn(AndroidSchedulers.mainThread())
   }
 
   fun pinMessage(messageRecord: MessageRecord, duration: Duration, threadRecipient: Recipient): Completable {
@@ -599,7 +636,6 @@ class ConversationViewModel(
 
   fun sendMessage(
     metricId: String?,
-    threadRecipient: Recipient,
     body: String,
     slideDeck: SlideDeck?,
     scheduledDate: Long,
@@ -614,7 +650,7 @@ class ConversationViewModel(
   ): Completable {
     return repository.sendMessage(
       threadId = threadId,
-      threadRecipient = threadRecipient,
+      threadRecipient = recipientSnapshot ?: Recipient.resolved(recipientId),
       metricId = metricId,
       body = body,
       slideDeck = slideDeck,
@@ -639,6 +675,13 @@ class ConversationViewModel(
 
   fun updateIdentityRecordsInBackground() {
     refreshIdentityRecords.onNext(Unit)
+  }
+
+  fun refreshInputReadyState() {
+    val recipientId = recipientSnapshot?.id ?: return
+    viewModelScope.launch(Dispatchers.Default) {
+      Recipient.live(recipientId).refresh()
+    }
   }
 
   fun updateIdentityRecords(): Completable {
@@ -728,12 +771,6 @@ class ConversationViewModel(
   fun setIsInActionMode(isInActionMode: Boolean) {
     internalBackPressedState.update {
       it.copy(isInActionMode = isInActionMode)
-    }
-  }
-
-  fun setIsMediaKeyboardShowing(isMediaKeyboardShowing: Boolean) {
-    internalBackPressedState.update {
-      it.copy(isMediaKeyboardShowing = isMediaKeyboardShowing)
     }
   }
 
@@ -838,12 +875,12 @@ class ConversationViewModel(
     data object Cancelled : PlaintextExportState
   }
 
+  /** A media keyboard is absent by design: KeyboardSheetScaffold registers its own back handler. */
   data class BackPressedState(
     val isReactionDelegateShowing: Boolean = false,
     val isSearchRequested: Boolean = false,
-    val isInActionMode: Boolean = false,
-    val isMediaKeyboardShowing: Boolean = false
+    val isInActionMode: Boolean = false
   ) {
-    fun shouldHandleBackPressed() = isSearchRequested || isReactionDelegateShowing || isInActionMode || isMediaKeyboardShowing
+    fun shouldHandleBackPressed() = isSearchRequested || isReactionDelegateShowing || isInActionMode
   }
 }

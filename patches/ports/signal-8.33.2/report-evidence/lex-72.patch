@@ -1,0 +1,11 @@
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -368,7 +368,7 @@
+     <string name="ConversationItem_to_s">to %s</string>
+     <string name="ConversationItem_read_more">&#160; Read More</string>
+     <!-- Footer shown at the end of long body messages to download more of it -->
+-    <string name="ConversationItem_download_more">  Download More</string>
++    <string name="ConversationItem_download_more">&#160; Download More</string>
+     <string name="ConversationItem_pending">  Pending</string>
+     <string name="ConversationItem_this_message_was_deleted">This message was deleted</string>
+     <!-- Conversation message shown when someone deletes their own message. Placeholder is the name of the person. -->

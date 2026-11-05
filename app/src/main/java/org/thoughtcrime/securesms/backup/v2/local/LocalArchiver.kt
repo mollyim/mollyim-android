@@ -26,6 +26,7 @@ import org.signal.core.util.toJson
 import org.signal.libsignal.crypto.Aes256Ctr32
 import org.thoughtcrime.securesms.backup.LocalExportProgress
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
+import org.thoughtcrime.securesms.backup.v2.ImportResult
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -185,7 +186,7 @@ object LocalArchiver {
         val prefixDirs = HashMap<String, DocumentFile>()
         for (attachment in attachments) {
           if (cancellationSignal()) break
-          val mediaName = MediaName.forLocalBackupFilename(attachment.plaintextHash, attachment.localBackupKey.key)
+          val mediaName = MediaName.forPlaintextExportFilename(attachment.plaintextHash)
 
           try {
             val ext = attachment.contentType
@@ -269,13 +270,18 @@ object LocalArchiver {
 
       val mainStreamLength = snapshotFileSystem.mainLength() ?: return ArchiveResult.failure(RestoreFailure.MainStream)
 
-      BackupRepository.importLocal(
+      val importResult = BackupRepository.importLocal(
         mainStreamFactory = { snapshotFileSystem.mainInputStream()!! },
         mainStreamLength = mainStreamLength,
         selfData = selfData,
         backupId = backupId,
         messageBackupKey = messageBackupKey
       )
+
+      if (importResult is ImportResult.Failure) {
+        Log.w(TAG, "Local backup import failed")
+        return RestoreResult.failure(RestoreFailure.ImportFailed)
+      }
     } finally {
       metadataStream?.close()
     }
@@ -350,6 +356,7 @@ object LocalArchiver {
     data object MainStream : RestoreFailure
     data object Cancelled : RestoreFailure
     data object BackupIdMissing : RestoreFailure
+    data object ImportFailed : RestoreFailure
     data class VersionMismatch(val backupVersion: Int, val supportedVersion: Int) : RestoreFailure
   }
 
@@ -372,8 +379,8 @@ object LocalArchiver {
       post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CALL)))
     }
 
-    override fun onSticker() {
-      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.STICKER)))
+    override fun onInstalledStickerPack() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.INSTALLED_STICKER_PACK)))
     }
 
     override fun onNotificationProfile() {
@@ -382,6 +389,14 @@ object LocalArchiver {
 
     override fun onChatFolder() {
       post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CHAT_FOLDER)))
+    }
+
+    override fun onFavoriteStickerList() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.FAVORITE_STICKER_LIST)))
+    }
+
+    override fun onHiddenStickerPack() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.HIDDEN_STICKER_PACK)))
     }
 
     override fun onMessage(currentProgress: Long, approximateCount: Long) {
@@ -427,8 +442,8 @@ object LocalArchiver {
       post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CALL)))
     }
 
-    override fun onSticker() {
-      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.STICKER)))
+    override fun onInstalledStickerPack() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.INSTALLED_STICKER_PACK)))
     }
 
     override fun onNotificationProfile() {
@@ -437,6 +452,14 @@ object LocalArchiver {
 
     override fun onChatFolder() {
       post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.CHAT_FOLDER)))
+    }
+
+    override fun onFavoriteStickerList() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.FAVORITE_STICKER_LIST)))
+    }
+
+    override fun onHiddenStickerPack() {
+      post(LocalBackupCreationProgress(exporting = LocalBackupCreationProgress.Exporting(phase = LocalBackupCreationProgress.ExportPhase.HIDDEN_STICKER_PACK)))
     }
 
     override fun onMessage(currentProgress: Long, approximateCount: Long) {

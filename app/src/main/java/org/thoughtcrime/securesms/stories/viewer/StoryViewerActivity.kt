@@ -4,17 +4,21 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
 import androidx.media.AudioManagerCompat
 import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.Glide
 import com.bumptech.glide.MemoryCategory
+import org.signal.core.ui.WindowBreakpoint
+import org.signal.core.ui.getWindowBreakpoint
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.ServiceUtil
 import org.signal.core.util.dp
 import org.signal.core.util.getParcelableCompat
@@ -27,9 +31,6 @@ import org.thoughtcrime.securesms.components.voice.VoiceNoteMediaControllerOwner
 import org.thoughtcrime.securesms.stories.StoryViewerArgs
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewStateCache
 import org.thoughtcrime.securesms.stories.viewer.page.StoryViewStateViewModel
-import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme
-import org.thoughtcrime.securesms.util.DynamicTheme
-import org.thoughtcrime.securesms.util.ViewUtil
 import kotlin.math.max
 import kotlin.math.min
 
@@ -42,15 +43,15 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
 
   override lateinit var voiceNoteMediaController: VoiceNoteMediaController
 
-  private val theme: DynamicTheme = DynamicMediaPreviewTheme()
-
   override fun attachBaseContext(newBase: Context) {
     delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
     super.attachBaseContext(newBase)
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    enableEdgeToEdge()
+    if (resources.getWindowBreakpoint() !is WindowBreakpoint.Small) {
+      requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
 
     if (savedInstanceState != null) {
       val cache: StoryViewStateCache? = savedInstanceState.getParcelableCompat(DATA_CACHE, StoryViewStateCache::class.java)
@@ -65,25 +66,12 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
     supportPostponeEnterTransition()
 
     val root = findViewById<View>(android.R.id.content)
-    val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
-    val statusBarHeight = ViewUtil.getStatusBarHeight(root)
-    val contentHeight = metrics.bounds.width() * (16 / 9f) + 48.sp
-    val spaceAndNavbar = metrics.bounds.height() - statusBarHeight - contentHeight
-    val (padTop, padBottom) = if (spaceAndNavbar > 72.dp) {
-      val pad = (metrics.bounds.height() - contentHeight) / 2f
-      pad to pad
-    } else {
-      statusBarHeight to ViewUtil.getNavigationBarHeight(root)
+    updateContentPadding(root)
+    ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+      updateContentPadding(view)
+      insets
     }
 
-    root.setPadding(
-      0,
-      padTop.toInt(),
-      0,
-      padBottom.toInt()
-    )
-
-    theme.onCreate(this)
     super.onCreate(savedInstanceState, ready)
     setContentView(R.layout.fragment_container)
 
@@ -111,7 +99,6 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
 
   override fun onResume() {
     super.onResume()
-    theme.onResume(this)
     registerReceiver(ringerModeReceiver, IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION))
     if (StoryMutePolicy.isContentMuted) {
       viewModel.mute()
@@ -128,6 +115,31 @@ class StoryViewerActivity : PassphraseRequiredActivity(), VoiceNoteMediaControll
 
   override fun onEnterAnimationComplete() {
     window.transitionBackgroundFadeDuration = 100
+  }
+
+  /**
+   * Centers the 16:9 story content when the window is tall enough for it, and otherwise insets it by the system bars.
+   * Recomputed on every inset dispatch rather than just at creation, because this activity handles its own
+   * configuration changes and is free to rotate on large screens.
+   */
+  private fun updateContentPadding(root: View) {
+    val metrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
+    val statusBarHeight = ViewUtil.getStatusBarHeight(root)
+    val contentHeight = metrics.bounds.width() * (16 / 9f) + 48.sp
+    val spaceAndNavbar = metrics.bounds.height() - statusBarHeight - contentHeight
+    val (padTop, padBottom) = if (spaceAndNavbar > 72.dp) {
+      val pad = (metrics.bounds.height() - contentHeight) / 2f
+      pad to pad
+    } else {
+      statusBarHeight.toFloat() to ViewUtil.getNavigationBarHeight(root).toFloat()
+    }
+
+    root.setPadding(
+      0,
+      padTop.toInt(),
+      0,
+      padBottom.toInt()
+    )
   }
 
   private fun replaceStoryViewerFragment() {

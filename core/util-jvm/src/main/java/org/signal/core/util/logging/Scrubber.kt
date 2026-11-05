@@ -189,7 +189,6 @@ object Scrubber {
         (matcher.groupCount() == 2 || matcher.groupCount() == 3) &&
         TOP_100_TLDS.contains(matcher.group(2)!!.lowercase()) &&
         !(matcher.group(1).endsWith("signal.") && matcher.group(2) == "org" && !match.contains("cdn")) &&
-        !(matcher.group(1).endsWith("molly.") && (matcher.group(2) == "im" || matcher.group(2) == "app")) &&
         !(matcher.group(1).endsWith("debuglogs.") && matcher.group(2) == "org")
       ) {
         output

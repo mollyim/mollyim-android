@@ -3,17 +3,17 @@ package org.thoughtcrime.securesms.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.delete
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.CursorUtil
-import org.signal.core.util.SqlUtil
-import org.signal.core.util.delete
 import org.signal.core.util.forEach
 import org.signal.core.util.logging.Log
-import org.signal.core.util.select
-import org.signal.core.util.update
 import org.thoughtcrime.securesms.database.model.MessageId
 import org.thoughtcrime.securesms.database.model.ReactionRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Store reactions on messages.
@@ -161,7 +161,7 @@ class ReactionTable(context: Context, databaseHelper: SignalDatabase) : Database
     }
   }
 
-  private fun hasReactions(messageId: MessageId): Boolean {
+  fun hasReactions(messageId: MessageId): Boolean {
     val query = "$MESSAGE_ID = ?"
     val args = SqlUtil.buildArgs(messageId.id)
 
@@ -178,6 +178,15 @@ class ReactionTable(context: Context, databaseHelper: SignalDatabase) : Database
       .run()
 
     Log.d(TAG, "Remapped $fromId to $toId. count: $count")
+  }
+
+  override fun onDeletedRecipient(recipientId: RecipientId) {
+    val deleted = writableDatabase
+      .delete(TABLE_NAME)
+      .where("$AUTHOR_ID = ?", recipientId)
+      .run()
+
+    Log.d(TAG, "Deleted recipient: $deleted")
   }
 
   fun deleteAbandonedReactions() {

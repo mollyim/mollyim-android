@@ -1,0 +1,21 @@
+diff --git a/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt b/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
+index d2d0295c5f..e9c5c0a040 100644
+--- a/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
++++ b/app/src/main/java/im/molly/unifiedpush/components/settings/app/notifications/UnifiedPushSettingsFragment.kt
+@@ -39,13 +39,13 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
+       adapter.submitList(getConfiguration(it).toMappingModelList())
+     }
+ 
+-    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
++    RestartableSubscription { EventBus.default.subscribe<PushServiceEvent>(ThreadMode.MAIN, ::onPushServiceEvent) }
++      .bindTo(viewLifecycleOwner, Lifecycle.State.RESUMED)
+ 
+     viewModel.updateRegistration()
+   }
+ 
+-  @Subscribe(threadMode = ThreadMode.MAIN)
+-  fun onPushServiceEvent(event: PushServiceEvent) {
++  private fun onPushServiceEvent(event: PushServiceEvent) {
+     viewModel.refresh()
+   }
+ 

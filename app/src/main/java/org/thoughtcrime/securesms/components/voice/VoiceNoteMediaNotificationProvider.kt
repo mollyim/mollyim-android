@@ -24,6 +24,7 @@ import androidx.media3.session.MediaNotification
 import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionCommand
 import com.google.common.collect.ImmutableList
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.PendingIntentFlags.cancelCurrent
 import org.signal.core.util.concurrent.SignalExecutors
 import org.signal.core.util.logging.Log
@@ -32,8 +33,8 @@ import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.colors.ChatColorsPalette
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.notifications.NotificationChannels
+import org.thoughtcrime.securesms.notifications.NotificationIds
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.AvatarUtil
 import java.util.Arrays
 import androidx.media3.session.R as Media3SessionR
@@ -102,7 +103,7 @@ class VoiceNoteMediaNotificationProvider(val context: Context) : MediaNotificati
       .setOngoing(false)
     addLargeIcon(builder, extras, onNotificationChangedCallback)
 
-    return MediaNotification(NOW_PLAYING_NOTIFICATION_ID, builder.build())
+    return MediaNotification(NotificationIds.VOICE_NOTE_NOW_PLAYING, builder.build())
   }
 
   /**
@@ -283,7 +284,7 @@ class VoiceNoteMediaNotificationProvider(val context: Context) : MediaNotificati
         try {
           cachedBitmap = AvatarUtil.getBitmapForNotification(context, Recipient.resolved(cachedRecipientId!!))
           builder.setLargeIcon(cachedBitmap)
-          callback.onNotificationChanged(MediaNotification(NOW_PLAYING_NOTIFICATION_ID, builder.build()))
+          callback.onNotificationChanged(MediaNotification(NotificationIds.VOICE_NOTE_NOW_PLAYING, builder.build()))
         } catch (e: Exception) {
           cachedBitmap = null
         }
@@ -299,7 +300,6 @@ class VoiceNoteMediaNotificationProvider(val context: Context) : MediaNotificati
   }
 
   companion object {
-    private const val NOW_PLAYING_NOTIFICATION_ID = 32221
     private const val TAG = "VoiceNoteMediaNotificationProvider"
   }
 }

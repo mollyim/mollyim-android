@@ -23,9 +23,8 @@ import org.signal.core.util.concurrent.SignalDispatchers
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.calls.log.CallLogFilter
 import org.thoughtcrime.securesms.conversationlist.model.ConversationFilter
-import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class MainToolbarViewModel : ViewModel() {
   private val internalStateFlow = MutableStateFlow(MainToolbarState())
@@ -48,7 +47,7 @@ class MainToolbarViewModel : ViewModel() {
       it.copy(
         hasFailedBackups = BackupRepository.shouldDisplayBackupFailedIndicator() || BackupRepository.shouldDisplayBackupAlreadyRedeemedIndicator(),
         isOutOfRemoteStorageSpace = BackupRepository.shouldDisplayOutOfRemoteStorageSpaceUx(),
-        hasPassphrase = TextSecurePreferences.isPassphraseLockEnabled(AppDependencies.application)
+        hasPassphrase = !SignalStore.settings.passphraseDisabled
       )
     }
   }
@@ -84,19 +83,19 @@ class MainToolbarViewModel : ViewModel() {
   fun isInActionMode(): Boolean = state.value.mode == MainToolbarMode.ACTION_MODE
 
   fun presentToolbarForConversationListFragment() {
-    setToolbarMode(MainToolbarMode.FULL, destination = MainNavigationListLocation.CHATS, overwriteExtraMode = false)
+    setToolbarMode(MainToolbarMode.FULL, destination = MainListRoute.Chats, overwriteExtraMode = false)
   }
 
   fun presentToolbarForConversationListArchiveFragment() {
-    setToolbarMode(MainToolbarMode.BASIC, destination = MainNavigationListLocation.CHATS)
+    setToolbarMode(MainToolbarMode.BASIC, destination = MainListRoute.Chats)
   }
 
   fun presentToolbarForStoriesLandingFragment() {
-    setToolbarMode(MainToolbarMode.FULL, destination = MainNavigationListLocation.STORIES)
+    setToolbarMode(MainToolbarMode.FULL, destination = MainListRoute.Stories)
   }
 
   fun presentToolbarForCallLogFragment() {
-    setToolbarMode(MainToolbarMode.FULL, destination = MainNavigationListLocation.CALLS)
+    setToolbarMode(MainToolbarMode.FULL, destination = MainListRoute.Calls)
   }
 
   fun presentToolbarForMultiselect() {
@@ -105,7 +104,7 @@ class MainToolbarViewModel : ViewModel() {
 
   fun presentToolbarForCurrentDestination() {
     when (state.value.destination) {
-      MainNavigationListLocation.ARCHIVE -> setToolbarMode(MainToolbarMode.BASIC)
+      MainListRoute.Archive -> setToolbarMode(MainToolbarMode.BASIC)
       else -> setToolbarMode(MainToolbarMode.FULL)
     }
   }
@@ -113,7 +112,7 @@ class MainToolbarViewModel : ViewModel() {
   @JvmOverloads
   fun setToolbarMode(
     mode: MainToolbarMode,
-    destination: MainNavigationListLocation? = null,
+    destination: MainListRoute? = null,
     overwriteExtraMode: Boolean = true
   ) {
     val previousMode = internalStateFlow.value.mode
@@ -151,6 +150,12 @@ class MainToolbarViewModel : ViewModel() {
   fun setShowNotificationProfilesTooltip(showNotificationProfilesTooltip: Boolean) {
     internalStateFlow.update {
       it.copy(showNotificationProfilesTooltip = showNotificationProfilesTooltip)
+    }
+  }
+
+  fun setHasUnreadPayments(hasUnreadPayments: Boolean) {
+    internalStateFlow.update {
+      it.copy(hasUnreadPayments = hasUnreadPayments)
     }
   }
 

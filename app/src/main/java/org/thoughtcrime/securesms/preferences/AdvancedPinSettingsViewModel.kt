@@ -21,12 +21,14 @@ class AdvancedPinSettingsViewModel : ViewModel() {
   enum class Dialog {
     NONE,
     REGISTRATION_LOCK,
+    RECORD_PAYMENTS_RECOVERY_PHRASE,
     ROTATE_AEP
   }
 
   enum class Event {
     SHOW_BACKUPS_DISABLED_OPT_OUT_DIALOG,
     LAUNCH_PIN_CREATION_FLOW,
+    LAUNCH_RECOVERY_PHRASE_HANDLING,
     SHOW_PIN_DISABLED_SNACKBAR
   }
 
@@ -50,6 +52,9 @@ class AdvancedPinSettingsViewModel : ViewModel() {
       !enabled && hasRegistrationLock -> {
         internalDialog.value = Dialog.REGISTRATION_LOCK
       }
+      !enabled && SignalStore.payments.mobileCoinPaymentsEnabled() && !SignalStore.payments.userConfirmedMnemonic -> {
+        internalDialog.value = Dialog.RECORD_PAYMENTS_RECOVERY_PHRASE
+      }
       !enabled && SignalStore.backup.areBackupsEnabled -> {
         internalDialog.value = Dialog.ROTATE_AEP
       }
@@ -62,6 +67,10 @@ class AdvancedPinSettingsViewModel : ViewModel() {
         emitEvent(Event.LAUNCH_PIN_CREATION_FLOW)
       }
     }
+  }
+
+  fun launchRecoveryPhraseHandling() {
+    emitEvent(Event.LAUNCH_RECOVERY_PHRASE_HANDLING)
   }
 
   fun onPinOptOutSuccess() {

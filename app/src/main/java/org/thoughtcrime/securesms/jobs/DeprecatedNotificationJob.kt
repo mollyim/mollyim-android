@@ -11,6 +11,7 @@ import android.net.Uri
 import androidx.core.app.NotificationCompat
 import org.signal.core.util.ServiceUtil
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
@@ -46,8 +47,16 @@ class DeprecatedNotificationJob private constructor(parameters: Parameters) : Jo
 
   override fun run(): Result {
     if (NotificationChannels.getInstance().areNotificationsEnabled()) {
-      Log.d(TAG, "Showing deprecated notification for website APK")
-      val intent = Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.install_url)))
+      val intent: Intent
+
+      if (BuildConfig.MANAGES_APP_UPDATES) {
+        Log.d(TAG, "Showing deprecated notification for website APK")
+        intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://signal.org/android/apk"))
+      } else {
+        Log.d(TAG, "Showing deprecated notification for PlayStore")
+        val packageName = context.packageName
+        intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
+      }
 
       val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
       val builder = NotificationCompat.Builder(context, NotificationChannels.getInstance().APP_ALERTS)

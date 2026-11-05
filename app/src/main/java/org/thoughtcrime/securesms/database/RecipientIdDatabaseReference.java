@@ -2,7 +2,7 @@ package org.thoughtcrime.securesms.database;
 
 import androidx.annotation.NonNull;
 
-import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.signal.core.models.recipients.RecipientId;
 
 /**
  * Indicates that this table references a RecipientId. RecipientIds can be remapped at runtime if recipients merge, and therefore this table needs to be able to
@@ -10,4 +10,6 @@ import org.thoughtcrime.securesms.recipients.RecipientId;
  */
 interface RecipientIdDatabaseReference {
   void remapRecipient(@NonNull RecipientId fromId, @NonNull RecipientId toId);
+  /** Called when a recipient is deleted or blanked (which does not trigger FK) */
+  void onDeletedRecipient(@NonNull RecipientId recipientId);
 }

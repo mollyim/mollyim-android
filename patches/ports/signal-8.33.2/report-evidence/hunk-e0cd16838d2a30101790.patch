@@ -1,0 +1,43 @@
+diff --git a/feature/app-settings/src/main/java/org/signal/appsettings/dataandstorage/DataAndStorageSettingsScreen.kt b/feature/app-settings/src/main/java/org/signal/appsettings/dataandstorage/DataAndStorageSettingsScreen.kt
+index 73d154a0b9..755d040b4b 100644
+--- a/feature/app-settings/src/main/java/org/signal/appsettings/dataandstorage/DataAndStorageSettingsScreen.kt
++++ b/feature/app-settings/src/main/java/org/signal/appsettings/dataandstorage/DataAndStorageSettingsScreen.kt
+@@ -152,23 +152,23 @@ fun DataAndStorageSettingsScreen(
+           Dividers.Default()
+         }
+ 
+-        item {
+-          Rows.ToggleRow(
+-            checked = state.isStayConnectedInBackgroundChecked,
+-            text = stringResource(R.string.DataAndStorageSettingsFragment__stay_connected_in_background),
+-            enabled = state.playServicesAvailable,
+-            onCheckChanged = { onEvent(DataAndStorageSettingsEvent.StayConnectedInBackgroundToggled(it)) },
+-            modifier = Modifier.testTag(DataAndStorageSettingsTestTags.ROW_STAY_CONNECTED)
+-          )
+-        }
++      item {
++        Rows.ToggleRow(
++          checked = state.isStayConnectedInBackgroundChecked,
++          text = stringResource(R.string.DataAndStorageSettingsFragment__stay_connected_in_background),
++          enabled = state.playServicesAvailable,
++          onCheckChanged = { onEvent(DataAndStorageSettingsEvent.StayConnectedInBackgroundToggled(it)) },
++          modifier = Modifier.testTag(DataAndStorageSettingsTestTags.ROW_STAY_CONNECTED)
++        )
++      }
+ 
+-        item {
+-          Dividers.Default()
+-        }
++      item {
++        Dividers.Default()
++      }
+ 
+-        item {
+-          Texts.SectionHeader(stringResource(R.string.preferences_proxy))
+-        }
++      item {
++        Texts.SectionHeader(stringResource(R.string.preferences_proxy))
++      }
+ 
+         item {
+           Rows.TextRow(

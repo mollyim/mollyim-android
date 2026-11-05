@@ -4,48 +4,51 @@ import android.view.View
 import androidx.annotation.ColorRes
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import com.google.android.material.R as MaterialR
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.Material3OnScrollHelper
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Scroll helper to manage the color state of the top bar and status bar.
+ *
+ * @param onSetToolbarColor Receives every animated frame, for scrims drawn outside the view hierarchy.
  */
 class ConversationToolbarOnScrollHelper(
   activity: FragmentActivity,
-  toolbarBackground: View,
+  toolbarBackgrounds: List<View>,
+  onSetToolbarColor: (Int) -> Unit,
   private val wallpaperProvider: () -> ChatWallpaper?,
   private val releaseNotesProvider: () -> Boolean,
   lifecycleOwner: LifecycleOwner,
   private val incognito: Boolean = false
 ) : Material3OnScrollHelper(
   activity = activity,
-  views = listOf(toolbarBackground),
-  lifecycleOwner = lifecycleOwner,
-  setStatusBarColor = {}
+  views = toolbarBackgrounds,
+  onSetToolbarColor = onSetToolbarColor,
+  lifecycleOwner = lifecycleOwner
 ) {
   override val activeColorSet: ColorSet
-    = when {
-      incognito -> ColorSet.from(activity, R.color.conversation_toolbar_color_incognito)
-      releaseNotesProvider() -> ColorSet.from(activity, R.color.release_notes_toolbar_scrolled)
-      else -> ColorSet.from(activity, getActiveToolbarColor(wallpaperProvider() != null))
+    get() = when {
+      incognito -> ColorSet(R.color.conversation_toolbar_color_incognito)
+      releaseNotesProvider() -> ColorSet(R.color.release_notes_toolbar_scrolled)
+      else -> ColorSet(getActiveToolbarColor(wallpaperProvider() != null))
     }
 
   override val inactiveColorSet: ColorSet
-    = when {
-      incognito -> ColorSet.from(activity, R.color.conversation_toolbar_color_incognito)
-      releaseNotesProvider() -> ColorSet.from(activity, R.color.release_notes_toolbar_transparent)
-      else -> ColorSet.from(activity, getInactiveToolbarColor(wallpaperProvider() != null))
+    get() = when {
+      incognito -> ColorSet(R.color.conversation_toolbar_color_incognito)
+      releaseNotesProvider() -> ColorSet(R.color.release_notes_toolbar_transparent)
+      else -> ColorSet(getInactiveToolbarColor(wallpaperProvider() != null))
     }
 
   @ColorRes
   private fun getActiveToolbarColor(hasWallpaper: Boolean): Int {
-    return if (hasWallpaper) R.color.conversation_toolbar_color_wallpaper_scrolled else MaterialR.attr.colorSurfaceContainer
+    return if (hasWallpaper) R.color.conversation_toolbar_color_wallpaper_scrolled else CoreUiR.color.signal_colorSurface2
   }
 
   @ColorRes
   private fun getInactiveToolbarColor(hasWallpaper: Boolean): Int {
-    return if (hasWallpaper) R.color.conversation_toolbar_color_wallpaper else MaterialR.attr.colorSurface
+    return if (hasWallpaper) R.color.conversation_toolbar_color_wallpaper else CoreUiR.color.signal_colorBackground
   }
 }

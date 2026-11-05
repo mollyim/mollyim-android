@@ -16,8 +16,6 @@ data class LinkDeviceSettingsState(
   val qrCodeState: QrCodeState = QrCodeState.NONE,
   val linkUri: Uri? = null,
   val linkDeviceResult: LinkDeviceResult = LinkDeviceResult.None,
-  val linkWithoutQrCode: Boolean = false,
-  val canLinkDevices: Boolean = !SignalStore.account.isLinkedDevice,
   val seenQrEducationSheet: Boolean = SignalStore.uiHints.hasSeenLinkDeviceQrEducationSheet() || SignalStore.account.isMultiDevice,
   val bottomSheetVisible: Boolean = false,
   val deviceToEdit: Device? = null,
@@ -43,6 +41,7 @@ data class LinkDeviceSettingsState(
     data class ToastUnlinked(val name: String) : OneTimeEvent
     data class ToastLinked(val name: String) : OneTimeEvent
     data object SnackbarLinkCancelled : OneTimeEvent
+    data object SnackbarDeviceLimitReached : OneTimeEvent
     data object SnackbarNameChangeSuccess : OneTimeEvent
     data object SnackbarNameChangeFailure : OneTimeEvent
     data object ShowFinishedSheet : OneTimeEvent
@@ -52,7 +51,7 @@ data class LinkDeviceSettingsState(
   }
 
   enum class QrCodeState {
-    NONE, VALID_WITH_SYNC, VALID_WITHOUT_SYNC, INVALID
+    NONE, VALID_WITH_SYNC, VALID_WITHOUT_SYNC, INVALID, OUTDATED_DEVICE
   }
 
   enum class SyncFailType {

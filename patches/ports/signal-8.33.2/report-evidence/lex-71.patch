@@ -1,0 +1,11 @@
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -366,7 +366,7 @@
+     <string name="ConversationItem_from_s">from %s</string>
+     <!-- Footer shown in legacy SMS message where %s is the name of the recipient the message is going to -->
+     <string name="ConversationItem_to_s">to %s</string>
+-    <string name="ConversationItem_read_more">  Read More</string>
++    <string name="ConversationItem_read_more">&#160; Read More</string>
+     <!-- Footer shown at the end of long body messages to download more of it -->
+     <string name="ConversationItem_download_more">  Download More</string>
+     <string name="ConversationItem_pending">  Pending</string>

@@ -5,55 +5,61 @@
 
 package org.thoughtcrime.securesms.components.settings.app.updates
 
-import android.app.Application
-import androidx.lifecycle.ViewModel
+import android.os.Build
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
-import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
-import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import org.signal.appsettings.updates.AppUpdatesSettingsAction
+import org.signal.appsettings.updates.AppUpdatesSettingsEvent
+import org.signal.appsettings.updates.AppUpdatesSettingsState
+import org.signal.core.ui.compose.EventDrivenViewModel
+import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.TextSecurePreferences
+import kotlin.time.Duration.Companion.milliseconds
 
-class AppUpdatesSettingsViewModel : ViewModel() {
+class AppUpdatesSettingsViewModel(
+  private val isAutoUpdateSupported: Boolean = Build.VERSION.SDK_INT >= 31
+) : EventDrivenViewModel<AppUpdatesSettingsEvent>(TAG) {
 
-  private val application: Application = AppDependencies.application
+  companion object {
+    private val TAG = Log.tag(AppUpdatesSettingsViewModel::class)
+  }
 
-  private val internalState = MutableStateFlow(getState())
+  private val _state = MutableStateFlow(readState())
+  private val _actions = Channel<AppUpdatesSettingsAction>(Channel.BUFFERED)
 
-  val state: StateFlow<AppUpdatesSettingsState> = internalState
+  val state: StateFlow<AppUpdatesSettingsState> = _state.asStateFlow()
+  val actions: Flow<AppUpdatesSettingsAction> = _actions.receiveAsFlow()
 
-  fun setUpdateApkEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkEnabled(application, enabled)
-    if (enabled) {
-      checkForUpdates()
+  override suspend fun processEvent(event: AppUpdatesSettingsEvent) {
+    when (event) {
+      AppUpdatesSettingsEvent.ScreenResumed -> refresh()
+
+      AppUpdatesSettingsEvent.NavigateBackClicked -> _actions.send(AppUpdatesSettingsAction.NavigateBack)
+
+      is AppUpdatesSettingsEvent.AutoUpdateToggled -> {
+        SignalStore.apkUpdate.autoUpdate = event.enabled
+        refresh()
+      }
+
+      AppUpdatesSettingsEvent.CheckForUpdatesClicked -> AppDependencies.jobManager.add(ApkUpdateJob())
     }
-    refresh()
   }
 
-  fun setIncludeBetaEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
-    ApkUpdateNotifications.dismissInstallPrompt(application)
-    checkForUpdates()
-    refresh()
+  private fun refresh() {
+    _state.value = readState()
   }
 
-  fun checkForUpdates() {
-    ApkUpdateRefreshListener.scheduleIfAllowed(application)
-    AppDependencies.jobManager.add(ApkUpdateJob())
-  }
-
-  fun refresh() {
-    internalState.update { getState() }
-  }
-
-  private fun getState(): AppUpdatesSettingsState {
+  private fun readState(): AppUpdatesSettingsState {
     return AppUpdatesSettingsState(
-      lastCheckedTime = SignalStore.apkUpdate.lastSuccessfulCheck,
-      includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
-      autoUpdateEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
+      lastCheckedTime = SignalStore.apkUpdate.lastSuccessfulCheck.milliseconds,
+      autoUpdateEnabled = SignalStore.apkUpdate.autoUpdate,
+      isAutoUpdateSupported = isAutoUpdateSupported
     )
   }
 }

@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.signal.core.models.ServiceId
 import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.registration.data.RegistrationData
 import org.thoughtcrime.securesms.registration.data.RegistrationRepository
@@ -26,6 +27,7 @@ import org.thoughtcrime.securesms.registration.data.network.Challenge
 import org.thoughtcrime.securesms.registration.data.network.RegistrationSessionCreationResult
 import org.thoughtcrime.securesms.registration.data.network.SessionMetadataResult
 import org.thoughtcrime.securesms.registration.data.network.VerificationCodeRequestResult
+import org.thoughtcrime.securesms.registration.sms.SmsRetrieverReceiver
 import org.thoughtcrime.securesms.registration.ui.RegistrationViewModel
 import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.thoughtcrime.securesms.registration.viewmodel.NumberViewState
@@ -47,6 +49,7 @@ class ChangeNumberViewModel : ViewModel() {
 
   private val repository = ChangeNumberRepository()
   private val store = MutableStateFlow(ChangeNumberState())
+  private val smsRetrieverReceiver: SmsRetrieverReceiver = SmsRetrieverReceiver(AppDependencies.application)
 
   private val initialLocalNumber = SignalStore.account.e164
   private val password = SignalStore.account.servicePassword!!
@@ -74,6 +77,13 @@ class ChangeNumberViewModel : ViewModel() {
     } catch (e: NumberParseException) {
       Log.i(TAG, "Unable to parse number for default country code")
     }
+
+    smsRetrieverReceiver.registerReceiver()
+  }
+
+  override fun onCleared() {
+    super.onCleared()
+    smsRetrieverReceiver.unregisterReceiver()
   }
 
   // region Public Getters and Setters
@@ -200,9 +210,9 @@ class ChangeNumberViewModel : ViewModel() {
           return@launch
         }
 
-        if (reattempt) {
-          Log.i(TAG, "Reattempting local change.\n  Local state  (e164=${SignalStore.account.e164}, pni=${SignalStore.account.pni})\n  Remote state (e164=${whoAmI.number}, pni=$remotePni)")
-          repository.changeLocalNumber(whoAmI.number, remotePni)
+        if (reattempt && remoteE164 != null) {
+          Log.i(TAG, "Reattempting local change.\n  Local state  (e164=${SignalStore.account.e164}, pni=${SignalStore.account.pni})\n  Remote state (e164=$remoteE164, pni=$remotePni)")
+          repository.changeLocalNumber(remoteE164, remotePni)
         }
 
         SignalStore.misc.unlockChangeNumber()
@@ -216,6 +226,14 @@ class ChangeNumberViewModel : ViewModel() {
           onError(ioException)
         }
       }
+    }
+  }
+
+  fun registerSmsListenerWithCompletionListener(context: Context, onComplete: (Boolean) -> Unit) {
+    Log.v(TAG, "registerSmsListenerWithCompletionListener()")
+    viewModelScope.launch {
+      val listenerRegistered = RegistrationRepository.registerSmsListener(context)
+      onComplete(listenerRegistered)
     }
   }
 

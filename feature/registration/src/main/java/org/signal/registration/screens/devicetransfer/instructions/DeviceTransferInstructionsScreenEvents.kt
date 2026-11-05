@@ -8,5 +8,4 @@ package org.signal.registration.screens.devicetransfer.instructions
 sealed class DeviceTransferInstructionsScreenEvents {
   data object ContinueClicked : DeviceTransferInstructionsScreenEvents()
   data object BackClicked : DeviceTransferInstructionsScreenEvents()
-  data object ConsumeOneTimeEvent : DeviceTransferInstructionsScreenEvents()
 }

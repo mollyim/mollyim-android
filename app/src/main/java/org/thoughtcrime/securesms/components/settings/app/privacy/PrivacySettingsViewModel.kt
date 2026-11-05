@@ -1,22 +1,14 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
-import android.app.Application
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.thoughtcrime.securesms.ScreenLockController
-import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.livedata.Store
 
 class PrivacySettingsViewModel(
-  private val sharedPreferences: SharedPreferences,
   private val repository: PrivacySettingsRepository
 ) : ViewModel() {
-
-  private val application: Application = AppDependencies.application
 
   private val store = Store(getState())
 
@@ -29,52 +21,40 @@ class PrivacySettingsViewModel(
     }
   }
 
-  fun setBlockUnknownEnabled(enabled: Boolean) {
-    TextSecurePreferences.setBlockUnknownEnabled(application, enabled)
-    refresh()
-  }
-
   fun setReadReceiptsEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.READ_RECEIPTS_PREF, enabled).apply()
+    SignalStore.settings.isReadReceiptsEnabled = enabled
     repository.syncReadReceiptState()
     refresh()
   }
 
   fun setTypingIndicatorsEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.TYPING_INDICATORS, enabled).apply()
+    SignalStore.settings.isTypingIndicatorsEnabled = enabled
     repository.syncTypingIndicatorsState()
     refresh()
   }
 
-  fun setPassphraseLockEnabled(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockEnabled(application, enabled)
-    refresh()
-  }
-
-  fun setPassphraseLockTrigger(resultSet: Set<String>) {
-    sharedPreferences.edit().putStringSet(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER, resultSet).apply()
-    refresh()
-  }
-
-  fun setPassphraseLockTimeout(seconds: Long) {
-    sharedPreferences.edit().putLong(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT, seconds).apply()
-    refresh()
-  }
-
-  fun setBiometricScreenLock(enabled: Boolean) {
-    TextSecurePreferences.setBiometricScreenLockEnabled(application, enabled)
-    ScreenLockController.enableAutoLock(enabled)
-    ScreenLockController.lockScreenAtStart = false
-    refresh()
-  }
-
   fun setScreenSecurityEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.SCREEN_SECURITY_PREF, enabled).apply()
+    SignalStore.settings.isScreenSecurityEnabled = enabled
     refresh()
   }
 
   fun setIncognitoKeyboard(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.INCOGNITO_KEYBOARD_PREF, enabled).apply()
+    SignalStore.settings.isIncognitoKeyboardEnabled = enabled
+    refresh()
+  }
+
+  fun togglePaymentLock(enable: Boolean) {
+    SignalStore.payments.paymentLock = enable
+    refresh()
+  }
+
+  fun setObsoletePasswordTimeoutEnabled(enabled: Boolean) {
+    SignalStore.settings.passphraseTimeoutEnabled = enabled
+    refresh()
+  }
+
+  fun setObsoletePasswordTimeout(minutes: Int) {
+    SignalStore.settings.passphraseTimeout = minutes
     refresh()
   }
 
@@ -84,16 +64,18 @@ class PrivacySettingsViewModel(
 
   private fun getState(): PrivacySettingsState {
     return PrivacySettingsState(
+      hasPhoneNumber = !SignalStore.account.isPhoneNumberless,
       blockedCount = 0,
-      blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(application),
-      readReceipts = TextSecurePreferences.isReadReceiptsEnabled(application),
-      typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(application),
-      passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(application),
-      passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(application).triggers,
-      passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(application),
-      biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
-      screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
-      incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
+      readReceipts = SignalStore.settings.isReadReceiptsEnabled,
+      typingIndicators = SignalStore.settings.isTypingIndicatorsEnabled,
+      screenLock = SignalStore.settings.screenLockEnabled,
+      screenLockActivityTimeout = SignalStore.settings.screenLockTimeout,
+      screenSecurity = SignalStore.settings.isScreenSecurityEnabled,
+      incognitoKeyboard = SignalStore.settings.isIncognitoKeyboardEnabled,
+      paymentLock = SignalStore.payments.paymentLock,
+      isObsoletePasswordEnabled = !SignalStore.settings.passphraseDisabled,
+      isObsoletePasswordTimeoutEnabled = SignalStore.settings.passphraseTimeoutEnabled,
+      obsoletePasswordTimeout = SignalStore.settings.passphraseTimeout,
       universalExpireTimer = SignalStore.settings.universalExpireTimer
     )
   }
@@ -103,11 +85,10 @@ class PrivacySettingsViewModel(
   }
 
   class Factory(
-    private val sharedPreferences: SharedPreferences,
     private val repository: PrivacySettingsRepository
   ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return requireNotNull(modelClass.cast(PrivacySettingsViewModel(sharedPreferences, repository)))
+      return requireNotNull(modelClass.cast(PrivacySettingsViewModel(repository)))
     }
   }
 }

@@ -6,25 +6,24 @@
 package org.signal.registration.screens.restoreselection
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import org.signal.core.models.AccountEntropyPool
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
-import org.signal.registration.NetworkController
+import org.signal.network.api.RegistrationApiV2.RestoreMethod
 import org.signal.registration.PendingRestoreOption
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.RestoreDecision
-import org.signal.registration.screens.EventDrivenViewModel
 import org.signal.registration.screens.util.navigateTo
 
 /**
@@ -36,48 +35,57 @@ class ArchiveRestoreSelectionViewModel(
   private val restoreOptions: List<ArchiveRestoreOption>,
   private val registeredState: RegisteredState,
   private val repository: RegistrationRepository,
-  private val parentState: StateFlow<RegistrationFlowState>,
-  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-) : EventDrivenViewModel<ArchiveRestoreSelectionScreenEvents>(TAG) {
+  parentState: StateFlow<RegistrationFlowState>,
+  private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
+  private val knownAep: AccountEntropyPool? = null
+) : EventDrivenViewModel<ArchiveRestoreSelectionScreenEvents>(TAG, shouldLogEvents = false) {
 
   companion object {
     private val TAG = Log.tag(ArchiveRestoreSelectionViewModel::class)
   }
 
-  private val _localState = MutableStateFlow(
+  private val _state = MutableStateFlow(
     ArchiveRestoreSelectionState(
       restoreOptions = restoreOptions
     )
   )
+  val state: StateFlow<ArchiveRestoreSelectionState> = _state.asStateFlow()
 
-  val state: StateFlow<ArchiveRestoreSelectionState> = _localState
-    .combine(parentState) { state, parentState -> applyParentState(state, parentState) }
-    .stateIn(
-      viewModelScope,
-      SharingStarted.WhileSubscribed(5000),
-      ArchiveRestoreSelectionState(restoreOptions = restoreOptions)
-    )
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
 
-  override suspend fun processEvent(event: ArchiveRestoreSelectionScreenEvents) {
-    applyEvent(state.value, event) { _localState.value = it }
+    parentState
+      .onEach { onEvent(ArchiveRestoreSelectionScreenEvents.ParentStateChanged(it)) }
+      .launchIn(viewModelScope)
   }
 
-  @VisibleForTesting
-  fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
-    return state.copy(restoreMethodToken = parentState.restoreMethodToken, storageCapable = parentState.storageCapable)
+  override suspend fun processEvent(event: ArchiveRestoreSelectionScreenEvents) {
+    applyEvent(_state.value, event) { _state.value = it }
+  }
+
+  private fun applyParentState(state: ArchiveRestoreSelectionState, parentState: RegistrationFlowState): ArchiveRestoreSelectionState {
+    return state.copy(restoreMethodToken = parentState.restoreMethodToken, storageCapable = parentState.storageCapable, isPhoneNumberlessAccount = parentState.isPhoneNumberlessAccount)
   }
 
   @VisibleForTesting
   suspend fun applyEvent(state: ArchiveRestoreSelectionState, event: ArchiveRestoreSelectionScreenEvents, stateEmitter: (ArchiveRestoreSelectionState) -> Unit) {
     val result = when (event) {
+      is ArchiveRestoreSelectionScreenEvents.ParentStateChanged -> {
+        applyParentState(state, event.parentState)
+      }
       is ArchiveRestoreSelectionScreenEvents.RestoreOptionSelected -> {
         when (event.option) {
           ArchiveRestoreOption.SignalSecureBackup -> {
-            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.REMOTE_BACKUP)
-            when (registeredState) {
-              RegisteredState.NotRegistered -> {
+            notifyOldDevice(state.restoreMethodToken, RestoreMethod.REMOTE_BACKUP)
+            when {
+              registeredState == RegisteredState.NotRegistered -> {
                 parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.RemoteBackup))
                 parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
+              }
+              knownAep != null -> {
+                parentEventEmitter.navigateTo(RegistrationRoute.RemoteRestore(knownAep, backwardNavigationAllowed = true))
               }
               else -> {
                 parentEventEmitter.navigateTo(RegistrationRoute.EnterAepForRemoteBackupPostRegistration)
@@ -86,20 +94,20 @@ class ArchiveRestoreSelectionViewModel(
             state
           }
           ArchiveRestoreOption.LocalBackup -> {
-            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.LOCAL_BACKUP)
+            notifyOldDevice(state.restoreMethodToken, RestoreMethod.LOCAL_BACKUP)
             when (registeredState) {
               RegisteredState.NotRegistered -> {
                 parentEventEmitter(RegistrationFlowEvent.PendingRestoreOptionSelected(PendingRestoreOption.LocalBackup))
                 parentEventEmitter.navigateTo(RegistrationRoute.PhoneNumberEntry)
               }
               else -> {
-                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false))
+                parentEventEmitter.navigateTo(RegistrationRoute.LocalBackupRestore(isPreRegistration = false, aep = knownAep))
               }
             }
             state
           }
           ArchiveRestoreOption.DeviceTransfer -> {
-            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DEVICE_TRANSFER)
+            notifyOldDevice(state.restoreMethodToken, RestoreMethod.DEVICE_TRANSFER)
             parentEventEmitter.navigateTo(RegistrationRoute.DeviceTransferInstructions)
             state
           }
@@ -115,22 +123,38 @@ class ArchiveRestoreSelectionViewModel(
             state.copy(showSkipWarningDialog = false)
           }
           RegisteredState.RegisteredAndPinUnknown -> {
-            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
-            repository.setRestoreDecision(RestoreDecision.SKIPPED)
-            if (state.storageCapable) {
-              Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
-              parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+            if (state.isPhoneNumberlessAccount) {
+              Log.i(TAG, "[ConfirmSkip] Account has no phone number, and therefore no PIN. Completing registration.")
+              val skipping = state.copy(showSkipWarningDialog = false, isSkipping = true)
+              stateEmitter(skipping)
+
+              notifyOldDevice(state.restoreMethodToken, RestoreMethod.DECLINE)
+              repository.setRestoreDecision(RestoreDecision.SKIPPED)
+              repository.restoreAccountRecord()
+              parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
+              skipping
             } else {
-              Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
-              parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+              notifyOldDevice(state.restoreMethodToken, RestoreMethod.DECLINE)
+              repository.setRestoreDecision(RestoreDecision.SKIPPED)
+              if (state.storageCapable) {
+                Log.i(TAG, "[ConfirmSkip] Account is storage capable. Navigating to PIN entry to restore the existing PIN.")
+                parentEventEmitter.navigateTo(RegistrationRoute.PinEntryForSvrRestore)
+              } else {
+                Log.i(TAG, "[ConfirmSkip] Account is not storage capable. Navigating to PIN creation.")
+                parentEventEmitter.navigateTo(RegistrationRoute.PinCreate)
+              }
+              state.copy(showSkipWarningDialog = false)
             }
-            state.copy(showSkipWarningDialog = false)
           }
           RegisteredState.RegisteredAndPinKnown -> {
-            notifyOldDevice(state.restoreMethodToken, NetworkController.RestoreMethod.DECLINE)
+            val skipping = state.copy(showSkipWarningDialog = false, isSkipping = true)
+            stateEmitter(skipping)
+
+            notifyOldDevice(state.restoreMethodToken, RestoreMethod.DECLINE)
             repository.setRestoreDecision(RestoreDecision.SKIPPED)
+            repository.restoreAccountRecord()
             parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
-            state.copy(showSkipWarningDialog = false)
+            skipping
           }
         }
       }
@@ -145,7 +169,7 @@ class ArchiveRestoreSelectionViewModel(
    * If a quick-restore [token] is set, fire-and-forget a network call to update the old device's UI
    * with the user's [method] selection. The old device is long-polling and will pick up the change.
    */
-  private fun notifyOldDevice(token: String?, method: NetworkController.RestoreMethod) {
+  private fun notifyOldDevice(token: String?, method: RestoreMethod) {
     if (token == null) return
     viewModelScope.launch {
       Log.i(TAG, "[notifyOldDevice] Notifying old device of restore method: $method")
@@ -155,18 +179,6 @@ class ArchiveRestoreSelectionViewModel(
       } else {
         Log.w(TAG, "[notifyOldDevice] Failed to notify old device: $result")
       }
-    }
-  }
-
-  class Factory(
-    private val restoreOptions: List<ArchiveRestoreOption>,
-    private val registeredState: RegisteredState,
-    private val repository: RegistrationRepository,
-    private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return ArchiveRestoreSelectionViewModel(restoreOptions, registeredState, repository, parentState, parentEventEmitter) as T
     }
   }
 }

@@ -1,0 +1,93 @@
+From 68193980847d689ce4a901ceacc6d629ef94c8b4 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 4
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 12 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-in/strings2.xml b/app/src/main/res/values-in/strings2.xml
+index 65f63803320d1a681f6e2a30b28ce252cfd3629d..0327efd8cf534a641eb313cb76672a740324a194 100644
+--- a/app/src/main/res/values-in/strings2.xml
++++ b/app/src/main/res/values-in/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="MollySocketLink_experienced_a_network_error_please_try_again">Terjadi kesalahan jaringan. Silakan coba lagi.</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server">Server MollySocket</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Air-gapped</string>
++    <string name="NotificationsSettingsFragment__notify_when">Beritahukan ketika …</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services diperbarui atau untuk sementara tidak tersedia. Silahkan coba lagi.</string>
+ </resources>
+diff --git a/app/src/main/res/values-it/strings2.xml b/app/src/main/res/values-it/strings2.xml
+index b6c87f978c441bc9d70a39b0adbc2a23dbf6a595..9e99f1e8352b7c437ce6fca89e06d253e5087943 100644
+--- a/app/src/main/res/values-it/strings2.xml
++++ b/app/src/main/res/values-it/strings2.xml
+@@ -171,4 +171,6 @@
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Utilizza i colori del sistema per il tema dell\'app</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">La versione installata dei servizi Google Play su questo dispositivo è obsoleta.</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Aria compressa</string>
++    <string name="NotificationsSettingsFragment__notify_when">Notificami quando…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services si sta aggiornando o non è al momento disponibile. Per favore riprovare.</string>
+ </resources>
+diff --git a/app/src/main/res/values-iw/strings2.xml b/app/src/main/res/values-iw/strings2.xml
+index 7a4afdb2a0589350ae00b90c5af494ca1411f31c..48538612a7cd78a255681825e6723c1b2c10adac 100644
+--- a/app/src/main/res/values-iw/strings2.xml
++++ b/app/src/main/res/values-iw/strings2.xml
+@@ -134,4 +134,6 @@
+     <string name="NotificationsSettingsFragment__push_notifications">התראות</string>
+     <string name="NotificationsSettingsFragment__select_your_preferred_service_for_push_notifications">בחר בשירות המועדף להתראות. אם לא זמין, האפליקציה תשתמש בוובסוקט כדי לוודא שהתראות נשלחות.</string>
+     <string name="NotificationsSettingsFragment__delivery_service">שירות שליחה</string>
++    <string name="NotificationsSettingsFragment__notify_when">יידע כאשר…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">שירותי Google Play מתעדכנים או שהם בלתי זמינים באופן זמני. אנא נסה שוב.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ja/strings2.xml b/app/src/main/res/values-ja/strings2.xml
+index e5d8fa39027235dc25d56f6fd6f4b5dbec907d59..e33b3804ac38a853482c362fca447f8bf8114765 100644
+--- a/app/src/main/res/values-ja/strings2.xml
++++ b/app/src/main/res/values-ja/strings2.xml
+@@ -115,4 +115,6 @@
+     <string name="NotificationsSettingsFragment__sorry_this_feature_requires_push_notifications_delivered_via_fcm_or_unifiedpush">この機能には FCM または UnifiedPush によるプッシュ通知が必要ですが、現在プッシュ通知は利用できません。</string>
+     <string name="AppUpdatesSettingsFragment__last_checked_s">最終更新日：%s</string>
+     <string name="RegistrationActivity_provider_declined">プロバイダーが通知コードの送信を拒否しました。おそらく詐欺防止のルールによるものです。</string>
++    <string name="NotificationsSettingsFragment__notify_when">その他の通知</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play開発者サービスは更新中か一時的に使用不能です。再度試してください。</string>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-ka/strings2.xml b/app/src/main/res/values-ka/strings2.xml
+index c32ec88afc1d08bcd047e215355ca2e0e261c401..ae29cada9d472e8eec12e23136ded93d801bbaf9 100644
+--- a/app/src/main/res/values-ka/strings2.xml
++++ b/app/src/main/res/values-ka/strings2.xml
+@@ -5,4 +5,6 @@
+         <item quantity="one">%d მიბმული მოწყობილობა</item>
+         <item quantity="other">%d მიბმული მოწყობილობა</item>
+     </plurals>
++    <string name="NotificationsSettingsFragment__notify_when">შემატყობინეთ, როცა…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">მიმდინარეობს Google Play-ის სერვისები ს განახლება ან ისინი დროებით მიუწვდომელია. გთხოვთ სცადოთ ხელახლა.</string>
+ </resources>
+diff --git a/app/src/main/res/values-kk/strings2.xml b/app/src/main/res/values-kk/strings2.xml
+index 473e99df5eb051b55f9f5e614fafbf225184fec0..622ad04428fb988d14e11c2a83ecb7e63d5135a4 100644
+--- a/app/src/main/res/values-kk/strings2.xml
++++ b/app/src/main/res/values-kk/strings2.xml
+@@ -10,4 +10,6 @@
+     <string name="arrays__tor_via_orbot">Tor Orbot арқылы</string>
+     <string name="app_icon_label_moon">Ай</string>
+     <string name="app_icon_label_music">Өлен</string>
++    <string name="NotificationsSettingsFragment__notify_when">Хабарландыру жіберетін кездер…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play қызметтері жаңартылуда немесе уақытша жұмыс істемейді. Тағы да байқап көріңіз.</string>
+ </resources>

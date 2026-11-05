@@ -1,0 +1,24 @@
+diff --git a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+index 03a37a20bc..2404bc4683 100644
+--- a/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
++++ b/app/src/main/java/im/molly/unifiedpush/MollySocketRepository.kt
+@@ -129,12 +132,18 @@ object MollySocketRepository {
+     }
+   }
+ 
++  @WorkerThread
+   @Throws(IOException::class)
+   fun removeDevice(device: MollySocketDevice) {
+-    LinkDeviceRepository.removeDevice(device.deviceId)
++    ThreadUtil.assertNotMainThread()
++    if (!runBlocking { LinkDeviceRepository.removeDevice(device.deviceId) }) {
++      throw IOException("Failed to remove MollySocket linked device")
++    }
+   }
+ 
++  @WorkerThread
+   fun getDeviceStatus(device: MollySocketDevice): LinkStatus {
++    ThreadUtil.assertNotMainThread()
+     return when (device.isLinked()) {
+       true -> LinkStatus.LINKED
+       false -> LinkStatus.NOT_LINKED

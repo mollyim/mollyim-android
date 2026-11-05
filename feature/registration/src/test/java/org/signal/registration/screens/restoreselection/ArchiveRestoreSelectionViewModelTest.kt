@@ -225,13 +225,14 @@ class ArchiveRestoreSelectionViewModelTest {
   }
 
   @Test
-  fun `ConfirmSkip post-registration when PIN is known records skip and completes registration`() = runTest {
+  fun `ConfirmSkip post-registration when PIN is known records skip, restores the account record, and completes registration`() = runTest {
     val viewModel = createViewModel(registeredState = RegisteredState.RegisteredAndPinKnown)
     val initialState = ArchiveRestoreSelectionState(showSkipWarningDialog = true)
 
     viewModel.applyEvent(initialState, ArchiveRestoreSelectionScreenEvents.ConfirmSkip, stateEmitter)
 
     coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    coVerify { mockRepository.restoreAccountRecord() }
     assertThat(emittedParentEvents).hasSize(1)
     assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
     assertThat(emittedStates.last().showSkipWarningDialog).isFalse()
@@ -264,12 +265,14 @@ class ArchiveRestoreSelectionViewModelTest {
     assertThat(viewModel.state.value.restoreOptions).isEqualTo(options)
   }
 
+  // ==================== ParentStateChanged Tests ====================
+
   @Test
-  fun `applyParentState copies storageCapable from parent`() = runTest {
+  fun `ParentStateChanged copies storageCapable from parent`() = runTest {
     val viewModel = createViewModel()
 
-    val result = viewModel.applyParentState(ArchiveRestoreSelectionState(), RegistrationFlowState(storageCapable = true))
+    viewModel.applyEvent(ArchiveRestoreSelectionState(), ArchiveRestoreSelectionScreenEvents.ParentStateChanged(RegistrationFlowState(storageCapable = true)), stateEmitter)
 
-    assertThat(result.storageCapable).isTrue()
+    assertThat(emittedStates.last().storageCapable).isTrue()
   }
 }

@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.ParcelFileDescriptor
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.util.FileUtils
-import java.io.Closeable
 import java.io.FileDescriptor
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -17,12 +16,12 @@ import java.util.concurrent.atomic.AtomicLong
 class MemoryFileDescriptor private constructor(
   private val parcelFileDescriptor: ParcelFileDescriptor,
   private val sizeEstimate: AtomicLong
-) : Closeable {
+) : SeekableFileDescriptor {
 
-  val fileDescriptor: FileDescriptor
+  override val fileDescriptor: FileDescriptor
     get() = parcelFileDescriptor.fileDescriptor
 
-  val parcelFd: ParcelFileDescriptor
+  override val parcelFd: ParcelFileDescriptor
     get() = parcelFileDescriptor
 
   @Throws(IOException::class)
@@ -153,6 +152,9 @@ class MemoryFileDescriptor private constructor(
 
       if (fd < 0) {
         Log.w(TAG, "Failed to create file descriptor: $fd")
+        synchronized(MemoryFileDescriptor::class.java) {
+          sizeOfAllMemoryFileDescriptors -= sizeEstimate
+        }
         throw MemoryFileCreationException()
       }
 

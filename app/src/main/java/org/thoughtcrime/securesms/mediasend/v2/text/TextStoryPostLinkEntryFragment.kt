@@ -6,17 +6,19 @@ import android.view.View
 import android.widget.EditText
 import androidx.constraintlayout.widget.Group
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.createSavedStateHandle
 import com.google.android.material.snackbar.Snackbar
+import org.signal.core.ui.activityViewModel
+import org.signal.core.ui.util.ViewUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.KeyboardEntryDialogFragment
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewRepository
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModel
+import org.thoughtcrime.securesms.linkpreview.LinkPreviewViewModelV2
 import org.thoughtcrime.securesms.stories.StoryLinkPreviewView
 import org.thoughtcrime.securesms.util.LinkUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.setIncognitoKeyboardEnabled
 import org.thoughtcrime.securesms.util.visible
 
@@ -30,7 +32,13 @@ class TextStoryPostLinkEntryFragment(private val shouldPreset: Boolean = false) 
     factoryProducer = { LinkPreviewViewModel.Factory(LinkPreviewRepository(), true) }
   )
 
-  private val viewModel: TextStoryPostCreationViewModel by activityViewModels()
+  private val sharedLinkPreviewViewModel: LinkPreviewViewModelV2 by activityViewModel { extras ->
+    LinkPreviewViewModelV2(extras.createSavedStateHandle(), enablePlaceholder = true)
+  }
+
+  private val viewModel: TextStoryPostCreationViewModel by activityViewModel { extras ->
+    TextStoryPostCreationViewModel.create(extras)
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     input = view.findViewById(R.id.input)
@@ -45,7 +53,7 @@ class TextStoryPostLinkEntryFragment(private val shouldPreset: Boolean = false) 
     val confirmButton: View = view.findViewById(R.id.confirm_button)
     val shareALinkGroup: Group = view.findViewById(R.id.share_a_link_group)
 
-    input.setIncognitoKeyboardEnabled(TextSecurePreferences.isIncognitoKeyboardEnabled(requireContext()))
+    input.setIncognitoKeyboardEnabled(SignalStore.settings.isIncognitoKeyboardEnabled)
     input.addTextChangedListener(
       afterTextChanged = {
         val scheme = "https://"
@@ -66,6 +74,9 @@ class TextStoryPostLinkEntryFragment(private val shouldPreset: Boolean = false) 
         val url = linkPreviewState.url ?: ""
 
         if (LinkUtil.isValidTextStoryPostPreview(url)) {
+          if (!linkPreviewState.isLoading) {
+            sharedLinkPreviewViewModel.onLinkPreviewResolved(linkPreviewState)
+          }
           viewModel.setLinkPreview(url)
           dismissAllowingStateLoss()
         } else {

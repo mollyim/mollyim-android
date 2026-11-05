@@ -49,7 +49,7 @@
         android:longClickable="false"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_error_outline_24"
-        app:tint="?attr/colorOnSurface"
+        app:tint="@color/signal_colorOnSurface"
         tools:visibility="visible" />
 
     <FrameLayout

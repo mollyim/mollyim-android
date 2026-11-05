@@ -30,7 +30,7 @@
             android:layout_height="@dimen/conversation_item_reply_size"
             android:layout_gravity="center"
             android:padding="9dp"
-            android:tint="?attr/signal_icon_tint_secondary"
+            android:tint="@color/signal_icon_tint_secondary"
             app:srcCompat="@drawable/symbol_reply_24" />
 
     </FrameLayout>
@@ -88,7 +88,7 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         tools:background="@drawable/message_bubble_background_received_alone"
-        tools:backgroundTint="?attr/colorSurfaceVariant">
+        tools:backgroundTint="@color/signal_colorSurfaceVariant">
 
         <FrameLayout
             android:id="@+id/group_sender_holder"
@@ -128,7 +128,7 @@
                 android:layout_marginEnd="4sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="?attr/signal_text_secondary"
+                android:textColor="@color/signal_text_secondary"
                 tools:text="Reacted to your story" />
 
         </LinearLayout>
@@ -142,14 +142,14 @@
             android:layout_marginEnd="6dp"
             android:visibility="gone"
             app:message_type="incoming"
-            app:quote_colorPrimary="?attr/conversation_item_quote_text_color"
-            app:quote_colorSecondary="?attr/conversation_item_quote_text_color"
+            app:quote_colorPrimary="@color/conversation_item_quote_text_color"
+            app:quote_colorSecondary="@color/conversation_item_quote_text_color"
             tools:background="@color/transparent_black_05"
             tools:visibility="visible" />
 
         <ViewStub
             android:id="@+id/shared_contact_view_stub"
-            android:layout_width="@dimen/media_bubble_default_dimens"
+            android:layout_width="@dimen/shared_contact_bubble_min_width"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/message_bubble_top_padding"
             android:layout="@layout/conversation_item_received_shared_contact"
@@ -204,6 +204,18 @@
             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
             android:layout="@layout/conversation_item_received_revealable" />
 
+        <ViewStub
+            android:id="@+id/gift_view_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/conversation_item_received_gift" />
+
+        <ViewStub
+            android:id="@+id/payment_view_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/conversation_item_payment" />
+
         <org.thoughtcrime.securesms.components.emoji.EmojiTextView
             android:id="@+id/conversation_item_body"
             style="@style/Signal.Text.Body"
@@ -213,8 +225,8 @@
             android:layout_marginTop="@dimen/message_bubble_top_padding"
             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
             android:layout_marginBottom="@dimen/message_bubble_bottom_padding"
-            android:textColor="?attr/signal_text_primary"
-            android:textColorLink="?attr/signal_text_primary"
+            android:textColor="@color/signal_text_primary"
+            android:textColorLink="@color/signal_text_primary"
             app:emoji_maxLength="1000"
             app:emoji_renderSpoilers="true"
             app:measureLastLine="true"
@@ -230,13 +242,13 @@
             android:maxWidth="@dimen/media_bubble_max_width" />
 
         <ViewStub
-            android:id="@+id/conversation_item_join_button"
+            android:id="@+id/conversation_item_link_preview_action"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/message_bubble_horizontal_padding"
             android:layout_marginEnd="@dimen/message_bubble_horizontal_padding"
             android:layout_marginBottom="20dp"
-            android:layout="@layout/conversation_item_join_button" />
+            android:layout="@layout/conversation_item_link_preview_action" />
 
         <ViewStub
             android:id="@+id/conversation_item_call_to_action_stub"
@@ -276,10 +288,10 @@
             android:paddingEnd="@dimen/message_bubble_horizontal_padding"
             android:paddingBottom="3dp"
             android:visibility="gone"
-            app:footer_icon_color="?attr/signal_icon_tint_secondary"
+            app:footer_icon_color="@color/signal_icon_tint_secondary"
             app:footer_mode="incoming"
-            app:footer_reveal_dot_color="?attr/signal_icon_tint_secondary"
-            app:footer_text_color="?attr/signal_text_secondary" />
+            app:footer_reveal_dot_color="@color/signal_icon_tint_secondary"
+            app:footer_text_color="@color/signal_text_secondary" />
 
     </org.thoughtcrime.securesms.conversation.ConversationItemBodyBubble>
 
@@ -304,10 +316,10 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:backgroundTint="@color/signal_colorSurfaceVariant"
             android:padding="6dp"
             android:layout_marginEnd="-12dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            android:tint="@color/signal_colorOnSurfaceVariant"
             app:srcCompat="@drawable/ic_replies_outline_20" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -316,10 +328,10 @@
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/circle_tintable"
-            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:backgroundTint="@color/signal_colorSurfaceVariant"
             android:padding="6dp"
             android:layout_marginEnd="-12dp"
-            android:tint="?attr/colorOnSurfaceVariant"
+            android:tint="@color/signal_colorOnSurfaceVariant"
             android:visibility="gone"
             app:srcCompat="@drawable/symbol_chat_arrow_24" />
 

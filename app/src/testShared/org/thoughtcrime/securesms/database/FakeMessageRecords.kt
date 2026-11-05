@@ -1,8 +1,9 @@
 package org.thoughtcrime.securesms.database
 
 import org.signal.blurhash.BlurHash
-import org.signal.core.models.media.TransformProperties
 import org.signal.core.models.database.AttachmentId
+import org.signal.core.models.media.TransformProperties
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.attachments.Cdn
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.audio.AudioHash
@@ -21,7 +22,6 @@ import org.thoughtcrime.securesms.mms.SlideDeck
 import org.thoughtcrime.securesms.payments.Payment
 import org.thoughtcrime.securesms.polls.PollRecord
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.stickers.StickerLocator
 import org.thoughtcrime.securesms.util.MediaUtil
 
@@ -68,7 +68,8 @@ object FakeMessageRecords {
     archiveMediaId: String? = null,
     archiveThumbnailId: String? = null,
     thumbnailRestoreState: AttachmentTable.ThumbnailRestoreState = AttachmentTable.ThumbnailRestoreState.NONE,
-    archiveTransferState: AttachmentTable.ArchiveTransferState = AttachmentTable.ArchiveTransferState.NONE
+    archiveTransferState: AttachmentTable.ArchiveTransferState = AttachmentTable.ArchiveTransferState.NONE,
+    archiveThumbnailTransferState: AttachmentTable.ArchiveTransferState = AttachmentTable.ArchiveTransferState.NONE
   ): DatabaseAttachment {
     return DatabaseAttachment(
       attachmentId = attachmentId,
@@ -103,6 +104,7 @@ object FakeMessageRecords {
       archiveCdn = archiveCdn,
       thumbnailRestoreState = thumbnailRestoreState,
       archiveTransferState = archiveTransferState,
+      archiveThumbnailTransferState = archiveThumbnailTransferState,
       uuid = null,
       quoteTargetContentType = null,
       metadata = null

@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.media3.common.MimeTypes;
 
-import org.greenrobot.eventbus.EventBus;
 import org.signal.core.models.database.AttachmentId;
 import org.signal.core.models.media.TransformProperties;
 import org.signal.core.util.MemoryFileDescriptor.MemoryFileException;
@@ -18,10 +17,11 @@ import org.signal.core.util.crypto.AttachmentSecret;
 import org.signal.core.util.crypto.AttachmentSecretProvider;
 import org.signal.core.util.crypto.ModernDecryptingPartInputStream;
 import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.signal.glide.decryptableuri.DecryptableUri;
 import org.signal.mediasend.MediaConstraints;
-import org.signal.mediasend.SentMediaQuality;
+import org.signal.core.models.media.SentMediaQuality;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.Attachment;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
@@ -252,15 +252,17 @@ public final class AttachmentCompressionJob extends BaseJob {
           throw new UndeliverableMessageException("Cannot get media data source for attachment.");
         }
 
-        TranscoderOptions options = null;
+        TranscoderOptions options   = null;
+        boolean           muteAudio = false;
         if (transformProperties != null) {
           allowSkipOnFailure = !transformProperties.getVideoEdited();
+          muteAudio          = transformProperties.videoMuted;
           if (transformProperties.videoTrim) {
             options = new TranscoderOptions(transformProperties.videoTrimStartTimeUs, transformProperties.videoTrimEndTimeUs);
           }
         }
 
-        StreamingTranscoder transcoder = new StreamingTranscoder(dataSource, options, constraints.getVideoTranscodingSettings(), constraints.getCompressedVideoMaxSize(), RemoteConfig.allowAudioRemuxing());
+        StreamingTranscoder transcoder = new StreamingTranscoder(dataSource, options, constraints.getVideoTranscodingSettings(), AttachmentUploadJob.getMaxPlaintextSize(), RemoteConfig.allowAudioRemuxing(), muteAudio);
 
         if (transcoder.isTranscodeRequired()) {
           Log.i(TAG, "Compressing with streaming muxer");

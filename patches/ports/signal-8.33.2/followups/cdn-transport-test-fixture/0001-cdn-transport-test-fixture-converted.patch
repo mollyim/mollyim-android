@@ -1,0 +1,54 @@
+From ac7a8948ebf9150af923eccf6292cece1f61d9d4 Mon Sep 17 00:00:00 2001
+From: 0cwa <0@none.org>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Fix CDN test configuration for Molly network transport
+
+AI-assisted compatibility changes: restore imports across source checkpoints.
+
+AI-assisted compatibility changes: use a seven-day duration in the existing backup exporter test.
+
+AI-assisted compatibility changes: restore Molly logger collection.
+
+Carry this AI-assisted source change as its own
+reviewable patch, preserving the original source author and diff.
+The official Molly snapshot and earlier resolution patches do
+not receive regenerated provenance headers.
+
+Source-Commit: e8a0ac3c8af37fa22d891633379392344d690e6e
+AI-Generated: true
+
+diff --git a/lib/network/src/test/java/org/signal/network/api/CdnApiTest.kt b/lib/network/src/test/java/org/signal/network/api/CdnApiTest.kt
+index 103ec690dedc18db6e6644fb6d30aaae44076fd9..a95eb394f38840764dbcfd002fcbe6b3fa91f13b 100644
+--- a/lib/network/src/test/java/org/signal/network/api/CdnApiTest.kt
++++ b/lib/network/src/test/java/org/signal/network/api/CdnApiTest.kt
+@@ -11,6 +11,7 @@ import assertk.assertions.isEqualTo
+ import assertk.assertions.isInstanceOf
+ import assertk.assertions.isNull
+ import kotlinx.coroutines.test.runTest
++import okhttp3.Dns
+ import okhttp3.Interceptor
+ import okhttp3.MediaType.Companion.toMediaType
+ import okhttp3.OkHttpClient
+@@ -34,8 +35,9 @@ import org.signal.network.rest.SignalRestClient
+ import org.whispersystems.signalservice.internal.push.AttachmentUploadForm
+ import java.io.ByteArrayInputStream
+ import java.io.IOException
+-import java.util.Optional
++import java.net.ProxySelector
+ import java.util.Random
++import javax.net.SocketFactory
+ import kotlin.time.Duration.Companion.seconds
+ 
+ class CdnApiTest {
+@@ -404,8 +406,9 @@ class CdnApiTest {
+       signalCdsiUrls = emptyArray<SignalCdsiUrl>(),
+       signalSvr2Urls = emptyArray<SignalSvr2Url>(),
+       networkInterceptors = emptyList(),
+-      dns = Optional.empty(),
+-      signalProxy = Optional.empty(),
++      dns = Dns.SYSTEM,
++      socketFactory = SocketFactory.getDefault(),
++      proxySelector = ProxySelector.getDefault(),
+       zkGroupServerPublicParams = ByteArray(0),
+       genericServerPublicParams = ByteArray(0),
+       backupServerPublicParams = ByteArray(0),

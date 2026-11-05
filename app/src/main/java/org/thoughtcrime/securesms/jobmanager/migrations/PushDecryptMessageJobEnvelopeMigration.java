@@ -11,7 +11,6 @@ import org.thoughtcrime.securesms.jobmanager.JobMigration;
  * @deprecated No longer have a PushDecryptJob to migrate, job now maps to {@link org.thoughtcrime.securesms.jobs.FailingJob}
  * in {@link org.thoughtcrime.securesms.jobs.JobManagerFactories}
  */
-@Deprecated
 public class PushDecryptMessageJobEnvelopeMigration extends JobMigration {
 
   public PushDecryptMessageJobEnvelopeMigration() {

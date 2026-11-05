@@ -8,12 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.fragment.NavHostFragment;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.thoughtcrime.securesms.PassphraseRequiredActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.conversation.ConversationIntents;
 import org.thoughtcrime.securesms.groups.ui.managegroup.dialogs.GroupInviteSentDialog;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
@@ -35,13 +35,10 @@ public class AddGroupDetailsActivity extends PassphraseRequiredActivity implemen
     return intent;
   }
 
-  @Override protected void onPreCreate() {
-    super.onPreCreate();
-    theme.onCreate(this);
-  }
-
   @Override
   protected void onCreate(@Nullable Bundle bundle, boolean ready) {
+    theme.onCreate(this);
+
     setContentView(R.layout.add_group_details_activity);
 
     if (bundle == null) {

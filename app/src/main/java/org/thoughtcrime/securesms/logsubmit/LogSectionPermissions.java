@@ -46,9 +46,4 @@ public class LogSectionPermissions implements LogSection {
 
     return out;
   }
-
-  @Override
-  @NonNull public CharSequence getContentLocked(@NonNull Context context) {
-    return getContent(context);
-  }
 }

@@ -8,6 +8,6 @@
     android:saveEnabled="false"
     android:visibility="gone"
     app:message_type="preview"
-    app:quote_colorPrimary="?attr/signal_text_primary"
-    app:quote_colorSecondary="?attr/signal_text_primary"
+    app:quote_colorPrimary="@color/signal_text_primary"
+    app:quote_colorSecondary="@color/signal_text_primary"
     tools:visibility="visible" />

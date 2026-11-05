@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.signal.core.models.ServiceId;
+import org.signal.core.models.recipients.RecipientId;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.conversation.colors.ColorizerV2;
 import org.thoughtcrime.securesms.conversation.colors.NameColor;
@@ -26,7 +27,6 @@ import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelRepository;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberEntry;
 import org.thoughtcrime.securesms.groups.ui.GroupMemberListView;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.signal.core.ui.BottomSheetUtil;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.signal.core.util.concurrent.LifecycleDisposable;
@@ -108,7 +108,7 @@ public final class ShowAdminsBottomSheetDialog extends BottomSheetDialogFragment
   @WorkerThread
   private static @NonNull List<GroupMemberEntry> getAdmins(@NonNull Context context, @NonNull GroupId groupId) {
     GroupRecord groupRecord = SignalDatabase.groups().getGroup(groupId).orElse(null);
-    if (groupRecord == null) {
+    if (groupRecord == null || !groupRecord.getHasV2GroupProperties()) {
       return Collections.emptyList();
     }
 

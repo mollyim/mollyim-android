@@ -1,0 +1,14 @@
+diff --git a/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt b/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
+index 35f1228607..6d954efc86 100644
+--- a/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
++++ b/core/ui/src/main/java/org/signal/core/ui/compose/Rows.kt
+@@ -201,8 +201,7 @@ object Rows {
+     onSelected: (String) -> Unit,
+     modifier: Modifier = Modifier,
+     enabled: Boolean = true,
+-    requireConfirmation: Boolean = false,
+-    trailingIcon: (@Composable RowScope.() -> Unit)? = null
++    requireConfirmation: Boolean = false
+   ) {
+     val selectedIndex = values.indexOf(selectedValue)
+     var displayDialog by remember { mutableStateOf(false) }

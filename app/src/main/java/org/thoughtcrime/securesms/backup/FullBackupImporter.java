@@ -13,10 +13,10 @@ import androidx.annotation.VisibleForTesting;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
-import org.greenrobot.eventbus.EventBus;
-import org.signal.core.util.SqlUtil;
+import org.signal.core.database.SqlUtil;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
-import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.backup.proto.Attachment;
 import org.thoughtcrime.securesms.backup.proto.Avatar;
 import org.thoughtcrime.securesms.backup.proto.BackupFrame;
@@ -25,26 +25,25 @@ import org.thoughtcrime.securesms.backup.proto.KeyValue;
 import org.thoughtcrime.securesms.backup.proto.SharedPreference;
 import org.thoughtcrime.securesms.backup.proto.SqlStatement;
 import org.thoughtcrime.securesms.backup.proto.Sticker;
-import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
+import org.signal.core.util.crypto.AttachmentSecret;
+import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
 import org.thoughtcrime.securesms.database.AttachmentTable;
+import org.thoughtcrime.securesms.database.CallTable;
 import org.thoughtcrime.securesms.database.EmojiSearchTable;
 import org.thoughtcrime.securesms.database.KeyValueDatabase;
 import org.thoughtcrime.securesms.database.KyberPreKeyTable;
 import org.thoughtcrime.securesms.database.LastResortKeyTupleTable;
+import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable;
 import org.thoughtcrime.securesms.database.SearchTable;
 import org.thoughtcrime.securesms.database.SignedPreKeyTable;
-import org.thoughtcrime.securesms.database.StickerTable;
+import org.thoughtcrime.securesms.database.StickerTables;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.BackupUtil;
-import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.signal.core.util.Util;
-import org.signal.core.util.crypto.AttachmentSecret;
-import org.signal.core.util.crypto.ModernEncryptingPartOutputStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,7 +54,6 @@ import java.io.OutputStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -144,6 +142,7 @@ public class FullBackupImporter extends FullBackupBase {
         else                            count--;
       }
 
+      deleteOrphanedCalls(db);
       db.setTransactionSuccessful();
       keyValueDatabase.setTransactionSuccessful();
     } finally {
@@ -164,6 +163,23 @@ public class FullBackupImporter extends FullBackupBase {
     }
 
     EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.FINISHED, count, 0));
+  }
+
+  /**
+   * Old backups could contain unproperly expired calls so we clear them out now
+   */
+  private static void deleteOrphanedCalls(@NonNull SQLiteDatabase db) {
+    if (!SqlUtil.tableExists(db, CallTable.TABLE_NAME) || !SqlUtil.tableExists(db, MessageTable.TABLE_NAME)) {
+      return;
+    }
+
+    int deleted = db.delete(CallTable.TABLE_NAME,
+                            CallTable.MESSAGE_ID + " NOT NULL AND " + CallTable.MESSAGE_ID + " NOT IN (SELECT " + MessageTable.ID + " FROM " + MessageTable.TABLE_NAME + ")",
+                            null);
+
+    if (deleted > 0) {
+      Log.w(TAG, "Deleted " + deleted + " calls that referenced a message missing from the backup.");
+    }
   }
 
   private static @NonNull InputStream getInputStream(@NonNull Context context, @NonNull Uri uri) throws IOException{
@@ -248,7 +264,7 @@ public class FullBackupImporter extends FullBackupBase {
   private static void processSticker(@NonNull Context context, @NonNull AttachmentSecret attachmentSecret, @NonNull SQLiteDatabase db, @NonNull Sticker sticker, BackupRecordInputStream inputStream)
       throws IOException
   {
-    File stickerDirectory = context.getDir(StickerTable.DIRECTORY, Context.MODE_PRIVATE);
+    File stickerDirectory = context.getDir(StickerTables.DIRECTORY, Context.MODE_PRIVATE);
     File dataFile         = File.createTempFile("sticker", ".mms", stickerDirectory);
 
     Pair<byte[], OutputStream> output = ModernEncryptingPartOutputStream.createFor(attachmentSecret, dataFile, false);
@@ -256,12 +272,12 @@ public class FullBackupImporter extends FullBackupBase {
     inputStream.readAttachmentTo(output.getSecond(), sticker.length);
 
     ContentValues contentValues = new ContentValues();
-    contentValues.put(StickerTable.FILE_PATH, dataFile.getAbsolutePath());
-    contentValues.put(StickerTable.FILE_LENGTH, sticker.length);
-    contentValues.put(StickerTable.FILE_RANDOM, output.getFirst());
+    contentValues.put(StickerTables.Sticker.FILE_PATH, dataFile.getAbsolutePath());
+    contentValues.put(StickerTables.Sticker.FILE_LENGTH, sticker.length);
+    contentValues.put(StickerTables.Sticker.FILE_RANDOM, output.getFirst());
 
-    db.update(StickerTable.TABLE_NAME, contentValues,
-              StickerTable.ID + " = ?",
+    db.update(StickerTables.Sticker.TABLE_NAME, contentValues,
+              StickerTables.Sticker.ID + " = ?",
               new String[] {String.valueOf(sticker.rowId)});
   }
 
@@ -312,15 +328,9 @@ public class FullBackupImporter extends FullBackupBase {
     KeyValueDatabase.getInstance(AppDependencies.getApplication()).writeDataSet(dataSet, Collections.emptyList());
   }
 
-  private static final List<String> defaultSharedPreferencesFileNames = Arrays.asList(
-      BuildConfig.SIGNAL_PACKAGE_NAME + "_preferences",
-      BuildConfig.APPLICATION_ID + "_preferences",
-      SecurePreferenceManager.getSecurePreferencesName()
-  );
-
   @SuppressLint("ApplySharedPref")
   private static void processPreference(@NonNull Context context, SharedPreference preference) {
-    SharedPreferences preferences;
+    SharedPreferences preferences = context.getSharedPreferences(preference.file_, 0);
 
     // Identity keys were moved from shared prefs into SignalStore. Need to handle importing backups made before the migration.
     if ("SecureSMS-Preferences".equals(preference.file_)) {
@@ -333,20 +343,12 @@ public class FullBackupImporter extends FullBackupBase {
       return;
     }
 
-    if (defaultSharedPreferencesFileNames.contains(preference.file_)) {
-      preferences = SecurePreferenceManager.getSecurePreferences(context);
-    } else {
-      preferences = EncryptedPreferences.create(context, preference.file_);
-    }
-
     if (preference.value_ != null) {
       preferences.edit().putString(preference.key, preference.value_).commit();
     } else if (preference.booleanValue != null) {
       preferences.edit().putBoolean(preference.key, preference.booleanValue).commit();
     } else if (preference.isStringSetValue == Boolean.TRUE) {
       preferences.edit().putStringSet(preference.key, new HashSet<>(preference.stringSetValue)).commit();
-    } else if (preference.integerValue != null) {
-      preferences.edit().putInt(preference.key, preference.integerValue).commit();
     }
   }
 

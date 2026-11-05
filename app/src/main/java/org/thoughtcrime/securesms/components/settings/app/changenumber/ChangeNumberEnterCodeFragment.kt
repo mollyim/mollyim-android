@@ -12,11 +12,13 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.signal.core.ui.logging.LoggingFragment
+import org.signal.core.util.eventbus.EventBus
+import org.signal.core.util.eventbus.RestartableSubscription
+import org.signal.core.util.eventbus.ThreadMode
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.ViewBinderDelegate
@@ -30,6 +32,7 @@ import org.thoughtcrime.securesms.registration.fragments.ContactSupportBottomShe
 import org.thoughtcrime.securesms.registration.fragments.RegistrationViewDelegate
 import org.thoughtcrime.securesms.registration.fragments.SignalStrengthPhoneStateListener
 import org.thoughtcrime.securesms.registration.sms.ReceivedSmsEvent
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter
 import org.thoughtcrime.securesms.util.concurrent.AssertedSuccessListener
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
 import org.thoughtcrime.securesms.util.visible
@@ -56,6 +59,8 @@ class ChangeNumberEnterCodeFragment : LoggingFragment(R.layout.fragment_change_n
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    SystemWindowInsetsSetter.attach(view, viewLifecycleOwner, SystemWindowInsetsSetter.SAFE_AREA_WITH_KEYBOARD)
+
     val toolbar: Toolbar = view.findViewById(R.id.toolbar)
     toolbar.title = viewModel.number.fullFormattedNumber
     toolbar.setNavigationOnClickListener {
@@ -76,6 +81,9 @@ class ChangeNumberEnterCodeFragment : LoggingFragment(R.layout.fragment_change_n
     )
 
     RegistrationViewDelegate.setDebugLogSubmitMultiTapView(binding.codeEntryLayout.verifyHeader)
+
+    RestartableSubscription { EventBus.default.subscribe<ReceivedSmsEvent>(ThreadMode.MAIN, ::onVerificationCodeReceived) }
+      .bindTo(viewLifecycleOwner, Lifecycle.State.CREATED)
 
     phoneStateListener = SignalStrengthPhoneStateListener(this, PhoneStateCallback())
 
@@ -270,8 +278,7 @@ class ChangeNumberEnterCodeFragment : LoggingFragment(R.layout.fragment_change_n
     )
   }
 
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  fun onVerificationCodeReceived(event: ReceivedSmsEvent) {
+  private fun onVerificationCodeReceived(event: ReceivedSmsEvent) {
     binding.codeEntryLayout.code.clear()
 
     if (event.code.isBlank() || event.code.length != ReceivedSmsEvent.CODE_LENGTH) {

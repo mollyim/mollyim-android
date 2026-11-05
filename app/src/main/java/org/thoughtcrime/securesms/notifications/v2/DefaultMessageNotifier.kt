@@ -16,7 +16,6 @@ import org.signal.core.util.PendingIntentFlags
 import org.signal.core.util.ServiceUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -50,28 +49,28 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
   @Volatile private var visibleBubbleThread: ConversationId? = null
 
+  private val activeBubbleThreads: MutableSet<ConversationId> = ConcurrentHashMap.newKeySet()
+
   @Volatile private var lastAudibleNotification: Long = -1
 
   @Volatile private var lastScheduledReminder: Long = 0
 
-  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked()
-
-  @Volatile private var previousScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
+  @Volatile private var previousLockedStatus: Boolean = KeyCachingService.isLocked(context)
 
   @Volatile private var previousPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings.messageNotificationsPrivacy
 
   @Volatile private var previousState: NotificationState = NotificationState.EMPTY
 
   private val threadReminders: MutableMap<ConversationId, Reminder> = ConcurrentHashMap()
-  private val stickyThreads: MutableMap<ConversationId, StickyThread> = mutableMapOf()
+  private val stickyThreads: MutableMap<ConversationId, StickyThread> = ConcurrentHashMap()
   private val lastThreadNotification: MutableMap<ConversationId, Long> = ConcurrentHashMap()
 
   private val executor = CancelableExecutor()
 
   override fun setVisibleThread(conversationId: ConversationId?) {
     visibleThread.set(conversationId)
-    stickyThreads.remove(conversationId)
     if (conversationId != null) {
+      stickyThreads.remove(conversationId)
       lastThreadNotification.remove(conversationId)
     }
   }
@@ -94,6 +93,18 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
   override fun clearVisibleBubbleThread() {
     setVisibleBubbleThread(null)
+  }
+
+  override fun addActiveBubbleThread(conversationId: ConversationId) {
+    activeBubbleThreads += conversationId
+  }
+
+  override fun removeActiveBubbleThread(conversationId: ConversationId) {
+    activeBubbleThreads -= conversationId
+  }
+
+  override fun getActiveBubbleThreads(): Set<ConversationId> {
+    return activeBubbleThreads.toSet()
   }
 
   override fun notifyMessageDeliveryFailed(context: Context, recipient: Recipient, conversationId: ConversationId) {
@@ -145,17 +156,11 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
       return
     }
 
-    val currentLockStatus: Boolean = KeyCachingService.isLocked()
+    val currentLockStatus: Boolean = KeyCachingService.isLocked(context)
     val currentPrivacyPreference: NotificationPrivacyPreference = SignalStore.settings.messageNotificationsPrivacy
-    val currentScreenLockState: Boolean = ScreenLockController.lockScreenAtStart
-    val notificationConfigurationChanged: Boolean = (
-      currentLockStatus != previousLockedStatus ||
-        currentPrivacyPreference != previousPrivacyPreference ||
-        currentScreenLockState != previousScreenLockState
-      )
+    val notificationConfigurationChanged: Boolean = currentLockStatus != previousLockedStatus || currentPrivacyPreference != previousPrivacyPreference
     previousLockedStatus = currentLockStatus
     previousPrivacyPreference = currentPrivacyPreference
-    previousScreenLockState = currentScreenLockState
 
     if (notificationConfigurationChanged) {
       stickyThreads.clear()
@@ -164,30 +169,26 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     val notificationProfile: NotificationProfile? = NotificationProfiles.getActiveProfile(SignalDatabase.notificationProfiles.getProfiles())
 
     Log.internal().i(TAG, "sticky thread: $stickyThreads active profile: ${notificationProfile?.id ?: "none" }")
-    var state: NotificationState = NotificationStateProvider.constructNotificationState(stickyThreads, notificationProfile)
-    Log.internal().i(TAG, "state: $state")
+    val state: NotificationState = NotificationStateProvider.constructNotificationState(stickyThreads, notificationProfile)
 
     if (state.muteFilteredMessages.isNotEmpty()) {
       Log.i(TAG, "Marking ${state.muteFilteredMessages.size} muted messages as notified to skip notification")
-      state.muteFilteredMessages.forEach { item ->
-        SignalDatabase.messages.markAsNotified(item.id)
-      }
+      SignalDatabase.messages.markAsNotified(state.muteFilteredMessages.map { it.id })
     }
 
     if (state.profileFilteredMessages.isNotEmpty()) {
       Log.i(TAG, "Marking ${state.profileFilteredMessages.size} profile filtered messages as notified to skip notification")
-      state.profileFilteredMessages.forEach { item ->
-        SignalDatabase.messages.markAsNotified(item.id)
-      }
+      SignalDatabase.messages.markAsNotified(state.profileFilteredMessages.map { it.id })
+    }
+
+    if (state.reactionsDisabledFilteredMessages.isNotEmpty()) {
+      Log.i(TAG, "Marking ${state.reactionsDisabledFilteredMessages.size} reactions as notified to skip notification")
+      SignalDatabase.messages.markAsNotified(state.reactionsDisabledFilteredMessages.map { it.id })
     }
 
     if (!SignalStore.settings.isMessageNotificationsEnabled) {
       Log.i(TAG, "Marking ${state.conversations.size} conversations as notified to skip notification")
-      state.conversations.forEach { conversation ->
-        conversation.notificationItems.forEach { item ->
-          SignalDatabase.messages.markAsNotified(item.id)
-        }
-      }
+      SignalDatabase.messages.markConversationsAsNotified(state.conversations.map { it.thread }, state.notificationItems.maxOfOrNull { it.id } ?: 0L)
       return
     }
 
@@ -195,8 +196,11 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
     stickyThreads.keys.retainAll { retainStickyThreadIds.contains(it) }
 
     if (state.isEmpty) {
-      // MOLLY: Extracted to a separate function
-      clearNotifications(context)
+      Log.i(TAG, "State is empty, cancelling all notifications")
+      cancelDelayedNotifications()
+      NotificationCancellationHelper.cancelAllMessageNotifications(context, stickyThreads.map { it.value.notificationId }.toSet())
+      updateBadge(context, 0)
+      clearReminderInternal(context)
       return
     }
 
@@ -231,23 +235,12 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 
     if (Build.VERSION.SDK_INT >= 24) {
       val ids = state.conversations.filter { it.thread != visibleThread.get() }.map { it.notificationId } + stickyThreads.map { (_, stickyThread) -> stickyThread.notificationId }
-      val notShown = ids - getDisplayedNotificationIds(context)
+      val notShown = ids - ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
       if (notShown.isNotEmpty()) {
         Log.e(TAG, "Notifications should be showing but are not for ${notShown.size} threads")
       }
     }
   }
-
-  override fun clearNotifications(context: Context): Boolean {
-    cancelDelayedNotifications()
-    val activeNotifications = getDisplayedNotificationIds(context)
-    NotificationCancellationHelper.cancelAllMessageNotifications(context)
-    updateBadge(context, 0)
-    clearReminderInternal(context)
-    return activeNotifications.isNotEmpty()
-  }
-
-  private fun getDisplayedNotificationIds(context: Context) = ServiceUtil.getNotificationManager(context).getDisplayedNotificationIds().getOrDefault(emptySet())
 
   override fun addStickyThread(conversationId: ConversationId, earliestTimestamp: Long) {
     stickyThreads[conversationId] = StickyThread(conversationId, NotificationIds.getNotificationIdForThread(conversationId), earliestTimestamp)
@@ -337,7 +330,7 @@ class DefaultMessageNotifier(context: Application) : MessageNotifier {
 }
 
 private fun StatusBarNotification.isMessageNotification(): Boolean {
-  return NotificationIds.isMessageNotificationId(id)
+  return NotificationCancellationHelper.isSingleThreadNotification(this)
 }
 
 private fun NotificationManager.getDisplayedNotificationIds(): Result<Set<Int>> {

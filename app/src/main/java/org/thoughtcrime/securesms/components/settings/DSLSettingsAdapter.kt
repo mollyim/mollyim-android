@@ -14,7 +14,7 @@ import androidx.annotation.Discouraged
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
-import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.models.AsyncSwitch
@@ -22,12 +22,12 @@ import org.thoughtcrime.securesms.components.settings.models.Button
 import org.thoughtcrime.securesms.components.settings.models.Space
 import org.thoughtcrime.securesms.components.settings.models.Text
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.LayoutFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingViewHolder
 import org.thoughtcrime.securesms.util.views.LearnMoreTextView
 import org.thoughtcrime.securesms.util.visible
+import org.signal.core.ui.R as CoreUiR
 
 @Discouraged("The DSL API can be completely replaced by compose. See ComposeFragment or ComposeBottomSheetFragment for an alternative to this API")
 class DSLSettingsAdapter : MappingAdapter() {
@@ -187,7 +187,7 @@ class MultiSelectListPreferenceViewHolder(itemView: View) : PreferenceViewHolder
       .joinToString(", ")
 
     if (summaryText.isEmpty()) {
-      summaryView.setText(R.string.preferences__none)
+      summaryView.setText(CoreUiR.string.preferences__none)
     } else {
       summaryView.text = summaryText
     }
@@ -220,19 +220,12 @@ class SwitchPreferenceViewHolder(itemView: View) : PreferenceViewHolder<SwitchPr
     switchWidget.isChecked = model.isChecked
     switchWidget.isEnabled = model.isEnabled
 
-    switchWidget.setOnCheckedChangeListener { _, isChecked ->
-      if (!model.onToggle(isChecked)) {
-        // MOLLY: Set the toggle button back to the previous state
-        switchWidget.toggle()
-      }
+    switchWidget.setOnCheckedChangeListener { _, _ ->
       model.onClick()
     }
 
     itemView.setOnClickListener {
-      val targetState = !switchWidget.isChecked
-      if (model.onToggle(targetState)) {
-        model.onClick()
-      }
+      model.onClick()
     }
 
     if (payload.contains(SwitchPreference.PAYLOAD_CHECKED)) {
@@ -260,8 +253,8 @@ class ExternalLinkPreferenceViewHolder(itemView: View) : PreferenceViewHolder<Ex
   override fun bind(model: ExternalLinkPreference) {
     super.bind(model)
 
-    val externalLinkIcon = requireNotNull(ContextCompat.getDrawable(context, R.drawable.symbol_open_20)).apply {
-      colorFilter = PorterDuffColorFilter(ThemeUtil.getThemedColor(context, R.attr.signal_icon_tint_primary), PorterDuff.Mode.SRC_IN)
+    val externalLinkIcon = requireNotNull(ContextCompat.getDrawable(context, CoreUiR.drawable.symbol_open_20)).apply {
+      colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, R.color.signal_icon_tint_primary), PorterDuff.Mode.SRC_IN)
     }
     externalLinkIcon.setBounds(0, 0, ViewUtil.dpToPx(20), ViewUtil.dpToPx(20))
 

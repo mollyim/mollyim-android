@@ -12,18 +12,13 @@ import org.signal.ringrtc.GroupCall;
 import org.signal.ringrtc.PeekInfo;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.events.WebRtcViewModel;
-import org.thoughtcrime.securesms.net.Networking;
 import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
 import org.thoughtcrime.securesms.webrtc.audio.AudioManagerCompat;
 import org.thoughtcrime.securesms.webrtc.audio.SignalAudioManager;
 import org.thoughtcrime.securesms.webrtc.locks.LockManager;
-import org.webrtc.PeerConnection;
 import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
 import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
 import org.whispersystems.signalservice.api.messages.calls.OpaqueMessage;
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 /**
  * Calling specific helpers.
@@ -127,19 +122,5 @@ public final class WebRtcUtil {
 
   public static boolean isCallFull(@Nullable PeekInfo peekInfo) {
     return peekInfo != null && peekInfo.getMaxDevices() != null && peekInfo.getDeviceCount() >= peekInfo.getMaxDevices();
-  }
-
-  public static PeerConnection.ProxyInfo getProxyInfo() {
-    Proxy proxy = Networking.getProxy();
-    if (proxy == Proxy.NO_PROXY) {
-      return null;
-    } else if (proxy.type() == Proxy.Type.SOCKS) {
-      InetSocketAddress address = (InetSocketAddress) proxy.address();
-      return PeerConnection.ProxyInfo.builder(address.getHostString(), address.getPort())
-                                     .setProxyType(PeerConnection.ProxyType.PROXY_SOCKS5)
-                                     .createProxyInfo();
-    } else {
-      throw new AssertionError("Unsupported proxy type");
-    }
   }
 }

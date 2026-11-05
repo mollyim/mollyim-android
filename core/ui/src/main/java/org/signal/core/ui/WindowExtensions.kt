@@ -5,8 +5,15 @@
 
 package org.signal.core.ui
 
+import android.graphics.Color
+import android.os.Build
 import android.view.Window
 import android.view.WindowManager
+import androidx.core.view.WindowCompat
+import org.signal.core.ui.util.ThemeUtil
+
+private val DARK_NAVIGATION_BAR_SCRIM = Color.argb(0x80, 0x1b, 0x1b, 0x1b)
+private val LIGHT_NAVIGATION_BAR_SCRIM = Color.argb(0xe6, 0xff, 0xff, 0xff)
 
 /**
  * Initializes screenshot security on the window based on user preferences.
@@ -16,5 +23,35 @@ fun Window.initializeScreenshotSecurity() {
     addFlags(WindowManager.LayoutParams.FLAG_SECURE)
   } else {
     clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+  }
+}
+
+/**
+ * Dialog-window analog of [androidx.activity.enableEdgeToEdge]: lays the window out edge-to-edge with
+ * transparent (or scrimmed, pre-29) system bars, matching what the framework enforces on API 35+. Dialog
+ * windows are not covered by the activity-level call in BaseActivity, so every non-floating dialog must opt
+ * in itself.
+ *
+ * In a DialogFragment, call this from onGetLayoutInflater after super, not from onCreateDialog. It creates the
+ * decor view, and doing that before DialogFragment requests FEATURE_NO_TITLE crashes on API 23.
+ *
+ * Bar icon appearance (`windowLightStatusBar` / `windowLightNavigationBar`) is left to the window's theme,
+ * which stays honored under edge-to-edge.
+ *
+ * The bar colors are cleared on every API level, including 35+. The platform only forces them transparent
+ * for windows it treats as edge-to-edge enforced, and that is not reliable for dialog windows, which
+ * otherwise keep the theme's `android:statusBarColor` (`?attr/colorPrimaryDark`) and paint a colored bar over
+ * our content. androidx.activity's own API 35 path clears both for the same reason; where the platform really
+ * does enforce edge-to-edge the setters are simply no-ops.
+ */
+@Suppress("DEPRECATION")
+fun Window.enableEdgeToEdge() {
+  WindowCompat.setDecorFitsSystemWindows(this, false)
+
+  statusBarColor = Color.TRANSPARENT
+  navigationBarColor = when {
+    Build.VERSION.SDK_INT >= 29 -> Color.TRANSPARENT
+    Build.VERSION.SDK_INT >= 27 && ThemeUtil.getThemedBoolean(context, android.R.attr.windowLightNavigationBar) -> LIGHT_NAVIGATION_BAR_SCRIM
+    else -> DARK_NAVIGATION_BAR_SCRIM
   }
 }

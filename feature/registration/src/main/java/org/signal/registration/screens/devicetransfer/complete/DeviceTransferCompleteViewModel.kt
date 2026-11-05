@@ -6,20 +6,21 @@
 package org.signal.registration.screens.devicetransfer.complete
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RestoreDecision
-import org.signal.registration.screens.EventDrivenViewModel
 
 class DeviceTransferCompleteViewModel(
   private val repository: RegistrationRepository,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-) : EventDrivenViewModel<DeviceTransferCompleteScreenEvents>(TAG) {
+) : EventDrivenViewModel<DeviceTransferCompleteScreenEvents>(TAG, shouldLogEvents = true) {
 
   companion object {
     private val TAG = Log.tag(DeviceTransferCompleteViewModel::class)
@@ -27,6 +28,12 @@ class DeviceTransferCompleteViewModel(
 
   private val _state = MutableStateFlow(DeviceTransferCompleteState())
   val state: StateFlow<DeviceTransferCompleteState> = _state
+
+  init {
+    _state
+      .onEach { Log.d(TAG, "[State] $it") }
+      .launchIn(viewModelScope)
+  }
 
   override suspend fun processEvent(event: DeviceTransferCompleteScreenEvents) {
     applyEvent(state.value, event, parentEventEmitter, repository) { _state.value = it }
@@ -46,19 +53,6 @@ class DeviceTransferCompleteViewModel(
         repository.restoreAccountRecord()
         parentEventEmitter(RegistrationFlowEvent.RegistrationComplete)
       }
-      DeviceTransferCompleteScreenEvents.ConsumeOneTimeEvent -> {
-        stateEmitter(state.copy(oneTimeEvent = null))
-      }
-    }
-  }
-
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-  ) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return DeviceTransferCompleteViewModel(repository, parentEventEmitter) as T
     }
   }
 }

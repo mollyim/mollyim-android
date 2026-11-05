@@ -9,23 +9,24 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.signal.core.util.ContextUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiHeader;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.EmojiNoResultsModel;
 import org.thoughtcrime.securesms.components.emoji.EmojiPageViewGridAdapter.VariationSelectorListener;
 import org.signal.core.util.DrawableUtil;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingModel;
 
 import java.util.List;
 import java.util.Optional;
+import org.signal.emoji.EmojiEventListener;
 
 public class EmojiPageView extends RecyclerView implements VariationSelectorListener {
 
@@ -108,7 +109,7 @@ public class EmojiPageView extends RecyclerView implements VariationSelectorList
 
     setLayoutManager(layoutManager);
 
-    Drawable drawable = DrawableUtil.tint(ContextUtil.requireDrawable(getContext(), R.drawable.triangle_bottom_right_corner), ThemeUtil.getThemedColor(getContext(), R.attr.signal_button_secondary_text_disabled));
+    Drawable drawable = DrawableUtil.tint(ContextUtil.requireDrawable(getContext(), R.drawable.triangle_bottom_right_corner), ContextCompat.getColor(getContext(), R.color.signal_button_secondary_text_disabled));
     addItemDecoration(new EmojiItemDecoration(allowVariations, drawable));
   }
 

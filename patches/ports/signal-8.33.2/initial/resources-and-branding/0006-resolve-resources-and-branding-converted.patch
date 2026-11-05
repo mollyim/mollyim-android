@@ -1,0 +1,270 @@
+From 44ea4ed1fd1c8a71d21afd50b4b7c11894acc8d3 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 6
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 12 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-ml/strings2.xml b/app/src/main/res/values-ml/strings2.xml
+index 5d51dfb73f54662aac43975ebb53e560779183b8..ffaf27b3bcc98aecf8e408856304c20b811a1778 100644
+--- a/app/src/main/res/values-ml/strings2.xml
++++ b/app/src/main/res/values-ml/strings2.xml
+@@ -3,4 +3,6 @@
+     <string name="BlockUnblockDialog_block_and_delete">തടഞ്ഞ് ഇല്ലാതാക്കൂ</string>
+     <string name="preferences__map_normal">സാധാരണ</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly പൂട്ടിയിരിക്കുന്നൂ</string>
++    <string name="NotificationsSettingsFragment__notify_when">എപ്പോൾ അറിയിക്കുക…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services അപ്‌ഡേറ്റുചെയ്യുന്നു അല്ലെങ്കിൽ താൽക്കാലികമായി ലഭ്യമല്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക.</string>
+ </resources>
+diff --git a/app/src/main/res/values-mr/strings2.xml b/app/src/main/res/values-mr/strings2.xml
+index 061942182502977596312fbb0d7cfc791c9830e7..418a62f8e77ffaf48cce5a87dc1ee6f70adc3d2a 100644
+--- a/app/src/main/res/values-mr/strings2.xml
++++ b/app/src/main/res/values-mr/strings2.xml
+@@ -11,4 +11,6 @@
+     <string name="arrays__on_inactivity_timeout">जर तुम्ही तुमचा फोन काही वेळासाठी अनलॉक नाही</string>
+     <string name="BlockUnblockDialog_block_and_delete">अवरोधित करा आणि हटवा</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly लॉक केले आहे</string>
++    <string name="NotificationsSettingsFragment__notify_when">तेव्हा सूचित करा…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google प्ले सेवा अद्ययावत होत आहे किंवा तात्पुर्ते अनुपलब्ध आहे. कृपया पुन्हा प्रयत्न करा.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ms/strings2.xml b/app/src/main/res/values-ms/strings2.xml
+index c2de8c2749fdf3a803ff9610bd5bd94d43d6df34..7f8c2ddc26865a815e08ae0390dc47abda31ec2d 100644
+--- a/app/src/main/res/values-ms/strings2.xml
++++ b/app/src/main/res/values-ms/strings2.xml
+@@ -10,4 +10,6 @@
+     <string name="preferences__passphrase_lock">Penyulitan pangkalan data</string>
+     <string name="preferences__protect_molly_database_with_a_passphrase">Lindungi pangkalan data Molly dengan frasa laluan</string>
+     <string name="arrays__on_inactivity_timeout">Jika anda pergi pada masa tertentu tanpa ‘unlock’ peranti anda</string>
++    <string name="NotificationsSettingsFragment__notify_when">Maklumkan apabila…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Perkhidmatan Google Play sedang dikemas kini atau tidak tersedia sementara waktu. Sila cuba sekali lagi.</string>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-my/strings2.xml b/app/src/main/res/values-my/strings2.xml
+index 16cc94c3bf2a7459376ca9d4ed4008d72f01c20b..2a36216394370baed669683aff267c5e442ced09 100644
+--- a/app/src/main/res/values-my/strings2.xml
++++ b/app/src/main/res/values-my/strings2.xml
+@@ -4,4 +4,6 @@
+     <string name="AppProtectionPreferenceFragment_instant">အခုချက်ခြင်း</string>
+     <string name="BlockUnblockDialog_block_and_delete">ဘလော့ပြီး ဖျက်မည်</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly လော့နေပါသည်</string>
++    <string name="NotificationsSettingsFragment__notify_when">ဖြစ်ခဲ့လျှင် အသိပေးပါ…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Serivice ကို အဆင့်မြှင့်တင်နေခြင်း၊ သို့၊ အသုံးပြု၍ မရခြင်းဖြစ်နေပါသည်။ ပြန်လည် စမ်းသပ်ကြည့်ပါ။</string>
+ </resources>
+diff --git a/app/src/main/res/values-nb/strings2.xml b/app/src/main/res/values-nb/strings2.xml
+index a06cec68480f4ee397305d141566209d6c16f1a2..72cf7dada508b2b1393214e8ab6b9f71ba410b0c 100644
+--- a/app/src/main/res/values-nb/strings2.xml
++++ b/app/src/main/res/values-nb/strings2.xml
+@@ -86,4 +86,6 @@
+     <string name="EnableAppUpdatesMegaphone_molly_can_periodically_check_for_new_releases_and_ask_you_to_install_them">Molli kan periodisk se etter nye utgaver og spørre om du vil installere dem.</string>
+     <string name="EnableAppUpdatesMegaphone_you_will_be_notified_when_updates_are_available">Du vil få beskjed når en ny versjon er tilgjengelig</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly er låst</string>
++    <string name="NotificationsSettingsFragment__notify_when">Varsle når…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play-tjenester er opptatt eller midlertidig utilgjengelig. Vent litt, og prøv på nytt.</string>
+ </resources>
+diff --git a/app/src/main/res/values-night/dark_colors.xml b/app/src/main/res/values-night/dark_colors.xml
+index 71c9f5adc13e0a3f1f8389b13e9dfb1890ad7a57..e52d0dece204b1e724551708ae0eb29e0ddc1707 100644
+--- a/app/src/main/res/values-night/dark_colors.xml
++++ b/app/src/main/res/values-night/dark_colors.xml
+@@ -2,55 +2,21 @@
+ <resources>
+     <color name="paypal_outline">#00000000</color>
+ 
+-    <!-- <color name="conversation_toolbar_color">?attr/colorSurfaceContainer</color> -->
+     <color name="conversation_toolbar_color_wallpaper">@color/signal_colorTransparentInverse5</color>
+     <color name="conversation_toolbar_color_wallpaper_scrolled">@color/signal_colorTransparentInverse5</color>
+     <color name="conversation_toolbar_color_incognito">#4A2D73</color>
+ 
+-<<<<<<< MOLLY
+-    <!-- <color name="signal_accent_primary">@color/core_ultramarine_light</color> -->
+-    <color name="signal_inverse_primary">@color/core_white</color>
+-
+-=======
+->>>>>>> SIGNAL
+     <color name="pulse_incoming_message">@color/transparent_white_15</color>
+     <color name="pulse_outgoing_message">@color/transparent_white_25</color>
+ 
+-    <!-- <color name="signal_background_primary">?attr/colorSurface</color> -->
+-    <!-- <color name="signal_background_secondary">?attr/colorSurfaceContainerLow</color> -->
+     <color name="signal_background_tertiary">@color/core_grey_90</color>
+-    <!-- <color name="signal_background_dialog">@color/core_grey_75</color> -->
+-    <!-- <color name="signal_background_dialog_secondary">@color/core_grey_65</color> -->
+-
+-    <!-- <color name="signal_text_primary">?attr/colorOnSurface</color> -->
+     <color name="signal_text_primary_disabled">@color/core_grey_60</color>
+     <color name="signal_text_primary_dialog">@color/core_grey_25</color>
+ 
+-    <!-- <color name="signal_text_secondary">?attr/colorOnSurfaceVariant</color> -->
+-
+     <color name="signal_text_hint">@color/core_grey_15</color>
+ 
+-    <!-- <color name="signal_text_toolbar_title">@color/transparent_white_90</color> -->
+     <color name="signal_text_toolbar_subtitle">@color/transparent_white_80</color>
+ 
+-    <!-- <color name="signal_icon_tint_primary">@color/core_grey_15</color> -->
+-    <!-- <color name="signal_icon_tint_secondary">@color/core_grey_25</color> -->
+-    <!-- <color name="signal_icon_tint_action">?attr/signal_icon_tint_primary</color> -->
+-
+-    <!-- <color name="signal_icon_tint_tab_selected">?attr/colorOnSurface</color> -->
+-    <!-- <color name="signal_icon_tint_tab_unselected">?attr/colorOnSurfaceVariant</color> -->
+-
+-    <!-- <color name="signal_button_primary">@color/core_ultramarine_light</color> -->
+-    <!-- <color name="signal_button_primary_ripple">@color/transparent_black_15</color> -->
+-    <!-- <color name="signal_button_primary_text">@color/core_white</color> -->
+-    <!-- <color name="signal_button_primary_text_disabled">@color/transparent_white_20</color> -->
+-
+-    <!-- <color name="signal_button_secondary">@color/core_grey_75</color> -->
+-    <!-- <color name="signal_button_secondary_ripple">@color/core_grey_80</color> -->
+-    <!-- <color name="signal_button_secondary_text">@color/core_ultramarine_light</color> -->
+-    <!-- <color name="signal_button_secondary_text_disabled">@color/core_grey_45</color> -->
+-    <!-- <color name="signal_button_secondary_stroke">@color/core_grey_45</color> -->
+-
+     <color name="signal_divider_minor">@color/core_grey_75</color>
+     <color name="signal_divider_major">@color/core_grey_60</color>
+ 
+@@ -83,18 +49,11 @@
+     <color name="insight_body_2">@color/core_grey_25</color>
+     <color name="insight_progress_background">@color/core_grey_60</color>
+ 
+-    <!-- <color name="qr_card_color">@color/signal_light_colorOnPrimary</color> -->
+-    <!-- <color name="qr_card_text_color">?attr/colorSurfaceVariant</color> -->
+-
+     <color name="conversation_item_sent_text_primary_color">@color/transparent_white_90</color>
+     <color name="conversation_item_sent_text_secondary_color">@color/transparent_white_60</color>
+-    <!-- <color name="conversation_item_update_text_color">?attr/colorOnSurfaceVariant</color> -->
+     <color name="conversation_item_recv_icon_color">@color/core_grey_25</color>
+-    <!-- <color name="conversation_item_quote_text_color">@color/core_grey_05</color> -->
+-    <!-- <color name="conversation_item_recv_bubble_color_normal">?attr/colorSurfaceContainerHigh</color> -->
+     <color name="conversation_item_recv_bubble_color_wallpaper">#242424</color>
+     <color name="conversation_item_outgoing_audio_foreground_tint">@color/signal_colorNeutralInverse</color>
+-    <!-- <color name="conversation_item_incoming_audio_foreground_tint_normal">?attr/colorOnSurface</color> -->
+     <color name="conversation_item_incoming_audio_foreground_tint_wallpaper">@color/signal_colorNeutralInverse</color>
+     <color name="conversation_item_incoming_audio_play_pause_background_tint_normal">@color/signal_colorTransparent3</color>
+     <color name="conversation_item_incoming_audio_play_pause_background_tint_wallpaper">@color/signal_colorTransparent3</color>
+@@ -106,16 +65,11 @@
+     <color name="conversation_item_sent_view_once_circle_wallpaper">@color/transparent_white_20</color>
+     <color name="conversation_item_sent_view_once_unopened">@color/core_grey_05</color>
+     <color name="conversation_item_sent_view_once_opened">@color/transparent_white_80</color>
+-    <!-- <color name="conversation_typing_indicator_foreground_tint_normal">?attr/colorOnSurfaceVariant</color> -->
+     <color name="conversation_typing_indicator_foreground_tint_wallpaper">@color/signal_colorNeutralVariantInverse</color>
+     <color name="conversation_navigation_wallpaper">#80000000</color>
+ 
+     <color name="wallpaper_bubble_color">#F51A1A1A</color>
+ 
+-    <!-- <color name="conversation_scroll_to_bottom_foreground_color">?attr/colorOnSurfaceVariant</color> -->
+-
+-    <!-- <color name="conversation_list_selected_color">?attr/colorSurfaceContainerHigh</color> -->
+-
+     <color name="camera_icon_background_tint">@color/core_grey_75</color>
+ 
+     <color name="debuglog_color_none">@color/debuglog_dark_none</color>
+@@ -135,7 +89,6 @@
+ 
+     <color name="quote_missing_icon_color">@color/core_grey_05</color>
+ 
+-    <!-- <color name="reactions_pill_text_color">?attr/colorOnSurfaceVariant</color> -->
+     <color name="reactions_pill_selected_text_color">@color/core_grey_15</color>
+     <color name="reactions_screen_dark_shade_color">#D9100E1F</color>
+     <color name="reactions_screen_light_shade_color">@color/transparent_white_10</color>
+@@ -144,8 +97,6 @@
+     <color name="shared_contact_item_button_color">@color/core_grey_85</color>
+ 
+     <color name="megaphone_background_color">@color/core_grey_85</color>
+-    <!-- <color name="megaphone_body_text_color">?attr/colorOnSurfaceVariant</color> -->
+-
+     <color name="sticker_management_action_button_color">@color/core_grey_25</color>
+ 
+     <color name="wallpaper_preview_background">@color/transparent_black_60</color>
+@@ -158,64 +109,18 @@
+     <color name="payment_currency_code_foreground_color">@color/core_grey_55</color>
+ 
+     <color name="settings_ripple_color">@color/transparent_white_10</color>
+-    <color name="settings_chat_wallpaper_preview_background">@color/core_black</color>
+-
+-<<<<<<< MOLLY
+-    <!-- <color name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparent2</color> -->
+-    <!-- <color name="quote_view_bar_incoming_wallpaper">@color/signal_colorNeutralInverse</color> -->
+-    <!-- <color name="quote_view_foreground_incoming_wallpaper">@color/signal_colorOnSurface</color> -->
+-    <!-- <color name="quote_view_background_outgoing_wallpaper">@color/signal_colorTransparent4</color> -->
+-    <!-- <color name="quote_view_bar_outgoing_wallpaper">@color/signal_colorNeutralInverse</color> -->
+-    <!-- <color name="quote_view_foreground_outgoing_wallpaper">@color/signal_colorOnSurfaceInverse</color> -->
+-    <!-- <color name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</color> -->
+-    <!-- <color name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</color> -->
+-    <!-- <color name="quote_view_foreground_incoming_normal">@color/signal_colorOnSurface</color> -->
+-    <!-- <color name="quote_view_background_outgoing_normal">@color/signal_colorTransparent4</color> -->
+-    <!-- <color name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</color> -->
+-    <!-- <color name="quote_view_foreground_outgoing_normal">@color/signal_colorOnSurfaceInverse</color> -->
+-    <!-- <color name="quote_view_label_background_incoming_normal">@color/transparent_white_20</color> -->
+-    <!-- <color name="quote_view_label_background_incoming_wallpaper">@color/transparent_white_20</color> -->
+-    <!-- <color name="quote_view_label_background_outgoing_normal">@color/transparent_white_20</color> -->
+-    <!-- <color name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_20</color> -->
+-=======
+-    <color name="quote_view_background_incoming_wallpaper">@color/signal_colorTransparent2</color>
+-    <color name="quote_view_bar_incoming_wallpaper">@color/signal_colorNeutralInverse</color>
+-    <color name="quote_view_foreground_incoming_wallpaper">@color/signal_colorOnSurface</color>
++
+     <color name="quote_view_background_outgoing_wallpaper">@color/transparent_black_40</color>
+     <color name="quote_view_bar_outgoing_wallpaper">@color/signal_colorOnCustom</color>
+     <color name="quote_view_foreground_outgoing_wallpaper">@color/signal_colorNeutralInverse</color>
+-    <color name="quote_view_background_incoming_normal">@color/signal_colorTransparent3</color>
+-    <color name="quote_view_bar_incoming_normal">@color/signal_colorOnCustom</color>
+-    <color name="quote_view_foreground_incoming_normal">@color/signal_colorOnSurface</color>
+     <color name="quote_view_background_outgoing_normal">@color/transparent_black_40</color>
+-    <color name="quote_view_bar_outgoing_normal">@color/signal_colorOnCustom</color>
+     <color name="quote_view_foreground_outgoing_normal">@color/signal_colorNeutralInverse</color>
+-    <color name="quote_view_label_background_incoming_normal">@color/transparent_white_20</color>
+-    <color name="quote_view_label_background_incoming_wallpaper">@color/transparent_white_20</color>
+-    <color name="quote_view_label_background_outgoing_normal">@color/transparent_white_20</color>
+-    <color name="quote_view_label_background_outgoing_wallpaper">@color/transparent_white_20</color>
+->>>>>>> SIGNAL
+-
+-    <!-- <color name="voice_note_player_view_background">?attr/colorSurfaceContainerLow</color> -->
+-
+-    <color name="num_pad_key_background">@color/transparent_white_20</color>
+-
+     <color name="top_toast_background_color">@color/core_grey_80</color>
+ 
+     <color name="sent_gift_button_tint">@color/transparent_white_20</color>
+     <color name="recv_gift_button_tint">@color/transparent_white_20</color>
+ 
+-    <!-- <color name="message_request_bar_container_background_normal">?attr/colorSurface</color> -->
+-    <!-- <color name="message_request_bar_background_normal">?attr/colorSurfaceContainerHigh</color> -->
+-    <!-- <color name="message_request_bar_denyForeground_normal">?attr/colorError</color> -->
+-    <!-- <color name="message_request_bar_acceptForeground_normal">?attr/colorSurfaceInverse</color> -->
+-    <!-- <color name="message_request_bar_container_background_wallpaper">@color/wallpaper_bubble_color</color> -->
+-    <!-- <color name="message_request_bar_background_wallpaper">@color/signal_light_colorTransparent2</color> -->
+-    <!-- <color name="message_request_bar_denyForeground_wallpaper">?attr/colorError</color> -->
+-    <!-- <color name="message_request_bar_acceptForeground_wallpaper">@color/signal_colorNeutralInverse</color> -->
+-
+-    <!-- <color name="safety_tip_background">@color/signal_dark_colorSecondaryContainer</color> -->
+-    <!-- <color name="safety_tip_image_background">@color/signal_dark_colorSecondary</color> -->
++    <color name="num_pad_key_background">@color/transparent_white_20</color>
+ 
+     <color name="signal_colorOnWarning">#FFEB977D</color>
+ 
+@@ -228,4 +133,6 @@
+     <color name="release_notes_header_background">#FF3A3F4E</color>
+     <color name="release_notes_toolbar_scrolled">#FF424757</color>
+     <color name="release_notes_toolbar_transparent">#00424757</color>
+-</resources>
++<color name="settings_chat_wallpaper_preview_background">@color/core_black</color>
++
++    </resources>

@@ -1,0 +1,159 @@
+From 1993a7d44b7beb7a01ba4d379dd803363398d3b1 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 3
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 25 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/res/values-es/strings2.xml b/app/src/main/res/values-es/strings2.xml
+index ac458bca5a3e4af20390a8f2dd0a0e0fbbaf280e..b7767a958c59d761d18b1405ce7e6f74d69a0775 100644
+--- a/app/src/main/res/values-es/strings2.xml
++++ b/app/src/main/res/values-es/strings2.xml
+@@ -170,4 +170,6 @@
+     <string name="preferences__follow_system">Seguir al sistema</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar los colores del sistema para el tema de la aplicación</string>
+     <string name="preferences_appearance__dynamic_colors">Colores dinámicos</string>
++    <string name="NotificationsSettingsFragment__notify_when">Notificarme cuando…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Servicios de Google Play se está actualizando o está temporalmente no disponible. Inténtalo de nuevo.</string>
+ </resources>
+diff --git a/app/src/main/res/values-et/strings2.xml b/app/src/main/res/values-et/strings2.xml
+index 0cdbab9ee3037cd9434f5487f071534c34b7e693..9fee291d24cd2a81fdde7ee13e3ec1febff100cd 100644
+--- a/app/src/main/res/values-et/strings2.xml
++++ b/app/src/main/res/values-et/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="UnifiedPushSettingsFragment__mollysocket_server">MollySocketi server</string>
+     <string name="UnifiedPushSettingsFragment__mollysocket_server_air_gapped">Õhkeraldatud</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Sellesse seadmesse installitud Google Play teenuste versioon on aegunud.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Teavita kui…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play teenused uuenevad või pole hetkel saadaval. Palun proovi uuesti.</string>
+ </resources>
+diff --git a/app/src/main/res/values-eu/strings2.xml b/app/src/main/res/values-eu/strings2.xml
+index 5be53f27fd1061ffd0285ab0c9f0994d48b11b7e..4c5cf50e5fe3cf2b7c005275e2b2c10d71e68756 100644
+--- a/app/src/main/res/values-eu/strings2.xml
++++ b/app/src/main/res/values-eu/strings2.xml
+@@ -81,4 +81,6 @@
+     <string name="PrivacySettingsFragment__no_biometric_features_available_on_this_device">Gailu honetan ez dago funtzio biometrikorik</string>
+     <string name="PrivacySettingsFragment__please_first_setup_your_biometrics_in_android_settings">Mesedez, lehenengo konfiguratu zure datu biometrikoak Androiden ezarpenetan</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly blokeatuta dago</string>
++    <string name="NotificationsSettingsFragment__notify_when">Jakinarazi…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services eguneratzen ari da edo tenporalki ez dago erabilgarri. Mesedez, berriro saia zaitez.</string>
+ </resources>
+diff --git a/app/src/main/res/values-fa/strings2.xml b/app/src/main/res/values-fa/strings2.xml
+index 440ba6be5906cacf661e5c0a84a3d1caccc6a97a..37de220c31760fec23a64866774b037a3b3a4fa7 100644
+--- a/app/src/main/res/values-fa/strings2.xml
++++ b/app/src/main/res/values-fa/strings2.xml
+@@ -8,4 +8,6 @@
+     <string name="arrays__on_inactivity_timeout">اگر مدت زمانی دستگاه رو بدون استفاده رها کنید</string>
+     <string name="BlockUnblockDialog_block_and_delete">مسدود کردن و حذف</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">سیگنال قفل است</string>
++    <string name="NotificationsSettingsFragment__notify_when">آگاه کردن هنگام…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">خدمات Google Play در حال به‌روزرسانی است یا موقتاً در دسترس نیست. لطفاً دوباره تلاش کنید.</string>
+ </resources>
+diff --git a/app/src/main/res/values-fi/strings2.xml b/app/src/main/res/values-fi/strings2.xml
+index c86d3c8487a4291eca6372beb7c22f4cf3fa1030..cf15da1896d234bee714e8c08c99caa16e7c1d2b 100644
+--- a/app/src/main/res/values-fi/strings2.xml
++++ b/app/src/main/res/values-fi/strings2.xml
+@@ -169,4 +169,6 @@
+     <string name="preferences_appearance__dynamic_colors">Dynaamiset värit</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Käytä järjestelmän värejä sovelluksen teemassa</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Tälle laitteelle asennettu Google Play Palveluiden versio on vanhentunut.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Ilmoita minulle</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play -palveluita päivitetään tai ne eivät ole käytettävissä. Yritä myöhemmin uudelleen.</string>
+ </resources>
+diff --git a/app/src/main/res/values-fr/strings2.xml b/app/src/main/res/values-fr/strings2.xml
+index 31354296d5f7807a2b4e6cc44ad015dee8c3794d..d7f80762e441a8167531d1f341445f3a2cded71e 100644
+--- a/app/src/main/res/values-fr/strings2.xml
++++ b/app/src/main/res/values-fr/strings2.xml
+@@ -171,4 +171,6 @@
+     <string name="preferences_appearance__dynamic_colors">Couleurs dynamiques</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Utiliser les couleurs système pour le thème de l\'application</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">La version installée des services Google Play sur cet appareil est obsolète.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Me prévenir quand…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Les services Google Play sont en cours de mise à jour ou temporairement indisponibles. Veuillez réessayer.</string>
+ </resources>
+diff --git a/app/src/main/res/values-ga/strings2.xml b/app/src/main/res/values-ga/strings2.xml
+index 1997695dd91d55f4db92b8e485bae354768859da..3ac47e0bdeed4a556225cfe34f3a90a428fd2cf9 100644
+--- a/app/src/main/res/values-ga/strings2.xml
++++ b/app/src/main/res/values-ga/strings2.xml
+@@ -172,4 +172,6 @@
+     <string name="preferences_appearance__dynamic_colors">Dathanna Dinimiciúla</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Úsáid dathanna an chórais do théama an aip</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">Tá an leagan de sheirbhísí Google Play atá suiteáilte ar an ngléas seo as dáta.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Cuir in iúl nuair…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Tá Seirbhísí Google Play á nuashonrú, nó níl aon fháil orthu faoi láthair. Bain triail eile as.</string>
+ </resources>
+diff --git a/app/src/main/res/values-gl/strings2.xml b/app/src/main/res/values-gl/strings2.xml
+index fede4860d5f50b8502870139f30b69435daf485b..47c8b639a0099cc0ede5143002f0286a31e866ce 100644
+--- a/app/src/main/res/values-gl/strings2.xml
++++ b/app/src/main/res/values-gl/strings2.xml
+@@ -171,4 +171,6 @@
+     <string name="preferences_appearance__dynamic_colors">Cores dinámicas</string>
+     <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar cores do sistema no decorado da app</string>
+     <string name="NotificationsSettingsFragment__the_installed_version_of_google_play_services_on_this_device_is_outdated">A versión instalada no dispositivo dos servizos de Google Play está desactualizada.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Notificar cando…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Servizos de Google Play está actualizándose ou non está temporalmente dispoñible. Volve tentalo.</string>
+ </resources>
+diff --git a/app/src/main/res/values-gu/strings2.xml b/app/src/main/res/values-gu/strings2.xml
+index 8c1c7f9dcce0ad695120ecfba3b209aedb3ad18e..e72aba77f8470953874c5245fc4737165a80bb45 100644
+--- a/app/src/main/res/values-gu/strings2.xml
++++ b/app/src/main/res/values-gu/strings2.xml
+@@ -2,4 +2,6 @@
+ <resources>
+     <string name="BlockUnblockDialog_block_and_delete">બ્લોક કરો અને કાઢી નાખો</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly લૉક છે</string>
++    <string name="NotificationsSettingsFragment__notify_when">સૂચિત કરો ક્યારે…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services અપડેટ થઈ રહી છે અથવા અસ્થાયીરૂપે અનુપલબ્ધ છે. મેહરબાની કરી ને ફરીથી પ્રયાસ કરો.</string>
+ </resources>
+diff --git a/app/src/main/res/values-hi/strings2.xml b/app/src/main/res/values-hi/strings2.xml
+index 149cddccb44fdf851c425bdb1da8d62a03f3f04c..6bbf12b538a7147cac736aa5d473c3a92bacfd93 100644
+--- a/app/src/main/res/values-hi/strings2.xml
++++ b/app/src/main/res/values-hi/strings2.xml
+@@ -4,4 +4,6 @@
+     <string name="arrays__on_inactivity_timeout">यदि आप आपके फोन को बिना अनलॉक किये कुछ समय छोड़ते है</string>
+     <string name="BlockUnblockDialog_block_and_delete">ब्लाॅक करें अथवा हटा दें</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly लॉक किया गया है</string>
++    <string name="NotificationsSettingsFragment__notify_when">तब सूचना भेजें, जब…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play सेवाएं अपडेट हो रही हैं या फिर यह अस्थायी रूप से उपलब्ध नहीं है। कृपया दोबाार कोशिश करें।</string>
+ </resources>
+diff --git a/app/src/main/res/values-hr/strings2.xml b/app/src/main/res/values-hr/strings2.xml
+index fbdb8663dec2c95e44f14fbc8c643a4069416ef7..3994b86c37343e482f02cdb756735432aa493c10 100644
+--- a/app/src/main/res/values-hr/strings2.xml
++++ b/app/src/main/res/values-hr/strings2.xml
+@@ -118,4 +118,6 @@
+     <string name="LinkDeviceFragment__once_linked_new_messages_sync_across_devices">Nakon povezivanja se nove poruke sinkroniziraju na svim uređajima, ali se povijest prijašnjih poruka neće prenijeti.</string>
+     <string name="LinkDeviceFragment__molly_supports_linking_to_other_android_devices">Molly podržava povezivanje s drugim Android uređajima koji pokreću Molly, kao i računala i iPad koji pokreću Signal.</string>
+     <string name="LinkDeviceFragment__for_android_devices_visit_s_to_install_molly">Za Android uređaje: Za instaliranje aplikacije Molly posjeti %s.</string>
++    <string name="NotificationsSettingsFragment__notify_when">Obavijesti me kada…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se trenutno ažurira ili je nedostupno. Pokušajte ponovno kasnije.</string>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values-hu/strings2.xml b/app/src/main/res/values-hu/strings2.xml
+index 23390eb0ecb85ec80e12b00b1c3e76dceca610c9..e3812862a660e8b8d6f5840f4b3716a8efa78b2a 100644
+--- a/app/src/main/res/values-hu/strings2.xml
++++ b/app/src/main/res/values-hu/strings2.xml
+@@ -108,4 +108,6 @@
+     <string name="preferences_appearance__show_calls">Hívások mutatása</string>
+     <string name="preferences_appearance__toggle_to_show_or_hide_the_icon_on_the_navigation_bar">A navigációs csíkon levő ikon mutatásának ki/be kapcsolása</string>
+     <string name="prompt_passphrase_activity__molly_is_locked">Molly zárolva</string>
++    <string name="NotificationsSettingsFragment__notify_when">Értesítsen mikor…</string>
++    <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">A Google Play Szolgáltatások épp frissítés alatt áll, vagy átmenetileg nem elérhető. Kérlek próbáld újra.</string>
+ </resources>

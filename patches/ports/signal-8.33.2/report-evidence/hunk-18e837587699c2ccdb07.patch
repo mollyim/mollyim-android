@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/review/AddMessageDialogFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/review/AddMessageDialogFragment.kt
+index 71d24ee8d7..cb3b7be688 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/review/AddMessageDialogFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/mediasend/v2/review/AddMessageDialogFragment.kt
+@@ -4,6 +4,7 @@ import android.app.Dialog
+ import android.content.DialogInterface
+ import android.content.res.ColorStateList
+ import android.os.Bundle
++import android.view.KeyEvent
+ import android.view.View
+ import android.view.ViewGroup
+ import android.view.WindowManager

@@ -7,5 +7,4 @@ package org.signal.registration.screens.devicetransfer.complete
 
 sealed class DeviceTransferCompleteScreenEvents {
   data object ContinueClicked : DeviceTransferCompleteScreenEvents()
-  data object ConsumeOneTimeEvent : DeviceTransferCompleteScreenEvents()
 }

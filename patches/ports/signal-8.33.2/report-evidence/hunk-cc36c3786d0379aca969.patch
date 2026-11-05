@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/maps/PlacePickerActivity.java b/app/src/main/java/org/thoughtcrime/securesms/maps/PlacePickerActivity.java
+index 1f2194e580..a9aed78b0f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/maps/PlacePickerActivity.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/maps/PlacePickerActivity.java
+@@ -44,6 +44,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
+ import org.thoughtcrime.securesms.util.DynamicTheme;
+ import org.thoughtcrime.securesms.util.MediaUtil;
++import org.thoughtcrime.securesms.util.TextSecurePreferences;
+ import org.thoughtcrime.securesms.util.views.SimpleProgressDialog;
+ 
+ import java.io.IOException;

@@ -1,0 +1,12 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+index 67a515ff99..4641434ada 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/MainActivity.kt
+@@ -6,6 +6,7 @@
+ package org.thoughtcrime.securesms
+ 
+ import android.annotation.SuppressLint
++import android.app.Activity
+ import android.content.Context
+ import android.content.Intent
+ import android.os.Build

@@ -11,11 +11,16 @@ android {
     buildConfig = true
     compose = true
   }
+
+  defaultConfig {
+    vectorDrawables.useSupportLibrary = true
+  }
 }
 
 dependencies {
   implementation(project(":core:util"))
   implementation(project(":core:ui"))
+  api(project(":core:network"))
 
   implementation(platform(libs.androidx.compose.bom))
 
@@ -31,5 +36,6 @@ dependencies {
   }
   testImplementation(testFixtures(project(":lib:libsignal-service")))
 
+  api(libs.google.play.services.wallet)
   api(libs.square.okhttp3)
 }

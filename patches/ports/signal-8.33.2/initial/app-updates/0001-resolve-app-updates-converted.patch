@@ -1,0 +1,632 @@
+From 0523ae9ee32acf3f395e33f21f9a42f9dc3a1728 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port app-updates to Signal 8.33.2, part 1
+
+Retain the Molly updater and update preferences on the updated Signal application structure.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 8 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateInstaller.kt b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateInstaller.kt
+index f37fc87e01e25d3e062d199fec241b040cffb5d5..8a15db63fc2d42d715ad31f6ee6a251ba89ed4cf 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateInstaller.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateInstaller.kt
+@@ -22,15 +22,7 @@ object ApkUpdateInstaller {
+ 
+   private val TAG = Log.tag(ApkUpdateInstaller::class.java)
+ 
+-  /**
+-   * Installs the downloaded APK silently if possible. If not, prompts the user with a notification to install.
+-   * May show errors instead under certain conditions.
+-   *
+-   * A common pattern you may see is that this is called with [userInitiated] = false (or some other state
+-   * that prevents us from auto-updating, like the app being in the foreground), causing this function
+-   * to show an install prompt notification. The user clicks that notification, calling this with
+-   * [userInitiated] = true, and then everything installs.
+-   */
++  /** Verifies the downloaded APK digest and prompts the user to install it. */
+   fun installOrPromptForInstall(context: Context, downloadId: Long, userInitiated: Boolean) {
+     if (downloadId != SignalStore.apkUpdate.downloadId) {
+       Log.w(TAG, "DownloadId doesn't match the one we're waiting for (current: $downloadId, expected: ${SignalStore.apkUpdate.downloadId})! We likely have newer data. Ignoring.")
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
+index b81514da0aa58b62bf38a1741f5ef90618246613..c48215ed4aec49c983a02bf19076541c3198d361 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/apkupdate/ApkUpdateRefreshListener.java
+@@ -14,11 +14,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
+ import org.thoughtcrime.securesms.jobs.ApkUpdateJob;
+ import org.thoughtcrime.securesms.keyvalue.SignalStore;
+ import org.thoughtcrime.securesms.service.PersistentAlarmManagerListener;
+-<<<<<<< MOLLY
+ import org.thoughtcrime.securesms.util.TextSecurePreferences;
+-=======
+-import org.thoughtcrime.securesms.util.Environment;
+->>>>>>> SIGNAL
+ 
+ import java.util.concurrent.TimeUnit;
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsFragment.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsFragment.kt
+index 71ae1c01c1c629c393d1091fddfdd37e546ca71a..60e74013ddf2739b73493118cb0551483b5b7fa6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsFragment.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsFragment.kt
+@@ -5,34 +5,6 @@
+ 
+ package org.thoughtcrime.securesms.components.settings.app.updates
+ 
+-<<<<<<< MOLLY
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.foundation.lazy.LazyColumn
+-import androidx.compose.material3.MaterialTheme
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
+-import androidx.compose.runtime.getValue
+-import androidx.compose.runtime.remember
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.stringResource
+-import androidx.compose.ui.semantics.contentDescription
+-import androidx.compose.ui.semantics.semantics
+-import androidx.fragment.app.viewModels
+-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+-import im.molly.app.base.ApkInfo
+-import org.signal.core.ui.compose.ComposeFragment
+-import org.signal.core.ui.compose.DayNightPreviews
+-import org.signal.core.ui.compose.Previews
+-import org.signal.core.ui.compose.Rows
+-import org.signal.core.ui.compose.Scaffolds
+-import org.signal.core.ui.compose.SignalIcons
+-import org.thoughtcrime.securesms.BuildConfig
+-import org.thoughtcrime.securesms.R
+-import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
+-import org.thoughtcrime.securesms.util.DateUtils
+-import java.util.Locale
+-=======
+ import androidx.compose.runtime.Composable
+ import androidx.compose.runtime.getValue
+ import androidx.fragment.app.viewModels
+@@ -42,10 +14,9 @@ import org.signal.appsettings.updates.AppUpdatesSettingsAction
+ import org.signal.appsettings.updates.AppUpdatesSettingsScreen
+ import org.signal.core.ui.compose.CollectActions
+ import org.signal.core.ui.compose.ComposeFragment
+->>>>>>> SIGNAL
+ 
+ /**
+- * Settings around app updates. Only shown for builds that manage their own app updates.
++ * Settings for Molly updates, or app-store guidance for externally managed builds.
+  */
+ class AppUpdatesSettingsFragment : ComposeFragment() {
+ 
+@@ -63,148 +34,9 @@ class AppUpdatesSettingsFragment : ComposeFragment() {
+     )
+   }
+ 
+-<<<<<<< MOLLY
+-  override fun onResume() {
+-    super.onResume()
+-    viewModel.refresh()
+-  }
+-
+-  private inner class Callbacks : AppUpdatesSettingsCallbacks {
+-    override fun onNavigationClick() {
+-      requireActivity().onBackPressedDispatcher.onBackPressed()
+-    }
+-
+-    override fun onAutoUpdateChanged(enabled: Boolean) {
+-      viewModel.setUpdateApkEnabled(enabled)
+-    }
+-
+-    override fun onIncludeBetaChanged(enabled: Boolean) {
+-      viewModel.setIncludeBetaEnabled(enabled)
+-    }
+-
+-    override fun onCheckForUpdatesClick() {
+-      viewModel.checkForUpdates()
+-    }
+-  }
+-}
+-
+-private interface AppUpdatesSettingsCallbacks {
+-  fun onNavigationClick() = Unit
+-  fun onAutoUpdateChanged(enabled: Boolean) = Unit
+-  fun onIncludeBetaChanged(enabled: Boolean) = Unit
+-  fun onCheckForUpdatesClick() = Unit
+-
+-  object Empty : AppUpdatesSettingsCallbacks
+-}
+-
+-@Composable
+-private fun AppUpdatesSettingsScreen(
+-  state: AppUpdatesSettingsState,
+-  callbacks: AppUpdatesSettingsCallbacks
+-) {
+-  Scaffolds.Settings(
+-    title = stringResource(R.string.preferences_app_updates__title),
+-    onNavigationClick = callbacks::onNavigationClick,
+-    navigationIcon = SignalIcons.ArrowStart.imageVector
+-  ) { paddingValues ->
+-
+-    LazyColumn(
+-      modifier = Modifier
+-        .padding(paddingValues)
+-        .then(rememberStatusBarColorNestedScrollModifier())
+-    ) {
+-      if (!BuildConfig.MANAGE_MOLLY_UPDATES) {
+-        item {
+-          Rows.TextRow(
+-            text = {
+-              Text(
+-                text = stringResource(R.string.HelpSettingsFragment_for_updates_please_check_your_app_store),
+-                style = MaterialTheme.typography.bodyMedium,
+-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+-              )
+-            }
+-          )
+-        }
+-      }
+-
+-      item {
+-        Rows.TextRow(
+-          text = stringResource(R.string.HelpSettingsFragment__version),
+-          label = ApkInfo.versionName,
+-        )
+-      }
+-
+-      if (BuildConfig.MANAGE_MOLLY_UPDATES) {
+-        item {
+-          Rows.ToggleRow(
+-            checked = state.autoUpdateEnabled,
+-            text = stringResource(R.string.preferences__autoupdate_molly),
+-            label = stringResource(R.string.preferences__periodically_check_for_new_releases_and_ask_to_install_them),
+-            onCheckChanged = callbacks::onAutoUpdateChanged
+-          )
+-        }
+-
+-        item {
+-          Rows.ToggleRow(
+-            checked = state.includeBetaEnabled,
+-            text = stringResource(R.string.preferences__include_beta_updates),
+-            label = stringResource(R.string.preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs),
+-            onCheckChanged = callbacks::onIncludeBetaChanged
+-          )
+-        }
+-
+-        item {
+-          val relTime = rememberCheckTime(state.lastCheckedTime)
+-          val label = stringResource(
+-            R.string.AppUpdatesSettingsFragment__last_checked_s, relTime?.first ?: stringResource(R.string.preferences__never)
+-          )
+-          val contentDesc = relTime?.second?.let {
+-            stringResource(R.string.AppUpdatesSettingsFragment__last_checked_s, it)
+-          }
+-          Rows.TextRow(
+-            text = stringResource(R.string.EnableAppUpdatesMegaphone_check_for_updates),
+-            label = label,
+-            modifier = Modifier.semantics {
+-              contentDescription = contentDesc ?: label
+-            },
+-            enabled = state.autoUpdateEnabled,
+-            onClick = callbacks::onCheckForUpdatesClick
+-          )
+-        }
+-      }
+-    }
+-  }
+-}
+-
+-@Composable
+-private fun rememberCheckTime(timestamp: Long): Pair<String, String>? {
+-  val context = LocalContext.current
+-  return remember(timestamp) {
+-    if (timestamp > 0) {
+-      DateUtils.getExtendedRelativeTimeSpanString(context, Locale.getDefault(), timestamp)
+-    } else null
+-  }
+-}
+-
+-@DayNightPreviews
+-@Composable
+-private fun AppUpdatesSettingsScreenPreview() {
+-  Previews.Preview {
+-    AppUpdatesSettingsScreen(
+-      state = AppUpdatesSettingsState(
+-        lastCheckedTime = System.currentTimeMillis(),
+-        includeBetaEnabled = true,
+-        autoUpdateEnabled = true
+-      ),
+-      callbacks = AppUpdatesSettingsCallbacks.Empty
+-    )
+-  }
+-}
+-=======
+   private fun handleAction(action: AppUpdatesSettingsAction) {
+     when (action) {
+       AppUpdatesSettingsAction.NavigateBack -> findNavController().popBackStack()
+     }
+   }
+ }
+->>>>>>> SIGNAL
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModel.kt b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModel.kt
+index 3987a53b90d618e9a8ae513cbce0fbb0c99f7b97..b279066257096801df301340909b3f21aa6a21c6 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModel.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModel.kt
+@@ -5,16 +5,8 @@
+ 
+ package org.thoughtcrime.securesms.components.settings.app.updates
+ 
+-<<<<<<< MOLLY
+ import android.app.Application
+-import androidx.lifecycle.ViewModel
+-import kotlinx.coroutines.flow.MutableStateFlow
+-import kotlinx.coroutines.flow.StateFlow
+-import kotlinx.coroutines.flow.update
+-import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
+-import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
+-=======
+-import android.os.Build
++import im.molly.app.base.ApkInfo
+ import kotlinx.coroutines.channels.Channel
+ import kotlinx.coroutines.flow.Flow
+ import kotlinx.coroutines.flow.MutableStateFlow
+@@ -26,53 +18,24 @@ import org.signal.appsettings.updates.AppUpdatesSettingsEvent
+ import org.signal.appsettings.updates.AppUpdatesSettingsState
+ import org.signal.core.ui.compose.EventDrivenViewModel
+ import org.signal.core.util.logging.Log
+->>>>>>> SIGNAL
++import org.thoughtcrime.securesms.BuildConfig
++import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
++import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+ import org.thoughtcrime.securesms.jobs.ApkUpdateJob
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.util.TextSecurePreferences
++import kotlin.time.Duration.Companion.milliseconds
+ 
+-<<<<<<< MOLLY
+-class AppUpdatesSettingsViewModel : ViewModel() {
+-
+-  private val application: Application = AppDependencies.application
+-
+-  private val internalState = MutableStateFlow(getState())
+-
+-  val state: StateFlow<AppUpdatesSettingsState> = internalState
+-
+-  fun setUpdateApkEnabled(enabled: Boolean) {
+-    TextSecurePreferences.setUpdateApkEnabled(application, enabled)
+-    if (enabled) {
+-      checkForUpdates()
+-    }
+-    refresh()
+-  }
+-
+-  fun setIncludeBetaEnabled(enabled: Boolean) {
+-    TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
+-    ApkUpdateNotifications.dismissInstallPrompt(application)
+-    checkForUpdates()
+-    refresh()
+-  }
+-
+-  fun checkForUpdates() {
+-    ApkUpdateRefreshListener.scheduleIfAllowed(application)
+-    AppDependencies.jobManager.add(ApkUpdateJob())
+-  }
+-
+-  fun refresh() {
+-    internalState.update { getState() }
+-=======
+ class AppUpdatesSettingsViewModel(
+-  private val isAutoUpdateSupported: Boolean = Build.VERSION.SDK_INT >= 31
++  private val isAutoUpdateSupported: Boolean = BuildConfig.MANAGE_MOLLY_UPDATES
+ ) : EventDrivenViewModel<AppUpdatesSettingsEvent>(TAG) {
+ 
+   companion object {
+     private val TAG = Log.tag(AppUpdatesSettingsViewModel::class)
+->>>>>>> SIGNAL
+   }
+ 
++  private val application: Application = AppDependencies.application
+   private val _state = MutableStateFlow(readState())
+   private val _actions = Channel<AppUpdatesSettingsAction>(Channel.BUFFERED)
+ 
+@@ -82,33 +45,48 @@ class AppUpdatesSettingsViewModel(
+   override suspend fun processEvent(event: AppUpdatesSettingsEvent) {
+     when (event) {
+       AppUpdatesSettingsEvent.ScreenResumed -> refresh()
+-
+       AppUpdatesSettingsEvent.NavigateBackClicked -> _actions.send(AppUpdatesSettingsAction.NavigateBack)
+-
+       is AppUpdatesSettingsEvent.AutoUpdateToggled -> {
+-        SignalStore.apkUpdate.autoUpdate = event.enabled
+-        refresh()
++        if (isAutoUpdateSupported) {
++          TextSecurePreferences.setUpdateApkEnabled(application, event.enabled)
++          if (event.enabled) {
++            checkForUpdates()
++          }
++          refresh()
++        }
++      }
++      is AppUpdatesSettingsEvent.IncludeBetaToggled -> {
++        if (isAutoUpdateSupported) {
++          TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, event.enabled)
++          ApkUpdateNotifications.dismissInstallPrompt(application)
++          checkForUpdates()
++          refresh()
++        }
++      }
++      AppUpdatesSettingsEvent.CheckForUpdatesClicked -> {
++        if (isAutoUpdateSupported && _state.value.autoUpdateEnabled) {
++          checkForUpdates()
++        }
+       }
+-
+-      AppUpdatesSettingsEvent.CheckForUpdatesClicked -> AppDependencies.jobManager.add(ApkUpdateJob())
+     }
+   }
+ 
++  private fun checkForUpdates() {
++    ApkUpdateRefreshListener.scheduleIfAllowed(application)
++    AppDependencies.jobManager.add(ApkUpdateJob())
++  }
++
+   private fun refresh() {
+     _state.value = readState()
+   }
+ 
+   private fun readState(): AppUpdatesSettingsState {
+     return AppUpdatesSettingsState(
+-<<<<<<< MOLLY
+-      lastCheckedTime = SignalStore.apkUpdate.lastSuccessfulCheck,
+-      includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
+-      autoUpdateEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
+-=======
+       lastCheckedTime = SignalStore.apkUpdate.lastSuccessfulCheck.milliseconds,
+-      autoUpdateEnabled = SignalStore.apkUpdate.autoUpdate,
+-      isAutoUpdateSupported = isAutoUpdateSupported
+->>>>>>> SIGNAL
++      autoUpdateEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
++      isAutoUpdateSupported = isAutoUpdateSupported,
++      includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
++      versionName = ApkInfo.versionName
+     )
+   }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt b/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
+index d9bc835be48d3b2e9ca77343552212008590ac3b..2db68428cce6b0eabbf9b439a8d787cf93a4326f 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/jobs/ApkUpdateJob.kt
+@@ -6,6 +6,7 @@ import android.content.Intent
+ import android.content.pm.PackageManager
+ import android.net.Uri
+ import com.fasterxml.jackson.annotation.JsonProperty
++import okhttp3.OkHttpClient
+ import okhttp3.Request
+ import org.greenrobot.eventbus.EventBus
+ import org.signal.core.util.Hex
+@@ -19,11 +20,7 @@ import org.signal.core.util.requireString
+ import org.thoughtcrime.securesms.BuildConfig
+ import org.thoughtcrime.securesms.R
+ import org.thoughtcrime.securesms.apkupdate.ApkUpdateDownloadManagerReceiver
+-<<<<<<< MOLLY
+ import org.thoughtcrime.securesms.events.ApkUpdateEvent
+-=======
+-import org.thoughtcrime.securesms.dependencies.AppDependencies
+->>>>>>> SIGNAL
+ import org.thoughtcrime.securesms.jobmanager.Job
+ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+@@ -73,12 +70,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
+     val includeBeta = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(context)
+     val url = "${BuildConfig.FDROID_UPDATE_URL}/index-v1.json"
+ 
+-<<<<<<< MOLLY
+     Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "] at $url")
+-=======
+-    val client = AppDependencies.okHttpClient
+-    val request = Request.Builder().url(BuildConfig.APK_UPDATE_MANIFEST_URL).build()
+->>>>>>> SIGNAL
+ 
+     val client = OkHttpClient().newBuilder()
+       .socketFactory(Networking.socketFactory)
+@@ -194,8 +186,8 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
+ 
+     val downloadRequest = DownloadManager.Request(uri).apply {
+       setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI)
+-      setTitle("Downloading ${R.string.app_name} update")
+-      setDescription("Downloading ${R.string.app_name} $versionName")
++      setTitle("Downloading ${context.getString(R.string.app_name)} update")
++      setDescription("Downloading ${context.getString(R.string.app_name)} $versionName")
+       setDestinationInExternalFilesDir(context, null, "molly-update.apk")
+     }
+ 
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ApkUpdateValues.kt b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ApkUpdateValues.kt
+index 3f8a2af9833785eb06d1c8e6cbdf8f34b05c0e6e..030c0bc18a30e138ce56ab8d7ee726e0c3082655 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ApkUpdateValues.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ApkUpdateValues.kt
+@@ -15,12 +15,7 @@ class ApkUpdateValues(store: KeyValueStore, context: Context) : SignalStoreValue
+     private const val DOWNLOAD_ID = "apk_update.download_id"
+     private const val DIGEST = "apk_update.digest"
+     private const val LAST_SUCCESSFUL_CHECK = "apk_update.last_successful_check"
+-<<<<<<< MOLLY
+-=======
+-    private const val LAST_APK_UPLOAD_TIME = "apk_update.last_apk_upload_time"
+-    private const val PENDING_APK_UPLOAD_TIME = "apk_update.pending_apk_upload_time"
+     private const val REFRESH_TIME = "apk_update.refresh_time"
+->>>>>>> SIGNAL
+   }
+ 
+   init {
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModelTest.kt b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModelTest.kt
+index 5c5621a6becacc128bdc4ebeb0121163123684ff..65ce3322341e5a3405901200ced11b7119da5edb 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModelTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/components/settings/app/updates/AppUpdatesSettingsViewModelTest.kt
+@@ -12,9 +12,12 @@ import assertk.assertions.isEmpty
+ import assertk.assertions.isEqualTo
+ import assertk.assertions.isFalse
+ import assertk.assertions.isTrue
++import io.mockk.Runs
+ import io.mockk.every
++import io.mockk.just
+ import io.mockk.mockk
+ import io.mockk.mockkObject
++import io.mockk.mockkStatic
+ import io.mockk.unmockkAll
+ import io.mockk.verify
+ import kotlinx.coroutines.Dispatchers
+@@ -37,12 +40,16 @@ import org.robolectric.annotation.Config
+ import org.signal.appsettings.updates.AppUpdatesSettingsAction
+ import org.signal.appsettings.updates.AppUpdatesSettingsEvent
+ import org.signal.appsettings.updates.AppUpdatesSettingsState
++import im.molly.app.base.ApkInfo
++import org.thoughtcrime.securesms.apkupdate.ApkUpdateNotifications
++import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+ import org.thoughtcrime.securesms.jobs.ApkUpdateJob
+ import org.thoughtcrime.securesms.keyvalue.ApkUpdateValues
+ import org.thoughtcrime.securesms.keyvalue.SignalStore
+ import org.thoughtcrime.securesms.testing.CoroutineDispatcherRule
+ import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
++import org.thoughtcrime.securesms.util.TextSecurePreferences
+ import kotlin.time.Duration
+ import kotlin.time.Duration.Companion.milliseconds
+ 
+@@ -64,6 +71,8 @@ class AppUpdatesSettingsViewModelTest {
+   val appDependencies = MockAppDependenciesRule()
+ 
+   private val apkUpdateValues = mockk<ApkUpdateValues>(relaxUnitFun = true)
++  private var updatesEnabled = false
++  private var includeBeta = false
+ 
+   @Before
+   fun setUp() {
+@@ -72,7 +81,14 @@ class AppUpdatesSettingsViewModelTest {
+     mockkObject(SignalStore)
+     every { SignalStore.apkUpdate } returns apkUpdateValues
+     every { apkUpdateValues.lastSuccessfulCheck } returns LAST_SUCCESSFUL_CHECK
+-    every { apkUpdateValues.autoUpdate } returns false
++    mockkStatic(TextSecurePreferences::class, ApkUpdateRefreshListener::class)
++    mockkObject(ApkUpdateNotifications)
++    every { TextSecurePreferences.isUpdateApkEnabled(any()) } answers { updatesEnabled }
++    every { TextSecurePreferences.setUpdateApkEnabled(any(), any()) } answers { updatesEnabled = secondArg() }
++    every { TextSecurePreferences.isUpdateApkIncludeBetaEnabled(any()) } answers { includeBeta }
++    every { TextSecurePreferences.setUpdateApkIncludeBetaEnabled(any(), any()) } answers { includeBeta = secondArg() }
++    every { ApkUpdateRefreshListener.scheduleIfAllowed(any()) } just Runs
++    every { ApkUpdateNotifications.dismissInstallPrompt(any()) } just Runs
+   }
+ 
+   @After
+@@ -83,7 +99,7 @@ class AppUpdatesSettingsViewModelTest {
+ 
+   @Test
+   fun `initial state reflects storage`() = runTest(testDispatcher) {
+-    every { apkUpdateValues.autoUpdate } returns true
++    updatesEnabled = true
+ 
+     val viewModel = createViewModel()
+ 
+@@ -91,13 +107,14 @@ class AppUpdatesSettingsViewModelTest {
+       AppUpdatesSettingsState(
+         lastCheckedTime = LAST_SUCCESSFUL_CHECK.milliseconds,
+         autoUpdateEnabled = true,
+-        isAutoUpdateSupported = true
++        isAutoUpdateSupported = true,
++        versionName = ApkInfo.versionName
+       )
+     )
+   }
+ 
+   @Test
+-  fun `initial state reports a device that cannot auto update`() = runTest(testDispatcher) {
++  fun `initial state reports an externally managed build`() = runTest(testDispatcher) {
+     val viewModel = createViewModel(isAutoUpdateSupported = false)
+ 
+     assertThat(viewModel.state.value.isAutoUpdateSupported).isFalse()
+@@ -125,28 +142,27 @@ class AppUpdatesSettingsViewModelTest {
+   @Test
+   fun `AutoUpdateToggled on saves and shows the new value`() = runTest(testDispatcher) {
+     val viewModel = createViewModel()
+-    every { apkUpdateValues.autoUpdate = true } answers { every { apkUpdateValues.autoUpdate } returns true }
+ 
+     viewModel.onEvent(AppUpdatesSettingsEvent.AutoUpdateToggled(true))
+ 
+-    verify { apkUpdateValues.autoUpdate = true }
++    verify { TextSecurePreferences.setUpdateApkEnabled(any(), true) }
+     assertThat(viewModel.state.value.autoUpdateEnabled).isTrue()
+   }
+ 
+   @Test
+   fun `AutoUpdateToggled off saves and shows the new value`() = runTest(testDispatcher) {
+-    every { apkUpdateValues.autoUpdate } returns true
++    updatesEnabled = true
+     val viewModel = createViewModel()
+-    every { apkUpdateValues.autoUpdate = false } answers { every { apkUpdateValues.autoUpdate } returns false }
+ 
+     viewModel.onEvent(AppUpdatesSettingsEvent.AutoUpdateToggled(false))
+ 
+-    verify { apkUpdateValues.autoUpdate = false }
++    verify { TextSecurePreferences.setUpdateApkEnabled(any(), false) }
+     assertThat(viewModel.state.value.autoUpdateEnabled).isFalse()
+   }
+ 
+   @Test
+   fun `CheckForUpdatesClicked enqueues an update check`() = runTest(testDispatcher) {
++    updatesEnabled = true
+     val viewModel = createViewModel()
+     val actions = collectActions(viewModel.actions)
+ 
+@@ -157,6 +173,40 @@ class AppUpdatesSettingsViewModelTest {
+   }
+ 
+   @Test
++  fun `beta selection clears an old install prompt and checks the selected channel`() = runTest(testDispatcher) {
++    val viewModel = createViewModel()
++
++    viewModel.onEvent(AppUpdatesSettingsEvent.IncludeBetaToggled(true))
++
++    verify { TextSecurePreferences.setUpdateApkIncludeBetaEnabled(any(), true) }
++    verify { ApkUpdateNotifications.dismissInstallPrompt(any()) }
++    verify(exactly = 1) { AppDependencies.jobManager.add(ofType<ApkUpdateJob>()) }
++    assertThat(viewModel.state.value.includeBetaEnabled).isTrue()
++  }
++
++  @Test
++  fun `externally managed builds ignore update actions`() = runTest(testDispatcher) {
++    val viewModel = createViewModel(isAutoUpdateSupported = false)
++
++    viewModel.onEvent(AppUpdatesSettingsEvent.AutoUpdateToggled(true))
++    viewModel.onEvent(AppUpdatesSettingsEvent.IncludeBetaToggled(true))
++    viewModel.onEvent(AppUpdatesSettingsEvent.CheckForUpdatesClicked)
++
++    verify(exactly = 0) { TextSecurePreferences.setUpdateApkEnabled(any(), any()) }
++    verify(exactly = 0) { TextSecurePreferences.setUpdateApkIncludeBetaEnabled(any(), any()) }
++    verify(exactly = 0) { AppDependencies.jobManager.add(ofType<ApkUpdateJob>()) }
++  }
++
++  @Test
++  fun `manual checks do not bypass disabled update checks`() = runTest(testDispatcher) {
++    val viewModel = createViewModel()
++
++    viewModel.onEvent(AppUpdatesSettingsEvent.CheckForUpdatesClicked)
++
++    verify(exactly = 0) { AppDependencies.jobManager.add(ofType<ApkUpdateJob>()) }
++  }
++
++  @Test
+   fun `NavigateBackClicked navigates back`() = runTest(testDispatcher) {
+     val viewModel = createViewModel()
+     val actions = collectActions(viewModel.actions)

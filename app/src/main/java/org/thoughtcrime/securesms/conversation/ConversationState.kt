@@ -6,7 +6,8 @@ package org.thoughtcrime.securesms.conversation
  * directly in the fragment that would be better relegated to a ViewModel.
  */
 data class ConversationState(
-  val securityInfo: ConversationSecurityInfo = ConversationSecurityInfo(),
+  val isMmsEnabled: Boolean = true,
+  val securityInfo: ConversationSecurityInfo = ConversationSecurityInfo()
 ) {
   companion object {
     @JvmStatic
@@ -15,5 +16,6 @@ data class ConversationState(
     }
   }
 
+  fun withMmsEnabled(isMmsEnabled: Boolean) = copy(isMmsEnabled = isMmsEnabled)
   fun withSecurityInfo(securityInfo: ConversationSecurityInfo) = copy(securityInfo = securityInfo)
 }

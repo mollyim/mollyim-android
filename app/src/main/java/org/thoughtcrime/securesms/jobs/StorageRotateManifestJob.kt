@@ -7,6 +7,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork
 import org.whispersystems.signalservice.api.storage.SignalStorageManifest
 import java.util.concurrent.TimeUnit
 
@@ -40,7 +41,7 @@ class StorageRotateManifestJob private constructor(parameters: Parameters) : Job
       return Result.failure()
     }
 
-    if (!SignalStore.account.isRegistered || SignalStore.account.e164 == null) {
+    if (!SignalStore.account.isRegistered || SignalStore.account.aci == null) {
       Log.w(TAG, "User not registered. Skipping.")
       return Result.failure()
     }
@@ -52,7 +53,7 @@ class StorageRotateManifestJob private constructor(parameters: Parameters) : Job
     }
 
     val storageServiceKey = SignalStore.storageService.storageKey
-    val repository = StorageServiceService(AppDependencies.storageServiceApi)
+    val repository = SignalNetwork.storageService
 
     val currentManifest: SignalStorageManifest = when (val result = repository.getStorageManifest(restoreKey)) {
       is StorageServiceService.ManifestResult.Success -> {

@@ -6,12 +6,17 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import androidx.core.content.contentValuesOf
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.delete
+import org.signal.core.database.exists
+import org.signal.core.database.insertInto
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.database.withinTransaction
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
-import org.signal.core.util.SqlUtil
 import org.signal.core.util.UuidUtil
-import org.signal.core.util.exists
 import org.signal.core.util.hasUnknownFields
-import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.readToMap
@@ -22,20 +27,15 @@ import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
-import org.signal.core.util.select
 import org.signal.core.util.toInt
-import org.signal.core.util.update
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfileId
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfileSchedule
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.storage.StorageSyncModels
 import org.thoughtcrime.securesms.storage.StorageSyncModels.toLocal
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.storage.SignalNotificationProfileRecord
 import org.whispersystems.signalservice.api.storage.StorageId
 import java.time.DayOfWeek
@@ -491,13 +491,13 @@ class NotificationProfileTables(context: Context, databaseHelper: SignalDatabase
   }
 
   /**
-   * Removes storageIds from notification profiles that have been deleted for [RemoteConfig.messageQueueTime].
+   * Removes storageIds from notification profiles that were deleted before [deletedBefore].
    */
-  fun removeStorageIdsFromOldDeletedProfiles(now: Long): Int {
+  fun removeStorageIdsFromOldDeletedProfiles(deletedBefore: Long): Int {
     return writableDatabase
       .update(NotificationProfileTable.TABLE_NAME)
       .values(NotificationProfileTable.STORAGE_SERVICE_ID to null)
-      .where("${NotificationProfileTable.STORAGE_SERVICE_ID} NOT NULL AND ${NotificationProfileTable.DELETED_TIMESTAMP_MS} > 0 AND ${NotificationProfileTable.DELETED_TIMESTAMP_MS} < ?", now - RemoteConfig.messageQueueTime)
+      .where("${NotificationProfileTable.STORAGE_SERVICE_ID} NOT NULL AND ${NotificationProfileTable.DELETED_TIMESTAMP_MS} > 0 AND ${NotificationProfileTable.DELETED_TIMESTAMP_MS} < ?", deletedBefore)
       .run()
   }
 
@@ -529,6 +529,15 @@ class NotificationProfileTables(context: Context, databaseHelper: SignalDatabase
     AppDependencies.databaseObserver.notifyNotificationProfileObservers()
 
     Log.d(TAG, "Remapped $fromId to $toId. count: $count")
+  }
+
+  override fun onDeletedRecipient(recipientId: RecipientId) {
+    val deleted = writableDatabase
+      .delete(NotificationProfileAllowedMembersTable.TABLE_NAME)
+      .where("${NotificationProfileAllowedMembersTable.RECIPIENT_ID} = ?", recipientId)
+      .run()
+
+    Log.d(TAG, "Deleted recipient: $deleted")
   }
 
   private fun getProfile(cursor: Cursor): NotificationProfile {

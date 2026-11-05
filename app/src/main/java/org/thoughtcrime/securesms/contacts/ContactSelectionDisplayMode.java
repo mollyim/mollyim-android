@@ -15,7 +15,7 @@ public final class ContactSelectionDisplayMode {
   public static final int FLAG_GROUPS_AFTER_CONTACTS = 1 << 8;
 
   public static final int FLAG_GROUP_MEMBERS         = 1 << 9;
-  public static final int FLAG_ALL                   = FLAG_PUSH | FLAG_ACTIVE_GROUPS | FLAG_INACTIVE_GROUPS | FLAG_SELF;
+  public static final int FLAG_ALL                   = FLAG_PUSH | FLAG_SMS | FLAG_ACTIVE_GROUPS | FLAG_INACTIVE_GROUPS | FLAG_SELF;
 
   public static Builder all() {
     return new Builder(FLAG_ALL);

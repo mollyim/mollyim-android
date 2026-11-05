@@ -186,6 +186,10 @@ class RestoreLocalAttachmentJob private constructor(
     } catch (e: IOException) {
       Log.w(TAG, "Experienced an exception while trying to read attachment.", e)
       return Result.retry(defaultBackoff())
+    } catch (e: SecurityException) {
+      Log.w(TAG, "Lost access to the backup directory. Unable to restore attachment.", e)
+      SignalStore.backup.localRestoreDirectoryError = true
+      return Result.failure()
     }
 
     return Result.success()

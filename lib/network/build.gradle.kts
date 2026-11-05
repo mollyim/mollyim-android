@@ -10,6 +10,7 @@ plugins {
   id("java-library")
   id("org.jetbrains.kotlin.jvm")
   id("idea")
+  id("org.jlleitschuh.gradle.ktlint")
   alias(libs.plugins.kotlinx.serialization)
 }
 
@@ -28,6 +29,16 @@ tasks.withType<KotlinCompile>().configureEach {
   }
 }
 
+ktlint {
+  version.set("1.5.0")
+}
+
+tasks.whenTaskAdded {
+  if (name == "lint") {
+    enabled = false
+  }
+}
+
 dependencies {
   api(project(":lib:libsignal-service"))
   api(project(":core:network"))
@@ -37,6 +48,7 @@ dependencies {
 
   implementation(libs.libsignal.client)
   api(libs.square.okio)
+  implementation(libs.square.okhttp3.coroutines)
 
   api(libs.rxjava3.rxjava)
 

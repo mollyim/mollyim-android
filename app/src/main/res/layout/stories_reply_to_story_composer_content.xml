@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurfaceContainer"
+    android:background="@color/signal_colorSurface"
     android:paddingTop="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +66,7 @@
             android:background="?selectableItemBackgroundBorderless"
             app:force_outline="true"
             android:layout_gravity="bottom"
-            app:tint="?attr/colorOnSurface"
+            app:tint="@color/signal_colorOnSurface"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

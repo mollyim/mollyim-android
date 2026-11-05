@@ -1,0 +1,13 @@
+diff --git a/core/util/src/main/res/values-sr/strings.xml b/core/util/src/main/res/values-sr/strings.xml
+index b8193a588d3a789239d33daaa78a9080bbfc5785..b31ff5483cb4da809a7ba888110671780ce86282 100644
+--- a/core/util/src/main/res/values-sr/strings.xml
++++ b/core/util/src/main/res/values-sr/strings.xml
+@@ -7,7 +7,7 @@
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+   <!-- Removed by excludeNonTranslatables <string name="install_url" translatable="false">https://signal.org/install</string> -->
+-
++    
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Пошаљите позивницу за Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->

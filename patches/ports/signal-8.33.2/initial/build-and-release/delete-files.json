@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "type": "delete-files",
+  "source_commit": "49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb",
+  "before_tree": "9b61baf40da39636a8c0ede18ee6d4ad6d500fe2",
+  "after_tree": "d2d2ff7d3b25fbb140e5b4d89bcafcd1e25c0037",
+  "files": [
+    {
+      "path": ".github/workflows/android.yml",
+      "mode": "100644",
+      "blob": "99fdb5089c0cd27c4c65068b709c92f48e3fa936"
+    },
+    {
+      "path": ".github/workflows/docker.yml",
+      "mode": "100644",
+      "blob": "d897ec16e19f47ba1c8e2805a0ff4e698a90b224"
+    },
+    {
+      "path": ".github/workflows/stale.yml",
+      "mode": "100644",
+      "blob": "04498e0721074720852fc18265d390a41770b7fe"
+    },
+    {
+      "path": "build-logic/plugins/src/main/java/signal-sample-app.gradle.kts",
+      "mode": "100644",
+      "blob": "ad10b654a053852f13610fe94dfd8117a97ba7a8"
+    },
+    {
+      "path": "build-logic/plugins/src/main/java/translations.gradle.kts",
+      "mode": "100644",
+      "blob": "be279197c58c855e312fb77b7e5502c105b7c0b5"
+    },
+    {
+      "path": "reproducible-builds/Dockerfile",
+      "mode": "100644",
+      "blob": "b97f813ab614fc7f2b1dfcdaac203ac775b4e45b"
+    },
+    {
+      "path": "reproducible-builds/apkdiff/uv.lock",
+      "mode": "100644",
+      "blob": "1dc2f79d201d9986baede04b5aab4defba9cd6a2"
+    },
+    {
+      "path": "reproducible-builds/docker/sources.list",
+      "mode": "100644",
+      "blob": "c728fd56a5589ee64b774d86dc9ecb80f4096f3a"
+    },
+    {
+      "path": "wire-handler/lib/build.gradle.kts",
+      "mode": "100644",
+      "blob": "072abd438a5546ea82d3d4c6e3bcfea3f3159d33"
+    }
+  ]
+}

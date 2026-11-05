@@ -5,19 +5,19 @@ import android.text.style.TextAppearanceSpan
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import com.bumptech.glide.Glide
-import org.signal.core.ui.util.ThemeUtil
-import com.google.android.material.R as MaterialR
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.database.CallTable
 import org.thoughtcrime.securesms.database.MessageTypes
+import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.databinding.CallLogAdapterItemBinding
 import org.thoughtcrime.securesms.databinding.CallLogCreateCallLinkItemBinding
 import org.thoughtcrime.securesms.databinding.ConversationListItemClearFilterBinding
 import org.thoughtcrime.securesms.databinding.ConversationListItemClearFilterEmptyBinding
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DateUtils
 import org.thoughtcrime.securesms.util.SearchUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingFactory
@@ -268,7 +268,7 @@ class CallLogAdapter(
       TextViewCompat.setCompoundDrawableTintList(
         binding.callInfo,
         ColorStateList.valueOf(
-          ThemeUtil.getThemedColor(context, MaterialR.attr.colorOnSurfaceVariant)
+          ContextCompat.getColor(context, CoreUiR.color.signal_colorOnSurfaceVariant)
         )
       )
 
@@ -336,7 +336,7 @@ class CallLogAdapter(
       binding.callRecipientAvatar.setAvatar(Glide.with(binding.callRecipientAvatar), recipient, false)
       binding.callRecipientAvatar.setOnClickListener { onCallClicked(call) }
       binding.callRecipientBadge.setBadgeFromRecipient(recipient)
-      binding.callRecipientName.text = if (searchQuery != null) {
+      binding.callRecipientName.text = if (!searchQuery.isNullOrEmpty()) {
         SearchUtil.getHighlightedSpan(
           Locale.getDefault(),
           { arrayOf(TextAppearanceSpan(context, CoreUiR.style.Signal_Text_TitleSmall)) },
@@ -347,6 +347,7 @@ class CallLogAdapter(
       } else {
         recipient.getDisplayName(context)
       }
+      binding.callRecipientMuted.visible = recipient.isMuted && recipient.callNotificationSetting == RecipientTable.NotificationSetting.DO_NOT_NOTIFY
     }
 
     private fun presentCallInfo(call: CallLogRow.Call, date: Long) {
@@ -375,12 +376,12 @@ class CallLogAdapter(
         start = getCallStateDrawableRes(call.record)
       )
 
-      val color = ThemeUtil.getThemedColor(
+      val color = ContextCompat.getColor(
         context,
         if (call.record.isDisplayedAsMissedCallInUi) {
-          MaterialR.attr.colorError
+          CoreUiR.color.signal_colorError
         } else {
-          MaterialR.attr.colorOnSurfaceVariant
+          CoreUiR.color.signal_colorOnSurfaceVariant
         }
       )
 

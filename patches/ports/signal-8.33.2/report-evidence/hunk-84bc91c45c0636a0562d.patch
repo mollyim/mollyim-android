@@ -1,0 +1,28 @@
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/messages/DataMessageProcessor.kt b/app/src/main/java/org/thoughtcrime/securesms/messages/DataMessageProcessor.kt
+index 08b8191ce3..f79482576b 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/messages/DataMessageProcessor.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/messages/DataMessageProcessor.kt
+@@ -7,6 +7,7 @@ import org.signal.core.models.ServiceId
+ import org.signal.core.models.ServiceId.ACI
+ import org.signal.core.models.database.StickerRecord
+ import org.signal.core.models.recipients.RecipientId
++import org.signal.core.util.Base64
+ import org.signal.core.util.Hex
+ import org.signal.core.util.UuidUtil
+ import org.signal.core.util.isNotEmpty
+@@ -14,6 +15,7 @@ import org.signal.core.util.logging.Log
+ import org.signal.core.util.orNull
+ import org.signal.core.util.toOptional
+ import org.signal.emoji.EmojiUtil
++import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
+ import org.signal.network.util.Preconditions
+ import org.thoughtcrime.securesms.attachments.Attachment
+ import org.thoughtcrime.securesms.attachments.LocalStickerAttachment
+@@ -55,6 +57,7 @@ import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
+ import org.thoughtcrime.securesms.jobs.GroupCallPeekJob
+ import org.thoughtcrime.securesms.jobs.GroupV2UpdateSelfProfileKeyJob
+ import org.thoughtcrime.securesms.jobs.ProfileKeySendJob
++import org.thoughtcrime.securesms.jobs.PushProcessMessageJob
+ import org.thoughtcrime.securesms.jobs.RefreshAttributesJob
+ import org.thoughtcrime.securesms.jobs.RetrieveProfileJob
+ import org.thoughtcrime.securesms.jobs.StorageSyncJob

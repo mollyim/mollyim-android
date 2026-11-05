@@ -6,11 +6,7 @@ import org.thoughtcrime.securesms.R;
 
 public class DynamicRegistrationTheme extends DynamicTheme {
 
-  protected @StyleRes int getRegularTheme() {
+  protected @StyleRes int getTheme() {
     return R.style.Signal_DayNight_Registration;
-  }
-
-  protected @StyleRes int getDynamicTheme() {
-    return R.style.Theme_Molly_Dynamic_Registration;
   }
 }

@@ -213,18 +213,6 @@ class DeviceTransferProgressViewModelTest {
   }
 
   @Test
-  fun `ConsumeOneTimeEvent clears the one-time event`() = runTest {
-    viewModel.applyEvent(
-      DeviceTransferProgressState(oneTimeEvent = DeviceTransferProgressState.OneTimeEvent.TransferCanceled),
-      DeviceTransferProgressScreenEvents.ConsumeOneTimeEvent,
-      parentEventEmitter,
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
-  }
-
-  @Test
   fun `CancelConfirmed through the real event channel navigates back`() = runTest {
     viewModel.onEvent(DeviceTransferProgressScreenEvents.CancelConfirmed)
     testDispatcher.scheduler.advanceUntilIdle()

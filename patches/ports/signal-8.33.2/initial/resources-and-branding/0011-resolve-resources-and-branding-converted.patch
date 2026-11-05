@@ -1,0 +1,581 @@
+From 43606794da55e1c2a99c1ea81606158a36db2e4a Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port resources-and-branding to Signal 8.33.2, part 11
+
+Resolve shared resource conflicts and relocated resources, retaining the port source's Molly branding and translations.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 50 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/core/ui/src/main/res/values-night/material3_colors.xml b/core/ui/src/main/res/values-night/material3_colors.xml
+index fb6855131f4fabe94f341f08470ce5c2a4394fed..c2146c26d7fafed6819a875f3cffb9b831c458a0 100644
+--- a/core/ui/src/main/res/values-night/material3_colors.xml
++++ b/core/ui/src/main/res/values-night/material3_colors.xml
+@@ -1,33 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <!-- Core colors for Material3 -->
+-<<<<<<< MOLLY
+-    <!-- MOLLY: Colors moved to themes.xml as theme attributes -->
+-=======
+-    <color name="signal_colorPrimary">@color/signal_dark_colorPrimary</color>
+-    <color name="signal_colorPrimaryContainer">@color/signal_dark_colorPrimaryContainer</color>
+-    <color name="signal_colorSecondary">@color/signal_dark_colorSecondary</color>
+-    <color name="signal_colorSecondaryContainer">@color/signal_dark_colorSecondaryContainer</color>
+-    <color name="signal_colorSurface">@color/signal_dark_colorSurface</color>
+-    <color name="signal_colorSurfaceVariant">@color/signal_dark_colorSurfaceVariant</color>
+     <color name="signal_colorSurfaceVariantFill">@color/signal_dark_colorSurfaceVariantFill</color>
+-    <color name="signal_colorBackground">@color/signal_dark_colorBackground</color>
+-    <color name="signal_colorError">@color/signal_dark_colorError</color>
+-    <color name="signal_colorErrorContainer">@color/signal_dark_colorErrorContainer</color>
+-    <color name="signal_colorOnPrimary">@color/signal_dark_colorOnPrimary</color>
+-    <color name="signal_colorOnPrimaryContainer">@color/signal_dark_colorOnPrimaryContainer</color>
+-    <color name="signal_colorOnSecondary">@color/signal_dark_colorOnSecondary</color>
+-    <color name="signal_colorOnSecondaryContainer">@color/signal_dark_colorOnSecondaryContainer</color>
+-    <color name="signal_colorOnSurface">@color/signal_dark_colorOnSurface</color>
+-    <color name="signal_colorOnSurfaceVariant">@color/signal_dark_colorOnSurfaceVariant</color>
+-    <color name="signal_colorOnSurfaceVariant1">@color/signal_dark_colorOnSurfaceVariant1</color>
+-    <color name="signal_colorOnBackground">@color/signal_dark_colorOnBackground</color>
+-    <color name="signal_colorOutline">@color/signal_dark_colorOutline</color>
+->>>>>>> SIGNAL
+     <color name="signal_neutralSurface">@color/signal_dark_neutralSurface</color>
+     <color name="signal_neutralFill">@color/signal_dark_neutralFill</color>
+     <color name="signal_colorOnCustom">@color/signal_dark_colorOnCustom</color>
+     <color name="signal_colorOnCustomVariant">@color/signal_dark_colorOnCustomVariant</color>
++
+     <color name="signal_colorTransparent1">@color/signal_dark_colorTransparent1</color>
+     <color name="signal_colorTransparent2">@color/signal_dark_colorTransparent2</color>
+     <color name="signal_colorTransparent3">@color/signal_dark_colorTransparent3</color>
+@@ -50,7 +29,6 @@
+ 
+     <!-- Core color alpha variants -->
+     <color name="signal_colorSecondaryContainer_12">#1F434159</color>
+-    <color name="signal_colorTertiaryContainer_12">#1F423290</color>
+     <color name="signal_colorSurface_60">#99100E1F</color>
+     <color name="signal_colorSurfaceVariant_38">#61302F33</color>
+     <color name="signal_colorSurfaceVariant_64">#A3302F33</color>
+@@ -59,15 +37,13 @@
+     <color name="signal_colorOnSurfaceVariant_60">#99BEBCC4</color>
+     <color name="signal_colorOnBackground_60">#99E3E1E6</color>
+     <color name="signal_colorOutline_38">#615D5D66</color>
+-    <color name="signal_colorOutlineVariant_38">#615D5D66</color>
+     <color name="signal_colorBackground_0">#00100E1F</color>
+ 
+     <!-- Core color alpha variants without alpha channel -->
+     <color name="signal_colorSurfaceVariant_16_no_alpha">#3F4249</color>
+     <color name="signal_colorSurfaceVariant_32_no_alpha">#5D5E62</color>
+-<<<<<<< MOLLY
+-=======
+ 
+     <color name="reminder_background">#26221D</color>
+->>>>>>> SIGNAL
+-</resources>
+\ No newline at end of file
++<color name="signal_colorTertiaryContainer_12">#1F423290</color>
++    <color name="signal_colorOutlineVariant_38">#615D5D66</color>
++    </resources>
+diff --git a/core/ui/src/main/res/values/attrs.xml b/core/ui/src/main/res/values/attrs.xml
+index 4c9bb52d413af32f571a3965e529e9ee7ce7760a..2efa68bd570cc52ad68756276de3601e0a1e8186 100644
+--- a/core/ui/src/main/res/values/attrs.xml
++++ b/core/ui/src/main/res/values/attrs.xml
+@@ -9,4 +9,5 @@
+     <attr name="fullScreenDialogStyle" format="reference"/>
+     <attr name="fixedRoundedCornerBottomSheetStyle" format="reference"/>
+     <attr name="permissionsRationaleDialogTheme" format="reference"/>
++    <attr name="signal_accent_primary" format="color" />
+ </resources>
+diff --git a/core/ui/src/main/res/values/material3_colors.xml b/core/ui/src/main/res/values/material3_colors.xml
+index d4bdfbc665cb5a2ef2c4f054de0fa622fc63cbc1..3340b4ce186b1d224abfb23324235bee76db1473 100644
+--- a/core/ui/src/main/res/values/material3_colors.xml
++++ b/core/ui/src/main/res/values/material3_colors.xml
+@@ -1,33 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <!-- Core colors for Material3 -->
+-<<<<<<< MOLLY
+-    <!-- MOLLY: Colors moved to themes.xml as theme attributes -->
+-=======
+-    <color name="signal_colorPrimary">@color/signal_light_colorPrimary</color>
+-    <color name="signal_colorPrimaryContainer">@color/signal_light_colorPrimaryContainer</color>
+-    <color name="signal_colorSecondary">@color/signal_light_colorSecondary</color>
+-    <color name="signal_colorSecondaryContainer">@color/signal_light_colorSecondaryContainer</color>
+-    <color name="signal_colorSurface">@color/signal_light_colorSurface</color>
+-    <color name="signal_colorSurfaceVariant">@color/signal_light_colorSurfaceVariant</color>
+     <color name="signal_colorSurfaceVariantFill">@color/signal_light_colorSurfaceVariantFill</color>
+-    <color name="signal_colorBackground">@color/signal_light_colorBackground</color>
+-    <color name="signal_colorError">@color/signal_light_colorError</color>
+-    <color name="signal_colorErrorContainer">@color/signal_light_colorErrorContainer</color>
+-    <color name="signal_colorOnPrimary">@color/signal_light_colorOnPrimary</color>
+-    <color name="signal_colorOnPrimaryContainer">@color/signal_light_colorOnPrimaryContainer</color>
+-    <color name="signal_colorOnSecondary">@color/signal_light_colorOnSecondary</color>
+-    <color name="signal_colorOnSecondaryContainer">@color/signal_light_colorOnSecondaryContainer</color>
+-    <color name="signal_colorOnSurface">@color/signal_light_colorOnSurface</color>
+-    <color name="signal_colorOnSurfaceVariant">@color/signal_light_colorOnSurfaceVariant</color>
+-    <color name="signal_colorOnSurfaceVariant1">@color/signal_light_colorOnSurfaceVariant1</color>
+-    <color name="signal_colorOnBackground">@color/signal_light_colorOnBackground</color>
+-    <color name="signal_colorOutline">@color/signal_light_colorOutline</color>
+->>>>>>> SIGNAL
+     <color name="signal_neutralSurface">@color/signal_light_neutralSurface</color>
+     <color name="signal_neutralFill">@color/signal_dark_neutralFill</color>
+     <color name="signal_colorOnCustom">@color/signal_light_colorOnCustom</color>
+     <color name="signal_colorOnCustomVariant">@color/signal_light_colorOnCustomVariant</color>
++
+     <color name="signal_colorTransparent1">@color/signal_light_colorTransparent1</color>
+     <color name="signal_colorTransparent2">@color/signal_light_colorTransparent2</color>
+     <color name="signal_colorTransparent3">@color/signal_light_colorTransparent3</color>
+@@ -50,7 +29,6 @@
+ 
+     <!-- Core color alpha variants -->
+     <color name="signal_colorSecondaryContainer_12">#1FE3DBF9</color>
+-    <color name="signal_colorTertiaryContainer_12">#1FD1C6FB</color>
+     <color name="signal_colorSurface_60">#99F6F6FF</color>
+     <color name="signal_colorSurfaceVariant_38">#61E7E6F2</color>
+     <color name="signal_colorSurfaceVariant_64">#A3E7E6F2</color>
+@@ -60,17 +38,13 @@
+     <color name="signal_colorOnSurfaceVariant_60">#99585563</color>
+     <color name="signal_colorOnBackground_60">#99171719</color>
+     <color name="signal_colorOutline_38">#6182808A</color>
+-    <color name="signal_colorOutlineVariant_38">#619384E2</color>
+     <color name="signal_colorBackground_0">#00F6F6FF</color>
+ 
+     <!-- Core color alpha variants without alpha channel -->
+-<<<<<<< MOLLY
+     <color name="signal_colorSurfaceVariant_16_no_alpha">#D0CFDB</color>
+     <color name="signal_colorSurfaceVariant_32_no_alpha">#B9B8C4</color>
+-=======
+-    <color name="signal_colorSurfaceVariant_16_no_alpha">#D5D8DE</color>
+-    <color name="signal_colorSurfaceVariant_32_no_alpha">#B8BCC5</color>
+ 
+     <color name="reminder_background">#faf0dc</color>
+->>>>>>> SIGNAL
+-</resources>
+\ No newline at end of file
++<color name="signal_colorTertiaryContainer_12">#1FD1C6FB</color>
++    <color name="signal_colorOutlineVariant_38">#619384E2</color>
++    </resources>
+diff --git a/core/ui/src/main/res/values/material3_colors_dark.xml b/core/ui/src/main/res/values/material3_colors_dark.xml
+index 9dfab3fde08c55786310dea08d38411142068120..68184477a422b40ca647f6e4c6626cb060351434 100644
+--- a/core/ui/src/main/res/values/material3_colors_dark.xml
++++ b/core/ui/src/main/res/values/material3_colors_dark.xml
+@@ -1,56 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-<<<<<<< MOLLY
+-    <!-- <color name="signal_dark_colorPrimary">#AA98FF</color> -->
+-    <!-- <color name="signal_dark_colorPrimaryContainer">#483B6A</color> -->
+-    <!-- <color name="signal_dark_colorSecondary">#CBC4DE</color> -->
+-    <!-- <color name="signal_dark_colorSecondaryContainer">#434159</color> -->
+-    <!-- <color name="signal_dark_colorSurface">#100E1F</color> -->
+-    <!-- <color name="signal_dark_colorSurfaceVariant">#302F33</color> -->
+-    <!-- <color name="signal_dark_colorBackground">#100E1F</color> -->
+-    <!-- <color name="signal_dark_colorError">#FE006E</color> -->
+-    <!-- <color name="signal_dark_colorErrorContainer">#A40449</color> -->
+-    <!-- <color name="signal_dark_colorOnPrimary">#1E1B38</color> -->
+-    <!-- <color name="signal_dark_colorOnPrimaryContainer">#DDDCFC</color> -->
+-    <!-- <color name="signal_dark_colorOnSecondary">#2E2A42</color> -->
+-    <!-- <color name="signal_dark_colorOnSecondaryContainer">#E3DCF9</color> -->
+-    <color name="signal_dark_colorOnSurface">#E3E1E6</color>
+-    <!-- <color name="signal_dark_colorOnSurfaceVariant">#BEBCC4</color> -->
+-    <!-- <color name="signal_dark_colorOutlineVariant">#6E5DB9</color> -->
+-    <!-- <color name="signal_dark_colorOnBackground">#E3E1E6</color> -->
+-    <!-- <color name="signal_dark_colorOutline">#5D5D66</color> -->
+-=======
+-    <color name="signal_dark_colorPrimary">#B6C5FA</color>
+-    <color name="signal_dark_colorPrimaryContainer">#464B5C</color>
+-    <color name="signal_dark_colorSecondary">#C1C6DD</color>
+-    <color name="signal_dark_colorSecondaryContainer">#414659</color>
+-    <color name="signal_dark_colorSurface">#1B1C1F</color>
+-    <color name="signal_dark_colorSurfaceVariant">#303133</color>
+     <color name="signal_dark_colorSurfaceVariantFill">#33FFFFFF</color>
+-    <color name="signal_dark_colorBackground">#1B1C1F</color>
+-    <color name="signal_dark_colorError">#FFB4A9</color>
+-    <color name="signal_dark_colorErrorContainer">#930006</color>
+-    <color name="signal_dark_colorOnPrimary">#1E2438</color>
+-    <color name="signal_dark_colorOnPrimaryContainer">#DBE1FC</color>
+-    <color name="signal_dark_colorOnSecondary">#2A3042</color>
+-    <color name="signal_dark_colorOnSecondaryContainer">#DCE1F9</color>
+-    <color name="signal_dark_colorOnSurface">#E2E1E5</color>
+-    <color name="signal_dark_colorOnSurfaceVariant">#BEBFC5</color>
+-    <color name="signal_dark_colorOnSurfaceVariant1">#4D5059</color>
+-    <color name="signal_dark_colorOnBackground">#E2E1E5</color>
+-    <color name="signal_dark_colorOutline">#5C5E65</color>
+->>>>>>> SIGNAL
++    <color name="signal_dark_colorOnSurface">#E3E1E6</color>
+     <color name="signal_dark_neutralSurface">#14FFFFFF</color>
+     <color name="signal_dark_neutralFill">#33FFFFFF</color>
+     <color name="signal_dark_colorOnCustom">#FFFFFF</color>
+     <color name="signal_dark_colorOnCustomVariant">#B3FFFFFF</color>
+ 
+-    <!-- <color name="signal_dark_colorSurface1">#181137</color> -->
+-    <!-- <color name="signal_dark_colorSurface2">#1E1645</color> -->
+-    <!-- <color name="signal_dark_colorSurface3">#231A4E</color> -->
+-    <!-- <color name="signal_dark_colorSurface4">#281E57</color> -->
+-    <!-- <color name="signal_dark_colorSurface5">#33276A</color> -->
+-
+     <color name="signal_dark_colorTransparent1">#0AFFFFFF</color>
+     <color name="signal_dark_colorTransparent2">#1FFFFFFF</color>
+     <color name="signal_dark_colorTransparent3">#29FFFFFF</color>
+@@ -66,14 +22,6 @@
+     <color name="signal_dark_colorNeutralInverse">#E0FFFFFF</color>
+     <color name="signal_dark_colorNeutralVariantInverse">#A3FFFFFF</color>
+ 
+-<<<<<<< MOLLY
+-    <!-- <color name="signal_dark_colorBackground_92">#EB100E1F</color> -->
+-    <color name="signal_dark_colorNeutral_87">#DE121212</color>
+-    <!-- <color name="signal_dark_colorSurfaceVariant_92">#EB302F33</color> -->
+-=======
+-    <color name="signal_dark_colorBackground_92">#EB1B1C1F</color>
+-    <color name="signal_dark_colorSurface_87">#DE1B1C1F</color>
+     <color name="signal_dark_colorSurface5_80">#CC31343E</color>
+-    <color name="signal_dark_colorSurfaceVariant_92">#EB303133</color>
+->>>>>>> SIGNAL
+-</resources>
+\ No newline at end of file
++    <color name="signal_dark_colorNeutral_87">#DE121212</color>
++    </resources>
+diff --git a/core/ui/src/main/res/values/material3_colors_light.xml b/core/ui/src/main/res/values/material3_colors_light.xml
+index 590c301e3d8d42714d1b2384d7a100edef283086..4fbb542330f297fc80c1087b61c1954694869edb 100644
+--- a/core/ui/src/main/res/values/material3_colors_light.xml
++++ b/core/ui/src/main/res/values/material3_colors_light.xml
+@@ -1,47 +1,20 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-<<<<<<< MOLLY
+     <color name="signal_light_colorPrimary">#5335DD</color>
+-    <!-- <color name="signal_light_colorPrimaryContainer">#C1B4FB</color> -->
+-    <!-- <color name="signal_light_colorSecondary">#C5C1DD</color> -->
+     <color name="signal_light_colorSecondaryContainer">#E3DBF9</color>
+     <color name="signal_light_colorSurface">#F6F6FF</color>
+-    <!-- <color name="signal_light_colorSurfaceVariant">#E7E6F2</color> -->
+-    <color name="signal_light_colorBackground">#F6F6FF</color>
+-    <!-- <color name="signal_light_colorError">#E00052</color> -->
+-    <!-- <color name="signal_light_colorErrorContainer">#FDC7DB</color> -->
+-=======
+-    <color name="signal_light_colorPrimary">#2C58C3</color>
+-    <color name="signal_light_colorPrimaryContainer">#D2DFFB</color>
+-    <color name="signal_light_colorSecondary">#586071</color>
+-    <color name="signal_light_colorSecondaryContainer">#DCE5F9</color>
+-    <color name="signal_light_colorSurface">#FBFCFF</color>
+-    <color name="signal_light_colorSurfaceVariant">#E7EBF3</color>
+     <color name="signal_light_colorSurfaceVariantFill">#CCFFFFFF</color>
+-    <color name="signal_light_colorBackground">#FBFCFF</color>
+-    <color name="signal_light_colorError">#BA1B1B</color>
+-    <color name="signal_light_colorErrorContainer">#FFDAD4</color>
+->>>>>>> SIGNAL
++    <color name="signal_light_colorBackground">#F6F6FF</color>
+     <color name="signal_light_colorOnPrimary">#FFFFFF</color>
+-    <!-- <color name="signal_light_colorOnPrimaryContainer">#180D49</color> -->
+-    <!-- <color name="signal_light_colorOnSecondary">#FFFFFF</color> -->
+     <color name="signal_light_colorOnSecondaryContainer">#1E1835</color>
+     <color name="signal_light_colorOnSurface">#181719</color>
+     <color name="signal_light_colorOnSurfaceVariant">#585563</color>
+-    <!-- <color name="signal_light_colorOutlineVariant">#9384E2</color> -->
+-    <!-- <color name="signal_light_colorOnBackground">#171719</color> -->
+     <color name="signal_light_colorOutline">#82808A</color>
+     <color name="signal_light_neutralSurface">#99FFFFFF</color>
+     <color name="signal_light_neutralFill">#1A000000</color>
+     <color name="signal_light_colorOnCustom">#FFFFFF</color>
+     <color name="signal_light_colorOnCustomVariant">#B3FFFFFF</color>
+ 
+-    <!-- <color name="signal_light_colorSurface1">#F3F0FF</color> -->
+-    <!-- <color name="signal_light_colorSurface2">#EEEAFF</color> -->
+-    <!-- <color name="signal_light_colorSurface3">#EAE5FF</color> -->
+-    <!-- <color name="signal_light_colorSurface4">#E5DFFF</color> -->
+-    <!-- <color name="signal_light_colorSurface5">#DED6FF</color> -->
+-
+     <color name="signal_light_colorTransparent1">#14FFFFFF</color>
+     <color name="signal_light_colorTransparent2">#29FFFFFF</color>
+     <color name="signal_light_colorTransparent3">#8FFFFFFF</color>
+diff --git a/core/ui/src/main/res/values/themes.xml b/core/ui/src/main/res/values/themes.xml
+index 2d576205019e3149d03bdfdfd912482145f49445..bcd9a21367169904936bf7a7063183375db69fbd 100644
+--- a/core/ui/src/main/res/values/themes.xml
++++ b/core/ui/src/main/res/values/themes.xml
+@@ -7,12 +7,8 @@
+         <item name="bottomSheetStyle">@style/Widget.CoreUi.FixedRoundedCorners.BottomSheet</item>
+         <item name="android:windowEnterAnimation">@anim/slide_from_bottom</item>
+         <item name="android:windowExitAnimation">@anim/slide_to_bottom</item>
+-<<<<<<< MOLLY
+-        <item name="android:navigationBarColor" tools:targetApi="lollipop">?attr/colorSurfaceContainerLow</item>
+-=======
+         <!-- Only applies under API 35, otherwise edge-to-edge enforcement keeps the bar transparent and the sheet draws behind it. -->
+         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/signal_bottom_sheet_navigation_bar</item>
+->>>>>>> SIGNAL
+     </style>
+ 
+     <style name="Widget.CoreUi.FixedRoundedCorners.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+diff --git a/core/util/src/main/res/values/strings.xml b/core/util/src/main/res/values/strings.xml
+index ecc5a87a82f8370b5564ba39a56f619fed046f6c..26d9bfd53987ba62a659700e9a1dd671712db906 100644
+--- a/core/util/src/main/res/values/strings.xml
++++ b/core/util/src/main/res/values/strings.xml
+@@ -1,15 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-
+ <!--
+   ~ Copyright 2024 Signal Messenger, LLC
+   ~ SPDX-License-Identifier: AGPL-3.0-only
+   -->
+-
+-<!-- smartling.instruction_comments_enabled = on -->
+ <resources>
+     <!-- Link to the Signal install page used in invite flows. -->
+-    <string name="install_url" translatable="false">https://signal.org/install</string>
+-    
++    <string name="install_url" translatable="false">https://molly.im/install</string>
++
+     <!-- Title of the system share sheet shown when sharing an invite -->
+     <string name="Invite__invite_to_signal">Invite to Signal</string>
+     <!-- Default invite message shown in invite flows, to send in email or SMS. -->
+diff --git a/feature/app-settings/src/main/res/values-af/strings2.xml b/feature/app-settings/src/main/res/values-af/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..04956b1aeec872a46fb7286c4dc41fef7a80a3a9
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-af/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Nooit</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ar/strings2.xml b/feature/app-settings/src/main/res/values-ar/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..7a4bf70da793465eb868da338d10f191321482bd
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ar/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">شريط التنقل</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">استخدام ألوان النظام لمظهر التطبيق</string>
++    <string name="app_icon_label_zen">زِنْ</string>
++    <string name="app_icon_label_moon">قمر</string>
++    <string name="app_icon_label_music">موسيقى</string>
++    <string name="preferences_appearance__dynamic_colors">ألوان حيوية</string>
++<string name="preferences__enable_debug_log">فعِّل سجل التصحيح</string>
++    <string name="HelpSettingsFragment__molly_im_website">موقع Molly.im</string>
++<string name="preferences__never">أبدًا</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">تحقق دوريًا من وجود إصدارات جديدة واطلب تثبيتها</string>
++    <string name="preferences__autoupdate_molly">حدّث Molly تلقائيًا</string>
++    <string name="preferences__include_beta_updates">تضمين تحديثات تجريبة</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">الإصدارات التجريبية مخصّصة لأغراض الاختبار وقد تحتوي على أخطاء</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">تحقق من وجود تحديثات</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">للحصول على التحديثات، يُرجى مراجعة متجر تطبيقاتك. لا يتضمن هذا الإصدار تحديث مدمج داخل التطبيق.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">آخر فحص: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-az/strings2.xml b/feature/app-settings/src/main/res/values-az/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..7e3d8166fde3a3c36289a6fa0a187df74d81ef6b
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-az/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Düzəltmə girişini fəallaşdır</string>
++<string name="preferences__never">Heç vaxt</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-be/strings2.xml b/feature/app-settings/src/main/res/values-be/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..a3fce66f6de6bac7cc814d9e7a738b02b764bae2
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-be/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">Ніколі</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-bg/strings2.xml b/feature/app-settings/src/main/res/values-bg/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..e0d4d0fdc2d036bc88bf1003427a2332219057d2
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-bg/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Вкл. запис на грешки</string>
++<string name="preferences__never">Никога</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-bn/strings2.xml b/feature/app-settings/src/main/res/values-bn/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..492d7288e5e2d1136de4696786eb09c7a64b8493
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-bn/strings2.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__never">কখনোই না</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-bs/strings2.xml b/feature/app-settings/src/main/res/values-bs/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..839c683700b082d2d77fa034b8675b0e02e0fdde
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-bs/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Traka za navigaciju</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Mjesec</string>
++    <string name="app_icon_label_music">Muzika</string>
++    <string name="preferences_appearance__dynamic_colors">Dinamičke boje</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Koristi sistemske boje za temu aplikacije</string>
++<string name="HelpSettingsFragment__molly_im_website">Molly.im internet-stranica</string>
++    <string name="preferences__enable_debug_log">Aktiviraj zapis za ispravljanje grešaka</string>
++<string name="preferences__never">Nikad</string>
++    <string name="preferences__include_beta_updates">Uvrsti testna ažuriranja</string>
++    <string name="preferences__autoupdate_molly">Automatski ažuriraj Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Povremeno provjeri ima li novih verzija i zatraži da se instaliraju</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Testne verzije namijenjene su za testiranje i mogu sadržavati greške</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Provjeri ažuriranja</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Traži nove verzije u tvojoj trgovini aplikacija. Ova verzija ne uključuje aktualiziranje unutar aplikacije.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Zadnja provjera: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-ca/strings2.xml b/feature/app-settings/src/main/res/values-ca/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..103c2fabb73a7e59e0de1ff0a4eb475dc908cad2
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-ca/strings2.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra de navegació</string>
++    <string name="app_icon_label_moon">Lluna</string>
++    <string name="app_icon_label_music">Música</string>
++    <string name="preferences_appearance__dynamic_colors">Dinàmica de Colors</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Empra els colors del sistema com a tema de l\'applicació</string>
++<string name="preferences__enable_debug_log">Activa el registre de depuració</string>
++    <string name="HelpSettingsFragment__molly_im_website">Pàgina web de Molly.im</string>
++<string name="preferences__never">Mai</string>
++    <string name="preferences__include_beta_updates">Incloure actualitzacions beta</string>
++    <string name="preferences__autoupdate_molly">Actualitza Molly automàticament</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Les versions beta són versions de prova i poden contenir errors</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Comprovar periòdicament si hi ha noves versions i demanar que s\'instal·lin</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Per obtenir actualitzacions, consulta la teva botiga d\'aplicacions. Aquesta versió no inclou un actualitzador dins de l\'aplicació.</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Comprova si hi ha actualitzacions</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Última comprovació: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-cs/strings2.xml b/feature/app-settings/src/main/res/values-cs/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..88368da8a612693e0b4c838331fb15f141e6a7c6
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-cs/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigační panel</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamické barvy</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Použít systémové barvy jako motiv aplikace</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Měsíc</string>
++    <string name="app_icon_label_music">Hudba</string>
++<string name="preferences__enable_debug_log">Zapnout ladicí log</string>
++    <string name="HelpSettingsFragment__molly_im_website">Stránka Molly.im</string>
++<string name="preferences__never">Nikdy</string>
++    <string name="preferences__include_beta_updates">Zahrnout beta aktualizace</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta verze jsou zamýšleny pro testovací účely a mouhou obsahovat bugy</string>
++    <string name="preferences__autoupdate_molly">Automaticky aktualizovat Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Pravidelně hledat nové aktualizace a požádat vás o jejich instalaci</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Hledat aktualizace</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Aktualizace naleznete v obchodě s aplikacemi. Tato verze neumožňuje aktualizaci skrz aplikaci.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Naposledy zkontrolováno: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-da/strings2.xml b/feature/app-settings/src/main/res/values-da/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..4f1fc04d7f1a4e44e029a8ebfda0be24b628d61a
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-da/strings2.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences__enable_debug_log">Aktivér fejlfindingslog</string>
++<string name="preferences__never">Aldrig</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-de/strings2.xml b/feature/app-settings/src/main/res/values-de/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..dbe2ae6021cdc1404e850e511b68ad78cba383da
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-de/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Navigationsleiste</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Mond</string>
++    <string name="app_icon_label_music">Musik</string>
++    <string name="preferences_appearance__dynamic_colors">Dynamische Farben</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Darstellung farblich an die Systemfarben anpassen</string>
++<string name="preferences__enable_debug_log">Diagnoseprotokoll aktivieren</string>
++    <string name="HelpSettingsFragment__molly_im_website">Molly.im-Website</string>
++<string name="preferences__never">Nie</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Regelmäßig nach neuen Versionen suchen und zur Installation auffordern</string>
++    <string name="preferences__autoupdate_molly">Molly automatisch aktualisieren</string>
++    <string name="preferences__include_beta_updates">Beta-Aktualisierungen einbeziehen</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Beta-Versionen sind für Testzwecke bestimmt und können Fehler enthalten</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Nach Aktualisierungen suchen</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Bitte überprüfe deinen App-Store auf Molly-Updates. Diese Version enthält keine integrierte Aktualisierungsfunktion.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Letzte Prüfung: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-el/strings2.xml b/feature/app-settings/src/main/res/values-el/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..38fd8f18f94a5ae71156afca9b20f377bb164d7f
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-el/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Μπάρα πλοήγησης</string>
++    <string name="app_icon_label_zen">Ζεν</string>
++    <string name="app_icon_label_moon">Σελήνη</string>
++    <string name="app_icon_label_music">Μουσική</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Χρήση χρωμάτων συστήματος για το θέμα της εφαρμογής</string>
++    <string name="preferences_appearance__dynamic_colors">Δυναμικά Χρώματα</string>
++<string name="preferences__enable_debug_log">Ενεργοποίηση αρχείου καταγραφής εντοπισμού σφαλμάτων</string>
++    <string name="HelpSettingsFragment__molly_im_website">Ιστοσελίδα Molly.im</string>
++<string name="preferences__never">Ποτέ</string>
++    <string name="preferences__include_beta_updates">Συμπερίληψη δοκιμαστικών εκδόσεων</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Οι δοκιμαστικές εκδόσεις προορίζονται για δοκιμές και ίσως περιέχουν σφάλματα</string>
++    <string name="preferences__autoupdate_molly">Αυτόματη ενημέρωση Molly</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Περιοδικός έλεγχος για νέες κυκλοφορίες και αίτηση για εγκατάσταση</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Έλεγχος για ενημερώσεις</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Για ενημερώσεις, παρακαλώ έλεγξε το κατάστημα των εφαρμογών σου. Αυτή η έκδοση δεν περιέχει ενσωματωμένο πρόγραμμα ενημέρωσης.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Τελευταίος έλεγχος: %s</string>
++</resources>
+diff --git a/feature/app-settings/src/main/res/values-es/strings2.xml b/feature/app-settings/src/main/res/values-es/strings2.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..2a5f48e64e5785cbaf499a563217c0de2e2ec346
+--- /dev/null
++++ b/feature/app-settings/src/main/res/values-es/strings2.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="preferences_appearance__navigation_bar">Barra de navegación</string>
++    <string name="app_icon_label_zen">Zen</string>
++    <string name="app_icon_label_moon">Luna</string>
++    <string name="app_icon_label_music">Música</string>
++    <string name="preferences_appearance__use_system_colors_for_the_app_theme">Usar los colores del sistema para el tema de la aplicación</string>
++    <string name="preferences_appearance__dynamic_colors">Colores dinámicos</string>
++<string name="preferences__enable_debug_log">Activar el registro de depuración</string>
++    <string name="HelpSettingsFragment__molly_im_website">Sitio web de Molly.im</string>
++<string name="preferences__never">Nunca</string>
++    <string name="preferences__periodically_check_for_new_releases_and_ask_to_install_them">Comprobar periódicamente si hay versiones nuevas y pedir que se instalen</string>
++    <string name="preferences__autoupdate_molly">Actualizar Molly automáticamente</string>
++    <string name="preferences__beta_versions_are_intended_for_testing_purposes_and_may_contain_bugs">Las versiones beta están destinadas a las pruebas y pueden contener errores</string>
++    <string name="preferences__include_beta_updates">Incluir actualizaciones beta</string>
++    <string name="EnableAppUpdatesMegaphone_check_for_updates">Comprobar si hay actualizaciones</string>
++    <string name="HelpSettingsFragment_for_updates_please_check_your_app_store">Para conocer las actualizaciones, consulta tu tienda de aplicaciones. Esta versión no incluye un actualizador dentro de la aplicación.</string>
++    <string name="AppUpdatesSettingsFragment__last_checked_s">Última comprobación: %s</string>
++</resources>

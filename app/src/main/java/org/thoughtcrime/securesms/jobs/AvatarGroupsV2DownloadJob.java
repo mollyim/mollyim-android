@@ -18,6 +18,7 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.jobmanager.JsonJobData;
 import org.thoughtcrime.securesms.jobmanager.Job;
+import org.thoughtcrime.securesms.jobmanager.impl.DataRestoreConstraint;
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.recipients.Recipient;
@@ -39,6 +40,7 @@ public final class AvatarGroupsV2DownloadJob extends BaseJob {
   private static final String TAG = Log.tag(AvatarGroupsV2DownloadJob.class);
 
   private static final long AVATAR_DOWNLOAD_FAIL_SAFE_MAX_SIZE = ByteUnit.MEGABYTES.toBytes(5);
+  private static final int  BULK_DOWNLOAD_LANES                = 2;
 
   private static final String KEY_GROUP_ID = "group_id";
   private static final String KEY_CDN_KEY  = "cdn_key";
@@ -50,7 +52,14 @@ public final class AvatarGroupsV2DownloadJob extends BaseJob {
 
   public static void enqueueUnblurredAvatar(@NonNull GroupId.V2 groupId) {
     SignalExecutors.BOUNDED.execute(() -> {
-      String cdnKey = SignalDatabase.groups().getGroup(groupId).get().requireV2GroupProperties().getAvatarKey();
+      GroupRecord groupRecord = SignalDatabase.groups().getGroup(groupId).orElse(null);
+
+      if (groupRecord == null || !groupRecord.getHasV2GroupProperties()) {
+        Log.w(TAG, "Missing group properties (probably previously deleted)");
+        return;
+      }
+
+      String cdnKey = groupRecord.requireV2GroupProperties().getAvatarKey();
       AppDependencies.getJobManager().add(new AvatarGroupsV2DownloadJob(groupId, cdnKey, true));
     });
   }
@@ -60,9 +69,18 @@ public final class AvatarGroupsV2DownloadJob extends BaseJob {
   }
 
   public AvatarGroupsV2DownloadJob(@NonNull GroupId.V2 groupId, @NonNull String cdnKey, boolean force) {
+    this(groupId, cdnKey, force, "AvatarGroupsV2DownloadJob::" + groupId);
+  }
+
+  public static @NonNull AvatarGroupsV2DownloadJob forBulkDownload(@NonNull GroupId.V2 groupId, @NonNull String cdnKey, int index) {
+    return new AvatarGroupsV2DownloadJob(groupId, cdnKey, false, "AvatarGroupsV2DownloadJob_Bulk_" + (index % BULK_DOWNLOAD_LANES));
+  }
+
+  private AvatarGroupsV2DownloadJob(@NonNull GroupId.V2 groupId, @NonNull String cdnKey, boolean force, @NonNull String queue) {
     this(new Parameters.Builder()
                        .addConstraint(NetworkConstraint.KEY)
-                       .setQueue("AvatarGroupsV2DownloadJob::" + groupId)
+                       .addConstraint(DataRestoreConstraint.KEY)
+                       .setQueue(queue)
                        .setMaxAttempts(10)
                        .build(),
          groupId,
@@ -98,8 +116,13 @@ public final class AvatarGroupsV2DownloadJob extends BaseJob {
     File                  attachment = null;
 
     try {
-      if (!record.isPresent()) {
-        Log.w(TAG, "Cannot download avatar for unknown group");
+      if (!record.isPresent() || !record.get().getHasV2GroupProperties()) {
+        Log.w(TAG, "Cannot download avatar for unknown group/group with no properties");
+        return;
+      }
+
+      if (!cdnKey.equals(record.get().requireV2GroupProperties().getAvatarKey())) {
+        Log.w(TAG, "Avatar for group " + groupId + " has changed since this job was created. Skipping.");
         return;
       }
 

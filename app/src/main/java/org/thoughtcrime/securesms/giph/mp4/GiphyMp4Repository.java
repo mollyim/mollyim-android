@@ -29,7 +29,9 @@ final class GiphyMp4Repository {
   private final OkHttpClient client;
 
   GiphyMp4Repository() {
-    this.client = AppDependencies.getOkHttpClient().newBuilder().proxySelector(new ContentProxySelector()).build();
+    this.client = AppDependencies.getOkHttpClient().newBuilder()
+                                 .proxySelector(new ContentProxySelector())
+                                 .build();
   }
 
   void saveToBlob(@NonNull GiphyImage giphyImage, boolean isForMms, @NonNull Consumer<GiphyMp4SaveResult> resultConsumer) {

@@ -9,7 +9,6 @@ import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import assertk.assertions.prop
@@ -18,6 +17,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -30,18 +30,36 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
+import org.signal.core.models.AccountEntropyPool
+import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.ServiceId.PNI
 import org.signal.libsignal.net.RequestResult
+import org.signal.libsignal.protocol.IdentityKeyPair
+import org.signal.network.api.RegistrationApiV2.RegisterAccountError
+import org.signal.network.api.RegistrationApiV2.RegisterAccountResponse
+import org.signal.network.api.RegistrationApiV2.RequestVerificationCodeError
+import org.signal.network.api.RegistrationApiV2.SessionMetadata
+import org.signal.network.api.RegistrationApiV2.SubmitVerificationCodeError
+import org.signal.network.api.RegistrationApiV2.ThirdPartyServiceErrorResponse
+import org.signal.network.api.RegistrationApiV2.VerificationCodeTransport
 import org.signal.registration.KeyMaterial
-import org.signal.registration.NetworkController
+import org.signal.registration.PendingRestoreOption
+import org.signal.registration.PreExistingRegistrationData
+import org.signal.registration.RegisteredAccountData
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
+import org.signal.registration.VerificationCodeRequest
+import org.signal.uicomponents.codeentryfield.CodeEntryFieldEvents
+import java.util.UUID
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class VerificationCodeViewModelTest {
+
+  private val testAci = ACI.from(UUID.fromString("aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"))
 
   private val testDispatcher = StandardTestDispatcher()
 
@@ -76,52 +94,52 @@ class VerificationCodeViewModelTest {
     Dispatchers.resetMain()
   }
 
-  // ==================== applyParentState Tests ====================
+  // ==================== ParentStateChanged Tests ====================
 
   @Test
-  fun `applyParentState with null sessionMetadata emits ResetState`() {
+  fun `ParentStateChanged with null sessionMetadata emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = null,
       sessionE164 = "+15551234567"
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with null sessionE164 emits ResetState`() {
+  fun `ParentStateChanged with null sessionE164 emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = createSessionMetadata(),
       sessionE164 = null
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with both null values emits ResetState`() {
+  fun `ParentStateChanged with both null values emits ResetState`() = runTest {
     val state = VerificationCodeState()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = null,
       sessionE164 = null
     )
 
-    viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(1)
     assertThat(emittedEvents.first()).isEqualTo(RegistrationFlowEvent.ResetState)
   }
 
   @Test
-  fun `applyParentState with valid session copies metadata and e164`() {
+  fun `ParentStateChanged with valid session copies metadata and e164`() = runTest {
     val state = VerificationCodeState()
     val sessionMetadata = createSessionMetadata(id = "test-session")
     val e164 = "+15551234567"
@@ -130,152 +148,199 @@ class VerificationCodeViewModelTest {
       sessionE164 = e164
     )
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
     assertThat(emittedEvents).hasSize(0)
-    assertThat(result.sessionMetadata).isEqualTo(sessionMetadata)
-    assertThat(result.e164).isEqualTo(e164)
+    assertThat(emittedStates.last().sessionMetadata).isEqualTo(sessionMetadata)
+    assertThat(emittedStates.last().e164).isEqualTo(e164)
   }
 
   @Test
-  fun `applyParentState preserves existing oneTimeEvent`() {
-    val state = VerificationCodeState(oneTimeEvent = VerificationCodeState.OneTimeEvent.NetworkError)
+  fun `ParentStateChanged preserves existing snackbars`() = runTest {
+    val state = VerificationCodeState(snackbars = VerificationCodeState.Snackbars(networkError = true))
     val sessionMetadata = createSessionMetadata()
     val parentFlowState = RegistrationFlowState(
       sessionMetadata = sessionMetadata,
       sessionE164 = "+15551234567"
     )
 
-    val result = viewModel.applyParentState(state, parentFlowState)
+    viewModel.applyEvent(state, VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
 
-    assertThat(result.oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
-  // ==================== applyEvent: ConsumeInnerOneTimeEvent Tests ====================
+  // ==================== applyEvent: Snackbar Dismissal Tests ====================
 
   @Test
-  fun `ConsumeInnerOneTimeEvent clears oneTimeEvent`() = runTest {
+  fun `NetworkErrorSnackbarDismissed clears only the network error snackbar`() = runTest {
     val initialState = VerificationCodeState(
-      oneTimeEvent = VerificationCodeState.OneTimeEvent.NetworkError
+      snackbars = VerificationCodeState.Snackbars(networkError = true, incorrectVerificationCode = true)
     )
 
     viewModel.applyEvent(
       initialState,
-      VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent,
+      VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed,
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
+    assertThat(emittedStates.last().snackbars).isEqualTo(VerificationCodeState.Snackbars(incorrectVerificationCode = true))
   }
 
   @Test
-  fun `ConsumeInnerOneTimeEvent with null event returns state with null event`() = runTest {
-    val initialState = VerificationCodeState(oneTimeEvent = null)
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.ConsumeInnerOneTimeEvent,
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().oneTimeEvent).isNull()
-  }
-
-  // ==================== applyEvent: SMS Auto-Fill Tests ====================
-
-  @Test
-  fun `CodeAutoFilled stores the code in autoFillCode`() = runTest {
+  fun `NetworkErrorSnackbarDismissed with no snackbars showing leaves snackbars cleared`() = runTest {
     val initialState = VerificationCodeState()
 
     viewModel.applyEvent(
       initialState,
-      VerificationCodeScreenEvents.CodeAutoFilled("123456"),
+      VerificationCodeScreenEvents.NetworkErrorSnackbarDismissed,
       stateEmitter
     )
 
-    assertThat(emittedStates.last().autoFillCode).isEqualTo("123456")
+    assertThat(emittedStates.last().snackbars).isEqualTo(VerificationCodeState.Snackbars())
+  }
+
+  // ==================== Code Entry Tests ====================
+
+  @Test
+  fun `the code field state is mirrored into screen state`() = runTest(testDispatcher) {
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeEntryEvent(CodeEntryFieldEvents.CodeChanged("123")))
+    advanceUntilIdle()
+
+    assertThat(viewModel.state.value.codeEntry.code).isEqualTo("123")
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
   }
 
   @Test
-  fun `DigitChanged with pasted hyphenated text populates all digits and submits`() = runTest {
-    val sessionMetadata = createSessionMetadata()
-    val initialState = VerificationCodeState(
-      sessionMetadata = sessionMetadata,
-      e164 = "+15551234567"
-    )
+  fun `completing the code in the code field submits it`() = runTest(testDispatcher) {
+    val sessionMetadata = givenIncorrectCodeSubmission()
 
-    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
-      RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
-      )
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
 
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(0, "123-456"),
-      stateEmitter
-    )
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeEntryEvent(CodeEntryFieldEvents.CodeChanged("123456")))
+    advanceUntilIdle()
 
-    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
-    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
-    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+    coVerify(exactly = 1) { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
   }
 
   @Test
-  fun `DigitChanged with a pasted plain code populates all digits and submits`() = runTest {
-    val sessionMetadata = createSessionMetadata()
-    val initialState = VerificationCodeState(
-      sessionMetadata = sessionMetadata,
-      e164 = "+15551234567"
-    )
+  fun `an incorrect code clears the code field`() = runTest(testDispatcher) {
+    givenIncorrectCodeSubmission()
 
-    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
-      RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
-      )
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
 
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(0, "123456"),
-      stateEmitter
-    )
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeEntryEvent(CodeEntryFieldEvents.CodeChanged("123456")))
+    advanceUntilIdle()
 
-    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
-    assertThat(emittedStates.first().digits).isEqualTo(listOf("1", "2", "3", "4", "5", "6"))
-    assertThat(emittedStates.first().isSubmittingCode).isTrue()
+    assertThat(viewModel.state.value.codeEntry.code).isEqualTo("")
+    assertThat(viewModel.state.value.codeEntry.pendingOverwrite).isEqualTo("")
+    assertThat(viewModel.state.value.snackbars.incorrectVerificationCode).isTrue()
   }
 
   @Test
-  fun `DigitChanged with pasted text of the wrong length is ignored`() = runTest {
+  fun `CodeEntered while already submitting is ignored`() = runTest {
     val initialState = VerificationCodeState(
       sessionMetadata = createSessionMetadata(),
-      e164 = "+15551234567"
+      e164 = "+15551234567",
+      isSubmittingCode = true
     )
 
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(0, "12-345"),
-      stateEmitter
-    )
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
 
     coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
+  }
+
+  // ==================== SMS Auto-Fill Tests ====================
+
+  @Test
+  fun `CodeAutoFilled fills the code field and submits the code`() = runTest(testDispatcher) {
+    val sessionMetadata = givenIncorrectCodeSubmission()
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeAutoFilled("123456"))
+    advanceUntilIdle()
+
+    coVerify(exactly = 1) { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
   }
 
   @Test
-  fun `ConsumeAutoFillCode clears autoFillCode`() = runTest {
-    val initialState = VerificationCodeState(autoFillCode = "123456")
+  fun `CodeAutoFilled places the code in the code field while it is submitted`() = runTest(testDispatcher) {
+    givenIncorrectCodeSubmission()
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } coAnswers { awaitCancellation() }
 
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.ConsumeAutoFillCode,
-      stateEmitter
-    )
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
 
-    assertThat(emittedStates.last().autoFillCode).isNull()
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeAutoFilled("123456"))
+    advanceUntilIdle()
+
+    assertThat(viewModel.state.value.codeEntry.code).isEqualTo("123456")
+    assertThat(viewModel.state.value.codeEntry.pendingOverwrite).isEqualTo("123456")
+    assertThat(viewModel.state.value.isSubmittingCode).isTrue()
   }
 
   @Test
-  fun `codes from the SMS retriever flow are pushed into the state`() = runTest(testDispatcher) {
+  fun `CodeAutoFilled replaces a partially typed code`() = runTest(testDispatcher) {
+    val sessionMetadata = givenIncorrectCodeSubmission()
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeEntryEvent(CodeEntryFieldEvents.CodeChanged("98")))
+    advanceUntilIdle()
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeAutoFilled("123456"))
+    advanceUntilIdle()
+
+    coVerify(exactly = 1) { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), "98") }
+  }
+
+  @Test
+  fun `CodeAutoFilled with a code longer than the field is ignored`() = runTest(testDispatcher) {
+    givenIncorrectCodeSubmission()
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeAutoFilled("12345678"))
+    advanceUntilIdle()
+
+    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
+    assertThat(viewModel.state.value.codeEntry.code).isEqualTo("")
+    assertThat(viewModel.state.value.codeEntry.pendingOverwrite).isNull()
+  }
+
+  @Test
+  fun `CodeAutoFilled with a code shorter than the field is ignored`() = runTest(testDispatcher) {
+    givenIncorrectCodeSubmission()
+
+    backgroundScope.launch { viewModel.state.collect {} }
+    advanceUntilIdle()
+
+    viewModel.onEvent(VerificationCodeScreenEvents.CodeAutoFilled("123"))
+    advanceUntilIdle()
+
+    assertThat(viewModel.state.value.codeEntry.code).isEqualTo("")
+    assertThat(viewModel.state.value.codeEntry.pendingOverwrite).isNull()
+  }
+
+  @Test
+  fun `CodeAutoFilled while submitting is ignored`() = runTest(testDispatcher) {
+    viewModel.applyEvent(VerificationCodeState(isSubmittingCode = true), VerificationCodeScreenEvents.CodeAutoFilled("123456"), stateEmitter)
+    advanceUntilIdle()
+
+    assertThat(viewModel.state.value.codeEntry.pendingOverwrite).isNull()
+  }
+
+  @Test
+  fun `codes from the SMS retriever flow are submitted`() = runTest(testDispatcher) {
+    val sessionMetadata = givenIncorrectCodeSubmission()
     val smsCodes = MutableSharedFlow<String>(extraBufferCapacity = 1)
     val vm = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, smsCodes)
 
@@ -285,191 +350,7 @@ class VerificationCodeViewModelTest {
     smsCodes.emit("123456")
     advanceUntilIdle()
 
-    assertThat(vm.state.value.autoFillCode).isEqualTo("123456")
-  }
-
-  @Test
-  fun `DigitChanged with a full code dispatched through the event channel submits it in a single pass`() = runTest(testDispatcher) {
-    val sessionMetadata = createSessionMetadata()
-    parentState.value = RegistrationFlowState(
-      sessionMetadata = sessionMetadata,
-      sessionE164 = "+15551234567"
-    )
-
-    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
-      RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
-      )
-
-    backgroundScope.launch { viewModel.state.collect {} }
-    advanceUntilIdle()
-
-    viewModel.onEvent(VerificationCodeScreenEvents.DigitChanged(0, "123456"))
-    advanceUntilIdle()
-
-    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
-  }
-
-  // ==================== applyEvent: DigitChanged Tests ====================
-
-  @Test
-  fun `DigitChanged records the value at the given index`() = runTest {
-    val initialState = VerificationCodeState()
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, "7"),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "7", "", "", ""))
-  }
-
-  @Test
-  fun `DigitChanged advances the focused digit index`() = runTest {
-    val initialState = VerificationCodeState()
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, "7"),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(3)
-  }
-
-  @Test
-  fun `DigitChanged with an empty value moves the focused digit index back`() = runTest {
-    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, ""),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().focusedDigitIndex).isEqualTo(1)
-  }
-
-  @Test
-  fun `DigitChanged with an out-of-bounds index throws`() = runTest {
-    var threw = false
-    try {
-      viewModel.applyEvent(
-        VerificationCodeState(),
-        VerificationCodeScreenEvents.DigitChanged(9, "7"),
-        stateEmitter
-      )
-    } catch (e: IllegalStateException) {
-      threw = true
-    }
-
-    assertThat(threw).isTrue()
-  }
-
-  @Test
-  fun `DigitChanged completing the code submits it`() = runTest {
-    val sessionMetadata = createSessionMetadata()
-    val initialState = VerificationCodeState(
-      sessionMetadata = sessionMetadata,
-      e164 = "+15551234567",
-      digits = listOf("1", "2", "3", "4", "5", "")
-    )
-
-    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
-      RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
-      )
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(5, "6"),
-      stateEmitter
-    )
-
-    coVerify { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
-    assertThat(emittedStates.first().isSubmittingCode).isTrue()
-    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
-  }
-
-  @Test
-  fun `DigitChanged does not submit until the code is complete`() = runTest {
-    val initialState = VerificationCodeState(
-      sessionMetadata = createSessionMetadata(),
-      e164 = "+15551234567",
-      digits = listOf("1", "2", "3", "4", "", "")
-    )
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(4, "5"),
-      stateEmitter
-    )
-
-    coVerify(exactly = 0) { mockRepository.submitVerificationCode(any(), any()) }
-    assertThat(emittedStates.last().isSubmittingCode).isEqualTo(false)
-  }
-
-  @Test
-  fun `an incorrect code clears the entered digits`() = runTest {
-    val initialState = VerificationCodeState(
-      sessionMetadata = createSessionMetadata(),
-      e164 = "+15551234567",
-      digits = listOf("1", "2", "3", "4", "5", "")
-    )
-
-    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
-      RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
-      )
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(5, "6"),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("", "", "", "", "", ""))
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
-  }
-
-  @Test
-  fun `DigitChanged with an empty value clears the digit at the index`() = runTest {
-    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "", "", ""))
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, ""),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "", "", "", ""))
-  }
-
-  @Test
-  fun `DigitChanged with an empty value shifts the following digits left`() = runTest {
-    val initialState = VerificationCodeState(digits = listOf("1", "2", "3", "4", "5", "6"))
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, ""),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "2", "4", "5", "6", ""))
-  }
-
-  @Test
-  fun `DigitChanged with an empty value on an empty field clears the previous digit`() = runTest {
-    val initialState = VerificationCodeState(digits = listOf("1", "2", "", "", "", ""))
-
-    viewModel.applyEvent(
-      initialState,
-      VerificationCodeScreenEvents.DigitChanged(2, ""),
-      stateEmitter
-    )
-
-    assertThat(emittedStates.last().digits).isEqualTo(listOf("1", "", "", "", "", ""))
+    coVerify(exactly = 1) { mockRepository.submitVerificationCode(sessionMetadata.id, "123456") }
   }
 
   // ==================== applyEvent: WrongNumber Tests ====================
@@ -499,7 +380,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+        SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
       )
 
     viewModel.applyEvent(
@@ -543,17 +424,152 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
-      RequestResult.Success(registerResponse to keyMaterial)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(registerResponse, keyMaterial, testAci))
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
 
-    assertThat(emittedEvents).hasSize(2)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.Registered>()
-    assertThat(emittedEvents[1])
+    assertThat(emittedEvents).hasSize(3)
+    assertThat(emittedEvents[0])
+      .isInstanceOf<RegistrationFlowEvent.VerificationCodeAccepted>()
+      .prop(RegistrationFlowEvent.VerificationCodeAccepted::code)
+      .isEqualTo("123456")
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedEvents[2])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinCreate>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration with no pending restore option navigates to ArchiveRestoreSelection`() = runTest {
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(registerResponse, keyMaterial, testAci))
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.ArchiveRestoreSelection>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration after pre-registration restore skips ArchiveRestoreSelection`() = runTest {
+    parentState.value = parentState.value.copy(pendingRestoreOption = PendingRestoreOption.LocalBackup)
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(registerResponse, keyMaterial, testAci))
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForSvrRestore>()
+  }
+
+  @Test
+  fun `CodeEntered reregistration with preExistingRegistrationData skips ArchiveRestoreSelection`() = runTest {
+    parentState.value = parentState.value.copy(preExistingRegistrationData = mockk<PreExistingRegistrationData>(relaxed = true))
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    val registerResponse = createRegisterAccountResponse(storageCapable = true, reregistration = true)
+    val keyMaterial = mockk<KeyMaterial>(relaxed = true)
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(registerResponse, keyMaterial, testAci))
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    assertThat(emittedEvents[2])
+      .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
+      .prop(RegistrationFlowEvent.NavigateToScreen::route)
+      .isInstanceOf<RegistrationRoute.PinEntryForSvrRestore>()
+  }
+
+  @Test
+  fun `CodeEntered re-registering the same number passes the pre-existing key material to the repository`() = runTest {
+    val preExisting = createPreExistingRegistrationData(e164 = "+15551234567")
+    parentState.value = parentState.value.copy(preExistingRegistrationData = preExisting)
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(createRegisterAccountResponse(reregistration = true), mockk<KeyMaterial>(relaxed = true), testAci))
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    coVerify {
+      mockRepository.registerAccountWithSession(
+        e164 = "+15551234567",
+        sessionId = sessionMetadata.id,
+        skipDeviceTransfer = true,
+        preExistingRegistrationData = preExisting
+      )
+    }
+  }
+
+  @Test
+  fun `CodeEntered registering a different number than the pre-existing one does not pass the pre-existing key material`() = runTest {
+    parentState.value = parentState.value.copy(preExistingRegistrationData = createPreExistingRegistrationData(e164 = "+15557654321"))
+
+    val sessionMetadata = createSessionMetadata(verified = true)
+    val initialState = VerificationCodeState(
+      sessionMetadata = sessionMetadata,
+      e164 = "+15551234567"
+    )
+
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.Success(sessionMetadata)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(createRegisterAccountResponse(reregistration = true), mockk<KeyMaterial>(relaxed = true), testAci))
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
+
+    coVerify {
+      mockRepository.registerAccountWithSession(
+        e164 = "+15551234567",
+        sessionId = sessionMetadata.id,
+        skipDeviceTransfer = true,
+        preExistingRegistrationData = null
+      )
+    }
   }
 
   @Test
@@ -566,7 +582,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
+        SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code")
       )
 
     viewModel.applyEvent(
@@ -575,7 +591,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.IncorrectVerificationCode)
+    assertThat(emittedStates.last().snackbars.incorrectVerificationCode).isTrue()
   }
 
   @Test
@@ -588,7 +604,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.SessionNotFound("Session expired")
+        SubmitVerificationCodeError.SessionNotFound("Session expired")
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
@@ -610,16 +626,17 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.SessionAlreadyVerifiedOrNoCodeRequested(verifiedSession)
+        SubmitVerificationCodeError.SessionAlreadyVerifiedOrNoCodeRequested(verifiedSession)
       )
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
-      RequestResult.Success(registerResponse to keyMaterial)
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
+      RequestResult.Success(RegisteredAccountData(registerResponse, keyMaterial, testAci))
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
 
-    assertThat(emittedEvents).hasSize(2)
-    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.Registered>()
-    assertThat(emittedEvents[1])
+    assertThat(emittedEvents).hasSize(3)
+    assertThat(emittedEvents[0]).isInstanceOf<RegistrationFlowEvent.VerificationCodeAccepted>()
+    assertThat(emittedEvents[1]).isInstanceOf<RegistrationFlowEvent.Registered>()
+    assertThat(emittedEvents[2])
       .isInstanceOf<RegistrationFlowEvent.NavigateToScreen>()
       .prop(RegistrationFlowEvent.NavigateToScreen::route)
       .isInstanceOf<RegistrationRoute.PinCreate>()
@@ -635,7 +652,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.SessionAlreadyVerifiedOrNoCodeRequested(unverifiedSession)
+        SubmitVerificationCodeError.SessionAlreadyVerifiedOrNoCodeRequested(unverifiedSession)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
@@ -654,7 +671,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.SubmitVerificationCodeError.RateLimited(60.seconds, sessionMetadata)
+        SubmitVerificationCodeError.RateLimited(60.seconds, sessionMetadata)
       )
 
     viewModel.applyEvent(
@@ -663,10 +680,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(60.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(60.seconds)
   }
 
   @Test
@@ -686,7 +700,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
   @Test
@@ -706,7 +720,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   // ==================== applyEvent: CodeEntered - Registration Errors ====================
@@ -722,9 +736,9 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.RegisterAccountError.DeviceTransferPossible
+        RegisterAccountError.DeviceTransferPossible
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CodeEntered("123456"), stateEmitter)
@@ -744,9 +758,9 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.RegisterAccountError.RateLimited(30.seconds)
+        RegisterAccountError.RateLimited(30.seconds)
       )
 
     viewModel.applyEvent(
@@ -755,10 +769,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(30.seconds)
+    assertThat(emittedStates.last().snackbars.rateLimitedRetryAfter).isEqualTo(30.seconds)
   }
 
   @Ignore
@@ -772,9 +783,9 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.RegisterAccountError.InvalidRequest("Bad request")
+        RegisterAccountError.InvalidRequest("Bad request")
       )
 
     viewModel.applyEvent(
@@ -783,7 +794,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.RegistrationError)
+    assertThat(emittedStates.last().snackbars.registrationError).isTrue()
   }
 
   @Ignore
@@ -797,9 +808,9 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.NonSuccess(
-        NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect("Wrong password")
+        RegisterAccountError.RegistrationRecoveryPasswordIncorrect("Wrong password")
       )
 
     viewModel.applyEvent(
@@ -808,7 +819,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.RegistrationError)
+    assertThat(emittedStates.last().snackbars.registrationError).isTrue()
   }
 
   @Ignore
@@ -822,7 +833,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.RetryableNetworkError(java.io.IOException("Network error"))
 
     viewModel.applyEvent(
@@ -831,7 +842,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().snackbars.networkError).isTrue()
   }
 
   @Ignore
@@ -845,7 +856,7 @@ class VerificationCodeViewModelTest {
 
     coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
       RequestResult.Success(sessionMetadata)
-    coEvery { mockRepository.registerAccountWithSession(any(), any(), any()) } returns
+    coEvery { mockRepository.registerAccountWithSession(any(), any(), any(), any(), any()) } returns
       RequestResult.ApplicationError(RuntimeException("Unexpected"))
 
     viewModel.applyEvent(
@@ -854,7 +865,7 @@ class VerificationCodeViewModelTest {
       stateEmitter
     )
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().snackbars.unknownError).isTrue()
   }
 
   // ==================== applyEvent: ResendSms Tests ====================
@@ -876,12 +887,158 @@ class VerificationCodeViewModelTest {
     val updatedSession = createSessionMetadata(id = "updated-session")
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.Success(updatedSession)
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
     assertThat(emittedStates.last().sessionMetadata).isEqualTo(updatedSession)
+  }
+
+  @Test
+  fun `ResendSms success with a null nextCall marks calls unavailable instead of a bogus countdown`() = runTest {
+    val updatedSession = createSessionMetadata(nextSms = 0L, nextCall = null)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
+      RequestResult.Success(updatedSession)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 0.seconds, callRequestTimeRemaining = null)
+    )
+  }
+
+  @Test
+  fun `ResendSms success with a null nextSms marks SMS resend unavailable instead of a bogus countdown`() = runTest {
+    val updatedSession = createSessionMetadata(nextSms = null, nextCall = 30L)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
+      RequestResult.Success(updatedSession)
+
+    viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = null, callRequestTimeRemaining = 30.seconds)
+    )
+  }
+
+  @Test
+  fun `ResendSms with success emits VerificationCodeRequested with the next allowed timestamp`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val updatedSession = createSessionMetadata(nextSms = 45L)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
+      RequestResult.Success(updatedSession)
+
+    clockedViewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = fixedNow + 45_000, nextCallAllowedTimestamp = null)))
+  }
+
+  @Test
+  fun `CallMe with success emits VerificationCodeRequested using nextCall`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+    emittedEvents.clear()
+
+    val updatedSession = createSessionMetadata(nextCall = 90L)
+    val initialState = VerificationCodeState(sessionMetadata = createSessionMetadata(), e164 = "+15551234567")
+
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.VOICE)) } returns
+      RequestResult.Success(updatedSession)
+
+    clockedViewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
+
+    assertThat(emittedEvents.filterIsInstance<RegistrationFlowEvent.VerificationCodeRequested>())
+      .isEqualTo(listOf(RegistrationFlowEvent.VerificationCodeRequested("+15551234567", nextSmsAllowedTimestamp = null, nextCallAllowedTimestamp = fixedNow + 90_000)))
+  }
+
+  // ==================== applyEvent: Rate Limit Seeding Tests ====================
+
+  @Test
+  fun `ParentStateChanged seeds resend countdowns from the recorded request windows`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 60L, nextCall = 60L),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow + 30_000),
+      lastCallVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow + 10_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 30.seconds, callRequestTimeRemaining = 10.seconds)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged falls back to session metadata when no request windows are recorded`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 60L, nextCall = 15L),
+      sessionE164 = "+15551234567"
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 60.seconds, callRequestTimeRemaining = 15.seconds)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged ignores request windows recorded for a different number`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(nextSms = 5L),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15559999999", fixedNow + 30_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 5.seconds, callRequestTimeRemaining = null)
+    )
+  }
+
+  @Test
+  fun `ParentStateChanged treats an expired request window as ready to resend`() = runTest {
+    val fixedNow = 1_000_000L
+    val clockedViewModel = VerificationCodeViewModel(mockRepository, parentState, parentEventEmitter, clock = { fixedNow })
+    testDispatcher.scheduler.advanceUntilIdle()
+
+    val parentFlowState = RegistrationFlowState(
+      sessionMetadata = createSessionMetadata(),
+      sessionE164 = "+15551234567",
+      lastSmsVerificationCodeRequest = VerificationCodeRequest("+15551234567", fixedNow - 1_000)
+    )
+
+    clockedViewModel.applyEvent(VerificationCodeState(), VerificationCodeScreenEvents.ParentStateChanged(parentFlowState), stateEmitter)
+
+    assertThat(emittedStates.last().rateLimits).isEqualTo(
+      SmsAndCallRateLimits(smsResendTimeRemaining = 0.seconds, callRequestTimeRemaining = null)
+    )
   }
 
   @Test
@@ -899,7 +1056,7 @@ class VerificationCodeViewModelTest {
       mockRepository.requestVerificationCode(
         sessionId = sessionMetadata.id,
         smsAutoRetrieveCodeSupported = true,
-        transport = NetworkController.VerificationCodeTransport.SMS
+        transport = VerificationCodeTransport.SMS
       )
     }
   }
@@ -909,17 +1066,14 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.RateLimited(45.seconds, sessionMetadata)
+        RequestVerificationCodeError.RateLimited(45.seconds, sessionMetadata)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(45.seconds)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(45.seconds)
   }
 
   @Test
@@ -927,14 +1081,14 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.InvalidRequest("Bad request")
+        RequestVerificationCodeError.InvalidRequest("Bad request")
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   @Test
@@ -942,14 +1096,14 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport(sessionMetadata)
+        RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport(sessionMetadata)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport)
+    assertThat(emittedStates.last().dialogs.couldNotRequestCodeWithSelectedTransport).isTrue()
   }
 
   @Test
@@ -957,9 +1111,9 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.InvalidSessionId("Invalid session")
+        RequestVerificationCodeError.InvalidSessionId("Invalid session")
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
@@ -973,9 +1127,9 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.SessionNotFound("Session not found")
+        RequestVerificationCodeError.SessionNotFound("Session not found")
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
@@ -989,31 +1143,31 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.MissingRequestInformationOrAlreadyVerified(sessionMetadata)
+        RequestVerificationCodeError.MissingRequestInformationOrAlreadyVerified(sessionMetadata)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().dialogs.unableToSendSms).isTrue()
   }
 
   @Test
-  fun `ResendSms with ThirdPartyServiceError returns UnableToSendSms event`() = runTest {
+  fun `ResendSms with ThirdPartyServiceError shows provider rejected dialog for SMS`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.ThirdPartyServiceError(
-          NetworkController.ThirdPartyServiceErrorResponse("Provider error", false)
+        RequestVerificationCodeError.ThirdPartyServiceError(
+          ThirdPartyServiceErrorResponse("Provider error", false)
         )
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().dialogs.providerRejectedTransport).isEqualTo(VerificationCodeTransport.SMS)
   }
 
   @Test
@@ -1021,12 +1175,12 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.RetryableNetworkError(java.io.IOException("Network error"))
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.NetworkError)
+    assertThat(emittedStates.last().dialogs.networkError).isTrue()
   }
 
   @Test
@@ -1034,12 +1188,12 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.SMS)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.SMS)) } returns
       RequestResult.ApplicationError(RuntimeException("Unexpected"))
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.ResendSms, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnknownError)
+    assertThat(emittedStates.last().dialogs.unknownError).isTrue()
   }
 
   // ==================== applyEvent: CallMe Tests ====================
@@ -1061,7 +1215,7 @@ class VerificationCodeViewModelTest {
     val updatedSession = createSessionMetadata(id = "updated-session")
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.VOICE)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.VOICE)) } returns
       RequestResult.Success(updatedSession)
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
@@ -1074,17 +1228,14 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.VOICE)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.VOICE)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.RateLimited(90.seconds, sessionMetadata)
+        RequestVerificationCodeError.RateLimited(90.seconds, sessionMetadata)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isNotNull()
-      .isInstanceOf<VerificationCodeState.OneTimeEvent.RateLimited>()
-      .prop(VerificationCodeState.OneTimeEvent.RateLimited::retryAfter)
-      .isEqualTo(90.seconds)
+    assertThat(emittedStates.last().dialogs.rateLimitedRetryAfter).isEqualTo(90.seconds)
   }
 
   @Test
@@ -1092,31 +1243,31 @@ class VerificationCodeViewModelTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.VOICE)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.VOICE)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport(sessionMetadata)
+        RequestVerificationCodeError.CouldNotFulfillWithRequestedTransport(sessionMetadata)
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.CouldNotRequestCodeWithSelectedTransport)
+    assertThat(emittedStates.last().dialogs.couldNotRequestCodeWithSelectedTransport).isTrue()
   }
 
   @Test
-  fun `CallMe with ThirdPartyServiceError returns UnableToSendSms event`() = runTest {
+  fun `CallMe with ThirdPartyServiceError shows provider rejected dialog for VOICE`() = runTest {
     val sessionMetadata = createSessionMetadata()
     val initialState = VerificationCodeState(sessionMetadata = sessionMetadata)
 
-    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(NetworkController.VerificationCodeTransport.VOICE)) } returns
+    coEvery { mockRepository.requestVerificationCode(any(), any(), eq(VerificationCodeTransport.VOICE)) } returns
       RequestResult.NonSuccess(
-        NetworkController.RequestVerificationCodeError.ThirdPartyServiceError(
-          NetworkController.ThirdPartyServiceErrorResponse("Voice provider error", true)
+        RequestVerificationCodeError.ThirdPartyServiceError(
+          ThirdPartyServiceErrorResponse("Voice provider error", true)
         )
       )
 
     viewModel.applyEvent(initialState, VerificationCodeScreenEvents.CallMe, stateEmitter)
 
-    assertThat(emittedStates.last().oneTimeEvent).isEqualTo(VerificationCodeState.OneTimeEvent.UnableToSendSms)
+    assertThat(emittedStates.last().dialogs.providerRejectedTransport).isEqualTo(VerificationCodeTransport.VOICE)
   }
 
   // ==================== applyEvent: Foregrounded Tests ====================
@@ -1158,11 +1309,13 @@ class VerificationCodeViewModelTest {
   private fun createSessionMetadata(
     id: String = "test-session-id",
     requestedInformation: List<String> = emptyList(),
-    verified: Boolean = false
-  ) = NetworkController.SessionMetadata(
+    verified: Boolean = false,
+    nextSms: Long? = null,
+    nextCall: Long? = null
+  ) = SessionMetadata(
     id = id,
-    nextSms = null,
-    nextCall = null,
+    nextSms = nextSms,
+    nextCall = nextCall,
     nextVerificationAttempt = null,
     allowedToRequestCode = true,
     requestedInformation = requestedInformation,
@@ -1173,8 +1326,9 @@ class VerificationCodeViewModelTest {
     aci: String = "test-aci",
     pni: String = "test-pni",
     e164: String = "+15551234567",
-    storageCapable: Boolean = false
-  ) = NetworkController.RegisterAccountResponse(
+    storageCapable: Boolean = false,
+    reregistration: Boolean = false
+  ) = RegisterAccountResponse(
     aci = aci,
     pni = pni,
     e164 = e164,
@@ -1182,6 +1336,29 @@ class VerificationCodeViewModelTest {
     usernameLinkHandle = null,
     storageCapable = storageCapable,
     entitlements = null,
-    reregistration = false
+    reregistration = reregistration
   )
+
+  private fun createPreExistingRegistrationData(e164: String) = PreExistingRegistrationData(
+    e164 = e164,
+    aci = testAci,
+    pni = PNI.from(UUID.randomUUID()),
+    servicePassword = "service-password",
+    aep = AccountEntropyPool.generate(),
+    registrationLockEnabled = false,
+    unrestrictedUnidentifiedAccess = false,
+    aciIdentityKeyPair = IdentityKeyPair.generate(),
+    pniIdentityKeyPair = IdentityKeyPair.generate()
+  )
+
+  private fun givenIncorrectCodeSubmission(): SessionMetadata {
+    val sessionMetadata = createSessionMetadata()
+    parentState.value = RegistrationFlowState(
+      sessionMetadata = sessionMetadata,
+      sessionE164 = "+15551234567"
+    )
+    coEvery { mockRepository.submitVerificationCode(any(), any()) } returns
+      RequestResult.NonSuccess(SubmitVerificationCodeError.InvalidSessionIdOrVerificationCode("Wrong code"))
+    return sessionMetadata
+  }
 }

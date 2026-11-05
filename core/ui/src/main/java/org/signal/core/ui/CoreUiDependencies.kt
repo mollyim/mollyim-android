@@ -6,6 +6,7 @@
 package org.signal.core.ui
 
 import android.app.Application
+import androidx.annotation.VisibleForTesting
 
 object CoreUiDependencies {
 
@@ -21,11 +22,20 @@ object CoreUiDependencies {
     _provider = provider
   }
 
+  /**
+   * Replaces any existing provider, unlike [init]. Only for use in tests.
+   */
+  @VisibleForTesting
+  fun testInject(application: Application, provider: Provider) {
+    _application = application
+    _provider = provider
+  }
+
   val application: Application
     get() = _application
 
-  val backupBaseDirName: String
-    get() = _provider.provideBackupBaseDirName()
+  val packageId: String
+    get() = _provider.providePackageId()
 
   val isIncognitoKeyboardEnabled: Boolean
     get() = _provider.provideIsIncognitoKeyboardEnabled()
@@ -33,13 +43,9 @@ object CoreUiDependencies {
   val isScreenSecurityEnabled: Boolean
     get() = _provider.provideIsScreenSecurityEnabled()
 
-  val forceSplitPane: Boolean
-    get() = _provider.provideForceSplitPane()
-
   interface Provider {
-    fun provideBackupBaseDirName(): String
+    fun providePackageId(): String
     fun provideIsIncognitoKeyboardEnabled(): Boolean
     fun provideIsScreenSecurityEnabled(): Boolean
-    fun provideForceSplitPane(): Boolean
   }
 }

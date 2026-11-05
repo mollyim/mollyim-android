@@ -1,13 +1,15 @@
 package org.thoughtcrime.securesms.util
 
 import androidx.core.os.LocaleListCompat
-import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore
 import org.thoughtcrime.securesms.util.dynamiclanguage.LanguageString
 import java.util.Locale
 
 object LocaleUtil {
 
-  // MOLLY: LocaleUtil.getFirstLocale() is deprecated; use Locale.getDefault() instead
+  fun getFirstLocale(): Locale {
+    return getLocaleDefaults().firstOrNull() ?: Locale.getDefault()
+  }
 
   /**
    * Get a user priority list of locales supported on the device, with the locale set via Signal settings
@@ -15,7 +17,7 @@ object LocaleUtil {
    */
   fun getLocaleDefaults(): List<Locale> {
     val locales: MutableList<Locale> = mutableListOf()
-    val signalLocale: Locale? = LanguageString.parseLocale(SignalStore.settings.language)
+    val signalLocale: Locale? = LanguageString.parseLocale(PlainTextKeyValueStore.language)
     val localeList: LocaleListCompat = LocaleListCompat.getDefault()
 
     if (signalLocale != null) {

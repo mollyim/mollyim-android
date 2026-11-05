@@ -1,0 +1,1061 @@
+From d0d03ccb2dd3b7478735a9556b45f83dc977e411 Mon Sep 17 00:00:00 2001
+From: Molly Patch Reconstruction <molly-patch-reconstruction@example.invalid>
+Date: Sun, 1 Nov 2026 14:37:03 +0100
+Subject: [PATCH] Port networking-and-proxies to Signal 8.33.2, part 1
+
+Carry Molly SOCKS, Tor, DNS and transport choices through the updated Signal networking interfaces and NetCipher integration.
+
+These are AI-assisted compatibility changes from the recorded
+source checkpoint, exported after Git has performed its deterministic
+three-way merge of the unchanged official Molly 8.19.2-4 snapshot
+with Signal 8.33.2. The original Molly mailboxes remain unchanged.
+Offset-only movement and conflict-free automatic merges are already
+in the parent tree and are not re-exported as patch rewrites.
+
+This batch owns 20 whole-file changes. It records AI-assisted
+compatibility changes in the pinned source tree.
+The source commit records a derived candidate, not an official
+Molly release or a claim of upstream authorship.
+
+Source-Commit: 49fd32c9ee0e6ba8328af2b8e26cad85e840a2eb
+Origin-Base: c47a74ba0961903eeaeda6d22347a990056c3e83
+Origin-Target: 0e202dda90785771ff8c87526eaaf30c655f54f3
+Signal-Base: 6e9dddc01f1b26e608ac683807c51e139c141ed2
+Mechanical-Merge-Tree: 759ef1c309d93aa7e4ac7217b144c04545562f11
+AI-Generated: true
+
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
+index 53283b7b7fdb4e022b1895169f3223f2f9b1c092..282ccbbf80b5439b90eb88e10f4719e9f9659828 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
++++ b/app/src/main/java/org/thoughtcrime/securesms/keyvalue/ProxyValues.java
+@@ -1,13 +1,6 @@
+ package org.thoughtcrime.securesms.keyvalue;
+ 
+ import androidx.annotation.NonNull;
+-<<<<<<< MOLLY
+-=======
+-import androidx.annotation.Nullable;
+-
+-import org.signal.core.util.Util;
+-import org.signal.network.config.SignalProxy;
+->>>>>>> SIGNAL
+ 
+ import java.util.Arrays;
+ import java.util.List;
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculator.kt b/app/src/main/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculator.kt
+index 3e5041dac8a3bf39387eaf31fa5083908153962b..6d10fecdac8b7f9b8b45c4c6f9eb801a27773f72 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculator.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculator.kt
+@@ -14,14 +14,12 @@ enum class ConnectivityState {
+ 
+   /**
+    * A network is connected but Android has not validated Internet reachability (e.g. a captive portal, or a
+-   * restrictive network that blocks the OS validation probe). Treated as online (see [isAssumedOnline]) so we
+-   * still try.
++   * restrictive network that blocks the OS validation probe).
+    */
+   CONNECTED_UNVALIDATED,
+ 
+   /**
+-   * We could not get connectivity information from the OS. We fail open and assume we are online until
+-   * we get a strong signal otherwise (e.g. [BLOCKED]), rather than sitting idle believing we are offline.
++   * We could not get connectivity information from the OS.
+    */
+   MONITORING_UNAVAILABLE;
+ 
+@@ -47,8 +45,8 @@ data class NetworkState(
+     get() = when {
+       isReachable && onVpn -> 4
+       isReachable -> 3
+-      !blocked -> 2
+-      blocked && onVpn -> 1
++      blocked && onVpn -> 2
++      blocked -> 1
+       else -> 0
+     }
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt b/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt
+index 2e8d9bc5c84687cad8c54913bbd33fba4c2e661d..bb4aa1d105c53e92f853210ab689e97e94ffd521 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/InternetConnectivityMonitor.kt
+@@ -10,10 +10,7 @@ import android.content.Context
+ import android.content.Intent
+ import android.content.IntentFilter
+ import android.net.ConnectivityManager
+-<<<<<<< MOLLY
+-=======
+ import android.net.LinkAddress
+->>>>>>> SIGNAL
+ import android.net.LinkProperties
+ import android.net.Network
+ import android.net.NetworkCapabilities
+@@ -21,34 +18,6 @@ import android.net.NetworkRequest
+ import android.net.Proxy
+ import android.os.Build
+ import androidx.core.content.ContextCompat
+-<<<<<<< MOLLY
+-import kotlinx.coroutines.CoroutineScope
+-import kotlinx.coroutines.Job
+-import kotlinx.coroutines.channels.awaitClose
+-import kotlinx.coroutines.channels.trySendBlocking
+-import kotlinx.coroutines.flow.Flow
+-import kotlinx.coroutines.flow.callbackFlow
+-import kotlinx.coroutines.flow.conflate
+-import kotlinx.coroutines.flow.distinctUntilChanged
+-import kotlinx.coroutines.flow.retryWhen
+-import kotlinx.coroutines.launch
+-import org.signal.core.util.ServiceUtil
+-import org.signal.core.util.concurrent.SignalDispatchers
+-import org.signal.core.util.logging.Log
+-import org.signal.core.util.zipWithPrevious
+-
+-enum class ConnectivityState {
+-  OFFLINE,
+-  ONLINE,
+-  ONLINE_VPN,
+-  BLOCKED,
+-  BLOCKED_VPN;
+-
+-  /** Returns true if network traffic expected to reach the Internet. */
+-  val isOnline: Boolean
+-    get() = this == ONLINE || this == ONLINE_VPN
+-}
+-=======
+ import kotlinx.coroutines.CancellationException
+ import kotlinx.coroutines.CoroutineExceptionHandler
+ import kotlinx.coroutines.CoroutineScope
+@@ -77,26 +46,16 @@ import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
+ import kotlin.time.Duration
+ import kotlin.time.Duration.Companion.milliseconds
+ import kotlin.time.Duration.Companion.minutes
+->>>>>>> SIGNAL
+ 
+ /**
+  * Monitors internet connectivity and proxy settings changes.
+  *
+-<<<<<<< MOLLY
+- * [onConnectivityUpdated] is invoked when the [ConnectivityState] changes.
+- * The current state is delivered immediately upon registration if the device already has network access.
+- *
+- * [onProxyChanged] is invoked either the default network has changed or any network's proxy has changed.
+- *
+- * Both callbacks are invoked on [SignalDispatchers.IO] but may run concurrently.
+- * Callers are responsible for thread safety.
+-=======
+  * [onConnectivityUpdated] is invoked when the [ConnectivityState], the set of tracked networks, or the default network or its addresses change (a
+  * transport swap leaves the old transport stale), and on the first state of every callback re-registration.
+  * The current state is delivered immediately upon registration. If the OS reports no matching networks at all,
+  * [ConnectivityState.OFFLINE] is reported after [INITIAL_STATE_TIMEOUT], since no callbacks will ever arrive.
+- * If we lose the ability to observe connectivity entirely, we fail open and report
+- * [ConnectivityState.MONITORING_UNAVAILABLE] (treated as online) while retrying in the background.
++ * If we lose the ability to observe connectivity entirely, we report
++ * [ConnectivityState.MONITORING_UNAVAILABLE] while retrying in the background.
+  *
+  * [onProxyChanged] is invoked when the system reports a proxy change, and additionally whenever the set of
+  * tracked networks or the aggregate connectivity state changes, since the proxy we read can lag the broadcast.
+@@ -108,7 +67,6 @@ import kotlin.time.Duration.Companion.minutes
+  * The callbacks run inside the monitor's own coroutine job. They must be non-suspending, and must not assume
+  * the monitor keeps running if they trigger [unregister] (e.g. via a teardown/reset): cancellation is
+  * cooperative, so a synchronous callback finishes and cleanup runs, but the monitor is gone afterward.
+->>>>>>> SIGNAL
+  */
+ class InternetConnectivityMonitor(
+   private val context: Context,
+@@ -117,12 +75,6 @@ class InternetConnectivityMonitor(
+ ) {
+   companion object {
+     private val TAG = Log.tag(InternetConnectivityMonitor::class.java)
+-<<<<<<< MOLLY
+-  }
+-
+-  private val scope = CoroutineScope(SignalDispatchers.IO)
+-  private var monitorJob: Job? = null
+-=======
+ 
+     /**
+      * How long a new network waits for an authoritative onBlockedStatusChanged (API 29+) before we notify
+@@ -154,41 +106,12 @@ class InternetConnectivityMonitor(
+   // The proxy broadcast and the system properties we read the proxy from are delivered independently, so the
+   // broadcast can beat the properties. Connectivity changes re-check to bound how long a stale config sticks.
+   private val proxyRechecks = Channel<Unit>(Channel.CONFLATED)
+->>>>>>> SIGNAL
+ 
+   @Synchronized
+   fun register() {
+     if (monitorJob != null) return
+ 
+     monitorJob = scope.launch {
+-<<<<<<< MOLLY
+-      launch {
+-        connectivityStateFlow()
+-          .retryWhen { cause, _ ->
+-            val retrying = cause is NetworkStateStaleException
+-            Log.i(TAG, "Re-registering callback ($retrying): ${cause.message}")
+-            retrying
+-          }
+-          .distinctUntilChanged()
+-          .zipWithPrevious { prevState, state ->
+-            val log = buildString {
+-              append("Connectivity state changed: ")
+-              prevState?.let { append("$it -> ") }
+-              append(state)
+-            }
+-            Log.i(TAG, log)
+-            state
+-          }.collect { state ->
+-            onConnectivityUpdated(state)
+-          }
+-      }
+-      launch {
+-        proxyChangesFlow()
+-          .collect {
+-            Log.i(TAG, "Default network or system proxy config changed")
+-            onProxyChanged()
+-          }
+-=======
+       supervisorScope {
+         launch {
+           var previous: ConnectivityState? = null
+@@ -223,7 +146,6 @@ class InternetConnectivityMonitor(
+               }
+             }
+         }
+->>>>>>> SIGNAL
+       }
+     }
+   }
+@@ -234,39 +156,10 @@ class InternetConnectivityMonitor(
+     monitorJob = null
+   }
+ 
+-<<<<<<< MOLLY
+-  private data class NetworkState(
+-    val validated: Boolean,
+-    val blocked: Boolean,
+-    val onVpn: Boolean
+-  ) {
+-    val isReachable: Boolean get() = validated && !blocked
+-
+-    companion object {
+-      val DOWN = NetworkState(validated = false, blocked = false, onVpn = false)
+-    }
+-  }
+-
+-  /**
+-   * Aggregates the state of all available networks to determine true Internet reachability.
+-   *
+-   * Android's default network callback only reports the single "best" network. However, to correctly
+-   * handle VPNs (especially VPNs with kill-switch) we must track all networks.
+-   *
+-   * Basically, this callback tracks the list of active networks with and without a VPN:
+-   * - No VPN / No kill-switch: Internet is available when we have a non-blocked, validated
+-   *   underlying network (e.g., WiFi or Cellular).
+-   * - With a VPN kill-switch: The system blocks direct access to underlying networks.
+-   *   Internet is only available if we have BOTH an underlying network AND a valid,
+-   *   non-blocked VPN network. If either fails, Internet access is lost.
+-   */
+-  private class NetworkAggregationCallback(
+-    private val onNetworkStateChanged: (NetworkState) -> Unit,
+-=======
+   /**
+    * Wraps [connectivityStateFlow] so a failure to observe connectivity never permanently stops monitoring:
+-   * an expected [NetworkStateStaleException] re-subscribes immediately, while any other failure fails open
+-   * ([ConnectivityState.MONITORING_UNAVAILABLE]) and retries with capped backoff.
++   * an expected [NetworkStateStaleException] re-subscribes immediately, while any other failure reports
++   * [ConnectivityState.MONITORING_UNAVAILABLE] and retries with capped backoff.
+    */
+   private fun resilientConnectivityStateFlow(): Flow<ConnectivitySnapshot> = flow {
+     var failures = 0
+@@ -286,7 +179,7 @@ class InternetConnectivityMonitor(
+             }
+             else -> {
+               failures++
+-              Log.w(TAG, "Connectivity monitoring failed (attempt $failures). Assuming online until it recovers.", cause)
++              Log.w(TAG, "Connectivity monitoring failed (attempt $failures). Retrying.", cause)
+               // Latched so a long outage emits MONITORING_UNAVAILABLE once instead of once per retry. Reset on the next successful collect.
+               if (!reportedUnavailable) {
+                 emit(ConnectivitySnapshot(ConnectivityState.MONITORING_UNAVAILABLE, emptyMap()))
+@@ -320,13 +213,10 @@ class InternetConnectivityMonitor(
+     private val connectivityManager: ConnectivityManager,
+     private val onStateChanged: (ConnectivitySnapshot) -> Unit,
+     private val onNetworksChanged: () -> Unit,
+->>>>>>> SIGNAL
+     private val onVpnLoss: () -> Unit
+   ) : ConnectivityManager.NetworkCallback() {
+ 
+     private val networks = mutableMapOf<Network, NetworkState>()
+-<<<<<<< MOLLY
+-=======
+     private val pendingNotifies = mutableMapOf<Network, Job>()
+     private val pendingBlocked = mutableMapOf<Network, Boolean>()
+     private var defaultNetwork: DefaultNetwork? = null
+@@ -374,40 +264,10 @@ class InternetConnectivityMonitor(
+         connectivityManager.getNetworkCapabilities(network)?.let { onCapabilitiesChanged(network, it) }
+       }
+     }
+->>>>>>> SIGNAL
+ 
+     override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+       val validated = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+       val vpn = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+-<<<<<<< MOLLY
+-      Log.d(TAG, "onCapabilitiesChanged($network, validated=$validated, vpn=$vpn)")
+-      val existing = networks[network]
+-      if (existing == null) {
+-        // For new networks, we initially assume blocked = false:
+-        // On API 29+, the actual status will be set by an incoming onBlockedStatusChanged callback.
+-        // Otherwise, onBlockedStatusChanged is unsupported and isReachable rely only on `validated`.
+-        networks[network] = NetworkState(validated = validated, blocked = false, onVpn = vpn)
+-
+-        // API 26+ guarantees that onLinkPropertiesChanged is always called next for new networks,
+-        // followed by onBlockedStatusChanged (on API 29+).
+-        // We skip notifying here for newer APIs to avoid emitting a fast, incorrect ONLINE -> BLOCKED
+-        // sequence if the network was already blocked.
+-        if (Build.VERSION.SDK_INT < 26) {
+-          notifyAggregatedState()
+-        }
+-      } else {
+-        // For existing networks, this is a capability update, so we notify immediately.
+-        // onBlockedStatusChanged isn't necessary called afterward.
+-        networks[network] = existing.copy(validated = validated, onVpn = vpn)
+-        notifyAggregatedState()
+-      }
+-    }
+-
+-    override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
+-      // onBlockedStatusChanged will handle the notification on API 29+
+-      if (Build.VERSION.SDK_INT < 29) {
+-        notifyAggregatedState()
+-=======
+       scope.launch {
+         cancelBootstrap()
+         val earlyBlocked = pendingBlocked.remove(network)
+@@ -428,72 +288,10 @@ class InternetConnectivityMonitor(
+           // Below API 29 onBlockedStatusChanged is never delivered, so notify now.
+           else -> notifyNow(network)
+         }
+->>>>>>> SIGNAL
+       }
+     }
+ 
+     override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
+-<<<<<<< MOLLY
+-      Log.d(TAG, "onBlockedStatusChanged($network, blocked=$blocked)")
+-      val existing = networks[network] ?: return
+-      networks[network] = existing.copy(blocked = blocked)
+-      notifyAggregatedState()
+-    }
+-
+-    override fun onLost(network: Network) {
+-      Log.d(TAG, "onLost($network)")
+-      val lossState = networks.remove(network)
+-      if (lossState?.onVpn == true) {
+-        onVpnLoss()
+-      } else {
+-        notifyAggregatedState()
+-      }
+-    }
+-
+-    private fun notifyAggregatedState() {
+-      onNetworkStateChanged(networks.bestNetworkState())
+-    }
+-
+-    private fun Map<Network, NetworkState>.bestNetworkState(): NetworkState {
+-      return if (isEmpty()) {
+-        NetworkState.DOWN
+-      } else {
+-        // A VPN network is only considered validated if there's also an underlying
+-        // non-VPN network.
+-        val hasUnderlyingNet = values.any { !it.onVpn }
+-        val eligibleStates = values.map { state ->
+-          if (state.onVpn) {
+-            state.copy(validated = state.validated && hasUnderlyingNet)
+-          } else state
+-        }
+-        eligibleStates.maxBy { it.rank }
+-      }
+-    }
+-
+-    private val NetworkState.rank: Int
+-      get() = when {
+-        isReachable && onVpn -> 4
+-        isReachable -> 3
+-        blocked && onVpn -> 2
+-        blocked -> 1
+-        else -> 0
+-      }
+-  }
+-
+-  private fun connectivityStateFlow(): Flow<ConnectivityState> = callbackFlow {
+-    val connectivityManager = ServiceUtil.getConnectivityManager(context)
+-    val callback = NetworkAggregationCallback(
+-      onNetworkStateChanged = {
+-        val connectivityState = when {
+-          it.isReachable && it.onVpn -> ConnectivityState.ONLINE_VPN
+-          it.isReachable -> ConnectivityState.ONLINE
+-          it.blocked && it.onVpn -> ConnectivityState.BLOCKED_VPN
+-          it.blocked -> ConnectivityState.BLOCKED
+-          else -> ConnectivityState.OFFLINE
+-        }
+-        // Should not block as we conflate the flow
+-        trySendBlocking(connectivityState)
+-=======
+       scope.launch {
+         val existing = networks[network]
+         if (existing == null) {
+@@ -594,7 +392,6 @@ class InternetConnectivityMonitor(
+       },
+       onNetworksChanged = {
+         proxyRechecks.trySend(Unit)
+->>>>>>> SIGNAL
+       },
+       onVpnLoss = {
+         // VPN transport disconnected. For always-on VPNs with a kill switch,
+@@ -609,14 +406,6 @@ class InternetConnectivityMonitor(
+       .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+       .build()
+ 
+-<<<<<<< MOLLY
+-    connectivityManager.registerNetworkCallback(request, callback)
+-
+-    awaitClose {
+-      connectivityManager.unregisterNetworkCallback(callback)
+-    }
+-  }.conflate()
+-=======
+     callback.bootstrap()
+     try {
+       callback.register(request)
+@@ -630,7 +419,7 @@ class InternetConnectivityMonitor(
+       callbackScope.cancel()
+     }
+   }.conflate()
+-    .debounce { if (it.state.isAssumedOnline) ONLINE_SETTLE_TIMEOUT else Duration.ZERO }
++    .debounce { if (it.state.isOnline) ONLINE_SETTLE_TIMEOUT else Duration.ZERO }
+     // Keyed on networks and the default too: a swap can hold the state (WiFi drops, cellular stays ONLINE) while the old transport goes stale.
+     .distinctUntilChanged { old, new -> old.state == new.state && old.networks.keys == new.networks.keys && old.defaultNetwork == new.defaultNetwork }
+ 
+@@ -645,7 +434,6 @@ class InternetConnectivityMonitor(
+         true
+       }
+     }
+->>>>>>> SIGNAL
+ 
+   private fun proxyChangesFlow(): Flow<Unit> = callbackFlow {
+     // Rely on the system-wide PROXY_CHANGE_ACTION sticky broadcast rather than
+@@ -665,12 +453,9 @@ class InternetConnectivityMonitor(
+       ContextCompat.RECEIVER_NOT_EXPORTED
+     )
+ 
+-<<<<<<< MOLLY
+-=======
+     // A broadcast may have been missed while unregistered, so re-resolve on every registration.
+     trySend(Unit)
+ 
+->>>>>>> SIGNAL
+     awaitClose {
+       context.unregisterReceiver(changeReceiver)
+     }
+@@ -680,8 +465,6 @@ class InternetConnectivityMonitor(
+    * Thrown when the tracked network state is no longer reliable.
+    */
+   class NetworkStateStaleException(message: String) : Exception(message)
+-<<<<<<< MOLLY
+-=======
+ 
+   private data class DefaultNetwork(val network: Network, val addresses: Set<LinkAddress>)
+ 
+@@ -698,5 +481,4 @@ class InternetConnectivityMonitor(
+       }
+     }
+   }
+->>>>>>> SIGNAL
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt
+index 94e0beee957f0af59c563781979015b087059257..56d094ff9a7e73e7cd44501c3e942c2fd5e95499 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/net/NetworkProxy.kt
+@@ -6,50 +6,13 @@
+ package org.thoughtcrime.securesms.net
+ 
+ import androidx.annotation.WorkerThread
+-import org.signal.core.util.logging.Log
+ import org.signal.core.util.net.resolveSystemProxy
+ import org.signal.libsignal.net.Network
++import org.signal.network.config.ProxyConfig
++import org.signal.network.config.ProxyConfig.ProxySource
+ import org.thoughtcrime.securesms.BuildConfig
+-import java.io.IOException
+-import java.net.InetSocketAddress
+ import java.net.Proxy
+-
+-private const val TAG = "NetworkProxy"
+-
+-sealed interface ProxyConfig {
+-  data object Direct : ProxyConfig
+-
+-  data class ProxyAddress(
+-    val source: ProxySource,
+-    val scheme: ProxyScheme,
+-    val host: String,
+-    val port: Int
+-  ) : ProxyConfig
+-}
+-
+-/** Supported proxy schemes by [Network]. */
+-enum class ProxyScheme(val value: String) {
+-  SOCKS_LOCAL_DNS("socks5"),
+-  SOCKS_REMOTE_DNS("socks5h"),
+-  HTTP("http")
+-}
+-
+-enum class ProxySource {
+-  USER, SYSTEM
+-}
+-
+-fun Proxy.toProxyConfig(source: ProxySource): ProxyConfig? {
+-  val sa = address() as? InetSocketAddress ?: return null
+-  val scheme = when (type()) {
+-    Proxy.Type.HTTP -> ProxyScheme.HTTP
+-    Proxy.Type.SOCKS -> when (source) {
+-      ProxySource.USER -> ProxyScheme.SOCKS_REMOTE_DNS
+-      ProxySource.SYSTEM -> ProxyScheme.SOCKS_LOCAL_DNS
+-    }
+-    Proxy.Type.DIRECT -> return ProxyConfig.Direct
+-  }
+-  return ProxyConfig.ProxyAddress(source, scheme, sa.hostString, sa.port)
+-}
++import org.signal.network.config.configureProxy as configureCoreProxy
+ 
+ /**
+  * Resolves the appropriate proxy configuration or system defaults.
+@@ -62,47 +25,13 @@ fun resolveProxyConfig(): ProxyConfig {
+   val userProxy = Networking.proxy
+   if (userProxy == Proxy.NO_PROXY) {
+     val systemProxy = resolveSystemProxy(targetUrl = BuildConfig.SIGNAL_URL)
+-    return systemProxy?.toProxyConfig(ProxySource.SYSTEM)
++    return systemProxy?.let { ProxyConfig.fromProxy(it, ProxySource.SYSTEM) }
+       ?: ProxyConfig.Direct
+   }
+-  return userProxy.toProxyConfig(ProxySource.USER)!!
++  return checkNotNull(ProxyConfig.fromProxy(userProxy, ProxySource.USER))
+ }
+ 
+-/**
+- * Configures the [Network] instance with the given proxy settings.
+- *
+- * TLS Proxies: configuration errors mark the proxy as invalid, causing future connections to
+- * fail until the proxy setting is changed. These are explicitly configured by the user in the app
+- * and must be respected.
+- *
+- * System Proxies: the Android system settings screen explicitly calls out that apps are allowed
+- * to ignore the proxy setting, so if configuration fails, we fall back to direct connection
+- * rather than breaking connectivity.
+- */
++/** Applies the shared proxy policy, including fail-closed handling of user-configured proxies. */
+ fun Network.configureProxy(config: ProxyConfig) {
+-  when (config) {
+-    ProxyConfig.Direct -> {
+-      Log.i(TAG, "No proxy configured.")
+-      clearProxy()
+-    }
+-
+-    is ProxyConfig.ProxyAddress -> {
+-      try {
+-        setProxy(config.scheme.value, config.host, config.port, null, null)
+-        Log.i(TAG, "Proxy configured: ${config.scheme}:${config.port}")
+-      } catch (e: IOException) {
+-        when (config.source) {
+-          ProxySource.USER -> {
+-            Log.e(TAG, "Invalid ${config.scheme} proxy config! Failing connections until changed.", e)
+-            setInvalidProxy()
+-          }
+-
+-          ProxySource.SYSTEM -> {
+-            Log.w(TAG, "Failed to configure ${config.scheme} proxy, falling back to direct connection.", e)
+-            clearProxy()
+-          }
+-        }
+-      }
+-    }
+-  }
++  configureCoreProxy(config)
+ }
+diff --git a/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt b/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
+index 4fddefe4f09eb8e9046b4c9a4047c9091e623aed..2da5ef7de81281f0b7c9263f2c8f73252b9ba101 100644
+--- a/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
++++ b/app/src/main/java/org/thoughtcrime/securesms/util/SignalProxyUtil.kt
+@@ -4,14 +4,9 @@ import androidx.annotation.WorkerThread
+ import org.signal.core.util.concurrent.SignalExecutors
+ import org.signal.core.util.logging.Log.tag
+ import org.signal.core.util.logging.Log.w
+-import org.signal.network.config.SignalProxy
+ import org.thoughtcrime.securesms.dependencies.AppDependencies
+ import org.thoughtcrime.securesms.push.AccountManagerFactory
+ import org.whispersystems.signalservice.api.push.SignalServiceAddress
+-<<<<<<< MOLLY
+-=======
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
+->>>>>>> SIGNAL
+ import java.io.IOException
+ import java.util.concurrent.CountDownLatch
+ import java.util.concurrent.TimeUnit
+@@ -32,82 +27,7 @@ object SignalProxyUtil {
+   @JvmStatic
+   @WorkerThread
+   fun testWebsocketConnection(timeout: Long): Boolean {
+-<<<<<<< MOLLY
+     return testWebsocketConnectionUnregistered(timeout)
+-=======
+-    startListeningToWebsocket()
+-
+-    if (!SignalStore.account.isRegistered || SignalStore.account.aci == null) {
+-      Log.i(TAG, "User is unregistered! Doing simple check.")
+-      return testWebsocketConnectionUnregistered(timeout)
+-    }
+-
+-    return AppDependencies.authWebSocket
+-      .state
+-      .subscribeOn(Schedulers.trampoline())
+-      .observeOn(Schedulers.trampoline())
+-      .timeout(timeout, TimeUnit.MILLISECONDS)
+-      .skipWhile(Predicate { state: WebSocketConnectionState -> state != WebSocketConnectionState.CONNECTED && !state.isFailure })
+-      .firstOrError()
+-      .flatMap<Boolean>(Function { state: WebSocketConnectionState? -> Single.just(state == WebSocketConnectionState.CONNECTED) })
+-      .onErrorReturn(Function { _: Throwable? -> false })
+-      .blockingGet()
+-  }
+-
+-  /**
+-   * If this is a valid proxy deep link, this will return the embedded host. If not, it will return
+-   * null.
+-   */
+-  @JvmStatic
+-  fun parseHostFromProxyDeepLink(proxyLink: String?): String? {
+-    if (proxyLink == null) {
+-      return null
+-    }
+-
+-    val matcher = PROXY_LINK_PATTERN.matcher(proxyLink)
+-
+-    return when {
+-      matcher.matches() -> matcher.group(2)
+-      else -> null
+-    }
+-  }
+-
+-  /**
+-   * Takes in an address that could be in various formats, and converts it to the format we should
+-   * be storing and connecting to.
+-   */
+-  @JvmStatic
+-  fun convertUserEnteredAddressToHost(host: String): String {
+-    val parsedHost = parseHostFromProxyDeepLink(host)
+-    if (parsedHost != null) {
+-      return parsedHost
+-    }
+-
+-    val matcher = HOST_PATTERN.matcher(host)
+-
+-    return when {
+-      matcher.matches() -> matcher.group(1) ?: ""
+-      else -> host
+-    }
+-  }
+-
+-  @JvmStatic
+-  fun generateProxyUrl(link: String): String {
+-    var host: String = link
+-    val parsed = parseHostFromProxyDeepLink(link)
+-
+-    if (parsed != null) {
+-      host = parsed
+-    }
+-
+-    val matcher = HOST_PATTERN.matcher(host)
+-
+-    if (matcher.matches()) {
+-      host = matcher.group(1)!!
+-    }
+-
+-    return "https://$PROXY_LINK_HOST/#$host"
+->>>>>>> SIGNAL
+   }
+ 
+   private fun testWebsocketConnectionUnregistered(timeout: Long): Boolean {
+diff --git a/app/src/test/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculatorTest.kt b/app/src/test/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculatorTest.kt
+index 14a023e774a4c731e266a213ccb7e2f20cfa612f..1737e3d95f614c853b7e2e9e108786189cb955ab 100644
+--- a/app/src/test/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculatorTest.kt
++++ b/app/src/test/java/org/thoughtcrime/securesms/net/ConnectivityStateCalculatorTest.kt
+@@ -98,11 +98,12 @@ class ConnectivityStateCalculatorTest {
+   }
+ 
+   @Test
+-  fun `a usable unvalidated network outranks a blocked one`() {
++  fun `blocked network outranks unvalidated network in either order`() {
+     val states = listOf(
+       NetworkState(validated = true, blocked = true, onVpn = false),
+       NetworkState(validated = false, blocked = false, onVpn = false)
+     )
+-    assertThat(ConnectivityStateCalculator.calculate(states)).isEqualTo(ConnectivityState.CONNECTED_UNVALIDATED)
++    assertThat(ConnectivityStateCalculator.calculate(states)).isEqualTo(ConnectivityState.BLOCKED)
++    assertThat(ConnectivityStateCalculator.calculate(states.reversed())).isEqualTo(ConnectivityState.BLOCKED)
+   }
+ }
+diff --git a/core/network/src/main/java/org/signal/network/config/NetworkProxyState.kt b/core/network/src/main/java/org/signal/network/config/NetworkProxyState.kt
+index 6ebbe6e3285a18f77f4b37ec5f884bde2d8ac8d3..d2a6a4b1a260cb6de504de59b17a072020c72272 100644
+--- a/core/network/src/main/java/org/signal/network/config/NetworkProxyState.kt
++++ b/core/network/src/main/java/org/signal/network/config/NetworkProxyState.kt
+@@ -18,7 +18,8 @@ class NetworkProxyState {
+   val currentConfig: ProxyConfig
+     get() = current.get()
+ 
+-  fun update(proxyConfig: ProxyConfig) {
+-    current.set(proxyConfig)
++  /** Returns true if the proxy changed and connections should be restarted. */
++  fun update(proxyConfig: ProxyConfig): Boolean {
++    return current.getAndSet(proxyConfig) != proxyConfig
+   }
+ }
+diff --git a/core/network/src/main/java/org/signal/network/config/ProxyConfig.kt b/core/network/src/main/java/org/signal/network/config/ProxyConfig.kt
+index 7938483687f3fea15027973453d8d3ac54db84c6..84fd9086479984935d38d470a8c88f73d62a40fb 100644
+--- a/core/network/src/main/java/org/signal/network/config/ProxyConfig.kt
++++ b/core/network/src/main/java/org/signal/network/config/ProxyConfig.kt
+@@ -18,16 +18,22 @@ sealed interface ProxyConfig {
+   data class ProxyAddress(
+     val scheme: ProxyScheme,
+     val host: String,
+-    val port: Int
++    val port: Int,
++    val source: ProxySource = ProxySource.SYSTEM
+   ) : ProxyConfig
+ 
+   /** Supported proxy schemes by [Network]. */
+   enum class ProxyScheme(val value: String) {
+     TLS(Network.SIGNAL_TLS_PROXY_SCHEME),
+     SOCKS("socks5"),
++    SOCKS_REMOTE_DNS("socks5h"),
+     HTTP("http")
+   }
+ 
++  enum class ProxySource {
++    USER, SYSTEM
++  }
++
+   companion object {
+     private val TAG = Log.tag(ProxyConfig::class)
+ 
+@@ -36,11 +42,11 @@ sealed interface ProxyConfig {
+     fun resolve(
+       configuration: SignalServiceConfiguration,
+       targetUrl: String,
+-      proxySelector: ProxySelector? = ProxySelector.getDefault()
++      proxySelector: ProxySelector? = ProxySelector.getDefault(),
++      userProxy: Proxy? = null
+     ): ProxyConfig {
+-      val signalProxy = configuration.signalProxy.orElse(null)
+       return when {
+-        signalProxy != null -> signalProxy.toProxyConfig()
++        userProxy != null && userProxy != Proxy.NO_PROXY -> checkNotNull(fromProxy(userProxy, ProxySource.USER))
+         configuration.censored -> Direct
+         else -> resolveSystemProxy(targetUrl, proxySelector)?.let { fromSystemProxy(it) } ?: Direct
+       }
+@@ -60,21 +66,26 @@ sealed interface ProxyConfig {
+       }
+     }
+ 
+-    private fun fromSystemProxy(proxy: Proxy): ProxyConfig? {
++    @JvmStatic
++    fun fromProxy(proxy: Proxy, source: ProxySource): ProxyConfig? {
+       val scheme = when (proxy.type()) {
+         Proxy.Type.HTTP -> ProxyScheme.HTTP
+-        Proxy.Type.SOCKS -> ProxyScheme.SOCKS
++        Proxy.Type.SOCKS -> if (source == ProxySource.USER) ProxyScheme.SOCKS_REMOTE_DNS else ProxyScheme.SOCKS
+         Proxy.Type.DIRECT -> return null
+       }
+ 
+       val socketAddress = proxy.address() as? InetSocketAddress ?: return null
+ 
+-      // Android surfaces a PAC (auto-config) proxy as a loopback bridge. We do not support PAC, so skip it and connect directly.
+-      if (socketAddress.isLoopback()) {
++      return ProxyAddress(scheme, socketAddress.hostString, socketAddress.port, source)
++    }
++
++    private fun fromSystemProxy(proxy: Proxy): ProxyConfig? {
++      // The generic system resolver skips Android's PAC bridge. Molly's explicit proxy resolver uses fromProxy
++      // directly so an existing local SOCKS/HTTP configuration continues to work.
++      if ((proxy.address() as? InetSocketAddress)?.isLoopback() == true) {
+         return null
+       }
+-
+-      return ProxyAddress(scheme, socketAddress.hostString, socketAddress.port)
++      return fromProxy(proxy, ProxySource.SYSTEM)
+     }
+ 
+     /** [ProxySelector] returns unresolved addresses, so [InetSocketAddress.getAddress] is normally null and only the host string is available. */
+diff --git a/core/network/src/main/java/org/signal/network/config/SignalProxy.kt b/core/network/src/main/java/org/signal/network/config/SignalProxy.kt
+index 81a7950674ebb1d278b950216650ddc52289efa8..d9af3187d6665eb2f9a0d8a9791b7c4a930e1361 100644
+--- a/core/network/src/main/java/org/signal/network/config/SignalProxy.kt
++++ b/core/network/src/main/java/org/signal/network/config/SignalProxy.kt
+@@ -6,5 +6,5 @@
+ package org.signal.network.config
+ 
+ class SignalProxy(val host: String, val port: Int) {
+-  fun toProxyConfig(): ProxyConfig = ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.TLS, host, port)
++  fun toProxyConfig(): ProxyConfig = ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.TLS, host, port, ProxyConfig.ProxySource.USER)
+ }
+diff --git a/core/network/src/test/java/org/signal/network/config/LibSignalProxyPolicyTest.kt b/core/network/src/test/java/org/signal/network/config/LibSignalProxyPolicyTest.kt
+new file mode 100644
+index 0000000000000000000000000000000000000000..17e0f3b6e18605e3f89fd56a9eeaffa8ced1713c
+--- /dev/null
++++ b/core/network/src/test/java/org/signal/network/config/LibSignalProxyPolicyTest.kt
+@@ -0,0 +1,38 @@
++/*
++ * Copyright 2026 Molly Project
++ * SPDX-License-Identifier: AGPL-3.0-only
++ */
++
++package org.signal.network.config
++
++import io.mockk.every
++import io.mockk.mockk
++import io.mockk.verify
++import org.junit.Test
++import org.signal.libsignal.net.Network
++import java.io.IOException
++
++class LibSignalProxyPolicyTest {
++
++  @Test
++  fun `a rejected user SOCKS proxy fails closed without a direct fallback`() {
++    val network = mockk<Network>(relaxed = true)
++    every { network.setProxy("socks5h", "localhost", 9050, null, null) } throws IOException("Invalid proxy")
++
++    network.configureProxy(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.SOCKS_REMOTE_DNS, "localhost", 9050, ProxyConfig.ProxySource.USER))
++
++    verify(exactly = 1) { network.setInvalidProxy() }
++    verify(exactly = 0) { network.clearProxy() }
++  }
++
++  @Test
++  fun `an unavailable optional system proxy retains the existing direct fallback`() {
++    val network = mockk<Network>(relaxed = true)
++    every { network.setProxy("http", "proxy.example.com", 8080, null, null) } throws IOException("Invalid proxy")
++
++    network.configureProxy(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.HTTP, "proxy.example.com", 8080))
++
++    verify(exactly = 1) { network.clearProxy() }
++    verify(exactly = 0) { network.setInvalidProxy() }
++  }
++}
+diff --git a/core/network/src/test/java/org/signal/network/config/ProxyConfigTest.kt b/core/network/src/test/java/org/signal/network/config/ProxyConfigTest.kt
+index ea455830d6738aee2af5d0370ae57b1c9c7e7256..4970fa05572a01dd4aa7c186e5923375708419fe 100644
+--- a/core/network/src/test/java/org/signal/network/config/ProxyConfigTest.kt
++++ b/core/network/src/test/java/org/signal/network/config/ProxyConfigTest.kt
+@@ -8,13 +8,14 @@ package org.signal.network.config
+ import assertk.assertThat
+ import assertk.assertions.isEqualTo
+ import org.junit.Test
++import okhttp3.Dns
++import javax.net.SocketFactory
+ import java.io.IOException
+ import java.net.InetSocketAddress
+ import java.net.Proxy
+ import java.net.ProxySelector
+ import java.net.SocketAddress
+ import java.net.URI
+-import java.util.Optional
+ 
+ class ProxyConfigTest {
+ 
+@@ -71,10 +72,10 @@ class ProxyConfigTest {
+   }
+ 
+   @Test
+-  fun `resolve prefers an explicit signal proxy over the system proxy`() {
++  fun `resolve prefers a user SOCKS proxy with remote DNS over the system proxy`() {
+     val system = Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved("proxy.example.com", 8080))
+-    val config = ProxyConfig.resolve(configuration(censored = false, signalProxy = SignalProxy("signal.tls.proxy", 443)), TARGET_URL, StubProxySelector(system))
+-    assertThat(config).isEqualTo(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.TLS, "signal.tls.proxy", 443))
++    val config = ProxyConfig.resolve(configuration(censored = false), TARGET_URL, StubProxySelector(system), userProxy = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("localhost", 9050)))
++    assertThat(config).isEqualTo(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.SOCKS_REMOTE_DNS, "localhost", 9050, ProxyConfig.ProxySource.USER))
+   }
+ 
+   @Test
+@@ -92,13 +93,30 @@ class ProxyConfigTest {
+   }
+ 
+   @Test
+-  fun `resolve prefers an explicit signal proxy over a censored configuration`() {
++  fun `resolve preserves a user proxy when censorship circumvention is enabled`() {
+     val system = Proxy(Proxy.Type.HTTP, InetSocketAddress.createUnresolved("proxy.example.com", 8080))
+-    val config = ProxyConfig.resolve(configuration(censored = true, signalProxy = SignalProxy("signal.tls.proxy", 443)), TARGET_URL, StubProxySelector(system))
+-    assertThat(config).isEqualTo(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.TLS, "signal.tls.proxy", 443))
++    val config = ProxyConfig.resolve(configuration(censored = true), TARGET_URL, StubProxySelector(system), userProxy = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("localhost", 9050)))
++    assertThat(config).isEqualTo(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.SOCKS_REMOTE_DNS, "localhost", 9050, ProxyConfig.ProxySource.USER))
+   }
+ 
+-  private fun configuration(censored: Boolean, signalProxy: SignalProxy? = null): SignalServiceConfiguration {
++  @Test
++  fun `system SOCKS proxy uses local DNS`() {
++    val proxy = Proxy(Proxy.Type.SOCKS, InetSocketAddress.createUnresolved("localhost", 1080))
++    assertThat(ProxyConfig.fromProxy(proxy, ProxyConfig.ProxySource.SYSTEM))
++      .isEqualTo(ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.SOCKS, "localhost", 1080))
++  }
++
++  @Test
++  fun `proxy source changes restart native connections`() {
++    val state = NetworkProxyState()
++    val system = ProxyConfig.ProxyAddress(ProxyConfig.ProxyScheme.HTTP, "proxy.example.com", 8080)
++    assertThat(state.update(system)).isEqualTo(true)
++    assertThat(state.update(system)).isEqualTo(false)
++    assertThat(state.update(system.copy(source = ProxyConfig.ProxySource.USER))).isEqualTo(true)
++    assertThat(state.update(ProxyConfig.Direct)).isEqualTo(true)
++  }
++
++  private fun configuration(censored: Boolean): SignalServiceConfiguration {
+     return SignalServiceConfiguration(
+       signalServiceUrls = emptyArray(),
+       signalCdnUrlMap = emptyMap(),
+@@ -106,8 +124,9 @@ class ProxyConfigTest {
+       signalCdsiUrls = emptyArray(),
+       signalSvr2Urls = emptyArray(),
+       networkInterceptors = emptyList(),
+-      dns = Optional.empty(),
+-      signalProxy = Optional.ofNullable(signalProxy),
++      dns = Dns.SYSTEM,
++      socketFactory = SocketFactory.getDefault(),
++      proxySelector = StubProxySelector(Proxy.NO_PROXY),
+       zkGroupServerPublicParams = ByteArray(0),
+       genericServerPublicParams = ByteArray(0),
+       backupServerPublicParams = ByteArray(0),
+diff --git a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
+index 6446c542fac983f78d3988330ab8b1c89febf54f..6803653710d662c148df6d0b87fff5dad913cd57 100644
+--- a/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
++++ b/lib/libsignal-service/src/main/java/org/whispersystems/signalservice/internal/websocket/OkHttpWebSocketConnection.java
+@@ -10,21 +10,11 @@ import org.signal.core.util.logging.Log;
+ import org.signal.network.config.TrustStore;
+ import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
+ import org.whispersystems.signalservice.api.util.CredentialsProvider;
+-<<<<<<< MOLLY
+-import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
+-import org.whispersystems.signalservice.api.websocket.HealthMonitor;
+-import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
+-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
+-import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl;
+-=======
+ import org.signal.network.util.Tls12SocketFactory;
+-import org.signal.network.util.TlsProxySocketFactory;
+ import org.whispersystems.signalservice.api.websocket.HealthMonitor;
+ import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
+-import org.signal.network.config.SignalProxy;
+ import org.signal.network.config.SignalServiceConfiguration;
+ import org.signal.network.config.SignalServiceUrl;
+->>>>>>> SIGNAL
+ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
+ import org.whispersystems.signalservice.internal.util.Util;
+ 
+diff --git a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+index 1ec4fd53cfde8c02e287001d8688b90bc900b29f..a4d1ff5c28853e9f144b8e4514b5dcdfec772455 100644
+--- a/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
++++ b/lib/network/src/main/java/org/signal/network/rest/SignalRestClient.kt
+@@ -28,23 +28,15 @@ import okio.buffer
+ import org.signal.core.util.logging.Log
+ import org.signal.libsignal.net.BadRequestError
+ import org.signal.libsignal.net.RequestResult
+-import org.signal.network.config.SignalProxy
+ import org.signal.network.config.SignalServiceConfiguration
+ import org.signal.network.config.SignalUrl
+ import org.signal.network.rest.RequestSpec.Host
+ import org.signal.network.util.JsonUtil
+ import org.signal.network.util.Tls12SocketFactory
+-import org.signal.network.util.TlsProxySocketFactory
+ import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
+ import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener
+ import org.whispersystems.signalservice.api.push.SignalServiceAddress
+ import org.whispersystems.signalservice.api.util.CredentialsProvider
+-<<<<<<< MOLLY
+-import org.whispersystems.signalservice.api.util.Tls12SocketFactory
+-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
+-import org.whispersystems.signalservice.internal.configuration.SignalUrl
+-=======
+->>>>>>> SIGNAL
+ import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager
+ import java.io.IOException
+ import java.io.OutputStream
+@@ -180,7 +172,14 @@ class SignalRestClient @JvmOverloads constructor(
+   private val directCdnClientsMap: Map<Int, Array<ConnectionHolder>> by lazy {
+     if (uncensoredConfiguration !== configuration) {
+       uncensoredConfiguration.signalCdnUrlMap.mapValues { (_, urls) ->
+-        createConnectionHolders(urls, uncensoredConfiguration.networkInterceptors, uncensoredConfiguration.dns, uncensoredConfiguration.signalProxy, clientOverride)
++        createConnectionHolders(
++          urls = urls,
++          interceptors = uncensoredConfiguration.networkInterceptors,
++          dns = uncensoredConfiguration.dns,
++          socketFactory = uncensoredConfiguration.socketFactory,
++          proxySelector = uncensoredConfiguration.proxySelector,
++          clientOverride = clientOverride
++        )
+       }
+     } else {
+       cdnClientsMap
+@@ -189,7 +188,14 @@ class SignalRestClient @JvmOverloads constructor(
+ 
+   private val directStorageClients: Array<ConnectionHolder> by lazy {
+     if (uncensoredConfiguration !== configuration) {
+-      createConnectionHolders(uncensoredConfiguration.signalStorageUrls, uncensoredConfiguration.networkInterceptors, uncensoredConfiguration.dns, uncensoredConfiguration.signalProxy, clientOverride)
++      createConnectionHolders(
++        urls = uncensoredConfiguration.signalStorageUrls,
++        interceptors = uncensoredConfiguration.networkInterceptors,
++        dns = uncensoredConfiguration.dns,
++        socketFactory = uncensoredConfiguration.socketFactory,
++        proxySelector = uncensoredConfiguration.proxySelector,
++        clientOverride = clientOverride
++      )
+     } else {
+       storageClients
+     }
+diff --git a/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt b/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
+index a6b84a0791ff7c20333ec3e7df725a60163aa73c..83ae3645f4d0b53b6e7b1fe84698b957dcf466ca 100644
+--- a/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
++++ b/lib/network/src/test/java/org/signal/network/rest/SignalRestClientTest.kt
+@@ -14,11 +14,8 @@ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.async
+ import kotlinx.coroutines.coroutineScope
+ import kotlinx.coroutines.runBlocking
+-<<<<<<< MOLLY
+ import okhttp3.Dns
+-=======
+ import okhttp3.ConnectionSpec
+->>>>>>> SIGNAL
+ import okhttp3.Interceptor
+ import okhttp3.MediaType.Companion.toMediaType
+ import okhttp3.OkHttpClient
+@@ -43,12 +40,9 @@ import java.io.IOException
+ import java.net.ProxySelector
+ import java.util.Optional
+ import java.util.Random
+-<<<<<<< MOLLY
+ import javax.net.SocketFactory
+-=======
+ import java.util.concurrent.CountDownLatch
+ import java.util.concurrent.TimeUnit
+->>>>>>> SIGNAL
+ 
+ class SignalRestClientTest {
+ 
+@@ -340,14 +334,9 @@ class SignalRestClientTest {
+       signalCdsiUrls = emptyArray<SignalCdsiUrl>(),
+       signalSvr2Urls = emptyArray<SignalSvr2Url>(),
+       networkInterceptors = emptyList(),
+-<<<<<<< MOLLY
+       dns = Dns.SYSTEM,
+       socketFactory = SocketFactory.getDefault(),
+       proxySelector = ProxySelector.getDefault(),
+-=======
+-      dns = Optional.empty(),
+-      signalProxy = Optional.empty(),
+->>>>>>> SIGNAL
+       zkGroupServerPublicParams = ByteArray(0),
+       genericServerPublicParams = ByteArray(0),
+       backupServerPublicParams = ByteArray(0),
