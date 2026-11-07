@@ -5,6 +5,9 @@ pluginManagement {
         includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
       }
     }
+    // MOLLY: Maven Central mirror to avoid HTTP 429 rate limits.
+    // Keep this in sync with build-logic, buildSrc, and the root buildscript.
+    maven("https://maven-central.storage.googleapis.com/maven2")
     mavenCentral()
   }
   includeBuild("build-logic")
@@ -56,6 +59,7 @@ dependencyResolutionManagement {
         includeModule("org.signal", "aesgcmprovider")
       }
     }
+    maven("https://maven-central.storage.googleapis.com/maven2")
     mavenCentral()
   }
   versionCatalogs {

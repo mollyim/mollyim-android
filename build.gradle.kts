@@ -15,6 +15,7 @@ buildscript {
         includeGroupByRegex("(com\\.(android|google)|androidx?)(\\..*)?")
       }
     }
+    maven("https://maven-central.storage.googleapis.com/maven2")
     mavenCentral()
   }
 

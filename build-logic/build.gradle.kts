@@ -4,6 +4,7 @@ plugins {
 
 buildscript {
   repositories {
+    maven("https://maven-central.storage.googleapis.com/maven2")
     mavenCentral()
   }
 }
