@@ -8,6 +8,7 @@ plugins {
   id("com.squareup.wire")
   id("print-version")
   id("signal-locales")
+  id("gms-compat-check")
 }
 
 val canonicalVersionCode = 1775

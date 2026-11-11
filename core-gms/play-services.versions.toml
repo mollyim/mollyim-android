@@ -1,0 +1,17 @@
+# Interface versions for Firebase Messaging supported by core-gms.
+
+[versions]
+play-services-cloud-messaging = "17.2.0"
+play-services-base = "18.5.0"
+play-services-basement = "18.4.0"
+play-services-tasks = "18.2.0"
+play-services-stats = "17.0.2"
+firebase-iid-interop = "17.1.0"
+
+[libraries]
+play-services-cloud-messaging = { module = "com.google.android.gms:play-services-cloud-messaging", version.ref = "play-services-cloud-messaging" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "play-services-base" }
+play-services-basement = { module = "com.google.android.gms:play-services-basement", version.ref = "play-services-basement" }
+play-services-tasks = { module = "com.google.android.gms:play-services-tasks", version.ref = "play-services-tasks" }
+play-services-stats = { module = "com.google.android.gms:play-services-stats", version.ref = "play-services-stats" }
+firebase-iid-interop = { module = "com.google.firebase:firebase-iid-interop", version.ref = "firebase-iid-interop" }

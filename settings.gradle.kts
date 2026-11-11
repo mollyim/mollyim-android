@@ -70,6 +70,10 @@ dependencyResolutionManagement {
     create("lintLibs") {
       from(files("gradle/lint-libs.versions.toml"))
     }
+    // MOLLY: Play Services compatibility reference versions.
+    create("playServices") {
+      from(files("core-gms/play-services.versions.toml"))
+    }
   }
 }
 
