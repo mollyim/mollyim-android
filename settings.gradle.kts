@@ -19,9 +19,16 @@ dependencyResolutionManagement {
     }
     // MOLLY: Prebuilt libraries added via the deps-overlay stage in the Dockerfile
     maven {
-      url = uri(rootDir.resolve("prebuilts"))
+      url = uri(rootDir.resolve("prebuilts/ringrtc"))
       content {
-        includeGroup("im.molly")
+        includeModule("im.molly", "ringrtc-android")
+      }
+    }
+    maven {
+      url = uri(rootDir.resolve("prebuilts/libsignal"))
+      content {
+        includeModule("im.molly", "libsignal-client")
+        includeModule("im.molly", "libsignal-android")
       }
     }
     maven {
