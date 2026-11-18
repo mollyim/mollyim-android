@@ -14,6 +14,7 @@ import org.signal.network.config.TrustStore;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.Socket;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -26,8 +27,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.net.ssl.SSLEngine;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import kotlin.Pair;
@@ -36,9 +39,12 @@ import kotlin.Pair;
  * Trust manager that defers to a system X509 trust manager, and
  * additionally rejects certificates if they have a blacklisted serial or public key.
  *
+ * MOLLY: The extended overloads preserve the socket or engine for delegates that use its connection
+ * context, such as Android's default trust manager selecting a domain-specific configuration.
+ *
  * @author Moxie Marlinspike
  */
-public class BlacklistingTrustManager implements X509TrustManager {
+public class BlacklistingTrustManager extends X509ExtendedTrustManager {
 
   private static final List<Pair<String, BigInteger>> BLACKLIST = new LinkedList<Pair<String, BigInteger>>() {{
     add(new Pair<>("Open Whisper Systems", new BigInteger("4098")));
@@ -68,7 +74,13 @@ public class BlacklistingTrustManager implements X509TrustManager {
   public static BlacklistingTrustManager createFor(TrustManager[] trustManagers) {
     for (TrustManager trustManager : trustManagers) {
       if (trustManager instanceof X509TrustManager) {
-        return new BlacklistingTrustManager((X509TrustManager) trustManager);
+        if (!(trustManager instanceof X509ExtendedTrustManager)) {
+          throw new IllegalArgumentException(
+              "Selected X509TrustManager " + trustManager.getClass().getName() +
+              " is not an X509ExtendedTrustManager; " +
+              "extended socket and engine validation is required");
+        }
+        return new BlacklistingTrustManager((X509ExtendedTrustManager) trustManager);
       }
     }
 
@@ -105,9 +117,9 @@ public class BlacklistingTrustManager implements X509TrustManager {
     }
   }
 
-  private final X509TrustManager trustManager;
+  private final X509ExtendedTrustManager trustManager;
 
-  public BlacklistingTrustManager(X509TrustManager trustManager) {
+  public BlacklistingTrustManager(X509ExtendedTrustManager trustManager) {
     this.trustManager = trustManager;
   }
 
@@ -119,7 +131,59 @@ public class BlacklistingTrustManager implements X509TrustManager {
   }
 
   @Override
+  public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket)
+      throws CertificateException
+  {
+    trustManager.checkClientTrusted(chain, authType, socket);
+  }
+
+  @Override
+  public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine)
+      throws CertificateException
+  {
+    trustManager.checkClientTrusted(chain, authType, engine);
+  }
+
+  @Override
+  public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket)
+      throws CertificateException
+  {
+    checkChain(chain);
+    try {
+      trustManager.checkServerTrusted(chain, authType, socket);
+    } catch (CertificateException e) {
+      attachLeafValidityFailure(chain, e);
+      throw e;
+    }
+  }
+
+  @Override
+  public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine)
+      throws CertificateException
+  {
+    checkChain(chain);
+    try {
+      trustManager.checkServerTrusted(chain, authType, engine);
+    } catch (CertificateException e) {
+      attachLeafValidityFailure(chain, e);
+      throw e;
+    }
+  }
+
+  @Override
   public void checkServerTrusted(X509Certificate[] chain, String authType)
+      throws CertificateException
+  {
+    checkChain(chain);
+    try {
+      trustManager.checkServerTrusted(chain, authType);
+    } catch (CertificateException e) {
+      attachLeafValidityFailure(chain, e);
+      throw e;
+    }
+  }
+
+  private void checkChain(X509Certificate[] chain)
       throws CertificateException
   {
     for (X509Certificate certificate : chain) {
@@ -129,6 +193,7 @@ public class BlacklistingTrustManager implements X509TrustManager {
       }
 
       for (Pair<String, BigInteger> blacklistedSerial : BLACKLIST) {
+        //noinspection deprecation
         if (certificate.getIssuerDN().getName().equals(blacklistedSerial.getFirst()) &&
             certificate.getSerialNumber().equals(blacklistedSerial.getSecond()))
         {
@@ -136,8 +201,22 @@ public class BlacklistingTrustManager implements X509TrustManager {
         }
       }
     }
+  }
 
-    trustManager.checkServerTrusted(chain, authType);
+  /**
+   * Conscrypt can mask a validity failure while trying other certificate paths. Attach best-effort
+   * leaf validity diagnostics without replacing the rejection or repeating trust validation.
+   */
+  private static void attachLeafValidityFailure(X509Certificate[] chain, CertificateException failure) {
+    try {
+      if (chain != null && chain.length > 0 && chain[0] != null) {
+        chain[0].checkValidity();
+      }
+    } catch (CertificateException detail) {
+      if (detail != failure) {
+        failure.addSuppressed(detail);
+      }
+    } catch (RuntimeException ignored) {}
   }
 
   @Override
