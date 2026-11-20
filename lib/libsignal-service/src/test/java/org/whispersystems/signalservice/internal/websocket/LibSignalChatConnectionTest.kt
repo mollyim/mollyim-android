@@ -1,13 +1,16 @@
 package org.whispersystems.signalservice.internal.websocket
 
+import io.mockk.Runs
 import io.mockk.clearAllMocks
 import io.mockk.clearMocks
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import io.reactivex.rxjava3.observers.TestObserver
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
@@ -39,6 +42,7 @@ class LibSignalChatConnectionTest {
   private val network = mockk<Network>()
   private val connection = LibSignalChatConnection("test", network, null, false, healthMonitor)
   private val chatConnection = mockk<UnauthenticatedChatConnection>()
+  private val connectionInfo = mockk<ChatConnection.ConnectionInfo>()
   private var chatListener: ChatConnectionListener? = null
 
   // Used by default-success mocks for ChatConnection behavior.
@@ -58,6 +62,7 @@ class LibSignalChatConnectionTest {
     every { healthMonitor.onMessageError(any(), any()) }
     every { healthMonitor.onKeepAliveResponse(any(), any()) }
     every { healthMonitor.onReceivedAlerts(any(), any()) }
+    every { healthMonitor.onServerTimestamp(any(), any()) } just Runs
 
     // NB: We provide default success behavior mocks here to cut down on boilerplate later, but it is
     //  expected that some tests will override some of these to test failures.
@@ -94,6 +99,8 @@ class LibSignalChatConnectionTest {
     }
 
     every { chatConnection.start() } returns Unit
+    every { chatConnection.info() } returns connectionInfo
+    every { connectionInfo.isDirect() } returns true
   }
 
   // Test that the LibSignalChatConnection transitions through DISCONNECTED -> CONNECTING -> CONNECTED
@@ -331,6 +338,38 @@ class LibSignalChatConnectionTest {
     verify(exactly = 0) {
       healthMonitor.onKeepAliveResponse(any(), any())
       healthMonitor.onMessageError(any(), any())
+    }
+  }
+
+  // Test that isConnectedDirectly() reflects libsignal's ConnectionInfo while connected, and is false otherwise.
+  @Test
+  fun isConnectedDirectlyReflectsConnectionInfo() {
+    assertFalse(connection.isConnectedDirectly())
+
+    setupConnectedConnection()
+    assertTrue(connection.isConnectedDirectly())
+
+    chatListener!!.onConnectionInterrupted(chatConnection, ChatServiceException("simulated interrupt"))
+    assertFalse(connection.isConnectedDirectly())
+  }
+
+  // Test that isConnectedDirectly() is false when libsignal reports a non-direct (proxied) route.
+  @Test
+  fun isConnectedDirectlyFalseForProxiedRoute() {
+    every { connectionInfo.isDirect() } returns false
+
+    setupConnectedConnection()
+    assertFalse(connection.isConnectedDirectly())
+  }
+
+  @Test
+  fun onServerTimestampForwardsToHealthMonitor() {
+    setupConnectedConnection()
+
+    chatListener!!.onServerTimestamp(chatConnection, 1234567890L)
+
+    verify(exactly = 1) {
+      healthMonitor.onServerTimestamp(1234567890L, false)
     }
   }
 

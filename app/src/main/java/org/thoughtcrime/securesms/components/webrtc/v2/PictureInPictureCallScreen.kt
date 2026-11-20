@@ -23,9 +23,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,13 +34,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.NightPreview
 import org.signal.core.ui.compose.Previews
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.events.CallParticipant
 import org.thoughtcrime.securesms.events.CallParticipantId
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.signal.core.ui.R as CoreUiR
 
 private val PIP_METRICS_SELF_PORTRAIT_WIDTH = 48.dp
 private val PIP_METRICS_SELF_PORTRAIT_HEIGHT = 86.dp
@@ -139,7 +140,7 @@ private fun AnimatedInfoPillsRow(
         icon = ImageVector.vectorResource(
           when (type) {
             InfoPillType.HAND_RAISE -> R.drawable.symbol_raise_hand_24
-            InfoPillType.PENDING_PARTICIPANTS -> R.drawable.symbol_person_24
+            InfoPillType.PENDING_PARTICIPANTS -> CoreUiR.drawable.symbol_person_24
           }
         ),
         count = count,
@@ -363,7 +364,7 @@ private fun PictureInPictureCallScreenVideoErrorPreview() {
 private fun InfoPillPreview() {
   Previews.Preview {
     InfoPill(
-      icon = ImageVector.vectorResource(id = R.drawable.symbol_person_24),
+      icon = ImageVector.vectorResource(id = CoreUiR.drawable.symbol_person_24),
       count = 5
     )
   }

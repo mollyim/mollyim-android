@@ -22,21 +22,21 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.viewModels
 import androidx.transition.TransitionManager
 import com.airbnb.lottie.SimpleColorFilter
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.ui.activityViewModel
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.KeyboardEntryDialogFragment
+import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mediasend.v2.MediaAnimations
 import org.thoughtcrime.securesms.scribbles.HSVColorSlider
 import org.thoughtcrime.securesms.scribbles.HSVColorSlider.getColor
 import org.thoughtcrime.securesms.scribbles.HSVColorSlider.setColor
 import org.thoughtcrime.securesms.scribbles.HSVColorSlider.setUpForColor
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.fragments.findListener
 import org.thoughtcrime.securesms.util.setIncognitoKeyboardEnabled
 import java.util.Locale
@@ -48,11 +48,9 @@ class TextStoryPostTextEntryFragment : KeyboardEntryDialogFragment(
   contentLayoutId = R.layout.stories_text_post_text_entry_fragment
 ) {
 
-  private val viewModel: TextStoryPostCreationViewModel by viewModels(
-    ownerProducer = {
-      requireActivity()
-    }
-  )
+  private val viewModel: TextStoryPostCreationViewModel by activityViewModel { extras ->
+    TextStoryPostCreationViewModel.create(extras)
+  }
 
   private val lifecycleDisposable = LifecycleDisposable()
 
@@ -123,7 +121,7 @@ class TextStoryPostTextEntryFragment : KeyboardEntryDialogFragment(
       viewModel.setTemporaryBody(text?.toString() ?: "")
     }
     input.setText(viewModel.getBody())
-    input.setIncognitoKeyboardEnabled(TextSecurePreferences.isIncognitoKeyboardEnabled(requireContext()))
+    input.setIncognitoKeyboardEnabled(SignalStore.settings.isIncognitoKeyboardEnabled)
   }
 
   private fun presentHint() {

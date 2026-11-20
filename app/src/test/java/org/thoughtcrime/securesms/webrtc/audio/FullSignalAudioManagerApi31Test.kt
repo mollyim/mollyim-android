@@ -9,6 +9,8 @@ import android.app.Application
 import android.content.Context
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
+import android.media.AudioRecordingConfiguration
+import android.media.MediaRecorder
 import android.media.SoundPool
 import assertk.assertThat
 import assertk.assertions.isTrue
@@ -22,11 +24,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
 import org.thoughtcrime.securesms.testutil.SystemOutLogger
+import java.time.Duration
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -96,6 +100,40 @@ class FullSignalAudioManagerApi31Test {
   }
 
   @Test
+  fun `Given the recording becomes silenced and then unsilenced, when the recording config changes, then I expect one notification per change`() {
+    val manager = FullSignalAudioManagerApi31(AppDependencies.application, eventListener)
+
+    try {
+      setState(manager, SignalAudioManager.State.RUNNING)
+
+      triggerRecordingConfigChanged(manager, listOf(createRecordingConfiguration(silenced = true)))
+      triggerRecordingConfigChanged(manager, listOf(createRecordingConfiguration(silenced = true)))
+      triggerRecordingConfigChanged(manager, listOf(createRecordingConfiguration(silenced = false)))
+
+      verify(exactly = 1) { eventListener.onMicrophoneSilencedChanged(true) }
+      verify(exactly = 1) { eventListener.onMicrophoneSilencedChanged(false) }
+    } finally {
+      shutdownManager(manager)
+    }
+  }
+
+  @Test
+  fun `Given the recording was never silenced, when the recording config changes, then I expect no notification`() {
+    val manager = FullSignalAudioManagerApi31(AppDependencies.application, eventListener)
+
+    try {
+      setState(manager, SignalAudioManager.State.RUNNING)
+
+      triggerRecordingConfigChanged(manager, listOf(createRecordingConfiguration(silenced = false)))
+      triggerRecordingConfigChanged(manager, emptyList())
+
+      verify(exactly = 0) { eventListener.onMicrophoneSilencedChanged(any()) }
+    } finally {
+      shutdownManager(manager)
+    }
+  }
+
+  @Test
   fun `does not reassert when Android reports the same user selected communication device`() {
     val selectedDevice = createDevice(20, AudioDeviceInfo.TYPE_BUILTIN_SPEAKER, "Phone speaker")
 
@@ -119,6 +157,81 @@ class FullSignalAudioManagerApi31Test {
     } finally {
       shutdownManager(manager)
     }
+  }
+
+  @Test
+  fun `Given the mode was never applied for the accept, when I start, then I expect the mode to be asserted`() {
+    val manager = FullSignalAudioManagerApi31(AppDependencies.application, eventListener)
+
+    try {
+      setState(manager, SignalAudioManager.State.PREINITIALIZED)
+      setPreparedForAccept(manager, true)
+      setAppliedMode(manager, AudioManager.MODE_RINGTONE)
+
+      clearMocks(androidAudioManager, answers = false, recordedCalls = true)
+
+      manager.handleCommand(AudioManagerCommand.Start())
+
+      verify(timeout = 2_000) { androidAudioManager.mode = AudioManager.MODE_IN_COMMUNICATION }
+    } finally {
+      shutdownManager(manager)
+    }
+  }
+
+  @Test
+  fun `Given the mode was applied for the accept, when I start, then I expect no redundant mode change`() {
+    val manager = FullSignalAudioManagerApi31(AppDependencies.application, eventListener)
+
+    try {
+      setState(manager, SignalAudioManager.State.PREINITIALIZED)
+      setPreparedForAccept(manager, true)
+      setAppliedMode(manager, AudioManager.MODE_IN_COMMUNICATION)
+
+      clearMocks(androidAudioManager, answers = false, recordedCalls = true)
+
+      manager.handleCommand(AudioManagerCommand.Start())
+
+      // Waits for the last call start() makes, so the mode decision has already been taken.
+      verify(timeout = 2_000) { androidAudioManager.ringVolumeWithMinimum() }
+      verify(exactly = 0) { androidAudioManager.mode = any() }
+    } finally {
+      shutdownManager(manager)
+    }
+  }
+
+  @Test
+  fun `Given the mode change is never reported, when the backstop expires, then I expect the accept to proceed`() {
+    val earpiece = createDevice(30, AudioDeviceInfo.TYPE_BUILTIN_EARPIECE, "Phone earpiece")
+
+    every { androidAudioManager.communicationDevice } returns earpiece
+    every { androidAudioManager.availableCommunicationDevices } returns listOf(earpiece)
+    every { androidAudioManager.requestCallAudioFocus() } returns true
+
+    val manager = FullSignalAudioManagerApi31(AppDependencies.application, eventListener)
+
+    try {
+      setState(manager, SignalAudioManager.State.PREINITIALIZED)
+      setAppliedMode(manager, AudioManager.MODE_RINGTONE)
+
+      manager.handleCommand(AudioManagerCommand.PrepareForAccept())
+
+      // The mode change is never reported, so only the backstop can release the accept.
+      idleAudioHandler(manager, SignalAudioManager.ACCEPT_GATE_TIMEOUT_MS / 2)
+      verify(exactly = 0) { eventListener.onAudioReadyForAccept() }
+
+      idleAudioHandler(manager, SignalAudioManager.ACCEPT_GATE_TIMEOUT_MS)
+      verify { eventListener.onAudioReadyForAccept() }
+    } finally {
+      shutdownManager(manager)
+    }
+  }
+
+  private fun idleAudioHandler(manager: FullSignalAudioManagerApi31, millis: Long) {
+    val handlerField = SignalAudioManager::class.java.getDeclaredField("handler")
+    handlerField.isAccessible = true
+    val handler = handlerField.get(manager) as SignalAudioHandler
+
+    shadowOf(handler.looper).idleFor(Duration.ofMillis(millis))
   }
 
   private fun createDevice(id: Int, type: Int, productName: String): AudioDeviceInfo {
@@ -148,10 +261,38 @@ class FullSignalAudioManagerApi31Test {
     assertThat(latch.await(2, TimeUnit.SECONDS)).isTrue()
   }
 
+  private fun createRecordingConfiguration(silenced: Boolean): AudioRecordingConfiguration {
+    return mockk(relaxed = true) {
+      every { isClientSilenced } returns silenced
+      every { audioDevice } returns null
+      every { audioSource } returns MediaRecorder.AudioSource.VOICE_COMMUNICATION
+    }
+  }
+
+  private fun triggerRecordingConfigChanged(manager: FullSignalAudioManagerApi31, configs: List<AudioRecordingConfiguration>) {
+    val callbackField = FullSignalAudioManagerApi31::class.java.getDeclaredField("audioRecordingCallback")
+    callbackField.isAccessible = true
+    val callback = callbackField.get(manager) as AudioManager.AudioRecordingCallback
+
+    callback.onRecordingConfigChanged(configs)
+  }
+
   private fun setState(manager: FullSignalAudioManagerApi31, state: SignalAudioManager.State) {
     val stateField = SignalAudioManager::class.java.getDeclaredField("state")
     stateField.isAccessible = true
     stateField.set(manager, state)
+  }
+
+  private fun setPreparedForAccept(manager: FullSignalAudioManagerApi31, prepared: Boolean) {
+    val field = SignalAudioManager::class.java.getDeclaredField("preparedForAccept")
+    field.isAccessible = true
+    field.set(manager, prepared)
+  }
+
+  private fun setAppliedMode(manager: FullSignalAudioManagerApi31, mode: Int) {
+    val field = SignalAudioManager::class.java.getDeclaredField("appliedMode")
+    field.isAccessible = true
+    field.set(manager, mode)
   }
 
   private fun setUserSelectedAudioDevice(manager: FullSignalAudioManagerApi31, device: AudioDeviceInfo?) {

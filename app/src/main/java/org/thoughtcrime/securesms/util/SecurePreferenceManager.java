@@ -3,14 +3,12 @@ package org.thoughtcrime.securesms.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.components.KeyboardAwareLinearLayout;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
 
 public class SecurePreferenceManager {
-
-  private static final String TAG = Log.tag(SecurePreferenceManager.class);
 
   private static SharedPreferences securePreferences;
 
@@ -22,26 +20,22 @@ public class SecurePreferenceManager {
   }
 
   private static SharedPreferences createSecurePreferences(Context context) {
-    EncryptedPreferences prefs = EncryptedPreferences.create(
-            context, getSecurePreferencesName());
-    prefs.setEncryptionFilter((key) -> {
-      switch (key) {
-        case TextSecurePreferences.THEME_PREF:
-        case TextSecurePreferences.DYNAMIC_COLORS_ENABLED:
-        case TextSecurePreferences.LANGUAGE_PREF:
-        case TextSecurePreferences.PASSPHRASE_LOCK:
-        case TextSecurePreferences.PASSPHRASE_LOCK_NOTIFICATIONS:
-        case TextSecurePreferences.BIOMETRIC_SCREEN_LOCK:
-        case TextSecurePreferences.FIRST_INSTALL_VERSION:
-        case TextSecurePreferences.SYSTEM_EMOJI_PREF:
-        case TextSecurePreferences.DIRECTORY_FRESH_TIME_PREF:
-        case TextSecurePreferences.REFRESH_FCM_TOKEN_PREF:
-        case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_LANDSCAPE:
-        case KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_PORTRAIT:
-          return false;
-        default:
-          return true;
-      }
+    EncryptedPreferences prefs =
+        EncryptedPreferences.create(context, getSecurePreferencesName());
+    prefs.setEncryptionFilter((key) -> switch (key) {
+      case PlainTextKeyValueStore.THEME,
+           PlainTextKeyValueStore.DYNAMIC_COLORS_ENABLED,
+           PlainTextKeyValueStore.LANGUAGE,
+           PlainTextKeyValueStore.PASSPHRASE_LOCK_ENABLED,
+           PlainTextKeyValueStore.PASSPHRASE_LOCK_NOTIFICATIONS_ENABLED,
+           PlainTextKeyValueStore.BIOMETRIC_SCREEN_LOCK_ENABLED,
+           PlainTextKeyValueStore.SYSTEM_EMOJI_PREFERRED,
+           PlainTextKeyValueStore.DIRECTORY_REFRESH_TIME,
+           PlainTextKeyValueStore.REFRESH_FCM_TOKEN_REQUIRED,
+           PlainTextKeyValueStore.FIRST_INSTALL_VERSION,
+           KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_LANDSCAPE,
+           KeyboardAwareLinearLayout.KEYBOARD_HEIGHT_PORTRAIT -> false;
+      default -> true;
     });
     return prefs;
   }

@@ -12,6 +12,7 @@ plugins {
   id("java-test-fixtures")
   id("idea")
   id("com.squareup.wire")
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 java {
@@ -70,17 +71,20 @@ dependencies {
   implementation(libs.rxjava3.rxkotlin)
 
   implementation(libs.kotlin.stdlib.jdk8)
+  implementation(libs.kotlinx.serialization.json)
   implementation(libs.kotlinx.coroutines.core)
   implementation(libs.kotlinx.coroutines.core.jvm)
 
   api(project(":core:network"))
   implementation(project(":core:util-jvm"))
   implementation(project(":core:models-jvm"))
+  implementation(project(":core:serialization"))
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.assertk)
   testImplementation(testLibs.conscrypt.openjdk.uber)
   testImplementation(testLibs.mockk)
+  testImplementation(testFixtures(project(":core:serialization")))
 
   testFixturesImplementation(libs.libsignal.client)
   testFixturesImplementation(testLibs.junit.junit)

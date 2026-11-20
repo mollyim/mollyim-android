@@ -1,7 +1,6 @@
 package org.thoughtcrime.securesms.jobs
 
 import org.signal.core.util.logging.Log
-import org.signal.core.util.orNull
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.ServiceMessageId
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -41,7 +40,7 @@ class PushProcessEarlyMessagesJob private constructor(parameters: Parameters) : 
       Log.i(TAG, "There are ${earlyIds.size} items in the early message cache with matches.")
 
       for (id: ServiceMessageId in earlyIds) {
-        val earlyEntries: List<EarlyMessageCacheEntry>? = AppDependencies.earlyMessageCache.retrieve(id.sender, id.sentTimestamp).orNull()
+        val earlyEntries: List<EarlyMessageCacheEntry>? = AppDependencies.earlyMessageCache.retrieve(id.sender, id.sentTimestamp)
 
         if (earlyEntries != null) {
           for (entry in earlyEntries) {
@@ -77,12 +76,16 @@ class PushProcessEarlyMessagesJob private constructor(parameters: Parameters) : 
 
     /**
      * Enqueues a job to run after the most-recently-enqueued [PushProcessMessageJob].
+     *
+     * Prefer [org.thoughtcrime.securesms.messages.BatchCache.requiresEarlyMessageProcessing] over calling this directly, so that a batch of messages only results in
+     * a single enqueue.
      */
     @JvmStatic
     fun enqueue() {
       val jobManger = AppDependencies.jobManager
 
-      val youngestProcessJobId: String? = jobManger.find { it.factoryKey == PushProcessMessageJob.KEY }
+      val youngestProcessJobId: String? = jobManger
+        .findMinimalJobs { it.factoryKey == PushProcessMessageJob.KEY }
         .maxByOrNull { it.createTime }
         ?.id
 

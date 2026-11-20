@@ -18,10 +18,12 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.webrtc.v2.CallIntent;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.webrtc.ActiveCallManager;
+import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil;
 import org.thoughtcrime.securesms.util.ConversationUtil;
-import org.thoughtcrime.securesms.util.DeviceProperties;
+import org.signal.core.util.DeviceProperties;
 
 /**
  * Manages the state of the WebRtc items in the Android notification bar.
@@ -31,8 +33,8 @@ import org.thoughtcrime.securesms.util.DeviceProperties;
 
 public class CallNotificationBuilder {
 
-  public static final int WEBRTC_NOTIFICATION         = 313388;
-  public static final int WEBRTC_NOTIFICATION_RINGING = 313389;
+  public static final int WEBRTC_NOTIFICATION         = NotificationIds.WEBRTC_CALL;
+  public static final int WEBRTC_NOTIFICATION_RINGING = NotificationIds.WEBRTC_CALL_RINGING;
 
   public static final int TYPE_INCOMING_RINGING    = 1;
   public static final int TYPE_OUTGOING_RINGING    = 2;
@@ -161,8 +163,9 @@ public class CallNotificationBuilder {
     }
   }
 
+  /** Telecom requires one notification id for the lifetime of a call, so the dedicated ringing id is only used when we manage the call ourselves. */
   public static int getNotificationId(int type) {
-    if (deviceVersionSupportsIncomingCallStyle() && type == TYPE_INCOMING_RINGING) {
+    if (deviceVersionSupportsIncomingCallStyle() && type == TYPE_INCOMING_RINGING && !AndroidTelecomUtil.hasActiveController()) {
       return WEBRTC_NOTIFICATION_RINGING;
     } else {
       return WEBRTC_NOTIFICATION;
@@ -222,7 +225,7 @@ public class CallNotificationBuilder {
   }
 
   private static @NonNull String getNotificationChannel(int type) {
-    if (type == TYPE_INCOMING_RINGING) {
+    if (type == TYPE_INCOMING_RINGING || AndroidTelecomUtil.hasActiveController()) {
       return NotificationChannels.getInstance().CALLS;
     } else {
       return NotificationChannels.getInstance().CALL_STATUS;

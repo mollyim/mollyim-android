@@ -7,14 +7,14 @@ import org.signal.network.websocket.WebsocketResponse;
 
 import org.jetbrains.annotations.NotNull;
 import org.signal.core.util.logging.Log;
-import org.whispersystems.signalservice.api.push.TrustStore;
+import org.signal.network.config.TrustStore;
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException;
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
-import org.whispersystems.signalservice.api.util.Tls12SocketFactory;
+import org.signal.network.util.Tls12SocketFactory;
 import org.whispersystems.signalservice.api.websocket.HealthMonitor;
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState;
-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
-import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl;
+import org.signal.network.config.SignalServiceConfiguration;
+import org.signal.network.config.SignalServiceUrl;
 import org.whispersystems.signalservice.internal.util.BlacklistingTrustManager;
 import org.whispersystems.signalservice.internal.util.Util;
 
@@ -360,7 +360,7 @@ public class OkHttpWebSocketConnection extends WebSocketListener implements WebS
     Iterator<Map.Entry<Long, OutgoingRequest>> iterator = outgoingRequests.entrySet().iterator();
 
     IOException exception;
-    if (code == 403 || code == 4401) {
+    if (code == 403 || code == 4401 || code == 4409) {
       exception = new NonSuccessfulResponseCodeException(code);
     } else {
       exception = new SocketException("Closed unexpectedly");

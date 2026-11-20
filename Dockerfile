@@ -1,9 +1,18 @@
-FROM docker.io/eclipse-temurin:21.0.11_10-jdk-alpine-3.23@sha256:4ec2402e5ebb803add08b063b9e5e52e7c11961caaae1f490479d925753f0d92 AS base
+FROM docker.io/eclipse-temurin:21.0.11_10-jdk-noble@sha256:15ec53e5373fbede42fb2c1ec5b7e3ccbe1b0c9ad232ed67a16ed1b8b47070b6 AS base
 
 # Stage 1: base
 # Minimal environment with only system tools. This stage is stable and reusable across merges.
 
-RUN apk add --no-cache bash curl fd gcompat git make python3 ripgrep
+RUN apt-get install -y --no-install-recommends --update \
+      curl \
+      fd-find \
+      git \
+      make \
+      ripgrep \
+      rustup \
+      unzip \
+      python3 \
+ && rm -rf /var/lib/apt/lists/*
 
 # Set a default Git identity
 RUN git config --global user.name "builder" \
@@ -15,8 +24,8 @@ FROM base AS toolchain
 # Language SDKs, compilers, and build tools.
 
 # Install Android SDK
-ARG ANDROID_SDK_DIST="commandlinetools-linux-13114758_latest.zip"
-ARG ANDROID_SDK_SHA256="7ec965280a073311c339e571cd5de778b9975026cfcbe79f2b1cdcb1e15317ee"
+ARG ANDROID_SDK_DIST="commandlinetools-linux-14742923_latest.zip"
+ARG ANDROID_SDK_SHA256="04453066b540409d975c676d781da1477479dde3761310f1a7eb92a1dfb15af7"
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 
@@ -38,7 +47,7 @@ ENV ANDROID_NDK_HOME="$ANDROID_HOME/ndk/$NDK_VERSION"
 ARG BUILD_TOOLS_VERSION="36.0.0"
 RUN sdkmanager "build-tools;${BUILD_TOOLS_VERSION}"
 
-ARG COMPILE_SDK="android-36.1"
+ARG COMPILE_SDK="android-37.0"
 RUN sdkmanager "platforms;${COMPILE_SDK}"
 
 # Pre-fetch Gradle wrapper

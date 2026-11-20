@@ -13,19 +13,25 @@ object Environment {
   var IS_INSTRUMENTATION: Boolean = false
 
   fun isInternal(): Boolean {
-    return IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG
+    return !IS_INSTRUMENTATION && (IS_STAGING || BuildConfig.DEBUG || BuildConfig.FORCE_INTERNAL_USER_FLAG)
   }
-
-  @JvmField
-  val USE_NEW_REGISTRATION: Boolean = true
 
   @JvmField
   val IS_LINK_AND_SYNC_AVAILABLE: Boolean = true
 
+  @JvmField
+  val PHONENUMBERLESS_REGISTRATION: Boolean = true
+
+  /** Whether this build is distributed through the Play Store, and so can use Google Play billing at all. */
+  @JvmStatic
+  fun supportsGooglePlayBilling(): Boolean {
+    return BuildConfig.APPLICATION_ID == GOOGLE_PLAY_BILLING_APPLICATION_ID
+  }
+
   object Backups {
     @JvmStatic
     fun supportsGooglePlayBilling(): Boolean {
-      return BuildConfig.APPLICATION_ID == GOOGLE_PLAY_BILLING_APPLICATION_ID
+      return Environment.supportsGooglePlayBilling()
     }
 
     @JvmStatic

@@ -40,11 +40,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -59,18 +57,18 @@ import org.signal.core.ui.compose.ComposeFragment
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.viewModel
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.requireParcelableCompat
+import org.signal.emoji.Emojifier
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
-import org.thoughtcrime.securesms.components.emoji.Emojifier
 import org.thoughtcrime.securesms.conversation.colors.NameColor
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.memberlabel.MemberLabelUiState.SaveState
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.reactions.any.ReactWithAnyEmojiBottomSheetDialogFragment
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.viewModel
 
 /**
  * Screen for editing a user's group-specific label and emoji.
@@ -333,7 +331,7 @@ private fun EmojiPickerButton(
       }
     } else {
       Icon(
-        imageVector = ImageVector.vectorResource(R.drawable.symbol_emoji_plus_24),
+        imageVector = SignalIcons.EmojiPlus.imageVector,
         contentDescription = stringResource(R.string.GroupMemberLabel__accessibility_select_emoji),
         tint = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.size(24.dp)
@@ -374,7 +372,7 @@ private fun MemberWithLabelRow(
         emoji = member.label.emoji,
         text = member.label.displayText,
         tintColor = tintColor,
-        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+        contentPadding = MemberLabelPill.contentPaddingCompact,
         textStyle = MemberLabelPill.textStyleCompact
       )
     }

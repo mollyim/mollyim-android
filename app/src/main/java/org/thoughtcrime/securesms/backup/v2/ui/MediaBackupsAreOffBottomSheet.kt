@@ -46,6 +46,7 @@ import java.util.Currency
 import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.signal.core.ui.R as CoreUiR
 
 class MediaBackupsAreOffBottomSheet : UpgradeToPaidTierBottomSheet() {
 
@@ -91,7 +92,7 @@ private fun SheetContent(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier
       .fillMaxWidth()
-      .padding(horizontal = dimensionResource(id = R.dimen.gutter))
+      .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
   ) {
     BottomSheets.Handle()
 

@@ -8,18 +8,21 @@ package org.thoughtcrime.securesms.contacts.paged
 import android.content.Context
 import android.view.View
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -30,19 +33,18 @@ import org.signal.core.ui.compose.LazyColumnFastScroller
 import org.signal.core.ui.compose.LocalFragmentManager
 import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.util.logging.Log
+import org.signal.emoji.Emojifier
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.emoji.Emojifier
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.stories.settings.custom.PrivateStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.my.MyStorySettingsFragment
 import org.thoughtcrime.securesms.stories.settings.privacy.ChooseInitialMyStoryMembershipBottomSheetDialogFragment
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingEntryProvider
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyColumn
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.MappingLazyListController
 import org.thoughtcrime.securesms.util.adapter.mapping.compose.rememberMappingEntryProvider
-import org.signal.core.ui.R as CoreUiR
 
 /**
  * A composable that displays a paged, selectable contact list driven by a [ContactSearchViewModel].
@@ -63,6 +65,7 @@ import org.signal.core.ui.R as CoreUiR
  * @param additionalEntries       Extra [MappingEntryProvider] entries layered on top of the base
  *                                set from [ContactSearchModels.composeEntries]. The base set is
  *                                always applied; on key collisions the base entry wins.
+ * @param contentPadding          Padding around the list's rows, inside the scrolling area.
  */
 @Composable
 fun ContactSearch(
@@ -77,7 +80,8 @@ fun ContactSearch(
   clickCallbacks: ContactSearchAdapter.ClickCallbacks = rememberDefaultContactSearchItemClickCallbacks(viewModel, callbacks),
   longClickCallbacks: ContactSearchAdapter.LongClickCallbacks = rememberDefaultContactSearchItemLongClickCallbacks(),
   storyContextMenuCallbacks: ContactSearchAdapter.StoryContextMenuCallbacks = rememberDefaultContactSearchItemStoryContextMenuCallbacks(viewModel),
-  callButtonClickCallbacks: ContactSearchAdapter.CallButtonClickCallbacks = rememberDefaultContactSearchItemCallButtonClickCallbacks()
+  callButtonClickCallbacks: ContactSearchAdapter.CallButtonClickCallbacks = rememberDefaultContactSearchItemCallButtonClickCallbacks(),
+  contentPadding: PaddingValues = PaddingValues()
 ) {
   val mappingModels by viewModel.mappingModels.collectAsStateWithLifecycle()
   val controller by viewModel.controller.collectAsStateWithLifecycle()
@@ -138,7 +142,7 @@ fun ContactSearch(
     userScrollEnabled = !isDisplayingContextMenu,
     fastScrollerState = fastScrollerState,
     lazyListState = lazyListState,
-    modifier = modifier,
+    modifier = modifier.nestedScroll(rememberNestedScrollInteropConnection()),
     letterContent = {
       Emojifier(text = it.toString()) { annotatedText, inlineContent ->
         Text(
@@ -154,7 +158,8 @@ fun ContactSearch(
       userScrollEnabled = !isDisplayingContextMenu,
       controller = mappingCtrl,
       lazyListState = it,
-      modifier = modifier
+      contentPadding = contentPadding,
+      modifier = Modifier.fillMaxSize()
     )
   }
 }

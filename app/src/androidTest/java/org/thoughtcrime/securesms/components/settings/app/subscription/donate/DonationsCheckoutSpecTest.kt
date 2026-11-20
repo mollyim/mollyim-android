@@ -19,7 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import org.signal.core.util.deleteAll
+import org.signal.core.database.deleteAll
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.subscription.permits.DonationPermits
@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.database.DonationReceiptTable
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.InAppPaymentReceiptRecord
+import org.thoughtcrime.securesms.testing.DisableAnimationsRule
 import org.thoughtcrime.securesms.testing.GooglePayTestRule
 import org.thoughtcrime.securesms.testing.InAppPaymentsRule
 import org.thoughtcrime.securesms.testing.RawFlag
@@ -68,6 +69,9 @@ class DonationsCheckoutSpecTest(private val spec: DonationsCheckoutTestSpec) {
 
   @get:Rule
   val composeRule = createEmptyComposeRule()
+
+  @get:Rule
+  val animationsRule = DisableAnimationsRule()
 
   @Before
   fun setUp() {

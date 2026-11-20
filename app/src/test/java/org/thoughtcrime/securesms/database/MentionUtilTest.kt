@@ -7,8 +7,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.database.model.Mention
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = Application::class)
@@ -44,5 +44,14 @@ class MentionUtilTest {
     val update: MentionUtil.UpdatedBodyAndMentions = MentionUtil.update("T test", mentions) { it.recipientId.toString() }
 
     assertThat(update.body.toString()).isEqualTo("RecipientId::1est")
+  }
+
+  @Test
+  fun overflowingRangeIsIgnored() {
+    val mentions = listOf(Mention(RecipientId.from(1L), 1, Int.MAX_VALUE))
+
+    val update: MentionUtil.UpdatedBodyAndMentions = MentionUtil.update("hi there", mentions) { it.recipientId.toString() }
+
+    assertThat(update.body.toString()).isEqualTo("hi there")
   }
 }

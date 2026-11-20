@@ -41,11 +41,10 @@ import org.signal.core.ui.compose.Rows
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
+import org.signal.core.ui.viewModel
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.util.CommunicationActions
-import org.thoughtcrime.securesms.util.SecurePreferenceManager
-import org.thoughtcrime.securesms.util.viewModel
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Displays advanced privacy controls such as call relaying and
@@ -54,13 +53,7 @@ import org.thoughtcrime.securesms.util.viewModel
 class AdvancedPrivacySettingsFragment : ComposeFragment() {
 
   private val viewModel: AdvancedPrivacySettingsViewModel by viewModel {
-    val repository = AdvancedPrivacySettingsRepository(requireContext())
-    val preferences = SecurePreferenceManager.getSecurePreferences(requireContext())
-
-    AdvancedPrivacySettingsViewModel(
-      preferences,
-      repository
-    )
+    AdvancedPrivacySettingsViewModel(AdvancedPrivacySettingsRepository())
   }
 
   private var networkReceiver: NetworkReceiver? = null
@@ -193,7 +186,6 @@ private fun AdvancedPrivacySettingsScreen(
     LazyColumn(
       modifier = Modifier
         .padding(paddingValues)
-        .then(rememberStatusBarColorNestedScrollModifier())
     ) {
       item {
         Rows.ToggleRow(
@@ -292,7 +284,7 @@ private fun AdvancedPrivacySettingsScreen(
               callbacks.onSealedSenderLearnMoreClick()
             })
           ) {
-            append(stringResource(R.string.LearnMoreTextView_learn_more))
+            append(stringResource(CoreUiR.string.LearnMoreTextView_learn_more))
           }
         }
 
@@ -314,7 +306,7 @@ private fun AdvancedPrivacySettingsScreen(
               callbacks.onAutomaticVerificationLearnMoreClick()
             })
           ) {
-            append(stringResource(R.string.LearnMoreTextView_learn_more))
+            append(stringResource(CoreUiR.string.LearnMoreTextView_learn_more))
           }
         }
 

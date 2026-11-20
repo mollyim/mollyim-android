@@ -103,8 +103,8 @@ public class ChangePassphraseDialogFragment extends DialogFragment {
       titleResId  = R.string.AndroidManifest__create_passphrase;
     } else if (mode == MODE_DISABLE) {
       layoutResId = R.layout.disable_passphrase_dialog_view;
-      titleResId  = R.string.ApplicationPreferencesActivity_disable_passphrase;
-      positiveButtonResId = R.string.ApplicationPreferencesActivity_disable;
+      titleResId  = org.signal.appsettings.R.string.ApplicationPreferencesActivity_disable_passphrase;
+      positiveButtonResId = org.signal.appsettings.R.string.ApplicationPreferencesActivity_disable;
     }
 
     dialog = builder.setView(setLayout(layoutResId))

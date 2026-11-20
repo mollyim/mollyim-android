@@ -11,6 +11,7 @@ import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
 import org.thoughtcrime.securesms.components.settings.conversation.preferences.LargeIconClickPreference
 import org.thoughtcrime.securesms.util.fragments.requireListener
+import org.signal.core.ui.R as CoreUiR
 
 class ChooseStoryTypeBottomSheet : DSLSettingsBottomSheetFragment(
   layoutId = R.layout.dsl_settings_bottom_sheet
@@ -39,7 +40,7 @@ class ChooseStoryTypeBottomSheet : DSLSettingsBottomSheetFragment(
             stringId = R.string.ChooseStoryTypeBottomSheet__visible_only_to
           ),
           icon = DSLSettingsIcon.from(
-            iconId = R.drawable.symbol_stories_24,
+            iconId = CoreUiR.drawable.symbol_stories_24,
             iconTintId = MaterialR.attr.colorOnSurface,
             backgroundId = R.drawable.circle_tintable,
             backgroundTint = MaterialR.attr.colorSurfaceContainerHighest,

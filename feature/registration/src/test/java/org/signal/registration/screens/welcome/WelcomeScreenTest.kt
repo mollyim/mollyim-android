@@ -148,6 +148,25 @@ class WelcomeScreenTest {
   }
 
   @Test
+  fun `when Use proxy is clicked in the menu, ViewProxySettings event is emitted`() {
+    var emittedEvent: WelcomeScreenEvents? = null
+
+    composeTestRule.setContent {
+      SignalTheme {
+        WelcomeScreen(
+          state = WelcomeScreenState(),
+          onEvent = { emittedEvent = it }
+        )
+      }
+    }
+
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_PROXY_MENU_BUTTON).performClick()
+    composeTestRule.onNodeWithTag(TestTags.WELCOME_PROXY_MENU_ITEM).assertIsDisplayed().performClick()
+
+    assert(emittedEvent == WelcomeScreenEvents.ViewProxySettings)
+  }
+
+  @Test
   fun `during re-registration the restore or transfer option is hidden`() {
     // Given
     composeTestRule.setContent {

@@ -15,6 +15,7 @@ import org.junit.runners.model.Statement
 import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet
 import org.thoughtcrime.securesms.keyvalue.KeyValueStore
 import org.thoughtcrime.securesms.keyvalue.MockKeyValuePersistentStorage
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 
 /**
@@ -27,7 +28,8 @@ class SignalStoreRule : TestRule {
   private val storeRule = object : ExternalResource() {
     override fun before() {
       val application = ApplicationProvider.getApplicationContext<Application>()
-      SignalStore.testInject(SignalStore(application, KeyValueStore(MockKeyValuePersistentStorage.withDataSet(KeyValueDataSet()))))
+      PlainTextKeyValueStore.init(application)
+      SignalStore.testInject(SignalStore(application, KeyValueStore(MockKeyValuePersistentStorage.withDataSet(KeyValueDataSet()), DirectExecutor())))
     }
 
     override fun after() {

@@ -51,11 +51,12 @@ import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.UnrecoverableKeyException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
 import org.thoughtcrime.securesms.logsubmit.SubmitDebugLogActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.SupportEmailUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
 import org.thoughtcrime.securesms.util.views.CircularProgressMaterialButton;
 
 import java.util.Arrays;
@@ -90,6 +91,11 @@ public class PassphrasePromptActivity extends PassphraseActivity {
     requireSupportActionBar().setTitle("");
 
     setContentView(R.layout.prompt_passphrase_activity);
+
+    // BaseActivity makes the window edge-to-edge, so adjustResize no longer shrinks it and the unlock button and
+    // passphrase field would sit under the keyboard. The scroll view is padded clear of the system bars and the IME.
+    SystemWindowInsetsSetter.attach(findViewById(R.id.password_auth_root), this, SystemWindowInsetsSetter.SAFE_AREA_WITH_KEYBOARD);
+
     initializeResources();
 
     setExcludeFromRecents(true);
@@ -193,7 +199,7 @@ public class PassphrasePromptActivity extends PassphraseActivity {
               @Override
               public boolean onNotEnrolled(@NonNull CharSequence errString) {
                 Toast.makeText(PassphrasePromptActivity.this, errString, Toast.LENGTH_LONG).show();
-                TextSecurePreferences.setBiometricScreenLockEnabled(PassphrasePromptActivity.this, false);
+                PlainTextKeyValueStore.setBiometricScreenLockEnabled(false);
                 ScreenLockController.enableAutoLock(false);
                 handlePassphrase(passphrase);
                 return true;

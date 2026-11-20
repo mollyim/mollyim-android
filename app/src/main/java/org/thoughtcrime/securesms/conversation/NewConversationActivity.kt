@@ -12,9 +12,14 @@ import android.os.Bundle
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -39,10 +44,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx3.await
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.DropdownMenus
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.BlockUnblockDialog
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
@@ -50,13 +57,13 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.conversation.NewConversationUiState.UserMessage
 import org.thoughtcrime.securesms.groups.ui.creategroup.CreateGroupActivity
+import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
+import org.thoughtcrime.securesms.profiles.username.SetUpUsernameBanner
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.ui.RecipientLookupFailureMessage
 import org.thoughtcrime.securesms.recipients.ui.RecipientPicker
 import org.thoughtcrime.securesms.recipients.ui.RecipientPicker.DisplayMode
 import org.thoughtcrime.securesms.recipients.ui.RecipientPickerCallbacks
-import org.thoughtcrime.securesms.recipients.ui.RecipientPickerScaffold
 import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByActivity
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByMode
@@ -90,7 +97,6 @@ class NewConversationActivity : PassphraseRequiredActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    enableEdgeToEdge()
     super.onCreate(savedInstanceState, ready)
 
     val navigateBack = onBackPressedDispatcher::onBackPressed
@@ -156,6 +162,8 @@ private fun NewConversationScreen(
       }
 
       override fun onInviteToSignal() = context.startActivity(AppSettingsActivity.invite(context))
+      override fun onSetUpUsername() = context.startActivity(EditProfileActivity.getIntentForUsernameEdit(context))
+      override fun onSetUpUsernameBannerDismissed() = viewModel.dismissSetUpUsernameBanner()
       override fun onRefresh() = viewModel.refresh()
       override fun onUserMessageDismissed(userMessage: UserMessage) = viewModel.clearUserMessage()
       override fun onContactsListReset() = viewModel.clearShouldResetContactsList()
@@ -208,9 +216,8 @@ private fun NewConversationScreenUi(
 ) {
   val snackbarHostState = remember { SnackbarHostState() }
 
-  RecipientPickerScaffold(
+  Scaffolds.TitlePane(
     title = stringResource(R.string.NewConversationActivity__new_message),
-    forceSplitPane = uiState.forceSplitPaneOnCompactLandscape,
     onNavigateUpClick = callbacks::onBackPressed,
     topAppBarActions = { TopAppBarActions(callbacks) },
     snackbarHostState = snackbarHostState,
@@ -291,6 +298,8 @@ private interface NewConversationUiCallbacks :
   fun onRemoveConfirmed(recipient: Recipient)
   fun onBlockConfirmed(recipient: Recipient)
   fun onUserMessageDismissed(userMessage: UserMessage)
+  fun onSetUpUsername()
+  fun onSetUpUsernameBannerDismissed()
   fun onBackPressed()
 
   object Empty : NewConversationUiCallbacks {
@@ -311,6 +320,8 @@ private interface NewConversationUiCallbacks :
     override fun onRefresh() = Unit
     override fun onContactsListReset() = Unit
     override fun onUserMessageDismissed(userMessage: UserMessage) = Unit
+    override fun onSetUpUsername() = Unit
+    override fun onSetUpUsernameBannerDismissed() = Unit
     override fun onBackPressed() = Unit
   }
 }
@@ -336,7 +347,20 @@ private fun NewConversationRecipientPicker(
         findByPhoneNumber = callbacks
       )
     },
-    modifier = modifier.fillMaxSize()
+    modifier = modifier.fillMaxSize(),
+    belowSearchBar = {
+      AnimatedVisibility(
+        visible = uiState.showSetUpUsernameBanner,
+        enter = fadeIn(tween(150)) + expandVertically(tween(200)),
+        exit = fadeOut(tween(100)) + shrinkVertically(tween(200))
+      ) {
+        SetUpUsernameBanner(
+          onSetUpClick = callbacks::onSetUpUsername,
+          onDismissClick = callbacks::onSetUpUsernameBannerDismissed,
+          modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        )
+      }
+    }
   )
 }
 
@@ -420,9 +444,7 @@ private fun UserMessagesHost(
 private fun NewConversationScreenPreview() {
   Previews.Preview {
     NewConversationScreenUi(
-      uiState = NewConversationUiState(
-        forceSplitPaneOnCompactLandscape = false
-      ),
+      uiState = NewConversationUiState(),
       callbacks = NewConversationUiCallbacks.Empty
     )
   }

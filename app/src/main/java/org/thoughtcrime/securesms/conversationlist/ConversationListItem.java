@@ -48,6 +48,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.makeramen.roundedimageview.RoundedDrawable;
 
 import org.signal.core.ui.util.ThemeUtil;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.ui.fonts.SignalSymbols.Glyph;
 import org.signal.core.util.ContextUtil;
 import org.signal.core.util.DimensionUnit;
 import org.signal.core.util.StringUtil;
@@ -64,7 +66,7 @@ import org.thoughtcrime.securesms.components.AvatarImageView;
 import org.thoughtcrime.securesms.components.DeliveryStatusView;
 import org.thoughtcrime.securesms.components.FromTextView;
 import org.thoughtcrime.securesms.components.TypingIndicatorView;
-import org.thoughtcrime.securesms.components.emoji.EmojiStrings;
+import org.signal.emoji.EmojiStrings;
 import org.thoughtcrime.securesms.components.emoji.EmojiTextView;
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchData;
 import org.thoughtcrime.securesms.conversation.MessageStyler;
@@ -75,18 +77,16 @@ import org.thoughtcrime.securesms.database.model.LiveUpdateMessage;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.ThreadWithRecipient;
 import org.thoughtcrime.securesms.database.model.UpdateDescription;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
 import org.thoughtcrime.securesms.glide.targets.GlideLiveDataTarget;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.search.MessageResult;
 import org.thoughtcrime.securesms.util.DateUtils;
-import org.thoughtcrime.securesms.util.ExpirationUtil;
+import org.signal.core.ui.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.MediaUtil;
 import org.thoughtcrime.securesms.util.SearchUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
-import org.thoughtcrime.securesms.util.SpanUtil;
+import org.signal.core.ui.util.SpanUtil;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 
 import java.util.List;
@@ -178,6 +178,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     this.searchStyleFactory      = () -> new CharacterStyle[] { new ForegroundColorSpan(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface)), SpanUtil.getBoldSpan() };
 
     getLayoutTransition().setDuration(150);
+    getLayoutTransition().setAnimateParentHierarchy(false);
   }
 
   /**
@@ -824,7 +825,7 @@ public final class ConversationListItem extends ConstraintLayout implements Bind
     return Transformations.map(description, sequence -> {
       SpannableString spannable = new SpannableString(sequence);
       spannable.setSpan(new StyleSpan(Typeface.ITALIC),
-                        hasGlyph ? 1 : 0,
+                        hasGlyph ? 3 : 0,
                         sequence.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
       return spannable;

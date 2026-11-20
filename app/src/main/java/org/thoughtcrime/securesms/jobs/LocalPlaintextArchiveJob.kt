@@ -29,6 +29,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import org.signal.appsettings.R as AppSettingsR
 import org.signal.core.ui.R as CoreUiR
 
 class LocalPlaintextArchiveJob internal constructor(
@@ -103,9 +104,12 @@ class LocalPlaintextArchiveJob internal constructor(
         return Result.failure()
       }
 
+      exportDir.createFile("application/octet-stream", ".nomedia")
+
       stopwatch.split("create-dir")
 
       try {
+        SignalDatabase.attachments.createRemoteKeyForAttachmentsThatNeedArchiveUpload()
         SignalDatabase.attachmentMetadata.insertNewKeysForExistingAttachments()
 
         val progressScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -172,25 +176,25 @@ class LocalPlaintextArchiveJob internal constructor(
     when {
       exporting != null -> {
         val phase = NotificationPhase.Export(exporting.phase)
-        val title = when (exporting.phase) {
+        val contentText = when (exporting.phase) {
           LocalBackupCreationProgress.ExportPhase.MESSAGE -> {
             if (exporting.frameTotalCount > 0) {
               context.getString(
-                R.string.BackupCreationProgressRow__processing_messages_s_of_s_d,
+                AppSettingsR.string.BackupCreationProgressRow__processing_messages_s_of_s_d,
                 "%,d".format(exporting.frameExportCount),
                 "%,d".format(exporting.frameTotalCount),
                 (exporting.frameExportCount * 100 / exporting.frameTotalCount).toInt()
               )
             } else {
-              context.getString(R.string.BackupCreationProgressRow__processing_messages)
+              context.getString(AppSettingsR.string.BackupCreationProgressRow__processing_messages)
             }
           }
-          LocalBackupCreationProgress.ExportPhase.FINALIZING -> context.getString(R.string.BackupCreationProgressRow__finalizing)
-          LocalBackupCreationProgress.ExportPhase.NONE -> context.getString(R.string.BackupCreationProgressRow__processing_backup)
-          else -> context.getString(R.string.BackupCreationProgressRow__preparing_backup)
+          LocalBackupCreationProgress.ExportPhase.FINALIZING -> context.getString(AppSettingsR.string.BackupCreationProgressRow__finalizing)
+          LocalBackupCreationProgress.ExportPhase.NONE -> context.getString(AppSettingsR.string.BackupCreationProgressRow__processing_backup)
+          else -> context.getString(AppSettingsR.string.BackupCreationProgressRow__preparing_backup)
         }
         if (previousPhase != phase || exporting.phase == LocalBackupCreationProgress.ExportPhase.MESSAGE) {
-          notification.replaceTitle(title)
+          notification.replaceContentText(contentText)
           previousPhase = phase
         }
         if (exporting.frameTotalCount == 0L) {
@@ -202,7 +206,7 @@ class LocalPlaintextArchiveJob internal constructor(
 
       transferring != null -> {
         if (previousPhase !is NotificationPhase.Transfer) {
-          notification.replaceTitle(AppDependencies.application.getString(R.string.LocalArchiveJob__exporting_media))
+          notification.replaceContentText(AppDependencies.application.getString(R.string.LocalArchiveJob__exporting_media))
           previousPhase = NotificationPhase.Transfer
         }
         if (transferring.total == 0L) {

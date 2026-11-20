@@ -25,13 +25,13 @@ import okio.ByteString.Companion.toByteString
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.protocol.IdentityKeyPair
+import org.signal.network.config.SignalServiceConfiguration
 import org.signal.network.websocket.WebSocketMessage
 import org.signal.network.websocket.WebSocketRequestMessage
 import org.signal.network.websocket.WebSocketResponseMessage
 import org.signal.registration.proto.RegistrationProvisionEnvelope
 import org.whispersystems.signalservice.api.buildOkHttpClient
 import org.whispersystems.signalservice.api.chooseUrl
-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
 import org.whispersystems.signalservice.internal.crypto.SecondaryProvisioningCipher
 import org.whispersystems.signalservice.internal.push.ProvisionEnvelope
 import org.whispersystems.signalservice.internal.push.ProvisioningAddress
@@ -292,8 +292,8 @@ class ProvisioningSocket<T> private constructor(
   }
 
   sealed class Mode(val host: String, val params: String) {
-    data object Rereg : Mode("rereg", "")
-    data class Link(val linkAndSyncCapable: Boolean) : Mode("linkdevice", if (linkAndSyncCapable) "&capabilities=backup5" else "")
+    data object Rereg : Mode("rereg", "&capabilities=nopni")
+    data class Link(val linkAndSyncCapable: Boolean) : Mode("linkdevice", "&capabilities=" + listOfNotNull("backup5".takeIf { linkAndSyncCapable }, "nopni", "nopni2").joinToString(","))
   }
 
   fun interface ProvisioningSocketExceptionHandler {

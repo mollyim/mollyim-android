@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.jobs
 
+import arrow.core.Either
 import org.signal.core.models.backup.MediaName
 import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.Base64
@@ -14,18 +15,20 @@ import org.signal.core.util.inRoundedDays
 import org.signal.core.util.isNotNullOrBlank
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readLength
-import org.signal.network.NetworkResult
+import org.signal.libsignal.net.RequestResult
 import org.signal.network.api.AttachmentUploadResult
+import org.signal.network.api.CdnApi
+import org.signal.network.service.ArchiveError
 import org.signal.protos.resumableuploads.ResumableUpload
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.attachments.AttachmentUploadUtil
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.backup.ArchiveUploadProgress
 import org.thoughtcrime.securesms.backup.v2.ArchiveDatabaseExecutor
-import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.jobmanager.CoroutineJob
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.BackupMessagesConstraint
 import org.thoughtcrime.securesms.jobs.protos.UploadAttachmentToArchiveJobData
@@ -35,11 +38,9 @@ import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.service.AttachmentProgressService
 import org.thoughtcrime.securesms.util.MediaUtil
 import org.thoughtcrime.securesms.util.RemoteConfig
-import org.whispersystems.signalservice.api.archive.ArchiveMediaUploadFormStatusCodes
 import org.whispersystems.signalservice.api.crypto.AttachmentCipherStreamUtil
 import org.whispersystems.signalservice.api.messages.AttachmentTransferProgress
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment
-import org.whispersystems.signalservice.api.push.exceptions.ResumeLocationInvalidException
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream
 import org.whispersystems.signalservice.internal.push.AttachmentUploadForm
 import org.whispersystems.signalservice.internal.push.http.ResumableUploadSpec
@@ -58,7 +59,7 @@ class UploadAttachmentToArchiveJob private constructor(
   private var uploadSpec: ResumableUpload?,
   private val canReuseUpload: Boolean,
   parameters: Parameters
-) : Job(parameters) {
+) : CoroutineJob(parameters) {
 
   companion object {
     private val TAG = Log.tag(UploadAttachmentToArchiveJob::class)
@@ -113,12 +114,7 @@ class UploadAttachmentToArchiveJob private constructor(
     }
   }
 
-  override fun run(): Result {
-    // TODO [cody] Remove after a few releases as we migrate to the correct constraint
-    if (!BackupMessagesConstraint.isMet(context)) {
-      return Result.failure()
-    }
-
+  override suspend fun doRun(): Result {
     if (SignalStore.account.isLinkedDevice) {
       Log.w(TAG, "[$attachmentId] Linked devices don't backup media. Skipping.")
       ArchiveDatabaseExecutor.runBlocking {
@@ -235,31 +231,34 @@ class UploadAttachmentToArchiveJob private constructor(
     val ciphertextLength = AttachmentCipherStreamUtil.getCiphertextLength(PaddingInputStream.getPaddedSize(attachment.size))
 
     val form: AttachmentUploadForm? = if (existingSpec == null) {
-      when (val formResult = BackupRepository.getAttachmentUploadForm(ciphertextLength)) {
-        is NetworkResult.Success -> formResult.result
-        is NetworkResult.ApplicationError -> {
-          Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to get upload form due to an application error.", formResult.throwable)
-          return Result.retry(defaultBackoff())
-        }
-        is NetworkResult.NetworkError -> {
-          Log.w(TAG, "[$attachmentId]$mediaIdLog Encountered a transient network error getting upload form.")
-          return Result.retry(defaultBackoff())
-        }
-        is NetworkResult.StatusCodeError -> {
-          Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to get upload form with status code ${formResult.code}")
-          return when (ArchiveMediaUploadFormStatusCodes.from(formResult.code)) {
-            ArchiveMediaUploadFormStatusCodes.RateLimited -> {
-              Log.w(TAG, "[$attachmentId]$mediaIdLog Rate limited when getting upload form.")
-              Result.retry(formResult.retryAfter()?.inWholeMilliseconds ?: defaultBackoff())
+      when (val formResult = SignalNetwork.archiveService.getMediaUploadForm(ciphertextLength)) {
+        is Either.Right -> formResult.value
+        is Either.Left -> return when (val error = formResult.value) {
+          is ArchiveError.ApplicationError -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to get upload form due to an application error.", error.exception)
+            Result.retry(defaultBackoff())
+          }
+          is ArchiveError.NetworkError -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Encountered a transient network error getting upload form.")
+            Result.retry(defaultBackoff())
+          }
+          is ArchiveError.CredentialError.RateLimited -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Rate limited when getting upload form.")
+            Result.retry(error.retryAfter?.inWholeMilliseconds ?: defaultBackoff())
+          }
+          is ArchiveError.UploadFormError.TooLarge -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Media is too large to upload to the archive. Marking as a permanent failure.")
+            ArchiveDatabaseExecutor.runBlocking {
+              setArchiveTransferStateWithDelayedNotification(attachmentId, AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE)
             }
-            ArchiveMediaUploadFormStatusCodes.MediaTooLarge -> {
-              Log.w(TAG, "[$attachmentId]$mediaIdLog Media is too large to upload to the archive. Marking as a permanent failure.")
-              ArchiveDatabaseExecutor.runBlocking {
-                setArchiveTransferStateWithDelayedNotification(attachmentId, AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE)
-              }
-              Result.failure()
-            }
-            else -> Result.retry(defaultBackoff())
+            Result.failure()
+          }
+          is ArchiveError.CredentialError.Unauthorized,
+          is ArchiveError.CredentialError.NotFound,
+          is ArchiveError.CredentialError.InvalidRequest,
+          is ArchiveError.CredentialError.ZkVerificationFailed -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to get upload form: ${error::class.simpleName}")
+            Result.retry(defaultBackoff())
           }
         }
       }
@@ -315,7 +314,7 @@ class UploadAttachmentToArchiveJob private constructor(
     progressServiceController.use {
       val uploadResult: AttachmentUploadResult = attachmentStream.use { stream ->
         when (
-          val result = SignalNetwork.attachments.uploadAttachmentV4(
+          val result = SignalNetwork.cdnService.uploadAttachment(
             form = form,
             key = key,
             iv = iv,
@@ -325,21 +324,18 @@ class UploadAttachmentToArchiveJob private constructor(
             onSpecCreated = { spec -> uploadSpec = spec.toProto() }
           )
         ) {
-          is NetworkResult.Success -> result.result
-          is NetworkResult.ApplicationError -> throw result.throwable
-          is NetworkResult.NetworkError -> {
-            Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to upload due to network error.", result.exception)
+          is RequestResult.Success -> result.result
+          is RequestResult.ApplicationError -> throw result.cause
+          is RequestResult.RetryableNetworkError -> {
+            Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to upload due to network error.", result.networkError)
 
-            if (result.exception is ResumeLocationInvalidException) {
-              Log.w(TAG, "[$attachmentId]$mediaIdLog Resume location is invalid. Clearing upload spec before retrying.")
-              uploadSpec = null
-            } else if (result.exception.cause is ProtocolException) {
-              Log.w(TAG, "[$attachmentId]$mediaIdLog Length may be incorrect. Recalculating.", result.exception)
+            if (result.networkError is ProtocolException || result.networkError.cause is ProtocolException) {
+              Log.w(TAG, "[$attachmentId]$mediaIdLog Length may be incorrect. Recalculating.", result.networkError)
 
               val actualLength = SignalDatabase.attachments.getAttachmentStream(attachmentId, 0)
                 .use { it.readLength() }
               if (actualLength != attachment.size) {
-                Log.w(TAG, "[$attachmentId]$mediaIdLog Length was incorrect! Will update. Previous: ${attachment.size}, Newly-Calculated: $actualLength", result.exception)
+                Log.w(TAG, "[$attachmentId]$mediaIdLog Length was incorrect! Will update. Previous: ${attachment.size}, Newly-Calculated: $actualLength", result.networkError)
                 ArchiveDatabaseExecutor.runBlocking {
                   SignalDatabase.attachments.updateAttachmentLength(attachmentId, actualLength)
                 }
@@ -352,20 +348,31 @@ class UploadAttachmentToArchiveJob private constructor(
             return Result.retry(defaultBackoff())
           }
 
-          is NetworkResult.StatusCodeError -> {
-            Log.w(TAG, "[$attachmentId]$mediaIdLog Failed to upload due to status code error. Code: ${result.code}", result.exception)
-            when (result.code) {
-              400 -> {
+          is RequestResult.NonSuccess -> {
+            when (val error = result.error) {
+              is CdnApi.UploadError.ResumeLocationInvalid -> {
+                Log.w(TAG, "[$attachmentId]$mediaIdLog Resume location is invalid. Clearing upload spec before retrying.")
+                uploadSpec = null
+              }
+              is CdnApi.UploadError.InvalidRequest -> {
                 Log.w(TAG, "[$attachmentId]$mediaIdLog 400 likely means bad resumable state. Clearing upload spec before retrying.")
                 uploadSpec = null
               }
-              413 -> {
+              is CdnApi.UploadError.TooLarge -> {
                 Log.w(TAG, "[$attachmentId]$mediaIdLog 413 means the attachment was too large. We've seen this happen with frankenstein imports using third party tools. This can never succeed.")
                 ArchiveDatabaseExecutor.runBlocking {
                   setArchiveTransferStateWithDelayedNotification(attachmentId, AttachmentTable.ArchiveTransferState.PERMANENT_FAILURE)
                 }
                 uploadSpec = null
                 return Result.failure()
+              }
+              is CdnApi.UploadError.ChecksumMismatch -> {
+                Log.w(TAG, "[$attachmentId]$mediaIdLog Upload failed due to a checksum mismatch. Clearing upload spec before retrying.")
+                uploadSpec = null
+              }
+              is CdnApi.UploadError.RateLimited -> {
+                Log.w(TAG, "[$attachmentId]$mediaIdLog Rate limited when uploading.")
+                return Result.retry(error.retryAfter?.inWholeMilliseconds ?: defaultBackoff())
               }
             }
             return Result.retry(defaultBackoff())

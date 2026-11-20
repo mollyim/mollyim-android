@@ -6,7 +6,7 @@ android {
     namespace 'info.guardianproject.netcipher'
 
     buildToolsVersion = libs.versions.buildTools.get()
-    compileSdkVersion = libs.versions.compileSdk.get()
+    compileSdk = libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInteger()

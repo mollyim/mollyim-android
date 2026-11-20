@@ -6,17 +6,19 @@
 package org.signal.registration.screens.pincreation
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.network.pin.PinValidityChecker
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
@@ -33,7 +35,7 @@ class PinCreationViewModel(
   private val repository: RegistrationRepository,
   parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-) : EventDrivenViewModel<PinCreationScreenEvents>(TAG) {
+) : EventDrivenViewModel<PinCreationScreenEvents>(TAG, shouldLogEvents = false) {
 
   companion object {
     private val TAG = Log.tag(PinCreationViewModel::class)
@@ -41,6 +43,9 @@ class PinCreationViewModel(
 
   private val _state = MutableStateFlow(PinCreationState())
   val state: StateFlow<PinCreationState> = _state.asStateFlow()
+
+  private val _actions = Channel<PinCreationScreenActions>(Channel.BUFFERED)
+  val actions: Flow<PinCreationScreenActions> = _actions.receiveAsFlow()
 
   init {
     _state
@@ -64,9 +69,19 @@ class PinCreationViewModel(
       }
       is PinCreationScreenEvents.PinSubmitted -> {
         when {
+          !state.isConfirmEnabled && event.pin == state.submittedVerificationCode -> {
+            Log.w(TAG, "[PinSubmitted] User entered their verification code as their PIN. Prompting them to choose a different PIN.")
+            _state.value = state.copy(pinMatchesVerificationCode = true, pinMismatch = false, pinTooWeak = false)
+          }
+
+          !state.isConfirmEnabled && !PinValidityChecker.valid(event.pin) -> {
+            Log.w(TAG, "[PinSubmitted] User entered a PIN that is too common. Prompting them to choose a stronger PIN.")
+            _state.value = state.copy(pinTooWeak = true, pinMismatch = false, pinMatchesVerificationCode = false)
+          }
+
           !state.isConfirmEnabled -> {
             Log.d(TAG, "[PinSubmitted] First PIN entered. Asking the user to confirm it.")
-            _state.value = state.copy(firstPin = event.pin, isConfirmEnabled = true, pinMismatch = false)
+            _state.value = state.copy(firstPin = event.pin, isConfirmEnabled = true, pinMismatch = false, pinMatchesVerificationCode = false, pinTooWeak = false)
           }
 
           event.pin != state.firstPin -> {
@@ -90,7 +105,7 @@ class PinCreationViewModel(
       }
 
       is PinCreationScreenEvents.LearnMore -> {
-        // Handled by the navigation layer, which opens the help URL directly.
+        _actions.trySend(PinCreationScreenActions.OpenLearnMoreArticle)
       }
 
       is PinCreationScreenEvents.BackToPinEntry -> {
@@ -117,7 +132,7 @@ class PinCreationViewModel(
   }
 
   private fun applyParentState(state: PinCreationState, parentState: RegistrationFlowState): PinCreationState {
-    return state.copy(accountEntropyPool = parentState.accountEntropyPool)
+    return state.copy(accountEntropyPool = parentState.accountEntropyPool, submittedVerificationCode = parentState.submittedVerificationCode)
   }
 
   private suspend fun applyPinSubmitted(state: PinCreationState, pin: String): PinCreationState {
@@ -164,20 +179,6 @@ class PinCreationViewModel(
         Log.w(TAG, "[PinSubmitted] Application error when backing up master key.", result.cause)
         state.copy(loading = false, dialogs = state.dialogs.copy(serviceError = true))
       }
-    }
-  }
-
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return PinCreationViewModel(
-        repository,
-        parentState,
-        parentEventEmitter
-      ) as T
     }
   }
 }

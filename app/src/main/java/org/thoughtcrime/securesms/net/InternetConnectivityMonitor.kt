@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.LinkAddress
 import android.net.LinkProperties
 import android.net.Network
 import android.net.NetworkCapabilities
@@ -17,43 +18,55 @@ import android.net.NetworkRequest
 import android.net.Proxy
 import android.os.Build
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.retryWhen
 import kotlinx.coroutines.launch
-import org.signal.core.util.ServiceUtil
+import kotlinx.coroutines.supervisorScope
 import org.signal.core.util.concurrent.SignalDispatchers
 import org.signal.core.util.logging.Log
-import org.signal.core.util.zipWithPrevious
-
-enum class ConnectivityState {
-  OFFLINE,
-  ONLINE,
-  ONLINE_VPN,
-  BLOCKED,
-  BLOCKED_VPN;
-
-  /** Returns true if network traffic expected to reach the Internet. */
-  val isOnline: Boolean
-    get() = this == ONLINE || this == ONLINE_VPN
-}
+import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * Monitors internet connectivity and proxy settings changes.
  *
- * [onConnectivityUpdated] is invoked when the [ConnectivityState] changes.
- * The current state is delivered immediately upon registration if the device already has network access.
+ * [onConnectivityUpdated] is invoked when the [ConnectivityState], the set of tracked networks, or the default network or its addresses change (a
+ * transport swap leaves the old transport stale), and on the first state of every callback re-registration.
+ * The current state is delivered immediately upon registration. If the OS reports no matching networks at all,
+ * [ConnectivityState.OFFLINE] is reported after [INITIAL_STATE_TIMEOUT], since no callbacks will ever arrive.
+ * If we lose the ability to observe connectivity entirely, we fail open and report
+ * [ConnectivityState.MONITORING_UNAVAILABLE] (treated as online) while retrying in the background.
  *
- * [onProxyChanged] is invoked either the default network has changed or any network's proxy has changed.
+ * [onProxyChanged] is invoked when the system reports a proxy change, and additionally whenever the set of
+ * tracked networks or the aggregate connectivity state changes, since the proxy we read can lag the broadcast.
+ * Those triggers are debounced by [PROXY_SETTLE_TIMEOUT].
  *
  * Both callbacks are invoked on [SignalDispatchers.IO] but may run concurrently.
  * Callers are responsible for thread safety.
+ *
+ * The callbacks run inside the monitor's own coroutine job. They must be non-suspending, and must not assume
+ * the monitor keeps running if they trigger [unregister] (e.g. via a teardown/reset): cancellation is
+ * cooperative, so a synchronous callback finishes and cleanup runs, but the monitor is gone afterward.
  */
 class InternetConnectivityMonitor(
   private val context: Context,
@@ -62,42 +75,77 @@ class InternetConnectivityMonitor(
 ) {
   companion object {
     private val TAG = Log.tag(InternetConnectivityMonitor::class.java)
+
+    /**
+     * How long a new network waits for an authoritative onBlockedStatusChanged (API 29+) before we notify
+     * anyway. Keeps us from depending on OS callback ordering while still avoiding a premature ONLINE that
+     * later corrects to BLOCKED.
+     */
+    private val NEW_NETWORK_BLOCKED_TIMEOUT = 500.milliseconds
+
+    /** How long an online state must survive before we report it, so a burst of per-network callbacks can't read as online mid-flight. Offline is reported immediately. */
+    private val ONLINE_SETTLE_TIMEOUT = 50.milliseconds
+
+    /** How long proxy triggers must go quiet before we re-resolve, so a burst of network changes reads the settled system properties once instead of mid-transition. */
+    private val PROXY_SETTLE_TIMEOUT = 500.milliseconds
+
+    /** The OS reports existing networks immediately on registration, so silence past this means nothing matched the request and we are offline. */
+    private val INITIAL_STATE_TIMEOUT = 500.milliseconds
+
+    private val MAX_RETRY_BACKOFF = 1.minutes
   }
 
-  private val scope = CoroutineScope(SignalDispatchers.IO)
+  private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    Log.w(TAG, "Unexpected failure in the connectivity monitor.", throwable)
+  }
+
+  private val scope = CoroutineScope(SignalDispatchers.IO + exceptionHandler)
   private var monitorJob: Job? = null
+  private val connectivityManager = ContextCompat.getSystemService(context, ConnectivityManager::class.java)!!
+
+  // The proxy broadcast and the system properties we read the proxy from are delivered independently, so the
+  // broadcast can beat the properties. Connectivity changes re-check to bound how long a stale config sticks.
+  private val proxyRechecks = Channel<Unit>(Channel.CONFLATED)
 
   @Synchronized
   fun register() {
     if (monitorJob != null) return
 
     monitorJob = scope.launch {
-      launch {
-        connectivityStateFlow()
-          .retryWhen { cause, _ ->
-            val retrying = cause is NetworkStateStaleException
-            Log.i(TAG, "Re-registering callback ($retrying): ${cause.message}")
-            retrying
-          }
-          .distinctUntilChanged()
-          .zipWithPrevious { prevState, state ->
-            val log = buildString {
-              append("Connectivity state changed: ")
-              prevState?.let { append("$it -> ") }
-              append(state)
+      supervisorScope {
+        launch {
+          var previous: ConnectivityState? = null
+          resilientConnectivityStateFlow()
+            .collect { snapshot ->
+              val state = snapshot.state
+              Log.i(TAG, "Connectivity state changed: ${previous ?: "[none]"} -> $state  ${snapshot.summary()}")
+              previous = state
+
+              // Guard onConnectivityUpdated so a failure here can't stop connectivity updates.
+              try {
+                onConnectivityUpdated(state)
+              } catch (e: CancellationException) {
+                throw e
+              } catch (e: Exception) {
+                Log.w(TAG, "Failed to handle connectivity change.", e)
+              }
+              proxyRechecks.trySend(Unit)
             }
-            Log.i(TAG, log)
-            state
-          }.collect { state ->
-            onConnectivityUpdated(state)
-          }
-      }
-      launch {
-        proxyChangesFlow()
-          .collect {
-            Log.i(TAG, "Default network or system proxy config changed")
-            onProxyChanged()
-          }
+        }
+        launch {
+          merge(resilientProxyChangesFlow(), proxyRechecks.receiveAsFlow())
+            .debounce(PROXY_SETTLE_TIMEOUT)
+            .collect {
+              // Guard onProxyChanged so a failure here can't stop proxy updates.
+              try {
+                onProxyChanged()
+              } catch (e: CancellationException) {
+                throw e
+              } catch (e: Exception) {
+                Log.w(TAG, "Failed to handle proxy change.", e)
+              }
+            }
+        }
       }
     }
   }
@@ -108,131 +156,242 @@ class InternetConnectivityMonitor(
     monitorJob = null
   }
 
-  private data class NetworkState(
-    val validated: Boolean,
-    val blocked: Boolean,
-    val onVpn: Boolean
-  ) {
-    val isReachable: Boolean get() = validated && !blocked
+  /**
+   * Wraps [connectivityStateFlow] so a failure to observe connectivity never permanently stops monitoring:
+   * an expected [NetworkStateStaleException] re-subscribes immediately, while any other failure fails open
+   * ([ConnectivityState.MONITORING_UNAVAILABLE]) and retries with capped backoff.
+   */
+  private fun resilientConnectivityStateFlow(): Flow<ConnectivitySnapshot> = flow {
+    var failures = 0
+    var reportedUnavailable = false
+    emitAll(
+      connectivityStateFlow()
+        .onEach {
+          failures = 0
+          reportedUnavailable = false
+        }
+        .retryWhen { cause, _ ->
+          when (cause) {
+            is CancellationException -> false
+            is NetworkStateStaleException -> {
+              Log.i(TAG, "Re-registering connectivity callback: ${cause.message}")
+              true
+            }
+            else -> {
+              failures++
+              Log.w(TAG, "Connectivity monitoring failed (attempt $failures). Assuming online until it recovers.", cause)
+              // Latched so a long outage emits MONITORING_UNAVAILABLE once instead of once per retry. Reset on the next successful collect.
+              if (!reportedUnavailable) {
+                emit(ConnectivitySnapshot(ConnectivityState.MONITORING_UNAVAILABLE, emptyMap()))
+                reportedUnavailable = true
+              }
+              delay(retryBackoff(failures))
+              true
+            }
+          }
+        }
+    )
+  }
 
-    companion object {
-      val DOWN = NetworkState(validated = false, blocked = false, onVpn = false)
-    }
+  private fun retryBackoff(attempt: Int): Duration {
+    return BackoffUtil.exponentialBackoff(attempt, MAX_RETRY_BACKOFF.inWholeMilliseconds).milliseconds
   }
 
   /**
-   * Aggregates the state of all available networks to determine true Internet reachability.
+   * Tracks the state of every available network via [ConnectivityManager.NetworkCallback] and emits an
+   * aggregated [ConnectivityState] (via [ConnectivityStateCalculator]) whenever it changes.
    *
-   * Android's default network callback only reports the single "best" network. However, to correctly
-   * handle VPNs (especially VPNs with kill-switch) we must track all networks.
+   * All callback work and the pending-notify timers run on [scope], a single-parallelism dispatcher, so the
+   * tracked state is only ever touched by one coroutine at a time, in callback order, without a lock.
    *
-   * Basically, this callback tracks the list of active networks with and without a VPN:
-   * - No VPN / No kill-switch: Internet is available when we have a non-blocked, validated
-   *   underlying network (e.g., WiFi or Cellular).
-   * - With a VPN kill-switch: The system blocks direct access to underlying networks.
-   *   Internet is only available if we have BOTH an underlying network AND a valid,
-   *   non-blocked VPN network. If either fails, Internet access is lost.
+   * [scope] limits parallelism, not atomicity: a suspension inside a launched block releases the lane and lets
+   * another callback interleave. Every block below must therefore mutate [networks]/[pendingNotifies]/[pendingBlocked] without
+   * suspending. The only [delay] is at the head of the settle job, before it touches that state.
    */
   private class NetworkAggregationCallback(
-    private val onNetworkStateChanged: (NetworkState) -> Unit,
+    private val scope: CoroutineScope,
+    private val connectivityManager: ConnectivityManager,
+    private val onStateChanged: (ConnectivitySnapshot) -> Unit,
+    private val onNetworksChanged: () -> Unit,
     private val onVpnLoss: () -> Unit
   ) : ConnectivityManager.NetworkCallback() {
 
     private val networks = mutableMapOf<Network, NetworkState>()
+    private val pendingNotifies = mutableMapOf<Network, Job>()
+    private val pendingBlocked = mutableMapOf<Network, Boolean>()
+    private var defaultNetwork: DefaultNetwork? = null
+
+    private val defaultNetworkCallback = DefaultNetworkCallback()
+
+    // Written by the registering coroutine, cancelled from the callback lane.
+    @Volatile
+    private var bootstrapJob: Job? = null
+
+    fun register(request: NetworkRequest) {
+      connectivityManager.registerNetworkCallback(request, this)
+      if (Build.VERSION.SDK_INT >= 24) {
+        try {
+          connectivityManager.registerDefaultNetworkCallback(defaultNetworkCallback)
+        } catch (e: Throwable) {
+          connectivityManager.unregisterNetworkCallback(this)
+          throw e
+        }
+      }
+    }
+
+    fun unregister() {
+      connectivityManager.unregisterNetworkCallback(this)
+      if (Build.VERSION.SDK_INT >= 24) {
+        connectivityManager.unregisterNetworkCallback(defaultNetworkCallback)
+      }
+    }
+
+    fun bootstrap() {
+      bootstrapJob = scope.launch {
+        delay(INITIAL_STATE_TIMEOUT)
+        notifyState()
+      }
+    }
+
+    private fun cancelBootstrap() {
+      bootstrapJob?.cancel()
+      bootstrapJob = null
+    }
+
+    override fun onAvailable(network: Network) {
+      // Below API 26 a network that is already up at callback registration only gets onAvailable, never onCapabilitiesChanged.
+      if (Build.VERSION.SDK_INT < 26) {
+        connectivityManager.getNetworkCapabilities(network)?.let { onCapabilitiesChanged(network, it) }
+      }
+    }
 
     override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
       val validated = capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
       val vpn = capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-      Log.d(TAG, "onCapabilitiesChanged($network, validated=$validated, vpn=$vpn)")
-      val existing = networks[network]
-      if (existing == null) {
-        // For new networks, we initially assume blocked = false:
-        // On API 29+, the actual status will be set by an incoming onBlockedStatusChanged callback.
-        // Otherwise, onBlockedStatusChanged is unsupported and isReachable rely only on `validated`.
-        networks[network] = NetworkState(validated = validated, blocked = false, onVpn = vpn)
+      scope.launch {
+        cancelBootstrap()
+        val earlyBlocked = pendingBlocked.remove(network)
+        val existing = networks[network]
+        val updated = (existing ?: NetworkState(validated = false, blocked = earlyBlocked ?: false, onVpn = vpn, blockedKnown = earlyBlocked != null))
+          .copy(validated = validated, onVpn = vpn)
+        networks[network] = updated
 
-        // API 26+ guarantees that onLinkPropertiesChanged is always called next for new networks,
-        // followed by onBlockedStatusChanged (on API 29+).
-        // We skip notifying here for newer APIs to avoid emitting a fast, incorrect ONLINE -> BLOCKED
-        // sequence if the network was already blocked.
-        if (Build.VERSION.SDK_INT < 26) {
-          notifyAggregatedState()
+        if (existing == null) {
+          onNetworksChanged()
         }
-      } else {
-        // For existing networks, this is a capability update, so we notify immediately.
-        // onBlockedStatusChanged isn't necessary called afterward.
-        networks[network] = existing.copy(validated = validated, onVpn = vpn)
-        notifyAggregatedState()
-      }
-    }
 
-    override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
-      // onBlockedStatusChanged will handle the notification on API 29+
-      if (Build.VERSION.SDK_INT < 29) {
-        notifyAggregatedState()
+        when {
+          // Blocked status already known: notify now.
+          updated.blockedKnown -> notifyNow(network)
+          // API 29+: wait for the authoritative onBlockedStatusChanged (or the timeout).
+          Build.VERSION.SDK_INT >= 29 -> scheduleNotify(network)
+          // Below API 29 onBlockedStatusChanged is never delivered, so notify now.
+          else -> notifyNow(network)
+        }
       }
     }
 
     override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
-      Log.d(TAG, "onBlockedStatusChanged($network, blocked=$blocked)")
-      val existing = networks[network] ?: return
-      networks[network] = existing.copy(blocked = blocked)
-      notifyAggregatedState()
+      scope.launch {
+        val existing = networks[network]
+        if (existing == null) {
+          pendingBlocked[network] = blocked
+          return@launch
+        }
+
+        cancelBootstrap()
+        networks[network] = existing.copy(blocked = blocked, blockedKnown = true)
+        notifyNow(network)
+      }
     }
 
     override fun onLost(network: Network) {
-      Log.d(TAG, "onLost($network)")
-      val lossState = networks.remove(network)
-      if (lossState?.onVpn == true) {
-        onVpnLoss()
-      } else {
-        notifyAggregatedState()
-      }
-    }
-
-    private fun notifyAggregatedState() {
-      onNetworkStateChanged(networks.bestNetworkState())
-    }
-
-    private fun Map<Network, NetworkState>.bestNetworkState(): NetworkState {
-      return if (isEmpty()) {
-        NetworkState.DOWN
-      } else {
-        // A VPN network is only considered validated if there's also an underlying
-        // non-VPN network.
-        val hasUnderlyingNet = values.any { !it.onVpn }
-        val eligibleStates = values.map { state ->
-          if (state.onVpn) {
-            state.copy(validated = state.validated && hasUnderlyingNet)
-          } else state
+      scope.launch {
+        cancelBootstrap()
+        cancelPending(network)
+        pendingBlocked.remove(network)
+        val lossState = networks.remove(network)
+        if (lossState != null) {
+          onNetworksChanged()
         }
-        eligibleStates.maxBy { it.rank }
+
+        if (lossState?.onVpn == true) {
+          onVpnLoss()
+        } else {
+          notifyState()
+        }
       }
     }
 
-    private val NetworkState.rank: Int
-      get() = when {
-        isReachable && onVpn -> 4
-        isReachable -> 3
-        blocked && onVpn -> 2
-        blocked -> 1
-        else -> 0
+    private fun scheduleNotify(network: Network) {
+      cancelPending(network)
+      pendingNotifies[network] = scope.launch {
+        delay(NEW_NETWORK_BLOCKED_TIMEOUT)
+        pendingNotifies.remove(network)
+        networks[network]?.let { networks[network] = it.copy(blockedKnown = true) }
+        notifyState()
       }
+    }
+
+    private fun notifyNow(network: Network) {
+      cancelPending(network)
+      notifyState()
+    }
+
+    private fun cancelPending(network: Network) {
+      pendingNotifies.remove(network)?.cancel()
+    }
+
+    private fun updateDefault(updated: DefaultNetwork?) {
+      if (defaultNetwork == updated) return
+      defaultNetwork = updated
+      // The default callback can beat the aggregate one, and a loss is always followed by the aggregate onLost, so only notify for a settled, tracked network.
+      if (updated != null && updated.network in networks && updated.network !in pendingNotifies) {
+        notifyState()
+      }
+    }
+
+    private fun notifyState() {
+      onStateChanged(ConnectivitySnapshot(ConnectivityStateCalculator.calculate(networks.values), networks.toMap(), defaultNetwork))
+    }
+
+    inner class DefaultNetworkCallback : ConnectivityManager.NetworkCallback() {
+      override fun onAvailable(network: Network) {
+        val addresses = connectivityManager.getLinkProperties(network)?.linkAddresses?.toSet() ?: emptySet()
+        scope.launch { updateDefault(DefaultNetwork(network, addresses)) }
+      }
+
+      override fun onLinkPropertiesChanged(network: Network, linkProperties: LinkProperties) {
+        scope.launch {
+          if (defaultNetwork?.network == network) {
+            updateDefault(DefaultNetwork(network, linkProperties.linkAddresses.toSet()))
+          }
+        }
+      }
+
+      override fun onLost(network: Network) {
+        scope.launch {
+          if (defaultNetwork?.network == network) {
+            updateDefault(null)
+          }
+        }
+      }
+    }
   }
 
-  private fun connectivityStateFlow(): Flow<ConnectivityState> = callbackFlow {
-    val connectivityManager = ServiceUtil.getConnectivityManager(context)
+  private fun connectivityStateFlow(): Flow<ConnectivitySnapshot> = callbackFlow {
+    val callbackScope = CoroutineScope(
+      SignalDispatchers.IO.limitedParallelism(1, "InternetConnectivityMonitor") + CoroutineExceptionHandler { _, throwable -> close(throwable) }
+    )
     val callback = NetworkAggregationCallback(
-      onNetworkStateChanged = {
-        val connectivityState = when {
-          it.isReachable && it.onVpn -> ConnectivityState.ONLINE_VPN
-          it.isReachable -> ConnectivityState.ONLINE
-          it.blocked && it.onVpn -> ConnectivityState.BLOCKED_VPN
-          it.blocked -> ConnectivityState.BLOCKED
-          else -> ConnectivityState.OFFLINE
-        }
+      scope = callbackScope,
+      connectivityManager = connectivityManager,
+      onStateChanged = { snapshot ->
         // Should not block as we conflate the flow
-        trySendBlocking(connectivityState)
+        trySendBlocking(snapshot)
+      },
+      onNetworksChanged = {
+        proxyRechecks.trySend(Unit)
       },
       onVpnLoss = {
         // VPN transport disconnected. For always-on VPNs with a kill switch,
@@ -247,12 +406,34 @@ class InternetConnectivityMonitor(
       .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
       .build()
 
-    connectivityManager.registerNetworkCallback(request, callback)
+    callback.bootstrap()
+    try {
+      callback.register(request)
+    } catch (e: Throwable) {
+      callbackScope.cancel()
+      throw e
+    }
 
     awaitClose {
-      connectivityManager.unregisterNetworkCallback(callback)
+      callback.unregister()
+      callbackScope.cancel()
     }
   }.conflate()
+    .debounce { if (it.state.isAssumedOnline) ONLINE_SETTLE_TIMEOUT else Duration.ZERO }
+    // Keyed on networks and the default too: a swap can hold the state (WiFi drops, cellular stays ONLINE) while the old transport goes stale.
+    .distinctUntilChanged { old, new -> old.state == new.state && old.networks.keys == new.networks.keys && old.defaultNetwork == new.defaultNetwork }
+
+  private fun resilientProxyChangesFlow(): Flow<Unit> = proxyChangesFlow()
+    .retryWhen { cause, attempt ->
+      if (cause is CancellationException) {
+        false
+      } else {
+        val failures = (attempt + 1).toInt()
+        Log.w(TAG, "Proxy monitoring failed (attempt $failures). Retrying.", cause)
+        delay(retryBackoff(failures))
+        true
+      }
+    }
 
   private fun proxyChangesFlow(): Flow<Unit> = callbackFlow {
     // Rely on the system-wide PROXY_CHANGE_ACTION sticky broadcast rather than
@@ -272,6 +453,9 @@ class InternetConnectivityMonitor(
       ContextCompat.RECEIVER_NOT_EXPORTED
     )
 
+    // A broadcast may have been missed while unregistered, so re-resolve on every registration.
+    trySend(Unit)
+
     awaitClose {
       context.unregisterReceiver(changeReceiver)
     }
@@ -281,4 +465,20 @@ class InternetConnectivityMonitor(
    * Thrown when the tracked network state is no longer reliable.
    */
   class NetworkStateStaleException(message: String) : Exception(message)
+
+  private data class DefaultNetwork(val network: Network, val addresses: Set<LinkAddress>)
+
+  private data class ConnectivitySnapshot(val state: ConnectivityState, val networks: Map<Network, NetworkState>, val defaultNetwork: DefaultNetwork? = null) {
+    fun summary(): String {
+      return networks.entries.joinToString(prefix = "[", postfix = "]") { (network, state) ->
+        buildString {
+          append(network)
+          append(if (state.validated) "=validated" else "=unvalidated")
+          if (state.blocked) append(",blocked")
+          if (state.onVpn) append(",vpn")
+          if (network == defaultNetwork?.network) append(",default")
+        }
+      }
+    }
+  }
 }

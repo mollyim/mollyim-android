@@ -51,7 +51,7 @@ class GroupArchiveExporter(private val selfAci: ServiceId.ACI, private val curso
     val showAsStoryState: GroupTable.ShowAsStoryState = GroupTable.ShowAsStoryState.deserialize(cursor.requireInt(GroupTable.SHOW_AS_STORY_STATE))
 
     val isMember: Boolean = cursor.requireBoolean(GroupTable.IS_MEMBER)
-    val decryptedGroup: DecryptedGroup = DecryptedGroup.ADAPTER.decode(cursor.requireBlob(GroupTable.V2_DECRYPTED_GROUP)!!)
+    val decryptedGroup: DecryptedGroup? = cursor.requireBlob(GroupTable.V2_DECRYPTED_GROUP)?.let { DecryptedGroup.ADAPTER.decode(it) }
 
     return ArchiveRecipient(
       id = cursor.requireLong(RecipientTable.ID),
@@ -59,9 +59,10 @@ class GroupArchiveExporter(private val selfAci: ServiceId.ACI, private val curso
         masterKey = cursor.requireNonNullBlob(GroupTable.V2_MASTER_KEY).toByteString(),
         whitelisted = cursor.requireBoolean(RecipientTable.PROFILE_SHARING),
         blocked = cursor.requireBoolean(RecipientTable.BLOCKED),
+        blockedAtTimestamp = cursor.requireLong(RecipientTable.BLOCKED_AT),
         hideStory = extras?.hideStory() ?: false,
         storySendMode = showAsStoryState.toRemote(),
-        snapshot = decryptedGroup.toRemote(isMember, selfAci),
+        snapshot = decryptedGroup?.toRemote(isMember, selfAci) ?: Group.GroupSnapshot(),
         avatarColor = cursor.requireString(RecipientTable.AVATAR_COLOR)?.let { AvatarColor.deserialize(it) }?.toRemote()
       )
     )
@@ -95,8 +96,8 @@ private fun DecryptedGroup.toRemote(isMember: Boolean, selfAci: ServiceId.ACI): 
     membersPendingAdminApproval = this.requestingMembers.map { it.toRemote() },
     inviteLinkPassword = this.inviteLinkPassword,
     description = this.description.takeUnless { it.isBlank() }?.let { Group.GroupAttributeBlob(descriptionText = it) },
-    announcements_only = this.isAnnouncementGroup == EnabledState.ENABLED,
-    members_banned = this.bannedMembers.map { it.toRemote() },
+    announcementsOnly = this.isAnnouncementGroup == EnabledState.ENABLED,
+    membersBanned = this.bannedMembers.map { it.toRemote() },
     terminated = this.terminated
   )
 }

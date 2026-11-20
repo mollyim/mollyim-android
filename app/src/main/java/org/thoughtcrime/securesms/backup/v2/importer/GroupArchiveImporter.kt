@@ -8,6 +8,7 @@ package org.thoughtcrime.securesms.backup.v2.importer
 import android.content.ContentValues
 import org.signal.archive.proto.Group
 import org.signal.core.models.ServiceId
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
 import org.signal.core.util.toInt
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
@@ -32,7 +33,6 @@ import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.v2.processing.GroupsV2StateProcessor
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.whispersystems.signalservice.api.groupsv2.GroupsV2Operations
 
@@ -57,6 +57,7 @@ object GroupArchiveImporter {
       put(RecipientTable.AVATAR_COLOR, AvatarColorHash.forGroupId(groupId).serialize())
       put(RecipientTable.PROFILE_SHARING, group.whitelisted.toInt())
       put(RecipientTable.BLOCKED, group.blocked.toInt())
+      put(RecipientTable.BLOCKED_AT, group.blockedAtTimestamp)
       put(RecipientTable.TYPE, RecipientTable.RecipientType.GV2.id)
       put(RecipientTable.STORAGE_SERVICE_ID, Base64.encodeWithPadding(StorageSyncHelper.generateKey()))
       put(RecipientTable.AVATAR_COLOR, group.avatarColor?.toLocal()?.serialize())
@@ -148,8 +149,10 @@ private fun Group.MemberBanned.toLocal(): DecryptedBannedMember {
 
 private fun Group.GroupSnapshot.toLocal(operations: GroupsV2Operations.GroupOperations): DecryptedGroup {
   val selfAciBytes = SignalStore.account.aci?.toByteString()
+  val members = this.members.map { member -> member.toLocal() }
   val requestingMembers = this.membersPendingAdminApproval.map { requesting -> requesting.toLocal() }
-  val isPlaceholder = requestingMembers.any { it.aciBytes == selfAciBytes }
+  val isJoinPlaceholder = this.accessControl == null && members.size == 1 && members[0].aciBytes == selfAciBytes
+  val isPlaceholder = isJoinPlaceholder || requestingMembers.any { it.aciBytes == selfAciBytes }
 
   return DecryptedGroup(
     title = this.title?.title ?: "",
@@ -157,13 +160,13 @@ private fun Group.GroupSnapshot.toLocal(operations: GroupsV2Operations.GroupOper
     disappearingMessagesTimer = DecryptedTimer(duration = this.disappearingMessagesTimer?.disappearingMessagesDuration ?: 0),
     accessControl = this.accessControl?.toLocal(),
     revision = this.version,
-    members = this.members.map { member -> member.toLocal() },
+    members = members,
     pendingMembers = this.membersPendingProfileKey.map { pending -> pending.toLocal(operations) },
     requestingMembers = requestingMembers,
     inviteLinkPassword = this.inviteLinkPassword,
     description = this.description?.descriptionText ?: "",
-    isAnnouncementGroup = if (this.announcements_only) EnabledState.ENABLED else EnabledState.DISABLED,
-    bannedMembers = this.members_banned.map { it.toLocal() },
+    isAnnouncementGroup = if (this.announcementsOnly) EnabledState.ENABLED else EnabledState.DISABLED,
+    bannedMembers = this.membersBanned.map { it.toLocal() },
     terminated = this.terminated,
     isPlaceholderGroup = isPlaceholder
   )

@@ -22,7 +22,7 @@
             <argument
                 android:name="recipient_id"
                 android:defaultValue="@null"
-                app:argType="org.thoughtcrime.securesms.recipients.RecipientId"
+                app:argType="org.signal.core.models.recipients.RecipientId"
                 app:nullable="true" />
 
             <argument
@@ -39,7 +39,7 @@
 
         <argument
             android:name="recipient_id"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId"
+            app:argType="org.signal.core.models.recipients.RecipientId"
             app:nullable="true" />
 
         <argument
@@ -52,6 +52,10 @@
             app:argType="long[]"
             app:nullable="true" />
 
+        <argument
+            android:name="kind"
+            app:argType="org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsKind" />
+
         <action
             android:id="@+id/action_conversationSettingsFragment_to_soundsAndNotificationsSettingsFragment"
             app:destination="@id/soundsAndNotificationsSettingsFragment"
@@ -62,27 +66,13 @@
 
             <argument
                 android:name="recipient_id"
-                app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+                app:argType="org.signal.core.models.recipients.RecipientId" />
 
         </action>
 
         <action
-            android:id="@+id/action_conversationSettingsFragment_to_soundsAndNotificationsSettingsFragment2"
-            app:destination="@id/soundsAndNotificationsSettingsFragment2"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popExitAnim="@anim/fragment_close_exit">
-
-            <argument
-                android:name="recipient_id"
-                app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
-
-        </action>
-
-        <action
-            android:id="@+id/action_conversationSettingsFragment_to_permissionsSettingsFragment"
-            app:destination="@id/permissionsSettingsFragment"
+            android:id="@+id/action_conversationSettingsFragment_to_groupPermissionsFragment"
+            app:destination="@id/groupPermissionsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
@@ -104,7 +94,7 @@
 
             <argument
                 android:name="recipient_id"
-                app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+                app:argType="org.signal.core.models.recipients.RecipientId" />
 
         </action>
 
@@ -156,12 +146,11 @@
 
     <fragment
         android:id="@+id/soundsAndNotificationsSettingsFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.conversation.sounds.SoundsAndNotificationsSettingsFragment"
-        tools:layout="@layout/dsl_settings_fragment">
+        android:name="org.thoughtcrime.securesms.components.settings.conversation.sounds.SoundsAndNotificationsSettingsFragment">
 
         <argument
             android:name="recipient_id"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+            app:argType="org.signal.core.models.recipients.RecipientId" />
 
         <action
             android:id="@+id/action_soundsAndNotificationsSettingsFragment_to_customNotificationsSettingsFragment"
@@ -171,19 +160,9 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/soundsAndNotificationsSettingsFragment2"
-        android:name="org.thoughtcrime.securesms.components.settings.conversation.sounds.SoundsAndNotificationsSettingsFragment2">
-
-        <argument
-            android:name="recipient_id"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
-
         <action
-            android:id="@+id/action_soundsAndNotificationsSettingsFragment2_to_customNotificationsSettingsFragment"
-            app:destination="@id/customNotificationsSettingsFragment"
+            android:id="@+id/action_soundsAndNotificationsSettingsFragment_to_mutedNotificationsFragment"
+            app:destination="@id/mutedNotificationsFragment"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
@@ -197,13 +176,13 @@
 
         <argument
             android:name="recipient_id"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+            app:argType="org.signal.core.models.recipients.RecipientId" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/permissionsSettingsFragment"
-        android:name="org.thoughtcrime.securesms.components.settings.conversation.permissions.PermissionsSettingsFragment">
+        android:id="@+id/groupPermissionsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.conversation.grouppermissions.GroupPermissionsFragment">
 
         <argument
             android:name="group_id"
@@ -217,7 +196,17 @@
 
         <argument
             android:name="recipient_id"
-            app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+            app:argType="org.signal.core.models.recipients.RecipientId" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mutedNotificationsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.conversation.sounds.MutedNotificationsFragment">
+
+        <argument
+            android:name="recipient_id"
+            app:argType="org.signal.core.models.recipients.RecipientId" />
 
     </fragment>
 

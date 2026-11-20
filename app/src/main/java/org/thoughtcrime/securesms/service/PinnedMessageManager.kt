@@ -4,11 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.WorkerThread
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.transport.UndeliverableMessageException
 import org.thoughtcrime.securesms.util.GroupUtil
 import org.thoughtcrime.securesms.util.NetworkUtil
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage
@@ -61,7 +62,12 @@ class PinnedMessageManager(
 
       val conversationRecipient = SignalDatabase.threads.getRecipientForThreadId(record.threadId) ?: continue
       if (conversationRecipient.isGroup) {
-        GroupUtil.setDataMessageGroupContext(application, dataMessageBuilder, conversationRecipient.requireGroupId().requirePush())
+        try {
+          GroupUtil.setDataMessageGroupContext(application, dataMessageBuilder, conversationRecipient.requireGroupId().requirePush())
+        } catch (e: UndeliverableMessageException) {
+          Log.w(TAG, "Cannot attach group context for unpin sync of message ${record.id}, likely deleted group. Skipping. Other devices will expire the pin independently.", e)
+          continue
+        }
       }
 
       // Best-effort attempt so that messages expire at the same time across devices but if it fails, we can ignore.

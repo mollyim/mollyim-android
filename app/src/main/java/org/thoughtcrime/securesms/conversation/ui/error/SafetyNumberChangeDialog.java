@@ -25,10 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.stream.Collectors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 
 import java.util.Collection;
@@ -104,8 +104,6 @@ public final class SafetyNumberChangeDialog extends DialogFragment implements Sa
     fragment.setArguments(arguments);
     fragment.show(fragmentManager, SAFETY_NUMBER_DIALOG);
   }
-
-  private SafetyNumberChangeDialog() {}
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

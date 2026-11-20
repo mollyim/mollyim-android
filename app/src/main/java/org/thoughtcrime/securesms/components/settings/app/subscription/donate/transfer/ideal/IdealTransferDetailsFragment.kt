@@ -9,8 +9,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
@@ -49,6 +51,8 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
+import org.signal.core.ui.util.SpanUtil
+import org.signal.core.ui.viewModel
 import org.signal.core.util.getParcelableCompat
 import org.signal.donations.InAppPaymentType
 import org.thoughtcrime.securesms.R
@@ -65,9 +69,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.donate.tr
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.ideal.IdealTransferDetailsViewModel.Field
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import org.thoughtcrime.securesms.util.viewModel
 
 /**
  * Fragment for inputting necessary bank transfer information for iDEAL donation
@@ -237,7 +239,10 @@ private fun IdealTransferDetailsContent(
 
     Column(
       horizontalAlignment = CenterHorizontally,
-      modifier = Modifier.padding(it)
+      modifier = Modifier
+        .padding(it)
+        .consumeWindowInsets(it)
+        .imePadding()
     ) {
       LazyColumn(
         modifier = Modifier

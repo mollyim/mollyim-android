@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.permissions.Permissions
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.util.VibrateUtil
+import org.signal.core.ui.R as CoreUiR
 import org.signal.mediasend.R as MediaSendR
 
 /**
@@ -130,7 +132,7 @@ private fun MainScreen(
     title = if (linkWithoutQrCode) stringResource(id = R.string.DeviceAddFragment__link_without_scanning) else "",
     onNavigationClick = { navController?.popBackStack() },
     navigationIcon = ImageVector.vectorResource(id = R.drawable.ic_x),
-    navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close),
+    navigationContentDescription = stringResource(id = CoreUiR.string.CloseButton__content_description),
     actions = {
       if (!linkWithoutQrCode) {
         IconButton(onClick = onSwitchCamera) {

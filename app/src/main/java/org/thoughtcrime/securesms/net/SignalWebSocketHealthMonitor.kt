@@ -16,9 +16,8 @@ import kotlinx.coroutines.launch
 import org.signal.core.util.AppForegroundObserver
 import org.signal.core.util.SleepTimer
 import org.signal.core.util.logging.Log
-import org.thoughtcrime.securesms.dependencies.AppDependencies
+import org.thoughtcrime.securesms.clockskew.ClockSkewDetector
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.websocket.HealthMonitor
 import org.whispersystems.signalservice.api.websocket.SignalWebSocket
 import org.whispersystems.signalservice.api.websocket.WebSocketConnectionState
@@ -90,13 +89,13 @@ class SignalWebSocketHealthMonitor(
         }
         WebSocketConnectionState.CONNECTED -> {
           if (webSocket is SignalWebSocket.AuthenticatedWebSocket) {
-            TextSecurePreferences.setUnauthorizedReceived(AppDependencies.application, false)
+            SignalStore.account.isUnauthorizedReceived = false
           }
           failedInConnecting = false
         }
         WebSocketConnectionState.AUTHENTICATION_FAILED -> {
           if (webSocket is SignalWebSocket.AuthenticatedWebSocket) {
-            TextSecurePreferences.setUnauthorizedReceived(AppDependencies.application, true)
+            SignalStore.account.isUnauthorizedReceived = true
           }
         }
         WebSocketConnectionState.REMOTE_DEPRECATED -> {
@@ -144,6 +143,18 @@ class SignalWebSocketHealthMonitor(
     }
     executor.execute {
       SignalStore.account.hasInactivePrimaryDeviceAlert = SignalStore.account.isLinkedDevice && alerts.contains(ALERT_IDLE_PRIMARY_DEVICE)
+    }
+  }
+
+  override fun onServerTimestamp(serverTimestamp: Long, isIdentifiedWebSocket: Boolean) {
+    if (!isIdentifiedWebSocket) {
+      return
+    }
+    executor.execute {
+      if (!SignalStore.account.isRegistered) {
+        return@execute
+      }
+      ClockSkewDetector.onServerTimeReceived(serverTimestamp)
     }
   }
 

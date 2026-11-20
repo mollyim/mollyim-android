@@ -8,7 +8,6 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
 import assertk.assertions.isTrue
 import assertk.assertions.single
-import io.mockk.every
 import okio.ByteString.Companion.toByteString
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -18,18 +17,17 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.database.deleteAll
 import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.UuidUtil
-import org.signal.core.util.deleteAll
 import org.thoughtcrime.securesms.conversation.colors.AvatarColor
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfile
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfileId
 import org.thoughtcrime.securesms.notifications.profiles.NotificationProfileSchedule
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.testutil.RecipientTestRule
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.storage.SignalNotificationProfileRecord
 import org.whispersystems.signalservice.api.storage.StorageId
 import java.time.DayOfWeek
@@ -50,8 +48,6 @@ class NotificationProfileTablesTest {
 
   @Before
   fun setUp() {
-    every { RemoteConfig.messageQueueTime } returns TimeUnit.DAYS.toMillis(45)
-
     alice = SignalDatabase.recipients.getOrInsertFromServiceId(ACI.from(UUID.randomUUID()))
 
     profile1 = NotificationProfile(
@@ -312,7 +308,7 @@ class NotificationProfileTablesTest {
       )
 
     SignalDatabase.notificationProfiles.insertNotificationProfileFromStorageSync(remoteRecord)
-    SignalDatabase.notificationProfiles.removeStorageIdsFromOldDeletedProfiles(System.currentTimeMillis())
+    SignalDatabase.notificationProfiles.removeStorageIdsFromOldDeletedProfiles(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(45))
     assertThat(SignalDatabase.notificationProfiles.getStorageSyncIds()).isEmpty()
   }
 }

@@ -1,6 +1,5 @@
 package org.thoughtcrime.securesms.reactions;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,11 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.signal.core.ui.util.ThemeUtil;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.emoji.EmojiImageView;
 import org.thoughtcrime.securesms.database.model.MessageId;
-import org.thoughtcrime.securesms.util.FullscreenHelper;
 import org.signal.core.util.concurrent.LifecycleDisposable;
 import org.thoughtcrime.securesms.util.WindowUtil;
 
@@ -79,16 +76,6 @@ public final class ReactionsBottomSheetDialogFragment extends BottomSheetDialogF
     setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_Signal_BottomSheetDialog_Fixed_ReactWithAny);
 
     super.onCreate(savedInstanceState);
-  }
-
-  @Override
-  public @NonNull Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-    Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-    FullscreenHelper.showSystemUI(dialog.getWindow());
-    WindowUtil.setNavigationBarColor(requireContext(), dialog.getWindow(), ThemeUtil.getThemedColor(requireContext(), com.google.android.material.R.attr.colorSurfaceContainerLow));
-
-    return dialog;
   }
 
   @Override

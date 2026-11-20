@@ -8,7 +8,7 @@ import im.molly.unifiedpush.model.MollySocketDevice
 import im.molly.unifiedpush.model.RegistrationStatus
 import im.molly.unifiedpush.model.toRegistrationStatus
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import org.greenrobot.eventbus.EventBus
+import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.logging.Log
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.dependencies.AppDependencies
@@ -103,7 +103,7 @@ class UnifiedPushRefreshJob private constructor(
       }
     } finally {
       AppDependencies.resetNetwork(restartMessageObserver = true)
-      EventBus.getDefault().post(PushServiceEvent)
+      EventBus.default.post(PushServiceEvent)
     }
   }
 

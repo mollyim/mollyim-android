@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -19,9 +20,9 @@ import org.signal.core.util.ConfigurationUtil;
 import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.biometric.BiometricDialogFragment;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AppStartup;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.WindowUtil;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 
@@ -43,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     AppStartup.getInstance().onCriticalRenderEventStart();
     logEvent("onCreate()");
+    EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     blockRecentAppsScreenshot(ScreenLockController.getAutoLock());
     AppStartup.getInstance().onCriticalRenderEventEnd();
@@ -186,12 +188,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             Toast.makeText(BaseActivity.this, errString, Toast.LENGTH_LONG).show();
             // If passphrase is available, PassphrasePromptActivity will disable the screen lock
             // after authenticating the user with the passphrase. Otherwise it cannot be helped.
-            if (TextSecurePreferences.isPassphraseLockEnabled(BaseActivity.this)) {
+            if (PlainTextKeyValueStore.getPassphraseLockEnabled()) {
               Intent lockIntent = new Intent(BaseActivity.this, KeyCachingService.class);
               lockIntent.setAction(KeyCachingService.CLEAR_KEY_ACTION);
               startService(lockIntent);
             } else {
-              TextSecurePreferences.setBiometricScreenLockEnabled(BaseActivity.this, false);
+              PlainTextKeyValueStore.setBiometricScreenLockEnabled(false);
               ScreenLockController.enableAutoLock(false);
               onSuccess();
               recreate();
@@ -227,6 +229,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     super.onDestroy();
   }
 
+  @SuppressWarnings("deprecation")
   private boolean hasShowWhenLockedWindow() {
     return (getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED) != 0;
   }
@@ -266,7 +269,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   @Override
   public void applyOverrideConfiguration(@NonNull Configuration overrideConfiguration) {
-    DynamicLanguageContextWrapper.prepareOverrideConfiguration(this, overrideConfiguration);
+    DynamicLanguageContextWrapper.prepareOverrideConfiguration(overrideConfiguration);
     super.applyOverrideConfiguration(overrideConfiguration);
   }
 

@@ -4,8 +4,9 @@
     <!-- <color name="signal_dark_colorPrimaryContainer">#483B6A</color> -->
     <!-- <color name="signal_dark_colorSecondary">#CBC4DE</color> -->
     <!-- <color name="signal_dark_colorSecondaryContainer">#434159</color> -->
-    <!-- <color name="signal_dark_colorSurface">#100E1F</color> -->
+    <color name="signal_dark_colorSurface">@color/molly_background_dark</color>
     <!-- <color name="signal_dark_colorSurfaceVariant">#302F33</color> -->
+    <color name="signal_dark_colorSurfaceVariantFill">#33FFFFFF</color>
     <!-- <color name="signal_dark_colorBackground">#100E1F</color> -->
     <!-- <color name="signal_dark_colorError">#FE006E</color> -->
     <!-- <color name="signal_dark_colorErrorContainer">#A40449</color> -->
@@ -14,11 +15,12 @@
     <!-- <color name="signal_dark_colorOnSecondary">#2E2A42</color> -->
     <!-- <color name="signal_dark_colorOnSecondaryContainer">#E3DCF9</color> -->
     <color name="signal_dark_colorOnSurface">#E3E1E6</color>
-    <!-- <color name="signal_dark_colorOnSurfaceVariant">#BEBCC4</color> -->
+    <color name="signal_dark_colorOnSurfaceVariant">@color/molly_on_surface_variant_dark</color>
     <!-- <color name="signal_dark_colorOutlineVariant">#6E5DB9</color> -->
     <!-- <color name="signal_dark_colorOnBackground">#E3E1E6</color> -->
     <!-- <color name="signal_dark_colorOutline">#5D5D66</color> -->
     <color name="signal_dark_neutralSurface">#14FFFFFF</color>
+    <color name="signal_dark_neutralFill">#33FFFFFF</color>
     <color name="signal_dark_colorOnCustom">#FFFFFF</color>
     <color name="signal_dark_colorOnCustomVariant">#B3FFFFFF</color>
 

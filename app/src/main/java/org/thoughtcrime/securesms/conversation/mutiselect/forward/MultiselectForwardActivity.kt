@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.conversation.mutiselect.forward
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -44,11 +43,6 @@ open class MultiselectForwardActivity : FragmentWrapperActivity(), MultiselectFo
 
   override fun setResult(bundle: Bundle) {
     setResult(RESULT_OK, Intent().putExtras(bundle))
-  }
-
-  @Suppress("WrongViewCast")
-  override fun getContainer(): ViewGroup {
-    return findViewById(R.id.fragment_container_wrapper)
   }
 
   override fun getDialogBackgroundColor(): Int {

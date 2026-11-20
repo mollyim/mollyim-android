@@ -248,7 +248,7 @@ private fun CallInfo(
       }
     }
 
-    if (!participantsState.inCallLobby || participantsState.isOngoing()) {
+    if (controlAndInfoState.callLink == null || !participantsState.inCallLobby || participantsState.isOngoing()) {
       item {
         Box(
           modifier = Modifier
@@ -540,7 +540,7 @@ private fun CallParticipantRow(
       }
 
       Icon(
-        painter = painterResource(id = R.drawable.symbol_minus_circle_24),
+        painter = SignalIcons.MinusCircle.painter,
         contentDescription = null,
         modifier = Modifier
           .clickable(onClick = onBlockClicked)

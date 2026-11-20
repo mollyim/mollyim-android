@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 
+import org.signal.core.models.database.AttachmentId;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.ui.fonts.SignalSymbols.Glyph;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.attachments.Attachment;
-import org.signal.core.models.database.AttachmentId;
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.database.CallTable;
@@ -28,14 +30,12 @@ import org.thoughtcrime.securesms.database.documents.NetworkFailure;
 import org.thoughtcrime.securesms.database.model.databaseprotos.BodyRangeList;
 import org.thoughtcrime.securesms.database.model.databaseprotos.GiftBadge;
 import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.mms.SlideDeck;
 import org.thoughtcrime.securesms.payments.Payment;
 import org.thoughtcrime.securesms.polls.PollRecord;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -248,8 +248,8 @@ public class MmsMessageRecord extends MessageRecord {
           int message = isVideoCall ? R.string.MessageRecord_unanswered_video_call : R.string.MessageRecord_unanswered_voice_call;
           return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(message), callDateString),
                                          icon,
-                                         ContextCompat.getColor(context, R.color.core_red_shade),
-                                         ContextCompat.getColor(context, R.color.core_red));
+                                         ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red_shade),
+                                         ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red));
         } else {
           int updateString = isVideoCall ? R.string.MessageRecord_outgoing_video_call : R.string.MessageRecord_outgoing_voice_call;
           return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(updateString), callDateString), icon);
@@ -276,8 +276,8 @@ public class MmsMessageRecord extends MessageRecord {
                                                            context.getString(message),
                                                            callDateString),
                                          icon,
-                                         ContextCompat.getColor(context, R.color.core_red_shade),
-                                         ContextCompat.getColor(context, R.color.core_red));
+                                         ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red_shade),
+                                         ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red));
         }
       }
     }

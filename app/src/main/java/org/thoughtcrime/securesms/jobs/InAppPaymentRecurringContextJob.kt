@@ -5,6 +5,7 @@
 
 package org.thoughtcrime.securesms.jobs
 
+import arrow.core.getOrElse
 import okio.ByteString.Companion.toByteString
 import org.signal.core.util.logging.Log
 import org.signal.donations.InAppPaymentType
@@ -13,7 +14,6 @@ import org.signal.libsignal.zkgroup.receipts.ReceiptCredential
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialPresentation
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialRequestContext
 import org.signal.libsignal.zkgroup.receipts.ReceiptCredentialResponse
-import org.signal.network.NetworkResult
 import org.signal.network.exceptions.NonSuccessfulResponseCodeException
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
@@ -30,6 +30,7 @@ import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.JobManager.Chain
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.ChargeFailure
 import org.whispersystems.signalservice.api.subscriptions.ActiveSubscription.Subscription
@@ -154,9 +155,9 @@ class InAppPaymentRecurringContextJob private constructor(
       throw Exception("Unregistered users cannot perform this job.")
     }
 
-    if (SignalStore.account.isLinkedDevice) {
+    if (SignalStore.account.isLinkedDevice && SignalDatabase.inAppPayments.getById(inAppPaymentId)?.type == InAppPaymentType.RECURRING_BACKUP) {
       warning("Linked device. Failing.")
-      throw Exception("Linked devices cannot not perform this job")
+      throw Exception("Linked devices cannot perform this job for backups")
     }
 
     val (inAppPayment, requestContext) = getAndValidateInAppPayment()
@@ -239,12 +240,9 @@ class InAppPaymentRecurringContextJob private constructor(
           return false
         }
 
-        val tier = when (val result = BackupRepository.getBackupTier()) {
-          is NetworkResult.Success -> result.result
-          else -> {
-            warning("Failed to get backup tier via zk check.")
-            MessageBackupTier.FREE
-          }
+        val tier = BackupRepository.getBackupTier().getOrElse {
+          warning("Failed to get backup tier via zk check.")
+          MessageBackupTier.FREE
         }
 
         if (tier != MessageBackupTier.PAID) {
@@ -346,7 +344,7 @@ class InAppPaymentRecurringContextJob private constructor(
   }
 
   private fun getActiveSubscription(inAppPayment: InAppPaymentTable.InAppPayment): ActiveSubscription {
-    val activeSubscriptionResponse = AppDependencies.donationsService.getSubscription(inAppPayment.subscriberId)
+    val activeSubscriptionResponse = SignalNetwork.donationsService.getSubscription(inAppPayment.subscriberId)
     return if (activeSubscriptionResponse.result.isPresent) {
       activeSubscriptionResponse.result.get()
     } else if (activeSubscriptionResponse.applicationError.isPresent) {
@@ -500,7 +498,7 @@ class InAppPaymentRecurringContextJob private constructor(
     requestContext: ReceiptCredentialRequestContext
   ) {
     info("Submitting receipt credential request")
-    val response: ServiceResponse<ReceiptCredentialResponse> = AppDependencies.donationsService.submitReceiptCredentialRequestSync(inAppPayment.subscriberId!!, requestContext.request)
+    val response: ServiceResponse<ReceiptCredentialResponse> = SignalNetwork.donationsService.submitReceiptCredentialRequestSync(inAppPayment.subscriberId!!, requestContext.request)
 
     if (response.applicationError.isPresent) {
       handleApplicationError(inAppPayment, response)

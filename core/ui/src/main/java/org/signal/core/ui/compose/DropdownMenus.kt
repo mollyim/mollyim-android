@@ -21,6 +21,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -55,20 +56,47 @@ object DropdownMenus {
     controller: MenuController = remember { MenuController() },
     offsetX: Dp = dimensionResource(id = R.dimen.gutter),
     offsetY: Dp = 0.dp,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable ColumnScope.(MenuController) -> Unit
+  ) {
+    Menu(
+      expanded = controller.isShown(),
+      onDismissRequest = controller::hide,
+      modifier = modifier,
+      offsetX = offsetX,
+      offsetY = offsetY,
+      contentPadding = contentPadding,
+      content = { content(controller) }
+    )
+  }
+
+  /**
+   * Properly styled dropdown menu whose visibility is owned by the caller, for screens that already
+   * model whether the menu is open rather than delegating that to a [MenuController].
+   */
+  @Composable
+  fun Menu(
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    offsetX: Dp = dimensionResource(id = R.dimen.gutter),
+    offsetY: Dp = 0.dp,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    content: @Composable ColumnScope.() -> Unit
   ) {
     MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(18.dp))) {
       DropdownMenu(
-        expanded = controller.isShown(),
-        onDismissRequest = controller::hide,
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
         offset = DpOffset(
           x = offsetX,
           y = offsetY
         ),
-        content = { content(controller) },
+        content = content,
         modifier = modifier
           .background(SignalTheme.colors.colorSurface2)
           .widthIn(min = 220.dp)
+          .padding(contentPadding)
       )
     }
   }
@@ -81,6 +109,8 @@ object DropdownMenus {
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(horizontal = 16.dp),
+    @DrawableRes leadingIconResId: Int? = null,
+    leadingIconSpacing: Dp = 0.dp,
     text: @Composable () -> Unit,
     onClick: () -> Unit
   ) {
@@ -91,6 +121,18 @@ object DropdownMenus {
           text()
         }
       },
+      leadingIcon = if (leadingIconResId != null) {
+        {
+          Icon(
+            imageVector = ImageVector.vectorResource(id = leadingIconResId),
+            contentDescription = null,
+            modifier = Modifier.padding(end = leadingIconSpacing)
+          )
+        }
+      } else {
+        null
+      },
+      colors = MenuDefaults.itemColors(leadingIconColor = MaterialTheme.colorScheme.onSurface),
       onClick = onClick,
       enabled = enabled,
       modifier = modifier
@@ -107,6 +149,24 @@ object DropdownMenus {
     @StringRes stringResId: Int,
     onClick: () -> Unit
   ) {
+    ItemWithIcon(
+      menuController = menuController,
+      imageVector = ImageVector.vectorResource(id = drawableResId),
+      stringResId = stringResId,
+      onClick = onClick
+    )
+  }
+
+  /**
+   * Properly styled menu item with a leading icon
+   */
+  @Composable
+  fun ItemWithIcon(
+    menuController: MenuController,
+    imageVector: ImageVector,
+    @StringRes stringResId: Int,
+    onClick: () -> Unit
+  ) {
     Row(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier
@@ -118,7 +178,7 @@ object DropdownMenus {
         .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
       Icon(
-        imageVector = ImageVector.vectorResource(id = drawableResId),
+        imageVector = imageVector,
         contentDescription = stringResource(stringResId)
       )
       Text(

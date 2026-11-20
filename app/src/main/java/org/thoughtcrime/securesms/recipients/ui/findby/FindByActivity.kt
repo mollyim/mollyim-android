@@ -18,10 +18,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -59,6 +61,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kotlinx.coroutines.launch
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.Animations.navHostSlideInTransition
 import org.signal.core.ui.compose.Animations.navHostSlideOutTransition
 import org.signal.core.ui.compose.Buttons
@@ -69,19 +72,18 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.TextFields
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.viewModel
 import org.signal.core.util.E164Util
 import org.signal.core.util.getParcelableExtraCompat
+import org.signal.core.util.invite.InviteActions
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.app.usernamelinks.main.UsernameQrScannerActivity
-import org.thoughtcrime.securesms.invites.InviteActions
 import org.thoughtcrime.securesms.phonenumbers.PhoneNumberVisualTransformation
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.registration.ui.countrycode.Country
 import org.thoughtcrime.securesms.registration.ui.countrycode.CountryCodeSelectScreen
 import org.thoughtcrime.securesms.registration.ui.countrycode.CountryCodeState
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
-import org.thoughtcrime.securesms.util.viewModel
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -314,6 +316,8 @@ private fun Content(
   Column(
     modifier = Modifier
       .padding(paddingValues)
+      .consumeWindowInsets(paddingValues)
+      .imePadding()
       .fillMaxSize()
   ) {
     val onNextAction = remember(state.isLookupInProgress) {

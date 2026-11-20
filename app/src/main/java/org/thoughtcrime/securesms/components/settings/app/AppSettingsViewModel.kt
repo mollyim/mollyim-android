@@ -1,60 +1,123 @@
 package org.thoughtcrime.securesms.components.settings.app
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.livedata.Store
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.signal.appsettings.home.AppSettingsAction
+import org.signal.appsettings.home.AppSettingsEvent
+import org.signal.appsettings.home.AppSettingsState
+import org.signal.appsettings.home.AppSettingsState.Snackbar
+import org.signal.appsettings.home.BackupFailureState
+import org.signal.appsettings.routes.AppSettingsNavigationEvent
+import org.signal.appsettings.routes.AppSettingsRoute
+import org.signal.appsettings.routes.navigateBack
+import org.signal.appsettings.routes.navigateTo
+import org.signal.core.ui.compose.EventDrivenViewModel
+import org.signal.core.util.logging.Log
+import org.thoughtcrime.securesms.R
+import org.thoughtcrime.securesms.database.model.InAppPaymentSubscriberRecord
 
-class AppSettingsViewModel : ViewModel() {
+/**
+ * Drives [org.signal.appsettings.home.AppSettingsScreen]. Navigation goes straight to [parentEventEmitter].
+ */
+class AppSettingsViewModel(
+  private val parentEventEmitter: (AppSettingsNavigationEvent) -> Unit
+) : EventDrivenViewModel<AppSettingsEvent>(TAG) {
 
-  private val store = Store(
+  companion object {
+    private val TAG = Log.tag(AppSettingsViewModel::class)
+  }
+
+  private val _state = MutableStateFlow(
     AppSettingsState(
-      isPrimaryDevice = SignalStore.account.isPrimaryDevice,
-      unreadPaymentsCount = 0,
-      userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered,
-      clientDeprecated = SignalStore.misc.isClientDeprecated
+      isPrimaryDevice = AppSettingsRepository.isPrimaryDevice(),
+      allowUserToGoToDonationManagementScreen = AppSettingsRepository.likelyCanManageDonations(),
+      showInternalPreferences = AppSettingsRepository.showInternalPreferences(),
+      showAppUpdates = AppSettingsRepository.showAppUpdates()
     )
   )
+  private val _actions = Channel<AppSettingsAction>(Channel.BUFFERED)
 
-  private val disposables = CompositeDisposable()
+  val state: StateFlow<AppSettingsState> = _state.asStateFlow()
+  val actions: Flow<AppSettingsAction> = _actions.receiveAsFlow()
 
-  val state: LiveData<AppSettingsState> = store.stateLiveData
-  val self: LiveData<BioRecipientState> = Recipient.self().live().liveData.map { BioRecipientState(it) }
+  init {
+    refresh()
 
-  override fun onCleared() {
-    disposables.clear()
-  }
+    viewModelScope.launch {
+      AppSettingsRepository.observeProfile().collect { profile -> _state.update { it.copy(profile = profile) } }
+    }
 
-  fun refreshDeprecatedOrUnregistered() {
-    store.update {
-      it.copy(
-        clientDeprecated = SignalStore.misc.isClientDeprecated,
-        userUnregistered = TextSecurePreferences.isUnauthorizedReceived(AppDependencies.application) || !SignalStore.account.isRegistered
-      )
+    viewModelScope.launch {
+      val canManageDonations = AppSettingsRepository.canManageDonations() ?: return@launch
+      _state.update { it.copy(allowUserToGoToDonationManagementScreen = canManageDonations) }
     }
   }
 
-  fun refresh() {
-    store.update {
-      it.copy(
-        backupFailureState = getBackupFailureState()
-      )
+  override suspend fun processEvent(event: AppSettingsEvent) {
+    when (event) {
+      AppSettingsEvent.ScreenResumed -> refresh()
+      AppSettingsEvent.NavigateBackClicked -> parentEventEmitter.navigateBack()
+      AppSettingsEvent.ProfileClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.AccountRoute.ManageProfile)
+      AppSettingsEvent.UsernameLinkClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.UsernameLinkRoute.UsernameLink)
+      AppSettingsEvent.BackupWarningClicked -> onBackupWarningClicked()
+      AppSettingsEvent.AccountClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.AccountRoute.Account)
+      AppSettingsEvent.LinkedDevicesClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.LinkDeviceRoute.LinkDevice)
+      AppSettingsEvent.DonateClicked -> _actions.send(AppSettingsAction.OpenDonateUrl)
+      AppSettingsEvent.DonateLongClicked -> copySubscriberId(InAppPaymentSubscriberRecord.Type.DONATION, Snackbar.CopiedDonorSubscriberId)
+      AppSettingsEvent.AppearanceClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.AppearanceRoute.Appearance)
+      AppSettingsEvent.ChatsClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.ChatsRoute.Chats)
+      AppSettingsEvent.StoriesClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.StoriesRoute.Privacy(titleId = R.string.preferences__stories))
+      AppSettingsEvent.NotificationsClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.NotificationsRoute.Notifications)
+      AppSettingsEvent.PrivacyClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.PrivacyRoute.Privacy)
+      AppSettingsEvent.BackupsClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.BackupsRoute.Backups())
+      AppSettingsEvent.BackupsLongClicked -> {
+        if (_state.value.isPrimaryDevice) {
+          copySubscriberId(InAppPaymentSubscriberRecord.Type.BACKUP, Snackbar.CopiedBackupsSubscriberId)
+        }
+      }
+      AppSettingsEvent.NetworkClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.NetworkRoute)
+      AppSettingsEvent.DataAndStorageClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.DataAndStorageRoute.DataAndStorage)
+      AppSettingsEvent.AppUpdatesClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.AppUpdates)
+      AppSettingsEvent.HelpClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.HelpRoute.Settings())
+      AppSettingsEvent.InviteClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.Invite)
+      AppSettingsEvent.LabsClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.LabsRoute.Labs)
+      AppSettingsEvent.InternalClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.InternalRoute.Internal)
+      AppSettingsEvent.SnackbarDismissed -> _state.update { it.copy(snackbar = Snackbar.None) }
     }
   }
 
-  private fun getBackupFailureState(): BackupFailureState {
-    return when {
-      !SignalStore.account.isRegistered || !SignalStore.backup.areBackupsEnabled -> BackupFailureState.NONE
-      SignalStore.backup.isNotEnoughRemoteStorageSpace -> BackupFailureState.OUT_OF_STORAGE_SPACE
-      SignalStore.backup.hasBackupCreationError -> BackupFailureState.COULD_NOT_COMPLETE_BACKUP
-      SignalStore.backup.subscriptionStateMismatchDetected -> BackupFailureState.SUBSCRIPTION_STATE_MISMATCH
-      SignalStore.backup.hasBackupAlreadyRedeemedError -> BackupFailureState.ALREADY_REDEEMED
-      else -> BackupFailureState.NONE
+  private fun onBackupWarningClicked() {
+    when (_state.value.backupFailureState) {
+      BackupFailureState.BACKUP_FAILED, BackupFailureState.COULD_NOT_COMPLETE_BACKUP -> AppSettingsRepository.markBackupFailedIndicatorClicked()
+      BackupFailureState.ALREADY_REDEEMED -> AppSettingsRepository.markBackupAlreadyRedeemedIndicatorClicked()
+      BackupFailureState.SUBSCRIPTION_STATE_MISMATCH, BackupFailureState.OUT_OF_STORAGE_SPACE -> Unit
+      BackupFailureState.NONE -> return
+    }
+
+    parentEventEmitter.navigateTo(AppSettingsRoute.BackupsRoute.Remote())
+  }
+
+  private suspend fun copySubscriberId(type: InAppPaymentSubscriberRecord.Type, snackbar: Snackbar) {
+    if (AppSettingsRepository.copySubscriberIdToClipboard(type)) {
+      _state.update { it.copy(snackbar = snackbar) }
+    }
+  }
+
+  private fun refresh() {
+    _state.update {
+      it.copy(
+        hasExpiredGiftBadge = AppSettingsRepository.hasExpiredGiftBadge(),
+        backupFailureState = AppSettingsRepository.getBackupFailureState(),
+        clientDeprecated = AppSettingsRepository.isClientDeprecated(),
+        userUnregistered = AppSettingsRepository.isUserUnregistered()
+      )
     }
   }
 }

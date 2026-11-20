@@ -9,11 +9,16 @@ import android.content.Intent
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,7 +26,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,9 +35,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -44,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import org.signal.core.ui.compose.DayNightPreviews
 import org.signal.core.ui.compose.IconButtons
@@ -55,6 +61,7 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.main.EmptyMegaphoneActionController
 import org.thoughtcrime.securesms.profiles.manage.EditProfileActivity
+import org.thoughtcrime.securesms.profiles.username.ConnectWithUsernamesDialogFragment
 import org.thoughtcrime.securesms.stories.settings.story.StoriesPrivacySettingsRepository
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaperActivity
 import org.signal.core.ui.R as CoreUiR
@@ -99,9 +106,15 @@ fun OnboardingMegaphone(
     }
 
     LazyRow(
-      modifier = Modifier.padding(top = 10.dp)
+      contentPadding = PaddingValues(start = 16.dp),
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(top = 10.dp)
     ) {
-      itemsIndexed(items = onboardingItems) { idx, item ->
+      items(
+        items = onboardingItems,
+        key = { it.name }
+      ) { item ->
         OnboardingMegaphoneListItem(
           onboardingListItem = item,
           onActionClick = {
@@ -110,7 +123,11 @@ fun OnboardingMegaphone(
           onCloseClick = {
             onboardingState.onItemCloseClick(item)
           },
-          modifier = if (idx == 0) Modifier.padding(start = 16.dp) else Modifier
+          modifier = Modifier.animateItem(
+            fadeInSpec = tween(durationMillis = 150),
+            fadeOutSpec = tween(durationMillis = 150),
+            placementSpec = spring(stiffness = Spring.StiffnessMediumLow, visibilityThreshold = IntOffset.VisibilityThreshold)
+          )
         )
       }
     }
@@ -149,7 +166,7 @@ private fun OnboardingMegaphoneListItem(
         Icon(
           imageVector = SignalIcons.X.imageVector,
           tint = colorResource(CoreUiR.color.signal_light_colorOutline),
-          contentDescription = stringResource(R.string.Material3SearchToolbar__close)
+          contentDescription = stringResource(CoreUiR.string.CloseButton__content_description)
         )
       }
 
@@ -212,9 +229,14 @@ enum class OnboardingListItem(
   @DrawableRes val icon: Int,
   @ColorRes val cardColor: Int
 ) {
+  SET_UP_USERNAME(
+    title = R.string.Megaphones_set_up_username,
+    icon = CoreUiR.drawable.symbol_at_24,
+    cardColor = R.color.onboarding_background_5
+  ),
   // MOLLY: STORIES (opt-in) replace the GROUP card; no INVITE card
   STORIES(
-    title = R.string.Megaphones_turn_on_stories,
+    title = R.string.StoriesPrivacySettingsFragment__turn_on_stories,
     icon = R.drawable.symbol_group_24,
     cardColor = R.color.onboarding_background_1
   ),
@@ -273,6 +295,7 @@ abstract class OnboardingState private constructor(
    */
   private object Preview : OnboardingState(
     initialState = DisplayState(
+      shouldShowSetUpUsername = true,
       shouldShowStories = true,
       shouldShowAddPhoto = true,
       shouldShowAppearance = true
@@ -281,6 +304,7 @@ abstract class OnboardingState private constructor(
   ) {
     override fun onItemCloseClick(onboardingListItem: OnboardingListItem) {
       displayState = when (onboardingListItem) {
+        OnboardingListItem.SET_UP_USERNAME -> displayState.copy(shouldShowSetUpUsername = false)
         OnboardingListItem.STORIES -> displayState.copy(shouldShowStories = false)
         OnboardingListItem.ADD_PHOTO -> displayState.copy(shouldShowAddPhoto = false)
         OnboardingListItem.APPEARANCE -> displayState.copy(shouldShowAppearance = false)
@@ -303,6 +327,7 @@ abstract class OnboardingState private constructor(
 
     override fun onItemCloseClick(onboardingListItem: OnboardingListItem) {
       when (onboardingListItem) {
+        OnboardingListItem.SET_UP_USERNAME -> SignalStore.onboarding.setShowSetUpUsername(false)
         OnboardingListItem.STORIES -> SignalStore.onboarding.setShowStories(false)
         OnboardingListItem.ADD_PHOTO -> SignalStore.onboarding.setShowAddPhoto(false)
         OnboardingListItem.APPEARANCE -> SignalStore.onboarding.setShowAppearance(false)
@@ -317,6 +342,7 @@ abstract class OnboardingState private constructor(
 
     override fun onItemActionClick(onboardingListItem: OnboardingListItem) {
       when (onboardingListItem) {
+        OnboardingListItem.SET_UP_USERNAME -> megaphoneActionController.onMegaphoneDialogFragmentRequested(ConnectWithUsernamesDialogFragment())
         OnboardingListItem.STORIES -> {
           disposable.add(storiesRepository.setStoriesEnabled(true).subscribe {
             megaphoneActionController.onMegaphoneNavigationRequested(Intent(megaphoneActionController.megaphoneActivity, MainActivity::class.java))
@@ -345,14 +371,16 @@ abstract class OnboardingState private constructor(
    * Simple display state, driven by [SignalStore] by default.
    */
   data class DisplayState(
+    private val shouldShowSetUpUsername: Boolean = SignalStore.onboarding.shouldShowSetUpUsername() && SignalStore.account.isPhoneNumberless && SignalStore.account.username == null,
     private val shouldShowStories: Boolean = SignalStore.onboarding.shouldShowStories() && SignalStore.story.isFeatureDisabled,
     private val shouldShowAddPhoto: Boolean = SignalStore.onboarding.shouldShowAddPhoto() && !SignalStore.misc.hasEverHadAnAvatar,
     private val shouldShowAppearance: Boolean = SignalStore.onboarding.shouldShowAppearance()
   ) {
-    fun hasNoVisibleContent(): Boolean = !(shouldShowStories || shouldShowAddPhoto || shouldShowAppearance)
+    fun hasNoVisibleContent(): Boolean = !(shouldShowSetUpUsername || shouldShowStories || shouldShowAddPhoto || shouldShowAppearance)
 
     fun shouldDisplayListItem(onboardingListItem: OnboardingListItem): Boolean {
       return when (onboardingListItem) {
+        OnboardingListItem.SET_UP_USERNAME -> shouldShowSetUpUsername
         OnboardingListItem.STORIES -> shouldShowStories
         OnboardingListItem.ADD_PHOTO -> shouldShowAddPhoto
         OnboardingListItem.APPEARANCE -> shouldShowAppearance

@@ -6,26 +6,29 @@
 package org.signal.registration.screens.messagesync
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.logging.Log
+import org.signal.core.util.throttleLatest
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
 import org.signal.registration.RegistrationRepository
 import org.signal.registration.RegistrationRoute
 import org.signal.registration.screens.messagesync.MessageSyncScreenState.Stage
 import org.signal.registration.screens.util.navigateTo
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Drives the link-and-sync message backup restore that runs after this device is registered as a
@@ -35,7 +38,7 @@ class MessageSyncViewModel(
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-) : EventDrivenViewModel<MessageSyncScreenEvent>(TAG) {
+) : EventDrivenViewModel<MessageSyncScreenEvent>(TAG, shouldLogEvents = true) {
 
   companion object {
     private val TAG = Log.tag(MessageSyncViewModel::class)
@@ -44,11 +47,15 @@ class MessageSyncViewModel(
   private val _state = MutableStateFlow(MessageSyncScreenState())
   val state: StateFlow<MessageSyncScreenState> = _state.asStateFlow()
 
+  private val _actions = Channel<MessageSyncScreenAction>(Channel.BUFFERED)
+  val actions: Flow<MessageSyncScreenAction> = _actions.receiveAsFlow()
+
   private var restoreJob: Job? = null
   private var finishJob: Job? = null
 
   init {
     _state
+      .throttleLatest(1.seconds) { !it.isProgressUpdate() }
       .onEach { Log.d(TAG, "[State] $it") }
       .launchIn(viewModelScope)
 
@@ -109,7 +116,10 @@ class MessageSyncViewModel(
   @VisibleForTesting
   suspend fun applyEvent(state: MessageSyncScreenState, event: MessageSyncScreenEvent, stateEmitter: (MessageSyncScreenState) -> Unit) {
     val result = when (event) {
-      MessageSyncScreenEvent.LearnMoreClick -> error("This event is handled in the nav-entry.")
+      MessageSyncScreenEvent.LearnMoreClick -> {
+        _actions.trySend(MessageSyncScreenAction.OpenLearnMoreArticle)
+        state
+      }
       MessageSyncScreenEvent.CancelClick -> {
         Log.i(TAG, "[MessageSync] User cancelled message sync; awaiting restore cancellation, then restoring from storage service and completing.")
         stateEmitter(state.copy(stage = Stage.Finishing))
@@ -133,14 +143,8 @@ class MessageSyncViewModel(
   override fun onCleared() {
     restoreJob?.cancel()
   }
+}
 
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return MessageSyncViewModel(repository, parentState, parentEventEmitter) as T
-    }
-  }
+private fun MessageSyncScreenState.isProgressUpdate(): Boolean {
+  return !showSyncFailedDialog && (stage is Stage.Downloading || stage is Stage.Restoring)
 }

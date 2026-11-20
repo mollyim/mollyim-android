@@ -1,13 +1,13 @@
 package org.thoughtcrime.securesms.components.settings.app
 
 import androidx.compose.runtime.Immutable
+import org.signal.appsettings.home.BackupFailureState
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.util.RemoteConfig
 
 @Immutable
 data class AppSettingsState(
   val isPrimaryDevice: Boolean,
-  val unreadPaymentsCount: Int,
   val userUnregistered: Boolean,
   val clientDeprecated: Boolean,
   val showInternalPreferences: Boolean = RemoteConfig.internalUser,

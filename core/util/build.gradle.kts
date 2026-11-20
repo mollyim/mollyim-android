@@ -12,7 +12,7 @@ android {
 dependencies {
   api(project(":core:util-jvm"))
 
-  implementation(libs.androidx.sqlite)
+  implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.documentfile)
   implementation(libs.google.jsr305)
   implementation(libs.androidx.lifecycle.process)
@@ -21,10 +21,12 @@ dependencies {
   implementation(libs.jackson.core)
   implementation(libs.jackson.module.kotlin)
   implementation(libs.google.libphonenumber)
-  testImplementation(libs.androidx.sqlite.framework)
+
+  // MOLLY: no Play Services dependency. Upstream has it only for the deleted PlayServicesUtil.
 
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.assertk)
+  testImplementation(testLibs.mockk)
   testImplementation(testLibs.robolectric.robolectric)
 }
 

@@ -4,24 +4,30 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.launch
 import androidx.annotation.StringRes
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import im.molly.unifiedpush.model.RegistrationStatus
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import org.signal.core.util.eventbus.EventBus
+import org.signal.core.util.eventbus.RestartableSubscription
+import org.signal.core.util.eventbus.ThreadMode
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsIcon
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
-import org.thoughtcrime.securesms.conversation.v2.registerForLifecycle
 import org.thoughtcrime.securesms.events.PushServiceEvent
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
 
 class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDeliveryMethod__unifiedpush) {
 
   private lateinit var viewModel: UnifiedPushSettingsViewModel
+
+  private val pushServiceSubscription = RestartableSubscription {
+    EventBus.default.subscribe<PushServiceEvent>(ThreadMode.MAIN) {
+      viewModel.refresh()
+    }
+  }
 
   private val qrScanLauncher: ActivityResultLauncher<Unit> =
     registerForActivityResult(MollySocketQrScannerActivity.Contract()) { mollySocket ->
@@ -39,14 +45,9 @@ class UnifiedPushSettingsFragment : DSLSettingsFragment(R.string.NotificationDel
       adapter.submitList(getConfiguration(it).toMappingModelList())
     }
 
-    EventBus.getDefault().registerForLifecycle(subscriber = this, lifecycleOwner = viewLifecycleOwner)
+    pushServiceSubscription.bindTo(viewLifecycleOwner, Lifecycle.State.RESUMED)
 
     viewModel.updateRegistration()
-  }
-
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  fun onPushServiceEvent(event: PushServiceEvent) {
-    viewModel.refresh()
   }
 
   private fun getConfiguration(state: UnifiedPushSettingsState): DSLConfiguration {

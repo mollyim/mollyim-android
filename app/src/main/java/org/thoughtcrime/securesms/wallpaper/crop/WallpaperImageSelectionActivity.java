@@ -3,17 +3,17 @@ package org.thoughtcrime.securesms.wallpaper.crop;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.WindowManager;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.thoughtcrime.securesms.R;
 import org.signal.core.models.media.Media;
 import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 
@@ -47,12 +47,9 @@ public final class WallpaperImageSelectionActivity extends AppCompatActivity
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
+    EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     dynamicTheme.onCreate(this);
-
-    getWindow().addFlags(
-        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-    );
 
     setContentView(R.layout.wallpaper_image_selection_activity);
 

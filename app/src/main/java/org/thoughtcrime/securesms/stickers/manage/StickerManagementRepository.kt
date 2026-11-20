@@ -17,8 +17,8 @@ import org.signal.core.util.requireNonNullString
 import org.thoughtcrime.securesms.database.AttachmentTable
 import org.thoughtcrime.securesms.database.DatabaseObserver
 import org.thoughtcrime.securesms.database.SignalDatabase
-import org.thoughtcrime.securesms.database.StickerTable
-import org.thoughtcrime.securesms.database.StickerTable.StickerPackRecordReader
+import org.thoughtcrime.securesms.database.StickerTables
+import org.thoughtcrime.securesms.database.StickerTables.StickerPackRecordReader
 import org.thoughtcrime.securesms.database.model.StickerPackId
 import org.thoughtcrime.securesms.database.model.StickerPackKey
 import org.thoughtcrime.securesms.database.model.StickerPackRecord
@@ -35,7 +35,7 @@ import org.thoughtcrime.securesms.stickers.BlessedPacks
 object StickerManagementRepository {
   private val jobManager: JobManager = AppDependencies.jobManager
   private val databaseObserver: DatabaseObserver = AppDependencies.databaseObserver
-  private val stickersDbTable: StickerTable = SignalDatabase.stickers
+  private val stickersDbTable: StickerTables = SignalDatabase.stickers
   private val attachmentsDbTable: AttachmentTable = SignalDatabase.attachments
   private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 
@@ -43,8 +43,6 @@ object StickerManagementRepository {
    * Emits the sticker packs along with any updates.
    */
   fun getStickerPacks(): Flow<StickerPacksResult> = callbackFlow {
-    trySend(loadStickerPacks())
-
     val stickersDbObserver = DatabaseObserver.Observer {
       launch {
         deleteOrphanedStickerPacks()
@@ -53,6 +51,8 @@ object StickerManagementRepository {
     }
 
     databaseObserver.registerStickerPackObserver(stickersDbObserver)
+    deleteOrphanedStickerPacks()
+    trySend(loadStickerPacks())
     awaitClose {
       databaseObserver.unregisterObserver(stickersDbObserver)
     }
@@ -67,9 +67,9 @@ object StickerManagementRepository {
 
       reader.asSequence().forEachIndexed { index, record ->
         when {
-          record.isInstalled -> installedPacks.add(record)
           BlessedPacks.contains(record.packId) -> blessedPacks.add(record)
-          else -> availablePacks.add(record)
+          record.isInstalled -> installedPacks.add(record)
+          !record.isHidden -> availablePacks.add(record)
         }
         sortOrderById[StickerPackId(record.packId)] = index
       }
@@ -133,8 +133,20 @@ object StickerManagementRepository {
     }
   }
 
+  suspend fun hideStickerPack(packId: StickerPackId, packKey: StickerPackKey) = withContext(Dispatchers.Default) {
+    val uninstalled = stickersDbTable.hidePack(packId)
+
+    if (uninstalled && SignalStore.account.isMultiDevice) {
+      AppDependencies.jobManager.add(MultiDeviceStickerPackOperationJob(packId.value, packKey.value, MultiDeviceStickerPackOperationJob.Type.REMOVE))
+    }
+  }
+
+  suspend fun unhideStickerPack(packId: StickerPackId) = withContext(Dispatchers.Default) {
+    stickersDbTable.unhidePack(packId)
+  }
+
   suspend fun setStickerPacksOrder(packsInOrder: List<StickerPackRecord>) = withContext(Dispatchers.Default) {
-    stickersDbTable.updatePackOrder(packsInOrder)
+    stickersDbTable.updatePackPositions(packsInOrder)
   }
 
   interface Callback<T> {

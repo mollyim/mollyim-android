@@ -11,24 +11,21 @@ import androidx.core.text.method.LinkMovementMethodCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
-import io.reactivex.rxjava3.kotlin.subscribeBy
+import org.signal.core.models.badges.Badge
 import org.signal.core.ui.FixedRoundedCornerBottomSheetDialogFragment
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.ui.util.ThemeUtil
-import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.badges.BadgeImageView
-import org.thoughtcrime.securesms.badges.models.Badge
 import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.fragments.findListener
 import org.thoughtcrime.securesms.util.visible
 
 class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSheetDialogFragment() {
 
   companion object {
-    private val TAG = Log.tag(ThanksForYourSupportBottomSheetDialogFragment::class.java)
     const val SHEET_TAG = "ThanksForYourSupportBottomSheet"
 
     fun create(badge: Badge): ThanksForYourSupportBottomSheetDialogFragment {
@@ -44,13 +41,6 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
 
   private lateinit var switch: MaterialSwitch
   private lateinit var heading: TextView
-
-  private lateinit var controlState: ControlState
-
-  private enum class ControlState {
-    FEATURE,
-    DISPLAY
-  }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.thanks_for_your_support_bottom_sheet_dialog_fragment, container, false)
@@ -102,17 +92,14 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
       switch.isChecked = false
       controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__make_featured_badge)
       controlNote.visible = true
-      controlState = ControlState.FEATURE
     } else if (hasOtherBadges) {
       switch.isChecked = false
       controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile)
       controlNote.visible = false
-      controlState = ControlState.DISPLAY
     } else {
       switch.isChecked = true
       controlText.setText(R.string.SubscribeThanksForYourSupportBottomSheetDialogFragment__display_on_profile)
       controlNote.visible = false
-      controlState = ControlState.DISPLAY
     }
 
     // New badge does not have a lottie, so we just hide it and show a static image.
@@ -123,23 +110,7 @@ class ThanksForYourSupportBottomSheetDialogFragment : FixedRoundedCornerBottomSh
 
   override fun onDismiss(dialog: DialogInterface) {
     super.onDismiss(dialog)
-    val controlChecked = switch.isChecked
     val args = ThanksForYourSupportBottomSheetDialogFragmentArgs.fromBundle(requireArguments())
-
-    // MOLLY: TODO
-    // if (controlState == ControlState.DISPLAY) {
-    //   badgeRepository.setVisibilityForAllBadges(controlChecked).subscribeBy(
-    //     onError = {
-    //       Log.w(TAG, "Failure while updating badge visibility", it)
-    //     }
-    //   )
-    // } else if (controlChecked) {
-    //   badgeRepository.setFeaturedBadge(args.badge).subscribeBy(
-    //     onError = {
-    //       Log.w(TAG, "Failure while updating featured badge", it)
-    //     }
-    //   )
-    // }
 
     if (args.badge.isSubscription()) {
       requireActivity().finish()

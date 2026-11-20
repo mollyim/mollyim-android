@@ -44,7 +44,7 @@ public class LearnMoreTextView extends AppCompatTextView {
 
   private void init() {
     setMovementMethod(LinkMovementMethod.getInstance());
-    setLinkTextInternal(R.string.LearnMoreTextView_learn_more);
+    setLinkTextInternal(org.signal.core.ui.R.string.LearnMoreTextView_learn_more);
     setLinkColor(ThemeUtil.getThemedColor(getContext(), com.google.android.material.R.attr.colorOnSurface));
     visible = true;
   }

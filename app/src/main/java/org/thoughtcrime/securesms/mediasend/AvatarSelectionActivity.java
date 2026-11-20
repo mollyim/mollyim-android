@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.WindowManager;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 import org.signal.core.models.media.Media;
 import org.signal.imageeditor.core.model.EditorModel;
 import org.signal.mediasend.MediaConstraints;
-import org.signal.mediasend.CameraFragment;
-import org.signal.mediasend.capture.CameraXFragment;
+import org.signal.mediasend.screens.capture.CameraFragment;
+import org.signal.mediasend.screens.capture.CameraXFragment;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.mediasend.v2.gallery.MediaGalleryFragment;
@@ -30,7 +30,7 @@ import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.MediaUtil;
 
-import java.io.FileDescriptor;
+import org.signal.core.util.SeekableFileDescriptor;
 import java.util.Collections;
 
 public class AvatarSelectionActivity extends AppCompatActivity implements CameraFragment.Controller, ImageEditorFragment.Controller, MediaGalleryFragment.Callbacks {
@@ -73,12 +73,9 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
+    EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
     dynamicTheme.onCreate(this);
-
-    getWindow().addFlags(
-        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-    );
 
     setContentView(R.layout.avatar_selection_activity);
 
@@ -112,7 +109,7 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
   }
 
   @Override
-  public void onVideoCaptured(@NonNull FileDescriptor fd) {
+  public void onVideoCaptured(@NonNull SeekableFileDescriptor fd, long durationMs) {
     throw new UnsupportedOperationException("Cannot set profile as video");
   }
 
@@ -139,8 +136,8 @@ public class AvatarSelectionActivity extends AppCompatActivity implements Camera
   }
 
   @Override
-  public void onCameraCountButtonClicked() {
-    throw new UnsupportedOperationException("Cannot select more than one photo");
+  public void onCameraCloseClicked() {
+    finish();
   }
 
   @Override

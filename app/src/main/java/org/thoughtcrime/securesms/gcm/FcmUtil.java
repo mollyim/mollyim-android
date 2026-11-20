@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import androidx.annotation.WorkerThread;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.installations.FirebaseInstallations;
@@ -28,7 +28,7 @@ public final class FcmUtil {
    */
   @WorkerThread
   public static Optional<String> getToken(Context context) {
-    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS) {
+    if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS) {
       return getTokenWithoutAvailCheck(context);
     }
     return Optional.empty();

@@ -17,11 +17,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.testutil.RecipientTestRule
-import org.thoughtcrime.securesms.util.RemoteConfig
 import kotlin.time.Duration.Companion.days
 
 @RunWith(RobolectricTestRunner::class)
@@ -47,8 +46,6 @@ class CollapsingMessagesTests {
     alice = recipients.createRecipient("Alice Android")
     aliceThread = SignalDatabase.threads.getOrCreateThreadIdFor(Recipient.resolved(alice))
     bob = recipients.createRecipient("Bob Android")
-
-    every { RemoteConfig.disappearMore } returns false
   }
 
   @Test

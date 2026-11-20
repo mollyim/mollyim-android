@@ -13,7 +13,7 @@ import org.signal.libsignal.protocol.IdentityKey;
 import org.signal.libsignal.zkgroup.InvalidInputException;
 import org.signal.libsignal.zkgroup.profiles.ExpiringProfileKeyCredential;
 import org.signal.libsignal.zkgroup.profiles.ProfileKey;
-import org.thoughtcrime.securesms.badges.models.Badge;
+import org.signal.core.models.badges.Badge;
 import org.thoughtcrime.securesms.crypto.ProfileKeyUtil;
 import org.thoughtcrime.securesms.crypto.SealedSenderAccessUtil;
 import org.thoughtcrime.securesms.database.RecipientTable;
@@ -64,14 +64,21 @@ public final class ProfileUtil {
 
   private static final String TAG = Log.tag(ProfileUtil.class);
 
+  private static final String SELF_PROFILE_KEY_CHANGE_DEDUPE_KEY = "ProfileUtil.handleSelfProfileKeyChange";
+
   private ProfileUtil() {
   }
 
   /**
-   * Should be called after a change to our own profile key as been persisted to the database.
+   * Should be called after a change to our own profile key has been persisted to the database.
    */
   @WorkerThread
   public static void handleSelfProfileKeyChange() {
+    SignalDatabase.runPostSuccessfulTransaction(SELF_PROFILE_KEY_CHANGE_DEDUPE_KEY, ProfileUtil::scheduleSelfProfileKeyChangeJobs);
+  }
+
+  @WorkerThread
+  private static void scheduleSelfProfileKeyChangeJobs() {
     if (SignalStore.account().isLinkedDevice()) {
       Log.i(TAG, "Linked devices shouldn't rotate self profile key after initial link");
       return;
@@ -142,7 +149,7 @@ public final class ProfileUtil {
                                                                                                 boolean allowUnidentifiedAccess)
   {
     ProfileService       profileService     = AppDependencies.getProfileService();
-    SealedSenderAccess   sealedSenderAccess = allowUnidentifiedAccess ? SealedSenderAccessUtil.getSealedSenderAccessFor(recipient, false) : SealedSenderAccess.NONE;
+    SealedSenderAccess   sealedSenderAccess = allowUnidentifiedAccess ? SealedSenderAccessUtil.getSealedSenderAccessForProfileFetch(recipient, false) : SealedSenderAccess.NONE;
     Optional<ProfileKey> profileKey         = ProfileKeyUtil.profileKeyOptional(recipient.getProfileKey());
 
     return Single.fromCallable(() -> toSignalServiceAddress(context, recipient))
@@ -326,7 +333,7 @@ public final class ProfileUtil {
     }
 
     ProfileKey            profileKey = ProfileKeyUtil.getSelfProfileKey();
-    NetworkResult<String> result     = SignalNetwork.profile().setVersionedProfile(SignalStore.account().requireAci(),
+    NetworkResult<String> result     = SignalNetwork.profileApi().setVersionedProfile(SignalStore.account().requireAci(),
                                                                                    profileKey,
                                                                                    profileName.serialize(),
                                                                                    about,

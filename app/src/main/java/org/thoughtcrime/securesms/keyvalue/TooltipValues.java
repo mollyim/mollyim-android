@@ -1,11 +1,17 @@
 package org.thoughtcrime.securesms.keyvalue;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
+
+import org.signal.core.util.logging.Log;
 
 import java.util.Collections;
 import java.util.List;
 
 public class TooltipValues extends SignalStoreValues {
+
+  private static final String TAG = Log.tag(TooltipValues.class);
 
   private static final int GROUP_CALLING_MAX_TOOLTIP_DISPLAY_COUNT = 3;
 
@@ -17,7 +23,7 @@ public class TooltipValues extends SignalStoreValues {
   private static final String PROFILE_SETTINGS_QR_CODE         = "tooltip.profile_settings_qr_code";
   private static final String CALLING_SWITCH_CAMERA            = "tooltip.calling.switch_camera";
 
-  TooltipValues(@NonNull KeyValueStore store) {
+  TooltipValues(@NonNull KeyValueStore store, @NonNull Context context) {
     super(store);
   }
 

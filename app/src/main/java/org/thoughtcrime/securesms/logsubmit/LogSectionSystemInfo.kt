@@ -11,28 +11,29 @@ import com.google.android.gms.common.GoogleApiAvailability
 import im.molly.app.base.ApkInfo
 import org.signal.core.ui.getWindowSizeClass
 import org.signal.core.util.BidiUtil
+import org.signal.core.util.DeviceProperties
 import org.signal.core.util.DiskUtil
 import org.signal.core.util.FontUtil.canRenderEmojiAtFontSize
+import org.signal.core.util.ScreenDensity
 import org.signal.core.util.ServiceUtil
 import org.signal.core.util.bytes
 import org.signal.core.util.getAnimationScale
 import org.signal.core.util.roundedString
+import org.signal.emoji.EmojiFiles.Version.Companion.readVersion
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.emoji.EmojiFiles.Version.Companion.readVersion
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.thoughtcrime.securesms.notifications.SlowNotificationHeuristics.isHavingDelayedNotifications
 import org.thoughtcrime.securesms.recipients.Recipient.Companion.self
 import org.thoughtcrime.securesms.service.webrtc.AndroidTelecomUtil.telecomSupported
 import org.thoughtcrime.securesms.util.AppSignatureUtil
-import org.thoughtcrime.securesms.util.DeviceProperties
 import org.thoughtcrime.securesms.util.NetworkUtil
 import org.thoughtcrime.securesms.util.PowerManagerCompat
-import org.thoughtcrime.securesms.util.ScreenDensity
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.thoughtcrime.securesms.util.VersionTracker.getDaysSinceFirstInstalled
 import java.util.Locale
+import kotlin.math.roundToLong
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 
 private const val LOCKED = "Locked"
@@ -75,11 +76,11 @@ class LogSectionSystemInfo : LogSection {
       UnifiedPush       : ${if (locked) LOCKED else SignalStore.unifiedpush.enabled}
       Locale            : ${Locale.getDefault()}
       Linked Devices    : ${if (locked) LOCKED else SignalStore.account.isMultiDevice}
-      First Version     : ${TextSecurePreferences.getFirstInstallVersion(context)}
+      First Version     : ${if (locked) LOCKED else SignalStore.misc.firstInstallVersion}
       Days Installed    : ${getDaysSinceFirstInstalled(context)}
       Last Registration : ${if (locked) LOCKED else getTimeRegistered()}
       Build Variant     : ${BuildConfig.FLAVOR}
-      Emoji Version     : ${getEmojiVersionString(context)}
+      Emoji Version     : ${if (locked) LOCKED else getEmojiVersionString(context)}
       RenderBigEmoji    : ${canRenderEmojiAtFontSize(1024f)}
       DontKeepActivities: ${getDontKeepActivities(context)}
       Server Time Offset: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffset} ms (last updated: ${if (locked) LOCKED else SignalStore.misc.lastKnownServerTimeOffsetUpdateTime})
@@ -90,8 +91,7 @@ class LogSectionSystemInfo : LogSection {
       IgnoringBatteryOpt: ${PowerManagerCompat.isIgnoringBatteryOptimizations(context)}
       BkgRestricted     : ${if (Build.VERSION.SDK_INT >= 28) DeviceProperties.isBackgroundRestricted(context) else "N/A"}
       Data Saver        : ${DeviceProperties.getDataSaverState(context)}
-      APNG Animation    : ${if (locked) LOCKED else DeviceProperties.shouldAllowApngStickerAnimation(context)}
-      Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL?.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
+      Update Check URL  : ${BuildConfig.FDROID_UPDATE_URL.takeIf { BuildConfig.MANAGE_MOLLY_UPDATES } ?: "N/A"}
       App               : ${getAppInfo(context)}
       Package           : ${BuildConfig.APPLICATION_ID} (${getSigningString(context)})
       FullScreenIntents : ${NotificationManagerCompat.from(context).canUseFullScreenIntent()}
@@ -210,7 +210,12 @@ class LogSectionSystemInfo : LogSection {
       return "Unknown"
     }
 
-    val timeSince = (System.currentTimeMillis() - SignalStore.account.registeredAtTimestamp).milliseconds.toString()
-    return "${SignalStore.account.registeredAtTimestamp} ($timeSince ago)"
+    val timeSince = (System.currentTimeMillis() - SignalStore.account.registeredAtTimestamp).milliseconds
+
+    return if (timeSince < 1.hours) {
+      "< 1 hour ago"
+    } else {
+      "${(timeSince / 1.hours).roundToLong().hours} ago"
+    }
   }
 }

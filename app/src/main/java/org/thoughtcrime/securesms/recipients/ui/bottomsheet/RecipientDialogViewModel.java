@@ -16,10 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.ThreadUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.storageservice.storage.protos.groups.AccessControl;
-import org.thoughtcrime.securesms.BlockUnblockDialog;
+import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsNavigator;
 import org.thoughtcrime.securesms.conversation.colors.ColorizerV2;
@@ -41,12 +42,10 @@ import org.thoughtcrime.securesms.jobs.RetrieveProfileAvatarJob;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.recipients.LiveRecipient;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.stories.StoryViewerArgs;
 import org.thoughtcrime.securesms.stories.viewer.StoryViewerActivity;
 import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.livedata.LiveDataUtil;
 import org.thoughtcrime.securesms.verify.VerifyIdentityActivity;
 
@@ -80,7 +79,7 @@ final class RecipientDialogViewModel extends ViewModel {
     this.storyViewState             = new MutableLiveData<>();
     this.recipientDetailsState      = new MutableLiveData<>();
     this.disposables                = new CompositeDisposable();
-    this.isDeprecatedOrUnregistered = SignalStore.misc().isClientDeprecated() || TextSecurePreferences.isUnauthorizedReceived(context);
+    this.isDeprecatedOrUnregistered = SignalStore.misc().isClientDeprecated() || SignalStore.account().isUnauthorizedReceived();
 
     boolean recipientIsSelf = recipientDialogRepository.getRecipientId().equals(Recipient.self().getId());
 
@@ -96,8 +95,9 @@ final class RecipientDialogViewModel extends ViewModel {
         GroupTable.MemberLevel       memberLevel    = group.memberLevel(r);
         boolean                      inGroup        = memberLevel.isInGroup();
         boolean                      recipientAdmin = memberLevel == GroupTable.MemberLevel.ADMINISTRATOR;
-        AccessControl.AccessRequired linkAccess     = group.requireV2GroupProperties().getDecryptedGroup().accessControl != null ? group.requireV2GroupProperties().getDecryptedGroup().accessControl.addFromInviteLink
-                                                                                                                                 : AccessControl.AccessRequired.UNKNOWN;
+        DecryptedGroup               decryptedGroup = group.getHasV2GroupProperties() ? group.requireV2GroupProperties().getDecryptedGroup() : null;
+        AccessControl.AccessRequired linkAccess     = decryptedGroup != null && decryptedGroup.accessControl != null ? decryptedGroup.accessControl.addFromInviteLink
+                                                                                                                     : AccessControl.AccessRequired.UNKNOWN;
         boolean                      isLinkActive   = linkAccess == AccessControl.AccessRequired.ANY || linkAccess == AccessControl.AccessRequired.ADMINISTRATOR;
 
         return new AdminActionStatus(active && inGroup && localAdmin,
@@ -143,7 +143,7 @@ final class RecipientDialogViewModel extends ViewModel {
         if (label != null) {
           ColorizerV2           colorizer   = new ColorizerV2();
           Optional<GroupRecord> groupRecord = SignalDatabase.groups().getGroup(v2GroupId);
-          if (groupRecord.isPresent()) {
+          if (groupRecord.isPresent() && groupRecord.get().getHasV2GroupProperties()) {
             colorizer.onGroupMembershipChanged(groupRecord.get().requireV2GroupProperties().getMemberServiceIds());
           }
           styledLabel = new StyledMemberLabel(label, colorizer.getIncomingGroupSenderColor(context, recipient));
@@ -254,7 +254,7 @@ final class RecipientDialogViewModel extends ViewModel {
                              recipientDialogRepository.setMemberAdmin(true, result -> {
                                                                         adminActionBusy.setValue(false);
                                                                         if (!result) {
-                                                                          Toast.makeText(activity, R.string.ManageGroupActivity_failed_to_update_the_group, Toast.LENGTH_SHORT).show();
+                                                                          Toast.makeText(activity, R.string.GroupErrors__failed_to_update_the_group, Toast.LENGTH_SHORT).show();
                                                                         }
                                                                       },
                                                                       this::showErrorToast);
@@ -279,7 +279,7 @@ final class RecipientDialogViewModel extends ViewModel {
                                recipientDialogRepository.setMemberAdmin(false, result -> {
                                                                           adminActionBusy.setValue(false);
                                                                           if (!result) {
-                                                                            Toast.makeText(activity, R.string.ManageGroupActivity_failed_to_update_the_group, Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(activity, R.string.GroupErrors__failed_to_update_the_group, Toast.LENGTH_SHORT).show();
                                                                           }
                                                                         },
                                                                         this::showErrorToast);

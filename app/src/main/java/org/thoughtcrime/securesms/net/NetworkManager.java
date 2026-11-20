@@ -10,9 +10,9 @@ import androidx.webkit.ProxyConfig;
 import androidx.webkit.ProxyController;
 import androidx.webkit.WebViewFeature;
 
-import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.AppForegroundObserver;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;

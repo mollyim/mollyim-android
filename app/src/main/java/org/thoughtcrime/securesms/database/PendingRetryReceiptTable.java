@@ -8,12 +8,12 @@ import androidx.annotation.NonNull;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
+import org.signal.core.database.SqlUtil;
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.database.model.PendingRetryReceiptModel;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.signal.core.util.CursorUtil;
-import org.signal.core.util.SqlUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -98,11 +98,26 @@ public final class PendingRetryReceiptTable extends DatabaseTable implements Rec
   }
 
   @Override
+  public void onDeletedRecipient(@NonNull RecipientId recipientId) {
+    int count = databaseHelper.getSignalWritableDatabase().delete(TABLE_NAME, AUTHOR + " = ?", SqlUtil.buildArgs(recipientId.serialize()));
+    AppDependencies.getPendingRetryReceiptCache().clear();
+
+    Log.d(TAG, "Deleted recipient: " + count);
+  }
+
+  @Override
   public void remapThread(long fromId, long toId) {
     ContentValues values = new ContentValues();
     values.put(THREAD_ID, toId);
     getWritableDatabase().update(TABLE_NAME, values, THREAD_ID + " = ?", SqlUtil.buildArgs(fromId));
 
     AppDependencies.getPendingRetryReceiptCache().clear();
+  }
+
+  @Override
+  public void onDeletedGroupThread(long threadId) {
+    int count = databaseHelper.getSignalWritableDatabase().delete(TABLE_NAME, THREAD_ID + " = ?", SqlUtil.buildArgs(threadId));
+    AppDependencies.getPendingRetryReceiptCache().clear();
+    Log.d(TAG, "Deleted pending retry receipts for thread: " + count);
   }
 }

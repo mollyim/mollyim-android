@@ -50,6 +50,12 @@ object Log {
     }
   }
 
+  @JvmStatic
+  fun disableAndWipeLogs() {
+    setLogging(false)
+    wipeLogs()
+  }
+
   var alwaysRedact: Boolean = false
 
   private fun redact(message: String?): String? {

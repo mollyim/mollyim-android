@@ -175,10 +175,6 @@ public class SubmitDebugLogViewModel extends ViewModel {
     });
   }
 
-  boolean onBackPressed() {
-    return false;
-  }
-
   enum Mode {
     NORMAL, LOADING, SUBMITTING
   }

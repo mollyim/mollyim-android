@@ -9,12 +9,14 @@ import android.net.Uri;
 import kotlin.Pair;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
-import org.greenrobot.eventbus.EventBus;
-import org.signal.core.util.SqlUtil;
+import org.signal.core.database.SqlUtil;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.backup.proto.Attachment;
@@ -27,19 +29,24 @@ import org.thoughtcrime.securesms.backup.proto.SqlStatement;
 import org.thoughtcrime.securesms.backup.proto.Sticker;
 import org.thoughtcrime.securesms.crypto.EncryptedPreferences;
 import org.thoughtcrime.securesms.database.AttachmentTable;
+import org.thoughtcrime.securesms.database.CallTable;
 import org.thoughtcrime.securesms.database.EmojiSearchTable;
 import org.thoughtcrime.securesms.database.KeyValueDatabase;
 import org.thoughtcrime.securesms.database.KyberPreKeyTable;
+import org.thoughtcrime.securesms.database.model.databaseprotos.SignalStoreList;
 import org.thoughtcrime.securesms.database.LastResortKeyTupleTable;
+import org.thoughtcrime.securesms.database.MessageTable;
 import org.thoughtcrime.securesms.database.OneTimePreKeyTable;
 import org.thoughtcrime.securesms.database.SearchTable;
 import org.thoughtcrime.securesms.database.SignedPreKeyTable;
-import org.thoughtcrime.securesms.database.StickerTable;
+import org.thoughtcrime.securesms.database.StickerTables;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
 import org.thoughtcrime.securesms.keyvalue.KeyValueDataSet;
+import org.thoughtcrime.securesms.keyvalue.MollyValues;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
+import org.thoughtcrime.securesms.keyvalue.SettingsValues;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.SecurePreferenceManager;
 import org.signal.core.util.Util;
@@ -144,6 +151,7 @@ public class FullBackupImporter extends FullBackupBase {
         else                            count--;
       }
 
+      deleteOrphanedCalls(db);
       db.setTransactionSuccessful();
       keyValueDatabase.setTransactionSuccessful();
     } finally {
@@ -164,6 +172,23 @@ public class FullBackupImporter extends FullBackupBase {
     }
 
     EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.FINISHED, count, 0));
+  }
+
+  /**
+   * Old backups could contain unproperly expired calls so we clear them out now
+   */
+  private static void deleteOrphanedCalls(@NonNull SQLiteDatabase db) {
+    if (!SqlUtil.tableExists(db, CallTable.TABLE_NAME) || !SqlUtil.tableExists(db, MessageTable.TABLE_NAME)) {
+      return;
+    }
+
+    int deleted = db.delete(CallTable.TABLE_NAME,
+                            CallTable.MESSAGE_ID + " NOT NULL AND " + CallTable.MESSAGE_ID + " NOT IN (SELECT " + MessageTable.ID + " FROM " + MessageTable.TABLE_NAME + ")",
+                            null);
+
+    if (deleted > 0) {
+      Log.w(TAG, "Deleted " + deleted + " calls that referenced a message missing from the backup.");
+    }
   }
 
   private static @NonNull InputStream getInputStream(@NonNull Context context, @NonNull Uri uri) throws IOException{
@@ -248,7 +273,7 @@ public class FullBackupImporter extends FullBackupBase {
   private static void processSticker(@NonNull Context context, @NonNull AttachmentSecret attachmentSecret, @NonNull SQLiteDatabase db, @NonNull Sticker sticker, BackupRecordInputStream inputStream)
       throws IOException
   {
-    File stickerDirectory = context.getDir(StickerTable.DIRECTORY, Context.MODE_PRIVATE);
+    File stickerDirectory = context.getDir(StickerTables.DIRECTORY, Context.MODE_PRIVATE);
     File dataFile         = File.createTempFile("sticker", ".mms", stickerDirectory);
 
     Pair<byte[], OutputStream> output = ModernEncryptingPartOutputStream.createFor(attachmentSecret, dataFile, false);
@@ -256,12 +281,12 @@ public class FullBackupImporter extends FullBackupBase {
     inputStream.readAttachmentTo(output.getSecond(), sticker.length);
 
     ContentValues contentValues = new ContentValues();
-    contentValues.put(StickerTable.FILE_PATH, dataFile.getAbsolutePath());
-    contentValues.put(StickerTable.FILE_LENGTH, sticker.length);
-    contentValues.put(StickerTable.FILE_RANDOM, output.getFirst());
+    contentValues.put(StickerTables.Sticker.FILE_PATH, dataFile.getAbsolutePath());
+    contentValues.put(StickerTables.Sticker.FILE_LENGTH, sticker.length);
+    contentValues.put(StickerTables.Sticker.FILE_RANDOM, output.getFirst());
 
-    db.update(StickerTable.TABLE_NAME, contentValues,
-              StickerTable.ID + " = ?",
+    db.update(StickerTables.Sticker.TABLE_NAME, contentValues,
+              StickerTables.Sticker.ID + " = ?",
               new String[] {String.valueOf(sticker.rowId)});
   }
 
@@ -318,6 +343,29 @@ public class FullBackupImporter extends FullBackupBase {
       SecurePreferenceManager.getSecurePreferencesName()
   );
 
+  private static final Map<String, String> LEGACY_BOOLEAN_MIRROR_KEYS = Map.ofEntries(
+      Map.entry(PlainTextKeyValueStore.SYSTEM_EMOJI_PREFERRED, SettingsValues.PREFER_SYSTEM_EMOJI),
+      Map.entry("pref_screen_security", SettingsValues.SCREEN_SECURITY_ENABLED),
+      Map.entry("pref_incognito_keyboard", SettingsValues.INCOGNITO_KEYBOARD_ENABLED),
+      Map.entry("pref_read_receipts", SettingsValues.READ_RECEIPTS_ENABLED),
+      Map.entry("pref_typing_indicators", SettingsValues.TYPING_INDICATORS_ENABLED),
+      Map.entry("pref_show_unidentifed_delivery_indicators", SettingsValues.SHOW_UNIDENTIFIED_DELIVERY_INDICATORS),
+      Map.entry("pref_universal_unidentified_access", SettingsValues.UNIVERSAL_UNIDENTIFIED_ACCESS),
+      Map.entry("pref_turn_only", SettingsValues.ALWAYS_RELAY_CALLS),
+      Map.entry(MollyValues.LOG_ENABLED, MollyValues.LOG_ENABLED),
+      Map.entry(MollyValues.UPDATE_APK_ENABLED, MollyValues.UPDATE_APK_ENABLED),
+      Map.entry(MollyValues.UPDATE_APK_INCLUDE_BETA, MollyValues.UPDATE_APK_INCLUDE_BETA),
+      Map.entry(MollyValues.BLOCK_UNKNOWN, MollyValues.BLOCK_UNKNOWN)
+  );
+
+  private static final Map<String, String> LEGACY_STRING_MIRROR_KEYS = Map.of(
+      PlainTextKeyValueStore.THEME, SettingsValues.THEME,
+      "pref_notification_privacy", SettingsValues.MESSAGE_NOTIFICATION_PRIVACY
+  );
+
+  // MOLLY: pref_passphrase_lock_timeout is deliberately not mirrored: every legacy V1 backup carries 0 for it, because
+  // the old exporter read a long-stored value with getInt.
+
   @SuppressLint("ApplySharedPref")
   private static void processPreference(@NonNull Context context, SharedPreference preference) {
     SharedPreferences preferences;
@@ -348,6 +396,59 @@ public class FullBackupImporter extends FullBackupBase {
     } else if (preference.integerValue != null) {
       preferences.edit().putInt(preference.key, preference.integerValue).commit();
     }
+
+    KeyValueDataSet mirror = getLegacyPreferenceMirror(preference);
+    if (mirror != null) {
+      KeyValueDatabase.getInstance(AppDependencies.getApplication()).writeDataSet(mirror, Collections.emptyList());
+    }
+  }
+
+  /**
+   * MOLLY: Convert only legacy records actually present in a recognized preference file. Post-restore code must never
+   * re-read arbitrary local preferences and overwrite restored SignalStore values with them. The mapped set is
+   * deliberately limited to the privacy, appearance, and Molly-owned keys. Other legacy preference records
+   * intentionally stay preference-only, matching upstream's V1 restore scope.
+   */
+  @VisibleForTesting
+  @Nullable
+  static KeyValueDataSet getLegacyPreferenceMirror(@NonNull SharedPreference preference) {
+    if (preference.key == null || !defaultSharedPreferencesFileNames.contains(preference.file_)) {
+      return null;
+    }
+
+    KeyValueDataSet dataSet = new KeyValueDataSet();
+
+    String booleanKey = LEGACY_BOOLEAN_MIRROR_KEYS.get(preference.key);
+    if (booleanKey != null) {
+      if (preference.booleanValue == null) {
+        return null;
+      }
+      dataSet.putBoolean(booleanKey, preference.booleanValue);
+      return dataSet;
+    }
+
+    String stringKey = LEGACY_STRING_MIRROR_KEYS.get(preference.key);
+    if (stringKey != null) {
+      if (preference.value_ == null) {
+        return null;
+      }
+      dataSet.putString(stringKey, preference.value_);
+      return dataSet;
+    }
+
+    if (MollyValues.PASSPHRASE_LOCK_TRIGGER.equals(preference.key)) {
+      if (preference.isStringSetValue != Boolean.TRUE) {
+        return null;
+      }
+      byte[] triggers = new SignalStoreList.Builder()
+          .contents(preference.stringSetValue)
+          .build()
+          .encode();
+      dataSet.putBlob(MollyValues.PASSPHRASE_LOCK_TRIGGER, triggers);
+      return dataSet;
+    }
+
+    return null;
   }
 
   private static void dropAllTables(@NonNull SQLiteDatabase db, boolean excludeKeyTables) {

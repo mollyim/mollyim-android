@@ -9,11 +9,12 @@ import android.text.TextUtils
 import androidx.annotation.StringRes
 import androidx.core.graphics.drawable.IconCompat
 import org.signal.core.ui.permissions.Permissions
+import org.signal.core.ui.util.SpanUtil
 import org.signal.core.util.Util
 import org.signal.core.util.logging.Log
+import org.signal.emoji.EmojiStrings
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.ScreenLockController
-import org.thoughtcrime.securesms.components.emoji.EmojiStrings
 import org.thoughtcrime.securesms.contactshare.Contact
 import org.thoughtcrime.securesms.contactshare.ContactUtil
 import org.thoughtcrime.securesms.database.MentionUtil
@@ -33,7 +34,6 @@ import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.AvatarUtil
 import org.thoughtcrime.securesms.util.MediaUtil
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.hasGiftBadge
 import org.thoughtcrime.securesms.util.hasPoll
 import org.thoughtcrime.securesms.util.hasPollTerminate
@@ -58,6 +58,9 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
   val isJoined: Boolean = record.isJoined
   val isPersonSelf: Boolean
     get() = authorRecipient.isSelf
+
+  protected val isNoteToSelf: Boolean
+    get() = authorRecipient.isSelf && threadRecipient.isSelf
 
   protected val notifiedTimestamp: Long = record.notifiedTimestamp
 
@@ -100,7 +103,7 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
       context.getString(R.string.SingleRecipientNotificationBuilder_new_message)
     } else {
       SpannableStringBuilder().apply {
-        append(Util.getBoldedString(authorRecipient.getShortDisplayName(context)))
+        append(Util.getBoldedString(if (isNoteToSelf) context.getString(R.string.note_to_self) else authorRecipient.getShortDisplayName(context)))
         if (threadRecipient != authorRecipient) {
           append(Util.getBoldedString("@${threadRecipient.getDisplayName(context)}"))
         }
@@ -112,7 +115,11 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
 
   fun getPersonName(context: Context): CharSequence {
     return if (SignalStore.settings.messageNotificationsPrivacy.isDisplayContact) {
-      authorRecipient.getDisplayName(context)
+      if (isNoteToSelf) {
+        context.getString(R.string.note_to_self)
+      } else {
+        authorRecipient.getDisplayName(context)
+      }
     } else {
       context.getString(R.string.SingleRecipientNotificationBuilder_signal)
     }
@@ -132,7 +139,11 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
 
   fun getPersonIcon(context: Context): IconCompat? {
     return if (SignalStore.settings.messageNotificationsPrivacy.isDisplayContact) {
-      AvatarUtil.getIconCompat(context, authorRecipient)
+      if (isNoteToSelf) {
+        AvatarUtil.getIconCompatForNoteToSelf(context, authorRecipient)
+      } else {
+        AvatarUtil.getIconCompat(context, authorRecipient)
+      }
     } else {
       null
     }
@@ -183,9 +194,14 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
 
     if (spoilerRanges?.isNotEmpty() == true) {
       for (spoiler in spoilerRanges) {
+        val startIndex = spoiler.start.coerceAtMost(updatedText.length - 1).coerceAtLeast(0)
+        val endIndex = (spoiler.start.toLong() + spoiler.length)
+          .coerceIn(0L, updatedText.length.toLong())
+          .toInt()
+          .coerceAtLeast(startIndex)
         updatedText = updatedText.replaceRange(
-          startIndex = spoiler.start.coerceAtMost(updatedText.length - 1).coerceAtLeast(0),
-          endIndex = (spoiler.start + spoiler.length).coerceAtMost(updatedText.length).coerceAtLeast(0),
+          startIndex = startIndex,
+          endIndex = endIndex,
           replacement = "■■■■"
         )
       }
@@ -217,11 +233,12 @@ sealed class NotificationItem(val threadRecipient: Recipient, protected val reco
 /**
  * Represents a notification associated with a new message.
  */
-class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : NotificationItem(threadRecipient, record) {
+class MessageNotification(threadRecipient: Recipient, record: MessageRecord, val isUnread: Boolean = false) : NotificationItem(threadRecipient, record) {
   override val timestamp: Long = record.timestamp
   override val authorRecipient: Recipient = record.fromRecipient.resolve()
   override val isNewNotification: Boolean = notifiedTimestamp == 0L && !record.isEditMessage
-  val hasSelfMention = record.hasSelfMention() || (record is MmsMessageRecord && record.quote?.author == Recipient.self().id)
+  val isReplyToSelf = record is MmsMessageRecord && threadRecipient.isGroup && record.quote?.author == Recipient.self().id
+  val hasSelfMention = record.hasSelfMention()
 
   private var thumbnailInfo: ThumbnailInfo = NotificationThumbnails.getWithoutModifying(this)
 
@@ -249,6 +266,8 @@ class MessageNotification(threadRecipient: Recipient, record: MessageRecord) : N
       ThreadBodyUtil.getFormattedBodyForPollNotification(context, record as MmsMessageRecord)
     } else if (record.hasPollTerminate()) {
       ThreadBodyUtil.getFormattedBodyForPollEndNotification(context, record as MmsMessageRecord)
+    } else if (isReplyToSelf) {
+      ThreadBodyUtil.getFormattedBodyForReply(context, getBodyWithMentionsAndStyles(context, record))
     } else {
       getBodyWithMentionsAndStyles(context, record)
     }

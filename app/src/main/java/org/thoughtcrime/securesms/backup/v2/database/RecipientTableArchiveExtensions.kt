@@ -7,22 +7,22 @@ package org.thoughtcrime.securesms.backup.v2.database
 
 import android.content.ContentValues
 import org.signal.archive.proto.AccountData
+import org.signal.core.database.select
+import org.signal.core.database.update
 import org.signal.core.models.ServiceId
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
 import org.signal.core.util.nullIfBlank
-import org.signal.core.util.select
-import org.signal.core.util.update
-import org.signal.libsignal.zkgroup.InvalidInputException
 import org.thoughtcrime.securesms.backup.v2.exporters.ContactArchiveExporter
 import org.thoughtcrime.securesms.backup.v2.exporters.GroupArchiveExporter
+import org.thoughtcrime.securesms.crypto.ProfileKeyUtil
 import org.thoughtcrime.securesms.database.GroupTable
 import org.thoughtcrime.securesms.database.IdentityTable
 import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.RecipientExtras
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.profiles.ProfileName
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Fetches all individual contacts for backups and returns the result as an iterator.
@@ -38,6 +38,7 @@ fun RecipientTable.getContactsForBackup(selfId: Long): ContactArchiveExporter {
       "${RecipientTable.TABLE_NAME}.${RecipientTable.USERNAME}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.E164}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.BLOCKED}",
+      "${RecipientTable.TABLE_NAME}.${RecipientTable.BLOCKED_AT}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.HIDDEN}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.REGISTERED}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.UNREGISTERED_TIMESTAMP}",
@@ -52,6 +53,8 @@ fun RecipientTable.getContactsForBackup(selfId: Long): ContactArchiveExporter {
       "${RecipientTable.TABLE_NAME}.${RecipientTable.NICKNAME_GIVEN_NAME}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.NICKNAME_FAMILY_NAME}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.NOTE}",
+      "${RecipientTable.TABLE_NAME}.${RecipientTable.SHARED_GIVEN_NAME}",
+      "${RecipientTable.TABLE_NAME}.${RecipientTable.SHARED_FAMILY_NAME}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.MUTE_UNTIL}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.CHAT_COLORS}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.CUSTOM_CHAT_COLORS_ID}",
@@ -90,6 +93,7 @@ fun RecipientTable.getGroupsForBackup(selfAci: ServiceId.ACI): GroupArchiveExpor
     .select(
       "${RecipientTable.TABLE_NAME}.${RecipientTable.ID}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.BLOCKED}",
+      "${RecipientTable.TABLE_NAME}.${RecipientTable.BLOCKED_AT}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.PROFILE_SHARING}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.MUTE_UNTIL}",
       "${RecipientTable.TABLE_NAME}.${RecipientTable.EXTRAS}",
@@ -131,10 +135,12 @@ fun RecipientTable.restoreSelfFromBackup(accountData: AccountData, selfId: Recip
     put(RecipientTable.UNREGISTERED_TIMESTAMP, 0)
     put(RecipientTable.EXTRAS, RecipientExtras().encode())
 
-    try {
-      put(RecipientTable.PROFILE_KEY, Base64.encodeWithPadding(accountData.profileKey.toByteArray()).nullIfBlank())
-    } catch (e: InvalidInputException) {
-      Log.w(TAG, "Missing profile key during restore")
+    val profileKey = ProfileKeyUtil.profileKeyOrNull(accountData.profileKey.toByteArray())
+    if (profileKey != null) {
+      put(RecipientTable.PROFILE_KEY, Base64.encodeWithPadding(profileKey.serialize()))
+    } else {
+      // Don't clear the key we already have. A null profile key for self is fatal in a bunch of places (profile uploads, outgoing messages, etc).
+      Log.w(TAG, "Missing profile key during restore! Keeping the existing one.")
     }
 
     put(RecipientTable.USERNAME, accountData.username)

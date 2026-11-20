@@ -48,11 +48,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -62,8 +64,12 @@ import org.signal.core.ui.WindowBreakpoint
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.BottomSheets
 import org.signal.core.ui.compose.Buttons
+import org.signal.core.ui.compose.DropdownMenus
+import org.signal.core.ui.compose.IconButtons.IconButton
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
+import org.signal.core.ui.compose.TabletPortraitDayPreview
 import org.signal.core.ui.compose.dismissWithAnimation
 import org.signal.core.ui.compose.horizontalGutters
 import org.signal.core.ui.compose.theme.SignalTheme
@@ -75,6 +81,7 @@ import org.signal.registration.screens.attachDebugLogHelper
 import org.signal.registration.test.TestTags
 import kotlin.math.pow
 import kotlin.math.sqrt
+import org.signal.core.ui.R as CoreR
 
 /**
  * Welcome screen for the registration flow.
@@ -143,6 +150,7 @@ private fun CompactLayout(
     modifier = modifier
       .fillMaxSize()
       .testTag(TestTags.WELCOME_SCREEN),
+    topBar = { WelcomeTopAppBar(onEvent) },
     content = {
       Column(
         modifier = Modifier.fillMaxSize(),
@@ -202,6 +210,7 @@ private fun MediumLayout(
     modifier = modifier
       .fillMaxSize()
       .padding(bottom = 56.dp),
+    topBar = { WelcomeTopAppBar(onEvent) },
     content = {
       Box {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -258,10 +267,11 @@ private fun LargeLayout(
 ) {
   RegistrationScaffold(
     modifier = modifier.fillMaxSize(),
+    topBar = { WelcomeTopAppBar(onEvent) },
     content = {
       Row(
         horizontalArrangement = SpaceAround,
-        modifier = Modifier.padding(vertical = 56.dp)
+        modifier = Modifier.padding(horizontal = 32.dp, vertical = 56.dp)
       ) {
         HeroImage(
           modifier = Modifier
@@ -308,6 +318,46 @@ private fun LargeLayout(
             }
           }
         }
+      }
+    }
+  )
+}
+
+@Composable
+private fun WelcomeTopAppBar(onEvent: (WelcomeScreenEvents) -> Unit) {
+  Scaffolds.DefaultTopAppBar(
+    title = "",
+    titleContent = { _, _ -> },
+    onNavigationClick = {},
+    navigationIcon = null,
+    actions = {
+      val menuController = remember { DropdownMenus.MenuController() }
+
+      IconButton(
+        onClick = { menuController.show() },
+        modifier = Modifier
+          .padding(horizontal = 8.dp)
+          .testTag(TestTags.WELCOME_PROXY_MENU_BUTTON)
+      ) {
+        Icon(
+          imageVector = ImageVector.vectorResource(CoreR.drawable.symbol_more_vertical_24),
+          contentDescription = stringResource(R.string.RegistrationActivity_open_menu)
+        )
+      }
+
+      DropdownMenus.Menu(
+        controller = menuController,
+        offsetX = 24.dp,
+        offsetY = 0.dp
+      ) {
+        DropdownMenus.Item(
+          text = { Text(text = stringResource(R.string.RegistrationActivity_use_proxy)) },
+          onClick = {
+            menuController.hide()
+            onEvent(WelcomeScreenEvents.ViewProxySettings)
+          },
+          modifier = Modifier.testTag(TestTags.WELCOME_PROXY_MENU_ITEM)
+        )
       }
     }
   )
@@ -410,7 +460,9 @@ private fun ColumnScope.SecondaryDeviceCallToActionButtons(
     modifier = Modifier.align(Alignment.CenterHorizontally)
   ) {
     Text(
-      text = stringResource(R.string.WelcomeScreen__not_on_signal_yet)
+      text = stringResource(R.string.WelcomeScreen__not_on_signal_yet),
+      style = MaterialTheme.typography.bodyMedium,
+      color = MaterialTheme.colorScheme.onSurfaceVariant
     )
 
     TextButton(
@@ -561,6 +613,14 @@ private fun rememberDisplayLinkAndSyncAsPrimaryPath(isLinkAndSyncAvailable: Bool
 private fun WelcomeScreenPreview() {
   Previews.Preview {
     WelcomeScreen(state = WelcomeScreenState(), onEvent = {})
+  }
+}
+
+@TabletPortraitDayPreview
+@Composable
+private fun WelcomeScreenLinkedDevicePreview() {
+  Previews.Preview {
+    WelcomeScreen(state = WelcomeScreenState(isLinkAndSyncAvailable = true), onEvent = {})
   }
 }
 

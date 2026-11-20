@@ -5,8 +5,10 @@ import android.database.Cursor
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.CursorUtil
 import org.signal.core.util.LRUCache
+import org.signal.core.util.requireLong
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.contacts.ContactRepository
 import org.thoughtcrime.securesms.contacts.paged.collections.ContactSearchIterator
@@ -23,7 +25,6 @@ import org.thoughtcrime.securesms.groups.GroupsInCommonSummary
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.StorySend
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 
 /**
  * Database boundary interface which allows us to safely unit test the data source without
@@ -33,6 +34,11 @@ open class ContactSearchPagedDataSourceRepository(
   context: Context,
   selfTitle: String = context.getString(R.string.note_to_self)
 ) {
+
+  companion object {
+    /** Ceiling on the sections that are read into memory in full, rather than a page at a time. */
+    private const val MAX_PREFETCHED_ROWS = 500
+  }
 
   private val contactRepository = ContactRepository(selfTitle)
   private val context = context.applicationContext
@@ -82,12 +88,26 @@ open class ContactSearchPagedDataSourceRepository(
     return SignalDatabase.distributionLists.getAllListsForContactSelectionUiCursor(query, myStoryContainsQuery(query ?: ""))
   }
 
-  open fun getGroupsWithMembers(query: String): Cursor {
-    return SignalDatabase.groups.queryGroupsByMemberName(query)
+  open fun getGroupsWithMembers(query: String): List<GroupWithMembersRecord> {
+    val cursor = SignalDatabase.groups.queryGroupsByMemberName(query, MAX_PREFETCHED_ROWS)
+
+    return GroupTable.Reader(cursor).use { reader ->
+      generateSequence { reader.getNext() }
+        .map { GroupWithMembersRecord(it, cursor.requireLong(GroupTable.THREAD_DATE)) }
+        .toList()
+    }
   }
 
-  open fun getContactsWithoutThreads(query: String): Cursor {
-    return SignalDatabase.recipients.getAllContactsWithoutThreads(query)
+  /**
+   * Ids rather than [Recipient]s, since resolving a recipient costs a query per row and only the
+   * rows that scroll into view need one.
+   */
+  open fun getContactsWithoutThreads(query: String): List<RecipientId> {
+    return SignalDatabase.recipients.getAllContactsWithoutThreads(query, MAX_PREFETCHED_ROWS).use { cursor ->
+      generateSequence { if (cursor.moveToNext()) cursor else null }
+        .map { RecipientId.from(it.requireLong(RecipientTable.ID)) }
+        .toList()
+    }
   }
 
   open fun getRecipientFromDistributionListCursor(cursor: Cursor): Recipient {
@@ -106,8 +126,8 @@ open class ContactSearchPagedDataSourceRepository(
     return Recipient.resolved(RecipientId.from(CursorUtil.requireLong(cursor, ContactRepository.ID_COLUMN)))
   }
 
-  open fun getRecipientFromRecipientCursor(cursor: Cursor): Recipient {
-    return Recipient.resolved(RecipientId.from(CursorUtil.requireLong(cursor, RecipientTable.ID)))
+  open fun getRecipient(recipientId: RecipientId): Recipient {
+    return Recipient.resolved(recipientId)
   }
 
   @WorkerThread

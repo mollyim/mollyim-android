@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-  implementation("com.squareup.wire:wire-schema:6.4.0")
+  implementation("com.squareup.wire:wire-schema:6.4.5")
 }

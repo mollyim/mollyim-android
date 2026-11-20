@@ -38,10 +38,11 @@ import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint
 import org.thoughtcrime.securesms.jobs.protos.IndividualSendJobV2Data
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.net.SignalNetwork
 import org.thoughtcrime.securesms.ratelimit.ProofRequiredExceptionHandler
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.recipients.RecipientUtil
-import org.thoughtcrime.securesms.util.MessageUtil
+import org.thoughtcrime.securesms.util.OutgoingContent
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.isUrgent
@@ -49,6 +50,7 @@ import org.thoughtcrime.securesms.util.toDataMessage
 import org.whispersystems.signalservice.api.crypto.ContentHint
 import org.whispersystems.signalservice.api.crypto.EnvelopeContent
 import org.whispersystems.signalservice.api.messages.SendMessageResult
+import org.whispersystems.signalservice.api.messages.SignalServiceMessageLimits
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
 import org.whispersystems.signalservice.api.push.exceptions.ProofRequiredException
 import org.whispersystems.signalservice.internal.push.Content
@@ -65,8 +67,6 @@ import kotlin.jvm.optionals.getOrNull
  * - Extends [Job] directly rather than going through [BaseJob]/[PushSendJob].
  * - Routes the actual send through the new [MessageService] (which encapsulates device resolution,
  *   prekey fetching, session building, encryption, and sync-transcript delivery).
- *
- * Used when [RemoteConfig.useIndividualSendJobV2] is true.
  *
  * Behavior should match [IndividualSendJob] exactly for observable state changes (marking sent,
  * UD-mode updates, expiration starts, view-once cleanup, etc.). The primary divergence is the
@@ -111,6 +111,11 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
         attachmentUploadIds,
         if (addHardDependencies) recipient.id.toQueueKey() else null
       )
+    }
+
+    @JvmStatic
+    fun getMessageId(serializedData: ByteArray?): Long {
+      return IndividualSendJobV2Data.ADAPTER.decode(serializedData!!).messageId
     }
 
     private fun logPrefix(sentTimestamp: Long? = null, messageId: Long): String = "[${sentTimestamp ?: "?"}][$messageId]"
@@ -179,19 +184,19 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
       null
     }
 
-    if (message.body.utf8Size() > MessageUtil.MAX_INLINE_BODY_SIZE_BYTES) {
-      Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Body size exceeds limit of ${MessageUtil.MAX_INLINE_BODY_SIZE_BYTES} bytes; failing.")
+    if (message.body.utf8Size() > SignalServiceMessageLimits.MAX_INLINE_BODY_SIZE_BYTES) {
+      Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Body size exceeds limit of ${SignalServiceMessageLimits.MAX_INLINE_BODY_SIZE_BYTES} bytes; failing.")
       return Result.failure()
     }
 
     val recipient = message.threadRecipient.fresh().validated(message.sentTimeMillis).getOrElse { return it }
 
+    RecipientUtil.shareProfileIfFirstSecureMessage(message.threadRecipient)
+
     val dataMessage = message.toDataMessage().getOrElse { error ->
       Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Failed to create a data message! Reason: $error")
       return Result.failure()
     }
-
-    RecipientUtil.shareProfileIfFirstSecureMessage(message.threadRecipient)
 
     Log.i(TAG, "${logPrefix(message.sentTimeMillis)} Sending message. Recipient: ${message.threadRecipient.id}, Thread: $threadId, Attachments: ${buildAttachmentString(message.attachments)}, Editing: ${originalEditedMessage?.dateSent ?: "N/A"}")
     SignalLocalMetrics.IndividualMessageSend.onDeliveryStarted(messageId, message.sentTimeMillis)
@@ -255,6 +260,12 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
         }
 
         ConversationShortcutRankingUpdateJob.enqueueForOutgoingIfNecessary(recipient)
+
+        if (SignalStore.rateLimit.needsRecaptcha()) {
+          Log.i(TAG, "${logPrefix(message.sentTimeMillis)} Successfully sent message. Assuming reCAPTCHA no longer needed.")
+          SignalStore.rateLimit.onProofAccepted()
+        }
+
         Log.i(TAG, "${logPrefix(message.sentTimeMillis)} Sent message.")
         Result.success()
       },
@@ -288,27 +299,28 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
 
           is MessageService.SendError.ChallengeRequired -> {
             Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Challenge required (options=${error.options})", error)
-            val proofResponse = ProofRequiredResponse().apply {
-              token = error.token
+            val proofResponse = ProofRequiredResponse(
+              token = error.token,
               options = error.options.map {
                 when (it) {
                   ChallengeOption.PUSH_CHALLENGE -> "pushChallenge"
                   ChallengeOption.CAPTCHA -> "captcha"
                 }
               }
-            }
+            )
             val proofException = ProofRequiredException(proofResponse, error.retryAfter?.inWholeSeconds ?: 0L)
             val threadRecipient = SignalDatabase.threads.getRecipientForThreadId(threadId)
             when (ProofRequiredExceptionHandler.handle(context, proofException, threadRecipient, threadId, messageId)) {
               ProofRequiredExceptionHandler.Result.RETRY_NOW -> Result.retry(0L)
-              ProofRequiredExceptionHandler.Result.RETRY_LATER,
-              ProofRequiredExceptionHandler.Result.RETHROW -> Result.retry(nextRunAttemptBackoff(runAttempt + 1))
+              ProofRequiredExceptionHandler.Result.RETRY_LATER -> Result.retry(nextRunAttemptBackoff(runAttempt + 1))
+              ProofRequiredExceptionHandler.Result.RETHROW -> {
+                val defaultBackoff = nextRunAttemptBackoff(runAttempt + 1)
+                val serverBackoff = error.retryAfter?.inWholeMilliseconds ?: 0L
+                val backoff = maxOf(defaultBackoff, serverBackoff)
+                Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Unresolved challenge, retryAfter=${error.retryAfter}, using backoff=${backoff}ms")
+                Result.retry(backoff)
+              }
             }
-          }
-
-          is MessageService.SendError.ServerRejected -> {
-            Log.w(TAG, "${logPrefix(message.sentTimeMillis)} Server rejected the send", error)
-            Result.failure()
           }
 
           is MessageService.SendError.ContentTooLarge -> {
@@ -389,8 +401,9 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
       )
     } else {
       val pniSignature = if (recipient.needsPniSignature) {
-        Log.i(TAG, "${logPrefix(dataMessage.timestamp)} Including PNI signature.")
-        AppDependencies.signalServiceMessageSender.createPniSignatureMessage()
+        OutgoingContent.pniSignature()?.also {
+          Log.i(TAG, "${logPrefix(dataMessage.timestamp)} Including PNI signature.")
+        }
       } else {
         null
       }
@@ -409,7 +422,7 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
       return MessageService.SendSuccess(envelopeContent, true, listOf(SignalServiceAddress.DEFAULT_DEVICE_ID))
     }
 
-    return AppDependencies.messageService.sendMessage(
+    return SignalNetwork.messageService.sendMessage(
       serviceId = recipient.requireServiceId(),
       envelopeContent = envelopeContent,
       timestamp = dataMessage.timestamp!!,
@@ -422,7 +435,7 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
   }
 
   private suspend fun Raise<MessageService.SendError>.sendSyncMessage(targetRecipient: Recipient, primaryResult: MessageService.SendSuccess): MessageService.SendSuccess {
-    val dataMessage = primaryResult.envelopeContent.content.get().dataMessage
+    val dataMessage = primaryResult.envelopeContent.content.get().dataMessage?.let { if (it.isViewOnce == true) it.copy(attachments = emptyList()) else it }
     val editMessage = primaryResult.envelopeContent.content.get().editMessage
     val timestamp = dataMessage?.timestamp ?: editMessage?.dataMessage?.timestamp ?: raise(MessageService.SendError.ApplicationError(IllegalStateException("No timestamp on primary message send!")))
 
@@ -437,27 +450,24 @@ class IndividualSendJobV2 private constructor(parameters: Parameters, private va
       null
     }
 
-    val syncContent = Content(
-      syncMessage = SyncMessage(
-        sent = SyncMessage.Sent(
-          destinationServiceId = targetRecipient.serviceId.get().toString(),
-          timestamp = timestamp,
-          message = dataMessage,
-          editMessage = editMessage,
-          expirationStartTimestamp = if ((dataMessage?.expireTimer ?: 0) > 0) System.currentTimeMillis() else null,
-          unidentifiedStatus = listOf(
-            SyncMessage.Sent.UnidentifiedDeliveryStatus(
-              destinationServiceIdBinary = recipientServiceId.toByteString(),
-              unidentified = primaryResult.sentSealedSender,
-              destinationPniIdentityKey = pniIdentityKey
-            )
+    val syncEnvelope = OutgoingContent.syncSent(
+      SyncMessage.Sent(
+        destinationServiceIdBinary = recipientServiceId.toByteString(),
+        timestamp = timestamp,
+        message = dataMessage,
+        editMessage = editMessage,
+        expirationStartTimestamp = if ((dataMessage?.expireTimer ?: 0) > 0) System.currentTimeMillis() else null,
+        unidentifiedStatus = listOf(
+          SyncMessage.Sent.UnidentifiedDeliveryStatus(
+            destinationServiceIdBinary = recipientServiceId.toByteString(),
+            unidentified = primaryResult.sentSealedSender,
+            destinationPniIdentityKey = pniIdentityKey
           )
         )
       )
     )
-    val syncEnvelope = EnvelopeContent.encrypted(syncContent, ContentHint.IMPLICIT, Optional.empty())
 
-    return AppDependencies.messageService.sendSyncMessage(
+    return SignalNetwork.messageService.sendSyncMessage(
       envelopeContent = syncEnvelope,
       timestamp = timestamp,
       urgent = true,

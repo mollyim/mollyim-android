@@ -11,6 +11,8 @@ import org.signal.core.util.gibiBytes
 import org.signal.core.util.kibiBytes
 import org.signal.core.util.logging.Log
 import org.signal.core.util.mebiBytes
+import org.signal.core.util.serialization.SignalJson
+import org.thoughtcrime.securesms.components.settings.app.AppSettingsNavigationActivity
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.jobs.RemoteConfigRefreshJob
@@ -18,13 +20,10 @@ import org.thoughtcrime.securesms.jobs.Svr3MirrorJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.messageprocessingalarm.RoutineMessageFetchReceiver
 import org.thoughtcrime.securesms.net.SignalNetwork
-import org.thoughtcrime.securesms.util.RemoteConfig.REMOTE_VALUES
 import org.thoughtcrime.securesms.util.RemoteConfig.asBoolean
 import org.thoughtcrime.securesms.util.RemoteConfig.asInteger
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteBoolean
 import org.thoughtcrime.securesms.util.RemoteConfig.remoteValue
-import org.thoughtcrime.securesms.util.RemoteConfig.retryReceiptMaxCount
-import org.thoughtcrime.securesms.util.RemoteConfig.retryReceiptMaxCountResetAge
 import org.whispersystems.signalservice.api.NetworkResultUtil
 import java.io.IOException
 import java.util.TreeMap
@@ -52,6 +51,8 @@ import kotlin.time.toDuration
 object RemoteConfig {
   private val TAG = Log.tag(RemoteConfig::class.java)
 
+  private const val INTERNAL_USER_KEY: String = "android.internalUser"
+
   // region Core behavior
 
   private val FETCH_INTERVAL = 2.hours
@@ -59,19 +60,18 @@ object RemoteConfig {
   @VisibleForTesting
   val REMOTE_VALUES: MutableMap<String, Any> = TreeMap()
 
+  /** Internal-user-only values that sit in front of [REMOTE_VALUES]. */
+  @Volatile
+  private var overrideValues: Map<String, String> = emptyMap()
+
   @VisibleForTesting
   val configsByKey: MutableMap<String, Config<*>> = mutableMapOf()
 
   @JvmStatic
   val libsignalConfigs: Map<String, String>
     get() {
-      if (!initialized) {
-        Log.w(TAG, "Tried to read libsignalConfigs before initialization. Initializing now.")
-        initLock.withLock {
-          if (!initialized) {
-            init()
-          }
-        }
+      if (!tryInitialize("libsignalConfigs")) {
+        return emptyMap()
       }
       return computeLibsignalConfigs(REMOTE_VALUES)
     }
@@ -81,6 +81,29 @@ object RemoteConfig {
   @VisibleForTesting
   var initialized: Boolean = false
   private val initLock: ReentrantLock = ReentrantLock()
+
+  /**
+   * Initializes if the store is available. Returns false instead of reading the store when app is still locked.
+   */
+  private fun tryInitialize(key: String): Boolean {
+    if (initialized) {
+      return true
+    }
+
+    if (!SignalStore.isInitialized) {
+      Log.w(TAG, "Tried to read $key before SignalStore initialization. Returning default.")
+      return false
+    }
+
+    Log.w(TAG, "Tried to read $key before initialization. Initializing now.")
+    initLock.withLock {
+      if (!initialized && SignalStore.isInitialized) {
+        init()
+      }
+    }
+
+    return initialized
+  }
 
   /** Solely for fixing an issue with the internalUser flag */
   @VisibleForTesting
@@ -99,6 +122,7 @@ object RemoteConfig {
 
       SignalStore.remoteConfig.currentConfig = mapToJson(pending)
       REMOTE_VALUES.putAll(pending)
+      loadOverrides()
       triggerFlagChangeListeners(changes)
 
       Log.i(TAG, "init() $REMOTE_VALUES")
@@ -123,7 +147,7 @@ object RemoteConfig {
   @WorkerThread
   @Throws(IOException::class)
   fun refreshSync() {
-    val result = NetworkResultUtil.toBasicLegacy(SignalNetwork.remoteConfig.getRemoteConfig())
+    val result = NetworkResultUtil.toBasicLegacy(SignalNetwork.remoteConfigApi.getRemoteConfig())
     update(result.config)
   }
 
@@ -161,13 +185,23 @@ object RemoteConfig {
   @JvmStatic
   @get:Synchronized
   val debugDiskValues: Map<String, Any>
-    get() = TreeMap(parseStoredConfig(SignalStore.remoteConfig.currentConfig))
+    get() {
+      if (!SignalStore.isInitialized) {
+        return emptyMap()
+      }
+      return TreeMap(parseStoredConfig(SignalStore.remoteConfig.currentConfig))
+    }
 
   /** Only for rendering debug info.  */
   @JvmStatic
   @get:Synchronized
   val debugPendingDiskValues: Map<String, Any>
-    get() = TreeMap(parseStoredConfig(SignalStore.remoteConfig.pendingConfig))
+    get() {
+      if (!SignalStore.isInitialized) {
+        return emptyMap()
+      }
+      return TreeMap(parseStoredConfig(SignalStore.remoteConfig.pendingConfig))
+    }
 
   @JvmStatic
   @VisibleForTesting
@@ -346,6 +380,71 @@ object RemoteConfig {
 
   // endregion
 
+  // region Internal overrides
+
+  /** The raw value a config reads from, preferring an internal override over what the service sent us. */
+  private fun effectiveRawValue(key: String): Any? {
+    val overrides = overrideValues
+    return if (overrides.isEmpty()) REMOTE_VALUES[key] else overrides[key] ?: REMOTE_VALUES[key]
+  }
+
+  /**
+   * Overriding [INTERNAL_USER_KEY] would hide internal settings, and with it the only way to clear the override, so
+   * it's left out. Note [internalUserDisabled] already offers that experiment in a form that a restart undoes.
+   */
+  private fun isOverridable(key: String): Boolean = configsByKey.containsKey(key) && key != INTERNAL_USER_KEY
+
+  /** Reads any persisted overrides into memory. Only internal users can have them. */
+  private fun loadOverrides() {
+    overrideValues = emptyMap()
+
+    // Read through the config rather than the delegate, which would re-enter the init() we're in the middle of.
+    if (configsByKey[INTERNAL_USER_KEY]?.resolve() != true) {
+      return
+    }
+
+    overrideValues = SignalStore.internal.remoteConfigOverrides.filterKeys { isOverridable(it) }
+
+    if (overrideValues.isNotEmpty()) {
+      Log.w(TAG, "[Override] Reading with ${overrideValues.size} local override(s)! $overrideValues")
+    }
+  }
+
+  /** Every config that internal settings is allowed to override, keyed by the key used to identify it on the service. */
+  @get:Synchronized
+  val overridableConfigs: Map<String, Config<*>>
+    get() = TreeMap(configsByKey.filterKeys { isOverridable(it) })
+
+  /** The raw values that sit in front of the ones from the service, keyed by config key. */
+  @JvmStatic
+  var overrides: Map<String, String>
+    @Synchronized
+    get() = TreeMap(overrideValues)
+
+    @Synchronized
+    set(value) {
+      val previous = overrideValues
+      val updated: Map<String, String> = TreeMap(value.filterKeys { isOverridable(it) })
+
+      overrideValues = updated
+
+      Log.w(TAG, "[Override] Before: $previous")
+      Log.w(TAG, "[Override] After : $updated")
+
+      val changes = (previous.keys + updated.keys)
+        .filter { previous[it] != updated[it] }
+        .associateWith { key ->
+          ConfigChange(
+            oldValue = previous[key] ?: REMOTE_VALUES[key],
+            newValue = updated[key] ?: REMOTE_VALUES[key]
+          )
+        }
+
+      triggerFlagChangeListeners(changes)
+    }
+
+  // endregion
+
   // region Conversion utilities
   private fun Any?.asBoolean(defaultValue: Boolean): Boolean {
     return when (this) {
@@ -409,6 +508,7 @@ object RemoteConfig {
 
     /**
      * If this is false, the remote value of the flag will be ignored, and we'll only ever use the default value.
+     * An internal override still applies, so that inactive flags remain testable.
      */
     val active: Boolean,
 
@@ -428,17 +528,18 @@ object RemoteConfig {
     val transformer: (Any?) -> T
   ) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
-      if (!initialized) {
-        Log.w(TAG, "Tried to read $key before initialization. Initializing now.")
-        initLock.withLock {
-          if (!initialized) {
-            init()
-          }
-        }
+      if (!tryInitialize(key)) {
+        return transformer(null)
       }
 
-      return transformer(REMOTE_VALUES[key])
+      return transformer(effectiveRawValue(key))
     }
+
+    /** What this config resolves to right now, for readers that don't have a property to delegate to. */
+    internal fun resolve(): T = transformer(effectiveRawValue(key))
+
+    /** What this config would resolve to if the service hadn't sent us anything. */
+    internal fun resolveDefault(): T = transformer(null)
   }
 
   private fun remoteBoolean(
@@ -545,6 +646,25 @@ object RemoteConfig {
     )
   }
 
+  private fun remoteStringSet(
+    key: String,
+    defaultValue: Set<String>,
+    hotSwappable: Boolean,
+    active: Boolean = true,
+    onChangeListener: OnFlagChange? = null
+  ): Config<Set<String>> {
+    return remoteValue(
+      key = key,
+      hotSwappable = hotSwappable,
+      sticky = false,
+      active = active,
+      onChangeListener = onChangeListener,
+      transformer = { value ->
+        value?.let { SignalJson.decode<Set<String>>(it.toString()).getOrNull() } ?: defaultValue
+      }
+    )
+  }
+
   private fun <T> remoteValue(
     key: String,
     hotSwappable: Boolean,
@@ -569,6 +689,16 @@ object RemoteConfig {
   ) { value ->
     !value.asBoolean(false)
   }
+
+  /**
+   * Whether to use the rewritten contact sharing flow, which lists Signal connections alongside the address book and can share a contact by ACI.
+   */
+  @JvmStatic
+  val contactSharingV2: Boolean by remoteBoolean(
+    key = "android.contactSharingV2.2",
+    defaultValue = false,
+    hotSwappable = true
+  )
 
   /** Whether or not to use the UUID in verification codes.  */
   val verifyV2: Boolean by remoteBoolean(
@@ -605,6 +735,15 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** The maximum number of linked devices a user can have. */
+  @JvmStatic
+  @get:JvmName("maxLinkedDevices")
+  val maxLinkedDevices: Int by remoteInt(
+    key = "global.maxLinkedDevices",
+    defaultValue = 5,
+    hotSwappable = true
+  )
+
   /** The maximum number of grapheme  */
   @JvmStatic
   val maxGroupNameGraphemeLength: Int by remoteValue(
@@ -618,14 +757,17 @@ object RemoteConfig {
   /** Whether or not the user is an 'internal' one, which activates certain developer tools. */
   @JvmStatic
   @get:JvmName("internalUser")
-  val internalUser: Boolean
-    get() = when {
+  val internalUser: Boolean by remoteValue(
+    key = INTERNAL_USER_KEY,
+    hotSwappable = true
+  ) { value ->
+    when {
       internalUserDisabled -> false
-      underTest -> false
+      underTest -> value.asBoolean(false)
       Environment.isInternal() -> true
-      else -> false
+      else -> value.asBoolean(false)
     }
-
+  }
 
   /** The raw client expiration JSON string.  */
   @JvmStatic
@@ -707,24 +849,6 @@ object RemoteConfig {
   val okHttpAutomaticRetry: Boolean by remoteBoolean(
     key = "android.okhttpAutomaticRetry",
     defaultValue = true,
-    hotSwappable = true
-  )
-
-  /** The minimum memory class required for rendering animated stickers in the keyboard and such  */
-  @JvmStatic
-  @get:JvmName("animatedStickerMinimumMemoryClass")
-  val animatedStickerMinimumMemoryClass: Int by remoteInt(
-    key = "android.animatedStickerMinMemory",
-    defaultValue = 193,
-    hotSwappable = true
-  )
-
-  /** The minimum total memory for rendering animated stickers in the keyboard and such  */
-  @JvmStatic
-  @get:JvmName("animatedStickerMinimumTotalMemoryMb")
-  val animatedStickerMinimumTotalMemoryMb: Int by remoteInt(
-    key = "android.animatedStickerMinTotalMemory",
-    defaultValue = 3.gibiBytes.inWholeMebiBytes.toInt(),
     hotSwappable = true
   )
 
@@ -814,20 +938,6 @@ object RemoteConfig {
   /** A json string representing rules necessary to build an audio configuration for a device. */
   val callingAudioDeviceConfig: String by remoteString(
     key = "android.calling.audioDeviceConfig",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
-  /** A comma-separated list of manufacturers that *should* use Telecom for calling.  */
-  val telecomManufacturerAllowList: String by remoteString(
-    key = "android.calling.telecomAllowList",
-    defaultValue = "",
-    hotSwappable = true
-  )
-
-  /** A comma-separated list of manufacturers that *should* use Telecom for calling.  */
-  val telecomModelBlocklist: String by remoteString(
-    key = "android.calling.telecomModelBlockList",
     defaultValue = "",
     hotSwappable = true
   )
@@ -927,6 +1037,14 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  @JvmStatic
+  @get:JvmName("censoredUploadChunkSizeBytes")
+  val censoredUploadChunkSizeBytes: Long by remoteLong(
+    key = "global.attachments.censoredUploadChunkSizeBytes",
+    defaultValue = 20.mebiBytes.inWholeBytes,
+    hotSwappable = true
+  )
+
   /** Maximum size a video transcode should target in bytes  */
   @JvmStatic
   @get:JvmName("videoTranscodeTargetSizeBytes")
@@ -941,7 +1059,7 @@ object RemoteConfig {
   @get:JvmName("maxSourceTranscodeVideoSizeBytes")
   val maxSourceTranscodeVideoSizeBytes: Long by remoteLong(
     key = "android.media.sourceTranscodeVideo.maxBytes",
-    defaultValue = 500L.mebiBytes.inWholeBytes,
+    defaultValue = 1.gibiBytes.inWholeBytes,
     hotSwappable = true
   )
 
@@ -982,14 +1100,14 @@ object RemoteConfig {
   /** Whether or not SEPA debit payments for donations are enabled. */
   val sepaDebitDonations: Boolean by remoteBoolean(
     key = "android.sepa.debit.donations.5",
-    defaultValue = false,
-    hotSwappable = false
+    defaultValue = true,
+    hotSwappable = true
   )
 
   val idealDonations: Boolean by remoteBoolean(
     key = "android.ideal.donations.5",
-    defaultValue = false,
-    hotSwappable = false
+    defaultValue = true,
+    hotSwappable = true
   )
 
   @JvmStatic
@@ -997,7 +1115,7 @@ object RemoteConfig {
   val idealEnabledRegions: String by remoteString(
     key = "global.donations.idealEnabledRegions",
     defaultValue = "",
-    hotSwappable = false
+    hotSwappable = true
   )
 
   @JvmStatic
@@ -1005,7 +1123,7 @@ object RemoteConfig {
   val sepaEnabledRegions: String by remoteString(
     key = "global.donations.sepaEnabledRegions",
     defaultValue = "",
-    hotSwappable = false
+    hotSwappable = true
   )
 
   /** List of device products that are blocked from showing notification thumbnails.  */
@@ -1129,19 +1247,6 @@ object RemoteConfig {
   )
 
   /**
-   * When true, individual 1:1 sends are routed through [IndividualSendJobV2], which uses the
-   * network-module [org.signal.network.service.MessageService] instead of the legacy
-   * [SignalServiceMessageSender] send path.
-   */
-  @JvmStatic
-  @get:JvmName("useIndividualSendJobV2")
-  val useIndividualSendJobV2: Boolean by remoteBoolean(
-    key = "android.useIndividualSendJobV2.4",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Also determines how long an unregistered/deleted record should remain in storage service
    */
   val messageQueueTime: Long by remoteValue(
@@ -1187,28 +1292,6 @@ object RemoteConfig {
   )
 
   /**
-   * Whether or not to receive admin delete messages.
-   */
-  @JvmStatic
-  @get:JvmName("receiveAdminDelete")
-  val receiveAdminDelete: Boolean by remoteBoolean(
-    key = "android.receiveAdminDelete.3",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
-   * Whether or not to send admin delete messages.
-   */
-  @JvmStatic
-  @get:JvmName("sendAdminDelete")
-  val sendAdminDelete: Boolean by remoteBoolean(
-    key = "android.sendAdminDelete.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
-  /**
    * Maximum time that passes where a message can still be regularly deleted
    */
   @JvmStatic
@@ -1239,45 +1322,80 @@ object RemoteConfig {
   )
 
   /**
-   * Enables software Vp9 support for 1:1 calls
+   * Enables software Vp9 encode support for 1:1 calls
+   * Contains SoCs that are capable of encoding VP9
    */
   @JvmStatic
-  @get:JvmName("enableSoftwareVp9")
-  val enableSoftwareVp9: Boolean by remoteBoolean(
-    key = "android.calling.enableSoftwareVp9",
+  @get:JvmName("enableSoftwareVp9EncodeSoCList")
+  val enableSoftwareVp9EncodeSoCList: Set<String> by remoteStringSet(
+    key = "android.calling.enableSoftwareVp9EncodeSocList",
+    defaultValue = setOf(),
+    hotSwappable = true
+  )
+
+  /**
+   * Enables software Vp9 decode support for 1:1 calls
+   * Contains SoCs that are capable of decoding VP9
+   */
+  @JvmStatic
+  @get:JvmName("enableSoftwareVp9DecodeSoCList")
+  val enableSoftwareVp9DecodeSoCList: Set<String> by remoteStringSet(
+    key = "android.calling.enableSoftwareVp9DecodeSoCList",
+    defaultValue = setOf(),
+    hotSwappable = true
+  )
+
+  /**
+   * Enables software Vp9 decode support for 1:1 calls for all devices
+   */
+  @JvmStatic
+  @get:JvmName("enableSoftwareVp9Decode")
+  val enableSoftwareVp9Decode: Boolean by remoteBoolean(
+    key = "android.calling.enableSoftwareVp9Decode",
     defaultValue = false,
     hotSwappable = true
   )
 
   /**
-   * Whether to collapse update events
+   * List of devices to skip hardware VP9 on due to reliability issues
    */
   @JvmStatic
-  @get:JvmName("collapseEvents")
-  val collapseEvents: Boolean by remoteBoolean(
-    key = "android.collapseEvents.2",
-    defaultValue = false,
+  @get:JvmName("disableHardwareVp9EncodeSocList")
+  val disableHardwareVp9EncodeSocList: Set<String> by remoteStringSet(
+    key = "android.calling.disableHardwareVp9EncodeSocList",
+    defaultValue = setOf(),
     hotSwappable = true
   )
 
   /**
-   * Whether to use the new custom APNG renderer instead of the existing third-party library.
+   * List of devices to skip hardware VP9 on due to reliability issues
    */
   @JvmStatic
-  @get:JvmName("newApngRenderer")
-  val newApngRenderer: Boolean by remoteBoolean(
-    key = "android.newApngRenderer",
+  @get:JvmName("disableHardwareVp9DecodeSocList")
+  val disableHardwareVp9DecodeSocList: Set<String> by remoteStringSet(
+    key = "android.calling.disableHardwareVp9DecodeSocList",
+    defaultValue = setOf(),
+    hotSwappable = true
+  )
+
+  /**
+   * Enables using VP9 in Group Calls
+   */
+  @JvmStatic
+  @get:JvmName("enableGroupCallVp9")
+  val enableGroupCallVp9: Boolean by remoteBoolean(
+    key = "android.calling.enableGroupCallVp9",
     defaultValue = false,
-    hotSwappable = false
+    hotSwappable = true
   )
 
   /**
    * Whether the backups upgrade megaphone can be displayed
    */
   @JvmStatic
-  @get:JvmName("upgradeBackupsMegaphone")
-  val upgradeBackupsMegaphone: Boolean by remoteBoolean(
-    key = "android.upgradeBackupsMegaphone",
+  @get:JvmName("upgradeToNewLocalBackupsMegaphone")
+  val upgradeToNewLocalBackupsMegaphone: Boolean by remoteBoolean(
+    key = "android.upgradeToNewLocalBackupsMegaphone",
     defaultValue = false,
     hotSwappable = false
   )
@@ -1324,27 +1442,6 @@ object RemoteConfig {
     hotSwappable = true
   )
 
-  /**
-   * A ratio between 0 and 1, where 0 means that a session is never archived due
-   * to a lack of PQ, and 1 means that a session is always archived due to a
-   * lack of PQ.
-   */
-  @JvmStatic
-  @get:JvmName("requirePqRatio")
-  val requirePqRatio: Double by remoteDouble(
-    key = "android.requirePqRatio",
-    defaultValue = 0.0,
-    hotSwappable = true
-  )
-
-  @JvmStatic
-  @get:JvmName("disappearMore")
-  val disappearMore: Boolean by remoteBoolean(
-    key = "android.disappearMore.2",
-    defaultValue = false,
-    hotSwappable = true
-  )
-
   /** A json string representing possible transcoding configurations for videos */
   @JvmStatic
   @get:JvmName("transcodeConfig")
@@ -1354,5 +1451,115 @@ object RemoteConfig {
     hotSwappable = true
   )
 
+  /** The maximum allowed difference, in seconds, between our local clock and the server's clock before we block the app and prompt the user to fix their clock. */
+  @JvmStatic
+  @get:JvmName("maxAllowedClockSkewSeconds")
+  val maxAllowedClockSkewSeconds: Long by remoteLong(
+    key = "client.maxAllowedClockSkewSeconds",
+    defaultValue = 24.hours.inWholeSeconds,
+    hotSwappable = true
+  )
+
+  /** Whether to enable Jetpack telecom integration for 1:1 calls */
+  @JvmStatic
+  @get:JvmName("useJetPackTelecom")
+  val useJetPackTelecom: Boolean by remoteBoolean(
+    key = "android.calling.useJetPackTelecom",
+    defaultValue = false,
+    hotSwappable = false
+  )
+
+  /** The minimum SDK version required to enable Jetpack telecom integration */
+  val telecomMinSdkVersion: Int by remoteInt(
+    key = "android.calling.telecomMinSdkVersion",
+    defaultValue = 37,
+    hotSwappable = false
+  )
+
+  /** Whether to enable SVC in group calls. */
+  @JvmStatic
+  @get:JvmName("enableSvc")
+  val enableSvc: Boolean by remoteBoolean(
+    key = "android.calling.enableSvc",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  /** The SVC mode to use in group calls. */
+  @JvmStatic
+  @get:JvmName("svcMode")
+  val svcMode: String by remoteString(
+    key = "android.calling.svcMode",
+    defaultValue = "L3T3_KEY",
+    hotSwappable = true
+  )
+
+  /** The screenshare SVC mode to use in group calls. */
+  @JvmStatic
+  @get:JvmName("svcModeForScreenshare")
+  val svcModeForScreenshare: String by remoteString(
+    key = "android.calling.svcModeForScreenshare",
+    defaultValue = "L1T3",
+    hotSwappable = true
+  )
+
+  /** Maximum bitrate to use in SVC group calls. */
+  @JvmStatic
+  @get:JvmName("svcMaxBitrateBps")
+  val svcMaxBitrateBps: Int by remoteInt(
+    key = "android.calling.svcMaxBitrateBps",
+    defaultValue = 0,
+    hotSwappable = true
+  )
+
+  /** Interval to send unread reminder notifications **/
+  val unreadReminderIntervalSeconds: Long by remoteLong(
+    key = "client.unreadReminderIntervalSeconds",
+    defaultValue = 3.days.inWholeSeconds,
+    hotSwappable = true
+  )
+
+  /** The maximum number of authenticator apps a user can have on their account. */
+  val maxTotpApps: Int by remoteInt(
+    key = "global.maxTotpApps",
+    defaultValue = 2,
+    hotSwappable = true
+  )
+
+  /**
+   * The maximum number of two-factor methods of every kind, authenticator apps and passkeys alike, a user can have on
+   * their account. Every method counts against this, so it's the limit on the total rather than on any one kind.
+   */
+  val maxTwoFactorMethods: Int by remoteInt(
+    key = "global.maxMfaKeys",
+    defaultValue = 10,
+    hotSwappable = true
+  )
+
+  /**
+   * The minimum time between syncing storage service while the app is in the background.
+   */
+  val storageServiceBackgroundSyncInterval: Duration by remoteDuration(
+    key = "android.storageServiceBackgroundSyncIntervalSeconds",
+    defaultValue = 6.hours,
+    hotSwappable = true,
+    durationUnit = DurationUnit.SECONDS
+  )
+
+  /** Whether to use the new Compose media viewer in place of MediaPreviewActivity. */
+  val useNewMediaViewer: Boolean by remoteBoolean(
+    key = "android.newMediaViewer.2",
+    defaultValue = false,
+    hotSwappable = true
+  )
+
+  const val APP_SETTINGS_NAVIGATION_KEY = "android.appSettingsNavigation"
+
+  /** Whether to host app settings in [AppSettingsNavigationActivity] in place of the fragment nav graph. */
+  val useAppSettingsNavigation: Boolean by remoteBoolean(
+    key = APP_SETTINGS_NAVIGATION_KEY,
+    defaultValue = false,
+    hotSwappable = true
+  )
   // endregion
 }

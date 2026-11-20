@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.keyvalue
 
+import android.content.Context
 import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -7,6 +8,7 @@ import okio.withLock
 import org.signal.core.models.backup.MediaRootBackupKey
 import org.signal.core.models.backup.MessageBackupKey
 import org.signal.core.util.LongSerializer
+import org.signal.core.util.crypto.KeyStoreHelper
 import org.signal.core.util.logging.Log
 import org.signal.network.util.JsonUtil
 import org.thoughtcrime.securesms.backup.DeletionState
@@ -19,6 +21,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.NoRemoteArchiveGarbageCollecti
 import org.thoughtcrime.securesms.jobmanager.impl.RestoreAttachmentConstraintObserver
 import org.thoughtcrime.securesms.keyvalue.protos.ArchiveUploadProgressState
 import org.thoughtcrime.securesms.keyvalue.protos.BackupDownloadNotifierState
+import org.thoughtcrime.securesms.service.ArchiveCredentialRefreshListener
 import org.thoughtcrime.securesms.util.Environment
 import org.whispersystems.signalservice.api.archive.ArchiveServiceCredential
 import org.whispersystems.signalservice.api.archive.GetArchiveCdnCredentialsResponse
@@ -29,7 +32,7 @@ import kotlin.time.Duration.Companion.days
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 
-class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
+class BackupValues(store: KeyValueStore, context: Context) : SignalStoreValues(store) {
   companion object {
     val TAG = Log.tag(BackupValues::class.java)
     private const val KEY_MESSAGE_CREDENTIALS = "backup.messageCredentials"
@@ -40,18 +43,24 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_MEDIA_CDN_READ_CREDENTIALS_TIMESTAMP = "backup.mediaCdnReadCredentialsTimestamp"
     private const val KEY_RESTORE_STATE = "backup.restoreState"
     private const val KEY_BACKUP_LAST_PROTO_SIZE = "backup.lastProtoSize"
+    private const val KEY_BACKUP_LAST_UNCOMPRESSED_SIZE = "backup.lastUncompressedSize"
+    private const val KEY_LOCAL_BACKUP_LAST_UNCOMPRESSED_SIZE = "backup.lastLocalBackupUncompressedSize"
     private const val KEY_BACKUP_TIER = "backup.backupTier"
     private const val KEY_BACKUP_TIER_INTERNAL_OVERRIDE = "backup.backupTier.internalOverride"
     private const val KEY_BACKUP_TIMESTAMP_RESTORED = "backup.backupTimeRestored"
     private const val KEY_LATEST_BACKUP_TIER = "backup.latestBackupTier"
     private const val KEY_LAST_CHECK_IN_MILLIS = "backup.lastCheckInMilliseconds"
     private const val KEY_LAST_CHECK_IN_SNOOZE_MILLIS = "backup.lastCheckInSnoozeMilliseconds"
+    private const val KEY_NEXT_CREDENTIAL_REFRESH_TIME = "backup.nextCredentialRefreshTime"
     private const val KEY_FIRST_APP_VERSION = "backup.firstAppVersion"
     private const val KEY_FINISHED_INITIAL_BACKUP = "backup.finishedInitialBackup"
 
     private const val KEY_NEXT_BACKUP_TIME = "backup.nextBackupTime"
     private const val KEY_LAST_BACKUP_TIME = "backup.lastBackupTime"
     private const val KEY_LAST_ATTACHMENT_RECONCILIATION_TIME = "backup.lastBackupMediaSyncTime"
+    private const val KEY_LAST_COMPLETED_RECONCILIATION_SNAPSHOT_VERSION = "backup.lastCompletedReconciliationSnapshotVersion"
+    private const val KEY_LAST_COMPLETED_RECONCILIATION_TIME = "backup.lastCompletedReconciliationTime"
+    private const val KEY_LAST_FORCED_RECONCILIATION_ATTEMPT_TIME = "backup.lastForcedReconciliationAttemptTime"
     private const val KEY_TOTAL_RESTORABLE_ATTACHMENT_SIZE = "backup.totalRestorableAttachmentSize"
     private const val KEY_LAST_BACKUP_PROTO_VERSION = "backup.lastBackupProtoVersion"
 
@@ -62,7 +71,11 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private const val KEY_RESTORE_OVER_CELLULAR = "backup.restore.useCellular"
     private const val KEY_OPTIMIZE_STORAGE = "backup.optimizeStorage"
     private const val KEY_BACKUPS_INITIALIZED = "backup.initialized"
+    private const val KEY_MESSAGE_BACKUP_INITIALIZED = "backup.messageBackupInitialized"
+    private const val KEY_MEDIA_BACKUP_INITIALIZED = "backup.mediaBackupInitialized"
     private const val KEY_IMPORTED_EMPTY_ANDROID_SETTINGS = "backup.importedEmptyAndroidSettings"
+    private const val KEY_V1_BACKUP_PASSPHRASE = "backup.v1BackupPassphrase"
+    private const val KEY_V1_BACKUP_PASSPHRASE_MIGRATED = "backup.v1BackupPassphraseMigrated"
 
     const val KEY_ARCHIVE_UPLOAD_STATE = "backup.archiveUploadState"
 
@@ -115,12 +128,67 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     private val lock = ReentrantLock()
   }
 
+  init {
+    if (!store.containsKey(KEY_MESSAGE_BACKUP_INITIALIZED)) {
+      migrateSplitBackupsInitialized()
+    }
+
+    if (!store.getBoolean(KEY_V1_BACKUP_PASSPHRASE_MIGRATED, false)) {
+      migrateV1BackupPassphrase(context)
+    }
+  }
+
   public override fun onFirstEverAppLaunch() = Unit
   public override fun getKeysToIncludeInBackup(): List<String> = emptyList()
+
+  /**
+   * The passphrase for legacy (v1) local backups. This store is already encrypted, so unlike the shared-prefs home it used to
+   * have, there's no need to seal it with the keystore by hand.
+   */
+  var v1BackupPassphrase: String?
+    get() = getString(KEY_V1_BACKUP_PASSPHRASE, null)?.stripSpaces()
+    set(value) {
+      putString(KEY_V1_BACKUP_PASSPHRASE, value)
+    }
+
+  /**
+   * Pulls the v1 backup passphrase out of shared prefs, where it lived as a hand-sealed blob because it predates this store.
+   *
+   * Do not alter. If you need to migrate more stuff, create a new method.
+   */
+  private fun migrateV1BackupPassphrase(context: Context) {
+    Log.i(TAG, "[V1Passphrase] Migrating the legacy backup passphrase out of shared prefs.")
+
+    val sealed = LegacySharedPrefs.getStringOrNull(context, "pref_encrypted_backup_passphrase")
+
+    val passphrase = if (sealed != null) {
+      try {
+        String(KeyStoreHelper.unseal(KeyStoreHelper.SealedData.fromString(sealed)))
+      } catch (e: Exception) {
+        // Nothing we can do to recover it -- better to lose the passphrase than to fail to construct the store at all.
+        Log.w(TAG, "[V1Passphrase] Failed to unseal the legacy passphrase! The user will have to re-enter it.", e)
+        null
+      }
+    } else {
+      LegacySharedPrefs.getStringOrNull(context, "pref_backup_passphrase")
+    }
+
+    store
+      .beginWrite()
+      .putString(KEY_V1_BACKUP_PASSPHRASE, passphrase?.stripSpaces())
+      .putBoolean(KEY_V1_BACKUP_PASSPHRASE_MIGRATED, true)
+      .commit()
+  }
+
+  private fun String.stripSpaces(): String = this.replace(" ", "")
 
   var cachedMediaCdnPath: String? by stringValue(KEY_CDN_MEDIA_PATH, null)
 
   var lastBackupProtoSize: Long by longValue(KEY_BACKUP_LAST_PROTO_SIZE, 0L)
+
+  var lastBackupUncompressedSize: Long? by nullableLongValue(KEY_BACKUP_LAST_UNCOMPRESSED_SIZE, null)
+
+  var lastLocalBackupUncompressedSize: Long? by nullableLongValue(KEY_LOCAL_BACKUP_LAST_UNCOMPRESSED_SIZE, null)
 
   private val deletionStateValue = enumValue(KEY_BACKUP_DELETION_STATE, DeletionState.NONE, DeletionState.serializer)
   private var internalDeletionState by deletionStateValue
@@ -185,6 +253,33 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
 
   var lastAttachmentReconciliationTime: Long by longValue(KEY_LAST_ATTACHMENT_RECONCILIATION_TIME, -1)
 
+  /**
+   * Negative if no crawl has ever completed on this device. Must be cleared by anything that invalidates our view of the CDN (new media root backup key, tier
+   * change), because it gates deleting local copies of media.
+   */
+  var lastCompletedReconciliationSnapshotVersion: Long by longValue(KEY_LAST_COMPLETED_RECONCILIATION_SNAPSHOT_VERSION, -1)
+
+  /**
+   * When the crawl behind [lastCompletedReconciliationSnapshotVersion] finished, or zero if none ever has. Written alongside it.
+   */
+  var lastCompletedReconciliationTime: Long by longValue(KEY_LAST_COMPLETED_RECONCILIATION_TIME, 0)
+
+  /**
+   * Advances when a forced crawl *starts*, unlike [lastAttachmentReconciliationTime] which only advances on completion, so that a crawl which can never finish
+   * doesn't get re-forced daily while one that never started still can be.
+   */
+  var lastForcedReconciliationAttemptTime: Long by longValue(KEY_LAST_FORCED_RECONCILIATION_ATTEMPT_TIME, 0)
+
+  /**
+   * Discards everything we know about having verified our media against the archive CDN, so offloading stays gated until a fresh crawl confirms it again. Call
+   * this from anything that invalidates that view.
+   */
+  fun clearArchiveVerificationState() {
+    lastCompletedReconciliationSnapshotVersion = -1
+    lastCompletedReconciliationTime = 0
+    lastForcedReconciliationAttemptTime = 0
+  }
+
   var userManuallySkippedMediaRestore: Boolean by booleanValue(KEY_USER_MANUALLY_SKIPPED_MEDIA_RESTORE, false)
 
   /**
@@ -198,6 +293,11 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
    * The last time the device notified the server that the archive is still in use.
    */
   var lastCheckInMillis: Long by longValue(KEY_LAST_CHECK_IN_MILLIS, 0L)
+
+  /**
+   * When the next routine archive credential refresh is scheduled for. See [ArchiveCredentialRefreshListener].
+   */
+  var nextCredentialRefreshTime: Long by longValue(KEY_NEXT_CREDENTIAL_REFRESH_TIME, 0L)
 
   /**
    * The time we last displayed the "Your media will be deleted today" sheet.
@@ -250,6 +350,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
         store.beginWrite().putBlob(KEY_MEDIA_ROOT_BACKUP_KEY, value.value).commit()
         mediaCredentials.clearAll()
         cachedMediaCdnPath = null
+
+        clearArchiveVerificationState()
       }
     }
 
@@ -290,6 +392,9 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
           clearNotEnoughRemoteStorageSpace()
           clearMessageBackupFailureSheetWatermark()
           backupCreationError = null
+          lastBackupUncompressedSize = null
+
+          clearArchiveVerificationState()
 
           if (storedValue == null) {
             Log.i(TAG, "Enabling backups. Resetting 'finished initial backup' state.")
@@ -385,7 +490,8 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
       .beginWrite()
       .putLong(KEY_NEXT_BACKUP_TIME, -1)
       .putLong(KEY_LAST_BACKUP_TIME, -1)
-      .putBoolean(KEY_BACKUPS_INITIALIZED, false)
+      .putBoolean(KEY_MESSAGE_BACKUP_INITIALIZED, false)
+      .putBoolean(KEY_MEDIA_BACKUP_INITIALIZED, false)
       .putBoolean(KEY_BACKUP_UPLOADED, false)
       .putLong(KEY_LAST_VERIFY_KEY_TIME, -1)
       .putBoolean(KEY_HAS_VERIFIED_BEFORE, false)
@@ -395,7 +501,11 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     backupTierInternalOverride = null
   }
 
-  var backupsInitialized: Boolean by booleanValue(KEY_BACKUPS_INITIALIZED, false)
+  /** Whether the message backupId has been reserved with the service and our public key set. */
+  var messageBackupInitialized: Boolean by booleanValue(KEY_MESSAGE_BACKUP_INITIALIZED, false)
+
+  /** The media counterpart to [messageBackupInitialized]. */
+  var mediaBackupInitialized: Boolean by booleanValue(KEY_MEDIA_BACKUP_INITIALIZED, false)
 
   var restoreState: RestoreState by enumValue(KEY_RESTORE_STATE, RestoreState.NONE, RestoreState.serializer)
   var totalRestorableAttachmentSize: Long by longValue(KEY_TOTAL_RESTORABLE_ATTACHMENT_SIZE, 0)
@@ -460,12 +570,23 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
    */
   var importedEmptyAndroidSettings by booleanValue(KEY_IMPORTED_EMPTY_ANDROID_SETTINGS, false)
 
+  private var internalMessageCuttoffDuration: Duration? by durationValue(KEY_MESSAGE_CUTOFF_DURATION, null)
+
   /**
    * If set, this represents how far back we should backup messages. For instance, if the returned value is 1 year in milliseconds, you should back up
    * every message within the last year. If unset, back up all messages. We only cutoff old messages for users whose backup is over the
    * size limit, which is *extraordinarily* rare, so this value is almost always null.
+   *
+   * Changing this changes which messages a remote backup contains, so [lastBackupUncompressedSize] no longer describes it and is cleared.
    */
-  var messageCuttoffDuration: Duration? by durationValue(KEY_MESSAGE_CUTOFF_DURATION, null)
+  var messageCuttoffDuration: Duration?
+    get() = internalMessageCuttoffDuration
+    set(value) {
+      if (value != internalMessageCuttoffDuration) {
+        lastBackupUncompressedSize = null
+      }
+      internalMessageCuttoffDuration = value
+    }
 
   /**
    * The last threshold we used for backing up messages. Messages sent before this time were not included in the backup.
@@ -584,6 +705,18 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
     return previous + 7.days
   }
 
+  /** Do not alter. If you need to migrate more stuff, create a new method. */
+  private fun migrateSplitBackupsInitialized() {
+    val initialized = getBoolean(KEY_BACKUPS_INITIALIZED, false)
+    Log.i(TAG, "Splitting the backups-initialized flag into message/media. Existing value: $initialized")
+
+    store
+      .beginWrite()
+      .putBoolean(KEY_MESSAGE_BACKUP_INITIALIZED, initialized)
+      .putBoolean(KEY_MEDIA_BACKUP_INITIALIZED, initialized)
+      .commit()
+  }
+
   class SerializedCredentials(
     @JsonProperty
     val credentialsByDay: Map<Long, ArchiveServiceCredential>
@@ -631,10 +764,10 @@ class BackupValues(store: KeyValueStore) : SignalStoreValues(store) {
       putString(authKey, JsonUtil.toJson(SerializedCredentials(current)))
     }
 
-    /** Trims out any credentials that are for days older than the given timestamp. */
-    fun clearOlderThan(startOfDayInSeconds: Long) {
-      val current: MutableMap<Long, ArchiveServiceCredential> = byDay.toMutableMap()
-      val updated = current.filterKeys { it < startOfDayInSeconds }
+    /** Trims out any credentials that are for days before the one containing [currentTime]. */
+    fun clearOlderThan(currentTime: Duration) {
+      val startOfDayInSeconds: Long = currentTime.inWholeDays.days.inWholeSeconds
+      val updated = byDay.filterKeys { it >= startOfDayInSeconds }
       putString(authKey, JsonUtil.toJson(SerializedCredentials(updated)))
     }
 

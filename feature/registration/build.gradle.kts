@@ -40,11 +40,15 @@ dependencies {
 
   // Project dependencies
   api(project(":lib:archive"))
+  api(project(":lib:network"))
   implementation(project(":core:ui"))
   implementation(project(":core:util"))
   implementation(project(":core:models-jvm"))
   implementation(project(":core:serialization"))
   implementation(project(":lib:device-transfer"))
+  implementation(project(":lib:password-manager"))
+  implementation(project(":lib:signal-login"))
+  implementation(project(":lib:ui-components"))
   implementation(libs.libsignal.android)
 
   // Compose BOM
@@ -83,9 +87,7 @@ dependencies {
     exclude(group = "com.google.android.gms", module = "play-services-tasks")
   }
   implementation(project(":core-gms:tasks"))
-
-  // Credential Manager (password manager retrieval)
-  implementation(libs.androidx.credentials)
+  implementation(project(":core-gms:base"))
 
   // Testing
   testImplementation(testFixtures(project(":core:ui")))

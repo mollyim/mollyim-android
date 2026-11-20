@@ -6,8 +6,6 @@
 package org.signal.registration.screens.pinentry
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +17,8 @@ import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.util.Hex
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.network.api.RegistrationApiV2.RegisterAccountError
+import org.signal.network.api.RegistrationApiV2.SvrCredentials
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationFlowState
@@ -36,8 +36,8 @@ class PinEntryForSmsBypassViewModel(
   private val repository: RegistrationRepository,
   private val parentState: StateFlow<RegistrationFlowState>,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-  private val svrCredentials: NetworkController.SvrCredentials
-) : EventDrivenViewModel<PinEntryScreenEvents>(TAG) {
+  private val svrCredentials: SvrCredentials
+) : EventDrivenViewModel<PinEntryScreenEvents>(TAG, shouldLogEvents = false) {
 
   companion object {
     private val TAG = Log.tag(PinEntryForSmsBypassViewModel::class)
@@ -84,19 +84,22 @@ class PinEntryForSmsBypassViewModel(
       is PinEntryScreenEvents.Skip -> {
         handleSkip()
       }
-      is PinEntryScreenEvents.CreateNewPin,
-      is PinEntryScreenEvents.ContactSupport -> Unit
+      is PinEntryScreenEvents.CreateNewPin -> Unit
+      is PinEntryScreenEvents.ContactSupport -> {
+        stateEmitter(state.copy(showContactSupportDialog = true))
+      }
       is PinEntryScreenEvents.ToggleKeyboard,
       is PinEntryScreenEvents.NetworkErrorDialogDismissed,
       is PinEntryScreenEvents.RateLimitedDialogDismissed,
-      is PinEntryScreenEvents.UnknownErrorDialogDismissed -> {
+      is PinEntryScreenEvents.UnknownErrorDialogDismissed,
+      is PinEntryScreenEvents.DismissContactSupport -> {
         stateEmitter(PinEntryScreenEventHandler.applyEvent(state, event))
       }
     }
   }
 
   private fun applyParentState(state: PinEntryState, parentState: RegistrationFlowState): PinEntryState {
-    return state.copy(e164 = parentState.sessionE164)
+    return state.copy(e164 = parentState.sessionE164, submittedVerificationCode = parentState.submittedVerificationCode)
   }
 
   private suspend fun applyPinEntered(
@@ -112,7 +115,7 @@ class PinEntryForSmsBypassViewModel(
       return state
     }
 
-    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, forRegistrationLock = false)) {
+    return when (val result = repository.restoreMasterKeyFromSvr(svrCredentials, event.pin, forRegistrationLock = false, isRegistered = false)) {
       is RequestResult.Success -> {
         Log.i(TAG, "[PinEntered] Successfully restored master key from SVR.")
         parentEventEmitter(RegistrationFlowEvent.MasterKeyRestoredFromSvr(result.result.masterKey))
@@ -122,7 +125,7 @@ class PinEntryForSmsBypassViewModel(
         when (val error = result.error) {
           is NetworkController.RestoreMasterKeyError.WrongPin -> {
             Log.w(TAG, "[PinEntered] Wrong PIN. Tries remaining: ${error.triesRemaining}")
-            state.copy(loading = false, triesRemaining = error.triesRemaining)
+            state.copy(loading = false, triesRemaining = error.triesRemaining, enteredVerificationCode = event.pin == state.submittedVerificationCode)
           }
           is NetworkController.RestoreMasterKeyError.NoDataFound -> {
             Log.w(TAG, "[PinEntered] No SVR data found for sms-bypass credential. Marking RRP as invalid and navigating back.")
@@ -175,22 +178,22 @@ class PinEntryForSmsBypassViewModel(
       }
       is RequestResult.NonSuccess -> {
         when (val error = result.error) {
-          NetworkController.RegisterAccountError.DeviceTransferPossible -> {
+          RegisterAccountError.DeviceTransferPossible -> {
             Log.w(TAG, "[Register] Got told a device transfer is possible. We should never get into this state. Resetting.")
             parentEventEmitter(RegistrationFlowEvent.ResetState)
             state
           }
-          is NetworkController.RegisterAccountError.InvalidRequest -> {
+          is RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[Register] Invalid request when registering account with RRP. Marking RRP as invalid and navigating back. Message: ${error.message}")
             parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
             parentEventEmitter.navigateBack()
             state
           }
-          is NetworkController.RegisterAccountError.RateLimited -> {
+          is RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
             state.copy(loading = false, dialogs = state.dialogs.copy(rateLimitedRetryAfter = error.retryAfter))
           }
-          is NetworkController.RegisterAccountError.RegistrationLock -> {
+          is RegisterAccountError.RegistrationLock -> {
             if (provideRegistrationLock) {
               Log.w(TAG, "[Register] Hit reglock error when supplying RRP with reglock. This shouldn't happen and implies that the RRP is likely invalid. Marking RRP as invalid and navigating back.")
               parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
@@ -201,35 +204,25 @@ class PinEntryForSmsBypassViewModel(
               attemptToRegister(state, e164, masterKey, provideRegistrationLock = true, parentEventEmitter)
             }
           }
-          is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
+          is RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[Register] Told that RRP is incorrect. Marking RRP as invalid and navigating back.")
             parentEventEmitter(RegistrationFlowEvent.RecoveryPasswordInvalid)
             parentEventEmitter.navigateBack()
             state
           }
-          is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
+          is RegisterAccountError.SessionNotFoundOrNotVerified -> {
             Log.w(TAG, "[Register] Got told our session wasn't found when trying to use RRP. We should never get into this state. Resetting.")
             parentEventEmitter(RegistrationFlowEvent.ResetState)
             state
           }
+          is RegisterAccountError.InvalidReceiptCredentialPresentation,
+          is RegisterAccountError.TwoFactorRequired,
+          RegisterAccountError.PostQuantumRatchetRequired -> {
+            Log.w(TAG, "[Register] Unexpected error when registering: $error")
+            state.copy(loading = false, dialogs = state.dialogs.copy(unknownError = true))
+          }
         }
       }
-    }
-  }
-
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentState: StateFlow<RegistrationFlowState>,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit,
-    private val svrCredentials: NetworkController.SvrCredentials
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return PinEntryForSmsBypassViewModel(
-        repository = repository,
-        parentState = parentState,
-        parentEventEmitter = parentEventEmitter,
-        svrCredentials = svrCredentials
-      ) as T
     }
   }
 }

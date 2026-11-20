@@ -6,11 +6,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import com.fasterxml.jackson.annotation.JsonProperty
-import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.greenrobot.eventbus.EventBus
 import org.signal.core.util.Hex
 import org.signal.core.util.JsonUtils
+import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.forEach
 import org.signal.core.util.getDownloadManager
 import org.signal.core.util.logging.Log
@@ -20,13 +19,12 @@ import org.signal.core.util.requireString
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.apkupdate.ApkUpdateDownloadManagerReceiver
+import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.events.ApkUpdateEvent
 import org.thoughtcrime.securesms.jobmanager.Job
 import org.thoughtcrime.securesms.jobmanager.impl.NetworkConstraint
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.util.FileUtils
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.FileInputStream
 import java.io.IOException
 import java.security.MessageDigest
@@ -62,21 +60,17 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
 
   @Throws(IOException::class)
   public override fun onRun() {
-    if (!BuildConfig.MANAGE_MOLLY_UPDATES || !TextSecurePreferences.isUpdateApkEnabled(context)) {
+    if (!BuildConfig.MANAGE_MOLLY_UPDATES || !SignalStore.molly.updateApkEnabled) {
       Log.i(TAG, "In-app updater disabled! Exiting.")
       return
     }
 
-    val includeBeta = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(context)
+    val includeBeta = SignalStore.molly.updateApkIncludeBetaEnabled
     val url = "${BuildConfig.FDROID_UPDATE_URL}/index-v1.json"
 
     Log.i(TAG, "Checking for APK update [stable" + (if (includeBeta) ", beta" else "") + "] at $url")
 
-    val client = OkHttpClient().newBuilder()
-      .socketFactory(Networking.socketFactory)
-      .proxySelector(Networking.proxySelectorForSocks)
-      .dns(Networking.dns)
-      .build()
+    val client = AppDependencies.okHttpClient
 
     val request = Request.Builder().url(url).build()
 
@@ -125,7 +119,7 @@ class ApkUpdateJob private constructor(parameters: Parameters) : BaseJob(paramet
     }
 
     SignalStore.apkUpdate.lastSuccessfulCheck = System.currentTimeMillis()
-    EventBus.getDefault().post(ApkUpdateEvent)
+    EventBus.default.post(ApkUpdateEvent)
   }
 
   public override fun onShouldRetry(e: Exception): Boolean {

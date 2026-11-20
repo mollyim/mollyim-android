@@ -7,8 +7,10 @@ import androidx.annotation.Nullable;
 import androidx.core.util.Consumer;
 
 import org.signal.core.models.ServiceId;
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.concurrent.SignalExecutors;
 import org.signal.core.util.concurrent.SimpleTask;
+import org.signal.core.util.groups.GroupChangeException;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.contacts.sync.ContactDiscovery;
 import org.thoughtcrime.securesms.database.GroupTable;
@@ -16,13 +18,11 @@ import org.thoughtcrime.securesms.database.SignalDatabase;
 import org.thoughtcrime.securesms.database.model.GroupRecord;
 import org.thoughtcrime.securesms.database.model.IdentityRecord;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.groups.GroupChangeException;
 import org.thoughtcrime.securesms.groups.GroupId;
 import org.thoughtcrime.securesms.groups.GroupManager;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeErrorCallback;
 import org.thoughtcrime.securesms.groups.ui.GroupChangeFailureReason;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -114,7 +114,7 @@ final class RecipientDialogRepository {
       GroupRecord   groupRecord = SignalDatabase.groups().getGroup(groupId.requireV2()).orElse(null);
       ServiceId.ACI aci         = Recipient.resolved(recipientId).getAci().orElse(null);
 
-      if (groupRecord != null && aci != null) {
+      if (groupRecord != null && groupRecord.getHasV2GroupProperties() && aci != null) {
         return groupRecord.requireV2GroupProperties().adminDemotionClearsLabel(aci);
       }
       return false;

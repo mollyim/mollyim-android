@@ -28,9 +28,9 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.compose.rememberStatusBarColorNestedScrollModifier
 import org.thoughtcrime.securesms.util.DateUtils
 import java.util.Locale
+import org.signal.appsettings.R as AppSettingsR
 
 /**
  * Settings around app updates. Only shown for builds that manage their own app updates.
@@ -88,7 +88,7 @@ private fun AppUpdatesSettingsScreen(
   callbacks: AppUpdatesSettingsCallbacks
 ) {
   Scaffolds.Settings(
-    title = stringResource(R.string.preferences_app_updates__title),
+    title = stringResource(AppSettingsR.string.preferences_app_updates__title),
     onNavigationClick = callbacks::onNavigationClick,
     navigationIcon = SignalIcons.ArrowStart.imageVector
   ) { paddingValues ->
@@ -96,7 +96,6 @@ private fun AppUpdatesSettingsScreen(
     LazyColumn(
       modifier = Modifier
         .padding(paddingValues)
-        .then(rememberStatusBarColorNestedScrollModifier())
     ) {
       if (!BuildConfig.MANAGE_MOLLY_UPDATES) {
         item {
@@ -114,7 +113,7 @@ private fun AppUpdatesSettingsScreen(
 
       item {
         Rows.TextRow(
-          text = stringResource(R.string.HelpSettingsFragment__version),
+          text = stringResource(AppSettingsR.string.HelpSettingsFragment__version),
           label = ApkInfo.versionName,
         )
       }

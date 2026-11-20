@@ -14,6 +14,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,9 +36,12 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.accompanist.permissions.rememberPermissionState
+import org.signal.appsettings.usernamelinks.QrScanProblemDialog
+import org.signal.appsettings.usernamelinks.UsernameQrScanTab
 import org.signal.camera.CameraScreenEvents
 import org.signal.camera.CameraScreenState
 import org.signal.camera.CameraScreenViewModel
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
@@ -46,7 +50,6 @@ import org.signal.core.util.getParcelableExtraCompat
 import org.signal.core.util.permissions.PermissionCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.signal.mediasend.R as MediaSendR
 
 /**
@@ -67,6 +70,7 @@ class UsernameQrScannerActivity : AppCompatActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    enableEdgeToEdge()
     super.onCreate(savedInstanceState)
 
     val galleryLauncher = registerForActivityResult(QrImageSelectionActivity.Contract()) { uri ->
@@ -180,17 +184,21 @@ fun Content(
       )
     }
   ) { contentPadding ->
-    UsernameQrScanScreen(
-      qrScanResult = state.qrScanResult,
-      cameraState = cameraState,
-      cameraEmitter = cameraEmitter,
-      onQrResultHandled = onQrResultHandled,
-      onOpenCameraClicked = onOpenCameraClicked,
-      onOpenGalleryClicked = onOpenGalleryClicked,
-      onRecipientFound = onRecipientFound,
+    UsernameQrScanTab(
       hasCameraPermission = cameraPermissionState.status.isGranted,
+      onAllowCameraClicked = onOpenCameraClicked,
+      onOpenGalleryClicked = onOpenGalleryClicked,
+      cameraPreview = { modifier ->
+        UsernameQrCameraPreview(cameraState = cameraState, cameraEmitter = cameraEmitter, modifier = modifier)
+      },
       modifier = Modifier.padding(contentPadding)
     )
+
+    when (val result = state.qrScanResult) {
+      null -> Unit
+      is QrScanResult.Success -> LaunchedEffect(result) { onRecipientFound(result.recipient) }
+      else -> result.toProblem()?.let { problem -> QrScanProblemDialog(problem = problem, onDismiss = onQrResultHandled) }
+    }
 
     if (state.indeterminateProgress) {
       Dialogs.IndeterminateProgressDialog()

@@ -9,9 +9,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
@@ -54,6 +56,8 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.Texts
+import org.signal.core.ui.util.SpanUtil
+import org.signal.core.ui.viewModel
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.TemporaryScreenshotSecurity
@@ -68,9 +72,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.donate.tr
 import org.thoughtcrime.securesms.components.settings.app.subscription.donate.transfer.details.BankTransferDetailsViewModel.Field
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
-import org.thoughtcrime.securesms.util.SpanUtil
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
-import org.thoughtcrime.securesms.util.viewModel
 
 /**
  * Collects SEPA Debit bank transfer details from the user to proceed with donation.
@@ -231,6 +233,8 @@ fun BankTransferDetailsContent(
         .fillMaxWidth()
         .fillMaxHeight()
         .padding(it)
+        .consumeWindowInsets(it)
+        .imePadding()
     ) {
       val focusManager = LocalFocusManager.current
       val focusRequester = remember { FocusRequester() }

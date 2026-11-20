@@ -6,7 +6,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import org.signal.core.util.crypto.KeyStoreHelper;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.database.KeyValueDatabase;
+import org.thoughtcrime.securesms.database.SignalDatabase;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
 
 import java.io.IOException;
 import java.security.SecureRandom;
@@ -35,23 +37,25 @@ public final class DatabaseSecretProvider {
   }
 
   private static @NonNull DatabaseSecret getOrCreate(@NonNull Context context) {
-    String unencryptedSecret = TextSecurePreferences.getDatabaseUnencryptedSecret(context);
-    String encryptedSecret   = TextSecurePreferences.getDatabaseEncryptedSecret(context);
+    String unencryptedSecret = PlainTextKeyValueStore.getDatabaseLegacyUnencryptedSecret();
+    String encryptedSecret   = PlainTextKeyValueStore.getDatabaseEncryptedSecret();
 
-    if      (unencryptedSecret != null) return getUnencryptedDatabaseSecret(context, unencryptedSecret);
+    if      (unencryptedSecret != null) return getUnencryptedDatabaseSecret(unencryptedSecret);
     else if (encryptedSecret != null)   return getEncryptedDatabaseSecret(encryptedSecret);
-    else                                return createAndStoreDatabaseSecret(context);
+    else if (hasExistingProtectedDatabase(context)) {
+      // MOLLY: Never replace a missing key for an existing installation. Doing so would strand all encrypted data.
+      throw new IllegalStateException("Database secret is missing for an existing protected database");
+    } else                              return createAndStoreDatabaseSecret();
   }
 
-  private static @NonNull DatabaseSecret getUnencryptedDatabaseSecret(@NonNull Context context, @NonNull String unencryptedSecret)
-  {
+  private static @NonNull DatabaseSecret getUnencryptedDatabaseSecret(@NonNull String unencryptedSecret) {
     try {
       DatabaseSecret databaseSecret = new DatabaseSecret(unencryptedSecret);
 
       KeyStoreHelper.SealedData encryptedSecret = KeyStoreHelper.seal(databaseSecret.asBytes());
 
-      TextSecurePreferences.setDatabaseEncryptedSecret(context, encryptedSecret.serialize());
-      TextSecurePreferences.setDatabaseUnencryptedSecret(context, null);
+      PlainTextKeyValueStore.setDatabaseEncryptedSecret(encryptedSecret.serialize());
+      PlainTextKeyValueStore.setDatabaseLegacyUnencryptedSecret(null);
 
       return databaseSecret;
     } catch (IOException e) {
@@ -64,7 +68,11 @@ public final class DatabaseSecretProvider {
     return new DatabaseSecret(KeyStoreHelper.unseal(encryptedSecret));
   }
 
-  private static @NonNull DatabaseSecret createAndStoreDatabaseSecret(@NonNull Context context) {
+  private static boolean hasExistingProtectedDatabase(@NonNull Context context) {
+    return SignalDatabase.databaseFileExists(context) || KeyValueDatabase.exists(context);
+  }
+
+  private static @NonNull DatabaseSecret createAndStoreDatabaseSecret() {
     SecureRandom random = new SecureRandom();
     byte[]       secret = new byte[32];
     random.nextBytes(secret);
@@ -72,7 +80,7 @@ public final class DatabaseSecretProvider {
     DatabaseSecret databaseSecret = new DatabaseSecret(secret);
 
     KeyStoreHelper.SealedData encryptedSecret = KeyStoreHelper.seal(databaseSecret.asBytes());
-    TextSecurePreferences.setDatabaseEncryptedSecret(context, encryptedSecret.serialize());
+    PlainTextKeyValueStore.setDatabaseEncryptedSecret(encryptedSecret.serialize());
 
     return databaseSecret;
   }

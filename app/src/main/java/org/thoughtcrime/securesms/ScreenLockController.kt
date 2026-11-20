@@ -40,9 +40,14 @@ object ScreenLockController {
   @JvmStatic
   fun unBlankScreen() = setAllViewsWithContentHidden(false)
 
-  // FLAG_SECURE cannot be applied only in onPause() due to a gesture navigation bug
-  // that leaks content in the recents view before authentication (b/123205795).
-  // On API 33+ recents screenshots are controlled via setRecentsScreenshotEnabled().
+  /**
+   * Whether biometric auto-lock must force FLAG_SECURE on activity and dialog windows. Before API 33 this protects
+   * recents. On API 33+, BaseActivity blocks recents with setRecentsScreenshotEnabled(), so auto-lock does not force
+   * FLAG_SECURE and in-app screenshots follow the user's screen security setting.
+   *
+   * FLAG_SECURE cannot be applied only in onPause() due to a gesture navigation bug that leaks recents content before
+   * authentication (b/123205795).
+   */
   @JvmStatic
   val alwaysSetSecureFlagOnResume: Boolean
     get() = autoLock && Build.VERSION.SDK_INT < 33
@@ -93,7 +98,7 @@ object ScreenLockController {
 
   private fun activitiesRunningOnTopOfTasks(context: Context): List<ComponentName> =
     ServiceUtil.getActivityManager(context).appTasks
-      .map { it.taskInfo }
+      .mapNotNull { it.taskInfo }
       .filter {
         if (Build.VERSION.SDK_INT >= 29) it.isRunning else true
       }

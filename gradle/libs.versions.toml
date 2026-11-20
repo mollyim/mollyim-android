@@ -4,15 +4,15 @@
 [versions]
 # SDK & Build Versions
 buildTools = "36.0.0"         # MOLLY: Dockerfile must match this version
-compileSdk = "android-36.1"   # MOLLY: Dockerfile must match this version
-targetSdk = "35"
+compileSdk = "37"             # MOLLY: Dockerfile must match this version (android-37.0)
+targetSdk = "36"
 minSdk = "27"
 ndk = "28.0.13004108"         # MOLLY: Dockerfile must match this version
 javaVersion = "21"
 kotlinJvmTarget = "21"
-gradle = "9.2.1"
+gradle = "9.4.0"
 kotlin = "2.2.20"
-android-gradle-plugin = "9.2.1"
+android-gradle-plugin = "9.4.0"
 
 # Other versions
 androidx-appcompat = "1.7.1"
@@ -23,11 +23,12 @@ androidx-lifecycle = "2.10.0"
 androidx-lifecycle-navigation3 = "2.10.0"
 androidx-media3 = "1.9.1"
 androidx-navigation = "2.9.8"
+androidx-paging = "3.4.0"
 androidx-navigation3-core = "1.1.4"
-androidx-core-telecom = "1.1.0-alpha04"
+androidx-core-telecom = "1.1.0-alpha06"
 androidx-window = "1.3.0"
-glide = "4.15.1"
-libsignal-client = "0.97.3-1"
+glide = "5.0.9"
+libsignal-client = "0.105.4-1"
 mp4parser = "1.9.39"
 accompanist = "0.28.0"
 nanohttpd = "2.3.1"
@@ -52,16 +53,16 @@ android-application = { module = "com.android.application:com.android.applicatio
 androidx-benchmark-gradle-plugin = "androidx.benchmark:benchmark-gradle-plugin:1.4.1"
 
 # Compose
-androidx-compose-bom = "androidx.compose:compose-bom:2026.06.01"
+androidx-compose-bom = "androidx.compose:compose-bom:2026.09.00"
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive"}
-androidx-compose-material3-adaptive-layout = { module = "androidx.compose.material3.adaptive:adaptive-layout"}
-androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation"}
 androidx-compose-material-icons-extended = "androidx.compose.material:material-icons-extended:1.7.8"
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-compose-ui-tooling-core = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-runtime-annotation = { module = "androidx.compose.runtime:runtime-annotation" }
 androidx-compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
 androidx-compose-rxjava3 = "androidx.compose.runtime:runtime-rxjava3:1.11.0"
 
@@ -81,6 +82,7 @@ kotlinx-coroutines-core-jvm = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm
 kotlinx-coroutines-play-services = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2"
 kotlinx-coroutines-rx3 = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.10.2"
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.9.0" }
+kotlinx-serialization-cbor = { module = "org.jetbrains.kotlinx:kotlinx-serialization-cbor", version = "1.9.0" }
 
 # Android X
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -103,6 +105,7 @@ androidx-media = "androidx.media:media:1.7.0"
 androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
 androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
+androidx-media3-ui-compose = { module = "androidx.media3:media3-ui-compose", version.ref = "androidx-media3" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
@@ -114,6 +117,8 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-livedata-core = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "androidx-lifecycle" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging" }
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-reactivestreams-ktx = { module = "androidx.lifecycle:lifecycle-reactivestreams-ktx", version.ref = "androidx-lifecycle" }
@@ -146,14 +151,14 @@ androidx-webkit = "androidx.webkit:webkit:1.4.0"
 material-material = "com.google.android.material:material:1.12.0"
 
 # Google
-google-libphonenumber = "com.googlecode.libphonenumber:libphonenumber:9.0.29"
+google-libphonenumber = "com.googlecode.libphonenumber:libphonenumber:9.0.41"
 google-zxing-android-integration = "com.google.zxing:android-integration:3.3.0"
 google-zxing-core = "com.google.zxing:core:3.5.4"
 google-ez-vcard = "com.googlecode.ez-vcard:ez-vcard:0.9.11"
 google-jsr305 = "com.google.code.findbugs:jsr305:3.0.2"
 google-guava-android = "com.google.guava:guava:33.6.0-android"
 google-flexbox = "com.google.android.flexbox:flexbox:3.0.0"
-com-google-devtools-ksp-gradle-plugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.3.2"
+com-google-devtools-ksp-gradle-plugin = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:2.3.6"
 jsilver = "com.google.jsilver:jsilver:1.0.0"
 
 # Firebase
@@ -172,22 +177,22 @@ libsignal-client = { module = "im.molly:libsignal-client", version.ref = "libsig
 libsignal-android = { module = "im.molly:libsignal-android", version.ref = "libsignal-client" }
 protobuf-gradle-plugin = { module = "com.google.protobuf:protobuf-gradle-plugin", version.ref = "protobuf-gradle-plugin" }
 signal-aesgcmprovider = "org.signal:aesgcmprovider:0.0.4"
-signal-ringrtc = "im.molly:ringrtc-android:2.69.7-1"
+signal-ringrtc = "im.molly:ringrtc-android:2.73.0-1"
 
 # Third Party
-signal-android-database-sqlcipher = "net.zetetic:sqlcipher-android:4.16.0"
-greenrobot-eventbus = "org.greenrobot:eventbus:3.0.0"
+signal-android-database-sqlcipher = "net.zetetic:sqlcipher-android:4.17.0"
 jackson-core = "com.fasterxml.jackson.core:jackson-databind:2.17.3"
 jackson-module-kotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.12.0"
 square-okhttp3 = "com.squareup.okhttp3:okhttp:5.3.2"
 square-okhttp3-dnsoverhttps = "com.squareup.okhttp3:okhttp-dnsoverhttps:5.3.2"
+square-okhttp3-coroutines = "com.squareup.okhttp3:okhttp-coroutines:5.3.2"
 square-okio = "com.squareup.okio:okio:3.17.0"
 square-leakcanary = "com.squareup.leakcanary:leakcanary-android:2.14"
 rxjava3-rxjava = "io.reactivex.rxjava3:rxjava:3.1.12"
 rxjava3-rxandroid = "io.reactivex.rxjava3:rxandroid:3.0.2"
 rxjava3-rxkotlin = "io.reactivex.rxjava3:rxkotlin:3.0.1"
 rxdogtag = "com.uber.rxdogtag2:rxdogtag:2.0.2"
-conscrypt-android = "org.conscrypt:conscrypt-android:2.5.3"
+conscrypt-android = "org.conscrypt:conscrypt-android:2.6.2"
 leolin-shortcutbadger = "me.leolin:ShortcutBadger:1.1.22"
 glide-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }

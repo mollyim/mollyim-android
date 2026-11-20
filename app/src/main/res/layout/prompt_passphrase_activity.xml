@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+  Scrollable so the passphrase field and the unlock button stay reachable when the window is edge-to-edge and the
+  keyboard over them does not resize it. PassphrasePromptActivity pads this view by the system bars and the IME.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:viewBindingIgnore="true"
+    android:id="@+id/password_auth_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<LinearLayout
     android:id="@+id/password_auth_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -71,3 +81,5 @@
     </FrameLayout>
 
 </LinearLayout>
+
+</ScrollView>

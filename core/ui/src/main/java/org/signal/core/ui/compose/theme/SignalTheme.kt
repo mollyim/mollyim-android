@@ -22,40 +22,54 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import org.signal.core.ui.CoreUiDependencies
 import org.signal.core.ui.R
 import org.signal.core.ui.compose.ProvideIncognitoKeyboard
 
+/**
+ * Headings and labels hyphenate a word too long for its line, rather than breaking it at an arbitrary letter. This also
+ * lets lines break at a hyphen already in the text, which they otherwise don't. Body text is left alone.
+ */
 private val typography = Typography().run {
   copy(
+    displayLarge = displayLarge.copy(hyphens = Hyphens.Auto),
+    displayMedium = displayMedium.copy(hyphens = Hyphens.Auto),
+    displaySmall = displaySmall.copy(hyphens = Hyphens.Auto),
     headlineLarge = headlineLarge.copy(
       fontSize = 32.sp,
       lineHeight = 40.sp,
-      letterSpacing = 0.sp
+      letterSpacing = 0.sp,
+      hyphens = Hyphens.Auto
     ),
     headlineMedium = headlineMedium.copy(
       fontSize = 28.sp,
       lineHeight = 36.sp,
-      letterSpacing = 0.sp
+      letterSpacing = 0.sp,
+      hyphens = Hyphens.Auto
     ),
+    headlineSmall = headlineSmall.copy(hyphens = Hyphens.Auto),
     titleLarge = titleLarge.copy(
       fontSize = 22.sp,
       lineHeight = 28.sp,
-      letterSpacing = 0.sp
+      letterSpacing = 0.sp,
+      hyphens = Hyphens.Auto
     ),
     titleMedium = titleMedium.copy(
       fontSize = 18.sp,
       lineHeight = 24.sp,
       letterSpacing = 0.0125.sp,
       fontFamily = FontFamily.SansSerif,
-      fontStyle = FontStyle.Normal
+      fontStyle = FontStyle.Normal,
+      hyphens = Hyphens.Auto
     ),
     titleSmall = titleSmall.copy(
       fontSize = 16.sp,
       lineHeight = 22.sp,
-      letterSpacing = 0.0125.sp
+      letterSpacing = 0.0125.sp,
+      hyphens = Hyphens.Auto
     ),
     bodyLarge = bodyLarge.copy(
       fontSize = 16.sp,
@@ -75,17 +89,20 @@ private val typography = Typography().run {
     labelLarge = labelLarge.copy(
       fontSize = 14.sp,
       lineHeight = 20.sp,
-      letterSpacing = 0.0107.sp
+      letterSpacing = 0.0107.sp,
+      hyphens = Hyphens.Auto
     ),
     labelMedium = labelMedium.copy(
       fontSize = 13.sp,
       lineHeight = 16.sp,
-      letterSpacing = 0.0192.sp
+      letterSpacing = 0.0192.sp,
+      hyphens = Hyphens.Auto
     ),
     labelSmall = labelSmall.copy(
       fontSize = 12.sp,
       lineHeight = 16.sp,
-      letterSpacing = 0.025.sp
+      letterSpacing = 0.025.sp,
+      hyphens = Hyphens.Auto
     )
   )
 }
@@ -129,13 +146,16 @@ private val lightColorScheme = lightColorScheme(
 
 private val lightExtendedColors = ExtendedColors(
   neutralSurface = Color(0x99FFFFFF),
+  neutralFill = Color(0x1A000000),
   colorOnCustom = Color(0xFFFFFFFF),
   colorOnCustomVariant = Color(0xB3FFFFFF),
+  // MOLLY: Molly palette values (theme attributes stay the single theming source)
   colorSurface1 = Color(0xFFF3F0FF),
   colorSurface2 = Color(0xFFEEEAFF),
   colorSurface3 = Color(0xFFEAE5FF),
   colorSurface4 = Color(0xFFE5DFFF),
   colorSurface5 = Color(0xFFDED6FF),
+  colorSurfaceVariantFill = Color(0xCCFFFFFF),
   colorTransparent1 = Color(0x14FFFFFF),
   colorTransparent2 = Color(0x29FFFFFF),
   colorTransparent3 = Color(0x8FFFFFFF),
@@ -151,18 +171,23 @@ private val lightExtendedColors = ExtendedColors(
   colorNeutralInverse = Color(0xFF121212),
   colorNeutralVariantInverse = Color(0xFF5C5C5C),
   colorWarning = Color(0x1FB44828),
-  colorOnWarning = Color(0xFFB44828)
+  colorOnWarning = Color(0xFFB44828),
+  colorAlert = Color(0xFFEF5350),
+  colorAlertDisabled = Color(0x80EF5350)
 )
 
 private val darkExtendedColors = ExtendedColors(
   neutralSurface = Color(0x14FFFFFF),
+  neutralFill = Color(0x33FFFFFF),
   colorOnCustom = Color(0xFFFFFFFF),
   colorOnCustomVariant = Color(0x18FFFFFF),
+  // MOLLY: Molly palette values (theme attributes stay the single theming source)
   colorSurface1 = Color(0xFF181137),
   colorSurface2 = Color(0xFF1E1645),
   colorSurface3 = Color(0xFF231A4E),
   colorSurface4 = Color(0xFF281E57),
   colorSurface5 = Color(0xFF33276A),
+  colorSurfaceVariantFill = Color(0x33FFFFFF),
   colorTransparent1 = Color(0x0AFFFFFF),
   colorTransparent2 = Color(0x1FFFFFFF),
   colorTransparent3 = Color(0x29FFFFFF),
@@ -178,7 +203,9 @@ private val darkExtendedColors = ExtendedColors(
   colorNeutralInverse = Color(0xE0FFFFFF),
   colorNeutralVariantInverse = Color(0xA3FFFFFF),
   colorWarning = Color(0x1FEB977D),
-  colorOnWarning = Color(0xFFEB977D)
+  colorOnWarning = Color(0xFFEB977D),
+  colorAlert = Color(0xFFF44336),
+  colorAlertDisabled = Color(0x80F44336)
 )
 
 private val darkColorScheme = darkColorScheme(
@@ -382,6 +409,19 @@ fun colorAttribute(@AttrRes id: Int): Color {
     colorResource(typedValue.resourceId)
   } else {
     Color.Unspecified
+  }
+}
+
+/**
+ * Applies the light color scheme to [content] regardless of the ambient theme, leaving typography and shapes untouched.
+ */
+@Composable
+fun ForceLightColors(content: @Composable () -> Unit) {
+  CompositionLocalProvider(LocalExtendedColors provides lightExtendedColors) {
+    MaterialTheme(
+      colorScheme = lightColorScheme,
+      content = content
+    )
   }
 }
 

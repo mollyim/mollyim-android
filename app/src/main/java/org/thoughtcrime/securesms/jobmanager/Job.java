@@ -9,6 +9,7 @@ import androidx.annotation.WorkerThread;
 
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.jobmanager.impl.BackoffUtil;
+import org.thoughtcrime.securesms.jobmanager.impl.MasterSecretConstraint;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 
 import java.lang.annotation.Retention;
@@ -48,7 +49,8 @@ public abstract class Job {
   protected Context context;
 
   public Job(@NonNull Parameters parameters) {
-    this.parameters = parameters;
+    // MOLLY: Every job is gated on the passphrase lock.
+    this.parameters = parameters.withConstraint(MasterSecretConstraint.KEY);
   }
 
   public final @NonNull String getId() {
@@ -370,7 +372,7 @@ public abstract class Job {
       return memoryOnly;
     }
 
-    int getGlobalPriority() {
+    public int getGlobalPriority() {
       return globalPriority;
     }
 
@@ -380,6 +382,22 @@ public abstract class Job {
 
     long getInitialDelay() {
       return initialDelay;
+    }
+
+    /**
+     * MOLLY: Returns a copy of these parameters with the provided constraint key appended.
+     * Unlike the Builder, this does not regenerate the id or createTime, so it is safe to call on
+     * restored jobs. Used by the Job constructor to gate every job on the passphrase lock.
+     */
+    public @NonNull Parameters withConstraint(@NonNull String constraintKey) {
+      if (constraintKeys.contains(constraintKey)) {
+        return this;
+      }
+
+      List<String> newConstraintKeys = new LinkedList<>(constraintKeys);
+      newConstraintKeys.add(constraintKey);
+
+      return new Builder(id, createTime, lifespan, maxAttempts, maxInstancesForFactory, maxInstancesForQueue, queue, newConstraintKeys, inputData, memoryOnly, globalPriority, queuePriority, initialDelay).build();
     }
 
     public Builder toBuilder() {

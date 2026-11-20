@@ -12,7 +12,7 @@ import org.thoughtcrime.securesms.databinding.MySupportPreferenceBinding
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import org.thoughtcrime.securesms.subscription.Subscription
 import org.thoughtcrime.securesms.util.DateUtils
-import org.thoughtcrime.securesms.util.SpanUtil
+import org.signal.core.ui.util.SpanUtil
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingFactory
 import org.thoughtcrime.securesms.util.adapter.mapping.BindingViewHolder
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter

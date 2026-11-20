@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import com.google.common.io.CountingInputStream
@@ -19,10 +18,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.signal.archive.LocalBackupRestoreProgress
 import org.signal.core.models.AccountEntropyPool
 import org.signal.core.models.MasterKey
@@ -31,12 +29,15 @@ import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.models.backup.MediaRootBackupKey
 import org.signal.core.models.backup.MessageBackupKey
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.AppUtil
 import org.signal.core.util.Result
 import org.signal.core.util.StreamUtil
 import org.signal.core.util.crypto.AttachmentSecretProvider
+import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.getLength
 import org.signal.core.util.logging.Log
+import org.signal.core.util.nullIfBlank
 import org.signal.libsignal.protocol.IdentityKeyPair
 import org.signal.libsignal.protocol.state.KyberPreKeyRecord
 import org.signal.libsignal.protocol.state.SignedPreKeyRecord
@@ -52,7 +53,6 @@ import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.BackupEvent
-import org.thoughtcrime.securesms.backup.BackupPassphrase
 import org.thoughtcrime.securesms.backup.FullBackupImporter
 import org.thoughtcrime.securesms.backup.v2.BackupRepository
 import org.thoughtcrime.securesms.backup.v2.RemoteRestoreResult
@@ -76,6 +76,7 @@ import org.thoughtcrime.securesms.jobs.CheckKeyTransparencyJob
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
 import org.thoughtcrime.securesms.jobs.LocalBackupRestoreMediaJob
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+import org.thoughtcrime.securesms.jobs.ReclaimUsernameAndLinkJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
 import org.thoughtcrime.securesms.jobs.RotateCertificateJob
 import org.thoughtcrime.securesms.keyvalue.Completed
@@ -84,19 +85,20 @@ import org.thoughtcrime.securesms.keyvalue.PhoneNumberPrivacyValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.keyvalue.Skipped
 import org.thoughtcrime.securesms.keyvalue.isDecisionPending
-import org.thoughtcrime.securesms.notifications.NotificationIds
+import org.thoughtcrime.securesms.megaphone.SignalLoginReminderSchedule
+import org.thoughtcrime.securesms.megaphone.TwoFactorReminderSchedule
 import org.thoughtcrime.securesms.pin.SvrRepository
 import org.thoughtcrime.securesms.profiles.AvatarHelper
+import org.thoughtcrime.securesms.profiles.manage.UsernameRepository
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.service.BackupProgressService
 import org.thoughtcrime.securesms.service.DirectoryRefreshListener
 import org.thoughtcrime.securesms.service.LocalBackupListener
 import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener
 import org.thoughtcrime.securesms.util.BackupUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.link.TransferArchiveResponse
+import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
@@ -109,6 +111,13 @@ import kotlin.time.Duration.Companion.seconds
  * Implementation of [StorageController] that bridges to the app's existing storage infrastructure.
  */
 class AppRegistrationStorageController(private val context: Context) : StorageController {
+
+  /**
+   * Serializes access to the in-progress registration data blob. Updates are read-modify-write, and concurrent
+   * writers (e.g. a flow-state save racing an account-data write) would otherwise lose one of the updates. Reads
+   * take the lock too, since a write deletes the previous blob after swapping the URI.
+   */
+  private val inProgressDataLock = Mutex()
 
   /**
    * Restarts the process-wide network stack after account data is applied. Overridable only so tests can avoid
@@ -147,15 +156,17 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       servicePassword = servicePassword,
       aep = aep,
       registrationLockEnabled = SignalStore.svr.isRegistrationLockEnabled,
-      unrestrictedUnidentifiedAccess = TextSecurePreferences.isUniversalUnidentifiedAccess(context),
+      unrestrictedUnidentifiedAccess = SignalStore.settings.isUniversalUnidentifiedAccess,
       aciIdentityKeyPair = aciIdentityKeyPair,
       pniIdentityKeyPair = pniIdentityKeyPair
     )
   }
 
   override suspend fun clearAllData() = withContext(Dispatchers.IO) {
-    SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri()?.let { AppDependencies.blobs.delete(context, it) }
-    SignalStore.registration.inProgressRegistrationDataBlobUri = null
+    inProgressDataLock.withLock {
+      SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri()?.let { AppDependencies.blobs.delete(context, it) }
+      SignalStore.registration.inProgressRegistrationDataBlobUri = null
+    }
 
     // Best-effort cleanup of the legacy plaintext file written by older builds.
     File(context.cacheDir, TEMP_PROTO_FILENAME).takeIf { it.exists() }?.delete()
@@ -201,19 +212,27 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   override suspend fun readInProgressRegistrationData(): RegistrationData = withContext(Dispatchers.IO) {
-    val uri = SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri() ?: return@withContext RegistrationData()
-    try {
+    inProgressDataLock.withLock {
+      readInProgressRegistrationDataInternal()
+    }
+  }
+
+  override suspend fun updateInProgressRegistrationData(updater: RegistrationData.Builder.() -> Unit) = withContext(Dispatchers.IO) {
+    inProgressDataLock.withLock {
+      val current = readInProgressRegistrationDataInternal()
+      val updated = current.newBuilder().apply(updater).build()
+      writeRegistrationData(updated)
+    }
+  }
+
+  private fun readInProgressRegistrationDataInternal(): RegistrationData {
+    val uri = SignalStore.registration.inProgressRegistrationDataBlobUri?.toUri() ?: return RegistrationData()
+    return try {
       AppDependencies.blobs.getStream(context, uri).use { RegistrationData.ADAPTER.decode(it) }
     } catch (e: Exception) {
       Log.w(TAG, "Failed to read/decode in-progress registration data, returning empty.", e)
       RegistrationData()
     }
-  }
-
-  override suspend fun updateInProgressRegistrationData(updater: RegistrationData.Builder.() -> Unit) = withContext(Dispatchers.IO) {
-    val current = readInProgressRegistrationData()
-    val updated = current.newBuilder().apply(updater).build()
-    writeRegistrationData(updated)
   }
 
   override suspend fun commitRegistrationData() = withContext(Dispatchers.IO) {
@@ -261,6 +280,27 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     RegistrationUtil.maybeMarkRegistrationComplete()
   }
 
+  override suspend fun onRegistrationFlowFinished() = withContext(Dispatchers.Default) {
+    if (SignalStore.account.isPhoneNumberless) {
+      // Getting through registration means the user knows their Signal Login right now, so the reminder can wait.
+      SignalLoginReminderSchedule.onLoggedIn()
+    }
+
+    if (SignalStore.misc.needsUsernameRestore) {
+      Log.i(TAG, "[onRegistrationFlowFinished] Username reclaim is still pending. Enqueuing a job to handle it.")
+      AppDependencies.jobManager.add(ReclaimUsernameAndLinkJob())
+    }
+  }
+
+  override suspend fun saveUsername(username: String, usernameLink: UsernameLinkComponents) = withContext(Dispatchers.IO) {
+    UsernameRepository.persistUsernameAndLink(username, usernameLink)
+    SignalStore.uiHints.markHasSetOrSkippedUsernameCreation()
+  }
+
+  override suspend fun markHasTwoFactorMethods() = withContext(Dispatchers.Default) {
+    TwoFactorReminderSchedule.onMethodsObserved(true)
+  }
+
   override suspend fun setRestoreDecision(decision: RestoreDecision) = withContext(Dispatchers.Default) {
     if (!SignalStore.registration.restoreDecisionState.isDecisionPending) {
       return@withContext
@@ -270,6 +310,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       RestoreDecision.NEW_ACCOUNT -> RestoreDecisionState.NewAccount
       RestoreDecision.SKIPPED -> RestoreDecisionState.Skipped
       RestoreDecision.COMPLETED -> RestoreDecisionState.Completed
+    }
+
+    if (decision == RestoreDecision.COMPLETED) {
+      Log.i(TAG, "[setRestoreDecision] Data was restored. Clearing onboarding state.")
+      SignalStore.onboarding.clearAll()
     }
 
     RegistrationUtil.maybeMarkRegistrationComplete()
@@ -285,16 +330,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     val totalBytes = context.contentResolver.getLength(backupUri) ?: 0L
     var countingStream: CountingInputStream? = null
 
-    val subscriber = object {
-      @Subscribe(threadMode = ThreadMode.POSTING)
-      fun onBackupEvent(event: BackupEvent) {
-        if (event.type == BackupEvent.Type.PROGRESS) {
-          trySend(LocalBackupRestoreProgress.InProgress(bytesRead = countingStream?.count ?: 0L, totalBytes = totalBytes))
-        }
+    val subscription = EventBus.default.subscribe<BackupEvent> { event ->
+      if (event.type == BackupEvent.Type.PROGRESS) {
+        trySend(LocalBackupRestoreProgress.InProgress(bytesRead = countingStream?.count ?: 0L, totalBytes = totalBytes))
       }
     }
-
-    EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
       val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
@@ -357,7 +397,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     awaitClose {
-      EventBus.getDefault().unregister(subscriber)
+      subscription.unsubscribe()
     }
   }
 
@@ -378,16 +418,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
     // The import posts RestoreV2Event frame-progress events as it reads through the main archive stream, tracking bytes
     // read against the stream length. Bridge those into InProgress so the UI can show a real percentage.
-    val subscriber = object {
-      @Subscribe(threadMode = ThreadMode.POSTING)
-      fun onRestoreEvent(event: RestoreV2Event) {
-        if (event.type == RestoreV2Event.Type.PROGRESS_RESTORE) {
-          trySend(LocalBackupRestoreProgress.InProgress(bytesRead = event.count.inWholeBytes, totalBytes = event.estimatedTotalCount.inWholeBytes))
-        }
+    val subscription = EventBus.default.subscribe<RestoreV2Event> { event ->
+      if (event.type == RestoreV2Event.Type.PROGRESS_RESTORE) {
+        trySend(LocalBackupRestoreProgress.InProgress(bytesRead = event.count.inWholeBytes, totalBytes = event.estimatedTotalCount.inWholeBytes))
       }
     }
-
-    EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
       val progressService = BackupProgressService.start(context, context.getString(R.string.BackupProgressService_title))
@@ -403,7 +438,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
         val selfPni = SignalStore.account.pni
         val selfE164 = SignalStore.account.e164
 
-        if (selfAci == null || selfPni == null || selfE164 == null) {
+        if (selfAci == null) {
           trySend(LocalBackupRestoreProgress.Error(IllegalStateException("Account not registered, cannot restore V2 backup")))
           return@launch
         }
@@ -424,7 +459,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
 
             // The entered recovery key decrypted the backup the user chose to restore, so it always becomes the
             // account's AEP -- even if the backup was made by a different account.
-            SignalStore.account.restoreAccountEntropyPool(aep)
+            adoptAccountEntropyPool(aep)
             updateInProgressRegistrationData { this.accountEntropyPool = aep.value }
 
             // Re-enable new-style local backups pointing at the restored location, so the user keeps getting backups.
@@ -458,7 +493,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     awaitClose {
-      EventBus.getDefault().unregister(subscriber)
+      subscription.unsubscribe()
     }
   }
 
@@ -540,24 +575,22 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
   }
 
   override fun restoreRemoteBackup(aep: AccountEntropyPool): Flow<RemoteBackupRestoreProgress> = callbackFlow {
-    val subscriber = object {
-      @Subscribe(threadMode = ThreadMode.POSTING)
-      fun onRestoreEvent(event: RestoreV2Event) {
-        val progress = when (event.type) {
-          RestoreV2Event.Type.PROGRESS_DOWNLOAD -> RemoteBackupRestoreProgress.Downloading(event.count.inWholeBytes, event.estimatedTotalCount.inWholeBytes)
-          RestoreV2Event.Type.PROGRESS_RESTORE -> RemoteBackupRestoreProgress.Restoring(event.count.inWholeBytes, event.estimatedTotalCount.inWholeBytes)
-          RestoreV2Event.Type.PROGRESS_FINALIZING -> RemoteBackupRestoreProgress.Finalizing
-        }
-        trySend(progress)
+    val subscription = EventBus.default.subscribe<RestoreV2Event> { event ->
+      val progress = when (event.type) {
+        RestoreV2Event.Type.PROGRESS_DOWNLOAD -> RemoteBackupRestoreProgress.Downloading(event.count.inWholeBytes, event.estimatedTotalCount.inWholeBytes)
+        RestoreV2Event.Type.PROGRESS_RESTORE -> RemoteBackupRestoreProgress.Restoring(event.count.inWholeBytes, event.estimatedTotalCount.inWholeBytes)
+        RestoreV2Event.Type.PROGRESS_FINALIZING -> RemoteBackupRestoreProgress.Finalizing
       }
+      trySend(progress)
     }
-
-    EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
       try {
         when (val result = BackupRepository.restoreRemoteBackup()) {
           is RemoteRestoreResult.Success -> {
+            // The restore adopted the account's existing SVRB chain, so there's nothing left for BackupMessagesJob to re-init.
+            SignalStore.backup.backupSecretRestoreRequired = false
+
             send(
               RemoteBackupRestoreProgress.Complete(
                 restoredSvrPin = SignalStore.svr.pin,
@@ -591,7 +624,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     awaitClose {
-      EventBus.getDefault().unregister(subscriber)
+      subscription.unsubscribe()
     }
   }
 
@@ -605,19 +638,14 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       return@callbackFlow
     }
 
-    val subscriber = object {
-      @Subscribe(threadMode = ThreadMode.POSTING)
-      fun onRestoreEvent(event: RestoreV2Event) {
-        val progress = when (event.type) {
-          RestoreV2Event.Type.PROGRESS_DOWNLOAD -> LinkAndSyncProgress.Downloading(event.count, event.estimatedTotalCount)
-          RestoreV2Event.Type.PROGRESS_RESTORE -> LinkAndSyncProgress.Restoring(event.count, event.estimatedTotalCount)
-          RestoreV2Event.Type.PROGRESS_FINALIZING -> LinkAndSyncProgress.Finalizing
-        }
-        trySend(progress)
+    val subscription = EventBus.default.subscribe<RestoreV2Event> { event ->
+      val progress = when (event.type) {
+        RestoreV2Event.Type.PROGRESS_DOWNLOAD -> LinkAndSyncProgress.Downloading(event.count, event.estimatedTotalCount)
+        RestoreV2Event.Type.PROGRESS_RESTORE -> LinkAndSyncProgress.Restoring(event.count, event.estimatedTotalCount)
+        RestoreV2Event.Type.PROGRESS_FINALIZING -> LinkAndSyncProgress.Finalizing
       }
+      trySend(progress)
     }
-
-    EventBus.getDefault().register(subscriber)
 
     launch(Dispatchers.IO) {
       try {
@@ -641,7 +669,7 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     awaitClose {
-      EventBus.getDefault().unregister(subscriber)
+      subscription.unsubscribe()
     }
   }
 
@@ -669,14 +697,31 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     if (data.accountData?.linkedDeviceData != null) {
       SignalStore.account.setAccountEntropyPoolFromPrimaryDevice(accountEntropyPool)
     } else {
-      SignalStore.account.restoreAccountEntropyPool(accountEntropyPool)
+      adoptAccountEntropyPool(accountEntropyPool)
     }
 
     return accountEntropyPool.deriveMasterKey()
   }
 
+  /**
+   * Makes [aep] the account's AEP. Clears any dependent data, like SVRB state.
+   */
+  private fun adoptAccountEntropyPool(aep: AccountEntropyPool) {
+    val existing = SignalStore.account.accountEntropyPoolOrNull
+    if (existing != null && existing.value != aep.value && SignalStore.account.aci != null) {
+      Log.w(TAG, "[adoptAccountEntropyPool] Committing an AEP that differs from the one this account already had. Resetting dependent backup state.")
+      SignalStore.backup.nextBackupSecretData = null
+      SignalStore.backup.backupSecretRestoreRequired = true
+      SignalStore.backup.messageBackupInitialized = false
+      SignalStore.backup.messageCredentials.clearAll()
+    }
+
+    SignalStore.account.restoreAccountEntropyPool(aep)
+  }
+
+  /** The E164 and PNI are deliberately not required -- an account may have no phone number. */
   private fun AccountData.isComplete(): Boolean {
-    return e164.isNotEmpty() && aci.isNotEmpty() && pni.isNotEmpty() && servicePassword.isNotEmpty()
+    return aci.isNotEmpty() && servicePassword.isNotEmpty()
   }
 
   /**
@@ -697,55 +742,95 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
     }
 
     val aciIdentityKeyPair = IdentityKeyPair(accountData.aciIdentityKeyPair.toByteArray())
-    val pniIdentityKeyPair = IdentityKeyPair(accountData.pniIdentityKeyPair.toByteArray())
     SignalStore.account.restoreAciIdentityKeyFromBackup(aciIdentityKeyPair.publicKey.serialize(), aciIdentityKeyPair.privateKey.serialize())
-    SignalStore.account.restorePniIdentityKeyFromBackup(pniIdentityKeyPair.publicKey.serialize(), pniIdentityKeyPair.privateKey.serialize())
+
+    val pniIdentityKeyPair = accountData.pniIdentityKeyPair.takeIf { it.size > 0 }?.let { IdentityKeyPair(it.toByteArray()) }
+    if (pniIdentityKeyPair != null) {
+      SignalStore.account.restorePniIdentityKeyFromBackup(pniIdentityKeyPair.publicKey.serialize(), pniIdentityKeyPair.privateKey.serialize())
+    }
 
     val aci = ACI.parseOrThrow(accountData.aci)
-    val pni = PNI.parseOrThrow(accountData.pni)
+    val pni = PNI.parseOrNull(accountData.pni)
+    val e164 = accountData.e164?.nullIfBlank()
     val isAciChanged = SignalStore.account.aci != aci
 
+    if (isAciChanged && SignalStore.registration.isRegistrationComplete) {
+      Log.i(TAG, "[applyAccountData] Registering a different account than the one this device completed registration for. Clearing registration-complete so the post-registration steps run again.")
+      SignalStore.registration.clearRegistrationComplete()
+    }
+
+    if (pni == null) {
+      Log.i(TAG, "[applyAccountData] No PNI in the account data. Registering an account with no phone number. Clearing any E164/PNI state from a previous registration.")
+      SignalStore.account.clearE164AndPni()
+    }
+
     SignalStore.account.setAci(aci)
-    SignalStore.account.setPni(pni)
+    if (pni != null) {
+      SignalStore.account.setPni(pni)
+    }
 
     AppDependencies.resetProtocolStores()
 
-    AppDependencies.protocolStore.aci().sessions().archiveAllSessions()
-    AppDependencies.protocolStore.pni().sessions().archiveAllSessions()
+    val aciProtocolStore = AppDependencies.protocolStore.aci()
+    val pniProtocolStore = AppDependencies.protocolStore.pniOrNull()
+
+    aciProtocolStore.sessions().archiveAllSessions()
+    pniProtocolStore?.sessions()?.archiveAllSessions()
     SenderKeyUtil.clearAllState()
 
-    val aciProtocolStore = AppDependencies.protocolStore.aci()
-    val pniProtocolStore = AppDependencies.protocolStore.pni()
-
     storeSignedAndLastResortPreKeys(aciProtocolStore, SignalStore.account.aciPreKeys, SignedPreKeyRecord(accountData.aciSignedPreKey.toByteArray()), KyberPreKeyRecord(accountData.aciLastResortKyberPreKey.toByteArray()))
-    storeSignedAndLastResortPreKeys(pniProtocolStore, SignalStore.account.pniPreKeys, SignedPreKeyRecord(accountData.pniSignedPreKey.toByteArray()), KyberPreKeyRecord(accountData.pniLastResortKyberPreKey.toByteArray()))
+    if (pniProtocolStore != null) {
+      storeSignedAndLastResortPreKeys(pniProtocolStore, SignalStore.account.pniPreKeys, SignedPreKeyRecord(accountData.pniSignedPreKey.toByteArray()), KyberPreKeyRecord(accountData.pniLastResortKyberPreKey.toByteArray()))
+    }
 
-    val profileKey = getOrCreateProfileKey(accountData.e164)
+    val profileKey = getOrCreateProfileKey(aci)
     val recipientTable = SignalDatabase.recipients
-    val selfId = recipientTable.getAndPossiblyMergePnpVerified(aci, pni, accountData.e164)
+    val selfId = recipientTable.getAndPossiblyMergePnpVerified(aci, pni, e164)
 
     recipientTable.setProfileSharing(selfId, true)
     recipientTable.markRegisteredOrThrow(selfId, aci)
-    recipientTable.linkIdsForSelf(aci, pni, accountData.e164)
+    recipientTable.linkIdsForSelf(aci, pni, e164)
     recipientTable.setProfileKey(selfId, profileKey)
+    SignalStore.account.notSyncedRotatedSelfProfileKey = null
 
     AppDependencies.recipientCache.clearSelf()
 
-    SignalStore.account.setE164(accountData.e164)
+    if (e164 != null) {
+      SignalStore.account.setE164(e164)
+    }
 
     val now = System.currentTimeMillis()
     saveOwnIdentityKey(selfId, aci, aciProtocolStore, now)
-    saveOwnIdentityKey(selfId, pni, pniProtocolStore, now)
+    if (pni != null && pniProtocolStore != null) {
+      saveOwnIdentityKey(selfId, pni, pniProtocolStore, now)
+    }
 
     accountData.linkedDeviceData?.mediaRootBackupKey?.let {
       SignalStore.backup.mediaRootBackupKey = MediaRootBackupKey(it.toByteArray())
     }
 
+    if (accountData.reRegistration) {
+      // The account may already have SVRB data for this backup key. Until we've adopted that chain (either by restoring a backup, or by reading
+      // the remote metadata during the first BackupMessagesJob) we must not start a new chain, or the existing remote backup becomes unrestorable.
+      Log.i(TAG, "[applyAccountData] Re-registration. Marking that we need to restore SVRB secrets before backing up.")
+      SignalStore.backup.backupSecretRestoreRequired = true
+
+      // Registering releases any username we previously held, so it has to be re-reserved once storage service tells us what it was.
+      Log.i(TAG, "[applyAccountData] Re-registration. Marking that we need to reclaim our username and link.")
+      SignalStore.misc.needsUsernameRestore = true
+
+      Log.i(TAG, "[applyAccountData] Re-registration. Clearing onboarding state.")
+      SignalStore.onboarding.clearAll()
+    }
+
+    accountData.authCredentialSalt?.let {
+      SignalStore.account.authCredentialSalt = it.toByteArray()
+    }
+
     SignalStore.account.setServicePassword(accountData.servicePassword)
     SignalStore.account.setRegistered(registered = true, isAciChanged = isAciChanged)
-    TextSecurePreferences.setPromptedPushRegistration(context, true)
-    TextSecurePreferences.setUnauthorizedReceived(context, false)
-    NotificationManagerCompat.from(context).cancel(NotificationIds.UNREGISTERED_NOTIFICATION_ID)
+    SignalStore.registration.hasPromptedPushRegistration = true
+    SignalStore.account.isUnauthorizedReceived = false
 
     SvrRepository.onRegistrationComplete(
       masterKey = if (pin.isNotEmpty()) masterKey else null,
@@ -777,11 +862,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
       RotateSignedPreKeyListener.schedule(context)
     }
 
-    accountData.linkedDeviceData?.readReceipts?.let { TextSecurePreferences.setReadReceiptsEnabled(context, it) }
+    accountData.linkedDeviceData?.readReceipts?.let { SignalStore.settings.isReadReceiptsEnabled = it }
   }
 
-  private fun getOrCreateProfileKey(e164: String): ProfileKey {
-    val existing = SignalDatabase.recipients.getByE164(e164).getOrNull()?.let { ProfileKeyUtil.profileKeyOrNull(SignalDatabase.recipients.getRecord(it).profileKey) }
+  private fun getOrCreateProfileKey(aci: ACI?): ProfileKey {
+    val existing = aci?.let { SignalDatabase.recipients.getByAci(it).getOrNull() }?.let { ProfileKeyUtil.profileKeyOrNull(SignalDatabase.recipients.getRecord(it).profileKey) }
     return existing ?: ProfileKeyUtil.createNew().also { Log.i(TAG, "[commitRegistrationData] No profile key found, created a new one") }
   }
 
@@ -814,11 +899,11 @@ class AppRegistrationStorageController(private val context: Context) : StorageCo
    */
   private fun reenableLegacyLocalBackups(rootUri: Uri, passphrase: String) {
     try {
-      BackupPassphrase.set(context, passphrase)
+      SignalStore.backup.v1BackupPassphrase = passphrase
 
       val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
       context.contentResolver.takePersistableUriPermission(rootUri, takeFlags)
-      SignalStore.settings.setSignalBackupDirectory(rootUri)
+      SignalStore.settings.signalBackupDirectory = rootUri
 
       if (BackupUtil.canUserAccessBackupDirectory(context)) {
         LocalBackupListener.setNextBackupTimeToIntervalFromNow(context)

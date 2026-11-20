@@ -13,7 +13,9 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.ClearableTextField
 import org.signal.core.ui.compose.DayNightPreviews
@@ -46,13 +49,12 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.viewModel
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.avatar.AvatarImage
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
-import org.thoughtcrime.securesms.util.viewModel
 import org.signal.core.ui.R as CoreUiR
 
 /**
@@ -219,6 +221,8 @@ private fun NicknameContent(
     Column(
       modifier = Modifier
         .padding(paddingValues)
+        .consumeWindowInsets(paddingValues)
+        .imePadding()
         .padding(horizontal = dimensionResource(id = CoreUiR.dimen.gutter))
     ) {
       LazyColumn(modifier = Modifier.weight(1f)) {

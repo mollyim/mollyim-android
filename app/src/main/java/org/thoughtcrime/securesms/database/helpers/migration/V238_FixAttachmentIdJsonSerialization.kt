@@ -6,7 +6,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireString
-import org.signal.core.util.update
+import org.signal.core.database.update
 
 /**
  * Fix the JSON for AttachmentId in link_previews and shared_contacts message's columns.

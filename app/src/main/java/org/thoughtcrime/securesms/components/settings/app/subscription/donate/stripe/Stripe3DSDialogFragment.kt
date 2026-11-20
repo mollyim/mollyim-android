@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -24,6 +25,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.signal.core.ui.enableEdgeToEdge
 import org.signal.core.util.concurrent.LifecycleDisposable
 import org.signal.donations.StripeIntentAccessor
 import org.thoughtcrime.securesms.R
@@ -35,6 +37,7 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.databinding.DonationWebviewFragmentBinding
 import org.thoughtcrime.securesms.util.Environment
 import org.thoughtcrime.securesms.util.RemoteConfig
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter
 import org.thoughtcrime.securesms.util.visible
 
 /**
@@ -64,9 +67,16 @@ class Stripe3DSDialogFragment : DialogFragment(R.layout.donation_webview_fragmen
     setStyle(STYLE_NO_FRAME, R.style.Signal_DayNight_Dialog_FullScreen)
   }
 
+  override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+    return super.onGetLayoutInflater(savedInstanceState).also {
+      dialog?.window?.enableEdgeToEdge()
+    }
+  }
+
   @SuppressLint("SetJavaScriptEnabled", "SetTextI18n")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     lifecycleDisposable.bindTo(viewLifecycleOwner)
+    SystemWindowInsetsSetter.attach(view, viewLifecycleOwner)
 
     dialog!!.window!!.setFlags(
       WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,

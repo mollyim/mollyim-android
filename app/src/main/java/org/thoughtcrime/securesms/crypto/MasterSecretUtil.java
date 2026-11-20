@@ -67,7 +67,7 @@ public class MasterSecretUtil {
   private static final String ASYMMETRIC_LOCAL_PUBLIC_DJB   = "asymmetric_master_secret_curve25519_public";
   private static final String ASYMMETRIC_LOCAL_PRIVATE_DJB  = "asymmetric_master_secret_curve25519_private";
 
-  private static void changeMasterSecretPassphrase(Context context,
+  public static void changeMasterSecretPassphrase(Context context,
                                                    MasterSecret masterSecret,
                                                    char[] newPassphrase)
   {

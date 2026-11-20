@@ -58,7 +58,8 @@ class RegistrationUtilTest {
     initialize(logRecorder)
 
     every { SignalStore.backup.backupTier } returns null
-    every { SignalStore.backup.backupsInitialized = any() } answers { }
+    every { SignalStore.backup.messageBackupInitialized = any() } answers { }
+    every { SignalStore.backup.mediaBackupInitialized = any() } answers { }
     every { SignalStore.backup.cachedMediaCdnPath = any() } answers { }
     every { SignalStore.backup.mediaCredentials } returns mockk {
       every { clearAll() } answers {}
@@ -102,6 +103,7 @@ class RegistrationUtilTest {
     every { signalStore.svr.hasPin() } returns false
     every { signalStore.svr.hasOptedOut() } returns false
     every { signalStore.account.isLinkedDevice } returns false
+    every { signalStore.account.isPhoneNumberless } returns false
 
     RegistrationUtil.maybeMarkRegistrationComplete()
 

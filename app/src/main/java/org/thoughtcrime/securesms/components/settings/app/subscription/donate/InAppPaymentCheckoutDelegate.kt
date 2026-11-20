@@ -39,6 +39,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.errors.Do
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
+import java.util.Currency
 
 /**
  * Abstracts out some common UI-level interactions between gift flow and normal donate flow.
@@ -95,7 +96,7 @@ class InAppPaymentCheckoutDelegate(
   }
 
   fun handleGatewaySelectionResponse(inAppPayment: InAppPaymentTable.InAppPayment) {
-    if (InAppDonations.isDonationsPaymentSourceAvailable(inAppPayment.data.paymentMethodType.toPaymentSourceType(), inAppPayment.type)) {
+    if (InAppDonations.isDonationsPaymentSourceAvailable(inAppPayment.data.paymentMethodType.toPaymentSourceType(), inAppPayment.type, inAppPayment.data.amount?.currencyCode?.let(Currency::getInstance))) {
       when (inAppPayment.data.paymentMethodType) {
         InAppPaymentData.PaymentMethodType.GOOGLE_PAY -> Unit
         InAppPaymentData.PaymentMethodType.PAYPAL -> launchPayPal(inAppPayment)
@@ -129,7 +130,12 @@ class InAppPaymentCheckoutDelegate(
     } else {
       fragment.lifecycleScope.launch {
         val inAppPayment = withContext(SignalDispatchers.Default) {
-          SignalDatabase.inAppPayments.getById(result.inAppPaymentId!!)!!
+          val inAppPayment = SignalDatabase.inAppPayments.getById(result.inAppPaymentId!!)!!
+          if (inAppPayment.state == InAppPaymentTable.State.END && inAppPayment.data.error == null && !inAppPayment.notified) {
+            SignalDatabase.inAppPayments.update(inAppPayment.copy(notified = true))
+          }
+
+          inAppPayment
         }
 
         callback.onPaymentComplete(inAppPayment)

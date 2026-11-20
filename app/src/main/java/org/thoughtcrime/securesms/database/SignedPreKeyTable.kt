@@ -2,10 +2,11 @@ package org.thoughtcrime.securesms.database
 
 import android.content.Context
 import androidx.core.content.contentValuesOf
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.delete
+import org.signal.core.database.deleteAll
 import org.signal.core.models.ServiceId
 import org.signal.core.util.Base64
-import org.signal.core.util.SqlUtil
-import org.signal.core.util.deleteAll
 import org.signal.core.util.logging.Log
 import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
@@ -105,8 +106,16 @@ class SignedPreKeyTable(context: Context, databaseHelper: SignalDatabase) : Data
     writableDatabase.delete(TABLE_NAME, "$ACCOUNT_ID = ? AND $KEY_ID = ?", SqlUtil.buildArgs(serviceId.toAccountId(), keyId))
   }
 
+  /** Deletes every signed pre-key belonging to the given identity. */
+  fun deleteAll(serviceId: ServiceId) {
+    writableDatabase
+      .delete(TABLE_NAME)
+      .where("$ACCOUNT_ID = ?", serviceId.toAccountId())
+      .run()
+  }
+
   fun debugDeleteAll() {
-    writableDatabase.deleteAll(OneTimePreKeyTable.TABLE_NAME)
+    writableDatabase.deleteAll(TABLE_NAME)
   }
 
   private fun ServiceId.toAccountId(): String {

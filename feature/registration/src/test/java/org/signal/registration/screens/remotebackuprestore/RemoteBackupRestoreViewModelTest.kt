@@ -6,6 +6,8 @@
 package org.signal.registration.screens.remotebackuprestore
 
 import assertk.assertThat
+import assertk.assertions.containsExactly
+import assertk.assertions.doesNotContain
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNull
@@ -57,7 +59,7 @@ class RemoteBackupRestoreViewModelTest {
     aep = AccountEntropyPool.generate()
     mockRepository = mockk(relaxed = true)
     every { mockRepository.restoreRemoteBackup(any()) } returns emptyFlow()
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.NoBackup)
     emittedParentEvents = mutableListOf()
     parentEventEmitter = { event -> emittedParentEvents.add(event) }
@@ -70,11 +72,16 @@ class RemoteBackupRestoreViewModelTest {
     Dispatchers.resetMain()
   }
 
-  private fun createViewModel(storageCapable: Boolean = false): RemoteBackupRestoreViewModel {
+  private fun createViewModel(
+    storageCapable: Boolean = false,
+    phoneNumberless: Boolean = false,
+    canNavigateBackwards: Boolean = false
+  ): RemoteBackupRestoreViewModel {
     return RemoteBackupRestoreViewModel(
       aep = aep,
+      canNavigateBackwards = canNavigateBackwards,
       repository = mockRepository,
-      parentState = MutableStateFlow(RegistrationFlowState(storageCapable = storageCapable)),
+      parentState = MutableStateFlow(RegistrationFlowState(storageCapable = storageCapable, isPhoneNumberlessAccount = phoneNumberless)),
       parentEventEmitter = parentEventEmitter,
       ioDispatcher = testDispatcher
     )
@@ -116,14 +123,88 @@ class RemoteBackupRestoreViewModelTest {
   // ==================== Cancel ====================
 
   @Test
-  fun `Cancel emits NavigateBack`() = runTest(testDispatcher) {
+  fun `Cancel records the skip and completes registration when a pin is known`() = runTest(testDispatcher) {
+    coEvery { mockRepository.hasKnownPin() } returns true
     val viewModel = createViewModel()
-    val initialState = RemoteBackupRestoreState(aep = aep)
 
-    viewModel.applyEvent(initialState, RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
 
-    assertThat(emittedParentEvents).hasSize(1)
-    assertThat(emittedParentEvents.first()).isEqualTo(RegistrationFlowEvent.NavigateBack)
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    coVerify { mockRepository.restoreAccountRecord() }
+    assertThat(emittedParentEvents.last()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  @Test
+  fun `Cancel navigates to pin creation when no pin is known and the account is not storage capable`() = runTest(testDispatcher) {
+    coEvery { mockRepository.hasKnownPin() } returns false
+    val viewModel = createViewModel(storageCapable = false)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    assertThat(emittedParentEvents.last()).isEqualTo(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.PinCreate))
+  }
+
+  @Test
+  fun `Cancel navigates to SVR pin entry when no pin is known and the account is storage capable`() = runTest(testDispatcher) {
+    coEvery { mockRepository.hasKnownPin() } returns false
+    val viewModel = createViewModel(storageCapable = true)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    assertThat(emittedParentEvents.last()).isEqualTo(RegistrationFlowEvent.NavigateToScreen(RegistrationRoute.PinEntryForSvrRestore))
+  }
+
+  @Test
+  fun `Cancel completes registration for a phone-numberless account, which has no pin`() = runTest(testDispatcher) {
+    coEvery { mockRepository.hasKnownPin() } returns false
+    val viewModel = createViewModel(storageCapable = true, phoneNumberless = true)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    coVerify { mockRepository.setRestoreDecision(RestoreDecision.SKIPPED) }
+    coVerify { mockRepository.restoreAccountRecord() }
+    assertThat(emittedParentEvents.last()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  @Test
+  fun `Complete progress completes registration for a phone-numberless account, which has no pin`() = runTest(testDispatcher) {
+    coEvery { mockRepository.hasKnownPin() } returns false
+    every { mockRepository.restoreRemoteBackup(any()) } returns flowOf(RemoteBackupRestoreProgress.Complete(restoredSvrPin = null, restoredProfileKey = null))
+    val viewModel = createViewModel(storageCapable = true, phoneNumberless = true)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.BackupRestoreBackup, stateEmitter)
+
+    assertThat(emittedParentEvents.last()).isEqualTo(RegistrationFlowEvent.RegistrationComplete)
+  }
+
+  @Test
+  fun `Cancel never navigates back, since this screen cleared the back stack`() = runTest(testDispatcher) {
+    val viewModel = createViewModel()
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    assertThat(emittedParentEvents).doesNotContain(RegistrationFlowEvent.NavigateBack)
+  }
+
+  @Test
+  fun `Cancel navigates back to the restore selection screen when it is still behind us`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(canNavigateBackwards = true)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    assertThat(emittedParentEvents).containsExactly(RegistrationFlowEvent.NavigateBack)
+  }
+
+  @Test
+  fun `Cancel does not record a skip when handing control back to the restore selection screen`() = runTest(testDispatcher) {
+    val viewModel = createViewModel(canNavigateBackwards = true)
+
+    viewModel.applyEvent(RemoteBackupRestoreState(aep = aep), RemoteBackupRestoreScreenEvents.Cancel, stateEmitter)
+
+    coVerify(exactly = 0) { mockRepository.setRestoreDecision(any()) }
+    assertThat(emittedParentEvents).doesNotContain(RegistrationFlowEvent.RegistrationComplete)
   }
 
   // ==================== Retry ====================
@@ -136,7 +217,7 @@ class RemoteBackupRestoreViewModelTest {
 
     viewModel.applyEvent(currentState, RemoteBackupRestoreScreenEvents.Retry, stateEmitter)
 
-    coVerify(exactly = 2) { mockRepository.getRemoteBackupInfo(aep) }
+    coVerify(exactly = 2) { mockRepository.getAndMaybeHealRemoteBackupInfo(aep) }
     assertThat(emittedStates).hasSize(1)
     assertThat(states.last().loadAttempts).isEqualTo(2)
   }
@@ -174,20 +255,20 @@ class RemoteBackupRestoreViewModelTest {
   // ==================== loadBackupInfo ====================
 
   @Test
-  fun `init with successful backup info invokes getRemoteBackupInfo and getBackupFileLastModified`() = runTest(testDispatcher) {
+  fun `init with successful backup info invokes getAndMaybeHealRemoteBackupInfo and getBackupFileLastModified`() = runTest(testDispatcher) {
     val info = backupInfo()
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(info)
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns RequestResult.Success(info)
     coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns RequestResult.Success(1234L)
 
     createViewModel()
 
-    coVerify { mockRepository.getRemoteBackupInfo(aep) }
+    coVerify { mockRepository.getAndMaybeHealRemoteBackupInfo(aep) }
     coVerify { mockRepository.getBackupFileLastModified(aep, info) }
   }
 
   @Test
   fun `init with successful backup info moves to Loaded with size and time`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo(usedSpace = 2048L))
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo(usedSpace = 2048L))
     coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns RequestResult.Success(99999L)
 
     val viewModel = createViewModel()
@@ -200,7 +281,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with null usedSpace defaults backup size to zero`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo(usedSpace = null))
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo(usedSpace = null))
     coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns RequestResult.Success(1L)
 
     val viewModel = createViewModel()
@@ -212,7 +293,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with successful info but failed last-modified lookup uses sentinel backup time`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo())
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo())
     coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.NoBackup)
 
@@ -225,7 +306,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with NoBackup moves to NotFound`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.NoBackup)
 
     val viewModel = createViewModel()
@@ -236,7 +317,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with BadArguments moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.BadArguments())
 
     val viewModel = createViewModel()
@@ -247,7 +328,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with BadAuthCredential moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.BadAuthCredential())
 
     val viewModel = createViewModel()
@@ -258,7 +339,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with Forbidden moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.Forbidden())
 
     val viewModel = createViewModel()
@@ -269,7 +350,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with RateLimited moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.NonSuccess(NetworkController.GetBackupInfoError.RateLimited(30.seconds))
 
     val viewModel = createViewModel()
@@ -279,8 +360,19 @@ class RemoteBackupRestoreViewModelTest {
   }
 
   @Test
+  fun `init with CredentialVerificationFailed moves to Failure`() = runTest(testDispatcher) {
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
+      RequestResult.NonSuccess(NetworkController.GetBackupInfoError.CredentialVerificationFailed)
+
+    val viewModel = createViewModel()
+    val states = collectStatesOf(viewModel)
+
+    assertThat(states.last().loadState).isEqualTo(RemoteBackupRestoreState.LoadState.Failure)
+  }
+
+  @Test
   fun `init with retryable network error moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.RetryableNetworkError(IOException("Network error"))
 
     val viewModel = createViewModel()
@@ -291,7 +383,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `init with application error moves to Failure`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns
       RequestResult.ApplicationError(RuntimeException("Unexpected"))
 
     val viewModel = createViewModel()
@@ -415,7 +507,7 @@ class RemoteBackupRestoreViewModelTest {
 
   @Test
   fun `successful backup info emits UserSuppliedAepVerified`() = runTest(testDispatcher) {
-    coEvery { mockRepository.getRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo())
+    coEvery { mockRepository.getAndMaybeHealRemoteBackupInfo(any()) } returns RequestResult.Success(backupInfo())
     coEvery { mockRepository.getBackupFileLastModified(any(), any()) } returns RequestResult.Success(1234L)
 
     createViewModel()

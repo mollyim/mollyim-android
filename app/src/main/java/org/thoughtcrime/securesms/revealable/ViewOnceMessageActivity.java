@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,8 @@ import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.util.DynamicMediaPreviewTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
+import org.thoughtcrime.securesms.util.WindowUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -86,11 +89,17 @@ public class ViewOnceMessageActivity extends PassphraseRequiredActivity implemen
     super.onCreate(savedInstanceState, ready);
     setContentView(R.layout.view_once_message_activity);
 
+    WindowUtil.clearLightStatusBar(getWindow());
+    WindowUtil.clearLightNavigationBar(getWindow());
+
     this.image       = findViewById(R.id.view_once_image);
     this.video       = findViewById(R.id.view_once_video);
     this.duration    = findViewById(R.id.view_once_duration);
     this.closeButton = findViewById(R.id.view_once_close_button);
     this.uri         = getIntent().getParcelableExtra(KEY_URI);
+
+    SystemWindowInsetsSetter.attach(closeButton, this, WindowInsetsCompat.Type.statusBars(), SystemWindowInsetsSetter.ApplyMode.MARGIN);
+    SystemWindowInsetsSetter.attach(duration, this, WindowInsetsCompat.Type.statusBars(), SystemWindowInsetsSetter.ApplyMode.MARGIN);
 
     closeButton.setOnClickListener(v -> finish());
 

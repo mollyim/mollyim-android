@@ -6,6 +6,7 @@
 package org.signal.registration.screens.remotebackuprestore
 
 import android.text.format.DateFormat
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -43,11 +45,11 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.registration.R
-import org.signal.registration.RegistrationDependencies
 import org.signal.registration.screens.OnePaneRegistrationScaffold
 import org.signal.registration.screens.RegistrationScaffold
 import org.signal.registration.screens.TwoPaneRegistrationScaffold
 import org.signal.registration.screens.attachDebugLogHelper
+import org.signal.registration.screens.shared.ContactSupportDialog
 import org.signal.registration.screens.shared.RestoreProgressDialog
 import org.signal.registration.test.TestTags
 import java.util.Date
@@ -61,6 +63,8 @@ fun RemoteRestoreScreen(
   if (state.restoreState == RemoteBackupRestoreState.RestoreState.InProgress) {
     KeepScreenOnEffect()
   }
+
+  BackHandler(enabled = state.restoreState == RemoteBackupRestoreState.RestoreState.InProgress) {}
 
   when (state.loadState) {
     RemoteBackupRestoreState.LoadState.Loading -> {
@@ -134,8 +138,8 @@ private fun OnePaneLayout(
             .fillMaxWidth()
             .padding(24.dp)
         ) {
-          RestoreButton(onEvent, Modifier.fillMaxWidth())
-          CancelButton(onEvent, Modifier.fillMaxWidth())
+          RestoreButton(state, onEvent, Modifier.fillMaxWidth())
+          CancelButton(state, onEvent, Modifier.fillMaxWidth())
         }
       }
     }
@@ -191,9 +195,9 @@ private fun TwoPaneLayout(
             .padding(24.dp),
           horizontalArrangement = Arrangement.End
         ) {
-          CancelButton(onEvent, Modifier)
+          CancelButton(state, onEvent, Modifier)
           Spacer(modifier = Modifier.size(8.dp))
-          RestoreButton(onEvent, Modifier)
+          RestoreButton(state, onEvent, Modifier)
         }
       }
     }
@@ -271,10 +275,12 @@ private fun BackupInfoDetails(state: RemoteBackupRestoreState, modifier: Modifie
 
 @Composable
 private fun RestoreButton(
+  state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier
 ) {
   Buttons.LargeTonal(
+    enabled = !state.isSkipping,
     onClick = { onEvent(RemoteBackupRestoreScreenEvents.BackupRestoreBackup) },
     modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_RESTORE_BUTTON)
   ) {
@@ -284,14 +290,24 @@ private fun RestoreButton(
 
 @Composable
 private fun CancelButton(
+  state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit,
   modifier: Modifier
 ) {
   TextButton(
+    enabled = !state.isSkipping,
     onClick = { onEvent(RemoteBackupRestoreScreenEvents.Cancel) },
     modifier = modifier.testTag(TestTags.REMOTE_BACKUP_RESTORE_CANCEL_BUTTON)
   ) {
-    Text(text = stringResource(android.R.string.cancel))
+    if (state.isSkipping) {
+      CircularProgressIndicator(
+        modifier = Modifier.size(20.dp),
+        strokeWidth = 3.dp,
+        color = MaterialTheme.colorScheme.primary
+      )
+    } else {
+      Text(text = stringResource(android.R.string.cancel))
+    }
   }
 }
 
@@ -300,8 +316,13 @@ private fun RestoreStateDialogs(
   state: RemoteBackupRestoreState,
   onEvent: (RemoteBackupRestoreScreenEvents) -> Unit
 ) {
-  val context = LocalContext.current
-  val contactSupportEmailSubject = stringResource(R.string.RemoteRestoreScreen__contact_support_email_subject)
+  if (state.showContactSupportDialog) {
+    ContactSupportDialog(
+      subject = R.string.RemoteRestoreScreen__contact_support_email_subject,
+      filter = R.string.RemoteRestoreScreen__contact_support_email_filter,
+      onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissContactSupport) }
+    )
+  }
 
   when (state.restoreState) {
     RemoteBackupRestoreState.RestoreState.None -> Unit
@@ -338,7 +359,7 @@ private fun RestoreStateDialogs(
         confirm = stringResource(R.string.RemoteRestoreScreen__contact_support),
         dismiss = stringResource(android.R.string.ok),
         onConfirm = {
-          RegistrationDependencies.get().contactSupportCallback?.invoke(context, contactSupportEmailSubject)
+          onEvent(RemoteBackupRestoreScreenEvents.ContactSupport)
           onEvent(RemoteBackupRestoreScreenEvents.DismissError)
         },
         onDismiss = { onEvent(RemoteBackupRestoreScreenEvents.DismissError) }

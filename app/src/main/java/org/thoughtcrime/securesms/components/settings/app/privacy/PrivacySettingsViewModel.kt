@@ -1,113 +1,168 @@
 package org.thoughtcrime.securesms.components.settings.app.privacy
 
-import android.app.Application
-import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import org.thoughtcrime.securesms.ScreenLockController
-import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.TextSecurePreferences
-import org.thoughtcrime.securesms.util.livedata.Store
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
+import org.signal.appsettings.privacy.PassphraseDialogMode
+import org.signal.appsettings.privacy.PrivacySettingsAction
+import org.signal.appsettings.privacy.PrivacySettingsEvent
+import org.signal.appsettings.privacy.PrivacySettingsState
+import org.signal.appsettings.privacy.PrivacySettingsState.Dialog
+import org.signal.appsettings.privacy.PrivacySettingsState.Snackbar
+import org.signal.appsettings.routes.AppSettingsNavigationEvent
+import org.signal.appsettings.routes.AppSettingsRoute
+import org.signal.appsettings.routes.navigateBack
+import org.signal.appsettings.routes.navigateTo
+import org.signal.core.ui.compose.EventDrivenViewModel
+import org.signal.core.util.logging.Log
 
+/**
+ * Drives [org.signal.appsettings.privacy.PrivacySettingsScreen]. Navigation goes straight to [parentEventEmitter].
+ */
 class PrivacySettingsViewModel(
-  private val sharedPreferences: SharedPreferences,
-  private val repository: PrivacySettingsRepository
-) : ViewModel() {
+  private val parentEventEmitter: (AppSettingsNavigationEvent) -> Unit
+) : EventDrivenViewModel<PrivacySettingsEvent>(TAG) {
 
-  private val application: Application = AppDependencies.application
+  companion object {
+    private val TAG = Log.tag(PrivacySettingsViewModel::class)
+  }
 
-  private val store = Store(getState())
+  private val _state = MutableStateFlow(PrivacySettingsState())
+  private val _actions = Channel<PrivacySettingsAction>(Channel.BUFFERED)
 
-  val state: LiveData<PrivacySettingsState> = store.stateLiveData
+  val state: StateFlow<PrivacySettingsState> = _state.asStateFlow()
+  val actions: Flow<PrivacySettingsAction> = _actions.receiveAsFlow()
 
-  fun refreshBlockedCount() {
-    repository.getBlockedCount { count ->
-      store.update { it.copy(blockedCount = count) }
-      refresh()
+  init {
+    refresh()
+  }
+
+  override suspend fun processEvent(event: PrivacySettingsEvent) {
+    when (event) {
+      PrivacySettingsEvent.ScreenResumed -> {
+        refresh()
+        _state.update { it.copy(blockedCount = PrivacySettingsRepository.getBlockedCount()) }
+      }
+
+      PrivacySettingsEvent.NavigateBackClicked -> parentEventEmitter.navigateBack()
+
+      PrivacySettingsEvent.PhoneNumberClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.PrivacyRoute.PhoneNumberPrivacy)
+
+      PrivacySettingsEvent.BlockedClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.PrivacyRoute.BlockedUsers)
+
+      is PrivacySettingsEvent.ReadReceiptsToggled -> {
+        PrivacySettingsRepository.setReadReceiptsEnabled(event.enabled)
+        refresh()
+      }
+
+      is PrivacySettingsEvent.TypingIndicatorsToggled -> {
+        PrivacySettingsRepository.setTypingIndicatorsEnabled(event.enabled)
+        refresh()
+      }
+
+      PrivacySettingsEvent.DefaultTimerClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.PrivacyRoute.ExpiringMessages)
+
+      is PrivacySettingsEvent.PassphraseLockToggled -> {
+        val mode = if (event.enabled) PassphraseDialogMode.ENABLE else PassphraseDialogMode.DISABLE
+        _actions.send(PrivacySettingsAction.LaunchPassphraseDialog(mode))
+      }
+
+      PrivacySettingsEvent.ChangePassphraseClicked -> _actions.send(PrivacySettingsAction.LaunchPassphraseDialog(PassphraseDialogMode.CHANGE))
+
+      PrivacySettingsEvent.AutomaticLockdownClicked -> _state.update { it.copy(dialog = Dialog.AutomaticLockdown) }
+
+      is PrivacySettingsEvent.AutomaticLockdownSelected -> {
+        if (_state.value.dialog != Dialog.AutomaticLockdown) return
+        _state.update { it.copy(dialog = Dialog.None) }
+        PrivacySettingsRepository.setPassphraseLockTriggers(event.triggers)
+        refresh()
+      }
+
+      PrivacySettingsEvent.PassphraseLockTimeoutClicked -> {
+        _actions.send(PrivacySettingsAction.LaunchPassphraseLockTimeoutPicker(_state.value.passphraseLockTimeout))
+      }
+
+      is PrivacySettingsEvent.PassphraseLockTimeoutSelected -> {
+        PrivacySettingsRepository.setPassphraseLockTimeout(event.timeout.inWholeSeconds)
+        refresh()
+      }
+
+      is PrivacySettingsEvent.BiometricScreenLockToggled -> {
+        if (event.enabled) {
+          _actions.send(PrivacySettingsAction.EnableBiometricScreenLock)
+        } else {
+          applyBiometricScreenLock(false)
+        }
+      }
+
+      PrivacySettingsEvent.BiometricScreenLockEnableAuthenticated -> applyBiometricScreenLock(true)
+
+      PrivacySettingsEvent.BiometricScreenLockUnavailable -> _state.update { it.copy(snackbar = Snackbar.BiometricsUnavailable) }
+
+      PrivacySettingsEvent.BiometricEnrollmentRequired -> _state.update { it.copy(snackbar = Snackbar.BiometricEnrollmentRequired) }
+
+      is PrivacySettingsEvent.BlockUnknownToggled -> {
+        PrivacySettingsRepository.setBlockUnknownEnabled(event.enabled)
+        refresh()
+      }
+
+      is PrivacySettingsEvent.ScreenSecurityToggled -> {
+        PrivacySettingsRepository.setScreenSecurityEnabled(event.enabled)
+        refresh()
+        _actions.send(PrivacySettingsAction.ApplyScreenSecurity(event.enabled))
+      }
+
+      is PrivacySettingsEvent.IncognitoKeyboardToggled -> {
+        PrivacySettingsRepository.setIncognitoKeyboardEnabled(event.enabled)
+        refresh()
+      }
+
+      PrivacySettingsEvent.IncognitoKeyboardLearnMoreClicked -> _actions.send(PrivacySettingsAction.OpenIncognitoKeyboardLearnMore)
+
+      PrivacySettingsEvent.DeviceSecuritySettingsUnavailable -> _state.update { it.copy(snackbar = Snackbar.DeviceSecuritySettingsUnavailable) }
+
+      PrivacySettingsEvent.AdvancedClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.PrivacyRoute.Advanced)
+
+      PrivacySettingsEvent.DialogDismissed -> _state.update { it.copy(dialog = Dialog.None) }
+
+      PrivacySettingsEvent.SnackbarDismissed -> _state.update { it.copy(snackbar = Snackbar.None) }
     }
   }
 
-  fun setBlockUnknownEnabled(enabled: Boolean) {
-    TextSecurePreferences.setBlockUnknownEnabled(application, enabled)
+  /** Host callback after native enable/disable succeeds. Kept synchronous so key caching observes the new lock state. */
+  fun completePassphraseLockChange(enabled: Boolean) {
+    PrivacySettingsRepository.setPassphraseLockEnabled(enabled)
     refresh()
   }
 
-  fun setReadReceiptsEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.READ_RECEIPTS_PREF, enabled).apply()
-    repository.syncReadReceiptState()
+  private suspend fun applyBiometricScreenLock(enabled: Boolean) {
+    PrivacySettingsRepository.setBiometricScreenLockEnabled(enabled)
     refresh()
+    _actions.send(PrivacySettingsAction.ApplyBiometricScreenLock(enabled))
   }
 
-  fun setTypingIndicatorsEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.TYPING_INDICATORS, enabled).apply()
-    repository.syncTypingIndicatorsState()
-    refresh()
-  }
-
-  fun setPassphraseLockEnabled(enabled: Boolean) {
-    TextSecurePreferences.setPassphraseLockEnabled(application, enabled)
-    refresh()
-  }
-
-  fun setPassphraseLockTrigger(resultSet: Set<String>) {
-    sharedPreferences.edit().putStringSet(TextSecurePreferences.PASSPHRASE_LOCK_TRIGGER, resultSet).apply()
-    refresh()
-  }
-
-  fun setPassphraseLockTimeout(seconds: Long) {
-    sharedPreferences.edit().putLong(TextSecurePreferences.PASSPHRASE_LOCK_TIMEOUT, seconds).apply()
-    refresh()
-  }
-
-  fun setBiometricScreenLock(enabled: Boolean) {
-    TextSecurePreferences.setBiometricScreenLockEnabled(application, enabled)
-    ScreenLockController.enableAutoLock(enabled)
-    ScreenLockController.lockScreenAtStart = false
-    refresh()
-  }
-
-  fun setScreenSecurityEnabled(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.SCREEN_SECURITY_PREF, enabled).apply()
-    refresh()
-  }
-
-  fun setIncognitoKeyboard(enabled: Boolean) {
-    sharedPreferences.edit().putBoolean(TextSecurePreferences.INCOGNITO_KEYBOARD_PREF, enabled).apply()
-    refresh()
-  }
-
-  fun refresh() {
-    store.update(this::updateState)
-  }
-
-  private fun getState(): PrivacySettingsState {
-    return PrivacySettingsState(
-      blockedCount = 0,
-      blockUnknown = TextSecurePreferences.isBlockUnknownEnabled(application),
-      readReceipts = TextSecurePreferences.isReadReceiptsEnabled(application),
-      typingIndicators = TextSecurePreferences.isTypingIndicatorsEnabled(application),
-      passphraseLock = TextSecurePreferences.isPassphraseLockEnabled(application),
-      passphraseLockTriggerValues = TextSecurePreferences.getPassphraseLockTrigger(application).triggers,
-      passphraseLockTimeout = TextSecurePreferences.getPassphraseLockTimeout(application),
-      biometricScreenLock = TextSecurePreferences.isBiometricScreenLockEnabled(application),
-      screenSecurity = TextSecurePreferences.isScreenSecurityEnabled(application),
-      incognitoKeyboard = TextSecurePreferences.isIncognitoKeyboardEnabled(application),
-      universalExpireTimer = SignalStore.settings.universalExpireTimer
-    )
-  }
-
-  private fun updateState(state: PrivacySettingsState): PrivacySettingsState {
-    return getState().copy(blockedCount = state.blockedCount)
-  }
-
-  class Factory(
-    private val sharedPreferences: SharedPreferences,
-    private val repository: PrivacySettingsRepository
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return requireNotNull(modelClass.cast(PrivacySettingsViewModel(sharedPreferences, repository)))
+  private fun refresh() {
+    _state.update {
+      it.copy(
+        hasPhoneNumber = PrivacySettingsRepository.hasPhoneNumber(),
+        blockUnknown = PrivacySettingsRepository.isBlockUnknownEnabled(),
+        readReceipts = PrivacySettingsRepository.isReadReceiptsEnabled(),
+        typingIndicators = PrivacySettingsRepository.isTypingIndicatorsEnabled(),
+        universalExpireTimer = PrivacySettingsRepository.getUniversalExpireTimer(),
+        passphraseLock = PrivacySettingsRepository.isPassphraseLockEnabled(),
+        passphraseLockTriggerValues = PrivacySettingsRepository.getPassphraseLockTriggers(),
+        passphraseLockTriggerOptions = PrivacySettingsRepository.getPassphraseLockTriggerOptions(),
+        isPassphraseLockTimeoutEnabled = PrivacySettingsRepository.isPassphraseLockTimeoutEnabled(),
+        passphraseLockTimeout = PrivacySettingsRepository.getPassphraseLockTimeout(),
+        biometricScreenLock = PrivacySettingsRepository.isBiometricScreenLockEnabled(),
+        screenSecurity = PrivacySettingsRepository.isScreenSecurityEnabled(),
+        isScreenSecurityForced = PrivacySettingsRepository.isScreenSecurityForced(),
+        incognitoKeyboard = PrivacySettingsRepository.isIncognitoKeyboardEnabled()
+      )
     }
   }
 }

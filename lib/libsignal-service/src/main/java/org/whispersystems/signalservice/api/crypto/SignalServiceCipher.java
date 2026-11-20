@@ -54,7 +54,6 @@ import org.whispersystems.signalservice.internal.push.Envelope;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessage;
 import org.whispersystems.signalservice.internal.push.PushTransportDetails;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +138,7 @@ public class SignalServiceCipher {
     try {
       if (envelope.content != null) {
         Plaintext plaintext = decryptInternal(envelope, serverDeliveredTimestamp);
-        Content   content   = Content.ADAPTER.decode(plaintext.getData());
+        Content   content   = decodeContent(plaintext.getData());
 
         return new SignalServiceCipherResult(
             content,
@@ -156,7 +155,15 @@ public class SignalServiceCipher {
       } else {
         return null;
       }
-    } catch (IOException | IllegalArgumentException e) {
+    } catch (IllegalArgumentException e) {
+      throw new InvalidMetadataMessageException(e);
+    }
+  }
+
+  private static Content decodeContent(byte[] data) throws InvalidMetadataMessageException {
+    try {
+      return Content.ADAPTER.decode(data);
+    } catch (Exception e) {
       throw new InvalidMetadataMessageException(e);
     }
   }
@@ -212,6 +219,10 @@ public class SignalServiceCipher {
         Optional<byte[]>          groupId             = result.getGroupId();
         boolean                   needsReceipt        = true;
 
+        if (resultAddress.getServiceId().equals(localAddress.getServiceId()) && result.getDeviceId() == localDeviceId) {
+          throw new SelfSendException();
+        }
+
         if (sourceServiceId != null) {
           Log.w(TAG, "[" + envelope.clientTimestamp + "] Received a UD-encrypted message sent over an identified channel. Marking as needsReceipt=false");
           needsReceipt = false;
@@ -220,7 +231,7 @@ public class SignalServiceCipher {
         ciphertextMessageType = result.getCiphertextMessageType();
 
         if (ciphertextMessageType == CiphertextMessage.PREKEY_TYPE) {
-          signalProtocolStore.clearSenderKeySharedWith(Collections.singleton(new SignalProtocolAddress(result.getSenderUuid(), result.getDeviceId())));
+          signalProtocolStore.clearSenderKeySharedWith(Collections.singleton(resultAddress.getServiceId().toProtocolAddress(result.getDeviceId())));
         }
 
         paddedMessage = result.getPaddedMessage();

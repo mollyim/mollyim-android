@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.conversation.v2
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.gestures.animateScrollBy
@@ -63,11 +64,13 @@ import org.signal.core.ui.compose.list.ReorderListEvent
 import org.signal.core.ui.compose.list.ReorderableItem
 import org.signal.core.ui.compose.list.rememberReorderableListState
 import org.signal.core.ui.compose.list.reorderableList
+import org.signal.core.ui.enableEdgeToEdge
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.logging.Log
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.polls.Poll
-import org.thoughtcrime.securesms.util.ViewUtil
 import kotlin.time.Duration.Companion.milliseconds
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Fragment to create a poll
@@ -77,7 +80,7 @@ class CreatePollFragment : ComposeDialogFragment() {
   companion object {
     private val TAG = Log.tag(CreatePollFragment::class)
 
-    const val MAX_QUESTION_CHARACTER_LENGTH = 200
+    const val MAX_QUESTION_CHARACTER_LENGTH = 100
     const val MAX_CHARACTER_LENGTH = 100
     const val MAX_OPTIONS = 10
     const val MIN_OPTIONS = 2
@@ -100,6 +103,12 @@ class CreatePollFragment : ComposeDialogFragment() {
     return dialog
   }
 
+  override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+    return super.onGetLayoutInflater(savedInstanceState).also {
+      dialog?.window?.enableEdgeToEdge()
+    }
+  }
+
   @Composable
   override fun DialogContent() {
     Scaffolds.Settings(
@@ -108,7 +117,7 @@ class CreatePollFragment : ComposeDialogFragment() {
         dismissAllowingStateLoss()
       },
       navigationIcon = SignalIcons.X.imageVector,
-      navigationContentDescription = stringResource(R.string.Material3SearchToolbar__close)
+      navigationContentDescription = stringResource(CoreUiR.string.CloseButton__content_description)
     ) { paddingValues ->
       CreatePollScreen(
         paddingValues = paddingValues,

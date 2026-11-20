@@ -5,7 +5,6 @@
 
 package org.thoughtcrime.securesms.testutil
 
-import androidx.test.core.app.ApplicationProvider
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
@@ -17,6 +16,7 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 import org.signal.core.models.ServiceId.ACI
+import org.signal.core.models.recipients.RecipientId
 import org.signal.libsignal.zkgroup.groups.GroupMasterKey
 import org.signal.libsignal.zkgroup.profiles.ProfileKey
 import org.signal.storageservice.storage.protos.groups.Member
@@ -27,6 +27,7 @@ import org.thoughtcrime.securesms.database.MessageType
 import org.thoughtcrime.securesms.database.SignalDatabase
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.GroupId
+import org.thoughtcrime.securesms.keyvalue.NotificationProfileValues
 import org.thoughtcrime.securesms.keyvalue.ReleaseChannelValues
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.mms.IncomingMessage
@@ -34,7 +35,6 @@ import org.thoughtcrime.securesms.mms.OutgoingMessage
 import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile
 import java.util.UUID
@@ -46,7 +46,7 @@ import kotlin.random.Random
  */
 class RecipientTestRule : TestRule {
 
-  val signalStore = MockSignalStoreRule(relaxed = setOf(SettingsValues::class, ReleaseChannelValues::class))
+  val signalStore = MockSignalStoreRule(relaxed = setOf(SettingsValues::class, ReleaseChannelValues::class, NotificationProfileValues::class))
   val signalDatabase = SignalDatabaseRule()
   val appDependencies = MockAppDependenciesRule()
 
@@ -59,19 +59,16 @@ class RecipientTestRule : TestRule {
   private val extras = object : ExternalResource() {
     override fun before() {
       mockkStatic(AppDependencies::class)
-      every { AppDependencies.recipientCache } returns LiveRecipientCache(
-        ApplicationProvider.getApplicationContext(),
-        Runnable::run
-      )
+      every { AppDependencies.recipientCache } returns LiveRecipientCache(Runnable::run)
 
       mockkObject(RemoteConfig)
-      every { RemoteConfig.collapseEvents } returns true
 
       every { signalStore.account.aci } returns selfAci
       every { signalStore.account.requireAci() } returns selfAci
       every { signalStore.account.e164 } returns selfE164
       every { signalStore.account.requireE164() } returns selfE164
       every { signalStore.account.isRegistered } returns true
+      every { signalStore.account.isUnauthorizedReceived } returns false
       every { signalStore.account.deviceId } returns 1
       every { signalStore.account.isMultiDevice } returns false
       every { signalStore.account.isLinkedDevice } returns false
@@ -79,7 +76,7 @@ class RecipientTestRule : TestRule {
 
       every { signalStore.registration.isRegistrationComplete } returns true
 
-      self = insertRecipient(selfAci, ProfileName.fromParts("Tester", "McTesterson"))
+      self = insertRecipient(selfAci, ProfileName.fromParts("Tester", "McTesterson"), e164 = selfE164)
     }
 
     override fun after() {
@@ -180,11 +177,15 @@ class RecipientTestRule : TestRule {
     Recipient.live(id).refresh()
   }
 
-  private fun insertRecipient(aci: ACI, profileName: ProfileName, profileSharing: Boolean = true): RecipientId {
-    val id = SignalDatabase.recipients.getOrInsertFromServiceId(aci)
+  private fun insertRecipient(aci: ACI, profileName: ProfileName, profileSharing: Boolean = true, e164: String? = null): RecipientId {
+    val id = if (e164 != null) {
+      SignalDatabase.recipients.getAndPossiblyMerge(aci, e164)
+    } else {
+      SignalDatabase.recipients.getOrInsertFromServiceId(aci)
+    }
     SignalDatabase.recipients.setProfileName(id, profileName)
     SignalDatabase.recipients.setProfileKeyIfAbsent(id, ProfileKey(Random.nextBytes(32)))
-    SignalDatabase.recipients.setCapabilities(id, SignalServiceProfile.Capabilities(true, true, true))
+    SignalDatabase.recipients.setCapabilities(id, SignalServiceProfile.Capabilities(true, true, true, false))
     SignalDatabase.recipients.setProfileSharing(id, profileSharing)
     SignalDatabase.recipients.markRegistered(id, aci)
     return id

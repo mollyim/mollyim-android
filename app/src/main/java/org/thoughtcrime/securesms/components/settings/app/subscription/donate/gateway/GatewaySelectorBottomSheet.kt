@@ -23,7 +23,7 @@ import org.thoughtcrime.securesms.components.settings.app.subscription.DonationS
 import org.thoughtcrime.securesms.database.InAppPaymentTable
 import org.thoughtcrime.securesms.database.model.databaseprotos.InAppPaymentData
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
-import org.thoughtcrime.securesms.util.viewModel
+import org.signal.core.ui.viewModel
 
 /**
  * Entry point to capturing the necessary payment token to pay for a donation

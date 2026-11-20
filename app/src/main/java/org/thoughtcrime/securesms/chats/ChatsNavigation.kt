@@ -8,8 +8,6 @@ package org.thoughtcrime.securesms.chats
 import android.os.Bundle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,90 +24,107 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.signal.core.ui.compose.split.LocalDeferredEnter
+import org.signal.core.ui.compose.split.deferredEnterMetadata
+import org.signal.core.ui.compose.split.detailEntry
 import org.signal.core.ui.navigation.TransitionSpecs
 import org.thoughtcrime.securesms.MainNavigator
 import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsNavHostFragment
+import org.thoughtcrime.securesms.compose.AndroidNavHostFragment
 import org.thoughtcrime.securesms.compose.FragmentBackHandler
 import org.thoughtcrime.securesms.compose.FragmentBackPressedState
 import org.thoughtcrime.securesms.conversation.ConversationIntents
 import org.thoughtcrime.securesms.conversation.v2.ConversationFragment
-import org.thoughtcrime.securesms.main.EmptyDetailScreen
-import org.thoughtcrime.securesms.main.MainNavigationDetailLocation
+import org.thoughtcrime.securesms.conversationlist.ConversationListArchiveFragment
+import org.thoughtcrime.securesms.conversationlist.ConversationListFragment
+import org.thoughtcrime.securesms.main.MainDetailRoute
 import org.thoughtcrime.securesms.messagedetails.MessageDetailsFragment
 
-fun EntryProviderScope<NavKey>.chatsNavEntries(
-  transitionState: ConversationTransitionState
-) {
-  entry<MainNavigationDetailLocation.Empty> {
-    NoConvoSelectedEntry()
-  }
-
-  entry<MainNavigationDetailLocation.Conversation>(
-    // disable slide animation - it's unnecessary in split pane mode and is handled by ConversationLoadingMask for single pane mode.
-    metadata = TransitionSpecs.None.metadata
+/**
+ * Registers the routes available in the chats tab of the main screen.
+ */
+fun EntryProviderScope<NavKey>.registerChatsTabDetailRoutes() {
+  detailEntry<MainDetailRoute.Conversation>(
+    metadata = deferredEnterMetadata()
   ) { route ->
-    ConversationEntry(route, transitionState)
+    ConversationEntry(route)
   }
 
-  entry<MainNavigationDetailLocation.Chats.MessageDetails> { route ->
+  detailEntry<MainDetailRoute.Chats.MessageDetails> { route ->
     MessageDetailsEntry(route)
   }
 
-  entry<MainNavigationDetailLocation.Chats.ConversationSettings> { route ->
+  detailEntry<MainDetailRoute.Chats.ConversationSettings>(
+    metadata = TransitionSpecs.FadeScale.metadata
+  ) { route ->
     ConversationSettingsEntry(route)
   }
 }
 
+/**
+ * List pane content for the chats tab.
+ */
 @Composable
-private fun NoConvoSelectedEntry() {
-  EmptyDetailScreen()
+fun ChatsListPane(modifier: Modifier = Modifier) {
+  AndroidFragment(
+    clazz = ConversationListFragment::class.java,
+    fragmentState = rememberFragmentState(),
+    modifier = modifier
+  )
+}
+
+/**
+ * List pane content for the archive, which is displayed within the chats tab.
+ */
+@Composable
+fun ArchiveListPane(modifier: Modifier = Modifier) {
+  AndroidFragment(
+    clazz = ConversationListArchiveFragment::class.java,
+    fragmentState = rememberFragmentState(),
+    modifier = modifier
+  )
 }
 
 @Composable
-private fun ConversationEntry(
-  route: MainNavigationDetailLocation.Conversation,
-  transitionState: ConversationTransitionState
-) {
+private fun ConversationEntry(route: MainDetailRoute.Conversation) {
   val context = LocalContext.current
   val navigatorProvider = context as? MainNavigator.NavigatorProvider
+  val deferredEnter = LocalDeferredEnter.current
   val fragmentState = key(route) { rememberFragmentState() }
   val arguments = requireNotNull(ConversationIntents.createBuilderSync(context, route.conversationArgs).build().extras) {
     "Handed null Conversation intent arguments."
   }
 
-  val fragmentContentReady = remember { MutableStateFlow(false) }
   val backPressedState = remember { FragmentBackPressedState() }
   FragmentBackHandler(backPressedState)
 
-  ConversationLoadingMask(
-    transitionState = transitionState,
-    contentReady = fragmentContentReady,
-    onFirstRender = { navigatorProvider?.onFirstRender() }
-  ) { modifier ->
-    AndroidFragment(
-      clazz = ConversationFragment::class.java,
-      fragmentState = fragmentState,
-      arguments = arguments,
-      modifier = modifier
-        .background(MaterialTheme.colorScheme.background)
-        .fillMaxSize()
-    ) { fragment ->
-      backPressedState.attach(fragment)
+  LaunchedEffect(Unit) {
+    navigatorProvider?.onFirstRender()
+  }
 
-      fragment.viewLifecycleOwner.lifecycleScope.launch {
-        fragment.repeatOnLifecycle(Lifecycle.State.STARTED) {
-          fragment.didFirstFrameRender.collectLatest { fragmentContentReady.value = it }
-        }
+  AndroidFragment(
+    clazz = ConversationFragment::class.java,
+    fragmentState = fragmentState,
+    arguments = arguments,
+    modifier = Modifier
+      .background(MaterialTheme.colorScheme.background)
+      .fillMaxSize()
+  ) { fragment ->
+    backPressedState.attach(fragment)
+
+    fragment.viewLifecycleOwner.lifecycleScope.launch {
+      fragment.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        fragment.didFirstFrameRender.first { it }
+        deferredEnter.start()
       }
     }
   }
 }
 
 @Composable
-private fun MessageDetailsEntry(route: MainNavigationDetailLocation.Chats.MessageDetails) {
+private fun MessageDetailsEntry(route: MainDetailRoute.Chats.MessageDetails) {
   val navigatorProvider = LocalContext.current as? MainNavigator.NavigatorProvider
   val fragmentState = key(route) { rememberFragmentState() }
 
@@ -124,13 +139,11 @@ private fun MessageDetailsEntry(route: MainNavigationDetailLocation.Chats.Messag
     modifier = Modifier
       .fillMaxSize()
       .background(MaterialTheme.colorScheme.background)
-      .statusBarsPadding()
-      .navigationBarsPadding()
   )
 }
 
 @Composable
-private fun ConversationSettingsEntry(route: MainNavigationDetailLocation.Chats.ConversationSettings) {
+private fun ConversationSettingsEntry(route: MainDetailRoute.Chats.ConversationSettings) {
   val navigatorProvider = LocalContext.current as? MainNavigator.NavigatorProvider
   val fragmentState = key(route) { rememberFragmentState() }
   val arguments: Bundle? by produceState(null, route.recipientId) {
@@ -145,15 +158,13 @@ private fun ConversationSettingsEntry(route: MainNavigationDetailLocation.Chats.
     val backPressedState = remember { FragmentBackPressedState() }
     FragmentBackHandler(backPressedState)
 
-    AndroidFragment(
+    AndroidNavHostFragment(
       clazz = ConversationSettingsNavHostFragment::class.java,
       fragmentState = fragmentState,
       arguments = args,
       modifier = Modifier
         .fillMaxSize()
         .background(MaterialTheme.colorScheme.background)
-        .statusBarsPadding()
-        .navigationBarsPadding()
     ) { fragment ->
       backPressedState.attach(fragment)
     }

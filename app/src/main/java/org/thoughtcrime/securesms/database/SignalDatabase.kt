@@ -5,11 +5,12 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.sqlite.db.SupportSQLiteDatabase
 import net.zetetic.database.sqlcipher.SQLiteOpenHelper
-import org.signal.core.util.SqlUtil
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.withinTransaction
 import org.signal.core.util.crypto.AttachmentSecret
 import org.signal.core.util.logging.Log
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.crypto.DatabaseSecret
+import org.thoughtcrime.securesms.database.SignalDatabase.Companion.runInTransaction
 import org.thoughtcrime.securesms.database.helpers.SignalDatabaseMigrations
 import org.thoughtcrime.securesms.database.model.AvatarPickerDatabase
 import java.io.File
@@ -29,6 +30,8 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   ),
   SignalDatabaseOpenHelper {
 
+  val isPrimaryDatabase: Boolean = name == DATABASE_NAME
+
   val messageTable: MessageTable = MessageTable(context, this)
   val attachmentTable: AttachmentTable = AttachmentTable(context, this, attachmentSecret)
   val mediaTable: MediaTable = MediaTable(context, this)
@@ -45,7 +48,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
   val senderKeySharedTable: SenderKeySharedTable = SenderKeySharedTable(context, this)
   val pendingRetryReceiptTable: PendingRetryReceiptTable = PendingRetryReceiptTable(context, this)
   val searchTable: SearchTable = SearchTable(context, this)
-  val stickerTable: StickerTable = StickerTable(context, this, attachmentSecret)
+  val stickerTables: StickerTables = StickerTables(context, this, attachmentSecret)
   val storageIdDatabase: UnknownStorageIdTable = UnknownStorageIdTable(context, this)
   val remappedRecordTables: RemappedRecordTables = RemappedRecordTables(context, this)
   val mentionTable: MentionTable = MentionTable(context, this)
@@ -102,7 +105,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     db.execSQL(SenderKeyTable.CREATE_TABLE)
     db.execSQL(SenderKeySharedTable.CREATE_TABLE)
     db.execSQL(PendingRetryReceiptTable.CREATE_TABLE)
-    db.execSQL(StickerTable.CREATE_TABLE)
+    executeStatements(db, StickerTables.CREATE_TABLES)
     db.execSQL(UnknownStorageIdTable.CREATE_TABLE)
     db.execSQL(MentionTable.CREATE_TABLE)
     db.execSQL(PaymentTable.CREATE_TABLE)
@@ -138,7 +141,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
     executeStatements(db, DraftTable.CREATE_INDEXS)
     executeStatements(db, GroupTable.CREATE_INDEXS)
     executeStatements(db, GroupReceiptTable.CREATE_INDEXES)
-    executeStatements(db, StickerTable.CREATE_INDEXES)
+    executeStatements(db, StickerTables.CREATE_INDEXES)
     executeStatements(db, UnknownStorageIdTable.CREATE_INDEXES)
     executeStatements(db, MentionTable.CREATE_INDEXES)
     executeStatements(db, PaymentTable.CREATE_INDEXES)
@@ -298,6 +301,7 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
           instance!!.reactionTable.deleteAbandonedReactions()
           instance!!.searchTable.fullyResetTables(useTransaction = false)
           instance!!.recipientTable.clearFileWallpapersPostBackupRestore()
+          instance!!.recipientTable.clearSelfKeyTransparencyData()
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS key_value")
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS megaphone")
           instance!!.rawWritableDatabase.execSQL("DROP TABLE IF EXISTS job_spec")
@@ -494,8 +498,8 @@ open class SignalDatabase(private val context: Application, databaseSecret: Data
 
     @get:JvmStatic
     @get:JvmName("stickers")
-    val stickers: StickerTable
-      get() = instance!!.stickerTable
+    val stickers: StickerTables
+      get() = instance!!.stickerTables
 
     @get:JvmStatic
     @get:JvmName("storySends")

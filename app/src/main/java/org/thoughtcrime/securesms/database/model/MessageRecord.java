@@ -30,18 +30,22 @@ import androidx.annotation.VisibleForTesting;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.ContextCompat;
 
-import java.util.stream.Collectors;
-
+import org.signal.archive.proto.GroupChangeChatUpdate;
+import org.signal.archive.proto.GroupCreationUpdate;
+import org.signal.core.models.ServiceId;
+import org.signal.core.models.ServiceId.ACI;
+import org.signal.core.models.recipients.RecipientId;
+import org.signal.core.ui.fonts.SignalSymbols.Glyph;
 import org.signal.core.util.Base64;
 import org.signal.core.util.BidiUtil;
+import org.signal.core.util.Util;
+import org.signal.core.util.UuidUtil;
 import org.signal.core.util.logging.Log;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedGroup;
 import org.signal.storageservice.storage.protos.groups.local.DecryptedGroupChange;
 import org.thoughtcrime.securesms.R;
-import org.signal.archive.proto.GroupChangeChatUpdate;
-import org.signal.archive.proto.GroupCreationUpdate;
-import org.thoughtcrime.securesms.components.emoji.EmojiProvider;
-import org.thoughtcrime.securesms.components.emoji.parsing.EmojiParser;
+import org.signal.emoji.EmojiProvider;
+import org.signal.emoji.parsing.EmojiParser;
 import org.thoughtcrime.securesms.components.transfercontrols.TransferControls;
 import org.thoughtcrime.securesms.database.CollapsedState;
 import org.thoughtcrime.securesms.database.MessageTypes;
@@ -55,25 +59,19 @@ import org.thoughtcrime.securesms.database.model.databaseprotos.MessageExtras;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ProfileChangeDetails;
 import org.thoughtcrime.securesms.database.model.databaseprotos.SessionSwitchoverEvent;
 import org.thoughtcrime.securesms.database.model.databaseprotos.ThreadMergeEvent;
-import org.thoughtcrime.securesms.emoji.EmojiSource;
-import org.thoughtcrime.securesms.emoji.JumboEmoji;
-import org.thoughtcrime.securesms.fonts.SignalSymbols.Glyph;
+import org.signal.emoji.EmojiSource;
+import org.signal.emoji.JumboEmoji;
 import org.thoughtcrime.securesms.groups.GroupMigrationMembershipChange;
 import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.mms.Slide;
 import org.thoughtcrime.securesms.profiles.ProfileName;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.util.DateUtils;
-import org.thoughtcrime.securesms.util.ExpirationUtil;
+import org.signal.core.ui.util.ExpirationUtil;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.SignalE164Util;
-import org.signal.core.util.Util;
 import org.whispersystems.signalservice.api.groupsv2.DecryptedGroupUtil;
-import org.signal.core.models.ServiceId;
-import org.signal.core.models.ServiceId.ACI;
-import org.signal.core.util.UuidUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -84,6 +82,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import okio.ByteString;
 
@@ -231,9 +230,9 @@ public abstract class MessageRecord extends DisplayRecord {
     } else if (isOutgoingVideoCall()) {
       return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_outgoing_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA);
     } else if (isMissedAudioCall()) {
-      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_voice_call), getCallDateString(context)), Glyph.PHONE, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_voice_call), getCallDateString(context)), Glyph.PHONE, ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red_shade), ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red));
     } else if (isMissedVideoCall()) {
-      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA, ContextCompat.getColor(context, R.color.core_red_shade), ContextCompat.getColor(context, R.color.core_red));
+      return staticUpdateDescriptionWithExpiration(context.getString(R.string.MessageRecord_call_message_with_date, context.getString(R.string.MessageRecord_missed_video_call), getCallDateString(context)), Glyph.VIDEO_CAMERA, ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red_shade), ContextCompat.getColor(context, org.signal.core.ui.R.color.core_red));
     } else if (isGroupCall()) {
       return getGroupCallUpdateDescription(context, getBody(), true);
     } else if (isJoined()) {
@@ -306,8 +305,8 @@ public abstract class MessageRecord extends DisplayRecord {
     } else if (isReportedSpam()) {
       return staticUpdateDescription(context.getString(R.string.MessageRecord_reported_as_spam), Glyph.SPAM);
     } else if (isMessageRequestAccepted()) {
-      return isGroupV2() ? staticUpdateDescription(context.getString(R.string.MessageRecord_you_accepted_the_group_request), Glyph.THREAD)
-                         : fromRecipient(getToRecipient(), r -> context.getString(R.string.MessageRecord_you_accepted_s_message_request, r.getDisplayName(context)), Glyph.THREAD);
+      return getToRecipient().isGroup() ? staticUpdateDescription(context.getString(R.string.MessageRecord_you_accepted_the_group_request), Glyph.THREAD)
+                                        : fromRecipient(getToRecipient(), r -> context.getString(R.string.MessageRecord_you_accepted_s_message_request, r.getDisplayName(context)), Glyph.THREAD);
     } else if (isBlocked()) {
       return staticUpdateDescription(context.getString(isGroupV2() ? R.string.MessageRecord_you_blocked_this_group : R.string.MessageRecord_you_blocked_this_person), Glyph.BLOCK);
     } else if (isUnblocked()) {
@@ -554,8 +553,10 @@ public abstract class MessageRecord extends DisplayRecord {
         String previouslyKnownAs;
         if (!Util.isEmpty(profileChangeDetails.learnedProfileName.e164)) {
           previouslyKnownAs = SignalE164Util.prettyPrint(profileChangeDetails.learnedProfileName.e164);
-        } else {
+        } else if (!Util.isEmpty(profileChangeDetails.learnedProfileName.username)) {
           previouslyKnownAs = profileChangeDetails.learnedProfileName.username;
+        } else {
+          previouslyKnownAs = profileChangeDetails.learnedProfileName.sharedName;
         }
 
         if (!Util.isEmpty(previouslyKnownAs)) {
@@ -915,7 +916,7 @@ public abstract class MessageRecord extends DisplayRecord {
     if (isJumboji == null) {
       if (getBody().length() <= EmojiSource.getLatest().getMaxEmojiLength() * JumboEmoji.MAX_JUMBOJI_COUNT) {
         EmojiParser.CandidateList candidates = EmojiProvider.getCandidates(getDisplayBody(context));
-        isJumboji = candidates != null && candidates.allEmojis && candidates.size() <= JumboEmoji.MAX_JUMBOJI_COUNT && (candidates.hasJumboForAll() || JumboEmoji.canDownloadJumbo(context));
+        isJumboji = candidates != null && candidates.allEmojis && candidates.size() <= JumboEmoji.MAX_JUMBOJI_COUNT && (candidates.hasJumboForAll() || JumboEmoji.canDownloadJumbo());
       } else {
         isJumboji = false;
       }

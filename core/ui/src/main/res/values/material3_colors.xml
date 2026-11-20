@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Core colors for Material3 -->
-    <!-- MOLLY: Colors moved to themes.xml as theme attributes -->
+    <color name="signal_colorOnPrimary">@color/molly_on_primary_light</color>
+    <color name="signal_colorOnPrimaryContainer">@color/molly_on_primary_container_light</color>
+    <color name="signal_colorOnSurface">@color/signal_light_colorOnSurface</color>
+    <color name="signal_colorBackground">@color/molly_background_light</color>
+    <color name="signal_colorSurface1">@color/molly_surface_container_low_light</color>
+    <color name="signal_colorSurface2">@color/molly_surface_container_light</color>
+    <color name="signal_colorSurface5">@color/molly_surface_dim_light</color>
+    <color name="signal_colorSurfaceVariantFill">@color/signal_light_colorSurfaceVariantFill</color>
     <color name="signal_neutralSurface">@color/signal_light_neutralSurface</color>
+    <color name="signal_neutralFill">@color/signal_light_neutralFill</color>
     <color name="signal_colorOnCustom">@color/signal_light_colorOnCustom</color>
     <color name="signal_colorOnCustomVariant">@color/signal_light_colorOnCustomVariant</color>
     <color name="signal_colorTransparent1">@color/signal_light_colorTransparent1</color>
@@ -43,4 +51,6 @@
     <!-- Core color alpha variants without alpha channel -->
     <color name="signal_colorSurfaceVariant_16_no_alpha">#D0CFDB</color>
     <color name="signal_colorSurfaceVariant_32_no_alpha">#B9B8C4</color>
+
+    <color name="reminder_background">#faf0dc</color>
 </resources>

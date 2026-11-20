@@ -20,8 +20,6 @@ import org.signal.core.util.logging.Scrubber;
 import org.signal.debuglogsviewer.DebugLogsViewer;
 import org.thoughtcrime.securesms.database.LogDatabase;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
-import org.thoughtcrime.securesms.net.Networking;
-import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.RemoteConfig;
 
@@ -312,14 +310,10 @@ public class SubmitDebugLogRepository {
 
   @WorkerThread
   private @NonNull String uploadContent(@NonNull String contentType, @NonNull RequestBody requestBody) throws IOException {
-    OkHttpClient client = new OkHttpClient.Builder()
-        .addInterceptor(new StandardUserAgentInterceptor())
-        .socketFactory(Networking.getSocketFactory())
-        .proxySelector(Networking.getProxySelectorForSocks())
-        .dns(Networking.getDns())
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .build();
+    OkHttpClient client = AppDependencies.getOkHttpClient().newBuilder()
+                                             .readTimeout(30, TimeUnit.SECONDS)
+                                             .writeTimeout(30, TimeUnit.SECONDS)
+                                             .build();
 
     try (Response response = client.newCall(new Request.Builder().url(API_ENDPOINT).get().build()).execute()) {
       ResponseBody body = response.body();

@@ -12,9 +12,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.CursorUtil
 import org.thoughtcrime.securesms.profiles.ProfileName
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.testutil.RecipientTestRule
 
 @Suppress("ClassName")
@@ -48,7 +48,7 @@ class RecipientTableTest_letterHeaders {
   fun `blocked contact is not a letter header anchor`() {
     recipients.createRecipient("Alice Anderson")
     val blocked = recipients.createRecipient("Carrolyn Carter")
-    SignalDatabase.recipients.setBlocked(blocked, true)
+    SignalDatabase.recipients.setBlocked(blocked, true, 0)
 
     assertHeaderAnchorsAreVisible()
   }

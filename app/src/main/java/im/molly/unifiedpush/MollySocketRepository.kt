@@ -145,8 +145,10 @@ object MollySocketRepository {
   }
 
   private fun MollySocketDevice.isLinked(): Boolean? {
-    return LinkDeviceRepository.loadDevices()?.any {
-      it.id == deviceId && it.name == DEVICE_NAME
+    return runBlocking {
+      LinkDeviceRepository.loadDevices()?.any {
+        it.id == deviceId && it.name == DEVICE_NAME
+      }
     }
   }
 

@@ -17,7 +17,7 @@ class CoreUiDependenciesRule(
   private val isIncognitoKeyboardEnabled: Boolean = false
 ) : ExternalResource() {
   override fun before() {
-    CoreUiDependencies.init(application, Provider(isIncognitoKeyboardEnabled))
+    CoreUiDependencies.testInject(application, Provider(isIncognitoKeyboardEnabled))
   }
 
   private class Provider(
@@ -26,6 +26,5 @@ class CoreUiDependenciesRule(
     override fun provideBackupBaseDirName(): String = "Test"
     override fun provideIsIncognitoKeyboardEnabled(): Boolean = isIncognitoKeyboardEnabled
     override fun provideIsScreenSecurityEnabled(): Boolean = false
-    override fun provideForceSplitPane(): Boolean = false
   }
 }

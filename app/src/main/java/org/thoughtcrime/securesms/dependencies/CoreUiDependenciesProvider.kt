@@ -10,7 +10,6 @@ import org.thoughtcrime.securesms.ScreenLockController
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.service.KeyCachingService
 import org.thoughtcrime.securesms.util.BackupUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 object CoreUiDependenciesProvider : CoreUiDependencies.Provider {
   override fun provideBackupBaseDirName(): String {
@@ -18,17 +17,13 @@ object CoreUiDependenciesProvider : CoreUiDependencies.Provider {
   }
 
   override fun provideIsIncognitoKeyboardEnabled(): Boolean {
-    return TextSecurePreferences.isIncognitoKeyboardEnabled(AppDependencies.application)
+    return SignalStore.settings.isIncognitoKeyboardEnabled
   }
 
   override fun provideIsScreenSecurityEnabled(): Boolean {
     if (ScreenLockController.alwaysSetSecureFlagOnResume || KeyCachingService.isLocked()) {
       return true
     }
-    return TextSecurePreferences.isScreenSecurityEnabled(AppDependencies.application)
-  }
-
-  override fun provideForceSplitPane(): Boolean {
-    return SignalStore.internal.forceSplitPane
+    return SignalStore.settings.isScreenSecurityEnabled
   }
 }

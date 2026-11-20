@@ -18,7 +18,6 @@ import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.Region
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.animation.doOnEnd
 import androidx.core.content.ContextCompat
@@ -33,13 +32,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.SimpleColorFilter
 import com.google.android.material.animation.ArgbEvaluatorCompat
 import org.signal.core.ui.util.ThemeUtil
+import org.signal.core.ui.util.ViewUtil
 import org.signal.core.util.SetUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.conversation.ConversationAdapterBridge
 import org.thoughtcrime.securesms.conversation.ConversationAdapterBridge.PulseRequest
 import org.thoughtcrime.securesms.conversation.v2.items.InteractiveConversationElement
 import org.thoughtcrime.securesms.database.model.InMemoryMessageRecord
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.wallpaper.ChatWallpaper
 import java.lang.Integer.max
 
@@ -195,9 +194,6 @@ class MultiselectItemDecoration(
       val parts: MultiselectCollection = child.conversationMessage.multiselectCollection
 
       val projections = child.getColorizerProjections(parent)
-      if (child.canPlayContent()) {
-        projections.add(child.getGiphyMp4PlayableProjection(parent))
-      }
 
       path.reset()
       projections.use { list ->
@@ -405,12 +401,6 @@ class MultiselectItemDecoration(
             list.forEach {
               path.op(it.path, Path.Op.DIFFERENCE)
             }
-          }
-
-          if (child.canPlayContent() && child.shouldProjectContent()) {
-            val mp4GifProjection = child.getGiphyMp4PlayableProjection(child.rootView as ViewGroup)
-            path.op(mp4GifProjection.path, Path.Op.DIFFERENCE)
-            mp4GifProjection.release()
           }
         }
       }

@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -62,6 +64,7 @@ import org.thoughtcrime.securesms.avatar.AvatarImage
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.navigation.safeNavigate
+import org.signal.core.ui.R as CoreUiR
 
 private const val MAX_CHAT_COUNT = 5
 
@@ -104,7 +107,7 @@ class CreateFoldersFragment : ComposeFragment() {
     }
 
     LaunchedEffect(Unit) {
-      if (!SignalStore.uiHints.hasSeenChatFoldersEducationSheet) {
+      if (viewModel.shouldShowEducationSheet()) {
         SignalStore.uiHints.hasSeenChatFoldersEducationSheet = true
         navController.safeNavigate(R.id.action_createFoldersFragment_to_chatFoldersEducationSheet)
       }
@@ -120,12 +123,15 @@ class CreateFoldersFragment : ComposeFragment() {
         }
       },
       navigationIcon = SignalIcons.ArrowStart.imageVector,
-      navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close)
+      navigationContentDescription = stringResource(id = CoreUiR.string.CloseButton__content_description)
     ) { contentPadding: PaddingValues ->
       CreateFolderScreen(
         state = state,
         focusRequester = focusRequester,
-        modifier = Modifier.padding(contentPadding),
+        modifier = Modifier
+          .padding(contentPadding)
+          .consumeWindowInsets(contentPadding)
+          .imePadding(),
         isNewFolder = isNewFolder,
         hasChanges = viewModel.hasChanges(),
         onAddChat = {

@@ -6,8 +6,6 @@
 package org.signal.registration.screens.quickrestore
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +19,7 @@ import org.signal.core.ui.compose.EventDrivenViewModel
 import org.signal.core.ui.compose.QrCodeData
 import org.signal.core.util.logging.Log
 import org.signal.libsignal.net.RequestResult
+import org.signal.network.api.RegistrationApiV2.RegisterAccountError
 import org.signal.registration.NetworkController
 import org.signal.registration.RegistrationFlowEvent
 import org.signal.registration.RegistrationRepository
@@ -31,7 +30,7 @@ import org.signal.registration.screens.util.navigateTo
 class QuickRestoreQrViewModel(
   private val repository: RegistrationRepository,
   private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-) : EventDrivenViewModel<QuickRestoreQrEvents>(TAG) {
+) : EventDrivenViewModel<QuickRestoreQrEvents>(TAG, shouldLogEvents = true) {
 
   companion object {
     private val TAG = Log.tag(QuickRestoreQrViewModel::class)
@@ -101,7 +100,9 @@ class QuickRestoreQrViewModel(
 
   private suspend fun handleProvisioningMessage(message: NetworkController.ProvisioningMessage) {
     parentEventEmitter(RegistrationFlowEvent.RestoreMethodTokenReceived(message.restoreMethodToken))
-    parentEventEmitter(RegistrationFlowEvent.E164Chosen(message.e164))
+    if (message.e164 != null) {
+      parentEventEmitter(RegistrationFlowEvent.E164Chosen(message.e164))
+    }
 
     if (message.platform == NetworkController.ProvisioningMessage.Platform.IOS && message.tier == null) {
       // iOS without a backup tier cannot do a quick restore — navigate to the choose-restore screen
@@ -119,9 +120,9 @@ class QuickRestoreQrViewModel(
 
     when (registerResult) {
       is RequestResult.Success -> {
-        val (response, keyMaterial) = registerResult.result
+        val (response, keyMaterial, aci) = registerResult.result
         Log.i(TAG, "[Register] Success! reregistration: ${response.reregistration}")
-        parentEventEmitter(RegistrationFlowEvent.Registered(keyMaterial.accountEntropyPool, response.storageCapable))
+        parentEventEmitter(RegistrationFlowEvent.Registered(aci, keyMaterial.accountEntropyPool, response.storageCapable, phoneNumberless = response.e164 == null))
         parentEventEmitter.navigateTo(
           RegistrationRoute.ArchiveRestoreSelection.forQuickRestore(
             aep = AccountEntropyPool(message.accountEntropyPool),
@@ -132,7 +133,7 @@ class QuickRestoreQrViewModel(
       }
       is RequestResult.NonSuccess -> {
         when (val error = registerResult.error) {
-          is NetworkController.RegisterAccountError.RateLimited -> {
+          is RegisterAccountError.RateLimited -> {
             Log.w(TAG, "[Register] Rate limited (retryAfter: ${error.retryAfter}).")
             _state.value = _state.value.copy(
               isRegistering = false,
@@ -140,7 +141,7 @@ class QuickRestoreQrViewModel(
               errorMessage = null
             )
           }
-          is NetworkController.RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
+          is RegisterAccountError.RegistrationRecoveryPasswordIncorrect -> {
             Log.w(TAG, "[Register] Recovery password incorrect: ${error.message}")
             _state.value = _state.value.copy(
               isRegistering = false,
@@ -148,7 +149,7 @@ class QuickRestoreQrViewModel(
               errorMessage = null
             )
           }
-          is NetworkController.RegisterAccountError.RegistrationLock -> {
+          is RegisterAccountError.RegistrationLock -> {
             if (provideRegistrationLock) {
               Log.w(TAG, "[Register] Still registration locked after providing the reglock token derived from the provisioned AEP. Falling back to PIN entry.")
               parentEventEmitter.navigateTo(
@@ -162,7 +163,7 @@ class QuickRestoreQrViewModel(
               attemptToRegister(message, provideRegistrationLock = true)
             }
           }
-          is NetworkController.RegisterAccountError.SessionNotFoundOrNotVerified -> {
+          is RegisterAccountError.SessionNotFoundOrNotVerified -> {
             Log.w(TAG, "[Register] Session not found or not verified: ${error.message}")
             _state.value = _state.value.copy(
               isRegistering = false,
@@ -170,12 +171,22 @@ class QuickRestoreQrViewModel(
               errorMessage = null
             )
           }
-          is NetworkController.RegisterAccountError.DeviceTransferPossible -> {
+          is RegisterAccountError.DeviceTransferPossible -> {
             Log.w(TAG, "[Register] Device transfer possible. We never set this flag, so we should never see it. Resetting.")
             parentEventEmitter(RegistrationFlowEvent.ResetState)
           }
-          is NetworkController.RegisterAccountError.InvalidRequest -> {
+          is RegisterAccountError.InvalidRequest -> {
             Log.w(TAG, "[Register] Invalid request: ${error.message}")
+            _state.value = _state.value.copy(
+              isRegistering = false,
+              showRegistrationError = true,
+              errorMessage = null
+            )
+          }
+          is RegisterAccountError.InvalidReceiptCredentialPresentation,
+          is RegisterAccountError.TwoFactorRequired,
+          RegisterAccountError.PostQuantumRatchetRequired -> {
+            Log.w(TAG, "[Register] Unexpected registration error: $error")
             _state.value = _state.value.copy(
               isRegistering = false,
               showRegistrationError = true,
@@ -205,14 +216,5 @@ class QuickRestoreQrViewModel(
 
   override fun onCleared() {
     provisioningJob?.cancel()
-  }
-
-  class Factory(
-    private val repository: RegistrationRepository,
-    private val parentEventEmitter: (RegistrationFlowEvent) -> Unit
-  ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      return QuickRestoreQrViewModel(repository, parentEventEmitter) as T
-    }
   }
 }

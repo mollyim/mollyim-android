@@ -4,30 +4,33 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import androidx.core.content.contentValuesOf
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.SqlUtil.buildArgs
+import org.signal.core.database.delete
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.database.withinTransaction
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Base64
 import org.signal.core.util.CursorUtil
-import org.signal.core.util.SqlUtil
-import org.signal.core.util.SqlUtil.buildArgs
 import org.signal.core.util.UuidUtil
-import org.signal.core.util.delete
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireObject
 import org.signal.core.util.requireString
-import org.signal.core.util.select
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.database.model.DistributionListId
 import org.thoughtcrime.securesms.database.model.DistributionListPrivacyData
 import org.thoughtcrime.securesms.database.model.DistributionListPrivacyMode
 import org.thoughtcrime.securesms.database.model.DistributionListRecord
 import org.thoughtcrime.securesms.database.model.StoryType
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.recipients.RecipientIds
 import org.thoughtcrime.securesms.storage.StorageRecordUpdate
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.whispersystems.signalservice.api.push.DistributionId
 import org.whispersystems.signalservice.api.storage.SignalStoryDistributionListRecord
+import org.whispersystems.signalservice.api.storage.StorageId
 import org.whispersystems.signalservice.api.storage.recipientServiceAddresses
 import java.util.UUID
 
@@ -554,6 +557,15 @@ class DistributionListTables constructor(context: Context?, databaseHelper: Sign
     Log.d(TAG, "Remapped $fromId to $toId.")
   }
 
+  override fun onDeletedRecipient(recipientId: RecipientId) {
+    val deleted = writableDatabase
+      .delete(MembershipTable.TABLE_NAME)
+      .where("${MembershipTable.RECIPIENT_ID} = ?", recipientId)
+      .run()
+
+    Log.d(TAG, "Deleted recipient: $deleted")
+  }
+
   fun deleteList(distributionListId: DistributionListId, deletionTimestamp: Long = System.currentTimeMillis()) {
     writableDatabase.update(
       ListTable.TABLE_NAME,
@@ -571,6 +583,54 @@ class DistributionListTables constructor(context: Context?, databaseHelper: Sign
       "${MembershipTable.LIST_ID} = ?",
       SqlUtil.buildArgs(distributionListId)
     )
+  }
+
+  /**
+   * Removes storageIds from distribution lists in [RecipientTable] that were deleted before [deletedBefore].
+   *
+   * Never touches "My Story".
+   */
+  fun removeStorageIdsFromOldDeletedLists(deletedBefore: Long): Int {
+    return writableDatabase
+      .update(RecipientTable.TABLE_NAME)
+      .values(RecipientTable.STORAGE_SERVICE_ID to null)
+      .where(
+        """
+        ${RecipientTable.STORAGE_SERVICE_ID} NOT NULL AND ${RecipientTable.ID} IN (
+          SELECT ${ListTable.RECIPIENT_ID}
+          FROM ${ListTable.TABLE_NAME}
+          WHERE ${ListTable.TABLE_NAME}.${ListTable.ID} != ${DistributionListId.MY_STORY_ID} AND ${ListTable.DELETION_TIMESTAMP} > 0 AND ${ListTable.DELETION_TIMESTAMP} < ?
+        )
+        """,
+        deletedBefore
+      )
+      .run()
+  }
+
+  /**
+   * Removes storageIds of deleted distribution lists whose storageIds are in the given collection.
+   *
+   * Never touches "My Story".
+   */
+  fun removeStorageIdsFromLocalOnlyDeletedLists(storageIds: Collection<StorageId>): Int {
+    val values = contentValuesOf(RecipientTable.STORAGE_SERVICE_ID to null)
+    var updated = 0
+
+    SqlUtil.buildCollectionQuery(
+      RecipientTable.STORAGE_SERVICE_ID,
+      storageIds.map { Base64.encodeWithPadding(it.raw) },
+      """
+      ${RecipientTable.ID} IN (
+        SELECT ${ListTable.RECIPIENT_ID}
+        FROM ${ListTable.TABLE_NAME}
+        WHERE ${ListTable.TABLE_NAME}.${ListTable.ID} != ${DistributionListId.MY_STORY_ID} AND ${ListTable.DELETION_TIMESTAMP} > 0
+      ) AND
+      """
+    ).forEach {
+      updated += writableDatabase.update(RecipientTable.TABLE_NAME, values, it.where, it.whereArgs)
+    }
+
+    return updated
   }
 
   fun getRecipientIdForSyncRecord(record: SignalStoryDistributionListRecord): RecipientId? {
@@ -626,7 +686,7 @@ class DistributionListTables constructor(context: Context?, databaseHelper: Sign
 
     createList(
       name = insert.proto.name,
-      members = insert.proto.recipientServiceAddresses.map(RecipientId::from),
+      members = insert.proto.recipientServiceAddresses.map(RecipientIds::from),
       distributionId = distributionId,
       allowsReplies = insert.proto.allowsReplies,
       deletionTimestamp = insert.proto.deletedAtTimestamp,
@@ -686,7 +746,7 @@ class DistributionListTables constructor(context: Context?, databaseHelper: Sign
       )
 
       val currentlyInDistributionList = getRawMembers(distributionListId, privacyMode).toSet()
-      val shouldBeInDistributionList = update.new.proto.recipientServiceAddresses.map(RecipientId::from).toSet()
+      val shouldBeInDistributionList = update.new.proto.recipientServiceAddresses.map(RecipientIds::from).toSet()
       val toRemove = currentlyInDistributionList - shouldBeInDistributionList
       val toAdd = shouldBeInDistributionList - currentlyInDistributionList
 

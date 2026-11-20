@@ -33,6 +33,8 @@ import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.qr.QrCrosshair
 import org.signal.mediasend.R as MediaSendR
+import org.signal.core.ui.R as CoreUiR
+import org.signal.appsettings.R as AppSettingsR
 
 /**
  * A screen that allows you to scan a QR code to start a chat.
@@ -51,7 +53,7 @@ fun MollySocketQrScanScreen(
 ) {
   when (qrScanResult) {
     QrScanResult.InvalidData -> {
-      QrScanResultDialog(message = stringResource(R.string.UsernameLinkSettings_qr_result_invalid), onDismiss = onQrResultHandled)
+      QrScanResultDialog(message = stringResource(AppSettingsR.string.UsernameLinkSettings_qr_result_invalid), onDismiss = onQrResultHandled)
     }
 
     QrScanResult.NetworkError -> {
@@ -60,7 +62,7 @@ fun MollySocketQrScanScreen(
 
     QrScanResult.QrNotFound -> {
       QrScanResultDialog(
-        title = stringResource(R.string.UsernameLinkSettings_qr_code_not_found),
+        title = stringResource(AppSettingsR.string.UsernameLinkSettings_qr_code_not_found),
         message = stringResource(R.string.MollySocketLink_try_scanning_another_image_containing_a_mollysocket_qr_code),
         onDismiss = onQrResultHandled
       )
@@ -143,7 +145,7 @@ fun MollySocketQrScanScreen(
         onClick = onOpenGalleryClicked
       ) {
         Image(
-          painter = painterResource(id = R.drawable.symbol_album_24),
+          painter = painterResource(id = CoreUiR.drawable.symbol_album_24),
           contentDescription = null,
           colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
         )

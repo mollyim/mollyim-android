@@ -26,6 +26,7 @@ dependencies {
   implementation(project(":core:ui"))
   implementation(project(":core:util"))
   implementation(project(":core:models"))
+  implementation(project(":core:models-jvm"))
   implementation(project(":lib:image-editor"))
   implementation(project(":lib:glide"))
   implementation(project(":lib:video"))
@@ -61,11 +62,14 @@ dependencies {
 
   // Media
   implementation(libs.androidx.media3.exoplayer)
+  implementation(libs.androidx.media3.ui)
 
   // CameraX
   implementation(libs.androidx.camera.core)
+  implementation(libs.androidx.camera.compose)
 
   // Testing
+  testImplementation(testFixtures(project(":core:ui")))
   testImplementation(testLibs.junit.junit)
   testImplementation(testLibs.mockk)
   testImplementation(testLibs.assertk)

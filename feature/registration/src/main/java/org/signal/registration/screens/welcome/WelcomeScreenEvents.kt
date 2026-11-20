@@ -20,4 +20,6 @@ sealed class WelcomeScreenEvents {
   data object DoesNotHaveOldPhone : WelcomeScreenEvents()
 
   data object ViewTermsAndPrivacy : WelcomeScreenEvents()
+
+  data object ViewProxySettings : WelcomeScreenEvents()
 }

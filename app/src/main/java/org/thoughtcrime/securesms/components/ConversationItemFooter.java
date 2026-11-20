@@ -39,11 +39,10 @@ import org.thoughtcrime.securesms.util.DateUtils;
 import org.thoughtcrime.securesms.util.MessageRecordUtil;
 import org.thoughtcrime.securesms.util.Projection;
 import org.thoughtcrime.securesms.util.SignalLocalMetrics;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.signal.core.ui.util.ViewUtil;
 
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class ConversationItemFooter extends ConstraintLayout {
@@ -109,16 +108,16 @@ public class ConversationItemFooter extends ConstraintLayout {
       int     mode       = typedArray.getInt(R.styleable.ConversationItemFooter_footer_mode, 0);
       boolean isOutgoing = mode == 0;
       if (isOutgoing) {
-        playbackSpeedToggleTextView.setTextColor(getResources().getColor(R.color.core_white));
+        playbackSpeedToggleTextView.setTextColor(getResources().getColor(org.signal.core.ui.R.color.core_white));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_white_20));
       } else {
         playbackSpeedToggleTextView.setTextColor(ThemeUtil.getThemedColor(getContext(), R.attr.signal_text_secondary));
         playbackSpeedToggleTextView.setBackgroundTintList(AppCompatResources.getColorStateList(getContext(), R.color.transparent_black_08));
       }
 
-      setTextColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_text_color, getResources().getColor(R.color.core_white)));
-      setIconColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_icon_color, getResources().getColor(R.color.core_white)));
-      setRevealDotColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_reveal_dot_color, getResources().getColor(R.color.core_white)));
+      setTextColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_text_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
+      setIconColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_icon_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
+      setRevealDotColor(typedArray.getInt(R.styleable.ConversationItemFooter_footer_reveal_dot_color, getResources().getColor(org.signal.core.ui.R.color.core_white)));
       typedArray.recycle();
     }
 
@@ -223,6 +222,13 @@ public class ConversationItemFooter extends ConstraintLayout {
 
   public View getDateView() {
     return dateView;
+  }
+
+  /**
+   * Measured width, widened to include the space the delivery status will need once the message is delivered or read.
+   */
+  public int getReservedWidth() {
+    return getMeasuredWidth() + deliveryStatusView.getReservedWidth() - deliveryStatusView.getMeasuredWidth();
   }
 
   private void notifyTouchDelegateChanged(@NonNull Rect rect, @NonNull View touchDelegate) {

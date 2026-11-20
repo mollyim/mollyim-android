@@ -5,9 +5,10 @@
 
 package org.thoughtcrime.securesms.jobs
 
+import androidx.annotation.VisibleForTesting
+import org.signal.core.database.withinTransaction
 import org.signal.core.models.database.AttachmentId
 import org.signal.core.util.logging.Log
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.ArchiveRestoreProgress
 import org.thoughtcrime.securesms.database.AttachmentTable
@@ -57,14 +58,35 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
       throw NotPushRegisteredException()
     }
 
+    enqueueRestoreJobs(restoreTime = System.currentTimeMillis())
+
+    BackupMediaRestoreService.start(context, context.getString(R.string.BackupStatus__restoring_media))
+    ArchiveRestoreProgress.onRestoringMedia()
+
+    RestoreAttachmentJob.Queues.INITIAL_RESTORE.forEach { queue ->
+      AppDependencies.jobManager.add(CheckRestoreMediaLeftJob(queue))
+    }
+  }
+
+  /**
+   * Walks every restorable attachment, enqueuing a full-size or thumbnail restore for each and moving it out of [AttachmentTable.TRANSFER_NEEDS_RESTORE] so the
+   * next batch makes progress.
+   */
+  @VisibleForTesting
+  internal fun enqueueRestoreJobs(restoreTime: Long, batchSize: Int = 500) {
     val jobManager = AppDependencies.jobManager
-    val batchSize = 500
-    val restoreTime = System.currentTimeMillis()
 
     val orphanedCount = SignalDatabase.attachments.markRestorableAttachmentsWithoutMessageAsFailed()
     if (orphanedCount > 0) {
       Log.w(TAG, "$orphanedCount orphaned restorable attachments marked failed")
     }
+
+    val stalledCount = SignalDatabase.attachments.resetRestorableAttachmentsInProgressToNeedsRestore()
+    if (stalledCount > 0) {
+      Log.w(TAG, "$stalledCount attachments were stuck mid-restore; reset to needs-restore so they can be re-enqueued")
+    }
+
+    var batchWasEmpty: Boolean
 
     do {
       val restoreThumbnailJobs: MutableList<RestoreAttachmentThumbnailJob> = mutableListOf()
@@ -83,6 +105,7 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
       }
 
       val attachmentBatch = last30DaysAttachments + remaining
+      batchWasEmpty = attachmentBatch.isEmpty()
       val messageIds = attachmentBatch.map { it.mmsId }.toSet()
       val messageMap = SignalDatabase.messages.getMessages(messageIds).associate { it.id to (it as MmsMessageRecord) }
 
@@ -96,7 +119,7 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
           continue
         }
 
-        if (isWallpaper || shouldRestoreFullSize(message!!, restoreTime, SignalStore.backup.optimizeStorage)) {
+        if (isWallpaper || attachment.stickerId != -1 || shouldRestoreFullSize(message!!, restoreTime, SignalStore.backup.optimizeStorage)) {
           restoreFullAttachmentJobs += RestoreAttachmentJob.forInitialRestore(
             messageId = attachment.mmsId,
             attachmentId = attachment.attachmentId,
@@ -104,17 +127,19 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
             queueHash = attachment.plaintextHash?.contentHashCode() ?: attachment.remoteKey?.contentHashCode()
           )
         } else {
-          restoreThumbnailJobs += RestoreAttachmentThumbnailJob(
-            messageId = attachment.mmsId,
-            attachmentId = attachment.attachmentId,
-            highPriority = false
-          )
+          if (attachment.couldHaveArchivedThumbnail) {
+            restoreThumbnailJobs += RestoreAttachmentThumbnailJob(
+              messageId = attachment.mmsId,
+              attachmentId = attachment.attachmentId,
+              highPriority = false
+            )
+          }
 
           restoreThumbnailOnlyAttachmentsIds += attachment.attachmentId
         }
       }
 
-      SignalDatabase.rawDatabase.withinTransaction {
+      SignalDatabase.writableDatabase.withinTransaction {
         // Mark not restorable thumbnails and attachments as failed
         SignalDatabase.attachments.setThumbnailRestoreState(notRestorable, AttachmentTable.ThumbnailRestoreState.PERMANENT_FAILURE)
         SignalDatabase.attachments.setRestoreTransferState(notRestorable, AttachmentTable.TRANSFER_PROGRESS_FAILED)
@@ -128,14 +153,7 @@ class BackupRestoreMediaJob private constructor(parameters: Parameters) : BaseJo
       // Intentionally enqueues one at a time for safer attachment transfer state management
       restoreThumbnailJobs.forEach { jobManager.add(it) }
       restoreFullAttachmentJobs.forEach { jobManager.add(it) }
-    } while (restoreThumbnailJobs.isNotEmpty() || restoreFullAttachmentJobs.isNotEmpty() || notRestorable.isNotEmpty())
-
-    BackupMediaRestoreService.start(context, context.getString(R.string.BackupStatus__restoring_media))
-    ArchiveRestoreProgress.onRestoringMedia()
-
-    RestoreAttachmentJob.Queues.INITIAL_RESTORE.forEach { queue ->
-      jobManager.add(CheckRestoreMediaLeftJob(queue))
-    }
+    } while (!batchWasEmpty)
   }
 
   private fun shouldRestoreFullSize(message: MmsMessageRecord, restoreTime: Long, optimizeStorage: Boolean): Boolean {

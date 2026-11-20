@@ -3,14 +3,17 @@ package org.thoughtcrime.securesms.database
 import android.content.ContentValues
 import android.content.Context
 import androidx.core.content.contentValuesOf
+import org.signal.core.database.SqlUtil
+import org.signal.core.database.count
+import org.signal.core.database.delete
+import org.signal.core.database.insertInto
+import org.signal.core.database.select
+import org.signal.core.database.update
+import org.signal.core.database.withinTransaction
 import org.signal.core.util.Base64
-import org.signal.core.util.SqlUtil
 import org.signal.core.util.UuidUtil
-import org.signal.core.util.count
-import org.signal.core.util.delete
 import org.signal.core.util.groupBy
 import org.signal.core.util.hasUnknownFields
-import org.signal.core.util.insertInto
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToList
 import org.signal.core.util.readToMap
@@ -22,16 +25,12 @@ import org.signal.core.util.requireInt
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireNonNullString
 import org.signal.core.util.requireString
-import org.signal.core.util.select
-import org.signal.core.util.update
-import org.signal.core.util.withinTransaction
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderId
 import org.thoughtcrime.securesms.components.settings.app.chats.folders.ChatFolderRecord
 import org.thoughtcrime.securesms.database.ThreadTable.Companion.ID
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.storage.StorageSyncHelper
 import org.thoughtcrime.securesms.storage.StorageSyncModels
-import org.thoughtcrime.securesms.util.RemoteConfig
 import org.whispersystems.signalservice.api.storage.SignalChatFolderRecord
 import org.whispersystems.signalservice.api.storage.StorageId
 import org.whispersystems.signalservice.internal.storage.protos.ChatFolderRecord as RemoteChatFolderRecord
@@ -143,6 +142,8 @@ class ChatFolderTables(context: Context?, databaseHelper: SignalDatabase?) : Dat
       .where("${ChatFolderMembershipTable.THREAD_ID} = ?", fromId)
       .run()
   }
+
+  override fun onDeletedGroupThread(threadId: Long) = Unit // No-op bc thread id is foreign key
 
   /**
    * Returns a single chat folder that corresponds to that query.
@@ -543,13 +544,13 @@ class ChatFolderTables(context: Context?, databaseHelper: SignalDatabase?) : Dat
   }
 
   /**
-   * Removes storageIds from folders that have been deleted for [RemoteConfig.messageQueueTime].
+   * Removes storageIds from folders that were deleted before [deletedBefore]. Callers derive that cutoff from the message queue time.
    */
-  fun removeStorageIdsFromOldDeletedFolders(now: Long): Int {
+  fun removeStorageIdsFromOldDeletedFolders(deletedBefore: Long): Int {
     return writableDatabase
       .update(ChatFolderTable.TABLE_NAME)
       .values(ChatFolderTable.STORAGE_SERVICE_ID to null)
-      .where("${ChatFolderTable.STORAGE_SERVICE_ID} NOT NULL AND ${ChatFolderTable.DELETED_TIMESTAMP_MS} > 0 AND ${ChatFolderTable.DELETED_TIMESTAMP_MS} < ?", now - RemoteConfig.messageQueueTime)
+      .where("${ChatFolderTable.STORAGE_SERVICE_ID} NOT NULL AND ${ChatFolderTable.DELETED_TIMESTAMP_MS} > 0 AND ${ChatFolderTable.DELETED_TIMESTAMP_MS} < ?", deletedBefore)
       .run()
   }
 

@@ -3,7 +3,6 @@ package org.thoughtcrime.securesms.keyboard.emoji
 import android.animation.Animator
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.View
@@ -16,10 +15,10 @@ import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.doAfterTextChanged
 import org.signal.core.ui.util.ThemeUtil
 import com.google.android.material.R as MaterialR
+import org.signal.core.ui.util.ViewUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.animation.AnimationCompleteListener
 import org.thoughtcrime.securesms.animation.ResizeAnimation
-import org.thoughtcrime.securesms.util.ViewUtil
 import org.thoughtcrime.securesms.util.visible
 import org.signal.core.ui.R as CoreUiR
 

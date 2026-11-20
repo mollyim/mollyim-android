@@ -16,8 +16,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import org.signal.core.util.SleepTimer
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
@@ -36,6 +38,7 @@ import org.whispersystems.signalservice.internal.push.Envelope
 import org.whispersystems.signalservice.internal.util.awaitRequest
 import org.whispersystems.signalservice.internal.websocket.WebSocketConnection
 import java.io.IOException
+import java.net.SocketTimeoutException
 import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletionException
 import java.util.concurrent.CopyOnWriteArraySet
@@ -83,6 +86,10 @@ sealed class SignalWebSocket(
   val state: Observable<WebSocketConnectionState> = _state
   val stateSnapshot: WebSocketConnectionState
     get() = _state.value!!
+
+  /** See [WebSocketConnection.isConnectedDirectly]. */
+  val isConnectedDirectly: Boolean
+    get() = connection?.isConnectedDirectly() == true
 
   /**
    * Indicate that WebSocketConnection can now be made and attempt to connect.
@@ -164,6 +171,10 @@ sealed class SignalWebSocket(
     keepAliveChangeListeners.add(listener)
   }
 
+  fun removeKeepAliveChangeListener(listener: Listener) {
+    keepAliveChangeListeners.remove(listener)
+  }
+
   fun request(request: WebSocketRequestMessage): Single<WebsocketResponse> {
     return try {
       restartDelayedDisconnectIfNecessary()
@@ -198,13 +209,21 @@ sealed class SignalWebSocket(
   /**
    * Issues a libsignal future-returning request on the chat connection, awaits the result,
    * and converts any failure into a [RequestResult] error variant.
+   *
+   * Bounded by [timeout] so a caller can't hang indefinitely acquiring a connection or waiting
+   * on a connection that has stopped responding.
    */
   protected suspend fun <Result, Error : BadRequestError> runCatchingWithChatConnectionInternal(
+    timeout: Duration = WebSocketConnection.DEFAULT_SEND_TIMEOUT,
     callback: (ChatConnection) -> CompletableFuture<RequestResult<Result, Error>>
   ): RequestResult<Result, Error> {
     return try {
-      val future = getWebSocket().runWithChatConnection(callback)
-      future.awaitRequest()
+      withTimeout(timeout) {
+        getWebSocket().runWithChatConnection(callback).awaitRequest()
+      }
+    } catch (e: TimeoutCancellationException) {
+      Log.w(TAG, "$connectionName [runCatchingWithChatConnection] Timed out after $timeout")
+      RequestResult.RetryableNetworkError(SocketTimeoutException("Timed out waiting for chat connection response").apply { initCause(e) })
     } catch (e: kotlinx.coroutines.CancellationException) {
       throw e
     } catch (throwable: Throwable) {
@@ -366,8 +385,17 @@ sealed class SignalWebSocket(
     }
 
     suspend fun <Result, Error : BadRequestError> runCatchingWithChatConnection(
+      timeout: Duration = WebSocketConnection.DEFAULT_SEND_TIMEOUT,
       callback: (UnauthenticatedChatConnection) -> CompletableFuture<RequestResult<Result, Error>>
-    ): RequestResult<Result, Error> = runCatchingWithChatConnectionInternal { callback(it as UnauthenticatedChatConnection) }
+    ): RequestResult<Result, Error> = runCatchingWithChatConnectionInternal(timeout) { callback(it as UnauthenticatedChatConnection) }
+
+    /**
+     * Companion to [runCatchingWithChatConnection] for libsignal's streaming endpoints, which hand back a [kotlinx.coroutines.flow.Flow] rather than a future.
+     * The stream is started on the chat connection here; collecting it (and classifying whatever it throws) is up to the caller.
+     */
+    suspend fun <T> withChatConnection(callback: (UnauthenticatedChatConnection) -> T): T {
+      return getWebSocket().runWithChatConnection { callback(it as UnauthenticatedChatConnection) }
+    }
   }
 
   /**
@@ -376,8 +404,9 @@ sealed class SignalWebSocket(
   class AuthenticatedWebSocket(connectionFactory: WebSocketFactory, canConnect: CanConnect, sleepTimer: SleepTimer, disconnectTimeoutMs: Long) : SignalWebSocket(connectionFactory, canConnect, sleepTimer, disconnectTimeoutMs.milliseconds) {
 
     suspend fun <Result, Error : BadRequestError> runCatchingWithChatConnection(
+      timeout: Duration = WebSocketConnection.DEFAULT_SEND_TIMEOUT,
       callback: (AuthenticatedChatConnection) -> CompletableFuture<RequestResult<Result, Error>>
-    ): RequestResult<Result, Error> = runCatchingWithChatConnectionInternal { callback(it as AuthenticatedChatConnection) }
+    ): RequestResult<Result, Error> = runCatchingWithChatConnectionInternal(timeout) { callback(it as AuthenticatedChatConnection) }
 
     /**
      * The reads a batch of messages off of the websocket.
@@ -448,7 +477,6 @@ sealed class SignalWebSocket(
       }
     }
 
-    @Throws(IOException::class)
     private fun WebSocketRequestMessage.toEnvelopeResponse(): EnvelopeResponse {
       val timestamp = this.findHeader()
 
@@ -456,9 +484,14 @@ sealed class SignalWebSocket(
         Log.w(TAG, "Failed to parse $SERVER_DELIVERED_TIMESTAMP_HEADER")
       }
 
-      val envelope = Envelope.ADAPTER.decode(this.body!!.toByteArray())
+      val envelope = try {
+        Envelope.ADAPTER.decode(this.body!!.toByteArray())
+      } catch (e: Exception) {
+        Log.w(TAG, "Failed to parse envelope!", e)
+        return EnvelopeResponse.Unparseable(this)
+      }
 
-      return EnvelopeResponse(envelope, timestamp ?: 0, this)
+      return EnvelopeResponse.Parsed(envelope, timestamp ?: 0, this)
     }
 
     private fun WebSocketRequestMessage.findHeader(): Long? {

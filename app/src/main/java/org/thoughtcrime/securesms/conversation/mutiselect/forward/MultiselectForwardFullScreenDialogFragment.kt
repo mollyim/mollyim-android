@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
+import org.signal.core.ui.enableEdgeToEdge
 import org.signal.core.ui.util.ThemeUtil
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.stories.Stories
@@ -17,6 +18,12 @@ class MultiselectForwardFullScreenDialogFragment : DialogFragment(), Multiselect
     super.onCreate(savedInstanceState)
 
     setStyle(STYLE_NO_FRAME, R.style.Signal_DayNight_Dialog_FullScreen)
+  }
+
+  override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
+    return super.onGetLayoutInflater(savedInstanceState).also {
+      dialog?.window?.enableEdgeToEdge()
+    }
   }
 
   override fun onFinishForwardAction() {
@@ -44,10 +51,6 @@ class MultiselectForwardFullScreenDialogFragment : DialogFragment(), Multiselect
 
   override fun getStorySendRequirements(): Stories.MediaTransform.SendRequirements? {
     return findListener<Callback>()?.getStorySendRequirements()
-  }
-
-  override fun getContainer(): ViewGroup {
-    return requireView().findViewById(R.id.fragment_container_wrapper)!!
   }
 
   override fun setResult(bundle: Bundle) {

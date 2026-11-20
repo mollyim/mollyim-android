@@ -15,7 +15,6 @@ import org.thoughtcrime.securesms.apkupdate.ApkUpdateRefreshListener
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobs.ApkUpdateJob
 import org.thoughtcrime.securesms.keyvalue.SignalStore
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 
 class AppUpdatesSettingsViewModel : ViewModel() {
 
@@ -26,7 +25,7 @@ class AppUpdatesSettingsViewModel : ViewModel() {
   val state: StateFlow<AppUpdatesSettingsState> = internalState
 
   fun setUpdateApkEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkEnabled(application, enabled)
+    SignalStore.molly.updateApkEnabled = enabled
     if (enabled) {
       checkForUpdates()
     }
@@ -34,7 +33,7 @@ class AppUpdatesSettingsViewModel : ViewModel() {
   }
 
   fun setIncludeBetaEnabled(enabled: Boolean) {
-    TextSecurePreferences.setUpdateApkIncludeBetaEnabled(application, enabled)
+    SignalStore.molly.updateApkIncludeBetaEnabled = enabled
     ApkUpdateNotifications.dismissInstallPrompt(application)
     checkForUpdates()
     refresh()
@@ -52,8 +51,8 @@ class AppUpdatesSettingsViewModel : ViewModel() {
   private fun getState(): AppUpdatesSettingsState {
     return AppUpdatesSettingsState(
       lastCheckedTime = SignalStore.apkUpdate.lastSuccessfulCheck,
-      includeBetaEnabled = TextSecurePreferences.isUpdateApkIncludeBetaEnabled(application),
-      autoUpdateEnabled = TextSecurePreferences.isUpdateApkEnabled(application),
+      includeBetaEnabled = SignalStore.molly.updateApkIncludeBetaEnabled,
+      autoUpdateEnabled = SignalStore.molly.updateApkEnabled
     )
   }
 }

@@ -3,7 +3,7 @@ package org.thoughtcrime.securesms.service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import org.thoughtcrime.securesms.util.TextSecurePreferences
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore
 
 /**
  * Respond to a PanicKit trigger Intent by locking the app.  PanicKit provides a
@@ -13,7 +13,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences
  */
 class PanicResponderListener : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
-    val passwordEnabled = TextSecurePreferences.isPassphraseLockEnabled(context)
+    val passwordEnabled = PlainTextKeyValueStore.passphraseLockEnabled
     val intentAction = intent.action
     if (passwordEnabled && "info.guardianproject.panic.action.TRIGGER" == intentAction) {
       val lockIntent = Intent(context, KeyCachingService::class.java)

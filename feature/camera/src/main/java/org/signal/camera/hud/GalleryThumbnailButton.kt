@@ -13,7 +13,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -29,10 +28,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.signal.camera.R
+import org.signal.camera.test.TestTags
+import org.signal.core.ui.compose.NightPreview
+import org.signal.core.ui.compose.Previews
 import org.signal.glide.compose.GlideImage
 import org.signal.glide.compose.GlideImageScaleType
 
@@ -41,11 +46,13 @@ import org.signal.glide.compose.GlideImageScaleType
  * Shows a circular thumbnail with a white border that opens the gallery when clicked.
  *
  * @param modifier Modifier to apply to the button
+ * @param enabled Whether the button can be used, which it cannot while a recording runs
  * @param onClick Callback when the button is clicked
  */
 @Composable
 fun GalleryThumbnailButton(
   modifier: Modifier = Modifier,
+  enabled: Boolean = true,
   onClick: () -> Unit
 ) {
   val context = LocalContext.current
@@ -60,28 +67,36 @@ fun GalleryThumbnailButton(
     modifier = modifier
       .size(52.dp)
       .clip(CircleShape)
-      .border(2.dp, Color.White, CircleShape)
-      .background(Color.Black.copy(alpha = 0.3f), CircleShape)
-      .clickable(onClick = onClick),
+      .background(colorResource(R.color.CameraHud_control_background), CircleShape)
+      .clickable(enabled = enabled, onClick = onClick)
+      .testTag(TestTags.CAMERA_HUD_GALLERY_BUTTON),
     contentAlignment = Alignment.Center
   ) {
     if (thumbnailUri != null) {
       GlideImage(
         model = thumbnailUri,
-        imageSize = DpSize(52.dp, 52.dp),
+        imageSize = DpSize(44.dp, 44.dp),
         scaleType = GlideImageScaleType.CENTER_CROP,
         modifier = Modifier
-          .size(52.dp)
+          .size(44.dp)
           .clip(CircleShape)
       )
     } else {
       // Fallback to a simple icon if no media found
       Box(
         modifier = Modifier
-          .size(52.dp)
+          .size(44.dp)
           .background(Color.Gray.copy(alpha = 0.5f), CircleShape)
       )
     }
+  }
+}
+
+@NightPreview
+@Composable
+private fun GalleryButtonPreview() {
+  Previews.Preview {
+    GalleryThumbnailButton(onClick = {})
   }
 }
 
@@ -101,6 +116,7 @@ private suspend fun getLatestMediaUri(context: Context): Uri? = withContext(Disp
         val videoTime = getMediaTimestamp(context, videoUri) ?: 0L
         if (imageTime >= videoTime) imageUri else videoUri
       }
+
       imageUri != null -> imageUri
       videoUri != null -> videoUri
       else -> null

@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.push
 
 import android.content.Context
+import android.os.SystemClock
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
@@ -8,6 +9,14 @@ import okhttp3.Interceptor
 import okhttp3.TlsVersion
 import org.signal.core.util.Base64
 import org.signal.core.util.logging.Log
+import org.signal.network.config.SignalCdnUrl
+import org.signal.network.config.SignalCdsiUrl
+import org.signal.network.config.SignalServiceConfiguration
+import org.signal.network.config.SignalServiceUrl
+import org.signal.network.config.SignalStorageUrl
+import org.signal.network.config.SignalSvr2Url
+import org.signal.network.config.TrustStore
+import org.signal.network.exceptions.RequestCanceledException
 import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.keyvalue.SettingsValues
 import org.thoughtcrime.securesms.keyvalue.SignalStore
@@ -17,15 +26,8 @@ import org.thoughtcrime.securesms.net.Networking
 import org.thoughtcrime.securesms.net.RemoteDeprecationDetectorInterceptor
 import org.thoughtcrime.securesms.net.StandardUserAgentInterceptor
 import org.thoughtcrime.securesms.net.StorageServiceSizeLoggingInterceptor
-import org.whispersystems.signalservice.api.push.TrustStore
-import org.whispersystems.signalservice.internal.configuration.SignalCdnUrl
-import org.whispersystems.signalservice.internal.configuration.SignalCdsiUrl
-import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration
-import org.whispersystems.signalservice.internal.configuration.SignalServiceUrl
-import org.whispersystems.signalservice.internal.configuration.SignalStorageUrl
-import org.whispersystems.signalservice.internal.configuration.SignalSvr2Url
 import java.io.IOException
-import java.util.Optional
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * Provides a [SignalServiceConfiguration] to be used with our service layer.
@@ -172,6 +174,9 @@ class SignalServiceNetworkAccess(context: Context) {
       .build()
 
     private val APP_CONNECTION_SPEC = ConnectionSpec.MODERN_TLS
+
+    /** How long a direct transport failure keeps CDN and storage requests on circumvention routes. */
+    private val MAYBE_CENSORED_DIRECT_FAILURE_COOLDOWN = 5.minutes
   }
 
   private val serviceTrustStore: TrustStore = SignalServiceTrustStore(context)
@@ -185,6 +190,23 @@ class SignalServiceNetworkAccess(context: Context) {
     DeprecatedClientPreventionInterceptor(),
     DeviceTransferBlockingInterceptor.getInstance()
   )
+
+  /** [SystemClock.elapsedRealtime] until which [hasRecentDirectTransportFailure] stays true, or 0 for no active cooldown. */
+  @Volatile
+  private var directTransportFailureCooldownUntil: Long = 0
+
+  /** Records transport failures (not HTTP error statuses or cancellations) on the uncensored configuration's clients. */
+  private val directFetchFailureInterceptor = Interceptor { chain ->
+    try {
+      chain.proceed(chain.request())
+    } catch (e: IOException) {
+      if (e !is RequestCanceledException && !chain.call().isCanceled() && isCensored()) {
+        Log.w(TAG, "Network failure on direct request to ${chain.request().url.host}, falling back.", e)
+        directTransportFailureCooldownUntil = SystemClock.elapsedRealtime() + MAYBE_CENSORED_DIRECT_FAILURE_COOLDOWN.inWholeMilliseconds
+      }
+      throw e
+    }
+  }
 
   private val zkGroupServerPublicParams: ByteArray = try {
     Base64.decode(BuildConfig.ZKGROUP_SERVER_PUBLIC_PARAMS)
@@ -284,7 +306,7 @@ class SignalServiceNetworkAccess(context: Context) {
     signalStorageUrls = arrayOf(SignalStorageUrl(BuildConfig.STORAGE_URL, serviceTrustStore)),
     signalCdsiUrls = arrayOf(SignalCdsiUrl(BuildConfig.SIGNAL_CDSI_URL, serviceTrustStore)),
     signalSvr2Urls = arrayOf(SignalSvr2Url(BuildConfig.SIGNAL_SVR2_URL, serviceTrustStore)),
-    networkInterceptors = interceptors,
+    networkInterceptors = interceptors + directFetchFailureInterceptor,
     socketFactory = Networking.socketFactory,
     proxySelector = Networking.proxySelectorForSocks,
     dns = Networking.dns,
@@ -293,6 +315,18 @@ class SignalServiceNetworkAccess(context: Context) {
     backupServerPublicParams = backupServerPublicParams,
     censored = false
   )
+
+  /**
+   * True if a direct request failed at the transport level within [MAYBE_CENSORED_DIRECT_FAILURE_COOLDOWN] and the network
+   * has not changed since. Chat and CDN hosts can be blocked independently, so a direct chat connection alone is not proof.
+   */
+  fun hasRecentDirectTransportFailure(): Boolean {
+    return SystemClock.elapsedRealtime() < directTransportFailureCooldownUntil
+  }
+
+  fun onNetworkChange() {
+    directTransportFailureCooldownUntil = 0
+  }
 
   fun getConfiguration(): SignalServiceConfiguration {
     return getConfiguration(SignalStore.account.e164)

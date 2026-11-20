@@ -215,7 +215,7 @@ public class WipeMemoryService extends IntentService {
         .setContentText(getString(R.string.WipeMemoryService_clearing_unencrypted_data_from_ram))
         .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.WipeMemoryService_clearing_unencrypted_data_from_ram)))
         .setSmallIcon(R.drawable.ic_notification)
-        .setColor(getResources().getColor(R.color.core_ultramarine))
+        .setColor(getResources().getColor(org.signal.core.ui.R.color.core_ultramarine))
         .setContentIntent(pendingIntent)
         .setShowWhen(false)
         .setProgress(0, 0, true)

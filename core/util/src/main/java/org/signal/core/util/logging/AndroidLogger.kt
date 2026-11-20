@@ -7,6 +7,11 @@ import java.io.InputStreamReader
 
 @SuppressLint("LogNotSignal")
 object AndroidLogger : Log.Logger() {
+  /**
+   * Silences the View tag, which some OEM builds spam once per draw pass, while leaving every other tag at verbose.
+   */
+  private const val LOGCAT_FILTER_SPEC = "View:S *:V"
+
   override fun v(tag: String, message: String?, t: Throwable?, keepLonger: Boolean) {
     android.util.Log.v(tag, message, t)
   }
@@ -39,7 +44,7 @@ object AndroidLogger : Log.Logger() {
   @get:WorkerThread
   val logcatDump: CharSequence?
     get() = runCatching {
-      val process = Runtime.getRuntime().exec("logcat -d")
+      val process = Runtime.getRuntime().exec("logcat -d $LOGCAT_FILTER_SPEC")
       val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
       val log = StringBuilder()
       val separator = System.lineSeparator()

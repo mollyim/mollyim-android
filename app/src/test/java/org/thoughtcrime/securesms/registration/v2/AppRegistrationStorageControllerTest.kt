@@ -24,6 +24,7 @@ import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
+import okio.ByteString
 import okio.ByteString.Companion.toByteString
 import org.junit.After
 import org.junit.Before
@@ -38,24 +39,29 @@ import org.signal.core.models.ServiceId.ACI
 import org.signal.core.models.ServiceId.PNI
 import org.signal.core.util.contentproviders.BlobProvider
 import org.signal.libsignal.protocol.IdentityKeyPair
+import org.signal.registration.RestoreDecision
 import org.signal.registration.proto.AccountData
 import org.signal.registration.proto.LinkedDeviceData
 import org.signal.registration.proto.RegistrationData
 import org.thoughtcrime.securesms.crypto.PreKeyUtil
 import org.thoughtcrime.securesms.database.RecipientTable
 import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.database.model.databaseprotos.RestoreDecisionState
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.jobmanager.runJobBlocking
 import org.thoughtcrime.securesms.jobs.DirectoryRefreshJob
 import org.thoughtcrime.securesms.jobs.PreKeysSyncJob
+import org.thoughtcrime.securesms.jobs.ReclaimUsernameAndLinkJob
 import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob
 import org.thoughtcrime.securesms.jobs.RotateCertificateJob
+import org.thoughtcrime.securesms.keyvalue.Completed
+import org.thoughtcrime.securesms.keyvalue.NewAccount
 import org.thoughtcrime.securesms.keyvalue.SignalStore
+import org.thoughtcrime.securesms.keyvalue.Skipped
 import org.thoughtcrime.securesms.registration.util.RegistrationUtil
 import org.thoughtcrime.securesms.testutil.MockAppDependenciesRule
 import org.thoughtcrime.securesms.testutil.SignalDatabaseRule
 import org.thoughtcrime.securesms.testutil.SignalStoreRule
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.IOException
@@ -92,6 +98,7 @@ class AppRegistrationStorageControllerTest {
   private val pniSignedPreKey = PreKeyUtil.generateSignedPreKey(12, pniIdentity.privateKey)
   private val aciLastResortKyberPreKey = PreKeyUtil.generateLastResortKyberPreKey(21, aciIdentity.privateKey)
   private val pniLastResortKyberPreKey = PreKeyUtil.generateLastResortKyberPreKey(22, pniIdentity.privateKey)
+  private val authCredentialSalt = byteArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 
   private val blobData = mutableMapOf<Uri, ByteArray>()
   private var blobCounter = 0
@@ -145,6 +152,7 @@ class AppRegistrationStorageControllerTest {
     assertThat(SignalStore.account.pniIdentityKey.serialize()).isEqualTo(pniIdentity.serialize())
     assertThat(SignalStore.account.accountEntropyPool.value).isEqualTo(aep.value)
     assertThat(SignalStore.account.restoredAccountEntropyPool).isTrue()
+    assertThat(SignalStore.account.authCredentialSalt).isNotNull().isEqualTo(authCredentialSalt)
 
     assertThat(SignalStore.account.aciPreKeys.isSignedPreKeyRegistered).isTrue()
     assertThat(SignalStore.account.aciPreKeys.activeSignedPreKeyId).isEqualTo(11)
@@ -165,8 +173,8 @@ class AppRegistrationStorageControllerTest {
     assertThat(selfRecord.pni).isEqualTo(pni)
     assertThat(selfRecord.profileKey).isNotNull()
 
-    assertThat(TextSecurePreferences.hasPromptedPushRegistration(context)).isTrue()
-    assertThat(TextSecurePreferences.isUnauthorizedReceived(context)).isFalse()
+    assertThat(SignalStore.registration.hasPromptedPushRegistration).isTrue()
+    assertThat(SignalStore.account.isUnauthorizedReceived).isFalse()
 
     assertThat(readInProgressData().accountDataCommitted).isTrue()
 
@@ -204,7 +212,7 @@ class AppRegistrationStorageControllerTest {
     assertThat(SignalStore.account.restoredAccountEntropyPool).isFalse()
     assertThat(SignalStore.account.restoredAccountEntropyPoolFromPrimary).isTrue()
     assertThat(SignalStore.backup.mediaRootBackupKey.value).isEqualTo(mediaRootBackupKey)
-    assertThat(TextSecurePreferences.isReadReceiptsEnabled(context)).isTrue()
+    assertThat(SignalStore.settings.isReadReceiptsEnabled).isTrue()
 
     assertThat(SignalStore.svr.pin).isNull()
     assertThat(SignalStore.svr.hasOptedOut()).isFalse()
@@ -212,6 +220,124 @@ class AppRegistrationStorageControllerTest {
     coVerify { AppDependencies.jobManager.runJobBlocking(ofType<RefreshOwnProfileJob>(), any()) }
     verify { AppDependencies.jobManager.add(ofType<RotateCertificateJob>()) }
     verify(exactly = 0) { AppDependencies.jobManager.add(ofType<DirectoryRefreshJob>()) }
+  }
+
+  @Test
+  fun `commit - linked device with no phone number - applies aci-only account`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(
+          linkedDeviceData = LinkedDeviceData(deviceId = 2, deviceName = "device-name")
+        ).newBuilder()
+          .e164("")
+          .pni("")
+          .pniIdentityKeyPair(ByteString.EMPTY)
+          .pniSignedPreKey(ByteString.EMPTY)
+          .pniLastResortKyberPreKey(ByteString.EMPTY)
+          .pniRegistrationId(0)
+          .build(),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.account.aci).isEqualTo(aci)
+    assertThat(SignalStore.account.pni).isNull()
+    assertThat(SignalStore.account.e164).isNull()
+    assertThat(SignalStore.account.hasPniIdentityKey()).isFalse()
+    assertThat(SignalStore.account.isRegistered).isTrue()
+
+    assertThat(SignalStore.account.aciPreKeys.isSignedPreKeyRegistered).isTrue()
+    assertThat(SignalStore.account.pniPreKeys.isSignedPreKeyRegistered).isFalse()
+
+    val selfRecord = SignalDatabase.recipients.getRecord(SignalDatabase.recipients.getByAci(aci).get())
+    assertThat(selfRecord.e164).isNull()
+    assertThat(selfRecord.pni).isNull()
+    assertThat(selfRecord.registered).isEqualTo(RecipientTable.RegisteredState.REGISTERED)
+
+    assertThat(readInProgressData().accountDataCommitted).isTrue()
+  }
+
+  @Test
+  fun `commit - numberless re-registration over existing account - clears stale pni and e164`() = runBlocking<Unit> {
+    SignalStore.account.setAci(aci)
+    SignalStore.account.setPni(pni)
+    SignalStore.account.setE164(E164)
+    SignalStore.account.restoreAciIdentityKeyFromBackup(aciIdentity.publicKey.serialize(), aciIdentity.privateKey.serialize())
+    SignalStore.account.restorePniIdentityKeyFromBackup(pniIdentity.publicKey.serialize(), pniIdentity.privateKey.serialize())
+    SignalStore.account.pniPreKeys.isSignedPreKeyRegistered = true
+    SignalStore.account.pniPreKeys.activeSignedPreKeyId = 12
+    SignalStore.account.setRegistered(true)
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true).newBuilder()
+          .e164("")
+          .pni("")
+          .pniIdentityKeyPair(ByteString.EMPTY)
+          .pniSignedPreKey(ByteString.EMPTY)
+          .pniLastResortKyberPreKey(ByteString.EMPTY)
+          .pniRegistrationId(0)
+          .build(),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.account.aci).isEqualTo(aci)
+    assertThat(SignalStore.account.pni).isNull()
+    assertThat(SignalStore.account.e164).isNull()
+    assertThat(SignalStore.account.hasPniIdentityKey()).isFalse()
+    assertThat(SignalStore.account.pniPreKeys.isSignedPreKeyRegistered).isFalse()
+    assertThat(SignalStore.account.aciPreKeys.isSignedPreKeyRegistered).isTrue()
+    assertThat(SignalStore.account.isRegistered).isTrue()
+  }
+
+  @Test
+  fun `commit - different account than a completed registration - clears registration complete`() = runBlocking<Unit> {
+    SignalStore.account.setAci(ACI.from(UUID.randomUUID()))
+    SignalStore.account.setRegistered(true)
+    SignalStore.registration.markRegistrationComplete()
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData().newBuilder()
+          .e164("")
+          .pni("")
+          .pniIdentityKeyPair(ByteString.EMPTY)
+          .pniSignedPreKey(ByteString.EMPTY)
+          .pniLastResortKyberPreKey(ByteString.EMPTY)
+          .pniRegistrationId(0)
+          .build(),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.account.aci).isEqualTo(aci)
+    assertThat(SignalStore.registration.isRegistrationComplete).isFalse()
+  }
+
+  @Test
+  fun `commit - same account as a completed registration - leaves registration complete`() = runBlocking<Unit> {
+    SignalStore.account.setAci(aci)
+    SignalStore.account.setRegistered(true)
+    SignalStore.registration.markRegistrationComplete()
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value,
+        pin = PIN
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.registration.isRegistrationComplete).isTrue()
   }
 
   @Test
@@ -228,6 +354,235 @@ class AppRegistrationStorageControllerTest {
     assertThat(SignalStore.account.isRegistered).isTrue()
     assertThat(SignalStore.svr.pin).isNull()
     assertThat(SignalStore.svr.hasOptedOut()).isTrue()
+  }
+
+  @Test
+  fun `commit - re-registration - requires svrb secret restore before backing up`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.backup.backupSecretRestoreRequired).isTrue()
+  }
+
+  @Test
+  fun `commit - aep differs from the account's existing aep - discards key-bound backup state and requires an svrb restore`() = runBlocking<Unit> {
+    SignalStore.account.setAci(aci)
+    SignalStore.account.setRegistered(true)
+    SignalStore.account.restoreAccountEntropyPool(AccountEntropyPool.generate())
+    SignalStore.backup.nextBackupSecretData = byteArrayOf(1, 2, 3)
+    SignalStore.backup.messageBackupInitialized = true
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = false),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.account.accountEntropyPool.value).isEqualTo(aep.value)
+    assertThat(SignalStore.backup.nextBackupSecretData).isNull()
+    assertThat(SignalStore.backup.messageBackupInitialized).isFalse()
+    assertThat(SignalStore.backup.backupSecretRestoreRequired).isTrue()
+  }
+
+  @Test
+  fun `commit - same aep as the account's existing aep - keeps the local svrb chain`() = runBlocking<Unit> {
+    val chain = byteArrayOf(1, 2, 3)
+    SignalStore.account.setAci(aci)
+    SignalStore.account.setRegistered(true)
+    SignalStore.account.restoreAccountEntropyPool(aep)
+    SignalStore.backup.nextBackupSecretData = chain
+    SignalStore.backup.messageBackupInitialized = true
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.backup.nextBackupSecretData).isNotNull().isEqualTo(chain)
+    assertThat(SignalStore.backup.messageBackupInitialized).isTrue()
+  }
+
+  @Test
+  fun `commit - aep differs but this install never had an account - leaves backup state alone`() = runBlocking<Unit> {
+    // A fresh install may lazily generate a throwaway AEP before registering. Replacing it is not a key change for any account.
+    SignalStore.account.restoreAccountEntropyPool(AccountEntropyPool.generate())
+    SignalStore.backup.messageBackupInitialized = true
+
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = false),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.account.accountEntropyPool.value).isEqualTo(aep.value)
+    assertThat(SignalStore.backup.messageBackupInitialized).isTrue()
+    assertThat(SignalStore.backup.backupSecretRestoreRequired).isFalse()
+  }
+
+  @Test
+  fun `commit - new account - does not require svrb secret restore`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = false),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.backup.backupSecretRestoreRequired).isFalse()
+  }
+
+  @Test
+  fun `commit - re-registration - flags that the username needs to be reclaimed`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.misc.needsUsernameRestore).isTrue()
+  }
+
+  @Test
+  fun `commit - new account - does not flag that the username needs to be reclaimed`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = false),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.misc.needsUsernameRestore).isFalse()
+  }
+
+  @Test
+  fun `commit - re-registration - clears onboarding state`() = runBlocking<Unit> {
+    seedOnboardingState()
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isFalse()
+  }
+
+  @Test
+  fun `commit - new account - leaves onboarding state alone`() = runBlocking<Unit> {
+    seedOnboardingState()
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = false),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isTrue()
+  }
+
+  @Test
+  fun `setRestoreDecision - completed - clears onboarding state`() = runBlocking<Unit> {
+    SignalStore.registration.onFirstEverAppLaunch()
+    seedOnboardingState()
+
+    controller.setRestoreDecision(RestoreDecision.COMPLETED)
+
+    assertThat(SignalStore.registration.restoreDecisionState).isEqualTo(RestoreDecisionState.Completed)
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isFalse()
+  }
+
+  @Test
+  fun `setRestoreDecision - skipped - leaves onboarding state alone`() = runBlocking<Unit> {
+    SignalStore.registration.onFirstEverAppLaunch()
+    seedOnboardingState()
+
+    controller.setRestoreDecision(RestoreDecision.SKIPPED)
+
+    assertThat(SignalStore.registration.restoreDecisionState).isEqualTo(RestoreDecisionState.Skipped)
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isTrue()
+  }
+
+  @Test
+  fun `setRestoreDecision - new account - leaves onboarding state alone`() = runBlocking<Unit> {
+    SignalStore.registration.onFirstEverAppLaunch()
+    seedOnboardingState()
+
+    controller.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
+
+    assertThat(SignalStore.registration.restoreDecisionState).isEqualTo(RestoreDecisionState.NewAccount)
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isTrue()
+  }
+
+  @Test
+  fun `setRestoreDecision - decision already made - leaves onboarding state alone`() = runBlocking<Unit> {
+    SignalStore.registration.onFirstEverAppLaunch()
+    controller.setRestoreDecision(RestoreDecision.NEW_ACCOUNT)
+    seedOnboardingState()
+
+    controller.setRestoreDecision(RestoreDecision.COMPLETED)
+
+    assertThat(SignalStore.registration.restoreDecisionState).isEqualTo(RestoreDecisionState.NewAccount)
+    assertThat(SignalStore.onboarding.hasOnboarding(context)).isTrue()
+  }
+
+  @Test
+  fun `onRegistrationFlowFinished - username reclaim pending - enqueues reclaim job`() = runBlocking<Unit> {
+    SignalStore.misc.needsUsernameRestore = true
+
+    controller.onRegistrationFlowFinished()
+
+    verify { AppDependencies.jobManager.add(ofType<ReclaimUsernameAndLinkJob>()) }
+  }
+
+  @Test
+  fun `onRegistrationFlowFinished - no username reclaim pending - does not enqueue reclaim job`() = runBlocking<Unit> {
+    SignalStore.misc.needsUsernameRestore = false
+
+    controller.onRegistrationFlowFinished()
+
+    verify(exactly = 0) { AppDependencies.jobManager.add(ofType<ReclaimUsernameAndLinkJob>()) }
+  }
+
+  @Test
+  fun `re-registration - commit then flow finished - enqueues reclaim job`() = runBlocking<Unit> {
+    seedInProgressData(
+      RegistrationData(
+        accountData = accountData(reRegistration = true),
+        accountEntropyPool = aep.value
+      )
+    )
+
+    controller.commitRegistrationData()
+    controller.onRegistrationFlowFinished()
+
+    verify { AppDependencies.jobManager.add(ofType<ReclaimUsernameAndLinkJob>()) }
   }
 
   @Test
@@ -388,6 +743,12 @@ class AppRegistrationStorageControllerTest {
     }
   }
 
+  /** Puts onboarding into the state a fresh install leaves it in, where the get-started megaphone would show. */
+  private fun seedOnboardingState() {
+    SignalStore.onboarding.setShowAppearance(true)
+    SignalStore.onboarding.setShowAddPhoto(true)
+  }
+
   private fun seedInProgressData(data: RegistrationData) {
     val uri = Uri.parse("memoryblob://registration/seed-${blobCounter++}")
     blobData[uri] = RegistrationData.ADAPTER.encode(data)
@@ -396,7 +757,7 @@ class AppRegistrationStorageControllerTest {
 
   private fun readInProgressData(): RegistrationData = runBlocking { controller.readInProgressRegistrationData() }
 
-  private fun accountData(servicePassword: String = SERVICE_PASSWORD, linkedDeviceData: LinkedDeviceData? = null): AccountData {
+  private fun accountData(servicePassword: String = SERVICE_PASSWORD, linkedDeviceData: LinkedDeviceData? = null, reRegistration: Boolean = false): AccountData {
     return AccountData(
       aciIdentityKeyPair = aciIdentity.serialize().toByteString(),
       pniIdentityKeyPair = pniIdentity.serialize().toByteString(),
@@ -410,7 +771,9 @@ class AppRegistrationStorageControllerTest {
       pni = pni.toString(),
       e164 = E164,
       servicePassword = servicePassword,
-      linkedDeviceData = linkedDeviceData
+      linkedDeviceData = linkedDeviceData,
+      reRegistration = reRegistration,
+      authCredentialSalt = authCredentialSalt.toByteString()
     )
   }
 }

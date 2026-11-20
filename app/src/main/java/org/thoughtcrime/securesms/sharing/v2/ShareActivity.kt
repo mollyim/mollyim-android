@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Process
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +16,7 @@ import androidx.core.text.buildSpannedString
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import org.signal.core.models.media.Media
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.util.ThemeUtil
 import org.signal.core.util.Result
 import org.signal.core.util.concurrent.LifecycleDisposable
@@ -31,17 +31,16 @@ import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.SignalProgressDialog
 import org.thoughtcrime.securesms.contacts.paged.ContactSearchKey
 import org.thoughtcrime.securesms.conversation.ConversationIntents
-import org.thoughtcrime.securesms.conversation.MessageSendType
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragment
 import org.thoughtcrime.securesms.conversation.mutiselect.forward.MultiselectForwardFragmentArgs
-import org.thoughtcrime.securesms.mediasend.v2.MediaSelectionActivity.Companion.share
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.thoughtcrime.securesms.mediasend.MediaSendLauncher.share
 import org.thoughtcrime.securesms.sharing.MultiShareDialogs
 import org.thoughtcrime.securesms.sharing.MultiShareSender
 import org.thoughtcrime.securesms.sharing.MultiShareSender.MultiShareSendResultCollection
 import org.thoughtcrime.securesms.sharing.interstitial.ShareInterstitialActivity
 import org.thoughtcrime.securesms.util.ConversationUtil
 import org.thoughtcrime.securesms.util.DynamicNoActionBarTheme
+import org.thoughtcrime.securesms.util.views.SimpleProgressDialog
 import java.util.concurrent.TimeUnit
 
 class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.Callback {
@@ -180,8 +179,6 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
     viewModel.onContactSelectionConfirmed(contactSearchKeys)
   }
-
-  override fun getContainer(): ViewGroup = findViewById(R.id.fragment_container_wrapper)
 
   override fun getDialogBackgroundColor(): Int = ThemeUtil.getThemedColor(this, R.attr.signal_background_primary)
 
@@ -326,7 +323,6 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
 
     val intent = share(
       this,
-      MessageSendType.SignalMessageSendType,
       media,
       multiShareArgs.recipientSearchKeys.toList(),
       multiShareArgs.draftText,
@@ -345,7 +341,10 @@ class ShareActivity : PassphraseRequiredActivity(), MultiselectForwardFragment.C
   private fun sendWithoutInterstitial(shareEvent: ShareEvent.SendWithoutInterstitial) {
     Log.d(TAG, "Sending without an interstitial...")
 
+    val progressDialog = SimpleProgressDialog.showDelayed(this)
+
     MultiShareSender.send(shareEvent.getMultiShareArgs()) { results: MultiShareSendResultCollection? ->
+      progressDialog.dismissNow()
       MultiShareDialogs.displayResultDialog(this, results!!) {
         finish()
       }

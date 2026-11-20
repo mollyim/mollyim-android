@@ -15,8 +15,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 object SignalProxyUtil {
   private val TAG = tag(SignalProxyUtil::class.java)
 
-  private const val PROXY_LINK_HOST = "signal.tube"
-
   /**
    * A blocking call that will wait until the websocket either successfully connects, or fails.
    * It is assumed that the app state is already configured how you would like it, e.g. you've

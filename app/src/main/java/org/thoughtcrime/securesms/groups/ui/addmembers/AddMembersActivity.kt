@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,10 +30,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Buttons
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.signal.core.util.getParcelableArrayListExtraCompat
 import org.signal.core.util.getParcelableExtraCompat
@@ -42,17 +43,15 @@ import org.signal.core.util.nullIfBlank
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.PushContactSelectionActivity
 import org.thoughtcrime.securesms.R
-import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsEvent
+import org.thoughtcrime.securesms.components.settings.conversation.ConversationSettingsAction
 import org.thoughtcrime.securesms.contacts.SelectedContact
 import org.thoughtcrime.securesms.database.model.GroupRecord
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.SelectionLimits
 import org.thoughtcrime.securesms.groups.ui.addmembers.AddMembersUiState.UserMessage
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.ui.RecipientLookupFailureMessage
 import org.thoughtcrime.securesms.recipients.ui.RecipientPicker
 import org.thoughtcrime.securesms.recipients.ui.RecipientPickerCallbacks
-import org.thoughtcrime.securesms.recipients.ui.RecipientPickerScaffold
 import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByActivity
 import org.thoughtcrime.securesms.recipients.ui.findby.FindByMode
@@ -69,18 +68,17 @@ class AddMembersActivity : PassphraseRequiredActivity() {
 
     fun createIntent(
       context: Context,
-      event: ConversationSettingsEvent.AddMembersToGroup
+      action: ConversationSettingsAction.AddMembersToGroup
     ): Intent {
       return Intent(context, AddMembersActivity::class.java).apply {
-        putExtra(EXTRA_GROUP_ID, event.groupId)
-        putExtra(EXTRA_SELECTION_LIMITS, event.selectionLimits)
-        putParcelableArrayListExtra(EXTRA_PRESELECTED_RECIPIENTS, ArrayList(event.groupMembersWithoutSelf))
+        putExtra(EXTRA_GROUP_ID, action.groupId)
+        putExtra(EXTRA_SELECTION_LIMITS, action.selectionLimits)
+        putParcelableArrayListExtra(EXTRA_PRESELECTED_RECIPIENTS, ArrayList(action.groupMembersWithoutSelf))
       }
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    enableEdgeToEdge()
     super.onCreate(savedInstanceState, ready)
 
     setContent {
@@ -163,9 +161,8 @@ private fun AddMembersScreenUi(
     stringResource(R.string.AddMembersActivity__add_members)
   }
 
-  RecipientPickerScaffold(
+  Scaffolds.TitlePane(
     title = title,
-    forceSplitPane = uiState.forceSplitPane,
     onNavigateUpClick = callbacks::onBackPressed,
     topAppBarActions = {},
     snackbarHostState = remember { SnackbarHostState() },
@@ -320,7 +317,6 @@ private fun AddMembersScreenPreview() {
   Previews.Preview {
     AddMembersScreenUi(
       uiState = AddMembersUiState(
-        forceSplitPane = false,
         selectionLimits = SelectionLimits.NO_LIMITS
       ),
       callbacks = AddMembersUiCallbacks.Empty

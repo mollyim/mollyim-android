@@ -2,8 +2,10 @@ package org.thoughtcrime.securesms.linkdevice
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +40,7 @@ import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.util.isNotNullOrBlank
 import org.thoughtcrime.securesms.R
+import org.signal.core.ui.R as CoreUiR
 
 /**
  * Fragment for changing the name of a linked device
@@ -72,6 +75,7 @@ class EditDeviceNameFragment : ComposeFragment() {
         LinkDeviceSettingsState.OneTimeEvent.ToastNetworkFailed,
         is LinkDeviceSettingsState.OneTimeEvent.ToastUnlinked,
         LinkDeviceSettingsState.OneTimeEvent.LaunchEmail,
+        LinkDeviceSettingsState.OneTimeEvent.SnackbarDeviceLimitReached,
         LinkDeviceSettingsState.OneTimeEvent.SnackbarLinkCancelled -> Unit
       }
     }
@@ -80,11 +84,14 @@ class EditDeviceNameFragment : ComposeFragment() {
       title = stringResource(id = R.string.EditDeviceNameFragment__edit),
       onNavigationClick = { navController.popBackStack() },
       navigationIcon = SignalIcons.ArrowStart.imageVector,
-      navigationContentDescription = stringResource(id = R.string.Material3SearchToolbar__close)
+      navigationContentDescription = stringResource(id = CoreUiR.string.CloseButton__content_description)
     ) { contentPadding: PaddingValues ->
       EditNameScreen(
         state = state,
-        modifier = Modifier.padding(contentPadding),
+        modifier = Modifier
+          .padding(contentPadding)
+          .consumeWindowInsets(contentPadding)
+          .imePadding(),
         onSave = { viewModel.saveName(it) }
       )
     }

@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 @Immutable
 data class ExtendedColors(
   val neutralSurface: Color,
+  val neutralFill: Color,
   val colorOnCustom: Color,
   val colorOnCustomVariant: Color,
   val colorSurface1: Color,
@@ -14,6 +15,7 @@ data class ExtendedColors(
   val colorSurface3: Color,
   val colorSurface4: Color,
   val colorSurface5: Color,
+  val colorSurfaceVariantFill: Color,
   val colorTransparent1: Color,
   val colorTransparent2: Color,
   val colorTransparent3: Color,
@@ -29,12 +31,15 @@ data class ExtendedColors(
   val colorNeutralInverse: Color,
   val colorNeutralVariantInverse: Color,
   val colorWarning: Color,
-  val colorOnWarning: Color
+  val colorOnWarning: Color,
+  val colorAlert: Color,
+  val colorAlertDisabled: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
   ExtendedColors(
     neutralSurface = Color.Unspecified,
+    neutralFill = Color.Unspecified,
     colorOnCustom = Color.Unspecified,
     colorOnCustomVariant = Color.Unspecified,
     colorSurface1 = Color.Unspecified,
@@ -42,6 +47,7 @@ val LocalExtendedColors = staticCompositionLocalOf {
     colorSurface3 = Color.Unspecified,
     colorSurface4 = Color.Unspecified,
     colorSurface5 = Color.Unspecified,
+    colorSurfaceVariantFill = Color.Unspecified,
     colorTransparent1 = Color.Unspecified,
     colorTransparent2 = Color.Unspecified,
     colorTransparent3 = Color.Unspecified,
@@ -57,6 +63,8 @@ val LocalExtendedColors = staticCompositionLocalOf {
     colorNeutralInverse = Color.Unspecified,
     colorNeutralVariantInverse = Color.Unspecified,
     colorWarning = Color.Unspecified,
-    colorOnWarning = Color.Unspecified
+    colorOnWarning = Color.Unspecified,
+    colorAlert = Color.Unspecified,
+    colorAlertDisabled = Color.Unspecified
   )
 }

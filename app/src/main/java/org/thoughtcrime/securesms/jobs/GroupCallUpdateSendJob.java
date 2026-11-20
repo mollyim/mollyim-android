@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
+import org.signal.core.models.recipients.RecipientId;
 import org.signal.core.util.logging.Log;
 import org.signal.libsignal.protocol.NoSessionException;
 import org.thoughtcrime.securesms.database.GroupTable;
@@ -17,9 +18,9 @@ import org.thoughtcrime.securesms.jobmanager.impl.SealedSenderConstraint;
 import org.thoughtcrime.securesms.messages.GroupSendUtil;
 import org.thoughtcrime.securesms.net.NotPushRegisteredException;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.recipients.RecipientId;
 import org.thoughtcrime.securesms.recipients.RecipientUtil;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
+import org.thoughtcrime.securesms.transport.UndeliverableMessageException;
 import org.thoughtcrime.securesms.util.GroupUtil;
 import org.whispersystems.signalservice.api.crypto.ContentHint;
 import org.whispersystems.signalservice.api.crypto.UntrustedIdentityException;
@@ -116,6 +117,11 @@ public class GroupCallUpdateSendJob extends BaseJob {
       throw new NotPushRegisteredException();
     }
 
+    if (!SignalDatabase.recipients().containsId(recipientId)) {
+      Log.w(TAG, "Missing recipient record for id.");
+      return;
+    }
+
     RecipientRecord conversationRecipient = SignalDatabase.recipients().getRecord(recipientId);
 
     if (conversationRecipient.getGroupId() == null || !conversationRecipient.getGroupId().isV2()) {
@@ -169,7 +175,7 @@ public class GroupCallUpdateSendJob extends BaseJob {
   }
 
   private @NonNull List<Recipient> deliver(@NonNull GroupId groupId, @NonNull List<Recipient> destinations)
-      throws IOException, UntrustedIdentityException, NoSessionException
+      throws IOException, UntrustedIdentityException, NoSessionException, UndeliverableMessageException
   {
     SignalServiceDataMessage.Builder dataMessageBuilder = SignalServiceDataMessage.newBuilder()
                                                                                   .withTimestamp(System.currentTimeMillis())

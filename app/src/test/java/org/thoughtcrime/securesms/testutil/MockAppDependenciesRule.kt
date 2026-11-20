@@ -9,6 +9,8 @@ import androidx.test.core.app.ApplicationProvider
 import im.molly.app.base.ApplicationInstance
 import io.mockk.clearMocks
 import org.junit.rules.ExternalResource
+import org.signal.core.util.PartAuthorityUris
+import org.thoughtcrime.securesms.BuildConfig
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.dependencies.MockApplicationDependencyProvider
 import kotlin.reflect.KVisibility
@@ -39,6 +41,7 @@ class MockAppDependenciesRule : ExternalResource() {
 
   override fun before() {
     ApplicationInstance.setForTests(ApplicationProvider.getApplicationContext())
+    PartAuthorityUris.init(BuildConfig.APPLICATION_ID)
     if (!AppDependencies.isInitialized) {
       AppDependencies.init(MockApplicationDependencyProvider())
     }

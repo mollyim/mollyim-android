@@ -3,17 +3,17 @@ package org.thoughtcrime.securesms.database.helpers.migration
 import android.app.Application
 import org.signal.core.models.ServiceId
 import org.signal.core.util.JsonUtils
-import org.signal.core.util.SqlUtil
+import org.signal.core.database.SqlUtil
 import org.signal.core.util.logging.Log
 import org.signal.core.util.readToSingleObject
 import org.signal.core.util.requireLong
 import org.signal.core.util.requireString
-import org.signal.core.util.update
+import org.signal.core.database.update
 import org.thoughtcrime.securesms.database.KeyValueDatabase
 import org.thoughtcrime.securesms.database.SQLiteDatabase
 import org.thoughtcrime.securesms.database.ThreadTable
 import org.thoughtcrime.securesms.dependencies.AppDependencies
-import org.thoughtcrime.securesms.recipients.RecipientId
+import org.signal.core.models.recipients.RecipientId
 import org.thoughtcrime.securesms.util.SecurePreferenceManager
 import java.io.IOException
 

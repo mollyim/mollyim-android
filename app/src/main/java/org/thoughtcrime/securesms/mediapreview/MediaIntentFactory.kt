@@ -7,13 +7,15 @@ import android.os.Bundle
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
+import org.signal.core.models.parcelers.NullableCharSequenceParceler
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.dp
 import org.signal.core.util.getParcelableCompat
 import org.thoughtcrime.securesms.attachments.DatabaseAttachment
 import org.thoughtcrime.securesms.database.MediaTable
 import org.thoughtcrime.securesms.database.MediaTable.MediaRecord
-import org.thoughtcrime.securesms.recipients.RecipientId
-import org.thoughtcrime.securesms.util.parcelers.NullableCharSequenceParceler
+import org.thoughtcrime.securesms.mediaviewer.MediaViewerActivity
+import org.thoughtcrime.securesms.util.RemoteConfig
 
 object MediaIntentFactory {
   private const val ARGS_KEY = "args"
@@ -46,7 +48,6 @@ object MediaIntentFactory {
     val initialCaption: String? = null,
     val initialMessageBody: @WriteWith<NullableCharSequenceParceler> CharSequence? = null,
     val leftIsRecent: Boolean = false,
-    val hideAllMedia: Boolean = false,
     val showThread: Boolean = false,
     val allMediaInRail: Boolean = false,
     val sorting: MediaTable.Sorting,
@@ -64,7 +65,12 @@ object MediaIntentFactory {
 
   @JvmStatic
   fun create(context: Context, args: MediaPreviewArgs): Intent {
-    return Intent(context, MediaPreviewV2Activity::class.java).putExtra(ARGS_KEY, args)
+    val activityClass = if (RemoteConfig.useNewMediaViewer) {
+      MediaViewerActivity::class.java
+    } else {
+      MediaPreviewActivity::class.java
+    }
+    return Intent(context, activityClass).putExtra(ARGS_KEY, args)
   }
 
   fun intentFromMediaRecord(

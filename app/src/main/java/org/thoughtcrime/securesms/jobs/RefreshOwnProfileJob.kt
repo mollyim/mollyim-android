@@ -1,6 +1,7 @@
 package org.thoughtcrime.securesms.jobs
 
 import android.text.TextUtils
+import org.signal.core.models.badges.Badge
 import org.signal.core.util.Base64
 import org.signal.core.util.ExpiringProfileCredentialUtil
 import org.signal.core.util.Util
@@ -24,7 +25,6 @@ import org.thoughtcrime.securesms.profiles.ProfileName
 import org.thoughtcrime.securesms.profiles.manage.UsernameRepository
 import org.thoughtcrime.securesms.recipients.Recipient
 import org.thoughtcrime.securesms.util.ProfileUtil
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.crypto.InvalidCiphertextException
 import org.whispersystems.signalservice.api.crypto.ProfileCipher
 import org.whispersystems.signalservice.api.profiles.ProfileAndCredential
@@ -65,7 +65,7 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
 
   @Throws(Exception::class)
   override fun onRun() {
-    if (!SignalStore.account.isRegistered || SignalStore.account.e164.isNullOrEmpty()) {
+    if (!SignalStore.account.isRegistered || SignalStore.account.aci == null) {
       Log.w(TAG, "Not yet registered!")
       return
     }
@@ -92,10 +92,10 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
 
     val profile = profileAndCredential.getProfile()
 
-    if (Util.isEmpty(profile.getName()) &&
-      Util.isEmpty(profile.getAvatar()) &&
-      Util.isEmpty(profile.getAbout()) &&
-      Util.isEmpty(profile.getAboutEmoji())
+    if (Util.isEmpty(profile.name) &&
+      Util.isEmpty(profile.avatar) &&
+      Util.isEmpty(profile.about) &&
+      Util.isEmpty(profile.aboutEmoji)
     ) {
       Log.w(TAG, "The profile we retrieved was empty! Ignoring it.")
 
@@ -109,13 +109,13 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
       return
     }
 
-    setProfileName(profile.getName())
-    setProfileAbout(profile.getAbout(), profile.getAboutEmoji())
-    setProfileAvatar(profile.getAvatar())
-    setProfileCapabilities(profile.getCapabilities())
-    setProfileBadges(profile.getBadges())
-    ensureUnidentifiedAccessCorrect(profile.getUnidentifiedAccess(), profile.isUnrestrictedUnidentifiedAccess())
-    ensurePhoneNumberSharingIsCorrect(profile.getPhoneNumberSharing())
+    setProfileName(profile.name)
+    setProfileAbout(profile.about, profile.aboutEmoji)
+    setProfileAvatar(profile.avatar)
+    setProfileCapabilities(profile.capabilities)
+    setProfileBadges(profile.badges)
+    ensureUnidentifiedAccessCorrect(profile.unidentifiedAccess, profile.unrestrictedUnidentifiedAccess)
+    ensurePhoneNumberSharingIsCorrect(profile.phoneNumberSharing)
 
     profileAndCredential.getExpiringProfileKeyCredential()
       .ifPresent { setExpiringProfileKeyCredential(self, ProfileKeyUtil.getSelfProfileKey(), it) }
@@ -197,8 +197,8 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
       return
     }
 
-    if (TextSecurePreferences.isUniversalUnidentifiedAccess(context) != universalUnidentifiedAccess) {
-      Log.w(TAG, "The universal access flag doesn't match our local value (local: " + TextSecurePreferences.isUniversalUnidentifiedAccess(context) + ", remote: " + universalUnidentifiedAccess + ")! Refreshing attributes.")
+    if (SignalStore.settings.isUniversalUnidentifiedAccess != universalUnidentifiedAccess) {
+      Log.w(TAG, "The universal access flag doesn't match our local value (local: " + SignalStore.settings.isUniversalUnidentifiedAccess + ", remote: " + universalUnidentifiedAccess + ")! Refreshing attributes.")
       AppDependencies.jobManager.add(RefreshAttributesJob())
       return
     }
@@ -305,7 +305,7 @@ class RefreshOwnProfileJob private constructor(parameters: Parameters) : BaseJob
 
     val localUsernameLink = SignalStore.account.usernameLink ?: return
 
-    when (val usernameFetchResult = SignalNetwork.username.getDecryptedUsernameFromLinkServerIdAndEntropy(localUsernameLink.serverId, localUsernameLink.entropy)) {
+    when (val usernameFetchResult = SignalNetwork.usernameApi.getDecryptedUsernameFromLinkServerIdAndEntropy(localUsernameLink.serverId, localUsernameLink.entropy)) {
       is RequestResult.Success -> {
         val remoteUsername = usernameFetchResult.result
 

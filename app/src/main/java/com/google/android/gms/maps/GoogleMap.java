@@ -88,6 +88,8 @@ public class GoogleMap {
 
   public void setBuildingsEnabled(boolean isBuildingsEnabled) { }
 
+  public void setPadding(int left, int top, int right, int bottom) { }
+
   public void setMapType (int type) { }
 
   public boolean setMapStyle(MapStyleOptions loadRawResourceStyle) {

@@ -7,6 +7,8 @@ package org.signal.registration.screens.verificationcode
 
 import org.signal.core.util.censor
 import org.signal.registration.RegistrationFlowState
+import org.signal.uicomponents.codeentryfield.CodeEntryFieldEvents
+import org.signal.uicomponents.codeentryfield.CodeEntryFieldState
 
 sealed class VerificationCodeScreenEvents {
   /** The parent registration flow state changed and needs to be merged into this screen's state. */
@@ -16,15 +18,11 @@ sealed class VerificationCodeScreenEvents {
     override fun toString(): String = "CodeEntered(code=${code.censor()})"
   }
 
-  /**
-   * The raw [value] of the digit field at [index] changed. The view model interprets it: a single digit is recorded
-   * (submitting once the full code is present), an empty [value] is a backspace (deleting a digit and shifting the
-   * following ones left), and multi-character input (e.g. a pasted "123-456" or an auto-filled SMS code) populates
-   * every field at once and submits.
-   */
-  data class DigitChanged(val index: Int, val value: String) : VerificationCodeScreenEvents() {
-    override fun toString(): String = "DigitChanged(index=$index)"
-  }
+  /** An event for the code entry field, forwarded to its presenter. */
+  data class CodeEntryEvent(val event: CodeEntryFieldEvents) : VerificationCodeScreenEvents()
+
+  /** The code entry field's presenter has a new state to mirror into this screen's state. */
+  data class CodeEntryStateChanged(val codeEntryState: CodeEntryFieldState) : VerificationCodeScreenEvents()
 
   /**
    * A verification code was automatically retrieved from an incoming SMS via the Play Services SMS retriever.
@@ -32,8 +30,6 @@ sealed class VerificationCodeScreenEvents {
   data class CodeAutoFilled(val code: String) : VerificationCodeScreenEvents() {
     override fun toString(): String = "CodeAutoFilled(code=${code.censor()})"
   }
-
-  data object ConsumeAutoFillCode : VerificationCodeScreenEvents()
 
   data object WrongNumber : VerificationCodeScreenEvents()
 
@@ -45,6 +41,10 @@ sealed class VerificationCodeScreenEvents {
 
   data object DismissContactSupport : VerificationCodeScreenEvents()
 
+  data object ContactSupportDialog : VerificationCodeScreenEvents()
+
+  data object DismissContactSupportDialog : VerificationCodeScreenEvents()
+
   /** The network error snackbar was shown and dismissed. */
   data object NetworkErrorSnackbarDismissed : VerificationCodeScreenEvents()
 
@@ -54,11 +54,23 @@ sealed class VerificationCodeScreenEvents {
   /** The rate limited snackbar was shown and dismissed. */
   data object RateLimitedSnackbarDismissed : VerificationCodeScreenEvents()
 
-  /** The unable-to-send-SMS snackbar was shown and dismissed. */
-  data object UnableToSendSmsSnackbarDismissed : VerificationCodeScreenEvents()
+  /** The network error dialog from requesting a code was dismissed. */
+  data object NetworkErrorDialogDismissed : VerificationCodeScreenEvents()
 
-  /** The could-not-request-code-with-selected-transport snackbar was shown and dismissed. */
-  data object CouldNotRequestCodeWithSelectedTransportSnackbarDismissed : VerificationCodeScreenEvents()
+  /** The unknown error dialog from requesting a code was dismissed. */
+  data object UnknownErrorDialogDismissed : VerificationCodeScreenEvents()
+
+  /** The rate limited dialog from requesting a code was dismissed. */
+  data object RateLimitedDialogDismissed : VerificationCodeScreenEvents()
+
+  /** The unable-to-send-SMS dialog was dismissed. */
+  data object UnableToSendSmsDialogDismissed : VerificationCodeScreenEvents()
+
+  /** The could-not-request-code-with-selected-transport dialog was dismissed. */
+  data object CouldNotRequestCodeWithSelectedTransportDialogDismissed : VerificationCodeScreenEvents()
+
+  /** The delivery-provider-rejected dialog was dismissed. */
+  data object ProviderRejectedDialogDismissed : VerificationCodeScreenEvents()
 
   /** The incorrect verification code snackbar was shown and dismissed. */
   data object IncorrectVerificationCodeSnackbarDismissed : VerificationCodeScreenEvents()

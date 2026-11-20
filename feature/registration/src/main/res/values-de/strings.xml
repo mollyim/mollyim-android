@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources>
+<?xml version="1.0" encoding="UTF-8"?><resources>
   <!-- Removed by excludeNonTranslatables <string name="terms_and_privacy_policy_url" translatable="false">https://signal.org/legal</string> -->
   <!-- Removed by excludeNonTranslatables <string name="AccountLockedScreen__learn_more_url" translatable="false">https://support.signal.org/hc/articles/360007059792</string> -->
 
@@ -14,7 +13,7 @@
     <!-- Displayed as a title at the top of the screen -->
     <string name="GrantPermissionsFragment__allow_permissions">Berechtigungen gewähren</string>
     <!-- Displayed as a subtitle at the top of the screen -->
-    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Signal fordert diese Berechtigungen an, damit du Nachrichten an Personen verschicken kannst, die du kennst. </string>
+    <string name="GrantPermissionsFragment__to_help_you_message_people_you_know">Molly fordert diese Berechtigungen an, damit du Nachrichten an Personen verschicken kannst, die du kennst. </string>
     <!-- Displayed as a text-only action button at the bottom start of the screen -->
     <string name="GrantPermissionsFragment__not_now">Jetzt nicht</string>
     <!-- Displayed as an action button at the bottom end of the screen -->
@@ -44,13 +43,19 @@
     <!-- Hint text to select a country -->
     <string name="RegistrationActivity_select_a_country">Ein Land auswählen</string>
     <string name="RegistrationActivity_phone_number_description">Telefonnummer</string>
+    <!-- Label the phone number field takes on when what has been typed reads as an account ID rather than a number -->
+    <string name="RegistrationActivity_account_id">Konto-ID</string>
     <!-- Error shown beneath the phone number field when the entered number is not valid -->
-    <string name="RegistrationActivity_not_a_valid_phone_number">Not a valid phone number</string>
+    <string name="RegistrationActivity_not_a_valid_phone_number">Ungültige Telefonnummer</string>
     <!-- Dialog title shown when the entered phone number is rejected as invalid -->
     <string name="RegistrationActivity_invalid_phone_number">Ungültige Telefonnummer</string>
     <!-- Dialog body shown when the entered phone number is rejected as invalid -->
-    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">The number you entered doesn\'t appear to be valid. Please check the country code and phone number and try again.</string>
+    <string name="RegistrationActivity_the_number_you_entered_is_not_valid">Die von dir eingegebene Nummer scheint ungültig zu sein. Bitte überprüfe die Ländervorwahl und Telefonnummer und versuche es erneut.</string>
     <string name="RegistrationActivity_next">Weiter</string>
+    <!-- Button on the phone number screen that starts registering with a purchased Signal Login instead of a phone number -->
+    <string name="RegistrationActivity_register_without_number">Ohne Telefonnummer registrieren</string>
+    <!-- Button on the phone number screen, shown when the user already said they have an account to restore, that goes straight to entering their existing Signal Login -->
+    <string name="RegistrationActivity_use_account_id">Verwende Konto-ID</string>
     <!-- Dialog title to confirm phone number -->
     <string name="RegistrationActivity_is_the_phone_number">Ist die unten stehende Telefonnummer richtig?</string>
     <!-- Dialog body to confirm phone number -->
@@ -87,8 +92,8 @@
     <string name="VerificationCodeScreen__resend_code">Code erneut senden</string>
     <!-- Button text for call me action -->
     <string name="VerificationCodeScreen__call_me_instead">Ruf mich lieber an</string>
-    <!-- Countdown text shown below the resend code button. Placeholders are minutes and seconds -->
-    <string name="VerificationCodeScreen__countdown_format">(%1$02d:%2$02d)</string>
+    <!-- Button text for resend SMS when countdown is active. Placeholders are minutes and seconds -->
+    <string name="VerificationCodeScreen__resend_code_available_in">Code erneut senden (%1$02d:%2$02d)</string>
     <!-- Button text for call me when countdown is active. Placeholders are minutes and seconds -->
     <string name="VerificationCodeScreen__call_me_available_in">Ruf mich an (%1$02d:%2$02d)</string>
     <!-- Toast shown when the user enters an incorrect verification code -->
@@ -105,6 +110,10 @@
     <string name="VerificationCodeScreen__unable_to_send_sms">Wir können keine SMS an deine Nummer senden. Bitte versuche es in einigen Stunden erneut.</string>
     <!-- Snackbar shown when the selected transport (SMS/voice) is unavailable -->
     <string name="VerificationCodeScreen__could_not_send_code_via_selected_method">Der Code konnte über die gewählte Methode nicht gesendet werden. Wähle bitte eine andere Option.</string>
+    <!-- Dialog shown when the provider rejected placing a verification phone call to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_call_provider_rejected">Wir konnten dich nicht anrufen, um dir den Verifizierungscode mitzuteilen. Bitte versuch es erneut oder fordere den Code stattdessen per SMS an.</string>
+    <!-- Dialog shown when the provider rejected sending a verification SMS to the user\'s number -->
+    <string name="VerificationCodeScreen__could_not_sms_provider_rejected">Wir konnten dir keine SMS mit einem Verifizierungscode schicken. Bitte versuch es erneut oder fordere den Code stattdessen telefonisch an.</string>
     <!-- Snackbar shown for registration errors -->
     <string name="VerificationCodeScreen__registration_error">Registrierung fehlgeschlagen. Bitte versuche es erneut.</string>
     <!-- Button text for having trouble with verification -->
@@ -120,7 +129,9 @@
     <!-- Clickable substring linking to contacting support within VerificationCodeScreen__support_bottom_sheet_body_call_to_action -->
     <string name="VerificationCodeScreen__support_bottom_sheet_cta_contact_support_substring">Support kontaktieren</string>
     <!-- Email subject used when contacting support from the verification code screen -->
-  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_subject" translatable="false">Signal Registration - Verification Code for Android</string> -->
+    <string name="VerificationCodeScreen__contact_support_email_subject">Molly-Registrierung – Verifizierungscode für Android</string>
+    <!-- Text placed in the body of the support email composed from the verification code screen. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__contact_support_email_filter" translatable="false">Signal Registration - Verification Code for Android</string> -->
     <!-- URL opened for troubleshooting steps from the verification code screen -->
   <!-- Removed by excludeNonTranslatables <string name="VerificationCodeScreen__support_center_url" translatable="false">https://support.signal.org/</string> -->
 
@@ -132,7 +143,7 @@
     <!-- Row title for restore/transfer without using a previous device -->
     <string name="WelcomeFragment_restore_action_i_dont_have_my_old_phone">Ich habe mein altes Telefon nicht</string>
     <!-- Row subtitle for restore/transfer without using a previous device -->
-    <string name="WelcomeFragment_restore_action_reinstalling">Oder du installierst Signal auf demselben Gerät erneut</string>
+    <string name="WelcomeFragment_restore_action_reinstalling">Oder du installierst Molly auf demselben Gerät erneut</string>
 
     <!-- ArchiveRestoreSelectionScreen -->
     <!-- Title text for the archive restore selection screen -->
@@ -151,12 +162,6 @@
     <string name="ArchiveRestoreSelectionScreen__skip_restore_title">Ohne Übertragung fortfahren</string>
     <!-- Description for an option that, when clicked, will take the user to a flow to restore form a local backup -->
     <string name="ArchiveRestoreSelectionScreen__skip_restore_description">Nachrichten und Medien werden nicht übertragen</string>
-    <!-- Title for the backup folder option card (V2 format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_folder">Von einem Backup-Ordner</string>
-    <!-- Title for the backup file option card (V1 legacy format) -->
-    <string name="ArchiveRestoreSelectionScreen__from_a_backup_file">Von einer Backup-Datei</string>
-    <!-- Subtitle for the backup folder/file option cards -->
-    <string name="ArchiveRestoreSelectionScreen__choose_a_backup_youve_saved">Wähle ein von dir gespeichertes Backup aus</string>
     <!-- Title for the device transfer option card -->
     <string name="ArchiveRestoreSelectionScreen__from_your_old_phone">Von deinem alten Telefon</string>
     <!-- Subtitle for the device transfer option card -->
@@ -201,8 +206,6 @@
     <string name="LocalBackupRestoreScreen__enter_backup_passphrase">Backup-Passphrase eingeben</string>
     <!-- Description for V1 passphrase entry screen -->
     <string name="LocalBackupRestoreScreen__enter_the_30_digit_passphrase">Deine lokale Backup-Passphrase ist ein 30-stelliger Code, mit dem du dein Konto und deine Daten wiederherstellen kannst.</string>
-    <!-- Label for the recovery key text field -->
-    <string name="LocalBackupRestoreScreen__recovery_key">Wiederherstellungsschlüssel</string>
     <!-- Label for the backup passphrase text field -->
     <string name="LocalBackupRestoreScreen__passphrase">Passphrase</string>
     <!-- Error text when passphrase is too long -->
@@ -220,8 +223,6 @@
     <string name="EnterAepScreen__recovery_key">Wiederherstellungsschlüssel</string>
     <!-- Link for users who don\'t have their recovery key -->
     <string name="EnterAepScreen__no_recovery_key">Kein Wiederherstellungsschlüssel?</string>
-    <!-- Error text when key is too long -->
-    <string name="EnterAepScreen__too_long">Zu lang (%1$d/%2$d)</string>
     <!-- Error text when key is invalid -->
     <string name="EnterAepScreen__invalid_recovery_key">Wiederherstellungsschlüssel ungültig</string>
     <!-- Error text when key is correct format but does not match account -->
@@ -234,14 +235,32 @@
     <string name="EnterAepScreen__restore_to_new_account_body">Das von dir wiederhergestellte Backup wurde mit einem anderen Signal-Konto erstellt. Du kannst dieses Backup in einem neuen Konto wiederherstellen, bist dann aber nicht mehr Mitglied in den Gruppen, die wiederhergestellt wurden.</string>
     <!-- Confirm button label for the restore to new account dialog -->
     <string name="EnterAepScreen__restore">Wiederherstellen</string>
+    <!-- Title of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found">Kein Backup gefunden</string>
+    <!-- Body of the dialog shown when the entered recovery key is correct, but the account has no Signal Backup to restore -->
+    <string name="EnterAepScreen__no_backup_found_body">Dein Wiederherstellungsschlüssel ist richtig, aber es gibt für dieses Konto kein Signal Backup. Gehe zurück, um eine andere Wiederherstellungsmethode auszuwählen, oder fahre ohne Wiederherstellung fort.</string>
+    <!-- Title of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_title">Wiederherstellungsschlüssel nicht korrekt</string>
+    <!-- Body of the dialog shown when the entered recovery key does not match the account being registered -->
+    <string name="EnterAepScreen__incorrect_recovery_key_dialog_body">Registriere dich unbedingt mit derselben Telefonnummer und demselben 64-stelligen Wiederherstellungsschlüssel, den du beim Aktivieren von Signal Backups gespeichert hast. Backups können ohne diesen Schlüssel nicht wiederhergestellt werden.</string>
+    <!-- Button in the incorrect recovery key dialog that dismisses it so the user can re-enter their key -->
+    <string name="EnterAepScreen__try_again">Erneut versuchen</string>
+    <!-- Button in the incorrect recovery key dialog that offers to verify the phone number over SMS instead -->
+    <string name="EnterAepScreen__try_another_way">Eine andere Methode versuchen</string>
+    <!-- Button in the incorrect recovery key dialog that opens a support article about recovery keys -->
+    <string name="EnterAepScreen__recovery_key_help">Hilfe zum Wiederherstellungsschlüssel</string>
+    <!-- Title of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code">Mit SMS-Code verifizieren?</string>
+    <!-- Body of the dialog offering to verify the phone number with an SMS code instead of the recovery key -->
+    <string name="EnterAepScreen__verify_with_sms_code_body">Du kannst dein Konto registrieren, indem du es mit einem SMS-Code verifizierst, den dir Signal zusendet. Nach Eingabe des Codes kannst du erneut versuchen, dein Backup mit deinem Wiederherstellungsschlüssel wiederherzustellen.</string>
+    <!-- Confirm button in the verify with SMS code dialog that requests an SMS verification code -->
+    <string name="EnterAepScreen__send_code">Code senden</string>
     <!-- Text shown while preparing the restore -->
     <string name="LocalBackupRestoreScreen__preparing_restore">Wiederherstellung wird vorbereitet…</string>
     <!-- Title shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_backup">Backup wird wiederhergestellt</string>
     <!-- Description shown while restore is in progress -->
     <string name="LocalBackupRestoreScreen__restoring_description">Bitte warte, während deine Nachrichten und Daten wiederhergestellt werden.</string>
-    <!-- Description shown when restore is complete -->
-    <string name="LocalBackupRestoreScreen__restore_complete_description">Your messages and account data have been restored successfully.</string>
     <!-- Continue button text after restore is complete -->
     <string name="LocalBackupRestoreScreen__continue_button">Weiter</string>
     <!-- Title shown when restore fails -->
@@ -251,11 +270,11 @@
     <!-- Button to retry restore after failure -->
     <string name="LocalBackupRestoreScreen__try_again">Erneut versuchen</string>
     <!-- Title shown when the entered passphrase cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Incorrect passphrase</string>
+    <string name="LocalBackupRestoreScreen__incorrect_passphrase">Falsche Passphrase</string>
     <!-- Title shown when the entered recovery key cannot decrypt the selected backup -->
     <string name="LocalBackupRestoreScreen__incorrect_recovery_key">Wiederherstellungsschlüssel nicht korrekt</string>
     <!-- Description shown when the entered passphrase or recovery key cannot decrypt the selected backup -->
-    <string name="LocalBackupRestoreScreen__incorrect_credential_description">The credential you entered doesn\'t match this backup. Please check it and try again.</string>
+    <string name="LocalBackupRestoreScreen__incorrect_credential_description">Die von dir eingegebenen Zugangsdaten stimmen nicht mit diesem Backup überein. Bitte überprüfe diese und versuche es erneut.</string>
     <!-- Button to link an existing Signal account to this device -->
     <string name="WelcomeScreen__link_your_account">Verbinde dein Konto</string>
     <!-- Prompt shown to users who don\'t have a Signal account yet -->
@@ -293,9 +312,9 @@
     <!-- Title for the invalid backup version dialog -->
     <string name="RemoteRestoreScreen__couldnt_restore_this_backup">Dieses Backup konnte nicht wiederhergestellt werden</string>
     <!-- Body for the invalid backup version dialog -->
-    <string name="RemoteRestoreScreen__update_latest">Diese Signal-Version kann dein Backup nicht wiederherstellen. Aktualisiere auf die neueste Version und versuche es erneut.</string>
+    <string name="RemoteRestoreScreen__update_latest">Diese Molly-Version kann dein Backup nicht wiederherstellen. Aktualisiere auf die neueste Version und versuche es erneut.</string>
     <!-- Button to update Signal -->
-    <string name="RemoteRestoreScreen__update_signal">Signal aktualisieren</string>
+    <string name="RemoteRestoreScreen__update_signal">Molly aktualisieren</string>
     <!-- Button to dismiss update dialog -->
     <string name="RemoteRestoreScreen__not_now">Jetzt nicht</string>
     <!-- Title for unrecoverable backup failure dialog -->
@@ -304,8 +323,10 @@
     <string name="RemoteRestoreScreen__your_backup_is_not_recoverable">Beim Wiederherstellen deines Backups ist ein Fehler aufgetreten. Dein Backup lässt sich nicht wiederherstellen. Bitte kontaktiere den Support, falls du Hilfe benötigst.</string>
     <!-- Button to contact support -->
     <string name="RemoteRestoreScreen__contact_support">Support kontaktieren</string>
-    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_subject" translatable="false">Signal Android Backup restore permanent failure</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about an unrecoverable backup. -->
+    <string name="RemoteRestoreScreen__contact_support_email_subject">Dauerhafter Fehler bei Molly Android Backup-Wiederherstellung</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about an unrecoverable backup. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="RemoteRestoreScreen__contact_support_email_filter" translatable="false">Android SignalBackups Import Permanent Failure</string> -->
     <!-- Shown while downloading the backup from the server -->
     <string name="RemoteRestoreScreen__downloading_backup">Backup-Daten herunterladen …</string>
     <!-- Shown while restoring messages from the downloaded backup -->
@@ -325,7 +346,7 @@
     <string name="AccountLockedScreen__your_account">Dein Konto wurde gesperrt, um deine Privatsphäre und Sicherheit zu schützen. Nach Ablauf von %1$d Tagen ohne Kontoaktivität kannst du diese Telefonnummer ohne PIN neu registrieren. Alle Inhalte werden gelöscht.</string>
 
     <!-- Step 1 to quick restore -->
-    <string name="QuickRestoreQRScreen__step_1">Öffne Signal auf deinem alten Gerät</string>
+    <string name="QuickRestoreQRScreen__step_1">Öffne Molly auf deinem alten Gerät</string>
     <!-- Step 2 to quick restore -->
     <string name="QuickRestoreQRScreen__step_2">Tippe auf das Kamera-Symbol </string>
     <!-- Step 3 to quick restore -->
@@ -373,6 +394,10 @@
     <string name="PinCreationScreen__reenter_pin">PIN wiederholen</string>
     <!-- Error shown below the PIN field when the confirmation PIN does not match the one the user first entered. -->
     <string name="PinCreationScreen__pins_dont_match">PINs stimmen nicht überein. Bitte versuche es erneut.</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that is too easy to guess, such as one made of sequential or repeated digits. -->
+    <string name="PinCreationScreen__choose_a_stronger_pin">Wähle eine stärkere PIN</string>
+    <!-- Error shown below the PIN field when the user tries to create a PIN that matches the code used to verify their phone number. -->
+    <string name="PinCreationScreen__reentered_verification_code">Du hast den Code eingegeben, der bereits zur Verifizierung deiner Telefonnummer verwendet wurde. Wähle eine neue, einzigartige Signal-PIN.</string>
     <!-- Overflow menu item that opens a help article about Signal PINs. -->
     <string name="PinCreationScreen__learn_more_about_pins">Mehr über PINs erfahren</string>
     <!-- Title of the dialog confirming that the user wants to disable their Signal PIN. -->
@@ -395,7 +420,9 @@
     <!-- PIN entry screen title when restoring an account. -->
     <string name="PinEntryScreen__enter_your_pin">PIN eingeben</string>
     <!-- Describes the PIN that needs to be entered. -->
-    <string name="PinEntryScreen__enter_the_pin_you_created">Gib die PIN ein, die du bei der Erstinstallation von Signal festgelegt hast</string>
+    <string name="PinEntryScreen__enter_the_pin_you_created">Gib die PIN ein, die du bei der Erstinstallation von Molly festgelegt hast</string>
+    <!-- Error shown when the user enters the code used to verify their phone number instead of their PIN, and it was not their actual PIN. -->
+    <string name="PinEntryScreen__reentered_verification_code">Du hast den Code eingegeben, der bereits zur Verifizierung deiner Telefonnummer verwendet wurde. Gib stattdessen die einzigartige Signal-PIN ein, die du zuvor für dein Konto festgelegt hast.</string>
     <!-- Error shown when an incorrect PIN is entered. %1$d is the number of attempts remaining. -->
     <plurals name="PinEntryScreen__incorrect_pin">
         <item quantity="one">Falsche PIN. %1$d verbleibender Versuch.</item>
@@ -421,13 +448,15 @@
     <string name="PinEntryScreen__no_data_could_be_found">Es konnten keine Daten gefunden werden, um dein Konto wiederherzustellen. Lege bitte eine neue PIN fest.</string>
     <!-- Labels the button in the no-data-to-restore dialog that lets the user contact support. -->
     <string name="PinEntryScreen__contact_support">Support kontaktieren</string>
-    <!-- Subject line of the support email composed when the user contacts support about PIN entry. Also used to route the request, so it is not translated. -->
-  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_subject" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
+    <!-- Subject line of the support email composed when the user contacts support about PIN entry. -->
+    <string name="PinEntryScreen__contact_support_email_subject">Molly-Registrierung – Benötige Hilfe zur PIN für Android</string>
+    <!-- Text placed in the body of the support email composed when the user contacts support about PIN entry. Used to route the request, so it is not translated. -->
+  <!-- Removed by excludeNonTranslatables <string name="PinEntryScreen__contact_support_email_filter" translatable="false">Signal Registration - Need Help with PIN for Android</string> -->
 
     <!-- Title for the screen asking the user to grant the notification permission -->
     <string name="AllowNotificationsScreen__allow_notifications">Benachrichtigungen zulassen</string>
     <!-- Description for the screen asking the user to grant the notification permission -->
-    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Signal möchte die Berechtigung für Benachrichtigungen anfragen. Dadurch kann dein Gerät Hinweise anzeigen, sobald neue Nachrichten eingehen.</string>
+    <string name="AllowNotificationsScreen__signal_would_like_to_request_the_notification_permission">Molly möchte die Berechtigung für Benachrichtigungen anfragen. Dadurch kann dein Gerät Hinweise anzeigen, sobald neue Nachrichten eingehen.</string>
     <!-- Button label that dismisses the notification permission request without granting it -->
     <string name="AllowNotificationsScreen__not_now">Jetzt nicht</string>
     <!-- Button label that proceeds with the notification permission request -->
@@ -463,9 +492,9 @@
     <!-- Title for the screen that shows a QR code the user scans with their existing primary device to link this device as a secondary -->
     <string name="LinkAccountScreen__scan_this_code_to_link_your_account">Scanne diesen Code, um dein Konto zu koppeln</string>
     <!-- Step in the link-account instructions: open Signal on the user\'s existing phone -->
-    <string name="LinkAccountScreen__open_signal_on_your_phone">Öffne Signal auf deinem Telefon</string>
+    <string name="LinkAccountScreen__open_signal_on_your_phone">Öffne Molly auf deinem Telefon</string>
     <!-- Step in the link-account instructions: tap profile picture to open Signal Settings -->
-    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tippe auf dein Profilbild, um die Signal-Einstellungen zu öffnen</string>
+    <string name="LinkAccountScreen__tap_your_profile_picture_to_open_signal_settings">Tippe auf dein Profilbild, um die Molly-Einstellungen zu öffnen</string>
     <!-- Step in the link-account instructions: navigate to the Linked devices section and tap Link new device. The quoted strings should match the button/menu labels in the primary device\'s settings. -->
     <string name="LinkAccountScreen__tap_linked_devices_and_link_new_device">Tippe auf »Gekoppelte Geräte« und »Neues Gerät koppeln«</string>
     <!-- Button label opening help content for users who can\'t complete the link-account steps -->
@@ -477,7 +506,7 @@
     <!-- Error label shown in place of the QR code if it could not be generated -->
     <string name="LinkAccountScreen__failed_to_generate_code">Code konnte nicht erstellt werden</string>
     <!-- Footer prompt asking the user if they have another device with Signal. Precedes a separate "Create account" link. -->
-    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Du hast Signal noch nicht auf einem anderen Gerät installiert?</string>
+    <string name="LinkAccountScreen__dont_have_signal_on_another_device">Du hast Molly noch nicht auf einem anderen Gerät installiert?</string>
     <!-- Inline link in the link-account screen footer that takes the user to the new-account creation flow instead of linking -->
     <string name="LinkAccountScreen__create_account">Erstelle ein Konto</string>
     <!-- Button to retry generating the QR code after it failed to load -->
@@ -499,7 +528,7 @@
 
     <!-- Device transfer: Instructions screen -->
     <string name="DeviceTransferInstructions__transfer_your_account">Dein Konto übertragen</string>
-    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Um dein Konto zu übertragen, öffne Signal auf deinem alten Android-Gerät und wähle »Konto übertragen«.</string>
+    <string name="DeviceTransferInstructions__to_transfer_open_signal_on_your_old_android_device">Um dein Konto zu übertragen, öffne Molly auf deinem alten Android-Gerät und wähle »Konto übertragen«.</string>
     <string name="DeviceTransferInstructions__continue">Weiter</string>
 
     <!-- Device transfer: Setup screen -->
@@ -510,11 +539,11 @@
     <string name="DeviceTransferSetup__numbers_match">Ja, die Nummern stimmen überein</string>
     <string name="DeviceTransferSetup__numbers_do_not_match">Die Nummern stimmen nicht überein</string>
     <string name="DeviceTransferSetup__waiting_for_other_to_verify">Warten auf Verifizierung mit deinem alten Gerät…</string>
-    <string name="DeviceTransferSetup__location_permission_required">Signal benötigt die Standortberechtigung, um dein altes Gerät zu erkennen und zu verbinden.</string>
+    <string name="DeviceTransferSetup__location_permission_required">Molly benötigt die Standortberechtigung, um dein altes Gerät zu erkennen und zu verbinden.</string>
     <string name="DeviceTransferSetup__grant_location_permission">Berechtigung erteilen</string>
-    <string name="DeviceTransferSetup__location_services_required">Signal benötigt aktivierte Standortdienste, um dein altes Gerät zu erkennen und zu verbinden.</string>
+    <string name="DeviceTransferSetup__location_services_required">Molly benötigt aktivierte Standortdienste, um dein altes Gerät zu erkennen und zu verbinden.</string>
     <string name="DeviceTransferSetup__turn_on_location_services">Standortdienste einschalten</string>
-    <string name="DeviceTransferSetup__wifi_required">Signal benötigt eine aktive WLAN-Verbindung, um dein altes Gerät zu erkennen und eine Verbindung herzustellen.</string>
+    <string name="DeviceTransferSetup__wifi_required">Molly benötigt eine aktive WLAN-Verbindung, um dein altes Gerät zu erkennen und eine Verbindung herzustellen.</string>
     <string name="DeviceTransferSetup__turn_on_wifi">WLAN einschalten</string>
     <string name="DeviceTransferSetup__wifi_direct_unavailable">So wie es aussieht, unterstützt dein Gerät Wi-Fi Direct leider nicht.</string>
     <string name="DeviceTransferSetup__restore_a_backup">Stattdessen ein Backup wiederherstellen</string>
@@ -531,7 +560,7 @@
     <string name="DeviceTransferProgress__transferring_data">Datenübertragung</string>
     <string name="DeviceTransferProgress__d_messages_so_far">%1$d Nachrichten bisher</string>
     <string name="DeviceTransferProgress__unable_to_transfer">Übertragung nicht möglich</string>
-    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Übertragung von einer neueren Signal-Version nicht möglich.</string>
+    <string name="DeviceTransferProgress__cannot_transfer_from_newer_signal">Übertragung von einer neueren Molly-Version nicht möglich.</string>
     <string name="DeviceTransferProgress__failure_foreign_key">Einige Daten konnten aufgrund einer Datenbankeinschränkung nicht übertragen werden.</string>
     <string name="DeviceTransferProgress__transfer_failed">Übertragung gescheitert. Bitte versuche es erneut.</string>
     <string name="DeviceTransferProgress__try_again">Erneut versuchen</string>
@@ -544,43 +573,264 @@
     <string name="DeviceTransferComplete__your_account_is_now_on_this_device">Dein Konto ist jetzt auf diesem Gerät eingerichtet.</string>
     <string name="DeviceTransferComplete__continue_registration">Weiter</string>
 
-    <!-- Create profile screen -->
-    <!-- Title displayed at the top of the create-profile screen during registration. -->
-    <string name="CreateProfileScreen__set_up_your_profile">Richte dein Profil ein</string>
-    <!-- Subtitle on create-profile screen explaining that the profile is end-to-end encrypted and visible to recipients. -->
-    <string name="CreateProfileScreen__your_profile_is_end_to_end_encrypted">Dein Profil und Änderungen daran sind für Personen, an die du Nachrichten verschickst, deine Kontakte und Gruppen sichtbar.</string>
-    <!-- Label/hint for the first-name field, indicating it is required. -->
-    <string name="CreateProfileScreen__first_name_required">Vorname (erforderlich)</string>
-    <!-- Label/hint for the last-name field, indicating it is optional. -->
-    <string name="CreateProfileScreen__last_name_optional">Nachname (optional)</string>
-    <!-- Action button text to advance from create-profile screen. -->
-    <string name="CreateProfileScreen__next">Weiter</string>
-    <!-- Content description for the avatar selection control. -->
-    <string name="CreateProfileScreen__set_avatar_description">Profilbild festlegen</string>
-
-    <!-- Phone number discoverability picker -->
-    <!-- Title row label shown on the create-profile screen pointing at the discoverability picker. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__who_can_find_me_by_number">Wer kann mich anhand der Telefonnummer finden?</string>
-    <!-- Description shown on the picker when "Everyone" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__anyone_who_has_your">Wer deine Telefonnummer hat, sieht, dass du bei Signal bist und kann mit dir chatten.</string>
-    <!-- Description shown on the picker when "Nobody" is selected. -->
-    <string name="WhoCanSeeMyPhoneNumberFragment__nobody_will_be_able">Niemand kann sehen, dass du auf Signal bist, es sei denn, du schreibst eine Nachricht oder hast mit der Person einen bereits bestehenden Chat.</string>
-    <!-- Radio option label for "Everyone can find me by number". -->
-    <string name="PhoneNumberPrivacy_everyone">Jeder</string>
-    <!-- Radio option label for "Nobody can find me by number". -->
-    <string name="PhoneNumberPrivacy_nobody">Niemand</string>
-    <!-- Title for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_title">Bist du sicher?</string>
-    <!-- Body for the confirmation dialog shown when the user selects "Nobody". -->
-    <string name="PhoneNumberPrivacySettingsFragment__nobody_can_find_me_warning_message">Wenn du »Wer kann mich anhand der Telefonnummer finden?« auf »Niemand« setzt, wird es für andere schwieriger, dich auf Signal zu finden.</string>
-    <!-- Cancel button on the "Nobody" confirmation dialog. -->
-    <string name="PhoneNumberPrivacySettingsFragment__cancel">Abbrechen</string>
-    <!-- Save button on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__save">Speichern</string>
-    <!-- Content description for the back arrow on the discoverability picker. -->
-    <string name="PhoneNumberDiscoverabilityScreen__back">Zurück</string>
     <!-- Error message shown when the captcha fails to load. -->
     <string name="CaptchaScreen__failed_to_load_captcha">Captcha konnte nicht geladen werden</string>
     <!-- Button to cancel out of the captcha screen. -->
     <string name="CaptchaScreen__cancel">Abbrechen</string>
+
+    <!-- Shared registration strings -->
+    <!-- Content description for the back arrow in a registration screen header. -->
+    <string name="RegistrationScreen__back">Zurück</string>
+
+    <!-- Signal Login purchase screen -->
+    <!-- Title of the screen where the user buys a Signal Login to register without a phone number. -->
+    <string name="SignalLoginPaymentScreen__signal_login">Signal Login</string>
+    <!-- Description of what a Signal Login is. Followed by a "learn more" link. -->
+    <string name="SignalLoginPaymentScreen__register_without_a_phone_number">Registriere dich ohne Telefonnummer mit Signal Login. Nach dem einmaligen Kauf erhältst du eine Konto-ID, mit der du loslegen kannst.</string>
+    <!-- Link at the end of the description that opens a support article about Signal Login. -->
+    <string name="SignalLoginPaymentScreen__learn_more">Mehr erfahren</string>
+    <!-- Subtitle of the purchase option, clarifying the price is not a subscription. -->
+    <string name="SignalLoginPaymentScreen__one_time_purchase">Einmaliger Kauf</string>
+    <!-- Selling point of the purchase option: no phone number is required. -->
+    <string name="SignalLoginPaymentScreen__no_phone_number_needed">Keine Telefonnummer erforderlich</string>
+    <!-- Selling point of the purchase option: a username is used to reach the user. -->
+    <string name="SignalLoginPaymentScreen__username_for_messaging_and_calls">Nutzername für Nachrichten und Anrufe</string>
+    <!-- Selling point of the purchase option: the purchase supports Signal. -->
+    <string name="SignalLoginPaymentScreen__signal_is_a_non_profit">Signal ist eine gemeinnützige Organisation – mit deinem Kauf unterstützt du unsere Arbeit</string>
+    <!-- Title of the option for users who already bought a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__i_have_a_signal_login">Ich habe ein Signal Login</string>
+    <!-- Subtitle of the existing-login option. -->
+    <string name="SignalLoginPaymentScreen__use_your_existing_account_key">Verwende deine bestehenden Anmeldedaten</string>
+    <!-- Selling point of the existing-login option: the account can be restored. -->
+    <string name="SignalLoginPaymentScreen__login_and_restore_your_account">Log dich ein und stell dein Konto wieder her</string>
+    <!-- Selling point of the existing-login option, thanking the user for their previous purchase. -->
+    <string name="SignalLoginPaymentScreen__thanks_for_supporting_signal">Danke, dass du Signal unterstützt</string>
+    <!-- Action button that starts the purchase. Placeholder is the localized price, e.g. "$1.99". -->
+    <string name="SignalLoginPaymentScreen__pay_s">Du zahlst %1$s</string>
+    <!-- Action button that starts the purchase, shown while the price is still loading. -->
+    <string name="SignalLoginPaymentScreen__pay">Bezahlen</string>
+    <!-- Action button shown when the user indicated they already have a Signal Login. -->
+    <string name="SignalLoginPaymentScreen__continue">Weiter</string>
+    <!-- Error shown when the purchase does not go through. -->
+    <string name="SignalLoginPaymentScreen__your_purchase_could_not_be_completed">Dein Kauf konnte nicht abgeschlossen werden. Dir wurde keine Gebühr berechnet.</string>
+    <!-- Shown in place of the price when Google Play cannot offer the purchase. -->
+    <string name="SignalLoginPaymentScreen__unavailable">Nicht verfügbar</string>
+    <!-- Label for the button that retries loading the purchase price after it failed to load. -->
+    <string name="SignalLoginPaymentScreen__retry">Erneut versuchen</string>
+    <!-- Shown in place of the price when the user already paid for a Signal Login but it was never redeemed. -->
+    <string name="SignalLoginPaymentScreen__already_paid">Bereits bezahlt</string>
+    <!-- Error shown when Signal Login cannot be purchased on this device, for example because the Google Play Store is unavailable. -->
+    <string name="SignalLoginPaymentScreen__signal_login_cant_be_purchased">Signal Login kann auf diesem Gerät momentan nicht gekauft werden. Versuche es später erneut.</string>
+    <!-- Message shown when the user\'s payment has gone through but has not finished processing yet. -->
+    <string name="SignalLoginPaymentScreen__your_payment_is_still_processing">Deine Zahlung wird derzeit noch bearbeitet. Wenn der Vorgang abgeschlossen ist, komm einfach zurück und tippe auf »Weiter« – dann fallen keine weiteren Kosten an.</string>
+    <!-- Label for the internal-testing text field where a receipt credential can be pasted to skip payment. Not shown to real users. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__paste_a_receipt_credential" translatable="false">Paste a receipt credential (testing)</string> -->
+    <!-- Error shown when a manually-pasted receipt credential can\'t be parsed or is rejected. Internal testing only. -->
+  <!-- Removed by excludeNonTranslatables <string name="SignalLoginPaymentScreen__this_receipt_credential_is_invalid" translatable="false">This receipt credential is invalid.</string> -->
+    <!-- Title of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__update_google_play_services">Google Play-Dienste aktualisieren</string>
+    <!-- Body of the dialog shown when Google Play services is too old to take a payment. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_update_google_play_services">Um einen Signal Login zu kaufen, aktualisiere bitte die Google Play-Dienste auf diesem Gerät.</string>
+    <!-- Button that updates Google Play services. -->
+    <string name="SignalLoginPaymentScreen__update">Aktualisieren</string>
+    <!-- Title of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_missing">Google Play-Dienste fehlen</string>
+    <!-- Body of the dialog shown when Google Play services is not installed. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_google_play_services_needs_to_be_installed">Um einen Signal Login zu kaufen, müssen die Google Play-Dienste installiert sein.</string>
+    <!-- Button that installs Google Play services. -->
+    <string name="SignalLoginPaymentScreen__install_play_services">Google Play-Dienste installieren</string>
+    <!-- Title of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__google_play_services_are_updating">Google Play-Dienste werden gerade aktualisiert</string>
+    <!-- Body of the dialog shown while Google Play services is updating itself. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_wait_for_google_play_services">Um einen Signal Login zu kaufen, warte bitte, bis die Aktualisierung der Google Play-Dienste abgeschlossen ist.</string>
+    <!-- Title of the dialog shown when Google Play cannot be used to take a payment. -->
+    <string name="SignalLoginPaymentScreen__google_play_is_required">Google Play ist erforderlich</string>
+    <!-- Body of the dialog shown when Google Play services is installed but turned off. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_enable_google_play_services">Um einen Signal Login zu kaufen, aktiviere die Google Play-Dienste auf diesem Gerät und melde dich im Google Play Store an.</string>
+    <!-- Body of the dialog shown when the device cannot run Google Play services at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_on_this_device">Du kannst keinen Signal Login kaufen, weil dieses Gerät die Google Play-Dienste nicht unterstützt. Kontaktiere den Hersteller deines Telefons, um weitere Hilfe zu erhalten.</string>
+    <!-- Body of the dialog shown when Google Play services works but nobody is signed into the Play Store. -->
+    <string name="SignalLoginPaymentScreen__to_purchase_a_signal_login_sign_into_the_google_play_store">Um einen Signal Login zu kaufen, melde dich bitte im Google Play Store an.</string>
+    <!-- Body of the dialog shown when this version of Signal cannot make Google Play purchases at all. -->
+    <string name="SignalLoginPaymentScreen__you_cant_purchase_a_signal_login_in_this_version">In dieser Version von Signal kannst du keinen Signal Login kaufen. Installiere Signal über Google Play, um einen zu kaufen.</string>
+    <!-- Button that opens the Google Play store so the user can sign into it. -->
+    <string name="SignalLoginPaymentScreen__open_play_store">Play Store öffnen</string>
+
+    <!-- Signal Login details screen -->
+    <!-- Title of the screen that shows the user their newly purchased Signal Login. -->
+    <string name="SignalLoginInfoScreen__your_signal_login">Dein Signal Login</string>
+    <!-- Description warning the user that a lost Signal Login cannot be recovered. -->
+    <string name="SignalLoginInfoScreen__thanks_for_your_purchase">Danke für deinen Kauf. Verwende dein Signal Login, um dich einzuloggen und dein Konto wiederherzustellen. Ohne deine Schlüssel kannst du dein Konto nicht wiederherstellen.</string>
+    <!-- Action button that stores the Signal Login in the device password manager. -->
+    <string name="SignalLoginInfoScreen__save_to_password_manager">Im Passwortmanager speichern</string>
+    <!-- Toast shown when the user taps the disabled save to password manager button and the device has no password manager. -->
+    <string name="SignalLoginInfoScreen__no_password_manager_available">Du hast keinen Passwort-Manager eingerichtet.</string>
+    <!-- Body of the dialog asking the user to confirm saving their Signal Login credentials to the device password manager. -->
+    <string name="SignalLoginInfoScreen__only_store_your_credentials">Speichere deine Zugangsdaten nur in einem sicheren Passwortmanager. Signal gibt keine Empfehlung ab, welcher der passende Passwortmanager für dich ist.</string>
+    <!-- Action button for users who would rather write the Signal Login down themselves. -->
+    <string name="SignalLoginInfoScreen__save_manually">Manuell speichern</string>
+    <!-- Error shown when the Signal Login could not be stored in the password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_saved">Dein Signal Login konnte nicht gespeichert werden. Bitte speichere ihn stattdessen manuell.</string>
+    <!-- Title of the dialog shown when the Signal Login could not be found in the password manager after saving it. -->
+    <string name="SignalLoginInfoScreen__error_confirming_login_info">Fehler beim Bestätigen der Anmeldedaten</string>
+    <!-- Description telling the user that the Signal Login we saved could not be read back out of their password manager. -->
+    <string name="SignalLoginInfoScreen__your_signal_login_could_not_be_confirmed">Dein Signal Login konnte nicht bestätigt werden. Überprüfe, ob du es in deinem Passwort-Manager gespeichert hast, oder speichere es manuell.</string>
+
+    <!-- Sheet that double-checks the user\'s Signal Login really made it into their password manager -->
+    <!-- Title of the sheet asking the user to confirm their Signal Login was saved to their password manager. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_your_login_info_is_saved">Bestätige, dass deine Anmeldedaten gesichert sind</string>
+    <!-- Description telling the user they are about to be asked to fill in the Signal Login they just saved. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_that_your_login_info_was_saved">Bestätige, dass dein Signal Login korrekt gespeichert wurde. Im nächsten Schritt wirst du aufgefordert, dein gespeichertes Passwort einzugeben.</string>
+    <!-- Action button that starts checking the password manager for the Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__confirm_login_info">Anmeldedaten bestätigen</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedToPasswordManagerBottomSheet__see_login_info_again">Anmeldedaten erneut aufrufen</string>
+
+    <!-- Save Signal Login screen -->
+    <!-- Title of the screen that spells out the Signal Login so the user can record it themselves. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_your_signal_login">Speichere dein Signal Login</string>
+    <!-- Description telling the user to keep their Signal Login somewhere safe and private. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__store_your_signal_login_somewhere_safe">Bewahre dein Signal Login an einem sicheren Ort auf. Gib deine Anmeldedaten niemals an andere weiter.</string>
+    <!-- Action button that saves the Signal Login to a PDF file. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__save_as_pdf">Als PDF sichern</string>
+    <!-- Action button for users who are done recording their Signal Login. -->
+    <string name="SignalLoginViewDetailsForManualSaveScreen__continue">Weiter</string>
+
+    <!-- Sheet that double-checks the user really saved their Signal Login -->
+    <!-- Title of the sheet asking the user to confirm they saved their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__confirm_your_login_info_is_saved">Bestätige, dass deine Anmeldedaten gesichert sind</string>
+    <!-- Description warning the user that they are about to be asked for their Signal Login and that it cannot be recovered. -->
+    <string name="ConfirmLoginSavedBottomSheet__you_will_be_prompted_to_sign_in">Im nächsten Schritt wirst du aufgefordert, dich mit deinem Signal Login anzumelden. Vergewissere dich, dass du diese Angaben gespeichert oder kopiert hast. Signal kann dir nicht dabei helfen, dein Konto wiederherzustellen.</string>
+    <!-- Action button confirming the Signal Login is saved. -->
+    <string name="ConfirmLoginSavedBottomSheet__continue">Weiter</string>
+    <!-- Action button that sends the user back to their Signal Login. -->
+    <string name="ConfirmLoginSavedBottomSheet__show_login_info_again">Anmeldedaten erneut anzeigen</string>
+
+    <!-- Errors shown beneath an account ID text field, wherever one is offered -->
+    <!-- Error shown when the entered account ID contains characters that can\'t appear in one. -->
+    <string name="AccountIdField__invalid_account_id">Ungültige Konto-ID</string>
+
+    <!-- Signal Login credential entry screen -->
+    <!-- Title of the screen where a user with an existing Signal Login types it in to log back in. -->
+    <string name="SignalLoginCredentialEntryScreen__signal_login">Signal Login</string>
+    <!-- Description telling the user what to enter to log in. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_account_id_followed_by_your_recovery_key">Gib deine Konto-ID und anschließend deinen Wiederherstellungsschlüssel ein, um dein Konto wiederherzustellen.</string>
+    <!-- Label of the text field the account ID is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__account_id">Konto-ID</string>
+    <!-- Label of the text field the recovery key is typed into. -->
+    <string name="SignalLoginCredentialEntryScreen__recovery_key">Wiederherstellungsschlüssel</string>
+    <!-- Description of the button that spells out the typed recovery key instead of masking it. -->
+    <string name="SignalLoginCredentialEntryScreen__show_recovery_key">Wiederherstellungsschlüssel anzeigen</string>
+    <!-- Description of the button that masks the typed recovery key. -->
+    <string name="SignalLoginCredentialEntryScreen__hide_recovery_key">Wiederherstellungsschlüssel verbergen</string>
+    <!-- Button that opens a support article for users who can\'t find their Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__need_help">Hilfe benötigt?</string>
+    <!-- Action button that submits the entered Signal Login. -->
+    <string name="SignalLoginCredentialEntryScreen__next">Weiter</string>
+    <!-- Error shown when the service rejects the entered login, which means one of the two halves is wrong. -->
+    <string name="SignalLoginCredentialEntryScreen__incorrect_account_id_or_recovery_key">Konto-ID oder Wiederherstellungsschlüssel ungültig</string>
+    <!-- Description shown instead when the user is typing back the Signal Login they were just given, to check they recorded it correctly. -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_signal_login_to_confirm_it_was_recorded_correctly">Gib dein Signal Login ein, um zu überprüfen, ob es richtig gespeichert wurde.</string>
+    <!-- Button that takes the user back to their Signal Login if they can\'t remember what they recorded. -->
+    <string name="SignalLoginCredentialEntryScreen__show_login_info_again">Anmeldedaten erneut anzeigen</string>
+    <!-- Error shown when what the user typed back doesn\'t match the Signal Login they were given. -->
+    <string name="SignalLoginCredentialEntryScreen__that_doesnt_match_the_signal_login_you_were_shown">Das stimmt nicht mit dem Signal Login überein, das dir angezeigt wurde</string>
+    <!-- Subtitle on the Signal Login entry screen when the user opened it from a reminder to check they still know their login -->
+    <string name="SignalLoginCredentialEntryScreen__enter_your_signal_login_to_verify_you_still_know_it">Enter your Signal Login to verify you still know it.</string>
+
+    <!-- Add username screen -->
+    <!-- Title of the screen offering the user an optional username. -->
+    <string name="AddUsernameScreen__add_an_optional_username">Optionalen Nutzernamen hinzufügen</string>
+    <!-- Description explaining what a username is used for. -->
+    <string name="AddUsernameScreen__people_can_message_you_by_username">Andere können dir jetzt über deinen Nutzernamen statt über deine Telefonnummer eine Nachricht schicken.</string>
+    <!-- Prompt shown above the username field. -->
+    <string name="AddUsernameScreen__choose_your_username">Wähle deinen Nutzernamen</string>
+    <!-- Label/hint for the username field. -->
+    <string name="AddUsernameScreen__username">Nutzername</string>
+    <!-- Helper text below the username field. Followed by a "learn more" link. -->
+    <string name="AddUsernameScreen__usernames_are_always_paired_with_a_set_of_numbers">Nutzernamen sind immer mit einer Reihe von Zahlen gekoppelt.</string>
+    <!-- Link in the helper text that opens a support article about usernames. -->
+    <string name="AddUsernameScreen__learn_more">Mehr erfahren</string>
+    <!-- Button that skips choosing a username. -->
+    <string name="AddUsernameScreen__skip">Überspringen</string>
+    <!-- Button that submits the chosen username. -->
+    <string name="AddUsernameScreen__next">Weiter</string>
+    <!-- Validation error shown when the entered username is too short. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_least_3_characters">Nutzernamen müssen aus mindestens 3 Zeichen bestehen</string>
+    <!-- Validation error shown when the entered username is too long. -->
+    <string name="AddUsernameScreen__usernames_must_be_at_most_32_characters">Nutzernamen dürfen aus maximal 32 Zeichen bestehen</string>
+    <!-- Validation error shown when the entered username contains disallowed characters. -->
+    <string name="AddUsernameScreen__usernames_can_only_contain">Nutzernamen dürfen nur Buchstaben, Zahlen und Unterstriche enthalten</string>
+    <!-- Validation error shown when the entered username starts with a digit. -->
+    <string name="AddUsernameScreen__usernames_cannot_begin_with_a_number">Nutzernamen dürfen nicht mit einer Zahl beginnen</string>
+    <!-- Error shown when the chosen username cannot be reserved. -->
+    <string name="AddUsernameScreen__this_username_is_not_available">Dieser Nutzername ist nicht verfügbar. Bitte versuche es mit einem anderen.</string>
+    <!-- Error shown when the user\'s temporary hold on a username expired before they submitted it. -->
+    <string name="AddUsernameScreen__your_username_reservation_expired">Die Reservierung deines Nutzernamens ist abgelaufen. Bitte versuche es erneut.</string>
+    <!-- Error shown when the username formed by the entered name and the user\'s chosen number is already taken. -->
+    <string name="AddUsernameScreen__this_username_is_not_available_try_another_number">Dieser Nutzername ist nicht verfügbar, versuche eine andere Nummer.</string>
+    <!-- Validation error shown when the number the user entered after their username has too few digits. -->
+    <string name="AddUsernameScreen__enter_a_minimum_of_d_digits">Ungültiger Nutzername, bitte gib mindestens %1$d Ziffern ein.</string>
+    <!-- Validation error shown when the number the user entered after their username has too many digits. -->
+    <string name="AddUsernameScreen__enter_a_maximum_of_d_digits">Ungültiger Nutzername, bitte gib maximal %1$d Ziffern ein.</string>
+    <!-- Validation error shown when the number the user entered after their username is 00. -->
+    <string name="AddUsernameScreen__this_number_cant_be_00">Diese Nummer darf nicht 00 sein. Verwende eine andere Zahl von 1 bis 9</string>
+    <!-- Validation error shown when the number the user entered after their username has a leading zero. -->
+    <string name="AddUsernameScreen__this_number_cant_start_with_0">Nummern mit mehr als 2 Ziffern dürfen nicht mit 0 beginnen</string>
+    <!-- Title of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__are_you_sure">Bist du sicher?</string>
+    <!-- Body of the dialog confirming the user wants to skip choosing a username. -->
+    <string name="AddUsernameScreen__without_a_username_people_wont_be_able_to_find_you">Ohne Nutzernamen können dich Leute auf Signal nicht finden.</string>
+    <!-- Button in the skip-username confirmation dialog that returns to the screen without skipping. -->
+    <string name="AddUsernameScreen__cancel">Abbrechen</string>
+    <!-- Button in the skip-username confirmation dialog that skips choosing a username. -->
+    <string name="AddUsernameScreen__continue">Weiter</string>
+
+    <!-- ContactSupportDialog -->
+    <!-- Title of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__submit_debug_log">Diagnoseprotokoll übermitteln?</string>
+    <!-- Body of the dialog asking the user whether they want to attach a debug log to their support request -->
+    <string name="ContactSupportDialog__your_debug_logs">Deine Diagnoseprotokolle helfen uns, dein Problem schneller zu lösen. Das Übermitteln deiner Protokolle ist optional.</string>
+    <!-- Button that contacts support with a debug log attached -->
+    <string name="ContactSupportDialog__submit_with_debug_log">Mit Diagnoseprotokoll übermitteln</string>
+    <!-- Button that contacts support without attaching a debug log -->
+    <string name="ContactSupportDialog__submit_without_debug_log">Ohne Diagnoseprotokoll übermitteln</string>
+
+    <!-- TotpEntryScreen -->
+    <!-- Title of the two-factor authentication code entry screen -->
+    <string name="TotpEntryScreen__two_factor_authentication">Zwei-Faktor-Authentifizierung</string>
+    <!-- Subtitle explaining where to find the code -->
+    <string name="TotpEntryScreen__to_continue_enter_the_code">Gib den 6-stelligen Code aus deiner Authentifizierungs-App ein, um fortzufahren.</string>
+    <!-- Button text to cancel entering a code -->
+    <string name="TotpEntryScreen__cancel">Abbrechen</string>
+
+    <!-- TwoFactorSelectionScreen -->
+    <!-- Title of the two-factor authentication method selection screen -->
+    <string name="TwoFactorSelectionScreen__two_factor_authentication">Zwei-Faktor-Authentifizierung</string>
+    <!-- Subtitle telling the user to pick one of the methods listed below -->
+    <string name="TwoFactorSelectionScreen__choose_a_method_below">Wähle unten eine Methode aus, um dein Konto zu verifizieren.</string>
+    <!-- Title of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__passkey">Passkey</string>
+    <!-- Description of the card for verifying with a passkey -->
+    <string name="TwoFactorSelectionScreen__tap_to_use_your_device_biometrics">Antippen, um die biometrischen Funktionen deines Geräts oder einen FIDO2-Passkey zu verwenden</string>
+    <!-- Title of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__authenticator_app">Authentifizierungs-App</string>
+    <!-- Description of the card for verifying with a code from an authenticator app -->
+    <string name="TwoFactorSelectionScreen__enter_a_one_time_code">Gib den von deiner Authentifizierungs-App generierten Einmalcode ein.</string>
+    <!-- Button text to cancel two-factor authentication -->
+    <string name="TwoFactorSelectionScreen__cancel">Abbrechen</string>
+    <!-- Dialog message shown when a passkey verification attempt fails for a reason the user can\'t act on -->
+    <string name="TwoFactorSelectionScreen__something_went_wrong_with_your_passkey">Bei deinem Passkey ist was schiefgelaufen. Bitte versuch es erneut oder wähle eine andere Methode.</string>
+
+    <!-- PasskeyVerificationScreen -->
+    <!-- Title of the screen asking the user to verify their account with their passkey -->
+    <string name="PasskeyVerificationScreen__two_factor_authentication">Zwei-Faktor-Authentifizierung</string>
+    <!-- Subtitle telling the user to verify their account with their passkey -->
+    <string name="PasskeyVerificationScreen__to_continue_verify_your_account">To continue, verify your account with your passkey.</string>
+    <!-- Button text to start verifying with a passkey -->
+    <string name="PasskeyVerificationScreen__continue">Fortfahren</string>
+    <!-- Button text to cancel two-factor authentication -->
+    <string name="PasskeyVerificationScreen__cancel">Abbrechen</string>
+    <!-- Dialog message shown when a passkey verification attempt fails for a reason the user can\'t act on -->
+    <string name="PasskeyVerificationScreen__something_went_wrong_with_your_passkey">Bei deinem Passkey ist was schiefgelaufen. Bitte versuche es erneut.</string>
 </resources>

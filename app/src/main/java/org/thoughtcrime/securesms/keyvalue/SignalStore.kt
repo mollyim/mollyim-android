@@ -12,17 +12,17 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
 
   val accountValues = AccountValues(store, context)
   val svrValues = SvrValues(store)
-  val registrationValues = RegistrationValues(store)
-  val pinValues = PinValues(store)
+  val registrationValues = RegistrationValues(store, context)
+  val pinValues = PinValues(store, context)
   val remoteConfigValues = RemoteConfigValues(store)
   val storageServiceValues = StorageServiceValues(store)
-  val uiHintValues = UiHintValues(store)
-  val tooltipValues = TooltipValues(store)
-  val miscValues = MiscellaneousValues(store)
+  val uiHintValues = UiHintValues(store, context)
+  val tooltipValues = TooltipValues(store, context)
+  val miscValues = MiscellaneousValues(store, context)
   val internalValues = InternalValues(store)
   val emojiValues = EmojiValues(store)
   val settingsValues = SettingsValues(store, context)
-  val certificateValues = CertificateValues(store)
+  val certificateValues = CertificateValues(store, context)
   val phoneNumberPrivacyValues = PhoneNumberPrivacyValues(store)
   val onboardingValues = OnboardingValues(store)
   val wallpaperValues = WallpaperValues(store)
@@ -35,16 +35,22 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
   val notificationProfileValues = NotificationProfileValues(store)
   val releaseChannelValues = ReleaseChannelValues(store)
   val storyValues = StoryValues(store)
-  val apkUpdateValues = ApkUpdateValues(store)
-  val backupValues = BackupValues(store)
+  val apkUpdateValues = ApkUpdateValues(store, context)
+  val backupValues = BackupValues(store, context)
   val unifiedPushValues = UnifiedPushValues(store)
   val labsValues = LabsValues(store)
-
-  val plainTextValues = PlainTextSharedPrefsDataStore(context)
+  val mollyValues = MollyValues(store, context)
 
   companion object {
 
+    @Volatile
     private var instance: SignalStore? = null
+
+    /** MOLLY: Whether the store is available for reads. Remains true when the app is re-locked. */
+    @JvmStatic
+    @get:JvmName("isInitialized")
+    val isInitialized: Boolean
+      get() = instance != null
 
     @JvmStatic
     fun init(context: Application) {
@@ -88,6 +94,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
       backup.onFirstEverAppLaunch()
       unifiedpush.onFirstEverAppLaunch()
       labs.onFirstEverAppLaunch()
+      molly.onFirstEverAppLaunch()
     }
 
     @JvmStatic
@@ -121,7 +128,8 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
           apkUpdate.keysToIncludeInBackup +
           backup.keysToIncludeInBackup +
           unifiedpush.keysToIncludeInBackup +
-          labs.keysToIncludeInBackup
+          labs.keysToIncludeInBackup +
+          molly.keysToIncludeInBackup
       }
 
     /**
@@ -147,6 +155,7 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
     @JvmStatic
     fun onPostBackupRestore() {
       instance!!.store.resetCache()
+      instance!!.settingsValues.onPostBackupRestore()
     }
 
     @JvmStatic
@@ -272,6 +281,8 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
     val story: StoryValues
       get() = instance!!.storyValues
 
+    @JvmStatic
+    @get:JvmName("apkUpdate")
     val apkUpdate: ApkUpdateValues
       get() = instance!!.apkUpdateValues
 
@@ -290,12 +301,15 @@ class SignalStore(context: Application, private val store: KeyValueStore) {
     val labs: LabsValues
       get() = instance!!.labsValues
 
+    @JvmStatic
+    @get:JvmName("molly")
+    val molly: MollyValues
+      get() = instance!!.mollyValues
+
     val groupsV2AciAuthorizationCache: GroupsV2AuthorizationSignalStoreCache
       get() = GroupsV2AuthorizationSignalStoreCache.createAciCache(instance!!.store)
 
-    val plaintext: PlainTextSharedPrefsDataStore
-      get() = instance!!.plainTextValues
-
+    @JvmStatic
     fun getPreferenceDataStore(): PreferenceDataStore {
       return SignalPreferenceDataStore(instance!!.store)
     }

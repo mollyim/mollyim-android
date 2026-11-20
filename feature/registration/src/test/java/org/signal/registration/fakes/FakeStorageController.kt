@@ -18,6 +18,7 @@ import org.signal.registration.proto.RegistrationData
 import org.signal.registration.screens.localbackuprestore.LocalBackupInfo
 import org.signal.registration.screens.messagesync.LinkAndSyncProgress
 import org.signal.registration.screens.remotebackuprestore.RemoteBackupRestoreProgress
+import org.whispersystems.signalservice.api.push.UsernameLinkComponents
 import java.time.LocalDateTime
 
 /**
@@ -29,6 +30,9 @@ import java.time.LocalDateTime
  */
 class FakeStorageController : StorageController {
 
+  /** Guards [inProgressData], whose read-modify-write updates arrive concurrently from multiple [kotlinx.coroutines.Dispatchers.IO] threads. */
+  private val dataLock = Any()
+
   var inProgressData: RegistrationData = RegistrationData()
     private set
   var committedData: RegistrationData? = null
@@ -36,11 +40,24 @@ class FakeStorageController : StorageController {
   var restoreDecision: RestoreDecision? = null
     private set
 
+  /** Whether the flow told us the account has two-factor methods, which it learns by having to present one. */
+  var hasTwoFactorMethods: Boolean = false
+    private set
+
+  /** How many times [onRegistrationFlowFinished] has been called. The app hangs post-registration bookkeeping off of this. */
+  var registrationFlowFinishedCount: Int = 0
+    private set
+
   /** Simulates a previously-registered device, which the flow will try to re-register via recovery password. */
   var preExistingRegistrationData: PreExistingRegistrationData? = null
 
   /** Profile data already on disk, used to pre-seed or skip the create-profile screen. */
   var storedProfileData: StoredProfileData = StoredProfileData()
+
+  var savedUsername: String? = null
+    private set
+  var savedUsernameLink: UsernameLinkComponents? = null
+    private set
 
   // -- Response handlers. Override these in tests to change what is found on disk and how restores play out.
 
@@ -73,24 +90,38 @@ class FakeStorageController : StorageController {
   override suspend fun getPreExistingRegistrationData(): PreExistingRegistrationData? = preExistingRegistrationData
 
   override suspend fun clearAllData() {
-    inProgressData = RegistrationData()
+    synchronized(dataLock) {
+      inProgressData = RegistrationData()
+    }
   }
 
   override suspend fun clearLocalDataAndRestart() = notExpected()
 
-  override suspend fun readInProgressRegistrationData(): RegistrationData = inProgressData
+  override suspend fun readInProgressRegistrationData(): RegistrationData = synchronized(dataLock) { inProgressData }
 
   override suspend fun updateInProgressRegistrationData(updater: RegistrationData.Builder.() -> Unit) {
-    inProgressData = inProgressData.newBuilder().apply(updater).lastUpdatedMillis(System.currentTimeMillis()).build()
+    synchronized(dataLock) {
+      inProgressData = inProgressData.newBuilder().apply(updater).lastUpdatedMillis(System.currentTimeMillis()).build()
+    }
   }
 
   override suspend fun commitRegistrationData() {
-    val accountData = inProgressData.accountData
-    val accountDataComplete = accountData != null && accountData.e164.isNotEmpty() && accountData.aci.isNotEmpty() && accountData.pni.isNotEmpty() && accountData.servicePassword.isNotEmpty()
-    if (!inProgressData.accountDataCommitted && accountDataComplete) {
-      inProgressData = inProgressData.newBuilder().accountDataCommitted(true).build()
+    synchronized(dataLock) {
+      val accountData = inProgressData.accountData
+      val accountDataComplete = accountData != null && !accountData.e164.isNullOrEmpty() && accountData.aci.isNotEmpty() && !accountData.pni.isNullOrEmpty() && accountData.servicePassword.isNotEmpty()
+      if (!inProgressData.accountDataCommitted && accountDataComplete) {
+        inProgressData = inProgressData.newBuilder().accountDataCommitted(true).build()
+      }
+      committedData = inProgressData
     }
-    committedData = inProgressData
+  }
+
+  override suspend fun onRegistrationFlowFinished() {
+    registrationFlowFinishedCount++
+  }
+
+  override suspend fun markHasTwoFactorMethods() {
+    hasTwoFactorMethods = true
   }
 
   override suspend fun setRestoreDecision(decision: RestoreDecision) {
@@ -123,6 +154,11 @@ class FakeStorageController : StorageController {
   }
 
   override suspend fun getStoredProfileData(): StoredProfileData = storedProfileData
+
+  override suspend fun saveUsername(username: String, usernameLink: UsernameLinkComponents) {
+    savedUsername = username
+    savedUsernameLink = usernameLink
+  }
 
   private fun notExpected(): Nothing {
     throw NotImplementedError("This method is not expected to be called in the flow under test.")

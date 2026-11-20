@@ -52,14 +52,15 @@ import org.signal.core.ui.compose.Previews
 import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.SignalIcons
 import org.signal.core.ui.compose.theme.SignalTheme
+import org.signal.core.ui.fonts.SignalSymbols
+import org.signal.core.ui.fonts.SignalSymbols.signalSymbolText
+import org.signal.core.util.ByteSize
 import org.signal.core.util.ByteUnit
 import org.signal.core.util.billing.BillingResponseCode
 import org.signal.core.util.bytes
 import org.signal.core.util.money.FiatMoney
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.backup.v2.MessageBackupTier
-import org.thoughtcrime.securesms.fonts.SignalSymbols
-import org.thoughtcrime.securesms.fonts.SignalSymbols.signalSymbolText
 import org.thoughtcrime.securesms.payments.FiatMoneyUtil
 import java.math.BigDecimal
 import java.util.Currency
@@ -109,7 +110,7 @@ fun MessageBackupsTypeSelectionScreen(
           Image(
             painter = painterResource(id = R.drawable.image_signal_backups_plans),
             contentDescription = null,
-            modifier = Modifier.size(88.dp)
+            modifier = Modifier.size(96.dp)
           )
         }
 
@@ -442,7 +443,7 @@ private fun getFeatures(messageBackupsType: MessageBackupsType): List<MessageBac
     is MessageBackupsType.Paid -> {
       val photoCount = messageBackupsType.storageAllowanceBytes / ByteUnit.MEGABYTES.toBytes(2)
       val photoCountThousands = photoCount / 1000
-      val sizeUnitString = messageBackupsType.storageAllowanceBytes.bytes.toUnitString(spaced = false)
+      val sizeUnitString = messageBackupsType.storageAllowanceBytes.bytes.toUnitString(spaced = false, unitSystem = ByteSize.UnitSystem.IEC)
 
       persistentListOf(
         MessageBackupsTypeFeature(

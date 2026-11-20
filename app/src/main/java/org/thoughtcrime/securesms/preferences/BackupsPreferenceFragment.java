@@ -29,13 +29,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.signal.core.ui.permissions.Permissions;
 import org.signal.core.ui.util.StorageUtil;
 import org.signal.core.util.NoExternalStorageException;
 import org.signal.core.util.ThreadUtil;
+import org.signal.core.util.eventbus.EventBus;
+import org.signal.core.util.eventbus.ThreadMode;
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupDialog;
@@ -47,8 +46,7 @@ import org.thoughtcrime.securesms.preferences.widgets.UpgradeLocalBackupCard;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.Environment;
-import org.thoughtcrime.securesms.util.JavaTimeExtensionsKt;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.LocalTimeExtensionsKt;
 
 import java.text.NumberFormat;
 import java.time.LocalTime;
@@ -85,6 +83,7 @@ public class BackupsPreferenceFragment extends Fragment {
   private final NumberFormat formatter = NumberFormat.getInstance();
 
   private BackupsPreferenceViewModel viewModel;
+  private EventBus.Subscription      backupEventSubscription;
 
   @Override
   public @Nullable View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -123,7 +122,7 @@ public class BackupsPreferenceFragment extends Fragment {
     formatter.setMinimumFractionDigits(1);
     formatter.setMaximumFractionDigits(1);
 
-    EventBus.getDefault().register(this);
+    backupEventSubscription = EventBus.getDefault().subscribe(BackupEvent.class, ThreadMode.MAIN, this::onBackupEvent);
 
     viewModel = new ViewModelProvider(this).get(BackupsPreferenceViewModel.class);
     viewModel.getBackupsEnabled().observe(getViewLifecycleOwner(), enabled -> {
@@ -152,7 +151,7 @@ public class BackupsPreferenceFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    EventBus.getDefault().unregister(this);
+    backupEventSubscription.unsubscribe();
   }
 
   @Override
@@ -177,8 +176,7 @@ public class BackupsPreferenceFragment extends Fragment {
     }
   }
 
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  public void onEvent(BackupEvent event) {
+  private void onBackupEvent(BackupEvent event) {
     if (event.getType() == BackupEvent.Type.PROGRESS || event.getType() == BackupEvent.Type.PROGRESS_VERIFYING) {
       create.setEnabled(false);
       summary.setText(getString(event.getType() == BackupEvent.Type.PROGRESS ? R.string.BackupsPreferenceFragment__in_progress
@@ -243,7 +241,7 @@ public class BackupsPreferenceFragment extends Fragment {
   }
 
   private void setScheduleSummary() {
-    final long interval = TextSecurePreferences.getBackupInternal(requireContext());
+    final long interval = SignalStore.molly().getBackupInterval();
 
     if (interval == TimeUnit.DAYS.toMillis(1)) {
       scheduleSummary.setText(R.string.arrays__daily);
@@ -256,7 +254,7 @@ public class BackupsPreferenceFragment extends Fragment {
   }
 
   private void setMaxFilesSummary() {
-    maxFilesSummary.setText(String.valueOf(TextSecurePreferences.getBackupMaxFiles(requireContext())));
+    maxFilesSummary.setText(String.valueOf(SignalStore.molly().getBackupMaxFiles()));
   }
 
   private void setUpdateState() {
@@ -322,9 +320,9 @@ public class BackupsPreferenceFragment extends Fragment {
         .setTitle(R.string.BackupsPreferenceFragment__change_schedule)
         .setItems(R.array.backup_intervals, (dialog, which) -> {
           if (which == 1) {
-            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(7));
+            SignalStore.molly().setBackupInterval(TimeUnit.DAYS.toMillis(7));
           } else {
-            TextSecurePreferences.setBackupInternal(requireContext(), TimeUnit.DAYS.toMillis(1));
+            SignalStore.molly().setBackupInterval(TimeUnit.DAYS.toMillis(1));
           }
 
           LocalBackupListener.setNextBackupTimeToIntervalFromNow(requireContext());
@@ -340,14 +338,14 @@ public class BackupsPreferenceFragment extends Fragment {
     final NumberPicker picker = view.findViewById(R.id.picker);
     picker.setMinValue(1);
     picker.setMaxValue(10);
-    picker.setValue(TextSecurePreferences.getBackupMaxFiles(requireContext()));
+    picker.setValue(SignalStore.molly().getBackupMaxFiles());
     picker.setWrapSelectorWheel(false);
     new MaterialAlertDialogBuilder(requireContext())
         .setTitle(R.string.BackupsPreferenceFragment__number_of_backups_to_retain)
         .setView(view)
         .setNegativeButton(android.R.string.cancel, null)
         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-          TextSecurePreferences.setBackupMaxFiles(requireContext(), picker.getValue());
+          SignalStore.molly().setBackupMaxFiles(picker.getValue());
           setMaxFilesSummary();
         })
         .create()
@@ -373,7 +371,7 @@ public class BackupsPreferenceFragment extends Fragment {
       int minute = timePickerFragment.getMinute();
       SignalStore.settings().setBackupSchedule(hour, minute);
       updateTimeLabel();
-      TextSecurePreferences.setNextBackupTime(requireContext(), 0);
+      SignalStore.settings().setLocalBackupNextTime(0);
       LocalBackupListener.schedule(requireContext());
     });
     timePickerFragment.show(getChildFragmentManager(), "TIME_PICKER");
@@ -395,7 +393,7 @@ public class BackupsPreferenceFragment extends Fragment {
     final int backupHour   = SignalStore.settings().getBackupHour();
     final int backupMinute = SignalStore.settings().getBackupMinute();
     LocalTime time         = LocalTime.of(backupHour, backupMinute);
-    timeLabel.setText(JavaTimeExtensionsKt.formatHours(time, requireContext()));
+    timeLabel.setText(LocalTimeExtensionsKt.formatHours(time, requireContext()));
   }
 
   private void updateToggle() {

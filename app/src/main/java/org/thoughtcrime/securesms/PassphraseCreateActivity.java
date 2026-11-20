@@ -20,10 +20,13 @@ import android.os.Bundle;
 
 import android.view.View;
 
+import androidx.core.view.WindowInsetsCompat;
+
 import org.signal.core.util.logging.Log;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
+import org.thoughtcrime.securesms.util.SystemWindowInsetsSetter;
 
 /**
  * Activity for creating a user's local encryption passphrase.
@@ -45,6 +48,10 @@ public class PassphraseCreateActivity extends PassphraseActivity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.create_passphrase_activity);
+
+    // BaseActivity makes the window edge-to-edge, so the screen has to clear the system bars itself. The padding is
+    // applied to the scroll view, so the background colour still runs behind the bars.
+    SystemWindowInsetsSetter.attach(findViewById(R.id.create_passphrase_root), this, WindowInsetsCompat.Type.systemBars());
 
     initializeResources();
   }
@@ -76,7 +83,7 @@ public class PassphraseCreateActivity extends PassphraseActivity {
       generateSecrets(MasterSecretUtil.generateMasterSecret(this, MasterSecretUtil.getUnencryptedPassphrase()));
     }
 
-    TextSecurePreferences.setPassphraseLockEnabled(this, enabled);
+    PlainTextKeyValueStore.setPassphraseLockEnabled(enabled);
   }
 
   private void generateSecrets(MasterSecret masterSecret) {

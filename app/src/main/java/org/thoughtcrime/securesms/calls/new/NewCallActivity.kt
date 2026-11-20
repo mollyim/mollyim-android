@@ -10,7 +10,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -35,6 +34,7 @@ import org.signal.core.ui.compose.AllDevicePreviews
 import org.signal.core.ui.compose.Dialogs
 import org.signal.core.ui.compose.DropdownMenus
 import org.signal.core.ui.compose.Previews
+import org.signal.core.ui.compose.Scaffolds
 import org.signal.core.ui.compose.theme.SignalTheme
 import org.thoughtcrime.securesms.PassphraseRequiredActivity
 import org.thoughtcrime.securesms.R
@@ -44,7 +44,6 @@ import org.thoughtcrime.securesms.components.settings.app.AppSettingsActivity
 import org.thoughtcrime.securesms.recipients.ui.RecipientLookupFailureMessage
 import org.thoughtcrime.securesms.recipients.ui.RecipientPicker
 import org.thoughtcrime.securesms.recipients.ui.RecipientPickerCallbacks
-import org.thoughtcrime.securesms.recipients.ui.RecipientPickerScaffold
 import org.thoughtcrime.securesms.recipients.ui.RecipientSelection
 import org.thoughtcrime.securesms.util.CommunicationActions
 
@@ -60,7 +59,6 @@ class NewCallActivity : PassphraseRequiredActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?, ready: Boolean) {
-    enableEdgeToEdge()
     super.onCreate(savedInstanceState, ready)
 
     val navigateBack = onBackPressedDispatcher::onBackPressed
@@ -137,9 +135,8 @@ private fun NewCallScreenUi(
 ) {
   val snackbarHostState = remember { SnackbarHostState() }
 
-  RecipientPickerScaffold(
+  Scaffolds.TitlePane(
     title = stringResource(R.string.NewCallActivity__new_call),
-    forceSplitPane = uiState.forceSplitPane,
     onNavigateUpClick = callbacks::onBackPressed,
     topAppBarActions = { TopAppBarActions(callbacks) },
     snackbarHostState = snackbarHostState,
@@ -247,9 +244,7 @@ private fun UserMessagesHost(
 private fun NewCallScreenPreview() {
   Previews.Preview {
     NewCallScreenUi(
-      uiState = NewCallUiState(
-        forceSplitPane = false
-      ),
+      uiState = NewCallUiState(),
       callbacks = NewCallUiCallbacks.Empty
     )
   }

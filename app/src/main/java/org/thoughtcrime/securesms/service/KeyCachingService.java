@@ -17,6 +17,7 @@
 package org.thoughtcrime.securesms.service;
 
 import android.app.AlarmManager;
+import android.app.ForegroundServiceStartNotAllowedException;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -24,14 +25,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 
-import org.greenrobot.eventbus.EventBus;
 import org.signal.core.util.ServiceUtil;
 import org.signal.core.util.concurrent.SignalExecutors;
+import org.signal.core.util.eventbus.EventBus;
 import org.signal.core.util.logging.Log;
 import org.signal.devicetransfer.TransferStatus;
 import org.thoughtcrime.securesms.BuildConfig;
@@ -40,11 +42,13 @@ import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.dependencies.AppDependencies;
+import org.thoughtcrime.securesms.keyvalue.PlainTextKeyValueStore;
+import org.thoughtcrime.securesms.keyvalue.SignalStore;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
+import org.thoughtcrime.securesms.notifications.NotificationIds;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicTheme;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,8 +61,6 @@ import java.util.concurrent.TimeUnit;
 public class KeyCachingService extends Service {
 
   private static final String TAG = Log.tag(KeyCachingService.class);
-
-  public static final int SERVICE_RUNNING_ID = 4141;
 
   public  static final String KEY_PERMISSION           = BuildConfig.APPLICATION_ID + ".ACCESS_SECRETS";
   public  static final String CLEAR_KEY_EVENT          = BuildConfig.APPLICATION_ID + ".service.action.CLEAR_KEY_EVENT";
@@ -195,9 +197,9 @@ public class KeyCachingService extends Service {
 
   private void startTimeoutIfAppropriate() {
     if (!KeyCachingService.isLocked()
-        && TextSecurePreferences.isPassphraseLockEnabled(this)
-        && TextSecurePreferences.getPassphraseLockTrigger(this).isTimeoutEnabled()) {
-      long lockTimeoutSeconds = TextSecurePreferences.getPassphraseLockTimeout(this);
+        && PlainTextKeyValueStore.getPassphraseLockEnabled()
+        && SignalStore.molly().getPassphraseLockTrigger().isTimeoutEnabled()) {
+      long lockTimeoutSeconds = SignalStore.molly().getPassphraseLockTimeout();
       if (lockTimeoutSeconds > 0) {
         scheduleTimeout(lockTimeoutSeconds);
       } else {
@@ -234,7 +236,7 @@ public class KeyCachingService extends Service {
   }
 
   private void foregroundService() {
-    if (!TextSecurePreferences.isPassphraseLockEnabled(this)) {
+    if (!PlainTextKeyValueStore.getPassphraseLockEnabled()) {
       stopForeground(true);
       return;
     }
@@ -256,7 +258,16 @@ public class KeyCachingService extends Service {
     builder.setContentIntent(buildLaunchIntent());
 
     stopForeground(true);
-    startForeground(SERVICE_RUNNING_ID, builder.build());
+
+    try {
+      startForeground(NotificationIds.KEY_CACHING_SERVICE, builder.build());
+    } catch (Exception e) {
+      if (Build.VERSION.SDK_INT >= 31 && e instanceof ForegroundServiceStartNotAllowedException) {
+        Log.w(TAG, "Not allowed to start foreground service.", e);
+      } else {
+        throw e;
+      }
+    }
   }
 
   private PendingIntent buildLockIntent() {

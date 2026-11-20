@@ -2,7 +2,10 @@ package org.thoughtcrime.securesms.messages
 
 import android.content.Context
 import org.signal.core.models.ServiceId
+import org.signal.core.models.recipients.RecipientId
 import org.signal.core.util.Util
+import org.signal.core.util.groups.GroupChangeBusyException
+import org.signal.core.util.groups.GroupNotAMemberException
 import org.signal.core.util.logging.Log
 import org.signal.core.util.orNull
 import org.signal.core.util.toOptional
@@ -18,10 +21,8 @@ import org.thoughtcrime.securesms.database.model.MessageRecord
 import org.thoughtcrime.securesms.database.model.PendingRetryReceiptModel
 import org.thoughtcrime.securesms.dependencies.AppDependencies
 import org.thoughtcrime.securesms.groups.BadGroupIdException
-import org.thoughtcrime.securesms.groups.GroupChangeBusyException
 import org.thoughtcrime.securesms.groups.GroupId
 import org.thoughtcrime.securesms.groups.GroupManager
-import org.thoughtcrime.securesms.groups.GroupNotAMemberException
 import org.thoughtcrime.securesms.groups.v2.processing.GroupUpdateResult
 import org.thoughtcrime.securesms.groups.v2.processing.GroupUpdateResult.UpdateStatus
 import org.thoughtcrime.securesms.jobs.AutomaticSessionResetJob
@@ -35,6 +36,7 @@ import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasGroupContex
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasSignedGroupChange
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.hasStarted
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isExpirationUpdate
+import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isGroupV2Update
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isMediaMessage
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.isValid
 import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.signedGroupChange
@@ -42,13 +44,11 @@ import org.thoughtcrime.securesms.messages.SignalServiceProtoUtil.toDecryptionEr
 import org.thoughtcrime.securesms.mms.IncomingMessage
 import org.thoughtcrime.securesms.notifications.v2.ConversationId
 import org.thoughtcrime.securesms.recipients.Recipient
-import org.thoughtcrime.securesms.recipients.RecipientId
 import org.thoughtcrime.securesms.recipients.RecipientUtil
 import org.thoughtcrime.securesms.util.EarlyMessageCacheEntry
 import org.thoughtcrime.securesms.util.RemoteConfig
 import org.thoughtcrime.securesms.util.SignalLocalMetrics
 import org.thoughtcrime.securesms.util.SignalTrace
-import org.thoughtcrime.securesms.util.TextSecurePreferences
 import org.whispersystems.signalservice.api.crypto.EnvelopeMetadata
 import org.whispersystems.signalservice.api.push.DistributionId
 import org.whispersystems.signalservice.api.push.SignalServiceAddress
@@ -199,7 +199,7 @@ open class MessageContentProcessor(private val context: Context) {
         val isTextMessage = message.body != null
         val isMediaMessage = message.isMediaMessage
         val isExpireMessage = message.isExpirationUpdate
-        val isGv2Update = message.hasSignedGroupChange
+        val isGv2Update = message.isGroupV2Update
         val isContentMessage = !isGv2Update && !isExpireMessage && (isTextMessage || isMediaMessage)
         val isGroupActive = threadRecipient.isActiveGroup
 
@@ -213,7 +213,7 @@ open class MessageContentProcessor(private val context: Context) {
       senderRecipient.isBlocked || when {
         senderRecipient.isSystemContact -> false
         senderRecipient.isProfileSharing -> false
-        !TextSecurePreferences.isBlockUnknownEnabled(AppDependencies.application) -> false
+        !SignalStore.molly.blockUnknownEnabled -> false
         RecipientUtil.isProfileSharedViaGroup(senderRecipient) -> false
         else -> true
       }
@@ -258,10 +258,11 @@ open class MessageContentProcessor(private val context: Context) {
       senderRecipient: Recipient,
       groupSecretParams: GroupSecretParams? = null,
       serverGuid: String? = null,
-      batchCache: BatchCache? = null
+      batchCache: BatchCache? = null,
+      receivedTime: Long? = null
     ): Gv2PreProcessResult {
       val preUpdateGroupRecord = batchCache?.groupRecordCache[groupId] ?: SignalDatabase.groups.getGroup(groupId)
-      val groupUpdateResult = updateGv2GroupFromServerOrP2PChange(context, timestamp, groupV2, preUpdateGroupRecord, groupSecretParams, serverGuid)
+      val groupUpdateResult = updateGv2GroupFromServerOrP2PChange(context, timestamp, groupV2, preUpdateGroupRecord, groupSecretParams, serverGuid, receivedTime)
       if (groupUpdateResult == null) {
         log(timestamp, "Ignoring GV2 message for group we are not currently in $groupId")
         return Gv2PreProcessResult.IGNORE
@@ -314,13 +315,14 @@ open class MessageContentProcessor(private val context: Context) {
       groupV2: GroupContextV2,
       localRecord: Optional<GroupRecord>,
       groupSecretParams: GroupSecretParams? = null,
-      serverGuid: String? = null
+      serverGuid: String? = null,
+      receivedTime: Long? = null
     ): GroupUpdateResult? {
       return try {
         val signedGroupChange: ByteArray? = if (groupV2.hasSignedGroupChange) groupV2.signedGroupChange else null
         val updatedTimestamp = if (signedGroupChange != null) timestamp else timestamp + 1
         if (groupV2.revision != null) {
-          GroupManager.updateGroupFromServer(context, groupV2.groupMasterKey, localRecord, groupSecretParams, groupV2.revision!!, updatedTimestamp, signedGroupChange, serverGuid)
+          GroupManager.updateGroupFromServer(context, groupV2.groupMasterKey, localRecord, groupSecretParams, groupV2.revision!!, updatedTimestamp, signedGroupChange, serverGuid, receivedTime)
         } else {
           warn(timestamp, "Ignore group update message without a revision")
           null
@@ -380,7 +382,6 @@ open class MessageContentProcessor(private val context: Context) {
     val earlyCacheEntries: List<EarlyMessageCacheEntry>? = AppDependencies
       .earlyMessageCache
       .retrieve(senderRecipient.id, envelope.clientTimestamp!!)
-      .orNull()
 
     if (!processingEarlyContent && earlyCacheEntries != null) {
       log(envelope.clientTimestamp!!, "Found " + earlyCacheEntries.size + " dependent item(s) that were retrieved earlier. Processing.")
@@ -394,7 +395,7 @@ open class MessageContentProcessor(private val context: Context) {
   fun processException(messageState: MessageState, exceptionMetadata: ExceptionMetadata, timestamp: Long) {
     val sender = Recipient.external(exceptionMetadata.sender)
 
-    if (sender == null) {
+    if (sender == null || sender.isUnknown) {
       warn("Failed to create Recipient for identifier: $messageState")
       return
     }
@@ -507,7 +508,8 @@ open class MessageContentProcessor(private val context: Context) {
           envelope,
           content,
           metadata,
-          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp)
+          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp),
+          batchCache
         )
       }
 
@@ -526,7 +528,6 @@ open class MessageContentProcessor(private val context: Context) {
 
       content.receiptMessage != null -> {
         ReceiptMessageProcessor.process(
-          context,
           senderRecipient,
           envelope,
           content,
@@ -562,7 +563,8 @@ open class MessageContentProcessor(private val context: Context) {
           envelope,
           content,
           metadata,
-          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp)
+          if (processingEarlyContent) null else EarlyMessageCacheEntry(envelope, content, metadata, serverDeliveredTimestamp),
+          batchCache
         )
       }
 
@@ -588,7 +590,7 @@ open class MessageContentProcessor(private val context: Context) {
     typingMessage: TypingMessage,
     senderRecipient: Recipient
   ) {
-    if (!TextSecurePreferences.isTypingIndicatorsEnabled(context)) {
+    if (!SignalStore.settings.isTypingIndicatorsEnabled) {
       return
     }
 
@@ -750,7 +752,7 @@ open class MessageContentProcessor(private val context: Context) {
       )
     } else if (archivedSession) {
       warn(envelope.clientTimestamp!!, "[RetryReceipt-I] Could not find an entry in the MSL, but we archived the session, so we're sending a null message to complete the reset.")
-      AppDependencies.jobManager.add(NullMessageSendJob(requester.id))
+      AppDependencies.jobManager.add(NullMessageSendJob.forRetryReceipt(requester.id))
     } else {
       warn(envelope.clientTimestamp!!, "[RetryReceipt-I] Could not find an entry in the MSL. Skipping.")
     }
