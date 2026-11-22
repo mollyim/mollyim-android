@@ -260,7 +260,7 @@ public class LinkPreviewRepository {
                 mediaConfig.getImageQualitySetting()
             );
 
-            if (result != null) {
+            if (result != null && SignalStore.misc().getSendLinkPreviewImages()) { // JW: only send preview images if the option is active
               thumbnail = Optional.of(bytesToAttachment(result.getData(), result.getWidth(), result.getHeight(), result.getMimeType()));
               break;
             }

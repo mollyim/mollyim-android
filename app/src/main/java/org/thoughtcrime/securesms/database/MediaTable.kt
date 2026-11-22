@@ -105,11 +105,20 @@ class MediaTable internal constructor(context: Context?, databaseHelper: SignalD
       """
 
     /** Image and video attachments, excluding SVGs and link previews, that have local data or can be fetched. */
+    /*
     private const val GALLERY_MEDIA_CONDITIONS = """
         (${AttachmentTable.DATA_FILE} IS NOT NULL OR (${AttachmentTable.CONTENT_TYPE} LIKE 'video/%' AND ${AttachmentTable.REMOTE_INCREMENTAL_DIGEST} IS NOT NULL) OR ${AttachmentTable.THUMBNAIL_FILE} IS NOT NULL OR ${AttachmentTable.TRANSFER_STATE} = ${AttachmentTable.TRANSFER_RESTORE_OFFLOADED}) AND
         ${AttachmentTable.CONTENT_TYPE} NOT LIKE 'image/svg%' AND
         (${AttachmentTable.CONTENT_TYPE} LIKE 'image/%' OR ${AttachmentTable.CONTENT_TYPE} LIKE 'video/%') AND
         ${MessageTable.LINK_PREVIEWS} IS NULL
+      """
+    */
+
+    // JW: don't remove link preview media from the list, we want to be able to selectively delete it.
+    private const val GALLERY_MEDIA_CONDITIONS = """
+        (${AttachmentTable.DATA_FILE} IS NOT NULL OR (${AttachmentTable.CONTENT_TYPE} LIKE 'video/%' AND ${AttachmentTable.REMOTE_INCREMENTAL_DIGEST} IS NOT NULL) OR ${AttachmentTable.THUMBNAIL_FILE} IS NOT NULL OR ${AttachmentTable.TRANSFER_STATE} = ${AttachmentTable.TRANSFER_RESTORE_OFFLOADED}) AND
+        ${AttachmentTable.CONTENT_TYPE} NOT LIKE 'image/svg%' AND
+        (${AttachmentTable.CONTENT_TYPE} LIKE 'image/%' OR ${AttachmentTable.CONTENT_TYPE} LIKE 'video/%')
       """
   }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <string-array name="pref_group_add_entries">
+    <item>@string/preferences__group_anyone</item>
+    <item>@string/preferences__group_non_blocked</item>
+    <item>@string/preferences__group_only_contats</item>
+    <item>@string/preferences__group_only_systemcontats</item>
+    <item>@string/preferences__group_nobody</item>
+  </string-array>
+
+  <string-array name="pref_group_add_values" translatable="false">
+    <item>anyone</item>
+    <item>nonblocked</item>
+    <item>onlycontacts</item>
+    <item>onlysystemcontacts</item>
+    <item>nobody</item>
+  </string-array>
+</resources>

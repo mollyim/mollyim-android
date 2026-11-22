@@ -23,6 +23,50 @@ object ChatsSettingsRepository {
 
   private val shortcutRefreshDebouncer by lazy { ThrottledDebouncer(500L) }
 
+  // JW: added
+  fun isKeepViewOnceMessages(): Boolean = SignalStore.misc.keepViewOnceMessages
+
+  fun setKeepViewOnceMessages(enabled: Boolean) {
+    SignalStore.misc.keepViewOnceMessages = enabled
+  }
+
+  fun isIgnoreRemoteDelete(): Boolean = SignalStore.misc.ignoreRemoteDelete
+
+  fun setIgnoreRemoteDelete(enabled: Boolean) {
+    SignalStore.misc.ignoreRemoteDelete = enabled
+  }
+
+  fun isIgnoreAdminDelete(): Boolean = SignalStore.misc.ignoreAdminDelete
+
+  fun setIgnoreAdminDelete(enabled: Boolean) {
+    SignalStore.misc.ignoreAdminDelete = enabled
+  }
+
+  fun isDeleteMediaOnly(): Boolean = SignalStore.misc.deleteMediaOnly
+
+  fun setDeleteMediaOnly(enabled: Boolean) {
+    SignalStore.misc.deleteMediaOnly = enabled
+  }
+/* commented out, for now
+  fun isGoogleMapType(): String = SignalStore.misc.googleMapType
+
+  fun setGoogleMapType(maptype: String) {
+    SignalStore.misc.googleMapType = maptype
+  }
+*/
+  fun isWhoCanAddYouToGroups(): String = SignalStore.misc.whoCanAddYouToGroups
+
+  fun setWhoCanAddYouToGroups(adder: String) {
+    SignalStore.misc.whoCanAddYouToGroups = adder
+  }
+
+  fun isGenerateLinkPreviewImages(): Boolean = SignalStore.misc.sendLinkPreviewImages
+
+  fun setGenerateLinkPreviewImages(enabled: Boolean) {
+    SignalStore.misc.sendLinkPreviewImages = enabled
+  }
+  // JW: end
+
   fun isLinkPreviewsEnabled(): Boolean = SignalStore.settings.isLinkPreviewsEnabled
 
   fun setLinkPreviewsEnabled(enabled: Boolean) {

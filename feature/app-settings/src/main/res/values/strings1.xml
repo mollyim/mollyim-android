@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- arrays.xml -->
+  <string name="arrays__import_export_orig">Import / export</string>
+  <string name="arrays__enabled">Enabled</string>
+  <string name="arrays__disabled">Disabled</string>
+  <!-- preferences.xml -->
+  <string name="preferences_storage__none">None</string>
+  <string name="preferences_chats__google_map_type">Location</string>
+  <string name="preferences__map_type">Map type</string>
+  <string name="preferences__map_normal">Normal</string>
+  <string name="preferences__map_hybrid">Hybrid</string>
+  <string name="preferences__map_satellite">Satellite</string>
+  <string name="preferences__map_terrain">Terrain</string>
+  <string name="preferences__map_none">None</string>
+  <string name="preferences__group_anyone">Anyone</string>
+  <string name="preferences__group_non_blocked">All non-blocked persons</string>
+  <string name="preferences__group_only_contats">Only contacts</string>
+  <string name="preferences__group_only_systemcontats">Only non-blocked system contacts</string>
+  <string name="preferences__group_nobody">Nobody</string>
+  <!-- Link preview images -->
+  <string name="preferences_chats__send_link_preview_images">Send link preview images</string>
+  <string name="preferences_chats__send_link_preview_images_summary">When checked link preview images will be sent with link previews</string>
+  <!-- Keep messages -->
+  <string name="preferences_chats__control_message_deletion">Control message deletion</string>
+  <string name="preferences_chats__chat_keep_view_once_messages">Keep view-once media</string>
+  <string name="preferences_chats__keep_view_once_messages_summary">When checked incoming view-once media will be treated as normal view-always media and will not be deleted after view</string>
+  <string name="preferences_chats__chat_ignore_remote_delete">Ignore remote delete</string>
+  <string name="preferences_chats__chat_ignore_remote_delete_summary">When checked, this option prevents the remote deletion of messages by the sender</string>
+  <string name="preferences_chats__chat_ignore_admin_delete">Ignore admin delete</string>
+  <string name="preferences_chats__chat_ignore_admin_delete_summary">When checked, this option prevents the deletion of group messages by a group admin on your device</string>
+  <string name="preferences_chats__delete_media_only">Delete media only</string>
+  <string name="preferences_chats__delete_media_only_summary">Delete only media, not the message itself, when media is deleted in the All media screen</string>
+  <!-- group control -->
+  <string name="preferences_chats__group_control">Group control</string>
+  <string name="preferences_chats__who_can_add_you_to_groups">Who can add you to groups</string>
+</resources>
