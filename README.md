@@ -35,10 +35,23 @@ You can also get **Molly-FOSS** from [Accrescent](https://accrescent.app/):
 </a>
 
 To [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK, use the following signing certificate fingerprints:
+
+<details open>
+    <summary>SHA-256</summary>
+    
 ```
-SHA-256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
-SHA-1: 49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
+6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
 ```
+
+</details>
+<details>
+    <summary>SHA-1</summary>
+
+```
+49ce310cdd0c09c8c34eb31a8005c6bf13f5a4f1
+```
+    
+</details>
 
 ## Features
 
