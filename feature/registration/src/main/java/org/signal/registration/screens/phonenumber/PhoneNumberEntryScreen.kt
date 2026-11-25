@@ -407,7 +407,9 @@ private fun NextButton(
   state: PhoneNumberEntryState,
   onEvent: (PhoneNumberEntryScreenEvents) -> Unit
 ) {
-  val arrangement = if (state.isPhoneNumberlessRegistrationAvailable) {
+  // MOLLY: show the numberless login, but not the registration one
+  val showNumberlessAccountButton = state.isPhoneNumberlessRegistrationAvailable && state.sawArchiveRestoreSelectionScreen
+  val arrangement = if (showNumberlessAccountButton) {
     Arrangement.SpaceBetween
   } else {
     Arrangement.End
@@ -420,7 +422,7 @@ private fun NextButton(
     horizontalArrangement = arrangement,
     verticalAlignment = Alignment.CenterVertically
   ) {
-    if (state.isPhoneNumberlessRegistrationAvailable) {
+    if (showNumberlessAccountButton) {
       TextButton(
         onClick = { onEvent(PhoneNumberEntryScreenEvents.RegisterWithoutNumber) },
         enabled = !state.showSpinner,
