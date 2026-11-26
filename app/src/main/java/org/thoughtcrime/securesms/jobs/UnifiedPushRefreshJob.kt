@@ -7,6 +7,7 @@ import im.molly.unifiedpush.model.LinkStatus
 import im.molly.unifiedpush.model.MollySocketDevice
 import im.molly.unifiedpush.model.RegistrationStatus
 import im.molly.unifiedpush.model.toRegistrationStatus
+import kotlinx.coroutines.runBlocking
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.signal.core.util.eventbus.EventBus
 import org.signal.core.util.logging.Log
@@ -74,7 +75,7 @@ class UnifiedPushRefreshJob private constructor(
     try {
       validateMollySocketDevice()
 
-      val newStatus = checkRegistrationStatus()
+      val newStatus = runBlocking { checkRegistrationStatus() }
       if (currentStatus == newStatus) {
         Log.d(TAG, "Registration status unchanged.")
       } else {
@@ -108,7 +109,7 @@ class UnifiedPushRefreshJob private constructor(
   }
 
   @Throws(IOException::class)
-  private fun checkRegistrationStatus(): RegistrationStatus {
+  private suspend fun checkRegistrationStatus(): RegistrationStatus {
     val endpoint = SignalStore.unifiedpush.endpoint
     val airGapped = SignalStore.unifiedpush.airGapped
     val mollySocketUrl = SignalStore.unifiedpush.mollySocketUrl?.toHttpUrlOrNull()
