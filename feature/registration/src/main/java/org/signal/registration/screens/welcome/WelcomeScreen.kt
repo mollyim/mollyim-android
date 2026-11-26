@@ -439,6 +439,20 @@ private fun PrimaryDeviceCallToActionButtons(
     ) {
       Text(stringResource(R.string.registration_activity__restore_or_transfer))
     }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    Buttons.LargeTonal(
+      onClick = { onEvent(WelcomeScreenEvents.LinkDevice) },
+      colors = ButtonDefaults.filledTonalButtonColors(
+        containerColor = SignalTheme.colors.colorSurface2
+      ),
+      modifier = Modifier
+        .fillMaxWidth()
+        .testTag(TestTags.WELCOME_LINK_DEVICE_BUTTON)
+    ) {
+      Text(stringResource(R.string.WelcomeScreen__link_your_account))
+    }
   }
 }
 

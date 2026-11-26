@@ -78,11 +78,7 @@ class WelcomeScreenViewModel(
       }
       WelcomeScreenEvents.LinkDevice -> {
         enableNetwork()
-        if (getRequiredLinkedDevicePermission().isNullOrBlank()) {
-          parentEventEmitter.navigateTo(RegistrationRoute.LinkAccount())
-        } else {
-          parentEventEmitter.navigateTo(RegistrationRoute.AllowNotifications(RegistrationRoute.LinkAccount()))
-        }
+        navigateRequestingPermissions(RegistrationRoute.LinkAccount(), parentEventEmitter)
       }
       WelcomeScreenEvents.ViewTermsAndPrivacy -> _actions.trySend(WelcomeScreenActions.ViewTermsAndPrivacy)
       WelcomeScreenEvents.ViewProxySettings -> _actions.trySend(WelcomeScreenActions.ViewProxySettings)
