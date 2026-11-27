@@ -18,15 +18,11 @@ We update Molly every two weeks to include the latest Signal features and fixes.
 
 ## Download
 
-You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page or install it from the [Molly F-Droid Repo](https://molly.im/fdroid/):
+You can download the app from GitHub's [Releases](https://github.com/mollyim/mollyim-android/releases/latest) page, install it from the [Molly F-Droid Repo](https://molly.im/fdroid/) or from [Accrescent](https://accrescent.app/app/im.molly.app):
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
     height="80">](https://molly.im/fdroid/)
-
-There are two versions available: **Molly** or **Molly-FOSS**. Learn the differences [below](#free-and-open-source) and download the right one for you.
-
-You can also get **Molly-FOSS** from [Accrescent](https://accrescent.app/):
 
 <a href="https://accrescent.app/app/im.molly.app">
    <img alt="Get it on Accrescent"
@@ -47,10 +43,8 @@ Molly has unique features compared to Signal:
 - **Data encryption at rest** - Protect your app database with [passphrase encryption](https://github.com/mollyim/mollyim-android/wiki/Data-Encryption-At-Rest)
 - **Secure RAM wiper** - Securely shred sensitive data from device memory
 - **Automatic lock** - Lock the app automatically under user-defined conditions
-- **Multi-device support** - Link multiple devices to a single Signal account, including Android tablets
 - **UnifiedPush** - Receive push notifications without Google through the UnifiedPush protocol
 - **Block unknown contacts** - Block messages and calls from unknown senders for security and anti-spam
-- **Disappearing call history** - Clear call logs together with expiring messages
 - **Custom backup scheduling** - Set daily or weekly interval and the number of backups to retain
 - **SOCKS proxy and Tor support** - Tunnel app network traffic via proxy and Orbot
 - **Debug logs are optional** - Android logging can be disabled
@@ -61,16 +55,18 @@ Additionally, you will find all the features of Signal, along with some minor tw
 
 Molly is open-source just like Signal. But Signal depends on proprietary Google software for some features.
 
-To support a 100% free and auditable app, Molly comes in two versions: one with proprietary blobs like Signal, and one without. They are called Molly and Molly-FOSS, respectively. You can install the flavor of your choice at any time, and it will replace any previously installed version. The data and settings will be preserved so that you do not have to re-register.
+To support a 100% free and auditable app, Molly comes without any proprietary blobs.
+
+There used to be 2 different versions of the app, with and without proprietary bits. The 2 versions merged into a single 100% free version after the proprietary blobs were replaced by an open-source implementation.
 
 ### Feature Comparison
 
 Here's how some key features work in different versions of the app:
 
-| Feature                           | Molly-FOSS       | Molly                | Signal               |
-| --------------------------------- | ---------------- | -------------------- | -------------------- |
-| Push notifications <sup>(1)</sup> | ✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket |
-| Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        | ⚠ Google Maps        |
+| Feature                           | Molly                | Signal               |
+| --------------------------------- | -------------------- | -------------------- |
+| Push notifications <sup>(1)</sup> | ✔ [Open-Source](https://github.com/mollyim/mollyim-android/issues/637) FCM implementation ✔ WebSocket<br>✔ UnifiedPush | ⚠ FCM<br>✔ WebSocket |
+| Location sharing                 | ✔ OpenStreetMap  | ⚠ Google Maps        |
 
 <sup>(1)</sup> You might need to turn off system-level battery restrictions for the app to receive messages when the app isn't open.
 
@@ -105,7 +101,7 @@ Backups are fully compatible. Signal [backups](https://support.signal.org/hc/en-
 
 Molly supports reproducible builds, so that anyone can run the build process to reproduce the same APK as the original release.
 
-Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/master/reproducible-builds) directory.
+Please check the guide in the [reproducible-builds](https://github.com/mollyim/mollyim-android/blob/main/reproducible-builds/README.md) directory.
 
 ## Changelog
 
