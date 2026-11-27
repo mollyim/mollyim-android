@@ -13,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringArrayResource // JW: added
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewWrapper
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -91,6 +92,17 @@ fun ChatsSettingsScreen(
           enabled = state.isRegisteredAndUpToDate(),
           checked = state.generateLinkPreviews,
           onCheckChanged = { onEvent(ChatsSettingsEvents.GenerateLinkPreviewsChanged(it)) }
+        )
+      }
+
+      // JW: added
+      item {
+        Rows.ToggleRow(
+          text = stringResource(R.string.preferences_chats__send_link_preview_images),
+          label = stringResource(R.string.preferences_chats__send_link_preview_images_summary),
+          enabled = state.isRegisteredAndUpToDate(),
+          checked = state.generateLinkPreviewImages,
+          onCheckChanged = { onEvent(ChatsSettingsEvents.SetGenerateLinkPreviewImages(it)) }
         )
       }
 
@@ -217,6 +229,89 @@ fun ChatsSettingsScreen(
           onCheckChanged = { onEvent(ChatsSettingsEvents.EnterKeySendsChanged(it)) }
         )
       }
+
+      // JW: added ------------------------------------------------------------
+      item {
+        Dividers.Default()
+      }
+
+      item {
+        Texts.SectionHeader(stringResource(R.string.preferences_chats__control_message_deletion))
+      }
+
+      item {
+        Rows.ToggleRow(
+          text = stringResource(R.string.preferences_chats__chat_keep_view_once_messages),
+          label = stringResource(R.string.preferences_chats__keep_view_once_messages_summary),
+          checked = state.keepViewOnceMessages,
+          onCheckChanged = { onEvent(ChatsSettingsEvents.SetKeepViewOnceMessages(it)) }
+        )
+      }
+
+      item {
+        Rows.ToggleRow(
+          text = stringResource(R.string.preferences_chats__chat_ignore_remote_delete),
+          label = stringResource(R.string.preferences_chats__chat_ignore_remote_delete_summary),
+          checked = state.ignoreRemoteDelete,
+          onCheckChanged = { onEvent(ChatsSettingsEvents.SetIgnoreRemoteDelete(it)) }
+        )
+      }
+
+      item {
+        Rows.ToggleRow(
+          text = stringResource(R.string.preferences_chats__chat_ignore_admin_delete),
+          label = stringResource(R.string.preferences_chats__chat_ignore_admin_delete_summary),
+          checked = state.ignoreAdminDelete,
+          onCheckChanged = { onEvent(ChatsSettingsEvents.SetIgnoreAdminDelete(it)) }
+        )
+      }
+
+      item {
+        Rows.ToggleRow(
+          text = stringResource(R.string.preferences_chats__delete_media_only),
+          label = stringResource(R.string.preferences_chats__delete_media_only_summary),
+          checked = state.deleteMediaOnly,
+          onCheckChanged = { onEvent(ChatsSettingsEvents.SetDeleteMediaOnly(it)) }
+        )
+      }
+
+      item {
+        Dividers.Default()
+      }
+
+      item {
+        Texts.SectionHeader(stringResource(R.string.preferences_chats__group_control))
+      }
+
+      item {
+        Rows.RadioListRow(
+          text = stringResource(R.string.preferences_chats__who_can_add_you_to_groups),
+          labels = stringArrayResource(R.array.pref_group_add_entries),
+          values = stringArrayResource(R.array.pref_group_add_values),
+          selectedValue = state.whoCanAddYouToGroups,
+          onSelected = { onEvent(ChatsSettingsEvents.SetWhoCanAddYouToGroups(it)) }
+        )
+      }
+
+      item {
+        Dividers.Default()
+      }
+/*
+      item {
+        Texts.SectionHeader(stringResource(R.string.preferences_chats__google_map_type))
+      }
+
+      item {
+        Rows.RadioListRow(
+          text = stringResource(R.string.preferences__map_type),
+          labels = stringArrayResource(R.array.pref_map_type_entries),
+          values = stringArrayResource(R.array.pref_map_type_values),
+          selectedValue = state.googleMapType,
+          onSelected = { onEvent(ChatsSettingsEvents.SetGoogleMapType(it)) }
+        )
+      }
+*/
+     // JW: end
     }
   }
 
@@ -250,4 +345,13 @@ internal val chatsSettingsPreviewState = ChatsSettingsState(
   clientDeprecated = false,
   isPlaintextExportEnabled = true,
   plaintextExportProgress = BackupCreationProgress.Idle
+  // JW: added
+  ,
+  keepViewOnceMessages = false,
+  ignoreRemoteDelete = false,
+  ignoreAdminDelete = false,
+  deleteMediaOnly = false,
+  //googleMapType = "normal",
+  whoCanAddYouToGroups = "nonblocked",
+  generateLinkPreviewImages = true
 )

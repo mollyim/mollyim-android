@@ -95,16 +95,26 @@ object AttachmentUtil {
     val attachmentId = attachment.attachmentId
     val mmsId = attachment.mmsId
     val attachmentCount = attachments.getAttachmentsForMessage(mmsId).size
+    var deletedMessageRecord: MessageRecord? = null // JW
 
     if (attachmentCount <= 1) {
-      val deletedMessageRecord = messages.getMessageRecordOrNull(mmsId)
-      messages.deleteMessage(mmsId)
-      return deletedMessageRecord
+      // JW: changed
+      deletedMessageRecord = messages.getMessageRecordOrNull(mmsId)
+
+      if (!SignalStore.misc.deleteMediaOnly) {
+        messages.deleteMessage(mmsId)
+        return deletedMessageRecord
+      } else {
+        messages.deleteAttachmentsOnly(mmsId)
+        deletedMessageRecord = null // JW: don't propagate this delete to linked devices here
+        return null
+      }
+    } else {
+      attachments.deleteAttachment(attachmentId)
+      enqueueAttachmentDelete(messages.getMessageRecordOrNull(mmsId), attachment)
     }
 
-    attachments.deleteAttachment(attachmentId)
-    enqueueAttachmentDelete(messages.getMessageRecordOrNull(mmsId), attachment)
-    return null
+    return deletedMessageRecord
   }
 
   /**
@@ -128,11 +138,17 @@ object AttachmentUtil {
 
         // If it's the only attachment, just delete the message
         if (attachmentCount <= 1) {
-          val deletedMessageRecord = messages.getMessageRecordOrNull(mmsId)
-          if (deletedMessageRecord != null) {
-            messages.deleteMessage(mmsId, deletedMessageRecord.threadId, notify = false, updateThread = false)
-            touchedThreadIds += deletedMessageRecord.threadId
-            deletedMessageRecords += deletedMessageRecord
+          var deletedMessageRecord = messages.getMessageRecordOrNull(mmsId)
+          // JW: changed
+          if (!SignalStore.misc.deleteMediaOnly) {        
+            if (deletedMessageRecord != null) {
+              messages.deleteMessage(mmsId, deletedMessageRecord.threadId, notify = false, updateThread = false)
+              touchedThreadIds += deletedMessageRecord.threadId
+              deletedMessageRecords += deletedMessageRecord
+            }
+          } else {
+            messages.deleteAttachmentsOnly(mmsId)
+            deletedMessageRecord = null // JW: only delete it locally, don't propagate this delete to linked devices here
           }
         } else {
           attachments.deleteAttachment(attachment.attachmentId)

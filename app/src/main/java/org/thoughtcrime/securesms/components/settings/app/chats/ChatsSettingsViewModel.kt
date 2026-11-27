@@ -48,6 +48,15 @@ class ChatsSettingsViewModel(
       plaintextExportProgress = ChatsSettingsRepository.observePlaintextExportProgress().value.toBackupCreationProgress(),
       chatExportState = ChatExportState.None,
       shouldAutoplayStickersAndGifs = ChatsSettingsRepository.isAutoplayStickersAndGifsEnabled()
+      // JW
+      ,
+      keepViewOnceMessages = ChatsSettingsRepository.isKeepViewOnceMessages(),
+      ignoreRemoteDelete = ChatsSettingsRepository.isIgnoreRemoteDelete(),
+      ignoreAdminDelete = ChatsSettingsRepository.isIgnoreAdminDelete(),
+      deleteMediaOnly = ChatsSettingsRepository.isDeleteMediaOnly(),
+      //googleMapType = ChatsSettingsRepository.isGoogleMapType(),
+      whoCanAddYouToGroups = ChatsSettingsRepository.isWhoCanAddYouToGroups(),
+      generateLinkPreviewImages = ChatsSettingsRepository.isGenerateLinkPreviewImages()
     )
   )
 
@@ -77,6 +86,15 @@ class ChatsSettingsViewModel(
       is ChatsSettingsEvents.AutoplayStickersAndGifsChanged -> setAutoplayStickersAndGifsEnabled(event.enabled)
       ChatsSettingsEvents.NavigateBackClicked -> parentEventEmitter.navigateBack()
       ChatsSettingsEvents.ChatFoldersClicked -> parentEventEmitter.navigateTo(AppSettingsRoute.ChatFoldersRoute.ChatFolders)
+      // JW: added
+      is ChatsSettingsEvents.SetKeepViewOnceMessages -> setKeepViewOnceMessages(event.enabled)
+      is ChatsSettingsEvents.SetIgnoreRemoteDelete -> setIgnoreRemoteDelete(event.enabled)
+      is ChatsSettingsEvents.SetIgnoreAdminDelete -> setIgnoreAdminDelete(event.enabled)
+      is ChatsSettingsEvents.SetDeleteMediaOnly -> setDeleteMediaOnly(event.enabled)
+      //is ChatsSettingsEvents.SetGoogleMapType -> setGoogleMapType(event.maptype)
+      is ChatsSettingsEvents.SetWhoCanAddYouToGroups -> setWhoCanAddYouToGroups(event.adder)
+      is ChatsSettingsEvents.SetGenerateLinkPreviewImages -> setGenerateLinkPreviewImages(event.enabled)
+      // JW end
     }
   }
 
@@ -140,4 +158,41 @@ class ChatsSettingsViewModel(
 
     _state.update { it.copy(folderCount = count, localBackupsEnabled = backupsEnabled) }
   }
+
+  // JW: added
+  private fun setKeepViewOnceMessages(enabled: Boolean) {
+    _state.update { it.copy(keepViewOnceMessages = enabled) }
+    ChatsSettingsRepository.setKeepViewOnceMessages(enabled)
+  }
+
+  private fun setIgnoreRemoteDelete(enabled: Boolean) {
+    _state.update { it.copy(ignoreRemoteDelete = enabled) }
+    ChatsSettingsRepository.setIgnoreRemoteDelete(enabled)
+  }
+
+  private fun setIgnoreAdminDelete(enabled: Boolean) {
+    _state.update { it.copy(ignoreAdminDelete = enabled) }
+    ChatsSettingsRepository.setIgnoreAdminDelete(enabled)
+  }
+
+  private fun setDeleteMediaOnly(enabled: Boolean) {
+    _state.update { it.copy(deleteMediaOnly = enabled) }
+    ChatsSettingsRepository.setDeleteMediaOnly(enabled)
+  }
+/*
+  private fun setGoogleMapType(maptype: String) {
+    _state.update { it.copy(googleMapType = maptype) }
+    ChatsSettingsRepository.setGoogleMapType(maptype)
+  }
+*/
+  private fun setWhoCanAddYouToGroups(adder: String) {
+    _state.update { it.copy(whoCanAddYouToGroups = adder) }
+    ChatsSettingsRepository.setWhoCanAddYouToGroups(adder)
+  }
+
+  private fun setGenerateLinkPreviewImages(enabled: Boolean) {
+    _state.update { it.copy(generateLinkPreviewImages = enabled) }
+    ChatsSettingsRepository.setGenerateLinkPreviewImages(enabled)
+  }
+  // JW: end
 }

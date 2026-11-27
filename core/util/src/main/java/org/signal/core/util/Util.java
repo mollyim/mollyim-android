@@ -326,20 +326,8 @@ public class Util {
    *         Takes into account both the build age as well as any remote deprecation values.
    */
   public static long getTimeUntilBuildExpiry(long currentTime) {
-    if (CoreUtilDependencies.INSTANCE.isClientDeprecated()) {
-      return 0;
-    }
-
-    long buildAge                   = currentTime - CoreUtilDependencies.INSTANCE.getBuildInfo().buildTimestampOrDefault(currentTime);
-    long timeUntilBuildDeprecation  = BUILD_LIFESPAN - buildAge;
-    long timeUntilRemoteDeprecation = CoreUtilDependencies.INSTANCE.getTimeUntilRemoteDeprecation(currentTime);
-
-    if (timeUntilRemoteDeprecation != -1) {
-      long timeUntilDeprecation = Math.min(timeUntilBuildDeprecation, timeUntilRemoteDeprecation);
-      return Math.max(timeUntilDeprecation, 0);
-    } else {
-      return Math.max(timeUntilBuildDeprecation, 0);
-    }
+    // JW never expire builds. This is an ugly hack but it prevents me from making changes all over the code with each new release.
+    return Integer.MAX_VALUE;
   }
 
   public static <T> T getRandomElement(List<T> elements) {

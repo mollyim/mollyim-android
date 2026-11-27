@@ -22,6 +22,15 @@ data class ChatsSettingsState(
   val chatExportState: ChatExportState = ChatExportState.None,
   val includeMediaInExport: Boolean = false,
   val shouldAutoplayStickersAndGifs: Boolean = false
+  // JW: added extra preferences
+  ,
+  val keepViewOnceMessages: Boolean = false,
+  val ignoreRemoteDelete: Boolean = false,
+  val ignoreAdminDelete: Boolean = false,
+  val deleteMediaOnly: Boolean = false,
+  //val googleMapType: String = "normal",
+  val whoCanAddYouToGroups: String = "nonblocked",
+  val generateLinkPreviewImages: Boolean = true,
 ) {
   fun isRegisteredAndUpToDate(): Boolean {
     return !userUnregistered && !clientDeprecated
