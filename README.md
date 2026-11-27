@@ -57,7 +57,9 @@ Additionally, you will find all the features of Signal, along with some minor tw
 
 Molly is open-source just like Signal. But Signal depends on proprietary Google software for some features.
 
-To support a 100% free and auditable app, Molly comes without any proprietary blobs. 
+To support a 100% free and auditable app, Molly comes without any proprietary blobs.
+
+There used to be 2 different versions of the app, with and without proprietary bits. The 2 versions merged into a single 100% free version after the proprietary blobs were replaced by an open-source implementation.
 
 ### Feature Comparison
 
