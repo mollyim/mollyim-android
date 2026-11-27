@@ -3,6 +3,8 @@ package org.thoughtcrime.securesms.net;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Looper;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -130,6 +132,10 @@ public class NetworkManager {
           if (newProxyUrl == null) {
             newProxyUrl = "socks://proxy.invalid";
           }
+          // setProxyOverride crashes the WebView if it isn't initialized
+          // https://github.com/chromium/chromium/blob/a5d78c16435db362924377e57317f0fc9d375e44/android_webview/java/src/org/chromium/android_webview/WebViewChromiumRunQueue.java#L50
+          Looper.prepare();
+          new WebView(application);
           final ProxyConfig proxyConfig = new ProxyConfig.Builder()
                                                          .addProxyRule(newProxyUrl)
                                                          .build();
