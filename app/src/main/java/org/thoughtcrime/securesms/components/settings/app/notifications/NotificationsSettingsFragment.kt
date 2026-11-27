@@ -203,7 +203,7 @@ open class DefaultNotificationsSettingsCallbacks(
   )
 
   private val linkDefaultDistributorLauncher: ActivityResultLauncher<Unit> = activityResultRegisterer.registerForActivityResult(
-    contract = UnifiedPushDefaultDistributorLinkActivity.Contract(),
+    contract = UnifiedPushDefaultDistributorLinkActivity.Contract(useDefault = true),
     callback = { success ->
       if (success != true) {
         // If there are no distributors or
